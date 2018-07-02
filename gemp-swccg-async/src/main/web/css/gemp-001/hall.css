@@ -1,0 +1,178 @@
+body {
+    font-size: 12px;
+    background-color: #000000;
+}
+
+.eventHeader {
+    font-size: 120%;
+    font-weight: bolder;
+    background-color: #666666;
+}
+
+.serverTime {
+    border: 1px solid #ffffff;
+}
+
+.leagueName, #stats .period, .tournamentName, .playerStatHeader {
+    font-size: 200%;
+    font-weight: bolder;
+}
+
+.leagueID {
+    font-size: 50%;
+}
+
+.serieName {
+    font-size: 150%;
+    font-weight: bolder;
+}
+
+.borderOverlay {
+    border: 2px solid #000000;
+}
+
+.foilOverlay {
+    opacity: 0.2;
+}
+
+.cardHint {
+    display: inline;
+    color: #6f6fff;
+    cursor: pointer;
+}
+
+.prizeHint {
+    display: inline;
+    color: #6f6fff;
+    cursor: pointer;
+}
+
+.clickableFormat {
+    cursor: pointer;
+    color: #6f6fff;
+}
+
+.pocket {
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 90%;
+    font-weight: bolder;
+    text-align: right;
+    opacity: 1;
+}
+
+.cardCount {
+    width: 20px;
+    height: 18px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 120%;
+    font-weight: bolder;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.tableFormatName {
+    text-align: center;
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.tableStatus {
+    text-align: center;
+    font-style: italic;
+    font-size: 100%;
+}
+
+.tablePlayer {
+    text-align: center;
+}
+
+.winningPlayer {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.losingPlayer {
+    font-size: 80%;
+}
+
+.chatMessage {
+    color: #ffffff;
+}
+
+.systemMessage {
+    color: #5f5f5f;
+}
+
+.warningMessage {
+    color: #ff0000;
+}
+
+.chatUser {
+    color: #ffffff;
+}
+
+.systemMessage > .timestamp {
+    display: inline;
+    color: #5f5f5f;
+}
+
+.timestamp {
+    display: inline;
+    color: #cfcfcf;
+}
+
+#disclaimer {
+    color: #ffffff;
+    font-size: 80%;
+}
+
+#latestNews {
+    color: #ffffff;
+    font-size: 90%;
+}
+
+#motd {
+    color: #ffffff;
+    font-size: 90%;
+}
+
+table.tables {
+    width: 100%;
+}
+
+table.tables td, table.tables th {
+    padding: 2px;
+    border: 1px solid white;
+}
+
+.ui-tabs-nav li {
+    font-size: 70%;
+}
+
+.ui-button-text-only .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+.standings td, .standings th {
+    padding: 2px;
+    border: 1px solid white;
+}
+
+.gameHistory td, .gameHistory th {
+    padding: 2px;
+    border: 1px solid white;
+}
+
+.userList {
+    border-left: 1px solid #FFFFFF;
+}
+
+tr.played {
+    background-color: #990000;
+}

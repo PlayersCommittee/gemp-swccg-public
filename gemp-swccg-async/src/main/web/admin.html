@@ -1,0 +1,56 @@
+<html>
+<body>
+
+<h2>Server Operations</h2>
+<a href="/gemp-swccg-server/admin/startup">Startup</a><br/>
+<a href="/gemp-swccg-server/admin/shutdown">Shutdown</a>
+
+<h2>Cache</h2>
+<a href="/gemp-swccg-server/admin/clearCache">Clear cache</a>
+
+<h2>Message of the Day</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/setMotd">
+    MotD: <input type="text" name="motd"><br/>
+    <input type="submit" value="Set MotD">
+</form>
+
+<h1>Collections</h1>
+
+<h2>Add items</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/addItems">
+    Type: <input type="text" name="collectionType"><br/>
+    Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+    Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+    <input type="submit" value="Add items">
+</form>
+
+<h2>Add items to collection</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/addItemsToCollection">
+    Type: <input type="text" name="collectionType"><br/>
+    Reason: <input type="text" name="reason"><br/>
+    Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+    <input type="submit" value="Add items to collection">
+</form>
+
+<h2>Add items to collection</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/addItemsToCollection">
+    Type: <input type="text" name="collectionType"><br/>
+    Reason: <input type="text" name="reason"><br/>
+    Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+    <input type="submit" value="Add items to collection">
+</form>
+
+
+<h2>Reset user password</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/resetUserPassword">
+    Name (case-sensitive): <input type="text" name="login"><br/>
+    <input type="submit" value="Reset password">
+</form>
+
+</body>
+</html>

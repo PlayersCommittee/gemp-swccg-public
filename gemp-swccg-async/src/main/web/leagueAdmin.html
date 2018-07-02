@@ -1,0 +1,237 @@
+<html>
+<head>
+    <title>Gemp-Swccg League Administration</title>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .leagueName {
+            font-size: 150%;
+            font-weight: bolder;
+        }
+
+        .serieName {
+            font-size: 120%;
+            font-weight: bolder;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery/jQueryRotate.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-016/common.js"></script>
+    <script type="text/javascript" src="js/gemp-016/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-016/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-016/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-016/merchantUi.js"></script>
+
+    <script type="text/javascript">
+        function submitFormToAddress(url, formElem, success, error) {
+            var data = {};
+
+            var inputs = $("input[type='text'], option:selected", formElem).each(
+                    function () {
+                        var input = $(this);
+                        var name = null;
+                        var value = null;
+                        if (input.prop("tagName") == "INPUT") {
+                            name = input.attr("name");
+                            value = input.val();
+                        } else if (input.prop("tagName") == "OPTION") {
+                            name = input.parents("select").attr("name");
+                            value = input.attr("value");
+                        }
+                        if (name != null && value != null) {
+                            if (data[name] == null)
+                                data[name] = new Array();
+                            data[name].push(value);
+                        }
+                    });
+
+            $.ajax({
+                type:"POST",
+                url:url,
+                cache:false,
+                data:data,
+                traditional:true,
+                success:success,
+                error:error,
+                dataType:"xml"
+            });
+        }
+
+        $(document).ready(
+                function () {
+                    var previewDialog = $("<div></div>")
+                            .dialog({
+                                autoOpen:false,
+                                closeOnEscape:true,
+                                resizable:true,
+                                modal:true,
+                                title:"Preview window"
+                            });
+
+                    var displayPreview = function (xml) {
+                        var root = xml.documentElement;
+                        if (root.tagName == 'league') {
+                            var league = root;
+
+                            var leagueName = league.getAttribute("name");
+                            var cost = parseInt(league.getAttribute("cost"));
+
+                            previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
+
+                            var costStr = formatPrice(cost);
+                            previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+
+                            var series = league.getElementsByTagName("serie");
+                            for (var j = 0; j < series.length; j++) {
+
+                                var serie = series[j];
+                                var serieName = serie.getAttribute("type");
+                                var serieStart = serie.getAttribute("start");
+                                var serieEnd = serie.getAttribute("end");
+                                var maxMatches = serie.getAttribute("maxMatches");
+                                var format = serie.getAttribute("format");
+                                var collection = serie.getAttribute("collection");
+                                var limited = serie.getAttribute("limited");
+
+                                var serieText = serieName + " - " + getDateString(serieStart) + " to " + getDateString(serieEnd);
+                                previewDialog.append("<div class='serieName'>" + serieText + "</div>");
+
+                                previewDialog.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                                previewDialog.append("<div><b>Collection:</b> " + collection + "</div>");
+
+                                previewDialog.append("<div>Maximum ranked matches in series: " + maxMatches + "</div>");
+                            }
+                        }
+                    };
+
+                    var previewError = function (xhr) {
+                        previewDialog.dialog("close");
+                        alert("Invalid parameters specified - error code: " + xhr.status);
+                    };
+
+                    $("#previewSealed").click(
+                            function () {
+                                submitFormToAddress("/gemp-swccg-server/admin/previewSealedLeague", $("#addSealedForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
+                    $("#previewConstructed").click(
+                            function () {
+                                submitFormToAddress("/gemp-swccg-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
+                    $("#addConstructedSeries").click(
+                            function () {
+                                $(".seriesData").last().clone().appendTo(".series");
+                            });
+                });
+    </script>
+</head>
+<body>
+<h1>League</h1>
+
+<h2>Add sealed league</h2>
+
+<form id="addSealedForm" method="POST" action="/gemp-swccg-server/admin/addSealedLeague">
+    Name: <input type="text" name="name" required><br/>
+    Cost (in silver): <input type="text" name="cost" value="500"><br/>
+    Start (YYYYMMDD): <input type="text" name="start" required><br/>
+    Format:
+    <select name="format">
+        <option value="premiere_anh_sealed">Premiere - A New Hope; 'Sealed'</option>
+        <option value="jp_sealed">Jabba's Palace; 'Sealed'</option>
+        <option value="endor_dsII_sealed">Endor - Death Star II; 'Sealed'</option>
+    </select><br/>
+    Series duration in days: <input type="text" name="seriesDuration" value="7"><br/>
+    Maximum matches in series: <input type="text" name="maxMatches" value="10"><br/>
+    <input id="previewSealed" type="button" value="Preview sealed league">
+    <input type="submit" value="Add sealed league">
+</form>
+
+<h2>Add constructed league</h2>
+
+<form id="addConstructedForm" method="POST" action="/gemp-swccg-server/admin/addConstructedLeague">
+    Name: <input type="text" name="name"><br/>
+    Cost (in silver): <input type="text" name="cost" value="500"><br/>
+    Start (YYYYMMDD): <input type="text" name="start" required><br/>
+    Collection:
+    <select name="collectionType">
+        <option value="default">All cards</option>
+    </select><br/>
+
+    <div class="series">
+        <div class="seriesData">
+            <b>Series definition:</b><br/>
+            Format:
+            <select name="format">
+                <option value="premiere">Premiere</option>
+                <option value="premiere_anh">Premiere - A New Hope</option>
+                <option value="premiere_hoth">Premiere - Hoth</option>
+                <option value="premiere_dagobah">Premiere - Dagobah</option>
+                <option value="premiere_cc">Premiere - Cloud City</option>
+                <option value="premiere_jp">Premiere - Jabba's Palace</option>
+                <option value="premiere_se">Premiere - Special Edition</option>
+                <option value="premiere_endor">Premiere - Endor</option>
+                <option value="premiere_ds2">Premiere - Death Star II</option>
+                <option value="classic_no_virtual">Classic (no v-cards)</option>
+                <option value="classic">Classic</option>
+                <option value="open_no_shields_no_virtual">Open (no shields / no v-cards)</option>
+                <option value="open_no_shields">Open (no shields)</option>
+                <option value="open_no_virtual">Open (no v-cards)</option>
+                <option value="open">Open</option>
+            </select><br/>
+            Series duration in days: <input type="text" name="seriesDuration" value="7"><br/>
+            Maximum matches in series: <input type="text" name="maxMatches" value="10"><br/>
+        </div>
+    </div>
+    <input id="addConstructedSeries" type="button" value="Add another series">
+    <input id="previewConstructed" type="button" value="Preview constructed league">
+    <input type="submit" value="Add constructed league">
+</form>
+
+<h2>Add players to league</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/addPlayersToLeague">
+    League ID: <input type="text" name="leagueType"><br/>
+    Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+    <input type="submit" value="Add players to league">
+</form>
+
+</body>
+</html>

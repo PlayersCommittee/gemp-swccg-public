@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gemp-Swccg</title>
+
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/merchant.css">
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery/jQueryRotate.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-016/common.js"></script>
+    <script type="text/javascript" src="js/gemp-016/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-016/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-016/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-016/merchantUi.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).keydown(function (e) {
+            if (e.which === 8 && !$(e.target).is("input, textarea")) {
+                e.preventDefault();
+            }
+        });
+
+        $(document).ready(
+                function () {
+                    var ui = new GempSwccgMerchantUI($("#cardList"), $("#cardFilter"));
+
+                    $(window).resize(function () {
+                        layoutUi(ui);
+                    });
+
+                    layoutUi(ui);
+                });
+
+        function layoutUi(ui) {
+            var width = $(window).width();
+            var height = $(window).height();
+            if (width < 800)
+                width = 800;
+            if (height < 400)
+                height = 400;
+
+            var padding = 5;
+            var cardListLeft = 450;
+            var pocketArea = 100;
+
+            $("#cardFilter").css({position:"absolute", left:padding, top:padding, width:width - (padding * 2), height:height - (padding * 2)});
+            $("#cardList").css({position:"absolute", left:padding + cardListLeft, top:padding + pocketArea, width:width - cardListLeft - (padding * 2), height:height - pocketArea - (padding * 2)});
+            ui.layoutUI();
+        }
+    </script>
+
+</head>
+<body>
+<div id="main"
+     style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #000000; overflow: hidden">
+    <div id="cardFilter"></div>
+    <div id="cardList"></div>
+</div>
+</body>
+</html>

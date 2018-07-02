@@ -1,0 +1,15 @@
+<script type="text/javascript">
+    $(document).ready(
+            function () {
+                var ui = new TournamentResultsUI("/gemp-swccg-server");
+
+                $(".loadFinishedTournaments").button().click(
+                        function() {
+                            ui.loadHistoryTournaments();
+                        });
+            });
+
+</script>
+All times are GMT based.
+<div class="loadFinishedTournaments">Load finished tournaments</div>
+<div id="tournamentResults"></div>

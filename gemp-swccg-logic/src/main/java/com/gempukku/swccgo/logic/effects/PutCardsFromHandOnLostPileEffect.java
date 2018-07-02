@@ -1,0 +1,70 @@
+package com.gempukku.swccgo.logic.effects;
+
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.logic.timing.Action;
+
+/**
+ * An effect to put cards from hand on Lost Pile.
+ */
+public class PutCardsFromHandOnLostPileEffect extends PutCardsFromHandInCardPileEffect {
+
+    /**
+     * Creates an effect that causes the player to put all cards from hand on Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     */
+    protected PutCardsFromHandOnLostPileEffect(Action action, String playerId) {
+        super(action, playerId, Zone.LOST_PILE, false);
+    }
+
+    /**
+     * Creates an effect that causes the player to put cards accepted by the specified filter from hand on Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param filters the filter
+     * @param hidden true if cards are not revealed, otherwise false
+     */
+    public PutCardsFromHandOnLostPileEffect(Action action, String playerId, Filterable filters, boolean hidden) {
+        super(action, playerId, Zone.LOST_PILE, false, filters, hidden);
+    }
+
+    /**
+     * Creates an effect that causes the player to put cards from hand on Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param minimum the minimum number of cards to put on card pile
+     * @param maximum the maximum number of cards to put on card pile
+     */
+    public PutCardsFromHandOnLostPileEffect(Action action, String playerId, int minimum, int maximum) {
+       super(action, playerId, minimum, maximum, Zone.LOST_PILE, playerId, false);
+    }
+
+    /**
+     * Creates an effect that causes the player to put cards accepted by the specified filter from hand on Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param minimum the minimum number of cards to put on card pile
+     * @param maximum the maximum number of cards to put on card pile
+     * @param filters the filter
+     * @param hidden true if cards are not revealed, otherwise false
+     */
+    public PutCardsFromHandOnLostPileEffect(Action action, String playerId, int minimum, int maximum, Filterable filters, boolean hidden) {
+        super(action, playerId, minimum, maximum, Zone.LOST_PILE, playerId, false, filters, hidden);
+    }
+
+    /**
+     * Creates an effect that causes the player to put cards accepted by the specified filter from hand on the specified
+     * player's Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardPileOwner the card pile owner
+     * @param minimum the minimum number of cards to put on card pile
+     * @param maximum the maximum number of cards to put on card pile
+     * @param filters the filter
+     * @param hidden true if cards are not revealed, otherwise false
+     */
+    public PutCardsFromHandOnLostPileEffect(Action action, String playerId, String cardPileOwner, int minimum, int maximum, Filterable filters, boolean hidden) {
+        super(action, playerId, minimum, maximum, Zone.LOST_PILE, cardPileOwner, false, filters, hidden);
+    }
+}

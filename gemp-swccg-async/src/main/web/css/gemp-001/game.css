@@ -1,0 +1,453 @@
+body {
+    font-size: 12px;
+}
+
+.lightHandsize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/lightHand-42.png');
+}
+
+.lightSabaccHandsize {
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/lightSabaccHand-42.png');
+}
+
+.darkHandsize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/darkHand-42.png');
+}
+
+.darkSabaccHandsize {
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/darkSabaccHand-42.png');
+}
+
+.lightOutOfPlayPileSize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/lightOutOfPlay-42.png');
+}
+
+.darkOutOfPlayPileSize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/darkOutOfPlay-42.png');
+}
+
+.lightForceGeneration {
+    display: table-cell;
+    color: #000000;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/lightForce-42.png');
+}
+
+.darkForceGeneration {
+    display: table-cell;
+    color: #000000;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/darkForce-42.png');
+}
+
+.lightRaceTotal {
+    display: table-cell;
+    color: #000000;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/lightPodracer-42.png');
+}
+
+.darkRaceTotal {
+    display: table-cell;
+    color: #000000;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-swccg/images/darkPodracer-42.png');
+}
+
+.sabaccTotalDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 135%;
+    z-index: 50;
+}
+
+.powerAtLocationDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 135%;
+    z-index: 50;
+}
+
+.battlePowerDiv, .attackPowerOrFerocityDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 180%;
+    z-index: 50;
+}
+
+.battleNumDestinyDiv, .attackNumDestinyDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 125%;
+    z-index: 50;
+}
+
+.battleDamageRemainingDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ff6633;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 180%;
+    z-index: 50;
+}
+
+.battleAttritionRemainingDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ff3333;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 180%;
+    z-index: 50;
+}
+
+.duelOrLightsaberCombatTotalDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 180%;
+    z-index: 50;
+}
+
+.duelOrLightsaberCombatNumDestinyDiv {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 125%;
+    z-index: 50;
+}
+
+.showStats {
+    display: table-cell;
+}
+
+.borderOverlay {
+    border: solid #000000;
+}
+
+.highlightBorderOverlay {
+    border: solid #ffffff;
+}
+
+.foilOverlay {
+    opacity: 0.20;
+}
+
+.frozenOverlay {
+    opacity: 0.70;
+}
+
+.suspendedOverlay {
+    opacity: 0.80;
+}
+
+.collapsedOverlay {
+    opacity: 0.35;
+}
+
+.destinyTypeOverlay {
+    width: inherit;
+    color: #ffffff;
+    display: table-cell;
+    text-align: center;
+    vertical-align: top;
+    opacity: 0.7;
+    font-size: 200%;
+}
+
+.testingTextOverlay {
+    width: inherit;
+    background-color: #ffff00;
+    color: #000000;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top;
+    opacity: 1.0;
+    font-size: 110%;
+}
+
+.cardHint {
+    display: inline;
+    color: #6f6fff;
+    cursor: pointer;
+}
+
+.selectableCard > .borderOverlay {
+    border-color: #7faf7f;
+    cursor: pointer;
+}
+
+.actionableCard > .borderOverlay {
+    border-color: #7f7fff;
+    cursor: pointer;
+}
+
+.actionableCardSilent > .borderOverlay {
+    cursor: pointer;
+}
+
+.selectedCard > .borderOverlay {
+    border-color: #009f9f;
+}
+
+.stats {
+    text-align: center;
+    padding: 2px;
+}
+
+.player {
+    color: #ffffff;
+    position: relative;
+    z-index: 50;
+}
+
+.player.current {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.playerStats {
+    color: #ffffff;
+}
+
+.playerStats .clickable {
+    color: #6f6fff;
+    cursor: pointer;
+}
+
+.phase {
+    float: right;
+    padding-left:5px;
+    padding-right:5px;
+    color: #000000;
+    font-weight: bolder;
+    font-size: 100%;
+}
+
+.cardInfo {
+    font-size:0.9em;
+}
+
+.cardModifier {
+    font-size:0.7em;
+}
+
+.cardPiles {
+    color: #ffffff;
+}
+
+#chatBox {
+    font-size: 90%;
+}
+
+.chatMessage {
+    color: #3fafff;
+}
+
+.systemMessage {
+    color: #5f5f5f;
+    font-size: 80%;
+}
+
+.gameMessage {
+    padding-top: 2px;
+    font-size: 80%;
+}
+
+.warningMessage {
+    color: #ff0000;
+}
+
+.ui-tabs-nav li {
+    font-size: 70%;
+}
+
+#settingsBox {
+    font-size: 70%;
+}
+
+.indentedSetting {
+    padding-left:20px;
+}
+
+.clock {
+    float: right;
+    font-size: 100%;
+}
+
+.alertButtons .ui-button-text-only .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+.ui-button-text-only.slimButton .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+.ui-tabs .ui-tabs-panel.slimPanel {
+    padding: 4px;
+}
+
+.ui-tabs .ui-tabs-nav li a.slimTab {
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.cardPileCount {
+    display: none;
+    width: 59px;
+}
+
+.topDarkReserveDeck {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topDarkForcePile {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topDarkUsedPile {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topDarkLostPile {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topLightReserveDeck {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topLightForcePile {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topLightUsedPile {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}
+
+.topLightLostPile {
+    display: table-cell;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    font-size: 75%;
+}

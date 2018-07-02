@@ -1,0 +1,130 @@
+body {
+    font-size: 12px;
+}
+
+.borderOverlay {
+    border: 0px solid #000000;
+}
+
+.foilOverlay {
+    opacity: 0.2;
+}
+
+.testingTextOverlay {
+    width: inherit;
+    background-color: #ffff00;
+    color: #000000;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top;
+    opacity: 1.0;
+    font-size: 110%;
+}
+
+.selectableCard > .borderOverlay {
+    border: 2px solid #00ff00;
+    cursor: pointer;
+}
+
+.selectedCard > .borderOverlay {
+    border: 2px solid #00cccc;
+}
+
+.cardCount {
+    width: 20px;
+    height: 18px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 120%;
+    font-weight: bolder;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.cardPileCount {
+    display: none;
+}
+
+#deckDiv {
+    min-width: 450px;
+}
+
+#collectionDiv {
+    min-width: 425px;
+}
+
+#manageDecks {
+    color: #ffffff;
+    font-size: 180%;
+}
+
+#deckZoneLabel {
+    color: #ffffff;
+    font-size: 100%;
+    z-index: 10;
+}
+
+#outsideDeckZoneLabel {
+    color: #ffffff;
+    font-size: 100%;
+    z-index: 10;
+}
+
+.filterLabel {
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 110%;
+    padding-right: 5px;
+}
+
+.filterInput {
+    font-size: 80%;
+    padding-right: 5px;
+}
+
+.cardFilterText {
+    color: #ffffff;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 90%;
+}
+
+.buttonHolder {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#editingDeck {
+    vertical-align: top;
+    padding-left: 3px;
+}
+
+#deckStats {
+    color: #ffffff;
+}
+
+.ui-button-text-only .ui-button-text {
+    font-size: 70%;
+}
+
+#set {
+    width: 120px;
+}
+
+#cardType {
+    width: 100px;
+}
+
+#fullFiltering select {
+    font-size: 80%;
+}
+
+#fullFiltering input {
+    font-size: 80%;
+}
+
+#filtering select {
+    font-size: 80%;
+}

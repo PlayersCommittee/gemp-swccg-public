@@ -1,0 +1,1 @@
+To save space, the thousands of SWCCG card images are not included. Go to https://www.starwarsccg.org/ for the images.
