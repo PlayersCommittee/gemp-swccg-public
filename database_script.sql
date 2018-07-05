@@ -145,6 +145,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`player` (
   `last_login_reward` INT(11) NULL DEFAULT NULL ,
   `last_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `create_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `banned_until` DECIMAL(20,0) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB
@@ -228,6 +229,20 @@ AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
+
+-- -----------------------------------------------------
+-- Table `gemp-swccg`.`ip_ban`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gemp-swccg`.`ip_ban` (
+  `id` int(11) NOT NULL AUTO_INCREMENT ,
+  `ip` varchar(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' DEFAULT NULL ,
+  `prefix` int(3) DEFAULT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE KEY `ip_UNIQUE` (`ip`)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_bin;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
