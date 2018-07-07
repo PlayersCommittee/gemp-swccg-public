@@ -38,6 +38,7 @@ public class Card204_009 extends AbstractResistance {
         setGameText("[Pilot] 3. When deployed, may take any card from Used Pile into hand; reshuffle. Your total battle destiny here is +1. Once per turn, may draw bottom card of your Force Pile. Immune to attrition < 3 (< 6 if on Jakku).");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.FEMALE, Keyword.SCAVENGER);
+        addPersona(Persona.REY);
     }
 
     @Override

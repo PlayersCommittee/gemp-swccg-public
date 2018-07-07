@@ -1034,7 +1034,9 @@ public class FireWeaponActionBuilder {
                 Filters.none, 0, Filters.none, 0);
     }
 
-
+    public FireSingleWeaponAction buildFireWeaponWithHitAndRetrieveAction(final int numdestiny, final Statistic statistic, int selfRetrieve) {
+        return buildReysAnakinsLightsaberWeapon(numdestiny, 0, statistic, new TrueCondition(), true, 0, true, 1, Filters.none, 0, Filters.none, 0);
+    }
 
 
     /**
@@ -1365,7 +1367,7 @@ public class FireWeaponActionBuilder {
                                                             gameState.sendMessage("Result: Failed");
                                                             for (PhysicalCard cardFiredAt : cardsFiredAt)
                                                             {
-                                                                effectList.add(new LoseForceEffect(action, _playerId, 1));
+                                                                effectList.add(new LoseForceEffect(action, _playerId, selfForceLossIfMiss));
                                                             }
                                                         }
 
@@ -1386,31 +1388,109 @@ public class FireWeaponActionBuilder {
     }
 
 
+    // This fires Anakin's Lightsaber as it exists on "Rey With Lightsaber" in Virtual Set 9.
+    /**
+     * Builds a fire weapon action that targets a card present with the weapon, draws destiny, and if successful affects the card's attributes,
+     * and can cause Force loss.
+     * @param numDestiny the number of weapon destiny to draw
+     * @param plusOrMinus the amount to add to or subtract from total destiny during the calculation
+     * @param statistic the statistic to compare total weapon destiny against
+     * @param affectForfeitCondition a condition that if fulfilled, causes the target's forfeit to be affected (as determined by resetForfeit and forfeitModifierOrResetValue)
+     * @param resetForfeit true if the target's forfeit is reset if
+     * @param forfeitModifierOrResetValue the amount target's forfeit is modified by (or reset to if resetForfeit is true)
+     * @param selfForceRetrieve self retrieves Force (as determined by opponentsForceLoss) if weapon firing successful against card accepted by the filter
+     * @param selfForceRetrieveNumber the amount of Force self retrieves if successful
+     * @param activateForceTargetFilter player may activate Force (as determined by activateForceAmount) if weapon firing successful against card accepted by the filter
+     * @param activateForceAmount the amount of Force player may activate if successful
+     * @param alternateDefenseValueFilter use alternate defense value (as determined by alternateDefenseValue) if weapon firing at card accepted by the filter
+     * @param alternateDefenseValue the defense value to use
+     * @return the action
+     */
 
+    public FireSingleWeaponAction buildReysAnakinsLightsaberWeapon(final int numDestiny, final int plusOrMinus, final Statistic statistic,
+                                                                    final Condition affectForfeitCondition, final boolean resetForfeit, final int forfeitModifierOrResetValue,
+                                                                    final boolean selfForceRetrieve, final int selfForceRetrieveNumber,
+                                                                    final Filter activateForceTargetFilter, final int activateForceAmount,
+                                                                    final Filter alternateDefenseValueFilter, final float alternateDefenseValue) {
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        action.setText("Fire " + action.getWeaponTitle(_game));
 
+        // Choose target(s)
+        action.appendTargeting(
+                new TargetCardOnTableEffect(action, _playerId, "Choose target", getTargetFiltersMap(action.getCardFiringWeapon())) {
+                    @Override
+                    protected boolean isIncludeStackedCardsTargetedByWeaponsAsIfPresent() {
+                        return true;
+                    }
+                    @Override
+                    protected void cardTargeted(final int targetGroupId, PhysicalCard cardTargeted) {
+                        action.addAnimationGroup(cardTargeted);
+                        _game.getGameState().getWeaponFiringState().setTarget(cardTargeted);
 
+                        // Pay cost(s)
+                        float forceToUse = getUseForceCost(action.getCardFiringWeapon(), cardTargeted);
+                        if (forceToUse > 0) {
+                            action.appendCost(
+                                    new UseForceEffect(action, _playerId, forceToUse));
+                        }
 
+                        // Allow response(s)
+                        action.allowResponses("Fire " + GameUtils.getCardLink(action.getWeaponToFire()) + " at " + GameUtils.getCardLink(cardTargeted),
+                                new RespondableWeaponFiringEffect(action) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                        // This needs to be done in case the target(s) were changed during the responses.
+                                        final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
+                                        _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
 
+                                        // Perform result(s)
+                                        action.appendEffect(
+                                                new DrawDestinyEffect(action, _playerId, 2, DestinyType.WEAPON_DESTINY) {
+                                                    @Override
+                                                    protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                        return Collections.singletonList(cardFiredAt);
+                                                    }
+                                                    @Override
+                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                        GameState gameState = game.getGameState();
+                                                        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+                                                        if (totalDestiny == null) {
+                                                            gameState.sendMessage("Result: Failed due to failed weapon destiny draw");
+                                                            return;
+                                                        }
 
+                                                        gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                        float valueToCompare;
+                                                        if (_targetedAsCharacter != null && _targetedAsCharacter.accepts(game, cardFiredAt)) {
+                                                            valueToCompare = _defenseValueAsCharacter;
+                                                        }
+                                                        else {
+                                                            valueToCompare = modifiersQuerying.getDefenseValue(game.getGameState(), cardFiredAt);
+                                                        }
+                                                        gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(valueToCompare));
 
+                                                        if (totalDestiny > valueToCompare) {
+                                                            gameState.sendMessage("Result: Succeeded");
 
+                                                            PhysicalCard cardFiredBy = gameState.getWeaponFiringState().getCardFiringWeapon();
+                                                            action.appendEffect(
+                                                                    new HitCardResetForfeitAndRetrieveForceEffect(action, cardFiredAt, 0, selfForceRetrieveNumber, _weaponOrCardWithPermanentWeapon, _permanentWeapon, cardFiredBy));
+                                                        }
+                                                        else {
+                                                            gameState.sendMessage("Result: Failed");
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                });
+                    }
+                }
+        );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return action;
+    }
 
 
     /**
