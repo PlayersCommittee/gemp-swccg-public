@@ -6,7 +6,17 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 Vagrant is a tool for automating the creation of virtual machines. This allows us to mimic the server environment more closely and have a single set of commands to run the program, regardless of what OS is used for development. Your dev machine can be used to code and compile in whatever IDE you like. The code is automatically shared with the VM, which is used to run it. The virtual machine is also capable of compiling the source using maven.
 
+### Setup
+
 Install vagrant (https://www.vagrantup.com/downloads.html) and virtualbox (https://www.virtualbox.org/wiki/Downloads) for your OS.
+
+From the command line run:
+```
+vagrant plugin install vagrant-vbguest
+```
+
+This plugin keeps the host and guest OS in sync and allows directories to be seamlessly shared.
+
 
 ### Spinning up the VM
 
