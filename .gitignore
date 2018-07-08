@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# IDE configuration files
+.idea
+
 # Log file
 *.log
 
@@ -31,3 +34,6 @@ gemp-swccg-cards/target/
 gemp-swccg-common/target/
 gemp-swccg-logic/target/
 gemp-swccg-server/target/
+
+# Mac OS filesystem
+.DS_Store
