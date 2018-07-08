@@ -21,3 +21,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Vagrant hidden files
+.vagrant
+
+# Built file targets
+gemp-swccg-async/target/
+gemp-swccg-cards/target/
+gemp-swccg-common/target/
+gemp-swccg-logic/target/
+gemp-swccg-server/target/
