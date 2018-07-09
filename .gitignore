@@ -3,6 +3,7 @@
 
 # IDE configuration files
 .idea
+gemp-swccg.iml
 
 # Log file
 *.log
