@@ -3024,6 +3024,7 @@ var fixedImages = {
 "208_57_BACK":"/gemp-swccg/images/cards/Virtual8-Dark/andnowyoullgiveittome.gif",
 "208_58":"/gemp-swccg/images/cards/Virtual8-Dark/marajadeinvt49decimator.gif",
 "208_59":"/gemp-swccg/images/cards/Virtual8-Dark/darthvaderslightsaber.gif",
+"209_47":"/gemp-swccg/images/cards/Virtual9-Dark/deathsquadronassignment.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
