@@ -4,7 +4,7 @@
 #   Install dependencies
 # -----------------------------------------
 
-sudo yum -y install unzip vim dos2unix
+sudo yum -y install unzip vim dos2unix git
 sudo yum -y install mysql mariadb-server
 sudo yum -y install java-1.8.0-openjdk-devel
 
