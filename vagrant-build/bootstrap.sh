@@ -4,7 +4,7 @@
 #   Install dependencies
 # -----------------------------------------
 
-sudo yum -y install unzip vim dos2unix
+sudo yum -y install unzip vim dos2unix git
 sudo yum -y install mysql mariadb-server
 sudo yum -y install java-1.8.0-openjdk-devel
 
@@ -16,12 +16,6 @@ sudo ln -s apache-maven-3.5.3 maven
 sudo cp /vagrant/vagrant-build/maven.sh /etc/profile.d/maven.sh
 sudo dos2unix /etc/profile.d/maven.sh
 sudo rm -f /usr/local/apache-maven-3.5.3-bin.tar.gz
-
-# Install aws command line tool to grab card images
-sudo yum -y install epel-release
-# sudo yum makecache
-sudo yum -y install python-pip
-pip install awscli --upgrade --user
 
 # ------------------------------------------
 # Set up GEMP directory structure
