@@ -3450,6 +3450,9 @@ var Card = Class.extend({
                     (cardNo >= 48 && cardNo <= 49) ||
                     (cardNo >= 52 && cardNo <= 56);
         }
+        if (setNo == 209) {
+            return ([51].includes(cardNo));
+        }
         if (setNo == 501) {
             return (cardNo == 9);
         }
