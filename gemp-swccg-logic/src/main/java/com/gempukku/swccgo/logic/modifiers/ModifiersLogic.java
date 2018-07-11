@@ -1260,10 +1260,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.POWER, physicalCard)) {
             result *= modifier.getPowerMultiplierModifier(gameState, this, physicalCard);
-            float modifierAmount = modifier.getPowerModifier(gameState, this, physicalCard);
-            if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null, modifierCollector)) {
-                result += modifierAmount;
-                modifierCollector.addModifier(modifier);
+            Filter restrictedPilots = getPilotsRestrictedFromIncreasingPowerFilter(gameState, physicalCard);
+            if (restrictedPilots == null || !restrictedPilots.accepts(gameState, this, modifier.getSource(gameState)) ) {
+                float modifierAmount = modifier.getPowerModifier(gameState, this, physicalCard);
+                if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null, modifierCollector)) {
+                    result += modifierAmount;
+                    modifierCollector.addModifier(modifier);
+                }
             }
         }
 
@@ -1345,6 +1348,37 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
         return retVal;
+    }
+
+    /**
+     * Determines if a card's power may not be increased by certain pilots.
+     * @param gameState the game state
+     * @param card a card
+     * @return true if card's power may not be increased by pilots, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingPowerIncreasedByPilots(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_POWER_INCREASED_BY_PILOTS, card).isEmpty();
+    }
+
+    /**
+     * Gets the filter for pilots restricted from increasing the power of the given card.
+     * @param gameState
+     * @param card
+     * @return
+     */
+    @Override
+    public Filter getPilotsRestrictedFromIncreasingPowerFilter(GameState gameState, PhysicalCard card) {
+        Filter filter = null;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_POWER_INCREASED_BY_PILOTS, card)) {
+            if (filter != null) {
+                filter = Filters.and(filter, modifier.getPilotsRestrictedFromIncreasingPowerFilter());
+            }
+            else {
+                filter = modifier.getPilotsRestrictedFromIncreasingPowerFilter();
+            }
+        }
+        return filter;
     }
 
     /**
