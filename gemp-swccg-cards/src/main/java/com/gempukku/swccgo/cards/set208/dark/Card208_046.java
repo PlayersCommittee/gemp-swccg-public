@@ -38,7 +38,7 @@ public class Card208_046 extends AbstractUsedOrStartingInterrupt {
         GameTextActionId gameTextActionId = GameTextActionId.YOU_KNOW_WHAT_IVE_COME_FOR__UPLOAD_FIRST_ORDER_SHUTTLE;
 
         // Check condition(s)
-        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
+        if (GameConditions.canSearchReserveDeck(game, playerId, self, gameTextActionId)
                 && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
