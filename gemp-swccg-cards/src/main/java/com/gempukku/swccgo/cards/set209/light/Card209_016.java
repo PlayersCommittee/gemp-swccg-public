@@ -40,7 +40,7 @@ public class Card209_016 extends AbstractEffect {
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return GameConditions.canSpotLocation(game, Filters.and(Filters.location, Icon.EPISODE_VII));
+        return GameConditions.canSpotLocation(game, Filters.and(Filters.location, Icon.EPISODE_VII, Filters.your(self)));
     }
 
     @Override
