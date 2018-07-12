@@ -900,6 +900,7 @@ public interface Title {
     String This_Is_Still_Wrong = "This Is Still Wrong";
     String This_Place_Can_Be_A_Little_Rough = "This Place Can Be A Little Rough";
     String Those_Rebels_Wont_Escape_Us = "Those Rebels Won't Escape Us";
+    String Throw_Me_Another_Charge = "Throw Me Another Charge";
     String Thrawn = "Grand Admiral Thrawn";
     String Throne_Room = "Death Star II: Throne Room";
     String Tibanna_Gas_Miner = "Tibanna Gas Miner";
