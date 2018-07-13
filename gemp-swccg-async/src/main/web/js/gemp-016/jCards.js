@@ -3066,7 +3066,7 @@ var fixedImages = {
 "209_40":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
 "209_41":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
 "209_42":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
-"209_43":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
+"209_43":"/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
 "209_44":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
 "209_45":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
 "209_46":"/gemp-swccg/images/cards/Virtual9-TBD/TBD.gif",
