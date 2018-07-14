@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set209.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,11 +21,13 @@ import java.util.List;
  */
 public class Card209_051 extends AbstractSite {
     public Card209_051() {
-        super(Side.DARK, Title.Sewer, Title.Xizors_Palace);
+        super(Side.DARK, Title.Sewer, Title.Coruscant);
         setLocationDarkSideGameText("Once per game, if you occupy three battlegrounds, may retrieve a Black Sun agent into hand.");
         setLocationLightSideGameText("Once per game, if you control, may retrieve [Reflections II] Dash into hand.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 2);
+        addKeywords(Keyword.XIZORS_PALACE_SITE);
+        addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_9);
     }
 
     @Override
