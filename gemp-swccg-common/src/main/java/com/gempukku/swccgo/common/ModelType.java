@@ -32,7 +32,6 @@ public enum ModelType implements Filterable {
     FREIGHTER("Freighter"),
     GIGANTIC_PREDATOR("Gigantic Predator"),
     GUARD("Guard"),
-    HAMMERHEAD_CORVETTE("Hammerhead Corvette"),
     HEAVILY_MODIFIED_FREIGHTER("Heavily-Modified Freighter"),
     HEAVILY_MODIFIED_LIGHT_FREIGHTER("Heavily-Modified Light Freighter"),
     IMPERIAL_CLASS_STAR_DESTROYER("Imperial-Class Star Destroyer"),
