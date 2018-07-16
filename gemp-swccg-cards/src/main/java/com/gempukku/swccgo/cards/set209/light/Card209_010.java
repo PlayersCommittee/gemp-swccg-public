@@ -79,9 +79,9 @@ public class Card209_010 extends AbstractResistance {
     // Define "Kylo's Lightsaber permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        final AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("Anakin's Lightsaber") {
-            //@Override
-            public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, Boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit)
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("Anakin's Lightsaber") {
+            @Override
+            public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit)
             {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
                         .targetForFree(Filters.character, TargetingReason.TO_BE_HIT).finishBuildPrep();
