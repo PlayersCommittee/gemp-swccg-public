@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -77,7 +78,7 @@ public class Card209_022 extends AbstractUsedOrLostInterrupt {
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult,
                 Filters.and(Filters.your(self), Filters.not(Filters.undercover_spy), Filters.character, Filters.abilityLessThan(5),
-                        Filters.or(Filters.atLocation(Filters.system), Filters.atLocation(Filters.mobile_system), Filters.atLocation(Filters.mobile_site), Filters.atLocation(Filters.mobile_system))))
+                        Filters.at(Filters.or(Filters.system, Filters.mobile_sector, Filters.mobile_site))))
                 && GameConditions.canCancelDestiny(game, playerId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
