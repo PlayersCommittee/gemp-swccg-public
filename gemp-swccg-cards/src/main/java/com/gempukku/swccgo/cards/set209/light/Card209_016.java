@@ -18,15 +18,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
-•A Brave Resistance [Surprise Assault (V)] 5
-        [Premiere - C1]
-        Lore: Blank
-        EFFECT
-        Text: If your [Episode VII] location on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy.
-        During your deploy phase, may place a Resistance character from hand on top of Used Pile to /\ a Resistance character. [Immune to Alter.]
-        [Set 9]
-*/
-
+ * Set: Set 9
+ * Type: Effect
+ * Title: A Brave Resistance
+ */
 public class Card209_016 extends AbstractEffect {
     public Card209_016() {
         super(Side.LIGHT, 5.0f, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
