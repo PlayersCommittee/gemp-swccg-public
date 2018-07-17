@@ -33,7 +33,7 @@ public class Card209_051 extends AbstractSite {
     @Override
     protected List<TopLevelGameTextAction> getGameTextDarkSideTopLevelActions(final String playerOnDarkSideOfLocation, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
 
-        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__DOWNLOAD_BLACK_SUN_AGENT_FROM_LOST_PILE;
+        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__RETRIEVE_BLACK_SUN_AGENT_INTO_HAND;
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
@@ -56,7 +56,7 @@ public class Card209_051 extends AbstractSite {
     @Override
     protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(final String playerOnLightSideOfLocation, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
 
-        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__DOWNLOAD_DASH_FROM_LOST_PILE;
+        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__RETRIEVE_DASH_INTO_HAND;
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
