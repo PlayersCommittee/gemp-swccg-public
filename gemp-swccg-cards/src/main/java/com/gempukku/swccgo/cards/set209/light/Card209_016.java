@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractEffect;
+import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -22,7 +23,7 @@ import java.util.List;
  * Type: Effect
  * Title: A Brave Resistance
  */
-public class Card209_016 extends AbstractEffect {
+public class Card209_016 extends AbstractNormalEffect {
     public Card209_016() {
         super(Side.LIGHT, 5.0f, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
