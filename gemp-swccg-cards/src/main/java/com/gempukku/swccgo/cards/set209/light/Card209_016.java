@@ -62,7 +62,7 @@ public class Card209_016 extends AbstractEffect {
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place a Resistance character from hand on to of Used Pile");
+            action.setText("Place Resistance character from hand on Used Pile");
             action.setActionMsg("/\\ a Resistance character");
             // Update usage limit(s)
             action.appendUsage(
