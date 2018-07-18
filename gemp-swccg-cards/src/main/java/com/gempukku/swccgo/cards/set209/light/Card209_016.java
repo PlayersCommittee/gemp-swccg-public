@@ -25,11 +25,10 @@ import java.util.List;
  */
 public class Card209_016 extends AbstractNormalEffect {
     public Card209_016() {
-        super(Side.LIGHT, 5.0f, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("");
-        setGameText("If your [Episode VII] location on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy.\n" +
-                "        During your deploy phase, may place a Resistance character from hand on top of Used Pile to /\\ a Resistance character. [Immune to Alter.]");
+        setGameText("If your [Episode VII] location on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -64,7 +63,7 @@ public class Card209_016 extends AbstractNormalEffect {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Resistance character from hand on Used Pile");
-            action.setActionMsg("/\\ a Resistance character");
+            action.setActionMsg("[upload] a Resistance character");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
