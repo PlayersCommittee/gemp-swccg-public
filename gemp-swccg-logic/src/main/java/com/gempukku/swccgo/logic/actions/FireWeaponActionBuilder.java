@@ -1049,6 +1049,10 @@ public class FireWeaponActionBuilder {
         return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new FalseCondition(), false, 0, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
     }
 
+    public FireSingleWeaponAction buildFireWeaponWithHitAndRetrieveAction(final int numdestiny, final Statistic statistic, int selfRetrieve) {
+        return buildReysAnakinsLightsaberWeapon(numdestiny, 0, statistic, new TrueCondition(), true, 0, true, 1, Filters.none, 0, Filters.none, 0);
+    }
+
     public FireSingleWeaponAction buildFireWeaponWithHitOrMissAction(final int numdestiny, final Statistic statistic, int opponentsForceLoss, int selfForceLoss) {
         return buildFireWeaponWithHitOrMissAction(numdestiny, 0, statistic, new TrueCondition(), true, 0, Filters.any, opponentsForceLoss, selfForceLoss,
                 Filters.none, 0, Filters.none, 0);
@@ -1326,6 +1330,90 @@ public class FireWeaponActionBuilder {
         return action;
     }
 
+    public FireSingleWeaponAction buildReysAnakinsLightsaberWeapon(final int numDestiny, final int plusOrMinus, final Statistic statistic,
+                                                                  final Condition affectForfeitCondition, final boolean resetForfeit, final int forfeitModifierOrResetValue,
+                                                                  final boolean selfForceRetrieve, final int selfForceRetrieveNumber,
+                                                                  final Filter activateForceTargetFilter, final int activateForceAmount,
+                                                                  final Filter alternateDefenseValueFilter, final float alternateDefenseValue) {
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        action.setText("Fire " + action.getWeaponTitle(_game));
+
+        // Choose target(s)
+        action.appendTargeting(
+                new TargetCardOnTableEffect(action, _playerId, "Choose target", getTargetFiltersMap(action.getCardFiringWeapon())) {
+                    @Override
+                    protected boolean isIncludeStackedCardsTargetedByWeaponsAsIfPresent() {
+                        return true;
+                    }
+                    @Override
+                    protected void cardTargeted(final int targetGroupId, PhysicalCard cardTargeted) {
+                        action.addAnimationGroup(cardTargeted);
+                        _game.getGameState().getWeaponFiringState().setTarget(cardTargeted);
+
+                        // Pay cost(s)
+                        float forceToUse = getUseForceCost(action.getCardFiringWeapon(), cardTargeted);
+                        if (forceToUse > 0) {
+                            action.appendCost(
+                                    new UseForceEffect(action, _playerId, forceToUse));
+                        }
+
+                        // Allow response(s)
+                        action.allowResponses("Fire " + GameUtils.getCardLink(action.getWeaponToFire()) + " at " + GameUtils.getCardLink(cardTargeted),
+                                new RespondableWeaponFiringEffect(action) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                        // This needs to be done in case the target(s) were changed during the responses.
+                                        final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
+                                        _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
+
+                                        // Perform result(s)
+                                        action.appendEffect(
+                                                new DrawDestinyEffect(action, _playerId, 2, DestinyType.WEAPON_DESTINY) {
+                                                    @Override
+                                                    protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                        return Collections.singletonList(cardFiredAt);
+                                                    }
+                                                    @Override
+                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                        GameState gameState = game.getGameState();
+                                                        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+                                                        if (totalDestiny == null) {
+                                                            gameState.sendMessage("Result: Failed due to failed weapon destiny draw");
+                                                            return;
+                                                        }
+
+                                                        gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                        float valueToCompare;
+                                                        if (_targetedAsCharacter != null && _targetedAsCharacter.accepts(game, cardFiredAt)) {
+                                                            valueToCompare = _defenseValueAsCharacter;
+                                                        }
+                                                        else {
+                                                            valueToCompare = modifiersQuerying.getDefenseValue(game.getGameState(), cardFiredAt);
+                                                        }
+                                                        gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(valueToCompare));
+
+                                                        if (totalDestiny > valueToCompare) {
+                                                            gameState.sendMessage("Result: Succeeded");
+
+                                                            PhysicalCard cardFiredBy = gameState.getWeaponFiringState().getCardFiringWeapon();
+                                                            action.appendEffect(
+                                                                    new HitCardResetForfeitAndRetrieveForceEffect(action, cardFiredAt, 0, selfForceRetrieveNumber, _weaponOrCardWithPermanentWeapon, _permanentWeapon, cardFiredBy));
+                                                        }
+                                                        else {
+                                                            gameState.sendMessage("Result: Failed");
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                });
+                    }
+                }
+        );
+
+        return action;
+    }
 
     /**
      * Builds a fire weapon action for Zuckuss' Snare Rifle.
