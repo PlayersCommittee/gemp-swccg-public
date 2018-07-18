@@ -56,6 +56,7 @@ public enum Persona implements Filterable {
     R2D2("R2-D2"),
     RIC("Ric"),
     RED_LEADER("Red Leader"),
+    REY("Rey"),
     SIDIOUS("Sidious"),
     SON_OF_VADER("Son Of Vader"),
     TARKIN("Tarkin"),
