@@ -22,42 +22,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- •Kylo Ren With Lightsaber [TBD (V)] 1
- [TBD – TBD]
- Lore: Leader.
- CHARACTER – FIRST ORDER
- POWER 6 ABILITY 5 FORCE-SENSITIVE
- Text: [Pilot]2. Permanent weapon is •Kylo’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and opponent loses 1 Force, if total destiny > defense value; otherwise you lose 1 Force).
- DEPLOY 5 FORFEIT 7
- [Pilot] [Warrior] [Permanent Weapon] [Episode VII] [Set 9]
-
- Breakdown:
- DONE: Side: Dark
- DONE: Type: Character
- DONE Subtype: First Order
- DONE: Title: Kylo Ren With Lightsaber
- DONE: Uniqueness: Unique
- DONE: Lore: Leader
- DONE: Destiny: 1
- DONE: Deploy Cost: 5
- DONE: Power: 6
- DONE: Ability: 5
- DONE: Forfeit: 7
- Icons:
-  - Pilot
-  - Warrior
-  - Permanent Weapon
-  - Episode VII (7)
-  - Set 9
- DONE: Text, string: "[Pilot]2. Permanent weapon is •Kylo’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and opponent loses 1 Force, if total destiny > defense value; otherwise you lose 1 Force)."
- Text Functions:
-  - Pilot 2
-  - Permanent Weapon is Kylo's Lightsaber
-   - may target a character for free; draw two destiny;
-   - target hit, its forfeit = 0, and opponent loses 1 Force, if total destiny > defense value;
-   - otherwise you lose 1 Force
-*/
-
+ * Set: Set 9
+ * Type: Character
+ * Subtype: First Order
+ * Title: Kylo Ren With Lightsaber
+ */
 public class Card209_037 extends AbstractFirstOrder {
     public Card209_037() {
         super(Side.DARK, 1, 5, 6, 5, 7, "Kylo Ren With Lightsaber", Uniqueness.UNIQUE);

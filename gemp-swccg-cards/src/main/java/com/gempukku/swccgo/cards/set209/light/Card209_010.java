@@ -22,42 +22,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- •Rey With Lightsaber [TBD (V)] 1
- [TBD – TBD]
- Lore: Female.
- CHARACTER – Resistance
- POWER 5 ABILITY 5 FORCE-SENSITIVE
- Text: [Pilot]2. Permanent weapon is •Anakin’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and you may retrieve 1 Force, if total destiny > defense value).
- DEPLOY 5 FORFEIT 7
- [Pilot] [Warrior] [Permanent Weapon] [Episode VII] [Set 9]
-
- Breakdown:
- DONE: Side: Light
- DONE: Type: Character
- DONE: Subtype: Resistance
- DONE: Title: Rey With Lightsaber
- DONE: Uniqueness: Unique
- DONE: Lore: Female
- DONE: Destiny: 1
- DONE: Power: 5
- DONE: Ability: 5
- DONE: Deploy Cost: 5
- DONE: Forfeit: 7
- Icons:
- DONE: - Pilot
- DONE: - Warrior
- DONE: - Permanent Weapon
- DONE: - Episode VII (7)
- DONE: - Set 9
- DONE: Text, string: "[Pilot]2. Permanent weapon is •Anakin’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and you may retrieve 1 Force, if total destiny > defense value)."
- Text Functions:
- DONE: - Pilot 2
- DONE: - Permanent Weapon is Anakin's Lightsaber
- - may target a character for free; draw two destiny;
- - target hit, its forfeit = 0, and you retrieve 1 force, if total destiny > defense value;
- - otherwise you lose 1 Force
+ * Set: Set 9
+ * Type: Character
+ * Subtype: Resistance
+ * Title: Rey With Lightsaber
  */
-
 public class Card209_010 extends AbstractResistance {
     public Card209_010() {
         super(Side.LIGHT, 1, 5, 5, 5, 7, "Rey With Lightsaber", Uniqueness.UNIQUE);
