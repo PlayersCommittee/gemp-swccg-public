@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -16,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToForfeitCardFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
 
 import java.util.Collections;
@@ -39,10 +41,11 @@ public class Card209_011 extends AbstractResistance {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isAboutToBeLost(game, effectResult, Filters.and(Filters.Finn, Filters.atSameSite(self)))) {
-            final AboutToLoseCardFromTableResult result = (AboutToLoseCardFromTableResult) effectResult;
-            final PhysicalCard cardToBeLost = result.getCardToBeLost();
-
+        Filter finnAtSameSite = Filters.and(Filters.Finn, Filters.atSameSite(self));
+        if (TriggerConditions.isAboutToBeLost(game, effectResult, finnAtSameSite)
+                || TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, finnAtSameSite)) {
+            final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+            final PhysicalCard cardToBeLost = result.getCardAboutToLeaveTable();
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place " + GameUtils.getFullName(cardToBeLost) + " in Used Pile");
             action.setActionMsg("Place " + GameUtils.getCardLink(cardToBeLost) + " in Used Pile");
@@ -53,7 +56,7 @@ public class Card209_011 extends AbstractResistance {
                         protected void doPlayEffect(SwccgGame game) {
                             result.getPreventableCardEffect().preventEffectOnCard(cardToBeLost);
                             action.appendEffect(
-                                    new PlaceCardInUsedPileFromTableEffect(action, result.getCardToBeLost()));
+                                    new PlaceCardInUsedPileFromTableEffect(action, result.getCardAboutToLeaveTable()));
                         }
                     });
             return Collections.singletonList(action);
