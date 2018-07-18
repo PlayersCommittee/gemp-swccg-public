@@ -17631,6 +17631,7 @@ public class Filters {
     public static final Filter Massassi_War_Room = Filters.title(Title.Massassi_War_Room);
     public static final Filter Master_Luke = Filters.title(Title.Master_Luke);
     public static final Filter Maul = Filters.persona(Persona.MAUL);
+    public static final Filter Mauls_Lightsaber = Filters.persona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);
     public static final Filter Maul_Strikes = Filters.title(Title.Maul_Strikes);
     public static final Filter Mechanical_Failure = Filters.title(Title.Mechanical_Failure);
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);
