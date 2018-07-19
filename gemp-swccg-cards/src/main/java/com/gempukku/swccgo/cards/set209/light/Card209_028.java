@@ -38,7 +38,7 @@ public class Card209_028 extends AbstractSite {
         addIcons(Icon.A_NEW_HOPE, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_9);
     }
 
-    @Override
+    //@Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Yavin_4_system)) {
