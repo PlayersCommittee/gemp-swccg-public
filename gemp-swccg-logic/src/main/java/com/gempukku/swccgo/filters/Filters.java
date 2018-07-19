@@ -17886,7 +17886,7 @@ public class Filters {
     public static final Filter Return_Of_A_Jedi = Filters.title(Title.Return_Of_A_Jedi);
     public static final Filter Revolution = Filters.title(Title.Revolution);
     public static final Filter Rex = Filters.title(Title.Rex);
-    public static final Filter Rey = Filters.title(Title.Rey);
+    public static final Filter Rey = Filters.persona(Persona.REY);
     public static final Filter Reys_Encampment = Filters.title(Title.Reys_Encampment);
     public static final Filter Ric = Filters.persona(Persona.RIC);
     public static final Filter rifle = Filters.or(Keyword.RIFLE, Keyword.BLASTER_RIFLE);
