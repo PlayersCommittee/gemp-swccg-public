@@ -17347,6 +17347,7 @@ public class Filters {
     public static final Filter Guri = Filters.title(Title.Guri);
     public static final Filter Haako = Filters.persona(Persona.HAAKO);
     public static final Filter Halt = Filters.title(Title.Halt);
+    public static final Filter Hammerhead = Filters.modelType(ModelType.HAMMERHEAD_CORVETTE);
     public static final Filter Han = Filters.persona(Persona.HAN);
     public static final Filter handmaiden = Filters.keyword(Keyword.HANDMAIDEN);
     public static final Filter Hans_Back = Filters.title(Title.Hans_Back);
