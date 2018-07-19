@@ -18125,6 +18125,7 @@ public class Filters {
     public static final Filter This_Place_Can_Be_A_Little_Rough = Filters.title(Title.This_Place_Can_Be_A_Little_Rough);
     public static final Filter Thrawn = Filters.title(Title.Thrawn);
     public static final Filter Throne_Room = Filters.title(Title.Throne_Room);
+    public static final Filter Throw_Me_Another_Charge = Filters.title(Title.Throw_Me_Another_Charge);
     public static final Filter Tibanna_Gas_Miner = Filters.title(Title.Tibanna_Gas_Miner);
     public static final Filter Tibrin_site = Filters.and(Filters.partOfSystem(Title.Tibrin), CardSubtype.SITE);
     public static final Filter TIE = Filters.tie();
