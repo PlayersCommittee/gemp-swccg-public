@@ -24,8 +24,8 @@ public class Card209_051 extends AbstractSite {
         super(Side.DARK, Title.Sewer, Title.Coruscant);
         setLocationDarkSideGameText("Once per game, if you occupy three battlegrounds, may retrieve a Black Sun agent into hand.");
         setLocationLightSideGameText("Once per game, if you control, may retrieve [Reflections II] Dash into hand.");
-        addIcon(Icon.DARK_FORCE, 1);
-        addIcon(Icon.LIGHT_FORCE, 2);
+        addIcon(Icon.DARK_FORCE, 2);
+        addIcon(Icon.LIGHT_FORCE, 1);
         addKeywords(Keyword.XIZORS_PALACE_SITE);
         addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_9);
     }
