@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set209.dark;
 
-import com.gempukku.swccgo.cards.AbstractFirstOrder;
+import com.gempukku.swccgo.cards.AbstractDarkJediMasterFirstOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
@@ -27,12 +27,13 @@ import java.util.List;
  * Subtype: First Order
  * Title: Supreme Leader Snoke
  */
-public class Card209_039 extends AbstractFirstOrder {
+public class Card209_039 extends AbstractDarkJediMasterFirstOrder {
     public Card209_039() {
         super(Side.DARK, 1, 5, 3, 7, 8, "Supreme Leader Snoke", Uniqueness.UNIQUE);
         setLore("Leader.");
         setGameText("If you just initiated a battle where all your ability is provided by First Order characters and/or [First Order] starships, opponent loses 1 Force. If just lost, Kylo is power +3 until end of your next turn. Immune to attrition < 8 (< 4 if with Kylo).");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);
+        addPersona(Persona.SNOKE);
         addKeywords(Keyword.LEADER);
     }
 
@@ -48,8 +49,8 @@ public class Card209_039 extends AbstractFirstOrder {
             String defender = game.getOpponent(battleInitiator);
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Opponent loses 1 Force");
-            action.setActionMsg("Opponent loses 1 Force");
+            action.setText("Make opponent lose 1 Force");
+            action.setActionMsg("Make opponent lose 1 Force");
             // Perform result(s)
             action.appendEffect(
                     new LoseForceEffect(action, defender, 1));

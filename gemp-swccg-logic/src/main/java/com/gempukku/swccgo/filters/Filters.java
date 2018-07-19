@@ -17988,7 +17988,7 @@ public class Filters {
     public static final Filter smuggler = Filters.keyword(Keyword.SMUGGLER);
     public static final Filter Sniper = Filters.title(Title.Sniper);
     public static final Filter Snivvian = Filters.species(Species.SNIVVIAN);
-    public static final Filter Snoke = Filters.title(Title.Snoke);
+    public static final Filter Snoke = Filters.persona(Persona.SNOKE);
     public static final Filter snowtrooper = Filters.keyword(Keyword.SNOWTROOPER);
     public static final Filter snub_fighter = Filters.and(CardSubtype.STARFIGHTER, Filters.or(ModelType.A_WING, ModelType.B_WING, ModelType.X_WING, ModelType.Y_WING, ModelType.Z_95_HEADHUNTER, ModelType.MODIFIED_Z_95_HEADHUNTER));
     public static final Filter Solo_Han = Filters.title(Title.Solo_Han);
