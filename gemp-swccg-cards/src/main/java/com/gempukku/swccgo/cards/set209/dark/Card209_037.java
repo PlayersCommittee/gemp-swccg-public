@@ -16,17 +16,17 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.logic.modifiers.*;
 import java.util.Collections;
+
+
 import java.util.LinkedList;
 import java.util.List;
 
 /**
-
  * Set: Set 9
  * Type: Character
  * Subtype: First Order
  * Title: Kylo Ren With Lightsaber
  */
-
 public class Card209_037 extends AbstractFirstOrder {
     public Card209_037() {
         super(Side.DARK, 1, 5, 6, 5, 7, "Kylo Ren With Lightsaber", Uniqueness.UNIQUE);
@@ -48,11 +48,9 @@ public class Card209_037 extends AbstractFirstOrder {
     // Define "Kylo's Lightsaber permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-
         AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.KYLOS_LIGHTSABER) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit)
-
             {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
                         .targetForFree(Filters.character, TargetingReason.TO_BE_HIT).finishBuildPrep();
