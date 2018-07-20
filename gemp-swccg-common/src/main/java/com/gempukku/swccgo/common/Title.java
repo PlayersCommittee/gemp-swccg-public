@@ -489,6 +489,7 @@ public interface Title {
     String Jawa_Pack = "Jawa Pack";
     String Jawa_Siesta = "Jawa Siesta";
     String Jedha = "Jedha";
+    String Jedha_City = "Jedha_City";
     String Jedi_Council_Chamber = "Coruscant: Jedi Council Chamber";
     String Jedi_Lightsaber = "Jedi Lightsaber";
     String Jedi_Presence = "Jedi Presence";
