@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
       vb.name = 'gemp'
 
       # Customize the amount of memory on the VM:
-      vb.memory = "4096"
+      vb.memory = "2048"
     end
 
     # Enable provisioning with a shell script if not set up.
