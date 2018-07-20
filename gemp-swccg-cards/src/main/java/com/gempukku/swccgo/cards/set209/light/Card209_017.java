@@ -57,7 +57,7 @@ public class Card209_017 extends AbstractNormalEffect {
                 , 1, playerId));
 
         modifiers.add(new ImmunityToAttritionChangeModifier(self, Filters.hasAttached(self), new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2), -4));
-        modifiers.add(new MayNotReactFromLocationModifier(self, Filters.here(self), new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2), opponent));
+        modifiers.add(new MayNotReactModifier(self, Filters.hasAttached(self)));
         return modifiers;
     }
 
