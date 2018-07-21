@@ -73,6 +73,7 @@ public enum Persona implements Filterable {
     BLACK_2("Black 2"),
     BLACK_3("Black 3"),
     BLOCKADE_FLAGSHIP("Blockade Flagship"),
+    BLUE_11("Blue 11"),
     EXECUTOR("Executor"),
     FALCON("Falcon"),
     GOLD_1("Gold 1"),
