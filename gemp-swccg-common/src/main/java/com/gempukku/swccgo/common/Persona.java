@@ -34,6 +34,7 @@ public enum Persona implements Filterable {
     JAR_JAR("Jar Jar"),
     JENDON("Jendon"),
     JONUS("Jonus"),
+    KRENNIC("Krennic"),
     KYLO("Kylo"),
     LADY_VADER("Lady Vader"),
     LANDO("Lando"),
