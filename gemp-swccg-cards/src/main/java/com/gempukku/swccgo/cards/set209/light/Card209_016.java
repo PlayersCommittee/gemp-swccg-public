@@ -59,7 +59,8 @@ public class Card209_016 extends AbstractNormalEffect {
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)
                 && GameConditions.hasHand(game, playerId)
-                && GameConditions.hasReserveDeck(game, playerId)) {
+                && GameConditions.hasReserveDeck(game, playerId)
+                && GameConditions.hasInHand(game, playerId, Filters.and(Filters.Resistance_character, Filters.canBeTargetedBy(self)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Resistance character from hand on Used Pile");
