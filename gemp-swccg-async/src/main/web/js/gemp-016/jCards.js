@@ -3502,10 +3502,13 @@ var Card = Class.extend({
         if (backSideUrl != null) {
             return blueprintId.concat("_BACK");
         }
-        if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/"))
-            return "-1_2";
-        else
-            return "-1_1";
+        var genericBackUrl = this.getUrlByBlueprintId(blueprintId)
+        if (genericBackUrl != null) {
+            if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/"))
+                    return "-1_2";
+                else
+                    return "-1_1";
+        }
     },
 
     getBackSideUrlByBlueprintId:function (blueprintId) {
