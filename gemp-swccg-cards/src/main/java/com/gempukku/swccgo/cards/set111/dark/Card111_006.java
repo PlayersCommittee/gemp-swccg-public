@@ -56,10 +56,10 @@ public class Card111_006 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Alderaan_system, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Deployable_By_SYCFA, true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose Alderaan system to deploy";
+                        return "Choose location to deploy";
                     }
                 });
         action.appendRequiredEffect(
