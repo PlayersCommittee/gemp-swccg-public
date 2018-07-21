@@ -14,6 +14,7 @@ public enum Persona implements Filterable {
     BOSSK("Bossk"),
     C3PO("C-3PO"),
     CHEWIE("Chewie"),
+    CONNIX("Connix"),
     CORRAN_HORN("Corran Horn"),
     CRACKEN("Cracken"),
     DASH("Dash"),
