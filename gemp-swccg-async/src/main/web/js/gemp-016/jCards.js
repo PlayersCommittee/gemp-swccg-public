@@ -3498,11 +3498,11 @@ var Card = Class.extend({
         if (this.endsWith(blueprintId, "_BACK")) {
             return blueprintId.substring(0, blueprintId.length - 5);
         }
-        var backSideUrl = this.getUrlByBlueprintId(blueprintId.concat("_BACK"))
+        var backSideUrl = this.getUrlByBlueprintId(blueprintId.concat("_BACK"));
         if (backSideUrl != null) {
             return blueprintId.concat("_BACK");
         }
-        var genericBackUrl = this.getUrlByBlueprintId(blueprintId)
+        var genericBackUrl = this.getUrlByBlueprintId(blueprintId);
         if (genericBackUrl != null) {
             if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/"))
                     return "-1_2";
