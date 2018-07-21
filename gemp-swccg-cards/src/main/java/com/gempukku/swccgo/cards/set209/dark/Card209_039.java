@@ -43,7 +43,7 @@ public class Card209_039 extends AbstractDarkJediMasterFirstOrder {
 
         // Check condition(s)
         if (TriggerConditions.battleInitiated(game, effectResult, playerId)
-                && GameConditions.isAllAbilityAtLocationProvidedBy(game, self, playerId, Filters.here(self), Filters.or(Filters.First_Order_character, Filters.and(Icon.FIRST_ORDER, Filters.starship)))) {
+                && GameConditions.isAllAbilityAtLocationProvidedBy(game, self, playerId, Filters.battleLocation, Filters.or(Filters.First_Order_character, Filters.and(Icon.FIRST_ORDER, Filters.starship)))) {
             BattleInitiatedResult initiateBattleResult = (BattleInitiatedResult) effectResult;
             String battleInitiator = initiateBattleResult.getPerformingPlayerId();
             String defender = game.getOpponent(battleInitiator);
