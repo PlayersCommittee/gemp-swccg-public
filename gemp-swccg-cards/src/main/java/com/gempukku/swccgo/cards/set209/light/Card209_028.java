@@ -46,7 +46,8 @@ public class Card209_028 extends AbstractSite {
                 action.skipInitialMessageAndAnimation();
                 // Perform result(s)
                 action.appendEffect(
-                        new AddToBlownAwayForceLossEffect(action, self.getOwner(), -4));
+                        //new AddToBlownAwayForceLossEffect(action, self.getOwner(), -4));
+                        new AddToBlownAwayForceLossEffect(action, game.getOpponent(self.getOwner()), -4));
                 return Collections.singletonList(action);
         }
         return null;
