@@ -17082,6 +17082,7 @@ public class Filters {
     public static final Filter Darklighter_Spin = Filters.title(Title.Darklighter_Spin);
     public static final Filter Dash = Filters.persona(Persona.DASH);
     public static final Filter Dathcha = Filters.title(Title.Dathcha);
+    public static final Filter DataVault = Filters.title(Title.DataVault);
     public static final Filter Daughter_Of_Skywalker = Filters.title(Title.Daughter_Of_Skywalker);
     public static final Filter Deactivate_The_Shield_Generator = Filters.title(Title.Deactivate_The_Shield_Generator);
     public static final Filter Dead_Ewok = Filters.title(Title.Dead_Ewok);

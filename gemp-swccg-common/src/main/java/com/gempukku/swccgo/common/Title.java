@@ -212,6 +212,7 @@ public interface Title {
     String Dark_Strike = "Dark Strike";
     String Dark_Waters = "Dark Waters";
     String Darklighter_Spin = "Darklighter Spin";
+    String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
@@ -833,6 +834,7 @@ public interface Title {
     String Spice_Mines_Of_Kessel = "Spice Mines Of Kessel";
     String Staging_Areas = "Staging Areas";
     String Stalker = "Stalker";
+    String Stardust = "Stardust";
     String Starkiller_Base = "Starkiller Base";
     String Steady_Steady = "Steady, Steady";
     String Stolen_Data_Tapes = "Stolen Data Tapes";

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card209_025 extends AbstractSite {
     public Card209_025() {
-        super(Side.LIGHT, "Scarif: Data Vault", Title.Scarif);
+        super(Side.LIGHT, Title.DataVault, Title.Scarif);
         setLocationLightSideGameText("While opponent occupies, Stardust (and any character it is on) may not move from here.");
         setLocationDarkSideGameText("All immunity to attrition (and Ephant Mon's game text) here is canceled.");
         addIcon(Icon.LIGHT_FORCE, 1);
