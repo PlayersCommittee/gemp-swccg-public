@@ -80,8 +80,8 @@ public class Card209_004 extends AbstractRebel {
         return null;
     }
 
-    //@Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyDrawingJustCompletedForBothPlayers(game, effectResult)
                 && GameConditions.didBothPlayersDrawOneBattleDestiny(game)
@@ -93,7 +93,7 @@ public class Card209_004 extends AbstractRebel {
             action.appendCost(
                     new UseForceEffect(action, playerId, GameConditions.isWith(game, self, Filters.Imperial) ? 0 : 2));
             // Allow response(s)
-            action.allowResponses("Switch battle destiny numbers",
+            action.allowResponses(
                     new UnrespondableEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
