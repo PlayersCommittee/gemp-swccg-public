@@ -18021,6 +18021,7 @@ public class Filters {
     public static final Filter STAP = Filters.modelType(ModelType.STAP);
     public static final Filter Star_Cruiser = Filters.or(ModelType.MON_CALAMARI_STAR_CRUISER);
     public static final Filter Star_Destroyer = Filters.or(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.INTERDICTOR_CLASS_STAR_DESTROYER, ModelType.RESURGENT_CLASS_STAR_DESTROYER, ModelType.SUPER_CLASS_STAR_DESTROYER, ModelType.VICTORY_CLASS_STAR_DESTROYER);
+    public static final Filter Stardust = Filters.title(Title.Stardust);
     public static final Filter starfighter = Filters.subtype(CardSubtype.STARFIGHTER);
     public static final Filter Starkiller_Base_location = Filters.partOfSystem(Title.Starkiller_Base);
     public static final Filter starship = Filters.type(CardType.STARSHIP);
