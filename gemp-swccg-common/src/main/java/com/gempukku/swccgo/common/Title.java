@@ -602,6 +602,7 @@ public interface Title {
     String Mournful_Roar = "Mournful Roar";
     String Mouse_Droid = "MSE-6 'Mouse' Droid";
     String Momaw_Nadon = "Momaw Nadon";
+    String Mustafar = "Mustafar";
     String My_Favorite_Decoration = "My Favorite Decoration";
     String My_Kind_Of_Scum = "My Kind Of Scum";
     String My_Lord_Is_That_Legal = "My Lord, Is That Legal?";
@@ -942,6 +943,7 @@ public interface Title {
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";
     String Utinni = "Utinni!";
+    String Vaders_Castle = "Vader's Castle";
     String Vaders_Obsession = "Vader's Obsession";
     String Valorum = "Supreme Chancellor Valorum";
     String Vaporator = "Vaporator";
