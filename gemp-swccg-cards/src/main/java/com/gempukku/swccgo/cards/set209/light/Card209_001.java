@@ -54,9 +54,10 @@ public class Card209_001 extends AbstractRebel {
     }
 
     @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, Filters.and(Filters.your(self), Filters.capital_starship, Filters.here(self)), 1));
         return modifiers;
     }
+
 }

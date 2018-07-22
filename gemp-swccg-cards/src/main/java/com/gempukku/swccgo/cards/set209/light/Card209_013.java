@@ -9,6 +9,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromBottomOfUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
@@ -16,6 +17,7 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,19 +60,6 @@ public class Card209_013 extends AbstractRebel {
             actions.add(action);
         }
 
-        // Check condition(s) for just lost response
-        if(TriggerConditions.justLost(game, effectResult, self)
-                && GameConditions.hasUsedPile(game, playerId)) {
-
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Draw bottom card of Used Pile");
-            action.setActionMsg("Draw bottom card of Used Pile");
-            // Perform result(s)
-            action.appendEffect(
-                    new DrawCardIntoHandFromBottomOfUsedPileEffect(action, playerId));
-            actions.add(action);
-        }
-
         // Check condition(s) for during battle response
         if ((TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
                 || TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult))
@@ -95,7 +84,23 @@ public class Card209_013 extends AbstractRebel {
         return actions;
     }
 
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextLeavesTableOptionalTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s) for just lost response
+        if(TriggerConditions.justLost(game, effectResult, self)
+                && GameConditions.hasUsedPile(game, playerId)) {
 
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Draw bottom card of Used Pile");
+            action.setActionMsg("Draw bottom card of Used Pile");
+            // Perform result(s)
+            action.appendEffect(
+                    new DrawCardIntoHandFromBottomOfUsedPileEffect(action, playerId));
+            return Collections.singletonList(action);
+        }
+
+        return null;
+    }
 
 
 
