@@ -17931,6 +17931,7 @@ public class Filters {
     public static final Filter Save_You_It_Can = Filters.title(Title.Save_You_It_Can);
     public static final Filter Saw = Filters.title(Title.Saw);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
+    public static final Filter Scarif_Docking_Bay = Filters.title(Title.Scarif_Landing_Pad_Nine);
     public static final Filter scavenger = Filters.keyword(Keyword.SCAVENGER);
     public static final Filter Scimitar_1 = Filters.title(Title.Scimitar_1);
     public static final Filter Scimitar_2 = Filters.persona(Persona.SCIMITAR_2);
@@ -17961,6 +17962,7 @@ public class Filters {
     public static final Filter Sewer = Filters.title(Title.Sewer);
     public static final Filter S_foils = Filters.title(Title.S_foils);
     public static final Filter SFS_Lx93_Laser_Cannons = Filters.title(Title.SFS_Lx93_Laser_Cannons);
+    public static final Filter Shield_Gate = Filters.title(Title.Shield_Gate);
     public static final Filter Shmi = Filters.title(Title.Shmi);
     public static final Filter Shocking_Information = Filters.title(Title.Shocking_Information);
     public static final Filter Shocking_Revelation = Filters.title(Title.Shocking_Revelation);

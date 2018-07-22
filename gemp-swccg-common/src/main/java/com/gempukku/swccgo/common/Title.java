@@ -772,6 +772,8 @@ public interface Title {
     String Save_You_It_Can = "Save You It Can";
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
+    String Scarif = "Scarif";
+    String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine";
     String Scimitar_1 = "Scimitar 1";
     String Scomp_Link_Access = "Scomp Link Access";
     String Scout_Blaster = "Scout Blaster";
@@ -792,6 +794,7 @@ public interface Title {
     String Sewer = "Xizor's Palace: Sewer";
     String S_foils = "S-foils";
     String SFS_Lx93_Laser_Cannons = "SFS L-s9.3 Laser Cannons";
+    String Shield_Gate = "Shield Gate";
     String Shmi = "Shmi Skywalker";
     String Shocking_Information = "Shocking Information";
     String Shocking_Revelation = "Shocking Revelation";
