@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToDrawDestinyCardResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -105,25 +106,31 @@ public class Card209_004 extends AbstractRebel {
             );
             return Collections.singletonList(action);
         }
+
         return null;
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
+        String opponent = game.getOpponent(playerId);
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
-        if (TriggerConditions.isFiringWeapon(game, effect, playerId, Filters.superlaser_weapon)) {
+        if (TriggerConditions.isFiringWeapon(game, effect, opponent, Filters.superlaser_weapon)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Lose 2 Force to fire superlaser");
-            action.setPerformingPlayer(playerId);
+            action.setPerformingPlayer(opponent);
             // Perform result(s)
             action.appendEffect(
-                    new LoseForceEffect(action, playerId, 2));
+                    new LoseForceEffect(action, opponent, 2));
             return Collections.singletonList(action);
         }
         return null;
     }
+
+
+
+
 }
