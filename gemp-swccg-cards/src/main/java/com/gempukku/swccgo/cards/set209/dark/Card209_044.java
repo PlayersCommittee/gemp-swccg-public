@@ -82,13 +82,14 @@ public class Card209_044 extends AbstractNormalEffect {
         // Card action 1
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        //Need to find Maul
-        final PhysicalCard maulCard = Filters.findFirstActive(game, self, Filters.Maul);
-
         // Check condition(s)
         if (TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL)
+                && GameConditions.canTarget(game,self, Filters.Maul)
                 && GameConditions.canSpot(game, self, Filters.and(Filters.Jedi, Filters.at(Filters.site)))) {
             Filter siteFilter = Filters.and(Filters.site, Filters.occupiesWith(game.getOpponent(playerId), self, Filters.Jedi));
+
+            //Need to find Maul
+            final PhysicalCard maulCard = Filters.findFirstActive(game, self, Filters.Maul);
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Relocate Maul to same site as a Jedi");
