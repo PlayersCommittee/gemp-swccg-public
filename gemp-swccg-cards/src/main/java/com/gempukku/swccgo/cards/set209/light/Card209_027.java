@@ -40,8 +40,9 @@ public class Card209_027 extends AbstractSite {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextLightSideOptionalAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId)
     {
-        if (TriggerConditions.forceDrainInitiatedAt(game, effectResult,Filters.canBeTargetedBy(self))) {
+        if (TriggerConditions.forceDrainInitiatedAt(game, effectResult, Filters.Scarif_Turbolift_Complex)) {
             List<Modifier> modifiers = new LinkedList<>();
+
             // rotate location modifier came from revolution
             modifiers.add(new RotateLocationModifier(self, Filters.Scarif_Turbolift_Complex, new TrueCondition()));
         }
