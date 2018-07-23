@@ -775,6 +775,7 @@ public interface Title {
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
     String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine";
+    String Scarif_Turbolift_Complex = "Scarif: Turbolift Comples";
     String Scimitar_1 = "Scimitar 1";
     String Scomp_Link_Access = "Scomp Link Access";
     String Scout_Blaster = "Scout Blaster";

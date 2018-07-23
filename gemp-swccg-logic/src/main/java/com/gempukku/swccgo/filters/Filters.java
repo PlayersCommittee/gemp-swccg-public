@@ -17932,6 +17932,7 @@ public class Filters {
     public static final Filter Saw = Filters.title(Title.Saw);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
     public static final Filter Scarif_Docking_Bay = Filters.title(Title.Scarif_Landing_Pad_Nine);
+    public static final Filter Scarif_Turbolift_Complex = Filters.title(Title.Scarif_Turbolift_Complex);
     public static final Filter scavenger = Filters.keyword(Keyword.SCAVENGER);
     public static final Filter Scimitar_1 = Filters.title(Title.Scimitar_1);
     public static final Filter Scimitar_2 = Filters.persona(Persona.SCIMITAR_2);
