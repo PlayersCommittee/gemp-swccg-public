@@ -82,6 +82,9 @@ public class Card209_044 extends AbstractNormalEffect {
         // Card action 1
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
+        //Need to find Maul
+        final PhysicalCard maulCard = Filters.findFirstActive(game, self, Filters.Maul);
+
         // Check condition(s)
         if (TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL)
                 && GameConditions.canSpot(game, self, Filters.and(Filters.Jedi, Filters.at(Filters.site)))) {
@@ -103,7 +106,7 @@ public class Card209_044 extends AbstractNormalEffect {
                                        protected void performActionResults(Action targetingAction) {
                                            // Perform result(s)
                                            action.appendEffect(
-                                                   new RelocateBetweenLocationsEffect(action, self, selectedCard));
+                                                   new RelocateBetweenLocationsEffect(action, maulCard, selectedCard));
                                        }
                                   }
                            );

@@ -61,8 +61,10 @@ public class Card209_003 extends AbstractRepublic {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        Filter weaponFilter = Filters.and(Filters.or(Filters.weapon, Filters.permanentWeaponOf(self)), Filters.attachedTo(self), Filters.canBeFiredForFree(self, 0));
         final Filter targetFilter = Filters.and(Filters.opponents(self), Filters.undercover_spy, Filters.atSameSite(self));
+
+        //Filter weaponFilter = Filters.and(Filters.or(Filters.weapon, Filters.permanentWeaponOf(self)), Filters.attachedTo(self), Filters.canBeFiredForFree(self, 0));
+        Filter weaponFilter = Filters.or(Filters.and(Filters.permanentWeaponOf(self), Filters.canBeFiredAt(self, targetFilter, 0)), Filters.and(Filters.weapon, Filters.attachedTo(self), Filters.canBeFiredAt(self, targetFilter, 0)));
 
         // Check condition(s)
         if (GameConditions.isDuringEitherPlayersPhase(game, Phase.MOVE)
