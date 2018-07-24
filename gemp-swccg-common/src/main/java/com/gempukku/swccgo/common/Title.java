@@ -771,6 +771,7 @@ public interface Title {
     String Save_You_It_Can = "Save You It Can";
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
+    String Scarif = "Scarif";
     String Scimitar_1 = "Scimitar 1";
     String Scomp_Link_Access = "Scomp Link Access";
     String Scout_Blaster = "Scout Blaster";
