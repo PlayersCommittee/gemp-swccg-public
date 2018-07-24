@@ -26,6 +26,7 @@ public class Card209_030 extends AbstractCapitalStarship {
         setLore("Phoenix Squadron.");
         setGameText("Permanent pilot provides ability of 2. Cancels opponent's immunity to attrition here. While at Scarif, adds 2 to attempts to 'blow away' Shield Gate.");
         addIcons(Icon.VIRTUAL_SET_9, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addKeywords(Keyword.PHOENIX_SQUADRON);
         addModelType(ModelType.HAMMERHEAD_CORVETTE);
     }
 
