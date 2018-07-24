@@ -326,6 +326,7 @@ public interface Title {
     String Finn = "Finn";
     String Fire_Extinguisher = "Fire Extinguisher";
     String Firepower = "Firepower";
+    String First_Aid = "First Aid";
     String First_Strike = "First Strike";
     String Fixer = "Fixer";
     String Flagship = "Flagship";
@@ -634,6 +635,7 @@ public interface Title {
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";
+    String Odin_Nesloor = "Odin Nesloor";
     String Off_The_Edge = "Off The Edge";
     String Old_Allies = "Old Allies";
     String Old_Ben = "Old Ben";
