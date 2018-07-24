@@ -764,6 +764,7 @@ public interface Title {
     String Saber_3 = "Saber 3";
     String Sabine = "Sabine Wren";
     String Sabotage = "Sabotage";
+    String Sacrifice = "Sacrifice";
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
