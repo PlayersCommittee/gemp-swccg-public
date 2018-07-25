@@ -5,11 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.actions.GameTextAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
@@ -57,11 +59,13 @@ public class Card209_036 extends AbstractImperial {
 
         // Take Non-Unique Star Destroyer into hand from reserve
         // Check condition(s)
-        GameTextActionId gameTextActionId = GameTextActionId.KRENNIC__UPLOAD_NON_UNIQUE_STAR_DESTROYER;
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
+        GameTextActionId gameTextActionId1 = GameTextActionId.KRENNIC__UPLOAD_NON_UNIQUE_STAR_DESTROYER;
+        GameTextActionId gameTextActionId2 = GameTextActionId.KRENNIC__PEEK_AT_TOP_OF_FORCE_PILE;
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId1)
+                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId1)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
 
             action.setText("Take a non-unique Star Destroyer into hand from reserve deck");
             action.setActionMsg("Take a non-unique Star Destroyer into hand from reserve deck");
@@ -78,16 +82,20 @@ public class Card209_036 extends AbstractImperial {
         }
 
         // Peek at top two cards of force
-        GameTextActionId gameTextActionId2 = GameTextActionId.KRENNIC__PEEK_AT_TOP_OF_FORCE_PILE;
+
+//        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextActionId2))
         Filter systemFilter = Filters.and(Filters.isOrbitedBy(Filters.Death_Star_system), Filters.battleground_system);
-        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId)
-                && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 2)) {
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
+            && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 2)) {
+//        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+//                && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 2)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
             action.setText("Peek at top cards of Force Pile");
             // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
+            action.appendUsage(new OncePerTurnEffect(action));
+//            action.appendUsage(
+//                    new OncePerPhaseEffect(action));
             // Perform result(s)
             // peek at the top two cards of force pile, take a min of 1 and max of 1 into hand.
             action.appendEffect(new PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect(action, playerId, 2, 1, 1));

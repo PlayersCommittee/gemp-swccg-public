@@ -9,7 +9,7 @@ import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardsIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardsIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -95,7 +95,9 @@ public class PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect extends
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                                 List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                                 subAction.appendEffect(
-                                                        new TakeCardsIntoHandFromReserveDeckEffect(subAction, _playerId, selectedCards, true));
+                                                        //new TakeCardsIntoHandFromReserveDeckEffect(subAction, _playerId, selectedCards, true);
+                                                        new TakeCardsIntoHandFromForcePileEffect(subAction, _playerId, selectedCards, true)
+                                                );
                                                 // Check if player looked at cards in own card pile
                                                 if (_cardPileOwner.equals(_playerId)) {
                                                     subAction.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInOwnCardPileResult(_cardPileOwner, _cardPile)));
