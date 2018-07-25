@@ -26,7 +26,8 @@ public enum TargetingReason {
     TO_BE_PURCHASED("to be 'purchased'"),
     TO_BE_STOLEN("to be stolen"),
     TO_BE_STOLEN_EVEN_IF_CARDS_ABOARD("to be stolen"),
-    TO_BE_TORTURED("to be tortured");
+    TO_BE_TORTURED("to be tortured"),
+    TO_RELOCATE_STARDUST_TO("to relocate Stardust to");
 
     private String _humanReadable;
 
