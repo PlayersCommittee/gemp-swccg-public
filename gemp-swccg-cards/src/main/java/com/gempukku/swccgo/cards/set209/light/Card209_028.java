@@ -43,12 +43,12 @@ public class Card209_028 extends AbstractSite {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Yavin_4_system)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.skipInitialMessageAndAnimation();
-                // Perform result(s)
-                action.appendEffect(
-                        //new AddToBlownAwayForceLossEffect(action, self.getOwner(), -4));
-                        new AddToBlownAwayForceLossEffect(action, game.getOpponent(self.getOwner()), -4));
-                return Collections.singletonList(action);
+            action.skipInitialMessageAndAnimation();
+            // Perform result(s)
+            action.appendEffect(
+                    //new AddToBlownAwayForceLossEffect(action, self.getOwner(), -4));
+                    new AddToBlownAwayForceLossEffect(action, game.getOpponent(self.getOwner()), 4));
+            return Collections.singletonList(action);
         }
         return null;
     }

@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.cards.set209.dark;
 
+import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.AbstractEpicEventPlayable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
@@ -12,6 +13,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayEpicEventAction;
+import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
@@ -34,9 +36,9 @@ import java.util.List;
  * Type: Epic Event
  * Title: Commence Primary Ignition (V)
  */
-public class Card209_045 extends AbstractEpicEventPlayable {
+public class Card209_045 extends AbstractEpicEventDeployable {
     public Card209_045() {
-        super(Side.DARK, Title.Commence_Primary_Ignition);
+        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.Commence_Primary_Ignition);
         setVirtualSuffix(true);
         setGameText("Once per game, deploy on Death Star; it is hyperspeed = 2. Superlaser may not target planet systems. Once during your control phase, may fire Superlaser as follows: Prepare Single Reactor Ignition: If Death Star orbiting Jedha or Scarif, target your related unique (•) battleground site, even if converted (regardless of objective restrictions). Fire!: Draw destiny. It's Beautiful: If destiny +X > 8, site is 'blown away,' and opponent loses 3 Force. X = number of Death Star sites on table.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_9);
@@ -56,7 +58,7 @@ public class Card209_045 extends AbstractEpicEventPlayable {
     }
 
     //@Override
-    protected List<PlayEpicEventAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelEpicEventGameTextAction> getEpicEventGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         final String opponent = game.getOpponent(playerId);
 

@@ -71,15 +71,17 @@ public class Card209_013 extends AbstractRebel {
             int numSpiesOutOfPlay = outOfPlaySpies.size();
             int destinyModifier = 0 - numSpiesOutOfPlay;
 
-            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Subtract " + numSpiesOutOfPlay + " from destiny");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new ModifyDestinyEffect(action, destinyModifier));
-            actions.add(action);
+            if (numSpiesOutOfPlay > 0) {
+                OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Subtract " + numSpiesOutOfPlay + " from destiny");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerBattleEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new ModifyDestinyEffect(action, destinyModifier));
+                actions.add(action);
+            }
         }
         return actions;
     }
