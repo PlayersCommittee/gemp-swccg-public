@@ -3236,7 +3236,7 @@ var Card = Class.extend({
         this.collapsed = false;
         if (collapsed !== undefined) {
             this.collapsed = collapsed;
-        }    
+        }
         this.attachedCards = new Array();
         if (imageBlueprint == "rules") {
             this.imageUrl = "/gemp-swccg/images/rules.png";
