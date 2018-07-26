@@ -118,9 +118,8 @@ public class Card209_004 extends AbstractRebel {
 
         // Check condition(s)
         if (TriggerConditions.isFiringWeapon(game, effect, opponent, Filters.superlaser_weapon)
-                //    || TriggerConditions.isFiringWeapon(game, effect, opponent, Filters.Death_Star_system)
-                //    || TriggerConditions.isFiringWeapon(game, effect, opponent, Filters.Death_Star_II_system)
-                || TriggerConditions.isPlayingCard(game, effect, Filters.Commence_Primary_Ignition)) {
+                || TriggerConditions.isPlayingCard(game, effect, Filters.and(Filters.Commence_Primary_Ignition, Filters.not(Icon.VIRTUAL_SET_9)))
+                || TriggerConditions.isPerformingGameTextAction(game, effect, Filters.and(Filters.Commence_Primary_Ignition, Icon.VIRTUAL_SET_9))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Lose 2 Force to fire superlaser");
@@ -132,8 +131,5 @@ public class Card209_004 extends AbstractRebel {
         }
         return null;
     }
-
-
-
 
 }
