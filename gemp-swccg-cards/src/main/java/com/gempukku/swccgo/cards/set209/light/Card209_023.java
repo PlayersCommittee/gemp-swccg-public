@@ -1,21 +1,22 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
-import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.ForceGenerationImmuneToLimitModifier;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
+import com.gempukku.swccgo.logic.conditions.UnlessCondition;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +36,20 @@ public class Card209_023 extends AbstractSystem {
         addIcons(Icon.PLANET, Icon.VIRTUAL_SET_9);
     }
 
-    // jcTODO LS text
+    @Override
+    protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        Filter rogueOnePilotedByRebelHere = Filters.and(Filters.Rogue_One, Filters.hasPiloting(self, Filters.Rebel), Filters.here(self));
+        modifiers.add(new ImmuneToAttritionModifier(self, rogueOnePilotedByRebelHere));
+        return modifiers;
+    }
 
-    // jcTODO DS text
+    @Override
+    protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        Condition unlessYourStarDestroyerHere = new UnlessCondition(new HereCondition(self, Filters.Star_Destroyer));
+        Condition unlessYourImperialAtReleatedLocation = new UnlessCondition(new AtCondition(self, Filters.Imperial, Filters.relatedLocation(self)));
+        modifiers.add(new ForceDrainModifier(self, new OrCondition(unlessYourStarDestroyerHere, unlessYourImperialAtReleatedLocation), -1, playerOnDarkSideOfLocation));
+        return modifiers;
+    }
 }
