@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.*;
@@ -62,13 +63,10 @@ public class Card209_005 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
 
-        if (GameConditions.isPresentAt(game, self, Filters.war_room)){
-            List<Modifier> modifiers = new LinkedList<Modifier>();
-            modifiers.add(new MayNotDeployToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.spy), Filters.sameSite(self)));
-            modifiers.add(new EpicEventDestinyDrawModifier(self, playerId, 1));
-            return modifiers;
-        }
-        return null;
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new MayNotDeployToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.spy), new PresentAtCondition(self, Filters.war_room), Filters.sameSite(self)));
+        modifiers.add(new EpicEventDestinyDrawModifier(self, playerId, Filters.notIgnoredDuringEpicEventCalculation, new PresentAtCondition(self, Filters.war_room),1));
+        return modifiers;
     }
 
 }

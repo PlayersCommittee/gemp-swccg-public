@@ -7,24 +7,20 @@ import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionState;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.actions.PlayEpicEventAction;
-import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.*;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
-import com.gempukku.swccgo.logic.modifiers.ResetHyperspeedModifier;
-import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.GuiUtils;
-import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
 
 import java.util.Collections;
@@ -50,6 +46,19 @@ public class Card209_045 extends AbstractEpicEventDeployable {
     }
 
     //@Override
+    protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
+        RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+        final int permCardId = self.getPermanentCardId();
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(action,
+                        new MayNotBeTargetedByModifier(self, Filters.planet_system, Filters.Commence_Primary_Ignition), null));
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(action,
+                        new MayNotDeployModifier(self, Filters.and(Filters.Commence_Primary_Ignition, Icon.VIRTUAL_SET_9), playerId), null));
+        return action;
+    }
+
+    //@Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ResetHyperspeedModifier(self, Filters.Death_Star_system, 2));
@@ -61,27 +70,34 @@ public class Card209_045 extends AbstractEpicEventDeployable {
     protected List<TopLevelEpicEventGameTextAction> getEpicEventGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         final String opponent = game.getOpponent(playerId);
+        final GameState gameState = game.getGameState();
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.canDrawDestiny(game, playerId)) {
             //find system death star is orbiting
+            gameState.sendMessage("1");
             final PhysicalCard planetSystem = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.system, Filters.isOrbitedBy(Filters.Death_Star_system)));
             //check if it's orbiting Jedha or Scarif
             if (planetSystem != null) {
+                gameState.sendMessage("2");
                 if (planetSystem.getBlueprint().getTitle().equals(Title.Jedha) || planetSystem.getBlueprint().getTitle().equals(Title.Scarif)) {
                     //check if there's a related battleground site owned by you (even if converted)
+                    gameState.sendMessage("3");
                     final Filter yourSiteEvenIfConverted = Filters.and(Filters.or(Filters.your(self), Filters.convertedLocationOnTopOfLocation(Filters.your(self))), Filters.relatedSite(planetSystem), Filters.unique, Filters.battleground_site);
                     //final PhysicalCard relatedSite = Filters.findFirstFromTopLocationsOnTable(game, yourSiteEvenIfConverted);
                     final PhysicalCard relatedSite = Filters.findFirstFromAllOnTable(game, yourSiteEvenIfConverted);
+                    gameState.sendMessage("4");
                     if (relatedSite != null) {
                         //there is a valid site, fire away
-                        final GameState gameState = game.getGameState();
+                        //final GameState gameState = game.getGameState();
+                        gameState.sendMessage("5");
                         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
                         final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation)));
 
                         final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Superlaser));
                         if (superlaser != null) {
+                            gameState.sendMessage("6");
                             final PhysicalCard deathStar = superlaser.getAttachedTo();
                             final CommencePrimaryIgnitionState epicEventState = new CommencePrimaryIgnitionState(self);
 
