@@ -11,6 +11,8 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.CancelImmunityToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveFromLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -45,10 +47,8 @@ public class Card209_025 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-
-        // jcTODO -- Cancel immunity to attrition and ephant mon's text here
-
-
+        modifiers.add(new CancelImmunityToAttritionModifier(self, Filters.here(self)));
+        modifiers.add(new CancelsGameTextModifier(self, Filters.Ephant_Mon));
         return modifiers;
     }
 }
