@@ -127,6 +127,7 @@ public interface Title {
     String Bridge = "Blockade Flagship: Bridge";
     String Bring_Him_Before_Me = "Bring Him Before Me";
     String Brisky_Morning_Munchen = "Brisky Morning Munchen";
+    String Broken_Concentration = "Broken Concentration";
     String Bubo = "Bubo";
     String Bunker = "Endor: Bunker";
     String Cantina = "Tatooine: Cantina";
