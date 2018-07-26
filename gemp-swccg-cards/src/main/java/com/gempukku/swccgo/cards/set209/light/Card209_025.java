@@ -48,7 +48,7 @@ public class Card209_025 extends AbstractSite {
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new CancelImmunityToAttritionModifier(self, Filters.here(self)));
-        modifiers.add(new CancelsGameTextModifier(self, Filters.Ephant_Mon));
+        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Ephant_Mon, Filters.here(self))));
         return modifiers;
     }
 }
