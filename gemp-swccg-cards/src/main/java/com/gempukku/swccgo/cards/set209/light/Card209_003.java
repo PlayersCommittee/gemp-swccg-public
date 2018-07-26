@@ -66,7 +66,7 @@ public class Card209_003 extends AbstractRepublic {
         Filter weaponFilter = Filters.and(Filters.your(self), Filters.weapon_or_character_with_permanent_weapon, Filters.canBeFiredAt(self, targetFilter, 0));
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
+        if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && GameConditions.canTarget(game, self, SpotOverride.INCLUDE_UNDERCOVER, targetFilter)
                 && GameConditions.canSpot(game, self, weaponFilter)) {
 
