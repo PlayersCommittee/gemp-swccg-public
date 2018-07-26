@@ -947,7 +947,7 @@ public interface Title {
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";
     String Utinni = "Utinni!";
-    String Vaders_Castle = "Vader's Castle";
+    String Vaders_Castle = "Mustafar: Vader's Castle";
     String Vaders_Obsession = "Vader's Obsession";
     String Valorum = "Supreme Chancellor Valorum";
     String Vaporator = "Vaporator";
