@@ -76,7 +76,7 @@ public class Card209_018 extends AbstractNormalEffect {
         return null;
     }
 
-    // TODO: 2) Control phase force loss (copy from Tat Occ?)
-    // TODO: 3) Relocate to DataVault as getGameTextRequiredAfterTriggers
+    // jcTODO: 2) Control phase force loss (copy from Tat Occ?)
+    // jcTODO: 3) Relocate to DataVault as getGameTextRequiredAfterTriggers
 
 }

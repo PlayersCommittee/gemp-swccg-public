@@ -35,7 +35,7 @@ public class Card209_023 extends AbstractSystem {
         addIcons(Icon.PLANET, Icon.VIRTUAL_SET_9);
     }
 
-    // TODO LS text
+    // jcTODO LS text
 
-    // TODO DS text
+    // jcTODO DS text
 }

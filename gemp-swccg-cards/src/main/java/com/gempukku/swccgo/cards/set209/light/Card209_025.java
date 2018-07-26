@@ -46,7 +46,7 @@ public class Card209_025 extends AbstractSite {
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
-        // TODO -- Cancel immunity to attrition and ephant mon's text here
+        // jcTODO -- Cancel immunity to attrition and ephant mon's text here
 
 
         return modifiers;
