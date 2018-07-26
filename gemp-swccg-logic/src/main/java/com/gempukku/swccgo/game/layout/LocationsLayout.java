@@ -110,6 +110,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
                 addToLayouts(systemLayout);
             }
         }
+        addToLayouts(new DefaultPlanetLayout(Title.Mustafar, 420));
     }
 
     /**
