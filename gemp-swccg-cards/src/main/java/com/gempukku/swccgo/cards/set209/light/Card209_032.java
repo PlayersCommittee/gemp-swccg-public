@@ -10,7 +10,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardAboardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -49,7 +49,7 @@ public class Card209_032 extends AbstractCombatVehicle {
         addModelType(ModelType.U_WING);
         addIcons(Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.ENCLOSED, Keyword.UWING, Keyword.BLUE_SQUADRON);
-        setPilotCapacity(2);
+        setPilotCapacity(1);
         setPassengerCapacity(2);
         addPersona(Persona.BLUE_11);
     }
@@ -83,7 +83,7 @@ public class Card209_032 extends AbstractCombatVehicle {
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.and(Filters.non_pilot_character, Filters.Rebel, Filters.abilityLessThan(5)), Filters.here(self), false, true));
+                    new DeployCardAboardFromReserveDeckEffect(action, Filters.and(Filters.non_pilot_character, Filters.Rebel, Filters.abilityLessThan(5)), Filters.sameCardId(self), false , true));
 
             return Collections.singletonList(action);
 
