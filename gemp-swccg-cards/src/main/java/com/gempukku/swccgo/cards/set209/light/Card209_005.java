@@ -65,7 +65,7 @@ public class Card209_005 extends AbstractRebel {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotDeployToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.spy), new PresentAtCondition(self, Filters.war_room), Filters.sameSite(self)));
-        modifiers.add(new EpicEventDestinyDrawModifier(self, playerId, Filters.notIgnoredDuringEpicEventCalculation, new PresentAtCondition(self, Filters.war_room),1));
+        modifiers.add(new EpicEventDestinyDrawModifier(self, playerId, null, new PresentAtCondition(self, Filters.war_room),1));
         return modifiers;
     }
 

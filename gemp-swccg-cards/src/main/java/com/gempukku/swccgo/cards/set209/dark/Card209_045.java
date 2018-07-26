@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.AbstractEpicEventPlayable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -19,6 +20,7 @@ import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
@@ -46,23 +48,13 @@ public class Card209_045 extends AbstractEpicEventDeployable {
     }
 
     //@Override
-    protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
-        RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        final int permCardId = self.getPermanentCardId();
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotBeTargetedByModifier(self, Filters.planet_system, Filters.Commence_Primary_Ignition), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.and(Filters.Commence_Primary_Ignition, Icon.VIRTUAL_SET_9), playerId), null));
-        return action;
-    }
-
-    //@Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        String playerId = self.getOwner();
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ResetHyperspeedModifier(self, Filters.Death_Star_system, 2));
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.planet_system, Filters.Superlaser));
+        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.planet_system, Filters.or(Filters.Superlaser, Filters.Commence_Primary_Ignition)));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.Commence_Primary_Ignition, Icon.VIRTUAL_SET_9), playerId));
         return modifiers;
     }
 
@@ -97,20 +89,23 @@ public class Card209_045 extends AbstractEpicEventDeployable {
 
                         final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Superlaser));
                         if (superlaser != null) {
-                            gameState.sendMessage("6");
+                            gameState.sendMessage("6"); // got here (?)
                             final PhysicalCard deathStar = superlaser.getAttachedTo();
+                            gameState.sendMessage("7");
                             final CommencePrimaryIgnitionState epicEventState = new CommencePrimaryIgnitionState(self);
-
+                            gameState.sendMessage("8");
                             final PlayEpicEventAction action = new PlayEpicEventAction(self);
+                            gameState.sendMessage("9");
                             // Choose target(s)
                             action.appendTargeting(
                                     new ChooseCardOnTableEffect(action, playerId, "Choose site to target", yourSiteEvenIfConverted) {
                                         @Override
                                         protected void cardSelected(final PhysicalCard selectedCard) {
+                                            gameState.sendMessage("10");
                                             action.addAnimationGroup(selectedCard);
                                             action.setText("Attempt to 'blow away' " + GameUtils.getFullName(selectedCard));
                                             action.setEpicEventState(epicEventState);
-
+                                            gameState.sendMessage("11");
                                             new PassthruEffect(action) {
                                                 @Override
                                                 protected void doPlayEffect(final SwccgGame game) {
