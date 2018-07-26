@@ -52,11 +52,11 @@ public class Card209_026 extends AbstractSite {
 
         // Shield Gate doesn't exist as of Set 9, this is future proofing.
         if (GameConditions.canSpot(game, self, Filters.Shield_Gate)) {
-            modifiers.add(new DockingBayTransitToCostModifier(self, 4, playerOnLightSideOfLocation));
+            modifiers.add(new DockingBayTransitFromCostModifier(self, 4, playerOnLightSideOfLocation));
             modifiers.add(new DockingBayTransitToCostModifier(self, 4, playerOnLightSideOfLocation));
         }
         else {
-            modifiers.add(new DockingBayTransitToCostModifier(self, 1, playerOnLightSideOfLocation));
+            modifiers.add(new DockingBayTransitFromCostModifier(self, 1, playerOnLightSideOfLocation));
             modifiers.add(new DockingBayTransitToCostModifier(self, 1, playerOnLightSideOfLocation));
         }
 

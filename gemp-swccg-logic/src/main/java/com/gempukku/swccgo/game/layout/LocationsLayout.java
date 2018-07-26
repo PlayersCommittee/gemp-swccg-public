@@ -111,6 +111,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             }
         }
         addToLayouts(new DefaultPlanetLayout(Title.Mustafar, 420));
+        addToLayouts(new DefaultPlanetLayout(Title.Scarif, 17));
     }
 
     /**
