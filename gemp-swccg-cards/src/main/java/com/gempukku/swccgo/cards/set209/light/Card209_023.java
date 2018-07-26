@@ -10,8 +10,8 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
@@ -47,9 +47,9 @@ public class Card209_023 extends AbstractSystem {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Condition unlessYourStarDestroyerHere = new UnlessCondition(new HereCondition(self, Filters.Star_Destroyer));
-        Condition unlessYourImperialAtReleatedLocation = new UnlessCondition(new AtCondition(self, Filters.Imperial, Filters.relatedLocation(self)));
-        modifiers.add(new ForceDrainModifier(self, new OrCondition(unlessYourStarDestroyerHere, unlessYourImperialAtReleatedLocation), -1, playerOnDarkSideOfLocation));
+        UnlessCondition unlessYourStarDestroyerHere = new UnlessCondition(new HereCondition(self, Filters.Star_Destroyer));
+        UnlessCondition unlessYourImperialAtRelatedLocation = new UnlessCondition(new AtCondition(self, Filters.Imperial, Filters.and(Filters.relatedLocation(self), Filters.anotherLocation(self))));
+        modifiers.add(new ForceDrainModifier(self, new AndCondition(unlessYourStarDestroyerHere, unlessYourImperialAtRelatedLocation), -1, playerOnDarkSideOfLocation));
         return modifiers;
     }
 }
