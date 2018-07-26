@@ -89,7 +89,7 @@ public class Card209_003 extends AbstractRepublic {
                                         protected void performActionResults(Action targetingAction) {
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new FireWeaponEffect(action, weapon, true, targetFilter));
+                                                    new FireWeaponEffect(action, weapon, false, targetFilter));
                                         }
                                     }
                             );
