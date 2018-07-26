@@ -1,31 +1,23 @@
 package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
-import com.gempukku.swccgo.cards.AbstractEpicEventPlayable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionState;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.*;
-import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,10 +68,12 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                 if (planetSystem.getBlueprint().getTitle().equals(Title.Jedha) || planetSystem.getBlueprint().getTitle().equals(Title.Scarif)) {
                     //check if there's a related battleground site owned by you (even if converted)
                     gameState.sendMessage("3");
-                    final Filter yourSiteEvenIfConverted = Filters.and(Filters.or(Filters.your(self), Filters.convertedLocationOnTopOfLocation(Filters.your(self))), Filters.relatedSite(planetSystem), Filters.unique, Filters.battleground_site);
+                    final Filter yourSiteEvenIfConverted = Filters.and(Filters.or(Filters.your(self), Filters.convertedLocationOnTopOfLocation(Filters.your(self))),
+                            Filters.relatedSite(planetSystem), Filters.unique, Filters.battleground_site);
                     //final PhysicalCard relatedSite = Filters.findFirstFromTopLocationsOnTable(game, yourSiteEvenIfConverted);
                     final PhysicalCard relatedSite = Filters.findFirstFromAllOnTable(game, yourSiteEvenIfConverted);
                     gameState.sendMessage("4");
+                    gameState.sendMessage(GameUtils.getFullName(relatedSite));
                     if (relatedSite != null) {
                         //there is a valid site, fire away
                         //final GameState gameState = game.getGameState();
@@ -89,13 +83,13 @@ public class Card209_045 extends AbstractEpicEventDeployable {
 
                         final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Superlaser));
                         if (superlaser != null) {
-                            gameState.sendMessage("6"); // got here (?)
+                            gameState.sendMessage("6");
                             final PhysicalCard deathStar = superlaser.getAttachedTo();
                             gameState.sendMessage("7");
                             final CommencePrimaryIgnitionState epicEventState = new CommencePrimaryIgnitionState(self);
                             gameState.sendMessage("8");
                             final PlayEpicEventAction action = new PlayEpicEventAction(self);
-                            gameState.sendMessage("9");
+                            gameState.sendMessage("9"); // got here
                             // Choose target(s)
                             action.appendTargeting(
                                     new ChooseCardOnTableEffect(action, playerId, "Choose site to target", yourSiteEvenIfConverted) {
