@@ -7,27 +7,27 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 
 /**
- * A modifier that cancels the power modifiers of pilots on target card
+ * A modifier that cancels the power modifiers of cards matching a filter on target card
  */
-public class MayNotHavePowerIncreasedByPilotsModifier extends AbstractModifier {
+public class MayNotHavePowerIncreasedByCardModifier extends AbstractModifier {
     private Filter _affectedFilter;
-    private Filter _pilotFilter;
+    private Filter _increasedByFilter;
 
     /**
      *
      * @param source the card that is the source of the modifier
-     * @param affectFilter filter for the cards that may not have their power modified by pilots
-     * @param pilotsFilter filter for pilots that may not modify affected cards' power
+     * @param affectFilter filter for the cards that may not have their power modified
+     * @param increasedByFilter filter for cards that may not modify affected cards' power
      */
-    public MayNotHavePowerIncreasedByPilotsModifier(PhysicalCard source, Filterable affectFilter, Filterable pilotsFilter) {
-        super(source, null, affectFilter, ModifierType.MAY_NOT_HAVE_POWER_INCREASED_BY_PILOTS);
+    public MayNotHavePowerIncreasedByCardModifier(PhysicalCard source, Filterable affectFilter, Filterable increasedByFilter) {
+        super(source, null, affectFilter, ModifierType.MAY_NOT_HAVE_POWER_INCREASED_BY_CARD);
         _affectedFilter = Filters.and(affectFilter);
-        _pilotFilter = Filters.and(pilotsFilter);
+        _increasedByFilter = Filters.and(increasedByFilter);
     }
 
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return "Power may not be increased by some pilots";
+        return "Power may not be increased by certain cards";
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MayNotHavePowerIncreasedByPilotsModifier extends AbstractModifier {
     }
 
     @Override
-    public Filter getPilotsRestrictedFromIncreasingPowerFilter() {
-        return _pilotFilter;
+    public Filter getCardsRestrictedFromIncreasingPowerFilter() {
+        return _increasedByFilter;
     }
 }

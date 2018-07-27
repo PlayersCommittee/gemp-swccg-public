@@ -258,20 +258,25 @@ public interface ModifiersQuerying {
     boolean isProhibitedFromHavingPowerReduced(GameState gameState, PhysicalCard card, String playerId, ModifierCollector modifierCollector);
 
     /**
+     * Determines if a card's power may not be increased by certain cards.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @return true if card's power may not be reduced, otherwise false
+     */
+    boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard);
+
+    /**
      * Determines if a card's power may not be increased by certain pilots.
      * @param gameState the game state
      * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @param modifierCollector collector of affecting modifiers
      * @return true if card's power may not be increased by pilots, otherwise false
      */
-    boolean isProhibitedFromHavingPowerIncreasedByPilots(GameState gameState, PhysicalCard card);
-
-    /**
-     * Gets the filter for pilots restricted from increasing the power of the given card.
-     * @param gameState
-     * @param card
-     * @return
-     */
-    Filter getPilotsRestrictedFromIncreasingPowerFilter(GameState gameState, PhysicalCard card);
+    boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard, ModifierCollector modifierCollector);
 
     /**
      * Determines if a character's politics used for that card's power.

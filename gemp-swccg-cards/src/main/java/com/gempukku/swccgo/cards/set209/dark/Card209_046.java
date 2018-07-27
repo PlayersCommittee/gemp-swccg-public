@@ -12,7 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotHavePowerIncreasedByPilotsModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHavePowerIncreasedByCardModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class Card209_046 extends AbstractLostInterrupt {
                                 new LoseCardFromTableEffect(action, targetedCard));
 
                         // Allow response(s)
-                        action.allowResponses("Lose " + GameUtils.getCardLink(targetedCard) + " piloting " + GameUtils.getCardLink(starDestroyer),
+                        action.allowResponses("Make " + GameUtils.getCardLink(starDestroyer) + " immune to attrition and draw two battle destiny if unable to otherwise",
                                 new RespondablePlayCardEffect(action) {
                                     @Override
                                     protected void performActionResults(Action targetingAction) {
@@ -79,7 +79,7 @@ public class Card209_046 extends AbstractLostInterrupt {
                                                         "Makes " + GameUtils.getCardLink(starDestroyer) + " immune to attrition"));
                                         action.appendEffect(
                                                 new AddUntilEndOfTurnModifierEffect(action,
-                                                        new MayNotHavePowerIncreasedByPilotsModifier(self, starDestroyer, Filters.and(Filters.Imperial, Filters.pilot, Filters.not(Filters.Vader))),
+                                                        new MayNotHavePowerIncreasedByCardModifier(self, starDestroyer, Filters.and(Filters.Imperial, Filters.pilot, Filters.not(Filters.Vader))),
                                                         "Prevents the power of " + GameUtils.getCardLink(starDestroyer) + " from being increased by Imperial pilots aboard (except Vader)"));
 
 

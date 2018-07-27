@@ -254,11 +254,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     /**
-     * Gets the filter for pilots restricted from increasing the power of the affected card.
+     * Gets the filter for cards restricted from increasing the power of the affected card.
      * @return the filter
      */
     @Override
-    public Filter getPilotsRestrictedFromIncreasingPowerFilter() {
+    public Filter getCardsRestrictedFromIncreasingPowerFilter() {
         return null;
     }
 
