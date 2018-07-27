@@ -50,7 +50,7 @@ public class Card209_046 extends AbstractLostInterrupt {
 
     private PlayInterruptAction generatePlayInterruptAction(final String playerId, final SwccgGame game, final PhysicalCard self, Filter filter) {
         final PlayInterruptAction action = new PlayInterruptAction(game, self);
-        action.setText("Lose an Imperial leader piloting your Star Destroyer");
+        action.setText("Lose Imperial leader piloting your Star Destroyer");
         // Choose target(s)
         action.appendTargeting(
                 new TargetCardOnTableEffect(action, playerId, "Choose Star Destroyer pilot", filter) {
