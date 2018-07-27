@@ -23,6 +23,16 @@ public class RetrieveCardIntoHandEffect extends RetrieveCardsIntoHandEffect {
     }
 
     /**
+     * Creates an effect that causes the specified player to retrieve topmost card of Lost Pile into hand.
+     * @param action the action performing this effect
+     * @param playerId the player to retrieve Force
+     * @param retrieveSpecificCards true if specific cards are searched for and retrieved, otherwise false
+     */
+    public RetrieveCardIntoHandEffect(Action action, String playerId, boolean retrieveSpecificCards) {
+        super(action, playerId, 1, retrieveSpecificCards);
+    }
+
+    /**
      * Creates an effect that causes the specified player to retrieve a card accepted by the card filter into hand.
      * @param action the action performing this effect
      * @param playerId the player to retrieve Force
