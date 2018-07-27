@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,11 +35,12 @@ public class Card209_052 extends AbstractStarfighter {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition FOPiloting = new HasPilotingCondition(self, Filters.and(Filters.First_Order_pilot, Filters.abilityLessThan(3)));
+        Condition FOOnBoard = new HasAboardCondition(self, Filters.and(Filters.First_Order_pilot, Filters.abilityLessThan(3)));
+        //Condition FOPiloting = new HasPilotingCondition(self, Filters.and(Filters.First_Order_pilot, Filters.abilityLessThan(3)));
         Condition AtOpponentsSystem = new AtCondition(self, Filters.and(Filters.opponents(self), Filters.system));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, FOPiloting, 3));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, FOOnBoard, 3));
 
         modifiers.add(new PowerModifier(self, AtOpponentsSystem, 1));
 
