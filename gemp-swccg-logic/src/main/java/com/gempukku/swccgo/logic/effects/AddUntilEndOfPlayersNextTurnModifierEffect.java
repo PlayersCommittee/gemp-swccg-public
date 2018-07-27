@@ -39,7 +39,7 @@ public class AddUntilEndOfPlayersNextTurnModifierEffect extends AddModifierWithD
     }
 
     @Override
-    public final void doPlayEffect(SwccgGame game) {
+    public void doPlayEffect(SwccgGame game) {
         sendMsg(game);
         game.getModifiersEnvironment().addUntilEndOfPlayersNextTurnModifier(_modifier, _playerId);
     }

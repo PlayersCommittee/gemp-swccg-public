@@ -52,10 +52,17 @@ public class ModifyPowerUntilEndOfTurnEffect extends AbstractSuccessfulEffect {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         String performingPlayerId = _action.getPerformingPlayer();
+        PhysicalCard actionSourceCard = _action.getActionSource();
 
         // Check if card's power may not be reduced
         if (_modifierAmount < 0 && modifiersQuerying.isProhibitedFromHavingPowerReduced(gameState, _cardToModify, performingPlayerId)) {
             gameState.sendMessage(GameUtils.getCardLink(_cardToModify) + "'s power is prevented from being reduced");
+            return;
+        }
+
+        // Check if card's power may not be increased
+        if (actionSourceCard != null &&_modifierAmount > 0 && modifiersQuerying.isProhibitedFromHavingPowerIncreasedByCard(gameState, _cardToModify, performingPlayerId, actionSourceCard)) {
+            gameState.sendMessage(GameUtils.getCardLink(_cardToModify) + "is prevented from having its power increased by " + GameUtils.getCardLink(actionSourceCard));
             return;
         }
 
