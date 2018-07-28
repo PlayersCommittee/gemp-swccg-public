@@ -16986,6 +16986,7 @@ public class Filters {
     public static final Filter character_with_a_weapon = Filters.and(CardCategory.CHARACTER, Filters.armedWith(Filters.category(CardCategory.WEAPON)));
     public static final Filter character_with_politics = Filters.and(CardCategory.CHARACTER, Filters.politicsMoreThan(0));
     public static final Filter character_without_politics = Filters.and(CardCategory.CHARACTER, Filters.politicsEqualTo(0));
+    public static final Filter character_with_permanent_character_weapon = Filters.and(Filters.character, Filters.hasPermanentWeapon());
     public static final Filter character_weapon_or_character_with_permanent_character_weapon = Filters.or(Filters.character_weapon(), Filters.and(Filters.character, Filters.hasPermanentWeapon()));
     public static final Filter Chewie = Filters.persona(Persona.CHEWIE);
     public static final Filter Chief_Bast = Filters.title(Title.Chief_Bast);

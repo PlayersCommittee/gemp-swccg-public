@@ -18,9 +18,15 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.effects.RearmCharacterEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToBeHitResult;
 
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,44 +36,29 @@ import java.util.List;
  * Type: Interrupt
  * Subtype: Used
  * Title: Lana Dobreed & Sacrifice
- *
- *
- *
- •Lana Dobreed & •Sacrifice [Sacrifice (V)] 4
- [Special Edition - F]
- INTERRUPT - USED
- Text:
-  - If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) to prevent its forfeit from being reduced for remainder of turn.
-DONE  - OR Cancel Disarmed. [Immune to Sense.]
-DONE  - OR Cancel a 'react.'
-DONE   - OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site.
-       Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.
- [Episode I] [Coruscant] [Set 9]
  */
 
 public class Card209_048 extends AbstractUsedInterrupt {
     public Card209_048() {
-        super(Side.DARK, 4, "Lana Dobreed & Sacrifice");
+        super(Side.DARK, 4, "Lana Dobreed & Sacrifice", Uniqueness.UNIQUE);
         addComboCardTitles(Title.Lana_Dobreed, Title.Sacrifice);
         setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) to prevent its forfeit from being reduced for remainder of turn. OR Cancel Disarmed. [Immune to Sense.] OR Cancel a 'react.' OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9);
     }
 
 
-
     // Cancel reacts (before they resolve) or Disarmed. (before it resolves)  This is distinct from canceling Disarmed
     //  while it is on-table.
+
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
-        final String opponent = game.getOpponent(playerId);
 
-        // In this section, we need:
+        // In this section, we:
         //    -   Cancel reacts before they resolve.
         //    -   Cancel Diarmed before it resolves.
 
         // Part 1: Cancel react (playable when opponent reacts)
-        // copied from Those Rebel Won't Escape Us combo
         if (TriggerConditions.isReact(game, effect)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Cancel 'react'");
@@ -81,41 +72,67 @@ public class Card209_048 extends AbstractUsedInterrupt {
                         }
                     }
             );
-            actions.add(action);
-            return actions;
+
+            return Collections.singletonList(action);
+
         }
 
-        // Cancel Disarmed as it's being played, before it resolves.
-        Filter disarmedFilter = Filters.Disarmed;
+        // Part 2: Cancel Disarmed as it's being played, before it resolves.
+        Filter disarmedFilter = Filters.title("Disarmed");
         if (TriggerConditions.isPlayingCard(game, effect, disarmedFilter)
-            && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
-            final PlayInterruptAction action2 = new PlayInterruptAction(game, self);
-            CancelCardActionBuilder.buildCancelCardAction(action2, disarmedFilter, "Disarmed");
-            actions.add(action2);
-            return actions;
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setImmuneTo(Title.Sense);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            return Collections.singletonList(action);
         }
 
         return null;
     }
 
-
-
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
-        Filter disarmedFilter = Filters.title("Disarmed");
+
+        final Filter charactersWhoAreDisarmed = Filters.Disarmed;
+
 
         // Part 2 of the disarmed canceler: Cancel Disarmed While it is already on table, as a top level action.
-        if (GameConditions.canTarget(game, self, disarmedFilter)) {
+        if (GameConditions.canTarget(game, self, charactersWhoAreDisarmed))
+        {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            CancelCardActionBuilder.buildCancelCardAction(action, disarmedFilter, "Disarmed");
+            action.setText("Cancel Disarmed On This Character");
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose Disarmed Character", charactersWhoAreDisarmed) {
+
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
+                            action.allowResponses("Restore " + GameUtils.getCardLink(targetedCard),
+                                    new RespondablePlayCardEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            //action.appendEffect(action.getPrimaryTargetCard(targetGroupId).setDisarmed(false));
+                                            action.appendEffect(new RearmCharacterEffect(action, targetedCard));
+
+                                        }
+                                    });
+                        }
+                    }
+            );
+            action.setImmuneTo(Title.Sense);
+
             actions.add(action);
         }
 
         // Move Phase Nabrun, copied from Lana Dobreed, (playable as a top level action during move phase)
         if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)) {
+            final Filter exteriorOrBGSites = Filters.or(Filters.exterior_site, Filters.battleground_site);
             Collection<PhysicalCard> fromSites = Filters.filterTopLocationsOnTable(game,
-                    Filters.and(Filters.exterior_site, Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.character, Filters.atLocation(Filters.any), Filters.canBeRelocatedToLocation(Filters.exterior_site, true, 0)))));
+                    //Filters.and(Filters.exterior_site, Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.character, Filters.atLocation(Filters.any), Filters.canBeRelocatedToLocation(Filters.exterior_site, true, 0)))));
+                    Filters.and(Filters.site, Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.character, Filters.atLocation(Filters.any), Filters.canBeRelocatedToLocation(exteriorOrBGSites, true, 0)))));
+
             if (!fromSites.isEmpty()) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
@@ -126,8 +143,8 @@ public class Card209_048 extends AbstractUsedInterrupt {
                             @Override
                             protected void cardSelected(final PhysicalCard fromSite) {
                                 final Collection<PhysicalCard> charactersToRelocate = Filters.filterActive(game, self,
-                                        Filters.and(Filters.your(self), Filters.character, Filters.atLocation(fromSite), Filters.canBeRelocatedToLocation(Filters.exterior_site, true, 0)));
-                                Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.exterior_site, Filters.not(fromSite)));
+                                        Filters.and(Filters.your(self), Filters.character, Filters.atLocation(fromSite), Filters.canBeRelocatedToLocation(exteriorOrBGSites, true, 0)));
+                                Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(exteriorOrBGSites, Filters.not(fromSite)));
                                 Collection<PhysicalCard> validSites = new LinkedList<PhysicalCard>();
                                 // Figure out which sites any of the cards can be relocated to
                                 for (PhysicalCard otherSite : otherSites) {
@@ -246,86 +263,142 @@ public class Card209_048 extends AbstractUsedInterrupt {
         return actions;
     }
 
-    protected List<PlayInterruptAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        final Filter targetFilter = Filters.and(Filters.character, Filters.your(self));
-        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
+        Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
+        PreventableCardEffect cardEffect = null;
+        PhysicalCard cardAboutToBeHit = null;
+        final PlayInterruptAction action = new PlayInterruptAction(game, self);
+        UseForceEffect forceCost = null;
+        TargetingReason targetingReason = TargetingReason.OTHER;
+        final GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
 
-        // This is only for getting hit by regular weapons, (CardType.WEAPON) so cost would be 1 force.
-        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, targetFilter, Filters.weapon))
-        {
 
-            // prevent forfeit from being reduced
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+        if (cardEffect != null && cardAboutToBeHit != null) {
+            final PreventableCardEffect preventableCardEffect = cardEffect;
 
-            action.setText("Prevent Forfeit From Being Reduced ");
-            action.appendCost(new UseForceEffect(action, playerId, 1));
+//            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setText("Prevent Forfeit From Being Reduced And Make Immune To Dr. Evazan");
 
-            // Choose target(s)
+
+
+            //if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.character, Filters.your(self)), Filters.character_with_permanent_character_weapon))
+            if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.character, Filters.or(Filters.your(self), Filters.or(Filters.character, Filters.character_with_permanent_character_weapon), Filters.weapon)))
+            {
+                final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
+                cardEffect = result.getPreventableCardEffect();
+                cardAboutToBeHit = result.getCardToBeHit();
+                forceCost = new UseForceEffect(action, playerId, 1);
+
+            }
+            else if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)){
+                final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
+                cardEffect = result.getPreventableCardEffect();
+                cardAboutToBeHit = result.getCardToBeHit();
+                forceCost = new UseForceEffect(action, playerId, 1);
+            }
+
+            action.appendCost(forceCost);
+
+
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose 'hit' character", targetFilter) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
                         @Override
-                        protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
-                            action.addAnimationGroup(cardTargeted);
-
+                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
                             // Allow response(s)
-                            action.allowResponses("Prevent forfeit from being reduced and make immune to Dr. Evazan",
+                            action.allowResponses("Prevent forfeit from being reduced and make immue to Dr. Evazan",
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
+                                            PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+
                                             // Perform result(s)
+                                            preventableCardEffect.preventEffectOnCard(finalTarget);
                                             action.appendEffect(
                                                     new AddUntilEndOfTurnModifierEffect(action,
-                                                            new MayNotHaveForfeitValueReducedModifier(self, targetFilter),
-                                                            "Prevent Forfeit From Being Reduced"));
-                                            // not needed, this is the DS version
-                                            // action.appendEffect(new ImmuneToUntilEndOfTurnEffect(action, self, Title.Dr_Evazan));
+                                                            new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
+                                                            "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
                                         }
-                                    });
-
-
+                                    }
+                            );
                         }
 
-                    });
-            actions.add(action);
-        }
-        else if (TriggerConditions.isAboutToBeHit(game, effectResult, targetFilter)) // presumably only perm. weapons, so cost is free
-        {
-
-            // prevent forfeit from being reduced
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-
-            action.setText("Prevent Forfeit From Being Reduced");
-            action.appendCost(new UseForceEffect(action, playerId, 0));
-
-            // Choose target(s)
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose 'hit' character", targetFilter) {
                         @Override
-                        protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
-                            action.addAnimationGroup(cardTargeted);
+                        protected boolean getUseShortcut() {
+                            return true;
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
 
+    protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
+        Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
+        PreventableCardEffect cardEffect = null;
+        PhysicalCard cardAboutToBeHit = null;
+        final PlayInterruptAction action = new PlayInterruptAction(game, self);
+        UseForceEffect forceCost = null;
+        TargetingReason targetingReason = TargetingReason.OTHER;
+        final GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+
+        //if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.character, Filters.your(self)), Filters.character_with_permanent_character_weapon))
+        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.character, Filters.or(Filters.your(self), Filters.or(Filters.character, Filters.character_with_permanent_character_weapon), Filters.weapon)))
+        {
+            final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
+            cardEffect = result.getPreventableCardEffect();
+            cardAboutToBeHit = result.getCardToBeHit();
+            forceCost = new UseForceEffect(action, playerId, 2);
+
+        }
+        else if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)){
+            final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
+            cardEffect = result.getPreventableCardEffect();
+            cardAboutToBeHit = result.getCardToBeHit();
+            forceCost = new UseForceEffect(action, playerId, 2);
+        }
+
+        if (cardEffect != null && cardAboutToBeHit != null) {
+            final PreventableCardEffect preventableCardEffect = cardEffect;
+
+//            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setText("Prevent Forfeit From Being Reduced And Make Immune To Dr. Evazan");
+            action.appendCost(forceCost);
+
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
                             // Allow response(s)
-                            action.allowResponses("Prevent forfeit from being reduced and make immune to Dr. Evazan",
+                            action.allowResponses("Prevent forfeit from being reduced and make immue to Dr. Evazan",
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
+                                            PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+
                                             // Perform result(s)
+                                            preventableCardEffect.preventEffectOnCard(finalTarget);
                                             action.appendEffect(
                                                     new AddUntilEndOfTurnModifierEffect(action,
-                                                            new MayNotHaveForfeitValueReducedModifier(self, targetFilter),
-                                                            "Prevent Forfeit From Being Reduced"));
-                                            // not needed, this is the DS version
-                                            // action.appendEffect(new ImmuneToUntilEndOfTurnEffect(action, self, Title.Dr_Evazan));
+                                                            new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
+                                                            "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
                                         }
-                                    });
-
-
+                                    }
+                            );
                         }
 
-                    });
-            actions.add(action);
+                        @Override
+                        protected boolean getUseShortcut() {
+                            return true;
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
         }
-        return actions;
+        return null;
     }
 }
