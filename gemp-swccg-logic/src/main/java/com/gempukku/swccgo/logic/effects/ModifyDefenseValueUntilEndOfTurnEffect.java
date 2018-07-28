@@ -9,6 +9,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -36,6 +37,14 @@ public class ModifyDefenseValueUntilEndOfTurnEffect extends AbstractSuccessfulEf
     @Override
     protected void doPlayEffect(SwccgGame game) {
         GameState gameState = game.getGameState();
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        String performingPlayerId = _action.getPerformingPlayer();
+
+        // Check if card's defense value may not be reduced
+        if (_modifierAmount < 0 && modifiersQuerying.isProhibitedFromHavingDefenseValueReduced(gameState, _cardToModify, performingPlayerId)) {
+            gameState.sendMessage(GameUtils.getCardLink(_cardToModify) + "'s defense value is prevented from being reduced");
+            return;
+        }
 
         ActionsEnvironment actionsEnvironment = game.getActionsEnvironment();
         ModifiersEnvironment modifiersEnvironment = game.getModifiersEnvironment();
