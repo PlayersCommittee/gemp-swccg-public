@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
@@ -84,7 +85,7 @@ public class Card209_036 extends AbstractImperial {
                 && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 2)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
-            action.setText("Peek at top cards of Force Pile");
+            action.setText("Peek at top two cards of Force Pile, take one into hand.");
             // Update usage limit(s)
             action.appendUsage(new OncePerTurnEffect(action));
             // Perform result(s)
@@ -94,7 +95,14 @@ public class Card209_036 extends AbstractImperial {
             return Collections.singletonList(action);
 
         }
-
+        else if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
+                && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 1)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
+            action.setText("Peek at top card of Force Pile");
+            action.appendUsage(new OncePerTurnEffect(action));
+            action.appendEffect(new PeekAtTopCardOfForcePileEffect(action, playerId));
+            return Collections.singletonList(action);
+        }
 
         return actions;
     }

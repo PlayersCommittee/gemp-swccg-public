@@ -17552,7 +17552,7 @@ public class Filters {
     public static final Filter Kitonak = Filters.species(Species.KITONAK);
     public static final Filter Klaatu = Filters.title(Title.Klaatu);
     public static final Filter Krayt_Dragon_Bones = Filters.title(Title.Krayt_Dragon_Bones);
-    public static final Filter Krennic = Filters.title(Title.Krennic);
+    public static final Filter Krennic = Filters.persona(Persona.KRENNIC);
     public static final Filter Kuat_Drive_Yards = Filters.title(Title.Kuat_Drive_Yards);
     public static final Filter Kuat_system = Filters.title(Title.Kuat);
     public static final Filter Kylo = Filters.persona(Persona.KYLO);
