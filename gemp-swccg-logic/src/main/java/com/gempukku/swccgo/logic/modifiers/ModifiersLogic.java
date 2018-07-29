@@ -1262,8 +1262,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             result *= modifier.getPowerMultiplierModifier(gameState, this, physicalCard);
             PhysicalCard sourceCard = modifier.getSource(gameState) != null ? modifier.getSource(gameState) : null;
             String playerId = sourceCard != null ? sourceCard.getOwner() : null;
-            if (!isProhibitedFromHavingPowerIncreasedByCard(gameState, physicalCard, playerId, sourceCard, modifierCollector)) {
-                float modifierAmount = modifier.getPowerModifier(gameState, this, physicalCard);
+            float modifierAmount = modifier.getPowerModifier(gameState, this, physicalCard);
+            if (modifierAmount <= 0 || !isProhibitedFromHavingPowerIncreasedByCard(gameState, physicalCard, playerId, sourceCard, modifierCollector)) {
                 if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, playerId, modifierCollector)) {
                     result += modifierAmount;
                     modifierCollector.addModifier(modifier);
