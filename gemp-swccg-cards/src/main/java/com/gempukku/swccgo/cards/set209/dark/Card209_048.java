@@ -281,7 +281,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
         }
 
         if (cardEffect != null && cardAboutToBeHit != null) {
-            action.setText("Prevent Forfeit From Being Reduced And Make Immune To Dr. Evazan");
+            action.setText("Prevent Forfeit From Being Reduced");
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
                         @Override
@@ -320,6 +320,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
                         }
                     }
             );
+            action.setImmuneTo(Title.Sense);
             return Collections.singletonList(action);
         }
         return null;

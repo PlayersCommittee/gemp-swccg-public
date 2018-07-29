@@ -304,7 +304,7 @@ public class Card209_021 extends AbstractUsedInterrupt {
                             }
 
                             // Allow response(s)
-                            action.allowResponses("Prevent forfeit from being reduced and make immue to Dr. Evazan",
+                            action.allowResponses("Prevent forfeit from being reduced and make immune to Dr. Evazan",
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
@@ -327,6 +327,7 @@ public class Card209_021 extends AbstractUsedInterrupt {
                         }
                     }
             );
+            action.setImmuneTo(Title.Sense);
             return Collections.singletonList(action);
         }
         return null;
