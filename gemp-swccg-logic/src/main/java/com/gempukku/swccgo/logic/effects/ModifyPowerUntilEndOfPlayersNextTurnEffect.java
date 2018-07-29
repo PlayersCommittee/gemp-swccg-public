@@ -35,6 +35,12 @@ public class ModifyPowerUntilEndOfPlayersNextTurnEffect extends AddUntilEndOfPla
         PhysicalCard cardToModify = _modifier.getSource(gameState);
         float modifierAmount = _modifier.getPowerModifier(gameState, modifiersQuerying, cardToModify);
 
+        // Check if card's power may not be reduced
+        if (modifierAmount < 0 && modifiersQuerying.isProhibitedFromHavingPowerReduced(gameState, cardToModify, performingPlayerId)) {
+            gameState.sendMessage(GameUtils.getCardLink(cardToModify) + "'s power is prevented from being reduced");
+            return;
+        }
+
         // Check if card's power may not be increased
         if (actionSourceCard != null && modifierAmount > 0 && modifiersQuerying.isProhibitedFromHavingPowerIncreasedByCard(gameState, cardToModify, performingPlayerId, actionSourceCard)) {
             gameState.sendMessage(GameUtils.getCardLink(cardToModify) + "is prevented from having its power increased by " + GameUtils.getCardLink(actionSourceCard));
