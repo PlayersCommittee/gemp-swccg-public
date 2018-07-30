@@ -3932,7 +3932,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
-     * Determines if the specified player is prohibited from Force draining at the specified location.
+     * Determines if the specified player is prohibited from Force draining at the specified location
      * @param gameState the game state
      * @param location the location
      * @param playerId the player
@@ -3946,8 +3946,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_FORCE_DRAIN_AT_LOCATION, location)) {
-            if (modifier.isForPlayer(playerId))
-                return true;
+            boolean ignoresRestrictions = ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(gameState, null, location, null, false, modifier.getSource(gameState));
+            if (modifier.isForPlayer(playerId)) {
+                if (ignoresRestrictions) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -12276,6 +12283,31 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                     if (modifier.isAffectedTarget(gameState, this, location)) {
                         return true;
                     }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if the specified card ignores objective restrictions when force draining at the specified target.
+     * @param gameState the game state
+     * @param card the card
+     * @param target the target card
+     * @param deploymentRestrictionsOption specifies which deployment restrictions are to be ignored, or null
+     * @param skipForceIconsOrPresenceCheck the skip checking sufficent Force icons or presence
+     * @param sourceCard the source of the modifier
+     * @return true if card ignores objective restrictions when force draining at target
+     */
+    @Override
+    public boolean ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(GameState gameState, PhysicalCard card, PhysicalCard target, DeploymentRestrictionsOption deploymentRestrictionsOption, boolean skipForceIconsOrPresenceCheck, PhysicalCard sourceCard) {
+        PhysicalCard location = getLocationHere(gameState, target);
+
+        if (location != null && sourceCard.getBlueprint().isCardType(CardType.OBJECTIVE)) {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IGNORES_OBJECTIVE_RESTRICTIONS_WHEN_FORCE_DRAINING_AT_LOCATION, card)) {
+                if (modifier.isAffectedTarget(gameState, this, location)) {
+                    return true;
                 }
             }
         }

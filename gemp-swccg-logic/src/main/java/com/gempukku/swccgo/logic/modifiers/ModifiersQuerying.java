@@ -2530,6 +2530,18 @@ public interface ModifiersQuerying {
     boolean ignoresLocationDeploymentRestrictions(GameState gameState, PhysicalCard card, PhysicalCard target, DeploymentRestrictionsOption deploymentRestrictionsOption, boolean skipForceIconsOrPresenceCheck);
 
     /**
+     * Determines if the specified card ignores objective restrictions when force draining at the specified target, from the specified source card.
+     * @param gameState the game state
+     * @param card the card
+     * @param target the target card
+     * @param deploymentRestrictionsOption specifies which deployment restrictions are to be ignored, or null
+     * @param skipForceIconsOrPresenceCheck the skip checking sufficent Force icons or presence
+     * @param sourceCard the source of the modifier
+     * @return true if card ignores objective restrictions when force draining at target
+     */
+    boolean ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(GameState gameState, PhysicalCard card, PhysicalCard target, DeploymentRestrictionsOption deploymentRestrictionsOption, boolean skipForceIconsOrPresenceCheck, PhysicalCard sourceCard);
+
+    /**
      * Determines if the specified card ignores location deployment restrictions from the source card.
      * @param gameState the game state
      * @param cardToDeploy the card to deploy
