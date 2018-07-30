@@ -279,6 +279,7 @@ public interface Title {
     String Echo_Base_Operations = "Echo Base Operations";
     String Echo_Docking_Bay = "Hoth: Echo Docking Bay";
     String Echo_Med_Lab = "Hoth: Echo Med Lab";
+    String Effective_Repairs = "Effective Repairs";
     String Eject_Eject = "Eject! Eject!";
     String Egregious_Pilot_Error = "Egregious Pilot Error";
     String Elis_Helrot = "Elis Helrot";
@@ -789,6 +790,7 @@ public interface Title {
     String Sense = "Sense";
     String Set_For_Stun = "Set For Stun";
     String Set_Your_Course_For_Alderaan = "Set Your Course For Alderaan";
+    String Starship_Levitation = "Starship Levitation";
     String Sewer = "Xizor's Palace: Sewer";
     String S_foils = "S-foils";
     String SFS_Lx93_Laser_Cannons = "SFS L-s9.3 Laser Cannons";

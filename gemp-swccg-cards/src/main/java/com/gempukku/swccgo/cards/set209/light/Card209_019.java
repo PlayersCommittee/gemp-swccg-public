@@ -2,9 +2,6 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -12,16 +9,13 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.StackedCardResult;
 import com.gempukku.swccgo.logic.timing.results.StackedFromCardPileResult;
 import com.gempukku.swccgo.logic.timing.results.StackedFromHandResult;
 import com.gempukku.swccgo.logic.timing.results.StackedFromTableResult;
@@ -38,7 +32,7 @@ import java.util.List;
 public class Card209_019 extends AbstractUsedOrLostInterrupt {
     public Card209_019() {
         super(Side.LIGHT, 4, "Effective Repairs & Starship Levitation", Uniqueness.UNIQUE);
-        setVirtualSuffix(false);
+        addComboCardTitles(Title.Effective_Repairs, Title.Starship_Levitation);
         setLore("");
         setGameText("USED: Cancel Broken Concentration, Lateral Damage, or Limited Resources. OR Place a card just stacked on Droid Racks or Strategic Reserves in opponent's Lost Pile. (Immune to Sense) OR If you just drew a starship for destiny, take that starship into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve an Effect of any kind or a non-[Maintenance] starship into hand.");
         addIcons(Icon.VIRTUAL_SET_9);
@@ -72,7 +66,7 @@ public class Card209_019 extends AbstractUsedOrLostInterrupt {
         // Check condition(s)
         GameTextActionId gameTextActionId = GameTextActionId.EFFECTIVE_REPAIRS_AND_STARSHIP_LEVITATION__RETRIEVE_NON_MAINTENANCE_STARSHIP;
         if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 3)
-                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canTakeCardsIntoHandFromLostPile(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
             action.setText("Retrieve Effect or non-[M] starship");
@@ -130,45 +124,29 @@ public class Card209_019 extends AbstractUsedOrLostInterrupt {
 
 
 
-
         // Check conditions(s) - Place a card just stacked on Droid Racks or Strategic Reserves in opponent's Lost Pile.
         GameTextActionId gameTextActionId = GameTextActionId.EFFECTIVE_REPAIRS_AND_STARSHIP_LEVITATION__PLACE_JUST_STACKED_CARD_IN_LOST_PILE;
         if (TriggerConditions.justStackedCardOn(game, effectResult, Filters.any, Filters.or(Filters.Strategic_Reserves, Filters.Droid_Racks))) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Place just stacked card in lost pile");
+            action.setImmuneTo(Title.Sense);
 
-            // Figure out what the card was which was just stacked
-            // Could have came from table/lost pile (Droid Racks) or from hand (Strategic Reserves)
-            PhysicalCard cardStacked = null;
-            if (effectResult.getType() == EffectResult.Type.STACKED_FROM_HAND) {
-                StackedFromHandResult stackedFromHandResult = (StackedFromHandResult) effectResult;
-                cardStacked = stackedFromHandResult.getCard();
-            } else if (effectResult.getType() == EffectResult.Type.STACKED_FROM_CARD_PILE) {
-                StackedFromCardPileResult stackedFromCardPileResult = (StackedFromCardPileResult) effectResult;
-                cardStacked = stackedFromCardPileResult.getCard();
-            } else if (effectResult.getType() == EffectResult.Type.STACKED_FROM_TABLE) {
-                StackedFromTableResult stackedFromTableResult = (StackedFromTableResult) effectResult;
-                cardStacked = stackedFromTableResult.getCard();
-            } else {
-                // Should not be possible. Stacked cards must have came from one of those places!
-            }
-
-            // Final so the callbacks can access it correctly
-            final PhysicalCard stackedCard = cardStacked;
+            StackedCardResult stackedCardResult = (StackedCardResult)effectResult;
+            final PhysicalCard stackedCard = stackedCardResult.getCard();
 
             // Allow response(s)
-                action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
+            action.allowResponses(
+                new RespondablePlayCardEffect(action) {
+                    @Override
+                    protected void performActionResults(Action targetingAction) {
 
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new PutStackedCardInLostPileEffect(action, playerId, stackedCard, false));
+                        // Perform result(s)
+                        action.appendEffect(
+                                new PutStackedCardInLostPileEffect(action, playerId, stackedCard, false));
 
-                        }
                     }
+                }
             );
             actions.add(action);
         }

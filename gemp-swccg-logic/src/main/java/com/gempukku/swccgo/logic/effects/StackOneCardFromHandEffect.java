@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
 import com.gempukku.swccgo.common.Zone;
-import com.gempukku.swccgo.game.ActionsEnvironment;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
