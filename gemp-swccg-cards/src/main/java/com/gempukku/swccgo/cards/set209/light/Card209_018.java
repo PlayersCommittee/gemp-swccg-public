@@ -19,10 +19,7 @@ import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Set: Set 9
@@ -121,7 +118,7 @@ public class Card209_018 extends AbstractNormalEffect {
                 // Perform result(s)
                 action.appendEffect(
                         new LoseForceEffect(action, opponent, NUM_FORCE));
-                actions.add(action);
+                return Collections.singletonList(action);
             }
         }
         return null;
