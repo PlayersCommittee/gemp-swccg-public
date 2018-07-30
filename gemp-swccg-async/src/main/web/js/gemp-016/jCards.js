@@ -3448,12 +3448,8 @@ var Card = Class.extend({
                     (cardNo >= 52 && cardNo <= 56);
         }
         if (setNo == 209) {
-<<<<<<< HEAD
             return (cardNo >= 24 && cardNo <= 28) ||
                     (cardNo >= 49 && cardNo <= 51);
-=======
-            return ([24, 25, 51].includes(cardNo));
->>>>>>> Implement Scarif: Beach
         }
         if (setNo == 501) {
             return (cardNo == 9);
