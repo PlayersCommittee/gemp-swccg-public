@@ -2,20 +2,25 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +45,8 @@ public class Card209_018 extends AbstractNormalEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         Filter yourSpyFilter = Filters.and(Filters.your(self), Filters.spy, Filters.presentWith(self), Filters.not(Filters.hasAttached(Filters.Stardust)));
 
@@ -71,12 +78,61 @@ public class Card209_018 extends AbstractNormalEffect {
                         }
                     }
             );
-            return Collections.singletonList(action);
+            actions.add(action);
+        }
+
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        // Check condition(s)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
+            int NUM_FORCE = 2;
+            if (damageConditionsSatisfied(game, self, playerId)) {
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Make opponent lose " + NUM_FORCE + " Force");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerPhaseEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new LoseForceEffect(action, game.getOpponent(playerId), NUM_FORCE));
+                actions.add(action);
+            }
+        }
+
+        return actions;
+    }
+
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
+
+        String playerId = self.getOwner();
+        String opponent = game.getOpponent(playerId);
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        // Check if reached end of each control phase and action was not performed yet.
+        if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
+            int NUM_FORCE = 2;
+            if (damageConditionsSatisfied(game, self, playerId)) {
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setPerformingPlayer(playerId);
+                action.setText("Make opponent lose " + NUM_FORCE + " Force");
+                // Perform result(s)
+                action.appendEffect(
+                        new LoseForceEffect(action, opponent, NUM_FORCE));
+                actions.add(action);
+            }
         }
         return null;
     }
 
-    // jcTODO: 2) Control phase force loss (copy from Tat Occ?)
+    private boolean damageConditionsSatisfied(SwccgGame game, PhysicalCard self, String playerId) {
+        Filter yourSpyThatHasStardust = Filters.and(Filters.your(playerId), Filters.spy, Filters.hasAttached(Filters.Stardust));
+        boolean occupiesBattlegroundWithStardust = Filters.canSpot(game, self, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.Stardust)));
+        return (Filters.canSpot(game, self, SpotOverride.INCLUDE_UNDERCOVER, yourSpyThatHasStardust) && occupiesBattlegroundWithStardust);
+    }
+
     // jcTODO: 3) Relocate to DataVault as getGameTextRequiredAfterTriggers
 
 }
