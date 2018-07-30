@@ -18,8 +18,13 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Set: Set 9
@@ -99,7 +104,7 @@ public class Card209_018 extends AbstractNormalEffect {
         return actions;
     }
 
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
         String playerId = self.getOwner();
@@ -118,10 +123,42 @@ public class Card209_018 extends AbstractNormalEffect {
                 // Perform result(s)
                 action.appendEffect(
                         new LoseForceEffect(action, opponent, NUM_FORCE));
-                return Collections.singletonList(action);
+                actions.add(action);
             }
         }
-        return null;
+
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        // Check condition(s)
+        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
+            PhysicalCard dataVault = Filters.findFirstFromTopLocationsOnTable(game, Filters.DataVault);
+            if (dataVault != null) {
+                final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Relocate to Data Vault");
+                action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(dataVault));
+                action.addAnimationGroup(dataVault);
+                // Perform result(s)
+                // Per the rules team, this should not relocate in an all cards situation (e.g. Overwhelmed)
+                //   This needs fixed to adhere to that.
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                result.getPreventableCardEffect().preventEffectOnCard(self);
+                                for (PhysicalCard attachedCards : game.getGameState().getAllAttachedRecursively(self)) {
+                                    result.getPreventableCardEffect().preventEffectOnCard(attachedCards);
+                                }
+                            }
+                        });
+                action.appendEffect(
+                        new AttachCardFromTableEffect(action, self, dataVault));
+                actions.add(action);
+            }
+        }
+
+        return actions;
     }
 
     private boolean damageConditionsSatisfied(SwccgGame game, PhysicalCard self, String playerId) {
@@ -129,7 +166,4 @@ public class Card209_018 extends AbstractNormalEffect {
         boolean occupiesBattlegroundWithStardust = Filters.canSpot(game, self, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.Stardust)));
         return (Filters.canSpot(game, self, SpotOverride.INCLUDE_UNDERCOVER, yourSpyThatHasStardust) && occupiesBattlegroundWithStardust);
     }
-
-    // jcTODO: 3) Relocate to DataVault as getGameTextRequiredAfterTriggers
-
 }
