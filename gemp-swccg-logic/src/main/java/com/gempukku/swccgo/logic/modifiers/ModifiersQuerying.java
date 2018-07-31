@@ -287,6 +287,25 @@ public interface ModifiersQuerying {
      */
     boolean isPoliticsUsedForPower(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
+    /**
+     * Determines if a card's defense value may not be reduced by the specified player.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @return true if card's defense value may not be reduced, otherwise false
+     */
+    boolean isProhibitedFromHavingDefenseValueReduced(GameState gameState, PhysicalCard card, String playerId);
+
+    /**
+     * Determines if a card's defense value may not be reduced by the specified player.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's defense value may not be reduced, otherwise false
+     */
+    boolean isProhibitedFromHavingDefenseValueReduced(GameState gameState, PhysicalCard card, String playerId, ModifierCollector modifierCollector);
+
     float getAbility(GameState gameState, PhysicalCard physicalCard);
 
     float getAbility(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector);
