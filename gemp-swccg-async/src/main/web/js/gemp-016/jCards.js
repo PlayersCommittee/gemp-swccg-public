@@ -3236,7 +3236,7 @@ var Card = Class.extend({
         this.collapsed = false;
         if (collapsed !== undefined) {
             this.collapsed = collapsed;
-        }    
+        }
         this.attachedCards = new Array();
         if (imageBlueprint == "rules") {
             this.imageUrl = "/gemp-swccg/images/rules.png";
@@ -3498,14 +3498,17 @@ var Card = Class.extend({
         if (this.endsWith(blueprintId, "_BACK")) {
             return blueprintId.substring(0, blueprintId.length - 5);
         }
-        var backSideUrl = this.getUrlByBlueprintId(blueprintId.concat("_BACK"))
+        var backSideUrl = this.getUrlByBlueprintId(blueprintId.concat("_BACK"));
         if (backSideUrl != null) {
             return blueprintId.concat("_BACK");
         }
-        if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/"))
-            return "-1_2";
-        else
-            return "-1_1";
+        var genericBackUrl = this.getUrlByBlueprintId(blueprintId);
+        if (genericBackUrl != null) {
+            if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/"))
+                    return "-1_2";
+                else
+                    return "-1_1";
+        }
     },
 
     getBackSideUrlByBlueprintId:function (blueprintId) {

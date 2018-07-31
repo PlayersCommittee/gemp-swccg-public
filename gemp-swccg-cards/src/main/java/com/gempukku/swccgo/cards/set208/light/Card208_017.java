@@ -15,10 +15,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardsInUsedPileEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.results.ForceDrainInitiatedResult;
@@ -60,7 +57,7 @@ public class Card208_017 extends AbstractEpicEventDeployable {
             action.setText("Draw destiny");
             // Perform result(s)
             action.appendEffect(
-                    new DrawDestinyEffect(action, playerId) {
+                    new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_DESTINY) {
                         @Override
                         protected List<Modifier> getDrawDestinyModifiers(SwccgGame game, DrawDestinyState drawDestinyState) {
                             Modifier modifier = new TotalDestinyModifier(self, drawDestinyState.getId(), new PresentEvaluator(self, system, Filters.and(Filters.snub_fighter, Filters.unique, Filters.piloted)));
@@ -69,6 +66,7 @@ public class Card208_017 extends AbstractEpicEventDeployable {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             GameState gameState = game.getGameState();
+                            //final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
                             if (totalDestiny == null) {
                                 gameState.sendMessage("Result: Failed due to failed destiny draw");
                                 return;
