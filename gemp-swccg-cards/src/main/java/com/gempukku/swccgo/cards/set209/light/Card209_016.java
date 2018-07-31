@@ -59,7 +59,7 @@ public class Card209_016 extends AbstractNormalEffect {
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)
                 && GameConditions.hasHand(game, playerId)
-                && GameConditions.hasReserveDeck(game, playerId)
+                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)
                 && GameConditions.hasInHand(game, playerId, Filters.and(Filters.Resistance_character, Filters.canBeTargetedBy(self)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
