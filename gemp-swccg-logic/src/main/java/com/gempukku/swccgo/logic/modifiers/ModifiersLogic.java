@@ -1260,10 +1260,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.POWER, physicalCard)) {
             result *= modifier.getPowerMultiplierModifier(gameState, this, physicalCard);
+            PhysicalCard sourceCard = modifier.getSource(gameState) != null ? modifier.getSource(gameState) : null;
+            String playerId = sourceCard != null ? sourceCard.getOwner() : null;
             float modifierAmount = modifier.getPowerModifier(gameState, this, physicalCard);
-            if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null, modifierCollector)) {
-                result += modifierAmount;
-                modifierCollector.addModifier(modifier);
+            if (modifierAmount <= 0 || !isProhibitedFromHavingPowerIncreasedByCard(gameState, physicalCard, playerId, sourceCard, modifierCollector)) {
+                if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, playerId, modifierCollector)) {
+                    result += modifierAmount;
+                    modifierCollector.addModifier(modifier);
+                }
             }
         }
 
@@ -1342,6 +1346,43 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             if (modifier.isForPlayer(playerId)) {
                 retVal = true;
                 modifierCollector.addModifier(modifier);
+            }
+        }
+        return retVal;
+    }
+
+    /**
+     * Determines if a card's power may not be increased by certain cards.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @return true if card's power may not be reduced, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard) {
+        return isProhibitedFromHavingPowerIncreasedByCard(gameState, card, playerId, increasedByCard, new ModifierCollectorImpl());
+    }
+
+    /**
+     * Determines if a card's power may not be increased by certain cards.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's power may not be increased by certain cards, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_POWER_INCREASED_BY_CARD, card)) {
+            if (modifier.isForPlayer(playerId)) {
+                Filter restrictedCardsFilter = modifier.getCardsRestrictedFromIncreasingPowerFilter();
+                if (restrictedCardsFilter.accepts(gameState, this, increasedByCard)) {
+                    retVal = true;
+                    modifierCollector.addModifier(modifier);
+                }
             }
         }
         return retVal;

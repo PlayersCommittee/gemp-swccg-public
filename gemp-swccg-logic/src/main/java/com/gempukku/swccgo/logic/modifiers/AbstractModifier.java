@@ -254,6 +254,15 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     /**
+     * Gets the filter for cards restricted from increasing the power of the affected card.
+     * @return the filter
+     */
+    @Override
+    public Filter getCardsRestrictedFromIncreasingPowerFilter() {
+        return null;
+    }
+
+    /**
      * Determines if this modifier is in effect for the affected card when this specified card is the target.
      * @param gameState the game state
      * @param modifiersQuerying the modifiers querying
