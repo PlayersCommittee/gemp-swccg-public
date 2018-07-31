@@ -1260,10 +1260,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.POWER, physicalCard)) {
             result *= modifier.getPowerMultiplierModifier(gameState, this, physicalCard);
+            PhysicalCard sourceCard = modifier.getSource(gameState) != null ? modifier.getSource(gameState) : null;
+            String playerId = sourceCard != null ? sourceCard.getOwner() : null;
             float modifierAmount = modifier.getPowerModifier(gameState, this, physicalCard);
-            if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null, modifierCollector)) {
-                result += modifierAmount;
-                modifierCollector.addModifier(modifier);
+            if (modifierAmount <= 0 || !isProhibitedFromHavingPowerIncreasedByCard(gameState, physicalCard, playerId, sourceCard, modifierCollector)) {
+                if (modifierAmount >= 0 || !isProhibitedFromHavingPowerReduced(gameState, physicalCard, playerId, modifierCollector)) {
+                    result += modifierAmount;
+                    modifierCollector.addModifier(modifier);
+                }
             }
         }
 
@@ -1342,6 +1346,43 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             if (modifier.isForPlayer(playerId)) {
                 retVal = true;
                 modifierCollector.addModifier(modifier);
+            }
+        }
+        return retVal;
+    }
+
+    /**
+     * Determines if a card's power may not be increased by certain cards.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @return true if card's power may not be reduced, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard) {
+        return isProhibitedFromHavingPowerIncreasedByCard(gameState, card, playerId, increasedByCard, new ModifierCollectorImpl());
+    }
+
+    /**
+     * Determines if a card's power may not be increased by certain cards.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's power may not be increased by certain cards, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_POWER_INCREASED_BY_CARD, card)) {
+            if (modifier.isForPlayer(playerId)) {
+                Filter restrictedCardsFilter = modifier.getCardsRestrictedFromIncreasingPowerFilter();
+                if (restrictedCardsFilter.accepts(gameState, this, increasedByCard)) {
+                    retVal = true;
+                    modifierCollector.addModifier(modifier);
+                }
             }
         }
         return retVal;
@@ -2545,7 +2586,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         // Determine value to use for defense value
         if (physicalCard.isDejarikHologramAtHolosite()
                 || (physicalCard.getBlueprint().getCardCategory()==CardCategory.CHARACTER
-                        && !physicalCard.getBlueprint().hasIcon(Icon.DROID))) {
+                && !physicalCard.getBlueprint().hasIcon(Icon.DROID))) {
             result = Math.max(result, getAbility(gameState, physicalCard));
         }
         else {
@@ -2564,8 +2605,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         // Check if defense value is modified
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DEFENSE_VALUE, physicalCard)) {
-            result +=  modifier.getDefenseValueModifier(gameState, this, physicalCard);
-            modifierCollector.addModifier(modifier);
+            float modifierAmount = modifier.getDefenseValueModifier(gameState, this, physicalCard);
+            if (modifierAmount >= 0 || !isProhibitedFromHavingDefenseValueReduced(gameState, physicalCard, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null, modifierCollector)) {
+                result += modifierAmount;
+                modifierCollector.addModifier(modifier);
+            }
         }
 
         // Check if defense value may not be reduced below a specified value
@@ -2581,8 +2625,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         Float lowestResetValue = null;
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.UNMODIFIABLE_DEFENSE_VALUE, physicalCard)) {
             float modifierAmount = modifier.getValue(gameState, this, physicalCard);
-            lowestResetValue = (lowestResetValue != null) ? Math.min(lowestResetValue, modifierAmount) : modifierAmount;
-            modifierCollector.addModifier(modifier);
+            if (modifierAmount >= result || !isProhibitedFromHavingDefenseValueReduced(gameState, physicalCard, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null, modifierCollector)) {
+                lowestResetValue = (lowestResetValue != null) ? Math.min(lowestResetValue, modifierAmount) : modifierAmount;
+                modifierCollector.addModifier(modifier);
+            }
         }
         if (lowestResetValue != null) {
             result = lowestResetValue;
@@ -2598,7 +2644,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         SwccgCardBlueprint blueprint = physicalCard.getBlueprint();
         if (physicalCard.isDejarikHologramAtHolosite()
                 || (blueprint.getCardCategory()==CardCategory.CHARACTER
-                        && !blueprint.hasIcon(Icon.DROID))) {
+                && !blueprint.hasIcon(Icon.DROID))) {
             result = Statistic.ABILITY;
             highestValue = getAbility(gameState, physicalCard, false);
         }
@@ -2623,6 +2669,38 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         return result;
+    }
+
+    /**
+     * Determines if a card's defense value may not be reduced by the specified player.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @return true if card's defense value may not be reduced, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingDefenseValueReduced(GameState gameState, PhysicalCard card, String playerId) {
+        return isProhibitedFromHavingDefenseValueReduced(gameState, card, playerId, new ModifierCollectorImpl());
+    }
+
+    /**
+     * Determines if a card's defense value may not be reduced by the specified player.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's defense value may not be reduced, otherwise false
+     */
+    @Override
+    public boolean isProhibitedFromHavingDefenseValueReduced(GameState gameState, PhysicalCard card, String playerId, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_DEFENSE_VALUE_REDUCED, card)) {
+            if (modifier.isForPlayer(playerId)) {
+                retVal = true;
+                modifierCollector.addModifier(modifier);
+            }
+        }
+        return retVal;
     }
 
     /**
@@ -5892,9 +5970,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public boolean canPerformSpecialBattlegroundDownload(GameState gameState, String playerId) {
-       if (!gameState.getGame().getFormat().hasDownloadBattlegroundRule())
-           return false;
-       return _specialDownloadBattlegroundMap.get(playerId)==null;
+        if (!gameState.getGame().getFormat().hasDownloadBattlegroundRule())
+            return false;
+        return _specialDownloadBattlegroundMap.get(playerId)==null;
     }
 
     @Override
@@ -12901,7 +12979,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public boolean isAlone(GameState gameState, PhysicalCard physicalCard) {
-         return isCharacterAlone(gameState, physicalCard) || isStarshipOrVehicleAlone(gameState, physicalCard);
+        return isCharacterAlone(gameState, physicalCard) || isStarshipOrVehicleAlone(gameState, physicalCard);
     }
 
     @Override
@@ -14512,7 +14590,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 if (liveModifier.getModifierType() == modifierType
                         && liveModifier.getSource(gameState) != null
                         && (liveModifier.isFromPermanentPilot() == modifier.isFromPermanentPilot()
-                                && liveModifier.isFromPermanentAstromech() == modifier.isFromPermanentAstromech())
+                        && liveModifier.isFromPermanentAstromech() == modifier.isFromPermanentAstromech())
                         && liveModifier.getSource(gameState).getTitle().equals(cardTitle)
                         && (modifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
                         || liveModifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE

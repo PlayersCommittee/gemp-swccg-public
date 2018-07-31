@@ -258,6 +258,27 @@ public interface ModifiersQuerying {
     boolean isProhibitedFromHavingPowerReduced(GameState gameState, PhysicalCard card, String playerId, ModifierCollector modifierCollector);
 
     /**
+     * Determines if a card's power may not be increased by certain cards.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @return true if card's power may not be reduced, otherwise false
+     */
+    boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard);
+
+    /**
+     * Determines if a card's power may not be increased by certain pilots.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param increasedByCard the card to check if its ability to increase power is being restricted
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's power may not be increased by pilots, otherwise false
+     */
+    boolean isProhibitedFromHavingPowerIncreasedByCard(GameState gameState, PhysicalCard card, String playerId, PhysicalCard increasedByCard, ModifierCollector modifierCollector);
+
+    /**
      * Determines if a character's politics used for that card's power.
      * @param gameState the game state
      * @param card a card
@@ -265,6 +286,25 @@ public interface ModifiersQuerying {
      * @return true if character's politics is used for power, otherwise false
      */
     boolean isPoliticsUsedForPower(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+
+    /**
+     * Determines if a card's defense value may not be reduced by the specified player.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @return true if card's defense value may not be reduced, otherwise false
+     */
+    boolean isProhibitedFromHavingDefenseValueReduced(GameState gameState, PhysicalCard card, String playerId);
+
+    /**
+     * Determines if a card's defense value may not be reduced by the specified player.
+     * @param gameState the game state
+     * @param card a card
+     * @param playerId the player
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's defense value may not be reduced, otherwise false
+     */
+    boolean isProhibitedFromHavingDefenseValueReduced(GameState gameState, PhysicalCard card, String playerId, ModifierCollector modifierCollector);
 
     float getAbility(GameState gameState, PhysicalCard physicalCard);
 

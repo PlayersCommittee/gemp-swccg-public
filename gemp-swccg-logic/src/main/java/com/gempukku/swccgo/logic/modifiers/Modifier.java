@@ -126,6 +126,12 @@ public interface Modifier {
     Filter getPilotOrDriverFilter();
 
     /**
+     * Gets the filter for cards restricted from increasing the power of the affected card.
+     * @return the filter
+     */
+    Filter getCardsRestrictedFromIncreasingPowerFilter();
+
+    /**
      * Determines if this modifier is in effect for the affected card when this specified card is the target.
      * @param gameState the game state
      * @param modifiersQuerying the modifiers querying
