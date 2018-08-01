@@ -2532,28 +2532,22 @@ public interface ModifiersQuerying {
     /**
      * Determines if the specified card ignores objective restrictions when force draining at the specified target, from the specified source card.
      * @param gameState the game state
-     * @param card the card
-     * @param target the target card
-     * @param deploymentRestrictionsOption specifies which deployment restrictions are to be ignored, or null
-     * @param skipForceIconsOrPresenceCheck the skip checking sufficent Force icons or presence
+     * @param location the target card (location)
      * @param sourceCard the source of the modifier
      * @param playerId the player
      * @return true if card ignores objective restrictions when force draining at target
      */
-    boolean ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(GameState gameState, PhysicalCard card, PhysicalCard target, DeploymentRestrictionsOption deploymentRestrictionsOption, boolean skipForceIconsOrPresenceCheck, PhysicalCard sourceCard, String playerId);
+    boolean ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(GameState gameState, PhysicalCard location, PhysicalCard sourceCard, String playerId);
 
     /**
      * Determines if the specified card ignores objective restrictions when initiating battle at the specified target, from the specified source card.
      * @param gameState the game state
-     * @param card the card
-     * @param target the target card
-     * @param deploymentRestrictionsOption specifies which deployment restrictions are to be ignored, or null
-     * @param skipForceIconsOrPresenceCheck the skip checking sufficent Force icons or presence
+     * @param location the target card (location)
      * @param sourceCard the source of the modifier
      * @param playerId the player
      * @return true if card ignores objective restrictions when force draining at target
      */
-    boolean ignoresObjectiveRestrictionsWhenInitiatingBattleAtLocation(GameState gameState, PhysicalCard card, PhysicalCard target, DeploymentRestrictionsOption deploymentRestrictionsOption, boolean skipForceIconsOrPresenceCheck, PhysicalCard sourceCard, String playerId);
+    boolean ignoresObjectiveRestrictionsWhenInitiatingBattleAtLocation(GameState gameState, PhysicalCard location, PhysicalCard sourceCard, String playerId);
 
     /**
      * Determines if the specified card ignores location deployment restrictions from the source card.
