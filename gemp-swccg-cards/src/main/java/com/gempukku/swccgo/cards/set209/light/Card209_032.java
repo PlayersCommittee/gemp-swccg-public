@@ -18,21 +18,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
-DONE: •Blue 11 [Z-95 Headhunter (V)] 4
-WHO CARES: [Official Tournament Sealed Deck - PM]
-DONE: Lore: Enclosed.
-DONE: VEHICLE - COMBAT VEHICLE: U-WING
-DONE: POWER 4 MANEUVER 4 LANDSPEED 4
-Text:
- DONE: (so two pilot slots, one taken up by permanent pilot) May add 1 pilot and 2 passengers.
- DONE: Permanent pilot provides ability of 2.
- DONE: Once per turn, may \/ a non-pilot Rebel of ability < 5 aboard.
- DONE: Immune to attrition < 4.
-DONE: DEPLOY 4 FORFEIT 6
-DONE: [Pilot] [Scomp] [Set 9]
-*/
-
 /**
  * Set: Set 9
  * Type: Vehicle
