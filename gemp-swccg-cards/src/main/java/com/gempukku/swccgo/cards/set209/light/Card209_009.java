@@ -17,15 +17,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- •Lieutenant Kaydel Connix [Fall Back! (V)] 2
- [Hoth - C2]
- Lore: Female.
- CHARACTER - RESISTANCE
- POWER 1 ABILITY 2
- Text: [Pilot]2. Your shuttling, landing, and taking off to or from here is free. Once per game, may use 1 Force to /\ Evacuation Control, a [Resistance] bomber, or a [Resistance] transport.
- DEPLOY 2 FORFEIT 4
- [Pilot] [Episode VII] [Set 9]
-
+ * Set: Set 9
+ * Type: Character
+ * Subtype: Resistance Character
+ * Title: *Lieutenant Kaydel Connix
  */
 
 public class Card209_009 extends AbstractResistance {
