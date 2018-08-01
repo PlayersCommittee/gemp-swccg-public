@@ -31,7 +31,7 @@ public class PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect extends
     private int _maxCountIntoHand;
 
     /**
-     * Creates an effect for peeking at the top cards of Reserve Deck and choosing a specified number of them to be lost.
+     * Creates an effect for peeking at the top cards of Force Pile and choosing a specified number of them to be lost.
      * @param action the action performing this effect
      * @param cardPileOwner the owner of the Force Pile
      * @param count the number of cards to peek at
