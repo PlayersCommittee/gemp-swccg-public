@@ -27,7 +27,7 @@ import java.util.List;
  CHARACTER - IMPERIAL
  Lore: Commander. Leader.
  POWER 3 ABILITY 3 FORCE-ATTUNED
- Text: [Pilot]2. Once per turn, if Death Star orbiting a battleground, may peek at top two cards of your Force Pile and take one into hand. Once per game, may /\ a non-unique Star Destroyer.
+ Text: [Pilot]2. Once per turn, if Death Star orbiting a battleground, may peek at top two cards of your Force Pile and take one into hand. Once per game, may [upload] a non-unique Star Destroyer.
  DEPLOY 3 FORFEIT 5
  [Pilot] [Warrior]
  [Set 9]
@@ -38,7 +38,7 @@ public class Card209_036 extends AbstractImperial {
         super(Side.DARK, 2, 3, 3, 3, 5, "Krennic, Death Star Commandant", Uniqueness.UNIQUE);
         setLore("Commander.  Leader");
         addKeywords(Keyword.LEADER, Keyword.COMMANDER);
-        setGameText("[Pilot]2. Once per turn, if Death Star orbiting a battleground, may peek at top two cards of your Force Pile and take one into hand. Once per game, may /\\ a non-unique Star Destroyer.");
+        setGameText("[Pilot]2. Once per turn, if Death Star orbiting a battleground, may peek at top two cards of your Force Pile and take one into hand. Once per game, may [upload] a non-unique Star Destroyer.");
         addPersona(Persona.KRENNIC);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_9);
     }
