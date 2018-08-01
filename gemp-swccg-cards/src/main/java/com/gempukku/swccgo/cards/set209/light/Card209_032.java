@@ -30,7 +30,7 @@ public class Card209_032 extends AbstractCombatVehicle {
     public Card209_032() {
         super(Side.LIGHT, 4, 4, 4, null, 4, 4, 6, "Blue 11", Uniqueness.UNIQUE);
         setLore("Enclosed");
-        setGameText("May add 1 pilot and 2 passengers. Permanent pilot provides ability of 2. Once per turn, may \\/ a non-pilot Rebel of ability < 5 aboard. Immune to attrition < 4.");
+        setGameText("May add 1 pilot and 2 passengers. Permanent pilot provides ability of 2. Once per turn, may [download] a non-pilot Rebel of ability < 5 aboard. Immune to attrition < 4.");
         addModelType(ModelType.U_WING);
         addIcons(Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.ENCLOSED, Keyword.UWING, Keyword.BLUE_SQUADRON);
