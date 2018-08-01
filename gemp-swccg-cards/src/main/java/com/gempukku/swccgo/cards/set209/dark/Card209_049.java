@@ -14,13 +14,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- •Jedha: Jedha City [Spaceport Prefect's Office (V)]
- [Special Edition - F]
- LOCATION - SITE
- DARK (1): May be deployed instead of Alderaan by Set Your Course For Alderaan.
- LIGHT (1): Baze, Chirrut, and Saw deploy -1 here.
- [Planet] [Exterior] [Set 9]
-*/
+ * Set: Set 9
+ * Type: Location
+ * Subtype: Site
+ * Title: Mustafar: Jedha City
+ */
 
 public class Card209_049 extends AbstractSite {
     public Card209_049() {
