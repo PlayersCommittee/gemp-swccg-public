@@ -95,7 +95,6 @@ public class PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect extends
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                                 List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                                 subAction.appendEffect(
-                                                        //new TakeCardsIntoHandFromReserveDeckEffect(subAction, _playerId, selectedCards, true);
                                                         new TakeCardsIntoHandFromForcePileEffect(subAction, _playerId, selectedCards, true)
                                                 );
                                                 // Check if player looked at cards in own card pile
