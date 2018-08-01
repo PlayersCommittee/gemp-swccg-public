@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
@@ -9,6 +11,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
  * A modifier that causes specified cards to ignore objective restrictions when initiating battle at specified locations.
  */
 public class IgnoresObjectiveRestrictionsWhenInitiatingBattleAtLocationModifier extends AbstractModifier {
+    private Filter _locationFilter;
 
     /**
      * Creates a modifier that causes cards to ignore objective restrictions when initiating battle at locations accepted by the filter
@@ -32,6 +35,7 @@ public class IgnoresObjectiveRestrictionsWhenInitiatingBattleAtLocationModifier 
     public IgnoresObjectiveRestrictionsWhenInitiatingBattleAtLocationModifier(PhysicalCard source, Filterable affectFilter, Condition condition, String playerId) {
         super(source, null, affectFilter, condition, ModifierType.IGNORES_OBJECTIVE_RESTRICTIONS_WHEN_INITIATING_BATTLE_AT_LOCATION);
         _playerId = playerId;
+        _locationFilter = Filters.and(affectFilter);
     }
 
     @Override
