@@ -65,6 +65,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
             //check if it's orbiting Jedha or Scarif
             if (planetSystem != null) {
                 gameState.sendMessage("2");
+                gameState.sendMessage(GameUtils.getFullName(planetSystem));
                 if (planetSystem.getBlueprint().getTitle().equals(Title.Jedha) || planetSystem.getBlueprint().getTitle().equals(Title.Scarif)) {
                     //check if there's a related battleground site owned by you (even if converted)
                     gameState.sendMessage("3");
@@ -80,6 +81,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                         gameState.sendMessage("5");
                         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
                         final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation)));
+                        gameState.sendMessage(Float.toString(valueForX));
 
                         final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Superlaser));
                         if (superlaser != null) {
@@ -185,6 +187,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                         }
                                     }
                             );
+                            gameState.sendMessage("99");
                         }
                     }
                 }
