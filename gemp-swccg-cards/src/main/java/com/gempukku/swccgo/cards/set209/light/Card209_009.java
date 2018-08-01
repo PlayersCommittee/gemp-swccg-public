@@ -30,7 +30,7 @@ public class Card209_009 extends AbstractResistance {
         addKeywords(Keyword.FEMALE);
         // Currently no keywords defined for Lieutenant.  Thought about creating one and marking Connix as one, but would be too much work to find all lieutenants
         //  and make sure that keyword was added for all of them too.  If this needs to be done in the future, it can be done then.
-        setGameText("[Pilot]2. Your shuttling, landing, and taking off to or from here is free. Once per game, may use 1 Force to /\\ Evacuation Control, a [Resistance] bomber, or a [Resistance] transport.");
+        setGameText("[Pilot]2. Your shuttling, landing, and taking off to or from here is free. Once per game, may use 1 Force to [upload] Evacuation Control, a [Resistance] bomber, or a [Resistance] transport.");
         addIcons(Icon.PILOT, Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);
         addPersona(Persona.CONNIX);
 
