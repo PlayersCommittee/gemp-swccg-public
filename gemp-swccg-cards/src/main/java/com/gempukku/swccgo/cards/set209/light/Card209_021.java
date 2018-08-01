@@ -124,7 +124,6 @@ public class Card209_021 extends AbstractUsedInterrupt {
         if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)) {
             final Filter exteriorOrBGSites = Filters.or(Filters.exterior_site, Filters.battleground_site);
             Collection<PhysicalCard> fromSites = Filters.filterTopLocationsOnTable(game,
-                    //Filters.and(Filters.exterior_site, Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.character, Filters.atLocation(Filters.any), Filters.canBeRelocatedToLocation(Filters.exterior_site, true, 0)))));
                     Filters.and(Filters.site, Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.character, Filters.atLocation(Filters.any), Filters.canBeRelocatedToLocation(exteriorOrBGSites, true, 0)))));
 
             if (!fromSites.isEmpty()) {
