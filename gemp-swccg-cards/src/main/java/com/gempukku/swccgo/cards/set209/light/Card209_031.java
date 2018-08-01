@@ -42,8 +42,8 @@ public class Card209_031 extends AbstractStarfighter {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ManeuverModifier(self, lukePiloting, 2));
         modifiers.add(new ImmuneToAttritionModifier(self, lukePiloting));
-
-        modifiers.add(new IgnoresObjectiveRestrictionsWhenForceDrainingAtLocationModifier(self, null, lukePiloting, Filters.sameLocation(self)));
+        modifiers.add(new IgnoresObjectiveRestrictionsWhenForceDrainingAtLocationModifier(self, Filters.sameLocation(self), lukePiloting, playerId));
+        modifiers.add(new IgnoresObjectiveRestrictionsWhenInitiatingBattleAtLocationModifier(self, Filters.sameLocation(self), lukePiloting, playerId));
         return modifiers;
     }
 
