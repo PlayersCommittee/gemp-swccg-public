@@ -25,7 +25,7 @@ import java.util.List;
 public class Card209_050 extends AbstractSite {
     public Card209_050() {
         super(Side.DARK, Title.Vaders_Castle, Title.Mustafar);
-        setLocationDarkSideGameText("Once per game, may \\/ Vader here. During your move phase, Vader may move between here and any battleground site.");
+        setLocationDarkSideGameText("Once per game, may [download] Vader here. During your move phase, Vader may move between here and any battleground site.");
         setLocationLightSideGameText("");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 0);
