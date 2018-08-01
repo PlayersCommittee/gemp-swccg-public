@@ -8,7 +8,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import java.util.Collection;
 
 /**
- * An effect that causes the player to search Reserve Deck for cards and take them into hand (or take specific cards from
+ * An effect that causes the player to search Force Pile for cards and take them into hand (or take specific cards from
  * Reserve Deck into hand).
  */
 public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromPileEffect {
@@ -26,7 +26,7 @@ public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromP
     }
 
     /**
-     * Creates an effect that causes the player to search Reserve Deck for cards and take them into hand.
+     * Creates an effect that causes the player to search Force Pile for cards and take them into hand.
      * @param action the action performing this effect
      * @param playerId the player
      * @param minimum the minimum number of cards to choose
@@ -39,7 +39,7 @@ public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromP
     }
 
     /**
-     * Creates an effect that causes the player to search Reserve Deck for cards accepted by the specified filter and take
+     * Creates an effect that causes the player to search Force Pile for cards accepted by the specified filter and take
      * them into hand.
      * @param action the action performing this effect
      * @param playerId the player
@@ -53,7 +53,7 @@ public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromP
     }
 
     /**
-     * Creates an effect that causes the player to search Reserve Deck for cards accepted by the specified filter and take
+     * Creates an effect that causes the player to search Force Pile for cards accepted by the specified filter and take
      * them into hand.
      * @param action the action performing this effect
      * @param playerId the player
