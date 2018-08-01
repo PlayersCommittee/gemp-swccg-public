@@ -97,6 +97,7 @@ public enum ModelType implements Filterable {
     TWIN_POD_CLOUD_CAR("Twin-Pod Cloud Car"),
     UBRIKKIAN_LUXURY_SPACE_YACHT("Ubrikkian Luxury Space Yacht"),
     UPSILON_CLASS_SHUTTLE("Upsilon-Class Shuttle"),
+    U_WING("U-wing"),
     VEHICLE("Vehicle"),
     VICTORY_CLASS_STAR_DESTROYER("Victory-Class Star Destroyer"),
     VT_49_DECIMATOR("VT-49 Decimator"),

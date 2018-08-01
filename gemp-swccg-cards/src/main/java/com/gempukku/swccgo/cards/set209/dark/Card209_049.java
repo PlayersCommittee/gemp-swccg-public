@@ -14,12 +14,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- •Jedha: Jedha City [Spaceport Prefect's Office (V)]
- [Special Edition - F]
- LOCATION - SITE
- DARK (1): May be deployed instead of Alderaan by Set Your Course For Alderaan.
- LIGHT (1): Baze, Chirrut, and Saw deploy -1 here.
- [Planet] [Exterior] [Set 9]
+ * Set: Set 9
+ * Type: Location
+ * Subtype: Site
+ * Title: Mustafar: Jedha City
  */
 
 public class Card209_049 extends AbstractSite {
@@ -38,7 +36,7 @@ public class Card209_049 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.Baze, Filters.Chirrut, Filters.Saw), -1, self));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.or(Filters.Baze, Filters.Chirrut, Filters.Saw), -1, self));
         return modifiers;
     }
 }

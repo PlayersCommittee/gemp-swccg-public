@@ -9,12 +9,12 @@ import java.util.Collection;
 
 /**
  * An effect that causes the player to search Force Pile for cards and take them into hand (or take specific cards from
- * Force Pile into hand).
+ * Reserve Deck into hand).
  */
 public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromPileEffect {
 
     /**
-     * Creates an effect that causes the player to search Force Pile for cards and take them into hand.
+     * Creates an effect that causes the player to search Reserve Deck for cards and take them into hand.
      * @param action the action performing this effect
      * @param playerId the player
      * @param minimum the minimum number of cards to choose
@@ -34,7 +34,7 @@ public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromP
      * @param cardPileOwner the card pile owner
      * @param reshuffle true if pile is reshuffled, otherwise false
      */
-    protected TakeCardsIntoHandFromForcePileEffect(Action action, String playerId, String cardPileOwner, int minimum, int maximum, boolean reshuffle) {
+    protected TakeCardsIntoHandFromForcePileEffect(Action action, String playerId, int minimum, int maximum, String cardPileOwner, boolean reshuffle) {
         super(action, playerId, minimum, maximum, Zone.FORCE_PILE, cardPileOwner, reshuffle);
     }
 
@@ -63,18 +63,17 @@ public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromP
      * @param filters the filter
      * @param reshuffle true if pile is reshuffled, otherwise false
      */
-    protected TakeCardsIntoHandFromForcePileEffect(Action action, String playerId, String cardPileOwner, int minimum, int maximum, Filter filters, boolean reshuffle) {
+    protected TakeCardsIntoHandFromForcePileEffect(Action action, String playerId, int minimum, int maximum, String cardPileOwner, Filter filters, boolean reshuffle) {
         super(action, playerId, minimum, maximum, Zone.FORCE_PILE, cardPileOwner, false, filters, reshuffle);
     }
 
     /**
-     * Creates an effect that causes the player to take the specific cards into hand from Force Pile.
+     * Creates an effect that causes the player to take the specific cards into hand from Reserve Deck.
      * @param action the action performing this effect
      * @param playerId the player
      * @param cards the cards
-     * @param hidden true if cards are not revealed, otherwise false
      */
-    protected TakeCardsIntoHandFromForcePileEffect(Action action, String playerId, Collection<PhysicalCard> cards, boolean hidden) {
+    public TakeCardsIntoHandFromForcePileEffect(Action action, String playerId, Collection<PhysicalCard> cards, boolean hidden) {
         super(action, playerId, Zone.FORCE_PILE, playerId, cards, hidden, false);
     }
 

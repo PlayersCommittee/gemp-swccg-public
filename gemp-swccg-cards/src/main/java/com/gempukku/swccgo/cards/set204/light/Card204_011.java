@@ -60,7 +60,8 @@ public class Card204_011 extends AbstractAlienResistance {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canPlayInterruptFromLostPile(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canPlayInterruptFromLostPile(game, playerId, self, gameTextActionId)
+                && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SOLO__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Play an Interrupt from Lost Pile");
@@ -81,7 +82,8 @@ public class Card204_011 extends AbstractAlienResistance {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canPlayInterruptAsResponseFromLostPile(game, playerId, self, effect, gameTextActionId)) {
+                && GameConditions.canPlayInterruptAsResponseFromLostPile(game, playerId, self, effect, gameTextActionId)
+                && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SOLO__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Play an Interrupt from Lost Pile");
@@ -102,7 +104,8 @@ public class Card204_011 extends AbstractAlienResistance {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canPlayInterruptAsResponseFromLostPile(game, playerId, self, effectResult, gameTextActionId)) {
+                && GameConditions.canPlayInterruptAsResponseFromLostPile(game, playerId, self, effectResult, gameTextActionId)
+                && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SOLO__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Play an Interrupt from Lost Pile");

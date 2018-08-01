@@ -328,6 +328,7 @@ public interface Title {
     String Finn = "Finn";
     String Fire_Extinguisher = "Fire Extinguisher";
     String Firepower = "Firepower";
+    String First_Aid = "First Aid";
     String First_Strike = "First Strike";
     String Fixer = "Fixer";
     String Flagship = "Flagship";
@@ -604,6 +605,7 @@ public interface Title {
     String Mournful_Roar = "Mournful Roar";
     String Mouse_Droid = "MSE-6 'Mouse' Droid";
     String Momaw_Nadon = "Momaw Nadon";
+    String Mustafar = "Mustafar";
     String My_Favorite_Decoration = "My Favorite Decoration";
     String My_Kind_Of_Scum = "My Kind Of Scum";
     String My_Lord_Is_That_Legal = "My Lord, Is That Legal?";
@@ -635,6 +637,7 @@ public interface Title {
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";
+    String Odin_Nesloor = "Odin Nesloor";
     String Off_The_Edge = "Off The Edge";
     String Old_Allies = "Old Allies";
     String Old_Ben = "Old Ben";
@@ -765,6 +768,7 @@ public interface Title {
     String Saber_3 = "Saber 3";
     String Sabine = "Sabine Wren";
     String Sabotage = "Sabotage";
+    String Sacrifice = "Sacrifice";
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
@@ -775,6 +779,8 @@ public interface Title {
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
+    String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine";
+    String Scarif_Turbolift_Complex = "Scarif: Turbolift Complex";
     String Scimitar_1 = "Scimitar 1";
     String Scomp_Link_Access = "Scomp Link Access";
     String Scout_Blaster = "Scout Blaster";
@@ -796,6 +802,7 @@ public interface Title {
     String Sewer = "Xizor's Palace: Sewer";
     String S_foils = "S-foils";
     String SFS_Lx93_Laser_Cannons = "SFS L-s9.3 Laser Cannons";
+    String Shield_Gate = "Shield Gate";
     String Shmi = "Shmi Skywalker";
     String Shocking_Information = "Shocking Information";
     String Shocking_Revelation = "Shocking Revelation";
@@ -945,6 +952,7 @@ public interface Title {
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";
     String Utinni = "Utinni!";
+    String Vaders_Castle = "Mustafar: Vader's Castle";
     String Vaders_Obsession = "Vader's Obsession";
     String Valorum = "Supreme Chancellor Valorum";
     String Vaporator = "Vaporator";

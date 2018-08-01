@@ -16987,6 +16987,7 @@ public class Filters {
     public static final Filter character_with_a_weapon = Filters.and(CardCategory.CHARACTER, Filters.armedWith(Filters.category(CardCategory.WEAPON)));
     public static final Filter character_with_politics = Filters.and(CardCategory.CHARACTER, Filters.politicsMoreThan(0));
     public static final Filter character_without_politics = Filters.and(CardCategory.CHARACTER, Filters.politicsEqualTo(0));
+    public static final Filter character_with_permanent_character_weapon = Filters.and(Filters.character, Filters.hasPermanentWeapon());
     public static final Filter character_weapon_or_character_with_permanent_character_weapon = Filters.or(Filters.character_weapon(), Filters.and(Filters.character, Filters.hasPermanentWeapon()));
     public static final Filter Chewie = Filters.persona(Persona.CHEWIE);
     public static final Filter Chief_Bast = Filters.title(Title.Chief_Bast);
@@ -17554,7 +17555,7 @@ public class Filters {
     public static final Filter Kitonak = Filters.species(Species.KITONAK);
     public static final Filter Klaatu = Filters.title(Title.Klaatu);
     public static final Filter Krayt_Dragon_Bones = Filters.title(Title.Krayt_Dragon_Bones);
-    public static final Filter Krennic = Filters.title(Title.Krennic);
+    public static final Filter Krennic = Filters.persona(Persona.KRENNIC);
     public static final Filter Kuat_Drive_Yards = Filters.title(Title.Kuat_Drive_Yards);
     public static final Filter Kuat_system = Filters.title(Title.Kuat);
     public static final Filter Kylo = Filters.persona(Persona.KYLO);
@@ -17934,6 +17935,8 @@ public class Filters {
     public static final Filter Save_You_It_Can = Filters.title(Title.Save_You_It_Can);
     public static final Filter Saw = Filters.title(Title.Saw);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
+    public static final Filter Scarif_Docking_Bay = Filters.title(Title.Scarif_Landing_Pad_Nine);
+    public static final Filter Scarif_Turbolift_Complex = Filters.title(Title.Scarif_Turbolift_Complex);
     public static final Filter scavenger = Filters.keyword(Keyword.SCAVENGER);
     public static final Filter Scimitar_1 = Filters.title(Title.Scimitar_1);
     public static final Filter Scimitar_2 = Filters.persona(Persona.SCIMITAR_2);
@@ -17964,6 +17967,7 @@ public class Filters {
     public static final Filter Sewer = Filters.title(Title.Sewer);
     public static final Filter S_foils = Filters.title(Title.S_foils);
     public static final Filter SFS_Lx93_Laser_Cannons = Filters.title(Title.SFS_Lx93_Laser_Cannons);
+    public static final Filter Shield_Gate = Filters.title(Title.Shield_Gate);
     public static final Filter Shmi = Filters.title(Title.Shmi);
     public static final Filter Shocking_Information = Filters.title(Title.Shocking_Information);
     public static final Filter Shocking_Revelation = Filters.title(Title.Shocking_Revelation);
