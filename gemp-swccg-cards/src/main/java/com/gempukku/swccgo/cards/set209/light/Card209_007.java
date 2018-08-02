@@ -44,8 +44,7 @@ public class Card209_007 extends AbstractRebel {
         {
             List<Modifier> modifiers = new LinkedList<Modifier>();
             modifiers.add(new MoveCostFromLocationModifier(self, Filters.and(Filters.your(opponent), Filters.Imperial_starship), 1, twoSnubsFilter));
-            modifiers.add(new MayNotModifyBattleDestinyModifier(self, opponent, twoSnubsCondition));
-            modifiers.add(new MayNotCancelBattleDestinyModifier(self, opponent, twoSnubsCondition));
+            modifiers.add(new MayNotCancelBattleDestinyModifier(self, Filters.system, opponent, twoSnubsCondition, playerId));
             modifiers.add(new MayNotDrawMoreThanBattleDestinyModifier(self, twoSnubsCondition, 1, opponent));
             return modifiers;
         }
