@@ -38,7 +38,7 @@ public class Card209_007 extends AbstractRebel {
         Filter twoSnubsFilter = Filters.and(Filters.system, Filters.wherePresent(self,
                 Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter, Filters.presentWith(self, Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter)))));
 
-        Condition twoSnubsCondition = new DuringBattleWithParticipantCondition(2, Filters.and(Filters.your(self), Filters.snub_fighter));
+        Condition twoSnubsCondition = new DuringBattleWithParticipantCondition(2, Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter));
 
         if (GameConditions.isAtLocation(game, self, Filters.war_room))
         {
