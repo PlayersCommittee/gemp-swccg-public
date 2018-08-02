@@ -9,7 +9,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionState;
+import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionV9State;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.*;
 import com.gempukku.swccgo.logic.effects.*;
@@ -51,7 +51,8 @@ public class Card209_045 extends AbstractEpicEventDeployable {
     }
 
     //@Override
-    protected List<TopLevelEpicEventGameTextAction> getEpicEventGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    //protected List<TopLevelEpicEventGameTextAction> getEpicEventGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         final String opponent = game.getOpponent(playerId);
         final GameState gameState = game.getGameState();
@@ -88,7 +89,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                             gameState.sendMessage("6");
                             final PhysicalCard deathStar = superlaser.getAttachedTo();
                             gameState.sendMessage("7");
-                            final CommencePrimaryIgnitionState epicEventState = new CommencePrimaryIgnitionState(self);
+
                             gameState.sendMessage("8");
                             final PlayEpicEventAction action = new PlayEpicEventAction(self);
                             gameState.sendMessage("9"); // got here
@@ -98,6 +99,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                         @Override
                                         protected void cardSelected(final PhysicalCard selectedCard) {
                                             gameState.sendMessage("10");
+                                            final CommencePrimaryIgnitionV9State epicEventState = new CommencePrimaryIgnitionV9State(selectedCard);
                                             action.addAnimationGroup(selectedCard);
                                             action.setText("Attempt to 'blow away' " + GameUtils.getFullName(selectedCard));
                                             action.setEpicEventState(epicEventState);
@@ -112,6 +114,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                                     action.addAnimationGroup(selectedCard);
                                                     // Update Epic Event State
                                                     epicEventState.setSuperlaser(superlaser);
+                                                    epicEventState.setSite(selectedCard);
                                                     String actionText = "Have " + GameUtils.getCardLink(deathStar) + " fire " + GameUtils.getCardLink(superlaser) + " at " + GameUtils.getCardLink(selectedCard);
                                                     // Allow response(s)
                                                     action.allowResponses(actionText,
