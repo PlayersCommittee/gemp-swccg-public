@@ -520,6 +520,7 @@ public interface Title {
     String Kiffex = "Kiffex";
     String Kirdo_III = "Kirdo III";
     String Klaatu = "Klaatu";
+    String Knights_Of_The_Old_Republic = "Knights Of The Old Republic";
     String Krayt_Dragon_Bones = "Krayt Dragon Bones";
     String Krennic = "Director Orson Krennic";
     String Kuat = "Kuat";
