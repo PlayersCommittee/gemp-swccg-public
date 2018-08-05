@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set209.dark;
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -18,8 +19,7 @@ import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Set: Set 9
@@ -34,12 +34,12 @@ public class Card209_045 extends AbstractEpicEventDeployable {
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_9);
     }
 
-    //@Override
+    @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         return Filters.Death_Star_system;
     }
 
-    //@Override
+    @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
 
@@ -50,151 +50,106 @@ public class Card209_045 extends AbstractEpicEventDeployable {
         return modifiers;
     }
 
-    //@Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-    //protected List<TopLevelEpicEventGameTextAction> getEpicEventGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+    @Override
+    protected List<TopLevelEpicEventGameTextAction> getEpicEventGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         final String opponent = game.getOpponent(playerId);
         final GameState gameState = game.getGameState();
+        Filter systemFilter = Filters.and(Filters.system, Filters.isOrbitedBy(Filters.Death_Star_system), Filters.or(Filters.title(Title.Jedha), Filters.title(Title.Scarif)));
+
+        final Filter yourSiteEvenIfConverted = Filters.and(Filters.your(self), Filters.unique, Filters.battleground_site,
+                Filters.relatedSiteTo(self, Filters.and(Filters.system, Filters.isOrbitedBy(Filters.Death_Star_system))));
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.canDrawDestiny(game, playerId)) {
-            //find system death star is orbiting
-            gameState.sendMessage("1");
-            final PhysicalCard planetSystem = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.system, Filters.isOrbitedBy(Filters.Death_Star_system)));
-            //check if it's orbiting Jedha or Scarif
-            if (planetSystem != null) {
-                gameState.sendMessage("2");
-                gameState.sendMessage(GameUtils.getFullName(planetSystem));
-                if (planetSystem.getBlueprint().getTitle().equals(Title.Jedha) || planetSystem.getBlueprint().getTitle().equals(Title.Scarif)) {
-                    //check if there's a related battleground site owned by you (even if converted)
-                    gameState.sendMessage("3");
-                    final Filter yourSiteEvenIfConverted = Filters.and(Filters.or(Filters.your(self), Filters.convertedLocationOnTopOfLocation(Filters.your(self))),
-                            Filters.relatedSite(planetSystem), Filters.unique, Filters.battleground_site);
-                    //final PhysicalCard relatedSite = Filters.findFirstFromTopLocationsOnTable(game, yourSiteEvenIfConverted);
-                    final PhysicalCard relatedSite = Filters.findFirstFromAllOnTable(game, yourSiteEvenIfConverted);
-                    gameState.sendMessage("4");
-                    gameState.sendMessage(GameUtils.getFullName(relatedSite));
-                    if (relatedSite != null) {
-                        //there is a valid site, fire away
-                        //final GameState gameState = game.getGameState();
-                        gameState.sendMessage("5");
-                        final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-                        final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation)));
-                        gameState.sendMessage(Float.toString(valueForX));
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
+                && GameConditions.canDrawDestiny(game, playerId)
+                && GameConditions.canSpotLocation(game, systemFilter)
+                && GameConditions.canTarget(game, self, yourSiteEvenIfConverted)) {
+            final CommencePrimaryIgnitionV9State epicEventState = new CommencePrimaryIgnitionV9State(self);
+            final TopLevelEpicEventGameTextAction action = new TopLevelEpicEventGameTextAction(self, gameTextSourceCardId);
+            final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Superlaser));
+            final PhysicalCard deathStar = superlaser.getAttachedTo();
 
-                        final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Superlaser));
-                        if (superlaser != null) {
-                            gameState.sendMessage("6");
-                            final PhysicalCard deathStar = superlaser.getAttachedTo();
-                            gameState.sendMessage("7");
+            action.setText("Attempt to 'blow away' site");
+            action.setEpicEventState(epicEventState);
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerPhaseEffect(action));
 
-                            gameState.sendMessage("8");
-                            final PlayEpicEventAction action = new PlayEpicEventAction(self);
-                            gameState.sendMessage("9"); // got here
-                            // Choose target(s)
-                            action.appendTargeting(
-                                    new ChooseCardOnTableEffect(action, playerId, "Choose site to target", yourSiteEvenIfConverted) {
+            // Choose target(s)
+            action.appendTargeting(
+                    new ChooseCardOnTableEffect(action, playerId, "Choose site to target", yourSiteEvenIfConverted) {
+                        @Override
+                        protected void cardSelected(final PhysicalCard targetedSite) {
+
+                            action.addAnimationGroup(superlaser);
+                            action.addAnimationGroup(targetedSite);
+                            epicEventState.setSuperlaser(superlaser);
+                            epicEventState.setSite(targetedSite);
+                            String actionText = "Have " + GameUtils.getCardLink(deathStar) + " fire " + GameUtils.getCardLink(superlaser) + " at " + GameUtils.getCardLink(targetedSite);
+                            // Update usage limit(s)
+                            action.appendUsage(
+                                    new UseWeaponEffect(action, deathStar, superlaser));
+                            // Allow response(s)
+                            action.allowResponses(actionText,
+                                    new RespondableEffect(action) {
                                         @Override
-                                        protected void cardSelected(final PhysicalCard selectedCard) {
-                                            gameState.sendMessage("10");
-                                            final CommencePrimaryIgnitionV9State epicEventState = new CommencePrimaryIgnitionV9State(selectedCard);
-                                            action.addAnimationGroup(selectedCard);
-                                            action.setText("Attempt to 'blow away' " + GameUtils.getFullName(selectedCard));
-                                            action.setEpicEventState(epicEventState);
-                                            gameState.sendMessage("11");
-                                            new PassthruEffect(action) {
-                                                @Override
-                                                protected void doPlayEffect(final SwccgGame game) {
-                                                    // Update usage limit(s)
-                                                    action.appendUsage(
-                                                            new UseWeaponEffect(action, deathStar, superlaser));
-                                                    action.addAnimationGroup(superlaser);
-                                                    action.addAnimationGroup(selectedCard);
-                                                    // Update Epic Event State
-                                                    epicEventState.setSuperlaser(superlaser);
-                                                    epicEventState.setSite(selectedCard);
-                                                    String actionText = "Have " + GameUtils.getCardLink(deathStar) + " fire " + GameUtils.getCardLink(superlaser) + " at " + GameUtils.getCardLink(selectedCard);
-                                                    // Allow response(s)
-                                                    action.allowResponses(actionText,
-                                                            new RespondablePlayCardEffect(action) {
-                                                                @Override
-                                                                protected void performActionResults(Action targetingAction) {
-                                                                    // Begin weapon firing
-                                                                    action.appendEffect(
-                                                                            new PassthruEffect(action) {
-                                                                                @Override
-                                                                                protected void doPlayEffect(SwccgGame game) {
-                                                                                    gameState.sendMessage(GameUtils.getCardLink(deathStar) + " fires " + GameUtils.getCardLink(superlaser) + " at " + GameUtils.getCardLink(selectedCard));
-                                                                                    gameState.activatedCard(playerId, superlaser);
-                                                                                    gameState.cardAffectsCard(playerId, superlaser, selectedCard);
-                                                                                    gameState.beginWeaponFiring(superlaser, null);
-                                                                                    gameState.getWeaponFiringState().setCardFiringWeapon(deathStar);
-                                                                                    gameState.getWeaponFiringState().setTarget(selectedCard);
-                                                                                    // Finish weapon firing
-                                                                                    action.appendAfterEffect(
-                                                                                            new PassthruEffect(action) {
-                                                                                                @Override
-                                                                                                protected void doPlayEffect(SwccgGame game) {
-                                                                                                    gameState.finishWeaponFiring();
-                                                                                                }
-                                                                                            }
-                                                                                    );
-                                                                                }
-                                                                            }
-                                                                    );
-                                                                    // 2) Fire!
-                                                                    action.appendEffect(
-                                                                            new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
-                                                                                @Override
-                                                                                protected void destinyDraws(final SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, final Float totalDestiny) {
-                                                                                    // 3) It's Beautiful
-                                                                                    // Emit effect result that total is being calculated
-                                                                                    action.appendEffect(
-                                                                                            new TriggeringResultEffect(action, new CalculatingEpicEventTotalResult(playerId, self)));
-                                                                                    action.appendEffect(
-                                                                                            new PassthruEffect(action) {
-                                                                                                @Override
-                                                                                                protected void doPlayEffect(final SwccgGame game) {
-                                                                                                    gameState.sendMessage("Destiny: " + (totalDestiny != null ? GuiUtils.formatAsString(totalDestiny) : "Failed destiny draw"));
+                                        protected void performActionResults(Action targetingAction) {
+                                            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
-                                                                                                    gameState.sendMessage("X: " + GuiUtils.formatAsString(valueForX));
-
-                                                                                                    //compute total
-                                                                                                    float total = modifiersQuerying.getEpicEventCalculationTotal(gameState, self, (totalDestiny != null ? totalDestiny : 0) + valueForX);
-                                                                                                    gameState.sendMessage("Epic Event Total: " + GuiUtils.formatAsString(total));
-
-                                                                                                    if (total > 8) {
-                                                                                                        gameState.sendMessage("Result: Succeeded");
-                                                                                                        action.appendEffect(
-                                                                                                                new BlowAwayEffect(action, selectedCard, true));
-                                                                                                        action.appendEffect(
-                                                                                                                new LoseForceEffect(action, opponent, 3));
-                                                                                                    } else {
-                                                                                                        gameState.sendMessage("Result: Failed");
-                                                                                                    }
-
-
-                                                                                                }
-                                                                                            }
-                                                                                    );
-                                                                                }
-                                                                            }
-                                                                    );
-                                                                }
+                                            action.appendEffect(
+                                                    new FireWeaponEffect(action, superlaser, false, Filters.canBeTargetedBy(superlaser)));
+                                            // 2) Fire!
+                                            action.appendEffect(
+                                                    new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
+                                                        @Override
+                                                        protected void destinyDraws(final SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, final Float totalDestiny) {
+                                                            // 3) It's Beautiful
+                                                            if (totalDestiny == null) {
+                                                                gameState.sendMessage("Result: Failed due to failed destiny draw");
+                                                                return;
                                                             }
-                                                    );
-                                                }
-                                            };
+                                                            gameState.sendMessage("Destiny Draw: " + GuiUtils.formatAsString(totalDestiny));
+
+                                                            // Emit effect result that total is being calculated
+                                                            action.appendEffect(
+                                                                    new TriggeringResultEffect(action, new CalculatingEpicEventTotalResult(playerId, self)));
+
+                                                            action.appendEffect(
+                                                                    new PassthruEffect(action) {
+                                                                        @Override
+                                                                        protected void doPlayEffect(SwccgGame game) {
+                                                                            final float initialEpicEventTotal = modifiersQuerying.getEpicEventCalculationTotal(gameState, self, totalDestiny);
+                                                                            gameState.sendMessage("Total Destiny: " + GuiUtils.formatAsString(initialEpicEventTotal));
+
+                                                                            final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation)));
+                                                                            gameState.sendMessage("X: " + GuiUtils.formatAsString(valueForX));
+
+                                                                            //compute total
+                                                                            float finalEpicEventTotal = modifiersQuerying.getEpicEventCalculationTotal(gameState, self, totalDestiny + valueForX);
+                                                                            gameState.sendMessage("Epic Event Total: " + GuiUtils.formatAsString(finalEpicEventTotal));
+
+                                                                            if (finalEpicEventTotal > 8) {
+                                                                                gameState.sendMessage("Result: Succeeded");
+                                                                                action.appendEffect(
+                                                                                        new BlowAwayEffect(action, targetedSite, true));
+                                                                                action.appendEffect(
+                                                                                        new LoseForceEffect(action, opponent, 3));
+                                                                            } else {
+                                                                                gameState.sendMessage("Result: Failed");
+                                                                            }
+                                                                        }
+                                                                    }
+                                                            );
+                                                        }
+                                                    }
+                                            );
                                         }
                                     }
                             );
-                            gameState.sendMessage("99");
                         }
                     }
-                }
-            }
+            );
+            return Collections.singletonList(action);
         }
         return null;
     }
