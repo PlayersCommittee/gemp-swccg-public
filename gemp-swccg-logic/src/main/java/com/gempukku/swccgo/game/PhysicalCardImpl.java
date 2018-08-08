@@ -81,6 +81,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isBluffCard;
     private boolean _isCombatCard;
     private boolean _isSpaceSlugBelly;
+    private boolean _isRotated;
     private Float _abilityWhenSoupEaten;
     private boolean _beheaded;
     private boolean _makingBombingRun;
@@ -792,6 +793,16 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     @Override
     public boolean isCrashed() {
         return _isCrashed;
+    }
+
+//    @Override
+    public void setRotated(boolean rotated) {
+        _isRotated = rotated;
+    }
+
+//    @Override
+    public boolean isRotated() {
+        return _isRotated;
     }
 
     @Override

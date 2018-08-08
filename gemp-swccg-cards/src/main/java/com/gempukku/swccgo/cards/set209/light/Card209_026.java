@@ -34,6 +34,7 @@ public class Card209_026 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.PLANET, Icon.EXTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.DOCKING_BAY);
+        addKeyword(Keyword.SCARIF_LOCATION);
     }
 
 

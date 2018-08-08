@@ -37,6 +37,7 @@ public class RuleSet {
         new CreaturesAttackEachOtherRule(_actionsEnvironment).applyRule();
         new DeathStarAndDeathStarIIRule(_actionsEnvironment).applyRule();
         new EffectsOfRevolutionRule(_actionsEnvironment).applyRule();
+        new EffectsOfScarifTurboLiftComplexRotationRule(_actionsEnvironment).applyRule();
         new ExcludeBattleParticipantsRule(_actionsEnvironment).applyRule();
         new ExpandLocationGameTextRule(_actionsEnvironment).applyRule();
         new HabitatRule(_actionsEnvironment).applyRule();
