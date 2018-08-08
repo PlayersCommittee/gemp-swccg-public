@@ -3,14 +3,11 @@ package com.gempukku.swccgo.logic.timing.results;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
 /**
  * This effect result is triggered when a card is stacked from a card pile and card pile was not shuffled.
  */
-public class StackedFromCardPileResult extends EffectResult {
-    private PhysicalCard _card;
-    private PhysicalCard _stackedOn;
+public class StackedFromCardPileResult extends StackedCardResult {
 
     /**
      * Creates an effect result that is triggered when a card is stacked from a card pile and card pile was not shuffled.
@@ -19,25 +16,7 @@ public class StackedFromCardPileResult extends EffectResult {
      * @param stackedOn the card to stack on
      */
     public StackedFromCardPileResult(Action action, PhysicalCard card, PhysicalCard stackedOn) {
-        super(Type.STACKED_FROM_CARD_PILE, action.getPerformingPlayer());
-        _card = card;
-        _stackedOn = stackedOn;
-    }
-
-    /**
-     * Gets the card stacked from table.
-     * @return the card
-     */
-    public PhysicalCard getCard() {
-        return _card;
-    }
-
-    /**
-     * Gets the card the card was stacked on.
-     * @return the card
-     */
-    public PhysicalCard getStackedOn() {
-        return _stackedOn;
+        super(action, Type.STACKED_FROM_CARD_PILE, card, stackedOn);
     }
 
     /**
