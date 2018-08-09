@@ -16957,6 +16957,7 @@ public class Filters {
     public static final Filter Bridge = Filters.title(Title.Bridge);
     public static final Filter Bring_Him_Before_Me = Filters.title(Title.Bring_Him_Before_Me);
     public static final Filter Brisky_Morning_Munchen = Filters.title(Title.Brisky_Morning_Munchen);
+    public static final Filter Broken_Concentration = Filters.title(Title.Broken_Concentration);
     public static final Filter Bubo = Filters.title(Title.Bubo);
     public static final Filter Bunker = Filters.title(Title.Bunker);
     public static final Filter C3PO = Filters.persona(Persona.C3PO);
