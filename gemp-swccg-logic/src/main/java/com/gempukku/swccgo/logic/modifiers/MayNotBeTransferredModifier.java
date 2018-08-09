@@ -42,7 +42,7 @@ public class MayNotBeTransferredModifier extends AbstractModifier {
      * @param affectFilter the filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
-    private MayNotBeTransferredModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
+    public MayNotBeTransferredModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
         super(source, "May not be transferred", Filters.and(Filters.captive, affectFilter), condition, ModifierType.MAY_NOT_BE_TRANSFERRED, true);
     }
 }

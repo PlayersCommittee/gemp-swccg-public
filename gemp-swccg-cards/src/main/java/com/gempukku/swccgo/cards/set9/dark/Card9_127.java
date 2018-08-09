@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringEpicDuelWithParticipantCondition;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
@@ -16,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.modifiers.CrossOverAttemptTotalModifier;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -70,8 +72,17 @@ public class Card9_127 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke)),
-                new MultiplyEvaluator(3, new StackedEvaluator(self))));
-        return modifiers;
+        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+
+        if (targetsLeiaInsteadOfLuke) {
+            modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Leia)),
+                    new MultiplyEvaluator(3, new StackedEvaluator(self))));
+            return modifiers;
+        }
+        else {
+            modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke)),
+                    new MultiplyEvaluator(3, new StackedEvaluator(self))));
+            return modifiers;
+        }
     }
 }
