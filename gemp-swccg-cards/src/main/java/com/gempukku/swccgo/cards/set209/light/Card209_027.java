@@ -8,21 +8,17 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.TrueCondition;
-import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.effects.RotateCardEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.modifiers.RotateLocationModifier;
+import com.gempukku.swccgo.logic.timing.results.PutUndercoverResult;
 
-import javax.swing.text.html.Option;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,46 +41,42 @@ public class Card209_027 extends AbstractSite {
     }
 
 
-    // God I hope this works - Jim
+    // COMMENTS - JIM: The initial rotation by DS after a drain works.
+    //              - There's some weird quirk in that it asks you to choose which site to rotate, and this turbolift complex appears twice.
+    //              - But the ultimate behavior is correct.  The movement text is then usable by the DS, the next chance to rotate this site
+    //                after a drain goes to LS.
+    //
+    //              - But then future rotations by the LS player after a drain does not work.
+    //              - The player gets the option of applying the rotation effect, but nothing happens...
+    //              - The site does not rotate back.
+    //              - Multiple copies of this "RotateLocation" effect appears if you shift-click to examine the card.
+
+    //              Previous implementation attempt was to just apply new RotateLocationModifiers on top of each other.  That didn't work.
+    //              This current attempt was to add the rotation modifier, and then try to suspend it when LS then drains. Also not working.
+    //              I don't know if it makes sense to change the "new TrueCondition()" part of that RotateLocationModifier to something else, or what that something else might be.
+
     @Override
-    //protected List<OptionalGameTextTriggerAction> getGameTextLigthSideOptionalAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId)
     protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId)
     {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
 
+
+
         if (TriggerConditions.forceDrainInitiatedAt(game, effectResult, self)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
 
-            //final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            //final OptionalGameTextTriggerAction action3 = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-
-            /*
-            action1.setText("Rotate this site. (RotateCardEffect)");
-            action1.appendEffect(new RotateCardEffect(action1, self, true));
-            actions.add(action1);
-*/
-
-            action2.setText("Rotate this site. (RotateLocationModifier)");
-
-
-            //if (self.setBeheaded();)
-            //action2.appendEffect(new AddUntilEndOfGameModifierEffect(action2, new RotateLocationModifier(self, Filters.Scarif_Turbolift_Complex, new TrueCondition()), null));
-            //if (self.isRotated())
-            //    action2.appendAfterEffect(new AddUntilEndOfGameModifierEffect(action2, new CancelEffectsOfRevolutionModifier())
-            //action2.appendAfterEffect(new AddUntilEndOfGameModifierEffect(action2, new RotateLocationModifier(self, Filters.Scarif_Turbolift_Complex, new TrueCondition()), null));
-
-            action2.appendAfterEffect(new AddUntilEndOfGameModifierEffect(action2, new RotateLocationModifier(self, self, new TrueCondition()), null));
-            actions.add(action2);
-
-            /*
-            action3.setText("Rotate this site.  (Do both methods)");
-            action3.appendEffect(new RotateCardEffect(action1, self, true));
-            action3.appendEffect(new AddUntilEndOfGameModifierEffect(action1, new RotateLocationModifier(self, Filters.Scarif_Turbolift_Complex, new TrueCondition()), null));
-            actions.add(action3);
-            */
-
-//            return Collections.singletonList(action1);
+            if (self.isRotatedByTurboliftComplex()==true) {
+                action.setText("Un-rotate this site.");
+                self.setRotatedByTurboliftComplex(false);
+                action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new SuspendModifierEffectsModifier(self, Filters.Scarif_Turbolift_Complex, Filters.Scarif_Turbolift_Complex), "AddUntilEndOfGameModifierEffect"));
+            }
+            else {
+                action.setText("Rotate this site.");
+                action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new RotateLocationModifier(self, self, new TrueCondition()), "AddUntilEndOfGameModifierEffect"));
+                self.setRotatedByTurboliftComplex(true);
+                actions.add(action);
+            }
             return actions;
         }
 
@@ -99,8 +91,7 @@ public class Card209_027 extends AbstractSite {
 
         if (GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, relatedSite)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.any, self, relatedSite, true))
-            {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.any, self, relatedSite, true)) {
                 MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.any, self, otherScarifSite, true);
                 actions.add(action);
             }

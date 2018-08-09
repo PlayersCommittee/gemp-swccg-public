@@ -82,6 +82,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isCombatCard;
     private boolean _isSpaceSlugBelly;
     private boolean _isRotated;
+    private boolean _isRotatedByTurboliftComplex;
     private Float _abilityWhenSoupEaten;
     private boolean _beheaded;
     private boolean _makingBombingRun;
@@ -804,6 +805,10 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     public boolean isRotated() {
         return _isRotated;
     }
+
+    public void setRotatedByTurboliftComplex (boolean rotated) {_isRotatedByTurboliftComplex = rotated;}
+
+    public boolean isRotatedByTurboliftComplex () {return _isRotatedByTurboliftComplex;}
 
     @Override
     public float getLatestInPlayForfeitValue() {
