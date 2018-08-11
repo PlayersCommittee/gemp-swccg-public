@@ -1858,6 +1858,22 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card accepted by the filter is about to leave the table.
+     * @param game the game
+     * @param effectResult the effect result
+     * @param filter the filter
+     * @return true or false
+     */
+    public static boolean isAboutToLeaveTableExcludingAllCards(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+        if (result.isAllCardsSituation()) {
+            return false;
+        } else {
+            return isAboutToLeaveTable(game, effectResult, filter);
+        }
+    }
+
+    /**
      * Determines if a card accepted by the filter is about to be lost from table.
      * @param game the game
      * @param effectResult the effect result

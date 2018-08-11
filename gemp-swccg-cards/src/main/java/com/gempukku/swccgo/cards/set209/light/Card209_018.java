@@ -130,7 +130,7 @@ public class Card209_018 extends AbstractNormalEffect {
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
-        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
+        if (TriggerConditions.isAboutToLeaveTableExcludingAllCards(game, effectResult, self)) {
             PhysicalCard dataVault = Filters.findFirstFromTopLocationsOnTable(game, Filters.DataVault);
             if (dataVault != null) {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;

@@ -16,6 +16,7 @@ public class AboutToPlaceCardInCardPileFromTableResult extends EffectResult impl
     private PhysicalCard _cardToBePlacedInCardPile;
     private Zone _cardPile;
     private PreventableCardEffect _effect;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect result that is emitted when the specified card is about to be lost from table.
@@ -26,6 +27,18 @@ public class AboutToPlaceCardInCardPileFromTableResult extends EffectResult impl
      */
     public AboutToPlaceCardInCardPileFromTableResult(Action action, PhysicalCard cardToBePlacedInCardPile, Zone cardPile, PreventableCardEffect effect) {
         this(action, action.getPerformingPlayer(), cardToBePlacedInCardPile, cardPile, effect);
+    }
+
+    /**
+     * Creates an effect result that is emitted when the specified card is about to be lost from table.
+     * @param action the action
+     * @param cardToBePlacedInCardPile the card to be placed in card pile
+     * @param cardPile the card pile
+     * @param effect the effect that can be used to prevent the card from being placed in card pile
+     */
+    public AboutToPlaceCardInCardPileFromTableResult(Action action, PhysicalCard cardToBePlacedInCardPile, Zone cardPile, PreventableCardEffect effect, boolean allCardsSituation) {
+        this(action, action.getPerformingPlayer(), cardToBePlacedInCardPile, cardPile, effect);
+        _allCardsSituation = allCardsSituation;
     }
 
     /**
@@ -82,6 +95,14 @@ public class AboutToPlaceCardInCardPileFromTableResult extends EffectResult impl
      */
     public PhysicalCard getCardAboutToLeaveTable() {
         return _cardToBePlacedInCardPile;
+    }
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    public boolean isAllCardsSituation() {
+        return _allCardsSituation;
     }
 
     /**

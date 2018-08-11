@@ -74,7 +74,7 @@ public class Card7_258 extends AbstractLostInterrupt {
                                             protected void performActionResults(Action targetingAction) {
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new PlaceCardsInUsedPileFromTableEffect(action, starships, false, Zone.USED_PILE));
+                                                        new PlaceCardsInUsedPileFromTableEffect(action, starships, false, Zone.USED_PILE, true));
                                             }
                                         }
                                 );
