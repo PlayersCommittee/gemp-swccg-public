@@ -1864,13 +1864,29 @@ public class TriggerConditions {
      * @param filter the filter
      * @return true or false
      */
-    public static boolean isAboutToLeaveTableExcludingAllCards(SwccgGame game, EffectResult effectResult, Filterable filter) {
-        AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
-        if (result.isAllCardsSituation()) {
-            return false;
-        } else {
+    public static boolean isAboutToLeaveTableExceptFromOverwhelmed(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        if (effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_CANCELED_ON_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_LOST_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_FORFEITED_TO_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_PLACED_OUT_OF_PLAY_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_RETURNED_TO_HAND_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_STACK_CARD_FROM_TABLE) {
             return isAboutToLeaveTable(game, effectResult, filter);
         }
+        else if (effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_PLACE_IN_CARD_PILE_FROM_TABLE) {
+            // JC: Haven't figured out how to get all cards situations from Overwhelmed to apply to effects,
+            // so I've renamed this method (from "isAboutToLeaveTableExcludingAllCards") and commented out
+            // the code that doesn't work (replacing with Overwhelmed-specific code).
+            //AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+            //if (result.isAllCardsSituation()) {
+            AboutToPlaceCardInCardPileFromTableResult result = (AboutToPlaceCardInCardPileFromTableResult) effectResult;
+            if (result.getSourceCard().getTitle() == "Overwhelmed") {
+                return false;
+            } else {
+                return isAboutToLeaveTable(game, effectResult, filter);
+            }
+        }
+        return false;
     }
 
     /**

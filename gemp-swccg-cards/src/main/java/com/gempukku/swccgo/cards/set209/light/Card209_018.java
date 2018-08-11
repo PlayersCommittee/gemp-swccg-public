@@ -130,7 +130,7 @@ public class Card209_018 extends AbstractNormalEffect {
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
-        if (TriggerConditions.isAboutToLeaveTableExcludingAllCards(game, effectResult, self)) {
+        if (TriggerConditions.isAboutToLeaveTableExceptFromOverwhelmed(game, effectResult, self)) {
             PhysicalCard dataVault = Filters.findFirstFromTopLocationsOnTable(game, Filters.DataVault);
             if (dataVault != null) {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
@@ -139,9 +139,6 @@ public class Card209_018 extends AbstractNormalEffect {
                 action.setText("Relocate to Data Vault");
                 action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(dataVault));
                 action.addAnimationGroup(dataVault);
-                // Perform result(s)
-                // Per the rules team, this should not relocate in an all cards situation (e.g. Overwhelmed)
-                //   This needs fixed to adhere to that.
                 action.appendEffect(
                         new PassthruEffect(action) {
                             @Override
