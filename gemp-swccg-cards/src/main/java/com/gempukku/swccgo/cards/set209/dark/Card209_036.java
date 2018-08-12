@@ -91,8 +91,7 @@ public class Card209_036 extends AbstractImperial {
             // Perform result(s)
             // peek at the top two cards of force pile, take a min of 1 and max of 1 into hand.
             action.appendEffect(new PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect(action, playerId, 2, 1, 1));
-
-            return Collections.singletonList(action);
+            actions.add(action);
 
         }
         else if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
@@ -101,7 +100,7 @@ public class Card209_036 extends AbstractImperial {
             action.setText("Peek at top card of Force Pile");
             action.appendUsage(new OncePerTurnEffect(action));
             action.appendEffect(new PeekAtTopCardOfForcePileEffect(action, playerId));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
         return actions;
