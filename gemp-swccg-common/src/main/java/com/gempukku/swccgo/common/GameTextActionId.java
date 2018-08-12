@@ -568,6 +568,7 @@ public enum GameTextActionId {
     THEY_MUST_NEVER_AGAIN_LEAVE_THIS_CITY__EXECUTOR_DEPLOYS_FOR_FREE(false, true),
     THRONE_ROOM__UPLOAD_EMPERORS_POWER(true, true),
     VADERS_CASTLE__DOWNLOAD_VADER(true, true),
+    VANEE_UPLOAD_CARD_WITH_VADER_IN_TITLE(true, true),
     VEERS__UPLOAD_PREPARE_FOR_A_SURFACE_ATTACK_HOTH_COMBAT_VEHICLE_OR_EXTERIOR_MARKER_SITE(true, true),
     VIGO__DOWNLOAD_LOCATION(true, true),
     WATTOS_JUNKYARD__DOWNLOAD_WATTO(true, true),
@@ -597,6 +598,7 @@ public enum GameTextActionId {
 
     // Per turn for card title
     SUPPRESSIVE_FIRE__ACTIVATE_FORCE(false, false, false, false, false, true),
+    VANEE_ACTIVATE_ONE_FORCE(false, false, false, false, false, true),
 
     // Actions that are for specified reasons
     OUT_OF_COMMISSION__PLACE_CARD_OUT_OF_PLAY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_PLACE_A_CARD_OUT_OF_PLAY),
