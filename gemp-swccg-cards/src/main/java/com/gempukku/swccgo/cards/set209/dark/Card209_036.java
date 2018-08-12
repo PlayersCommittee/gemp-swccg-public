@@ -22,17 +22,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- ••Krennic, Death Star Commandant [Officer Evax (V)] 2
- [A New Hope - C1]
- CHARACTER - IMPERIAL
- Lore: Commander. Leader.
- POWER 3 ABILITY 3 FORCE-ATTUNED
- Text: [Pilot]2. Once per turn, if Death Star orbiting a battleground, may peek at top two cards of your Force Pile and take one into hand. Once per game, may [upload] a non-unique Star Destroyer.
- DEPLOY 3 FORFEIT 5
- [Pilot] [Warrior]
- [Set 9]
+ * Set: Set 9
+ * Type: Character
+ * Subtype: Imperial
+ * Title: Krennic, Death Star Commandant
  */
-
 public class Card209_036 extends AbstractImperial {
     public Card209_036() {
         super(Side.DARK, 2, 3, 3, 3, 5, "Krennic, Death Star Commandant", Uniqueness.UNIQUE);

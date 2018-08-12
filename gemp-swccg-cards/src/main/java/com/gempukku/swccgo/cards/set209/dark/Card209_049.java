@@ -17,7 +17,7 @@ import java.util.List;
  * Set: Set 9
  * Type: Location
  * Subtype: Site
- * Title: Mustafar: Jedha City
+ * Title: Jedha: Jedha City
  */
 
 public class Card209_049 extends AbstractSite {

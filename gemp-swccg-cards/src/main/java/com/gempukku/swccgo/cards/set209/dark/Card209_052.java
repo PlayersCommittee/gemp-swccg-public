@@ -18,7 +18,7 @@ import java.util.List;
  * Set: Set 9
  * Type: Starfighter
  * Subtype: TIE/SF
- * Title: ***First Order Special Forces Tie
+ * Title: First Order Special Forces Tie
  */
 
 public class Card209_052 extends AbstractStarfighter {
