@@ -34,7 +34,7 @@ public class Card209_035 extends AbstractAlien {
         super(Side.DARK, 3, 3, 3, 3, 3, "Dr. Chelli Lona Aphra", Uniqueness.UNIQUE);
         setLore("Female information broker, spy, and thief. Trade Federation.");
         setGameText("[Pilot]1. Deploys free to an unoccupied site. Your droids are deploy -1 here. When deployed, may search your Lost Pile and move one card there to the top of that pile (if that card is a droid, may retrieve it into hand).");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_9, Icon.TRADE_FEDERATION);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.FEMALE, Keyword.INFORMATION_BROKER, Keyword.SPY, Keyword.THIEF);
     }
 
