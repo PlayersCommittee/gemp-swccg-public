@@ -85,6 +85,7 @@ public class Card209_004 extends AbstractRebel {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyDrawingJustCompletedForBothPlayers(game, effectResult)
+                && GameConditions.isInBattle(game, self)
                 && GameConditions.didBothPlayersDrawOneBattleDestiny(game)
                 && GameConditions.canUseForce(game, playerId, GameConditions.isWith(game, self, Filters.Imperial) ? 0 : 2)) {
 
