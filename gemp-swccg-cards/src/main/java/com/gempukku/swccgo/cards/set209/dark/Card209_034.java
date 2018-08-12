@@ -18,14 +18,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+
 /**
- •Chief Bast [Chief Bast (V)] 2
- Lore: Aide to Grand Moff Tarkin. Rarely underestimates enemies. Learned cunning and patience hunting big game as a youth.
- CHARACTER - Imperial
- POWER 2 ABILITY 2
- Text: [Pilot]2. While with Vader in a battle you lost, Imperials and Imperial starships may be forfeited directly from your hand (for printed forfeit value) to reduce attrition and/or battle damage.
- DEPLOY 2 FORFEIT 3
- [Pilot] [Warrior] [Set 9]
+ * Set: Set 9
+ * Type: Character
+ * Subtype: Imperial
+ * Title: Chief Bast (V)
  */
 
 public class Card209_034 extends AbstractImperial {
