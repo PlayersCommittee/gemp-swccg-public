@@ -11,11 +11,14 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ForfeitCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -67,6 +70,15 @@ public class Card209_034 extends AbstractImperial {
             }
         }
         return null;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+
+        // Adds 2 to power of anything he pilots
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
+        return modifiers;
     }
 
 }
