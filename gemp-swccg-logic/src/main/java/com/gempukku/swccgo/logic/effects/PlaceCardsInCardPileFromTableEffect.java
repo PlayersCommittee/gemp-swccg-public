@@ -22,6 +22,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
     private Zone _cardPile;
     private boolean _toBottomOfPile;
     private Zone _attachedCardsGoToZone;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect that causes the specified cards on table to be placed in the specified card pile.
@@ -72,6 +73,26 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
         _cardPile = cardPile;
         _toBottomOfPile = toBottomOfPile;
         _attachedCardsGoToZone = attachedCardsGoToZone;
+    }
+
+    /**
+     * Creates an effect that causes the specified cards on table to be placed in the specified card pile.
+     * @param action the action performing this effect
+     * @param playerId the player performing this action
+     * @param cards the cards
+     * @param cardPile the card pile
+     * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
+     * @param attachedCardsGoToZone the zone that any attached cards go to (instead of Lost Pile)
+     * @param allCardsSituation if is an all-cards situation
+     */
+    protected PlaceCardsInCardPileFromTableEffect(Action action, String playerId, Collection<PhysicalCard> cards, Zone cardPile, boolean toBottomOfPile, Zone attachedCardsGoToZone, boolean allCardsSituation) {
+        super(action);
+        _playerId = playerId;
+        _cards.addAll(cards);
+        _cardPile = cardPile;
+        _toBottomOfPile = toBottomOfPile;
+        _attachedCardsGoToZone = attachedCardsGoToZone;
+        _allCardsSituation = allCardsSituation;
     }
 
     @Override
@@ -126,7 +147,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
                 // SubAction to carry out placing card in card pile from table
                 SubAction placeCardsSubAction = new SubAction(_subAction);
                 placeCardsSubAction.appendEffect(
-                        new PlaceCardsInCardPileFromTableSimultaneouslyEffect(placeCardsSubAction, selectedCards, _cardPile, _toBottomOfPile, true, _attachedCardsGoToZone, false, false, false, null, false));
+                        new PlaceCardsInCardPileFromTableSimultaneouslyEffect(placeCardsSubAction, selectedCards, _cardPile, _toBottomOfPile, true, _attachedCardsGoToZone, false, false, false, null, false, _allCardsSituation));
                 // Stack sub-action
                 _subAction.stackSubAction(placeCardsSubAction);
 

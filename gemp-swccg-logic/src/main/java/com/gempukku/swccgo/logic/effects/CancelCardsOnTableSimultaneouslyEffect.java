@@ -96,7 +96,7 @@ class CancelCardsOnTableSimultaneouslyEffect extends AbstractSubActionEffect imp
                         }
                         else {
                             for (PhysicalCard attachedCardAboutToLeaveTable : attachedCardsAboutToLeaveTable) {
-                                game.getActionsEnvironment().emitEffectResult(new AboutToPlaceCardInCardPileFromTableResult(subAction, attachedCardAboutToLeaveTable, _attachedCardsGoToZone, _that));
+                                game.getActionsEnvironment().emitEffectResult(new AboutToPlaceCardInCardPileFromTableResult(subAction, attachedCardAboutToLeaveTable, _attachedCardsGoToZone, _that, true));
                             }
                         }
                     }

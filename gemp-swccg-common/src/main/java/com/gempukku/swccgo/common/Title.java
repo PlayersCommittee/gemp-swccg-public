@@ -212,6 +212,7 @@ public interface Title {
     String Dark_Strike = "Dark Strike";
     String Dark_Waters = "Dark Waters";
     String Darklighter_Spin = "Darklighter Spin";
+    String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
@@ -667,6 +668,7 @@ public interface Title {
     String Outrider = "Outrider";
     String Overload = "Overload";
     String Overseeing_It_Personally = "Overseeing It Personally";
+    String Overwhelmed = "Overwhelmed";
     String Owen_Lars = "Owen Lars";
     String Ozzel = "Admiral Ozzel";
     String Padme = "Padme Naberrie";

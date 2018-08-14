@@ -15,6 +15,7 @@ public class AboutToStackCardFromTableResult extends EffectResult implements Abo
     private PhysicalCard _cardToBeStacked;
     private PhysicalCard _stackOn;
     private PreventableCardEffect _effect;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect result that is emitted when the specified card is about to be stacked on another card from table.
@@ -91,5 +92,14 @@ public class AboutToStackCardFromTableResult extends EffectResult implements Abo
     @Override
     public String getText(SwccgGame game) {
         return "About to stack " + GameUtils.getCardLink(_cardToBeStacked) + " on " + GameUtils.getCardLink(_stackOn);
+    }
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    @Override
+    public boolean isAllCardsSituation() {
+        return _allCardsSituation;
     }
 }

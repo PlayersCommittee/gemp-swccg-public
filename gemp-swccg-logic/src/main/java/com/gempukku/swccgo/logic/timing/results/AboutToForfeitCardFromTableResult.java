@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 public class AboutToForfeitCardFromTableResult extends EffectResult implements AboutToLeaveTableResult {
     private PhysicalCard _cardToBeForfeited;
     private ForfeitCardsFromTableSimultaneouslyEffect _effect;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect result that is emitted when the specified card is about to be forfeited from table after
@@ -78,5 +79,14 @@ public class AboutToForfeitCardFromTableResult extends EffectResult implements A
     @Override
     public String getText(SwccgGame game) {
         return "About to forfeit " + GameUtils.getCardLink(_cardToBeForfeited);
+    }
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    @Override
+    public boolean isAllCardsSituation() {
+        return _allCardsSituation;
     }
 }
