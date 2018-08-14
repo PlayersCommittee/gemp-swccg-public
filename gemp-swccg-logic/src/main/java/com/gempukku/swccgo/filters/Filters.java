@@ -17935,6 +17935,8 @@ public class Filters {
     public static final Filter Save_You_It_Can = Filters.title(Title.Save_You_It_Can);
     public static final Filter Saw = Filters.title(Title.Saw);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
+    public static final Filter Scarif_location = Filters.partOfSystem(Title.Scarif);
+    public static final Filter Scarif_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Scarif));
     public static final Filter Scarif_Docking_Bay = Filters.title(Title.Scarif_Landing_Pad_Nine);
     public static final Filter Scarif_Turbolift_Complex = Filters.title(Title.Scarif_Turbolift_Complex);
     public static final Filter scavenger = Filters.keyword(Keyword.SCAVENGER);
@@ -18020,6 +18022,7 @@ public class Filters {
     public static final Filter STAP = Filters.modelType(ModelType.STAP);
     public static final Filter Star_Cruiser = Filters.or(ModelType.MON_CALAMARI_STAR_CRUISER);
     public static final Filter Star_Destroyer = Filters.or(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.INTERDICTOR_CLASS_STAR_DESTROYER, ModelType.RESURGENT_CLASS_STAR_DESTROYER, ModelType.SUPER_CLASS_STAR_DESTROYER, ModelType.VICTORY_CLASS_STAR_DESTROYER);
+    public static final Filter Stardust = Filters.title(Title.Stardust);
     public static final Filter starfighter = Filters.subtype(CardSubtype.STARFIGHTER);
     public static final Filter Starkiller_Base_location = Filters.partOfSystem(Title.Starkiller_Base);
     public static final Filter starship = Filters.type(CardType.STARSHIP);
