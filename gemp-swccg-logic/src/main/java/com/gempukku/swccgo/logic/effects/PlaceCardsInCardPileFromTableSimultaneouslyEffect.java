@@ -154,7 +154,7 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
                         }
                         else {
                             for (PhysicalCard attachedCardAboutToLeaveTable : attachedCardsToLeaveTable) {
-                                game.getActionsEnvironment().emitEffectResult(new AboutToPlaceCardInCardPileFromTableResult(subAction, attachedCardAboutToLeaveTable, _attachedCardsGoToZone, _that));
+                                game.getActionsEnvironment().emitEffectResult(new AboutToPlaceCardInCardPileFromTableResult(subAction, attachedCardAboutToLeaveTable, _attachedCardsGoToZone, _that, _allCardsSituation));
                             }
                         }
                     }

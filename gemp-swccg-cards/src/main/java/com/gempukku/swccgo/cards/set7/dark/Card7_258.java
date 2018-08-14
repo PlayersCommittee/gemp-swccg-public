@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card7_258 extends AbstractLostInterrupt {
     public Card7_258() {
-        super(Side.DARK, 5, "Overwhelmed");
+        super(Side.DARK, 5, Title.Overwhelmed);
         setLore("When the Empire amasses its fleet, the only option for the Alliance is retreat.");
         setGameText("During your deploy phase, target a system where your total power is more than double opponent's total power and opponent has no Jedi or starship weapon. Place all opponent's starships there (and cards on them) in owner's Used Pile.");
         addIcons(Icon.SPECIAL_EDITION);

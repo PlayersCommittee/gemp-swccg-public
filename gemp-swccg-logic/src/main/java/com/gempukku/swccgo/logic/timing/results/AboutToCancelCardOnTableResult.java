@@ -14,6 +14,7 @@ public class AboutToCancelCardOnTableResult extends EffectResult implements Abou
     private PhysicalCard _source;
     private PhysicalCard _cardToBeCanceled;
     private PreventableCardEffect _effect;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect result that is emitted when the specified card is about to be canceled on table.
@@ -79,5 +80,14 @@ public class AboutToCancelCardOnTableResult extends EffectResult implements Abou
     @Override
     public String getText(SwccgGame game) {
         return "About to cancel " + GameUtils.getCardLink(_cardToBeCanceled);
+    }
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    @Override
+    public boolean isAllCardsSituation() {
+        return _allCardsSituation;
     }
 }

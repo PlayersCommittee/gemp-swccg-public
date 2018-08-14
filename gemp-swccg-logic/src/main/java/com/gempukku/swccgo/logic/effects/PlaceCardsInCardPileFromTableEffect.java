@@ -147,7 +147,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
                 // SubAction to carry out placing card in card pile from table
                 SubAction placeCardsSubAction = new SubAction(_subAction);
                 placeCardsSubAction.appendEffect(
-                        new PlaceCardsInCardPileFromTableSimultaneouslyEffect(placeCardsSubAction, selectedCards, _cardPile, _toBottomOfPile, true, _attachedCardsGoToZone, false, false, false, null, false, true));
+                        new PlaceCardsInCardPileFromTableSimultaneouslyEffect(placeCardsSubAction, selectedCards, _cardPile, _toBottomOfPile, true, _attachedCardsGoToZone, false, false, false, null, false, _allCardsSituation));
                 // Stack sub-action
                 _subAction.stackSubAction(placeCardsSubAction);
 

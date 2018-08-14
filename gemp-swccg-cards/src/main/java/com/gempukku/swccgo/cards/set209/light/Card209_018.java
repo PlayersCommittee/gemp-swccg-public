@@ -52,17 +52,13 @@ public class Card209_018 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         Filter yourSpyFilter = Filters.and(Filters.your(self), Filters.spy, Filters.presentWith(self), Filters.not(Filters.hasAttached(Filters.Stardust)));
 
-        // As far as I can tell, this Reason text does not get used anywhere, but it's needed for the SpotOverride
-        Set<TargetingReason> targetingReasonSet = new HashSet<TargetingReason>();
-        targetingReasonSet.add(TargetingReason.TO_RELOCATE_STARDUST_TO);
-
         // Check condition(s)
         if (GameConditions.canTarget(game, self, false, SpotOverride.INCLUDE_UNDERCOVER, yourSpyFilter)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Relocate to your spy");
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose character", SpotOverride.INCLUDE_UNDERCOVER, targetingReasonSet, yourSpyFilter) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose character", SpotOverride.INCLUDE_UNDERCOVER, yourSpyFilter) {
                         @Override
                         protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
@@ -130,7 +126,7 @@ public class Card209_018 extends AbstractNormalEffect {
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
-        if (TriggerConditions.isAboutToLeaveTableExceptFromOverwhelmed(game, effectResult, self)) {
+        if (TriggerConditions.isAboutToLeaveTableExceptFromSourceCard(game, effectResult, self, Filters.Overwhelmed)) {
             PhysicalCard dataVault = Filters.findFirstFromTopLocationsOnTable(game, Filters.DataVault);
             if (dataVault != null) {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;

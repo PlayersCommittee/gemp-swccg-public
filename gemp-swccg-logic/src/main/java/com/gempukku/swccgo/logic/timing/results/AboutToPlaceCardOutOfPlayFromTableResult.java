@@ -86,6 +86,7 @@ public class AboutToPlaceCardOutOfPlayFromTableResult extends EffectResult imple
      * Determines if this is an all cards situation.
      * @return true or false
      */
+    @Override
     public boolean isAllCardsSituation() {
         return _allCardsSituation;
     }

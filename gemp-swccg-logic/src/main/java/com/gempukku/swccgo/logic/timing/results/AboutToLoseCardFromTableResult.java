@@ -83,6 +83,7 @@ public class AboutToLoseCardFromTableResult extends EffectResult implements Abou
      * Determines if this is an all cards situation.
      * @return true or false
      */
+    @Override
     public boolean isAllCardsSituation() {
         return _allCardsSituation;
     }

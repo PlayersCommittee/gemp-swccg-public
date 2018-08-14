@@ -14,6 +14,7 @@ public class AboutToReturnCardToHandFromTableResult extends EffectResult impleme
     private PhysicalCard _source;
     private PhysicalCard _cardToBeReturnedToHand;
     private PreventableCardEffect _effect;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect result that is emitted when the specified card is about to be returned to hand from table.
@@ -79,5 +80,14 @@ public class AboutToReturnCardToHandFromTableResult extends EffectResult impleme
     @Override
     public String getText(SwccgGame game) {
         return "About to return " + GameUtils.getCardLink(_cardToBeReturnedToHand) + " to hand";
+    }
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    @Override
+    public boolean isAllCardsSituation() {
+        return _allCardsSituation;
     }
 }
