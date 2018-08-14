@@ -162,6 +162,7 @@ public enum Keyword implements Filterable {
     TROOPER("Trooper", true),
     TURBOLASER_BATTERY("Turbolaser Battery", false),
     UTINNI_EFFECT_THAT_RETRIEVES_FORCE("Utinni Effect that retrieves Force", false),
+    UWING("U-Wing", true),
     VIBRO_AX("Vibro-Ax", true),
     WAMPA("Wampa", true),
     WAR_ROOM("War Room", true),

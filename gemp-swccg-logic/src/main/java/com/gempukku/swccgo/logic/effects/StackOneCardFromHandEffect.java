@@ -8,6 +8,7 @@ import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.results.ProbedSystemResult;
+import com.gempukku.swccgo.logic.timing.results.StackedFromHandResult;
 
 import java.util.Collections;
 
@@ -63,7 +64,8 @@ public class StackOneCardFromHandEffect extends AbstractStandardEffect {
                 game.getActionsEnvironment().emitEffectResult(new ProbedSystemResult(_action.getPerformingPlayer(), _stackOn));
             }
 
-            // TODO: StackCardResult ?????
+            game.getActionsEnvironment().emitEffectResult(
+                    new StackedFromHandResult(_action, _card, _stackOn));
 
             return new FullEffectResult(true);
         }
