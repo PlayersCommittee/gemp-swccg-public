@@ -33,7 +33,7 @@ public class Card209_044 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("'At last we will reveal ourselves to the Jedi.'");
         setGameText("Deploy on table. Once per turn, may [download] Maul's Lightsaber. At start of opponent's control phase, may relocate Maul to same site as a Jedi. May place this Effect out of play to deploy Maul's Lightsaber from Lost Pile. Immune to Alter.");
-        addIcons(Icon.CORUSCANT, Icon. EPISODE_I, Icon.VIRTUAL_SET_9);
+        addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
 
@@ -42,35 +42,35 @@ public class Card209_044 extends AbstractNormalEffect {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
         GameTextActionId gameTextActionId = GameTextActionId.THEY_WILL_BE_NO_MATCH_FOR_YOU__DOWNLOAD_MAULS_LIGHTSABER;
+        GameTextActionId gameTextActionId2 = GameTextActionId.THEY_WILL_BE_NO_MATCH_FOR_YOU__DEPLOY_MAULS_LIGHTSABER_LOST_PILE;
 
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
 
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Maul's Lightsaber from Reserve Deck");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerTurnEffect(action));
-                // Perform result(s)
-                action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Mauls_Lightsaber, true));
-                actions.add(action);
-            }
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy Maul's Lightsaber from Reserve Deck");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new DeployCardFromReserveDeckEffect(action, Filters.Mauls_Lightsaber, true));
+            actions.add(action);
+        }
 
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
+        if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId2, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
 
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-                action.setText("Place OOP to deploy Maul's Lightsaber from Lost Pile");
-                action.setActionMsg("Deploy Maul's Lightsaber from Lost Pile");
-                // Pay cost(s)
-                action.appendCost(
-                        new PlaceCardOutOfPlayFromTableEffect(action, self));
-                // Perform result(s)
-                action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Mauls_Lightsaber, true));
-                actions.add(action);
-            }
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            action.setText("Place OOP to deploy Maul's Lightsaber from Lost Pile");
+            action.setActionMsg("Deploy Maul's Lightsaber from Lost Pile");
+            // Pay cost(s)
+            action.appendCost(
+                    new PlaceCardOutOfPlayFromTableEffect(action, self));
+            // Perform result(s)
+            action.appendEffect(
+                    new DeployCardFromLostPileEffect(action, Filters.Mauls_Lightsaber, false));
+            actions.add(action);
         }
         return actions;
     }
@@ -107,16 +107,16 @@ public class Card209_044 extends AbstractNormalEffect {
                             action.addAnimationGroup(selectedCard);
                             // Allow response(s)
                             action.allowResponses("Relocate Maul to " + GameUtils.getCardLink(selectedCard),
-                                   new UnrespondableEffect(action) {
-                                       @Override
-                                       protected void performActionResults(Action targetingAction) {
-                                           // Perform result(s)
-                                           action.appendEffect(
-                                                   new RelocateBetweenLocationsEffect(action, maulCard, selectedCard));
-                                       }
-                                  }
-                           );
-                       }
+                                    new UnrespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new RelocateBetweenLocationsEffect(action, maulCard, selectedCard));
+                                        }
+                                    }
+                            );
+                        }
                     }
             );
 

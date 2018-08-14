@@ -76,7 +76,7 @@ public class Card205_017 extends AbstractNormalEffect {
                         new LoseForceEffect(action, playerId, 1, true));
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Vaders_Lightsaber, true));
+                        new DeployCardFromLostPileEffect(action, Filters.Vaders_Lightsaber, false));
                 actions.add(action);
             }
         }
