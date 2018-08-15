@@ -91,4 +91,19 @@ public class Card9_134 extends AbstractNormalEffect {
             return modifiers;
         }
     }
+
+    @Override
+    protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+
+        if (targetsLeiaInsteadOfLuke) {
+            modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, Title.Responsibility_Of_Command));
+            return modifiers;
+        }
+        else {
+            modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, Title.Responsibility_Of_Command));
+            return modifiers;
+        }
+    }
 }

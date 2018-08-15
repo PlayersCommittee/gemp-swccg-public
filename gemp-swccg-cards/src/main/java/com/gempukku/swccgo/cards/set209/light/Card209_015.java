@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.FiredWeaponsInBattleCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceLossEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
@@ -53,11 +54,10 @@ public class Card209_015 extends AbstractDefensiveShield {
     }
 
     @Override
-    //protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, final int gameTextSourceCardId) {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
-        final GameState gameState = game.getGameState();
+        //final GameState gameState = game.getGameState();
 
         // Check condition(s)
         // reduce light side force loss from Take Your Father's Place by 1
@@ -93,6 +93,7 @@ public class Card209_015 extends AbstractDefensiveShield {
         else if (self.getWhileInPlayData() == null) {
             GameTextActionId gameTextActionId = GameTextActionId.THERE_IS_ANOTHER__FOR_REMAINDER_OF_GAME_CHANGES;
             self.setWhileInPlayData(new WhileInPlayData());
+
             if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
                 final int permCardId = self.getPermanentCardId();
 
@@ -114,7 +115,8 @@ public class Card209_015 extends AbstractDefensiveShield {
 
                                         // Check condition(s)
                                         if (TriggerConditions.isTableChanged(game, effectResult)) {
-                                            Collection<PhysicalCard> lostCards = Filters.filterActive(game, self, Filters.or(Filters.Were_The_Bait, Filters.and(Filters.Luke, Icon.DEATH_STAR_II)));
+                                            Collection<PhysicalCard> lostCards = Filters.filterActive(game, self, SpotOverride.INCLUDE_ALL, Filters.or(Filters.Were_The_Bait, Filters.and(Filters.Luke, Icon.DEATH_STAR_II)));
+
                                             if (!lostCards.isEmpty()) {
                                                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                                                 action.setSingletonTrigger(true);
@@ -137,11 +139,13 @@ public class Card209_015 extends AbstractDefensiveShield {
         return null;
     }
 
-
+/*
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        Filter ds2Filter = Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion);
+
         // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.and(Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion), Filters.not(Filters.hasGameTextModification(ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE))))) {
+        if (GameConditions.canSpot(game, self, Filters.and(ds2Filter, Filters.not(Filters.hasGameTextModification(ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE))))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             action.setText("Make opponent's Objective and [DS2] Effects target Leia");
@@ -156,5 +160,33 @@ public class Card209_015 extends AbstractDefensiveShield {
         return null;
     }
 
+    @Override
+    protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        Filter ds2Filter = Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion);
+
+        // Check condition(s)
+        if (GameConditions.canSpot(game, self, Filters.and(ds2Filter, Filters.not(Filters.hasGameTextModification(ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE))))) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            // Perform result(s)
+            action.appendEffect(
+                    new AddUntilEndOfGameModifierEffect(action, new ModifyGameTextModifier(self, ds2Filter, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE),
+                            "Makes opponent's Objective and [DS2] Effects target Leia instead of Luke for remainder of game"));
+            return action;
+        }
+        return null;
+    }
+*/
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        String player = self.getOwner();
+
+        Filter ds2Filter = Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion);
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new SuspendModifierEffectsModifier(self, Filters.Luke, ds2Filter));
+        modifiers.add(new ModifyGameTextModifier(self, ds2Filter, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE));
+        return modifiers;
+    }
 
 }

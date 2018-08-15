@@ -73,15 +73,19 @@ public class Card9_127 extends AbstractNormalEffect {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-
+        game.getGameState().sendMessage("100");
         if (targetsLeiaInsteadOfLuke) {
+            game.getGameState().sendMessage("101");
             modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Leia)),
                     new MultiplyEvaluator(3, new StackedEvaluator(self))));
+            game.getGameState().sendMessage("102");
             return modifiers;
         }
         else {
+            game.getGameState().sendMessage("105");
             modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke)),
                     new MultiplyEvaluator(3, new StackedEvaluator(self))));
+            game.getGameState().sendMessage("106");
             return modifiers;
         }
     }
