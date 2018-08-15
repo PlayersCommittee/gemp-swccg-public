@@ -56,7 +56,7 @@ public class Card3_158 extends AbstractVehicleWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, Statistic.DEFENSE_VALUE, Filters.starfighter, 3);
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, Statistic.DEFENSE_VALUE, Filters.starfighter, 3f);
             return Collections.singletonList(action);
         }
         return null;
