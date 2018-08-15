@@ -1858,6 +1858,34 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card accepted by the filter is about to leave the table, excluding by a specific card.
+     * @param game the game
+     * @param effectResult the effect result
+     * @param filter the filter
+     * @param sourceCard the source card that is the exception
+     * @return true or false
+     */
+    public static boolean isAboutToLeaveTableExceptFromSourceCard(SwccgGame game, EffectResult effectResult, Filterable filter, Filterable sourceCard) {
+        if (effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_CANCELED_ON_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_LOST_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_FORFEITED_TO_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_PLACED_OUT_OF_PLAY_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_RETURNED_TO_HAND_FROM_TABLE
+                || effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_STACK_CARD_FROM_TABLE) {
+            return isAboutToLeaveTable(game, effectResult, filter);
+        }
+        else if (effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_PLACE_IN_CARD_PILE_FROM_TABLE) {
+            AboutToPlaceCardInCardPileFromTableResult result = (AboutToPlaceCardInCardPileFromTableResult) effectResult;
+            if (Filters.and(sourceCard).accepts(game, result.getSourceCard())) {
+                return false;
+            } else {
+                return isAboutToLeaveTable(game, effectResult, filter);
+            }
+        }
+        return false;
+    }
+
+    /**
      * Determines if a card accepted by the filter is about to be lost from table.
      * @param game the game
      * @param effectResult the effect result

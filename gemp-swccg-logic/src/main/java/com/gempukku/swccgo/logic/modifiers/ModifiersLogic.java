@@ -3944,7 +3944,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
-     * Determines if the specified player is prohibited from Force draining at the specified location.
+     * Determines if the specified player is prohibited from Force draining at the specified location
      * @param gameState the game state
      * @param location the location
      * @param playerId the player
@@ -3958,8 +3958,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_FORCE_DRAIN_AT_LOCATION, location)) {
-            if (modifier.isForPlayer(playerId))
-                return true;
+            boolean ignoresRestrictions = ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(gameState, location, modifier.getSource(gameState), playerId);
+            if (modifier.isForPlayer(playerId)) {
+                if (!ignoresRestrictions) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -4108,8 +4112,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_INITIATE_BATTLE_AT_LOCATION, location)) {
+            boolean ignoresRestrictions = ignoresObjectiveRestrictionsWhenInitiatingBattleAtLocation(gameState, location, modifier.getSource(gameState), playerId);
             if (modifier.isForPlayer(playerId)) {
-                return true;
+                if (!ignoresRestrictions) {
+                    return true;
+                }
             }
         }
         return false;
@@ -12288,6 +12295,54 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                     if (modifier.isAffectedTarget(gameState, this, location)) {
                         return true;
                     }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if the specified card ignores objective restrictions when force draining at the specified target.
+     * @param gameState the game state
+     * @param location the target card (location)
+     * @param sourceCard the source of the modifier
+     * @param playerId the player
+     * @return true if card ignores objective restrictions when force draining at target
+     */
+    @Override
+    public boolean ignoresObjectiveRestrictionsWhenForceDrainingAtLocation(GameState gameState, PhysicalCard location, PhysicalCard sourceCard, String playerId) {
+
+        if (location != null && sourceCard.getBlueprint().isCardType(CardType.OBJECTIVE)) {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IGNORES_OBJECTIVE_RESTRICTIONS_WHEN_FORCE_DRAINING_AT_LOCATION, location)) {
+                if (modifier.isForPlayer(playerId)) {
+                    //if (modifier.isAffectedTarget(gameState, this, location)) {
+                        return true;
+                    //}
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if the specified card ignores objective restrictions when initiating battle at the specified target.
+     * @param gameState the game state
+     * @param location the target card (location)
+     * @param sourceCard the source of the modifier
+     * @param playerId the player
+     * @return true if card ignores objective restrictions when initiating battle at target
+     */
+    @Override
+    public boolean ignoresObjectiveRestrictionsWhenInitiatingBattleAtLocation(GameState gameState, PhysicalCard location, PhysicalCard sourceCard, String playerId) {
+
+        if (location != null && sourceCard.getBlueprint().isCardType(CardType.OBJECTIVE)) {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IGNORES_OBJECTIVE_RESTRICTIONS_WHEN_INITIATING_BATTLE_AT_LOCATION, location)) {
+                if (modifier.isForPlayer(playerId)) {
+                    //if (modifier.isAffectedTarget(gameState, this, location)) {
+                        return true;
+                    //}
                 }
             }
         }

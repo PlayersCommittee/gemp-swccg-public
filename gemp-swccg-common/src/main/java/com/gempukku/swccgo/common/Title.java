@@ -213,6 +213,7 @@ public interface Title {
     String Dark_Strike = "Dark Strike";
     String Dark_Waters = "Dark Waters";
     String Darklighter_Spin = "Darklighter Spin";
+    String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
@@ -521,6 +522,7 @@ public interface Title {
     String Kiffex = "Kiffex";
     String Kirdo_III = "Kirdo III";
     String Klaatu = "Klaatu";
+    String Knights_Of_The_Old_Republic = "Knights Of The Old Republic";
     String Krayt_Dragon_Bones = "Krayt Dragon Bones";
     String Krennic = "Director Orson Krennic";
     String Kuat = "Kuat";
@@ -667,6 +669,7 @@ public interface Title {
     String Outrider = "Outrider";
     String Overload = "Overload";
     String Overseeing_It_Personally = "Overseeing It Personally";
+    String Overwhelmed = "Overwhelmed";
     String Owen_Lars = "Owen Lars";
     String Ozzel = "Admiral Ozzel";
     String Padme = "Padme Naberrie";
@@ -833,6 +836,7 @@ public interface Title {
     String Spice_Mines_Of_Kessel = "Spice Mines Of Kessel";
     String Staging_Areas = "Staging Areas";
     String Stalker = "Stalker";
+    String Stardust = "Stardust";
     String Starkiller_Base = "Starkiller Base";
     String Steady_Steady = "Steady, Steady";
     String Stolen_Data_Tapes = "Stolen Data Tapes";
@@ -884,6 +888,7 @@ public interface Title {
     String Thank_The_Maker = "Thank The Maker";
     String That_Things_Operational = "That Thing's Operational";
     String Thats_One = "That's One";
+    String They_Have_No_Idea_Were_coming = "They Have No Idea We're Coming";
     String The_Camp = "The Camp";
     String The_Circle_Is_Now_Complete = "The Circle Is Now Complete";
     String The_First_Transport_Is_Away = "The First Transport Is Away!";
@@ -949,6 +954,7 @@ public interface Title {
     String Underworld_Contacts = "Underworld Contacts";
     String Unkar_Plutt = "Unkar Plutt";
     String Unsalvageable = "Unsalvageable";
+    String Until_We_Win_Or_The_Chances_Are_Spent = "Until We Win, Or The Chances Are Spent";
     String Uplink_Station = "Xizor's Palace: Uplink Station";
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";

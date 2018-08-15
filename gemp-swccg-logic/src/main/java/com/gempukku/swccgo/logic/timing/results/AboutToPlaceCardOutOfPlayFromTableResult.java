@@ -14,6 +14,7 @@ public class AboutToPlaceCardOutOfPlayFromTableResult extends EffectResult imple
     private PhysicalCard _source;
     private PhysicalCard _cardToBePlacedOutOfPlay;
     private PreventableCardEffect _effect;
+    private boolean _allCardsSituation;
 
     /**
      * Creates an effect result that is emitted when the specified card is about to be placed out of play from table.
@@ -31,7 +32,7 @@ public class AboutToPlaceCardOutOfPlayFromTableResult extends EffectResult imple
      * @param performingPlayerId the performing player
      * @param cardToBePlacedOutOfPlay the card to be placed out of play
      * @param effect the effect that can be used to prevent the card from being placed out of play
-    */
+     */
     public AboutToPlaceCardOutOfPlayFromTableResult(Action action, String performingPlayerId, PhysicalCard cardToBePlacedOutOfPlay, PreventableCardEffect effect) {
         super(Type.ABOUT_TO_BE_PLACED_OUT_OF_PLAY_FROM_TABLE, performingPlayerId);
         _source = action.getActionSource();
@@ -79,5 +80,14 @@ public class AboutToPlaceCardOutOfPlayFromTableResult extends EffectResult imple
     @Override
     public String getText(SwccgGame game) {
         return "About to place " + GameUtils.getCardLink(_cardToBePlacedOutOfPlay) + " out of play";
+    }
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    @Override
+    public boolean isAllCardsSituation() {
+        return _allCardsSituation;
     }
 }

@@ -19,4 +19,10 @@ public interface AboutToLeaveTableResult {
      * @return the interface
      */
     PreventableCardEffect getPreventableCardEffect();
+
+    /**
+     * Determines if this is an all cards situation.
+     * @return true or false
+     */
+    boolean isAllCardsSituation();
 }

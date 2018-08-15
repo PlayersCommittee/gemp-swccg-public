@@ -17082,6 +17082,7 @@ public class Filters {
     public static final Filter Darklighter_Spin = Filters.title(Title.Darklighter_Spin);
     public static final Filter Dash = Filters.persona(Persona.DASH);
     public static final Filter Dathcha = Filters.title(Title.Dathcha);
+    public static final Filter DataVault = Filters.title(Title.DataVault);
     public static final Filter Daughter_Of_Skywalker = Filters.title(Title.Daughter_Of_Skywalker);
     public static final Filter Deactivate_The_Shield_Generator = Filters.title(Title.Deactivate_The_Shield_Generator);
     public static final Filter Dead_Ewok = Filters.title(Title.Dead_Ewok);
@@ -17756,6 +17757,7 @@ public class Filters {
     public static final Filter Outrider = Filters.title(Title.Outrider);
     public static final Filter Overload = Filters.title(Title.Overload);
     public static final Filter Overseeing_It_Personally = Filters.title(Title.Overseeing_It_Personally);
+    public static final Filter Overwhelmed = Filters.title(Title.Overwhelmed);
     public static final Filter Owen = Filters.title(Title.Owen_Lars);
     public static final Filter Ozzel = Filters.title(Title.Ozzel);
     public static final Filter padawan = Filters.keyword(Keyword.PADAWAN);
@@ -17936,6 +17938,8 @@ public class Filters {
     public static final Filter Saw = Filters.title(Title.Saw);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
     public static final Filter Scarif_site = Filters.and(Keyword.SCARIF_LOCATION, CardSubtype.SITE);
+    public static final Filter Scarif_location = Filters.partOfSystem(Title.Scarif);
+    public static final Filter Scarif_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Scarif));
     public static final Filter Scarif_Docking_Bay = Filters.title(Title.Scarif_Landing_Pad_Nine);
     public static final Filter Scarif_Turbolift_Complex = Filters.title(Title.Scarif_Turbolift_Complex);
     public static final Filter scavenger = Filters.keyword(Keyword.SCAVENGER);
@@ -18021,6 +18025,7 @@ public class Filters {
     public static final Filter STAP = Filters.modelType(ModelType.STAP);
     public static final Filter Star_Cruiser = Filters.or(ModelType.MON_CALAMARI_STAR_CRUISER);
     public static final Filter Star_Destroyer = Filters.or(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.INTERDICTOR_CLASS_STAR_DESTROYER, ModelType.RESURGENT_CLASS_STAR_DESTROYER, ModelType.SUPER_CLASS_STAR_DESTROYER, ModelType.VICTORY_CLASS_STAR_DESTROYER);
+    public static final Filter Stardust = Filters.title(Title.Stardust);
     public static final Filter starfighter = Filters.subtype(CardSubtype.STARFIGHTER);
     public static final Filter Starkiller_Base_location = Filters.partOfSystem(Title.Starkiller_Base);
     public static final Filter starship = Filters.type(CardType.STARSHIP);

@@ -11,21 +11,15 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- •Bala-Tik [Kiffex Operative (V)] 2
- [Special Edition - U]
- Lore: Gangster, information broker, and leader.
- CHARACTER - ALIEN
- POWER 4 ABILITY 2
- Text: [Pilot]2. While with Han, he may not add battle destiny draws or play an Interrupt from Lost Pile. While at opponent’s battleground, opponent may not cancel or reduce your Force drains here.
- DEPLOY 3 FORFEIT 5
- [Pilot] [Warrior] [Episode VII] [Set 9]
+ * Set: Set 9
+ * Type: Character
+ * Subtype: Alien
+ * Title: Bala-Tik
  */
-
 public class Card209_033 extends AbstractAlien {
     public Card209_033() {
         super(Side.DARK, 2, 3, 4, 2, 5, "Bala-Tik", Uniqueness.UNIQUE);

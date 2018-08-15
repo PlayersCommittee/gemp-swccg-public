@@ -30,9 +30,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * Set: Virtual Set 8
+ * Set: Set 9
  * Type: Interrupt
  * Subtype: Used
  * Title: Lana Dobreed & Sacrifice

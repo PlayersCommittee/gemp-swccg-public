@@ -124,7 +124,7 @@ public class LoseCardsFromTableSimultaneouslyEffect extends AbstractSubActionEff
                         }
                         else {
                             for (PhysicalCard attachedCardAboutToBeLost : attachedCardsAboutToLeaveTable) {
-                                game.getActionsEnvironment().emitEffectResult(new AboutToPlaceCardInCardPileFromTableResult(subAction, attachedCardAboutToBeLost, _attachedCardsGoToZone, _that));
+                                game.getActionsEnvironment().emitEffectResult(new AboutToPlaceCardInCardPileFromTableResult(subAction, attachedCardAboutToBeLost, _attachedCardsGoToZone, _that, true));
                             }
                         }
                     }

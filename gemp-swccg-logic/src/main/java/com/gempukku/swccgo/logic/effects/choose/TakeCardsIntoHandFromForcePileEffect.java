@@ -9,12 +9,12 @@ import java.util.Collection;
 
 /**
  * An effect that causes the player to search Force Pile for cards and take them into hand (or take specific cards from
- * Reserve Deck into hand).
+ * Force Pile into hand).
  */
 public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromPileEffect {
 
     /**
-     * Creates an effect that causes the player to search Reserve Deck for cards and take them into hand.
+     * Creates an effect that causes the player to search Force Pile for cards and take them into hand.
      * @param action the action performing this effect
      * @param playerId the player
      * @param minimum the minimum number of cards to choose
@@ -68,7 +68,7 @@ public class TakeCardsIntoHandFromForcePileEffect extends TakeCardsIntoHandFromP
     }
 
     /**
-     * Creates an effect that causes the player to take the specific cards into hand from Reserve Deck.
+     * Creates an effect that causes the player to take the specific cards into hand from Force Pile.
      * @param action the action performing this effect
      * @param playerId the player
      * @param cards the cards
