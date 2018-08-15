@@ -3,12 +3,12 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -17,8 +17,8 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.modifiers.RotateLocationModifier;
-import com.gempukku.swccgo.logic.timing.results.PutUndercoverResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +32,7 @@ import java.util.List;
 public class Card209_027 extends AbstractSite {
     public Card209_027() {
         super(Side.LIGHT, Title.Scarif_Turbolift_Complex, Title.Scarif);
+        setVirtualSuffix(true);
         setLocationLightSideGameText("During your move phase, may move free between here and any related site.");
         setLocationDarkSideGameText("If you initiate a Force drain here, may rotate this site. Immune to Expand The Empire.");
         addIcon(Icon.DARK_FORCE, 1);
@@ -41,45 +42,29 @@ public class Card209_027 extends AbstractSite {
     }
 
 
-    // COMMENTS - JIM: The initial rotation by DS after a drain works.
-    //              - There's some weird quirk in that it asks you to choose which site to rotate, and this turbolift complex appears twice.
-    //              - But the ultimate behavior is correct.  The movement text is then usable by the DS, the next chance to rotate this site
-    //                after a drain goes to LS.
-    //
-    //              - But then future rotations by the LS player after a drain does not work.
-    //              - The player gets the option of applying the rotation effect, but nothing happens...
-    //              - The site does not rotate back.
-    //              - Multiple copies of this "RotateLocation" effect appears if you shift-click to examine the card.
-
-    //              Previous implementation attempt was to just apply new RotateLocationModifiers on top of each other.  That didn't work.
-    //              This current attempt was to add the rotation modifier, and then try to suspend it when LS then drains. Also not working.
-    //              I don't know if it makes sense to change the "new TrueCondition()" part of that RotateLocationModifier to something else, or what that something else might be.
+    // Always on modifier, immune to Expand The Empire
+    @Override
+    protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new ImmuneToTitleModifier(self, Title.Expand_The_Empire));
+        return modifiers;
+    }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId)
     {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
+        GameTextActionId gameTextActionId = GameTextActionId.TURBOLIFT_COMPLEX__ROTATE_LOCATION;
 
-
-
-        if (TriggerConditions.forceDrainInitiatedAt(game, effectResult, self)) {
+        if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerOnDarkSideOfLocation, Filters.Scarif_Turbolift_Complex)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
 
-            if (self.isRotatedByTurboliftComplex()==true) {
-                action.setText("Un-rotate this site.");
-                self.setRotatedByTurboliftComplex(false);
-                action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new SuspendModifierEffectsModifier(self, Filters.Scarif_Turbolift_Complex, Filters.Scarif_Turbolift_Complex), "AddUntilEndOfGameModifierEffect"));
-            }
-            else {
-                action.setText("Rotate this site.");
-                action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new RotateLocationModifier(self, self, new TrueCondition()), "AddUntilEndOfGameModifierEffect"));
-                self.setRotatedByTurboliftComplex(true);
-                actions.add(action);
-            }
-            return actions;
-        }
+            action.setText("Rotate this site.");
+//            action.appendUsage(new OncePerTurnEffect(action));
+            action.appendUsage(new OncePerPhaseEffect(action));
+            action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new RotateLocationModifier(self, self, new TrueCondition()), "Rotate Location"));
 
+            return Collections.singletonList(action);
+        }
         return null;
     }
 
@@ -101,13 +86,6 @@ public class Card209_027 extends AbstractSite {
             }
         }
         return actions;
-    }
-
-    @Override
-    protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ImmuneToTitleModifier(self, Title.Expand_The_Empire));
-        return modifiers;
     }
 
 }

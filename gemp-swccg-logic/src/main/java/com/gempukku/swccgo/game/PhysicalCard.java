@@ -366,9 +366,6 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setRotated(boolean isRotated);
     boolean isRotated();
 
-    void setRotatedByTurboliftComplex(boolean rotatedByTurboliftComplex);
-    boolean isRotatedByTurboliftComplex();
-
     void setPartOfSystem(String system);
     String getPartOfSystem();
 

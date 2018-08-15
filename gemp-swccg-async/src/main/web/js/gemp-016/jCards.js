@@ -3065,7 +3065,7 @@ var fixedImages = {
 "209_38":"/gemp-swccg/images/cards/Virtual9-Dark/lieutenantvenka.gif",
 "209_39":"/gemp-swccg/images/cards/Virtual9-Dark/supremeleadersnoke.gif",
 "209_40":"/gemp-swccg/images/cards/Virtual9-Dark/vanee.gif",
-"209_41":"/gemp-swccg/images/cards/Virtual9-Dark/aninklingofitsdestructivepower.gif",
+"209_41":"/gemp-swccg/images/cards/Virtual9-Dark/aninklingofitsdestructivepotential.gif",
 "209_42":"/gemp-swccg/images/cards/Virtual9-Dark/prepareforasurfaceattack.gif",
 "209_43":"/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
 "209_44":"/gemp-swccg/images/cards/Virtual9-Dark/theywillbenomatchforyou.gif",
