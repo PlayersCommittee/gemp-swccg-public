@@ -110,6 +110,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private Map<String, List<PhysicalCard>> _cardWithAbilityDeployedThisTurn = new HashMap<String, List<PhysicalCard>>();
     private Map<String, Map<Integer, List<PhysicalCard>>> _cardPlayedToLocationThisTurn = new HashMap<String, Map<Integer, List<PhysicalCard>>>();
     private boolean _bluffCardStacked;
+    private boolean _flippedSYCFAWithInklingThisTurn;
     private Set<String> _usedCombatCard = new HashSet<String>();
     private Map<Integer, List<PhysicalCard>> _targetedByWeaponsMap = new HashMap<Integer, List<PhysicalCard>>();
     private Map<Integer, List<SwccgBuiltInCardBlueprint>> _targetedByPermanentWeaponsMap = new HashMap<Integer, List<SwccgBuiltInCardBlueprint>>();
@@ -437,6 +438,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
         snapshot._bluffCardStacked = _bluffCardStacked;
+        snapshot._flippedSYCFAWithInklingThisTurn = _flippedSYCFAWithInklingThisTurn;
+
+
         snapshot._usedCombatCard.addAll(_usedCombatCard);
         for (Integer cardId : _targetedByWeaponsMap.keySet()) {
             List<PhysicalCard> snapshotList = new LinkedList<PhysicalCard>();
@@ -3324,6 +3328,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     @Override
     public boolean isBluffCardStackedThisTurn() {
         return _bluffCardStacked;
+    }
+
+    @Override
+    public void setFlippedSYCFAWithInklingThisTurn(boolean flipped) { _flippedSYCFAWithInklingThisTurn = flipped; }
+
+    @Override
+    public boolean hasFlippedSYCFAWithInklingThisTurn() {
+        return _flippedSYCFAWithInklingThisTurn;
     }
 
     /**
@@ -13807,7 +13819,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (physicalCard.getBlueprint().getCardCategory() != CardCategory.LOCATION)
             return false;
 
-        return (!getModifiersAffectingCard(gameState, ModifierType.ROTATE_LOCATION, physicalCard).isEmpty());
+        return ((getModifiersAffectingCard(gameState, ModifierType.ROTATE_LOCATION, physicalCard).size() % 2) != 0);
     }
 
     @Override

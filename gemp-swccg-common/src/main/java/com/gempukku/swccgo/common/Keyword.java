@@ -135,6 +135,7 @@ public enum Keyword implements Filterable {
     SANDCRAWLER_SITE("Sandcrawler site", false),
     SANDSPEEDER("Sandspeeder", false),
     SANDTROOPER("Sandtrooper", true),
+    SCARIF_LOCATION("Scarif Location", false),
     SCYTHE_SQUADRON("Scythe Squadron", true),
     SCIMITAR_SQUADRON("Scimitar Squadron", true),
     SCOUT("Scout", true),

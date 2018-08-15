@@ -5354,4 +5354,16 @@ public class GameConditions {
         List<PhysicalCard> cardsDeployed = game.getModifiersQuerying().getCardsPlayedThisTurnToLocation(playerId, location);
         return Filters.filterCount(cardsDeployed, game, count, cardFilter).size() >= count;
     }
+
+    /**
+     * Determines if any player has flipped SYCFA with Inkling Of It's Destructive Potential this turn
+     * the specified location this turn.
+     * @param game the game
+     * @return true or false
+     */
+
+    public static boolean hasFlippedSYCFAWithInklingThisTurn(SwccgGame game) {
+        return game.getModifiersQuerying().hasFlippedSYCFAWithInklingThisTurn();
+    }
+
 }

@@ -363,6 +363,9 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setDejarikHologramAtHolosite(boolean dejarik);
     boolean isDejarikHologramAtHolosite();
 
+    void setRotated(boolean isRotated);
+    boolean isRotated();
+
     void setPartOfSystem(String system);
     String getPartOfSystem();
 
