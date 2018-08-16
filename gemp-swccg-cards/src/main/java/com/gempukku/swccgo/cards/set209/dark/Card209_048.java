@@ -319,5 +319,4 @@ public class Card209_048 extends AbstractUsedInterrupt {
         }
         return null;
     }
-
 }

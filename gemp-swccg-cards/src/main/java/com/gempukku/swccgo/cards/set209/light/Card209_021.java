@@ -260,74 +260,65 @@ public class Card209_021 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
-        Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
+        final Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
         PreventableCardEffect cardEffect = null;
         PhysicalCard cardAboutToBeHit = null;
         final PlayInterruptAction action = new PlayInterruptAction(game, self);
-        final UseForceEffect forceCost1 = new UseForceEffect(action, playerId, 1);
-        final UseForceEffect forceCost0 = new UseForceEffect(action, playerId, 0);
-        TargetingReason targetingReason = TargetingReason.OTHER;
-        final GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-
-        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.your(self), Filters.character), Filters.or(Filters.character, Filters.character_with_permanent_character_weapon)))
+        //check conditions
+        if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)
+                && GameConditions.canUseForce(game, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1))
         {
-            final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
-            cardEffect = result.getPreventableCardEffect();
-            cardAboutToBeHit = result.getCardToBeHit();
+            if (TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.or(Filters.character, Filters.character_with_permanent_character_weapon))) {
+                final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
+                cardEffect = result.getPreventableCardEffect();
+                cardAboutToBeHit = result.getCardToBeHit();
 
-        }
-        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.your(self), Filters.character), Filters.or(Filters.character, Filters.character_with_permanent_character_weapon, Filters.weapon)))
-        {
-            final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
-            cardEffect = result.getPreventableCardEffect();
-            cardAboutToBeHit = result.getCardToBeHit();
-        }
+            }
+            if (TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.or(Filters.character, Filters.character_with_permanent_character_weapon, Filters.weapon))) {
+                final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
+                cardEffect = result.getPreventableCardEffect();
+                cardAboutToBeHit = result.getCardToBeHit();
+            }
 
+            if (cardEffect != null && cardAboutToBeHit != null) {
+                action.setText("Prevent Forfeit From Being Reduced And Make Immune To Dr. Evazan");
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
+                            @Override
+                            protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                                action.addAnimationGroup(targetedCard);
 
-        if (cardEffect != null && cardAboutToBeHit != null) {
-            action.setText("Prevent Forfeit From Being Reduced And Make Immune To Dr. Evazan");
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
-                        @Override
-                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
-                            action.addAnimationGroup(targetedCard);
+                                action.appendCost(
+                                        new UseForceEffect(action, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1));
 
-                            if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.your(self), Filters.character), Filters.character_with_permanent_character_weapon))
-                            {
-                                action.appendCost(forceCost0);
-                            }
-                            else
-                            {
-                                action.appendCost(forceCost1);
-                            }
+                                // Allow response(s)
+                                action.allowResponses("Prevent forfeit from being reduced and make immune to Dr. Evazan",
+                                        new RespondablePlayCardEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
 
-                            // Allow response(s)
-                            action.allowResponses("Prevent forfeit from being reduced and make immune to Dr. Evazan",
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new AddUntilEndOfTurnModifierEffect(action,
-                                                            new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
-                                                            "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
-                                            action.appendEffect(new ImmuneToUntilEndOfTurnEffect(action, finalTarget, Title.Dr_Evazan));
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                                new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
+                                                                "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                                action.appendEffect(new ImmuneToUntilEndOfTurnEffect(action, finalTarget, Title.Dr_Evazan));
+                                            }
                                         }
-                                    }
-                            );
-                        }
+                                );
+                            }
 
-                        @Override
-                        protected boolean getUseShortcut() {
-                            return true;
+                            @Override
+                            protected boolean getUseShortcut() {
+                                return true;
+                            }
                         }
-                    }
-            );
-            action.setImmuneTo(Title.Sense);
-            return Collections.singletonList(action);
+                );
+                action.setImmuneTo(Title.Sense);
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
