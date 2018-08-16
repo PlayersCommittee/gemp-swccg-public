@@ -9,15 +9,16 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.RestoreFreedomToGalaxyState;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextEpicEventTriggerAction;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardsInUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.ForceDrainInitiatedResult;
 
 import java.util.Collection;
@@ -53,8 +54,11 @@ public class Card208_017 extends AbstractEpicEventDeployable {
                 && GameConditions.canDrawDestiny(game, playerId)) {
             final PhysicalCard system = ((ForceDrainInitiatedResult) effectResult).getLocation();
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            final RestoreFreedomToGalaxyState epicEventState = new RestoreFreedomToGalaxyState(self);
+
+            final OptionalGameTextEpicEventTriggerAction action = new OptionalGameTextEpicEventTriggerAction(self, gameTextSourceCardId, gameTextActionId, epicEventState);
             action.setText("Draw destiny");
+
             // Perform result(s)
             action.appendEffect(
                     new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_DESTINY) {
@@ -81,10 +85,15 @@ public class Card208_017 extends AbstractEpicEventDeployable {
                             else {
                                 gameState.sendMessage("Result: Failed");
                             }
+
+
                         }
                     }
             );
-            return Collections.singletonList(action);
+
+            OptionalGameTextTriggerAction optionalGameTextTriggerAction = (OptionalGameTextTriggerAction)action;
+
+            return Collections.singletonList(optionalGameTextTriggerAction);
         }
         return null;
     }
