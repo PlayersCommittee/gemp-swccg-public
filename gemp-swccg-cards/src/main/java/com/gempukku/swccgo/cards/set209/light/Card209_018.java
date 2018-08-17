@@ -105,7 +105,7 @@ public class Card209_018 extends AbstractNormalEffect {
 
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
         // Check if reached end of each control phase and action was not performed yet.
@@ -123,7 +123,7 @@ public class Card209_018 extends AbstractNormalEffect {
             }
         }
 
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_3;
 
         // Check condition(s)
         if (TriggerConditions.isAboutToLeaveTableExceptFromSourceCard(game, effectResult, self, Filters.Overwhelmed)) {
