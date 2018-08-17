@@ -395,7 +395,6 @@ public enum GameTextActionId {
     UNDERCOVER__DOWNLOAD_WELL_GUARDED(true),
     UNDERCOVER__DOWNLOAD_YARNA_DAL_GARGAN(true),
     UNEXPECTED_INTERRUPTION__UPLOAD_INTERRUPT(true),
-    UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE(true),
     UUTKIK__STEAL_FROM_LOST_PILE(true),
     VIZAM__UPLOAD_VEHICLE_WEAPON(true),
     WALKER_GARRISON__UPLOAD_ATAT(true),
@@ -607,6 +606,7 @@ public enum GameTextActionId {
 
     // Per turn for card title
     SUPPRESSIVE_FIRE__ACTIVATE_FORCE(false, false, false, false, false, true),
+    UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE(true, false, false, false, false, true),
     VANEE_ACTIVATE_ONE_FORCE(false, false, false, false, false, true),
 
     // Actions that are for specified reasons
