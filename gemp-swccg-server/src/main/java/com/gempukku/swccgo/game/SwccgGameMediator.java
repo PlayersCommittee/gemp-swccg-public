@@ -1216,6 +1216,10 @@ public class SwccgGameMediator {
                 // Mind What Your Have Learned
                 return "MWYHL";
             }
+            if (Filters.or(Filters.They_Have_No_Idea_Were_Coming, Filters.Until_We_Win_Or_The_Chances_Are_Spent).accepts(_swccgoGame, objective)) {
+                // They Have No Idea We're Coming
+                return "No Idea";
+            }
             if (Filters.or(Filters.Old_Allies, Filters.We_Need_Your_Help).accepts(_swccgoGame, objective)) {
                 // Old Allies
                 return "Old Allies";

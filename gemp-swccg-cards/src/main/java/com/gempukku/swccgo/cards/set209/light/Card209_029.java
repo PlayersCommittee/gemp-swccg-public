@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card209_029 extends AbstractObjective {
     public Card209_029() {
-        super(Side.LIGHT, 0, Title.They_Have_No_Idea_Were_coming);
+        super(Side.LIGHT, 0, Title.They_Have_No_Idea_Were_Coming);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room.{For} remainder of game, you may not deploy Jedi. Baze, Chirrut, and Rebel troopers are spies.{While} this side up, once per turn, may deploy a Rebel starship (except Home One or [Reflections III] Falcon) or a Scarif site from Reserve Deck; reshuffle. Each player's characters (except Imperials and spies) and vehicles deploy +2 to Scarif sites that player does not occupy.");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_9);

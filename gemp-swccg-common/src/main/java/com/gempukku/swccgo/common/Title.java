@@ -888,7 +888,7 @@ public interface Title {
     String Thank_The_Maker = "Thank The Maker";
     String That_Things_Operational = "That Thing's Operational";
     String Thats_One = "That's One";
-    String They_Have_No_Idea_Were_coming = "They Have No Idea We're Coming";
+    String They_Have_No_Idea_Were_Coming = "They Have No Idea We're Coming";
     String The_Camp = "The Camp";
     String The_Circle_Is_Now_Complete = "The Circle Is Now Complete";
     String The_First_Transport_Is_Away = "The First Transport Is Away!";
