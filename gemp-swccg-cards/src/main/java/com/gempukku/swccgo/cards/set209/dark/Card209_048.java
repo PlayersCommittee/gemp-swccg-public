@@ -51,11 +51,11 @@ public class Card209_048 extends AbstractUsedInterrupt {
 
         // In this section, we:
         //    -   Cancel reacts before they resolve.
-        //    -   Cancel Diarmed before it resolves.
+        //    -   Cancel Disarmed before it resolves.
 
         // Part 1: Cancel react (playable when opponent reacts)
         if (TriggerConditions.isReact(game, effect)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Cancel 'react'");
             // Allow responses
             action.allowResponses(
@@ -67,9 +67,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
                         }
                     }
             );
-
             return Collections.singletonList(action);
-
         }
 
         // Part 2: Cancel Disarmed as it's being played, before it resolves.
@@ -83,7 +81,6 @@ public class Card209_048 extends AbstractUsedInterrupt {
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             return Collections.singletonList(action);
         }
-
         return null;
     }
 
@@ -259,30 +256,19 @@ public class Card209_048 extends AbstractUsedInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
         final Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
-        PreventableCardEffect cardEffect = null;
-        PhysicalCard cardAboutToBeHit = null;
-        final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
         //check conditions
         if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)
                 && GameConditions.canUseForce(game, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1))
         {
-            if (TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.or(Filters.character, Filters.character_with_permanent_character_weapon, Filters.weapon)))
-            {
-                final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
-                cardEffect = result.getPreventableCardEffect();
-                cardAboutToBeHit = result.getCardToBeHit();
-            }
-            else if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)){
-                final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
-                cardEffect = result.getPreventableCardEffect();
-                cardAboutToBeHit = result.getCardToBeHit();
-            }
+            final PhysicalCard cardAboutToBeHit = ((AboutToBeHitResult) effectResult).getCardToBeHit();
+            if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-            if (cardEffect != null && cardAboutToBeHit != null) {
                 action.setText("Prevent Forfeit From Being Reduced");
+                action.setImmuneTo(Title.Sense);
                 action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose Target", cardAboutToBeHit) {
                             @Override
                             protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                                 action.addAnimationGroup(targetedCard);
@@ -313,7 +299,6 @@ public class Card209_048 extends AbstractUsedInterrupt {
                             }
                         }
                 );
-                action.setImmuneTo(Title.Sense);
                 return Collections.singletonList(action);
             }
         }
