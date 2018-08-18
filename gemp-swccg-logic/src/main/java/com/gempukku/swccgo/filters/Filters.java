@@ -17638,6 +17638,7 @@ public class Filters {
     public static final Filter Maul = Filters.persona(Persona.MAUL);
     public static final Filter Mauls_Lightsaber = Filters.persona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);
     public static final Filter Maul_Strikes = Filters.title(Title.Maul_Strikes);
+    public static final Filter Mazs_Palace_Location = Filters.keyword(Keyword.MAZS_PALACE_LOCATION);
     public static final Filter Mechanical_Failure = Filters.title(Title.Mechanical_Failure);
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);
     public static final Filter Meditation_Chamber = Filters.title(Title.Meditation_Chamber);
