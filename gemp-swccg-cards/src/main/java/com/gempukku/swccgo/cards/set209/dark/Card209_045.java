@@ -97,7 +97,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                             final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
                                             action.appendEffect(
-                                                    new FireWeaponEffect(action, superlaser, false, Filters.canBeTargetedBy(superlaser)));
+                                                    new FireWeaponEffect(action, superlaser, false, Filters.sameCardId(targetedSite)));
                                             // 2) Fire!
                                             action.appendEffect(
                                                     new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
