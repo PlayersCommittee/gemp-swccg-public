@@ -133,40 +133,35 @@ public class Card209_029 extends AbstractObjective {
 
         GameTextActionId gameTextActionId = GameTextActionId.THEY_HAVE_NO_IDEA_WERE_COMING__DOWNLOAD_SITE_OR_STARSHIP;
 
-        // Check condition(s) - Once per turn, deploy a Scarif location
+        // Check condition(s) - Once per turn, deploy:
+        //   1) A Scarif location
+        //   OR
+        //   2) Rebel starship (except RefIII Falcon and Home One)
+        //
+
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Scarif location from Reserve Deck");
-            action.setActionMsg("Deploy a Scarif location from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Scarif_location, true));
 
-            actions.add(action);
-        }
-        // Check condition(s) - Once per turn, deploy a Rebel starship (except RefIII Falcon and Home One)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
-
+            // Build starship filter
             Filter notRef3Falcon = Filters.not(Filters.and(Filters.Falcon, Icon.REFLECTIONS_III));
             Filter notHomeOne = Filters.not(Filters.Home_One);
             Filter notRef3FalconOrHomeOne = Filters.and(notRef3Falcon, notHomeOne);
             Filter rebelStarshipNotHomeOneOrRef3Falcon = Filters.and(Filters.Rebel_starship, notRef3FalconOrHomeOne);
 
+
+            // Build Starship OR Scarif site
+            Filter starshipOrSite = Filters.or(rebelStarshipNotHomeOneOrRef3Falcon, Filters.Scarif_site);
+
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy rebel starship from Reserve Deck");
-            action.setActionMsg("Deploy rebel starship from Reserve Deck");
+            action.setText("Deploy starship or location from Reserve Deck");
+            action.setActionMsg("Deploy rebel starship or Scarif location from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, rebelStarshipNotHomeOneOrRef3Falcon, true));
+                    new DeployCardFromReserveDeckEffect(action, starshipOrSite, true));
 
             actions.add(action);
         }

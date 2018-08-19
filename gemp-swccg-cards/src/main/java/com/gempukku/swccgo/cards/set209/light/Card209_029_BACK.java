@@ -134,7 +134,7 @@ public class Card209_029_BACK extends AbstractObjective {
         GameTextActionId gameTextActionId = GameTextActionId.UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE;
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
                 && TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult, rebelFilter)
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canCancelDestiny(game, playerId)
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
 
@@ -143,7 +143,7 @@ public class Card209_029_BACK extends AbstractObjective {
             action.setActionMsg("Cancel just drawn " + ((DestinyDrawnResult) effectResult).getDestinyType().getHumanReadable());
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerGameEffect(action));
+                    new OncePerTurnEffect(action));
             // Pay cost(s)
             action.appendCost(
                     new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelFilter, false));
