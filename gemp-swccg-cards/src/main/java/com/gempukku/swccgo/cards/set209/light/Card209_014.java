@@ -37,8 +37,9 @@ public class Card209_014 extends AbstractAlien {
         super(Side.LIGHT, 3, 2, 1, 2, 3, "Yoxgit", Uniqueness.UNIQUE);
         setLore("Male Ugnaught. Left Cloud City after the Empire took control. Works for Hermi Odle, helping to supply him with various weaponry. Hopes to someday return to Cloud City.");
         setGameText("Deploys free to (and power +2 at) a Cloud City, Jabba's Palace, or Maz's Palace location. Once per turn, if you just drew an alien (or [Independent] starship) for destiny, may take that card into hand to cancel and redraw that destiny.");
-        addIcons(Icon.VIRTUAL_SET_9);
+        addIcons(Icon.VIRTUAL_SET_9, Icon.JABBAS_PALACE);
         setSpecies(Species.UGNAUGHT);
+        setVirtualSuffix(true);
     }
 
     @Override
