@@ -24,7 +24,6 @@ import java.util.List;
  * Title: Scarif: Landing Pad Nine (Docking Bay)
  */
 
-
 public class Card209_026 extends AbstractSite {
     public Card209_026() {
         super(Side.LIGHT, Title.Scarif_Landing_Pad_Nine, Title.Scarif);
@@ -34,9 +33,7 @@ public class Card209_026 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.PLANET, Icon.EXTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.DOCKING_BAY);
-        addKeyword(Keyword.SCARIF_LOCATION);
     }
-
 
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
