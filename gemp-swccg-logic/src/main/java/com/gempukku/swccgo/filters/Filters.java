@@ -17938,8 +17938,9 @@ public class Filters {
     public static final Filter Save_You_It_Can = Filters.title(Title.Save_You_It_Can);
     public static final Filter Saw = Filters.title(Title.Saw);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
-    public static final Filter Scarif_site = Filters.and(Keyword.SCARIF_LOCATION, CardSubtype.SITE);
+    public static final Filter Scarif_battleground_site = Filters.and(Filters.partOfSystem(Title.Scarif), CardSubtype.SITE, Filters.battleground());
     public static final Filter Scarif_location = Filters.partOfSystem(Title.Scarif);
+    public static final Filter Scarif_site = Filters.and(Filters.partOfSystem(Title.Scarif), CardSubtype.SITE);
     public static final Filter Scarif_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Scarif));
     public static final Filter Scarif_Docking_Bay = Filters.title(Title.Scarif_Landing_Pad_Nine);
     public static final Filter Scarif_Turbolift_Complex = Filters.title(Title.Scarif_Turbolift_Complex);
