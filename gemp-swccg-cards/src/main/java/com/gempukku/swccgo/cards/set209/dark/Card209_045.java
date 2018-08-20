@@ -63,6 +63,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
                 && GameConditions.canDrawDestiny(game, playerId)
                 && GameConditions.canSpotLocation(game, systemFilter)
+                && GameConditions.canTarget(game, self, Filters.Superlaser)
                 && GameConditions.canTarget(game, self, yourSiteEvenIfConverted)) {
             final CommencePrimaryIgnitionV9State epicEventState = new CommencePrimaryIgnitionV9State(self);
             final TopLevelEpicEventGameTextAction action = new TopLevelEpicEventGameTextAction(self, gameTextSourceCardId);
