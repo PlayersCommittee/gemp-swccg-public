@@ -100,6 +100,7 @@ public enum Keyword implements Filterable {
     MARKER_7("7th Marker", false),
     MAY_NOT_BE_FORFEITED_IN_BATTLE("May not be forfeited in battle", false),
     MAY_MOVE("May move", true),
+    MAZS_PALACE_LOCATION("Maz's Palace Location", false),
     MEDIUM_TRANSPORT("Medium Transport", false),
     MINE("Mine", true),
     MISSILE("Missile", true),
