@@ -90,15 +90,15 @@ public class Card209_029_BACK extends AbstractObjective {
 
                     final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                     action.setText("Place Rebel in Lost Pile out of play");
-                    action.setActionMsg("Cancel just drawn destiny targetting rebel");
+                    action.setActionMsg("Cancel just drawn destiny targeting rebel");
 
                     // Update usage limit(s)
                     action.appendUsage(
                             new OncePerTurnEffect(action));
 
-                    // Choose target(s) - one rebel may move
+                    // Choose target(s) - one spy may move
                     action.appendTargeting(
-                            new ChooseCardOnTableEffect(action, playerId, "Choose Rebel character to move", Filters.in(validSpies   )) {
+                            new ChooseCardOnTableEffect(action, playerId, "Choose spy to move", Filters.in(validSpies)) {
                                 @Override
                                 protected void cardSelected(PhysicalCard rebel) {
 
@@ -134,19 +134,19 @@ public class Card209_029_BACK extends AbstractObjective {
         GameTextActionId gameTextActionId = GameTextActionId.UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE;
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
                 && TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult, rebelFilter)
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canCancelDestiny(game, playerId)
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place character in Lost Pile out of play");
+            action.setText("Place Rebel in Lost Pile out of play");
             action.setActionMsg("Cancel just drawn " + ((DestinyDrawnResult) effectResult).getDestinyType().getHumanReadable());
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerGameEffect(action));
+                    new OncePerTurnEffect(action));
             // Pay cost(s)
             action.appendCost(
-                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, Filters.character, false));
+                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelFilter, false));
             // Perform result(s)
             action.appendEffect(
                     new CancelDestinyEffect(action));

@@ -18125,6 +18125,7 @@ public class Filters {
     public static final Filter Their_Fire_Has_Gone_Out_Of_The_Universe = Filters.title(Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
     public static final Filter There_Is_Good_In_Him = Filters.title(Title.There_Is_Good_In_Him);
     public static final Filter There_Is_No_Try = Filters.title(Title.There_Is_No_Try);
+    public static final Filter They_Have_No_Idea_Were_Coming = Filters.title(Title.They_Have_No_Idea_Were_Coming);
     public static final Filter Theyre_On_Dantooine = Filters.title(Title.Theyre_On_Dantooine);
     public static final Filter thief = Filters.keyword(Keyword.THIEF);
     public static final Filter Third_Marker = Filters.keyword(Keyword.MARKER_3);
@@ -18190,6 +18191,7 @@ public class Filters {
     public static final Filter underwater_site = Filters.and(Icon.UNDERWATER, CardSubtype.SITE);
     public static final Filter Underworld_Contacts = Filters.title(Title.Underworld_Contacts);
     public static final Filter Unkar_Plutt = Filters.title(Title.Unkar_Plutt);
+    public static final Filter Until_We_Win_Or_The_Chances_Are_Spent = Filters.title(Title.Until_We_Win_Or_The_Chances_Are_Spent);
     public static final Filter Uplink_Station = Filters.title(Title.Uplink_Station);
     public static final Filter Upper_Walkway = Filters.title(Title.Upper_Walkway);
     public static final Filter URoRRuRRR = Filters.title(Title.URoRRuRRR);
