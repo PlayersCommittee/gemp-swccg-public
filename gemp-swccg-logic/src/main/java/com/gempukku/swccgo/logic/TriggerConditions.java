@@ -1876,7 +1876,10 @@ public class TriggerConditions {
         }
         else if (effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_PLACE_IN_CARD_PILE_FROM_TABLE) {
             AboutToPlaceCardInCardPileFromTableResult result = (AboutToPlaceCardInCardPileFromTableResult) effectResult;
-            if (Filters.and(sourceCard).accepts(game, result.getSourceCard())) {
+
+            // If there is a known source AND the source is the specific card
+            // For game rules, like "escape vs rally", replacing cards, there is no 'source'
+            if ((result.getSourceCard() != null)  && Filters.and(sourceCard).accepts(game, result.getSourceCard())) {
                 return false;
             } else {
                 return isAboutToLeaveTable(game, effectResult, filter);
