@@ -57,3 +57,8 @@ The bootstrap script automatically creates 2 test admin accounts, `test1` and `t
 * `vagrant halt`: Hard shutdown of the VM
 * `vagrant suspend`: Soft shutdown of the VM (this is faster)
 * `vagrant destroy`: Remove VM from your system
+
+### Temporary Note, (Jim, will delete when a resolution is decided on and applied)
+The gemp-swccg/vagrant-build/bootstrap.sh file, which does the initalization of the vm, is hardcoded to run "sudo wget http://www-eu.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz".  Then the next few install lines all references version 3.5.3.  As of 25Aug2018 that version is no longer available.  I had to manually grab version 3.5.4, and manually run the other install lines using 3.5.4.
+Weird thing is I do not see anything that appears to be a "current-release" directory that can always be relid on.
+Adding this note here for now.  Intent is to work with adamanthil to figure out the long term solution, but wanted to document this in case anyone has to reinstall their local environment.
