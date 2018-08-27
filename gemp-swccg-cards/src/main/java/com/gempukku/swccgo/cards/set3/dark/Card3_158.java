@@ -52,11 +52,11 @@ public class Card3_158 extends AbstractVehicleWeapon {
     @Override
     protected List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, final SwccgGame game, final PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
         FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                .targetUsingForce(Filters.or(Filters.starfighter, Filters.character, targetedAsCharacter, Filters.creature, Filters.vehicle), 2, TargetingReason.TO_BE_HIT).finishBuildPrep();
+                .targetAtSameOrAdjacentSiteUsingForce(Filters.or(Filters.starfighter, Filters.character, targetedAsCharacter, Filters.creature, Filters.vehicle), 2, TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, Statistic.DEFENSE_VALUE, Filters.starfighter, 3);
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, Statistic.DEFENSE_VALUE, Filters.starfighter, 3f);
             return Collections.singletonList(action);
         }
         return null;
