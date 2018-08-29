@@ -59,21 +59,28 @@ public class Card7_258 extends AbstractLostInterrupt {
                         new ChooseCardOnTableEffect(action, playerId, "Choose system", validSystems) {
                             @Override
                             protected void cardSelected(PhysicalCard system) {
-                                final Collection<PhysicalCard> starships1 = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.starship, Filters.at(system)));
+                                final Collection<PhysicalCard> starshipsAtSystem = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.starship, Filters.at(system)));
 
+                                // Build a list of all opponent's cards at the system that are affected
+                                // This will be all the ships AND the contents. Per the rules DS gets to put all
+                                // of the cards back in any order, so we need to target all the cards (not just the ships)
                                 ArrayList<PhysicalCard> affectedCards = new ArrayList<PhysicalCard>();
 
-                                for (PhysicalCard starship: starships1) {
+                                // Add all contents of the starships first
+                                for (PhysicalCard starship: starshipsAtSystem) {
                                     Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(starship));
                                     affectedCards.addAll(cardsAboard);
                                 }
-                                affectedCards.addAll(starships1);
 
+                                // Add the starships
+                                affectedCards.addAll(starshipsAtSystem);
+
+                                // Build a "final" so we can give it to the calls below
                                 final ArrayList<PhysicalCard> affectedCardsCopy = new ArrayList<PhysicalCard>(affectedCards);
 
-                                action.addAnimationGroup(starships1);
+                                action.addAnimationGroup(starshipsAtSystem);
                                 // Allow response(s)
-                                action.allowResponses("Place  " + GameUtils.getAppendedNames(starships1) + " in Used Pile",
+                                action.allowResponses("Place  " + GameUtils.getAppendedNames(starshipsAtSystem) + " in Used Pile",
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
