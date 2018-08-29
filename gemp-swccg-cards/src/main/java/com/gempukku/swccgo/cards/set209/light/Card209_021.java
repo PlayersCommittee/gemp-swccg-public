@@ -159,6 +159,12 @@ public class Card209_021 extends AbstractUsedInterrupt {
                                                             protected void cardsTargeted(final int targetGroupId, final Collection<PhysicalCard> cardsToRelocate) {
                                                                 action.addAnimationGroup(cardsToRelocate);
                                                                 action.addAnimationGroup(toSite);
+
+                                                                // At this point, mark the card as 'played'. If the subsequent costs
+                                                                // fail, we need to make sure we still can't play the card again this turn.
+                                                                // (by default, gemp records cards played only after all costs have been successfully paid)
+                                                                action.appendCost(new RecordCardsBeingPlayedEffect(action, Collections.singleton(self)));
+
                                                                 // Pay cost(s)
                                                                 // Draw destiny to determine cost to 'transport'
                                                                 action.appendCost(
