@@ -1,8 +1,8 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -52,10 +52,9 @@ public class Card209_029_BACK extends AbstractObjective {
         modifiers.add(new ImmuneToTitleModifier(self, yourSpyfilter, Title.Undercover));
 
         // While Stardust on your spy, opponent may not cancel your Force drains at battlegrounds.
-        Collection<PhysicalCard> rebelsWithStardustOnThem = Filters.filterActive(game, self, Filters.and(yourSpyfilter, Filters.hasAttached(Filters.Stardust)));
-        if (!rebelsWithStardustOnThem.isEmpty()) {
-            modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, Filters.battleground, opponentPlayerId, playerId));
-        }
+        Filter spyWithStardust = Filters.and(yourSpyfilter, Filters.hasAttached(Filters.Stardust));
+        OnTableCondition spyWithStardustCondition = new OnTableCondition(self, spyWithStardust);
+        modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, Filters.battleground, spyWithStardustCondition, opponentPlayerId, playerId));
 
         return modifiers;
     }
