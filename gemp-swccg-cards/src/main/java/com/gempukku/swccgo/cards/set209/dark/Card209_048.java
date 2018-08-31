@@ -51,11 +51,11 @@ public class Card209_048 extends AbstractUsedInterrupt {
 
         // In this section, we:
         //    -   Cancel reacts before they resolve.
-        //    -   Cancel Diarmed before it resolves.
+        //    -   Cancel Disarmed before it resolves.
 
         // Part 1: Cancel react (playable when opponent reacts)
         if (TriggerConditions.isReact(game, effect)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Cancel 'react'");
             // Allow responses
             action.allowResponses(
@@ -67,9 +67,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
                         }
                     }
             );
-
             return Collections.singletonList(action);
-
         }
 
         // Part 2: Cancel Disarmed as it's being played, before it resolves.
@@ -83,7 +81,6 @@ public class Card209_048 extends AbstractUsedInterrupt {
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             return Collections.singletonList(action);
         }
-
         return null;
     }
 
@@ -165,6 +162,12 @@ public class Card209_048 extends AbstractUsedInterrupt {
                                                             protected void cardsTargeted(final int targetGroupId, final Collection<PhysicalCard> cardsToRelocate) {
                                                                 action.addAnimationGroup(cardsToRelocate);
                                                                 action.addAnimationGroup(toSite);
+
+                                                                // At this point, mark the card as 'played'. If the subsequent costs
+                                                                // fail, we need to make sure we still can't play the card again this turn.
+                                                                // (by default, gemp records cards played only after all costs have been successfully paid)
+                                                                action.appendCost(new RecordCardsBeingPlayedEffect(action, Collections.singleton(self)));
+
                                                                 // Pay cost(s)
                                                                 // Draw destiny to determine cost to 'transport'
                                                                 action.appendCost(
@@ -258,71 +261,53 @@ public class Card209_048 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
-        Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
-        PreventableCardEffect cardEffect = null;
-        PhysicalCard cardAboutToBeHit = null;
-        final PlayInterruptAction action = new PlayInterruptAction(game, self);
-        final UseForceEffect forceCost1 = new UseForceEffect(action, playerId, 1);
-        final UseForceEffect forceCost0 = new UseForceEffect(action, playerId, 0);
-        TargetingReason targetingReason = TargetingReason.OTHER;
-        final GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        final Filter yourCharacter = Filters.and(Filters.character, Filters.your(self));
 
-        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.your(self), Filters.character), Filters.or(Filters.character, Filters.character_with_permanent_character_weapon, Filters.weapon)))
+        //check conditions
+        if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)
+                && GameConditions.canUseForce(game, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1))
         {
-            final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
-            cardEffect = result.getPreventableCardEffect();
-            cardAboutToBeHit = result.getCardToBeHit();
-        }
-        else if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)){
-            final AboutToBeHitResult result = (AboutToBeHitResult) effectResult;
-            cardEffect = result.getPreventableCardEffect();
-            cardAboutToBeHit = result.getCardToBeHit();
-        }
+            final PhysicalCard cardAboutToBeHit = ((AboutToBeHitResult) effectResult).getCardToBeHit();
+            if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-        if (cardEffect != null && cardAboutToBeHit != null) {
-            action.setText("Prevent Forfeit From Being Reduced");
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose Target", TargetingReason.OTHER, cardAboutToBeHit) {
-                        @Override
-                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
-                            action.addAnimationGroup(targetedCard);
+                action.setText("Prevent Forfeit From Being Reduced");
+                action.setImmuneTo(Title.Sense);
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose Target", cardAboutToBeHit) {
+                            @Override
+                            protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                                action.addAnimationGroup(targetedCard);
 
-                            if (TriggerConditions.isAboutToBeHitBy(game, effectResult, Filters.and(Filters.your(self), Filters.character), Filters.character_with_permanent_character_weapon))
-                            {
-                                action.appendCost(forceCost0);
-                            }
-                            else
-                            {
-                                action.appendCost(forceCost1);
-                            }
+                                action.appendCost(
+                                        new UseForceEffect(action, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1));
 
-                            // Allow response(s)
-                            action.allowResponses("Prevent forfeit from being reduced",
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                // Allow response(s)
+                                action.allowResponses("Prevent forfeit from being reduced",
+                                        new RespondablePlayCardEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
 
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new AddUntilEndOfTurnModifierEffect(action,
-                                                            new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
-                                                            "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                                new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
+                                                                "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                            }
                                         }
-                                    }
-                            );
-                        }
+                                );
+                            }
 
-                        @Override
-                        protected boolean getUseShortcut() {
-                            return true;
+                            @Override
+                            protected boolean getUseShortcut() {
+                                return true;
+                            }
                         }
-                    }
-            );
-            action.setImmuneTo(Title.Sense);
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
-
 }
