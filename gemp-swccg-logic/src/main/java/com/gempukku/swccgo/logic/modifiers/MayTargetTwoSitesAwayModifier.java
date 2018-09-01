@@ -16,7 +16,7 @@ public class MayTargetTwoSitesAwayModifier extends AbstractModifier {
     }
 
     public MayTargetTwoSitesAwayModifier(PhysicalCard source, Condition condition, Filterable weaponFilter) {
-        super(source, "May target two sites away", null, condition, ModifierType.TARGET_TWO_SITE_AWAY);
+        super(source, "May target two sites away", null, condition, ModifierType.TARGET_TWO_SITE_AWAY, true);
         _weaponFilter = Filters.and(weaponFilter);
     }
 

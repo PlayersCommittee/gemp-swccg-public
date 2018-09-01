@@ -605,6 +605,7 @@ public enum GameTextActionId {
     SEBULBAS_PODRACER__OPPONENT_DRAWS_NO_RACE_DESTINY(false, false, false, false, true),
 
     // Per turn for card title
+    PREPARE_FOR_A_SURFACE_ATTACK_V__UPLOAD_CARD(true, false, false, false, false, true),
     SUPPRESSIVE_FIRE__ACTIVATE_FORCE(false, false, false, false, false, true),
     UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE(true, false, false, false, false, true),
     VANEE_ACTIVATE_ONE_FORCE(false, false, false, false, false, true),

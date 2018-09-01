@@ -38,7 +38,7 @@ public class MayTargetAdjacentSiteModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
     public MayTargetAdjacentSiteModifier(PhysicalCard source, Filterable weaponFilter, Condition condition) {
-        super(source, "May target at adjacent site", null, condition, ModifierType.TARGET_ADJACENT_SITE);
+        super(source, "May target at adjacent site", null, condition, ModifierType.TARGET_ADJACENT_SITE, true);
         _weaponFilter = Filters.and(weaponFilter);
     }
 
