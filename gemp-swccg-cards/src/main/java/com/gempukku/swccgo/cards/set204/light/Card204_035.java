@@ -18,6 +18,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -25,6 +26,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -62,9 +64,20 @@ public class Card204_035 extends AbstractStarfighter {
             final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+
             action.setText("Place out of play");
             action.setActionMsg("Place " + GameUtils.getCardLink(self) + " out of play");
+
+
             // Perform result(s)
+
+            // If overwhelmed, put all cards aboard in Used pile before self-destructing!
+            if (!TriggerConditions.isAboutToLeaveTableExceptFromSourceCard(game, effectResult, self, Filters.Overwhelmed)) {
+                Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(self));
+                action.appendEffect(new PlaceCardsInUsedPileFromTableEffect(action, cardsAboard, false, Zone.USED_PILE, true));
+            }
+
+            // In all other cases (not Overwhelmed), just go out of play like normal
             action.appendEffect(
                     new PassthruEffect(action) {
                         @Override

@@ -15,10 +15,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Set: Special Edition
@@ -43,7 +40,7 @@ public class Card7_258 extends AbstractLostInterrupt {
             final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
             Collection<PhysicalCard> systems = Filters.filterTopLocationsOnTable(game,
                     Filters.and(Filters.sameSystemAs(self, Filters.and(Filters.opponents(self), Filters.starship)),
-                    Filters.not(Filters.sameSystemAs(self, Filters.and(Filters.opponents(self), Filters.or(Filters.Jedi, Filters.starship_weapon))))));
+                            Filters.not(Filters.sameSystemAs(self, Filters.and(Filters.opponents(self), Filters.or(Filters.Jedi, Filters.starship_weapon))))));
 
             List<PhysicalCard> validSystems = new LinkedList<PhysicalCard>();
             for (PhysicalCard system : systems) {
@@ -62,16 +59,34 @@ public class Card7_258 extends AbstractLostInterrupt {
                         new ChooseCardOnTableEffect(action, playerId, "Choose system", validSystems) {
                             @Override
                             protected void cardSelected(PhysicalCard system) {
-                                final Collection<PhysicalCard> starships = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.starship, Filters.at(system)));
-                                action.addAnimationGroup(starships);
+                                final Collection<PhysicalCard> starshipsAtSystem = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.starship, Filters.at(system)));
+
+                                // Build a list of all opponent's cards at the system that are affected
+                                // This will be all the ships AND the contents. Per the rules DS gets to put all
+                                // of the cards back in any order, so we need to target all the cards (not just the ships)
+                                ArrayList<PhysicalCard> affectedCards = new ArrayList<PhysicalCard>();
+
+                                // Add all contents of the starships first
+                                for (PhysicalCard starship: starshipsAtSystem) {
+                                    Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(starship));
+                                    affectedCards.addAll(cardsAboard);
+                                }
+
+                                // Add the starships
+                                affectedCards.addAll(starshipsAtSystem);
+
+                                // Build a "final" so we can give it to the calls below
+                                final ArrayList<PhysicalCard> affectedCardsCopy = new ArrayList<PhysicalCard>(affectedCards);
+
+                                action.addAnimationGroup(starshipsAtSystem);
                                 // Allow response(s)
-                                action.allowResponses("Place  " + GameUtils.getAppendedNames(starships) + " in Used Pile",
+                                action.allowResponses("Place  " + GameUtils.getAppendedNames(starshipsAtSystem) + " in Used Pile",
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new PlaceCardsInUsedPileFromTableEffect(action, starships, false, Zone.USED_PILE, true));
+                                                        new PlaceCardsInUsedPileFromTableEffect(action, affectedCardsCopy, false, Zone.USED_PILE, true));
                                             }
                                         }
                                 );
