@@ -63,7 +63,8 @@ public class Card209_003 extends AbstractRepublic {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         final Filter targetFilter = Filters.and(Filters.opponents(self), Filters.undercover_spy, Filters.atSameSite(self));
 
-        Filter weaponFilter = Filters.and(Filters.your(self), Filters.weapon_or_character_with_permanent_weapon, Filters.canBeFiredAt(self, targetFilter, 0));
+        //filter for valid weapons that can fire - his permanent weapon (self) or weapons attached to him (attachedTo(self)
+        Filter weaponFilter = Filters.and(Filters.your(self), Filters.weapon_or_character_with_permanent_weapon, Filters.or(self, Filters.attachedTo(self)), Filters.canBeFiredAt(self, targetFilter, 0));
 
         // Check condition(s)
         if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
