@@ -42,10 +42,18 @@ public class Card11_087 extends AbstractLostOrStartingInterrupt {
         if (GameConditions.hasReserveDeck(game, playerId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Peak at top cards of Reserve Deck");
-            // Perform result(s)
-            action.appendEffect(
-                    new PeekAtTopCardsOfReserveDeckAndChooseCardsToLoseEffect(action, playerId, 3, 2));
+            action.setText("Peek at top 3 cards of Reserve Deck");
+            // Allow response(s)
+            action.allowResponses("Peek at top 3 cards of Reserve Deck and place all but one in Lost Pile",
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new PeekAtTopCardsOfReserveDeckAndChooseCardsToLoseEffect(action, playerId, 3, 2));
+                        }
+                    }
+            );
             return Collections.singletonList(action);
         }
         return null;
