@@ -6,12 +6,16 @@ import com.gempukku.swccgo.cards.conditions.DuringEpicDuelWithParticipantConditi
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.modifiers.CrossOverAttemptTotalModifier;
@@ -72,6 +76,22 @@ public class Card9_127 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        Condition targetLeiaInsteadOfLuke = new OnTableCondition(self, Filters.There_Is_Another);
+        Condition targetLuke = new NotCondition(targetLeiaInsteadOfLuke);
+
+        modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, new AndCondition(targetLeiaInsteadOfLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Leia))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
+        modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new AndCondition(targetLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
+        return modifiers;
+
+        /*
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, targetLeiaInsteadOfLuke, Title.Responsibility_Of_Command));
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, targetLuke, Title.Responsibility_Of_Command));
+        return modifiers;
+         */
+
+
+
+        /*
         boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
         game.getGameState().sendMessage("100");
         if (targetsLeiaInsteadOfLuke) {
@@ -88,5 +108,6 @@ public class Card9_127 extends AbstractNormalEffect {
             game.getGameState().sendMessage("106");
             return modifiers;
         }
+        */
     }
 }

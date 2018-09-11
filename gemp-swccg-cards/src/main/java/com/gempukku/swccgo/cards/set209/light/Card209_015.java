@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card209_015 extends AbstractDefensiveShield {
     public Card209_015() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "There Is Another");
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.There_Is_Another);
         setLore("Princess Leia Organa. Alderaanian senator. Targeted by Vader for capture and interrogation. The Dark Lord of the Sith wanted her alive.");
         setGameText("Plays on Your Destiny unless Leia or Luke has been deployed this game (even as a captive). [Death Star II] Luke and We’re The Bait are lost. Opponent’s Objective and [Death Star II] Effects target Leia instead of Luke. Force loss from Take Your Father’s Place is -1.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_SET_9);
