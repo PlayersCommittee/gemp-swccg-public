@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringEpicDuelWithParticipantCondition;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
@@ -16,12 +15,10 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.modifiers.CrossOverAttemptTotalModifier;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -82,32 +79,5 @@ public class Card9_127 extends AbstractNormalEffect {
         modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, new AndCondition(targetLeiaInsteadOfLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Leia))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
         modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new AndCondition(targetLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
         return modifiers;
-
-        /*
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, targetLeiaInsteadOfLuke, Title.Responsibility_Of_Command));
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, targetLuke, Title.Responsibility_Of_Command));
-        return modifiers;
-         */
-
-
-
-        /*
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        game.getGameState().sendMessage("100");
-        if (targetsLeiaInsteadOfLuke) {
-            game.getGameState().sendMessage("101");
-            modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Leia)),
-                    new MultiplyEvaluator(3, new StackedEvaluator(self))));
-            game.getGameState().sendMessage("102");
-            return modifiers;
-        }
-        else {
-            game.getGameState().sendMessage("105");
-            modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke)),
-                    new MultiplyEvaluator(3, new StackedEvaluator(self))));
-            game.getGameState().sendMessage("106");
-            return modifiers;
-        }
-        */
     }
 }

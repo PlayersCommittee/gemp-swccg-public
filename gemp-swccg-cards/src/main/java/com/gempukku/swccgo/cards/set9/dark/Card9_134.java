@@ -89,19 +89,6 @@ public class Card9_134 extends AbstractNormalEffect {
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, targetLeiaInsteadOfLuke, Title.Responsibility_Of_Command));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, targetLuke, Title.Responsibility_Of_Command));
         return modifiers;
-
-        /*
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-
-        if (targetsLeiaInsteadOfLuke) {
-            modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, Title.Responsibility_Of_Command));
-            return modifiers;
-        }
-        else {
-            modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, Title.Responsibility_Of_Command));
-            return modifiers;
-        }
-        */
     }
 
     @Override
@@ -113,18 +100,5 @@ public class Card9_134 extends AbstractNormalEffect {
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, targetLeiaInsteadOfLuke, Title.Responsibility_Of_Command));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, targetLuke, Title.Responsibility_Of_Command));
         return modifiers;
-
-        /*
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-
-        if (targetsLeiaInsteadOfLuke) {
-            modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, Title.Responsibility_Of_Command));
-            return modifiers;
-        }
-        else {
-            modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, Title.Responsibility_Of_Command));
-            return modifiers;
-        }
-        */
     }
 }

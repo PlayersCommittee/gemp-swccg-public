@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.FiredWeaponsInBattleCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceLossEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
@@ -11,15 +10,12 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.ReduceForceLossEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
@@ -139,44 +135,6 @@ public class Card209_015 extends AbstractDefensiveShield {
         return null;
     }
 
-/*
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter ds2Filter = Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion);
-
-        // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.and(ds2Filter, Filters.not(Filters.hasGameTextModification(ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE))))) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Make opponent's Objective and [DS2] Effects target Leia");
-            action.setActionMsg("Make opponent's Objective and [DS2] Effects target Leia instead of Luke for remainder of game");
-            // Perform result(s)
-            action.appendEffect(
-                    new AddUntilEndOfGameModifierEffect(action, new ModifyGameTextModifier(self,
-                            Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion), ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE),
-                            "Makes opponent's Objective and [DS2] Effects target Leia instead of Luke for remainder of game"));
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        Filter ds2Filter = Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion);
-
-        // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.and(ds2Filter, Filters.not(Filters.hasGameTextModification(ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE))))) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            // Perform result(s)
-            action.appendEffect(
-                    new AddUntilEndOfGameModifierEffect(action, new ModifyGameTextModifier(self, ds2Filter, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE),
-                            "Makes opponent's Objective and [DS2] Effects target Leia instead of Luke for remainder of game"));
-            return action;
-        }
-        return null;
-    }
-*/
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String player = self.getOwner();
