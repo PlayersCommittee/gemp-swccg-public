@@ -4008,6 +4008,26 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Determines if a Force generation is immune to cancel.
+     * @param gameState the game state
+     * @param playerId the player whose Force generation is being checked
+     * @param location the location
+     * @param source the source of the cancel
+     * @return true if Force generation at location for player is immune to cancel, otherwise false
+     */
+    @Override
+    public boolean isImmuneToForceGenerationCancel(GameState gameState, String playerId, PhysicalCard location, PhysicalCard source) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FORCE_GENERATION_AT_LOCATION_IMMUNE_TO_CANCEL, location)) {
+            if (modifier.isForPlayer(playerId)) {
+                if (modifier.isAffectedTarget(gameState, this, source)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Determines if a Force drain modifier is canceled.
      * @param gameState the game state
      * @param location the Force drain location

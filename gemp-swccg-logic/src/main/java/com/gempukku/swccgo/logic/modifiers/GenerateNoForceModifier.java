@@ -2,6 +2,7 @@ package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 
 /**
@@ -28,5 +29,21 @@ public class GenerateNoForceModifier extends ResetForceGenerationModifier {
      */
     public GenerateNoForceModifier(PhysicalCard source, Filterable locationFilter, Condition condition, String playerId) {
         super(source, locationFilter, condition, 0, playerId);
+    }
+
+    @Override
+    public Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, final PhysicalCard location) {
+        PhysicalCard source = getSource(gameState);
+        final int permSourceCardId = source.getPermanentCardId();
+
+        // Check if card can cancel Force generation for player
+        return new Condition() {
+            @Override
+            public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                PhysicalCard source = gameState.findCardByPermanentId(permSourceCardId);
+
+                return !modifiersQuerying.isImmuneToForceGenerationCancel(gameState, _playerId, location, source);
+            }
+        };
     }
 }

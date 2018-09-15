@@ -14,9 +14,12 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationImmuneToCancelModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,7 +32,7 @@ public class Card207_025 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Establish_Secret_Base, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("The Empire's remote bases develop new technology and hide sensitive projects from potential Rebel saboteurs.");
-        setGameText("Deploy on Bunker if you control that site. Once per turn, may [download] an Endor site. Place Effect in Used Pile if opponent controls Bunker. (Immune to Alter.)");
+        setGameText("Deploy on Bunker if you control that site. Your Force generation at Endor system may not be canceled. Once per turn, may [download] an Endor site. Place Effect in Used Pile if opponent controls Bunker. (Immune to Alter.)");
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_7);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -84,5 +87,12 @@ public class Card207_025 extends AbstractNormalEffect {
             return Collections.singletonList(action);
         }
         return null;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new ForceGenerationImmuneToCancelModifier(self, Filters.Endor_system, self));
+        return modifiers;
     }
 }
