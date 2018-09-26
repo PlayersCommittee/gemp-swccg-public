@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -78,52 +80,57 @@ public class Card209_044 extends AbstractNormalEffect {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
-
         // Card action 1
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        //Need to find Maul
+        // Need to find Maul
         final PhysicalCard maulCard = Filters.findFirstActive(game, self, Filters.Maul);
 
-        //Need to find Jedi
-        final Filter jediSiteFilter = Filters.and(Filters.Jedi, Filters.at(Filters.site));
-
-        // Check condition(s)
-        if (TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL)
-                && GameConditions.canTarget(game, self, Filters.Maul)
-                && GameConditions.canSpot(game, self, jediSiteFilter)
-                && !GameConditions.isAboardAnyStarship(game, maulCard)
-                && !GameConditions.isAboard(game, maulCard, Filters.vehicle)) {
-            Filter siteFilter = Filters.and(Filters.site, Filters.occupiesWith(game.getOpponent(playerId), self, Filters.Jedi));
-
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Relocate Maul to same site as a Jedi");
-
-            // Choose target(s)
-            action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate Maul", siteFilter) {
-                        @Override
-                        protected void cardSelected(final PhysicalCard selectedCard) {
-                            action.addAnimationGroup(selectedCard);
-                            // Allow response(s)
-                            action.allowResponses("Relocate Maul to " + GameUtils.getCardLink(selectedCard),
-                                    new UnrespondableEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new RelocateBetweenLocationsEffect(action, maulCard, selectedCard));
-                                        }
-                                    }
-                            );
-                        }
-                    }
-            );
-
-            actions.add(action);
+        // This trigger is only valid if Maul is on table
+        if (maulCard != null)
+        {
+            // Check condition(s)
+            if (TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL)
+                    && GameConditions.canTarget(game, self, Filters.Maul)
+                    && !GameConditions.isAboardAnyStarship(game, maulCard)
+                    && !GameConditions.isAboard(game, maulCard, Filters.vehicle))
+            {
+                Filter siteToRelocateTo = Filters.and(Filters.site, Filters.locationCanBeRelocatedTo(maulCard, 0), Filters.occupiesWith(game.getOpponent(playerId), self, Filters.Jedi));
+                if (GameConditions.canSpotLocation(game, siteToRelocateTo)) {
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                    action.setText("Relocate Maul to same site as a Jedi");
+                    // Update usage limit(s)
+                    action.appendUsage(
+                            new OncePerPhaseEffect(action));
+                    // Choose target(s)
+                    action.appendTargeting(
+                            new ChooseCardOnTableEffect(action, self.getOwner(), "Choose site to relocate Maul", siteToRelocateTo) {
+                                @Override
+                                protected void cardSelected(final PhysicalCard selectedCard) {
+                                    action.addAnimationGroup(selectedCard);
+                                    // Pay cost(s)
+                                    action.appendCost(
+                                            new PayRelocateBetweenLocationsCostEffect(action, playerId, maulCard, selectedCard, 0));
+                                    // Allow response(s)
+                                    action.allowResponses("Relocate Maul to " + GameUtils.getCardLink(selectedCard),
+                                            new UnrespondableEffect(action) {
+                                                @Override
+                                                protected void performActionResults(Action targetingAction) {
+                                                    // Perform result(s)
+                                                    action.appendEffect(
+                                                            new RelocateBetweenLocationsEffect(action, maulCard, selectedCard));
+                                                }
+                                            }
+                                    );
+                                }
+                            }
+                    );
+                    actions.add(action);
+                }
+            }
+            return actions;
         }
-
-        return actions;
+        return null;
     }
 
 }
