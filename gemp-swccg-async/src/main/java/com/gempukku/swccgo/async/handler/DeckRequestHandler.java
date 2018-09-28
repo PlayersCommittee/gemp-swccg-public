@@ -379,6 +379,9 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
             card.setAttribute("blueprintId", cardItem.getBlueprintId());
             SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(cardItem.getBlueprintId());
             if (blueprint != null) {
+                if (blueprint.getTitle() != null) {
+                    card.setAttribute("title", blueprint.getTitle());
+                }
                 if (blueprint.getTestingText() != null) {
                     card.setAttribute("testingText", GameUtils.convertTestingText(blueprint.getTestingText()));
                 }
@@ -396,6 +399,9 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
             cardOutsideDeck.setAttribute("blueprintId", cardItem.getBlueprintId());
             SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(cardItem.getBlueprintId());
             if (blueprint != null) {
+                if (blueprint.getTitle() != null) {
+                    cardOutsideDeck.setAttribute("title", blueprint.getTitle());
+                }
                 if (blueprint.getTestingText() != null) {
                     cardOutsideDeck.setAttribute("testingText", GameUtils.convertTestingText(blueprint.getTestingText()));
                 }

@@ -96,6 +96,13 @@ var GempSwccgDeckBuildingUI = Class.extend({
         var deckLibraryBut = $("<button title='Sample decks'><span class='ui-icon ui-icon-cart'></span></button>").button();
         this.manageDecksDiv.append(deckLibraryBut);
 
+        var importDeckBut = $("<button title='Import Deck'><span class='ui-icon ui-icon-script'></span></button>").button();
+        this.manageDecksDiv.append(importDeckBut);
+
+        // Hidden file-input field for browsing for decks on the user's computer
+        var browseInputDeckInput = $("<input type=file id='browseInputDeckInput' style='display:none'>");
+        this.manageDecksDiv.append(browseInputDeckInput);
+
         this.manageDecksDiv.append("<span id='editingDeck'>New deck</span>");
 
         this.deckDiv.append(this.manageDecksDiv);
@@ -177,6 +184,12 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 function () {
                     that.loadLibraryDeckList();
                 });
+
+        importDeckBut.click(
+                function () {
+                    that.importDeck();
+                });
+
 
         this.collectionDiv = $("#collectionDiv");
 
@@ -360,10 +373,15 @@ var GempSwccgDeckBuildingUI = Class.extend({
             var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
             var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-clipboard'></span></button>").button();
             var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
+            var exportDeckBut = $("<button title='Export deck'><span class='ui-icon ui-icon-arrowthickstop-1-s'></span></button>").button();
+            //var importDeckBut = $("<button title='Import deck'><span class='ui-icon ui-icon-script'></span></button>").button();
+
 
             var deckElem = $("<div class='deckItem'></div>");
             deckElem.append(openDeckBut);
             deckElem.append(deckListBut);
+            deckElem.append(exportDeckBut);
+            //deckElem.append(importDeckBut);
             if (!sampleDeck) {
                 deckElem.append(deleteDeckBut);
             }
@@ -393,6 +411,24 @@ var GempSwccgDeckBuildingUI = Class.extend({
                             }
                         };
                     })(deckName));
+
+            exportDeckBut.click(
+                                (function (deckName) {
+                                    return function () {
+                                        if (sampleDeck) {
+                                            that.comm.getLibraryDeck(deckName,
+                                                    function (xml) {
+                                                        that.exportDeck(deckName, xml);
+                                                    });
+                                        }
+                                        else {
+                                            that.comm.getDeck(deckName,
+                                                    function (xml) {
+                                                        that.exportDeck(deckName, xml);
+                                                    });
+                                        }
+                                    };
+                                })(deckName));
 
             deckListBut.click(
                     (function (deckName) {
@@ -907,5 +943,117 @@ var GempSwccgDeckBuildingUI = Class.extend({
     processError:function (xhr, ajaxOptions, thrownError) {
         if (thrownError != "abort")
             alert("There was a problem during communication with server");
+    },
+
+    importDeck:function() {
+        var that = this;
+
+        // Register for change events on our hidden file-input <input type=file> element
+        // We use this hidden element to open the file-picker
+        $('#browseInputDeckInput').change('change', onInputChangeHandler);
+
+        function unbindFileHandler() {
+            $('#browseInputDeckInput').unbind('change', onInputChangeHandler);
+        }
+
+        function saveImportedNewDeck(xml, deckName) {
+            var sampleDeck = false;
+
+            // Load the deck locally, just as if we had gotten it from the server
+            var xmlDocument = jQuery.parseXML(xml);
+            that.setupDeck(xmlDocument, deckName, sampleDeck);
+
+            // Give the screen a chance to re-layout before importing the deck
+            setTimeout(function(){
+                that.saveDeck(true);
+            }, 1000);
+        }
+
+        function onInputChangeHandler() {
+
+            // Immediately unsubscribe from the event so these don't stack up
+            unbindFileHandler();
+
+            // Get the 'file' object that the user picked (if any)
+            var file = document.getElementById("browseInputDeckInput").files[0];
+            if (file) {
+
+                // Read the file as text.  Once we've read it, parse it back into an XML document
+                // just as if we had gotten that XML document from the server
+                var reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = function (evt) {
+
+                    // Finished reading. Release the file in case the user browses to the same file again later
+                    $('#browseInputDeckInput').val('');
+
+                    // Get the xml that we just read from the file
+                    var importedXml = evt.target.result;
+
+                    // Build a default deck name (Remove the extension from the deck name (if any))
+                    var deckName = file.name;
+                    var indexOfDot = deckName.indexOf('.');
+                    deckName = deckName.substr(0, indexOfDot);
+
+
+                    // See if we already have a deck with this name. Ask if they want to overwrite
+                    that.comm.getDeck(deckName, function (deckFromServerXml) {
+                        // See if we have a deck with that name with any cards in it
+                        if (deckFromServerXml.firstChild && deckFromServerXml.firstChild.childNodes.length > 0) {
+                            var result = confirm("You already have a deck of this name. Do you want to overwrite it?");
+                            if (result) {
+                                saveImportedNewDeck(importedXml, deckName);
+                            }
+                        } else {
+                            saveImportedNewDeck(importedXml, deckName);
+                        }
+                    });
+
+                }
+                reader.onerror = function (evt) {
+                    // Finished reading (albeit an error). Release the file in case the user browses to the same file again later
+                    $('#browseInputDeckInput').val('');
+
+                    alert("Deck import failed.");
+                }
+            }
+        }
+
+        // After we have registered, click on the hidden file-input element
+        $('#browseInputDeckInput').get(0).click();
+
+    },
+
+    exportDeck: function(deckName, xml) {
+
+        console.log("exportDeck hit!");
+
+        // Need to fire up a confirm button so that we can do a proper 'click'
+        var result = confirm("Export Deck?");
+        if ( result ) {
+
+            var xmlString = (new XMLSerializer()).serializeToString(xml);
+            var elementId = "testExporterButtonId";
+            var exportedDeckName = deckName + "_export.txt";
+
+            var element = $('<a id=testExporterButtonId style="display:none">ClickMe</a>');
+            element.attr('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(xmlString));
+            //element.attr('href', 'data:application/json;charset=utf-8,testdata123456');
+            element.attr('download', exportedDeckName);
+
+            var deckElem = $("<div class='deckItem'></div>");
+            deckElem.append(element);
+
+            setTimeout(function(){
+              element.get(0).click();
+
+              setTimeout(function() {
+                element.remove();
+              }, 2000);
+
+            }, 2000);
+
+        }
+
     }
 });
