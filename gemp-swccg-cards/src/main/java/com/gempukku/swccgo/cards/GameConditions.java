@@ -5315,7 +5315,20 @@ public class GameConditions {
     }
 
     /**
-     * Determines if the specified player has deployed as least the specified number cards accepted by the filter this turn.
+     * Determines if the specified player has deployed at least the specified number of cards accepted by the filter this game.
+     * @param game the game
+     * @param playerId the player
+     * @param count the number of cards
+     * @param filter the filter
+     * @return true or false
+     */
+    public static boolean hasDeployedAtLeastXCardsThisGame(SwccgGame game, String playerId, int count, Filterable filter) {
+        List<PhysicalCard> cardsDeployed = game.getModifiersQuerying().getCardsPlayedThisGame(playerId);
+        return Filters.filterCount(cardsDeployed, game, count, filter).size() >= count;
+    }
+
+    /**
+     * Determines if the specified player has deployed at least the specified number of cards accepted by the filter this turn.
      * @param game the game
      * @param playerId the player
      * @param count the number of cards

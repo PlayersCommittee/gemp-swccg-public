@@ -11,6 +11,7 @@ public enum ModifyGameTextType {
     // (Naming convention: CardIdentifier__ModificationIdentifier)
     ALWAYS_THINKING_WITH_YOUR_STOMACH__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
     BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE("May not capture Luke"),
+    BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
     COUNTER_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
     DARK_DEAL__ADDITIONAL_BESPIN_LOCATION_TO_CANCEL("Additional Bespin location required to cancel"),
     DEATH_STAR__MAY_DEPLOY_WITHOUT_COMPLETING_DEATH_STAR_PLANS("May deploy without completing Death Star Plans"),

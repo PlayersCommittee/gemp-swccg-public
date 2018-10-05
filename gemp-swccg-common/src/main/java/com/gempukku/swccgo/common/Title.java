@@ -900,6 +900,7 @@ public interface Title {
     String The_Shield_Doors_Must_Be_Closed = "The Shield Doors Must Be Closed";
     String The_Time_To_Fight_Is_Now = "The Time To Fight Is Now";
     String The_Ultimate_Power_In_The_Universe = "The Ultimate Power In The Universe";
+    String There_Is_Another = "There Is Another";
     String There_Is_No_Try = "There Is No Try";
     String Theed_Palace_Courtyard = "Naboo: Theed Palace Courtyard";
     String Theed_Palace_Generator = "Naboo: Theed Palace Generator";
