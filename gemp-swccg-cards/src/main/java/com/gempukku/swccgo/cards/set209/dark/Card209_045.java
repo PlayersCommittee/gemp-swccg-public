@@ -97,6 +97,30 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                         protected void performActionResults(Action targetingAction) {
                                             final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
+
+                                            // Begin weapon firing
+                                            action.appendEffect(
+                                                    new PassthruEffect(action) {
+                                                        @Override
+                                                        protected void doPlayEffect(SwccgGame game) {
+                                                            gameState.sendMessage(GameUtils.getCardLink(deathStar) + " fires " + GameUtils.getCardLink(superlaser));
+                                                            gameState.activatedCard(playerId, superlaser);
+                                                            gameState.beginWeaponFiring(superlaser, null);
+                                                            gameState.getWeaponFiringState().setCardFiringWeapon(deathStar);
+                                                            // Finish weapon firing
+                                                            action.appendAfterEffect(
+                                                                    new PassthruEffect(action) {
+                                                                        @Override
+                                                                        protected void doPlayEffect(SwccgGame game) {
+                                                                            gameState.finishWeaponFiring();
+                                                                        }
+                                                                    }
+                                                            );
+                                                        }
+                                                    }
+                                            );
+
+
                                             action.appendEffect(
                                                     new FireWeaponEffect(action, superlaser, false, Filters.sameCardId(targetedSite)));
                                             // 2) Fire!
