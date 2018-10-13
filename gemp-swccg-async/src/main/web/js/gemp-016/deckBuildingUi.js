@@ -374,14 +374,12 @@ var GempSwccgDeckBuildingUI = Class.extend({
             var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-clipboard'></span></button>").button();
             var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
             var exportDeckBut = $("<button title='Export deck'><span class='ui-icon ui-icon-arrowthickstop-1-s'></span></button>").button();
-            //var importDeckBut = $("<button title='Import deck'><span class='ui-icon ui-icon-script'></span></button>").button();
 
 
             var deckElem = $("<div class='deckItem'></div>");
             deckElem.append(openDeckBut);
             deckElem.append(deckListBut);
             deckElem.append(exportDeckBut);
-            //deckElem.append(importDeckBut);
             if (!sampleDeck) {
                 deckElem.append(deleteDeckBut);
             }
@@ -1038,7 +1036,6 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
             var element = $('<a id=testExporterButtonId style="display:none">ClickMe</a>');
             element.attr('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(xmlString));
-            //element.attr('href', 'data:application/json;charset=utf-8,testdata123456');
             element.attr('download', exportedDeckName);
 
             var deckElem = $("<div class='deckItem'></div>");
