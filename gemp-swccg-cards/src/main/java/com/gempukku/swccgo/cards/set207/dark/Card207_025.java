@@ -92,7 +92,11 @@ public class Card207_025 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceGenerationImmuneToCancelModifier(self, Filters.Endor_system, self));
+
+        // ...Your Force generation at Endor system may not be canceled.
+
+        Filter cancelBySourceFilter = Filters.any;
+        modifiers.add(new ForceGenerationImmuneToCancelModifier(self, Filters.Endor_system, cancelBySourceFilter));
         return modifiers;
     }
 }
