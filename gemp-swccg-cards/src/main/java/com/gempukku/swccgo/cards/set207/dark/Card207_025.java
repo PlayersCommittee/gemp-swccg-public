@@ -95,8 +95,9 @@ public class Card207_025 extends AbstractNormalEffect {
 
         // ...Your Force generation at Endor system may not be canceled.
 
+        String playerId = self.getOwner();
         Filter cancelBySourceFilter = Filters.any;
-        modifiers.add(new ForceGenerationImmuneToCancelModifier(self, Filters.Endor_system, cancelBySourceFilter));
+        modifiers.add(new ForceGenerationImmuneToCancelModifier(self, Filters.Endor_system, null, cancelBySourceFilter, playerId));
         return modifiers;
     }
 }
