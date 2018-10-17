@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutCardFromLostPileOnTopOfCardPileEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardIntoHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromPileEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -49,6 +50,7 @@ public class Card209_035 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(self), Filters.droid), -1, Filters.here(self)));
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 1));
         return modifiers;
     }
 
