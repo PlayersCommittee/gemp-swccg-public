@@ -10,12 +10,12 @@ sudo yum -y install java-1.8.0-openjdk-devel
 
 # Install maven
 cd /usr/local
-sudo wget http://www-eu.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
-sudo tar xzf apache-maven-3.5.3-bin.tar.gz
-sudo ln -s apache-maven-3.5.3 maven
+sudo wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+sudo tar xzf apache-maven-3.5.4-bin.tar.gz
+sudo ln -s apache-maven-3.5.4 maven
 sudo cp /vagrant/vagrant-build/maven.sh /etc/profile.d/maven.sh
 sudo dos2unix /etc/profile.d/maven.sh
-sudo rm -f /usr/local/apache-maven-3.5.3-bin.tar.gz
+sudo rm -f /usr/local/apache-maven-3.5.4-bin.tar.gz
 
 # ------------------------------------------
 # Set up GEMP directory structure
