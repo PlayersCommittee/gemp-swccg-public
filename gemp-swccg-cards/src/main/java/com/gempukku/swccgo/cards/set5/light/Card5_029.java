@@ -74,7 +74,7 @@ public class Card5_029 extends AbstractNormalEffect {
         // Check condition(s)
         if (GameConditions.cardHasWhileInPlayDataSet(self)
                 && TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
-                && GameConditions.hasParticipatedInBattleThisTurn(game, vader)) {
+                && !GameConditions.hasParticipatedInBattleThisTurn(game, vader)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make " + opponent + " lose 2 Force");
