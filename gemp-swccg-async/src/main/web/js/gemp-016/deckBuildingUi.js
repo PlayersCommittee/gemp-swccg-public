@@ -370,20 +370,27 @@ var GempSwccgDeckBuildingUI = Class.extend({
         for (var i = 0; i < decks.length; i++) {
             var deck = decks[i];
             var deckName = decks[i].childNodes[0].nodeValue;
+            var deckDownloadName = deckName + ".txt";
             var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
             var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-clipboard'></span></button>").button();
             var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
             var exportDeckBut = $("<button title='Export deck'><span class='ui-icon ui-icon-arrowthickstop-1-s'></span></button>").button();
-
+            var hiddenDeckDownloadLink = $('<a style="height: 0px; width: 0px; display: inline-block"></a>');
 
             var deckElem = $("<div class='deckItem'></div>");
             deckElem.append(openDeckBut);
             deckElem.append(deckListBut);
             deckElem.append(exportDeckBut);
+            deckElem.append(hiddenDeckDownloadLink);
             if (!sampleDeck) {
                 deckElem.append(deleteDeckBut);
             }
             deckElem.append($("<div/>").text(prefix + deckName).html());
+
+            // Set up deck download button
+            var deckLink = this.comm.getPrettyDeckLink(encodeURIComponent(deckName));
+            hiddenDeckDownloadLink.attr('href', deckLink);
+            hiddenDeckDownloadLink.attr('download', deckDownloadName);
 
             if (sampleDeck) {
                 that.libraryDeckListDialog.append(deckElem);
@@ -411,23 +418,11 @@ var GempSwccgDeckBuildingUI = Class.extend({
                     })(deckName));
 
             exportDeckBut.click(
-                                (function (deckName) {
-                                    return function () {
-                                        if (sampleDeck) {
-                                            that.comm.getLibraryDeck(deckName,
-                                                    function (xml) {
-                                                        that.exportDeck(deckName, xml);
-                                                    });
-                                        }
-                                        else {
-                                            that.comm.getDeck(deckName,
-                                                    function (xml) {
-                                                        that.exportDeck(deckName, xml);
-                                                    });
-                                        }
-                                    };
-                                })(deckName));
-
+                    (function (hiddenDeckDownloadLink) {
+                        return function() {
+                            hiddenDeckDownloadLink[0].click();
+                        };
+                    })(hiddenDeckDownloadLink));
             deckListBut.click(
                     (function (deckName) {
                            if (sampleDeck) {
@@ -1019,38 +1014,6 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
         // After we have registered, click on the hidden file-input element
         $('#browseInputDeckInput').get(0).click();
-
-    },
-
-    exportDeck: function(deckName, xml) {
-
-        console.log("exportDeck hit!");
-
-        // Need to fire up a confirm button so that we can do a proper 'click'
-        var result = confirm("Export Deck?");
-        if ( result ) {
-
-            var xmlString = (new XMLSerializer()).serializeToString(xml);
-            var elementId = "testExporterButtonId";
-            var exportedDeckName = deckName + "_export.txt";
-
-            var element = $('<a id=testExporterButtonId style="display:none">ClickMe</a>');
-            element.attr('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(xmlString));
-            element.attr('download', exportedDeckName);
-
-            var deckElem = $("<div class='deckItem'></div>");
-            deckElem.append(element);
-
-            setTimeout(function(){
-              element.get(0).click();
-
-              setTimeout(function() {
-                element.remove();
-              }, 2000);
-
-            }, 2000);
-
-        }
 
     }
 });
