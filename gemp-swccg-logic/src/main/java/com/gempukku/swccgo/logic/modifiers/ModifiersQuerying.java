@@ -1368,6 +1368,16 @@ public interface ModifiersQuerying {
     boolean isImmuneToForceGenerationLimit(GameState gameState, String playerId, PhysicalCard location, PhysicalCard source);
 
     /**
+     * Determines if a Force generation is immune to cancel.
+     * @param gameState the game state
+     * @param playerId the player whose Force generation is being checked
+     * @param location the location
+     * @param source the source of the cancel
+     * @return true if Force generation at location for player is immune to cancel, otherwise false
+     */
+    boolean isImmuneToForceGenerationCancel(GameState gameState, String playerId, PhysicalCard location, PhysicalCard source);
+
+    /**
      * Determines if a Force drain modifier is canceled.
      * @param gameState the game state
      * @param location the Force drain location
