@@ -60,7 +60,7 @@ public class Card200_080 extends AbstractDroid {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsBattleDestinyModifier(self, new WithCondition(self, Filters.and(Icon.PRESENCE, Filters.droid, Filters.at(Filters.site))), 1));
-        modifiers.add(new TotalWeaponDestinyModifier(self, Filters.permanentWeaponOf(self), 2, Filters.vehicle));
+        modifiers.add(new TotalWeaponDestinyModifier(self, Filters.permanentWeaponOf(self), 2, Filters.vehicle, true));
         return modifiers;
     }
 }

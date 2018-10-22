@@ -120,6 +120,22 @@ public class TotalWeaponDestinyModifier extends AbstractModifier {
         _noSpecifiedUser = true;
     }
 
+
+    /**
+     * Creates a modifier that affects total weapon destiny for weapons accepted by the weapon filter when fired at a target
+     * accepted by the target filter.
+     * @param source the source of the modifier
+     * @param weaponFilter the weapon filter
+     * @param modifierAmount the amount of the modifier
+     * @param targetFilter the target filter
+     * @param cumulative true if the modifier is cumulative, otherwise false
+     */
+    public TotalWeaponDestinyModifier(PhysicalCard source, Filterable weaponFilter, float modifierAmount, Filterable targetFilter, boolean cumulative) {
+        this(source, weaponFilter, null, Filters.any, new ConstantEvaluator(modifierAmount), targetFilter, cumulative);
+        _noSpecifiedUser = true;
+    }
+
+
     /**
      * Creates a modifier that affects total weapon destiny for weapons accepted by the weapon filter when fired at a target
      * accepted by the target filter.
