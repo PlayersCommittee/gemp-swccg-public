@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card7_278 extends AbstractSite {
     public Card7_278() {
-        super(Side.DARK, "Coruscant: Imperial Square", Title.Coruscant);
+        super(Side.DARK, Title.Coruscant_Imperial_Square, Title.Coruscant);
         setLocationDarkSideGameText("Emperor deploys free here. If your moff here, all Imperials are deploy -1 at sites.");
         setLocationLightSideGameText("Force drain +1 here. If you control, Emperor may not deploy to Coruscant.");
         addIcon(Icon.DARK_FORCE, 2);
