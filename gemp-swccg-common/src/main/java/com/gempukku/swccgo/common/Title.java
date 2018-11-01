@@ -187,6 +187,7 @@ public interface Title {
     String Corellian_Slip = "Corellian Slip";
     String Corulag = "Corulag";
     String Coruscant = "Coruscant";
+    String Coruscant_Imperial_Square = "Coruscant: Imperial Square";
     String Coruscant_Celebration = "Coruscant Celebration";
     String Count_Me_In = "Count Me In";
     String Counter_Assault = "Counter Assault";

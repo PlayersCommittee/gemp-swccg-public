@@ -17042,6 +17042,7 @@ public class Filters {
     public static final Filter Coruscant_Guard = Filters.keyword(Keyword.CORUSCANT_GUARD);
     public static final Filter Coruscant_location = Filters.partOfSystem(Title.Coruscant);
     public static final Filter Coruscant_site = Filters.and(Filters.partOfSystem(Title.Coruscant), CardSubtype.SITE);
+    public static final Filter Coruscant_Imperial_Square = Filters.title(Title.Coruscant_Imperial_Square);
     public static final Filter Coruscant_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Coruscant));
     public static final Filter Corulag = Filters.title(Title.Corulag);
     public static final Filter Corulag_site = Filters.and(Filters.partOfSystem(Title.Corulag), CardSubtype.SITE);
