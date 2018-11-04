@@ -29,15 +29,14 @@ public class Card203_013 extends AbstractDefensiveShield {
         super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "Planetary Defenses");
         setVirtualSuffix(true);
         setLore("Key installations are protected from bombardment by a complex network of early-warning sensors, emergency shields and fast-response fighters.");
-        setGameText("Plays on any site. This location may not be targeted by Proton Bombs. Unless Death Star: Docking Bay 327 on table, Commence Primary Ignition is canceled.");
+        setGameText("Plays on any site. This location may not be targeted by Proton Bombs. Cancels Program Trap here.  Unless Death Star: Docking Bay 327 on table, Commence Primary Ignition is canceled.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.VIRTUAL_SET_3);
     }
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.interior_site;
+        return Filters.site;
     }
-
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
@@ -47,6 +46,8 @@ public class Card203_013 extends AbstractDefensiveShield {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        Filter filter = Filters.and(Filters.Program_Trap, Filters.cardOnTableTargeting(Filters.and(Filters.opponents(self), Filters.droid, Filters.atSameLocation(self))));
+
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Commence_Primary_Ignition)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)
@@ -57,11 +58,22 @@ public class Card203_013 extends AbstractDefensiveShield {
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             return Collections.singletonList(action);
         }
+
+        if (TriggerConditions.isPlayingCard(game, effect, filter)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect))
+        {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            CancelCardActionBuilder.buildCancelCardAction(action, filter, Title.Program_Trap);
+            return Collections.singletonList(action);
+        }
+
         return null;
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        Filter filter = Filters.and(Filters.Program_Trap, Filters.cardOnTableTargeting(Filters.and(Filters.opponents(self), Filters.droid, Filters.atSameLocation(self))));
+
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && !GameConditions.canSpotLocation(game, Filters.Docking_Bay_327)
@@ -72,6 +84,15 @@ public class Card203_013 extends AbstractDefensiveShield {
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Commence_Primary_Ignition, Title.Commence_Primary_Ignition);
             return Collections.singletonList(action);
         }
+
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canTargetToCancel(game, self, filter))
+        {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            CancelCardActionBuilder.buildCancelCardAction(action, filter, Title.Program_Trap);
+            return Collections.singletonList(action);
+        }
+
         return null;
     }
 }
