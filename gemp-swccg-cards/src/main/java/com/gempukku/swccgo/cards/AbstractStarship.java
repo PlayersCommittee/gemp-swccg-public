@@ -9,6 +9,8 @@ import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -571,14 +573,30 @@ public abstract class AbstractStarship extends AbstractDeployable {
         Filter pilotTargetFilter = Filters.any;
         boolean spyPilot = Filters.spy.accepts(game, character);
 
+
+        // By default, no 'deploymentRestrictionOption's are passed in. However, we want to honor the ability
+        // to deploy without presence or force icons on some starships. For those cases, build a DeploymentRestrictionOption
+        // on the fly (or update the one that was passed in (if any))
+        DeploymentRestrictionsOption updatedDeployementRestrictionOption = deploymentRestrictionsOption;
+        for (Modifier modifier: game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), self)) {
+            if (modifier.getModifierType() == ModifierType.MAY_DEPLOY_WITHOUT_PRESENCE_OR_FORCE_ICONS) {
+                if (updatedDeployementRestrictionOption == null) {
+                    updatedDeployementRestrictionOption = DeploymentRestrictionsOption.evenWithoutPresenceOrForceIcons();
+                } else {
+                    updatedDeployementRestrictionOption.setEvenWithoutPresenceOrForceIcons(true);
+                }
+            }
+        }
+
+
         // Check if pilot can deploy to this card (regardless of its location), if not then need to check for locations that pilot is allowed to deploy to
         if (!character.getBlueprint().getValidSimultaneouslyDeployingStarshipOrVehicleToAnyLocationFilter(playerId, game, character).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
-            pilotTargetFilter = Filters.locationAndCardsAtLocation(character.getBlueprint().getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(playerId, game, character, sourceCard, deploymentRestrictionsOption, reactActionOption));
+            pilotTargetFilter = Filters.locationAndCardsAtLocation(character.getBlueprint().getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(playerId, game, character, sourceCard, updatedDeployementRestrictionOption, reactActionOption));
         }
 
         pilotTargetFilter = Filters.and(pilotTargetFilter, Filters.canUseForceToDeploySimultaneouslyToTarget(sourceCard, self, forFree, changeInCost, character, characterForFree, characterChangeInCost, reactActionOption));
 
-        return Filters.and(getValidDeployTargetFilter(playerId, game, self, sourceCard, null, forFree, changeInCost, deploymentRestrictionsOption, null, reactActionOption, true, spyPilot), pilotTargetFilter);
+        return Filters.and(getValidDeployTargetFilter(playerId, game, self, sourceCard, null, forFree, changeInCost, updatedDeployementRestrictionOption, null, reactActionOption, true, spyPilot), pilotTargetFilter);
     }
 
     /**
