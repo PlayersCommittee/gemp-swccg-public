@@ -294,6 +294,10 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    getPrettyDeckLink: function(deckName) {
+        var cacheBreaker = Math.round(Math.random()*1000000);
+        return this.url + "/deck?deckName="+deckName+"&cacheBreaker=" + cacheBreaker + "&pretty=true";
+    },
     getDeck:function (deckName, callback, errorMap) {
         $.ajax({
             type:"GET",

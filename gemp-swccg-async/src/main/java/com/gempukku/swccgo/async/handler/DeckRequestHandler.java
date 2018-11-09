@@ -19,6 +19,14 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.lang.reflect.Type;
+import java.util.*;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -182,6 +190,35 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         responseWriter.writeHtmlResponse(result.toString());
     }
 
+
+    /**
+     * Converts the given XML document into a pleasantly formatted string
+     * @param doc   XML Document
+     * @return string
+     */
+    private String documentToString(Document doc) {
+
+        String outputString = "";
+        try {
+            StringWriter sw = new StringWriter();
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+            transformer.transform(new DOMSource(doc), new StreamResult(sw));
+            outputString = sw.toString();
+
+            outputString = outputString.replaceAll("\n", "\r\n");
+        } catch (Exception ex) {
+            outputString = "Error converting to string";
+        }
+        return outputString;
+    }
+
+
     private void getDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
@@ -200,7 +237,18 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
 
             responseWriter.writeXmlResponse(doc);
         } else {
-            responseWriter.writeXmlResponse(serializeDeck(deck));
+
+            Document serializedDeck = serializeDeck(deck);
+
+            // Allow for "pretty" output for deck downloads
+            String pretty = getQueryParameterSafely(queryDecoder, "pretty");
+            if (pretty != null) {
+                String documentAsString = documentToString(serializedDeck);
+                responseWriter.writeHtmlResponse(documentAsString);
+            } else {
+                responseWriter.writeXmlResponse(serializedDeck);
+            }
+
         }
     }
 
