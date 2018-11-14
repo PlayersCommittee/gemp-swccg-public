@@ -1833,6 +1833,28 @@ public class Filters {
         };
     }
 
+
+    //
+    //
+    // This section defines Filters based on defense value.
+    //
+    //
+    /**
+     * Filter that accepts cards that have ability > X.
+     *
+     * @param defense_value the value of X
+     * @return Filter
+     */
+    public static Filter defenseValueMoreThanOrEqualTo(final float defense_value) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getDefenseValue(gameState, physicalCard) >= defense_value;
+            }
+        };
+    }
+
+
     //
     //
     // This section defines Filters based on ability.
