@@ -433,6 +433,13 @@ var GempSwccgHallUI = Class.extend({
         var that = this;
         for (var i = 0; i < decks.length; i++) {
             var deck = decks[i];
+
+            // Sanity-check the deck
+            if (!decks[i].childNodes || (decks[i].childNodes.length == 0)) {
+                // This deck is messed up.  Just skip it
+                continue;
+            }
+
             var deckName = decks[i].childNodes[0].nodeValue;
             var deckElem = $("<option></option>");
             deckElem.attr("value", deckName);
