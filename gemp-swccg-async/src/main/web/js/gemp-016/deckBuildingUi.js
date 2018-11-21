@@ -369,6 +369,14 @@ var GempSwccgDeckBuildingUI = Class.extend({
         var that = this;
         for (var i = 0; i < decks.length; i++) {
             var deck = decks[i];
+
+            // Sanity-check the deck
+            if (!decks[i].childNodes || (decks[i].childNodes.length == 0)) {
+                // This deck is messed up.  Just skip it
+                continue;
+            }
+
+
             var deckName = decks[i].childNodes[0].nodeValue;
             var deckDownloadName = deckName + ".txt";
             var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
@@ -987,6 +995,11 @@ var GempSwccgDeckBuildingUI = Class.extend({
                     var deckName = file.name;
                     var indexOfDot = deckName.indexOf('.');
                     deckName = deckName.substr(0, indexOfDot);
+
+                    // If we couldn't get the deck name for some reason, generate a random name.
+                    if (!deckName || deckName.length == 0) {
+                        deckName = "importedDeck" + Math.floor(Math.random() * 100000)
+                    }
 
 
                     // See if we already have a deck with this name. Ask if they want to overwrite
