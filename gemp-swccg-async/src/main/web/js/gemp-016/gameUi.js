@@ -9,7 +9,7 @@ var GempSwccgGameUI = Class.extend({
     spectatorMode:null,
 
     currentPlayerId:null,
-    allPlayerIds:null,
+    allPlayerIds:[],
 
     cardActionDialog:null,
     smallDialog:null,
@@ -563,6 +563,8 @@ var GempSwccgGameUI = Class.extend({
                 }, 5000);
         }
 
+        this.reloadMutedObserverState();
+
         this.gameUiInitialized = true;
     },
 
@@ -1084,7 +1086,7 @@ var GempSwccgGameUI = Class.extend({
         };
 
         var chatRoomName = (this.replayMode ? null : ("Game" + getUrlParam("gameId")));
-        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener, false, true);
+        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener, false, true, this.allPlayerIds);
         this.chatBox.chatUpdateInterval = 3000;
 
         if (!this.spectatorMode && !this.replayMode) {
@@ -1104,12 +1106,78 @@ var GempSwccgGameUI = Class.extend({
                     function () {
                         that.communication.extendGameTimer(30);
                     });
-            $("#gameOptionsBox").append("<button id='disableActionTimer'>Request action timer disabled</button>");
+            $("#gameOptionsBox").append("<button id='disableActionTimer'>Request action timer disabled</button><br/>");
             $("#disableActionTimer").button().click(
                     function () {
                         that.communication.disableActionTimer();
                     });
+
+            // Mute / Un-mute chat
+            $("#gameOptionsBox").append("<br/>");
+            $("#gameOptionsBox").append("<button id='muteObserversBtn'>Mute Observers</button>");
+            $("#muteObserversBtn").button().click(
+                    function () {
+                        that.toggleMuteObservers(true);
+                    });
+            $("#gameOptionsBox").append("<button id='unmuteObserversBtn'>Unmute Observers</button>");
+            $("#unmuteObserversBtn").button().click(
+                    function () {
+                        that.toggleMuteObservers(false);
+                    });
         }
+    },
+
+    toggleMuteObservers: function(muteObservers) {
+
+        var mutedObserverGameString = this.getMutedObserverGameString();
+
+        // We mute / un-mute observers by adding a parent class
+        // which displays/hides observers messages based on the setting
+        if (muteObservers) {
+            $('#chatBox').addClass("muteObservers");
+            $('#gameOptionsBox').addClass("muteObservers");
+        } else {
+             $('#chatBox').removeClass("muteObservers");
+             $('#gameOptionsBox').removeClass("muteObservers");
+             mutedObserverGameString = "";
+        }
+
+        // Store the fact that we muted (or unmuted) a game (if local-storage available on this browser)
+        if (localStorage) {
+            localStorage.setItem("lastMutedObserversGame", mutedObserverGameString);
+        }
+    },
+
+    reloadMutedObserverState: function() {
+
+        // Load the last-muted-game from local storage
+        var currentGameMutedState = this.getMutedObserverGameString();
+        if (localStorage) {
+
+            var lastMutedGameString = localStorage.getItem("lastMutedObserversGame");
+            var shouldMuteObserversThisGame = false;
+
+            // If the last-muted-observers-game is the same as THIS game, then auto-mute observers
+            // This allow us to auto-re-mute the observers if the user does a "refresh" of the browser
+            if (lastMutedGameString == currentGameMutedState) {
+                shouldMuteObserversThisGame = true;
+            }
+            this.toggleMuteObservers(shouldMuteObserversThisGame);
+        }
+    },
+
+    getMutedObserverGameString: function() {
+
+        // Build a string containing the Date and game ID:
+        // ex: 2018-03-25_GameId=335
+
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+
+        var dateAndGameString = year + "-" + month + "-" + day + "_GameId=" + getUrlParam("gameId");
+        return dateAndGameString;
     },
 
     clickCardFunction:function (event) {

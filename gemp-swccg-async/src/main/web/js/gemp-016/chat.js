@@ -24,7 +24,9 @@ var ChatBoxUI = Class.extend({
     lockChat:false,
     stopUpdates: false,
 
-    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton) {
+    allPlayerIds: [],
+
+    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, allPlayerIds) {
         var that = this;
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
@@ -36,6 +38,8 @@ var ChatBoxUI = Class.extend({
 
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");
         this.div.append(this.chatMessagesDiv);
+
+        this.allPlayerIds = allPlayerIds || [];
 
         if (this.name != null) {
             this.chatTalkDiv = $("<input type='text' class='chatTalk'>");
@@ -189,13 +193,23 @@ var ChatBoxUI = Class.extend({
                 var text = message.childNodes[0].nodeValue;
                 var msgId = Number(message.getAttribute("msgId"));
 
+                var fromObserver = false;
+                if (from && (-1 == this.allPlayerIds.indexOf(from))) {
+                    fromObserver = true;
+                }
+
                 // Only process messages that have a higher message id than messages already received
                 if (msgId > this.latestMsgIdRcvd) {
                     this.latestMsgIdRcvd = msgId;
 
                     var msgClass = "chatMessage";
-                    if (from == "System")
+                    if (from == "System") {
                         msgClass = "systemMessage";
+                    }
+                    if (fromObserver) {
+                        msgClass += " fromObserver";
+                    }
+
                     if (this.showTimestamps) {
                         var date = new Date(parseInt(message.getAttribute("date")));
                         var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + this.formatToTwoDigits(date.getHours()) + ":" + this.formatToTwoDigits(date.getMinutes()) + ":" + this.formatToTwoDigits(date.getSeconds());
