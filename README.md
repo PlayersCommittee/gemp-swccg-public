@@ -48,9 +48,9 @@ From the SSH login direcory on the VM (`/vagrant`) run:
 ./run-gemp.sh
 ```
 
-You can now access GEMP by visiting `http://192.168.50.94/gemp-swccg/` in your browser.
+You can now access GEMP by visiting `http://192.168.50.94:8080/gemp-swccg/` in your browser.
 
-The bootstrap script automatically creates 2 test admin accounts, `test1` and `test2`, with the password "test". When the server first starts, it is in non-operational standby mode which does not allow games to be started. To enable operational mode, when logged in visit `http://192.168.50.94/gemp-swccg/admin.html` in your browser and click the "Startup" link.
+The bootstrap script automatically creates 2 test admin accounts, `test1` and `test2`, with the password "test". When the server first starts, it is in non-operational standby mode which does not allow games to be started. To enable operational mode, when logged in visit `http://192.168.50.94:8080/gemp-swccg/admin.html` in your browser and click the "Startup" link.
 
 ### Other VM Commands
 
