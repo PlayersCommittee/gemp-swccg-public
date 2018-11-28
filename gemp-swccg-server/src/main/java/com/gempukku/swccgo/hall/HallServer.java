@@ -816,9 +816,11 @@ public class HallServer extends AbstractServer {
                 }
                 Player curPlayer = _playerDAO.getPlayer(player);
                 Player awaitingPlayer = _playerDAO.getPlayer(awaitingTable.getPlayerNames().iterator().next());
-                if (curPlayer != null && awaitingPlayer != null && curPlayer.getLastIp().equals(awaitingPlayer.getLastIp())) {
-                    throw new HallException("You are not allowed to play league games against this player");
-                }
+                //TODO: Add this back. Temporarily removed.
+                //See: https://github.com/PlayersCommittee/gemp-swccg/pull/87
+                //if (curPlayer != null && awaitingPlayer != null && curPlayer.getLastIp().equals(awaitingPlayer.getLastIp())) {
+                //    throw new HallException("You are not allowed to play league games against this player");
+                //}
             }
         }
 

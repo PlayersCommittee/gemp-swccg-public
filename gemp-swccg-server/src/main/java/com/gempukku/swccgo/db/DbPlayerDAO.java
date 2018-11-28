@@ -404,9 +404,11 @@ public class DbPlayerDAO implements PlayerDAO {
                 try {
                     ResultSet rs = statement.executeQuery();
                     try {
-                        while (rs.next()) {
-                            similarPlayers.add(getPlayerFromResultSet(rs));
-                        }
+                        //TODO: Add this back. Temporarily removed.
+                        //See: https://github.com/PlayersCommittee/gemp-swccg/pull/87
+                        //while (rs.next()) {
+                        //    similarPlayers.add(getPlayerFromResultSet(rs));
+                        //}
                         return similarPlayers;
                     } finally {
                         rs.close();
