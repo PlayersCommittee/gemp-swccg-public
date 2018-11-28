@@ -27,7 +27,7 @@ public class Card14_119 extends AbstractCapitalStarship {
         super(Side.DARK, 2, 1, 2, 4, null, null, 3, "Trade Federation Landing Craft");
         setLore("C-9979 landing craft designed to transport and unload Multi Troop Transports and its battle droid cargo as rapidly as possible.");
         setGameText("May add 2 pilots and 6 vehicles. Deploys and moves like a starfighter. While at a site, once during your deploy phase may take an MTT into hand from Reserve Deck; reshuffle.");
-        addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.NAV_COMPUTER);
+        addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.PRESENCE);
         addKeywords(Keyword.NO_HYPERDRIVE);
         addModelType(ModelType.TRADE_FEDERATION_LANDING_CRAFT);
         setPilotCapacity(2);
