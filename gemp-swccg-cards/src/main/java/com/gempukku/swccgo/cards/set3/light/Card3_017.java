@@ -18,15 +18,16 @@ import java.util.List;
  * Set: Hoth
  * Type: Character
  * Subtype: Rebel
- * Title: Rebel Gunner
+ * Title: Rogue Gunner
  */
 public class Card3_017 extends AbstractRebel {
     public Card3_017() {
-        super(Side.LIGHT, 1, 1, 1, 1, 1, "Rebel Gunner");
+        super(Side.LIGHT, 1, 1, 1, 1, 1, "Rogue Gunner");
         setLore("Tailgunners such as Kesin Ommis from Coruscant are posted to aft gunnery stations on vehicles and starships. Highly trained in weapons operations.");
         setGameText("Adds 1 to weapon destiny draws of anything he is aboard as a passenger.");
         addIcons(Icon.HOTH, Icon.WARRIOR);
         addKeywords(Keyword.GUNNER);
+        addKeywords(Keyword.ROGUE_SQUADRON);
     }
 
     @Override
