@@ -48,6 +48,14 @@ public class Card200_055 extends AbstractUsedInterrupt {
         PreventableCardEffect cardEffect = null;
         PhysicalCard cardToBeLostOrCaptured = null;
 
+        // This only works during the weapon's segment of the battle.
+        // Although the conditional is not 100% correct, there isn't any other way for a character
+        // to be lost in a battle unless in either the weapon or damage segment of the battle (nothing else
+        // would allow top-level actions). This is far easier than adding a new "isWeaponSegmentOfBattle" to the code.
+        if (!GameConditions.isDuringBattle(game) && !GameConditions.isDamageSegmentOfBattle(game)) {
+            return null;
+        }
+
         if (TriggerConditions.isAboutToBeLost(game, effectResult, yourCharacterOrStarship)) {
             final AboutToLoseCardFromTableResult result = (AboutToLoseCardFromTableResult) effectResult;
             cardEffect = result.getPreventableCardEffect();
