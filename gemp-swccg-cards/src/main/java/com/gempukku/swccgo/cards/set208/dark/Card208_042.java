@@ -35,13 +35,15 @@ public class Card208_042 extends AbstractNormalEffect {
         String playerId = self.getOwner();
         Filter nonUniqueDestroyerDroids = Filters.and(Filters.non_unique, Filters.destroyer_droid);
         Condition condition = new AllCharactersAtLocationsAreCondition(self, playerId, Filters.site, Filters.or(Filters.destroyer_droid, Filters.Neimoidian));
-        Filter opponentsCharacters = Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.wherePresent(self, Filters.destroyer_droid)));
+
+        Filter opponentsCharactersDV3Plus = Filters.and(Filters.opponents(self), Filters.character, Filters.defenseValueMoreThanOrEqualTo(3), Filters.at(Filters.wherePresent(self, Filters.destroyer_droid)));
+        Filter opponentsCharactersAll = Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.wherePresent(self, Filters.destroyer_droid)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostModifier(self, nonUniqueDestroyerDroids, -1));
         modifiers.add(new ForfeitModifier(self, nonUniqueDestroyerDroids, 1));
-        modifiers.add(new DefenseValueModifier(self, opponentsCharacters, condition, new NegativeEvaluator(new PresentWhereAffectedCardIsAtEvaluator(self, Filters.destroyer_droid))));
-        modifiers.add(new MinimumDefenseValueReducedToModifier(self, opponentsCharacters, condition, 3));
+        modifiers.add(new DefenseValueModifier(self, opponentsCharactersDV3Plus, condition, new NegativeEvaluator(new PresentWhereAffectedCardIsAtEvaluator(self, Filters.destroyer_droid))));
+        modifiers.add(new MinimumDefenseValueReducedToModifier(self, opponentsCharactersAll, condition, 3));
         return modifiers;
     }
 }

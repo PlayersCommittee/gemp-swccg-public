@@ -2606,6 +2606,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         float defenseValueBeforeModified = result;
+        float positiveBonuses = 0;
 
         // Check if defense value is modified
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DEFENSE_VALUE, physicalCard)) {
@@ -2614,12 +2615,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 result += modifierAmount;
                 modifierCollector.addModifier(modifier);
             }
+            if (modifierAmount > 0) {
+                positiveBonuses += modifierAmount;
+            }
         }
 
         // Check if defense value may not be reduced below a specified value
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MIN_DEFENSE_VALUE_REDUCED_TO, physicalCard)) {
             float modifierAmount = modifier.getValue(gameState, this, physicalCard);
-            if (modifierAmount <= defenseValueBeforeModified) {
+
+            // The rule for the defense value reduction + minimum is: "if the card + positive modifiers had a value > MIN_VALUE"
+            // and a reduction causes it to fall below the minimum, then enforce the minimum.
+            // If the card would NOT have been above that minimum (with all positive modifiers) then do NOT enforce the minimum
+            if (modifierAmount <= (defenseValueBeforeModified + positiveBonuses)) {
                 result = Math.max(modifierAmount, result);
             }
             modifierCollector.addModifier(modifier);
