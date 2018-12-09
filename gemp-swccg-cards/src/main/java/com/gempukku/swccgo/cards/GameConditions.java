@@ -2466,7 +2466,7 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean hasParticipatedInBattleThisTurn(SwccgGame game, PhysicalCard card) {
-        return !game.getModifiersQuerying().hasParticipatedInBattle(card);
+        return game.getModifiersQuerying().hasParticipatedInBattle(card);
     }
 
     /**

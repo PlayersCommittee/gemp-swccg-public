@@ -27,6 +27,7 @@ public abstract class ChooseCardOnTableEffect extends ChooseCardsOnTableEffect {
         super(action, playerId, choiceText, 1, 1, cards);
     }
 
+
     /**
      * Creates an effect that causes the player to choose a card from the specified collection of cards on the table accepted
      * by the specified filter.
@@ -50,6 +51,18 @@ public abstract class ChooseCardOnTableEffect extends ChooseCardsOnTableEffect {
     public ChooseCardOnTableEffect(Action action, String playerId, String choiceText, Filterable filters) {
         super(action, playerId, choiceText, 1, 1, filters);
     }
+
+    /**
+     * Creates an effect that causes the player to choose a card on the table accepted by the specified filter.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param choiceText the text shown to the player choosing the card
+     * @param filters the filter
+     */
+    public ChooseCardOnTableEffect(Action action, String playerId, String choiceText, Filterable filters, Integer minimum) {
+        super(action, playerId, choiceText, minimum, 1, filters);
+    }
+
 
     /**
      * Creates an effect that causes the player to choose a card on the table accepted by the specified filter.
