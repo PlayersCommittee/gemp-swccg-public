@@ -3077,6 +3077,48 @@ var fixedImages = {
 "209_50":"/gemp-swccg/images/cards/Virtual9-Dark/mustafarvaderscastle.gif",
 "209_51":"/gemp-swccg/images/cards/Virtual9-Dark/xizorspalacesewer.gif",
 "209_52":"/gemp-swccg/images/cards/Virtual9-Dark/firstorderspecialforcestie.gif",
+"210_1":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_2":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_3":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_4":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_5":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_6":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_7":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_8":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_9":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_10":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_11":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_12":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_13":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_14":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_15":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_16":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_17":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_18":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_19":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_20":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_21":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_22":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_23":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_24":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_25":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_26":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_27":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_28":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_29":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_30":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_31":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_32":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_33":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_34":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_35":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_36":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_37":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_38":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_39":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_40":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_41":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
+"210_42":"/gemp-swccg/images/cards/Virtual10-TBD/TBD.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
@@ -3450,6 +3492,11 @@ var Card = Class.extend({
         if (setNo == 209) {
             return (cardNo >= 24 && cardNo <= 28) ||
                     (cardNo >= 49 && cardNo <= 51);
+        }
+        if (setNo == 210) {
+            // TBD
+//            return (cardNo >= xx && cardNo <= xx) ||
+//                    (cardNo >= xx && cardNo <= xx);
         }
         if (setNo == 501) {
             return (cardNo == 9);
