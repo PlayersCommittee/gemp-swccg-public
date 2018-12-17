@@ -29,9 +29,10 @@ public class Card210_003 extends AbstractCharacterWeapon {
         setLore("Constructed by Anakin Skywalker. Kept by Obi-Wan Kenobi until given to Luke.");
         setGameText("Deploy on Anakin, Luke, or Rey. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addPersona(Persona.ANAKINS_LIGHTSABER);
-        addIcons(Icon.EPISODE_I, Icon.EPISODE_VII, Icon.VIRTUAL_SET_10);
+        addIcons(Icon.EPISODE_I, Icon.EPISODE_VII, Icon.VIRTUAL_SET_10, Icon.HOTH);
         addKeywords(Keyword.LIGHTSABER);
         setMatchingCharacterFilter(Filters.or(Filters.Anakin, Filters.Luke, Filters.Rey));
+        setVirtualSuffix(true);
     }
 
     @Override
