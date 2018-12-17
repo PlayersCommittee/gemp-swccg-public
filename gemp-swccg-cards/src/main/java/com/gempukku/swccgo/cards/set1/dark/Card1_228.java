@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Side;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class Card1_228 extends AbstractNormalEffect {
     public Card1_228() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Reactor Terminal");
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Reactor_Terminal);
         setLore("The Death Star has many terminals coupled to the main reactor for power distribution throughout the immense space station.");
         setGameText("Use 1 Force to deploy on your side of table. During your control phase, you may return any cards from your hand to the top of your Used Pile.");
     }
