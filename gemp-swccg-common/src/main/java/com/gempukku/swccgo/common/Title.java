@@ -638,6 +638,7 @@ public interface Title {
     String None_Shall_Pass = "None Shall Pass";
     String NOOOOOOOOOOOO = "NOOOOOOOOOOOO!";
     String North_Ridge = "Hoth: North Ridge (4th Marker)";
+    String Nute_Gunray = "Nute Gunray";
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";

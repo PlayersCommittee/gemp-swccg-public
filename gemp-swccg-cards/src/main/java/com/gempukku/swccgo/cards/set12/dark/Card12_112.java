@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card12_112 extends AbstractRepublic {
     public Card12_112() {
-        super(Side.DARK, 3, 3, 3, 4, 6, "Nute Gunray", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 4, 6, Title.Nute_Gunray, Uniqueness.UNIQUE);
         setLore("Commanding Viceroy of the Trade Federation forces assigned to the blockade of Naboo. Takes for his own actions. Neimoidian leader.");
         setGameText("Your destroyer droids and battle droids are each forfeit +1 at same and related sites. While aboard Blockade Flagship, opponent's Jedi may not move or deploy to Bridge, and your destroyer droids are destiny +3 if drawn for battle destiny.");
         addPersona(Persona.GUNRAY);
