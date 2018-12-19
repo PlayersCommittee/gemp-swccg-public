@@ -17552,6 +17552,7 @@ public class Filters {
     public static final Filter Jerjerrod = Filters.title(Title.Jerjerrod);
     public static final Filter Jet_Pack = Filters.title(Title.Jet_Pack);
     public static final Filter Jodo = Filters.title(Title.Jodo);
+    public static final Filter Judicator = Filters.title(Title.Judicator);
     public static final Filter Jundland_Wastes = Filters.title(Title.Jundland_Wastes);
     public static final Filter jungle = Filters.keyword(Keyword.JUNGLE);
     public static final Filter Juri_Juice = Filters.title(Title.Juri_Juice);
@@ -18175,7 +18176,10 @@ public class Filters {
     public static final Filter TIE_Defender = Filters.modelType(ModelType.TIE_DEFENDER);
     public static final Filter TIE_Interceptor = Filters.modelType(ModelType.TIE_INTERCEPTOR);
     public static final Filter TIE_ln = Filters.modelType(ModelType.TIE_LN);
+    public static final Filter TIE_rc = Filters.modelType(ModelType.TIE_RC);
     public static final Filter TIE_sa = Filters.modelType(ModelType.TIE_SA);
+    public static final Filter TIE_sr = Filters.modelType(ModelType.TIE_SR);
+    public static final Filter TIE_vn = Filters.modelType(ModelType.TIE_VN);
     public static final Filter TK422 = Filters.title(Title.TK422);
     public static final Filter Tonnika_Sisters = Filters.title(Title.Tonnika_Sisters);
     public static final Filter Too_Cold_For_Speeders = Filters.title(Title.Too_Cold_For_Speeders);
