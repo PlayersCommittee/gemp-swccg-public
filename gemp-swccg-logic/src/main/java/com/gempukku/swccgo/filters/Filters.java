@@ -10600,6 +10600,23 @@ public class Filters {
         return probeCard;
     }
 
+
+    /**
+     * Filter that accepts cards that are 'hatred' cards.
+     */
+    public static final Filter hatredCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isHatredCard();
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter hatredCard() {
+        return hatredCard;
+    }
+
     /**
      * Filter that accepts cards that are 'liberation' cards.
      */
