@@ -90,6 +90,7 @@ public class MerchantService {
         addFixedItem(ProductName.SPECIAL_EDITION_BOOSTER_PACK, ProductPrice.SPECIAL_EDITION_BOOSTER_PACK);
         addFixedItem(ProductName.ENDOR_BOOSTER_PACK, ProductPrice.ENDOR_BOOSTER_PACK);
         addFixedItem(ProductName.DEATH_STAR_II_BOOSTER_PACK, ProductPrice.DEATH_STAR_II_BOOSTER_PACK);
+        addFixedItem(ProductName.TATOOINE_BOOSTER_PACK, ProductPrice.TATOOINE_BOOSTER_PACK);
         addFixedItem(ProductName.CORUSCANT_BOOSTER_PACK, ProductPrice.CORUSCANT_BOOSTER_PACK);
         addFixedItem(ProductName.THEED_PALACE_BOOSTER_PACK, ProductPrice.THEED_PALACE_BOOSTER_PACK);
         addFixedItem(ProductName.REFLECTIONS_BOOSTER_PACK, ProductPrice.REFLECTIONS_BOOSTER_PACK);
@@ -106,6 +107,7 @@ public class MerchantService {
         addFixedItem(ProductName.SPECIAL_EDITION_BOOSTER_BOX, ProductPrice.SPECIAL_EDITION_BOOSTER_BOX);
         addFixedItem(ProductName.ENDOR_BOOSTER_BOX, ProductPrice.ENDOR_BOOSTER_BOX);
         addFixedItem(ProductName.DEATH_STAR_II_BOOSTER_BOX, ProductPrice.DEATH_STAR_II_BOOSTER_BOX);
+        addFixedItem(ProductName.TATOOINE_BOOSTER_BOX, ProductPrice.TATOOINE_BOOSTER_BOX);
         addFixedItem(ProductName.CORUSCANT_BOOSTER_BOX, ProductPrice.CORUSCANT_BOOSTER_BOX);
         addFixedItem(ProductName.THEED_PALACE_BOOSTER_BOX, ProductPrice.THEED_PALACE_BOOSTER_BOX);
         addFixedItem(ProductName.REFLECTIONS_BOOSTER_BOX, ProductPrice.REFLECTIONS_BOOSTER_BOX);
