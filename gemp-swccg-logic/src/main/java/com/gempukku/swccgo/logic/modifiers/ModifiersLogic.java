@@ -7999,6 +7999,22 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return result;
     }
 
+
+    /**
+     * Checks to see if we should be drawing destiny from the bottom of the deck instead of top
+     * @param gameState
+     * @param playerId
+     * @return
+     */
+    @Override
+    public boolean shouldDrawDestinyFromBottomOfDeck(GameState gameState, String playerId) {
+        boolean isDrawFromBottom = false;
+        for (Modifier modifier: getModifiers(gameState, ModifierType.DRAW_DESTINY_FROM_BOTTOM_OF_DECK)) {
+            isDrawFromBottom = true;
+        }
+        return isDrawFromBottom;
+    }
+
     /**
      * Gets the value of a drawn battle destiny.
      * @param gameState the game state

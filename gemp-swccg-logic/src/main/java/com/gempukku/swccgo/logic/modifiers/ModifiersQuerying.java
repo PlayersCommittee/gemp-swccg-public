@@ -2061,6 +2061,15 @@ public interface ModifiersQuerying {
      */
     float getBattleDestiny(GameState gameState, PhysicalCard physicalCard, String playerId);
 
+
+    /**
+     * Checks to see if we should be drawing destiny from the bottom of the deck instead of top
+     * @param gameState
+     * @param playerId
+     * @return
+     */
+    boolean shouldDrawDestinyFromBottomOfDeck(GameState gameState, String playerId);
+
     /**
      * Gets the player's battle destiny modifiers and the modifier amount for the specified card drawn for battle destiny,
      * even if the battle destiny cannot be modified. This is used when having the battle destiny modifiers affect total

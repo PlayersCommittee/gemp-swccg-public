@@ -16928,6 +16928,7 @@ public class Filters {
     public static final Filter Black_4 = Filters.title(Title.Black_4);
     public static final Filter Black_5 = Filters.title(Title.Black_5);
     public static final Filter Black_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.BLACK_SQUADRON, Filters.aboard(Filters.keyword(Keyword.BLACK_SQUADRON))));
+    public static final Filter Black_Squadron_tie = Filters.and(Keyword.BLACK_SQUADRON, Filters.tie());
     public static final Filter Black_Sun_agent = Filters.keyword(Keyword.BLACK_SUN_AGENT);
     public static final Filter Blast_The_Door_Kid = Filters.title(Title.Blast_The_Door_Kid);
     public static final Filter Blasted_Droid = Filters.title(Title.Blasted_Droid);
@@ -17215,6 +17216,7 @@ public class Filters {
     public static final Filter DS_181_3 = Filters.title(Title.DS_181_3);
     public static final Filter DS_181_4 = Filters.title(Title.DS_181_4);
     public static final Filter DS_61_2 = Filters.persona(Persona.DS_61_2);
+    public static final Filter DS_61_3 = Filters.persona(Persona.DS_61_3);
     public static final Filter DS_61_5 = Filters.title(Title.DS_61_5);
     public static final Filter Dual_Laser_Cannon = Filters.title(Title.Dual_Laser_Cannon);
     public static final Filter Dune_Sea = Filters.title(Title.Dune_Sea);
