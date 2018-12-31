@@ -34,7 +34,7 @@ public class Card3_019 extends AbstractRebel {
         setLore("Experienced evacuation officer. Charismatic leader of Echo Base troopers. Trained to expedite the evacuation of Rebel installations with maximum efficiency. Poetic musician.");
         setGameText("Whenever you just initiated a battle at same site as Shawn, your troopers at adjacent sites who have not already battled this turn may immediately move to same site (as a regular move).");
         addIcons(Icon.HOTH, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER, Keyword.MUSICIAN);
+        addKeywords(Keyword.LEADER, Keyword.MUSICIAN, Keyword.ECHO_BASE_TROOPER);
     }
 
 
