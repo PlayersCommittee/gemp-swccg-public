@@ -327,6 +327,18 @@ body {
     font-size: 90%;
 }
 
+.muteObservers .chatMessage.fromObserver {
+    display: none;
+}
+
+/* if observers are muted, disable the 'mute' button (and vice-versa) */
+#gameOptionsBox.muteObservers #muteObserversBtn {
+    display: none;
+}
+#gameOptionsBox:not(.muteObservers) #unmuteObserversBtn {
+    display: none;
+}
+
 .chatMessage {
     color: #3fafff;
 }
