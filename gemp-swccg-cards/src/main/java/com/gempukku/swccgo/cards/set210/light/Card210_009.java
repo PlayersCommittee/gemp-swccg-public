@@ -31,10 +31,11 @@ import java.util.List;
 public class Card210_009 extends AbstractRepublic{
     public Card210_009() {
         super(Side.LIGHT, 3, 2, 2, 1, 3, Title.Clone_Trooper);
+        setArmor(3);
         setLore("");
         setGameText("Deploys free to same site as your [Clone Army]: general, leader, or Padawan. Once during battle, if firing a blaster, may cancel and redraw your just drawn weapon destiny. While with your clone, draws one battle destiny if unable to otherwise.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.EPISODE_I, Icon.WARRIOR, Icon.CLONE_ARMY);
-        addKeywords(Keyword.CLONE_TROOPER, Keyword.CLONE_TROOPER);
+        addKeywords(Keyword.CLONE_TROOPER);
     }
 
     @Override
