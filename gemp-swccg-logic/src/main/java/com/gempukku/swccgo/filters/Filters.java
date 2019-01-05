@@ -17698,6 +17698,8 @@ public class Filters {
     public static final Filter Momaw_Nadon = Filters.title(Title.Momaw_Nadon);
     public static final Filter MTT = Filters.modelType(ModelType.MTT);
     public static final Filter musician = Filters.keyword(Keyword.MUSICIAN);
+    public static final Filter Mustafar_Location = Filters.and(CardCategory.LOCATION, Filters.partOfSystem(Title.Mustafar));
+    public static final Filter Mustafar_site = Filters.and(CardSubtype.SITE, Filters.partOfSystem(Title.Mustafar));
     public static final Filter My_Favorite_Decoration = Filters.title(Title.My_Favorite_Decoration);
     public static final Filter My_Kind_Of_Scum = Filters.title(Title.My_Kind_Of_Scum);
     public static final Filter My_Lord_Is_That_Legal = Filters.title(Title.My_Lord_Is_That_Legal);
