@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -76,6 +77,47 @@ public class Card210_018 extends AbstractUsedOrLostInterrupt {
                     }
             );
             actions.add(action1);
+        }
+
+        // Calling this one action4, makes it out of order, but means I don't have to change *any* of the add or
+        //  subtract code that I had done before this
+        if (TriggerConditions.battleInitiated(game, effectResult, opponent)) {
+            final PlayInterruptAction action4 = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action4.setText("Make opponent use 2 Force or cancel battle");
+            // Allow response(s)
+            action4.allowResponses(
+                    new RespondablePlayCardEffect(action4) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            if (GameConditions.canUseForce(game, opponent, 2)) {
+                                action4.appendEffect(
+                                        new PlayoutDecisionEffect(action4, opponent,
+                                                new MultipleChoiceAwaitingDecision("Choose effect", new String[]{"Use 2 Force", "Cancel battle"}) {
+                                                    @Override
+                                                    protected void validDecisionMade(int index, String result) {
+                                                        if (index == 0) {
+                                                            game.getGameState().sendMessage(opponent + " chooses to use 2 Force");
+                                                            action4.appendEffect(
+                                                                    new UseForceEffect(action4, opponent, 2));
+                                                        } else {
+                                                            game.getGameState().sendMessage(opponent + " chooses to cancel battle");
+                                                            action4.appendEffect(
+                                                                    new CancelBattleEffect(action4));
+                                                        }
+                                                    }
+                                                }
+                                        )
+                                );
+                            }
+                            else {
+                                action4.appendEffect(
+                                        new CancelBattleEffect(action4));
+                            }
+                        }
+                    }
+            );
+            actions.add(action4);
         }
 
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, opponent)
