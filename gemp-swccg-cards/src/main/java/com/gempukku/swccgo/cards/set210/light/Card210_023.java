@@ -12,10 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -51,6 +48,7 @@ public class Card210_023 extends AbstractJediMaster {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new DeployCostToLocationModifier(self, Filters.Ahsoka, -2, Filters.here(self)));
         return modifiers;
     }
