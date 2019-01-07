@@ -6,6 +6,7 @@ package com.gempukku.swccgo.common;
 public enum Persona implements Filterable {
     // Characters
     _4_LOM("4-LOM"),
+    AHSOKA("Ahsoka"),
     AMIDALA("Amidala"),
     ANAKIN("Anakin"),
     BB8("BB-8"),
