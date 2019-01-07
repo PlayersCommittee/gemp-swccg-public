@@ -59,7 +59,7 @@ public class Card210_023 extends AbstractJediMaster {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         Filter yourCharacterHere = Filters.and(Filters.your(self), Filters.character, Filters.here(self));
-        Filter yourEp1StarshipHere = Filters.and(Filters.your(self), Filters.starship, Icon.EPISODE_I, Filters.here(self));
+        Filter yourEp1StarshipHere = Filters.and(Filters.your(self), Filters.starship, Icon.EPISODE_I, Filters.piloted, Filters.here(self));
         Filter characterOrStarship = Filters.or(yourCharacterHere, yourEp1StarshipHere);
 
         // Check condition(s)
