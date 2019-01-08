@@ -342,6 +342,7 @@ public interface Title {
     String Fondor = "Fondor";
     String Force_Lightning = "Force Lightning";
     String Force_Push = "Force Push";
+    String Forced_Servitude = "Forced Servitude";
     String Free_Ride = "Free Ride";
     String Friendly_Fire = "Friendly Fire";
     String Frostbite = "Frostbite";
@@ -1009,6 +1010,7 @@ public interface Title {
     String Wookiee_Strangle = "Wookiee Strangle";
     String Wounded_Wookiee = "Wounded Wookiee";
     String Wrong_Turn = "Wrong Turn";
+    String Wuher = "Wuher";
     String Wuta = "Wuta";
     String X_wing_Laser_Cannon = "X-wing Laser Cannon";
     String Xizor = "Prince Xizor";
