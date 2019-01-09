@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.conditions.LostPodraceCondition;
 import com.gempukku.swccgo.cards.conditions.WonPodraceCondition;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class Card12_077 extends AbstractSystem {
     public Card12_077() {
-        super(Side.LIGHT, "Malastare", 3);
+        super(Side.LIGHT, Title.Malastare, 3);
         setLocationDarkSideGameText("If you have lost a Podrace, you may not draw more than one battle destiny here.");
         setLocationLightSideGameText("If you have won a Podrace, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);
