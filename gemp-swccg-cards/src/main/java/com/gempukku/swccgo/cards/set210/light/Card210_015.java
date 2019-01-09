@@ -31,6 +31,7 @@ public class Card210_015 extends AbstractSite {
         addIcons(Icon.VIRTUAL_SET_10, Icon.EXTERIOR_SITE, Icon.PLANET);
         addKeywords(Keyword.MARKER_1);
         addSpecialRulesInEffectHere(SpecialRule.HOTH_ENERGY_SHIELD_RULES);
+        setVirtualSuffix(true);
     }
 
     @Override

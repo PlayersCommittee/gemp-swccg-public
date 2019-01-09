@@ -22,6 +22,7 @@ public interface Title {
     String Advosze = "Advosze";
     String Agents_In_The_Court = "Agents In The Court";
     String Agents_Of_Black_Sun = "Agents Of Black Sun";
+    String Ahch_To = "Ahch-To";
     String Ahsokas_Lightsabers = "Ahsoka's Lightsabers";
     String Aiiii_Aaa_Agggggggggg = "Aiiii! Aaa! Agggggggggg!";
     String Aim_High = "Aim High";
@@ -340,6 +341,7 @@ public interface Title {
     String Focused_Attack = "Focused Attack";
     String Fondor = "Fondor";
     String Force_Lightning = "Force Lightning";
+    String Force_Projection = "Force Projection";
     String Force_Push = "Force Push";
     String Free_Ride = "Free Ride";
     String Friendly_Fire = "Friendly Fire";
@@ -774,6 +776,7 @@ public interface Title {
     String Sabine = "Sabine Wren";
     String Sabotage = "Sabotage";
     String Sacrifice = "Sacrifice";
+    String Saddle = "Ahch To: Saddle";
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
