@@ -16831,6 +16831,7 @@ public class Filters {
     public static final Filter Advosze = Filters.title(Title.Advosze);
     public static final Filter Agents_In_The_Court = Filters.title(Title.Agents_In_The_Court);
     public static final Filter Agents_Of_Black_Sun = Filters.title(Title.Agents_Of_Black_Sun);
+    public static final Filter Ahsoka = Filters.persona(Persona.AHSOKA);
     public static final Filter Aiiii_Aaa_Agggggggggg = Filters.title(Title.Aiiii_Aaa_Agggggggggg);
     public static final Filter Alderaan_site = Filters.and(Filters.partOfSystem(Title.Alderaan), CardSubtype.SITE);
     public static final Filter Alderaan_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Alderaan));
