@@ -31,6 +31,7 @@ public class Card210_018 extends AbstractUsedOrLostInterrupt {
         setLore("'You will bring Captain Solo and the Wookiee to me.'");
         setGameText("USED: If opponent just initiated a battle or Force drain, they must use 2 Force, or it is canceled. LOST: If your Jedi in battle (unless with a Dark Jedi, Hutt, or Toydarian), 'wave hand at' (add or subtract 2 from) an opponent's just drawn destiny.");
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_10);
+        setVirtualSuffix(true);
     }
 
     @Override
