@@ -574,6 +574,7 @@ public interface Title {
     String Main_Corridor = "Executor: Main Corridor";
     String Main_Power_Generators = "Hoth: Main Power Generators (1st Marker)";
     String Major_Panno = "Major Panno";
+    String Malastare = "Malastare";
     String Mandalorian_Armor = "Mandalorian Armor";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
@@ -629,6 +630,7 @@ public interface Title {
     String Nevar_Yalnal = "Nevar Yalnal";
     String Never_Tell_Me_The_Odds = "Never Tell Me The Odds";
     String Nien_Nunb = "Nien Nunb";
+    String Nightclub = "Coruscant: Night Club";
     String Nightfall = "Nightfall";
     String Niima_Outpost_Shipyard = "Jakku: Niima Outpost Shipyard";
     String No_Bargain = "No Bargain";

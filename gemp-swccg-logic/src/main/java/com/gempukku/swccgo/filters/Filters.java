@@ -17643,6 +17643,7 @@ public class Filters {
     public static final Filter maintenance_droid = Filters.modelType(ModelType.MAINTENANCE);
     public static final Filter Major_Panno = Filters.title(Title.Major_Panno);
     public static final Filter Malakili = Filters.title(Title.Malakili);
+    public static final Filter Malastare = Filters.title(Title.Malastare);
     public static final Filter male = Filters.and(CardCategory.CHARACTER, Filters.or(Keyword.MALE, Filters.not(Filters.keyword(Keyword.FEMALE))));
     public static final Filter Mandalorian_Armor = Filters.title(Title.Mandalorian_Armor);
     public static final Filter Maneuvering_Flaps = Filters.title(Title.Maneuvering_Flaps);
@@ -17722,6 +17723,7 @@ public class Filters {
     public static final Filter Nevar_Yalnal = Filters.title(Title.Nevar_Yalnal);
     public static final Filter Never_Tell_Me_The_Odds = Filters.title(Title.Never_Tell_Me_The_Odds);
     public static final Filter Nien_Nunb = Filters.title(Title.Nien_Nunb);
+    public static final Filter Nightclub = Filters.title(Title.Nightclub);
     public static final Filter Nightfall = Filters.title(Title.Nightfall);
     public static final Filter Niima_Outpost_Shipyard = Filters.title(Title.Niima_Outpost_Shipyard);
     public static final Filter Nikto = Filters.species(Species.NIKTO);

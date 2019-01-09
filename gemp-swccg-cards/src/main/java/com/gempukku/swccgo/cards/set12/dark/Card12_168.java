@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card12_168 extends AbstractSystem {
     public Card12_168() {
-        super(Side.DARK, "Malastare", 3);
+        super(Side.DARK, Title.Malastare, 3);
         setLocationDarkSideGameText("If you control, during your control phase may deploy Watto's Box (regardless of your current race total).");
         setLocationLightSideGameText("If you control, may use 4 Force to cancel Watto's Box.");
         addIcon(Icon.DARK_FORCE, 2);
