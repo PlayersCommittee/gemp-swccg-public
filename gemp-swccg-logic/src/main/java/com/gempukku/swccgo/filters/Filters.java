@@ -18114,6 +18114,7 @@ public class Filters {
     public static final Filter Tatooine_site = Filters.and(Filters.partOfSystem(Title.Tatooine), CardSubtype.SITE);
     public static final Filter Tatooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Tatooine));
     public static final Filter tauntaun = Filters.keyword(Keyword.TAUNTAUN);
+    public static final Filter Toydarian = Filters.species(Species.TOYDARIAN);
     public static final Filter Tuanul_Village = Filters.title(Title.Tuanul_Village);
     public static final Filter tax_collector = Filters.keyword(Keyword.TAX_COLLECTOR);
     public static final Filter taxation_agenda = Filters.agenda(Agenda.TAXATION);
