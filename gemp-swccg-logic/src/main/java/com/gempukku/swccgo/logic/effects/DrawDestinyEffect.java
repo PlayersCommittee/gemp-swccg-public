@@ -1053,8 +1053,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
                                 PhysicalCard modifierSource = gameState.getGame().getModifiersQuerying().getDrawsDestinyFromBottomOfDeckModiferSource(gameState, _performingPlayerId);
                                 if (modifierSource != null) {
-                                    //destinyText += "(drawing from bottom of pile due to " + GameUtils.getCardLink(modifierSource) + ")";
-                                    gameState.sendMessage("Drawing from bottom of pile due to " + GameUtils.getCardLink(modifierSource));
+                                    gameState.sendMessage(_performingPlayerId + " drawing " + _destinyType.getHumanReadable() + " from bottom of pile due to " + GameUtils.getCardLink(modifierSource));
                                 }
 
                                 _drawnDestinyCard = gameState.getBottomOfCardPile(_performingPlayerId, Zone.RESERVE_DECK);
