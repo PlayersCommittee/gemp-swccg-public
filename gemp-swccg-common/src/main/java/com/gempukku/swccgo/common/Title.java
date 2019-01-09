@@ -592,6 +592,7 @@ public interface Title {
     String Mauls_Lightsaber = "Maul's Lightsaber";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
+    String Mercenary_Armor = "Mercenary_Armor";
     String Meson_Martinet = "Meson Martinet";
     String Mianda = "Major Mianda";
     String Miiyoom_Onith = "M'iiyoom Onith";
@@ -710,6 +711,7 @@ public interface Title {
     String Proton_Bombs = "Proton Bombs";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
+    String Quite_A_Mercenary = "Quite A Mercenary";
     String Quiggold = "Quiggold";
     String Radar_Scanner = "Radar Scanner";
     String Raithal = "Raithal";
