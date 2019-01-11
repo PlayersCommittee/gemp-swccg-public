@@ -71,6 +71,7 @@ public enum Keyword implements Filterable {
     IMPERIAL_TROOPER_GUARD("Imperial Trooper Guard", true),
     INFANTRY_BATTLE_DROID("Infantry Battle Droid", true),
     INFORMATION_BROKER("Information Broker", true),
+    INQUISITOR("Inquisitor", true),
     ION_CANNON("Ion Cannon", false),
     ISB_AGENT("ISB Agent", true),
     JABBAS_PALACE_SITE("Jabba's Palace Site", false),

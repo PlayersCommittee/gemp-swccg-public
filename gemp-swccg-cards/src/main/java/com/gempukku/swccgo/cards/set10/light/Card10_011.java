@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card10_011 extends AbstractCharacterDevice {
     public Card10_011() {
-        super(Side.LIGHT, 3, "Mercenary Armor", Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 3, Title.Mercenary_Armor, Uniqueness.RESTRICTED_2);
         setLore("Worn by hired guns throughout the galaxy. Often used by Rebels when infiltrating underworld organizations. Leia wore Boushh's armor when she infiltrated Black Sun.");
         setGameText("Use 2 Force (free on Leia) to deploy on a Rebel without armor. Character gains spy skill, power +3, armor = 4, and immunity to attrition < 3. Imperial Barrier is canceled. Blasters deploy for free and fire for free on this character.");
         addIcons(Icon.REFLECTIONS_II);

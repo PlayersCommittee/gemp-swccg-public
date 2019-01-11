@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card2_055 extends AbstractUsedInterrupt {
     public Card2_055() {
-        super(Side.LIGHT, 5, "Quite A Mercenary");
+        super(Side.LIGHT, 5, Title.Quite_A_Mercenary);
         setLore("Smugglers and other rogues frequent spaceports along trade routes. 'Your friend is quite a mercenary. I wonder if he really cares about anything, or anybody.'");
         setGameText("If Elis Helrot just completed a transport, use 2 Force. Elis and all character transported are lost. (Immune to Sense.) OR Prevent a just deployed smuggler from moving this turn.");
         addIcons(Icon.A_NEW_HOPE);

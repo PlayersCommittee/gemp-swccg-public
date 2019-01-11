@@ -31,6 +31,7 @@ public class Card301_001 extends AbstractRepublic {
         addIcons(Icon.PREMIUM, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_P);
         addKeywords(Keyword.FEMALE, Keyword.PADAWAN);
         setSpecies(Species.TOGRUTA);
+        addPersona(Persona.AHSOKA);
     }
 
     @Override

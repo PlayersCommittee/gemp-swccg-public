@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card200_057 extends AbstractSite {
     public Card200_057() {
-        super(Side.LIGHT, "Coruscant: Night Club", Title.Coruscant);
+        super(Side.LIGHT, Title.Nightclub, Title.Coruscant);
         setLocationDarkSideGameText("Your characters here are defense value -1 and may not be excluded from battle.");
         setLocationLightSideGameText("Your characters here are defense value -1 and may not be excluded from battle.");
         addIcon(Icon.DARK_FORCE, 2);

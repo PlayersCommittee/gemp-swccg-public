@@ -161,6 +161,7 @@ public interface Title {
     String Civil_Disorder = "Civil Disorder";
     String Clakdor_VII = "Clak'dor VII";
     String Clash_Of_Sabers = "Clash Of Sabers";
+    String Clone_Trooper = "Clone Trooper";
     String Closer = "Closer?!";
     String Cloud_City_Celebration = "Cloud City Celebration";
     String Cloud_City_Occupation = "Cloud City Occupation";
@@ -341,6 +342,7 @@ public interface Title {
     String Fondor = "Fondor";
     String Force_Lightning = "Force Lightning";
     String Force_Push = "Force Push";
+    String Forced_Servitude = "Forced Servitude";
     String Free_Ride = "Free Ride";
     String Friendly_Fire = "Friendly Fire";
     String Frostbite = "Frostbite";
@@ -572,6 +574,7 @@ public interface Title {
     String Main_Corridor = "Executor: Main Corridor";
     String Main_Power_Generators = "Hoth: Main Power Generators (1st Marker)";
     String Major_Panno = "Major Panno";
+    String Malastare = "Malastare";
     String Mandalorian_Armor = "Mandalorian Armor";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
@@ -590,6 +593,7 @@ public interface Title {
     String Mauls_Lightsaber = "Maul's Lightsaber";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
+    String Mercenary_Armor = "Mercenary_Armor";
     String Meson_Martinet = "Meson Martinet";
     String Mianda = "Major Mianda";
     String Miiyoom_Onith = "M'iiyoom Onith";
@@ -626,6 +630,7 @@ public interface Title {
     String Nevar_Yalnal = "Nevar Yalnal";
     String Never_Tell_Me_The_Odds = "Never Tell Me The Odds";
     String Nien_Nunb = "Nien Nunb";
+    String Nightclub = "Coruscant: Night Club";
     String Nightfall = "Nightfall";
     String Niima_Outpost_Shipyard = "Jakku: Niima Outpost Shipyard";
     String No_Bargain = "No Bargain";
@@ -638,6 +643,7 @@ public interface Title {
     String None_Shall_Pass = "None Shall Pass";
     String NOOOOOOOOOOOO = "NOOOOOOOOOOOO!";
     String North_Ridge = "Hoth: North Ridge (4th Marker)";
+    String Nute_Gunray = "Nute Gunray";
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";
@@ -708,6 +714,7 @@ public interface Title {
     String Proton_Bombs = "Proton Bombs";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
+    String Quite_A_Mercenary = "Quite A Mercenary";
     String Quiggold = "Quiggold";
     String Radar_Scanner = "Radar Scanner";
     String Raithal = "Raithal";
@@ -1008,6 +1015,7 @@ public interface Title {
     String Wookiee_Strangle = "Wookiee Strangle";
     String Wounded_Wookiee = "Wounded Wookiee";
     String Wrong_Turn = "Wrong Turn";
+    String Wuher = "Wuher";
     String Wuta = "Wuta";
     String X_wing_Laser_Cannon = "X-wing Laser Cannon";
     String Xizor = "Prince Xizor";

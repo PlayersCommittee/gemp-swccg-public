@@ -1048,7 +1048,20 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                             final GameState gameState = game.getGameState();
 
                             // Step 1: Draw destiny card
-                            _drawnDestinyCard = gameState.getTopOfReserveDeck(_performingPlayerId);
+                            // Optionally from bottom of deck if the modifier in effect, otherwise default to top card
+                            if (gameState.getGame().getModifiersQuerying().shouldDrawDestinyFromBottomOfDeck(gameState, _performingPlayerId)) {
+
+                                PhysicalCard modifierSource = gameState.getGame().getModifiersQuerying().getDrawsDestinyFromBottomOfDeckModiferSource(gameState, _performingPlayerId);
+                                if (modifierSource != null) {
+                                    gameState.sendMessage(_performingPlayerId + " drawing " + _destinyType.getHumanReadable() + " from bottom of pile due to " + GameUtils.getCardLink(modifierSource));
+                                }
+
+                                _drawnDestinyCard = gameState.getBottomOfCardPile(_performingPlayerId, Zone.RESERVE_DECK);
+
+                            } else {
+                                _drawnDestinyCard = gameState.getTopOfReserveDeck(_performingPlayerId);
+                            }
+
                             String destinyText = _destinyType.getHumanReadable();
                             if (isDrawAndChoose()) {
                                 destinyText += (" (draw " + _drawX + " and choose " + _chooseY + ")");
