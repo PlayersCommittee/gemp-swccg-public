@@ -3493,8 +3493,9 @@ var Card = Class.extend({
         }
         if (setNo == 210) {
             // TBD
-//            return (cardNo >= xx && cardNo <= xx) ||
-//                    (cardNo >= xx && cardNo <= xx);
+            return (cardNo == 15);
+//            || cardNo == 1) - when we release Ahch-To Saddle
+
         }
         if (setNo == 501) {
             return (cardNo == 9);
