@@ -36,6 +36,7 @@ public class Card210_030 extends AbstractImperial {
         addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.VIRTUAL_SET_10);
         addKeywords(Keyword.COMMANDER);
         setVirtualSuffix(true);
+        setMatchingStarshipFilter(Filters.Judicator);
     }
 
 
