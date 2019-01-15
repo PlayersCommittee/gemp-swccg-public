@@ -8,7 +8,6 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 
 /**
  * Set: Set 10
@@ -26,14 +25,6 @@ public class Card210_042 extends AbstractObjective {
 
     @Override
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
-        action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Ralltiir_system), true, false) {
-                    @Override
-                    public String getChoiceText() {
-                        return "Choose Ralltiir system to deploy";
-                    }
-                });
-        return action;
+        return deployCardWithObjectiveText(self, Filters.Ralltiir_system, "Ralltiir system");
     }
 }
