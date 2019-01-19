@@ -77,11 +77,10 @@ public class Card210_042 extends AbstractObjective {
                 @Override
                 protected void cardSelected(SwccgGame game, final PhysicalCard cardInHandSelected) {
                     Set<CardType> cardInLostPile = cardInHandSelected.getBlueprint().getCardTypes();
-                    Filter filterForCardInLostPile = null;
+                    Filter filterForCardInLostPile = Filters.none;
                     for (CardType cardType : cardInLostPile) {
                         filterForCardInLostPile = Filters.or(filterForCardInLostPile, Filters.type(cardType));
                     }
-                    // TODO -- Test for card-type specific
                     // TODO -- make this an AddUntilEndOfGameModifierEffect
                     action.appendEffect(new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, cardInHandSelected, filterForCardInLostPile));
                 }
