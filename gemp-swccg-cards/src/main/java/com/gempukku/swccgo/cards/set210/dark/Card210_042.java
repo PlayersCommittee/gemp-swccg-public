@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,17 +15,16 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.StandardEffect;
-import com.gempukku.swccgo.logic.timing.results.DestinyDrawCompleteResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: Set 10
@@ -48,11 +48,41 @@ public class Card210_042 extends AbstractObjective {
     @Override
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        action.appendEffect(spaceportSitesImmuneToHeHasntComeBackYetForRemainderOfGame(self,action));
-        action.appendEffect(spaceportSitesImmuneToOuneeTaForRemainderOfGame(self,action));
+        action.appendEffect(spaceportSitesImmuneToHeHasntComeBackYetForRemainderOfGame(self, action));
+        action.appendEffect(spaceportSitesImmuneToOuneeTaForRemainderOfGame(self, action));
         yourForceGenPlusOneAtEachRalltiirLocation(self, game);
-        // TODO FROG lost pile swap
         return action;
+    }
+
+    // TODO FROG lost pile swap
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, game.getDarkPlayer())
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)) {
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Exchange a card in hand with a card in Lost Pile");
+            action.appendUsage(new OncePerTurnEffect(action));
+            action.appendEffect(new ChooseCardFromHandEffect(action, playerId, Filters.any) {
+                @Override
+                public String getChoiceText(int numCardsToChoose) {
+                    return "Choose card to exchange";
+                }
+
+                @Override
+                protected void cardSelected(SwccgGame game, final PhysicalCard cardInHand) {
+                    Set<CardType> cardInLostPile = cardInHand.getBlueprint().getCardTypes();
+                    // TODO -- ensure it works for any card type, then fix it to be specific to type
+                    // TODO -- make this an AddUntilEndOfGameModifierEffect
+                    action.appendEffect(new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, cardInHand, Filters.any));
+                }
+            });
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override
