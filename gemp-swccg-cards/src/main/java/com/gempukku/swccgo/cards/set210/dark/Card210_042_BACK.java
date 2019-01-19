@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set210.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.evaluators.OccupiesWithEvaluator;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
@@ -11,12 +12,19 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,11 +42,30 @@ public class Card210_042_BACK extends AbstractObjective {
 
     // TODO Immediately take into hand one card
 
-    // TODO Drains -1 at non-Ralltiir locs
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        String playerId = self.getOwner();
+        String opponent = game.getOpponent(playerId);
 
-    // TODO total battle destiny +X
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new ForceDrainModifier(self, Filters.not(Filters.Ralltiir_location), -1, opponent));
+        modifiers.add(new TotalBattleDestinyModifier(self, new OccupiesWithEvaluator(self, playerId, Filters.Ralltiir_location, Filters.Imperial), playerId));
+        return modifiers;
+    }
 
-    // TODO Always thinking wy Stomach cancelled
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Always_Thinking_With_Your_Stomach)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
