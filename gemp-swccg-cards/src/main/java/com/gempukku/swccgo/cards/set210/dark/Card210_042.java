@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -74,11 +75,15 @@ public class Card210_042 extends AbstractObjective {
                 }
 
                 @Override
-                protected void cardSelected(SwccgGame game, final PhysicalCard cardInHand) {
-                    Set<CardType> cardInLostPile = cardInHand.getBlueprint().getCardTypes();
-                    // TODO -- ensure it works for any card type, then fix it to be specific to type
+                protected void cardSelected(SwccgGame game, final PhysicalCard cardInHandSelected) {
+                    Set<CardType> cardInLostPile = cardInHandSelected.getBlueprint().getCardTypes();
+                    Filter filterForCardInLostPile = null;
+                    for (CardType cardType : cardInLostPile) {
+                        filterForCardInLostPile = Filters.or(filterForCardInLostPile, Filters.type(cardType));
+                    }
+                    // TODO -- Test for card-type specific
                     // TODO -- make this an AddUntilEndOfGameModifierEffect
-                    action.appendEffect(new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, cardInHand, Filters.any));
+                    action.appendEffect(new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, cardInHandSelected, filterForCardInLostPile));
                 }
             });
             return Collections.singletonList(action);
