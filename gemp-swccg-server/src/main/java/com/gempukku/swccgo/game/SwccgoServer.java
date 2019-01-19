@@ -101,13 +101,15 @@ public class SwccgoServer extends AbstractServer {
                 _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat);
             }
 
-            if (tournamentName.contains("OCS"){
-                SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
-                        50 * swccgFormat.getRequiredDeckSize(), allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, 1000 * 60 * 5);
-            } else{
-                SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
-                        60 * swccgFormat.getRequiredDeckSize(), allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, 1000 * 60 * 5);
+            int maxPlayerTime;
+            if (tournamentName.contains("OCS")){
+                maxPlayerTime = 50 * swccgFormat.getRequiredDeckSize();
+            } else {
+                maxPlayerTime = 60 * swccgFormat.getRequiredDeckSize();
             }
+            SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
+                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, 1000 * 60 * 5);
+
 
             swccgGameMediator.addGameResultListener(
                     new GameResultListener() {
