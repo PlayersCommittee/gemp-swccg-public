@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
@@ -107,7 +108,28 @@ public class Card210_042 extends AbstractObjective {
         return null;
     }
 
-    // TODO Flip condition
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        String playerId = self.getOwner();
+        String opponent = game.getOpponent(playerId);
+
+        // Check condition(s)
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canBeFlipped(game, self)
+                && GameConditions.controlsWith(game, self, playerId, 3, Filters.Ralltiir_site, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Imperial)
+                && !GameConditions.controls(game, opponent, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Ralltiir_location)) {
+
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setSingletonTrigger(true);
+            action.setText("Flip");
+            action.setActionMsg(null);
+            // Perform result(s)
+            action.appendEffect(
+                    new FlipCardEffect(action, self));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
 
     private void yourForceGenPlusOneAtEachRalltiirLocation(PhysicalCard self, SwccgGame game) {
         if (!GameConditions.cardHasAnyForRemainderOfGameDataSet(self)) {
