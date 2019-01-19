@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set210.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.OccupiesWithEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -9,6 +10,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
@@ -25,6 +27,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect.exchangeCardInHandWIthCardOfSameTypeInLostPile;
+
 /**
  * Set: Set 10
  * Type: Objective
@@ -36,6 +40,23 @@ public class Card210_042_BACK extends AbstractObjective {
         setVirtualSuffix(true);
         setGameText("Immediately, may take into hand from Reserve Deck any one card. While this side up, opponent's Force drains are -1 at non-Ralltiir locations. Your total battle destiny is +X, where X = number of Ralltiir locations your Imperials occupy. Always Thinking With Your Stomach is canceled. Flip this card and place a card from hand on Used Pile (if possible) if opponent controls at least two Ralltiir locations.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // This is technically text for the front side, but it seemed needlessly complicated
+        //   to attempt to code it as a AddUntilEndOfGameModifierEffect. If there ever is a
+        //   "place out of play" condition for this objective, this will need to change.
+        GameTextActionId gameTextActionId = GameTextActionId.RALLTIIR_OPERATIONS__LOST_PILE_SWAP;
+        // Check condition(s)
+        if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, game.getDarkPlayer())
+                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Exchange a card in hand with a card in Lost Pile");
+            action.appendUsage(new OncePerBattleEffect(action));
+            return exchangeCardInHandWIthCardOfSameTypeInLostPile(playerId, action);
+        }
+        return null;
     }
 
     @Override

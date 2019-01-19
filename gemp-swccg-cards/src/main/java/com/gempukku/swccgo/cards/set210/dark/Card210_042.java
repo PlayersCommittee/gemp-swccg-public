@@ -3,10 +3,9 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -17,16 +16,15 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
+import static com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect.exchangeCardInHandWIthCardOfSameTypeInLostPile;
 
 /**
  * Set: Set 10
@@ -56,36 +54,19 @@ public class Card210_042 extends AbstractObjective {
         return action;
     }
 
-    // TODO FROG lost pile swap
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-
+        // This is technically text for the front side, but it seemed needlessly complicated
+        //   to attempt to code it as a AddUntilEndOfGameModifierEffect. If there ever is a
+        //   "place out of play" condition for this objective, this will need to change.
+        GameTextActionId gameTextActionId = GameTextActionId.RALLTIIR_OPERATIONS__LOST_PILE_SWAP;
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, game.getDarkPlayer())
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)) {
-
+                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Exchange a card in hand with a card in Lost Pile");
-            action.appendUsage(new OncePerTurnEffect(action));
-            action.appendEffect(new ChooseCardFromHandEffect(action, playerId, Filters.any) {
-                @Override
-                public String getChoiceText(int numCardsToChoose) {
-                    return "Choose card to exchange";
-                }
-
-                @Override
-                protected void cardSelected(SwccgGame game, final PhysicalCard cardInHandSelected) {
-                    Set<CardType> cardInLostPile = cardInHandSelected.getBlueprint().getCardTypes();
-                    Filter filterForCardInLostPile = Filters.none;
-                    for (CardType cardType : cardInLostPile) {
-                        filterForCardInLostPile = Filters.or(filterForCardInLostPile, Filters.type(cardType));
-                    }
-                    // TODO -- make this an AddUntilEndOfGameModifierEffect
-                    action.appendEffect(new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, cardInHandSelected, filterForCardInLostPile));
-                }
-            });
-            return Collections.singletonList(action);
+            action.appendUsage(new OncePerBattleEffect(action));
+            return exchangeCardInHandWIthCardOfSameTypeInLostPile(playerId, action);
         }
         return null;
     }
