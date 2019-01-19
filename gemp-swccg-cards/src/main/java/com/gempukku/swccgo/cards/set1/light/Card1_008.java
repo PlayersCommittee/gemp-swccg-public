@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card1_008 extends AbstractRebel {
     public Card1_008() {
-        super(Side.LIGHT, 1, 2, 2, 2, 5, "Dutch", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 2, 2, 2, 5, Title.Dutch, Uniqueness.UNIQUE);
         setLore("Jon 'Dutch' Vander. Gold Squadron leader at Battle of Yavin. Prefers Y-wing fighters. Previously led squadron at Renforra Base. Emblem of Specter Squadron on his helmet.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Gold 1, also adds 1 to maneuver and draws one battle destiny if not able to otherwise. Adds 1 to forfeit of each other Gold Squadron pilot at same location.");
         addPersona(Persona.DUTCH);
