@@ -506,6 +506,7 @@ public interface Title {
     String Jerjerrod = "Moff Jerjerrod";
     String Jet_Pack = "Jet Pack";
     String Jodo = "Jodo Kast";
+    String Judicator = "Judicator";
     String Jundland_Wastes = "Tatooine: Jundland Wastes";
     String Juri_Juice = "Juri Juice";
     String K2SO = "K-2SO (Kay-Tueesso)";
