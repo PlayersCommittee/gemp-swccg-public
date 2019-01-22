@@ -277,6 +277,7 @@ public interface Title {
     String DS_61_5 = "DS-61-5";
     String Dual_Laser_Cannon = "Dual Laser Cannon";
     String Dungeon = "Jabba's Palace: Dungeon";
+    String Dutch = "Dutch";
     String Dyer = "Colonel Dyer";
     String Early_Warning_Network = "Early Warning Network";
     String East_Platform = "Cloud City: East Platform (Docking Bay)";
