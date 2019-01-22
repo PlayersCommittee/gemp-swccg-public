@@ -339,6 +339,9 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setProbeCard(boolean probeCard);
     boolean isProbeCard();
 
+    void setHatredCard(boolean hatredCard);
+    boolean isHatredCard();
+
     void setLiberationCard(boolean liberationCard);
     boolean isLiberationCard();
 
