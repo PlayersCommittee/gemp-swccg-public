@@ -537,7 +537,7 @@ public class Filters {
      * @param type the card type
      * @return Filter
      */
-    private static Filter type(final CardType type) {
+    public static Filter type(final CardType type) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

@@ -390,6 +390,7 @@ public interface Title {
     String Harc = "Harc Seff";
     String Harvest = "Harvest";
     String Haven = "Haven";
+    String He_Hasnt_Come_Back_Yet = "He Hasn't Come Back Yet";
     String He_Is_The_Chosen_One = "He Is The Chosen One";
     String He_Will_Bring_Balance = "He Will Bring Balance";
     String Heart_Of_The_Chasm = "Heart Of The Chasm";
