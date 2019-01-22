@@ -48,10 +48,10 @@ public class Card210_042_BACK extends AbstractObjective {
         //   to attempt to code it as a AddUntilEndOfGameModifierEffect. If there ever is a
         //   "place out of play" condition for this objective, this will need to change.
         GameTextActionId gameTextActionId = GameTextActionId.RALLTIIR_OPERATIONS__LOST_PILE_SWAP;
+        final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, game.getDarkPlayer())
-                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId)) {
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             action.setText("Exchange a card in hand with a card in Lost Pile");
             action.appendUsage(new OncePerBattleEffect(action));
             return exchangeCardInHandWIthCardOfSameTypeInLostPile(playerId, action);
