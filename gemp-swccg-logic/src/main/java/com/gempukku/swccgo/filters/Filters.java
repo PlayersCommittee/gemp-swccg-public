@@ -17158,8 +17158,6 @@ public class Filters {
     public static final Filter Deploys_aboard_Blockade_Flagship = Filters.or(Filters.persona(Persona.BLOCKADE_FLAGSHIP), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.BLOCKADE_FLAGSHIP, false)));
     public static final Filter Deploys_aboard_Executor = Filters.or(Filters.persona(Persona.EXECUTOR), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.EXECUTOR, false)));
     public static final Filter Deploys_aboard_Home_One = Filters.or(Filters.persona(Persona.HOME_ONE), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.HOME_ONE, false)));
-    public static final Filter Deploys_at_Ahch_To = Filters.or(Filters.placeToBePresentOnPlanet(Title.Ahch_To), Filters.locationAndCardsAtLocation(Filters.title(Title.Ahch_To)));
-    public static final Filter Deploys_on_Ahch_TO = Filters.placeToBePresentOnPlanet(Title.Ahch_To);
     public static final Filter Deploys_at_Endor = Filters.or(Filters.placeToBePresentOnPlanet(Title.Endor), Filters.locationAndCardsAtLocation(Filters.title(Title.Endor)));
     public static final Filter Deploys_on_Cloud_City = Filters.locationAndCardsAtLocation(Filters.Cloud_City_site);
     public static final Filter Deploys_on_Coruscant = Filters.placeToBePresentOnPlanet(Title.Coruscant);
@@ -17335,7 +17333,6 @@ public class Filters {
     public static final Filter Force_Attuned_character = Filters.and(CardCategory.CHARACTER, Filters.abilityEqualTo(3));
     public static final Filter Force_Lightning = Filters.title(Title.Force_Lightning);
     public static final Filter Force_pike = Filters.keyword(Keyword.FORCE_PIKE);
-    public static final Filter Force_Projection = Filters.title(Title.Force_Projection);
     public static final Filter Force_Push = Filters.title(Title.Force_Push);
     public static final Filter Force_Sensitive_character = Filters.and(CardCategory.CHARACTER, Filters.or(Filters.abilityEqualTo(4), Filters.abilityEqualTo(5)));
     public static final Filter forest = Filters.keyword(Keyword.FOREST);
