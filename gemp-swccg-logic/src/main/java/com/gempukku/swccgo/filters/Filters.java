@@ -18047,6 +18047,7 @@ public class Filters {
     public static final Filter Slave_Quarters = Filters.title(Title.Slave_Quarters);
     public static final Filter Smoke_Screen = Filters.title(Title.Smoke_Screen);
     public static final Filter smuggler = Filters.keyword(Keyword.SMUGGLER);
+    public static final Filter Snap = Filters.persona(Persona.SNAP);
     public static final Filter Sniper = Filters.title(Title.Sniper);
     public static final Filter Snivvian = Filters.species(Species.SNIVVIAN);
     public static final Filter Snoke = Filters.persona(Persona.SNOKE);
