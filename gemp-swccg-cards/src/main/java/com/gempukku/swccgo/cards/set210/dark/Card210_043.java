@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Set: Set 10
  * Type: Effect
- * Title: Reactor Terminal
+ * Title: Reactor Terminal (V)
  */
 public class Card210_043 extends AbstractNormalEffect {
     public Card210_043() {
@@ -78,7 +78,7 @@ public class Card210_043 extends AbstractNormalEffect {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy device from Reserve Deck");
