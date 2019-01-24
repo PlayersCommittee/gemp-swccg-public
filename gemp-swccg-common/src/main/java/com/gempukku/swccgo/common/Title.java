@@ -727,6 +727,7 @@ public interface Title {
     String Rancor_Pit = "Jabba's Palace: Rancor Pit";
     String Ravager_Crash_Site = "Jakku: Ravager Crash Site";
     String Reactor_Core = "Death Star II: Reactor Core";
+    String Reactor_Terminal = "Reactor Terminal";
     String Rebel_Ambush = "Rebel Ambush";
     String Rebel_Artillery = "Rebel Artillery";
     String Rebel_Barrier = "Rebel Barrier";
