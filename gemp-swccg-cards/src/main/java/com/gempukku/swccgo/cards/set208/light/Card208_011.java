@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,6 +31,7 @@ public class Card208_011 extends AbstractResistance {
     public Card208_011() {
         super(Side.LIGHT, 2, 2, 2, 2, 4, "Temmin 'Snap' Wexley", Uniqueness.UNIQUE);
         setGameText("[Pilot] 3. Imperials and bounty hunters deploy +1 here. Once per game, if a battle droid was just lost from same location, may steal it into hand.");
+        addPersonas(Persona.SNAP);
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_8);
     }
 

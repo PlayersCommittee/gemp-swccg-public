@@ -537,7 +537,7 @@ public class Filters {
      * @param type the card type
      * @return Filter
      */
-    private static Filter type(final CardType type) {
+    public static Filter type(final CardType type) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -10600,6 +10600,23 @@ public class Filters {
         return probeCard;
     }
 
+
+    /**
+     * Filter that accepts cards that are 'hatred' cards.
+     */
+    public static final Filter hatredCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isHatredCard();
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter hatredCard() {
+        return hatredCard;
+    }
+
     /**
      * Filter that accepts cards that are 'liberation' cards.
      */
@@ -17555,6 +17572,7 @@ public class Filters {
     public static final Filter Jerjerrod = Filters.title(Title.Jerjerrod);
     public static final Filter Jet_Pack = Filters.title(Title.Jet_Pack);
     public static final Filter Jodo = Filters.title(Title.Jodo);
+    public static final Filter Judicator = Filters.title(Title.Judicator);
     public static final Filter Jundland_Wastes = Filters.title(Title.Jundland_Wastes);
     public static final Filter jungle = Filters.keyword(Keyword.JUNGLE);
     public static final Filter Juri_Juice = Filters.title(Title.Juri_Juice);
@@ -18029,6 +18047,7 @@ public class Filters {
     public static final Filter Slave_Quarters = Filters.title(Title.Slave_Quarters);
     public static final Filter Smoke_Screen = Filters.title(Title.Smoke_Screen);
     public static final Filter smuggler = Filters.keyword(Keyword.SMUGGLER);
+    public static final Filter Snap = Filters.persona(Persona.SNAP);
     public static final Filter Sniper = Filters.title(Title.Sniper);
     public static final Filter Snivvian = Filters.species(Species.SNIVVIAN);
     public static final Filter Snoke = Filters.persona(Persona.SNOKE);
@@ -18183,7 +18202,10 @@ public class Filters {
     public static final Filter TIE_Defender = Filters.modelType(ModelType.TIE_DEFENDER);
     public static final Filter TIE_Interceptor = Filters.modelType(ModelType.TIE_INTERCEPTOR);
     public static final Filter TIE_ln = Filters.modelType(ModelType.TIE_LN);
+    public static final Filter TIE_rc = Filters.modelType(ModelType.TIE_RC);
     public static final Filter TIE_sa = Filters.modelType(ModelType.TIE_SA);
+    public static final Filter TIE_sr = Filters.modelType(ModelType.TIE_SR);
+    public static final Filter TIE_vn = Filters.modelType(ModelType.TIE_VN);
     public static final Filter TK422 = Filters.title(Title.TK422);
     public static final Filter Tonnika_Sisters = Filters.title(Title.Tonnika_Sisters);
     public static final Filter Too_Cold_For_Speeders = Filters.title(Title.Too_Cold_For_Speeders);

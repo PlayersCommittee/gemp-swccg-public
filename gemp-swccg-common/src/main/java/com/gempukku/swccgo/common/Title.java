@@ -277,6 +277,7 @@ public interface Title {
     String DS_61_5 = "DS-61-5";
     String Dual_Laser_Cannon = "Dual Laser Cannon";
     String Dungeon = "Jabba's Palace: Dungeon";
+    String Dutch = "Dutch";
     String Dyer = "Colonel Dyer";
     String Early_Warning_Network = "Early Warning Network";
     String East_Platform = "Cloud City: East Platform (Docking Bay)";
@@ -390,6 +391,7 @@ public interface Title {
     String Harc = "Harc Seff";
     String Harvest = "Harvest";
     String Haven = "Haven";
+    String He_Hasnt_Come_Back_Yet = "He Hasn't Come Back Yet";
     String He_Is_The_Chosen_One = "He Is The Chosen One";
     String He_Will_Bring_Balance = "He Will Bring Balance";
     String Heart_Of_The_Chasm = "Heart Of The Chasm";
@@ -505,6 +507,7 @@ public interface Title {
     String Jerjerrod = "Moff Jerjerrod";
     String Jet_Pack = "Jet Pack";
     String Jodo = "Jodo Kast";
+    String Judicator = "Judicator";
     String Jundland_Wastes = "Tatooine: Jundland Wastes";
     String Juri_Juice = "Juri Juice";
     String K2SO = "K-2SO (Kay-Tueesso)";
@@ -724,6 +727,7 @@ public interface Title {
     String Rancor_Pit = "Jabba's Palace: Rancor Pit";
     String Ravager_Crash_Site = "Jakku: Ravager Crash Site";
     String Reactor_Core = "Death Star II: Reactor Core";
+    String Reactor_Terminal = "Reactor Terminal";
     String Rebel_Ambush = "Rebel Ambush";
     String Rebel_Artillery = "Rebel Artillery";
     String Rebel_Barrier = "Rebel Barrier";

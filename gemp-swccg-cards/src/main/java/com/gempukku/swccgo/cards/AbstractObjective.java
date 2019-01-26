@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
@@ -9,6 +11,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.StackActionEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -370,5 +373,17 @@ public abstract class AbstractObjective extends AbstractNonLocationPlaysToTable 
      */
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         return null;
+    }
+
+    protected static ObjectiveDeployedTriggerAction deployCardWithObjectiveText(PhysicalCard self, Filter filterForCardToDeploy, final String chooseText) {
+        ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
+        action.appendRequiredEffect(
+                new DeployCardFromReserveDeckEffect(action, Filters.and(filterForCardToDeploy), true, false) {
+                    @Override
+                    public String getChoiceText() {
+                        return "Choose " + chooseText + " to deploy";
+                    }
+                });
+        return action;
     }
 }
