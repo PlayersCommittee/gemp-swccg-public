@@ -351,6 +351,9 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         FOR_EACH_CRASHED,
         FOR_EACH_PURCHASED,
 
+        // Dark Hours
+        DARK_HOURS_EFFECT,
+
 
         IMMUNITY_GRANTED,
 

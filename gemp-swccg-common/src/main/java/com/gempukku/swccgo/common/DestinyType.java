@@ -7,6 +7,7 @@ public enum DestinyType {
     ASTEROID_DESTINY("asteroid destiny"),
     BATTLE_DESTINY("battle destiny"),
     CARBON_FREEZING_DESTINY("carbon freezing destiny"),
+    DARK_HOURS_DESTINY("Dark Hours destiny"),
     DESTINY("destiny"),
     DESTINY_TO_ATTRITION("destiny to attrition"),
     DESTINY_TO_TOTAL_POWER("destiny to total power"),
