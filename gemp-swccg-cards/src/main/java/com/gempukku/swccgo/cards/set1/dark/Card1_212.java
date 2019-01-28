@@ -5,14 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
@@ -29,6 +28,9 @@ import java.util.*;
  * Title: Dark Hours
  */
 public class Card1_212 extends AbstractNormalEffect {
+
+    // Note: This card stores the "discardAfterTurnNumber" as it's "WhileInPlayData"
+
     public Card1_212() {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Dark Hours", Uniqueness.RESTRICTED_3);
         setLore("After surviving Tarkin's extortion, kidnapping, threats of execution and the assault of the Interceptor droid, Princess Leia was asleep when her rescuers came.");
@@ -39,22 +41,28 @@ public class Card1_212 extends AbstractNormalEffect {
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
 
         // Deploy on a site under 'nighttime conditions.'
-        Filter siteUnderNightTimeConditions = Filters.and(Filters.under_nighttime_conditions, Filters.site);
-        return siteUnderNightTimeConditions;
+        return Filters.and(Filters.under_nighttime_conditions, Filters.site);
     }
 
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, final int gameTextSourceCardId) {
 
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
+        String owner = self.getOwner();
+
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)) {
             final String playerId = self.getOwner();
             final PhysicalCard site = self.getAttachedTo();
             final GameState gameState = game.getGameState();
-            final int nextTurnNumber = gameState.getPlayersLatestTurnNumber(playerId) + 1;
-            final GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
+
+            // We need to lose this effect at the end of the next turn, so store that turn number
+            float discardAfterTurnNumber = gameState.getPlayersLatestTurnNumber(playerId) + 1.0f;
+            self.setWhileInPlayData(new WhileInPlayData(discardAfterTurnNumber));
+
+            // Run the Dark Hours gametext against every charater
             final  RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
 
             // Perform result(s)
@@ -90,37 +98,29 @@ public class Card1_212 extends AbstractNormalEffect {
             }
 
 
-            // Discard at the end of the next turn
-            action.appendEffect(
-                    new AddUntilEndOfPlayersNextTurnActionProxyEffect(action,
-                            new AbstractActionProxy() {
-                                @Override
-                                public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-
-                                    List<TriggerAction> actions = new LinkedList<TriggerAction>();
-
-                                    // Check condition(s)
-                                    if (TriggerConditions.isEndOfYourTurn(game, effectResult, playerId)
-                                            && GameConditions.isTurnNumber(game, nextTurnNumber)) {
-
-                                        // Lose this effect (mandatory)
-                                        RequiredGameTextTriggerAction effectLostAction = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                                        effectLostAction.setText("Lose " + GameUtils.getFullName(self));
-                                        effectLostAction.appendEffect(
-                                                new PlaceCardInLostPileFromTableEffect(effectLostAction, self));
-                                        actions.add(effectLostAction);
-                                    }
-
-                                    return actions;
-                                }
-                            },
-                            playerId)
-            );
-
-
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+
+
+        // Check condition(s) - Lose at the end of your next turn.
+        if (TriggerConditions.isEndOfYourTurn(game, effectResult, owner)
+                && GameConditions.cardHasWhileInPlayDataSet(self)) {
+
+            // We have the "discardAfterTurnNumber" stored inside this card's "WhileInPlayData"
+            int discardAfterTurnNumber = Math.round(self.getWhileInPlayData().getFloatValue());
+            if (GameConditions.isTurnNumber(game, discardAfterTurnNumber)) {
+
+                final GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+                // Lose this effect (mandatory)
+                RequiredGameTextTriggerAction effectLostAction = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                effectLostAction.setText("Lose " + GameUtils.getFullName(self));
+                effectLostAction.appendEffect(
+                        new PlaceCardInLostPileFromTableEffect(effectLostAction, self));
+                actions.add(effectLostAction);
+            }
+        }
+        return actions;
     }
 
 
@@ -133,7 +133,7 @@ public class Card1_212 extends AbstractNormalEffect {
      * @param action                        Action we are processing
      * @param charactersToChooseFrom        List of all possible characters to target
      * @param charactersAlreadyTargeted     List of characters already targeted. We keep adding to this list
-     * @return
+     * @return ChooseCardOnTableEffect  Effect which targets each character, one at a time. (or null if no more)
      */
     private static ChooseCardOnTableEffect buildAnotherChooseCardEffect(final SwccgGame game, final PhysicalCard self, final RequiredGameTextTriggerAction action, final Collection<PhysicalCard> charactersToChooseFrom, final Collection<PhysicalCard> charactersAlreadyTargeted) {
 
@@ -168,18 +168,17 @@ public class Card1_212 extends AbstractNormalEffect {
                             @Override
                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> playersDestinyCardDraws, List<Float> playersDestinyDrawValues, final Float playersTotalDestiny) {
 
+                                float characterAbility = game.getModifiersQuerying().getAbility(game.getGameState(), characterTargeted);
                                 GameState gameState = game.getGameState();
 
-                                // If no destiny value (a failed draw), then player gets to pick
+
                                 if (playersTotalDestiny == null) {
-                                    gameState.sendMessage("Result: Destiny draw failed. Opponent of character chooses to sleep or not");
+
+                                    // Failed destiny draw.  The LS player gets to pick
+                                    gameState.sendMessage("Result: Destiny draw failed. LS player chooses if characters sleeps or not");
                                     allowOwnerToChooseSleepOrNot(game, self, action, characterTargeted);
-                                    return;
-                                }
 
-
-                                float characterAbility = game.getModifiersQuerying().getAbility(game.getGameState(), characterTargeted);
-                                if (playersTotalDestiny <= characterAbility) {
+                                } else if (playersTotalDestiny <= characterAbility) {
 
                                     // Draw was not high enough. Nothing happens
                                     gameState.sendMessage("Result: Failed. " + GameUtils.getCardLink(characterTargeted) + " unaffected");
@@ -229,20 +228,20 @@ public class Card1_212 extends AbstractNormalEffect {
      */
     private static void allowOwnerToChooseSleepOrNot(final SwccgGame game, final PhysicalCard self, final RequiredGameTextTriggerAction action, final PhysicalCard character) {
 
-        final String opponentOfCharacter = game.getOpponent(self.getOwner());
+        final String lightSidePlayer = game.getOpponent(self.getOwner());
 
         // Allow response(s)
-        action.appendEffect(new PlayoutDecisionEffect(action, opponentOfCharacter,
-                new MultipleChoiceAwaitingDecision("Choose effect", new String[]{"Character 'sleeps'", "No effect"}) {
+        action.appendEffect(new PlayoutDecisionEffect(action, lightSidePlayer,
+                new MultipleChoiceAwaitingDecision("Choose effect for " + GameUtils.getFullName(character), new String[]{"Character 'sleeps'", "No effect"}) {
                     @Override
                     protected void validDecisionMade(int index, String result) {
                         final GameState gameState = game.getGameState();
 
                         if (index == 0) {
-                            gameState.sendMessage(opponentOfCharacter + " chooses to have character sleep");
+                            gameState.sendMessage(lightSidePlayer + " chooses to have character sleep");
                             addSleepEffect(game, self, action, character);
                         } else {
-                            gameState.sendMessage(opponentOfCharacter + " chooses no effect");
+                            gameState.sendMessage(lightSidePlayer + " chooses no effect");
                         }
                     }
                 }

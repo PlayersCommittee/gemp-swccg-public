@@ -13,9 +13,4 @@ public class CantDriveOrPilotModifier extends AbstractModifier {
     public CantDriveOrPilotModifier(PhysicalCard source, Condition condition, Filterable affectFilter) {
         super(source, "Can't drive or pilot", affectFilter, condition, ModifierType.CANT_DRIVE_OR_PILOT);
     }
-
-    @Override
-    public boolean prohibitedFromPiloting(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard starshipOrVehicle) {
-        return true;
-    }
 }
