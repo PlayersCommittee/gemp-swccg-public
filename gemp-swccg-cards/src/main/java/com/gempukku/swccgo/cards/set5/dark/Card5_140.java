@@ -52,7 +52,7 @@ public class Card5_140 extends AbstractLostInterrupt {
                 // Figure out which starfighters can be relocated to related docking bay or system
                 List<PhysicalCard> validStarfighters = new LinkedList<PhysicalCard>();
                 for (PhysicalCard starfighter : starfighters) {
-                    if (Filters.canBeRelocatedToLocation(Filters.and(Filters.relatedLocation(starfighter), Filters.or(Filters.docking_bay, Filters.system)), true, 0).accepts(game, starfighter)) {
+                    if (Filters.canBeRelocatedToLocation(Filters.and(Filters.relatedLocation(starfighter), Filters.or(Filters.docking_bay, Filters.system)), true, 0, false).accepts(game, starfighter)) {
                         validStarfighters.add(starfighter);
                     }
                 }

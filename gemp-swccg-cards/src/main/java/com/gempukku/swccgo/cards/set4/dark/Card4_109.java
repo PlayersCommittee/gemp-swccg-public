@@ -55,7 +55,7 @@ public class Card4_109 extends AbstractCreature {
         // Check condition(s)
         if (TriggerConditions.justDefeatedBy(game, effectResult, Filters.droid, self)) {
             final PhysicalCard victim = ((DefeatedResult) effectResult).getCardDefeated();
-            Filter adjacentSiteFilter = Filters.and(Filters.adjacentSite(self), Filters.locationCanBeRelocatedTo(victim, true, false, true, 0));
+            Filter adjacentSiteFilter = Filters.and(Filters.adjacentSite(self), Filters.locationCanBeRelocatedTo(victim, true, false, true, 0, false));
             if (GameConditions.canSpot(game, self, adjacentSiteFilter)) {
                 final String opponentOfVictim = game.getOpponent(victim.getOwner());
 

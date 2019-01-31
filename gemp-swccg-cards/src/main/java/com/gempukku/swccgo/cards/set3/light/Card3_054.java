@@ -44,7 +44,7 @@ public class Card3_054 extends AbstractLostInterrupt {
         if (GameConditions.isDuringYourPhase(game, self, Phase.CONTROL)) {
             final Filter locationFilter1 = Filters.and(Icon.DAGOBAH, Filters.location, Filters.not(Filters.Dagobah_site), Filters.occupies(playerId));
             Filter characterFilter1 = Filters.and(Filters.your(self), Icon.HOTH, Filters.character, Filters.abilityMoreThan(1),
-                    Filters.canBeRelocatedToLocation(locationFilter1, true, false, false, 1));
+                    Filters.canBeRelocatedToLocation(locationFilter1, true, false, false, 1, false));
             if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)
                     && GameConditions.canTarget(game, self, characterFilter1)) {
 
@@ -56,13 +56,13 @@ public class Card3_054 extends AbstractLostInterrupt {
             }
             final Filter locationFilter2 = Filters.and(Icon.DAGOBAH, Filters.Dagobah_site);
             Filter characterFilter2 = Filters.and(Filters.your(self), Icon.HOTH, Filters.character, Filters.abilityMoreThan(1),
-                    Filters.canBeRelocatedToLocation(locationFilter2, true, false, true, 0));
+                    Filters.canBeRelocatedToLocation(locationFilter2, true, false, true, 0, false));
             if (GameConditions.canTarget(game, self, characterFilter2)) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Move character to Dagobah site");
                 // Build action using common method
-                buildAction(action, playerId, game, self, characterFilter2, locationFilter2, true, 0);
+                buildAction(action, playerId, game, self, characterFilter2, locationFilter2, true, 0, false);
                 actions.add(action);
             }
         }

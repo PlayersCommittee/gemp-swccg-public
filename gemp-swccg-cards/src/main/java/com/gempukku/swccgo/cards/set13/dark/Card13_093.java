@@ -57,7 +57,7 @@ public class Card13_093 extends AbstractLostInterrupt {
                     // Figure out which destroyer droids can be relocated to an adjacent site
                     final List<PhysicalCard> validJedi = new LinkedList<PhysicalCard>();
                     for (PhysicalCard jedi : jedis) {
-                        if (Filters.canBeRelocatedToLocation(Filters.adjacentSite(jedi), true, 0).accepts(game, jedi)) {
+                        if (Filters.canBeRelocatedToLocation(Filters.adjacentSite(jedi), true, 0, false).accepts(game, jedi)) {
                             validJedi.add(jedi);
                         }
                     }

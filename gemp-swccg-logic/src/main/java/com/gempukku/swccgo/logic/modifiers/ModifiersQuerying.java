@@ -2625,6 +2625,8 @@ public interface ModifiersQuerying {
 
     boolean grantedToDeployToDagobahTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
 
+    boolean grantedToDeployToAhchToTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
+
     boolean grantedToDeployToAsLanded(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
 
     boolean canPerformSpecialBattlegroundDownload(GameState gameState, String playerId);
@@ -2874,7 +2876,7 @@ public interface ModifiersQuerying {
      * @param allowDagobah true if relocating from/to Dagobah locations is allowed, otherwise false
      * @return true if card is prohibited from moving, otherwise false
      */
-    boolean mayNotRelocateFromLocationToLocation(GameState gameState, PhysicalCard card, PhysicalCard fromLocation, PhysicalCard toLocation, boolean allowDagobah);
+    boolean mayNotRelocateFromLocationToLocation(GameState gameState, PhysicalCard card, PhysicalCard fromLocation, PhysicalCard toLocation, boolean allowDagobah, boolean allowAhchTo);
 
     /**
      * Determines if the specified card is moved by opponent instead of owner.

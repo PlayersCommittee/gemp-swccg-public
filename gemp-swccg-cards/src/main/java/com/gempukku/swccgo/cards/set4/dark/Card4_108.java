@@ -60,7 +60,7 @@ public class Card4_108 extends AbstractCreature {
         // Check condition(s)
         if (TriggerConditions.justAttachedParasiteToHost(game, effectResult, self, Filters.any)) {
             final PhysicalCard victim = ((ParasiteAttachedResult) effectResult).getHost();
-            Filter siteFilter = Filters.and(Filters.siteWithinDistance(self, 2), Filters.locationCanBeRelocatedTo(self, true, false, true, 0), Filters.locationCanBeRelocatedTo(victim, true, false, true, 0));
+            Filter siteFilter = Filters.and(Filters.siteWithinDistance(self, 2), Filters.locationCanBeRelocatedTo(self, true, false, true, 0, false), Filters.locationCanBeRelocatedTo(victim, true, false, true, 0, false));
             if (GameConditions.canSpot(game, self, siteFilter)) {
                 final String opponentOfVictim = game.getOpponent(victim.getOwner());
 

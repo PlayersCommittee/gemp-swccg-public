@@ -61,7 +61,7 @@ public class Card3_093 extends AbstractCreature {
             final PhysicalCard wampaCave = Filters.findFirstFromTopLocationsOnTable(game, Filters.Wampa_Cave);
             if (wampaCave != null) {
                 final PhysicalCard victim = ((DefeatedResult) effectResult).getCardDefeated();
-                if (Filters.canBeRelocatedToLocation(wampaCave, true, false, true, 0).accepts(game, victim)) {
+                if (Filters.canBeRelocatedToLocation(wampaCave, true, false, true, 0, false).accepts(game, victim)) {
                     final String opponentOfVictim = game.getOpponent(victim.getOwner());
 
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

@@ -371,6 +371,7 @@ public interface Modifier {
     boolean mayDeployToLocationWithoutPresenceOrForceIcons(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
 
     boolean grantedToDeployToDagobahTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target);
+    boolean grantedToDeployToAhchToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target);
     boolean grantedToDeployToAsLanded(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target);
 
     boolean canMoveAsReactToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target);

@@ -1178,6 +1178,11 @@ public abstract class AbstractModifier implements Modifier {
         return false;
     }
 
+    @Override
+    public boolean grantedToDeployToAhchToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
+        return false;
+    }
+
     /**
      * Determines if the specified card is prohibited from moving from the affected location.
      * @param gameState the game state
