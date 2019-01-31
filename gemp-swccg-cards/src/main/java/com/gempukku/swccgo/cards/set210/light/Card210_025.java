@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set210.dark;
+package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
