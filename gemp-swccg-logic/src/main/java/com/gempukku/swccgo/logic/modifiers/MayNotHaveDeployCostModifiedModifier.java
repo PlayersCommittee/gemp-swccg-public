@@ -34,7 +34,7 @@ public class MayNotHaveDeployCostModifiedModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param playerId the player that may not modify deploy cost
      */
-    private MayNotHaveDeployCostModifiedModifier(PhysicalCard source, Filterable affectFilter, Condition condition, String playerId) {
+    public MayNotHaveDeployCostModifiedModifier(PhysicalCard source, Filterable affectFilter, Condition condition, String playerId) {
         super(source, "May not have deploy cost modified", affectFilter, condition, ModifierType.MAY_NOT_HAVE_DEPLOY_COST_MODIFIED, true);
         _playerId = playerId;
     }
