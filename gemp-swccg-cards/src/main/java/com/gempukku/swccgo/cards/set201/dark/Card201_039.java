@@ -12,6 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
@@ -86,7 +87,7 @@ public class Card201_039 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NoForceLossFromCardModifier(self, Filters.Tatooine_Occupation, opponent));
         modifiers.add(new NoForceLossFromForceDrainModifier(self, Filters.Tatooine_system, opponent));
-        modifiers.add(new MayNotDeployModifier(self, Filters.Admirals_Order, new DuringPlayersTurnNumberCondition(playerId, 1), playerId));
+        modifiers.add(new MayNotDeployModifier(self, Filters.Intensify_The_Forward_Batteries, new TrueCondition(), playerId));
         return modifiers;
     }
 

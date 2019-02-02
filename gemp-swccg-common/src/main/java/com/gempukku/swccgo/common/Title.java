@@ -469,6 +469,7 @@ public interface Title {
     String Insidious_Prisoner = "Insidious Prisoner";
     String Insignificant_Rebellion = "Insignificant Rebellion";
     String Insurrection = "Insurrection";
+    String Intensify_The_Forward_Batteries = "Intensify The Forward Batteries";
     String Into_The_Garbage_Chute_Flyboy = "Into The Garbage Chute, Flyboy";
     String Into_The_Ventilation_Shaft_Lefty = "Into The Ventilation Shaft, Lefty";
     String Interrogation_Array = "Interrogation Array";

@@ -17482,6 +17482,7 @@ public class Filters {
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
     public static final Filter Insidious_Prisoner = Filters.title(Title.Insidious_Prisoner);
     public static final Filter Insurrection = Filters.title(Title.Insurrection);
+    public static final Filter Intensify_The_Forward_Batteries = Filters.title(Title.Intensify_The_Forward_Batteries);
     public static final Filter interior_mobile_site = Filters.and(Icon.INTERIOR_SITE, Icon.MOBILE);
     public static final Filter interior_Naboo_site = Filters.and(Icon.INTERIOR_SITE, Filters.partOfSystem(Title.Naboo));
     public static final Filter interior_planet_site = Filters.and(Icon.INTERIOR_SITE, Icon.PLANET);
