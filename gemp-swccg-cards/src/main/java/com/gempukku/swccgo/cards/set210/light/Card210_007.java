@@ -54,7 +54,7 @@ public class Card210_007 extends AbstractNormalEffect {
 
                 for (Species specie: Species.values())
                 {
-                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien)))
+                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien, Filters.your(self.getOwner()))))
                     { // there are some species defined and included in Species.value() that can be associated with non-alien characters.
                         // like Alderannian (a rebel Leia) or Correlian. (A rebel Han)  Hence the need for Filter.and(<that specie>, <alien>)
                         numSpecies++;
@@ -83,7 +83,7 @@ public class Card210_007 extends AbstractNormalEffect {
                 int numSpecies = 0;
                 for (Species specie: Species.values())
                 {
-                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien)))
+                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien, Filters.your(self.getOwner()))))
                     {
                         numSpecies++;
                     }
@@ -111,7 +111,7 @@ public class Card210_007 extends AbstractNormalEffect {
                 int numSpecies = 0;
                 for (Species specie: Species.values())
                 {
-                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien)))
+                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien, Filters.your(self.getOwner()))))
                     {
                         numSpecies++;
                     }
@@ -126,7 +126,7 @@ public class Card210_007 extends AbstractNormalEffect {
                 int numSpecies = 0;
                 for (Species specie: Species.values())
                 {
-                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien)))
+                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien, Filters.your(self.getOwner()))))
                     {
                         numSpecies++;
                     }
@@ -143,7 +143,7 @@ public class Card210_007 extends AbstractNormalEffect {
             public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
                 int numSpecies = 0;
                 for (Species specie : Species.values()) {
-                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien))) {
+                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien, Filters.your(self.getOwner())))) {
                         numSpecies++;
                     }
                 }
@@ -156,7 +156,7 @@ public class Card210_007 extends AbstractNormalEffect {
             public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected, PhysicalCard otherCard) {
                 int numSpecies = 0;
                 for (Species specie : Species.values()) {
-                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien))) {
+                    if (GameConditions.canSpot(game, self, 1, false, Filters.and(Filters.species(specie), Filters.alien, Filters.your(self.getOwner())))) {
                         numSpecies++;
                     }
                 }
