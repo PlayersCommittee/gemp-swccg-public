@@ -37,7 +37,7 @@ public class Card201_039 extends AbstractObjective {
     public Card201_039() {
         super(Side.DARK, 0, Title.Imperial_Entanglements);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Tatooine (with Devastator there) and a Tatooine battleground site. For remainder of game, you may not deploy Sandwhirl, Jabba's Palace sites, non-Imperial characters, non-Imperial starships, or systems. While this side up, opponent loses no Force to Tatooine Occupation or your Force drains at Tatooine system. You may not deploy Admiral's Orders on your first turn. Once per turn, may [download] a Tatooine battleground site. Flip this card if you control three Tatooine sites and opponent controls fewer than three Tatooine sites.");
+        setGameText("Deploy Tatooine (with Devastator there) and a Tatooine battleground site. For remainder of game, you may not deploy Intensify The Forward Batteries, Sandwhirl, Jabba's Palace sites, non-Imperial characters, non-Imperial starships, or systems. While this side up, opponent loses no Force to Tatooine Occupation or your Force drains at Tatooine system. You may not deploy Admiral's Orders on your first turn. Once per turn, may [download] a Tatooine battleground site. Flip this card if you control three Tatooine sites and opponent controls fewer than three Tatooine sites.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_1);
     }
 
