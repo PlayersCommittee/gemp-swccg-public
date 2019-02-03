@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card210_030 extends AbstractImperial {
     public Card210_030() {
-        super(Side.DARK, 2, 3, 1, 3, 3, "Commander Brandei", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 3, 3, "Commander Brandei", Uniqueness.UNIQUE);
         setLore("Technical Services Officer of the Fleet Support Branch. Responsible for keeping Executor's 12 TIE squadrons serviced and combat ready. Just received transfer to Judicator.");
         setGameText("Adds 2 to power of anything he pilots (3 if Judicator). Your total battle destiny here is +1 for each TIE subtype here or aboard same starship. During your turn, may /\\ one launch bay or non-unique TIE.");
         addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.VIRTUAL_SET_10);
