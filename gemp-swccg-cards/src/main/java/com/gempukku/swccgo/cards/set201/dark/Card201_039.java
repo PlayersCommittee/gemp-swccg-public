@@ -12,6 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
@@ -36,7 +37,7 @@ public class Card201_039 extends AbstractObjective {
     public Card201_039() {
         super(Side.DARK, 0, Title.Imperial_Entanglements);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Tatooine (with Devastator there) and a Tatooine battleground site. For remainder of game, you may not deploy Sandwhirl, Jabba's Palace sites, non-Imperial characters, non-Imperial starships, or systems. While this side up, opponent loses no Force to Tatooine Occupation or your Force drains at Tatooine system. You may not deploy Admiral's Orders on your first turn. Once per turn, may [download] a Tatooine battleground site. Flip this card if you control three Tatooine sites and opponent controls fewer than three Tatooine sites.");
+        setGameText("Deploy Tatooine (with Devastator there) and a Tatooine battleground site. For remainder of game, you may not deploy Intensify The Forward Batteries, Sandwhirl, Jabba's Palace sites, non-Imperial characters, non-Imperial starships, or systems. While this side up, opponent loses no Force to Tatooine Occupation or your Force drains at Tatooine system. You may not deploy Admiral's Orders on your first turn. Once per turn, may [download] a Tatooine battleground site. Flip this card if you control three Tatooine sites and opponent controls fewer than three Tatooine sites.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_1);
     }
 
@@ -86,7 +87,7 @@ public class Card201_039 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NoForceLossFromCardModifier(self, Filters.Tatooine_Occupation, opponent));
         modifiers.add(new NoForceLossFromForceDrainModifier(self, Filters.Tatooine_system, opponent));
-        modifiers.add(new MayNotDeployModifier(self, Filters.Admirals_Order, new DuringPlayersTurnNumberCondition(playerId, 1), playerId));
+        modifiers.add(new MayNotDeployModifier(self, Filters.Intensify_The_Forward_Batteries, new TrueCondition(), playerId));
         return modifiers;
     }
 
