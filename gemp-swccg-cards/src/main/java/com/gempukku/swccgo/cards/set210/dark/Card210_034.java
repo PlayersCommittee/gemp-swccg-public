@@ -33,7 +33,7 @@ public class Card210_034 extends AbstractCapitalStarship {
     public Card210_034() {
         super(Side.DARK, 2, 4, 5, 5, null, 4, 6, Title.Jabbas_Space_Cruiser, Uniqueness.UNIQUE);
         setLore("Flying fortress of Jabba Desilijic Tiure. Reaches speeds of 800 kph in atmosphere. The crime lord installed hidden gunports as an unpleasant surprise for would-be pirates.");
-        setGameText("May add 1 alien pilot and 6 passengers. Permanent pilot provides ability of 2. When deployed, you may \\/ an alien leader aboard for free. Immune to attrition < 5.");
+        setGameText("May add 1 alien pilot and 6 passengers. Permanent pilot provides ability of 2. When deployed, you may [download] an alien leader aboard for free. Immune to attrition < 5.");
         addIcons(Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);
         addModelType(ModelType.UBRIKKIAN_LUXURY_SPACE_YACHT);
         addKeywords(Keyword.CRUISER);
