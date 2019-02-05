@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveDeployCostModifiedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.DestinyDrawCompleteResult;
 
@@ -128,7 +129,7 @@ public class Card210_025_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            final TopLevelGameTextAction action = (TopLevelGameTextAction) opponentLosesOneForceForEachBattlegroundOccupiedByAmidalaOrJarJar(game, self, playerId, gameTextActionId, gameTextSourceCardId);
+            final TopLevelGameTextAction action = (TopLevelGameTextAction) opponentLosesOneForceForEachBattlegroundOccupiedByAmidalaOrJarJar(game, self, playerId, gameTextActionId, gameTextSourceCardId, true);
             if (action != null) {
                 actions.add(action);
             }
@@ -147,7 +148,7 @@ public class Card210_025_BACK extends AbstractObjective {
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            final RequiredGameTextTriggerAction action = (RequiredGameTextTriggerAction) opponentLosesOneForceForEachBattlegroundOccupiedByAmidalaOrJarJar(game, self, playerId, gameTextActionId, gameTextSourceCardId);
+            final RequiredGameTextTriggerAction action = (RequiredGameTextTriggerAction) opponentLosesOneForceForEachBattlegroundOccupiedByAmidalaOrJarJar(game, self, playerId, gameTextActionId, gameTextSourceCardId, false);
             if (action != null) {
                 actions.add(action);
             }
@@ -155,10 +156,15 @@ public class Card210_025_BACK extends AbstractObjective {
         return actions;
     }
 
-    private AbstractGameTextAction opponentLosesOneForceForEachBattlegroundOccupiedByAmidalaOrJarJar(SwccgGame game, PhysicalCard self, String playerId, GameTextActionId gameTextActionId, int gameTextSourceCardId) {
+    private AbstractGameTextAction opponentLosesOneForceForEachBattlegroundOccupiedByAmidalaOrJarJar(SwccgGame game, PhysicalCard self, String playerId, GameTextActionId gameTextActionId, int gameTextSourceCardId, boolean isTopLevelAction) {
         int numForce = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.or(Filters.Jar_Jar, Filters.Amidala))));
         if (numForce > 0) {
-            final AbstractGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            AbstractGameTextAction action;
+            if (isTopLevelAction) {
+                action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            } else {
+                action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            }
             action.setText("Make opponent lose " + numForce + " Force");
             // Update usage limit(s)
             action.appendUsage(
