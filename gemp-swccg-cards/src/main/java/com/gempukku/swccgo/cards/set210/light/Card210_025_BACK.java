@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +26,6 @@ import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveDeployCostModifiedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
-import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.DestinyDrawCompleteResult;
 
@@ -79,6 +79,7 @@ public class Card210_025_BACK extends AbstractObjective {
                             public boolean mayBeTakenIntoHand() {
                                 return true;
                             }
+
                             @Override
                             public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
                                 return Filters.filterActive(game, null, Filters.and(Filters.your(playerId), Filters.participatingInBattle));
@@ -106,7 +107,7 @@ public class Card210_025_BACK extends AbstractObjective {
                 action.setText("Activate up to 2 Force");
                 // Update usage limit(s)
                 action.appendUsage(
-                        new OncePerPhaseEffect(action));
+                        new OncePerTurnEffect(action));
                 // Pay cost(s)
                 action.appendCost(
                         new PlayoutDecisionEffect(action, playerId,
