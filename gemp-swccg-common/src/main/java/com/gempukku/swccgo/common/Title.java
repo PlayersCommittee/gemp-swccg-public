@@ -321,7 +321,7 @@ public interface Title {
     String Explosive_Charge = "Explosive Charge";
     String Exposure = "Exposure";
     String Eyes_In_The_Dark = "Eyes In The Dark";
-    String Ezra = "Ezra";
+    String Ezra = "Ezra Bridger";
     String Falleens_Fist = "Falleen's Fist";
     String Fallen_Portal = "Fallen Portal";
     String Fear_Will_Keep_Them_In_Line = "Fear Will Keep Them In Line";
