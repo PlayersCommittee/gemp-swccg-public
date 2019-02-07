@@ -55,8 +55,11 @@ public class Card210_025_BACK extends AbstractObjective {
         modifiers.add(new PowerModifier(self, yourUniqueRepublicCharacter, 1));
         modifiers.add(new ForfeitModifier(self, yourUniqueRepublicCharacter, 2));
 
+        String lightPlayer = self.getOwner();
+        String darkPlayer = game.getOpponent(lightPlayer);
         Condition atTatooineLocations = new AtCondition(self, Filters.Tatooine_location);
-        modifiers.add(new MayNotHaveDeployCostModifiedModifier(self, Filters.alien, atTatooineLocations, null));
+        modifiers.add(new MayNotHaveDeployCostModifiedModifier(self, Filters.alien, atTatooineLocations, lightPlayer));
+        modifiers.add(new MayNotHaveDeployCostModifiedModifier(self, Filters.alien, atTatooineLocations, darkPlayer));
 
         return modifiers;
     }
