@@ -9685,12 +9685,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
                 // From self
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.SELF_DEPLOY_COST_TO_TARGET, cardToDeploy)) {
-                    float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, cardToDeploy, targetCard);
-                    if (modifierValue < 0 || (!deployCostMayNotBeIncreased && !deployCostMayNotBeIncreasedByOwner)) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            totalReduceCostModifiers -= modifierValue;
-                            modifierCollector.addModifier(modifier);
+                    if (!isImmuneToDeployCostToTargetModifierFromCard(gameState, cardToDeploy, targetCard, modifier.getSource(gameState))) {
+                        float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, cardToDeploy, targetCard);
+                        if (modifierValue < 0 || (!deployCostMayNotBeIncreased && !deployCostMayNotBeIncreasedByOwner)) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                totalReduceCostModifiers -= modifierValue;
+                                modifierCollector.addModifier(modifier);
+                            }
                         }
                     }
                 }

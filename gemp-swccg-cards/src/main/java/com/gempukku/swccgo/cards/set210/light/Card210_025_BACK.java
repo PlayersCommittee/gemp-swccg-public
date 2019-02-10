@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -15,7 +14,6 @@ import com.gempukku.swccgo.logic.actions.AbstractGameTextAction;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
@@ -23,7 +21,7 @@ import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotHaveDeployCostModifiedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -54,13 +52,7 @@ public class Card210_025_BACK extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, yourUniqueRepublicCharacter, 1));
         modifiers.add(new ForfeitModifier(self, yourUniqueRepublicCharacter, 2));
-
-        String lightPlayer = self.getOwner();
-        String darkPlayer = game.getOpponent(lightPlayer);
-        Condition atTatooineLocations = new AtCondition(self, Filters.Tatooine_location);
-        modifiers.add(new MayNotHaveDeployCostModifiedModifier(self, Filters.alien, atTatooineLocations, lightPlayer));
-        modifiers.add(new MayNotHaveDeployCostModifiedModifier(self, Filters.alien, atTatooineLocations, darkPlayer));
-
+        modifiers.add(new ImmuneToDeployCostModifiersToLocationModifier(self, Filters.alien, Filters.any, Filters.Tatooine_location));
         return modifiers;
     }
 
