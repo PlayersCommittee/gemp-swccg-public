@@ -57,7 +57,7 @@ public class Card13_093 extends AbstractLostInterrupt {
                     // Figure out which destroyer droids can be relocated to an adjacent site
                     final List<PhysicalCard> validJedi = new LinkedList<PhysicalCard>();
                     for (PhysicalCard jedi : jedis) {
-                        if (Filters.canBeRelocatedToLocation(Filters.adjacentSite(jedi), true, 0, false).accepts(game, jedi)) {
+                        if (Filters.canBeRelocatedToLocation(Filters.adjacentSite(jedi), true, 0).accepts(game, jedi)) {
                             validJedi.add(jedi);
                         }
                     }
@@ -77,7 +77,7 @@ public class Card13_093 extends AbstractLostInterrupt {
                                                             @Override
                                                             protected void cardTargeted(final int targetGroupId, final PhysicalCard jediToRelocate) {
                                                                 Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game,
-                                                                        Filters.and(Filters.adjacentSite(jediToRelocate), Filters.locationCanBeRelocatedTo(jediToRelocate, false, false, true, 0)));
+                                                                        Filters.and(Filters.adjacentSite(jediToRelocate), Filters.locationCanBeRelocatedTo(jediToRelocate, false, false, true, 0, false)));
                                                                 action.appendTargeting(
                                                                         new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate " + GameUtils.getCardLink(jediToRelocate) + " to", Filters.in(otherSites)) {
                                                                             @Override

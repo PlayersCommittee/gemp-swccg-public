@@ -52,7 +52,7 @@ public class Card5_140 extends AbstractLostInterrupt {
                 // Figure out which starfighters can be relocated to related docking bay or system
                 List<PhysicalCard> validStarfighters = new LinkedList<PhysicalCard>();
                 for (PhysicalCard starfighter : starfighters) {
-                    if (Filters.canBeRelocatedToLocation(Filters.and(Filters.relatedLocation(starfighter), Filters.or(Filters.docking_bay, Filters.system)), true, 0, false).accepts(game, starfighter)) {
+                    if (Filters.canBeRelocatedToLocation(Filters.and(Filters.relatedLocation(starfighter), Filters.or(Filters.docking_bay, Filters.system)), true, 0).accepts(game, starfighter)) {
                         validStarfighters.add(starfighter);
                     }
                 }
@@ -66,7 +66,7 @@ public class Card5_140 extends AbstractLostInterrupt {
                                 @Override
                                 protected void cardTargeted(final int targetGroupId, final PhysicalCard starfighter) {
                                     action.addAnimationGroup(starfighter);
-                                    Collection<PhysicalCard> otherLocations = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.and(Filters.relatedLocation(starfighter), Filters.or(Filters.docking_bay, Filters.system), Filters.locationCanBeRelocatedTo(starfighter, false, false, true, 0))));
+                                    Collection<PhysicalCard> otherLocations = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.and(Filters.relatedLocation(starfighter), Filters.or(Filters.docking_bay, Filters.system), Filters.locationCanBeRelocatedTo(starfighter, false, false, true, 0, false))));
                                     action.appendTargeting(
                                             new ChooseCardOnTableEffect(action, playerId, "Choose related docking bay or system", otherLocations) {
                                                 @Override

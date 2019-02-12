@@ -62,7 +62,7 @@ public class Card3_054 extends AbstractLostInterrupt {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Move character to Dagobah site");
                 // Build action using common method
-                buildAction(action, playerId, game, self, characterFilter2, locationFilter2, true, 0, false);
+                buildAction(action, playerId, game, self, characterFilter2, locationFilter2, true, 0);
                 actions.add(action);
             }
         }
@@ -80,7 +80,7 @@ public class Card3_054 extends AbstractLostInterrupt {
                         Collection<PhysicalCard> validLocations = new LinkedList<PhysicalCard>();
                         // Figure out which locations the character can be relocated to
                         for (PhysicalCard location : locations) {
-                            if (Filters.canBeRelocatedToLocation(location, true, false, forFree, baseCost).accepts(game.getGameState(), game.getModifiersQuerying(), character)) {
+                            if (Filters.canBeRelocatedToLocation(location, true, false, forFree, baseCost, false).accepts(game.getGameState(), game.getModifiersQuerying(), character)) {
                                 validLocations.add(location);
                             }
                         }
