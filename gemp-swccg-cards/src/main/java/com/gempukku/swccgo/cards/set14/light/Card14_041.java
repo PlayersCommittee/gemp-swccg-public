@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -86,11 +83,12 @@ public class Card14_041 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
+
         // Check condition(s)
         if (TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId, Filters.and(Filters.your(self), Filters.Booma))
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Cancel destiny and cause re-draw");
             // Allow response(s)
             action.allowResponses(

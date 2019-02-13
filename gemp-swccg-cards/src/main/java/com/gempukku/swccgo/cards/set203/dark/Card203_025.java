@@ -78,6 +78,7 @@ public class Card203_025 extends AbstractImperial {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String opponent = game.getOpponent(playerId);
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
@@ -89,7 +90,7 @@ public class Card203_025 extends AbstractImperial {
             final boolean isOpponentsFirstBattleDestiny = (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, opponent) && (((DestinyDrawnResult) effectResult).getNumDestinyDrawnSoFar() == 1));
             if (isOpponentsFirstBattleDestiny ? GameConditions.canCancelDestinyAndCauseRedraw(game, playerId) : GameConditions.canCancelDestiny(game, playerId)) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Cancel destiny" + (isOpponentsFirstBattleDestiny ? " and cause re-draw" : ""));
                 // Update usage limit(s)
                 action.appendUsage(

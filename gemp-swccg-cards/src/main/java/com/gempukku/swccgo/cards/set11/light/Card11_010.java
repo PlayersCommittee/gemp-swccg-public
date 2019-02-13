@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerDuelEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Persona;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -58,13 +55,15 @@ public class Card11_010 extends AbstractJediMaster {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
+
         // Check condition(s)
         if (TriggerConditions.isDuelDestinyJustDrawn(game, effectResult)
                 && GameConditions.isOncePerDuel(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.isDuringDuelWithParticipant(game, self)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Cancel destiny and cause re-draw");
             // Update usage limit(s)
             action.appendUsage(
