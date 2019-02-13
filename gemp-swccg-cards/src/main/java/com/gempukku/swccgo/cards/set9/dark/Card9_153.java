@@ -5,10 +5,7 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.ModelType;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -38,6 +35,7 @@ public class Card9_153 extends AbstractStarfighter {
         setGameText("Deploy -1 to any mobile system. Permanent pilot provides ability of 2. When with Vader in battle, may draw destiny and subtract that amount from opponent's total power.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);
         addModelType(ModelType.TIE_LN);
+        addKeywords(Keyword.NO_HYPERDRIVE, Keyword.BLACK_SQUADRON);
     }
 
     @Override

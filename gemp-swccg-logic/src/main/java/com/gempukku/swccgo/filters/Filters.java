@@ -17502,6 +17502,7 @@ public class Filters {
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
     public static final Filter Insidious_Prisoner = Filters.title(Title.Insidious_Prisoner);
     public static final Filter Insurrection = Filters.title(Title.Insurrection);
+    public static final Filter Intensify_The_Forward_Batteries = Filters.title(Title.Intensify_The_Forward_Batteries);
     public static final Filter interior_mobile_site = Filters.and(Icon.INTERIOR_SITE, Icon.MOBILE);
     public static final Filter interior_Naboo_site = Filters.and(Icon.INTERIOR_SITE, Filters.partOfSystem(Title.Naboo));
     public static final Filter interior_planet_site = Filters.and(Icon.INTERIOR_SITE, Icon.PLANET);
@@ -17683,6 +17684,7 @@ public class Filters {
     public static final Filter Maul = Filters.persona(Persona.MAUL);
     public static final Filter Mauls_Lightsaber = Filters.persona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);
     public static final Filter Maul_Strikes = Filters.title(Title.Maul_Strikes);
+    public static final Filter Maz = Filters.persona(Persona.Maz);
     public static final Filter Mazs_Palace_Location = Filters.keyword(Keyword.MAZS_PALACE_LOCATION);
     public static final Filter Mechanical_Failure = Filters.title(Title.Mechanical_Failure);
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);

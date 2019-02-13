@@ -48,6 +48,7 @@ public enum Persona implements Filterable {
     MARQUAND("Marquand"),
     MACE("Mace"),
     MAUL("Maul"),
+    Maz("Maz"),
     MON_MOTHMA("Mon Mothma"),
     MOTTI("Motti"),
     OBIWAN("Obi-Wan"),
