@@ -9693,12 +9693,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
                 // From self
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.SELF_DEPLOY_COST_TO_TARGET, cardToDeploy)) {
-                    float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, cardToDeploy, targetCard);
-                    if (modifierValue < 0 || (!deployCostMayNotBeIncreased && !deployCostMayNotBeIncreasedByOwner)) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            totalReduceCostModifiers -= modifierValue;
-                            modifierCollector.addModifier(modifier);
+                    if (!isImmuneToDeployCostToTargetModifierFromCard(gameState, cardToDeploy, targetCard, modifier.getSource(gameState))) {
+                        float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, cardToDeploy, targetCard);
+                        if (modifierValue < 0 || (!deployCostMayNotBeIncreased && !deployCostMayNotBeIncreasedByOwner)) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                totalReduceCostModifiers -= modifierValue;
+                                modifierCollector.addModifier(modifier);
+                            }
                         }
                     }
                 }
@@ -9878,7 +9880,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                     String modifierOwner = modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null;
                     if (modifierOwner == null || !(opponent.equals(modifierOwner) ? pilotDeployCostMayNotBeModifiedByOpponent : pilotDeployCostMayNotBeModifiedByOwner)) {
                         if (modifier.isAffectedPilot(gameState, this, pilot)
-                                && modifier.isAffectedTarget(gameState, this, targetCard)) {
+                                && modifier.isAffectedTarget(gameState, this, targetCard)
+                                && (!isImmuneToDeployCostToTargetModifierFromCard(gameState, pilot, targetCard, modifier.getSource(gameState)))) {
                             float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, targetCard);
                             if (modifierValue < 0 || (!pilotDeployCostMayNotBeIncreased && (modifierOwner == null || !(opponent.equals(modifierOwner) ? pilotDeployCostMayNotBeIncreasedByOpponent : pilotDeployCostMayNotBeIncreasedByOwner)))) {
                                 result += modifierValue;
@@ -9891,19 +9894,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 }
                 // From self
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.SELF_DEPLOY_COST_TO_TARGET, pilot)) {
-
-                    float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, starship);
-                    if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            pilotTotalReduceCostModifiers -= modifierValue;
+                    if (!isImmuneToDeployCostToTargetModifierFromCard(gameState, pilot, targetCard, modifier.getSource(gameState))) {
+                        float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, starship);
+                        if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                pilotTotalReduceCostModifiers -= modifierValue;
+                            }
                         }
-                    }
-                    modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, targetCard);
-                    if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            pilotTotalReduceCostModifiers -= modifierValue;
+                        modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, targetCard);
+                        if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                pilotTotalReduceCostModifiers -= modifierValue;
+                            }
                         }
                     }
                 }
