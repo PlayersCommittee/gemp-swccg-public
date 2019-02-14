@@ -56,7 +56,7 @@ public class Card200_090 extends AbstractDroid {
         if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
                 && GameConditions.isAtLocation(game, self, Filters.site)) {
             final PhysicalCard sameSite = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
-            Filter darkJediFilter = Filters.and(Filters.Dark_Jedi, Filters.canBeRelocatedToLocation(sameSite, false, true, false, 2));
+            Filter darkJediFilter = Filters.and(Filters.Dark_Jedi, Filters.canBeRelocatedToLocation(sameSite, false, true, false, 2, false));
             if (GameConditions.canTarget(game, self, darkJediFilter)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);

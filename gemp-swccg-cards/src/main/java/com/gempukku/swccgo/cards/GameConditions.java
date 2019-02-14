@@ -132,7 +132,7 @@ public class GameConditions {
      * @return true if sufficient Force can be used, otherwise false
      */
     public static boolean canUseForceToRelocateCard(SwccgGame game, PhysicalCard self, float amount, Filterable locationFilter) {
-        return Filters.canBeRelocatedToLocation(Filters.and(locationFilter), false, false, false, amount).accepts(game, self);
+        return Filters.canBeRelocatedToLocation(Filters.and(locationFilter), false, false, false, amount, false).accepts(game, self);
     }
 
     //

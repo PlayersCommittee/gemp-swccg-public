@@ -7062,8 +7062,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return true;
         }
 
-        // Check for "Dagobah", which neither player may shuttle at
-        if (Filters.Dagobah_location.accepts(gameState, this, fromLocation) || Filters.Dagobah_location.accepts(gameState, this, toLocation))
+        // Check for "Dagobah" or "Ahch-To", which neither player may shuttle at
+        if (Filters.Dagobah_location.accepts(gameState, this, fromLocation) || Filters.Dagobah_location.accepts(gameState, this, toLocation)
+                || Filters.AhchTo_location.accepts(gameState, this, fromLocation) || Filters.AhchTo_location.accepts(gameState, this, toLocation))
             return true;
 
         // Check for "Hoth Energy Shield", which Dark side cards may not shuttle under
@@ -7109,18 +7110,25 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @param fromLocation the location to relocate from
      * @param toLocation the location to relocate to
      * @param allowDagobah true if relocating from/to Dagobah locations is allowed, otherwise false
+     * @param allowAhchTo true if relocating from/to Ahch-To locations is allowed, otherwise false
      * @return true if card is prohibited from moving, otherwise false
      */
     @Override
-    public boolean mayNotRelocateFromLocationToLocation(GameState gameState, PhysicalCard card, PhysicalCard fromLocation, PhysicalCard toLocation, boolean allowDagobah) {
+    public boolean mayNotRelocateFromLocationToLocation(GameState gameState, PhysicalCard card, PhysicalCard fromLocation, PhysicalCard toLocation, boolean allowDagobah, boolean allowAhchTo) {
         if (mayNotMoveFromLocationToLocation(gameState, card, fromLocation, toLocation, false)) {
             return true;
         }
 
-        // Check for "Dagobah", which neither player may relocate from/to unless explicitly allowed
+        // Check for Dagobah or Ahch-To, which neither player may relocate from/to unless explicitly allowed
         if (!allowDagobah) {
             if (Filters.Dagobah_location.accepts(gameState, this, fromLocation) || Filters.Dagobah_location.accepts(gameState, this, toLocation))
                 return true;
+        }
+
+        if (!allowAhchTo) {
+            if (Filters.AhchTo_location.accepts(gameState, this, fromLocation) || Filters.AhchTo_location.accepts(gameState, this, toLocation)) {
+                return true;
+            }
         }
 
         // Check for "Hoth Energy Shield", which Dark side cards may not relocate under
@@ -12220,9 +12228,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                         return true;
                     }
                 }
+                // Check for Ahch-To
+                if (location != null && Filters.AhchTo_location.accepts(gameState, this, location)) {
+                    // Check if allowed to deploy to Ahch-To location (or target at Ahch-To location)
+                    if (!grantedToDeployToAhchToTarget(gameState, playedCard, target)) {
+                        return true;
+                    }
+                }
             }
             else if (cardCategory == CardCategory.DEVICE || cardCategory == CardCategory.WEAPON) {
-                if (Filters.Dagobah_location.accepts(gameState, this, target)) {
+                if (Filters.Dagobah_location.accepts(gameState, this, target) || Filters.AhchTo_location.accepts(gameState, this, target)) {
                     return true;
                 }
             }
@@ -12480,6 +12495,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public boolean grantedToDeployToDagobahTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_TO_DAGOBAH_TARGET, playedCard))
             if (modifier.grantedToDeployToDagobahTarget(gameState, this, target))
+                return true;
+
+        return false;
+    }
+
+    @Override
+    public boolean grantedToDeployToAhchToTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_TO_AHCHTO_TARGET, playedCard))
+            if (modifier.grantedToDeployToAhchToTarget(gameState, this, target))
                 return true;
 
         return false;
@@ -13523,6 +13547,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         // Dagobah locations are never battlegrounds
         if (Filters.Dagobah_location.accepts(gameState, this, location))
+            return false;
+
+        // Ahch-To locations are never battlegrounds
+        if (Filters.AhchTo_location.accepts(gameState, this, location))
             return false;
 
         // Audience Chamber when Bo Shuda is deployed there is never a battleground

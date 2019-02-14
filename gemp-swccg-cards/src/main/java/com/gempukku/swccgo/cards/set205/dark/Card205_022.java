@@ -59,7 +59,7 @@ public class Card205_022 extends AbstractCharacterWeapon {
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
                 && GameConditions.canUseWeapon(game, attachedTo, self)) {
-            final Filter jpSite = Filters.and(Filters.site, Icon.JABBAS_PALACE, Filters.locationCanBeRelocatedTo(attachedTo, false, true, false, 2));
+            final Filter jpSite = Filters.and(Filters.site, Icon.JABBAS_PALACE, Filters.locationCanBeRelocatedTo(attachedTo, false, true, false, 2, false));
             if (GameConditions.canSpot(game, self, jpSite)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);

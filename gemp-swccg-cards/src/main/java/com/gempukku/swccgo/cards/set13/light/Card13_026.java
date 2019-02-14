@@ -58,7 +58,7 @@ public class Card13_026 extends AbstractLostInterrupt {
                             @Override
                             protected void cardTargeted(final int targetGroupId, final PhysicalCard obiWan) {
                                 action.addAnimationGroup(obiWan);
-                                Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.and(Filters.Naboo_site, Filters.adjacentSite(obiWan), Filters.locationCanBeRelocatedTo(obiWan, false, false, true, 0))));
+                                Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.and(Filters.Naboo_site, Filters.adjacentSite(obiWan), Filters.locationCanBeRelocatedTo(obiWan, false, false, true, 0, false))));
                                 action.appendTargeting(
                                         new ChooseCardOnTableEffect(action, playerId, "Choose adjacent Naboo site", otherSites) {
                                             @Override

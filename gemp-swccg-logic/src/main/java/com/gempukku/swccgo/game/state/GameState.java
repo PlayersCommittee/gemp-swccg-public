@@ -107,6 +107,9 @@ public class GameState implements Snapshotable<GameState> {
     private boolean _darkSidePlayerDeployedDeathStarLocation;
     private boolean _lightSidePlayerDeployedDeathStarLocation;
 
+    private boolean _darkSidePlayerDeployedAhchToDagobahLocation;
+    private boolean _lightSidePlayerDeployedAhchToDagobahLocation;
+
     private PhysicalCard _darkSideObjective;
     private PhysicalCard _lightSideObjective;
     private PhysicalCard _darkSideStartingInterrupt;
@@ -314,6 +317,8 @@ public class GameState implements Snapshotable<GameState> {
         snapshot._lastMessages.addAll(_lastMessages);
         snapshot._darkSidePlayerDeployedDeathStarLocation = _darkSidePlayerDeployedDeathStarLocation;
         snapshot._lightSidePlayerDeployedDeathStarLocation = _lightSidePlayerDeployedDeathStarLocation;
+        snapshot._darkSidePlayerDeployedAhchToDagobahLocation = _darkSidePlayerDeployedAhchToDagobahLocation;
+        snapshot._lightSidePlayerDeployedAhchToDagobahLocation = _lightSidePlayerDeployedAhchToDagobahLocation;
         snapshot._darkSideObjective = snapshotData.getDataForSnapshot(_darkSideObjective);
         snapshot._lightSideObjective = snapshotData.getDataForSnapshot(_lightSideObjective);
         snapshot._darkSideStartingInterrupt = snapshotData.getDataForSnapshot(_darkSideStartingInterrupt);
@@ -4238,6 +4243,29 @@ public class GameState implements Snapshotable<GameState> {
             _darkSidePlayerDeployedDeathStarLocation = true;
         else
             _lightSidePlayerDeployedDeathStarLocation = true;
+    }
+
+    /**
+     * Determines if the specified player as deployed any Ahch-To location or Dagobah location this game.
+     * @param playerId the player
+     * @return true or false
+     */
+    public boolean isDeployedAhchToDagobahLocation(String playerId) {
+        if (playerId.equals(_darkSidePlayer))
+            return _darkSidePlayerDeployedAhchToDagobahLocation;
+        else
+            return _lightSidePlayerDeployedAhchToDagobahLocation;
+    }
+
+    /**
+     * Sets that the specified player has deployed an Ahch-To location or Dagobah location this game.
+     * @param playerId the player
+     */
+    public void setDeployedAhchToDagobahLocation(String playerId) {
+        if (playerId.equals(_darkSidePlayer))
+            _darkSidePlayerDeployedAhchToDagobahLocation = true;
+        else
+            _lightSidePlayerDeployedAhchToDagobahLocation = true;
     }
 
     public PhysicalCard getObjectivePlayed(String playerId) {

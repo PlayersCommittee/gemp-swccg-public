@@ -23,6 +23,7 @@ public class RuleSet {
      */
     public void applyRuleSet(SwccgGame game) {
         new AdmiralsOrderRule(_actionsEnvironment).applyRule();
+        new AhchToAndDagobahRule(_actionsEnvironment).applyRule();
         new AsteroidDestinyRule(_actionsEnvironment).applyRule();
         new AT_AT_LandspeedRule(_modifiersEnvironment).applyRule();
         new AttachedToInvalidCardRule(_actionsEnvironment).applyRule();
