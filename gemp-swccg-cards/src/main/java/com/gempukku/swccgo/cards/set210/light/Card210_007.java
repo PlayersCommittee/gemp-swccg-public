@@ -67,8 +67,9 @@ public class Card210_007 extends AbstractNormalEffect {
                         numSpecies++;
                     }
                 }
+                PhysicalCard repOnTable;
                 if (rep != null) {
-                    PhysicalCard repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
+                    repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
                 }
                 PhysicalCard mazOnTable = Filters.findFirstActive(game, self, Filters.Maz);
 
@@ -96,8 +97,9 @@ public class Card210_007 extends AbstractNormalEffect {
                         numSpecies++;
                     }
                 }
+                PhysicalCard repOnTable;
                 if (rep != null) {
-                    PhysicalCard repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
+                    repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
                 }
                 PhysicalCard mazOnTable = Filters.findFirstActive(game, self, Filters.Maz);
 
