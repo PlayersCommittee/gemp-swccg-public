@@ -35,7 +35,13 @@ public class Card210_007 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(final SwccgGame game, final PhysicalCard self) {
         final PhysicalCard rep = game.getGameState().getRep(self.getOwner());
-        final Filter repFilter = Filters.sameTitle(rep);
+        final Filter repFilter;
+        if (rep != null) {
+            repFilter = Filters.sameTitle(rep);
+        }
+        else {
+            repFilter = null;
+        }
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
@@ -67,7 +73,7 @@ public class Card210_007 extends AbstractNormalEffect {
                         numSpecies++;
                     }
                 }
-                PhysicalCard repOnTable;
+                PhysicalCard repOnTable = null;
                 if (rep != null) {
                     repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
                 }
@@ -97,7 +103,7 @@ public class Card210_007 extends AbstractNormalEffect {
                         numSpecies++;
                     }
                 }
-                PhysicalCard repOnTable;
+                PhysicalCard repOnTable = null;
                 if (rep != null) {
                     repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
                 }
