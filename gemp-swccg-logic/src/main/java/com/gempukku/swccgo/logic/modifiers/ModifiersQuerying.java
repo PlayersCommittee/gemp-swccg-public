@@ -2500,7 +2500,7 @@ public interface ModifiersQuerying {
      * @param card the card
      * @return 'react' action option, or null
      */
-    ReactActionOption getDeployOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card);
+    List<ReactActionOption> getDeployOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card);
 
     /**
      * Gets the 'react' action option if the specified card is allowed to move as a 'react'.

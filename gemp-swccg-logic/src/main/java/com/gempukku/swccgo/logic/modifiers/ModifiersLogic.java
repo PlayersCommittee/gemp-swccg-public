@@ -6139,14 +6139,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @return 'react' action option, or null
      */
     @Override
-    public ReactActionOption getDeployOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card) {
+    public List<ReactActionOption> getDeployOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card) {
+
+        List<ReactActionOption> reactActionOptions = new LinkedList<>();
 
         // Check the cards in player's hand and the stacked cards that can deploy as if from hand.
         List<PhysicalCard> cardsToCheck = new ArrayList<PhysicalCard>();
         cardsToCheck.addAll(gameState.getHand(playerId));
         cardsToCheck.addAll(Filters.filter(gameState.getAllStackedCards(), gameState.getGame(), Filters.and(Filters.owner(playerId), Filters.canDeployAsIfFromHand)));
         if (cardsToCheck.isEmpty()) {
-            return null;
+            return reactActionOptions;
         }
 
         // Check if card may deploy other cards as a 'react'
@@ -6175,12 +6177,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 if (!validToDeployAsReact.isEmpty()) {
                     // Update the filter with the cards that can actually deploy as a 'react' and return the action option
                     reactActionOption.setCardToReactFilter(Filters.in(validToDeployAsReact));
-                    return reactActionOption;
+                    reactActionOptions.add(reactActionOption);
                 }
             }
         }
 
-        return null;
+        return reactActionOptions;
     }
 
     /**

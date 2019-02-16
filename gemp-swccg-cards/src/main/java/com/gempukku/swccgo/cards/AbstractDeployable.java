@@ -2312,9 +2312,11 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                                 || Filters.canUseDevice(self).accepts(game, self.getOwner().equals(self.getAttachedTo().getOwner()) ? self.getAttachedTo() : self)) {
 
                             // Deploy other cards as 'react'
-                            TriggerAction deployOtherCardsAsReactAction = getDeployOtherCardsAsReactAction(playerId, game, self);
-                            if (deployOtherCardsAsReactAction != null) {
-                                actions.add(deployOtherCardsAsReactAction);
+                            List<TriggerAction> deployOtherCardsAsReactActions = getDeployOtherCardsAsReactAction(playerId, game, self);
+                            if (deployOtherCardsAsReactActions != null) {
+                                for (TriggerAction deployOtherCardsAsReactAction : deployOtherCardsAsReactActions) {
+                                    actions.add(deployOtherCardsAsReactAction);
+                                }
                             }
 
                             // Move other cards as 'react'
