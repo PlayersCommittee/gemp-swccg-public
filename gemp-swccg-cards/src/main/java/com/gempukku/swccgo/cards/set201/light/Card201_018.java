@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card201_018 extends AbstractStarfighter {
     public Card201_018() {
-        super(Side.LIGHT, 2, 4, 5, 5, null, 4, 4, "Green Leader In Green Squadron 1", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 5, null, 5, 4, 4, "Green Leader In Green Squadron 1", Uniqueness.UNIQUE);
         setGameText("Permanent pilot is •Green Leader, who provides ability of 2. Adds one battle destiny with a Rebel snub fighter. During battle, may cancel immunity to attrition of any starship here; this A-wing is 'hit'.");
         addPersona(Persona.GREEN_SQUADRON_1);
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_1);
