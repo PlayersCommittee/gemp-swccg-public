@@ -962,8 +962,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public boolean isSpecies(GameState gameState, PhysicalCard physicalCard, Species species) {
-        return physicalCard.getBlueprint().hasSpeciesAttribute()
-                && physicalCard.getBlueprint().getSpecies() == species;
+
+        boolean retVal =  physicalCard.getBlueprint().hasSpeciesAttribute() && physicalCard.getBlueprint().getSpecies() == species;
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.GIVE_SPECIES, physicalCard)) {
+            if (modifier.hasSpecies(gameState, this, physicalCard, species)) {
+                retVal = true;
+            }
+        }
+
+        return retVal;
+
     }
 
     /**

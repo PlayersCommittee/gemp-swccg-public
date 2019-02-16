@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.game.state;
 
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.timing.SnapshotData;
@@ -21,6 +22,7 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
     private Persona _persona;
     private Evaluator _evaluator;
     private Map<String, Boolean> _stringBooleanMap = new HashMap<String, Boolean>();
+    private Species _speciesValue;
 
     @Override
     public void generateSnapshot(WhileInPlayData selfSnapshot, SnapshotData snapshotData) {
@@ -38,6 +40,7 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
         snapshot._persona = _persona;
         snapshot._evaluator = _evaluator;
         snapshot._stringBooleanMap.putAll(_stringBooleanMap);
+        snapshot._speciesValue = _speciesValue;
     }
 
     /**
@@ -68,6 +71,14 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
      */
     public WhileInPlayData(String textValue) {
         _textValue = textValue;
+    }
+
+    /**
+     * Creates data that is stored in while in play data.
+     * @param species a Species value
+     */
+    public WhileInPlayData(Species species) {
+        _speciesValue = species;
     }
 
     /**
@@ -175,6 +186,12 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
     }
 
     /**
+     * Gets the species data
+     * @return  the Species stored in data
+     */
+    public Species getSpeciesValue() { return _speciesValue; }
+
+    /**
      * Gets the text values of the data.
      * @return the text values
      */
@@ -221,4 +238,5 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
     public Map<String, Boolean> getStringBooleanMap() {
         return _stringBooleanMap;
     }
+
 }

@@ -486,6 +486,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean hasSpecies(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Species species) {
+        return false;
+    }
+
+    @Override
     public Icon getIcon() {
         return null;
     }
