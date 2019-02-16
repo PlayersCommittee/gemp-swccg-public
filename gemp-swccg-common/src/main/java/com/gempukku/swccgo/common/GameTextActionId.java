@@ -13,6 +13,8 @@ public enum GameTextActionId {
     OTHER_CARD_ACTION_5,
     OTHER_CARD_ACTION_6,
     OTHER_CARD_ACTION_7,
+    BOSHEK_VIRTUAL_GAMETEXT_ONCE_PER_BATTLE,
+    CANCEL_AND_REDRAW_A_DESTINY,
 
     // Used for card action that causes other cards to deploy as a 'react'
     OTHER_CARD_ACTION_REACT_DEPLOY_OTHER_CARDS,
@@ -625,6 +627,7 @@ public enum GameTextActionId {
 
     // Actions that are for specified reasons
     OUT_OF_COMMISSION__PLACE_CARD_OUT_OF_PLAY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_PLACE_A_CARD_OUT_OF_PLAY),
+    ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_CANCEL_AND_REDRAW_A_DESTINY),
 
     // Special action done for deploying cards (per game)
     DEPLOY_CARD_ACTION(false, true);

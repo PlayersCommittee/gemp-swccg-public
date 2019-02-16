@@ -616,6 +616,20 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isPerformingGameTextActionType(SwccgGame game, Effect effect, Filterable cardFilter, GameTextActionId gameTextActionId)
+    {
+        if (effect.getType() == Effect.Type.RESPONDABLE_EFFECT
+            && effect.getAction().getGameTextActionId() == gameTextActionId) {
+            if (!effect.isCanceled()) {
+                Action action = effect.getAction();
+                // Checked card performing action
+                return action.isFromGameText()
+                        && Filters.and(cardFilter).accepts(game.getGameState(), game.getModifiersQuerying(), action.getActionSource());
+            }
+        }
+        return false;
+    }
+
     /**
      * Determine if a card accepted by the card to stack filter was just stacked on a card accepted by the stacked on filter.
      * @param game the game

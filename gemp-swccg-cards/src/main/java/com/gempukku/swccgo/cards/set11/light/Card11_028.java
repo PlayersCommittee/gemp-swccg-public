@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.CardSubtype;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -65,7 +62,8 @@ public class Card11_028 extends AbstractUsedOrLostInterrupt {
         if (TriggerConditions.isDuelDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY, CardSubtype.LOST);
+
             action.setText("Cancel and re-draw duel destiny");
             // Allow response(s)
             action.allowResponses(
