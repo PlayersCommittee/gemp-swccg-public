@@ -35,11 +35,19 @@ public class Card210_007 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(final SwccgGame game, final PhysicalCard self) {
         final PhysicalCard rep = game.getGameState().getRep(self.getOwner());
-        final Filter repFilter = Filters.sameTitle(rep);
+        final Filter repFilter;
+        if (rep != null) {
+            repFilter = Filters.sameTitle(rep);
+        }
+        else {
+            repFilter = null;
+        }
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
-        modifiers.add(new ImmuneToAttritionModifier(self, repFilter)); // For sure working
+        if (rep != null){
+            modifiers.add(new ImmuneToAttritionModifier(self, repFilter)); // For sure working
+        }
         modifiers.add(new ImmuneToAttritionModifier(self, Filters.Maz)); // Untested since Maz currently doesn't exist, but should work
 
         modifiers.add(new TotalBattleDestinyModifier(self, new Evaluator() {
@@ -50,7 +58,12 @@ public class Card210_007 extends AbstractNormalEffect {
                 //  the value in here.  Don't know enough about Java to know why that is.  (Probably I'm doing something wrong)
                 //  So I'm counting it inside this modifier declaration.
                 int numSpecies = 0;
-                InBattleEvaluator eval = new InBattleEvaluator(self, Filters.or(Filters.sameTitle(rep), Filters.Maz));
+                if (rep != null) {
+                    InBattleEvaluator eval = new InBattleEvaluator(self, Filters.or(Filters.sameTitle(rep), Filters.Maz));
+                } else {
+                    InBattleEvaluator eval = new InBattleEvaluator(self, Filters.Maz);
+                }
+
 
                 for (Species specie: Species.values())
                 {
@@ -60,13 +73,15 @@ public class Card210_007 extends AbstractNormalEffect {
                         numSpecies++;
                     }
                 }
-
-                PhysicalCard repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
+                PhysicalCard repOnTable = null;
+                if (rep != null) {
+                    repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
+                }
                 PhysicalCard mazOnTable = Filters.findFirstActive(game, self, Filters.Maz);
 
                 if ((numSpecies >= 5) && GameConditions.isInBattle(game, mazOnTable))
                     retval=2;
-                else if ((numSpecies >= 5) && GameConditions.isInBattle(game, repOnTable))
+                else if ((numSpecies >= 5) && rep != null && GameConditions.isInBattle(game, repOnTable))
                     retval=2;
                 else if (numSpecies >= 5)
                     retval = 1;
@@ -88,13 +103,15 @@ public class Card210_007 extends AbstractNormalEffect {
                         numSpecies++;
                     }
                 }
-
-                PhysicalCard repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
+                PhysicalCard repOnTable = null;
+                if (rep != null) {
+                    repOnTable = Filters.findFirstActive(game, self, Filters.sameTitle(rep));
+                }
                 PhysicalCard mazOnTable = Filters.findFirstActive(game, self, Filters.Maz);
 
                 if ((numSpecies >= 5) && GameConditions.isInBattle(game, mazOnTable))
                     retval=2;
-                else if ((numSpecies >= 5) && GameConditions.isInBattle(game, repOnTable))
+                else if ((numSpecies >= 5) && (rep != null) && GameConditions.isInBattle(game, repOnTable))
                     retval=2;
                 else if (numSpecies >= 5)
                     retval = 1;
