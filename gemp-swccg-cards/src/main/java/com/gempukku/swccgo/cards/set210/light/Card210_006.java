@@ -59,8 +59,7 @@ public class Card210_006 extends AbstractAlien {
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId))
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canCancelDestiny(game, playerId)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Subtract 1 from destiny");
             // Update usage limit(s)

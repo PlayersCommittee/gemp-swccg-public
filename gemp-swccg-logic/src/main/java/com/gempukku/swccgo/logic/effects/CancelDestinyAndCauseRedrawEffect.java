@@ -55,8 +55,7 @@ public class CancelDestinyAndCauseRedrawEffect extends AbstractStandardEffect {
 
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
-        String opponent = game.getOpponent(_playerId);
-        return game.getGameState().getHand(opponent).isEmpty();
+        return true;
     }
 
     @Override
