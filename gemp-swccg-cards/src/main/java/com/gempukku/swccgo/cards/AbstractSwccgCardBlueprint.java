@@ -2480,10 +2480,12 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @param self the card
      * @return the action, or null
      */
-    protected TriggerAction getDeployOtherCardsAsReactAction(final String playerId, SwccgGame game, PhysicalCard self) {
+    protected List<TriggerAction> getDeployOtherCardsAsReactAction(final String playerId, SwccgGame game, PhysicalCard self) {
 
-        final ReactActionOption reactActionOption = game.getModifiersQuerying().getDeployOtherCardsAsReactOption(playerId, game.getGameState(), self);
-        if (reactActionOption != null) {
+        List<TriggerAction> reactTriggerActions = new LinkedList<>();
+
+        final List<ReactActionOption> reactActionOptions = game.getModifiersQuerying().getDeployOtherCardsAsReactOption(playerId, game.getGameState(), self);
+        for (ReactActionOption reactActionOption : reactActionOptions) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, self.getCardId(), GameTextActionId.OTHER_CARD_ACTION_REACT_DEPLOY_OTHER_CARDS);
             action.setRepeatableTrigger(true);
@@ -2493,6 +2495,8 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
                 action.appendUsage(
                         new UseDeviceEffect(action, self));
             }
+
+            final ReactActionOption finalReactActionOption = reactActionOption;
             // Choose target(s)
             action.appendTargeting(
                     new ChooseCardFromHandOrDeployableAsIfFromHandEffect(action, playerId, reactActionOption.getCardToReactFilter()) {
@@ -2500,7 +2504,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
                         protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
                             // Perform result(s)
                             Action deployAsReactAction = selectedCard.getBlueprint().getDeployAsReactAction(playerId, game,
-                                    selectedCard, reactActionOption, reactActionOption.getTargetFilter());
+                                    selectedCard, finalReactActionOption, finalReactActionOption.getTargetFilter());
                             if (deployAsReactAction != null) {
                                 action.appendEffect(
                                         new StackActionEffect(action, deployAsReactAction));
@@ -2513,10 +2517,10 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
                         }
                     }
             );
-            return action;
+            reactTriggerActions.add(action);
         }
 
-        return null;
+        return reactTriggerActions;
     }
 
     /**

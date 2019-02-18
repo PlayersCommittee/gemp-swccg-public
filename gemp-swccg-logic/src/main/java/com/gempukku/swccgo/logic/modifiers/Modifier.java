@@ -260,6 +260,8 @@ public interface Modifier {
     boolean isKeywordRemoved(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword);
     boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword);
 
+    boolean hasSpecies(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Species species);
+
     Icon getIcon();
     int getIconCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Icon icon);
 
