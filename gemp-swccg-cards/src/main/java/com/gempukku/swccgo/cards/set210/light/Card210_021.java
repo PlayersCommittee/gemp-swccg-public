@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set210.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,15 +10,10 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.*;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,27 +47,9 @@ public class Card210_021 extends AbstractNormalEffect {
         return nonAlienNonJediCharacterWithAlien;
     }
 
-    /*
-    @Override
-    protected List<TargetingEffect> getGameTextTargetCardsWhenDeployedEffects(final Action action, String playerId, SwccgGame game, final PhysicalCard self, PhysicalCard target, PlayCardOption playCardOption) {
-
-        final Filter alienWhichHasSpeciesHere = Filters.and(Filters.alien, Filters.hasSpecies, Filters.here(target));
-
-        TargetingEffect targetingEffect = new TargetCardOnTableEffect(action, playerId, "Choose alien to copy species", alienWhichHasSpeciesHere) {
-            @Override
-            protected void cardTargeted(int targetGroupId, PhysicalCard target) {
-                action.addAnimationGroup(target);
-                self.setTargetedCard(TargetId.EFFECT_TARGET_1, targetGroupId, target, alienWhichHasSpeciesHere);
-            }
-        };
-        return Collections.singletonList(targetingEffect);
-    }*/
-
 
     @Override
     protected StandardEffect getGameTextSpecialDeployCostEffect(final Action action, final String playerId, SwccgGame game, final PhysicalCard self, PhysicalCard target, PlayCardOption playCardOption) {
-
-        System.out.println("** PART OF TRIBE: getGameTextSpecialDeployCostEffect");
 
         // Part of the 'cost' for deploying this is picking the species
         // Build the list of species first (both a text-array and a species array)
@@ -131,12 +107,10 @@ public class Card210_021 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
 
-        System.out.println("***** getGameTextWhileActiveInPlayModifiers *****");
-
         List<Modifier> modifiers = new LinkedList<Modifier>();
         String playerId = self.getOwner();
 
-        // See what species we are affecting
+        // See what species we are affecting (This is set upon deployment, but check for null just in case.
         Species speciesSelected = getSelectedSpecies(self);
         if (speciesSelected != null) {
 
@@ -150,8 +124,6 @@ public class Card210_021 extends AbstractNormalEffect {
             modifiers.add(new MayDeployOtherCardsAsReactToLocationModifier(self, "deploy unique alien as a react", playerId, uniqeAlienOfSpecies, Filters.here(self), 0));
             modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "move alien as a react", playerId, aliensOfSpecies, Filters.here(self)));
             modifiers.add(new IconModifier(self, sameEndorSite, new OnCondition(self, Title.Endor), Icon.LIGHT_FORCE, 1));
-        } else {
-            System.out.println("Crap - No species was selected when getGameTextWhileActiveInPlayModifiers was triggered.");
         }
 
         return modifiers;
