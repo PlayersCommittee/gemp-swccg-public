@@ -211,6 +211,7 @@ public interface Title {
     String Dark_Collaboration = "Dark Collaboration";
     String Dark_Deal = "Dark Deal";
     String Dark_Forces = "Dark Forces";
+    String Dark_Hours = "Dark Hours";
     String Dark_Jedi_Presence = "Dark Jedi Presence";
     String Dark_Maneuvers = "Dark Maneuvers";
     String Dark_Strike = "Dark Strike";

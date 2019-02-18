@@ -3227,6 +3227,23 @@ public class TriggerConditions {
         return false;
     }
 
+
+    /**
+     * Determins if a destiny draw was just drawn for the given Destiny Type
+     * @param game the game
+     * @param effectResult the effect result
+     * @param type  Destiny Draw type  (Battle Destiny, To Power, etc)
+     * @return true or false
+     */
+    public static boolean isDestinyDrawType(SwccgGame game, EffectResult effectResult, DestinyType type) {
+        if (effectResult.getType() == EffectResult.Type.DESTINY_DRAWN) {
+            DestinyDrawnResult destinyDrawnResult = (DestinyDrawnResult) effectResult;
+
+            return destinyDrawnResult.getDestinyType() == type;
+        }
+        return false;
+    }
+
     /**
      * Determines if a destiny draw was just completed during a battle destiny draw by the specified player.
      * @param game the game

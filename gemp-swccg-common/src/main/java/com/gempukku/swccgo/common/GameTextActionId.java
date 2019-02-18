@@ -533,6 +533,7 @@ public enum GameTextActionId {
     LT_KAYDEL_CONNIX__UPLOAD_CARD(true, true),
     LORD_SIDIOUS__UPLOAD_ALWAYS_TWO_THERE_ARE_OR_NEIMOIDIAN(true, true),
     MAAREK_STELE_THE_EMPERORS_REACH__UPLOAD_TIE_DEFENDER(true, true),
+    MACROSCAN__ONCE_PER_GAME_RECIRCULATE(false, true),
     MAJOR_BREN_DERLIN__RETRIEVE_EXPLOSIVE_CHARGE_INTO_HAND(false, true),
     MAJOR_TURR_PHENNIR__UPLOAD_FIGHTERS_COMING_IN(true, true),
     MARA_JADE_THE_EMPERORS_HAND__DOWNLOAD_WEAPON(true, true),
@@ -619,6 +620,7 @@ public enum GameTextActionId {
     SEBULBAS_PODRACER__OPPONENT_DRAWS_NO_RACE_DESTINY(false, false, false, false, true),
 
     // Per turn for card title
+    MACROSCAN__ONCE_PER_TURN_ACTION(false, false, false, false, false, true),
     PREPARE_FOR_A_SURFACE_ATTACK_V__UPLOAD_CARD(true, false, false, false, false, true),
     REACTOR_TERMINAL__ONCE_PER_TURN_OPTIONS(true, false, false, false, false, true),
     SUPPRESSIVE_FIRE__ACTIVATE_FORCE(false, false, false, false, false, true),
