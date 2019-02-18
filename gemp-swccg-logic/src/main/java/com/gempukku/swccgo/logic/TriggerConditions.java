@@ -378,7 +378,8 @@ public class TriggerConditions {
                 || effectResult.getType() == EffectResult.Type.EATEN
                 || effectResult.getType() == EffectResult.Type.PARASITE_ATTACHED
                 || effectResult.getType() == EffectResult.Type.PARASITE_DETACHED
-                || effectResult.getType() == EffectResult.Type.RETARGETED_EFFECT);
+                || effectResult.getType() == EffectResult.Type.RETARGETED_EFFECT
+                || effectResult.getType() == EffectResult.Type.DARK_HOURS_EFFECT);
 
         // TODO: Just checking EffectResult.getType() would be faster???
 
