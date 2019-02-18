@@ -86,7 +86,7 @@ public class Card201_023 extends AbstractImperial {
             }
         }
 
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, playerId)

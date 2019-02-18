@@ -617,6 +617,20 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isPerformingGameTextActionType(SwccgGame game, Effect effect, Filterable cardFilter, GameTextActionId gameTextActionId)
+    {
+        if (effect.getType() == Effect.Type.RESPONDABLE_EFFECT
+            && effect.getAction().getGameTextActionId() == gameTextActionId) {
+            if (!effect.isCanceled()) {
+                Action action = effect.getAction();
+                // Checked card performing action
+                return action.isFromGameText()
+                        && Filters.and(cardFilter).accepts(game.getGameState(), game.getModifiersQuerying(), action.getActionSource());
+            }
+        }
+        return false;
+    }
+
     /**
      * Determine if a card accepted by the card to stack filter was just stacked on a card accepted by the stacked on filter.
      * @param game the game
@@ -3210,6 +3224,23 @@ public class TriggerConditions {
     public static boolean isDestinyDrawComplete(SwccgGame game, EffectResult effectResult, DrawDestinyState drawDestinyState) {
         if (effectResult.getType() == EffectResult.Type.COMPLETE_DESTINY_DRAW) {
             return drawDestinyState.getId().equals(game.getGameState().getTopDrawDestinyState().getId());
+        }
+        return false;
+    }
+
+
+    /**
+     * Determins if a destiny draw was just drawn for the given Destiny Type
+     * @param game the game
+     * @param effectResult the effect result
+     * @param type  Destiny Draw type  (Battle Destiny, To Power, etc)
+     * @return true or false
+     */
+    public static boolean isDestinyDrawType(SwccgGame game, EffectResult effectResult, DestinyType type) {
+        if (effectResult.getType() == EffectResult.Type.DESTINY_DRAWN) {
+            DestinyDrawnResult destinyDrawnResult = (DestinyDrawnResult) effectResult;
+
+            return destinyDrawnResult.getDestinyType() == type;
         }
         return false;
     }

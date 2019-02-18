@@ -29,6 +29,7 @@ public class Card209_001 extends AbstractRebel {
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
         setSpecies(Species.MON_CALAMARI);
+        setMatchingStarshipFilter(Filters.Rogue_One);
     }
 
     @Override

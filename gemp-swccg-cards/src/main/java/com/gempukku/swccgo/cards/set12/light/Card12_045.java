@@ -57,7 +57,7 @@ public class Card12_045 extends AbstractPoliticalEffect {
             return Collections.singletonList(action);
         }
 
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult)

@@ -49,7 +49,7 @@ public class Card5_044 extends AbstractUsedInterrupt {
             final PhysicalCard character = Filters.findFirstFromStacked(game,
                     Filters.and(Filters.your(self), Filters.character, Filters.not(Filters.disarmed_character), Filters.stackedOn(self, Filters.Weather_Vane)));
             if (character != null) {
-                final Filter locationFilter = Filters.and(Filters.Cloud_City_site, Filters.locationCanBeRelocatedTo(character, false, false, true, 0));
+                final Filter locationFilter = Filters.and(Filters.Cloud_City_site, Filters.locationCanBeRelocatedTo(character, false, false, true, 0, false));
                 if (GameConditions.canSpotLocation(game, locationFilter)) {
 
                     final PlayInterruptAction action = new PlayInterruptAction(game, self);

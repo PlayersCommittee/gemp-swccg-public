@@ -48,6 +48,8 @@ public class Card204_003 extends AbstractRebel {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
+
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.isInBattle(game, self)
@@ -56,7 +58,7 @@ public class Card204_003 extends AbstractRebel {
             int numRebels = Filters.countActive(game, self, Filters.and(Filters.Rebel, Filters.here(self)));
             if (GameConditions.isDestinyValueLessThan(game, numRebels)) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Cancel and re-draw destiny");
                 // Update usage limit(s)
                 action.appendUsage(

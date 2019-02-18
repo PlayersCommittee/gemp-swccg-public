@@ -71,7 +71,7 @@ public class Card9_140 extends AbstractLostInterrupt {
         }
 
         Filter vaderFilter2 = Filters.and(Filters.Vader, Filters.escorting(Filters.or(Filters.Luke, Filters.Leia)),
-                Filters.at(Filters.and(Filters.site, Filters.controls(playerId))), Filters.canBeRelocatedToLocation(Filters.Death_Star_II_Docking_Bay, false, true, false, 0));
+                Filters.at(Filters.and(Filters.site, Filters.controls(playerId))), Filters.canBeRelocatedToLocation(Filters.Death_Star_II_Docking_Bay, false, true, false, 0, false));
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.CONTROL)

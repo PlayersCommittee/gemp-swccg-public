@@ -39,7 +39,7 @@ public class Card6_159 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        Filter filter = Filters.and(Filters.character, Filters.at(Filters.Audience_Chamber), Filters.canBeRelocatedToLocation(Filters.Rancor_Pit, false, false, true, 0));
+        Filter filter = Filters.and(Filters.character, Filters.at(Filters.Audience_Chamber), Filters.canBeRelocatedToLocation(Filters.Rancor_Pit, false, false, true, 0, false));
 
         // Check condition(s)
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.DEPLOY)

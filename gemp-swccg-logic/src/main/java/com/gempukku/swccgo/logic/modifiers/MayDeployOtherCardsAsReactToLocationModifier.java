@@ -66,3 +66,5 @@ public class MayDeployOtherCardsAsReactToLocationModifier extends MayDeployOther
         super(source, actionText, condition, playerId, deployFilter, Filters.locationAndCardsAtLocation(Filters.and(locationFilter)), changeInCost, false);
     }
 }
+
+

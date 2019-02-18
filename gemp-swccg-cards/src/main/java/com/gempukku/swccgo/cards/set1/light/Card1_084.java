@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -35,6 +36,7 @@ public class Card1_084 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
         Filter targetFilter = Filters.and(Filters.your(self), Filters.character, Filters.abilityMoreThan(2), Filters.participatingInBattle);
 
         // Check condition(s)
@@ -43,7 +45,7 @@ public class Card1_084 extends AbstractUsedInterrupt {
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)
                 && GameConditions.canTarget(game, self, targetFilter)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Cancel and re-draw battle destiny");
             // Choose target(s)
             action.appendTargeting(

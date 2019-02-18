@@ -26,7 +26,7 @@ public class Card200_001 extends AbstractAlien {
         super(Side.LIGHT, 1, 5, 4, 6, 7, "Aayla Secura", Uniqueness.UNIQUE);
         setLore("Female Twi'lek.");
         setGameText("Power +1 for each opponent's character here. When with two of your aliens (or clones), adds one battle destiny. May not be targeted by weapons unless each of your other aliens and clones present are 'hit'. Immune to You Are Beaten and attrition < 5.");
-        addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR, Icon.VIRTUAL_SET_0, Icon.EPISODE_I);
         addKeywords(Keyword.FEMALE);
         setSpecies(Species.TWILEK);
     }

@@ -95,6 +95,8 @@ public class Card209_019 extends AbstractUsedOrLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+        GameTextActionId gameTextActionId2 = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
+
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         // Check condition(s) - If you just drew a starship for destiny, take that starship into hand to cancel and redraw that destiny.
@@ -103,7 +105,7 @@ public class Card209_019 extends AbstractUsedOrLostInterrupt {
                 && GameConditions.isDestinyCardMatchTo(game, Filters.starship)
                 && GameConditions.canTakeDestinyCardIntoHand(game, playerId)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId2, CardSubtype.USED);
             action.setText("Take destiny card into hand and cause re-draw");
             // Pay cost(s)
             action.appendEffect(

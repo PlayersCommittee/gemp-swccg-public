@@ -96,7 +96,7 @@ public class Card4_006 extends AbstractCreature {
             final PhysicalCard belly = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.Space_Slug_Belly, Filters.relatedSite(self)));
             if (belly != null) {
                 final PhysicalCard victim = ((DefeatedResult) effectResult).getCardDefeated();
-                if (Filters.canBeRelocatedToLocation(belly, true, false, true, 0).accepts(game, victim)) {
+                if (Filters.canBeRelocatedToLocation(belly, true, false, true, 0, false).accepts(game, victim)) {
                     final String opponentOfVictim = game.getOpponent(victim.getOwner());
 
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

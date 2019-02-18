@@ -157,7 +157,7 @@ public class ForceDrainModifier extends AbstractModifier {
         else
             sideText = "Light side";
 
-        if (value > 0)
+        if (value >= 0)
             return sideText + " Force drain +" + GuiUtils.formatAsString(value);
         else
             return sideText + " Force drain " + GuiUtils.formatAsString(value);

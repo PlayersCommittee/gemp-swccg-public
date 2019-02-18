@@ -962,8 +962,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public boolean isSpecies(GameState gameState, PhysicalCard physicalCard, Species species) {
-        return physicalCard.getBlueprint().hasSpeciesAttribute()
-                && physicalCard.getBlueprint().getSpecies() == species;
+
+        boolean retVal =  physicalCard.getBlueprint().hasSpeciesAttribute() && physicalCard.getBlueprint().getSpecies() == species;
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.GIVE_SPECIES, physicalCard)) {
+            if (modifier.hasSpecies(gameState, this, physicalCard, species)) {
+                retVal = true;
+            }
+        }
+
+        return retVal;
+
     }
 
     /**
@@ -6130,14 +6139,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @return 'react' action option, or null
      */
     @Override
-    public ReactActionOption getDeployOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card) {
+    public List<ReactActionOption> getDeployOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card) {
+
+        List<ReactActionOption> reactActionOptions = new LinkedList<>();
 
         // Check the cards in player's hand and the stacked cards that can deploy as if from hand.
         List<PhysicalCard> cardsToCheck = new ArrayList<PhysicalCard>();
         cardsToCheck.addAll(gameState.getHand(playerId));
         cardsToCheck.addAll(Filters.filter(gameState.getAllStackedCards(), gameState.getGame(), Filters.and(Filters.owner(playerId), Filters.canDeployAsIfFromHand)));
         if (cardsToCheck.isEmpty()) {
-            return null;
+            return reactActionOptions;
         }
 
         // Check if card may deploy other cards as a 'react'
@@ -6166,12 +6177,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 if (!validToDeployAsReact.isEmpty()) {
                     // Update the filter with the cards that can actually deploy as a 'react' and return the action option
                     reactActionOption.setCardToReactFilter(Filters.in(validToDeployAsReact));
-                    return reactActionOption;
+                    reactActionOptions.add(reactActionOption);
                 }
             }
         }
 
-        return null;
+        return reactActionOptions;
     }
 
     /**
@@ -7062,8 +7073,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return true;
         }
 
-        // Check for "Dagobah", which neither player may shuttle at
-        if (Filters.Dagobah_location.accepts(gameState, this, fromLocation) || Filters.Dagobah_location.accepts(gameState, this, toLocation))
+        // Check for "Dagobah" or "Ahch-To", which neither player may shuttle at
+        if (Filters.Dagobah_location.accepts(gameState, this, fromLocation) || Filters.Dagobah_location.accepts(gameState, this, toLocation)
+                || Filters.AhchTo_location.accepts(gameState, this, fromLocation) || Filters.AhchTo_location.accepts(gameState, this, toLocation))
             return true;
 
         // Check for "Hoth Energy Shield", which Dark side cards may not shuttle under
@@ -7109,18 +7121,25 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @param fromLocation the location to relocate from
      * @param toLocation the location to relocate to
      * @param allowDagobah true if relocating from/to Dagobah locations is allowed, otherwise false
+     * @param allowAhchTo true if relocating from/to Ahch-To locations is allowed, otherwise false
      * @return true if card is prohibited from moving, otherwise false
      */
     @Override
-    public boolean mayNotRelocateFromLocationToLocation(GameState gameState, PhysicalCard card, PhysicalCard fromLocation, PhysicalCard toLocation, boolean allowDagobah) {
+    public boolean mayNotRelocateFromLocationToLocation(GameState gameState, PhysicalCard card, PhysicalCard fromLocation, PhysicalCard toLocation, boolean allowDagobah, boolean allowAhchTo) {
         if (mayNotMoveFromLocationToLocation(gameState, card, fromLocation, toLocation, false)) {
             return true;
         }
 
-        // Check for "Dagobah", which neither player may relocate from/to unless explicitly allowed
+        // Check for Dagobah or Ahch-To, which neither player may relocate from/to unless explicitly allowed
         if (!allowDagobah) {
             if (Filters.Dagobah_location.accepts(gameState, this, fromLocation) || Filters.Dagobah_location.accepts(gameState, this, toLocation))
                 return true;
+        }
+
+        if (!allowAhchTo) {
+            if (Filters.AhchTo_location.accepts(gameState, this, fromLocation) || Filters.AhchTo_location.accepts(gameState, this, toLocation)) {
+                return true;
+            }
         }
 
         // Check for "Hoth Energy Shield", which Dark side cards may not relocate under
@@ -9685,12 +9704,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
                 // From self
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.SELF_DEPLOY_COST_TO_TARGET, cardToDeploy)) {
-                    float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, cardToDeploy, targetCard);
-                    if (modifierValue < 0 || (!deployCostMayNotBeIncreased && !deployCostMayNotBeIncreasedByOwner)) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            totalReduceCostModifiers -= modifierValue;
-                            modifierCollector.addModifier(modifier);
+                    if (!isImmuneToDeployCostToTargetModifierFromCard(gameState, cardToDeploy, targetCard, modifier.getSource(gameState))) {
+                        float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, cardToDeploy, targetCard);
+                        if (modifierValue < 0 || (!deployCostMayNotBeIncreased && !deployCostMayNotBeIncreasedByOwner)) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                totalReduceCostModifiers -= modifierValue;
+                                modifierCollector.addModifier(modifier);
+                            }
                         }
                     }
                 }
@@ -9870,7 +9891,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                     String modifierOwner = modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null;
                     if (modifierOwner == null || !(opponent.equals(modifierOwner) ? pilotDeployCostMayNotBeModifiedByOpponent : pilotDeployCostMayNotBeModifiedByOwner)) {
                         if (modifier.isAffectedPilot(gameState, this, pilot)
-                                && modifier.isAffectedTarget(gameState, this, targetCard)) {
+                                && modifier.isAffectedTarget(gameState, this, targetCard)
+                                && (!isImmuneToDeployCostToTargetModifierFromCard(gameState, pilot, targetCard, modifier.getSource(gameState)))) {
                             float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, targetCard);
                             if (modifierValue < 0 || (!pilotDeployCostMayNotBeIncreased && (modifierOwner == null || !(opponent.equals(modifierOwner) ? pilotDeployCostMayNotBeIncreasedByOpponent : pilotDeployCostMayNotBeIncreasedByOwner)))) {
                                 result += modifierValue;
@@ -9883,19 +9905,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 }
                 // From self
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.SELF_DEPLOY_COST_TO_TARGET, pilot)) {
-
-                    float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, starship);
-                    if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            pilotTotalReduceCostModifiers -= modifierValue;
+                    if (!isImmuneToDeployCostToTargetModifierFromCard(gameState, pilot, targetCard, modifier.getSource(gameState))) {
+                        float modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, starship);
+                        if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                pilotTotalReduceCostModifiers -= modifierValue;
+                            }
                         }
-                    }
-                    modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, targetCard);
-                    if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
-                        result += modifierValue;
-                        if (modifierValue < 0) {
-                            pilotTotalReduceCostModifiers -= modifierValue;
+                        modifierValue = modifier.getDeployCostToTargetModifier(gameState, this, pilot, targetCard);
+                        if (modifierValue < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
+                            result += modifierValue;
+                            if (modifierValue < 0) {
+                                pilotTotalReduceCostModifiers -= modifierValue;
+                            }
                         }
                     }
                 }
@@ -12220,9 +12243,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                         return true;
                     }
                 }
+                // Check for Ahch-To
+                if (location != null && Filters.AhchTo_location.accepts(gameState, this, location)) {
+                    // Check if allowed to deploy to Ahch-To location (or target at Ahch-To location)
+                    if (!grantedToDeployToAhchToTarget(gameState, playedCard, target)) {
+                        return true;
+                    }
+                }
             }
             else if (cardCategory == CardCategory.DEVICE || cardCategory == CardCategory.WEAPON) {
-                if (Filters.Dagobah_location.accepts(gameState, this, target)) {
+                if (Filters.Dagobah_location.accepts(gameState, this, target) || Filters.AhchTo_location.accepts(gameState, this, target)) {
                     return true;
                 }
             }
@@ -12480,6 +12510,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public boolean grantedToDeployToDagobahTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_TO_DAGOBAH_TARGET, playedCard))
             if (modifier.grantedToDeployToDagobahTarget(gameState, this, target))
+                return true;
+
+        return false;
+    }
+
+    @Override
+    public boolean grantedToDeployToAhchToTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_TO_AHCHTO_TARGET, playedCard))
+            if (modifier.grantedToDeployToAhchToTarget(gameState, this, target))
                 return true;
 
         return false;
@@ -13523,6 +13562,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         // Dagobah locations are never battlegrounds
         if (Filters.Dagobah_location.accepts(gameState, this, location))
+            return false;
+
+        // Ahch-To locations are never battlegrounds
+        if (Filters.AhchTo_location.accepts(gameState, this, location))
             return false;
 
         // Audience Chamber when Bo Shuda is deployed there is never a battleground

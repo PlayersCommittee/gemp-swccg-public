@@ -55,7 +55,7 @@ public class Card203_011 extends AbstractDroid {
         if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)
                 && GameConditions.isAtLocation(game, self, Filters.Tatooine_system)
                 && GameConditions.hasAttached(game, self, Filters.Stolen_Data_Tapes)) {
-            PhysicalCard duneSea = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.Dune_Sea, Filters.locationCanBeRelocatedTo(self, false, false, true, 0)));
+            PhysicalCard duneSea = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.Dune_Sea, Filters.locationCanBeRelocatedTo(self, false, false, true, 0, false)));
             if (duneSea != null) {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 

@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card9_095 extends AbstractAdmiralsOrder {
     public Card9_095() {
-        super(Side.DARK, "Intensify The Forward Batteries");
+        super(Side.DARK, Title.Intensify_The_Forward_Batteries);
         setGameText("Each player, if that player has a capital starship armed with a starship weapon in battle, draws one battle destiny if not able to otherwise and once per battle, may reduce the defense value of one opponent's capital starship present by 4 for remainder of the battle. At sites related to systems you occupy, your non-pilot warriors are deploy - 1, defense value +2 and forfeit +1.");
         addIcons(Icon.DEATH_STAR_II);
     }

@@ -22,6 +22,7 @@ public interface Title {
     String Advosze = "Advosze";
     String Agents_In_The_Court = "Agents In The Court";
     String Agents_Of_Black_Sun = "Agents Of Black Sun";
+    String Ahch_To = "Ahch-To";
     String Ahsokas_Lightsabers = "Ahsoka's Lightsabers";
     String Aiiii_Aaa_Agggggggggg = "Aiiii! Aaa! Agggggggggg!";
     String Aim_High = "Aim High";
@@ -210,6 +211,7 @@ public interface Title {
     String Dark_Collaboration = "Dark Collaboration";
     String Dark_Deal = "Dark Deal";
     String Dark_Forces = "Dark Forces";
+    String Dark_Hours = "Dark Hours";
     String Dark_Jedi_Presence = "Dark Jedi Presence";
     String Dark_Maneuvers = "Dark Maneuvers";
     String Dark_Strike = "Dark Strike";
@@ -472,6 +474,7 @@ public interface Title {
     String Insidious_Prisoner = "Insidious Prisoner";
     String Insignificant_Rebellion = "Insignificant Rebellion";
     String Insurrection = "Insurrection";
+    String Intensify_The_Forward_Batteries = "Intensify The Forward Batteries";
     String Into_The_Garbage_Chute_Flyboy = "Into The Garbage Chute, Flyboy";
     String Into_The_Ventilation_Shaft_Lefty = "Into The Ventilation Shaft, Lefty";
     String Interrogation_Array = "Interrogation Array";

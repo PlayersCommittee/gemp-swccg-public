@@ -712,9 +712,11 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 || TriggerConditions.battleInitiated(game, effectResult, game.getOpponent(playerId))) {
 
             // Deploy other cards as 'react'
-            TriggerAction deployOtherCardsAsReactAction = getDeployOtherCardsAsReactAction(playerId, game, self);
-            if (deployOtherCardsAsReactAction != null) {
-                actions.add(deployOtherCardsAsReactAction);
+            List<TriggerAction> deployOtherCardsAsReactActions = getDeployOtherCardsAsReactAction(playerId, game, self);
+            if (deployOtherCardsAsReactActions != null) {
+                for (TriggerAction deployOtherCardsAsReactAction : deployOtherCardsAsReactActions) {
+                    actions.add(deployOtherCardsAsReactAction);
+                }
             }
 
             // Move other cards as 'react'

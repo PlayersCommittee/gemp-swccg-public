@@ -5891,8 +5891,8 @@ public class Filters {
                     return false;
 
                 PhysicalCard bogWing = gameState.findCardByPermanentId(permBogWingCardId);
-                Filter siteFilter = Filters.and(Filters.locationCanBeRelocatedTo(bogWing, true, false, true, 0), Filters.siteWithinDistance(physicalCard, 2));
-                return Filters.canBeRelocatedToLocation(siteFilter, true, false, true, 0).accepts(gameState, modifiersQuerying, physicalCard);
+                Filter siteFilter = Filters.and(Filters.locationCanBeRelocatedTo(bogWing, true, false, true, 0, false), Filters.siteWithinDistance(physicalCard, 2));
+                return Filters.canBeRelocatedToLocation(siteFilter, true, false, true, 0, false).accepts(gameState, modifiersQuerying, physicalCard);
             }
         };
     }
@@ -7703,7 +7703,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter canBeRelocatedToLocation(final Filter locationFilter, final float baseCost) {
-        return canBeRelocatedToLocation(locationFilter, false, false, false, baseCost);
+        return canBeRelocatedToLocation(locationFilter, false, false, false, baseCost, false);
     }
 
     /**
@@ -7715,7 +7715,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter canBeRelocatedToLocation(final PhysicalCard location, final boolean forFree, final float baseCost) {
-        return canBeRelocatedToLocation(Filters.sameCardId(location), false, false, forFree, baseCost);
+        return canBeRelocatedToLocation(Filters.sameCardId(location), false, false, forFree, baseCost, false);
     }
 
     /**
@@ -7727,7 +7727,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter canBeRelocatedToLocation(final Filter locationFilter, final boolean forFree, final float baseCost) {
-        return canBeRelocatedToLocation(locationFilter, false, false, forFree, baseCost);
+        return canBeRelocatedToLocation(locationFilter, false, false, forFree, baseCost, false);
     }
 
     /**
@@ -7740,8 +7740,8 @@ public class Filters {
      * @param baseCost the base cost (as defined by the card performing the relocation)
      * @return Filter
      */
-    public static Filter canBeRelocatedToLocation(PhysicalCard location, final boolean allowDagobah, final boolean allowEscort, final boolean forFree, final float baseCost) {
-        return canBeRelocatedToLocation(Filters.sameCardId(location), allowDagobah, allowEscort, forFree, baseCost);
+    public static Filter canBeRelocatedToLocation(PhysicalCard location, final boolean allowDagobah, final boolean allowEscort, final boolean forFree, final float baseCost, final boolean allowAhchTo) {
+        return canBeRelocatedToLocation(Filters.sameCardId(location), allowDagobah, allowEscort, forFree, baseCost, allowAhchTo);
     }
 
     /**
@@ -7752,9 +7752,10 @@ public class Filters {
      * @param allowEscort true if relocating captive escort is allowed, otherwise false
      * @param forFree true if the movement is to be free, otherwise false
      * @param baseCost the base cost (as defined by the card performing the relocation)
+     * @param allowAhchTo true if relocating from/to Ahch-To locations is allowed, otherwise false
      * @return Filter
      */
-    public static Filter canBeRelocatedToLocation(final Filter locationFilter, final boolean allowDagobah, final boolean allowEscort, final boolean forFree, final float baseCost) {
+    public static Filter canBeRelocatedToLocation(final Filter locationFilter, final boolean allowDagobah, final boolean allowEscort, final boolean forFree, final float baseCost, final boolean allowAhchTo) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -7784,7 +7785,7 @@ public class Filters {
 
                     // 4) Check destination is valid for card to be relocated to
                     if (physicalCard.getBlueprint().getValidMoveTargetFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, false).accepts(gameState, modifiersQuerying, otherLocation)) {
-                        if (!modifiersQuerying.mayNotRelocateFromLocationToLocation(gameState, physicalCard, currentLocation, otherLocation, allowDagobah)) {
+                        if (!modifiersQuerying.mayNotRelocateFromLocationToLocation(gameState, physicalCard, currentLocation, otherLocation, allowDagobah, allowAhchTo)) {
 
                             // 5) Check that there is enough Force available to use for this move
                             if (forFree
@@ -7809,7 +7810,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter locationCanBeRelocatedTo(PhysicalCard cardToMove, final float baseCost) {
-        return locationCanBeRelocatedTo(cardToMove, false, false, false, baseCost);
+        return locationCanBeRelocatedTo(cardToMove, false, false, false, baseCost, false);
     }
 
     /**
@@ -7821,7 +7822,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter locationCanBeRelocatedTo(PhysicalCard cardToMove, final boolean forFree, final float baseCost) {
-        return locationCanBeRelocatedTo(cardToMove, false, false, forFree, baseCost);
+        return locationCanBeRelocatedTo(cardToMove, false, false, forFree, baseCost, false);
     }
 
     /**
@@ -7832,9 +7833,10 @@ public class Filters {
      * @param allowEscort true if relocating captive escort is allowed, otherwise false
      * @param forFree true if the movement is to be free, otherwise false
      * @param baseCost the base cost (as defined by the card performing the relocation)
+     * @param allowAhchTo true if relocating from/to Ahch-To locations is allowed, otherwise false
      * @return Filter
      */
-    public static Filter locationCanBeRelocatedTo(PhysicalCard cardToMove, final boolean allowDagobah, final boolean allowEscort, final boolean forFree, final float baseCost) {
+    public static Filter locationCanBeRelocatedTo(PhysicalCard cardToMove, final boolean allowDagobah, final boolean allowEscort, final boolean forFree, final float baseCost, final boolean allowAhchTo) {
         final Integer permCardToMoveCardId = cardToMove.getPermanentCardId();
         return new Filter() {
             @Override
@@ -7865,7 +7867,7 @@ public class Filters {
 
                 // 4) Check destination is valid for card to be relocated to
                 if (cardToMove.getBlueprint().getValidMoveTargetFilter(cardToMove.getOwner(), gameState.getGame(), cardToMove, false).accepts(gameState, modifiersQuerying, physicalCard)) {
-                    if (isOnWeatherVane || !modifiersQuerying.mayNotRelocateFromLocationToLocation(gameState, cardToMove, currentLocation, physicalCard, allowDagobah)) {
+                    if (isOnWeatherVane || !modifiersQuerying.mayNotRelocateFromLocationToLocation(gameState, cardToMove, currentLocation, physicalCard, allowDagobah, allowAhchTo)) {
 
                         // 5) Check that there is enough Force available to use for this move
                         if (forFree
@@ -12181,6 +12183,9 @@ public class Filters {
                 if (Filters.Dagobah_location.accepts(gameState, modifiersQuerying, physicalCard))
                     return false;
 
+                if (Filters.AhchTo_location.accepts(gameState, modifiersQuerying, physicalCard))
+                    return false;
+
                 // Check for "Hoth Energy Shield"
                 if (playerId.equals(gameState.getDarkPlayer())
                         && modifiersQuerying.isLocationUnderHothEnergyShield(gameState, physicalCard))
@@ -12217,6 +12222,9 @@ public class Filters {
 
                 // Check for "Dagobah"
                 if (Filters.at(Filters.Dagobah_location).accepts(gameState, modifiersQuerying, physicalCard))
+                    return false;
+
+                if (Filters.AhchTo_location.accepts(gameState, modifiersQuerying, physicalCard))
                     return false;
 
                 // Check for "Hoth Energy Shield"
@@ -16848,6 +16856,7 @@ public class Filters {
     public static final Filter Advosze = Filters.title(Title.Advosze);
     public static final Filter Agents_In_The_Court = Filters.title(Title.Agents_In_The_Court);
     public static final Filter Agents_Of_Black_Sun = Filters.title(Title.Agents_Of_Black_Sun);
+    public static final Filter AhchTo_location = Filters.partOfSystem(Title.Ahch_To);
     public static final Filter Ahsoka = Filters.persona(Persona.AHSOKA);
     public static final Filter Aiiii_Aaa_Agggggggggg = Filters.title(Title.Aiiii_Aaa_Agggggggggg);
     public static final Filter Alderaan_site = Filters.and(Filters.partOfSystem(Title.Alderaan), CardSubtype.SITE);
@@ -17158,6 +17167,8 @@ public class Filters {
     public static final Filter Deploys_aboard_Blockade_Flagship = Filters.or(Filters.persona(Persona.BLOCKADE_FLAGSHIP), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.BLOCKADE_FLAGSHIP, false)));
     public static final Filter Deploys_aboard_Executor = Filters.or(Filters.persona(Persona.EXECUTOR), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.EXECUTOR, false)));
     public static final Filter Deploys_aboard_Home_One = Filters.or(Filters.persona(Persona.HOME_ONE), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.HOME_ONE, false)));
+    public static final Filter Deploys_at_Ahch_To = Filters.or(Filters.placeToBePresentOnPlanet(Title.Ahch_To), Filters.locationAndCardsAtLocation(Filters.title(Title.Ahch_To)));
+    public static final Filter Deploys_on_Ahch_To = Filters.placeToBePresentOnPlanet(Title.Ahch_To);
     public static final Filter Deploys_at_Endor = Filters.or(Filters.placeToBePresentOnPlanet(Title.Endor), Filters.locationAndCardsAtLocation(Filters.title(Title.Endor)));
     public static final Filter Deploys_on_Cloud_City = Filters.locationAndCardsAtLocation(Filters.Cloud_City_site);
     public static final Filter Deploys_on_Coruscant = Filters.placeToBePresentOnPlanet(Title.Coruscant);
@@ -17502,6 +17513,7 @@ public class Filters {
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
     public static final Filter Insidious_Prisoner = Filters.title(Title.Insidious_Prisoner);
     public static final Filter Insurrection = Filters.title(Title.Insurrection);
+    public static final Filter Intensify_The_Forward_Batteries = Filters.title(Title.Intensify_The_Forward_Batteries);
     public static final Filter interior_mobile_site = Filters.and(Icon.INTERIOR_SITE, Icon.MOBILE);
     public static final Filter interior_Naboo_site = Filters.and(Icon.INTERIOR_SITE, Filters.partOfSystem(Title.Naboo));
     public static final Filter interior_planet_site = Filters.and(Icon.INTERIOR_SITE, Icon.PLANET);
@@ -17683,6 +17695,7 @@ public class Filters {
     public static final Filter Maul = Filters.persona(Persona.MAUL);
     public static final Filter Mauls_Lightsaber = Filters.persona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);
     public static final Filter Maul_Strikes = Filters.title(Title.Maul_Strikes);
+    public static final Filter Maz = Filters.persona(Persona.Maz);
     public static final Filter Mazs_Palace_Location = Filters.keyword(Keyword.MAZS_PALACE_LOCATION);
     public static final Filter Mechanical_Failure = Filters.title(Title.Mechanical_Failure);
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);

@@ -71,7 +71,7 @@ public class Card12_103 extends AbstractRepublic {
         }
 
         // Card action 2
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)

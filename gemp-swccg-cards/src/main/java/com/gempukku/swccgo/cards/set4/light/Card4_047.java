@@ -86,10 +86,9 @@ public class Card4_047 extends AbstractUsedInterrupt {
                                 final boolean smugglerAboard = Filters.hasAboard(self, Filters.smuggler).accepts(game, starshipToRelocate);
                                 Filter locationFilter;
                                 if (Filters.at(Filters.planet_system).accepts(game, starshipToRelocate)) {
-                                    locationFilter = Filters.and(Filters.relatedAsteroidSector(starshipToRelocate), Filters.locationCanBeRelocatedTo(starshipToRelocate, false, false, smugglerAboard, smugglerAboard ? 0 : 1));
-                                }
+                                    locationFilter = Filters.and(Filters.relatedAsteroidSector(starshipToRelocate), Filters.locationCanBeRelocatedTo(starshipToRelocate, false, false, smugglerAboard, smugglerAboard ? 0 : 1, false));                                }
                                 else {
-                                    locationFilter = Filters.and(Filters.relatedSystem(starshipToRelocate), Filters.locationCanBeRelocatedTo(starshipToRelocate, false, false, smugglerAboard, smugglerAboard ? 0 : 1));
+                                    locationFilter = Filters.and(Filters.relatedSystem(starshipToRelocate), Filters.locationCanBeRelocatedTo(starshipToRelocate, false, false, smugglerAboard, smugglerAboard ? 0 : 1, false));
                                 }
                                 action.appendTargeting(
                                         new ChooseCardOnTableEffect(action, playerId, "Choose location to relocate " + GameUtils.getCardLink(starshipToRelocate) + " to", locationFilter) {

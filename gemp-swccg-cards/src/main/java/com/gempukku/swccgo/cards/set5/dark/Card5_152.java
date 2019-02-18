@@ -68,7 +68,7 @@ public class Card5_152 extends AbstractLostInterrupt {
                                 new TargetCardOnTableEffect(action, playerId, "Choose character", Filters.in(characters)) {
                                     @Override
                                     protected void cardTargeted(final int targetGroupId, final PhysicalCard characterToRelocate) {
-                                        Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(locationFilter, Filters.locationCanBeRelocatedTo(characterToRelocate, false, false, true, 0)));
+                                        Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(locationFilter, Filters.locationCanBeRelocatedTo(characterToRelocate, false, false, true, 0, false)));
                                         action.appendTargeting(
                                                 new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate " + GameUtils.getCardLink(characterToRelocate) + " to", otherSites) {
                                                     @Override
