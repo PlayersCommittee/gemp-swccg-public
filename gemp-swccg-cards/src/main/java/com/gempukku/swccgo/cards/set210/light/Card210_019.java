@@ -81,7 +81,10 @@ public class Card210_019 extends AbstractJediMaster {
                     new DrawCardIntoHandFromReserveDeckEffect(action, playerId));
             actions.add(action);
         }
-        Collection<PhysicalCard> combatCards = Filters.filterStacked(game, Filters.and(Filters.combatCard, Filters.stackedOn(self, Filters.sameLocationAs(self, Filters.any))));
+
+        Filter yourCharactersWithCombatCardsHere = Filters.and(Filters.here(self), Filters.your(playerId), Filters.hasStacked(Filters.combatCard));
+        Collection<PhysicalCard> combatCards = Filters.filterStacked(game, Filters.and(Filters.combatCard, Filters.stackedOn(self, yourCharactersWithCombatCardsHere)));
+
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.hasReserveDeck(game, playerId)
                 && combatCards.size() > 0) {
