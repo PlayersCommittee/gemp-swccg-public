@@ -11,6 +11,8 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.*;
@@ -47,7 +49,7 @@ public class Card210_014 extends AbstractRebel {
 
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggersAlwaysWhenInPlay(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
 
         // At start of opponent's turn, if at opponent's site,
         // opponent chooses: their Force generation is -X this
@@ -62,7 +64,7 @@ public class Card210_014 extends AbstractRebel {
 
         // Check condition(s)
         if (TriggerConditions.isStartOfOpponentsTurn(game, effectResult, playerId)
-                && GameConditions.canSpot(game, self, ezraAtOpponentsSite)) {
+                && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_UNDERCOVER, ezraAtOpponentsSite)) {
 
             // Get all Dark icons here (includes Presence of the force, etc)
             int totalDarkIconsAccumulator = 0;
@@ -74,8 +76,8 @@ public class Card210_014 extends AbstractRebel {
             // ex: "Tom's force generation - 2"
             final String optionReduceGeneration = opponentId + "'s force generation - " + totalDarkIconsHere;
 
-            // ex: "John activates 2 force"
-            final String optionOpponentActivatesForce = playerId + " activates " + totalDarkIconsHere + " force";
+            // ex: "John activates up to 2 force"
+            final String optionOpponentActivatesForce = playerId + " activates up to " + totalDarkIconsHere + " force";
 
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -103,9 +105,32 @@ public class Card210_014 extends AbstractRebel {
 
                                     } else {
 
-                                        // Opponent chooses for LS to activate X force
+
+                                        // Opponent chooses for LS to activate up-to X force
                                         gameState.sendMessage(opponentId + " chooses: " + optionOpponentActivatesForce);
-                                        action.appendEffect(new ActivateForceEffect(action, playerId, totalDarkIconsHere));
+
+                                        // Make sure we can activate force. If not, just continue on with no action.
+                                        int maxForceToActivate = Math.min(game.getGameState().getReserveDeckSize(playerId), totalDarkIconsHere);
+                                        if (!GameConditions.canActivateForce(game, playerId) ||
+                                                (game.getGameState().getReserveDeckSize(playerId) == 0)) {
+
+                                            gameState.sendMessage(playerId + " has no force to activate.");
+                                            return;
+                                        }
+
+                                        // We have force to activate. Let the user pick how much to use
+                                        action.appendEffect(
+                                                new PlayoutDecisionEffect(action, playerId,
+                                                        new IntegerAwaitingDecision("Choose amount of Force to activate", 1, maxForceToActivate, maxForceToActivate) {
+                                                            @Override
+                                                            public void decisionMade(final int result) throws DecisionResultInvalidException {
+                                                                // Perform result(s)
+                                                                action.appendEffect(
+                                                                        new ActivateForceEffect(action, playerId, result));
+                                                            }
+                                                        }
+                                                )
+                                        );
                                     }
                                 }
                             }
