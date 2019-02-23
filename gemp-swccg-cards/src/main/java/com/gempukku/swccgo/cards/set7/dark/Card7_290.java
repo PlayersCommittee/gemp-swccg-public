@@ -37,7 +37,7 @@ public class Card7_290 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         Condition yourImperialLeaderHere = new HereCondition(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.Imperial_leader));
-        Filter imperialAtSameAndRelatedSites = Filters.and(Filters.Imperial, Filters.atSameOrAdjacentSite(self));
+        Filter imperialAtSameAndRelatedSites = Filters.and(Filters.Imperial, Filters.atSameOrRelatedSite(self));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, imperialAtSameAndRelatedSites, yourImperialLeaderHere, 1));
