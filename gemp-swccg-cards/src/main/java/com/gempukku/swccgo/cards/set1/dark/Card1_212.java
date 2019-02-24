@@ -275,6 +275,11 @@ public class Card1_212 extends AbstractNormalEffect {
                 new AddUntilEndOfPlayersNextTurnModifierEffect(action, owner,
                         new ResetForfeitModifier(self, character, 0), "makes " + GameUtils.getCardLink(character) + " forfeit = 0"));
 
+        // Ability = 0
+        action.appendEffect(
+                new AddUntilEndOfPlayersNextTurnModifierEffect(action, owner,
+                        new ResetAbilityModifier(self, character, 0), "makes " + GameUtils.getCardLink(character) + " ability = 0"));
+
         // Gametext canceled
         action.appendEffect(
                 new AddUntilEndOfPlayersNextTurnModifierEffect(action, owner,
