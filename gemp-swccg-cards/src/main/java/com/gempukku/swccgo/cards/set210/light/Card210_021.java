@@ -39,10 +39,11 @@ public class Card210_021 extends AbstractNormalEffect {
         Filter nonAlien = Filters.not(Filters.alien);
         Filter nonJedi = Filters.not(Filters.Jedi);
         Filter nonAlienNonJediCharacter = Filters.and(nonAlien, nonJedi, Filters.character);
+        Filter yourNonAlienNonJediCharacter = Filters.and(Filters.your(self), nonAlienNonJediCharacter);
 
         // Character needs to be with another alien with a species
         Filter alienWhichHasSpecies = Filters.and(Filters.alien, Filters.hasSpecies);
-        Filter nonAlienNonJediCharacterWithAlien = Filters.and(nonAlienNonJediCharacter, Filters.with(self, alienWhichHasSpecies));
+        Filter nonAlienNonJediCharacterWithAlien = Filters.and(yourNonAlienNonJediCharacter, Filters.with(self, alienWhichHasSpecies));
 
         return nonAlienNonJediCharacterWithAlien;
     }
@@ -50,6 +51,16 @@ public class Card210_021 extends AbstractNormalEffect {
 
     @Override
     protected StandardEffect getGameTextSpecialDeployCostEffect(final Action action, final String playerId, SwccgGame game, final PhysicalCard self, PhysicalCard target, PlayCardOption playCardOption) {
+
+        // This code is triggered in two different ways:
+        // 1) When playing starting interrupts (no 'target')
+        // 2) After you play this card on a character (has a target)
+
+        if (target == null) {
+            // No target. No special costs (this is likely start-of-game deployment)
+            return null;
+        }
+
 
         // Part of the 'cost' for deploying this is picking the species
         // Build the list of species first (both a text-array and a species array)
@@ -119,7 +130,13 @@ public class Card210_021 extends AbstractNormalEffect {
             Filter uniqeAlienOfSpecies = Filters.and(aliensOfSpecies, Filters.unique);
             Filter sameEndorSite = Filters.and(Filters.site, Filters.here(self));
 
-            modifiers.add(new SpeciesModifier(self, self, speciesSelected));
+            // Apply the species to the character we are attached to.
+            PhysicalCard attachedToCharacter = self.getAttachedTo();
+            if (attachedToCharacter != null) {
+                modifiers.add(new SpeciesModifier(self, attachedToCharacter, speciesSelected));
+            }
+
+            // Apply all other modifiers here
             modifiers.add(new MayDeployOtherCardsAsReactToLocationModifier(self, "deploy non-unique alien for -1 as a react", playerId, nonUniqueAlienOfSpecies, Filters.here(self), -1));
             modifiers.add(new MayDeployOtherCardsAsReactToLocationModifier(self, "deploy unique alien as a react", playerId, uniqeAlienOfSpecies, Filters.here(self), 0));
             modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "move alien as a react", playerId, aliensOfSpecies, Filters.here(self)));
