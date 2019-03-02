@@ -7,7 +7,8 @@ package com.gempukku.swccgo.common;
  * reasons that other cards can look for.
  */
 public enum PlayCardActionReason {
-    ATTEMPTING_TO_PLACE_A_CARD_OUT_OF_PLAY("attempting to place a card out of play");
+    ATTEMPTING_TO_PLACE_A_CARD_OUT_OF_PLAY("attempting to place a card out of play"),
+    ATTEMPTING_TO_CANCEL_AND_REDRAW_A_DESTINY("attempting to cancel and redraw a destin");
 
     private String _humanReadable;
 

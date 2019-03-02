@@ -92,7 +92,7 @@ public class Card2_114 extends AbstractDevice {
                                                             gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
                                                             if (totalDestiny > ability) {
                                                                 gameState.sendMessage("Result: Succeeded");
-                                                                final Filter siteFilter = Filters.and(Filters.interior_site, Filters.siteOfStarshipOrVehicle(self.getAttachedTo()), Filters.locationCanBeRelocatedTo(character, false, false, true, 0));
+                                                                final Filter siteFilter = Filters.and(Filters.interior_site, Filters.siteOfStarshipOrVehicle(self.getAttachedTo()), Filters.locationCanBeRelocatedTo(character, false, false, true, 0, false));
                                                                 if (GameConditions.canSpotLocation(game, siteFilter)) {
                                                                     action.appendEffect(
                                                                             new PlayoutDecisionEffect(action, playerId,

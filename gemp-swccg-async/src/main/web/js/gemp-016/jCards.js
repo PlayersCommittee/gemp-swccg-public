@@ -3094,7 +3094,7 @@ var fixedImages = {
 "210_18":"/gemp-swccg/images/cards/Virtual10-Light/jedimindtrick.gif",
 "210_19":"/gemp-swccg/images/cards/Virtual10-Light/kitfisto.gif",
 "210_20":"/gemp-swccg/images/cards/Virtual10-Light/lukeskywalkerthelastjedi.gif",
-"210_21":"/gemp-swccg/images/cards/Virtual10-Light/memberofthetribe.gif",
+"210_21":"/gemp-swccg/images/cards/Virtual10-Light/partofthetribe.gif",
 "210_22":"/gemp-swccg/images/cards/Virtual10-Light/paploo.gif",
 "210_23":"/gemp-swccg/images/cards/Virtual10-Light/plokoon.gif",
 "210_24":"/gemp-swccg/images/cards/Virtual10-Light/quiteamercenary.gif",

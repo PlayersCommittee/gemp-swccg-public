@@ -35,13 +35,14 @@ public class Card200_116 extends AbstractUsedOrLostInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
                 && GameConditions.isDuringBattle(game)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
             action.setText("Cancel destiny and cause re-draw");
             // Allow response(s)
             action.allowResponses(

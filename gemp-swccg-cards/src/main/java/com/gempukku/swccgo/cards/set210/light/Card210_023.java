@@ -59,8 +59,8 @@ public class Card210_023 extends AbstractJediMaster {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         Filter yourCharacterHere = Filters.and(Filters.your(self), Filters.character, Filters.here(self));
-        Filter yourEp1StarshipHere = Filters.and(Filters.your(self), Filters.starship, Icon.EPISODE_I, Filters.piloted, Filters.here(self));
-        Filter characterOrStarship = Filters.or(yourCharacterHere, yourEp1StarshipHere);
+        Filter yourEp1StarfighterHere = Filters.and(Filters.your(self), Filters.starfighter, Icon.EPISODE_I, Filters.piloted, Filters.here(self));
+        Filter characterOrEp1Starfighter = Filters.or(yourCharacterHere, yourEp1StarfighterHere);
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
@@ -68,7 +68,7 @@ public class Card210_023 extends AbstractJediMaster {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Lose top card of force pile");
-            action.setActionMsg("Make a character forfeit + 2 and immune to attrition for remainder of turn ");
+            action.setActionMsg("Make a character (or ep-1 starfighter) forfeit + 2 and immune to attrition for remainder of turn ");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -81,7 +81,7 @@ public class Card210_023 extends AbstractJediMaster {
 
             // Perform result(s)
             action.appendEffect(
-                    new ChooseCardOnTableEffect(action, self.getOwner(), "Choose character or EP1 starship here", characterOrStarship) {
+                    new ChooseCardOnTableEffect(action, self.getOwner(), "Choose character or EP1 starship here", characterOrEp1Starfighter) {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             action.addAnimationGroup(selectedCard);

@@ -22,6 +22,7 @@ public interface Title {
     String Advosze = "Advosze";
     String Agents_In_The_Court = "Agents In The Court";
     String Agents_Of_Black_Sun = "Agents Of Black Sun";
+    String Ahch_To = "Ahch-To";
     String Ahsokas_Lightsabers = "Ahsoka's Lightsabers";
     String Aiiii_Aaa_Agggggggggg = "Aiiii! Aaa! Agggggggggg!";
     String Aim_High = "Aim High";
@@ -210,6 +211,7 @@ public interface Title {
     String Dark_Collaboration = "Dark Collaboration";
     String Dark_Deal = "Dark Deal";
     String Dark_Forces = "Dark Forces";
+    String Dark_Hours = "Dark Hours";
     String Dark_Jedi_Presence = "Dark Jedi Presence";
     String Dark_Maneuvers = "Dark Maneuvers";
     String Dark_Strike = "Dark Strike";
@@ -321,7 +323,7 @@ public interface Title {
     String Explosive_Charge = "Explosive Charge";
     String Exposure = "Exposure";
     String Eyes_In_The_Dark = "Eyes In The Dark";
-    String Ezra = "Ezra";
+    String Ezra = "Ezra Bridger";
     String Falleens_Fist = "Falleen's Fist";
     String Fallen_Portal = "Fallen Portal";
     String Fear_Will_Keep_Them_In_Line = "Fear Will Keep Them In Line";

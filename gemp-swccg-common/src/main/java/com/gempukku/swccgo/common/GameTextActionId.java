@@ -13,6 +13,8 @@ public enum GameTextActionId {
     OTHER_CARD_ACTION_5,
     OTHER_CARD_ACTION_6,
     OTHER_CARD_ACTION_7,
+    BOSHEK_VIRTUAL_GAMETEXT_ONCE_PER_BATTLE,
+    CANCEL_AND_REDRAW_A_DESTINY,
 
     // Used for card action that causes other cards to deploy as a 'react'
     OTHER_CARD_ACTION_REACT_DEPLOY_OTHER_CARDS,
@@ -531,6 +533,7 @@ public enum GameTextActionId {
     LT_KAYDEL_CONNIX__UPLOAD_CARD(true, true),
     LORD_SIDIOUS__UPLOAD_ALWAYS_TWO_THERE_ARE_OR_NEIMOIDIAN(true, true),
     MAAREK_STELE_THE_EMPERORS_REACH__UPLOAD_TIE_DEFENDER(true, true),
+    MACROSCAN__ONCE_PER_GAME_RECIRCULATE(false, true),
     MAJOR_BREN_DERLIN__RETRIEVE_EXPLOSIVE_CHARGE_INTO_HAND(false, true),
     MAJOR_TURR_PHENNIR__UPLOAD_FIGHTERS_COMING_IN(true, true),
     MARA_JADE_THE_EMPERORS_HAND__DOWNLOAD_WEAPON(true, true),
@@ -579,6 +582,7 @@ public enum GameTextActionId {
     THE_FALCON__MAKE_ADDITIONAL_MOVE(false, true),
     THE_GARBAGE_WILL_DO__ADD_TO_TOTAL_POWER_OR_TAKE_CARD_FROM_GRAVEYARD_OF_GIANTS(false, true),
     THE_HYPERDRIVE_GENERATORS_GONE__UPLOAD_CORUSCANT_AND_OR_TATOOINE(true, true),
+    THE_HYPERDRIVE_GENERATORS_GONE__UPLOAD_EPISODE_I_SYSTEM(true, true),
     THEED_PALACE_HALLWAY__DOWNLOAD_BATTLE_DROID(true, true),
     THEED_PALACE_HALLWAY__UPLOAD_ASCENSION_GUNS(true, true),
     THEED_PALACE_HALLWAY__UPLOAD_SET_1_ASCENSION_GUNS(true, true),
@@ -616,6 +620,7 @@ public enum GameTextActionId {
     SEBULBAS_PODRACER__OPPONENT_DRAWS_NO_RACE_DESTINY(false, false, false, false, true),
 
     // Per turn for card title
+    MACROSCAN__ONCE_PER_TURN_ACTION(false, false, false, false, false, true),
     PREPARE_FOR_A_SURFACE_ATTACK_V__UPLOAD_CARD(true, false, false, false, false, true),
     REACTOR_TERMINAL__ONCE_PER_TURN_OPTIONS(true, false, false, false, false, true),
     SUPPRESSIVE_FIRE__ACTIVATE_FORCE(false, false, false, false, false, true),
@@ -624,6 +629,7 @@ public enum GameTextActionId {
 
     // Actions that are for specified reasons
     OUT_OF_COMMISSION__PLACE_CARD_OUT_OF_PLAY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_PLACE_A_CARD_OUT_OF_PLAY),
+    ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_CANCEL_AND_REDRAW_A_DESTINY),
 
     // Special action done for deploying cards (per game)
     DEPLOY_CARD_ACTION(false, true);

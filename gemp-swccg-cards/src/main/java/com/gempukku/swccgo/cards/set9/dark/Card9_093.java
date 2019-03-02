@@ -59,7 +59,7 @@ public class Card9_093 extends AbstractAdmiralsOrder {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId, Filters.starship_weapon)
