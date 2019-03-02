@@ -67,6 +67,7 @@ public enum Persona implements Filterable {
     SNOKE("Snoke"),
     SON_OF_VADER("Son Of Vader"),
     TARKIN("Tarkin"),
+    THRAWN("Thrawn"),
     TYCHO("Tycho"),
     VADER("Vader"),
     VEERS("Veers"),

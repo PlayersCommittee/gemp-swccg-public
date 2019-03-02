@@ -35,6 +35,7 @@ public class Card10_040 extends AbstractImperial {
         setLore("The last remaining Grand Admiral. Found legendary Katana fleet of missing dreadnaughts. Military genius. Master of unorthodox tactics. Passionate collector of art. Leader.");
         setGameText("Adds 3 to power of any starship he pilots. When piloting a star destroyer in battle, adds one battle destiny. While no other admiral and no star cruiser on table, your Admiral's Order just placed in Used Pile from table, may be taken into hand instead.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
+        addPersona(Persona.THRAWN);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
     }
 
