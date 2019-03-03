@@ -30,6 +30,7 @@ public class Card4_157 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.DAGOBAH, Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.CREATURE_SITE, Icon.PLANET);
         addSpecialRulesInEffectHere(SpecialRule.CAVE_RULES);
+        addMayNotBePartOfSystem(Title.Ahch_To);
     }
 
     @Override
