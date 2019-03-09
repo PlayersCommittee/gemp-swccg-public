@@ -68,7 +68,7 @@ public class Card501_001 extends AbstractAlienImperial {
             //Clearing the once per turn flag if Thrawn retrieved a force
             action.appendEffect(new ClearForRemainderOfGameDataEffect(action, self, true));
             //Select a location
-            action.appendEffect(new ChooseCardsOnTableEffect(action, playerId, "Choose a related location.", 1, 1, Filters.relatedLocation(self){
+            action.appendEffect(new ChooseCardsOnTableEffect(action, playerId, "Choose a related location.", 1, 1, Filters.relatedLocation(self)){
                 @java.lang.Override
                 protected FullEffectResult playEffectReturningResult(SwccgGame game) {
                     return super.playEffectReturningResult(game);
@@ -76,7 +76,7 @@ public class Card501_001 extends AbstractAlienImperial {
                 @Override
                 protected void cardsSelected(Collection<PhysicalCard> selectedCards){
                     final PhysicalCard chosenLocation = selectedCards.size() == 1 ? selectedCards.iterator().next() : null;
-                    gameState.sendMessage("The location chosen for Thrawn is " + chosenLocation.getTitle());
+                    game.getGameState().sendMessage("The location chosen for Thrawn is " + chosenLocation.getTitle());
                     //Add in the Proxy effect so that Thrawn will fire the second half of it this turn
                     action.appendEffect(
                             new AddUntilEndOfTurnActionProxyEffect(action,
@@ -91,8 +91,8 @@ public class Card501_001 extends AbstractAlienImperial {
                                                 self.setForRemainderOfGameData((Integer)self.getCardId(), new ForRemainderOfGameData());
 
                                                 final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());
-                                                action2.setText("Retrieve a force.");
-                                                action2.setActionMsg("Thrawn has foreseen the strategy and retrieves 1 Force.");
+                                                action2.setText("Opponent loses a force.");
+                                                action2.setActionMsg("Light Side has fallen into Thrawn's trap and loses 1 Force.");
                                                 // Actually retrieve the force
                                                 action2.appendEffect(new LoseForceEffect(action, playerId, 1));
                                                 actions.add(action2);
