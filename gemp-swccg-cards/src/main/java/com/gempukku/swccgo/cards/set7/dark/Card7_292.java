@@ -33,7 +33,7 @@ public class Card7_292 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.SPECIAL_EDITION, Icon.EXTERIOR_SITE, Icon.PLANET);
         addKeywords(Keyword.SWAMP);
-        addMayNotBePartOfSystem(Title.Bespin, Title.Coruscant, Title.Hoth, Title.Kessel, Title.Tatooine);
+        addMayNotBePartOfSystem(Title.Bespin, Title.Coruscant, Title.Hoth, Title.Kessel, Title.Tatooine, Title.Ahch_To);
     }
 
     @Override

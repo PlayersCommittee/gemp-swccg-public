@@ -30,6 +30,7 @@ public class Card4_081 extends AbstractSector {
         addIcons(Icon.DAGOBAH, Icon.SPACE);
         addKeywords(Keyword.ASTEROID);
         addSpecialRulesInEffectHere(SpecialRule.ASTEROID_RULES);
+        addMayNotBePartOfSystem(Title.Ahch_To);
     }
 
     @Override
