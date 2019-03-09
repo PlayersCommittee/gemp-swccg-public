@@ -68,7 +68,7 @@ public class Card501_001 extends AbstractAlienImperial {
             //Clearing the once per turn flag if Thrawn retrieved a force
             action.appendEffect(new ClearForRemainderOfGameDataEffect(action, self, true));
             //Select a location
-            action.appendEffect(new ChooseCardsOnTableEffect(action, playerId, "Choose a location.", 1, 1, Filters.location){
+            action.appendEffect(new ChooseCardsOnTableEffect(action, playerId, "Choose a related location.", 1, 1, Filters.relatedLocation(self){
                 @java.lang.Override
                 protected FullEffectResult playEffectReturningResult(SwccgGame game) {
                     return super.playEffectReturningResult(game);
@@ -94,7 +94,7 @@ public class Card501_001 extends AbstractAlienImperial {
                                                 action2.setText("Retrieve a force.");
                                                 action2.setActionMsg("Thrawn has foreseen the strategy and retrieves 1 Force.");
                                                 // Actually retrieve the force
-                                                action2.appendEffect(new RetrieveForceEffect(action, playerId, 1));
+                                                action2.appendEffect(new LoseForceEffect(action, playerId, 1));
                                                 actions.add(action2);
                                                 return actions;
                                             }
