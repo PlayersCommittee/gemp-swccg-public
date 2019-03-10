@@ -35,9 +35,8 @@ import java.util.List;
 public class Card501_001 extends AbstractAlienImperial {
     public Card501_001() {
         super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE);
-        setVirtualSuffix(true);
         setLore("Chiss leader. Spy. Commander.");
-        setGameText("[Pilot] 3. Thrawn's game text may not be canceled. May lose 1 Force to cancel a weapon destiny at same system. Once per turn, may target a location: the next time opponent moves there this turn, retrieve 1 Force into hand.");
+        setGameText("[Pilot] 3. Thrawn's game text may not be canceled. May lose 1 Force to cancel a weapon destiny at same system. Once per turn, may target a related location: the next time opponent moves there this turn, they lose 1 Force.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
         addPersona(Persona.THRAWN);
         addKeywords(Keyword.LEADER, Keyword.SPY, Keyword.COMMANDER);
@@ -94,7 +93,7 @@ public class Card501_001 extends AbstractAlienImperial {
                                                 action2.setText("Opponent loses a force.");
                                                 action2.setActionMsg("Light Side has fallen into Thrawn's trap and loses 1 Force.");
                                                 // Actually retrieve the force
-                                                action2.appendEffect(new LoseForceEffect(action, playerId, 1));
+                                                action2.appendEffect(new LoseForceEffect(action, game.getOpponent(playerId), 1));
                                                 actions.add(action2);
                                                 return actions;
                                             }
