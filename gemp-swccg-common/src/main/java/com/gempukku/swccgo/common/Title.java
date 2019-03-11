@@ -344,6 +344,7 @@ public interface Title {
     String Focused_Attack = "Focused Attack";
     String Fondor = "Fondor";
     String Force_Lightning = "Force Lightning";
+    String Force_Projection = "Force Projection";
     String Force_Push = "Force Push";
     String Forced_Servitude = "Forced Servitude";
     String Free_Ride = "Free Ride";
