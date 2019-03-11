@@ -678,9 +678,11 @@ public interface Title {
     String Paige = "Paige Tico";
     String Panic = "Panic";
     String Palace_Raider = "Palace Raider";
+    String Paploo = "Paploo";
     String Passenger_Deck = "Jabba's Sail Barge: Passenger Deck";
     String Path_Of_Least_Resistance = "Path Of Least Resistance";
     String Patrol_Craft = "Patrol Craft";
+    String Perimeter_Patrol = "Perimeter Patrol";
     String Phantom = "Phantom";
     String Phasma = "Captain Phasma";
     String Phennir = "Major Turr Phennir";
