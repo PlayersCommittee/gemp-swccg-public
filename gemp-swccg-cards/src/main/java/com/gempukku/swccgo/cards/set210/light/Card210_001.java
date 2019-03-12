@@ -40,7 +40,7 @@ public class Card210_001 extends AbstractSite {
         GameTextActionId gameTextActionId = GameTextActionId.AHCH_TO__DOWNLOAD_LUKE;
 
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId)
+        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId)
                 && !GameConditions.canSpot(game, self, Filters.Luke)) {
@@ -64,8 +64,10 @@ public class Card210_001 extends AbstractSite {
     protected List<OptionalGameTextTriggerAction> getGameTextLightSideOptionalAfterTriggers(final String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult,  PhysicalCard self, int gameTextSourceCardId) {
         Filter LukeAloneHereFilter = Filters.and(Filters.onTable, Filters.Luke);
         PhysicalCard luke = Filters.findFirstActive(game, self, LukeAloneHereFilter);
+        GameTextActionId gameTextActionId = GameTextActionId.AHCH_TO__SUBTRACT_FROM_POWER;
 
         if (luke != null
+                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
                 && TriggerConditions.isInitialAttritionJustCalculated(game, effectResult)  // <-- Jim: This is confusingly named, actually works for reducing power as well.
                 && GameConditions.isDuringBattleAt(game, Filters.not(self))
                 && GameConditions.isHere(game, self, Filters.Luke)
@@ -74,16 +76,13 @@ public class Card210_001 extends AbstractSite {
             // I've made an assumption that any reduction to negative power will be handled somewhere else in the engine
             final BattleState battleState = game.getGameState().getBattleState();
             if (battleState.getTotalPower(game, game.getOpponent(playerOnLightSideOfLocation)) > 0) {
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId);
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
                 action.setText("Reduce opponent's total power by 2");
                 action.appendUsage(new OncePerTurnEffect(action));
                 action.appendEffect(new SubtractFromOpponentsTotalPowerEffect(action, 2));
                 return Collections.singletonList(action);
             }
-
         }
-
         return null;
     }
-
 }
