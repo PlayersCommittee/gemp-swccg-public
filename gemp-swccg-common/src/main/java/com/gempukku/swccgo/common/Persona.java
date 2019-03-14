@@ -55,6 +55,7 @@ public enum Persona implements Filterable {
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
     PANAKA("Panaka"),
+    PAPLOO("Paploo"),
     PIETT("Piett"),
     QUEENS_ROYAL_STARSHIP("Queen's Royal Starship"),
     QUIGON("Qui-Gon"),

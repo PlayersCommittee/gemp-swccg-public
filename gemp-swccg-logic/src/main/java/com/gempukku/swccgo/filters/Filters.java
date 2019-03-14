@@ -17832,6 +17832,7 @@ public class Filters {
     public static final Filter Passenger_Deck = Filters.title(Title.Passenger_Deck);
     public static final Filter Patrol_Craft = Filters.title(Title.Patrol_Craft);
     public static final Filter peace_agenda = Filters.agenda(Agenda.PEACE);
+    public static final Filter Perimeter_Patrol = Filters.title(Title.Perimeter_Patrol);
     public static final Filter Phantom = Filters.title(Title.Phantom);
     public static final Filter Phasma = Filters.title(Title.Phasma);
     public static final Filter Phennir = Filters.title(Title.Phennir);
