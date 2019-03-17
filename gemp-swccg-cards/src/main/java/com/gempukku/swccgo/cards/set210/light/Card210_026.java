@@ -56,7 +56,7 @@ public class Card210_026 extends AbstractCombatVehicle {
 
         List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
 
-        // Bo
+        // Character piloting the Ski Speeder
         Filter pilotOfself = Filters.piloting(self);
 
         // Handle the Weapon-targeting:
@@ -96,6 +96,10 @@ public class Card210_026 extends AbstractCombatVehicle {
                     new AddUntilEndOfCardPlayedModifierEffect(action, interruptCard,
                             new ResetDefenseValueModifier(self, pilotOfself, defenseValue),
                             "Resets pilot's defense value to " + GuiUtils.formatAsString(defenseValue)));
+            action.appendEffect(
+                    new AddUntilEndOfCardPlayedModifierEffect(action, interruptCard,
+                            new ResetAbilityVsSpecificCardModifier(self, pilotOfself, defenseValue, interruptCard),
+                            "Resets pilot's ability (vs the interrupt) value to " + GuiUtils.formatAsString(defenseValue)));
             actions.add(action);
         }
 
