@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.UseSpecificAbilityVsCardModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -29,7 +30,7 @@ public class Card210_026 extends AbstractCombatVehicle {
     public Card210_026() {
         super(Side.LIGHT, 5, 2, 2, null, 5, 3, 4, "V-4X-D Ski Speeder");
         setLore("");
-        setGameText("May add 1 pilot. May move as a 'react'. Matching vehicle for any Resistance pilot. Pilot's power = 0, and when targeted by an Interrupt or weapon, may use this vehicle's defense value instead.");
+        setGameText("Pilot's power = 0, and if targeted by Force Lightning, Trample, or a weapon, may use this card's defense value instead.");
         addModelType(ModelType.V_4X);
         addIcons(Icon.EPISODE_VII);
         setPilotCapacity(1);
@@ -71,20 +72,15 @@ public class Card210_026 extends AbstractCombatVehicle {
             action.appendEffect(
                     new AddUntilEndOfWeaponFiringModifierEffect(action,
                             new ResetDefenseValueModifier(self, pilotOfself, defenseValue),
-                            "Resets pilot's defense value to " + GuiUtils.formatAsString(defenseValue)));
+                            "Use vehicle's defense value (" + GuiUtils.formatAsString(defenseValue) + ") vs weapon."));
             actions.add(action);
         }
 
 
-        // Handle an Interrupt-targeting.
-        // Note that we need to handle 2 cases here:
-        //   1. Targeted Defense Value (we can just increase defense value to 5)
-        //   2. Targeted Ability - we CANT bump ability to 5. We just need to use
-        //      ability of 5 for the purposes of that interrupt (and no others).
-        //      We don't want to flip objectives, have weird interactions with Tatooine Maul, etc
+        // Allow responding to Trample
 
         // Check condition(s)
-        if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.Interrupt, pilotOfself)) {
+        if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.Trample, pilotOfself)) {
 
             PhysicalCard interruptCard = ((RespondablePlayingCardEffect) effect).getCard();
 
@@ -92,14 +88,34 @@ public class Card210_026 extends AbstractCombatVehicle {
             action.setText("Have character use vehicle's defense value");
 
             float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), self);
+
+            // For Trample, set the "vs specific card" modifier
+            action.appendEffect(
+                    new AddUntilEndOfCardPlayedModifierEffect(action, interruptCard,
+                            new UseSpecificAbilityVsCardModifier(self, pilotOfself, defenseValue, interruptCard),
+                            "Use vehicle's defense value (" +  GuiUtils.formatAsString(defenseValue) + ") instead of ability vs Trample."));
+            actions.add(action);
+        }
+
+
+        // Allow responding to Force Lightning
+
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.Force_Lightning, pilotOfself)) {
+
+            PhysicalCard interruptCard = ((RespondablePlayingCardEffect) effect).getCard();
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Have character use vehicle's defense value");
+
+            float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), self);
+
+            // Temporarily rest the defense value
             action.appendEffect(
                     new AddUntilEndOfCardPlayedModifierEffect(action, interruptCard,
                             new ResetDefenseValueModifier(self, pilotOfself, defenseValue),
-                            "Resets pilot's defense value to " + GuiUtils.formatAsString(defenseValue)));
-            action.appendEffect(
-                    new AddUntilEndOfCardPlayedModifierEffect(action, interruptCard,
-                            new ResetAbilityVsSpecificCardModifier(self, pilotOfself, defenseValue, interruptCard),
-                            "Resets pilot's ability (vs the interrupt) value to " + GuiUtils.formatAsString(defenseValue)));
+                            "Use vehicle's defense value (" + GuiUtils.formatAsString(defenseValue) + ") vs Force Lightning"));
+
             actions.add(action);
         }
 

@@ -1427,6 +1427,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     @Override
+    public float getAbility(GameState gameState, PhysicalCard physicalCard, PhysicalCard cardTargetingMe) {
+        return getAbility(gameState, physicalCard, false, new ModifierCollectorImpl(), cardTargetingMe);
+    }
+
+    @Override
     public float getAbility(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector) {
         return getAbility(gameState, physicalCard, false, modifierCollector);
     }
@@ -1438,9 +1443,29 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public float getAbility(GameState gameState, PhysicalCard physicalCard, boolean includePermPilots, ModifierCollector modifierCollector) {
+        return getAbility(gameState, physicalCard, includePermPilots, modifierCollector, null);
+    }
+
+    @Override
+    public float getAbility(GameState gameState, PhysicalCard physicalCard, boolean includePermPilots, ModifierCollector modifierCollector, PhysicalCard cardTargetingMe) {
 
         SwccgCardBlueprint blueprint = physicalCard.getBlueprint();
         float result = 0;
+
+        // Some cards allow for using a specific number vs a particular other card
+        if (cardTargetingMe != null) {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.USE_SPECIFIC_ABILITY_VS_CARD, physicalCard)) {
+
+                UseSpecificAbilityVsCardModifier resetModifier = (UseSpecificAbilityVsCardModifier)modifier;
+                if (resetModifier != null) {
+                    Filterable specificCardFilter = resetModifier.getSpecificCardFilter();
+                    if (Filters.or(specificCardFilter).accepts(gameState, this, cardTargetingMe)) {
+                        return resetModifier.getValue(gameState, this, physicalCard);
+                    }
+                }
+            }
+        }
+
 
         // Use destiny number instead if "Dejarik Rules"
         if (physicalCard.isDejarikHologramAtHolosite()) {
