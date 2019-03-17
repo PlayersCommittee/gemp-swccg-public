@@ -17345,6 +17345,7 @@ public class Filters {
     public static final Filter Force_Lightning = Filters.title(Title.Force_Lightning);
     public static final Filter Force_pike = Filters.keyword(Keyword.FORCE_PIKE);
     public static final Filter Force_Push = Filters.title(Title.Force_Push);
+    public static final Filter Force_Projection = Filters.title(Title.Force_Projection);
     public static final Filter Force_Sensitive_character = Filters.and(CardCategory.CHARACTER, Filters.or(Filters.abilityEqualTo(4), Filters.abilityEqualTo(5)));
     public static final Filter forest = Filters.keyword(Keyword.FOREST);
     public static final Filter Fourth_Marker = Filters.keyword(Keyword.MARKER_4);
