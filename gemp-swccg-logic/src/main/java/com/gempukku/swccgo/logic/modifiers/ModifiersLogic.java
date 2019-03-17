@@ -4700,6 +4700,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (drawDestinyState == null)
             return true;
 
+
+        // See if we have a global "cannot cancel destiny" rule in effect
+        for (Modifier modifier : getModifiers(gameState, ModifierType.MAY_NOT_CANCEL_DESTINY_DRAWS)) {
+            return true;
+        }
+
         DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
 
         if (drawDestinyEffect.isDestinyCanceled()

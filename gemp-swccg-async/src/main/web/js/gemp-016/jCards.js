@@ -3117,6 +3117,8 @@ var fixedImages = {
 "210_43":"/gemp-swccg/images/cards/Virtual10-Dark/deathstarreactorterminal.gif",
 "210_45":"/gemp-swccg/images/cards/Virtual10-Dark/silenceisgolden.gif",
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
+"211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
+"211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
@@ -3496,6 +3498,10 @@ var Card = Class.extend({
             return (cardNo == 15);
 //            || cardNo == 1) - when we release Ahch-To Saddle
 
+        }
+        if (setNo == 211) {
+            // TODO: Add Horizontal Set11 cards here
+            return false;
         }
         if (setNo == 501) {
             return (cardNo == 9);
