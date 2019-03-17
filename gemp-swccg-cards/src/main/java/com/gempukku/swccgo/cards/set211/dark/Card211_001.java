@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlienImperial;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -26,16 +26,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Playtesting
+ * Set: Set 11
  * Type: Character
  * Subtype: Alien/Imperial
  * Title: Mitth'raw'nuruodo
  */
 
-public class Card501_001 extends AbstractAlienImperial {
-    public Card501_001() {
+public class Card211_001 extends AbstractAlienImperial {
+    public Card211_001() {
         super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE);
-        setLore("Chiss leader. Spy. Commander.");
+        setLore("Thrawn. Chiss commander. Leader.");
         setGameText("[Pilot] 3. Thrawn's game text may not be canceled. May lose 1 Force to cancel a weapon destiny at same system. Once per turn, may target a related location: the next time opponent moves there this turn, they lose 1 Force.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
         addPersona(Persona.THRAWN);
