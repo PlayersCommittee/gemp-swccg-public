@@ -32,6 +32,7 @@ public class Card209_038 extends AbstractImperial {
         setLore("Worked hard for a transfer to the Executor. One of the many noncommissioned personnel promoted to replace the vast number of officers lost during the Death Star disaster.");
         setGameText("Deploys -1 to Executor. While aboard a capital starship, adds 1 to armor and its defense value may not be reduced. While Fear Will Keep Them In Line here, when you win a battle at a related site where you have an Imperial, opponent loses 2 Force.");
         addIcons(Icon.DAGOBAH, Icon.WARRIOR, Icon.PILOT, Icon.VIRTUAL_SET_9);
+        setMatchingStarshipFilter(Filters.Executor);
     }
 
     @Override
