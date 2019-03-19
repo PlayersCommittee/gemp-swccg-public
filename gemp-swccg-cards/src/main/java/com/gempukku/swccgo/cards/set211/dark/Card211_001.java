@@ -39,7 +39,7 @@ public class Card211_001 extends AbstractAlienImperial {
         setGameText("[Pilot] 3. Thrawn's game text may not be canceled. May lose 1 Force to cancel a weapon destiny at same system. Once per turn, may target a related location: the next time opponent moves there this turn, they lose 1 Force.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
         addPersona(Persona.THRAWN);
-        addKeywords(Keyword.LEADER, Keyword.SPY, Keyword.COMMANDER);
+        addKeywords(Keyword.LEADER, Keyword.COMMANDER);
     }
 
     @Override
