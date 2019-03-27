@@ -3117,13 +3117,15 @@ var fixedImages = {
 "210_43":"/gemp-swccg/images/cards/Virtual10-Dark/deathstarreactorterminal.gif",
 "210_45":"/gemp-swccg/images/cards/Virtual10-Dark/silenceisgolden.gif",
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
+"211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
+"211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
 "301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asaijventresswithlightsabers.gif",
 "301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
-"301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif"
-
+"301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
+"501_1":"/gemp-swccg/images/cards/Playtesting-Dark/mitthrawnuruodo.gif"
 };
 
 var packBlueprints = {
@@ -3492,10 +3494,12 @@ var Card = Class.extend({
                     (cardNo >= 49 && cardNo <= 51);
         }
         if (setNo == 210) {
-            // TBD
-            return (cardNo == 15);
-//            || cardNo == 1) - when we release Ahch-To Saddle
+            return (cardNo == 15 || cardNo == 1);
 
+        }
+        if (setNo == 211) {
+            // TODO: Add Horizontal Set11 cards here
+            return false;
         }
         if (setNo == 501) {
             return (cardNo == 9);

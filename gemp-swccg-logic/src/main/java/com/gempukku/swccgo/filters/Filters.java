@@ -17345,6 +17345,7 @@ public class Filters {
     public static final Filter Force_Lightning = Filters.title(Title.Force_Lightning);
     public static final Filter Force_pike = Filters.keyword(Keyword.FORCE_PIKE);
     public static final Filter Force_Push = Filters.title(Title.Force_Push);
+    public static final Filter Force_Projection = Filters.title(Title.Force_Projection);
     public static final Filter Force_Sensitive_character = Filters.and(CardCategory.CHARACTER, Filters.or(Filters.abilityEqualTo(4), Filters.abilityEqualTo(5)));
     public static final Filter forest = Filters.keyword(Keyword.FOREST);
     public static final Filter Fourth_Marker = Filters.keyword(Keyword.MARKER_4);
@@ -17832,6 +17833,7 @@ public class Filters {
     public static final Filter Passenger_Deck = Filters.title(Title.Passenger_Deck);
     public static final Filter Patrol_Craft = Filters.title(Title.Patrol_Craft);
     public static final Filter peace_agenda = Filters.agenda(Agenda.PEACE);
+    public static final Filter Perimeter_Patrol = Filters.title(Title.Perimeter_Patrol);
     public static final Filter Phantom = Filters.title(Title.Phantom);
     public static final Filter Phasma = Filters.title(Title.Phasma);
     public static final Filter Phennir = Filters.title(Title.Phennir);

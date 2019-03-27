@@ -4700,6 +4700,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (drawDestinyState == null)
             return true;
 
+
+        // See if we have a global "cannot cancel destiny" rule in effect
+        for (Modifier modifier : getModifiers(gameState, ModifierType.MAY_NOT_CANCEL_DESTINY_DRAWS)) {
+            return true;
+        }
+
         DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
 
         if (drawDestinyEffect.isDestinyCanceled()
@@ -15535,8 +15541,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!hasDeployCostAttribute(card))
             return false;
 
-        if (grantedDeployForFree(gameState, card, null))
-            return true;
+        /*
+         * The AR 1-20 defines "free" as always being free and no deploy cost at all.
+         *
+         * We need to ignore things that may have allowed it to be free
+         * such as General McQuarrie with Hoth Sentry.
+         *
+         * That's why the 'grantedDeployForFree' has been removed below
+         *
+         * if (grantedDeployForFree(gameState, card, null))
+         *   return true;
+         */
 
         if (card.getBlueprint().getSpecialDeployCostEffect(null, card.getOwner(), gameState.getGame(), card, null, null) != null)
             return false;

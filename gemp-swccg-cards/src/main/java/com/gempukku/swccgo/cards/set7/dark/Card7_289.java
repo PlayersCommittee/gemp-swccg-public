@@ -29,7 +29,7 @@ public class Card7_289 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.SPECIAL_EDITION, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
         addKeywords(Keyword.SPACEPORT_SITE, Keyword.DOCKING_BAY);
-        addMayNotBePartOfSystem(Title.Bespin, Title.Dagobah, Title.Endor, Title.Hoth, Title.Yavin_4);
+        addMayNotBePartOfSystem(Title.Bespin, Title.Dagobah, Title.Endor, Title.Hoth, Title.Yavin_4, Title.Ahch_To);
     }
 
     @Override

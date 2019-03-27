@@ -56,6 +56,7 @@ public enum Species implements Filterable {
     MANDALORIAN("Mandalorian", true),
     MON_CALAMARI("Mon Calamari", true),
     MORSEERIAN("Morseerian", true),
+    NAUTOLAN("Nautolan", true),
     NEIMOIDIAN("Neimoidian", true),
     NIKTO("Nikto", true),
     NIMBANEL("Nimbanel", true),
