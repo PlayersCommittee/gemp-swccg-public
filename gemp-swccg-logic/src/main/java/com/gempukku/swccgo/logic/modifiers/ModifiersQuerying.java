@@ -308,11 +308,15 @@ public interface ModifiersQuerying {
 
     float getAbility(GameState gameState, PhysicalCard physicalCard);
 
+    float getAbility(GameState gameState, PhysicalCard physicalCard, PhysicalCard cardTargetingMe);
+
     float getAbility(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector);
 
     float getAbility(GameState gameState, PhysicalCard physicalCard, boolean includePermPilots);
 
     float getAbility(GameState gameState, PhysicalCard physicalCard, boolean includePermPilots, ModifierCollector modifierCollector);
+
+    float getAbility(GameState gameState, PhysicalCard physicalCard, boolean includePermPilots, ModifierCollector modifierCollector, PhysicalCard cardTargetingMe);
 
     float getAbilityForBattleDestiny(GameState gameState, PhysicalCard physicalCard);
 
