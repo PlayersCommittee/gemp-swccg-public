@@ -2945,7 +2945,7 @@ var fixedImages = {
 "207_10":"/gemp-swccg/images/cards/Virtual7-Light/yoda.gif",
 "207_11":"/gemp-swccg/images/cards/Virtual7-Light/rebellionsarebuiltonhope.gif",
 "207_12":"/gemp-swccg/images/cards/Virtual7-Light/helpmeobiwankenobi.gif",
-"207_13":"/gemp-swccg/images/cards/Virtual7-Light/icantakecareofmyself.gif",
+"207_13":"/gemp-swccg/images/cards/Virtual7-Light/ithinkicanhandlemyself.gif",
 "207_14":"/gemp-swccg/images/cards/Virtual7-Light/theyretrackingus.gif",
 "207_15":"/gemp-swccg/images/cards/Virtual7-Light/thisismyship.gif",
 "207_16":"/gemp-swccg/images/cards/Virtual7-Light/jakkudockingbay.gif",
