@@ -2759,7 +2759,7 @@ var fixedImages = {
 "201_17":"/gemp-swccg/images/cards/Virtual1-Light/nabootheedpalacehallway.gif",
 "201_18":"/gemp-swccg/images/cards/Virtual1-Light/greenleaderingreensquadron1.gif",
 "201_19":"/gemp-swccg/images/cards/Virtual1-Light/tantiveiv.gif",
-"201_20":"/gemp-swccg/images/cards/Virtual1-Light/dashinrogue10.gif",
+"201_20":"/gemp-swccg/images/cards/Virtual1-Light/dashinrogue12.gif",
 "201_21":"/gemp-swccg/images/cards/Virtual1-Light/macewinduslightsaber.gif",
 "201_22":"/gemp-swccg/images/cards/Virtual1-Dark/colonelwullfyularen.gif",
 "201_23":"/gemp-swccg/images/cards/Virtual1-Dark/corporalvandolay.gif",
