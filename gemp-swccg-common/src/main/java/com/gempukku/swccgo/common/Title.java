@@ -754,6 +754,7 @@ public interface Title {
     String Red_9 = "Red 9";
     String Red_10 = "Red 10";
     String Reegesk = "Reegesk";
+    String ReeYees = "Ree-Yees";
     String Reflection = "Reflection";
     String Rendezvous_Point = "Rendezvous Point";
     String Rendili = "Rendili";
