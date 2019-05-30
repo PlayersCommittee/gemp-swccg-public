@@ -61,7 +61,7 @@ public class Card211_005 extends AbstractAlien {
                 && GameConditions.isDestinyValueEqualTo(game, 3)
                 && canPerformReeYeesAction(game, playerId)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("May activate 1 force, draw bottom card of Used Pile, or place a card from hand on top of Used Pile.");
+            action.setText("May choose action.");
             // Perform result(s)
             List<StandardEffect> effectsToChoose = new ArrayList<StandardEffect>();
             effectsToChoose.add(new ActivateForceEffect(action, playerId, 1));

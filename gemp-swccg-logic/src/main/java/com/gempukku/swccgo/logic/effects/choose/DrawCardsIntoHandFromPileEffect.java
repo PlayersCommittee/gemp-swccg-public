@@ -56,6 +56,15 @@ abstract class DrawCardsIntoHandFromPileEffect extends AbstractSubActionEffect {
     }
 
     @Override
+    public String getText(SwccgGame game) {
+        if (_bottom) {
+            return "Draw " + _amount + " card(s) from bottom of " + _zone.getHumanReadable();
+        } else {
+            return "Draw " + _amount + " card(s) from " + _zone.getHumanReadable();
+        }
+    }
+
+    @Override
     public boolean isPlayableInFull(SwccgGame game) {
         return !game.getGameState().getCardPile(_playerId, _zone).isEmpty();
     }
