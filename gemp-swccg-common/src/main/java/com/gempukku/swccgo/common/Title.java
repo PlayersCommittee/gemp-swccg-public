@@ -463,6 +463,7 @@ public interface Title {
     String Imperial_Outpost = "Imperial Outpost";
     String Imperial_Propaganda = "Imperial Propaganda";
     String Imperial_Reinforcements = "Imperial Reinforcements";
+    String Imperial_Supply = "Imperial Supply";
     String Imperial_Tyranny = "Imperial Tyranny";
     String In_Complete_Control = "In Complete Control";
     String In_The_Hands_Of_The_Empire = "In The Hands Of The Empire";
