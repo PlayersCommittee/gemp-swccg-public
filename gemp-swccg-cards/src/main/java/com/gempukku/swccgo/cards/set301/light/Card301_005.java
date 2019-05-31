@@ -53,7 +53,7 @@ public class Card301_005 extends AbstractDefensiveShield {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
         // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult){
+        if (TriggerConditions.isTableChanged(game, effectResult)){
             if (GameConditions.canTargetToCancel(game, self, Filters.A_Dangerous_Time)) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
