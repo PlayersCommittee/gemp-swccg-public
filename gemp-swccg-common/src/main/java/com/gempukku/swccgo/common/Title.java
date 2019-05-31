@@ -480,6 +480,7 @@ public interface Title {
     String Into_The_Ventilation_Shaft_Lefty = "Into The Ventilation Shaft, Lefty";
     String Interrogation_Array = "Interrogation Array";
     String Invasion = "Invasion";
+    String Invisible_Hand = "Invisible Hand";
     String Ion_Cannon = "Ion Cannon";
     String Irol = "Sergeant Irol";
     String ISB_Operations = "ISB Operations";

@@ -28,6 +28,7 @@ public enum Persona implements Filterable {
     ELIS("Elis"),
     EMPEROR("Emperor"),
     GREEN_LEADER("Green Leader"),
+    GRIEVOUS("Grievous"),
     GUNRAY("Gunray"),
     HAAKO("Haako"),
     HAN("Han"),
