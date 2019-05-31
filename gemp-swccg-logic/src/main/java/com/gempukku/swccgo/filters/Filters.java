@@ -17054,6 +17054,7 @@ public class Filters {
     public static final Filter Clakdor_VII_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Clakdor_VII));
     public static final Filter Clash_Of_Sabers = Filters.title(Title.Clash_Of_Sabers);
     public static final Filter clone = Filters.keyword(Keyword.CLONE_TROOPER);
+    public static final Filter Clone_Army = Filters.icon(Icon.CLONE_ARMY);
     public static final Filter Closer = Filters.title(Title.Closer);
     public static final Filter cloud_car = Filters.or(ModelType.TWIN_POD_CLOUD_CAR, ModelType.TALON_I_COMBAT_CLOUD_CAR);
     public static final Filter Cloud_City_battleground_site = Filters.and(Keyword.CLOUD_CITY_LOCATION, CardSubtype.SITE, Filters.battleground());
@@ -17527,6 +17528,7 @@ public class Filters {
     public static final Filter Into_The_Garbage_Chute_Flyboy = Filters.title(Title.Into_The_Garbage_Chute_Flyboy);
     public static final Filter Into_The_Ventilation_Shaft_Lefty = Filters.title(Title.Into_The_Ventilation_Shaft_Lefty);
     public static final Filter Invasion = Filters.title(Title.Invasion);
+    public static final Filter Invisible_Hand = Filters.persona(Persona.INVISIBLE_HAND);
     public static final Filter In_Hand = Filters.zone(Zone.HAND);
     public static final Filter in_play = Filters.onTable();
     public static final Filter In_Sabacc_Hand = Filters.or(Zone.SABACC_HAND, Zone.REVEALED_SABACC_HAND);
@@ -17827,6 +17829,7 @@ public class Filters {
     public static final Filter Padme = Filters.title(Title.Padme);
     public static final Filter Paige = Filters.title(Title.Paige);
     public static final Filter Palace_Raider = Filters.title(Title.Palace_Raider);
+    public static final Filter Palpatine = Filters.persona(Persona.PALPATINE);
     public static final Filter Panaka = Filters.persona(Persona.PANAKA);
     public static final Filter Panic = Filters.title(Title.Panic);
     public static final Filter parasite = Filters.and(CardCategory.CREATURE, Keyword.PARASITE);
