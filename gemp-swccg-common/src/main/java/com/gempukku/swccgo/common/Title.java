@@ -126,7 +126,7 @@ public interface Title {
     String Bravo_5 = "Bravo 5";
     String Bravo_Fighter = "Bravo Fighter";
     String Breached_Defenses = "Breached Defenses";
-    String Bridge = "Blockade Flagship: Bridge";
+    String BlockadeFlagshipBridge = "Blockade Flagship: Bridge";
     String Bring_Him_Before_Me = "Bring Him Before Me";
     String Brisky_Morning_Munchen = "Brisky Morning Munchen";
     String Broken_Concentration = "Broken Concentration";

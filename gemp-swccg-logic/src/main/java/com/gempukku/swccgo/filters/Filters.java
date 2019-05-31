@@ -16970,6 +16970,7 @@ public class Filters {
     public static final Filter Blizzard_Scout_1 = Filters.title(Title.Blizzard_Scout_1);
     public static final Filter blockade_agenda = Filters.agenda(Agenda.BLOCKADE);
     public static final Filter Blockade_Flagship = Filters.persona(Persona.BLOCKADE_FLAGSHIP);
+    public static final Filter BlockadeFlagshipBridge = Filters.title(Title.BlockadeFlagshipBridge);
     public static final Filter Blue_Milk = Filters.title(Title.Blue_Milk);
     public static final Filter Blue_Squadron_5 = Filters.title(Title.Blue_Squadron_5);
     public static final Filter Bluffs = Filters.title(Title.Bluffs);
@@ -17004,7 +17005,6 @@ public class Filters {
     public static final Filter Bravo_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.BRAVO_SQUADRON, Filters.aboard(Filters.keyword(Keyword.BRAVO_SQUADRON))));
     public static final Filter Bravo_Squadron_starfigher = Filters.and(Keyword.BRAVO_SQUADRON, CardSubtype.STARFIGHTER);
     public static final Filter Breached_Defenses = Filters.title(Title.Breached_Defenses);
-    public static final Filter Bridge = Filters.title(Title.Bridge);
     public static final Filter Bring_Him_Before_Me = Filters.title(Title.Bring_Him_Before_Me);
     public static final Filter Brisky_Morning_Munchen = Filters.title(Title.Brisky_Morning_Munchen);
     public static final Filter Broken_Concentration = Filters.title(Title.Broken_Concentration);
