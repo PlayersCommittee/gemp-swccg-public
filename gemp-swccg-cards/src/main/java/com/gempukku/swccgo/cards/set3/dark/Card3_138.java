@@ -83,7 +83,8 @@ public class Card3_138 extends AbstractUsedInterrupt {
 
                                                             gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
                                                             if (Filters.character.accepts(game, finalTarget)) {
-                                                                float ability = game.getModifiersQuerying().getAbility(game.getGameState(), finalTarget);
+
+                                                                float ability = game.getModifiersQuerying().getAbility(game.getGameState(), finalTarget, self);
                                                                 gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
                                                                 if (totalDestiny > ability) {
                                                                     gameState.sendMessage("Result: Succeeded");

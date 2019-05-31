@@ -25,11 +25,11 @@ import java.util.List;
  * Set: Set 1
  * Type: Vehicle
  * Subtype: Combat
- * Title: Dash In Rogue 10
+ * Title: Dash In Rogue 12
  */
 public class Card201_020 extends AbstractCombatVehicle {
     public Card201_020() {
-        super(Side.LIGHT, 2, 3, 5, null, 5, 4, 5, "Dash In Rogue 10", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 5, null, 5, 4, 5, "Dash In Rogue 12", Uniqueness.UNIQUE);
         setLore("Enclosed.");
         setGameText("May add 1 pilot. Permanent pilot is •Dash, who provides ability of 3. During battle, if with another T-47 and about to draw a battle destiny, may draw two and choose one. Immune to attrition < 4.");
         addModelType(ModelType.T_47);
