@@ -15,6 +15,10 @@ import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Card211_021 extends AbstractUniqueStarshipSite {
     public Card211_021() {
         super(Side.DARK, "Invisible Hand: Docking Bay", Persona.INVISIBLE_HAND);
@@ -42,7 +46,7 @@ public class Card211_021 extends AbstractUniqueStarshipSite {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DockingBayTransitFromCostModifier(self, new NotCondition(yourPalpatinePresent), 3, playerOnLightSideOfLocation));
-        modifiers.add(new DockingBayTransitFromForFreeModifier(self, yourImperialPresent, playerOnLightSideOfLocation));
+        modifiers.add(new DockingBayTransitFromForFreeModifier(self, yourPalpatinePresent, playerOnLightSideOfLocation));
         return modifiers;
     }
 }
