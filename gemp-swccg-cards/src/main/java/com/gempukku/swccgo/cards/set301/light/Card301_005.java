@@ -66,6 +66,7 @@ public class Card301_005 extends AbstractDefensiveShield {
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Imperial_Supply, Title.Imperial_Supply);
                 actions.add(action);
             }
+            return actions;
         }
         return null;
     }
