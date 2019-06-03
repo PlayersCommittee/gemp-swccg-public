@@ -27,8 +27,8 @@ import java.util.List;
  * Subtype: Alien
  * Title: Dash Rendar (V)
  */
-public class Card210_027 extends AbstractAlien {
-    public Card210_027() {
+public class Card210_012 extends AbstractAlien {
+    public Card210_012() {
         super(Side.LIGHT, 3, 3, 3, 3, 5, "Dash Rendar", Uniqueness.UNIQUE);
         setLore("Emperor banished Rendar family from Coruscant. Became gambler and smuggler. Brought down AT-AT at the Battle of Hoth. Works for Rebel Alliance from time to time. Corellian.");
         setGameText("[Pilot] 3. May move as a 'react'. When in battle with Leebo (or opponent's gangster, [Permanent Weapon] card, or [Maintenance] card), may draw one destiny; subtract that amount from opponent's total power and attrition.");
@@ -42,7 +42,7 @@ public class Card210_027 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new MayMoveAsReactModifier(self));
         return modifiers;
