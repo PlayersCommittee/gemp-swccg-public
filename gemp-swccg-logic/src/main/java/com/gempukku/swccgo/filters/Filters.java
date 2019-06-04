@@ -17498,7 +17498,7 @@ public class Filters {
     public static final Filter Imperial_Outpost = Filters.title(Title.Imperial_Outpost);
     public static final Filter Imperial_Propaganda = Filters.title(Title.Imperial_Propaganda);
     public static final Filter Imperial_Reinforcements = Filters.title(Title.Imperial_Reinforcements);
-    public static final Filter Imperial_starship = Filters.and(Side.DARK, CardType.STARSHIP, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPERATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
+    public static final Filter Imperial_starship = Filters.and(Side.DARK, CardType.STARSHIP, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPARATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
     public static final Filter Imperial_Trooper_Guard = Filters.keyword(Keyword.IMPERIAL_TROOPER_GUARD);
     public static final Filter Imperial_Tyranny = Filters.title(Title.Imperial_Tyranny);
     public static final Filter Imperial_veteran = Filters.and(Icon.IMPERIAL, Filters.or(Keyword.LEADER, Filters.and(Filters.or(Keyword.TROOPER, Keyword.STORMTROOPER, Keyword.SNOWTROOPER, Keyword.SANDTROOPER, Keyword.CLOUD_CITY_TROOPER, Keyword.DEATH_STAR_TROOPER, Keyword.IMPERIAL_TROOPER_GUARD, Keyword.BIKER_SCOUT), Filters.not(Filters.keyword(Keyword.CADET)))));
@@ -17907,7 +17907,7 @@ public class Filters {
     public static final Filter Rebel_Base_Occupation = Filters.title(Title.Rebel_Base_Occupation);
     public static final Filter Rebel_Base_site = Filters.and(CardSubtype.SITE, Filters.or(Filters.partOfSystem(Title.Yavin_4), Filters.partOfSystem(Title.Hoth)));
     public static final Filter Rebel_Base_system = Filters.or(Filters.title(Title.Yavin_4), Filters.title(Title.Hoth));
-    public static final Filter Rebel_capital_starship = Filters.and(Side.LIGHT, CardType.STARSHIP, CardSubtype.CAPITAL, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPERATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
+    public static final Filter Rebel_capital_starship = Filters.and(Side.LIGHT, CardType.STARSHIP, CardSubtype.CAPITAL, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPARATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
     public static final Filter Rebel_Guard = Filters.title(Title.Rebel_Guard);
     public static final Filter Rebel_Landing_Site = Filters.title(Title.Rebel_Landing_Site);
     public static final Filter Rebel_leader = Filters.and(Icon.REBEL, Keyword.LEADER);
@@ -17915,8 +17915,8 @@ public class Filters {
     public static final Filter Rebel_pilot = Filters.and(Icon.REBEL, CardCategory.CHARACTER, Icon.PILOT);
     public static final Filter Rebel_Reinforcements = Filters.title(Title.Rebel_Reinforcements);
     public static final Filter Rebel_scout = Filters.and(Icon.REBEL, Keyword.SCOUT);
-    public static final Filter Rebel_starfighter = Filters.and(Side.LIGHT, CardSubtype.STARFIGHTER, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPERATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
-    public static final Filter Rebel_starship = Filters.and(Side.LIGHT, CardType.STARSHIP, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPERATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
+    public static final Filter Rebel_starfighter = Filters.and(Side.LIGHT, CardSubtype.STARFIGHTER, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPARATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
+    public static final Filter Rebel_starship = Filters.and(Side.LIGHT, CardType.STARSHIP, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPARATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
     public static final Filter Rebel_Strike_Team = Filters.title(Title.Rebel_Strike_Team);
     public static final Filter Rebel_Tech = Filters.title(Title.Rebel_Tech);
     public static final Filter Rebel_veteran = Filters.and(Icon.REBEL, Filters.or(Keyword.LEADER, Filters.and(Filters.or(Keyword.TROOPER, Keyword.ECHO_BASE_TROOPER, Keyword.CLOUD_CITY_TROOPER), Filters.not(Filters.keyword(Keyword.RECRUIT)))));
@@ -18232,6 +18232,7 @@ public class Filters {
     public static final Filter Toche_Station = Filters.title(Title.Toche_Station);
     public static final Filter tractor_beam = Filters.keyword(Keyword.TRACTOR_BEAM);
     public static final Filter trade_agenda = Filters.agenda(Agenda.TRADE);
+    public static final Filter Trade_Federation_starfighter = Filters.and(Icon.TRADE_FEDERATION, CardSubtype.STARFIGHTER);
     public static final Filter Trample = Filters.title(Title.Trample);
     public static final Filter Trandoshan = Filters.species(Species.TRANDOSHAN);
     public static final Filter transport = Filters.and(CardType.STARSHIP, Filters.or(ModelType.BYBLOS_G1A_TRANSPORT, ModelType.MODIFIED_TRANSPORT, ModelType.TRANSPORT, Keyword.TRANSPORT_SHIP, ModelType.ZETA_CLASS_TRANSPORT));
