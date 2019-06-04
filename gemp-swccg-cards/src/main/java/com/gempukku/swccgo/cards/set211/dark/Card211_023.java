@@ -19,23 +19,20 @@ import java.util.List;
 public class Card211_023 extends AbstractCapitalStarship {
     public Card211_023() {
         super(Side.DARK, 2, 6, 6, 5, null, 3, 8, Title.Invisible_Hand, Uniqueness.UNIQUE);
-        setGameText("May add 3 pilots, 5 passengers, and 4 [Trade Federation] starfighters. Permanent pilots provide total ability of 3. Adds one battle destiny if Grievous on table. Immune to attrition < 5.");
+        setGameText("May add 3 pilots, 5 passengers, and 4 [Trade Federation] starfighters. Permanent pilot provides ability of 3. Adds one battle destiny if Grievous on table. Immune to attrition < 5.");
         addPersona(Persona.INVISIBLE_HAND);
-        addIcons(Icon.NAV_COMPUTER, Icon.TRADE_FEDERATION, Icon.EPISODE_I);
-        addIcon(Icon.PILOT, 2);
+        addIcons(Icon.NAV_COMPUTER, Icon.TRADE_FEDERATION, Icon.EPISODE_I, Icon.SCOMP_LINK, Icon.SEPARATIST);
+        addIcon(Icon.PILOT, 1);
         addModelType(ModelType.PROVIDENCE_CLASS_DREADNAUGHT);
         setPilotCapacity(3);
         setPassengerCapacity(5);
-        setStarfighterCapacity(4); //TODO: TF starships - Blockade Flagship?
+        setStarfighterCapacity(4, Filters.Trade_Federation_starfighter);
     }
 
-
-    //BLOCKED - awaiting the answer from Proofing
     @Override
     protected List<? extends AbstractPermanentAboard> getGameTextPermanentsAboard() {
         List<AbstractPermanentAboard> permanentsAboard = new ArrayList<AbstractPermanentAboard>();
-        permanentsAboard.add(new AbstractPermanentPilot(2) {});
-        permanentsAboard.add(new AbstractPermanentPilot(1) {});
+        permanentsAboard.add(new AbstractPermanentPilot(3){});
         return permanentsAboard;
     }
 
@@ -46,5 +43,5 @@ public class Card211_023 extends AbstractCapitalStarship {
         modifiers.add(new AddsBattleDestinyModifier(self, new OnTableCondition(self, Filters.persona(Persona.GRIEVOUS)), 1));
         return modifiers;
     }
-} {
 }
+
