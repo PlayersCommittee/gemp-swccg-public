@@ -37,6 +37,7 @@ public class Card210_012 extends AbstractAlien {
         addKeywords(Keyword.GAMBLER, Keyword.SMUGGLER);
         setSpecies(Species.CORELLIAN);
         setMatchingStarshipFilter(Filters.Outrider);
+        setVirtualSuffix(true);
     }
 
 
