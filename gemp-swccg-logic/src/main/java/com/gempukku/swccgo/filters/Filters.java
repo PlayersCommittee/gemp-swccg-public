@@ -17259,6 +17259,7 @@ public class Filters {
     public static final Filter Diplomatic_Mission_To_Alderaan = Filters.title(Title.Diplomatic_Mission_To_Alderaan);
     public static final Filter disarmed_character = Filters.and(CardCategory.CHARACTER, Filters.Disarmed());
     public static final Filter disarming_card = Filters.keyword(Keyword.DISARMING_CARD);
+    public static final Filter DJ = Filters.persona(Persona.DJ);
     public static final Filter Do_Or_Do_Not = Filters.title(Title.Do_Or_Do_Not);
     public static final Filter Doallyn = Filters.title(Title.Doallyn);
     public static final Filter Docking_And_Repair_Facilities = Filters.title(Title.Docking_And_Repair_Facilities);
@@ -18034,6 +18035,7 @@ public class Filters {
     public static final Filter Rogue_Squadron_vehicle = Filters.and(CardType.VEHICLE, Keyword.ROGUE_SQUADRON);
     public static final Filter Rogue_T47 = Filters.and(Keyword.ROGUE_SQUADRON, ModelType.T_47);
     public static final Filter Ronto = Filters.keyword(Keyword.RONTO);
+    public static final Filter Rose = Filters.persona(Persona.ROSE);
     public static final Filter Royal_Guard = Filters.keyword(Keyword.ROYAL_GUARD);
     public static final Filter Royal_Naboo_Security = Filters.keyword(Keyword.ROYAL_NABOO_SECURITY);
     public static final Filter Royal_Naboo_Security_Officer = Filters.title(Title.Royal_Naboo_Security_Officer);
