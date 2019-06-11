@@ -1,9 +1,12 @@
-package com.gempukku.swccgo.cards.set211.dark;
+package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,13 +25,13 @@ import java.util.List;
  * Set: Virtual Set 11
  * Type: Weapon
  * Subtype: Character
- * Title: Dark Jedi Lightsaber (V)
+ * Title: Jedi Lightsaber (V)
  */
-public class Card211_025 extends AbstractCharacterWeapon {
-    public Card211_025() {
-        super(Side.DARK, 2, "Dark Jedi Lightsaber");
+public class Card211_033 extends AbstractCharacterWeapon {
+    public Card211_033() {
+        super(Side.LIGHT, 2, "Jedi Lightsaber");
         setLore("Multifaceted jewels focus light into a deadly blade. Projects a meter-long beam of pure energy. A lightsaber is constructed personally by a Jedi as a part of training.");
-        setGameText("Deploy on Aurra Sing, Grievous, or your warrior of ability > 4. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value.");
+        setGameText("Deploy on a character of ability > 4 or a Padawan. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
         // Not considered matching weapons for anyone.  Need to be unique to be matching. (per discussion with Aglets)
         setVirtualSuffix(true);
@@ -36,13 +39,15 @@ public class Card211_025 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return (Filters.or(Filters.Aurra_Sing, Filters.Grievous, Filters.and(Filters.your(self), Filters.warrior, Filters.abilityMoreThan(4))));
+        // needs to be your character per discussion with Aglets, 9-June-2019
+        return (Filters.or(Filters.padawan, Filters.and(Filters.your(self), Filters.abilityMoreThan(4))));
     }
 
     // Jim: Dunno when this would be different from the deploy.  maybe when weapon lev is involved?  Basically I'm not sure the purpose of this section even though it's part of what I copied from..
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return (Filters.or(Filters.Aurra_Sing, Filters.Grievous, Filters.and(Filters.your(self), Filters.warrior, Filters.abilityMoreThan(4))));
+        // needs to be your character per discussion with Aglets, 9-June-2019
+        return (Filters.or(Filters.padawan, Filters.and(Filters.your(self), Filters.abilityMoreThan(4))));
     }
 
     @Override
@@ -67,6 +72,8 @@ public class Card211_025 extends AbstractCharacterWeapon {
                 .targetForFree(Filters.or(Filters.character, targetedAsCharacter, Filters.creature), TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
             // Build action using common utility
+
+            // shared between this and DJLS(v)
             FireWeaponAction action = actionBuilder.builderDarkAndLightJediLightSaberV();
             return Collections.singletonList(action);
         }

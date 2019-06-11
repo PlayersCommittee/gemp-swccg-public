@@ -5776,10 +5776,10 @@ public class FireWeaponActionBuilder {
 
 
     /**
-     * Builds a fire weapon action for Dark Jedi Lightsaber (V).
+     * Builds a fire weapon action for Dark Jedi Lightsaber (V) and Jedi Lightsaber (V).
      * @return the action
      */
-    public FireSingleWeaponAction builderDarkJediLightSaberV() {
+    public FireSingleWeaponAction builderDarkAndLightJediLightSaberV() {
         final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
         action.setText("Fire " + action.getWeaponTitle(_game));
 
