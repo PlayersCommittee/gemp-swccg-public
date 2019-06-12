@@ -3183,6 +3183,7 @@ var fixedImages = {
 "301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asaijventresswithlightsabers.gif",
 "301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
 "301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
+"301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
 "501_1":"/gemp-swccg/images/cards/Playtesting-Dark/mitthrawnuruodo.gif"
 };
 
