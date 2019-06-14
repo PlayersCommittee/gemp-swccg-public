@@ -63,8 +63,10 @@ public class Card211_034 extends AbstractStarfighter {
             final Filter yourCharacterOfAbilityLessThanFour = Filters.and(Filters.your(self), Filters.character, Filters.abilityLessThanOrEqualTo(4));
             final Filter relatedExteriorSite = Filters.and(Filters.exterior_site, Filters.relatedLocationTo(self, Filters.here(Libertine)));
             final Filter validCharacter = Filters.and(yourCharacterOfAbilityLessThanFour, Filters.at(relatedExteriorSite));
+            int availablePassengerCapacity = game.getGameState().getAvailablePassengerCapacity(game.getModifiersQuerying(), Libertine, self);
+            int availablePilotCapacity = game.getGameState().getAvailablePilotCapacity(game.getModifiersQuerying(), Libertine, self);
             if (GameConditions.canSpot(game, self, validCharacter)
-                    && (game.getGameState().getAvailableStarfighterOrTIECapacity(self, Libertine) > 0)) {
+                    && (availablePassengerCapacity + availablePilotCapacity > 0)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Relocate your character aboard");
