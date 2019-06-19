@@ -77,7 +77,7 @@ public class Card205_013 extends AbstractAlien {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Aurra_Sing, Filters.Slave_I, Filters.Kowakian), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Aurra, Filters.Slave_I, Filters.Kowakian), true));
             return Collections.singletonList(action);
         }
         return null;

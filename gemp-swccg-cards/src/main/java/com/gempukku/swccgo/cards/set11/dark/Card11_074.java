@@ -38,12 +38,12 @@ public class Card11_074 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Aurra_Sing;
+        return Filters.Aurra;
     }
 
     @Override
     protected Filter getGameTextValidTargetFilterToRemainAttachedToAfterCrossingOver(final SwccgGame game, final PhysicalCard self, PlayCardOptionId playCardOptionId) {
-        return Filters.Aurra_Sing;
+        return Filters.Aurra;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Card11_074 extends AbstractNormalEffect {
         String playerId = self.getOwner();
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ResetTotalAbilityModifier(self, Filters.here(self), new AloneAtCondition(self, Filters.Aurra_Sing, Filters.site), 0, playerId));
+        modifiers.add(new ResetTotalAbilityModifier(self, Filters.here(self), new AloneAtCondition(self, Filters.Aurra, Filters.site), 0, playerId));
         return modifiers;
     }
 

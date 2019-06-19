@@ -16911,7 +16911,7 @@ public class Filters {
     public static final Filter At_Yavin_4_Site = Filters.atSiteOfSystem(Title.Yavin_4);
     public static final Filter Attack_Run = Filters.title(Title.Attack_Run);
     public static final Filter Audience_Chamber = Filters.title(Title.Audience_Chamber);
-    public static final Filter Aurra_Sing = Filters.title(Title.Aurra_Sing);
+    public static final Filter Aurra = Filters.persona(Persona.AURRA);
     public static final Filter automated_weapon = Filters.and(CardType.WEAPON, CardSubtype.AUTOMATED);
     public static final Filter Avarik = Filters.title(Title.Avarik);
     public static final Filter Avenger = Filters.title(Title.Avenger);
@@ -17011,6 +17011,7 @@ public class Filters {
     public static final Filter Bubo = Filters.title(Title.Bubo);
     public static final Filter Bunker = Filters.title(Title.Bunker);
     public static final Filter C3PO = Filters.persona(Persona.C3PO);
+    public static final Filter Cad = Filters.persona(Persona.CAD);
     public static final Filter Cantina = Filters.title(Title.Cantina);
     public static final Filter canyon = Filters.keyword(Keyword.CANYON);
     public static final Filter Capacitors = Filters.title(Title.Capacitors);

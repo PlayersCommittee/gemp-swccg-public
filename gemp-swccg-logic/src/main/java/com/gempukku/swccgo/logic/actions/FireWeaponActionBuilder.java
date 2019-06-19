@@ -2387,7 +2387,7 @@ public class FireWeaponActionBuilder {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
                                                                     new HitCardEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
-                                                            if (Filters.Aurra_Sing.accepts(game, action.getCardFiringWeapon())
+                                                            if (Filters.Aurra.accepts(game, action.getCardFiringWeapon())
                                                                     && Filters.Jedi.accepts(game, cardFiredAt)) {
                                                                 action.appendEffect(
                                                                         new ResetPowerUntilEndOfBattleEffect(action, cardFiredAt, 0));
