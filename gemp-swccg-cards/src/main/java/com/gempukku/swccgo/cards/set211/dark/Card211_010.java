@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Effect
+ * Title: Quietly Observing (V)
+ */
 public class Card211_010 extends AbstractNormalEffect{
     public Card211_010() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quietly Observing", Uniqueness.UNIQUE);
