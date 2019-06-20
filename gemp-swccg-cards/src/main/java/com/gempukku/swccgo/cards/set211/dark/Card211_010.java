@@ -96,7 +96,10 @@ public class Card211_010 extends AbstractNormalEffect{
         GameState gameState = game.getGameState();
         gameState.showCardOnScreen(selectedCard);
 
-        Filter title = Filters.title(selectedCard.getBlueprint().getTitle());
+        String cardTitle = selectedCard.getBlueprint().getTitle();
+        Filter title = Filters.title(cardTitle);
+
+        gameState.sendMessage(cardTitle + " is now Quietly Observing");
 
         game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, title, Keyword.ASSASSIN));
         game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, title, Keyword.QUIETLY_OBSERVING));
