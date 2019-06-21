@@ -2853,7 +2853,7 @@ var fixedImages = {
 "204_16":"/gemp-swccg/images/cards/Virtual4-Light/youassumetoomuch.gif",
 "204_17":"/gemp-swccg/images/cards/Virtual4-Light/areyouokay.gif",
 "204_18":"/gemp-swccg/images/cards/Virtual4-Light/escapepodweredoomed.gif",
-"204_19":"/gemp-swccg/images/cards/Virtual4-Light/imgettingkindofgoodatthis.gif",
+"204_19":"/gemp-swccg/images/cards/Virtual4-Light/imgettingprettygoodatthis.gif",
 "204_20":"/gemp-swccg/images/cards/Virtual4-Light/keepyoureyesopen.gif",
 "204_21":"/gemp-swccg/images/cards/Virtual4-Light/mindfulofthefuture.gif",
 "204_22":"/gemp-swccg/images/cards/Virtual4-Light/thegarbagewilldo.gif",
