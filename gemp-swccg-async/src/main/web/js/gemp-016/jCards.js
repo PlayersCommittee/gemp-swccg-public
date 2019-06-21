@@ -3119,6 +3119,8 @@ var fixedImages = {
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
 "211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
+"211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
+"211_33":"/gemp-swccg/images/cards/Virtual11-Light/jedilightsaber.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
