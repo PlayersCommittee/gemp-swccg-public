@@ -402,6 +402,7 @@ public interface Title {
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
+    String Hes_All_Yours_Bounty_Hunter = "He's All Yours, Bounty Hunter";
     String Hewex = "Major Hewex";
     String Hidden_Base = "Hidden Base";
     String Hidden_Forest_Trail = "Endor: Hidden Forest Trail";
