@@ -86,8 +86,9 @@ public class Card211_029 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_DEFAULT;
 
         // Check condition(s)
-        if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, playerId)
+        if (GameConditions.isDuringBattle(game)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.isDestinyCardMatchTo(game, Filters.and(Filters.Rebel, Filters.spy))
         ){
 
