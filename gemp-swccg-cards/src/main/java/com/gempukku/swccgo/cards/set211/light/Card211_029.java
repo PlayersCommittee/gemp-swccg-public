@@ -83,15 +83,15 @@ public class Card211_029 extends AbstractNormalEffect {
         }
 
         String playerId = self.getOwner();
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_DEFAULT;
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isDuringBattle(game)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
-                && GameConditions.isDestinyCardMatchTo(game, Filters.and(Filters.Rebel, Filters.spy))
+        if(TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
+                    && GameConditions.isDuringBattle(game)
+                    && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                    && GameConditions.isDestinyCardMatchTo(game, Filters.and(Filters.Rebel, Filters.spy))
+                    && GameConditions.hasLostPile(game, playerId)
         ){
-
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve 1 Force");
             // Update usage limit(s)
@@ -102,6 +102,7 @@ public class Card211_029 extends AbstractNormalEffect {
                     new RetrieveForceEffect(action, playerId, 1));
             actions.add(action);
         }
+
         return actions;
     }
 
