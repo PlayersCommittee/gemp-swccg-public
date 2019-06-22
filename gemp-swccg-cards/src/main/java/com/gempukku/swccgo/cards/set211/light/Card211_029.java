@@ -27,15 +27,20 @@ import java.util.List;
 /**
  * Set: Set 11
  * Type: Effect
- * Title: Make Ten Men, Feel Like A Hundred
+ * Title: Make Ten Men Feel Like A Hundred
  */
 public class Card211_029 extends AbstractNormalEffect {
     public Card211_029() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Make Ten Men, Feel Like A Hundred", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Make Ten Men Feel Like A Hundred", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If Stardust on table, deploy on table. Saw is a spy and Resistance Agent. Once per game, may deploy Saw from Reserve Deck; reshuffle. Rebel spies are deploy -1. During battle, if you just drew a Rebel spy for destiny, retrieve 1 Force. Nightfall is canceled. [Immune to Alter.]");
+        setGameText("If Stardust on table, deploy on table. Saw is a spy and Resistance Agent. Once per game, may [download] Saw. Rebel spies are deploy -1. During battle, if you just drew a Rebel spy for destiny, retrieve 1 Force. Nightfall is canceled. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);
+    }
+
+    @Override
+    protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        return Filters.canSpot(game, self, Filters.title(Title.Stardust));
     }
 
     @Override
