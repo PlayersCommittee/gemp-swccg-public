@@ -30,6 +30,7 @@ public class Card211_025 extends AbstractCharacterWeapon {
         setLore("Multifaceted jewels focus light into a deadly blade. Projects a meter-long beam of pure energy. A lightsaber is constructed personally by a Jedi as a part of training.");
         setGameText("Deploy on Aurra Sing, Grievous, or your warrior of ability > 4. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
+        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I);
         // Not considered matching weapons for anyone.  Need to be unique to be matching. (per discussion with Aglets)
         setVirtualSuffix(true);
     }
