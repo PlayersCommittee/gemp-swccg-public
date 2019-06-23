@@ -7,6 +7,7 @@ import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.effects.RespondableWeaponFiringEffect;
+import com.gempukku.swccgo.logic.modifiers.ModifiersLogic;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -5718,6 +5719,28 @@ public class Filters {
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, SwccgBuiltInCardBlueprint builtInCardBlueprint) {
                 return builtInCardBlueprint.isAstromech()
                         && Filters.and(filters).accepts(gameState, modifiersQuerying, builtInCardBlueprint.getPhysicalCard(gameState.getGame()));
+            }
+        };
+    }
+
+    /**
+     * Filter that accepts cards that may not board starfighters
+     *
+     * @param filter Filter for the cards that are potentially boarding a starship or vehicle
+     * @return Filter
+     */
+    public static Filter mayNotBoard(final PhysicalCard starshipOrVehicleToBeBoarded) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                Collection<PhysicalCard> cards = Filters.filterAllOnTable(gameState.getGame(), Filters.any);
+                for (PhysicalCard card : cards) {
+                    if (modifiersQuerying.isProhibitedFromTarget(gameState, card, starshipOrVehicleToBeBoarded)) {
+                        return true;
+                    }
+                }
+
+                return false;
             }
         };
     }
