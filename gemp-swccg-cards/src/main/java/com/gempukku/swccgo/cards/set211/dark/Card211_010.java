@@ -53,40 +53,44 @@ public class Card211_010 extends AbstractNormalEffect{
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)){
-            final TopLevelGameTextAction revealFromReserve = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            revealFromReserve.setText("Reveal a unique (•) alien from Reserve Deck");
-            revealFromReserve.setActionMsg("Reveal a unique (•) alien from Reserve Deck");
-            revealFromReserve.appendUsage(
-                    new OncePerGameEffect(revealFromReserve));
-            revealFromReserve.appendEffect(
-                    new ChooseCardFromReserveDeckEffect(revealFromReserve, playerId, uniqueAliens) {
-                        @Override
-                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                            setModifiers(self, game, selectedCard);
+            if(!game.getGameState().getReserveDeck(playerId).isEmpty()){
+                final TopLevelGameTextAction revealFromReserve = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                revealFromReserve.setText("Reveal a unique (•) alien from Reserve Deck");
+                revealFromReserve.setActionMsg("Reveal a unique (•) alien from Reserve Deck");
+                revealFromReserve.appendUsage(
+                        new OncePerGameEffect(revealFromReserve));
+                revealFromReserve.appendEffect(
+                        new ChooseCardFromReserveDeckEffect(revealFromReserve, playerId, uniqueAliens) {
+                            @Override
+                            protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                                setModifiers(self, game, selectedCard);
+                            }
                         }
-                    }
-            );
-            revealFromReserve.appendEffect(
-                    new ShuffleReserveDeckEffect(revealFromReserve));
-            actions.add(revealFromReserve);
+                );
+                revealFromReserve.appendEffect(
+                        new ShuffleReserveDeckEffect(revealFromReserve));
+                actions.add(revealFromReserve);
+            }
 
-            final TopLevelGameTextAction revealFromHand = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            revealFromHand.setText("Reveal a unique (•) alien from hand");
-            revealFromHand.setActionMsg("Reveal a unique (•) alien from hand");
-            final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
-            final List<PhysicalCard> validAliens = new ArrayList<>(Filters.filter(cardsInHand, game, uniqueAliens));
+            if (!game.getGameState().getHand(playerId).isEmpty()){
+                final TopLevelGameTextAction revealFromHand = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                revealFromHand.setText("Reveal a unique (•) alien from hand");
+                revealFromHand.setActionMsg("Reveal a unique (•) alien from hand");
+                final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
+                final List<PhysicalCard> validAliens = new ArrayList<>(Filters.filter(cardsInHand, game, uniqueAliens));
 
-            revealFromHand.appendUsage(
-                    new OncePerGameEffect(revealFromHand));
-            revealFromHand.appendEffect(
-                    new ChooseCardFromHandEffect(revealFromHand, playerId, Filters.in(validAliens)) {
-                        @Override
-                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                            setModifiers(self, game, selectedCard);
+                revealFromHand.appendUsage(
+                        new OncePerGameEffect(revealFromHand));
+                revealFromHand.appendEffect(
+                        new ChooseCardFromHandEffect(revealFromHand, playerId, Filters.in(validAliens)) {
+                            @Override
+                            protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                                setModifiers(self, game, selectedCard);
+                            }
                         }
-                    }
-            );
-            actions.add(revealFromHand);
+                );
+                actions.add(revealFromHand);
+            }
         }
 
         return actions;
