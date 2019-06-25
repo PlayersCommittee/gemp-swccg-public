@@ -17225,6 +17225,7 @@ public class Filters {
     public static final Filter Dont_Get_Cocky = Filters.title(Title.Dont_Get_Cocky);
     public static final Filter Dont_Underestimate_Our_Chances = Filters.title(Title.Dont_Underestimate_Our_Chances);
     public static final Filter Dooku = Filters.persona(Persona.DOOKU);
+    public static final Filter Dopra_Doompa= Filters.title(Title.Dobra_Doompa);
     public static final Filter Double_Agent = Filters.title(Title.Double_Agent);
     public static final Filter Double_Back = Filters.title(Title.Double_Back);
     public static final Filter Downtown_Plaza = Filters.title(Title.Downtown_Plaza);
@@ -17697,7 +17698,9 @@ public class Filters {
     public static final Filter Mauls_Lightsaber = Filters.persona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);
     public static final Filter Maul_Strikes = Filters.title(Title.Maul_Strikes);
     public static final Filter Maz = Filters.persona(Persona.Maz);
-    public static final Filter Mazs_Palace_Location = Filters.keyword(Keyword.MAZS_PALACE_LOCATION);
+    public static final Filter Mazs_Castle = Filters.title(Title.Mazs_Castle);
+    public static final Filter Mazs_Castle_Location = Filters.keyword(Keyword.MAZS_CASTLE_LOCATION);
+    //public static final Filter Mazs_Castle_Site= Filters.and(Filters.keyword(Keyword.MAZS_CASTLE_LOCATION), Filters.site);
     public static final Filter Mechanical_Failure = Filters.title(Title.Mechanical_Failure);
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);
     public static final Filter Meditation_Chamber = Filters.title(Title.Meditation_Chamber);
@@ -18137,6 +18140,7 @@ public class Filters {
     public static final Filter Take_Them_Away = Filters.title(Title.Take_Them_Away);
     public static final Filter Take_Your_Fathers_Place = Filters.title(Title.Take_Your_Fathers_Place);
     public static final Filter Takeel = Filters.title(Title.Takeel);
+    public static final Filter Takonada_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Takodana));
     public static final Filter Tala_1 = Filters.title(Title.Tala_1);
     public static final Filter Tala_2 = Filters.title(Title.Tala_2);
     public static final Filter Tallon_Roll = Filters.title(Title.Tallon_Roll);

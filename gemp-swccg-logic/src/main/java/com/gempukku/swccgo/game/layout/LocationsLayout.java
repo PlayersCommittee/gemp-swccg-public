@@ -96,6 +96,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             else if (system.getTitle().equals(Title.Tatooine)) {
                 systemLayout = new TatooineLayout(system.getTitle(), system.getParsec());
             }
+            else if (system.getTitle().equals(Title.Takodana)) {
+                systemLayout = new TakodanaLayout(system.getTitle(), system.getParsec());
+            }
             else if (system.getTitle().equals(Title.Yavin_4)) {
                 systemLayout = new Yavin4Layout(system.getTitle(), system.getParsec());
             }
@@ -113,6 +116,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
         addToLayouts(new DefaultPlanetLayout(Title.Mustafar, 7));
         addToLayouts(new DefaultPlanetLayout(Title.Scarif, 17));
         addToLayouts(new DefaultPlanetLayout(Title.Ahch_To, 5)); // Need to be changed when system is implemented.
+        //addToLayouts(new DefaultPlanetLayout(Title.Takodana, 5));
     }
 
     /**
