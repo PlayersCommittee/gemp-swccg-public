@@ -3124,7 +3124,7 @@ var fixedImages = {
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
-"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asaijventresswithlightsabers.gif",
+"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asajjventresswithlightsabers.gif",
 "301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
 "301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
 "301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
