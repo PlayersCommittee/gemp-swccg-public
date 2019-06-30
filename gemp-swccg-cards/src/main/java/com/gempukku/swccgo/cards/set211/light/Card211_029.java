@@ -10,6 +10,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
@@ -69,6 +70,30 @@ public class Card211_029 extends AbstractNormalEffect {
     }
 
     @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        if(TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
+                && GameConditions.isDuringBattle(game)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isDestinyCardMatchTo(game, Filters.and(Filters.Rebel, Filters.spy))
+                && GameConditions.hasLostPile(game, playerId)
+        ){
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Retrieve 1 Force");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerBattleEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new RetrieveForceEffect(action, playerId, 1));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
@@ -80,27 +105,6 @@ public class Card211_029 extends AbstractNormalEffect {
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Nightfall, Title.Nightfall);
                 actions.add(action);
             }
-        }
-
-        String playerId = self.getOwner();
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-
-        // Check condition(s)
-        if(TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
-                    && GameConditions.isDuringBattle(game)
-                    && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                    && GameConditions.isDestinyCardMatchTo(game, Filters.and(Filters.Rebel, Filters.spy))
-                    && GameConditions.hasLostPile(game, playerId)
-        ){
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Retrieve 1 Force");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new RetrieveForceEffect(action, playerId, 1));
-            actions.add(action);
         }
 
         return actions;
