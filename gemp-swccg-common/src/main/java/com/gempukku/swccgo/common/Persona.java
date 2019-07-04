@@ -78,6 +78,7 @@ public enum Persona implements Filterable {
     ZUCKUSS("Zuckuss"),
 
     // Starships
+    BLACK_1("Black 1"),
     BLACK_2("Black 2"),
     BLACK_3("Black 3"),
     BLOCKADE_FLAGSHIP("Blockade Flagship"),
