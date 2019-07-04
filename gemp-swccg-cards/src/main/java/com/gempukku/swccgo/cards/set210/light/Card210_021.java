@@ -7,9 +7,10 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.*;
@@ -50,49 +51,53 @@ public class Card210_021 extends AbstractNormalEffect {
 
 
     @Override
-    protected StandardEffect getGameTextSpecialDeployCostEffect(final Action action, final String playerId, SwccgGame game, final PhysicalCard self, PhysicalCard target, PlayCardOption playCardOption) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
 
-        // This code is triggered in two different ways:
-        // 1) When playing starting interrupts (no 'target')
-        // 2) After you play this card on a character (has a target)
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
-        if (target == null) {
-            // No target. No special costs (this is likely start-of-game deployment)
-            return null;
+        // When we deploy this card, we need to pick a species immediately
+        if (TriggerConditions.justDeployed(game, effectResult, self)) {
+
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+
+            // Build the list of species first (both a text-array and a species array)
+            List<Species> speciesHereBuilder = new LinkedList<>();
+            List<String> speciesTextListBuilder = new LinkedList<>();
+            for (Species specie: Species.values()) {
+                Filter alienOfSpeciesHere = Filters.and(Filters.here(self), Filters.alien, Filters.species(specie));
+                if (GameConditions.canSpot(game, self, 1, false, alienOfSpeciesHere)) {
+                    speciesHereBuilder.add(specie);
+                    speciesTextListBuilder.add(specie.toString());
+                }
+            }
+
+            // Let the player pick which of the species they want to copy
+            final List<Species> speciesHere = speciesHereBuilder;
+            final List<String> speciesTextList = speciesTextListBuilder;
+
+            action.appendEffect(new PassthruEffect(action) {
+                @Override
+                protected void doPlayEffect(final SwccgGame game) {
+                    // Ask player which species we want to add to this character
+                    game.getUserFeedback().sendAwaitingDecision(self.getOwner(),
+                            new MultipleChoiceAwaitingDecision("Choose species to add to character", speciesTextList.toArray(new String[0]), speciesHere.size() - 1) {
+                                @Override
+                                public void validDecisionMade(int index, String result) {
+                                    final Species speciesChosen = speciesHere.get(index);
+                                    self.setWhileInPlayData(new WhileInPlayData(speciesChosen));
+
+                                    // Tell GEMP that this card changed (has a target now)
+                                    // The code below refreshes it's "whileActiveInPlayModifiers"
+                                    game.getGameState().reapplyAffectingForCard(game, self);
+                                }
+                            });
+                }
+            });
+
+            actions.add(action);
         }
 
-
-        // Part of the 'cost' for deploying this is picking the species
-        // Build the list of species first (both a text-array and a species array)
-        List<Species> speciesHereBuilder = new LinkedList<>();
-        List<String> speciesTextListBuilder = new LinkedList<>();
-        for (Species specie: Species.values()) {
-            Filter alienOfSpeciesHere = Filters.and(Filters.here(target), Filters.alien, Filters.species(specie));
-            if (GameConditions.canSpot(game, self, 1, false, alienOfSpeciesHere)) {
-                speciesHereBuilder.add(specie);
-                speciesTextListBuilder.add(specie.toString());
-            }
-        }
-
-        // Let the player pick which of the species they want to copy
-        final List<Species> speciesHere = speciesHereBuilder;
-        final List<String> speciesTextList = speciesTextListBuilder;
-
-
-        return new PassthruEffect(action) {
-            @Override
-            protected void doPlayEffect(SwccgGame game) {
-                // Ask player which species we want to add to this character
-                game.getUserFeedback().sendAwaitingDecision(playerId,
-                        new MultipleChoiceAwaitingDecision("Choose species to add to character", speciesTextList.toArray(new String[0]), speciesHere.size() - 1) {
-                            @Override
-                            public void validDecisionMade(int index, String result) {
-                                final Species speciesChosen = speciesHere.get(index);
-                                self.setWhileInPlayData(new WhileInPlayData(speciesChosen));
-                            }
-                        });
-            }
-        };
+        return actions;
 
     }
 
