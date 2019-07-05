@@ -30,7 +30,7 @@ public class Card211_018 extends AbstractSite {
         setLocationLightSideGameText("Your docking bay transit from here requires 2 Force (1 if Obi-Wan present).");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.EPISODE_I, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
+        addIcons(Icon.EPISODE_I, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_11);
         addKeywords(Keyword.DOCKING_BAY);
     }
 

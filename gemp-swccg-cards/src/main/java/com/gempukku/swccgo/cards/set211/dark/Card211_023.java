@@ -21,7 +21,7 @@ public class Card211_023 extends AbstractCapitalStarship {
         super(Side.DARK, 2, 6, 6, 5, null, 3, 8, Title.Invisible_Hand, Uniqueness.UNIQUE);
         setGameText("May add 3 pilots, 5 passengers, and 4 [Trade Federation] starfighters. Permanent pilot provides ability of 3. Adds one battle destiny if Grievous on table. Immune to attrition < 5.");
         addPersona(Persona.INVISIBLE_HAND);
-        addIcons(Icon.NAV_COMPUTER, Icon.TRADE_FEDERATION, Icon.EPISODE_I, Icon.SCOMP_LINK, Icon.SEPARATIST);
+        addIcons(Icon.NAV_COMPUTER, Icon.TRADE_FEDERATION, Icon.EPISODE_I, Icon.SCOMP_LINK, Icon.SEPARATIST, Icon.VIRTUAL_SET_11);
         addIcon(Icon.PILOT, 1);
         addModelType(ModelType.PROVIDENCE_CLASS_DREADNAUGHT);
         setPilotCapacity(3);

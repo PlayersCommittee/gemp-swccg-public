@@ -26,7 +26,7 @@ public class Card211_021 extends AbstractUniqueStarshipSite {
         setLocationLightSideGameText("Your docking bay transit from here requires 3 force (free if Palpatine present).");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.SCOMP_LINK, Icon.EPISODE_I, Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE);
+        addIcons(Icon.SCOMP_LINK, Icon.EPISODE_I, Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.VIRTUAL_SET_11);
         addKeywords(Keyword.DOCKING_BAY);
     }
 
