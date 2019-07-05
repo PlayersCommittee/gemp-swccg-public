@@ -37,6 +37,7 @@ public class Card203_027 extends AbstractRepublic {
         addPersona(Persona.GRIEVOUS);
         addIcons(Icon.EPISODE_I, Icon.SEPARATIST, Icon.VIRTUAL_SET_3);
         addIcon(Icon.WARRIOR, 4);
+        addPersona(Persona.GRIEVOUS);
     }
 
     @Override

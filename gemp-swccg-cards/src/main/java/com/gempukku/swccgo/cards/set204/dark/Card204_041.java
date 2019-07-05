@@ -29,7 +29,7 @@ public class Card204_041 extends AbstractFirstOrder {
     public Card204_041() {
         super(Side.DARK, 2, 3, 3, 3, 5, Title.Hux, Uniqueness.UNIQUE);
         setLore("Leader.");
-        setGameText("[Pilot] 3. Deploys -2 aboard Finalizer. Your First Order characters and [First Order] starships are destiny +1. Once per game, may [upload] Strategic Reserves or a First Order stormtrooper.");
+        setGameText("[Pilot] 3. Deploys -2 aboard Finalizer. Your First Order characters and [First Order] starships are destiny +1. Once per game, may [upload] a First Order stormtrooper.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.GENERAL, Keyword.LEADER);
         setMatchingStarshipFilter(Filters.Finalizer);
@@ -53,7 +53,7 @@ public class Card204_041 extends AbstractFirstOrder {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.GENERAL_HUX__UPLOAD_STRATEGIC_RESERVES_OR_FIRST_ORDER_STORMTROOPER;
+        GameTextActionId gameTextActionId = GameTextActionId.GENERAL_HUX__UPLOAD_FIRST_ORDER_STORMTROOPER;
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
@@ -61,13 +61,13 @@ public class Card204_041 extends AbstractFirstOrder {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take Strategic Reserves or a First Order stormtrooper into hand from Reserve Deck");
+            action.setActionMsg("Take a First Order stormtrooper into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Strategic_Reserves, Filters.and(Filters.First_Order_character, Filters.stormtrooper)), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.First_Order_character, Filters.stormtrooper), true));
             return Collections.singletonList(action);
         }
         return null;
