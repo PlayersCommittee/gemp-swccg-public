@@ -25,7 +25,7 @@ public class Card211_020 extends AbstractUniqueStarshipSite{
         setLocationDarkSideGameText("Once per game, if you control, may take Invisible Hand into hand from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Unless your [Clone Army] character here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
-        addIcons(Icon.EPISODE_I, Icon.INTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.VIRTUAL_SET_11);
+        addIcons(Icon.EPISODE_I, Icon.INTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_11);
     }
 
     @Override
