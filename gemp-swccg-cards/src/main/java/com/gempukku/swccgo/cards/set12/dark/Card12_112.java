@@ -39,8 +39,8 @@ public class Card12_112 extends AbstractRepublic {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForfeitModifier(self, Filters.and(Filters.your(self), Filters.or(Filters.destroyer_droid, Filters.battle_droid),
                 Filters.atSameOrRelatedSite(self)), 1));
-        modifiers.add(new MayNotMoveToLocationModifier(self, opponentsJedi, aboardBlockadeFlagship, Filters.Bridge));
-        modifiers.add(new MayNotDeployToLocationModifier(self, opponentsJedi, aboardBlockadeFlagship, Filters.Bridge));
+        modifiers.add(new MayNotMoveToLocationModifier(self, opponentsJedi, aboardBlockadeFlagship, Filters.BlockadeFlagshipBridge));
+        modifiers.add(new MayNotDeployToLocationModifier(self, opponentsJedi, aboardBlockadeFlagship, Filters.BlockadeFlagshipBridge));
         modifiers.add(new DestinyWhenDrawnForBattleDestinyModifier(self, Filters.and(Filters.your(self), Filters.destroyer_droid),
                 aboardBlockadeFlagship, 3));
         return modifiers;

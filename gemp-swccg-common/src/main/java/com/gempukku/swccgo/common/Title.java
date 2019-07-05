@@ -126,7 +126,7 @@ public interface Title {
     String Bravo_5 = "Bravo 5";
     String Bravo_Fighter = "Bravo Fighter";
     String Breached_Defenses = "Breached Defenses";
-    String Bridge = "Blockade Flagship: Bridge";
+    String BlockadeFlagshipBridge = "Blockade Flagship: Bridge";
     String Bring_Him_Before_Me = "Bring Him Before Me";
     String Brisky_Morning_Munchen = "Brisky Morning Munchen";
     String Broken_Concentration = "Broken Concentration";
@@ -481,6 +481,7 @@ public interface Title {
     String Into_The_Ventilation_Shaft_Lefty = "Into The Ventilation Shaft, Lefty";
     String Interrogation_Array = "Interrogation Array";
     String Invasion = "Invasion";
+    String Invisible_Hand = "Invisible Hand";
     String Ion_Cannon = "Ion Cannon";
     String Irol = "Sergeant Irol";
     String ISB_Operations = "ISB Operations";
