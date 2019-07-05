@@ -24,10 +24,9 @@ import java.util.*;
  * Subtype: Alien
  * Title: Paploo
  */
-
 public class Card210_022 extends AbstractAlien {
     public Card210_022() {
-        super(Side.LIGHT, 3, 2, 2, 2, 2, Title.Paploo);
+        super(Side.LIGHT, 3, 2, 2, 2, 2, Title.Paploo, Uniqueness.UNIQUE);
         setLore("Ewok scout. Son of Warok. Brave, adventurous thief. Stole an Imperial speeder bike to create a diversion. 'Not bad for a little furball.'");
         setGameText("While on Endor, Perimeter Patrol is suspended. Once per game, if in battle with a speeder bike (or two scouts), may relocate Paploo and one opponent's character of ability < 4 present with him (unless either are ‘hit’) to an adjacent site.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.ENDOR);

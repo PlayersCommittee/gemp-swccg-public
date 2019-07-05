@@ -2853,7 +2853,7 @@ var fixedImages = {
 "204_16":"/gemp-swccg/images/cards/Virtual4-Light/youassumetoomuch.gif",
 "204_17":"/gemp-swccg/images/cards/Virtual4-Light/areyouokay.gif",
 "204_18":"/gemp-swccg/images/cards/Virtual4-Light/escapepodweredoomed.gif",
-"204_19":"/gemp-swccg/images/cards/Virtual4-Light/imgettingkindofgoodatthis.gif",
+"204_19":"/gemp-swccg/images/cards/Virtual4-Light/imgettingprettygoodatthis.gif",
 "204_20":"/gemp-swccg/images/cards/Virtual4-Light/keepyoureyesopen.gif",
 "204_21":"/gemp-swccg/images/cards/Virtual4-Light/mindfulofthefuture.gif",
 "204_22":"/gemp-swccg/images/cards/Virtual4-Light/thegarbagewilldo.gif",
@@ -3119,12 +3119,15 @@ var fixedImages = {
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
 "211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
+"211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
+"211_33":"/gemp-swccg/images/cards/Virtual11-Light/jedilightsaber.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
-"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asaijventresswithlightsabers.gif",
+"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asajjventresswithlightsabers.gif",
 "301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
 "301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
+"301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
 "501_1":"/gemp-swccg/images/cards/Playtesting-Dark/mitthrawnuruodo.gif"
 };
 
