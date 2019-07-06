@@ -3151,7 +3151,7 @@ var fixedImages = {
 "211_32":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_33":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_34":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_35":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_35":"/gemp-swccg/images/cards/Virtual11-Light/tallielintrainbluesquadron1.gif",
 "211_36":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_37":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_38":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
