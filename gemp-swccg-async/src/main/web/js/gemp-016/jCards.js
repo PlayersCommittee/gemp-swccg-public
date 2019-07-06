@@ -3557,8 +3557,21 @@ var Card = Class.extend({
 
         }
         if (setNo == 211) {
-            // TODO: Add Horizontal Set11 cards here
-            return false;
+            return (cardNo == 17) ||
+                   (cardNo == 18) ||
+                   (cardNo == 20) ||
+                   (cardNo == 21) ||
+                   (cardNo == 22) ||
+                   (cardNo == 27) ||
+                   (cardNo == 38) ||
+                   (cardNo == 39) ||
+                   (cardNo == 40) ||
+                   (cardNo == 41) ||
+                   (cardNo == 42) ||
+                   (cardNo == 44) ||
+                   (cardNo == 45) ||
+                   (cardNo == 46) ||
+                   (cardNo == 47);
         }
         if (setNo == 501) {
             return (cardNo == 9);
