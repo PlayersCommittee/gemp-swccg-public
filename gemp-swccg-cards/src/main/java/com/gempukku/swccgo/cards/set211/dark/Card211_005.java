@@ -49,7 +49,7 @@ public class Card211_005 extends AbstractAlien {
     }
 
     private boolean canPerformReeYeesAction(SwccgGame game, String playerId) {
-        return (GameConditions.canUseForce(game, playerId, 1)
+        return (GameConditions.canActivateForce(game, playerId)
                 || (GameConditions.hasUsedPile(game, playerId))
                 || (GameConditions.hasHand(game, playerId)));
     }
