@@ -34,7 +34,7 @@ public class Card211_045 extends AbstractSite {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
         Condition lukeHere = new HereCondition(self, Filters.Luke);
-        modifiers.add(new ExtraForceCostToFireWeaponModifier(self, Filters.opponents(self), lukeHere, 1));
+        modifiers.add(new ExtraForceCostToFireWeaponModifier(self, Filters.opponents(playerOnLightSideOfLocation), lukeHere, 1));
         return modifiers;
     }
 
