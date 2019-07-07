@@ -32,7 +32,7 @@ public class Card211_057 extends AbstractAlien {
         super(Side.LIGHT, 2, 2, 2, 4, 4, Title.Maz, Uniqueness.UNIQUE);
         setLore("Female Information broker and leader");
         // Text was updated sometime around 7/5/2019
-        setGameText("[Pilot] 1. Opponent's total battle destiny is -1 here. During your turn, may reveal the top three cards of your Reserve Deck.  May take one alien into hand.  Shuffle your Reserve Deck.");
+        setGameText("[Pilot] 1. Opponent's total battle destiny is -1 here. During your turn, may reveal the top three cards of your Reserve Deck, take one alien into hand (if possible), and shuffle your Reserve Deck.");
         addPersona(Persona.Maz);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_11);
         addKeywords(Keyword.FEMALE, Keyword.INFORMATION_BROKER, Keyword.LEADER);
@@ -66,7 +66,7 @@ public class Card211_057 extends AbstractAlien {
                         @Override
                         protected void cardsRevealed(final List<PhysicalCard> cards) {
                             action.appendEffect(
-                                    new ChooseArbitraryCardsEffect(action, playerId, "Choose alien to take into hand", cards, Filters.alien, 0, 1) {
+                                    new ChooseArbitraryCardsEffect(action, playerId, "Choose alien to take into hand", cards, Filters.alien, 1, 1) {
                                         @Override
                                         protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                             if (!selectedCards.isEmpty()) {
