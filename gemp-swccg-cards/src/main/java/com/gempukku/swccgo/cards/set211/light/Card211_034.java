@@ -63,7 +63,11 @@ public class Card211_034 extends AbstractStarfighter {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)) {
             final Filter yourCharacterOfAbilityLessThanFour = Filters.and(Filters.your(self), Filters.character, Filters.abilityLessThanOrEqualTo(4));
             final Filter relatedExteriorSite = Filters.and(Filters.exterior_site, Filters.relatedLocationTo(self, Filters.here(Libertine)));
-            final Filter validCharacters = Filters.and(yourCharacterOfAbilityLessThanFour, Filters.at(relatedExteriorSite), Filters.not(Filters.mayNotBoard(Libertine)));
+            final Filter validCharacters = Filters.and(
+                    yourCharacterOfAbilityLessThanFour
+                    , Filters.canBeRelocated(false)
+                    , Filters.at(relatedExteriorSite)
+                    , Filters.not(Filters.mayNotBoard(Libertine)));
             final int availablePassengerCapacity = game.getGameState().getAvailablePassengerCapacity(game.getModifiersQuerying(), Libertine, self);
             final int availablePilotCapacity = game.getGameState().getAvailablePilotCapacity(game.getModifiersQuerying(), Libertine, self);
             final Filter validCharactersMeetingCapacityRequirements = validCharactersMeetingCapacityRequirements(validCharacters, availablePassengerCapacity, availablePilotCapacity);

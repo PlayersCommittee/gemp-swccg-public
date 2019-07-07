@@ -7862,6 +7862,35 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that may be relocated.
+     */
+    public static final Filter canBeRelocated(final boolean allowEscort) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                        && physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
+                        && physicalCard.getBlueprint().getCardCategory() != CardCategory.STARSHIP)
+                    return false;
+                // 1) Check if card is at a location
+                PhysicalCard currentLocation = modifiersQuerying.getLocationThatCardIsAt(gameState, physicalCard);
+                if (currentLocation == null)
+                    return false;
+
+                // 2) Check if card can move
+                if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
+                    return false;
+                }
+                // 3) Check if escorting a captive
+                if (!allowEscort && Filters.escort.accepts(gameState, modifiersQuerying, physicalCard)) {
+                    return false;
+                }
+                return true;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts locations the specified card can be relocated to.
      *
      * @param cardToMove the card to be relocated
