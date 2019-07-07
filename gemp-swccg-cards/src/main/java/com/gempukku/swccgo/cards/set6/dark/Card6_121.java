@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card6_121 extends AbstractAlien {
     public Card6_121() {
-        super(Side.DARK, 3, 3, 3, 3, 3, "Ree-Yees", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 3, 3, Title.ReeYees, Uniqueness.UNIQUE);
         setLore("Gran convicted of murder. Exiled from his homeworld. Smuggler and bounty hunter. Slowly going insane. Fond of making things explode. Plotting to kill Jabba.");
         setGameText("Thrice per battle at same site, if you just drew a battle destiny of 3, may use 3 Force to add 3 to that destiny.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
