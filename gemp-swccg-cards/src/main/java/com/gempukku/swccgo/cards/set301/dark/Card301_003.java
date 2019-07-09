@@ -28,7 +28,7 @@ public class Card301_003 extends AbstractSith {
         super(Side.DARK, 1, 5, 4, 5, 7, "Asajj Ventress With Lightsabers", Uniqueness.UNIQUE);
         setLore("Female Dathomirian assassin");
         setGameText("Power +1 with Dooku. Permanent weapon is •Asajj's Lightsabers (may target a character for free, or target two characters using 1 Force; draw two destiny; target(s) hit and forfeit -2 if total destiny > total defense value).");
-        addIcons(Icon.PREMIUM, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.SEPERATIST, Icon.VIRTUAL_SET_P);
+        addIcons(Icon.PREMIUM, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.SEPARATIST, Icon.VIRTUAL_SET_P);
         addKeywords(Keyword.FEMALE, Keyword.ASSASSIN);
         setSpecies(Species.DATHOMIRIAN);
     }

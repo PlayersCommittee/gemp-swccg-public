@@ -19,11 +19,11 @@ import java.util.List;
  * Set: Set 4
  * Type: Interrupt
  * Subtype: Lost
- * Title: I'm Getting Kind Of Good At This
+ * Title: I'm Getting Pretty Good At This
  */
 public class Card204_019 extends AbstractLostInterrupt {
     public Card204_019() {
-        super(Side.LIGHT, 5, "I'm Getting Kind Of Good At This", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "I'm Getting Pretty Good At This", Uniqueness.UNIQUE);
         setLore("Starship blaster, often slung in turret mounts to take advantage of light weight and quick targeting motions. Installed on many starships including the Millennium Falcon.");
         setGameText("If Finn and either Poe or Rey are in battle together, you may add two battle destiny. OR [Download] Finn aboard any starship or vehicle.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
