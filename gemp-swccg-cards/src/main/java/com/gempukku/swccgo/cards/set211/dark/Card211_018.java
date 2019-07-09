@@ -25,7 +25,7 @@ public class Card211_018 extends AbstractSite {
      * Title: Coruscant: Private Platform (Docking Bay)
      */
     public Card211_018() {
-        super(Side.DARK, "Coruscant: Private Platform (Docking Bay)", Title.Coruscant);
+        super(Side.DARK, Title.Private_Platform, Title.Coruscant);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force.");
         setLocationLightSideGameText("Your docking bay transit from here requires 2 Force (1 if Obi-Wan present).");
         addIcon(Icon.DARK_FORCE, 1);

@@ -8,6 +8,7 @@ public interface Title {
     String _21B = "2-1B (Too-Onebee)";
     String _3720_To_1 = "3,720 To 1";
     String _4LOMs_Concussion_Rifle = "4-LOM's Concussion Rifle";
+    String _500_Republica = "Coruscant: 500 Republica";
     String _5D6RA7 = "5D6-RA-7 (Fivedesix)";
     String _8D8 = "8D8";
     String A_Dangerous_Time = "A Dangerous Time";
@@ -719,6 +720,7 @@ public interface Title {
     String Prepare_The_Chamber = "Prepare The Chamber";
     String Presence_Of_The_Force = "Presence Of The Force";
     String Pride_Of_The_Empire = "Pride Of The Empire";
+    String Private_Platform = "Coruscant: Private Platform (Docking Bay)";
     String Probe_Droid = "Probe Droid";
     String Probe_Telemetry = "Probe Telemetry";
     String Profundity = "Profundity";

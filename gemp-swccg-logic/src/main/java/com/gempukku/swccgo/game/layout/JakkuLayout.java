@@ -37,7 +37,7 @@ public class JakkuLayout extends AbstractSystemLayout {
                 new LocationReversibleGroupOrder(
                         //  A) Rey's Encampment
                         new LocationGroup("Rey's Encampment", Filters.Reys_Encampment),
-                        //  B) Theed Palace Courtyard
+                        //  B) Niima Outpost Shipyard
                         new LocationGroup("Niima Outpost Shipyard", Filters.Niima_Outpost_Shipyard),
                         //  C) Exterior sites
                         new LocationGroup("Exterior sites", Filters.and(Filters.exterior_site, Filters.not(Filters.or(Filters.interior_site,
