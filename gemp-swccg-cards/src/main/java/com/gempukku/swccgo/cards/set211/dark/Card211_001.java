@@ -37,7 +37,7 @@ public class Card211_001 extends AbstractAlienImperial {
         super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE);
         setLore("Thrawn. Chiss commander. Leader.");
         setGameText("[Pilot] 3. Thrawn's game text may not be canceled. May lose 1 Force to cancel a weapon destiny at same system. Once per turn, may target a related location: the next time opponent moves there this turn, they lose 1 Force.");
-        addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_11);
+        addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
         addPersona(Persona.THRAWN);
         addKeywords(Keyword.LEADER, Keyword.COMMANDER);
     }

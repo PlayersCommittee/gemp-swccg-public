@@ -26,7 +26,7 @@ public class Card204_036 extends AbstractDroid {
         super(Side.DARK, 2, 4, 4, 4, "B2 Battle Droid", Uniqueness.RESTRICTED_3);
         setArmor(5);
         setGameText("Draws one battle destiny if unable to otherwise. Attrition against opponent is +1 here.");
-        addIcons(Icon.EPISODE_I, Icon.PRESENCE, Icon.SEPARATIST, Icon.VIRTUAL_SET_4);
+        addIcons(Icon.EPISODE_I, Icon.PRESENCE, Icon.SEPERATIST, Icon.VIRTUAL_SET_4);
         addModelType(ModelType.BATTLE);
     }
 

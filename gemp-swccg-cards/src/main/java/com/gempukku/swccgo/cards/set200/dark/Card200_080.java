@@ -30,7 +30,7 @@ public class Card200_080 extends AbstractDroid {
         super(Side.DARK, 2, 3, 3, 3, "Droideka");
         setArmor(3);
         setGameText("Permanent weapon is Twin Blaster Cannons (may target a character or vehicle; draw destiny; add 2 if targeting a vehicle; if destiny > defense value, target hit and you may activate 1 Force). While with another destroyer droid at a site, adds one battle destiny.");
-        addIcons(Icon.EPISODE_I, Icon.PERMANENT_WEAPON, Icon.PRESENCE, Icon.SEPARATIST, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.EPISODE_I, Icon.PERMANENT_WEAPON, Icon.PRESENCE, Icon.SEPERATIST, Icon.VIRTUAL_SET_0);
         addModelType(ModelType.DESTROYER);
     }
 
