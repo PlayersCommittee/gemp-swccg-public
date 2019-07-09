@@ -38,12 +38,12 @@ public class Card200_142 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.or(Filters.Dooku, Filters.and(Icon.SEPARATIST, Filters.character, Filters.abilityMoreThan(4))));
+        return Filters.and(Filters.your(self), Filters.or(Filters.Dooku, Filters.and(Icon.SEPERATIST, Filters.character, Filters.abilityMoreThan(4))));
     }
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.or(Filters.Dooku, Filters.and(Icon.SEPARATIST, Filters.character, Filters.abilityMoreThan(4)));
+        return Filters.or(Filters.Dooku, Filters.and(Icon.SEPERATIST, Filters.character, Filters.abilityMoreThan(4)));
     }
 
     @Override

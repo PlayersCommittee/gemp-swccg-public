@@ -89,7 +89,7 @@ public enum Icon implements Filterable {
     GRABBER("Grabber"),
     INDEPENDENT("Independent"),
     MAINTENANCE("Maintenance"),
-    SEPARATIST("Separatist"),
+    SEPERATIST("Seperatist"),
     SCOMP_LINK("Scomp Link"),
     TRADE_FEDERATION("Trade Federation");
 

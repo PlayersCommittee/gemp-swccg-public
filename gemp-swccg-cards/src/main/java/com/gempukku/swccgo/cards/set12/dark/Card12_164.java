@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card12_164 extends AbstractUniqueStarshipSite {
     public Card12_164() {
-        super(Side.DARK, Title.BlockadeFlagshipBridge, Persona.BLOCKADE_FLAGSHIP);
+        super(Side.DARK, Title.Bridge, Persona.BLOCKADE_FLAGSHIP);
         setLocationDarkSideGameText("While you control with Haako, Gunray, or Dofine, your [Presence] droids are power +1.");
         setLocationLightSideGameText("Unless your Jedi here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
