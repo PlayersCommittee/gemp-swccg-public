@@ -33,7 +33,7 @@ public class Card200_076 extends AbstractDarkJediMaster {
         setLore("Serennoian leader. Trade Federation.");
         setGameText("Deploys -1 if Sidious (or Insidious Prisoner) on table. Power +1 for each Jedi here. May be targeted by Force Lightning. Once per game, if opponent just initiated battle here, may [upload] Force Lightning or Force Push. Immune to attrition < 6 (<8 if with a Jedi).");
         addPersona(Persona.DOOKU);
-        addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.SEPERATIST, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.SEPARATIST, Icon.VIRTUAL_SET_0);
     }
 
     @Override

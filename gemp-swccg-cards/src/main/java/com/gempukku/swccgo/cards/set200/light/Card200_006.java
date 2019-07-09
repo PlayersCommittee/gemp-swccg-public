@@ -49,7 +49,7 @@ public class Card200_006 extends AbstractRepublic {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Filter seperatistCardsHere = Filters.and(Icon.SEPERATIST, Filters.here(self));
+        Filter seperatistCardsHere = Filters.and(Icon.SEPARATIST, Filters.here(self));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, seperatistCardsHere, -1));
