@@ -39,7 +39,7 @@ public class CoruscantLayout extends AbstractSystemLayout {
                 new LocationReversibleGroupOrder(
                         //  A) Interior sites
                         new LocationGroup("Interior sites", Filters.and(Filters.interior_site, Filters.not(Filters.or(Filters.exterior_site,
-                                Filters.Xizors_Palace_site, Filters.500_Republica)), Filters.partOfSystem(systemName))),
+                                Filters.Xizors_Palace_site, Filters._500_Republica)), Filters.partOfSystem(systemName))),
                         //  B) 500 Republica
                         new LocationGroup("500 Republica", Filters._500_Republica),
                         //  C) Private Platform
