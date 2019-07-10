@@ -16838,6 +16838,7 @@ public class Filters {
     public static final Filter _21B = Filters.title(Title._21B);
     public static final Filter _3720_To_1 = Filters.title(Title._3720_To_1);
     public static final Filter _4_LOM = Filters.persona(Persona._4_LOM);
+    public static final Filter _500_Republica = Filters.title(Title._500_Republica);
     public static final Filter _5D6RA7 = Filters.title(Title._5D6RA7);
     public static final Filter _8D8 = Filters.title(Title._8D8);
     public static final Filter A_Dangerous_Time = Filters.title(Title.A_Dangerous_Time);
@@ -17872,6 +17873,7 @@ public class Filters {
     public static final Filter Presence_Of_The_Force = Filters.title(Title.Presence_Of_The_Force);
     public static final Filter Pride_Of_The_Empire = Filters.title(Title.Pride_Of_The_Empire);
     public static final Filter prison = Filters.keyword(Keyword.PRISON);
+    public static final Filter Private_Platform = Filters.title(Title.Private_Platform);
     public static final Filter probe_droid = Filters.modelType(ModelType.PROBE);
     public static final Filter Probe_Droid = Filters.title(Title.Probe_Droid);
     public static final Filter Probe_Telemetry = Filters.title(Title.Probe_Telemetry);
