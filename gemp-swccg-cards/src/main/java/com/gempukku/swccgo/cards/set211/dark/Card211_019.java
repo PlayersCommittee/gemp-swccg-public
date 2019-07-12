@@ -44,7 +44,7 @@ public class Card211_019 extends AbstractSystem {
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        if(TriggerConditions.movedToLocation(game, effectResult, Filters.and(Icon.FIRST_ORDER, Filters.starship), Filters.here(self))
+        if(TriggerConditions.movedToLocationBy(game, effectResult, playerOnDarkSideOfLocation, Filters.and(Icon.FIRST_ORDER, Filters.starship), Filters.here(self))
             && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)){
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Activate 2 Force");
