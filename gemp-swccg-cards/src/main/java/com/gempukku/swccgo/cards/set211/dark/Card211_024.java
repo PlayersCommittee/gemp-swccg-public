@@ -37,6 +37,7 @@ public class Card211_024 extends AbstractCapitalStarship {
         setPassengerCapacity(8);
         setVehicleCapacity(1);
         setTIECapacity(6);
+        setVirtualSuffix(true);
     }
 
     @Override
