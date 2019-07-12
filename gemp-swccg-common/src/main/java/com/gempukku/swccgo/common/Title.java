@@ -390,6 +390,7 @@ public interface Title {
     String Guri = "Guri";
     String Halt = "Halt!";
     String Hans_Back = "Han's Back";
+    String Hans_Dice = "Han's Dice";
     String Hans_Heavy_Blaster_Pistol = "Han's Heavy Blaster Pistol";
     String Hans_Toolkit = "Han's Toolkit";
     String Harc = "Harc Seff";
