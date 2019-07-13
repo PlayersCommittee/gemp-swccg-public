@@ -32,7 +32,7 @@ public class Card211_012 extends AbstractLostInterrupt {
         super(Side.DARK, 2, Title.Always_Two_There_Are);
         setLore("At last we will reveal ourselves to the Jedi.");
         setGameText("If you just lost a Dark Jedi and have exactly one Dark Jedi on table, take a Dark Jedi into hand from Reserve Deck; reshuffle. OR Once per game, if you have exactly two Dark Jedi on table, choose: Opponent loses 2 Force OR make a just drawn destiny = 2.");
-        addIcon(Icon.VIRTUAL_SET_11);
+        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I);
     }
 
     @Override
