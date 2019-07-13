@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,6 +30,7 @@ public class Card211_033 extends AbstractCharacterWeapon {
         setLore("Multifaceted jewels focus light into a deadly blade. Projects a meter-long beam of pure energy. A lightsaber is constructed personally by a Jedi as a part of training.");
         setGameText("Deploy on a character of ability > 4 or a Padawan. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
+        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I);
         // Not considered matching weapons for anyone.  Need to be unique to be matching. (per discussion with Aglets)
         setVirtualSuffix(true);
     }
