@@ -13,6 +13,7 @@ public interface Title {
     String _8D8 = "8D8";
     String A_Dangerous_Time = "A Dangerous Time";
     String A_Gift = "A Gift";
+    String A_Stunning_Move = "A Stunning Move";
     String A_Weakness_Can_Be_Found = "A Weakness Can Be Found";
     String A280_Sharpshooter_Rifle = "A280 Sharpshooter Rifle";
     String AAT_Laser_Cannon = "AAT Laser Cannon";
