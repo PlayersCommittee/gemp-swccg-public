@@ -266,6 +266,7 @@ public interface Title {
     String Downtown_Plaza = "Cloud City: Downtown Plaza";
     String Duel_Of_The_Fates = "Duel Of The Fates";
     String Dune_Sea = "Tatooine: Dune Sea";
+    String Dqar = "D'Qar";
     String Dr_Evazan = "Dr. Evazan";
     String Dragonsnake = "Dragonsnake";
     String Draw_Their_Fire = "Draw Their Fire";
