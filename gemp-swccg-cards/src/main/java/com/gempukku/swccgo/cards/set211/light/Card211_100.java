@@ -14,9 +14,8 @@ import com.gempukku.swccgo.logic.modifiers.*;
 public class Card211_100 extends AbstractRebel {
         public Card211_100() {
             super(Side.LIGHT, 1, 5, 5, 6, 7, "Ahsoka Tano", Uniqueness.UNIQUE);
-            setArmor(5);
-            setLore("Human-replica droid. Programmed to function as Xizor's personal bodyguard and assassin. Black Sun agent. Cost 9 million credits. Worth every decicred.");
-            setGameText("Adds 2 to power of anything she pilots. When present with Xizor, he may not be targeted by weapons. While Vader not here, opponent may draw no more than one battle destiny here. Immune to purchase, Restraining Bolt, and attrition < 5.");
+            setLore("Female Togruta.");
+            setGameText("Subtracts 1 from opponent's battle destiny draws here. During any deploy phase, if a Padawan or a Sith character at an adjacent site, Ahsoka may move to that site (using landspeed) as a regular move. Immune to [Permanent Weapon] weapons and attrition < 5.");
             addIcons(Icon.PILOT, Icon.WARRIOR,Icon.WARRIOR);
             addKeywords(Keyword.FEMALE);
             setSpecies(Species.TOGRUTA);
@@ -28,7 +27,7 @@ public class Card211_100 extends AbstractRebel {
             List<Modifier> modifiers = new LinkedList<Modifier>();
             modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), -1, game.getDarkPlayer()));
             //it might be self, Filter.self
-            modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, self, new TargetedByWeaponCondition(self, Filters.and(Filters.weapon, Filters.icon(Icon.PERMANENT_WEAPON))));
+            modifiers.add(new MayNotBeTargetedByPermanentWeaponsModifier(self));
             modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
             return modifiers;
         }
