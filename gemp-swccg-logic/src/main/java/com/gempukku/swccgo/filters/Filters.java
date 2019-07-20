@@ -17939,6 +17939,7 @@ public class Filters {
     public static final Filter Red_Leader = Filters.persona(Persona.RED_LEADER);
     public static final Filter Red_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.RED_SQUADRON, Filters.piloting(Filters.keyword(Keyword.RED_SQUADRON))));
     public static final Filter Red_Squadron_starfighter = Filters.and(CardSubtype.STARFIGHTER, Keyword.RED_SQUADRON);
+    public static final Filter Red_Squadron_vehicle = Filters.and(CardType.VEHICLE, Keyword.RED_SQUADRON);
     public static final Filter Reegesk = Filters.title(Title.Reegesk);
     public static final Filter refinery = Filters.keyword(Keyword.REFINERY);
     public static final Filter Reflection = Filters.title(Title.Reflection);
@@ -17980,6 +17981,8 @@ public class Filters {
     public static final Filter Rogue_One = Filters.title(Title.Rogue_One);
     public static final Filter Rogue_Squadron_gunner = Filters.and(Keyword.GUNNER, Filters.or(Keyword.ROGUE_SQUADRON, Filters.aboard(Filters.keyword(Keyword.ROGUE_SQUADRON))));
     public static final Filter Rogue_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.ROGUE_SQUADRON, Filters.piloting(Filters.keyword(Keyword.ROGUE_SQUADRON))));
+    public static final Filter Rogue_Squadron_starfighter = Filters.and(CardSubtype.STARFIGHTER, Keyword.ROGUE_SQUADRON);
+    public static final Filter Rogue_Squadron_vehicle = Filters.and(CardType.VEHICLE, Keyword.ROGUE_SQUADRON);
     public static final Filter Rogue_T47 = Filters.and(Keyword.ROGUE_SQUADRON, ModelType.T_47);
     public static final Filter Ronto = Filters.keyword(Keyword.RONTO);
     public static final Filter Royal_Guard = Filters.keyword(Keyword.ROYAL_GUARD);
