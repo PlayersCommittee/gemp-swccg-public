@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
-import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card5_031 extends AbstractLostInterrupt {
     public Card5_031() {
-        super(Side.LIGHT, 3, "Ambush", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Ambush, Uniqueness.UNIQUE);
         setLore("'Well done. Hold them in the security tower, and keep it quiet. Move.'");
         setGameText("During your turn, target a site where your total power is more than double opponent's total power. Unless opponent has a Dark Jedi or character weapon there, place each opponent character, vehicle and starship there (and cards on them) in owner's Used Pile.");
         addIcons(Icon.CLOUD_CITY);
