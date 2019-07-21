@@ -11,6 +11,10 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Card211_100 extends AbstractRebel {
         public Card211_100() {
             super(Side.LIGHT, 1, 5, 5, 6, 7, "Ahsoka Tano", Uniqueness.UNIQUE);
@@ -33,5 +37,4 @@ public class Card211_100 extends AbstractRebel {
         }
 
         //new action: move
-    }
 }
