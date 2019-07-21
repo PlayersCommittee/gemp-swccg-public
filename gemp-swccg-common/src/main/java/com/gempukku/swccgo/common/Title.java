@@ -8,6 +8,7 @@ public interface Title {
     String _21B = "2-1B (Too-Onebee)";
     String _3720_To_1 = "3,720 To 1";
     String _4LOMs_Concussion_Rifle = "4-LOM's Concussion Rifle";
+    String _500_Republica = "Coruscant: 500 Republica";
     String _5D6RA7 = "5D6-RA-7 (Fivedesix)";
     String _8D8 = "8D8";
     String A_Dangerous_Time = "A Dangerous Time";
@@ -126,7 +127,7 @@ public interface Title {
     String Bravo_5 = "Bravo 5";
     String Bravo_Fighter = "Bravo Fighter";
     String Breached_Defenses = "Breached Defenses";
-    String Bridge = "Blockade Flagship: Bridge";
+    String BlockadeFlagshipBridge = "Blockade Flagship: Bridge";
     String Bring_Him_Before_Me = "Bring Him Before Me";
     String Brisky_Morning_Munchen = "Brisky Morning Munchen";
     String Broken_Concentration = "Broken Concentration";
@@ -265,6 +266,7 @@ public interface Title {
     String Downtown_Plaza = "Cloud City: Downtown Plaza";
     String Duel_Of_The_Fates = "Duel Of The Fates";
     String Dune_Sea = "Tatooine: Dune Sea";
+    String Dqar = "D'Qar";
     String Dr_Evazan = "Dr. Evazan";
     String Dragonsnake = "Dragonsnake";
     String Draw_Their_Fire = "Draw Their Fire";
@@ -402,6 +404,7 @@ public interface Title {
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
+    String Hes_All_Yours_Bounty_Hunter = "He's All Yours, Bounty Hunter";
     String Hewex = "Major Hewex";
     String Hidden_Base = "Hidden Base";
     String Hidden_Forest_Trail = "Endor: Hidden Forest Trail";
@@ -463,6 +466,7 @@ public interface Title {
     String Imperial_Outpost = "Imperial Outpost";
     String Imperial_Propaganda = "Imperial Propaganda";
     String Imperial_Reinforcements = "Imperial Reinforcements";
+    String Imperial_Supply = "Imperial Supply";
     String Imperial_Tyranny = "Imperial Tyranny";
     String In_Complete_Control = "In Complete Control";
     String In_The_Hands_Of_The_Empire = "In The Hands Of The Empire";
@@ -480,6 +484,7 @@ public interface Title {
     String Into_The_Ventilation_Shaft_Lefty = "Into The Ventilation Shaft, Lefty";
     String Interrogation_Array = "Interrogation Array";
     String Invasion = "Invasion";
+    String Invisible_Hand = "Invisible Hand";
     String Ion_Cannon = "Ion Cannon";
     String Irol = "Sergeant Irol";
     String ISB_Operations = "ISB Operations";
@@ -598,6 +603,7 @@ public interface Title {
     String Masterful_Move = "Masterful Move";
     String Maul_Strikes = "Maul Strikes";
     String Mauls_Lightsaber = "Maul's Lightsaber";
+    String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
     String Mercenary_Armor = "Mercenary_Armor";
@@ -715,6 +721,7 @@ public interface Title {
     String Prepare_The_Chamber = "Prepare The Chamber";
     String Presence_Of_The_Force = "Presence Of The Force";
     String Pride_Of_The_Empire = "Pride Of The Empire";
+    String Private_Platform = "Coruscant: Private Platform (Docking Bay)";
     String Probe_Droid = "Probe Droid";
     String Probe_Telemetry = "Probe Telemetry";
     String Profundity = "Profundity";
@@ -752,6 +759,7 @@ public interface Title {
     String Red_9 = "Red 9";
     String Red_10 = "Red 10";
     String Reegesk = "Reegesk";
+    String ReeYees = "Ree-Yees";
     String Reflection = "Reflection";
     String Rendezvous_Point = "Rendezvous Point";
     String Rendili = "Rendili";

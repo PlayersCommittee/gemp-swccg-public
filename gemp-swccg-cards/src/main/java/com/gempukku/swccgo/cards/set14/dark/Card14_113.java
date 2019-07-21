@@ -84,7 +84,7 @@ public class Card14_113 extends AbstractObjective {
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility,
-                                Filters.not(Filters.or(Filters.and(Icon.TRADE_FEDERATION, Filters.starship), Filters.and(Filters.character, Filters.loreContains("Trade Federation"))))),
+                                Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.and(Icon.TRADE_FEDERATION, Filters.starship), Filters.and(Filters.character, Filters.loreContains("Trade Federation"))))),
                                 playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,

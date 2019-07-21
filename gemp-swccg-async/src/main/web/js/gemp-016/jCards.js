@@ -2853,7 +2853,7 @@ var fixedImages = {
 "204_16":"/gemp-swccg/images/cards/Virtual4-Light/youassumetoomuch.gif",
 "204_17":"/gemp-swccg/images/cards/Virtual4-Light/areyouokay.gif",
 "204_18":"/gemp-swccg/images/cards/Virtual4-Light/escapepodweredoomed.gif",
-"204_19":"/gemp-swccg/images/cards/Virtual4-Light/imgettingkindofgoodatthis.gif",
+"204_19":"/gemp-swccg/images/cards/Virtual4-Light/imgettingprettygoodatthis.gif",
 "204_20":"/gemp-swccg/images/cards/Virtual4-Light/keepyoureyesopen.gif",
 "204_21":"/gemp-swccg/images/cards/Virtual4-Light/mindfulofthefuture.gif",
 "204_22":"/gemp-swccg/images/cards/Virtual4-Light/thegarbagewilldo.gif",
@@ -3119,19 +3119,19 @@ var fixedImages = {
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
 "211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
-"211_3":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_3":"/gemp-swccg/images/cards/Virtual11-Dark/ladyproxima.gif",
 "211_4":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_5":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_5":"/gemp-swccg/images/cards/Virtual11-Dark/reeyees.gif",
 "211_6":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_7":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_8":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_9":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_10":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_10":"/gemp-swccg/images/cards/Virtual11-Dark/quietlyobserving.gif",
 "211_11":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_12":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_13":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_14":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_15":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_15":"/gemp-swccg/images/cards/Virtual11-Dark/twilekadvisor.gif",
 "211_16":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_17":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_18":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
@@ -3141,15 +3141,15 @@ var fixedImages = {
 "211_22":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_23":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_24":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_25":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
 "211_26":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_27":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_28":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_29":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_29":"/gemp-swccg/images/cards/Virtual11-Light/maketenmenfeellikeahundred.gif",
 "211_30":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_31":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_32":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_33":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+ "211_33":"/gemp-swccg/images/cards/Virtual11-Light/jedilightsaber.gif",
 "211_34":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_35":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_36":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
@@ -3180,9 +3180,10 @@ var fixedImages = {
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
-"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asaijventresswithlightsabers.gif",
+"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asajjventresswithlightsabers.gif",
 "301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
 "301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
+"301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
 "501_1":"/gemp-swccg/images/cards/Playtesting-Dark/mitthrawnuruodo.gif"
 };
 
@@ -3556,8 +3557,21 @@ var Card = Class.extend({
 
         }
         if (setNo == 211) {
-            // TODO: Add Horizontal Set11 cards here
-            return false;
+            return (cardNo == 17) ||
+                   (cardNo == 18) ||
+                   (cardNo == 20) ||
+                   (cardNo == 21) ||
+                   (cardNo == 22) ||
+                   (cardNo == 27) ||
+                   (cardNo == 38) ||
+                   (cardNo == 39) ||
+                   (cardNo == 40) ||
+                   (cardNo == 41) ||
+                   (cardNo == 42) ||
+                   (cardNo == 44) ||
+                   (cardNo == 45) ||
+                   (cardNo == 46) ||
+                   (cardNo == 47);
         }
         if (setNo == 501) {
             return (cardNo == 9);
