@@ -14,10 +14,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -46,6 +43,7 @@ public class Card210_020 extends AbstractJediMaster {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NeverDeploysToLocationModifier(self, siteOpponentOccupies));
         modifiers.add(new DeployCostToTargetModifier(self, -2, Filters.or(Filters.Deploys_at_Ahch_To)));
+        modifiers.add(new MayDeployToAhchToLocationModifier(self));
         return modifiers;
     }
 

@@ -34,7 +34,7 @@ public class Card207_023 extends AbstractSith {
         super(Side.DARK, 1, 8, 8, 4, 5, "Savage Opress", Uniqueness.UNIQUE);
         setLore("Dathomirian assassin.");
         setGameText("Deploys -1 for each other Sith character here (limit -4). Once per game, may exchange a card in hand with a Sith character in Lost Pile. Immune to attrition < 3.");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.SEPERATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_7);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.SEPARATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.ASSASSIN);
         setSpecies(Species.DATHOMIRIAN);
     }
