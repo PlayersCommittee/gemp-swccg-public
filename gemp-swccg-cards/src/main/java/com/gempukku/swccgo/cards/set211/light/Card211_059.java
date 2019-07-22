@@ -59,7 +59,7 @@ public class Card211_059 extends AbstractRebel {
                         action.setActionMsg("Move " + GameUtils.getCardLink(self) + " to an adjacent site where there is a Sith or Padawan");
                                 // Perform result(s)
                         action.appendEffect(
-                        new MoveCardAsRegularMoveEffect(action, playerId, bountyHunter, false, false, Filters.and(Filters.adjacentSite(bountyHunter), Filters.sameSiteAs(self, Filters.any_bounty))));
+                        new MoveCardAsRegularMoveEffect(action, playerId, self, false, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))));
                     }
             }
                 );
