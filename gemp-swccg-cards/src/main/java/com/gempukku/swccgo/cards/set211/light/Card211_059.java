@@ -41,25 +41,25 @@ public class Card211_059 extends AbstractRebel {
 
         //new action: move
         @Override
-        protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
             List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
             GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_5;
 
             // Check condition(s)
             if (GameConditions.isDuringEitherPlayersPhase(game, Phase.DEPLOY)
-                && Filters.movableAsRegularMove(playerId, false, 0, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))).accepts(game, self)
+                && Filters.movableAsRegularMove(playerOnLightSideOfLocation, false, 0, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))).accepts(game, self)
                 ) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Move Ahsoka to a Sith or Padawan");
                 action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose Ahsoka to move", self) {
+                    new ChooseCardOnTableEffect(action, playerOnLightSideOfLocation, "Choose site to move to", Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))) {
                     @Override
                     protected void cardSelected(PhysicalCard self) {
                         action.addAnimationGroup(self);
                         action.setActionMsg("Move " + GameUtils.getCardLink(self) + " to an adjacent site where there is a Sith or Padawan");
                                 // Perform result(s)
                         action.appendEffect(
-                        new MoveCardAsRegularMoveEffect(action, playerId, self, false, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))));
+                        new MoveCardAsRegularMoveEffect(action, playerOnLightSideOfLocation, self, false, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))));
                     }
             }
                 );
