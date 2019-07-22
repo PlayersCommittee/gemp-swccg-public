@@ -519,6 +519,7 @@ public interface Title {
     String Kabe = "Kabe";
     String KalFalnl_Cndros = "Kal'Falnl C'ndros";
     String Kalit = "Kalit";
+    String Kamino= "Kamino";
     String Kanan = "Kanan Jarrus";
     String Karie_Neth = "Karie Neth";
     String Keep_Your_Eyes_Open = "Keep Your Eyes Open";
