@@ -57,11 +57,12 @@ public class Card211_054 extends AbstractCharacterDevice {
         GameTextActionId uploadComputerInterface = GameTextActionId.CYBORG_CONSTRUCT_UPLOAD_COMPUTER_INTERFACE;
         if(GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, uploadComputerInterface)
                 && GameConditions.isAtScompLink(game, self)
-                && GameConditions.hasReserveDeck(game, playerId)){
+                && GameConditions.hasReserveDeck(game, playerId)
+                && GameConditions.canUseForce(game, playerId, 1)){
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, uploadComputerInterface);
 
             action.setText("Upload Computer Interface.");
-            action.setActionMsg("[upload] Computer Interface.");
+            action.setActionMsg("Upload Computer Interface.");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action)

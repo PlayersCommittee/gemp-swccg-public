@@ -61,21 +61,28 @@ public class Card5_040 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
+        final int forceToUse;
+        if(GameConditions.canSpot(game, self, Filters.Lobot)){
+            forceToUse = 0;
+        }else{
+            forceToUse = 2;
+        }
+
         if (GameConditions.hasReserveDeck(game, playerId)
                 && GameConditions.hasForcePile(game, playerId)
-                && GameConditions.hasUsedPile(game, playerId)){
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Peek at top card of each pile");
+                && GameConditions.hasUsedPile(game, playerId)
+                && GameConditions.canUseForce(game, playerId, forceToUse)){
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+            action.setText("Use " + forceToUse + " : Peek at top card of each pile");
             //Allow Responses
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Update usage limit(s)
-                            if(!GameConditions.canSpot(game, self, Filters.Lobot)){
-                                action.appendEffect(
-                                        new UseForceEffect(action, playerId, 2));
-                            }
+                            action.appendEffect(
+                                        new UseForceEffect(action, playerId, forceToUse));
+
                             // Perform result(s)
                             action.appendEffect(
                                     new PeekAtTopCardOfForcePileAndReserveDeckAndUsedPileAndReturnOneCardToEachEffect(action, playerId));
