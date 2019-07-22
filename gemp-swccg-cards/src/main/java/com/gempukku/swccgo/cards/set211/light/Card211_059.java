@@ -1,10 +1,16 @@
 package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.Collections;
@@ -34,4 +40,31 @@ public class Card211_059 extends AbstractRebel {
         }
 
         //new action: move
+        @Override
+        protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+            List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+            GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_5;
+
+            // Check condition(s)
+            if (GameConditions.isDuringEitherPlayersPhase(game, Phase.DEPLOY)
+                && Filters.movableAsRegularMove(playerId, false, 0, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))).accepts(game, self)
+                ) {
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Move Ahsoka to a Sith or Padawan");
+                action.appendTargeting(
+                    @Override
+                    protected void cardSelected(PhysicalCard self) {
+                        action.addAnimationGroup(self);
+                        action.setActionMsg("Move " + GameUtils.getCardLink(self) + " to an adjacent site where there is a Sith or Padawan");
+                                // Perform result(s)
+                        action.appendEffect(
+                        new MoveCardAsRegularMoveEffect(action, playerId, bountyHunter, false, false, Filters.and(Filters.adjacentSite(bountyHunter), Filters.sameSiteAs(self, Filters.any_bounty))));
+                    }
+            }
+                );
+                actions.add(action);
+                }
+
+            return actions;
+        }
 }
