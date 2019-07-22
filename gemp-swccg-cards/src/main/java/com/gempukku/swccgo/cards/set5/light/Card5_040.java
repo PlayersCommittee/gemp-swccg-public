@@ -73,7 +73,7 @@ public class Card5_040 extends AbstractUsedOrLostInterrupt {
                 && GameConditions.hasUsedPile(game, playerId)
                 && GameConditions.canUseForce(game, playerId, forceToUse)){
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Use " + forceToUse + " : Peek at top card of each pile");
+            action.setText("Peek at top card of each pile");
             //Allow Responses
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {
