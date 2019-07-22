@@ -52,6 +52,7 @@ public class Card211_059 extends AbstractRebel {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Move Ahsoka to a Sith or Padawan");
                 action.appendTargeting(
+                    new ChooseCardOnTableEffect(action, playerId, "Choose Ahsoka to move", self) {
                     @Override
                     protected void cardSelected(PhysicalCard self) {
                         action.addAnimationGroup(self);
