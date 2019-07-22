@@ -3170,7 +3170,7 @@ var fixedImages = {
 "211_51":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_52":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_53":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"211_54":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_54":"/gemp-swccg/images/cards/Virtual11-Light/cyborgconstruct.gif",
 "211_55":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_56":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_57":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",

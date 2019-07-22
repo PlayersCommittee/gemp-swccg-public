@@ -180,6 +180,7 @@ public interface Title {
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
     String Commence_Recharging = "Commence Recharging";
+    String Computer_Interface = "Computer Interface";
     String Concussion_Grenade = "Concussion Grenade";
     String Concussion_Missiles = "Concussion Missiles";
     String Control = "Control";
