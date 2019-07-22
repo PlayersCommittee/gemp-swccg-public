@@ -41,7 +41,7 @@ public class Card211_059 extends AbstractRebel {
 
         //new action: move
         @Override
-        protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerOnLightSideOfLocation, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
             List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
             GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_5;
 
@@ -54,12 +54,12 @@ public class Card211_059 extends AbstractRebel {
                 action.appendTargeting(
                     new ChooseCardOnTableEffect(action, playerOnLightSideOfLocation, "Choose site to move to", Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))) {
                     @Override
-                    protected void cardSelected(PhysicalCard self) {
+                    protected void cardSelected(PhysicalCard targetSite) {
                         action.addAnimationGroup(self);
                         action.setActionMsg("Move " + GameUtils.getCardLink(self) + " to an adjacent site where there is a Sith or Padawan");
                                 // Perform result(s)
                         action.appendEffect(
-                        new MoveCardAsRegularMoveEffect(action, playerOnLightSideOfLocation, self, false, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))));
+                        new MoveCardAsRegularMoveEffect(action, playerOnLightSideOfLocation, self, false, false, Filters.sameTitle(targetSite)));
                     }
             }
                 );
