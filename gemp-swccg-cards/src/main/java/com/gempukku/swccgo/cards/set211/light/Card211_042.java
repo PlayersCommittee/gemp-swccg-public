@@ -40,7 +40,8 @@ public class Card211_042 extends AbstractSite {
         Filter otherSiteYouOccupy = Filters.and(Filters.other(self), Filters.site, Filters.occupies(playerOnLightSideOfLocation));
 
         if (GameConditions.canSpotLocation(game, otherSiteYouOccupy)
-            && GameConditions.isOnceDuringYourPhase(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, Phase.DEPLOY))
+            && GameConditions.isOnceDuringYourPhase(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, Phase.DEPLOY)
+            && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.clone, self, otherSiteYouOccupy, true))
         {
             MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.clone, self, otherSiteYouOccupy, true);
             action.setText("Move a clone");
