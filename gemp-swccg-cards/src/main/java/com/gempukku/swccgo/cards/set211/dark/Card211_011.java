@@ -23,4 +23,9 @@ public class Card211_011 extends AbstractEpicEventDeployable {
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         return Filters._500_Republica;
     }
+
+    // TODO Adds dark side icon
+    // TODO While on coruscant, force drain limit
+    // TODO Follow text
+    // TODO Relocate to 500 Republica text
 }

@@ -11,4 +11,12 @@ public class Card211_026_BACK extends AbstractObjective {
                 "Flip this card if Insidious Prisoner is not at an Invisible Hand site.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.THEED_PALACE, Icon.EPISODE_I);
     }
+
+    // TODO Immunity limited to < 5
+
+    // TODO Opponent loses 1 force
+
+    // TODO Force pile reveal
+
+    // TODO Flip back
 }
