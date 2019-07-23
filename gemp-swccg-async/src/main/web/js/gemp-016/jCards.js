@@ -3132,7 +3132,7 @@ var fixedImages = {
 "211_13":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_14":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_15":"/gemp-swccg/images/cards/Virtual11-Dark/twilekadvisor.gif",
-"211_16":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_16":"/gemp-swccg/images/cards/Virtual11-Dark/vadersanger.gif",
 "211_17":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_18":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "211_19":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",

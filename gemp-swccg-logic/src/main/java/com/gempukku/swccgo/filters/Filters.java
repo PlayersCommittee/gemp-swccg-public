@@ -17223,6 +17223,7 @@ public class Filters {
     public static final Filter Docking_Bay_327 = Filters.title(Title.Docking_Bay_327);
     public static final Filter Docking_Bay_94 = Filters.title(Title.Docking_Bay_94);
     public static final Filter Docking_Control_Room_327 = Filters.title(Title.Docking_Control_Room_327);
+    public static final Filter Dodge = Filters.title(Title.Dodge);
     public static final Filter Dofine = Filters.persona(Persona.DOFINE);
     public static final Filter Dolphe = Filters.title(Title.Dolphe);
     public static final Filter Dont_Get_Cocky = Filters.title(Title.Dont_Get_Cocky);
