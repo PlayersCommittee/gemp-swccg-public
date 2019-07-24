@@ -1,11 +1,27 @@
 package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.MovingResult;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Card211_011 extends AbstractEpicEventDeployable {
     public Card211_011() {
@@ -24,8 +40,73 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         return Filters._500_Republica;
     }
 
-    // TODO Adds dark side icon
-    // TODO While on coruscant, force drain limit
-    // TODO Follow text
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+
+        // Note: This card cannot currently be a captive - it is a broken link.
+        //       The verbiage about captives leaves the door open for a light side counterpart.
+        boolean atSiteEvenAsCaptive = Filters.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Insidious_Prisoner, Filters.at(Filters.site)));
+        if (atSiteEvenAsCaptive) {
+            modifiers.add(new IconModifier(self, Filters.sameLocation(self), Icon.DARK_FORCE, 1));
+        }
+
+        String opponent = game.getOpponent(self.getOwner());
+        boolean onCoruscant = Filters.canSpot(game, self, Filters.and(Filters.Insidious_Prisoner, Filters.on(Title.Coruscant)));
+        if (onCoruscant) {
+            modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.here(self), 1, opponent));
+        }
+
+        return modifiers;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.isStartOfEachTurn(game, effectResult)) {
+            self.setWhileInPlayData(null);
+        }
+        return null;
+    }
+
+    private OptionalGameTextTriggerAction getFollowInsidiousPrisonerAction() {
+
+        return null;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        String playerMoving = effectResult.getPerformingPlayerId();
+        Filter characterMoving = Filters.and(Filters.character, Filters.your(playerMoving));
+        Filter insidiousPrisonersSite = Filters.sameSiteAs(self, Filters.Insidious_Prisoner);
+        PhysicalCard movingToLocation = ((MovingResult) effectResult).getMovingTo();
+
+        if (TriggerConditions.movingFromLocation(game, effectResult, characterMoving, insidiousPrisonersSite)
+                && GameConditions.controls(game, playerMoving, insidiousPrisonersSite)
+                && (Filters.battleground_site.accepts(game, movingToLocation))) {
+            if (GameConditions.cardHasWhileInPlayDataEquals(self, playerMoving)) {
+                self.setWhileInPlayData(new WhileInPlayData(playerMoving));
+                // Check condition(s)
+                MovingResult movedResult = (MovingResult) effectResult;
+                final Filter toLocation = Filters.sameLocation(movedResult.getMovingTo());
+                if (Filters.movableAsRegularMove(playerId, false, 0, false, toLocation).accepts(game, self)) {
+//                if (Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation).accepts(game, self)) {
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.setText("Follow character who is moving away from Insidious Prisoner's site");
+                    action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow " + GameUtils.getCardLink(movedResult.getCardMoving()));
+                    // Perform result(s)
+                    action.appendEffect(
+                            new MoveCardAsRegularMoveEffect(action, playerId, self, false, false, toLocation));
+                    return Collections.singletonList(action);
+                }
+            }
+        }
+        return null;
+    }
+
     // TODO Relocate to 500 Republica text
+
+    // TEST Adds dark side icon
+    // TEST While on coruscant, force drain limit
+    // TEST Follow text
 }
