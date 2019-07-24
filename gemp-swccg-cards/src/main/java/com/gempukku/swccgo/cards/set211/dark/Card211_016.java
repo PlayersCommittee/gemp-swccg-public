@@ -19,7 +19,6 @@ import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -92,54 +91,42 @@ public class Card211_016 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
-        Filter filter = Filters.or(Filters.Blast_The_Door_Kid, Filters.Dodge, Filters.Rebel_Barrier);
+        List<PlayInterruptAction> actions = new LinkedList<>();
+
+        Filter characterAtSameSiteAsVader = Filters.and(Filters.character, Filters.at(Filters.sameSiteAs(self, Filters.Vader)));
+        Filter vaderOrCharacterWithVader = Filters.or(Filters.Vader, characterAtSameSiteAsVader);
 
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, filter)
-                && GameConditions.canCancelCardBeingPlayed(game, self, effect)
-                && GameConditions.isAtLocation(game, self, Filters.and(Filters.Vader, Filters.at(Filters.site)) )) {
+        if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.Rebel_Barrier, vaderOrCharacterWithVader)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-
-    @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
-        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
-
-        // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, Filters.Blast_The_Door_Kid)
-                && GameConditions.isAtLocation(game, self, Filters.and(Filters.Vader, Filters.at(Filters.site)))) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Blast_The_Door_Kid, Title.Blast_The_Door_Kid);
-            actions.add(action);
-        }
-        // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, Filters.Dodge)
-                && GameConditions.isAtLocation(game, self, Filters.and(Filters.Vader, Filters.at(Filters.site)))) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Dodge, Title.Dodge);
-            actions.add(action);
-        }
-        // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, Filters.Rebel_Barrier)
-                && GameConditions.isAtLocation(game, self, Filters.and(Filters.Vader, Filters.at(Filters.site)))) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Rebel_Barrier, Title.Rebel_Barrier);
             actions.add(action);
         }
 
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Blast_The_Door_Kid)
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.Vader)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            actions.add(action);
+        }
+
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Dodge)
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.Vader)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            actions.add(action);
+        }
         return actions;
     }
 }
