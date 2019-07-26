@@ -119,7 +119,8 @@ public class Card211_016 extends AbstractUsedInterrupt {
 
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Dodge)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.Vader)
+                && (GameConditions.isDuringBattleWithParticipant(game, Filters.Vader)
+                    || GameConditions.isDuringWeaponFiringAtTarget(game, Filters.any, vaderOrCharacterWithVader))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
@@ -127,6 +128,7 @@ public class Card211_016 extends AbstractUsedInterrupt {
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             actions.add(action);
         }
+
         return actions;
     }
 }
