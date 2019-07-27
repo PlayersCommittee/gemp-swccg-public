@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virutal Set 10
+ * Set: Virtual Set 10
  * Type: Interrupt
  * Subtype: Lost
  * Title: Ambush (V)
@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Card210_002 extends AbstractLostInterrupt {
     public Card210_002() {
-        super(Side.LIGHT, 3, "Ambush", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Ambush, Uniqueness.UNIQUE);
         setLore("'Well done. Hold them in the security tower, and keep it quiet. Move.'");
         setGameText("Lose 1 Force to /\\ up to three troopers. OR Once per game, if your clones occupy at least three related battlegrounds, your Force drains at same and related battlegrounds this turn are +1.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_10, Icon.CLOUD_CITY);

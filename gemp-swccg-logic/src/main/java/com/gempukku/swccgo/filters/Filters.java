@@ -2582,6 +2582,37 @@ public class Filters {
         };
     }
 
+
+    /**
+     * Filter that accepts cards that are locations where the given player has
+     * fewer characters than the opponent
+     *
+     * @param source    Source card making the query
+     * @param playerId  Player who's cards we are looking at
+     * @return Filter
+     */
+    public static Filter wherePlayerHasFewerCharacters(final PhysicalCard source, final String playerId) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+
+                // Only accepts locations
+                if (!Filters.location.accepts(gameState, modifiersQuerying, physicalCard)) {
+                    return false;
+                }
+
+                // Count the characters at the location
+                Filter opponentCharacterHere = Filters.and(Filters.character, Filters.opponents(playerId), Filters.here(physicalCard));
+                Filter playersCharactersHere = Filters.and(Filters.character, Filters.owner(playerId), Filters.here(physicalCard));
+
+                int opponentCharacterCount = Filters.countActive(gameState.getGame(), source, opponentCharacterHere);
+                int playerCharacterCount = Filters.countActive(gameState.getGame(), source, playersCharactersHere);
+
+                return playerCharacterCount < opponentCharacterCount;
+            }
+        };
+    }
+
     /**
      * Filter that accepts cards that are locations controlled for the purposes of Force draining by the specified player.
      *
@@ -16875,6 +16906,7 @@ public class Filters {
     public static final Filter Always_Thinking_With_Your_Stomach = Filters.title(Title.Always_Thinking_With_Your_Stomach);
     public static final Filter Always_Two_There_Are = Filters.title(Title.Always_Two_There_Are);
     public static final Filter ambition_agenda = Filters.agenda(Agenda.AMBITION);
+    public static final Filter Ambush = Filters.title(Title.Ambush);
     public static final Filter Amidala = Filters.persona(Persona.AMIDALA);
     public static final Filter Anakin = Filters.persona(Persona.ANAKIN);
     public static final Filter Anakin_Skywalker = Filters.title(Title.Anakin_Skywalker);

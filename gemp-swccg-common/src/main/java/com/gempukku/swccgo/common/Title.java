@@ -35,6 +35,7 @@ public interface Title {
     String Alternatives_To_Fighting = "Alternatives To Fighting";
     String Always_Thinking_With_Your_Stomach = "Always Thinking With Your Stomach";
     String Always_Two_There_Are = "Always Two There Are";
+    String Ambush = "Ambush";
     String An_Inkling_Of_Its_Destructive_Potential = "An Inkling Of Its Destructive Potential";
     String Anakin_Skywalker = "Anakin Skywalker";
     String Anakins_Podracer = "Anakin's Podracer";
