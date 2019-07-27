@@ -180,6 +180,7 @@ public interface Title {
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
     String Commence_Recharging = "Commence Recharging";
+    String Computer_Interface = "Computer Interface";
     String Concussion_Grenade = "Concussion Grenade";
     String Concussion_Missiles = "Concussion Missiles";
     String Control = "Control";
@@ -523,6 +524,7 @@ public interface Title {
     String Kabe = "Kabe";
     String KalFalnl_Cndros = "Kal'Falnl C'ndros";
     String Kalit = "Kalit";
+    String Kamino= "Kamino";
     String Kanan = "Kanan Jarrus";
     String Karie_Neth = "Karie Neth";
     String Keep_Your_Eyes_Open = "Keep Your Eyes Open";
