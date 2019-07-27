@@ -16850,6 +16850,7 @@ public class Filters {
     public static final Filter AAT_Laser_Cannon = Filters.title(Title.AAT_Laser_Cannon);
     public static final Filter accountant = Filters.keyword(Keyword.ACCOUNTANT);
     public static final Filter Ackbar = Filters.title(Title.Ackbar);
+    public static final Filter AhchTo_site = Filters.and(Filters.partOfSystem(Title.Ahch_To), CardSubtype.SITE);
     public static final Filter Activate_The_Droids = Filters.title(Title.Activate_The_Droids);
     public static final Filter admiral = Filters.keyword(Keyword.ADMIRAL);
     public static final Filter Admirals_Order = Filters.type(CardType.ADMIRALS_ORDER);
