@@ -12,7 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
+import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -69,9 +69,9 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         return null;
     }
 
-    private OptionalGameTextTriggerAction getFollowInsidiousPrisonerAction() {
-
-        return null;
+    private boolean isMovingToBattlegroundSite(SwccgGame game, EffectResult effectResult) {
+        PhysicalCard locationMovingTo = ((MovingResult) effectResult).getMovingTo();
+        return Filters.battleground_site.accepts(game, locationMovingTo);
     }
 
     @Override
@@ -79,26 +79,22 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         String playerMoving = effectResult.getPerformingPlayerId();
         Filter characterMoving = Filters.and(Filters.character, Filters.your(playerMoving));
         Filter insidiousPrisonersSite = Filters.sameSiteAs(self, Filters.Insidious_Prisoner);
-        PhysicalCard movingToLocation = ((MovingResult) effectResult).getMovingTo();
 
         if (TriggerConditions.movingFromLocation(game, effectResult, characterMoving, insidiousPrisonersSite)
                 && GameConditions.controls(game, playerMoving, insidiousPrisonersSite)
-                && (Filters.battleground_site.accepts(game, movingToLocation))) {
-            if (GameConditions.cardHasWhileInPlayDataEquals(self, playerMoving)) {
+                && (isMovingToBattlegroundSite(game, effectResult))) {
+            if (!GameConditions.cardHasWhileInPlayDataEquals(self, playerMoving)) {
                 self.setWhileInPlayData(new WhileInPlayData(playerMoving));
                 // Check condition(s)
                 MovingResult movedResult = (MovingResult) effectResult;
-                final Filter toLocation = Filters.sameLocation(movedResult.getMovingTo());
-                if (Filters.movableAsRegularMove(playerId, false, 0, false, toLocation).accepts(game, self)) {
-//                if (Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation).accepts(game, self)) {
-                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                    action.setText("Follow character who is moving away from Insidious Prisoner's site");
-                    action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow " + GameUtils.getCardLink(movedResult.getCardMoving()));
-                    // Perform result(s)
-                    action.appendEffect(
-                            new MoveCardAsRegularMoveEffect(action, playerId, self, false, false, toLocation));
-                    return Collections.singletonList(action);
-                }
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Follow character moving from same site");
+                action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow " + GameUtils.getCardLink(movedResult.getCardMoving()));
+                // Perform result(s)
+                action.appendEffect(
+                        new AttachCardFromTableEffect(action, self, movedResult.getMovingTo()));
+                return Collections.singletonList(action);
+//                }
             }
         }
         return null;
@@ -106,7 +102,6 @@ public class Card211_011 extends AbstractEpicEventDeployable {
 
     // TODO Relocate to 500 Republica text
 
-    // TEST Adds dark side icon
     // TEST While on coruscant, force drain limit
     // TEST Follow text
 }
