@@ -7,13 +7,15 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
-import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -53,7 +55,9 @@ public class Card211_016 extends AbstractUsedInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new CancelGameTextUntilEndOfTurnEffect(action, cardHit));
+                                    new AddUntilEndOfBattleModifierEffect(action,
+                                            new CancelsGameTextModifier(self, cardHit), "Game text of " + GameUtils.getCardLink(cardHit) + " is cancelled.")
+                                    );
                         }
                     }
             );
