@@ -28,7 +28,7 @@ import java.util.List;
 public class Card211_011 extends AbstractEpicEventDeployable {
     public Card211_011() {
         super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.Insidious_Prisoner);
-        setGameText("If A Stunning Move on table, deploy on 500 Republica. While at a site (even while on a captive), adds one [Dark Side] icon here. While on Coruscant, opponent loses no more than 1 Force from your Force drains here. Once per turn, if a player controls this site, they may have this card (unless on Palpatine) follow their first character to move from here using landspeed (or docking bay transit) to a battleground site. If about to leave table, relocate to 500 Republica (if possible).");
+        setGameText("If A Stunning Move on table, deploy on 500 Republica. While at a site (even while on a captive), adds one [Dark Side] icon here. While on Coruscant, opponent loses no more than 1 Force from your Force drains here. Opponent's Force generation is -1 here. Once per turn, if a player controls this site, they may have this card (unless on Palpatine) follow their first character to move from here using landspeed (or docking bay transit) to a battleground site. If about to leave table, relocate to 500 Republica (if possible).");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_11);
     }
 
@@ -58,6 +58,8 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         if (coruscantSiteWithInsidiousPrisoner != null) {
             modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.hasAttached(self), 1, opponent));
         }
+
+        // TODO Opponent's Force generation is -1 here.
 
         return modifiers;
     }

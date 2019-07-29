@@ -17570,6 +17570,7 @@ public class Filters {
     public static final Filter Into_The_Ventilation_Shaft_Lefty = Filters.title(Title.Into_The_Ventilation_Shaft_Lefty);
     public static final Filter Invasion = Filters.title(Title.Invasion);
     public static final Filter Invisible_Hand = Filters.persona(Persona.INVISIBLE_HAND);
+    public static final Filter Invisible_Hand_site = Filters.siteOfStarshipOrVehicle(Persona.INVISIBLE_HAND, false);
     public static final Filter In_Hand = Filters.zone(Zone.HAND);
     public static final Filter in_play = Filters.onTable();
     public static final Filter In_Sabacc_Hand = Filters.or(Zone.SABACC_HAND, Zone.REVEALED_SABACC_HAND);
