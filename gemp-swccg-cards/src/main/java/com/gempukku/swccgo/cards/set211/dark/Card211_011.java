@@ -17,6 +17,8 @@ import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 import com.gempukku.swccgo.logic.timing.results.MovingResult;
 
 import java.util.Collections;
@@ -52,19 +54,46 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         }
 
         String opponent = game.getOpponent(self.getOwner());
-        boolean onCoruscant = Filters.canSpot(game, self, Filters.and(Filters.Insidious_Prisoner, Filters.on(Title.Coruscant)));
-        if (onCoruscant) {
-            modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.here(self), 1, opponent));
+        Filter coruscantSiteWithInsidiousPrisoner = Filters.and(Filters.title(Title.Coruscant), Filters.hasAttached(self));
+        if (coruscantSiteWithInsidiousPrisoner != null) {
+            modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.hasAttached(self), 1, opponent));
         }
 
         return modifiers;
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Used for determining the first character that moves from Insidious Prisoner's site in a turn
         if (TriggerConditions.isStartOfEachTurn(game, effectResult)) {
             self.setWhileInPlayData(null);
+        }
+
+        // Relocate back to 500 Republica if about to leave table
+        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
+            GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+            PhysicalCard coruscant500Republica = Filters.findFirstFromTopLocationsOnTable(game, Filters._500_Republica);
+            if (coruscant500Republica != null) {
+                final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Relocate to 500 Republica");
+                action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(coruscant500Republica));
+                action.addAnimationGroup(coruscant500Republica);
+                // Perform result(s)
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                result.getPreventableCardEffect().preventEffectOnCard(self);
+                                for (PhysicalCard attachedCards : game.getGameState().getAllAttachedRecursively(self)) {
+                                    result.getPreventableCardEffect().preventEffectOnCard(attachedCards);
+                                }
+                            }
+                        });
+                action.appendEffect(
+                        new AttachCardFromTableEffect(action, self, coruscant500Republica));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
