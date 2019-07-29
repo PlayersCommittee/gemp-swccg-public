@@ -103,9 +103,7 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         return Filters.battleground_site.accepts(game, locationMovingTo);
     }
 
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        String playerMoving = effectResult.getPerformingPlayerId();
+    private List<OptionalGameTextTriggerAction> followCharacterMovingFromInsidiousPrisoner(String playerMoving, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         Filter characterMoving = Filters.and(Filters.character, Filters.your(playerMoving));
         Filter insidiousPrisonersSite = Filters.sameSiteAs(self, Filters.Insidious_Prisoner);
 
@@ -123,7 +121,6 @@ public class Card211_011 extends AbstractEpicEventDeployable {
                 action.appendEffect(
                         new AttachCardFromTableEffect(action, self, movedResult.getMovingTo()));
                 return Collections.singletonList(action);
-//                }
             }
         }
         return null;
@@ -133,4 +130,13 @@ public class Card211_011 extends AbstractEpicEventDeployable {
 
     // TEST While on coruscant, force drain limit
     // TEST Follow text
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        return followCharacterMovingFromInsidiousPrisoner(playerId, game, effectResult, self, gameTextSourceCardId);
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        return followCharacterMovingFromInsidiousPrisoner(playerId, game, effectResult, self, gameTextSourceCardId);
+    }
 }
