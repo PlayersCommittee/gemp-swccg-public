@@ -2419,6 +2419,15 @@ public class Filters {
         };
     }
 
+    public static Filter immunityToAttritionMoreThan(final int minImmunity) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getImmunityToAttritionLessThan(gameState, physicalCard) > minImmunity;
+            }
+        };
+    }
+
     /**
      * Filter that accepts cards that are not prevented from satisfying attrition.
      */
