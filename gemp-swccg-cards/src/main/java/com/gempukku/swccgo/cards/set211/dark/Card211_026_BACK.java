@@ -4,23 +4,18 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.PutCardFromCardPileOnBottomOfCardPileEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromForcePileEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -83,8 +78,8 @@ public class Card211_026_BACK extends AbstractObjective {
                 && GameConditions.hasForcePile(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place card face down on side of table");
-            action.setActionMsg("Place a card face down on side of table");
+            action.setText("Search your force pile and reveal a card");
+            action.setActionMsg("Search your force pile and reveal a card");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
@@ -96,8 +91,11 @@ public class Card211_026_BACK extends AbstractObjective {
                             final String opponent = game.getOpponent(playerId);
                             action.addAnimationGroup(selectedCard);
                             action.appendEffect(
+                                    new TakeCardIntoHandFromForcePileEffect(action, playerId, selectedCard, false)
+                            );
+                            action.appendEffect(
                                     new PlayoutDecisionEffect(action, opponent,
-                                            new MultipleChoiceAwaitingDecision("Choose result", new String[]{"Lose 2 force: Place card on bottom of used pile", "Opponent takes card into hand"}) {
+                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getFullName(selectedCard) + "from Force Pile.\nChoose result", new String[]{"Lose 2 force: Place card on bottom of used pile", "Opponent takes card into hand"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (index == 0) {
@@ -105,7 +103,7 @@ public class Card211_026_BACK extends AbstractObjective {
                                                         action.appendEffect(
                                                                 new LoseForceEffect(action, opponent, 2));
                                                         action.appendEffect(
-                                                                new PutCardFromCardPileOnBottomOfCardPileEffect(action, playerId, selectedCard, false));
+                                                                new PutCardFromCardPileOnBottomOfCardPileEffect(action, playerId, selectedCard, Zone.USED_PILE, false));
                                                     } else {
                                                         gameState.sendMessage(opponent + " chooses to place card in opponent's hand");
                                                         action.appendEffect(
