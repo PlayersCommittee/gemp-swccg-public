@@ -923,6 +923,7 @@ public interface Title {
     String The_Circle_Is_Now_Complete = "The Circle Is Now Complete";
     String The_First_Transport_Is_Away = "The First Transport Is Away!";
     String The_Force_Is_Strong_With_This_One = "The Force Is Strong With This One";
+    String The_Galaxy_May_Need_A_Legend = "The Galaxy May Need A Legend";
     String The_Hyperdrive_Generators_Gone = "The Hyperdrive Generator's Gone";
     String The_Phantom_Menace = "The Phantom Menace";
     String The_Planet_That_Its_Farthest_From = "The Planet That It's Farthest From";
@@ -1014,6 +1015,7 @@ public interface Title {
     String We_Dont_Need_Their_Scum = "We Don't Need Their Scum";
     String We_Have_A_Plan = "We Have A Plan";
     String We_Have_A_Prisoner = "We Have A Prisoner";
+    String We_Need_Luke_Skywalker = "We Need Luke Skywalker";
     String We_Need_Your_Help = "We Need Your Help";
     String Weather_Vane = "Weather Vane";
     String Weequay_Guard = "Weequay Guard";
