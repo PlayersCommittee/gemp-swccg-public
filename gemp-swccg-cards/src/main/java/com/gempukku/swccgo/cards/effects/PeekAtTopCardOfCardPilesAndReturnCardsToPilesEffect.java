@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * An effect for peeking at the top card of card piles and choosing card to return to each.
  */
-class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubActionEffect {
+class PeekAtTopCardOfCardPilesAndReturnCardsToPilesEffect extends AbstractSubActionEffect {
     private String _playerId;
     private String _cardPileOwner;
     private List<Zone> _cardPiles;
@@ -28,14 +28,15 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
      * Creates an effect for peeking at the top cards of card piles and choose card to return to each.
      * @param action the action performing this effect
      * @param cardPileOwner the owner of the card piles
-     * @param cardPiles the card piles
+     * @param cardPiles the card piles to peak at
+     * @param targetPiles the pile(s) to return cards
      */
-    protected PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect(Action action, String cardPileOwner, List<Zone> cardPiles) {
+    protected PeekAtTopCardOfCardPilesAndReturnCardsToPilesEffect(Action action, String cardPileOwner, List<Zone> cardPiles, List<Zone> targetPiles) {
         super(action);
         _playerId = action.getPerformingPlayer();
         _cardPileOwner = cardPileOwner;
         _cardPiles = cardPiles;
-        _cardPilesToPlaceIn = new LinkedList<Zone>(cardPiles);
+        _cardPilesToPlaceIn = targetPiles;
     }
 
     @Override

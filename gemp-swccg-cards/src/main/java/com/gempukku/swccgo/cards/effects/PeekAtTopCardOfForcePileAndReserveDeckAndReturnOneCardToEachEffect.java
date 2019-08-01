@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * An effect for peeking at the top card of Force Pile and Reserve Deck and choosing card to return to each.
  */
-public class PeekAtTopCardOfForcePileAndReserveDeckAndReturnOneCardToEachEffect extends PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect {
+public class PeekAtTopCardOfForcePileAndReserveDeckAndReturnOneCardToEachEffect extends PeekAtTopCardOfCardPilesAndReturnCardsToPilesEffect {
 
     /**
      * Creates an effect for peeking at the top card of Force Pile and Reserve Deck and choose card to return to each.
@@ -16,6 +16,6 @@ public class PeekAtTopCardOfForcePileAndReserveDeckAndReturnOneCardToEachEffect 
      * @param cardPileOwner the owner of the card piles
      */
     public PeekAtTopCardOfForcePileAndReserveDeckAndReturnOneCardToEachEffect(Action action, String cardPileOwner) {
-        super(action, cardPileOwner, Arrays.asList(Zone.FORCE_PILE, Zone.RESERVE_DECK));
+        super(action, cardPileOwner, Arrays.asList(Zone.FORCE_PILE, Zone.RESERVE_DECK), Arrays.asList(Zone.FORCE_PILE, Zone.RESERVE_DECK));
     }
 }

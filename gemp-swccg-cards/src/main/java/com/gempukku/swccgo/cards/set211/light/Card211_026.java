@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Set: Set 11
  * Type: Objective
@@ -48,14 +47,14 @@ public class Card211_026 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Ahch_To_system , true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Ahch_To_system, true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose AhchTo_System to deploy";
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.battleground, Icon.EPISODE_VII) , true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.battleground, Icon.EPISODE_VII), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose [Episode VII] battleground to deploy";
@@ -126,7 +125,7 @@ public class Card211_026 extends AbstractObjective {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        Filter lukeOnAhchTo = Filters.and(Filters.Luke ,Filters.at(Filters.AhchTo_location));
+        Filter lukeOnAhchTo = Filters.and(Filters.Luke, Filters.at(Filters.AhchTo_location));
 
         // Check condition(s)
         if (TriggerConditions.battleInitiated(game, effectResult)

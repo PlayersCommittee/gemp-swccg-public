@@ -3,11 +3,9 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,10 +14,8 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
-import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -30,7 +26,6 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 
 /**
  * Set: Set 11
@@ -61,6 +56,7 @@ public class Card211_026_BACK extends AbstractObjective {
             // Perform result(s)
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Place Luke Out of Play", Filters.Luke) {
+                        //Immune To BHBM. See Card9_151. (Line 80)
                         @Override
                         protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
                             action.appendEffect(
@@ -78,7 +74,7 @@ public class Card211_026_BACK extends AbstractObjective {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
         GameTextActionId gameTextActionId1 = GameTextActionId.THE_GALAXY_MAY_NEED_A_LEGEND_FORCE_PILE_UPLOAD;
@@ -99,7 +95,38 @@ public class Card211_026_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        //TODO: Implement Pile Peek
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        // Check condition(s)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.hasForcePile(game, playerId)
+                && GameConditions.hasReserveDeck(game, playerId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Peek at top card of Force Pile and Reserve Deck");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
+            action.appendEffect(
+                    new PlayoutDecisionEffect(action, playerId,
+                            new MultipleChoiceAwaitingDecision("Choose pile", new String[]{"Reserve Deck", "Force Pile"}) {
+                                @Override
+                                protected void validDecisionMade(int index, String result) {
+                                    if (index == 0) {
+                                        game.getGameState().sendMessage(playerId + " chooses Reserve Deck");
+                                        action.appendEffect(
+                                                new PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile(action, playerId, Zone.RESERVE_DECK));
+                                    } else {
+                                        game.getGameState().sendMessage(playerId + " chooses Force Pile");
+                                        action.appendEffect(
+                                                new PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile(action, playerId, Zone.FORCE_PILE));
+                                    }
+                                }
+                            }
+                    )
+            );
+            actions.add(action);
+        }
 
         return actions;
     }
