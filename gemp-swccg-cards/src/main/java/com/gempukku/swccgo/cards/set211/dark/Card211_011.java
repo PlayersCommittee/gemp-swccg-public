@@ -106,12 +106,23 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         return Filters.battleground_site.accepts(game, locationMovingTo);
     }
 
+    private boolean movingContainsNonUndercoverSpies(SwccgGame game, PhysicalCard source, Filter charactersMoving) {
+        PhysicalCard nonUCSpyMoving = Filters.findFirstActive(game, source, Filters.and(charactersMoving, Filters.not(Filters.undercover_spy)));
+        if (nonUCSpyMoving != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private List<OptionalGameTextTriggerAction> followCharacterMovingFromInsidiousPrisoner(String playerMoving, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        Filter characterMoving = Filters.and(Filters.character, Filters.your(playerMoving));
+        Filter charactersMoving = Filters.and(Filters.character, Filters.not(Filters.undercover_spy), Filters.your(playerMoving));
         Filter insidiousPrisonersSite = Filters.sameSiteAs(self, Filters.Insidious_Prisoner);
 
-        if (TriggerConditions.movingFromLocation(game, effectResult, characterMoving, insidiousPrisonersSite)
+        if (TriggerConditions.movingFromLocation(game, effectResult, charactersMoving, insidiousPrisonersSite)
                 && GameConditions.controls(game, playerMoving, insidiousPrisonersSite)
+                && (effectResult.getType() != EffectResult.Type.RELOCATING_BETWEEN_LOCATIONS)
+                && (movingContainsNonUndercoverSpies(game, self, charactersMoving))
                 && (isMovingToBattlegroundSite(game, effectResult))) {
             if (!GameConditions.cardHasWhileInPlayDataEquals(self, playerMoving)) {
                 self.setWhileInPlayData(new WhileInPlayData(playerMoving));
