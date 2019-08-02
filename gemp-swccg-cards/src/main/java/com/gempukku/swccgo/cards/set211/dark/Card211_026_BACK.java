@@ -25,6 +25,11 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Objective
+ * Title: A Stunning Move / A Valuable Hostage
+ */
 public class Card211_026_BACK extends AbstractObjective {
     public Card211_026_BACK() {
         super(Side.DARK, 7, "A Valuable Hostage");

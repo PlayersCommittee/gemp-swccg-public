@@ -23,6 +23,11 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Objective
+ * Title: A Stunning Move / A Valuable Hostage
+ */
 public class Card211_026 extends AbstractObjective {
     public Card211_026() {
         super(Side.DARK, 0, Title.A_Stunning_Move);
