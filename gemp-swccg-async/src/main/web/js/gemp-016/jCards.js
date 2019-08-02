@@ -3119,6 +3119,8 @@ var fixedImages = {
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
 "211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
+"211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
+"211_33":"/gemp-swccg/images/cards/Virtual11-Light/jedilightsaber.gif",
 "211_3":"/gemp-swccg/images/cards/Virtual11-Dark/ladyproxima.gif",
 "211_4":"/gemp-swccg/images/cards/Virtual11-Dark/ltpoldinlehuse.gif",
 "211_5":"/gemp-swccg/images/cards/Virtual11-Dark/reeyees.gif",
@@ -3141,7 +3143,6 @@ var fixedImages = {
 "211_22":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandhallway.gif",
 "211_23":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
 "211_24":"/gemp-swccg/images/cards/Virtual11-Dark/vengeance.gif",
-"211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
 "211_26":"/gemp-swccg/images/cards/Virtual11-Dark/astunningmove.gif",
 "211_26_BACK":"/gemp-swccg/images/cards/Virtual11-Dark/avaluablehostage.gif",
 "211_27":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandobservatoryentrance.gif",
@@ -3150,7 +3151,6 @@ var fixedImages = {
 "211_30":"/gemp-swccg/images/cards/Virtual11-Light/rendezvouspointontatooine.gif",
 "211_31":"/gemp-swccg/images/cards/Virtual11-Light/beldonseyeandallmyurchins.gif",
 "211_32":"/gemp-swccg/images/cards/Virtual11-Light/yavin4.gif",
-"211_33":"/gemp-swccg/images/cards/Virtual11-Light/jedilightsaber.gif",
 "211_34":"/gemp-swccg/images/cards/Virtual11-Light/libertine.gif",
 "211_35":"/gemp-swccg/images/cards/Virtual11-Light/tallielintrainblue1.gif",
 "211_36":"/gemp-swccg/images/cards/Virtual11-Light/thegalaxymayneedalegend.gif",
@@ -3565,15 +3565,8 @@ var Card = Class.extend({
                    (cardNo == 21) ||
                    (cardNo == 22) ||
                    (cardNo == 27) ||
-                   (cardNo == 38) ||
-                   (cardNo == 39) ||
-                   (cardNo == 40) ||
-                   (cardNo == 41) ||
-                   (cardNo == 42) ||
-                   (cardNo == 44) ||
-                   (cardNo == 45) ||
-                   (cardNo == 46) ||
-                   (cardNo == 47);
+                   (cardNo >= 38 && cardNo <= 42) ||
+                   (cardNo >= 44 && cardNo <= 47);
         }
         if (setNo == 501) {
             return (cardNo == 9);
