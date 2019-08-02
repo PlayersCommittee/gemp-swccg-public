@@ -504,6 +504,18 @@ public interface ModifiersQuerying {
      */
     boolean isProhibitedFromHavingForfeitReduced(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
+
+    /**
+     * Determines if a card's forfeit may not be increased above printed value
+     * @param gameState the game state
+     * @param card a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased above printed values
+     */
+    boolean isProhibitedFromHavingForfeitInceasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+
+
+
     /**
      * Determines if a card's game text may not be canceled.
      * @param gameState the game state

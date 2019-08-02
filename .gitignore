@@ -38,3 +38,10 @@ gemp-swccg-server/target/
 
 # Mac OS filesystem
 .DS_Store
+
+#Eclipse
+*.prefs
+*/.classpath
+*/.project
+*/.settings/*
+.settings/org.eclipse.core.resources.prefs

@@ -1874,6 +1874,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             result = physicalCard.getBlueprint().getForfeit();
         }
 
+        Float printedForfeit = result;
+
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PRINTED_FORFEIT_VALUE, physicalCard)) {
             result = modifier.getPrintedValueDefinedByGameText(gameState, this, physicalCard);
             modifierCollector.addModifier(modifier);
@@ -1909,6 +1911,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         if (lowestResetValue != null) {
             result = lowestResetValue;
+        }
+
+        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingForfeitInceasedBeyondPrinted(gameState, physicalCard, modifierCollector);
+        if (forfeitMayNotIncreaseBeyondPrinted) {
+            if (result > printedForfeit) {
+                result = printedForfeit;
+            }
         }
 
         return Math.max(0, result);
@@ -1947,6 +1956,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public boolean isProhibitedFromHavingForfeitReduced(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
         boolean retVal = false;
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_REDUCED, card)) {
+            retVal = true;
+            modifierCollector.addModifier(modifier);
+        }
+        return retVal;
+    }
+
+
+    /**
+     * Determines if a card's forfeit may not be increased above printed value
+     * @param gameState the game state
+     * @param card a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased above printed values
+     */
+    @Override
+    public boolean isProhibitedFromHavingForfeitInceasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_INCREASED_ABOVE_PRINTED, card)) {
             retVal = true;
             modifierCollector.addModifier(modifier);
         }
@@ -9294,6 +9321,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     private float getImmunityToAttritionLessThan(GameState gameState, PhysicalCard physicalCard, Filterable sourceToIgnore, ModifierCollector modifierCollector) {
         Float lockedValue = null;
+
         // During the damage segment of a battle, immunity to attrition cannot change, so look at the saved value
         if (gameState.isDuringDamageSegmentOfBattle() && Filters.participatingInBattle.accepts(gameState, this, physicalCard)) {
             float value = physicalCard.getImmunityToAttritionLessThan();
@@ -9327,6 +9355,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
 
+
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_OF_EXACTLY, physicalCard)) {
             if (sourceToIgnore == null || modifier.getSource(gameState) == null || !Filters.and(sourceToIgnore).accepts(gameState, this, modifier.getSource(gameState))) {
                 if (result <= modifier.getImmunityToAttritionOfExactlyModifier(gameState, this, physicalCard)) {
@@ -9341,6 +9370,22 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (lockedValue != null) {
             return lockedValue;
         }
+
+        // See if we are capped at a value and apply the cap
+        float immunityValueCap = Integer.MAX_VALUE;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_LIMITED_TO_VALUE, physicalCard)) {
+            if (sourceToIgnore == null || modifier.getSource(gameState) == null || !Filters.and(sourceToIgnore).accepts(gameState, this, modifier.getSource(gameState))) {
+
+                float newCappedValue =  modifier.getImmunityToAttritionCappedAtValue(gameState, this, physicalCard);
+                if (newCappedValue < immunityValueCap) {
+                    immunityValueCap = newCappedValue;
+                }
+                modifierCollector.addModifier(modifier);
+            }
+        }
+
+        result = Math.min(result, immunityValueCap);
+
         return Math.max(0, result);
     }
 

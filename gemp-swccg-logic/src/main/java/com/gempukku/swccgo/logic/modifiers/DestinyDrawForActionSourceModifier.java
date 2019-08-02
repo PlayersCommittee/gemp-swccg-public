@@ -37,6 +37,20 @@ public class DestinyDrawForActionSourceModifier extends AbstractModifier {
         this(source, affectFilter, null, new ConstantEvaluator(modifierAmount), playerId);
     }
 
+
+    /**
+     * Creates a destiny modifier for destiny drawn for either player for an action with a card accepted by the filter
+     * as the action source.
+     * @param source the source of the modifier
+     * @param affectFilter the filter
+     * @param condition the condition in order for this to trigger
+     * @param modifierAmount the amount of the modifier
+     * @param playerId the player whose destiny draws are affected
+     */
+    public DestinyDrawForActionSourceModifier(PhysicalCard source, Filterable affectFilter, Condition condition, int modifierAmount, String playerId) {
+        this(source, affectFilter, condition, new ConstantEvaluator(modifierAmount), playerId);
+    }
+
     /**
      * Creates a destiny modifier for destiny drawn for the specified player for an action with a card accepted by the
      * filter as the action source.

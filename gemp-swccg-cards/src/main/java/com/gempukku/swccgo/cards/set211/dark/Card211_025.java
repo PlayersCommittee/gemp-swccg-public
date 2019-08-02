@@ -37,13 +37,13 @@ public class Card211_025 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return (Filters.or(Filters.Aurra_Sing, Filters.Grievous, Filters.and(Filters.your(self), Filters.warrior, Filters.abilityMoreThan(4))));
+        return (Filters.or(Filters.Aurra, Filters.Grievous, Filters.and(Filters.your(self), Filters.warrior, Filters.abilityMoreThan(4))));
     }
 
     // Jim: Dunno when this would be different from the deploy.  maybe when weapon lev is involved?  Basically I'm not sure the purpose of this section even though it's part of what I copied from..
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return (Filters.or(Filters.Aurra_Sing, Filters.Grievous, Filters.and(Filters.your(self), Filters.warrior, Filters.abilityMoreThan(4))));
+        return (Filters.or(Filters.Aurra, Filters.Grievous, Filters.and(Filters.your(self), Filters.warrior, Filters.abilityMoreThan(4))));
     }
 
     @Override

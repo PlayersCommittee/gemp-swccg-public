@@ -3119,8 +3119,66 @@ var fixedImages = {
 "210_46":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "211_1":"/gemp-swccg/images/cards/Virtual11-Dark/mitthrawnuruodo.gif",
 "211_2":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
+"211_3":"/gemp-swccg/images/cards/Virtual11-Dark/ladyproxima.gif",
+"211_4":"/gemp-swccg/images/cards/Virtual11-Dark/ltpoldinlehuse.gif",
+"211_5":"/gemp-swccg/images/cards/Virtual11-Dark/reeyees.gif",
+"211_6":"/gemp-swccg/images/cards/Virtual11-Dark/sebulba.gif",
+"211_7":"/gemp-swccg/images/cards/Virtual11-Dark/sergeantnarthaxwithewebblaster.gif",
+"211_8":"/gemp-swccg/images/cards/Virtual11-Dark/carbonitechamberconsole.gif",
+"211_9":"/gemp-swccg/images/cards/Virtual11-Dark/prideoftheempire.gif",
+"211_10":"/gemp-swccg/images/cards/Virtual11-Dark/quietlyobserving.gif",
+"211_11":"/gemp-swccg/images/cards/Virtual11-Dark/insidiousprisoner.gif",
+"211_12":"/gemp-swccg/images/cards/Virtual11-Dark/alwaystwothereare.gif",
+"211_13":"/gemp-swccg/images/cards/Virtual11-Dark/hesallyoursbountyhunter.gif",
+"211_14":"/gemp-swccg/images/cards/Virtual11-Dark/tradefederationtactics.gif",
+"211_15":"/gemp-swccg/images/cards/Virtual11-Dark/twilekadvisor.gif",
+"211_16":"/gemp-swccg/images/cards/Virtual11-Dark/vadersanger.gif",
+"211_17":"/gemp-swccg/images/cards/Virtual11-Dark/coruscant500republica.gif",
+"211_18":"/gemp-swccg/images/cards/Virtual11-Dark/coruscantprivateplatform.gif",
+"211_19":"/gemp-swccg/images/cards/Virtual11-Dark/dqar.gif",
+"211_20":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandbridge.gif",
+"211_21":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehanddockingbay.gif",
+"211_22":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandhallway.gif",
+"211_23":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
 "211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
+"211_24":"/gemp-swccg/images/cards/Virtual11-Dark/vengeance.gif",
+"211_26":"/gemp-swccg/images/cards/Virtual11-Dark/astunningmove.gif",
+"211_26_BACK":"/gemp-swccg/images/cards/Virtual11-Dark/avaluablehostage.gif",
+"211_27":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandobservatoryentrance.gif",
+"211_28":"/gemp-swccg/images/cards/Virtual11-Light/bb8inblacksquadron1.gif",
+"211_29":"/gemp-swccg/images/cards/Virtual11-Light/maketenmenfeellikeahundred.gif",
+"211_30":"/gemp-swccg/images/cards/Virtual11-Light/rendezvouspointontatooine.gif",
+"211_31":"/gemp-swccg/images/cards/Virtual11-Light/beldonseyeandallmyurchins.gif",
+"211_32":"/gemp-swccg/images/cards/Virtual11-Light/yavin4.gif",
 "211_33":"/gemp-swccg/images/cards/Virtual11-Light/jedilightsaber.gif",
+"211_34":"/gemp-swccg/images/cards/Virtual11-Light/libertine.gif",
+"211_35":"/gemp-swccg/images/cards/Virtual11-Light/tallielintrainblue1.gif",
+"211_36":"/gemp-swccg/images/cards/Virtual11-Light/thegalaxymayneedalegend.gif",
+"211_36_BACK":"/gemp-swccg/images/cards/Virtual11-Light/weeneedlukeskywalker.gif",
+"211_37":"/gemp-swccg/images/cards/Virtual11-Light/takodana.gif",
+"211_38":"/gemp-swccg/images/cards/Virtual11-Light/takodanamazscastle.gif",
+"211_39":"/gemp-swccg/images/cards/Virtual11-Light/mazscastlehiddenrecess.gif",
+"211_40":"/gemp-swccg/images/cards/Virtual11-Light/mazscastleantechamber.gif",
+"211_41":"/gemp-swccg/images/cards/Virtual11-Light/kaminoclonetrainingcenter.gif",
+"211_42":"/gemp-swccg/images/cards/Virtual11-Light/kaminoclonebirthingcenter.gif",
+"211_43":"/gemp-swccg/images/cards/Virtual11-Light/kamino.gif",
+"211_44":"/gemp-swccg/images/cards/Virtual11-Light/ahchtolukeshut.gif",
+"211_45":"/gemp-swccg/images/cards/Virtual11-Light/ahchtojedivillage.gif",
+"211_46":"/gemp-swccg/images/cards/Virtual11-Light/ahchtojeditemple.gif",
+"211_47":"/gemp-swccg/images/cards/Virtual11-Light/ahchtocliffs.gif",
+"211_48":"/gemp-swccg/images/cards/Virtual11-Light/ahchto.gif",
+"211_49":"/gemp-swccg/images/cards/Virtual11-Light/seeyouaroundkid.gif",
+"211_50":"/gemp-swccg/images/cards/Virtual11-Light/whereshan.gif",
+"211_51":"/gemp-swccg/images/cards/Virtual11-Light/forceprojection.gif",
+"211_52":"/gemp-swccg/images/cards/Virtual11-Light/squadronassignments.gif",
+"211_53":"/gemp-swccg/images/cards/Virtual11-Light/cloningcylinders.gif",
+"211_54":"/gemp-swccg/images/cards/Virtual11-Light/cyborgconstruct.gif",
+"211_55":"/gemp-swccg/images/cards/Virtual11-Light/viceadmiralholdo.gif",
+"211_56":"/gemp-swccg/images/cards/Virtual11-Light/rebeltrooperreinforcements.gif",
+"211_57":"/gemp-swccg/images/cards/Virtual11-Light/mazkanata.gif",
+"211_58":"/gemp-swccg/images/cards/Virtual11-Light/commandervandenwillard.gif",
+"211_59":"/gemp-swccg/images/cards/Virtual11-Light/ahsokatano.gif",
+"211_60":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
@@ -3501,8 +3559,14 @@ var Card = Class.extend({
 
         }
         if (setNo == 211) {
-            // TODO: Add Horizontal Set11 cards here
-            return false;
+            return (cardNo == 17) ||
+                   (cardNo == 18) ||
+                   (cardNo == 20) ||
+                   (cardNo == 21) ||
+                   (cardNo == 22) ||
+                   (cardNo == 27) ||
+                   (cardNo >= 38 && cardNo <= 42) ||
+                   (cardNo >= 44 && cardNo <= 47);
         }
         if (setNo == 501) {
             return (cardNo == 9);

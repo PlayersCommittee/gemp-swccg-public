@@ -2,6 +2,7 @@ package com.gempukku.swccgo.logic.effects;
 
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
@@ -53,5 +54,10 @@ public class PutCardFromHandOnUsedPileEffect extends PutCardsFromHandOnUsedPileE
      */
     public PutCardFromHandOnUsedPileEffect(Action action, String playerId, String cardPileOwner, PhysicalCard card) {
         super(action, playerId, cardPileOwner, Collections.singletonList(card), false);
+    }
+
+    @Override
+    public String getText(SwccgGame game) {
+        return "Put card from hand on Used Pile";
     }
 }
