@@ -38,7 +38,7 @@ public class Card211_026 extends AbstractObjective {
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Ahch-To system and any [Episode VII] battleground.\n" +
                 "For remainder of game, you may not Force drain on Ahch-To. You may not deploy [Episode I] locations or non-[Episode VII] Luke. Once per game, may take any one card into hand from Force Pile; reshuffle. Luke deploys only to Ahch-To.\n" +
-                "While this side up, once per turn, may use 1 Force to \\/ an Ahch-To location or [Episode VII] battleground.\n" +
+                "While this side up, once per turn, may use 1 Force to [download] an Ahch-To location or [Episode VII] battleground.\n" +
                 "May flip this card if Luke on Ahch-To and a battle was just initiated involving a Resistance character.");
         addIcons(Icon.VIRTUAL_SET_11);
     }
@@ -107,8 +107,8 @@ public class Card211_026 extends AbstractObjective {
                 && GameConditions.canUseForce(game, playerId, 1)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
-            action.setText("Deploy Ahch-To location or [Episode VII] battleground from Reserve Deck");
-            action.setActionMsg("Deploy Ahch-To location or [Episode VII] battleground from Reserve Deck");
+            action.setText("Deploy location from Reserve Deck");
+            action.setActionMsg("Deploy location from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));

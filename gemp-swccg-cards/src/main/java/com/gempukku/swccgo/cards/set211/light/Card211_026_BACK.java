@@ -54,9 +54,10 @@ public class Card211_026_BACK extends AbstractObjective {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Luke out of play.");
             action.setActionMsg("Place Luke out of play.");
+
             // Perform result(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Place Luke Out of Play", Filters.Luke) {
+                    new TargetCardOnTableEffect(action, playerId, "Place Luke Out of Play", TargetingReason.TO_BE_PLACED_OUT_OF_PLAY, Filters.Luke) {
                         //Immune To BHBM. See Card9_151. (Line 80)
                         @Override
                         protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
