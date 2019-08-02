@@ -23,11 +23,11 @@ import java.util.List;
  * Set: Virtual Set 11
  * Type: Starship
  * Subtype: Starfighter
- * Title: BB-8 In Black One
+ * Title: BB-8 In Black Squadron 1
  */
 public class Card211_028 extends AbstractStarfighter {
     public Card211_028() {
-        super(Side.LIGHT, (float)(Math.PI), 3, 4, null, 5, 6, 5, "BB-8 In Black One", Uniqueness.UNIQUE);
+        super(Side.LIGHT, (float)(Math.PI), 3, 4, null, 5, 6, 5, "BB-8 In Black Squadron 1", Uniqueness.UNIQUE);
         setGameText("May add 1 pilot. Permanent astromech aboard is •BB-8. If Poe piloting, may lose 1 Force to cancel a just drawn weapon destiny targeting this starship. Immune to attrition < 4.");
         addPersona(Persona.BLACK_1); // BB-8 Persona added in AbstractPermanentAboard later
         setPilotCapacity(1);
