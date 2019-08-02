@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -12,6 +14,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.IconModifier;
@@ -49,16 +52,12 @@ public class Card211_011 extends AbstractEpicEventDeployable {
 
         // Note: This card cannot currently be a captive - it is a broken link.
         //       The verbiage about captives leaves the door open for a light side counterpart.
-        boolean atSiteEvenAsCaptive = Filters.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Insidious_Prisoner, Filters.at(Filters.site)));
-        if (atSiteEvenAsCaptive) {
-            modifiers.add(new IconModifier(self, Filters.sameLocation(self), Icon.DARK_FORCE, 1));
-        }
+        Condition atSiteEvenAsACaptive = new AtCondition(self, SpotOverride.INCLUDE_CAPTIVE, self, Filters.site);
+        modifiers.add(new IconModifier(self, Filters.sameLocation(self), atSiteEvenAsACaptive, Icon.DARK_FORCE, 1));
 
         String opponent = game.getOpponent(self.getOwner());
-        Filter coruscantSiteWithInsidiousPrisoner = Filters.and(Filters.title(Title.Coruscant), Filters.hasAttached(self));
-        if (coruscantSiteWithInsidiousPrisoner != null) {
-            modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.hasAttached(self), 1, opponent));
-        }
+        Condition insidiousPrisonerOnCoruscant = new AttachedCondition(self, Filters.Coruscant_location);
+        modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.hasAttached(self), insidiousPrisonerOnCoruscant, 1, opponent));
 
         modifiers.add(new ForceGenerationModifier(self, Filters.hasAttached(self), -1, game.getOpponent(self.getOwner())));
 
