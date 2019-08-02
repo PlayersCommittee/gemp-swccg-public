@@ -26,7 +26,6 @@ import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -154,12 +153,13 @@ public class Card211_026_BACK extends AbstractObjective {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
-
+        String playerId = self.getOwner();
         GameTextActionId gameTextActionId = GameTextActionId.A_STUNNING_MOVE__CONTROL_PHASE_DAMAGE;
 
-        if (GameConditions.isOnceDuringYourPhase(game, self, self.getOwner(), gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
+        if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
             int NUM_FORCE_LOSS = 1;
-            if (GameConditions.canSpot(game, self, yourSeparatistCharacterWithInsidiousPrisoner(self.getOwner()))) {
+            if (GameConditions.canSpot(game, self, yourSeparatistCharacterWithInsidiousPrisoner(playerId))) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Make opponent lose " + NUM_FORCE_LOSS + " Force");
                 // Update usage limit(s)
@@ -167,7 +167,7 @@ public class Card211_026_BACK extends AbstractObjective {
                         new OncePerPhaseEffect(action));
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(self.getOwner()), NUM_FORCE_LOSS));
+                        new LoseForceEffect(action, game.getOpponent(playerId), NUM_FORCE_LOSS));
                 actions.add(action);
             }
         }
