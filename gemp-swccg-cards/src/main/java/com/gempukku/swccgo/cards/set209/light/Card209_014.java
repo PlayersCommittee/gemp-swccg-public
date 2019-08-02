@@ -36,7 +36,7 @@ public class Card209_014 extends AbstractAlien {
     public Card209_014() {
         super(Side.LIGHT, 3, 2, 1, 2, 3, "Yoxgit", Uniqueness.UNIQUE);
         setLore("Male Ugnaught. Left Cloud City after the Empire took control. Works for Hermi Odle, helping to supply him with various weaponry. Hopes to someday return to Cloud City.");
-        setGameText("Deploys free to (and power +2 at) a Cloud City, Jabba's Palace, or Maz's Palace location. Once per turn, if you just drew an alien (or [Independent] starship) for destiny, may take that card into hand to cancel and redraw that destiny.");
+        setGameText("Deploys free to (and power +2 at) a Cloud City, Jabba's Palace, or Maz's Castle location. Once per turn, if you just drew an alien (or [Independent] starship) for destiny, may take that card into hand to cancel and redraw that destiny.");
         addIcons(Icon.VIRTUAL_SET_9, Icon.JABBAS_PALACE);
         setSpecies(Species.UGNAUGHT);
         setVirtualSuffix(true);
@@ -45,7 +45,7 @@ public class Card209_014 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Filter CC_JP_OR_MP_Location = Filters.or(Filters.Cloud_City_location, Filters.Jabbas_Palace_site, Filters.Mazs_Palace_Location);
+        Filter CC_JP_OR_MP_Location = Filters.or(Filters.Cloud_City_location, Filters.Jabbas_Palace_site, Filters.Mazs_Castle_Location);
         modifiers.add(new DeploysFreeToLocationModifier(self, CC_JP_OR_MP_Location));
         return modifiers;
     }
@@ -53,7 +53,7 @@ public class Card209_014 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Filter CC_JP_OR_MP_Location = Filters.or(Filters.Cloud_City_location, Filters.Jabbas_Palace_site, Filters.Mazs_Palace_Location);
+        Filter CC_JP_OR_MP_Location = Filters.or(Filters.Cloud_City_location, Filters.Jabbas_Palace_site, Filters.Mazs_Castle_Location);
         modifiers.add(new PowerModifier(self, new AtCondition(self, CC_JP_OR_MP_Location), 2));
         return modifiers;
     }

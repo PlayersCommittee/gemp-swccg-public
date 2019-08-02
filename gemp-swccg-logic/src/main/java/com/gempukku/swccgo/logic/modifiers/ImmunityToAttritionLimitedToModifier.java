@@ -37,4 +37,3 @@ public class ImmunityToAttritionLimitedToModifier extends AbstractModifier {
     public float getImmunityToAttritionCappedAtValue(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard) {
         return _evaluator.evaluateExpression(gameState, modifiersLogic, physicalCard);
     }
-}
