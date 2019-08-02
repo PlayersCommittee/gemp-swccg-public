@@ -43,6 +43,7 @@ public interface Title {
     String And_Now_Youll_Give_It_To_Me = "And Now You'll Give It To Me";
     String Anger_Fear_Aggression = "Anger, Fear, Aggression";
     String Anoat = "Anoat";
+    String Antechamber = "Maz's Castle: Antechamber";
     String Any_Methods_Necessary = "Any Methods Necessary";
     String Ardon_Crell = "Ardon 'Vapor' Crell";
     String Arleil = "Arleil Schous";
@@ -256,10 +257,12 @@ public interface Title {
     String Disarmed = "Disarmed";
     String Do_Or_Do_Not = "Do, Or Do Not";
     String Doallyn = "Sergeant Doallyn";
+    String Dobra_Doompa = "Dopra Doompa";
     String Docking_And_Repair_Facilities = "Docking And Repair Facilities";
     String Docking_Bay_327 = "Death Star: Docking Bay 327";
     String Docking_Bay_94 = "Tatooine: Docking Bay 94";
     String Docking_Control_Room_327 = "Death Star: Docking Control Room 327";
+    String Dodge = "Dodge";
     String Dolphe = "Officer Dolphe";
     String Dont_Get_Cocky = "Don't Get Cocky";
     String Dont_Underestimate_Our_Chances = "Don't Underestimate Our Chances";
@@ -393,6 +396,7 @@ public interface Title {
     String Guri = "Guri";
     String Halt = "Halt!";
     String Hans_Back = "Han's Back";
+    String Hans_Dice = "Han's Dice";
     String Hans_Heavy_Blaster_Pistol = "Han's Heavy Blaster Pistol";
     String Hans_Toolkit = "Han's Toolkit";
     String Harc = "Harc Seff";
@@ -410,6 +414,7 @@ public interface Title {
     String Hewex = "Major Hewex";
     String Hidden_Base = "Hidden Base";
     String Hidden_Forest_Trail = "Endor: Hidden Forest Trail";
+    String Hidden_Recess= "Maz's Castle: Hidden Recess";
     String Hidden_Weapons = "Hidden Weapons";
     String Highspeed_Tactics = "High-speed Tactics";
     String His_Name_Is_Anakin = "His Name Is Anakin";
@@ -606,6 +611,7 @@ public interface Title {
     String Masterful_Move = "Masterful Move";
     String Maul_Strikes = "Maul Strikes";
     String Mauls_Lightsaber = "Maul's Lightsaber";
+    String Mazs_Castle = "Takonada: Maz's Castle";
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
@@ -895,6 +901,7 @@ public interface Title {
     String Take_Them_Away = "Take Them Away";
     String Take_Your_Fathers_Place = "Take Your Father's Place";
     String Takeel = "Takeel";
+    String Takodana = "Takodana";
     String Tala_1 = "Tala 1";
     String Tala_2 = "Tala 2";
     String Tanbris = "Lieutenant Tanbris";
