@@ -22,6 +22,17 @@ public class PlaceInUsedPileWhenCanceledModifier extends AbstractModifier {
         this(source, source, null, null, Filters.any);
     }
 
+
+    /**
+     * Creates modifier to have card placed in Used Pile (instead of Lost Pile) when canceled for any reason)
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards placed in Used Pile when canceled
+     */
+    public PlaceInUsedPileWhenCanceledModifier(PhysicalCard source, Filterable affectFilter)
+    {
+        this (source, affectFilter, null, null, Filters.any);
+    }
+
     /**
      * Creates modifier to have card placed in Used Pile (instead of Lost Pile) when canceled by specified player.
      * @param source the source of the modifier

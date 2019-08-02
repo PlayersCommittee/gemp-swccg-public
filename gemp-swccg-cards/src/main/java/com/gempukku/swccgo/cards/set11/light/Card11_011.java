@@ -60,7 +60,7 @@ public class Card11_011 extends AbstractJediMaster {
 
         // Check condition(s)
         if (TriggerConditions.isDuelDestinyJustDrawn(game, effectResult)
-                && GameConditions.isOncePerDuel(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerDuel(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringDuelWithParticipant(game, self)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
