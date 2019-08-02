@@ -15,14 +15,18 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromCardPileOnBottomOfCardPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromForcePileEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +49,7 @@ public class Card211_026_BACK extends AbstractObjective {
 
         Filter opponentsJediStarshipsVehicles = Filters.and(Filters.opponents(self.getOwner()), Filters.or(Filters.Jedi, Filters.starship, Filters.vehicle));
         Filter cardsWithMoreThan5ITA = Filters.and(opponentsJediStarshipsVehicles, Filters.immunityToAttritionMoreThan(5));
-        modifiers.add (new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
+        modifiers.add(new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
 
         return modifiers;
     }
@@ -59,7 +63,30 @@ public class Card211_026_BACK extends AbstractObjective {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.A_STUNNING_MOVE__CONTROL_PHASE_DAMAGE;
+        // This is technically text for the front side, but it seemed needlessly complicated
+        //   to attempt to code it as a AddUntilEndOfGameModifierEffect. If there ever is a
+        //   "place out of play" condition for this objective, this will need to change.
+        GameTextActionId gameTextActionId = GameTextActionId.A_STUNNING_MOVE__DOWNLOAD_SITE_OR_NONUNIQUE_SEPARATIST_DROID;
+        Filter invisibleHandSite = Filters.siteOfStarshipOrVehicle(Persona.INVISIBLE_HAND, true);
+        Filter separatistDroid = Filters.and(Icon.SEPARATIST, Filters.droid);
+
+        // Check condition(s)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy card from Reserve Deck");
+            action.setActionMsg("Deploy an Invisible Hand site or non-unique [Separatist] Droid");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerPhaseEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(invisibleHandSite, separatistDroid), true));
+            actions.add(action);
+        }
+        
+        gameTextActionId = GameTextActionId.A_STUNNING_MOVE__CONTROL_PHASE_DAMAGE;
 
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
             int NUM_FORCE_LOSS = 1;
@@ -77,7 +104,7 @@ public class Card211_026_BACK extends AbstractObjective {
         }
 
         gameTextActionId = GameTextActionId.A_STUNNING_MOVE__REVEAL_CARD_FROM_FORCE_PILE;
-        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId)
+        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.hasForcePile(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
@@ -98,7 +125,7 @@ public class Card211_026_BACK extends AbstractObjective {
                             );
                             action.appendEffect(
                                     new PlayoutDecisionEffect(action, opponent,
-                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getFullName(selectedCard) + "from Force Pile.\nChoose result", new String[]{"Lose 2 force: Place card on bottom of used pile", "Opponent takes card into hand"}) {
+                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getFullName(selectedCard) + " from Force Pile. Choose result", new String[]{"Lose 2 force to place card on bottom of used pile", "Opponent takes card into hand"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (index == 0) {
