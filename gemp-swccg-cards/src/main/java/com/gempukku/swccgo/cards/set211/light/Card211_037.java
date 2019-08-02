@@ -58,7 +58,7 @@ public class Card211_037 extends AbstractSystem {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalAfterTriggers(String playerOnDarkSideOfLocation, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
 
-        if (TriggerConditions.justDeployedTo(game, effectResult, Filters.starship, Filters.Takonada_system))
+        if (TriggerConditions.justDeployedTo(game, effectResult, Filters.and(Filters.owner(playerOnDarkSideOfLocation), Filters.starship), Filters.Takonada_system))
         {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId);
             action.setText("Shuffle any deck or pile");
