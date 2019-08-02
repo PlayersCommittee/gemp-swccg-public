@@ -3,8 +3,8 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -68,7 +68,7 @@ public class Card211_026 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotForceDrainAtLocationModifier(self, Filters.AhchTo_location, playerId), null));
+                        new MayNotForceDrainAtLocationModifier(self, Filters.on(Title.Ahch_To), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, Filters.or(Filters.and(Filters.location, Icon.EPISODE_I), Filters.and(Filters.Luke, Filters.not(Icon.EPISODE_VII))), playerId), null));
@@ -94,7 +94,7 @@ public class Card211_026 extends AbstractObjective {
             action.setActionMsg("Take a card into hand from Force Pile");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                    new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromForcePileEffect(action, playerId, true));
@@ -125,7 +125,7 @@ public class Card211_026 extends AbstractObjective {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        Filter lukeOnAhchTo = Filters.and(Filters.Luke, Filters.at(Filters.AhchTo_location));
+        Filter lukeOnAhchTo = Filters.and(Filters.Luke, Filters.on(Title.Ahch_To));
 
         // Check condition(s)
         if (TriggerConditions.battleInitiated(game, effectResult)

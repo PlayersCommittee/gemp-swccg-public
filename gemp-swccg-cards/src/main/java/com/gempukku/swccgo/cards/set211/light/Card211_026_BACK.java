@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -66,7 +67,7 @@ public class Card211_026_BACK extends AbstractObjective {
                     });
             action.appendEffect(
                     new AddUntilEndOfBattleModifierEffect(action,
-                            new MayNotBeFiredModifier(self, Filters.any), "Prevents all weapons from being fired")
+                            new MayNotBeFiredModifier(self, Filters.and(Filters.opponents(playerId), Filters.any)), "Prevents all weapons from being fired")
             );
             actions.add(action);
         }
@@ -88,7 +89,7 @@ public class Card211_026_BACK extends AbstractObjective {
             action.setActionMsg("Take a card into hand from Force Pile");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                    new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromForcePileEffect(action, playerId, true));
