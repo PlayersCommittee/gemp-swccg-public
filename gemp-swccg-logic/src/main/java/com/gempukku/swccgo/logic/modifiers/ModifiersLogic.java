@@ -9294,6 +9294,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     private float getImmunityToAttritionLessThan(GameState gameState, PhysicalCard physicalCard, Filterable sourceToIgnore, ModifierCollector modifierCollector) {
         Float lockedValue = null;
+
         // During the damage segment of a battle, immunity to attrition cannot change, so look at the saved value
         if (gameState.isDuringDamageSegmentOfBattle() && Filters.participatingInBattle.accepts(gameState, this, physicalCard)) {
             float value = physicalCard.getImmunityToAttritionLessThan();
@@ -9327,6 +9328,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
 
+
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_OF_EXACTLY, physicalCard)) {
             if (sourceToIgnore == null || modifier.getSource(gameState) == null || !Filters.and(sourceToIgnore).accepts(gameState, this, modifier.getSource(gameState))) {
                 if (result <= modifier.getImmunityToAttritionOfExactlyModifier(gameState, this, physicalCard)) {
@@ -9341,6 +9343,22 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (lockedValue != null) {
             return lockedValue;
         }
+
+        // See if we are capped at a value and apply the cap
+        float immunityValueCap = Integer.MAX_VALUE;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_LIMITED_TO_VALUE, physicalCard)) {
+            if (sourceToIgnore == null || modifier.getSource(gameState) == null || !Filters.and(sourceToIgnore).accepts(gameState, this, modifier.getSource(gameState))) {
+
+                float newCappedValue =  modifier.getImmunityToAttritionCappedAtValue(gameState, this, physicalCard);
+                if (newCappedValue < immunityValueCap) {
+                    immunityValueCap = newCappedValue;
+                }
+                modifierCollector.addModifier(modifier);
+            }
+        }
+
+        result = Math.min(result, immunityValueCap);
+
         return Math.max(0, result);
     }
 

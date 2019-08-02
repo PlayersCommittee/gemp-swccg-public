@@ -291,6 +291,7 @@ public interface Modifier {
     float getImmunityToAttritionLessThanModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getImmunityToAttritionOfExactlyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getImmunityToAttritionChangedModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+    float getImmunityToAttritionCappedAtValue(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     boolean isExceptForceIconOrPresenceRequirement();
 
