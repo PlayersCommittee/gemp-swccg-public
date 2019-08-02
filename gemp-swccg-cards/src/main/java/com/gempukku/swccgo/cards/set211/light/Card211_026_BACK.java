@@ -11,6 +11,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -22,6 +23,7 @@ import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -60,10 +62,22 @@ public class Card211_026_BACK extends AbstractObjective {
                     new TargetCardOnTableEffect(action, playerId, "Place Luke Out of Play", TargetingReason.TO_BE_PLACED_OUT_OF_PLAY, Filters.Luke) {
                         //Immune To BHBM. See Card9_151. (Line 80)
                         @Override
-                        protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
-                            action.appendEffect(
-                                    new PlaceCardOutOfPlayFromTableEffect(action, targetedCard)
-                            );
+                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            // Allow response(s)
+                            action.allowResponses("Place " + GameUtils.getCardLink(targetedCard) + " out of play",
+                                    new RespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(final Action targetingAction) {
+                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                            // This needs to be done in case the target(s) were changed during the responses.
+                                            final PhysicalCard luke = targetingAction.getPrimaryTargetCard(targetGroupId);
+
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new PlaceCardOutOfPlayFromTableEffect(action, luke));
+                                        }
+                                    });
                         }
                     });
             action.appendEffect(
