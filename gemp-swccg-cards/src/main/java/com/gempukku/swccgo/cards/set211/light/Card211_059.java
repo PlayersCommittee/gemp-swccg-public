@@ -17,6 +17,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Character
+ * Subtype: Rebel
+ * Title: Ahsoka Tano
+ */
+
 public class Card211_059 extends AbstractRebel {
         public Card211_059() {
             super(Side.LIGHT, 1, 5, 5, 6, 7, "Ahsoka Tano", Uniqueness.UNIQUE);
