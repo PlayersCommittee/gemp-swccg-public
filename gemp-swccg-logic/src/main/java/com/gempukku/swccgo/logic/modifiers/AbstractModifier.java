@@ -586,6 +586,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public float getImmunityToAttritionCappedAtValue(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return Float.MAX_VALUE;
+    }
+
+    @Override
     public float getImmunityToAttritionChangedModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
