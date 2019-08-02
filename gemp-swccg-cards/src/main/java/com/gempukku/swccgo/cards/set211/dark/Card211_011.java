@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -59,7 +60,7 @@ public class Card211_011 extends AbstractEpicEventDeployable {
             modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.hasAttached(self), 1, opponent));
         }
 
-        // TODO Opponent's Force generation is -1 here.
+        modifiers.add(new ForceGenerationModifier(self, Filters.hasAttached(self), -1, game.getOpponent(self.getOwner())));
 
         return modifiers;
     }
@@ -128,10 +129,6 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         return null;
     }
 
-    // TODO Relocate to 500 Republica text
-
-    // TEST While on coruscant, force drain limit
-    // TEST Follow text
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         return followCharacterMovingFromInsidiousPrisoner(playerId, game, effectResult, self, gameTextSourceCardId);

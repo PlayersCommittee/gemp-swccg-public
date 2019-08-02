@@ -19,6 +19,7 @@ import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromForcePileEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -38,14 +39,13 @@ public class Card211_026_BACK extends AbstractObjective {
         addIcons(Icon.VIRTUAL_SET_11, Icon.THEED_PALACE, Icon.EPISODE_I);
     }
 
-    // TODO TEST Immunity limited to < 5
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
         Filter opponentsJediStarshipsVehicles = Filters.and(Filters.opponents(self.getOwner()), Filters.or(Filters.Jedi, Filters.starship, Filters.vehicle));
         Filter cardsWithMoreThan5ITA = Filters.and(opponentsJediStarshipsVehicles, Filters.immunityToAttritionMoreThan(5));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, cardsWithMoreThan5ITA, 5));
+        modifiers.add (new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
 
         return modifiers;
     }
@@ -55,7 +55,6 @@ public class Card211_026_BACK extends AbstractObjective {
         return Filters.and(yourSeparatistCharacter, Filters.at(Filters.hasAttached(Filters.Insidious_Prisoner)));
     }
 
-    // TODO TEST Opponent loses 1 force -- TLA
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
@@ -77,7 +76,6 @@ public class Card211_026_BACK extends AbstractObjective {
             }
         }
 
-        // TODO TEST Force pile reveal
         gameTextActionId = GameTextActionId.A_STUNNING_MOVE__REVEAL_CARD_FROM_FORCE_PILE;
         if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.hasForcePile(game, playerId)) {
@@ -132,7 +130,6 @@ public class Card211_026_BACK extends AbstractObjective {
 
         GameTextActionId gameTextActionId = GameTextActionId.A_STUNNING_MOVE__CONTROL_PHASE_DAMAGE;
 
-        // TODO TEST Opponent loses 1 force -- Req'd trigger
         if (GameConditions.isOnceDuringYourPhase(game, self, self.getOwner(), gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
             int NUM_FORCE_LOSS = 1;
             if (GameConditions.canSpot(game, self, yourSeparatistCharacterWithInsidiousPrisoner(self.getOwner()))) {
