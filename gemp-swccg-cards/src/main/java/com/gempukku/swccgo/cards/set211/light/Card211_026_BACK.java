@@ -18,7 +18,7 @@ import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -137,7 +137,7 @@ public class Card211_026_BACK extends AbstractObjective {
 
         Filter cardsWithMoreThan5ITA = Filters.and(Filters.opponents(self.getOwner()), Filters.immunityToAttritionLessThan(5));
 
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, cardsWithMoreThan5ITA, 5));
+        modifiers.add(new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
         modifiers.add(new ForceDrainModifier(self, Filters.any, new ControlsWithCondition(self, self.getOwner(), 2, Filters.any, Filters.and(Filters.unique, Filters.Resistance_character)), 1, self.getOwner()));
         return modifiers;
     }

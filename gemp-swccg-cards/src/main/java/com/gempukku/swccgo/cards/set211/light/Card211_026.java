@@ -50,7 +50,7 @@ public class Card211_026 extends AbstractObjective {
                 new DeployCardFromReserveDeckEffect(action, Filters.Ahch_To_system, true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose AhchTo_System to deploy";
+                        return "Choose Ahch-To System to deploy";
                     }
                 });
         action.appendRequiredEffect(

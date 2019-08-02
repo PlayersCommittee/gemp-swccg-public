@@ -9338,6 +9338,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
 
+        // See if we are capped at a value and apply the cap
+        float immunityValueCap = Integer.MAX_VALUE;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_LIMITED_TO_VALUE, physicalCard)) {
+            if (sourceToIgnore == null || modifier.getSource(gameState) == null || !Filters.and(sourceToIgnore).accepts(gameState, this, modifier.getSource(gameState))) {
+
+                float newCappedValue =  modifier.getImmunityToAttritionCappedAtValue(gameState, this, physicalCard);
+                if (newCappedValue < immunityValueCap) {
+                    immunityValueCap = newCappedValue;
+                }
+                modifierCollector.addModifier(modifier);
+            }
+        }
+
+        result = Math.min(result, immunityValueCap);
+
         if (lockedValue != null) {
             return lockedValue;
         }
