@@ -174,8 +174,7 @@ public class Card211_026_BACK extends AbstractObjective {
 
         // Check condition(s)
         if ((TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId)))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.isDuringBattle(game)
+                && GameConditions.isOnceDuringEitherPlayersPhase(game, self, gameTextSourceCardId, Phase.BATTLE)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
