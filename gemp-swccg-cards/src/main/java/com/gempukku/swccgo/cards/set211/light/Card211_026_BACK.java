@@ -2,7 +2,7 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile;
+import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -16,6 +16,8 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
@@ -27,6 +29,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -128,25 +131,66 @@ public class Card211_026_BACK extends AbstractObjective {
                 && GameConditions.hasForcePile(game, playerId)
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
+            final Collection<PhysicalCard> topCards = new LinkedList<>();
+            final Collection<Zone> pilesCardsFrom = new LinkedList<>();
+
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
             action.setText("Peek at top card of Force Pile and Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             action.appendEffect(
+                    new PeekAtTopCardsOfCardPileEffect(action, playerId, playerId, Zone.FORCE_PILE,1));
+            topCards.add(game.getGameState().getTopOfForcePile(playerId));
+            pilesCardsFrom.add(Zone.FORCE_PILE);
+            action.appendEffect(
+                    new PeekAtTopCardsOfCardPileEffect(action, playerId, playerId, Zone.RESERVE_DECK,1));
+            topCards.add(game.getGameState().getTopOfReserveDeck(playerId));
+            pilesCardsFrom.add(Zone.RESERVE_DECK);
+            action.appendEffect(
                     new PlayoutDecisionEffect(action, playerId,
                             new MultipleChoiceAwaitingDecision("Choose pile to put cards on top of", new String[]{"Reserve Deck", "Force Pile"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
+                                    final Zone zone;
                                     if (index == 0) {
                                         game.getGameState().sendMessage(playerId + " chooses Reserve Deck");
-                                        action.appendEffect(
-                                                new PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile(action, playerId, Zone.RESERVE_DECK));
+                                        zone = Zone.RESERVE_DECK;
                                     } else {
                                         game.getGameState().sendMessage(playerId + " chooses Force Pile");
-                                        action.appendEffect(
-                                                new PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile(action, playerId, Zone.FORCE_PILE));
+                                        zone = Zone.FORCE_PILE;
                                     }
+                                    game.getUserFeedback().sendAwaitingDecision(playerId,
+                                            new ArbitraryCardsSelectionDecision("Choose order to place cards on top of " + zone.getHumanReadable() , topCards, topCards, 1, 1) {
+                                                @Override
+                                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                    final PhysicalCard cardToPlaceInCardPile = getSelectedCardsByResponse(result).get(0);
+                                                    final Zone fromCardPile = GameUtils.getZoneFromZoneTop(cardToPlaceInCardPile.getZone());
+                                                    final String cardPileOwnerText = playerId + "s ";
+
+                                                    String msgText = playerId + " places top card of " + cardPileOwnerText + cardToPlaceInCardPile.getZone().getHumanReadable() + " on " + cardPileOwnerText + zone.getHumanReadable();
+                                                    action.appendEffect(
+                                                            new PutOneCardFromCardPileInCardPileEffect(action, cardToPlaceInCardPile, fromCardPile, zone, playerId, false, msgText) {
+                                                                @Override
+                                                                protected void scheduleNextStep() {
+                                                                    topCards.remove(cardToPlaceInCardPile);
+                                                                    pilesCardsFrom.remove(fromCardPile);
+                                                                    String msgText = playerId + " places top card of " + cardPileOwnerText + pilesCardsFrom.iterator().next().getHumanReadable() + " on " + cardPileOwnerText + zone.getHumanReadable();
+                                                                    action.appendEffect(
+                                                                            new PutOneCardFromCardPileInCardPileEffect(action, topCards.iterator().next(), pilesCardsFrom.iterator().next(), zone, playerId, false, msgText) {
+                                                                                @Override
+                                                                                protected void scheduleNextStep() {
+                                                                                    topCards.remove(topCards.iterator().next());
+                                                                                }
+                                                                            }
+                                                                    );
+                                                                }
+                                                            }
+                                                    );
+                                                }
+                                            }
+                                    );
+
                                 }
                             }
                     )
@@ -174,7 +218,8 @@ public class Card211_026_BACK extends AbstractObjective {
 
         // Check condition(s)
         if ((TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId)))
-                && GameConditions.isOnceDuringEitherPlayersPhase(game, self, gameTextSourceCardId, Phase.BATTLE)
+                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isDuringBattle(game)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

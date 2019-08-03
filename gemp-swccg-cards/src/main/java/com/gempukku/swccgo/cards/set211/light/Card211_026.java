@@ -12,6 +12,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
@@ -133,7 +134,7 @@ public class Card211_026 extends AbstractObjective {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         Filter lukeOnAhchTo = Filters.and(Filters.Luke, Filters.on(Title.Ahch_To));
 
         // Check condition(s)
@@ -142,7 +143,7 @@ public class Card211_026 extends AbstractObjective {
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Resistance_character)
                 && GameConditions.canSpot(game, self, lukeOnAhchTo)) {
 
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
             action.setText("Flip");
             action.setActionMsg(null);
