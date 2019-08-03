@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileAndReserveDeckAndReturnThemToOnePile;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
@@ -11,6 +10,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -97,7 +98,8 @@ public class Card211_026_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId1)
-                && GameConditions.canTakeCardsIntoHandFromForcePile(game, playerId, self, gameTextActionId1)) {
+                && GameConditions.canTakeCardsIntoHandFromForcePile(game, playerId, self, gameTextActionId1)
+                && self.getWhileInPlayData() == null) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
             action.setText("Take card into hand from Force Pile");
@@ -108,24 +110,32 @@ public class Card211_026_BACK extends AbstractObjective {
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromForcePileEffect(action, playerId, true));
+            action.appendEffect(
+                    new PassthruEffect(action) {
+                        @Override
+                        protected void doPlayEffect(SwccgGame game) {
+                            self.setWhileInPlayData(new WhileInPlayData(true));
+                        }
+                    });
             actions.add(action);
         }
 
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
+                && GameConditions.isDuringYourTurn(game, playerId)
                 && GameConditions.hasForcePile(game, playerId)
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
             action.setText("Peek at top card of Force Pile and Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             action.appendEffect(
                     new PlayoutDecisionEffect(action, playerId,
-                            new MultipleChoiceAwaitingDecision("Choose pile", new String[]{"Reserve Deck", "Force Pile"}) {
+                            new MultipleChoiceAwaitingDecision("Choose pile to put cards on top of", new String[]{"Reserve Deck", "Force Pile"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {
@@ -152,9 +162,9 @@ public class Card211_026_BACK extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
         Filter cardsWithMoreThan5ITA = Filters.and(Filters.opponents(self.getOwner()), Filters.immunityToAttritionLessThan(5));
-
         modifiers.add(new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
-        modifiers.add(new ForceDrainModifier(self, Filters.any, new ControlsWithCondition(self, self.getOwner(), 2, Filters.any, Filters.and(Filters.unique, Filters.Resistance_character)), 1, self.getOwner()));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.location,
+                Filters.hasDifferentCardTitlesAtLocation(self, Filters.and(Filters.your(self), Filters.unique, Filters.Resistance_character))), 1, self.getOwner()));
         return modifiers;
     }
 

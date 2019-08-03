@@ -10,6 +10,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -22,6 +23,7 @@ import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -98,6 +100,13 @@ public class Card211_026 extends AbstractObjective {
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromForcePileEffect(action, playerId, true));
+            action.appendEffect(
+                    new PassthruEffect(action) {
+                        @Override
+                        protected void doPlayEffect(SwccgGame game) {
+                            self.setWhileInPlayData(new WhileInPlayData(true));
+                        }
+                    });
             actions.add(action);
         }
 

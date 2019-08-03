@@ -126,7 +126,9 @@ class PeekAtTopCardOfCardPilesAndReturnCardsToPilesEffect extends AbstractSubAct
                                         @Override
                                         protected void scheduleNextStep() {
                                             topCardsMap.remove(cardToPlaceInCardPile);
-                                            _cardPilesToPlaceIn.remove(cardPileToPlaceIn);
+                                            if(_cardPilesToPlaceIn.size() > 1){
+                                                _cardPilesToPlaceIn.remove(cardPileToPlaceIn);
+                                            }
                                             if (!topCardsMap.keySet().isEmpty()) {
                                                 chooseNextCardToPlaceInPile(subAction, game, topCardsMap);
                                             }
@@ -147,7 +149,9 @@ class PeekAtTopCardOfCardPilesAndReturnCardsToPilesEffect extends AbstractSubAct
                         @Override
                         protected void scheduleNextStep() {
                             topCardsMap.remove(cardToPlaceInCardPile);
-                            _cardPilesToPlaceIn.remove(cardPileToPlaceIn);
+                            if(_cardPilesToPlaceIn.size() > 1){
+                                _cardPilesToPlaceIn.remove(cardPileToPlaceIn);
+                            }
                             if (!topCardsMap.keySet().isEmpty()) {
                                 chooseNextCardToPlaceInPile(subAction, game, topCardsMap);
                             }
