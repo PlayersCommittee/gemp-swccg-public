@@ -86,7 +86,7 @@ public class Card211_036_BACK extends AbstractObjective {
                     });
             action.appendEffect(
                     new AddUntilEndOfBattleModifierEffect(action,
-                            new MayNotBeFiredModifier(self, Filters.and(Filters.opponents(playerId), Filters.any)), "Prevents all weapons from being fired")
+                            new MayNotBeFiredModifier(self, Filters.and(Filters.opponents(playerId), Filters.any)), "Prevents opponent's weapons from being fired")
             );
             actions.add(action);
         }
