@@ -20,7 +20,7 @@ import java.util.List;
 
 public class Card211_041 extends AbstractSite {
     public Card211_041() {
-        super(Side.LIGHT, "Clone Training Center", "Kamino");
+        super(Side.LIGHT, "Kamino: Clone Training Center", "Kamino");
         setLocationDarkSideGameText("Fetts deploy -1 here.");
         setLocationLightSideGameText("If you control, your non-unique clone troopers are power and forfeit + 1.");
         addIcon(Icon.DARK_FORCE, 1);
