@@ -33,6 +33,7 @@ public class Card211_010 extends AbstractNormalEffect{
         setGameText("Deploy on table. Aurra, Bossk, and Cad are destiny +2. Once per game, may reveal a unique (•) alien from hand or Reserve Deck (reshuffle); for remainder of game, that card is an assassin and ignores [Reflections II] and [Theed Palace] objective deployment restrictions. [Immune to Alter.]");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.VIRTUAL_SET_11);
         setVirtualSuffix(true);
+        addImmuneToCardTitle(Title.Alter);
     }
 
     @Override
