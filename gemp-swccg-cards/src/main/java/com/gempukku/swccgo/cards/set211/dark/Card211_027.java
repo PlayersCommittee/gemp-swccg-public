@@ -1,7 +1,7 @@
 package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
-import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.cards.conditions.HeretCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,16 +28,16 @@ public class Card211_027 extends AbstractUniqueStarshipSite {
         Condition InsidiousPrisonerPresent = new HereCondition(self, Filter.title(Title.Insidious_Prisoner));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self,InsidiousPrisonerPresent, 1));
+        modifiers.add(new PowerModifier(self,Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.here(self)), InsidiousPrisonerPresent, 1));
         return modifiers;
     }
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
-        Condition yourCloneArmyCharPresent = new PresentCondition(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Icon.CLONE_ARMY));
+        Condition yourCloneArmyCharPresent = new HereCondition(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Icon.CLONE_ARMY));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DefenseValueModifier(self, yourCloneArmyCharPresent, 1));
+        modifiers.add(new DefenseValueModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.here(self)), yourCloneArmyCharPresent, 1));
         return modifiers;
     }
 }
