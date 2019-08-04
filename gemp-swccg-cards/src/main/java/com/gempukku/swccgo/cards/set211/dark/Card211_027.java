@@ -8,6 +8,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.common.Title;
 
 import java.util.Collections;
 import java.util.LinkedList;
