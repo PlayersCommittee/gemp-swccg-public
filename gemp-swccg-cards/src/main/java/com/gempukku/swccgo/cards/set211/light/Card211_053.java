@@ -145,8 +145,10 @@ public class Card211_053 extends AbstractNormalEffect {
         // You may deploy any face up card stacked here (as if from hand).
         //
 
+        Filter stackedFaceUpHere = Filters.and(Filters.stackedOn(self, Filters.sameCardId(self)), Filters.not(Filters.face_down));
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployAsIfFromHandModifier(self, Filters.stackedOn(self, Filters.not(Filters.face_down))));
+        modifiers.add(new MayDeployAsIfFromHandModifier(self, stackedFaceUpHere));
         return modifiers;
     }
 }
