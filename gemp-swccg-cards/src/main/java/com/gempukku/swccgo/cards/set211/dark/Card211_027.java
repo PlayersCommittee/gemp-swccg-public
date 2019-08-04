@@ -26,7 +26,7 @@ public class Card211_027 extends AbstractUniqueStarshipSite {
 
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
-        Condition InsidiousPrisonerPresent = new HereCondition(self, Filter.title(Title.Insidious_Prisoner));
+        Condition InsidiousPrisonerPresent = new HereCondition(self, Filters.title(Title.Insidious_Prisoner));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self,Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.here(self)), InsidiousPrisonerPresent, 1));
