@@ -35,8 +35,8 @@ import java.util.List;
  * Type: Objective
  * Title: The Galaxy May Need A Legend / We Need Luke Skywalker
  */
-public class Card211_026 extends AbstractObjective {
-    public Card211_026() {
+public class Card211_036 extends AbstractObjective {
+    public Card211_036() {
         super(Side.LIGHT, 0, Title.The_Galaxy_May_Need_A_Legend);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Ahch-To system and any [Episode VII] battleground.\n" +
