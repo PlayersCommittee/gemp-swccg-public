@@ -29,16 +29,16 @@ public class Card211_027 extends AbstractUniqueStarshipSite {
         Condition InsidiousPrisonerPresent = new HereCondition(self, Filters.title(Title.Insidious_Prisoner));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self,Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.here(self)), InsidiousPrisonerPresent, 1));
+        modifiers.add(new PowerModifier(self,Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.character, Filters.here(self)), InsidiousPrisonerPresent, 1));
         return modifiers;
     }
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
-        Condition yourCloneArmyCharPresent = new HereCondition(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Icon.CLONE_ARMY));
+        Condition yourCloneArmyCharPresent = new HereCondition(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.character, Icon.CLONE_ARMY));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DefenseValueModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.here(self)), yourCloneArmyCharPresent, 1));
+        modifiers.add(new DefenseValueModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.character, Filters.here(self)), yourCloneArmyCharPresent, 1));
         return modifiers;
     }
 }
