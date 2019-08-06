@@ -29,6 +29,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Epic Event
+ * Title: Insidious Prisoner
+ */
 public class Card211_011 extends AbstractEpicEventDeployable {
     public Card211_011() {
         super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.Insidious_Prisoner);

@@ -120,11 +120,8 @@ public class Card211_026_BACK extends AbstractObjective {
                             final String opponent = game.getOpponent(playerId);
                             action.addAnimationGroup(selectedCard);
                             action.appendEffect(
-                                    new TakeCardIntoHandFromForcePileEffect(action, playerId, selectedCard, false)
-                            );
-                            action.appendEffect(
                                     new PlayoutDecisionEffect(action, opponent,
-                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getFullName(selectedCard) + " from Force Pile. Choose result", new String[]{"Lose 2 force to place card on bottom of used pile", "Opponent takes card into hand"}) {
+                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getCardLink(selectedCard) + " from Force Pile. Choose result", new String[]{"Lose 2 force to place card on bottom of used pile", "Opponent takes card into hand"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (index == 0) {
@@ -176,7 +173,8 @@ public class Card211_026_BACK extends AbstractObjective {
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeFlipped(game, self)
-                && (!GameConditions.isAttachedTo(game, insidiousPrisoner, Filters.Invisible_Hand_site))) {
+                && (!GameConditions.isAttachedTo(game, insidiousPrisoner, Filters.Invisible_Hand_site))
+                && (insidiousPrisoner != null)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
             action.setText("Flip");

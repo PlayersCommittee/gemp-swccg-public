@@ -50,7 +50,7 @@ public class Card211_026 extends AbstractObjective {
     @Override
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        Filter cardsThatMayNotDeployForRemainderOfGame = Filters.or(Filters.Sidious, Filters.First_Order_character, Filters.Imperial);
+        Filter cardsThatMayNotDeployForRemainderOfGame = Filters.and(Filters.or(Filters.Sidious, Filters.First_Order_character, Filters.Imperial), Filters.not(Filters.Quietly_Observing));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, cardsThatMayNotDeployForRemainderOfGame, playerId), null));
