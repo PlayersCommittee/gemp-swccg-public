@@ -3155,7 +3155,7 @@ var fixedImages = {
 "211_34":"/gemp-swccg/images/cards/Virtual11-Light/libertine.gif",
 "211_35":"/gemp-swccg/images/cards/Virtual11-Light/tallielintrainblue1.gif",
 "211_36":"/gemp-swccg/images/cards/Virtual11-Light/thegalaxymayneedalegend.gif",
-"211_36_BACK":"/gemp-swccg/images/cards/Virtual11-Light/weeneedlukeskywalker.gif",
+"211_36_BACK":"/gemp-swccg/images/cards/Virtual11-Light/weneedlukeskywalker.gif",
 "211_37":"/gemp-swccg/images/cards/Virtual11-Light/takodana.gif",
 "211_38":"/gemp-swccg/images/cards/Virtual11-Light/takodanamazscastle.gif",
 "211_39":"/gemp-swccg/images/cards/Virtual11-Light/mazscastlehiddenrecess.gif",
