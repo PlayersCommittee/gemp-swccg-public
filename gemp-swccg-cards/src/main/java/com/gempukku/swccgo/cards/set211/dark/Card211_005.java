@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Jabba's Palace
+ * Set: Set 11
  * Type: Character
  * Subtype: Alien
  * Title: Ree-Yees
@@ -37,6 +37,7 @@ public class Card211_005 extends AbstractAlien {
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_11, Icon.WARRIOR);
         addKeywords(Keyword.SMUGGLER, Keyword.BOUNTY_HUNTER);
         setSpecies(Species.GRAN);
+        setVirtualSuffix(true);
     }
 
     @Override

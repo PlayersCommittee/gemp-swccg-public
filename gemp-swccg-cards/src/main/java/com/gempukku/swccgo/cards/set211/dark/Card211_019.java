@@ -25,12 +25,11 @@ import java.util.List;
  * Set: Set 11
  * Type: Location
  * Subtype: System
- * Title: D'Qar (V)
+ * Title: D'Qar
  */
 public class Card211_019 extends AbstractSystem {
     public Card211_019() {
         super(Side.DARK, Title.Dqar, 5);
-        setVirtualSuffix(true);
         setLocationDarkSideGameText("Once per turn, if you just moved a [First Order] starship to here, may activate 2 Force.");
         setLocationLightSideGameText("Unless your Resistance leader here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
