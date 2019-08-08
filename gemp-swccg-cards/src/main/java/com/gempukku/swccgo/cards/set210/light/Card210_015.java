@@ -8,7 +8,10 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.IsPoweredModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostToLocationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -16,12 +19,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Hoth
+ * Set: Set 10
  * Type: Location
  * Subtype: Site
  * Title: Hoth: Main Power Generators (1st Marker)
  */
-
 public class Card210_015 extends AbstractSite {
     public Card210_015() {
         super(Side.LIGHT, Title.Main_Power_Generators, Title.Hoth);
@@ -31,6 +33,7 @@ public class Card210_015 extends AbstractSite {
         addIcons(Icon.VIRTUAL_SET_10, Icon.EXTERIOR_SITE, Icon.PLANET);
         addKeywords(Keyword.MARKER_1);
         addSpecialRulesInEffectHere(SpecialRule.HOTH_ENERGY_SHIELD_RULES);
+        setVirtualSuffix(true);
     }
 
     @Override
