@@ -2428,6 +2428,15 @@ public class Filters {
         };
     }
 
+    public static Filter immunityToAttritionMoreThan(final int minImmunity) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getImmunityToAttritionLessThan(gameState, physicalCard) > minImmunity;
+            }
+        };
+    }
+
     /**
      * Filter that accepts cards that are not prevented from satisfying attrition.
      */
@@ -16883,6 +16892,7 @@ public class Filters {
     public static final Filter _8D8 = Filters.title(Title._8D8);
     public static final Filter A_Dangerous_Time = Filters.title(Title.A_Dangerous_Time);
     public static final Filter A_Gift = Filters.title(Title.A_Gift);
+    public static final Filter A_Stunning_Move = Filters.title(Title.A_Stunning_Move);
     public static final Filter A_Weakness_Can_Be_Found = Filters.title(Title.A_Weakness_Can_Be_Found);
     public static final Filter A_wing = Filters.modelType(ModelType.A_WING);
     public static final Filter A280_Sharpshooter_Rifle = Filters.title(Title.A280_Sharpshooter_Rifle);
@@ -17579,6 +17589,7 @@ public class Filters {
     public static final Filter Into_The_Ventilation_Shaft_Lefty = Filters.title(Title.Into_The_Ventilation_Shaft_Lefty);
     public static final Filter Invasion = Filters.title(Title.Invasion);
     public static final Filter Invisible_Hand = Filters.persona(Persona.INVISIBLE_HAND);
+    public static final Filter Invisible_Hand_site = Filters.siteOfStarshipOrVehicle(Persona.INVISIBLE_HAND, false);
     public static final Filter In_Hand = Filters.zone(Zone.HAND);
     public static final Filter in_play = Filters.onTable();
     public static final Filter In_Sabacc_Hand = Filters.or(Zone.SABACC_HAND, Zone.REVEALED_SABACC_HAND);
@@ -17936,6 +17947,7 @@ public class Filters {
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);
     public static final Filter Queens_Royal_Starship = Filters.persona(Persona.QUEENS_ROYAL_STARSHIP);
     public static final Filter Quiet_Mining_Colony = Filters.title(Title.Quiet_Mining_Colony);
+    public static final Filter Quietly_Observing = Filters.keyword(Keyword.QUIETLY_OBSERVING);
     public static final Filter Quiggold = Filters.title(Title.Quiggold);
     public static final Filter QuiGon = Filters.persona(Persona.QUIGON);
     public static final Filter Rancor = Filters.title(Title.Rancor);
