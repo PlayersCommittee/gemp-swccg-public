@@ -7,6 +7,7 @@ import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.effects.RespondableWeaponFiringEffect;
+import com.gempukku.swccgo.logic.modifiers.ModifiersLogic;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -5732,6 +5733,24 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that may not board starfighters
+     *
+     * @param starshipOrVehicleToBeBoarded Filter for the cards that are potentially boarding a starship or vehicle
+     * @return Filter
+     */
+    public static Filter mayNotBoard(final PhysicalCard starshipOrVehicleToBeBoarded) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (modifiersQuerying.isProhibitedFromTarget(gameState, physicalCard, starshipOrVehicleToBeBoarded)) {
+                    return true;
+                }
+                return false;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that have the specified card aboard as a passenger.
      *
      * @param card a card
@@ -7847,6 +7866,35 @@ public class Filters {
                 }
 
                 return false;
+            }
+        };
+    }
+
+    /**
+     * Filter that accepts cards that may be relocated.
+     */
+    public static final Filter canBeRelocated(final boolean allowEscort) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                        && physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
+                        && physicalCard.getBlueprint().getCardCategory() != CardCategory.STARSHIP)
+                    return false;
+                // 1) Check if card is at a location
+                PhysicalCard currentLocation = modifiersQuerying.getLocationThatCardIsAt(gameState, physicalCard);
+                if (currentLocation == null)
+                    return false;
+
+                // 2) Check if card can move
+                if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
+                    return false;
+                }
+                // 3) Check if escorting a captive
+                if (!allowEscort && Filters.escort.accepts(gameState, modifiersQuerying, physicalCard)) {
+                    return false;
+                }
+                return true;
             }
         };
     }
@@ -17269,6 +17317,7 @@ public class Filters {
     public static final Filter Diplomatic_Mission_To_Alderaan = Filters.title(Title.Diplomatic_Mission_To_Alderaan);
     public static final Filter disarmed_character = Filters.and(CardCategory.CHARACTER, Filters.Disarmed());
     public static final Filter disarming_card = Filters.keyword(Keyword.DISARMING_CARD);
+    public static final Filter DJ = Filters.persona(Persona.DJ);
     public static final Filter Do_Or_Do_Not = Filters.title(Title.Do_Or_Do_Not);
     public static final Filter Doallyn = Filters.title(Title.Doallyn);
     public static final Filter Docking_And_Repair_Facilities = Filters.title(Title.Docking_And_Repair_Facilities);
@@ -18046,6 +18095,7 @@ public class Filters {
     public static final Filter Rogue_Squadron_vehicle = Filters.and(CardType.VEHICLE, Keyword.ROGUE_SQUADRON);
     public static final Filter Rogue_T47 = Filters.and(Keyword.ROGUE_SQUADRON, ModelType.T_47);
     public static final Filter Ronto = Filters.keyword(Keyword.RONTO);
+    public static final Filter Rose = Filters.persona(Persona.ROSE);
     public static final Filter Royal_Guard = Filters.keyword(Keyword.ROYAL_GUARD);
     public static final Filter Royal_Naboo_Security = Filters.keyword(Keyword.ROYAL_NABOO_SECURITY);
     public static final Filter Royal_Naboo_Security_Officer = Filters.title(Title.Royal_Naboo_Security_Officer);

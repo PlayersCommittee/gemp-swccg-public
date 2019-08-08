@@ -1,5 +1,7 @@
 package com.gempukku.swccgo.logic.decisions;
 
+import java.util.ArrayList;
+
 /**
  * A decision that involves choosing from a choice of string values on the User Interface.
  */
@@ -13,6 +15,23 @@ public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDec
      */
     public MultipleChoiceAwaitingDecision(String text, String[] possibleResults) {
         this(text, possibleResults, -1);
+    }
+
+    /**
+     * Creates a decision that involves choosing from a choice of string values on the User Interface.
+     * @param text the text to show the player making the decision
+     * @param possibleResults the strings to choose from, as ArrayList
+     */
+    public MultipleChoiceAwaitingDecision(String text, ArrayList<String> possibleResults) {
+        this(text, convertToStringArray(possibleResults) , -1);
+    }
+
+    private static String[] convertToStringArray(ArrayList<String> arrayList) {
+        String[] array = new String[arrayList.size()];
+        for (int i = 0; i < arrayList.size(); i++) {
+            array[i] = arrayList.get(i);
+        }
+        return array;
     }
 
     /**
