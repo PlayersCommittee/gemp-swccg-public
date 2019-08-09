@@ -2,7 +2,7 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -62,7 +62,7 @@ public class Card211_019 extends AbstractSystem {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new AtCondition(self, Filters.Resistance_leader)),
+        modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new HereCondition(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.Resistance_leader))),
                 -1, playerOnLightSideOfLocation));
         return modifiers;
     }
