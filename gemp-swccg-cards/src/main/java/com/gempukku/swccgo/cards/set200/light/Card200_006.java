@@ -35,7 +35,7 @@ public class Card200_006 extends AbstractRepublic {
         super(Side.LIGHT, 3, 3, 3, 2, 5, "Commander Cody", Uniqueness.UNIQUE);
         setArmor(4);
         setLore("Leader. Clone trooper.");
-        setGameText("Deploys -1 to same site as Obi-Wan. [Seperatist] cards are power and defense value -1 here. When in battle at a site with Rex (or two of your clones), may cancel one just drawn battle destiny.");
+        setGameText("Deploys -1 to same site as Obi-Wan. [Separatist] cards are power and defense value -1 here. When in battle at a site with Rex (or two of your clones), may cancel one just drawn battle destiny.");
         addIcons(Icon.EPISODE_I, Icon.WARRIOR, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.COMMANDER, Keyword.LEADER, Keyword.CLONE_TROOPER);
     }
