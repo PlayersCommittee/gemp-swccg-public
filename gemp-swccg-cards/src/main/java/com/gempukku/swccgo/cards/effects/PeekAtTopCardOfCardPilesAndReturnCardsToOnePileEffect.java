@@ -8,6 +8,8 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutOneCardFromCardPileInCardPileEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -16,26 +18,25 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import java.util.*;
 
 /**
- * An effect for peeking at the top card of card piles and choosing card to return to each.
+ * An effect for peeking at the top card of card piles and choosing one pile to return them to.
  */
-class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubActionEffect {
+class PeekAtTopCardOfCardPilesAndReturnCardsToOnePileEffect extends AbstractSubActionEffect {
     private String _playerId;
     private String _cardPileOwner;
     private List<Zone> _cardPiles;
-    private List<Zone> _cardPilesToPlaceIn;
+    private Zone _targetZone;
 
     /**
-     * Creates an effect for peeking at the top cards of card piles and choose card to return to each.
+     * Creates an effect for peeking at the top cards of card piles and choosing a pile to return them to.
      * @param action the action performing this effect
      * @param cardPileOwner the owner of the card piles
      * @param cardPiles the card piles
      */
-    protected PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect(Action action, String cardPileOwner, List<Zone> cardPiles) {
+    protected PeekAtTopCardOfCardPilesAndReturnCardsToOnePileEffect(Action action, String cardPileOwner, List<Zone> cardPiles) {
         super(action);
         _playerId = action.getPerformingPlayer();
         _cardPileOwner = cardPileOwner;
         _cardPiles = cardPiles;
-        _cardPilesToPlaceIn = new LinkedList<Zone>(cardPiles);
     }
 
     @Override
@@ -51,14 +52,16 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
         subAction.appendEffect(
                 new PassthruEffect(subAction) {
                     @Override
-                    protected void doPlayEffect(SwccgGame game) {
+                    protected void doPlayEffect(final SwccgGame game) {
                         final Map<PhysicalCard, String> topCardsMap = new HashMap<PhysicalCard, String>();
                         final List<PhysicalCard> topCards = new ArrayList<PhysicalCard>();
+                        final String[] cardPileChoices = new String[_cardPiles.size()];
                         StringBuilder cardPileText = new StringBuilder(_playerId.equals(_cardPileOwner) ? "" : (_cardPileOwner + "'s "));
 
                         for (int i=0; i<_cardPiles.size(); ++i) {
                             Zone cardPile = _cardPiles.get(i);
                             String cardPileName = cardPile.getHumanReadable();
+                            cardPileChoices[i] = cardPileName;
 
                             PhysicalCard topCard = gameState.getTopOfCardPile(_cardPileOwner, cardPile);
                             if (topCard != null) {
@@ -81,8 +84,24 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
                         }
 
                         if (!topCards.isEmpty()) {
-                            gameState.sendMessage(_playerId + " peeks at the top card of " + cardPileText);
-                            chooseNextCardToPlaceInPile(subAction, game, topCardsMap);
+                            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                                    new ArbitraryCardsSelectionDecision(_playerId + " peeks at the top card of " + cardPileText, topCards, Collections.<PhysicalCard>emptyList(), 0, 0) {
+                                        @Override
+                                        public void decisionMade(String result) {
+                                            gameState.cardAffectsCards(_playerId, _action.getActionSource(), topCards);
+                                        }
+                                    });
+                            subAction.appendEffect(
+                                    new PlayoutDecisionEffect(_action, _playerId,
+                                            new MultipleChoiceAwaitingDecision("Choose pile to return cards to:", cardPileChoices) {
+                                                @Override
+                                                protected void validDecisionMade(int index, String result) {
+                                                    _targetZone = _cardPiles.get(index);
+                                                    chooseNextCardToPlaceInPile(subAction, game, topCardsMap);
+                                                }
+                                            })
+                            );
+
                         }
                     }
                 }
@@ -90,8 +109,8 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
         return subAction;
     }
 
+
     private void chooseNextCardToPlaceInPile(final SubAction subAction, final SwccgGame game, final Map<PhysicalCard, String> topCardsMap) {
-        final Zone cardPileToPlaceIn = _cardPilesToPlaceIn.get(0);
         final StringBuilder cardPileOwnerText = new StringBuilder(_playerId.equals(_cardPileOwner) ? "" : (_cardPileOwner + "'s "));
         Set<PhysicalCard> cardsToPlace = topCardsMap.keySet();
 
@@ -113,19 +132,18 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
             }
 
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision("Top card" + GameUtils.s(cardsToPlace) + " of " + cardPileOwnerText + cardPileText + ". Choose card to place in " + cardPileOwnerText + cardPileToPlaceIn.getHumanReadable(), cardsToPlace, cardsToPlace, 1, 1) {
+                    new ArbitraryCardsSelectionDecision("Top card" + GameUtils.s(cardsToPlace) + " of " + cardPileOwnerText + cardPileText + ". Choose card to place in " + cardPileOwnerText + _targetZone.getHumanReadable(), cardsToPlace, cardsToPlace, 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             final PhysicalCard cardToPlaceInCardPile = getSelectedCardsByResponse(result).get(0);
                             Zone fromCardPile = GameUtils.getZoneFromZoneTop(cardToPlaceInCardPile.getZone());
 
-                            String msgText = _playerId + " places top card of " + cardPileOwnerText + cardToPlaceInCardPile.getZone().getHumanReadable() + " on " + cardPileOwnerText + cardPileToPlaceIn.getHumanReadable();
+                            String msgText = _playerId + " places top card of " + cardPileOwnerText + cardToPlaceInCardPile.getZone().getHumanReadable() + " on " + cardPileOwnerText + _targetZone.getHumanReadable();
                             subAction.appendEffect(
-                                    new PutOneCardFromCardPileInCardPileEffect(subAction, cardToPlaceInCardPile, fromCardPile, cardPileToPlaceIn, _cardPileOwner, false, msgText) {
+                                    new PutOneCardFromCardPileInCardPileEffect(subAction, cardToPlaceInCardPile, fromCardPile, _targetZone, _cardPileOwner, false, msgText) {
                                         @Override
                                         protected void scheduleNextStep() {
                                             topCardsMap.remove(cardToPlaceInCardPile);
-                                            _cardPilesToPlaceIn.remove(cardPileToPlaceIn);
                                             if (!topCardsMap.keySet().isEmpty()) {
                                                 chooseNextCardToPlaceInPile(subAction, game, topCardsMap);
                                             }
@@ -140,13 +158,12 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
             final PhysicalCard cardToPlaceInCardPile = cardsToPlace.iterator().next();
             Zone fromCardPile = GameUtils.getZoneFromZoneTop(cardToPlaceInCardPile.getZone());
 
-            String msgText = _playerId + " places top card of " + cardPileOwnerText + cardToPlaceInCardPile.getZone().getHumanReadable() + " on " + cardPileOwnerText + cardPileToPlaceIn.getHumanReadable();
+            String msgText = _playerId + " places top card of " + cardPileOwnerText + cardToPlaceInCardPile.getZone().getHumanReadable() + " on " + cardPileOwnerText + _targetZone.getHumanReadable();
             subAction.appendEffect(
-                    new PutOneCardFromCardPileInCardPileEffect(subAction, cardToPlaceInCardPile, fromCardPile, cardPileToPlaceIn, _cardPileOwner, false, msgText) {
+                    new PutOneCardFromCardPileInCardPileEffect(subAction, cardToPlaceInCardPile, fromCardPile, _targetZone, _cardPileOwner, false, msgText) {
                         @Override
                         protected void scheduleNextStep() {
                             topCardsMap.remove(cardToPlaceInCardPile);
-                            _cardPilesToPlaceIn.remove(cardPileToPlaceIn);
                             if (!topCardsMap.keySet().isEmpty()) {
                                 chooseNextCardToPlaceInPile(subAction, game, topCardsMap);
                             }
