@@ -439,12 +439,14 @@ public class BattleState implements Snapshotable<BattleState> {
             return value;
     }
 
-    public void setTotalBattleDestiny(String player, float destiny) {
-        _totalBattleDestiny.put(player, destiny);
-        _totalBattleDestinyOverridden.put(player, true);
+    public void setTotalBattleDestiny(SwccgGame game, String player, float destiny) {
+        String playerToUse = _battleDestinyFromDrawsSwitched ? game.getOpponent(player) : player;
+        _totalBattleDestiny.put(playerToUse, destiny);
+        _totalBattleDestinyOverridden.put(playerToUse, true);
     }
 
     public float getTotalBattleDestiny(SwccgGame game, String player) {
+        String playerToUse = _battleDestinyFromDrawsSwitched ? game.getOpponent(player) : player;
         Float value;
         if (_totalBattleDestinyOverridden.get(player) != null && _totalBattleDestinyOverridden.get(player)) {
             value = _totalBattleDestiny.get(player);
@@ -453,7 +455,7 @@ public class BattleState implements Snapshotable<BattleState> {
             }
         }
         else {
-            value = getTotalBattleDestinyFromDrawsOnly(game, player);
+            value = _totalBattleDestinyFromDraws.get(playerToUse);
             if (value == null) {
                 value = 0f;
             }
