@@ -41,7 +41,7 @@ public class ResetTotalBattleDestinyFromDrawsEffect extends AbstractSuccessfulEf
                 return;
             }
 
-            battleState.setTotalBattleDestiny(game, _playerAffected, _resetValue);
+            battleState.setTotalBattleDestiny(_playerAffected, _resetValue);
 
             if (performingPlayerId != null)
                 gameState.sendMessage(performingPlayerId + " resets " + _playerAffected + "'s total battle destiny to " + GuiUtils.formatAsString(_resetValue) + " using " + GameUtils.getCardLink(_action.getActionSource()));
