@@ -7,10 +7,12 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -63,7 +65,9 @@ public class Card211_055 extends AbstractResistance {
             action.appendEffect(
                     new PlaceCardOutOfPlayFromTableEffect(action, capital));
             action.appendEffect(
-                    new ModifyTotalBattleDestinyEffect(action, playerId, armorPlusHyperspeed));
+                    new AddUntilEndOfBattleModifierEffect(action,
+                            new TotalBattleDestinyModifier(self, armorPlusHyperspeed, playerId, true),
+                            "Increase total battle destiny by " +  GuiUtils.formatAsString(armorPlusHyperspeed)));
             return Collections.singletonList(action);
         }
         return null;
