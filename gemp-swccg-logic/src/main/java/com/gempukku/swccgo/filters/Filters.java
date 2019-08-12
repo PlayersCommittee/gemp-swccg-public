@@ -16940,6 +16940,7 @@ public class Filters {
     public static final Filter A_Dangerous_Time = Filters.title(Title.A_Dangerous_Time);
     public static final Filter A_Gift = Filters.title(Title.A_Gift);
     public static final Filter A_Stunning_Move = Filters.title(Title.A_Stunning_Move);
+    public static final Filter A_Valuable_Hostage = Filters.title(Title.A_Valuable_Hostage);
     public static final Filter A_Weakness_Can_Be_Found = Filters.title(Title.A_Weakness_Can_Be_Found);
     public static final Filter A_wing = Filters.modelType(ModelType.A_WING);
     public static final Filter A280_Sharpshooter_Rifle = Filters.title(Title.A280_Sharpshooter_Rifle);
@@ -18297,6 +18298,7 @@ public class Filters {
     public static final Filter The_Circle_Is_Now_Complete = Filters.title(Title.The_Circle_Is_Now_Complete);
     public static final Filter The_First_Transport_Is_Away = Filters.title(Title.The_First_Transport_Is_Away);
     public static final Filter The_Force_Is_Strong_With_This_One = Filters.title(Title.The_Force_Is_Strong_With_This_One);
+    public static final Filter The_Galaxy_May_Need_A_Legend = Filters.title(Title.The_Galaxy_May_Need_A_Legend);
     public static final Filter The_Hyperdrive_Generators_Gone = Filters.title(Title.The_Hyperdrive_Generators_Gone);
     public static final Filter The_Phantom_Menace = Filters.title(Title.The_Phantom_Menace);
     public static final Filter The_Planet_That_Its_Farthest_From = Filters.title(Title.The_Planet_That_Its_Farthest_From);
@@ -18426,6 +18428,7 @@ public class Filters {
     public static final Filter We_Dont_Need_Their_Scum = Filters.title(Title.We_Dont_Need_Their_Scum);
     public static final Filter We_Have_A_Plan = Filters.title(Title.We_Have_A_Plan);
     public static final Filter We_Have_A_Prisoner = Filters.title(Title.We_Have_A_Prisoner);
+    public static final Filter We_Need_Luke_Skywalker = Filters.title(Title.We_Need_Luke_Skywalker);
     public static final Filter We_Need_Your_Help = Filters.title(Title.We_Need_Your_Help);
     public static final Filter wealth_agenda = Filters.agenda(Agenda.WEALTH);
     public static final Filter weapon = Filters.type(CardType.WEAPON);

@@ -1136,6 +1136,10 @@ public class SwccgGameMediator {
                 // Agents Of Black Sun
                 return "AOBS";
             }
+            if (Filters.or(Filters.A_Stunning_Move, Filters.A_Valuable_Hostage).accepts(_swccgoGame, objective)) {
+                // A Stunning Move
+                return "ASM";
+            }
             if (Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place).accepts(_swccgoGame, objective)) {
                 // Bring Him Before Me
                 return "BHBM";
@@ -1203,6 +1207,10 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.ISB_Operations, Filters.Empires_Sinister_Agents).accepts(_swccgoGame, objective)) {
                 // ISB Operations
                 return "ISB";
+            }
+            if (Filters.or(Filters.The_Galaxy_May_Need_A_Legend, Filters.We_Need_Luke_Skywalker).accepts(_swccgoGame, objective)) {
+                // The Galaxy May Need A Legend
+                return "Legend";
             }
             if (Filters.or(Filters.Massassi_Base_Operations, Filters.One_In_A_Million).accepts(_swccgoGame, objective)) {
                 // Massassi Base Operations
