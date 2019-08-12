@@ -18,10 +18,6 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.effects.RearmCharacterEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToBeHitResult;
 
 import java.util.Collection;
@@ -36,10 +32,9 @@ import java.util.List;
  * Subtype: Used
  * Title: Odin Nesloor & First Aid
  */
-
 public class Card209_021 extends AbstractUsedInterrupt {
     public Card209_021() {
-        super(Side.LIGHT, 4, "•Odin Nesloor & •First Aid ", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Odin Nesloor & First Aid ", Uniqueness.UNIQUE);
         addComboCardTitles(Title.Odin_Nesloor, Title.First_Aid);
         setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) to prevent its forfeit from being reduced (and character is immune to Dr. Evazan) for remainder of turn. OR Cancel Disarmed. [Immune to Sense.] OR Cancel a 'react.' OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9, Icon.CORUSCANT);
