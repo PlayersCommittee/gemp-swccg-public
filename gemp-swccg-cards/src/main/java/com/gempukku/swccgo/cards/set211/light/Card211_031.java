@@ -39,7 +39,6 @@ public class Card211_031 extends AbstractNormalEffect {
         setGameText("Deploy on table. Once per game, if Quiet Mining Colony on table, may search your hand and/or Reserve Deck and reveal an [Independent] starfighter and matching pilot; place both in hand, reshuffle; they each deploy -1 this turn. Once per game, if a battle just initiated at Bespin system while Executor there, may cancel that battle unless opponent uses 15 Force. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);
-        setTestingText("Beldon's Eye Combo");
     }
 
     @Override
@@ -218,16 +217,16 @@ public class Card211_031 extends AbstractNormalEffect {
                         @Override
                         protected void cardSelected(SwccgGame game, PhysicalCard card) {
                             if (card.getBlueprint().getCardCategory() == CardCategory.CHARACTER) {
-                                final Collection<PhysicalCard> matchingStarfightersInHand = Filters.filter(cardsInHand, game, Filters.matchingStarship(card));
-                                final Collection<PhysicalCard> matchingStarfightersInReserve = Filters.filter(cardsInReserve, game, Filters.matchingStarship(card));
+                                final Collection<PhysicalCard> matchingStarfightersInHand = Filters.filter(cardsInHand, game, Filters.and(Icon.INDEPENDENT, Filters.matchingStarship(card)));
+                                final Collection<PhysicalCard> matchingStarfightersInReserve = Filters.filter(cardsInReserve, game, Filters.and(Icon.INDEPENDENT, Filters.matchingStarship(card)));
 
-                                getMatchingCards(self, action, playerId, matchingStarfightersInHand, matchingStarfightersInReserve, "starfighter", card);
+                                getMatchingCard(self, action, playerId, matchingStarfightersInHand, matchingStarfightersInReserve, "starfighter", card);
 
                             } else {
                                 final Collection<PhysicalCard> matchingPilotsInHand = Filters.filter(cardsInHand, game, Filters.matchingPilot(card));
                                 final Collection<PhysicalCard> matchingPilotsInReserve = Filters.filter(cardsInReserve, game, Filters.matchingPilot(card));
 
-                                getMatchingCards(self, action, playerId, matchingPilotsInHand, matchingPilotsInReserve, "pilot", card);
+                                getMatchingCard(self, action, playerId, matchingPilotsInHand, matchingPilotsInReserve, "pilot", card);
                             }
                         }
                     }
@@ -239,7 +238,7 @@ public class Card211_031 extends AbstractNormalEffect {
         }
     }
 
-    private void getMatchingCards(final PhysicalCard self, final Action action, final String playerId, final Collection<PhysicalCard> matchingCardsInHand, final Collection<PhysicalCard> matchingCardsInReserve, String msg, final PhysicalCard card) {
+    private void getMatchingCard(final PhysicalCard self, final Action action, final String playerId, final Collection<PhysicalCard> matchingCardsInHand, final Collection<PhysicalCard> matchingCardsInReserve, String msg, final PhysicalCard card) {
         if (!matchingCardsInHand.isEmpty() && !matchingCardsInReserve.isEmpty()) {
             action.appendTargeting(
                     new PlayoutDecisionEffect(action, playerId,
