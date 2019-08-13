@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -43,9 +44,11 @@ public class Card211_055 extends AbstractResistance {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        Filter capitalsWithHyperdrive = Filters.and(Filters.capital_starship, Filters.not(Filters.hasNoHyperdrive));
+
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game, self)
-                && GameConditions.isPiloting(game, self, Filters.capital_starship)) {
+                && GameConditions.isPiloting(game, self, capitalsWithHyperdrive)) {
 
             // Card action 2
             GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
@@ -54,8 +57,7 @@ public class Card211_055 extends AbstractResistance {
             action.setText("Place Holdo and starship out of play");
             action.setActionMsg("Place Holdo and starship out of play");
 
-            PhysicalCard capital = Filters.findFirstActive(game, self, Filters.and(Filters.capital_starship, Filters.hasPiloting(self)));
-
+            PhysicalCard capital = Filters.findFirstActive(game, self, Filters.and( Filters.hasPiloting(self), capitalsWithHyperdrive));
             final float armor = game.getModifiersQuerying().getArmor(game.getGameState(), capital);
             final float hyperspeed = game.getModifiersQuerying().getHyperspeed(game.getGameState(), capital);
             final float armorPlusHyperspeed = armor + hyperspeed;
