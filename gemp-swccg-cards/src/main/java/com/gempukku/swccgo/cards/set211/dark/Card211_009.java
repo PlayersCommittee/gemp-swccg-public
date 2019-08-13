@@ -64,7 +64,9 @@ public class Card211_009 extends AbstractImmediateEffect {
 
         if(GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
             && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)){
+
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Take a Black Squadron pilot in hand");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );
