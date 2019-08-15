@@ -78,8 +78,8 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
 
         // LOST: Once per game, exchange a card in hand with a Resistance Agent or [Episode VII] Skywalker in Lost Pile.
         GameTextActionId exchangeCardActionId = GameTextActionId.WHERES_HAN_EXCHANGE_CARD;
-        Filter ep7Luke = Filters.and(Filters.Luke, Icon.EPISODE_VII);
-        final Filter ep7LukeOrResistanceAgent = Filters.or(ep7Luke, Filters.Resistance_Agent);
+        Filter ep7Skywalker = Filters.and(Filters.Skywalker, Icon.EPISODE_VII);
+        final Filter ep7SkywalkerOrResistanceAgent = Filters.or(ep7Skywalker, Filters.Resistance_Agent);
 
         // Check condition(s)
         if (GameConditions.hasHand(game, playerId) &&
@@ -90,7 +90,7 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, exchangeCardActionId, CardSubtype.LOST);
             action.setText("Exchange card in hand");
-            action.setActionMsg("Exchange card in hand with Ep7 Luke or Resistance Agent in lost pile.");
+            action.setActionMsg("Exchange card in hand with Ep7 Skywalker or Resistance Agent in lost pile.");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -104,7 +104,7 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
 
                             // Perform result(s)
                             action.appendEffect(
-                                    new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, Filters.any, ep7LukeOrResistanceAgent));
+                                    new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, Filters.any, ep7SkywalkerOrResistanceAgent));
 
 
                         }
