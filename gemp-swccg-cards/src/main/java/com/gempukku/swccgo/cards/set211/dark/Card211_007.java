@@ -25,6 +25,7 @@ public class Card211_007 extends AbstractImperial {
         setLore("Snowtrooper.");
         setGameText("Permanent weapon is E-web Blaster (may target a character, landed starfighter, or vehicle for free; if targeting a starfighter or vehicle, add one destiny to attrition; otherwise, subtract 3 from target's immunity to attrition (if any) until end of turn).");
         addIcons(Icon.VIRTUAL_SET_11, Icon.WARRIOR, Icon.PERMANENT_WEAPON);
+        addPersona(Persona.NARTHAX);
         addKeywords(Keyword.SNOWTROOPER);
     }
 
