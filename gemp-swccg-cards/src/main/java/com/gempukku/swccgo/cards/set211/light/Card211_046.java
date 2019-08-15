@@ -60,6 +60,7 @@ public class Card211_046 extends AbstractSite {
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isDuringYourTurn(game, playerOnLightSideOfLocation)
                 && GameConditions.hasForcePile(game, playerOnLightSideOfLocation)
                 && GameConditions.canSpot(game, self, lukeAloneHere)) {
 
