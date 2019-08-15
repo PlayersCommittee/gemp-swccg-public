@@ -55,6 +55,7 @@ public enum Persona implements Filterable {
     Maz("Maz"),
     MON_MOTHMA("Mon Mothma"),
     MOTTI("Motti"),
+    NARTHAX("Narthax"),
     OBIWAN("Obi-Wan"),
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
@@ -127,6 +128,7 @@ public enum Persona implements Filterable {
     QUIGON_JINNS_LIGHTSABER("Qui-Gon Jinn's Lightsaber"),
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
     VADERS_LIGHTSABER("Vader's Lightsaber");
+
 
 
     private String _humanReadable;
