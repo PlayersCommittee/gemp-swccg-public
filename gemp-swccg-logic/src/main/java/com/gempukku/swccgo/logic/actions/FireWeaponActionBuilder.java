@@ -1177,6 +1177,7 @@ public class FireWeaponActionBuilder {
                                                             return;
                                                         }
 
+                                                        totalDestiny = totalDestiny + plusOrMinus;
                                                         gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
                                                         List<StandardEffect> effectList = new ArrayList<StandardEffect>();
 
@@ -1196,7 +1197,7 @@ public class FireWeaponActionBuilder {
                                                         }
                                                         gameState.sendMessage((_numTargets > 1 ? "Total defense value: " : "Defense value: ") + GuiUtils.formatAsString(valueToCompare));
 
-                                                        if ((totalDestiny + plusOrMinus) > valueToCompare) {
+                                                        if (totalDestiny > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
 
                                                             for (PhysicalCard cardFiredAt : cardsFiredAt) {
