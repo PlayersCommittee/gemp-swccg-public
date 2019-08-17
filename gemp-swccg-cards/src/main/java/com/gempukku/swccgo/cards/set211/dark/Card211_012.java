@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -63,6 +64,7 @@ public class Card211_012 extends AbstractLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+        List<PlayInterruptAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.ALWAYS_TWO_THERE_ARE__LOSE_2_OR_DESTINY_EQUALS_2;
 
         int numDarkJedisOnTable = Filters.countActive(game, self, Filters.Dark_Jedi);
@@ -78,7 +80,7 @@ public class Card211_012 extends AbstractLostInterrupt {
                     action.appendEffect(new ResetDestinyEffect(action, 2));
                 }
             });
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
         if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(self), Filters.Dark_Jedi))
@@ -92,9 +94,9 @@ public class Card211_012 extends AbstractLostInterrupt {
                     action.appendEffect(new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.Dark_Jedi, true));
                 }
             });
-            return Collections.singletonList(action);
+            actions.add(action);;
         }
 
-        return null;
+        return actions;
     }
 }
