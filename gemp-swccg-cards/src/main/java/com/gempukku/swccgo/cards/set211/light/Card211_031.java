@@ -14,7 +14,10 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
@@ -211,31 +214,25 @@ public class Card211_031 extends AbstractNormalEffect {
             }
         }
 
-        if (!choicesInReserveDeck.isEmpty()) {
-            action.appendTargeting(
-                    new ChooseCardFromReserveDeckEffect(action, playerId, Filters.in(choicesInReserveDeck)) {
-                        @Override
-                        protected void cardSelected(SwccgGame game, PhysicalCard card) {
-                            if (card.getBlueprint().getCardCategory() == CardCategory.CHARACTER) {
-                                final Collection<PhysicalCard> matchingStarfightersInHand = Filters.filter(cardsInHand, game, Filters.and(Icon.INDEPENDENT, Filters.matchingStarship(card)));
-                                final Collection<PhysicalCard> matchingStarfightersInReserve = Filters.filter(cardsInReserve, game, Filters.and(Icon.INDEPENDENT, Filters.matchingStarship(card)));
+        action.appendTargeting(
+                new ChooseCardFromReserveDeckEffect(action, playerId, Filters.in(choicesInReserveDeck)) {
+                    @Override
+                    protected void cardSelected(SwccgGame game, PhysicalCard card) {
+                        if (card.getBlueprint().getCardCategory() == CardCategory.CHARACTER) {
+                            final Collection<PhysicalCard> matchingStarfightersInHand = Filters.filter(cardsInHand, game, Filters.and(Icon.INDEPENDENT, Filters.matchingStarship(card)));
+                            final Collection<PhysicalCard> matchingStarfightersInReserve = Filters.filter(cardsInReserve, game, Filters.and(Icon.INDEPENDENT, Filters.matchingStarship(card)));
 
-                                getMatchingCard(self, action, playerId, matchingStarfightersInHand, matchingStarfightersInReserve, "starfighter", card);
+                            getMatchingCard(self, action, playerId, matchingStarfightersInHand, matchingStarfightersInReserve, "starfighter", card);
 
-                            } else {
-                                final Collection<PhysicalCard> matchingPilotsInHand = Filters.filter(cardsInHand, game, Filters.matchingPilot(card));
-                                final Collection<PhysicalCard> matchingPilotsInReserve = Filters.filter(cardsInReserve, game, Filters.matchingPilot(card));
+                        } else {
+                            final Collection<PhysicalCard> matchingPilotsInHand = Filters.filter(cardsInHand, game, Filters.matchingPilot(card));
+                            final Collection<PhysicalCard> matchingPilotsInReserve = Filters.filter(cardsInReserve, game, Filters.matchingPilot(card));
 
-                                getMatchingCard(self, action, playerId, matchingPilotsInHand, matchingPilotsInReserve, "pilot", card);
-                            }
+                            getMatchingCard(self, action, playerId, matchingPilotsInHand, matchingPilotsInReserve, "pilot", card);
                         }
                     }
-            );
-        } else {
-            game.getGameState().sendMessage("No valid matching pairs were found.");
-            action.appendEffect(new LookAtReserveDeckEffect(action, game.getOpponent(playerId), playerId));
-            action.appendEffect(new ShuffleReserveDeckEffect(action));
-        }
+                }
+        );
     }
 
     private void getMatchingCard(final PhysicalCard self, final Action action, final String playerId, final Collection<PhysicalCard> matchingCardsInHand, final Collection<PhysicalCard> matchingCardsInReserve, String msg, final PhysicalCard card) {
