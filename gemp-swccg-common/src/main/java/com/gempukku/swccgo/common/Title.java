@@ -132,6 +132,7 @@ public interface Title {
     String Bravo_Fighter = "Bravo Fighter";
     String Breached_Defenses = "Breached Defenses";
     String BlockadeFlagshipBridge = "Blockade Flagship: Bridge";
+    String Blockade_Support_Ship = "Blockade Support Ship";
     String Bring_Him_Before_Me = "Bring Him Before Me";
     String Brisky_Morning_Munchen = "Brisky Morning Munchen";
     String Broken_Concentration = "Broken Concentration";
@@ -677,6 +678,7 @@ public interface Title {
     String Old_Ben = "Old Ben";
     String Ominous_Rumors = "Ominous Rumors";
     String Ommni_Box = "Ommni Box";
+    String On_Target = "On Target";
     String One_In_A_Million = "One In A Million";
     String One_More_Pass = "One More Pass";
     String Onyx_2 = "Onyx 2";

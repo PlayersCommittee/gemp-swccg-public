@@ -17073,6 +17073,7 @@ public class Filters {
     public static final Filter blockade_agenda = Filters.agenda(Agenda.BLOCKADE);
     public static final Filter Blockade_Flagship = Filters.persona(Persona.BLOCKADE_FLAGSHIP);
     public static final Filter BlockadeFlagshipBridge = Filters.title(Title.BlockadeFlagshipBridge);
+    public static final Filter Blockade_Support_Ship = Filters.title(Title.Blockade_Support_Ship);
     public static final Filter Blue_Milk = Filters.title(Title.Blue_Milk);
     public static final Filter Blue_Squadron_5 = Filters.title(Title.Blue_Squadron_5);
     public static final Filter Bluffs = Filters.title(Title.Bluffs);
@@ -17910,6 +17911,7 @@ public class Filters {
     public static final Filter on_Cloud_City = Filters.locationAndCardsAtLocation(Filters.Cloud_City_site);
     public static final Filter On_Endor = Filters.on(Title.Endor);
     public static final Filter On_Hoth = Filters.on(Title.Hoth);
+    public static final Filter On_Target = Filters.title(Title.On_Target);
     public static final Filter On_Tatooine = Filters.on(Title.Tatooine);
     public static final Filter One_In_A_Million = Filters.title(Title.One_In_A_Million);
     public static final Filter One_More_Pass = Filters.title(Title.One_More_Pass);
