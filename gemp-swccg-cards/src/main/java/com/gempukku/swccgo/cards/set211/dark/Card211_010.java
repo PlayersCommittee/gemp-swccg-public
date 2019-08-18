@@ -18,6 +18,7 @@ import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * Type: Effect
  * Title: Quietly Observing (V)
  */
-public class Card211_010 extends AbstractNormalEffect{
+public class Card211_010 extends AbstractNormalEffect {
     public Card211_010() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quietly Observing", Uniqueness.UNIQUE);
         setLore("On her assignment to kill Sharad Hett, Aurra used her patience and cunning to help track down the Jedi Master.");
@@ -38,7 +39,7 @@ public class Card211_010 extends AbstractNormalEffect{
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
 
         modifiers.add(new DestinyModifier(self, Filters.or(Filters.Aurra, Filters.Bossk, Filters.Cad), 2));
 
@@ -52,9 +53,11 @@ public class Card211_010 extends AbstractNormalEffect{
         GameTextActionId gameTextActionId = GameTextActionId.QUIETLY_OBSERVING_REVEAL;
         Filter uniqueAliens = Filters.and(Filters.unique, Filters.alien);
 
+
         // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)){
-            if(!game.getGameState().getReserveDeck(playerId).isEmpty()){
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canSearchReserveDeck(game, playerId, self, gameTextActionId)) {
+            if (!game.getGameState().getReserveDeck(playerId).isEmpty()) {
                 final TopLevelGameTextAction revealFromReserve = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 revealFromReserve.setText("Reveal a unique (•) alien from Reserve Deck");
                 revealFromReserve.setActionMsg("Reveal a unique (•) alien from Reserve Deck");
@@ -72,41 +75,36 @@ public class Card211_010 extends AbstractNormalEffect{
                         new ShuffleReserveDeckEffect(revealFromReserve));
                 actions.add(revealFromReserve);
             }
+        }
 
-            if (!game.getGameState().getHand(playerId).isEmpty()){
-                final TopLevelGameTextAction revealFromHand = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                revealFromHand.setText("Reveal a unique (•) alien from hand");
-                revealFromHand.setActionMsg("Reveal a unique (•) alien from hand");
-                final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
-                final List<PhysicalCard> validAliens = new ArrayList<>(Filters.filter(cardsInHand, game, uniqueAliens));
+        Collection<PhysicalCard> uniqueAliensInHand = Filters.filter(game.getGameState().getHand(playerId), game, uniqueAliens);
 
-                revealFromHand.appendUsage(
-                        new OncePerGameEffect(revealFromHand));
-                revealFromHand.appendEffect(
-                        new ChooseCardFromHandEffect(revealFromHand, playerId, Filters.in(validAliens)) {
-                            @Override
-                            protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                                setModifiers(self, game, selectedCard);
-                            }
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && !uniqueAliensInHand.isEmpty()) {
+            final TopLevelGameTextAction revealFromHand = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            revealFromHand.setText("Reveal a unique (•) alien from hand");
+            revealFromHand.setActionMsg("Reveal a unique (•) alien from hand");
+            revealFromHand.appendUsage(
+                    new OncePerGameEffect(revealFromHand));
+            revealFromHand.appendEffect(
+                    new ChooseCardFromHandEffect(revealFromHand, playerId, uniqueAliens) {
+                        @Override
+                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                            setModifiers(self, game, selectedCard);
                         }
-                );
-                actions.add(revealFromHand);
-            }
+                    }
+            );
+            actions.add(revealFromHand);
         }
 
         return actions;
     }
 
-    private void setModifiers(PhysicalCard self, SwccgGame game, PhysicalCard selectedCard){
+    private void setModifiers(PhysicalCard self, SwccgGame game, PhysicalCard selectedCard) {
         GameState gameState = game.getGameState();
         gameState.showCardOnScreen(selectedCard);
-
-        String cardTitle = selectedCard.getBlueprint().getTitle();
-        Filter title = Filters.title(cardTitle);
-
-        gameState.sendMessage(cardTitle + " is now Quietly Observing");
-
-        game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, title, Keyword.ASSASSIN));
-        game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, title, Keyword.QUIETLY_OBSERVING));
+        Filter filter = Filters.or(selectedCard, Filters.sameTitleAs(selectedCard));
+        game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.ASSASSIN));
+        game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.QUIETLY_OBSERVING));
     }
 }
