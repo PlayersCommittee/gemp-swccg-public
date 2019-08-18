@@ -60,7 +60,11 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
 
         // Add starship/vehicle sites layouts
         for (Persona starshipOrVehicle : starshipsAndVehicles) {
-            addToLayouts(new DefaultStarshipOrVehicleSitesLayout(starshipOrVehicle));
+            if (starshipOrVehicle.equals(Persona.INVISIBLE_HAND)) {
+                addToLayouts(new InvisibleHandLayout(Persona.INVISIBLE_HAND));
+            } else {
+                addToLayouts(new DefaultStarshipOrVehicleSitesLayout(starshipOrVehicle));
+            }
         }
 
         // Add a system layout for each system

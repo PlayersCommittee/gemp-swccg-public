@@ -494,6 +494,8 @@ public interface Title {
     String Interrogation_Array = "Interrogation Array";
     String Invasion = "Invasion";
     String Invisible_Hand = "Invisible Hand";
+    String Invisible_Hand_Bridge = "Invisible Hand: Bridge";
+    String Invisible_Hand_Docking_Bay = "Invisible Hand: Docking Bay";
     String Ion_Cannon = "Ion Cannon";
     String Irol = "Sergeant Irol";
     String ISB_Operations = "ISB Operations";
