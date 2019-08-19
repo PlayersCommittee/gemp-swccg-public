@@ -3149,7 +3149,7 @@ var fixedImages = {
 "211_28":"/gemp-swccg/images/cards/Virtual11-Light/bb8inblacksquadron1.gif",
 "211_29":"/gemp-swccg/images/cards/Virtual11-Light/maketenmenfeellikeahundred.gif",
 "211_30":"/gemp-swccg/images/cards/Virtual11-Light/rendezvouspointontatooine.gif",
-"211_31":"/gemp-swccg/images/cards/Virtual11-Light/beldonseyeandallmyurchins.gif",
+"211_31":"/gemp-swccg/images/cards/Virtual11-Light/beldonseyeallmyurchins.gif",
 "211_32":"/gemp-swccg/images/cards/Virtual11-Light/yavin4.gif",
 "211_34":"/gemp-swccg/images/cards/Virtual11-Light/libertine.gif",
 "211_35":"/gemp-swccg/images/cards/Virtual11-Light/tallielintrainblue1.gif",
