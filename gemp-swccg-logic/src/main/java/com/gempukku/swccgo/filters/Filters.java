@@ -797,6 +797,26 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that have a title containing the specified word or phrase.
+     * For combo cards, each title is NOT checked.
+     *
+     * @param wordOrPhrase the word or phase
+     * @return Filter
+     */
+    public static Filter titleContainsExactly(final String wordOrPhrase) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (containsWordOrPhrase(physicalCard.getTitle(), wordOrPhrase)) {
+                    return true;
+                }
+
+                return false;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that have lore containing the specified word or phrase.
      *
      * @param wordOrPhrase the word or phase
