@@ -134,7 +134,7 @@ public class Card208_057_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (TriggerConditions.isForceRetrievalJustInitiated(game, effectResult, opponent)
-                && !GameConditions.canSpot(game, self, Filters.BB8)) {
+                && !GameConditions.canSpot(game, self, Filters.BB8_or_has_BB8_as_permanent_astromech)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Cancel Force retrieval");
