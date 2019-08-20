@@ -17034,6 +17034,7 @@ public class Filters {
     public static final Filter battleship = Filters.modelType(ModelType.TRADE_FEDERATION_BATTLESHIP);
     public static final Filter Baze = Filters.title(Title.Baze);
     public static final Filter BB8 = Filters.persona(Persona.BB8);
+    public static final Filter BB8_or_has_BB8_as_permanent_astromech = Filters.or(Filters.persona(Persona.BB8), Filters.hasPermanentAboard(Filters.persona(Persona.BB8)));
     public static final Filter Beggar = Filters.title(Title.Beggar);
     public static final Filter Beggars_Canyon = Filters.title(Title.Beggars_Canyon);
     public static final Filter Beru = Filters.title(Title.Beru_Lars);
