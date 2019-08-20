@@ -103,7 +103,7 @@ public class Card211_010 extends AbstractNormalEffect {
     private void setModifiers(PhysicalCard self, SwccgGame game, PhysicalCard selectedCard) {
         GameState gameState = game.getGameState();
         gameState.showCardOnScreen(selectedCard);
-        Filter filter = Filters.titleContainsExactly(selectedCard.getTitle());
+        Filter filter = Filters.or(selectedCard, Filters.sameTitleAs(selectedCard));
         game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.ASSASSIN));
         game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.QUIETLY_OBSERVING));
     }
