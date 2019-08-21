@@ -1,12 +1,14 @@
 package com.gempukku.swccgo.cards.set10.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.conditions.CanAddDestinyToPowerCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
@@ -38,6 +40,8 @@ public class Card10_050 extends AbstractNormalEffect {
         Filter relatedSites = Filters.relatedSite(self);
         Filter nonCreatureVehiclesAtRelatedSites = Filters.and(Filters.non_creature_vehicle, Filters.at(relatedSites));
         Condition duringBattleAtRelatedSite = new DuringBattleAtCondition(relatedSites);
+        Condition playerCanAddDestiniesToPower = new CanAddDestinyToPowerCondition(playerId);
+        Condition opponentCanAddDestiniesToPower = new CanAddDestinyToPowerCondition(opponent);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NighttimeConditionsModifier(self, Filters.relatedSite(self)));
@@ -45,8 +49,8 @@ public class Card10_050 extends AbstractNormalEffect {
         modifiers.add(new ResetManeuverModifier(self, nonCreatureVehiclesAtRelatedSites, 0));
         modifiers.add(new ResetLandspeedModifier(self, nonCreatureVehiclesAtRelatedSites, 0));
         modifiers.add(new DeployCostToLocationModifier(self, Filters.spy, -1, relatedSites));
-        modifiers.add(new AddsDestinyToPowerModifier(self, duringBattleAtRelatedSite, 1, playerId));
-        modifiers.add(new AddsDestinyToPowerModifier(self, duringBattleAtRelatedSite, 1, opponent));
+        modifiers.add(new AddsDestinyToPowerModifier(self, new AndCondition(duringBattleAtRelatedSite, playerCanAddDestiniesToPower), 1, playerId));
+        modifiers.add(new AddsDestinyToPowerModifier(self, new AndCondition(duringBattleAtRelatedSite, opponentCanAddDestiniesToPower), 1, opponent));
         return modifiers;
     }
 }
