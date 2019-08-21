@@ -9,6 +9,8 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
@@ -104,7 +106,16 @@ public class Card211_010 extends AbstractNormalEffect {
         GameState gameState = game.getGameState();
         gameState.showCardOnScreen(selectedCard);
         Filter filter = Filters.or(Filters.sameTitleAs(selectedCard, true));
+        self.setWhileInPlayData(new WhileInPlayData(selectedCard));
         game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.ASSASSIN));
         game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.QUIETLY_OBSERVING));
+    }
+
+    @Override
+    public String getDisplayableInformation(SwccgGame game, PhysicalCard self) {
+        if (self.getWhileInPlayData() != null) {
+            return "Character(s) who is Quietly Observing is: " + GameUtils.getCardLink(self.getWhileInPlayData().getPhysicalCard());
+        }
+        return null;
     }
 }
