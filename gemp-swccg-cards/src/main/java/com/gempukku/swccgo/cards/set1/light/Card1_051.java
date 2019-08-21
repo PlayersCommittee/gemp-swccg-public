@@ -43,7 +43,7 @@ public class Card1_051 extends AbstractNormalEffect {
         final String playerId = self.getOwner();
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, self)
-                && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JAWA__SIESTA_MODIFIED_BY_KALIT)
+                && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JAWA_SIESTA__MODIFIED_BY_KALIT)
                 && GameConditions.canUseForce(game, playerId, 6)
                 && GameConditions.canUseForce(game, game.getOpponent(playerId), 6)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -69,7 +69,7 @@ public class Card1_051 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Condition hasExtraModifiers = new GameTextModificationCondition(self, ModifyGameTextType.JAWA__SIESTA_MODIFIED_BY_KALIT);
+        Condition hasExtraModifiers = new GameTextModificationCondition(self, ModifyGameTextType.JAWA_SIESTA__MODIFIED_BY_KALIT);
         modifiers.add(new DefinedByGameTextDeployCostModifier(self, 3));
         modifiers.add(new DeploysFreeModifier(self, hasExtraModifiers));
         return modifiers;
@@ -79,7 +79,7 @@ public class Card1_051 extends AbstractNormalEffect {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Filter yourJawas = Filters.and(Filters.your(self), Filters.Jawa);
-        Condition hasExtraModifiers = new GameTextModificationCondition(self, ModifyGameTextType.JAWA__SIESTA_MODIFIED_BY_KALIT);
+        Condition hasExtraModifiers = new GameTextModificationCondition(self, ModifyGameTextType.JAWA_SIESTA__MODIFIED_BY_KALIT);
         modifiers.add(new ForfeitModifier(self, yourJawas, new NotCondition(hasExtraModifiers), 1, false));
         modifiers.add(new ForfeitModifier(self, yourJawas, hasExtraModifiers, 2, true));
         return modifiers;
