@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -39,10 +39,10 @@ public class Card1_051 extends AbstractNormalEffect {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         final String playerId = self.getOwner();
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, self)
+        if (TriggerConditions.justDeployed(game, effectResult, self)
                 && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JAWA_SIESTA__MODIFIED_BY_KALIT)
                 && GameConditions.canUseForce(game, playerId, 6)
                 && GameConditions.canUseForce(game, game.getOpponent(playerId), 6)) {
