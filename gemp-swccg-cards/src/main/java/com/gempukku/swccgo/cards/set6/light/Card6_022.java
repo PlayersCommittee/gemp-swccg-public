@@ -37,13 +37,13 @@ public class Card6_022 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Condition atAudienceChamberOrJawaCamp = new AtCondition(self, Filters.or(Filters.Jawa_Camp, Filters.Audience_Chamber));
-        Filter yourOtherJawa = Filters.and(Filters.your(self), Filters.other(self), Filters.Jawa);
+        Filter yourOtherJawas = Filters.and(Filters.your(self), Filters.other(self), Filters.Jawa);
         Filter jawaSiesta = Filters.Jawa_Siesta;
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NotUniqueModifier(self, jawaSiesta));
         modifiers.add(new ModifyGameTextModifier(self, jawaSiesta, ModifyGameTextType.JAWA_SIESTA__MODIFIED_BY_KALIT));
-        modifiers.add(new PowerModifier(self, yourOtherJawa, atAudienceChamberOrJawaCamp, 2));
+        modifiers.add(new PowerModifier(self, yourOtherJawas, atAudienceChamberOrJawaCamp, 2));
         return modifiers;
     }
 }
