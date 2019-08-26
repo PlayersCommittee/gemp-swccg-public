@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Side;
@@ -11,17 +10,10 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
-import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,34 +28,6 @@ public class Card1_051 extends AbstractNormalEffect {
         setLore("Three Jawas take a cool, energy-saving nap in the noon-day suns at Mos Eisley.");
         setGameText("To deploy (on your side of table), requires 3 Force from both players' Force Piles. Cannot deploy otherwise. All your Jawas are forfeit +1.");
         setDeployUsingBothForcePiles(true);
-    }
-
-    @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        final String playerId = self.getOwner();
-        // Check condition(s)
-        if (TriggerConditions.justDeployed(game, effectResult, self)
-                && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JAWA_SIESTA__MODIFIED_BY_KALIT)
-                && GameConditions.canUseForce(game, playerId, 6)
-                && GameConditions.canUseForce(game, game.getOpponent(playerId), 6)) {
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.appendEffect(
-                    new PlayoutDecisionEffect(action, playerId,
-                            new YesNoDecision("Deploy for 6 force from each player?") {
-                                @Override
-                                protected void yes() {
-                                    action.appendEffect(
-                                            new UseForceEffect(action, playerId, 6)
-                                    );
-                                    action.appendEffect(
-                                            new UseForceEffect(action, game.getOpponent(playerId), 6)
-                                    );
-                                }
-                            }
-                    ));
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 
     @Override

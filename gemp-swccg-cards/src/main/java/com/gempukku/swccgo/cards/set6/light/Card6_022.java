@@ -1,15 +1,23 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.decisions.YesNoDecision;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.timing.Effect;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +35,33 @@ public class Card6_022 extends AbstractAlien {
         addIcons(Icon.JABBAS_PALACE);
         addKeywords(Keyword.LEADER);
         setSpecies(Species.JAWA);
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        final String playerId = self.getOwner();
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, playerId, Filters.Jawa_Siesta)
+                && GameConditions.canUseForce(game, playerId, 6)
+                && GameConditions.canUseForce(game, game.getOpponent(playerId), 6)) {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.appendEffect(
+                    new PlayoutDecisionEffect(action, playerId,
+                            new YesNoDecision("Deploy for 6 force from each player?") {
+                                @Override
+                                protected void yes() {
+                                    action.appendEffect(
+                                            new UseForceEffect(action, playerId, 6)
+                                    );
+                                    action.appendEffect(
+                                            new UseForceEffect(action, game.getOpponent(playerId), 6)
+                                    );
+                                }
+                            }
+                    ));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override
