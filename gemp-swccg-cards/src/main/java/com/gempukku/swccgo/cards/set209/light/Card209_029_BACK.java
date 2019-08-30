@@ -91,7 +91,7 @@ public class Card209_029_BACK extends AbstractObjective {
 
                     final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                     action.setText("Place Rebel in Lost Pile out of play");
-                    action.setActionMsg("Cancel just drawn destiny targeting rebel");
+                    action.setActionMsg("Move your spy");
 
                     // Update usage limit(s)
                     action.appendUsage(
