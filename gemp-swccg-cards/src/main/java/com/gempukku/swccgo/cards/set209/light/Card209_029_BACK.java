@@ -1,8 +1,8 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -14,7 +14,9 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
@@ -32,7 +34,7 @@ import java.util.*;
 public class Card209_029_BACK extends AbstractObjective {
     public Card209_029_BACK() {
         super(Side.LIGHT, 7, Title.Until_We_Win_Or_The_Chances_Are_Spent);
-        setGameText("While this side up, your spies are defense value +2 (and power +1 if with Stardust) and are immune to Undercover. While Stardust on your spy, opponent may not cancel your Force drains at battlegrounds. Once per turn, may place a Rebel in your Lost Pile out of play to cancel a just drawn destiny targeting the ability or defense value of your Rebel or to make a regular move with your spy during your control phase. Flip this card if you do not occupy two Scarif locations (unless Rogue One at a Scarif site you occupy).");
+        setGameText("While this side up, your spies are defense value +2 (and power +1 if with Stardust) and are immune to Undercover. While Stardust on your spy, opponent may not cancel your Force drains at battlegrounds. Once per turn, may place a Rebel in your Lost Pile out of play to cancel a just drawn destiny targeting the ability or defense value of your non-undercover Rebel or to make a regular move with your spy during your control phase. Flip this card if you do not occupy two Scarif locations (unless Rogue One at a Scarif site you occupy).");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_9);
     }
 
@@ -126,7 +128,7 @@ public class Card209_029_BACK extends AbstractObjective {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
 
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
-        Filter rebelFilter = Filters.and(Filters.Rebel, Filters.character);
+        Filter rebelFilter = Filters.and(Filters.Rebel, Filters.character, Filters.not(Filters.undercover_spy));
 
         // Check conditions(s) - Once per turn, may place a Rebel in your Lost Pile out of play to cancel a just drawn
         // destiny targeting the ability or defense value of your Rebel
