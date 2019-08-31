@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
+import com.gempukku.swccgo.cards.effects.RevealTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -74,8 +75,10 @@ public class Card301_006 extends AbstractImperial {
                                                 new YesNoDecision("Do you want to reveal " + GameUtils.getCardLink(peekedAtCard) + " to make opponent lose 1 force?") {
                                                     @Override
                                                     protected void yes() {
-                                                        action.setActionMsg("Make opponent lose 1 force");
+                                                        action.setActionMsg("Reveal " + GameUtils.getCardLink(peekedAtCard) + " to make opponent lose 1 force");
                                                         // Perform result(s)
+                                                        action.appendEffect(
+                                                                new RevealTopCardOfReserveDeckEffect(action, playerId, opponent));
                                                         action.appendEffect(
                                                                 new LoseForceEffect(action, opponent, 1));
                                                         if (Filters.Rebel.accepts(game, peekedAtCard)) {
