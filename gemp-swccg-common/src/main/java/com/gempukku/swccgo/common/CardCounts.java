@@ -11,7 +11,7 @@ public interface CardCounts {
 
     int[] VIRTUAL_SETS_CARD_COUNTS = {146, 42, 15, 36, 58, 23, 14, 29, 59, 56, 46, 59};
 
-    int[] VIRTUAL_PREMIUM_SETS_CARD_COUNTS = {5};
+    int[] VIRTUAL_PREMIUM_SETS_CARD_COUNTS = {6};
 
     int[] DREAM_CARD_SETS_CARD_COUNTS = {0};
 
