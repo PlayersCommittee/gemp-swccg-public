@@ -967,6 +967,7 @@ public interface Title {
     String Thrawn = "Grand Admiral Thrawn";
     String Throne_Room = "Death Star II: Throne Room";
     String Throw_Me_Another_Charge = "Throw Me Another Charge";
+    String Thunderflare = "Thunderflare";
     String Tibanna_Gas_Miner = "Tibanna Gas Miner";
     String Tibrin = "Tibrin";
     String TIE_Assault_Squadron = "TIE Assault Squadron";
