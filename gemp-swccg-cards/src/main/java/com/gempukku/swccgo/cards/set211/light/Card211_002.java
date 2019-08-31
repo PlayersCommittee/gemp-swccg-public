@@ -25,11 +25,11 @@ import java.util.List;
  * Set: Virtual Set 11
  * Type: Interrupt
  * Subtype: Used
- * Title: See You Around Kid
+ * Title: See You Around, Kid
  */
 public class Card211_002 extends AbstractUsedInterrupt {
     public Card211_002() {
-        super(Side.LIGHT, 5, "See You Around Kid", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "See You Around, Kid", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Cancel a just-deployed First Order character’s game text until end of turn. OR Destiny draws during battles at sites may not be canceled this turn. OR During any draw phase, place a card from hand under Used Pile to take any one card into hand from Force Pile; reshuffle.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);

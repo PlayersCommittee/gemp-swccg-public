@@ -6,6 +6,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,6 +36,7 @@ public class Card202_004 extends AbstractJediMaster {
         setLore("Yoda calls upon the Force often to try and foresee what destiny has in store.");
         setGameText("Deploys -1 to Coruscant. May lose 1 Force to cancel Force Lightning targeting your character present. Neither player may draw more than one battle destiny here (those destiny draws may not be modified or canceled). Immune to attrition.");
         addPersona(Persona.YODA);
+        addKeywords(Keyword.JEDI_COUNCIL_MEMBER);
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_2);
     }
 

@@ -30,7 +30,7 @@ import java.util.List;
 public class Card200_142 extends AbstractCharacterWeapon {
     public Card200_142() {
         super(Side.DARK, 1, "Dooku's Lightsaber", Uniqueness.UNIQUE);
-        setGameText("Deploy on Dooku or a [Seperatist] character of ability > 4. Adds 1 to this character's duel and lightsaber combat totals. May add 1 to Force drain where present. May target a character for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
+        setGameText("Deploy on Dooku or a [Separatist] character of ability > 4. Adds 1 to this character's duel and lightsaber combat totals. May add 1 to Force drain where present. May target a character for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_0);
         setMatchingCharacterFilter(Filters.Dooku);
@@ -38,12 +38,12 @@ public class Card200_142 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.or(Filters.Dooku, Filters.and(Icon.SEPERATIST, Filters.character, Filters.abilityMoreThan(4))));
+        return Filters.and(Filters.your(self), Filters.or(Filters.Dooku, Filters.and(Icon.SEPARATIST, Filters.character, Filters.abilityMoreThan(4))));
     }
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.or(Filters.Dooku, Filters.and(Icon.SEPERATIST, Filters.character, Filters.abilityMoreThan(4)));
+        return Filters.or(Filters.Dooku, Filters.and(Icon.SEPARATIST, Filters.character, Filters.abilityMoreThan(4)));
     }
 
     @Override

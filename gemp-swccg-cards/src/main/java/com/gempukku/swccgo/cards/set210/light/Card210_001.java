@@ -5,18 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.BattleState;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,18 +20,18 @@ import java.util.List;
  * Subtype: Site
  * Title: Ahch To: Saddle
  */
-
 public class Card210_001 extends AbstractSite {
     public Card210_001() {
         super(Side.LIGHT, Title.Saddle, Title.Ahch_To);
         setLocationDarkSideGameText("");
-        setLocationLightSideGameText("May \\/ [Episode VII] Luke here. Once per turn, if Luke alone here, may subtract 2 from opponent's total power during a battle at another location.");
+        setLocationLightSideGameText("May [download] [Episode VII] Luke here. Once per turn, if Luke alone here, may subtract 2 from opponent's total power during a battle at another location.");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.PLANET, Icon.EXTERIOR_SITE, Icon.EPISODE_VII, Icon.VIRTUAL_SET_10);
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.AHCH_TO__DOWNLOAD_LUKE;
 
         // Check condition(s)
@@ -53,36 +48,28 @@ public class Card210_001 extends AbstractSite {
             // Perform result(s)
             action.appendEffect(
                     new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Icon.EPISODE_VII, Filters.Luke), Filters.here(self), true));
-
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
-        return null;
-    }
+        PhysicalCard luke = Filters.findFirstActive(game, self, Filters.Luke);
+        gameTextActionId = GameTextActionId.AHCH_TO__SUBTRACT_FROM_POWER;
 
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextLightSideOptionalAfterTriggers(final String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult,  PhysicalCard self, int gameTextSourceCardId) {
-        Filter LukeAloneHereFilter = Filters.and(Filters.onTable, Filters.Luke);
-        PhysicalCard luke = Filters.findFirstActive(game, self, LukeAloneHereFilter);
-        GameTextActionId gameTextActionId = GameTextActionId.AHCH_TO__SUBTRACT_FROM_POWER;
-
-        if (luke != null
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
-                && TriggerConditions.isInitialAttritionJustCalculated(game, effectResult)  // <-- Jim: This is confusingly named, actually works for reducing power as well.
+        // Check condition(s)
+        if (GameConditions.isOncePerTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattleAt(game, Filters.not(self))
-                && GameConditions.isHere(game, self, Filters.Luke)
-                && GameConditions.isAlone(game, luke))
-        {
-            // I've made an assumption that any reduction to negative power will be handled somewhere else in the engine
-            final BattleState battleState = game.getGameState().getBattleState();
-            if (battleState.getTotalPower(game, game.getOpponent(playerOnLightSideOfLocation)) > 0) {
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-                action.setText("Reduce opponent's total power by 2");
-                action.appendUsage(new OncePerTurnEffect(action));
-                action.appendEffect(new SubtractFromOpponentsTotalPowerEffect(action, 2));
-                return Collections.singletonList(action);
-            }
+                && GameConditions.isHere(game, self, luke)
+                && GameConditions.isAlone(game, luke)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
+            action.setText("Reduce opponent's total power by 2");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new SubtractFromOpponentsTotalPowerEffect(action, 2));
+            actions.add(action);
         }
-        return null;
+
+        return actions;
     }
 }

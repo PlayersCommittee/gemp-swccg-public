@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.StackActionEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -385,5 +386,23 @@ public abstract class AbstractObjective extends AbstractNonLocationPlaysToTable 
                     }
                 });
         return action;
+    }
+
+    protected static DeployCardFromReserveDeckEffect getDeployCardFromReserveDeckEffect(ObjectiveDeployedTriggerAction actions, Filter filterForCardToDeploy, final String chooseText) {
+        return new DeployCardFromReserveDeckEffect(actions, Filters.and(filterForCardToDeploy), true, false) {
+            @Override
+            public String getChoiceText() {
+                return chooseText;
+            }
+        };
+    }
+
+    protected static DeployCardToTargetFromReserveDeckEffect getDeployCardToTargetFromReserveDeckEffect(ObjectiveDeployedTriggerAction actions, Filter filterForCardToDeploy, Filter filterToDeployTo, final String chooseText) {
+        return new DeployCardToTargetFromReserveDeckEffect(actions, Filters.and(filterForCardToDeploy), filterToDeployTo, true, false) {
+            @Override
+            public String getChoiceText() {
+                return chooseText;
+            }
+        };
     }
 }

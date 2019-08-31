@@ -37,6 +37,7 @@ public class Card11_052 extends AbstractAlien {
         setGameText("May use any 'stolen' lightsaber. Once per turn, may steal a lightsaber from an opponent's character just lost where present. Immune to attrition < 3 (< 5 while armed with a lightsaber).");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.WARRIOR);
         addKeywords(Keyword.BOUNTY_HUNTER, Keyword.FEMALE);
+        addPersona(Persona.AURRA);
     }
 
     @Override

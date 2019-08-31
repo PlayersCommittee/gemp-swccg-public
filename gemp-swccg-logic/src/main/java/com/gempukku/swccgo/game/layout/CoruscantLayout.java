@@ -39,15 +39,19 @@ public class CoruscantLayout extends AbstractSystemLayout {
                 new LocationReversibleGroupOrder(
                         //  A) Interior sites
                         new LocationGroup("Interior sites", Filters.and(Filters.interior_site, Filters.not(Filters.or(Filters.exterior_site,
-                                Filters.Xizors_Palace_site)), Filters.partOfSystem(systemName))),
-                        //  B) Exterior sites
+                                Filters.Xizors_Palace_site, Filters._500_Republica)), Filters.partOfSystem(systemName))),
+                        //  B) 500 Republica
+                        new LocationGroup("500 Republica", Filters._500_Republica),
+                        //  C) Private Platform
+                        new LocationGroup("Private Platform", Filters.Private_Platform),
+                        //  D) Exterior sites
                         new LocationGroup("Exterior sites", Filters.and(Filters.exterior_site, Filters.not(Filters.or(Filters.interior_site,
-                                Filters.Xizors_Palace_site)), Filters.partOfSystem(systemName))),
-                        //  C) Xizor's Palace
+                                Filters.Xizors_Palace_site, Filters.Private_Platform)), Filters.partOfSystem(systemName))),
+                        //  E) Xizor's Palace
                         new LocationGroup("Xizor's Palace", Filters.Xizors_Palace),
-                        //  D) Uplink Station
+                        //  F) Uplink Station
                         new LocationGroup("Uplink Station", Filters.Uplink_Station),
-                        //  E) Sewer
+                        //  G) Sewer
                         new LocationGroup("Sewer", Filters.Sewer)));
 
         //  2) Clouds

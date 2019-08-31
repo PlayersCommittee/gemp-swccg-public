@@ -60,7 +60,11 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
 
         // Add starship/vehicle sites layouts
         for (Persona starshipOrVehicle : starshipsAndVehicles) {
-            addToLayouts(new DefaultStarshipOrVehicleSitesLayout(starshipOrVehicle));
+            if (starshipOrVehicle.equals(Persona.INVISIBLE_HAND)) {
+                addToLayouts(new InvisibleHandLayout(Persona.INVISIBLE_HAND));
+            } else {
+                addToLayouts(new DefaultStarshipOrVehicleSitesLayout(starshipOrVehicle));
+            }
         }
 
         // Add a system layout for each system
@@ -96,6 +100,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             else if (system.getTitle().equals(Title.Tatooine)) {
                 systemLayout = new TatooineLayout(system.getTitle(), system.getParsec());
             }
+            else if (system.getTitle().equals(Title.Takodana)) {
+                systemLayout = new TakodanaLayout(system.getTitle(), system.getParsec());
+            }
             else if (system.getTitle().equals(Title.Yavin_4)) {
                 systemLayout = new Yavin4Layout(system.getTitle(), system.getParsec());
             }
@@ -112,7 +119,8 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
         }
         addToLayouts(new DefaultPlanetLayout(Title.Mustafar, 7));
         addToLayouts(new DefaultPlanetLayout(Title.Scarif, 17));
-        addToLayouts(new DefaultPlanetLayout(Title.Ahch_To, 5)); // Need to be changed when system is implemented.
+        addToLayouts(new DefaultPlanetLayout(Title.Ahch_To, 9));
+        addToLayouts(new DefaultPlanetLayout(Title.Kamino, 7));
     }
 
     /**

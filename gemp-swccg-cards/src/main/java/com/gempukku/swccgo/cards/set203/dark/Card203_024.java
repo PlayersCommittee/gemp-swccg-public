@@ -36,6 +36,7 @@ public class Card203_024 extends AbstractAlien {
         setLore("Duros bounty hunter.");
         setGameText("[Pilot] 2. Your other bounty hunters here are power +1. Draws one battle destiny if unable to otherwise. During battle, if with your other bounty hunter, may cancel the immunity to attrition of a Jedi here.");
         addKeywords(Keyword.BOUNTY_HUNTER);
+        addPersona(Persona.CAD);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
         setSpecies(Species.DUROS);
     }

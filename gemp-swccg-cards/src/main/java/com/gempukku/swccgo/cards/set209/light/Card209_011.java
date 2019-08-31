@@ -34,6 +34,7 @@ public class Card209_011 extends AbstractResistance {
         super(Side.LIGHT, 5, 1, 1, 2, 2, "Rose Tico", Uniqueness.UNIQUE);
         setLore("Female.");
         setGameText("If Finn is about to be lost from same site, may place him in your Used Pile instead. During your control phase, if present at a battleground site, and another Resistance character on table (or Paige out of play), may retrieve 1 Force.");
+        addPersona(Persona.ROSE);
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.FEMALE);
     }
