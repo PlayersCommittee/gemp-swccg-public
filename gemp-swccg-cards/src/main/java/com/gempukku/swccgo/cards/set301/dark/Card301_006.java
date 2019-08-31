@@ -37,7 +37,6 @@ public class Card301_006 extends AbstractImperial {
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P, Icon.A_NEW_HOPE, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.LEADER);
         setMatchingStarshipFilter(Filters.Thunderflare);
-        setTestingText("Captain Khurgee (v)");
     }
 
     @Override
