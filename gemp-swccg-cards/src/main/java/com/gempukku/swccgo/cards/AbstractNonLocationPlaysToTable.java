@@ -635,7 +635,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
     public final List<FireWeaponAction> getFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
         List<FireWeaponAction> fireWeaponActions = new ArrayList<FireWeaponAction>();
 
-        if (!checkFireWeaponRequirements(playerId, game, self, repeatedFiring))
+        if (!checkFireWeaponRequirements(playerId, game, self, repeatedFiring, extraForceRequired))
             return fireWeaponActions;
 
         // Include any extra cost to fire weapon card if not a repeated firing
@@ -679,7 +679,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @param repeatedFiring true if this is a repeated firing, otherwise false
      * @return true if card can be fired, otherwise false
      */
-    protected boolean checkFireWeaponRequirements(String playerId, SwccgGame game, PhysicalCard self, boolean repeatedFiring) {
+    protected boolean checkFireWeaponRequirements(String playerId, SwccgGame game, PhysicalCard self, boolean repeatedFiring, int extraForceRequired) {
         return false;
     }
 

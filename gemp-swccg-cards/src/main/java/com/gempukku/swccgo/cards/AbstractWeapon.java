@@ -98,7 +98,7 @@ public abstract class AbstractWeapon extends AbstractDeployable {
      * @return true if card can be fired, otherwise false
      */
     @Override
-    protected boolean checkFireWeaponRequirements(String playerId, SwccgGame game, PhysicalCard self, boolean repeatedFiring) {
+    protected boolean checkFireWeaponRequirements(String playerId, SwccgGame game, PhysicalCard self, boolean repeatedFiring, int extraForceRequired) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
@@ -128,6 +128,10 @@ public abstract class AbstractWeapon extends AbstractDeployable {
             if (!modifiersQuerying.isPowered(gameState, self))
                 return false;
         }
+
+        // Check if player as enough force to fire weapon
+        if (gameState.getForcePile(playerId).size() < extraForceRequired + modifiersQuerying.getExtraForceRequiredToFireWeapon(gameState, self, null))
+            return false;
 
         return true;
     }
