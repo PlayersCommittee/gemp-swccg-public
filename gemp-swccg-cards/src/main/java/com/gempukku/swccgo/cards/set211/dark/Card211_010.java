@@ -114,7 +114,7 @@ public class Card211_010 extends AbstractNormalEffect {
     @Override
     public String getDisplayableInformation(SwccgGame game, PhysicalCard self) {
         if (self.getWhileInPlayData() != null) {
-            return "Character(s) who is Quietly Observing is: " + GameUtils.getCardLink(self.getWhileInPlayData().getPhysicalCard());
+            return "Character(s) chosen: " + GameUtils.getCardLink(self.getWhileInPlayData().getPhysicalCard());
         }
         return null;
     }
