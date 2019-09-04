@@ -22,7 +22,7 @@ public class Card211_006 extends AbstractAlien {
     public Card211_006() {
         super(Side.DARK, 2, 3, 4, 2, 5, Title.Sebulba, Uniqueness.UNIQUE);
         setLore("Bad tempered Dug from Pixelito. He was about to turn Jar Jar into orange goo, until Anakin intervened.");
-        setGameText("Once per battle may use 1 Force to target opponent's character of ability < 3 at same site; target is power -3 for remainder of turn. If present with Jar Jar, during your control phase may use 3 Force to place Jar Jar out of play.");
+        setGameText("[Pilot] 2. Deploys free to Mos Espa. While on Tatooine, attrition against opponent is +1 here and your Force generation is +1. When You're A Slave? places a card in your Used Pile, may draw top card of your Reserve Deck.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.TATOOINE, Icon.EPISODE_I, Icon.PILOT);
         setSpecies(Species.DUG);
         setVirtualSuffix(true);
