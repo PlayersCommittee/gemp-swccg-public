@@ -10,8 +10,12 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveDeployCostIncreasedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -19,15 +23,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Set: Virtual Set 10
  * Type: Character
  * Subtype: Alien
  * Title: BoShek
  */
-
-
 public class Card210_006 extends AbstractAlien {
     public Card210_006() {
         super(Side.LIGHT, 1, 3, 3, 4, 5, "BoShek", Uniqueness.UNIQUE);
@@ -59,13 +60,16 @@ public class Card210_006 extends AbstractAlien {
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId))
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canUseForce(game, playerId, 1)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Subtract 1 from destiny");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerBattleEffect(action));
             // Perform result(s)
+            action.appendCost(
+                    new UseForceEffect(action, playerId, 1));
             action.appendEffect(
                     new ModifyDestinyEffect(action, -1));
             return Collections.singletonList(action);
@@ -75,32 +79,38 @@ public class Card210_006 extends AbstractAlien {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.BOSHEK_VIRTUAL_GAMETEXT_ONCE_PER_BATTLE;
         final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
 
         // if the cancellation is interrupt based
         if (TriggerConditions.isPlayingCardForReason(game, effect, Filters.any, PlayCardActionReason.ATTEMPTING_TO_CANCEL_AND_REDRAW_A_DESTINY)
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canUseForce(game, playerId, 1)) {
             action.setText("Cancel an attempt to cancel and redraw a destiny");
             action.appendUsage(new OncePerBattleEffect(action));
+            action.appendCost(
+                    new UseForceEffect(action, playerId, 1));
             action.appendEffect(
                     new CancelCardResultEffect(action, effect));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
         // if the cancellation is from a card on table.
         if (TriggerConditions.isPerformingGameTextActionType(game, effect, Filters.any, GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY)
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canUseForce(game, playerId, 1)) {
             action.setText("Cancel attempt to cancel and redraw a destiny");
             action.appendUsage(new OncePerBattleEffect(action));
+            action.appendCost(
+                    new UseForceEffect(action, playerId, 1));
             action.appendEffect(
                     new CancelCardResultEffect(action, effect));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
-        return null;
+        return actions;
     }
-
 }
