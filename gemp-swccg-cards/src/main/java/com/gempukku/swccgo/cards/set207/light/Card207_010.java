@@ -57,7 +57,7 @@ public class Card207_010 extends AbstractJediMaster {
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canSpot(game, self, Filters.Great_Warrior)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)
                 && GameConditions.canTakeDestinyCardIntoHand(game, playerId)) {
