@@ -134,11 +134,14 @@ public class Card12_180_BACK extends AbstractObjective {
                                                     protected void validDecisionMade(int index, String result) {
                                                         if (index == 0) {
                                                             gameState.sendMessage(opponent + " chooses to lose 2 Force and place card in Used Pile");
+
+                                                            boolean drawCardFromReserveDeck = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE);
+
                                                             action.appendEffect(
                                                                     new LoseForceEffect(action, opponent, 2));
                                                             action.appendEffect(
                                                                     new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
-                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE)) {
+                                                            if (drawCardFromReserveDeck) {
                                                                 action.appendEffect(
                                                                         new DrawOneCardFromReserveDeckEffect(action, playerId)
                                                                 );
