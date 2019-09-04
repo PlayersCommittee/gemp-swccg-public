@@ -137,14 +137,19 @@ public class Card12_180_BACK extends AbstractObjective {
 
                                                             boolean drawCardFromReserveDeck = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE);
 
-                                                            action.appendEffect(
-                                                                    new LoseForceEffect(action, opponent, 2));
-                                                            action.appendEffect(
-                                                                    new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
                                                             if (drawCardFromReserveDeck) {
+                                                                action.appendEffect(
+                                                                        new LoseForceEffect(action, opponent, 2));
+                                                                action.appendEffect(
+                                                                        new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
                                                                 action.appendEffect(
                                                                         new DrawOneCardFromReserveDeckEffect(action, playerId)
                                                                 );
+                                                            } else {
+                                                                action.appendEffect(
+                                                                        new LoseForceEffect(action, opponent, 2));
+                                                                action.appendEffect(
+                                                                        new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
                                                             }
                                                         } else {
                                                             gameState.sendMessage(opponent + " chooses to use 2 Force to allow opponent to deploy card for free");

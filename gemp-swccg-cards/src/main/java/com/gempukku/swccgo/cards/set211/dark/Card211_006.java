@@ -31,7 +31,7 @@ public class Card211_006 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeploysFreeModifier(self, Filters.Mos_Espa));
+        modifiers.add(new DeploysFreeToLocationModifier(self, Filters.Mos_Espa));
         return modifiers;
     }
 
@@ -41,7 +41,7 @@ public class Card211_006 extends AbstractAlien {
         Condition onTatooineCondition = new OnCondition(self, Title.Tatooine);
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new AttritionModifier(self, Filters.here(self), onTatooineCondition, 1, game.getOpponent(self.getOwner())));
-        modifiers.add(new ForceGenerationModifier(self, onTatooineCondition, 1, "Force Generation + 1"));
+        modifiers.add(new TotalForceGenerationModifier(self, onTatooineCondition, 1, self.getOwner()));
         modifiers.add(new ModifyGameTextModifier(self, Filters.title(Title.Youre_A_Slave), ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE));
         return modifiers;
     }
