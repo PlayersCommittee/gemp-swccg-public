@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
@@ -135,21 +136,14 @@ public class Card12_180_BACK extends AbstractObjective {
                                                         if (index == 0) {
                                                             gameState.sendMessage(opponent + " chooses to lose 2 Force and place card in Used Pile");
 
-                                                            boolean drawCardFromReserveDeck = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE);
-
-                                                            if (drawCardFromReserveDeck) {
+                                                            action.appendEffect(
+                                                                    new LoseForceEffect(action, opponent, 2));
+                                                            action.appendEffect(
+                                                                    new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
+                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE)
+                                                                    && GameConditions.hasReserveDeck(game, playerId)) {
                                                                 action.appendEffect(
-                                                                        new LoseForceEffect(action, opponent, 2));
-                                                                action.appendEffect(
-                                                                        new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
-                                                                action.appendEffect(
-                                                                        new DrawOneCardFromReserveDeckEffect(action, playerId)
-                                                                );
-                                                            } else {
-                                                                action.appendEffect(
-                                                                        new LoseForceEffect(action, opponent, 2));
-                                                                action.appendEffect(
-                                                                        new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
+                                                                        new DrawCardIntoHandFromReserveDeckEffect(action, playerId));
                                                             }
                                                         } else {
                                                             gameState.sendMessage(opponent + " chooses to use 2 Force to allow opponent to deploy card for free");
@@ -187,6 +181,11 @@ public class Card12_180_BACK extends AbstractObjective {
                                         new LoseForceEffect(action, opponent, 2));
                                 action.appendEffect(
                                         new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
+                                if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE)
+                                        && GameConditions.hasReserveDeck(game, playerId)) {
+                                    action.appendEffect(
+                                            new DrawCardIntoHandFromReserveDeckEffect(action, playerId));
+                                }
                             }
                         }
                     }
