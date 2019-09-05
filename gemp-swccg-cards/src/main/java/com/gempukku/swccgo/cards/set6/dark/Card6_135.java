@@ -77,7 +77,7 @@ public class Card6_135 extends AbstractAlien {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NotUniqueModifier(self, jawaPack));
-        modifiers.add(new ModifyGameTextModifier(self, jawaPack, ModifyGameTextType.JAWA_PACK__MODIFIED_BY_WITTIN));
+        modifiers.add(new ModifyGameTextModifier(self, jawaPack, ModifyGameTextType.JAWA_PACK__DOUBLED_BY_WITTIN));
         modifiers.add(new PowerModifier(self, yourOtherJawas, atAudienceChamberOrJawaCamp, 2));
         return modifiers;
     }
