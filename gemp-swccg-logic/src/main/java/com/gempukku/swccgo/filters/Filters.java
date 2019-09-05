@@ -18336,6 +18336,7 @@ public class Filters {
     public static final Filter Thrawn = Filters.persona(Persona.THRAWN);
     public static final Filter Throne_Room = Filters.title(Title.Throne_Room);
     public static final Filter Throw_Me_Another_Charge = Filters.title(Title.Throw_Me_Another_Charge);
+    public static final Filter Thunderflare = Filters.title(Title.Thunderflare);
     public static final Filter Tibanna_Gas_Miner = Filters.title(Title.Tibanna_Gas_Miner);
     public static final Filter Tibrin_site = Filters.and(Filters.partOfSystem(Title.Tibrin), CardSubtype.SITE);
     public static final Filter TIE = Filters.tie();
