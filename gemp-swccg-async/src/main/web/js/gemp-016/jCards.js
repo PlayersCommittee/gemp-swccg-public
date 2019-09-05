@@ -3179,7 +3179,8 @@ var fixedImages = {
 "211_57":"/gemp-swccg/images/cards/Virtual11-Light/mazkanata.gif",
 "211_58":"/gemp-swccg/images/cards/Virtual11-Light/commandervandenwillard.gif",
 "211_59":"/gemp-swccg/images/cards/Virtual11-Light/ahsokatano.gif",
-"211_60":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
+"211_60":"/gemp-swccg/images/cards/Virtual11-Dark/igmagnaguard.gif",
+"211_61":"/gemp-swccg/images/cards/Virtual11-Dark/sebulbaai.gif",
 "301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
@@ -3188,7 +3189,8 @@ var fixedImages = {
 "301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
 "301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
 "301_6":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/captainkhurgee.gif",
-"501_1":"/gemp-swccg/images/cards/Playtesting-Dark/mitthrawnuruodo.gif"
+"301_7":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/puck.gif",
+"301_8":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/red12.gif",
 };
 
 var packBlueprints = {
