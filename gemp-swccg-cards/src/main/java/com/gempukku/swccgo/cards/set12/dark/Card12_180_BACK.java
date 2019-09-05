@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
@@ -134,17 +135,7 @@ public class Card12_180_BACK extends AbstractObjective {
                                                     @Override
                                                     protected void validDecisionMade(int index, String result) {
                                                         if (index == 0) {
-                                                            gameState.sendMessage(opponent + " chooses to lose 2 Force and place card in Used Pile");
-
-                                                            action.appendEffect(
-                                                                    new LoseForceEffect(action, opponent, 2));
-                                                            action.appendEffect(
-                                                                    new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
-                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE)
-                                                                    && GameConditions.hasReserveDeck(game, playerId)) {
-                                                                action.appendEffect(
-                                                                        new DrawCardIntoHandFromReserveDeckEffect(action, playerId));
-                                                            }
+                                                            opponentLosesTwoForceAndPlaceCardInUsedPile(action, game, self, gameState, playerId, opponent, card, opponent + " chooses to lose 2 Force and place card in Used Pile");
                                                         } else {
                                                             gameState.sendMessage(opponent + " chooses to use 2 Force to allow opponent to deploy card for free");
                                                             action.appendEffect(
@@ -174,18 +165,8 @@ public class Card12_180_BACK extends AbstractObjective {
                                                 }
                                         )
                                 );
-                            }
-                            else {
-                                gameState.sendMessage("Only option available is for " + opponent + " to lose 2 Force and place card in Used Pile");
-                                action.appendEffect(
-                                        new LoseForceEffect(action, opponent, 2));
-                                action.appendEffect(
-                                        new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
-                                if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE)
-                                        && GameConditions.hasReserveDeck(game, playerId)) {
-                                    action.appendEffect(
-                                            new DrawCardIntoHandFromReserveDeckEffect(action, playerId));
-                                }
+                            } else {
+                                opponentLosesTwoForceAndPlaceCardInUsedPile(action, game, self, gameState, playerId, opponent, card, "Only option available is for " + opponent + " to lose 2 Force and place card in Used Pile");
                             }
                         }
                     }
@@ -193,6 +174,27 @@ public class Card12_180_BACK extends AbstractObjective {
             return Collections.singletonList(action);
         }
         return null;
+    }
+
+    private void opponentLosesTwoForceAndPlaceCardInUsedPile(final Action action, SwccgGame game, PhysicalCard self, GameState gameState, final String playerId, String opponent, PhysicalCard card, String message) {
+        gameState.sendMessage(message);
+        action.appendEffect(
+                new LoseForceEffect(action, opponent, 2));
+        action.appendEffect(
+                new PutCardFromFaceDownOnSideOfTableInUsedPileEffect(action, playerId, card));
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE)
+                && GameConditions.hasReserveDeck(game, playerId)) {
+            action.appendEffect(
+                    new PlayoutDecisionEffect(action, playerId,
+                            new YesNoDecision("Draw a Card From Reserve Deck?") {
+                                @Override
+                                protected void yes() {
+                                    action.appendEffect(
+                                            new DrawCardIntoHandFromReserveDeckEffect(action, playerId));
+                                }
+
+                            }));
+        }
     }
 
     @Override
