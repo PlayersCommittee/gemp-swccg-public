@@ -15,7 +15,12 @@ import com.gempukku.swccgo.logic.modifiers.MovesFreeToLocationUsingLandspeedModi
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Invisible Hand: Hallway 328
+ */
 public class Card211_022 extends AbstractUniqueStarshipSite {
     public Card211_022() {
         super(Side.DARK, "Invisible Hand: Hallway 328", Persona.INVISIBLE_HAND);
