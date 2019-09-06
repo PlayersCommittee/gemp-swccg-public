@@ -34,7 +34,7 @@ public class Card211_022 extends AbstractUniqueStarshipSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MoveCostFromLocationUsingLandspeedModifier(self, Filters.and(Filters.your(game.getOpponent(playerOnDarkSideOfLocation)), Filters.character), new OccupiesCondition(playerOnDarkSideOfLocation, self), 1, Filters.here(self)));
+        modifiers.add(new MoveCostFromLocationUsingLandspeedModifier(self, Filters.and(Filters.your(game.getOpponent(playerOnDarkSideOfLocation)), Filters.hasLandspeed), new OccupiesCondition(playerOnDarkSideOfLocation, self), 1, Filters.here(self)));
         return modifiers;
 
     }
@@ -42,7 +42,7 @@ public class Card211_022 extends AbstractUniqueStarshipSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MovesFreeToLocationUsingLandspeedModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.character), self));
+        modifiers.add(new MovesFreeToLocationUsingLandspeedModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.hasLandspeed), self));
         return modifiers;
     }
 }
