@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -51,14 +52,13 @@ public class Card210_001 extends AbstractSite {
             actions.add(action);
         }
 
-        PhysicalCard luke = Filters.findFirstActive(game, self, Filters.Luke);
+        Filter lukeAloneHere = Filters.and(Filters.Luke, Filters.alone, Filters.here(self));
         gameTextActionId = GameTextActionId.AHCH_TO__SUBTRACT_FROM_POWER;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattleAt(game, Filters.not(self))
-                && GameConditions.isHere(game, self, luke)
-                && GameConditions.isAlone(game, luke)) {
+                && GameConditions.canSpot(game, self, lukeAloneHere)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Reduce opponent's total power by 2");
             // Update usage limit(s)
