@@ -29,7 +29,7 @@ public class Card13_071 extends AbstractAlien {
         super(Side.DARK, 3, 3, 3, 3, 5, "Jabba Desilijic Tiure", Uniqueness.UNIQUE);
         setLore("Gangster and leader in control of Tatooine. The amound of credits Jabba earns from Podracing is said to be vast, but only Bib Fortuna knows the exact number.");
         setGameText("While at Podrace Arena, once during your control phase may 'wager'. Both players draw destiny and add 2 if they have won a Podrace. Loser (lowest total) lose 1 force. If you just won the wager, and Bib Fortuna is present, you may retrieve 1 force.");
-        addIcons(Icon.REFLECTIONS_II, Icon.EPISODE_I);
+        addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
         addPersona(Persona.JABBA);
         setSpecies(Species.HUTT);
         addKeywords(Keyword.GANGSTER, Keyword.LEADER);
