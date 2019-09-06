@@ -1,16 +1,18 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
-import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
+import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,14 +33,19 @@ public class Card1_051 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        Condition hasExtraModifiers = new GameTextModificationCondition(self, ModifyGameTextType.JAWA_SIESTA__DOUBLED_BY_KALIT);
         modifiers.add(new DefinedByGameTextDeployCostModifier(self, 3));
+        modifiers.add(new DeploysFreeModifier(self, hasExtraModifiers));
         return modifiers;
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForfeitModifier(self, Filters.and(Filters.your(self), Filters.Jawa), 1));
+        Filter yourJawas = Filters.and(Filters.your(self), Filters.Jawa);
+        Condition isDoubled = new GameTextModificationCondition(self, ModifyGameTextType.JAWA_SIESTA__DOUBLED_BY_KALIT);
+        modifiers.add(new ForfeitModifier(self, yourJawas, new NotCondition(isDoubled), 1, false));
+        modifiers.add(new ForfeitModifier(self, yourJawas, isDoubled, 2, true));
         return modifiers;
     }
 }
