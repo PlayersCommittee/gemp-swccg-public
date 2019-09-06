@@ -57,16 +57,16 @@ public class Card10_014 extends AbstractAdmiralsOrder {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
         Filter smugglerFilter = Filters.and(Filters.your(playerId), Filters.smuggler, Filters.at(Filters.relatedSiteTo(self, Filters.and(Filters.system, Filters.occupiesWith(playerId, self, Filters.or(Filters.freighter, Filters.and(Icon.INDEPENDENT, Filters.starship)))))));
-        Collection<PhysicalCard> smugglers = Filters.filterActive(game, self, smugglerFilter);
         Filter blasterFilter = Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.blaster, Filters.attachedTo(smugglerFilter)),
                 Filters.and(smugglerFilter, Filters.hasPermanentBlaster)), Filters.canBeFiredAt(self, Filters.canBeTargetedBy(self), 0));
-        Collection<PhysicalCard> blasters = Filters.filterActive(game, self, blasterFilter);
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, playerId, Phase.CONTROL)) {
-            if (!smugglers.isEmpty()) {
+            Collection<PhysicalCard> smugglersWhoCanUseLandspeed = Filters.filterActive(game, self, Filters.and(smugglerFilter, Filters.canMoveUsingLandspeed(playerId, false, false, false, 0)));
+            if (!smugglersWhoCanUseLandspeed.isEmpty()) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Move smuggler using personal landspeed");
                 action.appendUsage(
@@ -74,7 +74,7 @@ public class Card10_014 extends AbstractAdmiralsOrder {
                 );
                 // Choose target(s)
                 action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose smuggler to move", Filters.in(smugglers)) {
+                        new ChooseCardOnTableEffect(action, playerId, "Choose smuggler to move", Filters.in(smugglersWhoCanUseLandspeed)) {
                             @Override
                             protected void cardSelected(PhysicalCard smuggler) {
                                 action.addAnimationGroup(smuggler);
@@ -88,6 +88,7 @@ public class Card10_014 extends AbstractAdmiralsOrder {
                 actions.add(action);
             }
 
+            Collection<PhysicalCard> blasters = Filters.filterActive(game, self, blasterFilter);
             if (!blasters.isEmpty()) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Fire a blaster");
