@@ -12,10 +12,15 @@ import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Invisible Hand: Docking Bay
+ */
 public class Card211_021 extends AbstractUniqueStarshipSite {
     public Card211_021() {
         super(Side.DARK, Title.Invisible_Hand_Docking_Bay, Persona.INVISIBLE_HAND);
