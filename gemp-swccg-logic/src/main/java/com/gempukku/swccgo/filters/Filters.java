@@ -17992,6 +17992,7 @@ public class Filters {
     public static final Filter protocol_droid = Filters.modelType(ModelType.PROTOCOL);
     public static final Filter proton_bombs = Filters.title(Title.Proton_Bombs);
     public static final Filter Proton_Torpedoes = Filters.keyword(Keyword.PROTON_TORPEDOES);
+    public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);
     public static final Filter Queens_Royal_Starship = Filters.persona(Persona.QUEENS_ROYAL_STARSHIP);
@@ -18046,6 +18047,7 @@ public class Filters {
     public static final Filter Red_8 = Filters.title(Title.Red_8);
     public static final Filter Red_9 = Filters.title(Title.Red_9);
     public static final Filter Red_10 = Filters.title(Title.Red_10);
+    public static final Filter Red_12 = Filters.title(Title.Red_12);
     public static final Filter Red_Leader = Filters.persona(Persona.RED_LEADER);
     public static final Filter Red_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.RED_SQUADRON, Filters.piloting(Filters.keyword(Keyword.RED_SQUADRON))));
     public static final Filter Red_Squadron_starfighter = Filters.and(CardSubtype.STARFIGHTER, Keyword.RED_SQUADRON);

@@ -1,10 +1,7 @@
 package com.gempukku.swccgo.cards.set301.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,13 +22,15 @@ import java.util.List;
  */
 public class Card301_007 extends AbstractRebel {
     public Card301_007() {
-        super(Side.LIGHT, 1, 2, 2, 2, 4, "Puck", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 2, 2, 2, 4, Title.Puck, Uniqueness.UNIQUE);
         setLore("Puck Naeco. Green and Red Squadron.");
         setGameText("[Pilot] 2. When choosing the destiny value of this card, must use 3 Force to choose 7. May deploy as a 'react.' Your Rebel pilots aboard snub fighters here are forfeit +1.");
         setAlternateDestiny(7);
         setAlternateDestinyCost(3);
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.RED_SQUADRON, Keyword.GREEN_SQUADRON);
+        addPersona(Persona.PUCK);
+        setMatchingStarshipFilter(Filters.Red_12);
     }
 
     @Override

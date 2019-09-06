@@ -63,6 +63,7 @@ public enum Persona implements Filterable {
     PANAKA("Panaka"),
     PAPLOO("Paploo"),
     PIETT("Piett"),
+    PUCK("Puck"),
     QUEENS_ROYAL_STARSHIP("Queen's Royal Starship"),
     QUIGON("Qui-Gon"),
     R2D2("R2-D2"),

@@ -739,6 +739,7 @@ public interface Title {
     String Prophecy_Of_The_Force = "Prophecy Of The Force";
     String Program_Trap = "Program Trap";
     String Proton_Bombs = "Proton Bombs";
+    String Puck = "Puck";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
     String Quite_A_Mercenary = "Quite A Mercenary";
@@ -769,6 +770,7 @@ public interface Title {
     String Red_8 = "Red 8";
     String Red_9 = "Red 9";
     String Red_10 = "Red 10";
+    String Red_12 = "Red 12";
     String Reegesk = "Reegesk";
     String ReeYees = "Ree-Yees";
     String Reflection = "Reflection";
