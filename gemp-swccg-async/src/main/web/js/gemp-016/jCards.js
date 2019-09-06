@@ -3138,7 +3138,7 @@ var fixedImages = {
 "211_19":"/gemp-swccg/images/cards/Virtual11-Dark/dqar.gif",
 "211_20":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandbridge.gif",
 "211_21":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehanddockingbay.gif",
-"211_22":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandhallway.gif",
+"211_22":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandhallway328.gif",
 "211_23":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
 "211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
 "211_24":"/gemp-swccg/images/cards/Virtual11-Dark/vengeance.gif",
