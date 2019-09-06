@@ -72,10 +72,15 @@ public abstract class RefreshPrintedDestinyValuesEffect extends AbstractSubActio
 
             // Chooses which destiny value to use.
             if (game.getGameState().getForcePile(selectedCard.getOwner()).size() >= blueprint.getAlternateDestinyCost()) {
+                String alternateDestinyString = GuiUtils.formatAsString(blueprint.getAlternateDestiny());
+                if (blueprint.getAlternateDestinyCost() > 0) {
+                    alternateDestinyString = alternateDestinyString + " (must use " + blueprint.getAlternateDestinyCost() + " force)";
+                }
+
                 _subAction.appendEffect(
                         new PlayoutDecisionEffect(_subAction, selectedCard.getOwner(),
                                 new MultipleChoiceAwaitingDecision("Choose destiny value for " + GameUtils.getCardLink(selectedCard),
-                                        new String[]{GuiUtils.formatAsString(blueprint.getDestiny()), GuiUtils.formatAsString(blueprint.getAlternateDestiny())}) {
+                                        new String[]{GuiUtils.formatAsString(blueprint.getDestiny()), alternateDestinyString}) {
                                     @Override
                                     protected void validDecisionMade(int index, String result) {
                                         float chosenDestiny;
