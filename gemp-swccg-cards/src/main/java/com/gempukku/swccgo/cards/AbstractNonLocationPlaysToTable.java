@@ -635,12 +635,11 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
     public final List<FireWeaponAction> getFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
         List<FireWeaponAction> fireWeaponActions = new ArrayList<FireWeaponAction>();
 
-        // Include any extra cost to fire weapon card if not a repeated firing
-        int extraCostForWeaponCard = (repeatedFiring ? extraForceRequired : (extraForceRequired + game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), self, null)));
-
-        if (!checkFireWeaponRequirements(playerId, game, self, repeatedFiring, extraCostForWeaponCard))
+        if (!checkFireWeaponRequirements(playerId, game, self, repeatedFiring))
             return fireWeaponActions;
 
+        // Include any extra cost to fire weapon card if not a repeated firing
+        int extraCostForWeaponCard = (repeatedFiring ? extraForceRequired : (extraForceRequired + game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), self, null)));
         List<FireWeaponAction> gameTextActions = getGameTextFireWeaponActions(playerId, game, self, forFree, extraCostForWeaponCard, sourceCard, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit);
         if (gameTextActions != null) {
             fireWeaponActions.addAll(gameTextActions);
@@ -680,7 +679,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @param repeatedFiring true if this is a repeated firing, otherwise false
      * @return true if card can be fired, otherwise false
      */
-    protected boolean checkFireWeaponRequirements(String playerId, SwccgGame game, PhysicalCard self, boolean repeatedFiring, int extraForceRequired) {
+    protected boolean checkFireWeaponRequirements(String playerId, SwccgGame game, PhysicalCard self, boolean repeatedFiring) {
         return false;
     }
 

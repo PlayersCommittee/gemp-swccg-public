@@ -597,7 +597,6 @@ public class FireWeaponActionBuilder {
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
         _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
         _targetsForFree.add(false);
-        _extraForceRequired = useForceCost;
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
         _targetingReasonList.add(Collections.singleton(targetingReason));
@@ -618,7 +617,6 @@ public class FireWeaponActionBuilder {
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
         _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
         _targetsForFree.add(false);
-        _extraForceRequired = useForceCostMin;
         _targetingUseForceCostMin.add(useForceCostMin);
         _targetingUseForceCostMax.add(useForceCostMax);
         _targetingReasonList.add(Collections.singleton(targetingReason));
@@ -715,7 +713,6 @@ public class FireWeaponActionBuilder {
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
         _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
         _targetsForFree.add(false);
-        _extraForceRequired = useForceCost;
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
         _targetingReasonList.add(Collections.singleton(targetingReason));
@@ -735,7 +732,6 @@ public class FireWeaponActionBuilder {
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
         _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
         _targetsForFree.add(false);
-        _extraForceRequired = useForceCost;
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
         _targetingReasonList.add(Collections.singleton(targetingReason));
