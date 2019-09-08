@@ -9,7 +9,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 
-public class AtLeastNumberOfSpeciesCondition implements Condition {
+public class AtLeastNumberOfSpeciesOnTableCondition implements Condition {
     private SwccgGame _game;
     private PhysicalCard _self;
     private int _compareValue;
@@ -17,7 +17,7 @@ public class AtLeastNumberOfSpeciesCondition implements Condition {
     /**
      * Creates a condition that is fulfilled when any the specified conditions are fulfilled.
      */
-    public AtLeastNumberOfSpeciesCondition(SwccgGame game, PhysicalCard self, int compareValue) {
+    public AtLeastNumberOfSpeciesOnTableCondition(SwccgGame game, PhysicalCard self, int compareValue) {
         _game = game;
         _self = self;
         _compareValue = compareValue;

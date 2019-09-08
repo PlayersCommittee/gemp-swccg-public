@@ -1,7 +1,7 @@
 package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.cards.conditions.AtLeastNumberOfSpeciesCondition;
+import com.gempukku.swccgo.cards.conditions.AtLeastNumberOfSpeciesOnTableCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -21,7 +21,6 @@ import java.util.List;
  * Type: Effect
  * Title: Ancient Watering Hole
  */
-
 public class Card210_007 extends AbstractNormalEffect {
     public Card210_007() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Ancient Watering Hole", Uniqueness.UNIQUE);
@@ -42,8 +41,7 @@ public class Card210_007 extends AbstractNormalEffect {
         }
         Filter mazOrYourRepFilter = Filters.or(Filters.Maz, repFilter);
 
-
-        Condition fiveDifferentSpeciesCondition = new AtLeastNumberOfSpeciesCondition(game, self, 5);
+        Condition fiveDifferentSpeciesCondition = new AtLeastNumberOfSpeciesOnTableCondition(game, self, 5);
         Condition mazOrRepInBattle = new InBattleCondition(self, mazOrYourRepFilter);
 
         modifiers.add(new ImmuneToAttritionModifier(self, mazOrYourRepFilter));
