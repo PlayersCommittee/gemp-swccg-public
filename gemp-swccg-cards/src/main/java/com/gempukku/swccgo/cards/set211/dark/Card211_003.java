@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set211.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.cards.effects.RevealTopCardsOfReserveDeckEffect;
+import com.gempukku.swccgo.cards.effects.RevealTopCardsOfCardPileAndTakeCardsIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -13,15 +13,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,27 +82,7 @@ public class Card211_003 extends AbstractAlien {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new RevealTopCardsOfReserveDeckEffect(action, playerId, 3) {
-                        @Override
-                        protected void cardsRevealed(final List<PhysicalCard> cards) {
-                            if (cards.size() == 3) {
-                                action.appendEffect(
-                                        new ChooseArbitraryCardsEffect(action, playerId, "Choose alien to take into hand", cards, Filters.alien,1, 1) {
-                                            @Override
-                                            protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
-                                                if (!selectedCards.isEmpty()) {
-                                                    PhysicalCard cardToTakeIntoHand = selectedCards.iterator().next();
-                                                    if (cardToTakeIntoHand != null) {
-                                                        action.appendEffect(
-                                                                new TakeCardIntoHandFromReserveDeckEffect(action, playerId, cardToTakeIntoHand, false));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                );
-                            }
-                        }
-                    });
+                    new RevealTopCardsOfCardPileAndTakeCardsIntoHandEffect(action, playerId, playerId, Zone.RESERVE_DECK, Filters.alien, 3));
             action.appendEffect(
                     new ShuffleReserveDeckEffect(action));
 
