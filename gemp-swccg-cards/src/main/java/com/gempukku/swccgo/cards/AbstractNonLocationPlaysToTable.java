@@ -639,7 +639,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
             return fireWeaponActions;
 
         // Include any extra cost to fire weapon card if not a repeated firing
-        int extraCostForWeaponCard = (repeatedFiring ? extraForceRequired : (extraForceRequired + game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), self, null)));
+        int extraCostForWeaponCard = (repeatedFiring ? extraForceRequired : (extraForceRequired + game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), self)));
         List<FireWeaponAction> gameTextActions = getGameTextFireWeaponActions(playerId, game, self, forFree, extraCostForWeaponCard, sourceCard, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit);
         if (gameTextActions != null) {
             fireWeaponActions.addAll(gameTextActions);
