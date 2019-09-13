@@ -9,7 +9,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.LookAtUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.LookAtLostPileEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardsOutOfPlayFromOffTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
@@ -54,7 +54,7 @@ public class Card11_073 extends AbstractNormalEffect {
                     new UseForceEffect(action, playerId, 1));
             // Perform result(s)
             action.appendEffect(
-                    new LookAtUsedPileEffect(action, playerId, opponent) {
+                    new LookAtLostPileEffect(action, playerId, opponent) {
                         @Override
                         protected void cardsInCardPile(List<PhysicalCard> cardsInCardPile) {
                             Collection<PhysicalCard> dockingBays = Filters.filter(cardsInCardPile, game, Filters.docking_bay);
