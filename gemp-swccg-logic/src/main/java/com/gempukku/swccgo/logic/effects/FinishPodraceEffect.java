@@ -23,6 +23,7 @@ import java.util.List;
 public class FinishPodraceEffect extends AbstractSubActionEffect {
     private int _forceRetrievedByWinner;
     private int _forceLostByLoser;
+    private boolean _takeRetrievedForceIntoHand;
 
     /**
      * Creates an effect that finishes the current Podrace
@@ -30,10 +31,11 @@ public class FinishPodraceEffect extends AbstractSubActionEffect {
      * @param forceRetrievedByWinner the amount of Force retrieved by winner
      * @param forceRetrievedByWinner the amount of Force lost by loser
      */
-    public FinishPodraceEffect(Action action, int forceRetrievedByWinner, int forceLostByLoser) {
+    public FinishPodraceEffect(Action action, int forceRetrievedByWinner, int forceLostByLoser, boolean takeRetrievedForceIntoHand) {
         super(action);
         _forceRetrievedByWinner = forceRetrievedByWinner;
         _forceLostByLoser = forceLostByLoser;
+        _takeRetrievedForceIntoHand = takeRetrievedForceIntoHand;
     }
 
     @Override
@@ -77,7 +79,13 @@ public class FinishPodraceEffect extends AbstractSubActionEffect {
                         List<StandardEffect> effectsToOrder = new ArrayList<>();
                         float winnersForceRetrieval = modifiersQuerying.getPodraceForceRetrieval(gameState, _forceRetrievedByWinner);
                         if (winnersForceRetrieval > 0) {
-                            effectsToOrder.add(new RetrieveForceEffect(retrieveOrLoseForceAction, gameState.getPodraceWinner(), winnersForceRetrieval));
+                            effectsToOrder.add(new RetrieveForceEffect(retrieveOrLoseForceAction, gameState.getPodraceWinner(), winnersForceRetrieval) {
+                                @Override
+                                public boolean mayBeTakenIntoHand() {
+                                    return _takeRetrievedForceIntoHand;
+                                }
+                            });
+
                         }
                         float losersForceLoss = modifiersQuerying.getPodraceForceLoss(gameState, _forceLostByLoser);
                         if (losersForceLoss > 0) {
