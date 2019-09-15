@@ -78,7 +78,7 @@ public class Card208_047 extends AbstractUsedInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromUsedPileEffect(action, playerId, Filters.any, true));
+                                    new TakeCardIntoHandFromUsedPileEffect(action, playerId, Filters.any, true, true));
                         }
                     });
             actions.add(action);

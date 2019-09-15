@@ -36,6 +36,20 @@ public class TakeCardIntoHandFromUsedPileEffect extends TakeCardsIntoHandFromUse
     }
 
     /**
+     * Creates an effect that causes the player to search Used Pile for a card accepted by the specified filter and take
+     * it into hand.
+     *
+     * @param action    the action performing this effect
+     * @param playerId  the player
+     * @param filters   the filter
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     * @param hidden    true if cards are not revealed, otherwise false
+     */
+    public TakeCardIntoHandFromUsedPileEffect(Action action, String playerId, Filter filters, boolean reshuffle, boolean hidden) {
+        super(action, playerId, 1, 1, playerId, filters, reshuffle, hidden);
+    }
+
+    /**
      * Creates an effect that causes the player to take a specific card into hand from Used Pile.
      * @param action the action performing this effect
      * @param playerId the player
