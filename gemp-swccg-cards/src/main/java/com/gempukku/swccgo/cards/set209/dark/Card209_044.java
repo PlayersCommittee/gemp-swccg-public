@@ -14,7 +14,9 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
@@ -92,8 +94,7 @@ public class Card209_044 extends AbstractNormalEffect {
             // Check condition(s)
             if (TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL)
                     && GameConditions.canTarget(game, self, Filters.Maul)
-                    && !GameConditions.isAboardAnyStarship(game, maulCard)
-                    && !GameConditions.isAboard(game, maulCard, Filters.vehicle))
+                    && GameConditions.isPresentAt(game, maulCard, Filters.site))
             {
                 Filter siteToRelocateTo = Filters.and(Filters.site, Filters.locationCanBeRelocatedTo(maulCard, 0), Filters.occupiesWith(game.getOpponent(playerId), self, Filters.Jedi));
                 if (GameConditions.canSpotLocation(game, siteToRelocateTo)) {
@@ -132,5 +133,4 @@ public class Card209_044 extends AbstractNormalEffect {
         }
         return null;
     }
-
 }
