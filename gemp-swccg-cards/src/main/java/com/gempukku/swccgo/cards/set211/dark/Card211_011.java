@@ -133,7 +133,8 @@ public class Card211_011 extends AbstractEpicEventDeployable {
 
         if (GameConditions.cardHasWhileInPlayDataSet(self)) {
             PhysicalCard cardMoved = self.getWhileInPlayData().getPhysicalCard();
-            if (TriggerConditions.moved(game, effectResult, playerMoving, cardMoved)
+            if (cardMoved != null
+                    && TriggerConditions.moved(game, effectResult, playerMoving, cardMoved)
                     && (effectResult.getType() == EffectResult.Type.MOVED_USING_LANDSPEED || effectResult.getType() == EffectResult.Type.DOCKING_BAY_TRANSITED)
                     && GameConditions.isOncePerTurn(game, self, playerMoving, gameTextSourceCardId, gameTextActionId)) {
                 // Check condition(s)
