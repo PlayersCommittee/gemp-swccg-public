@@ -117,15 +117,15 @@ public class Card211_011 extends AbstractEpicEventDeployable {
     }
 
     private List<OptionalGameTextTriggerAction> followCharacterMovingFromInsidiousPrisoner(String playerMoving, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        Filter charactersMoved = Filters.and(Filters.character, Filters.not(Filters.undercover_spy), Filters.your(playerMoving));
+        Filter charactersMoving = Filters.and(Filters.character, Filters.not(Filters.undercover_spy), Filters.your(playerMoving));
         Filter insidiousPrisonersSite = Filters.sameSiteAs(self, Filters.Insidious_Prisoner);
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        if (TriggerConditions.movingFromLocation(game, effectResult, charactersMoved, insidiousPrisonersSite)
-                && TriggerConditions.movingToLocation(game, effectResult, charactersMoved, Filters.battleground_site)
+        if (TriggerConditions.movingFromLocation(game, effectResult, charactersMoving, insidiousPrisonersSite)
+                && TriggerConditions.movingToLocation(game, effectResult, charactersMoving, Filters.battleground_site)
                 && GameConditions.controls(game, playerMoving, insidiousPrisonersSite)
-                && movingContainsNonUndercoverSpies(game, self, charactersMoved)
+                && movingContainsNonUndercoverSpies(game, self, charactersMoving)
                 && self.getWhileInPlayData() == null) {
             MovingResult movingResult = (MovingResult) effectResult;
             self.setWhileInPlayData(new WhileInPlayData(movingResult.getCardMoving()));
