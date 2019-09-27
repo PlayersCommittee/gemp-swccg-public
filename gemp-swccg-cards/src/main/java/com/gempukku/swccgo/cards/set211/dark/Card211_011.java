@@ -126,6 +126,7 @@ public class Card211_011 extends AbstractEpicEventDeployable {
                 && TriggerConditions.movingToLocation(game, effectResult, charactersMoving, Filters.battleground_site)
                 && GameConditions.controls(game, playerMoving, insidiousPrisonersSite)
                 && movingContainsNonUndercoverSpies(game, self, charactersMoving)
+                && (effectResult.getType() == EffectResult.Type.MOVING_USING_LANDSPEED || effectResult.getType() == EffectResult.Type.DOCKING_BAY_TRANSITING)
                 && self.getWhileInPlayData() == null) {
             MovingResult movingResult = (MovingResult) effectResult;
             self.setWhileInPlayData(new WhileInPlayData(movingResult.getCardMoving()));
@@ -135,8 +136,8 @@ public class Card211_011 extends AbstractEpicEventDeployable {
             PhysicalCard cardMoved = self.getWhileInPlayData().getPhysicalCard();
             if (cardMoved != null
                     && TriggerConditions.moved(game, effectResult, playerMoving, cardMoved)
-                    && (effectResult.getType() == EffectResult.Type.MOVED_USING_LANDSPEED || effectResult.getType() == EffectResult.Type.DOCKING_BAY_TRANSITED)
-                    && GameConditions.isOncePerTurn(game, self, playerMoving, gameTextSourceCardId, gameTextActionId)) {
+                    && GameConditions.isOncePerTurn(game, self, playerMoving, gameTextSourceCardId, gameTextActionId)
+                    && GameConditions.canSpot(game, self, cardMoved)) {
                 // Check condition(s)
                 MovedResult movedResult = (MovedResult) effectResult;
                 if (movedResult.isMoveComplete()) {
