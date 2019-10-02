@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,6 +24,7 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
+import com.gempukku.swccgo.logic.timing.results.MovedResult;
 import com.gempukku.swccgo.logic.timing.results.MovingResult;
 
 import java.util.Collections;
@@ -105,11 +107,6 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         return null;
     }
 
-    private boolean isMovingToBattlegroundSite(SwccgGame game, EffectResult effectResult) {
-        PhysicalCard locationMovingTo = ((MovingResult) effectResult).getMovingTo();
-        return Filters.battleground_site.accepts(game, locationMovingTo);
-    }
-
     private boolean movingContainsNonUndercoverSpies(SwccgGame game, PhysicalCard source, Filter charactersMoving) {
         PhysicalCard nonUCSpyMoving = Filters.findFirstActive(game, source, Filters.and(charactersMoving, Filters.not(Filters.undercover_spy)));
         if (nonUCSpyMoving != null) {
@@ -123,22 +120,38 @@ public class Card211_011 extends AbstractEpicEventDeployable {
         Filter charactersMoving = Filters.and(Filters.character, Filters.not(Filters.undercover_spy), Filters.your(playerMoving));
         Filter insidiousPrisonersSite = Filters.sameSiteAs(self, Filters.Insidious_Prisoner);
 
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
         if (TriggerConditions.movingFromLocation(game, effectResult, charactersMoving, insidiousPrisonersSite)
+                && TriggerConditions.movingToLocation(game, effectResult, charactersMoving, Filters.battleground_site)
                 && GameConditions.controls(game, playerMoving, insidiousPrisonersSite)
-                && (effectResult.getType() != EffectResult.Type.RELOCATING_BETWEEN_LOCATIONS)
-                && (movingContainsNonUndercoverSpies(game, self, charactersMoving))
-                && (isMovingToBattlegroundSite(game, effectResult))) {
-            if (!GameConditions.cardHasWhileInPlayDataEquals(self, playerMoving)) {
-                self.setWhileInPlayData(new WhileInPlayData(playerMoving));
+                && movingContainsNonUndercoverSpies(game, self, charactersMoving)
+                && (effectResult.getType() == EffectResult.Type.MOVING_USING_LANDSPEED || effectResult.getType() == EffectResult.Type.DOCKING_BAY_TRANSITING)
+                && self.getWhileInPlayData() == null) {
+            MovingResult movingResult = (MovingResult) effectResult;
+            self.setWhileInPlayData(new WhileInPlayData(movingResult.getCardMoving()));
+        }
+
+        if (GameConditions.cardHasWhileInPlayDataSet(self)) {
+            PhysicalCard cardMoved = self.getWhileInPlayData().getPhysicalCard();
+            if (cardMoved != null
+                    && TriggerConditions.moved(game, effectResult, playerMoving, cardMoved)
+                    && GameConditions.isOncePerTurn(game, self, playerMoving, gameTextSourceCardId, gameTextActionId)
+                    && GameConditions.canSpot(game, self, cardMoved)) {
                 // Check condition(s)
-                MovingResult movedResult = (MovingResult) effectResult;
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Follow character moving from same site");
-                action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow " + GameUtils.getCardLink(movedResult.getCardMoving()));
-                // Perform result(s)
-                action.appendEffect(
-                        new AttachCardFromTableEffect(action, self, movedResult.getMovingTo()));
-                return Collections.singletonList(action);
+                MovedResult movedResult = (MovedResult) effectResult;
+                if (movedResult.isMoveComplete()) {
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerMoving, gameTextSourceCardId, gameTextActionId);
+                    action.setText("Follow character moving from same site");
+                    action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow " + GameUtils.getCardLink(movedResult.getMovedCards().iterator().next()));
+                    // Perform result(s)
+                    action.appendUsage(
+                            new OncePerTurnEffect(action)
+                    );
+                    action.appendEffect(
+                            new AttachCardFromTableEffect(action, self, movedResult.getMovedTo()));
+                    return Collections.singletonList(action);
+                }
             }
         }
         return null;
