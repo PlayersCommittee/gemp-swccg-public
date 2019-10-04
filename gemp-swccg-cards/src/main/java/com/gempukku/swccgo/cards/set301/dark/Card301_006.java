@@ -35,7 +35,7 @@ public class Card301_006 extends AbstractImperial {
         super(Side.DARK, 2, 2, 2, 2, 4, "Captain Khurgee", Uniqueness.UNIQUE);
         setLore("Docking bay security officer. Leader. Honored for bravery aboard the Star Destroyer Thunderflare where he rescued five officers from the wreckage of a shuttle crash.");
         setGameText("While aboard Thunderflare, attrition against you is -2 here. Once during your turn, if at a battleground, may peek at top card of opponent's Reserve Deck. If it is a character, may reveal it and opponent loses 1 Force (if it is a Rebel, may also place it on Used Pile).");
-        addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P, Icon.A_NEW_HOPE, Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.VIRTUAL_SET_P, Icon.A_NEW_HOPE, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.LEADER);
         setMatchingStarshipFilter(Filters.Thunderflare);
     }
