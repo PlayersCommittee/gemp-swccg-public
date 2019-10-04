@@ -71,29 +71,48 @@ public abstract class RefreshPrintedDestinyValuesEffect extends AbstractSubActio
             final SwccgCardBlueprint blueprint = selectedCard.getBlueprint();
 
             // Chooses which destiny value to use.
-            _subAction.appendEffect(
-                    new PlayoutDecisionEffect(_subAction, selectedCard.getOwner(),
-                            new MultipleChoiceAwaitingDecision("Choose destiny value for " + GameUtils.getCardLink(selectedCard),
-                                    new String[]{GuiUtils.formatAsString(blueprint.getDestiny()), GuiUtils.formatAsString(blueprint.getAlternateDestiny())}) {
-                                @Override
-                                protected void validDecisionMade(int index, String result) {
-                                    float chosenDestiny = (index == 0 ? blueprint.getDestiny() : blueprint.getAlternateDestiny());
-                                    if (selectedCard.getZone() != Zone.SABACC_HAND)
-                                        game.getGameState().sendMessage(selectedCard.getOwner() + " chooses to use " + GuiUtils.formatAsString(chosenDestiny) + " as destiny value for " + GameUtils.getCardLink(selectedCard));
-                                    selectedCard.setDestinyValueToUse(chosenDestiny);
+            if (game.getGameState().getForcePile(selectedCard.getOwner()).size() >= blueprint.getAlternateDestinyCost()) {
+                String alternateDestinyString = GuiUtils.formatAsString(blueprint.getAlternateDestiny());
+                if (blueprint.getAlternateDestinyCost() > 0) {
+                    alternateDestinyString = alternateDestinyString + " (must use " + blueprint.getAlternateDestinyCost() + " force)";
+                }
 
-                                    _remainingCards.remove(selectedCard);
-                                    if (!_remainingCards.isEmpty()) {
-                                        _subAction.appendEffect(
-                                                new ChooseAndRefreshNextPrintedDestinyValue(_subAction, _playerId, _remainingCards));
-                                    }
-                                    else {
-                                        refreshedPrintedDestinyValues();
+                _subAction.appendEffect(
+                        new PlayoutDecisionEffect(_subAction, selectedCard.getOwner(),
+                                new MultipleChoiceAwaitingDecision("Choose destiny value for " + GameUtils.getCardLink(selectedCard),
+                                        new String[]{GuiUtils.formatAsString(blueprint.getDestiny()), alternateDestinyString}) {
+                                    @Override
+                                    protected void validDecisionMade(int index, String result) {
+                                        float chosenDestiny;
+                                        if (index == 0) {
+                                            chosenDestiny = blueprint.getDestiny();
+                                        } else {
+                                            if (blueprint.getAlternateDestinyCost() > 0) {
+                                                _subAction.appendEffect(
+                                                        new UseForceEffect(_subAction, selectedCard.getOwner(), blueprint.getAlternateDestinyCost())
+                                                );
+                                            }
+                                            chosenDestiny = blueprint.getAlternateDestiny();
+                                        }
+
+                                        if (selectedCard.getZone() != Zone.SABACC_HAND)
+                                            game.getGameState().sendMessage(selectedCard.getOwner() + " chooses to use " + GuiUtils.formatAsString(chosenDestiny) + " as destiny value for " + GameUtils.getCardLink(selectedCard));
+                                        selectedCard.setDestinyValueToUse(chosenDestiny);
+
+                                        _remainingCards.remove(selectedCard);
+                                        if (!_remainingCards.isEmpty()) {
+                                            _subAction.appendEffect(
+                                                    new ChooseAndRefreshNextPrintedDestinyValue(_subAction, _playerId, _remainingCards));
+                                        } else {
+                                            refreshedPrintedDestinyValues();
+                                        }
                                     }
                                 }
-                            }
-                    )
-            );
+                        )
+                );
+            } else {
+                selectedCard.setDestinyValueToUse(blueprint.getDestiny());
+            }
         }
     }
 
