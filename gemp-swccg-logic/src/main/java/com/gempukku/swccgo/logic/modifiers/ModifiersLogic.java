@@ -3268,18 +3268,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * Gets the amount of extra Force required to fire the specified weapon (or permanent weapon).
      * @param gameState the game state
      * @param weaponCard the weapon card, or null if permanent weapon
-     * @param permanentWeapon the permanent weapon, or null if not a permanent weapon
      * @return the amount of Force
      */
     @Override
-    public int getExtraForceRequiredToFireWeapon(GameState gameState, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon) {
+    public int getExtraForceRequiredToFireWeapon(GameState gameState, PhysicalCard weaponCard) {
         int result = 0;
         for (Modifier modifier : getModifiers(gameState, ModifierType.EXTRA_FORCE_COST_TO_FIRE_WEAPON)) {
             if (weaponCard != null && modifier.isAffectedTarget(gameState, this, weaponCard)) {
                 result += modifier.getValue(gameState, this, weaponCard);
-            }
-            if (permanentWeapon != null && modifier.isAffectedTarget(gameState, this, permanentWeapon)) {
-                result += modifier.getValue(gameState, this, permanentWeapon);
             }
         }
         result = Math.max(0, result);
