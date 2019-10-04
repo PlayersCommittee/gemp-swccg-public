@@ -37,7 +37,6 @@ public class Card301_005 extends AbstractDefensiveShield {
         setLore("Han was not sure if Lando had forgiven him for winning the Millennium Falcon. As the old gamblers' saying about sabacc goes: 'Win the game, lose a friend.'");
         setGameText("Plays on table. Cancels A Dangerous Time and Imperial Supply. Each player may play only one card with 'sabacc' in title each turn. You may cancel an opponent's card with 'sabacc' in title by losing 1 Force from hand.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
-
     }
 
     @Override
