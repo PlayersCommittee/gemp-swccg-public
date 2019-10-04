@@ -209,7 +209,7 @@ var CardFilter = Class.extend({
             + "<option value='209'>Set 9</option>"
             + "<option value='210'>Set 10</option>"
             + "<option value='211'>Set 11</option>"
-            + "<option value='301'>Demonstration Deck</option>"
+            + "<option value='301'>Virtual Premium Set</option>"
             + "<option value='401'>Dream Cards</option>"
             + "<option value='501'>Playtesting</option>"
             + "</select>");
