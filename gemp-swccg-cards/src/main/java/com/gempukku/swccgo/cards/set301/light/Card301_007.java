@@ -27,7 +27,7 @@ public class Card301_007 extends AbstractRebel {
         setGameText("[Pilot] 2. When choosing the destiny value of this card, must use 3 Force to choose 7. May deploy as a 'react.' Your Rebel pilots aboard snub fighters here are forfeit +1.");
         setAlternateDestiny(7);
         setAlternateDestinyCost(3);
-        addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P, Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.VIRTUAL_SET_P, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.RED_SQUADRON, Keyword.GREEN_SQUADRON);
         addPersona(Persona.PUCK);
         setMatchingStarshipFilter(Filters.Red_12);
