@@ -55,7 +55,7 @@ public class Card301_005 extends AbstractDefensiveShield {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)){
             if (GameConditions.canTargetToCancel(game, self, Filters.A_Dangerous_Time)) {
@@ -81,7 +81,7 @@ public class Card301_005 extends AbstractDefensiveShield {
         String opponent = game.getOpponent(playerId);
         Filter cardWithSabaccInTitle = Filters.titleContains("sabacc");
 
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new MayNotPlayModifier(self, cardWithSabaccInTitle, new CardPlayedThisTurnByPlayerCondition(playerId, cardWithSabaccInTitle), playerId));
         modifiers.add(new MayNotPlayModifier(self, cardWithSabaccInTitle, new CardPlayedThisTurnByPlayerCondition(opponent, cardWithSabaccInTitle), opponent));
         return modifiers;
@@ -91,7 +91,8 @@ public class Card301_005 extends AbstractDefensiveShield {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.and(Filters.opponents(playerId), Filters.titleContains("sabacc")))
-                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)
+                && GameConditions.hasHand(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             // Build action using common utility
@@ -107,7 +108,8 @@ public class Card301_005 extends AbstractDefensiveShield {
         Filter filter = Filters.and(Filters.opponents(playerId), Filters.titleContains("sabacc"));
 
         // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, filter)) {
+        if (GameConditions.canTargetToCancel(game, self, filter)
+                && GameConditions.hasHand(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             // Build action using common utility
