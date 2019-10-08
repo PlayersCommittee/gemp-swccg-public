@@ -3181,13 +3181,16 @@ var fixedImages = {
 "211_59":"/gemp-swccg/images/cards/Virtual11-Light/ahsokatano.gif",
 "211_60":"/gemp-swccg/images/cards/Virtual11-Dark/igmagnaguard.gif",
 "211_61":"/gemp-swccg/images/cards/Virtual11-Dark/sebulbaai.gif",
-"301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
-"301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
-"301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
-"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asajjventresswithlightsabers.gif",
-"301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
-"301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
-"301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
+"301_1":"/gemp-swccg/images/cards/VirtualPremium-Light/ahsokatanowithlightsabers.gif",
+"301_2":"/gemp-swccg/images/cards/VirtualPremium-Light/cityintheclouds.gif",
+"301_2_BACK":"/gemp-swccg/images/cards/VirtualPremium-Light/youtrulybelongherewithus.gif",
+"301_3":"/gemp-swccg/images/cards/VirtualPremium-Dark/asajjventresswithlightsabers.gif",
+"301_4":"/gemp-swccg/images/cards/VirtualPremium-Dark/twinsunsoftatooine.gif",
+"301_4_BACK":"/gemp-swccg/images/cards/VirtualPremium-Dark/welltrainedinthejediarts.gif",
+"301_5":"/gemp-swccg/images/cards/VirtualPremium-Light/yourship.gif",
+"301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
+"301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
+"301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
 };
 
 var packBlueprints = {
