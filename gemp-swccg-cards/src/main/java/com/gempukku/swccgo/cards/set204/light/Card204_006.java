@@ -42,10 +42,10 @@ public class Card204_006 extends AbstractResistance {
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        Filter sameLocationAsPoeOrRey = Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.pilot, Filters.or(Filters.Poe, Filters.Rey)));
+        Filter sameLocationAsPoeOrRey = Filters.sameLocationAs(self, Filters.and(Filters.your(self), Icon.PILOT, Filters.or(Filters.Poe, Filters.Rey)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployAsReactToLocationModifier(self, Filters.and(Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.pilot)), Filters.not(sameLocationAsPoeOrRey))));
+        modifiers.add(new MayDeployAsReactToLocationModifier(self, Filters.and(Filters.sameLocationAs(self, Filters.and(Filters.your(self), Icon.PILOT)), Filters.not(sameLocationAsPoeOrRey))));
         modifiers.add(new MayDeployAsReactToLocationForFreeModifier(self, sameLocationAsPoeOrRey));
         return modifiers;
     }
