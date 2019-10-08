@@ -9,9 +9,11 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,14 +23,13 @@ import java.util.List;
  * Subtype: Droid
  * Title: IG MagnaGuard
  */
-
 public class Card211_060 extends AbstractDroid {
     public Card211_060() {
         super(Side.DARK, 2, 3, 2, 4, "IG MagnaGuard", Uniqueness.RESTRICTED_3);
         setArmor(4);
         setLore("Asassin.  Trade Federation.");
         setGameText("Grievous is defense value +2 here.  While aboard Invisible Hand, draws one battle destiny if unable to otherwise and characters here are immune to Clash Of Sabers.");
-        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I, Icon.PRESENCE, Icon.WARRIOR, Icon.TRADE_FEDERATION);
+        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I, Icon.PRESENCE, Icon.WARRIOR, Icon.TRADE_FEDERATION, Icon.SEPARATIST);
         addModelType(ModelType.BATTLE);
         addKeyword(Keyword.ASSASSIN);
     }
