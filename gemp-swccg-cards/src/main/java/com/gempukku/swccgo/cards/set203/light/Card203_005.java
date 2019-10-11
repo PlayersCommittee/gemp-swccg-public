@@ -35,7 +35,6 @@ import java.util.List;
 public class Card203_005 extends AbstractRebel {
     public Card203_005() {
         super(Side.LIGHT, 1, 5, 8, 1, 5, "Endor Commando Team", Uniqueness.UNIQUE);
-        setVirtualSuffix(true);
         setArmor(4);
         setLore("General Solo's strike team was made up of the Alliance's finest ground troops. Scout troopers.");
         setGameText("Deploys -1 to Endor. During battle, your other Rebels present with Endor Commando Team may not have their forfeit reduced unless this card 'hit'. Each time this character is 'hit', it is cumulatively power -2 until end of turn.");
