@@ -3191,6 +3191,7 @@ var fixedImages = {
 "301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
+"501_3":"/gemp-swccg/images/cards/Virtual12-Dark/darthtyranus.gif",
 };
 
 var packBlueprints = {
