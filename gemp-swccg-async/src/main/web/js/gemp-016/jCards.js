@@ -3191,7 +3191,6 @@ var fixedImages = {
 "301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
-"202_4":"/gemp-swccg/images/cards/Virtual2-Light/yodakeeperofthepeace.gif",
 "501_001":"/gemp-swccg/images/cards/Virtual2-Light/likemyfatherbeforeme.gif",
 };
 
