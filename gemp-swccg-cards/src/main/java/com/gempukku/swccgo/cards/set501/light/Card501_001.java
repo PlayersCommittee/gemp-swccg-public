@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 2
+ * Set: Play Testing
  * Type: Effect
  * Title: Like My Father Before Me (Errata)
  */
@@ -29,10 +29,10 @@ public class Card501_001 extends AbstractNormalEffect {
     public Card501_001() {
         super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Like My Father Before Me", Uniqueness.UNIQUE);
         setLore("The final act of Luke's ascension to Jedi Knighthood was sending off his father, draped in the garb of Vader.");
-        setGameText("Deploy on table if an Endor site on table. [DSII] Luke is deploy = 6 and may not be Disarmed. If Luke at a battleground (even if captive), your battle destiny draws are + 1 there and, during your turn, may [download] Luke's Lightsaber or place a card from hand on Force Pile. Immune to Alter.");
+        setGameText("Deploy on table if an Endor site on table. [Death Star II] Luke is deploy = 6 and may not be Disarmed. If Luke at a battleground (even if captive), your battle destiny draws are + 1 there and, during your turn, may [download] Luke's Lightsaber or place a card from hand on Force Pile. Immune to Alter.");
         addIcons(Icon.VIRTUAL_SET_2);
         addImmuneToCardTitle(Title.Alter);
-        setTestingText("Errata");
+        setTestingText("Like My Father Before Me (Errata)");
     }
 
     @Override
