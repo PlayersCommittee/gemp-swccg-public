@@ -5,7 +5,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.conditions.Condition;
 
 public class ForceLossFromForceDrainsMayNotBeReducedModifier extends AbstractModifier {
 
@@ -19,12 +18,11 @@ public class ForceLossFromForceDrainsMayNotBeReducedModifier extends AbstractMod
      *
      * @param source         the source of the modifier
      * @param locationFilter the location filter
-     * @param condition      the condition that must be fulfilled for the modifier to be in effect
      * @param playerReducing the player to reduce the Force drain
      * @param playerDraining the player Force draining, or null for either player
      */
-    public ForceLossFromForceDrainsMayNotBeReducedModifier(PhysicalCard source, Filterable locationFilter, Condition condition, String playerReducing, String playerDraining) {
-        super(source, null, Filters.and(Filters.location, locationFilter), condition, ModifierType.MAY_NOT_REDUCE_FORCE_LOSS_FROM_FORCE_DRAIN_AT_LOCATION, true);
+    public ForceLossFromForceDrainsMayNotBeReducedModifier(PhysicalCard source, Filterable locationFilter, String playerReducing, String playerDraining) {
+        super(source, null, Filters.and(Filters.location, locationFilter), ModifierType.MAY_NOT_REDUCE_FORCE_LOSS_FROM_FORCE_DRAIN_AT_LOCATION, true);
         _playerReducing = playerReducing;
         _playerDraining = playerDraining;
     }
@@ -44,4 +42,3 @@ public class ForceLossFromForceDrainsMayNotBeReducedModifier extends AbstractMod
         return (_playerReducing == null || playerModifying.equals(_playerReducing)) && (_playerDraining == null || playerDraining.equals(_playerDraining));
     }
 }
-

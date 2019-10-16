@@ -42,7 +42,7 @@ public class Card501_003 extends AbstractDarkJediMaster {
         modifiers.add(new PowerModifier(self, armedWithLightsaber, 1));
         modifiers.add(new DefenseValueModifier(self, armedWithLightsaber, 1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 6));
-        modifiers.add(new ForceDrainsMayNotBeReducedModifier(self, Filters.here(self), game.getOpponent(self.getOwner()), self.getOwner()));
+        modifiers.add(new ForceLossFromForceDrainsMayNotBeReducedModifier(self, Filters.here(self), game.getOpponent(self.getOwner()), self.getOwner()));
         return modifiers;
     }
 

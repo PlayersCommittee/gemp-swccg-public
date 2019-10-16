@@ -9497,9 +9497,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     @Override
-    public boolean cantReduceForceLossFromForceDrainAtLocation(GameState gameState, PhysicalCard location, PhysicalCard reducedByCard, String playerReducing, String playerDraining) {
+    public boolean cantReduceForceLossFromForceDrainAtLocation(GameState gameState, PhysicalCard location, String playerReducing, String playerDraining) {
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_REDUCE_FORCE_LOSS_FROM_FORCE_DRAIN_AT_LOCATION, location)) {
-            if (modifier.cantModifyForceDrain(gameState, this, playerReducing, playerDraining))
+            if (modifier.cantModifyForceLossFromForceDrain(gameState, this, playerReducing, playerDraining))
                 return true;
         }
         return false;

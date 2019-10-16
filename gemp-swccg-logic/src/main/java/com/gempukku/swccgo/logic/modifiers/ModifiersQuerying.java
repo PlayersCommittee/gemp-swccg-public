@@ -1372,7 +1372,7 @@ public interface ModifiersQuerying {
 
     boolean cantReduceForceDrainAtLocation(GameState gameState, PhysicalCard location, PhysicalCard cardReducing, String playerReducing, String playerDraining);
 
-    boolean cantReduceForceLossFromForceDrainAtLocation(GameState gameState, PhysicalCard location, PhysicalCard cardReducing, String playerReducing, String playerDraining);
+    boolean cantReduceForceLossFromForceDrainAtLocation(GameState gameState, PhysicalCard location, String playerReducing, String playerDraining);
 
     /**
      * Determines if a Force generation is immune to limit.
