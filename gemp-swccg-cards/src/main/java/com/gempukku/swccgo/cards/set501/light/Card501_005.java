@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -79,9 +78,6 @@ public class Card501_005 extends AbstractJediMaster {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Cancel a character's game text");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
             // Choose target(s)
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose character", targetFilter) {
