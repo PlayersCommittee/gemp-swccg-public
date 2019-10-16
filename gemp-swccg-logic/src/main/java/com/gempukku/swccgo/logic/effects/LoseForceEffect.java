@@ -153,6 +153,9 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                 game.getGameState().sendMessage(forceDrainState.getPlayerId() + " Force drains " + GuiUtils.formatAsString(_initialAmount) + " at " + GameUtils.getCardLink(forceDrainState.getLocation()));
                 game.getModifiersQuerying().forceDrainPerformed(forceDrainState.getLocation(), _initialAmount);
             }
+            if (game.getModifiersQuerying().cantReduceForceLossFromForceDrainAtLocation(game.getGameState(), forceDrainState.getLocation(), null, _playerToLoseForce, forceDrainState.getPlayerId())) {
+                _isCannotBeReduced = true;
+            }
         }
 
         // Get "Force loss amount" since there may be modifiers for it
