@@ -1033,8 +1033,9 @@ public interface Title {
     String Were_In_Attack_Position_Now = "We're In Attack Position Now";
     String Were_The_Bait = "We're The Bait";
     String What_Is_Thy_Bidding_My_Master = "What Is Thy Bidding, My Master?";
-    String Wild_Karrde = "Wild Karrde";
+    String Where_Are_Those_Droidekas = "Where Are Those Droidekas?!";
     String Why_Didnt_You_Tell_Me = "Why Didn't You Tell Me?";
+    String Wild_Karrde = "Wild Karrde";
     String Williams = "Lieutenant Williams";
     String Wioslea = "Wioslea";
     String Wise_Advice = "Wise Advice";
