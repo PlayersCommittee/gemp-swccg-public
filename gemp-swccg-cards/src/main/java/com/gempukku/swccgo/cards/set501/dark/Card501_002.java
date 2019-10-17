@@ -27,9 +27,9 @@ import java.util.Collections;
 
 
 /**
- * Set: Set 8
+ * Set: Set 12
  * Subtype: Lost Or Starting
- * Title: You Know What I've Come For
+ * Title: Kill Them Immediately V
  */
 
 public class Card501_002 extends AbstractLostOrStartingInterrupt {
@@ -37,7 +37,7 @@ public class Card501_002 extends AbstractLostOrStartingInterrupt {
         super(Side.DARK, 3, "Kill Them Immediately", Uniqueness.UNIQUE);
         setLore("Darth Sidious instructed Nute Gunray to dispose of the Jedi ambassadors. Rune Haako was not so confident.");
         setGameText("LOST: If your Destroyer Droid just hit a Jedi, opponent has to lose that Jedi or 1 Force. STARTING: Deploy Droid Racks(v), Where Are Those Droidekas?(v) and one effect that is always [Immune to Alter]. May also deploy Well Guarded. Place this Interrupt in Lost Pile.");
-        addIcons(Icon.EPISODE_I);
+        addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
         setTestingText("Kill Them Immediately v");
     }
