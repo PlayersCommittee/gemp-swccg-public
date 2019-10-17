@@ -116,8 +116,6 @@ public class Card501_002 extends AbstractLostOrStartingInterrupt {
                                     new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Where_Are_Those_Droidekas, Filters.icon(Icon.VIRTUAL_SET_8)), true, false));
                             action.appendEffect(
                                     new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter), true, false));
-                            action.appendEffect(
-                                    new DeployCardsFromReserveDeckEffect(action, Filters.Well_Guarded, 0, 1, true, false));
                         }
                         else {
                             action.appendEffect(
