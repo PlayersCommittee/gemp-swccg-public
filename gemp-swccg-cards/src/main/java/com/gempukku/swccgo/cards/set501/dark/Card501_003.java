@@ -32,6 +32,7 @@ public class Card501_003 extends AbstractDarkJediMaster {
         addPersona(Persona.DOOKU);
         setSpecies(Species.SERENNIAN);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.SEPARATIST, Icon.VIRTUAL_SET_12);
+        setTestingText("Darth Tyranus");
     }
 
     @Override
