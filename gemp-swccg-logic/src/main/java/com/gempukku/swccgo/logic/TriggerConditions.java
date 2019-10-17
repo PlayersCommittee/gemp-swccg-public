@@ -2340,10 +2340,6 @@ public class TriggerConditions {
             PhysicalCard cardPlacedOutOfPlay = ((PlacedCardOutOfPlayFromTableResult) effectResult).getCard();
 
             return Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlacedOutOfPlay);
-        } else if (effectResult.getType() == EffectResult.Type.PLACED_OUT_OF_PLAY_FROM_OFF_TABLE) {
-            PhysicalCard cardPlacedOutOfPlay = ((PlacedCardOutOfPlayFromOffTableResult) effectResult).getCard();
-
-            return Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlacedOutOfPlay);
         }
         return false;
     }
