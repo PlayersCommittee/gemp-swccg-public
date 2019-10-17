@@ -37,7 +37,7 @@ public class Card501_005 extends AbstractJediMaster {
         addPersona(Persona.YODA);
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
         addKeywords(Keyword.JEDI_COUNCIL_MEMBER);
-        setTestingText("Virtual (Playtesting)");
+        setTestingText("Yoda, Master Of The Force (V)");
     }
 
 
