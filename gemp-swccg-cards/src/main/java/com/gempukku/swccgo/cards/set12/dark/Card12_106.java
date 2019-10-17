@@ -30,7 +30,7 @@ public class Card12_106 extends AbstractAlien {
     public Card12_106() {
         super(Side.DARK, 2, 3, 3, 3, 5, "Gardulla The Hutt", Uniqueness.UNIQUE);
         setLore("Well-known as a gambler and a gangster. Gardulla was the former owner of Shmi and Anakin Skywalker before she lost them in a bet to the Toydarian junk dealer, Watto.");
-        setGameText("When you retrieve force from Boonta Eve Podrace, any of all of your retrieved force may be taken into hand. Once during your control phase, may use 1 force; opponent draws 1 destiny. If destiny > 2, retrieve 1 force. Otherwise, lose 1 force.");
+        setGameText("When you retrieve force from Boonta Eve Podrace, any or all of your retrieved force may be taken into hand. Once during your control phase, may use 1 force; opponent draws 1 destiny. If destiny > 2, retrieve 1 force. Otherwise, lose 1 force.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
         setSpecies(Species.HUTT);
         addKeywords(Keyword.GANGSTER, Keyword.GAMBLER, Keyword.FEMALE);
