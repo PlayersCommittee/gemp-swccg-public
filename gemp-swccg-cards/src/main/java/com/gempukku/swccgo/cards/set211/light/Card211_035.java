@@ -3,13 +3,14 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitIncreasedAbovePrintedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,12 +42,12 @@ public class Card211_035 extends AbstractStarfighter {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
 
-        Filter ep7Character = Filters.and(Filters.character, Icon.EPISODE_VII);
-        Filter sameLocationAsEp7Character = Filters.sameLocationAs(self, ep7Character);
+        Filter yourEp7Character = Filters.and(Filters.your(self.getOwner()), Filters.character, Icon.EPISODE_VII);
+        Filter sameLocationAsYourEp7Character = Filters.sameLocationAs(self, yourEp7Character);
         Filter charactersHere = Filters.and(Filters.character, Filters.here(self));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayMoveAsReactToLocationModifier(self, sameLocationAsEp7Character));
+        modifiers.add(new MayMoveAsReactToLocationModifier(self, sameLocationAsYourEp7Character));
         modifiers.add(new MayNotHaveForfeitIncreasedAbovePrintedModifier(self, charactersHere));
 
         return modifiers;

@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.conditions.CanAddDestinyToPowerCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
@@ -10,6 +11,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.AddsDestinyToPowerModifier;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
@@ -42,11 +44,13 @@ public class Card1_230 extends AbstractNormalEffect {
         String opponent = game.getOpponent(playerId);
         Filter relatedSites = Filters.relatedSite(self);
         Condition duringBattleAtRelatedSite = new DuringBattleAtCondition(relatedSites);
+        Condition playerCanAddDestiniesToPower = new CanAddDestinyToPowerCondition(playerId);
+        Condition opponentCanAddDestiniesToPower = new CanAddDestinyToPowerCondition(opponent);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NighttimeConditionsModifier(self, Filters.relatedSite(self)));
-        modifiers.add(new AddsDestinyToPowerModifier(self, duringBattleAtRelatedSite, 1, playerId));
-        modifiers.add(new AddsDestinyToPowerModifier(self, duringBattleAtRelatedSite, 1, opponent));
+        modifiers.add(new AddsDestinyToPowerModifier(self, new AndCondition(duringBattleAtRelatedSite, playerCanAddDestiniesToPower), 1, playerId));
+        modifiers.add(new AddsDestinyToPowerModifier(self, new AndCondition(duringBattleAtRelatedSite, opponentCanAddDestiniesToPower), 1, opponent));
         modifiers.add(new DeploysFreeToLocationModifier(self, Filters.spy, Filters.and(Filters.site, Filters.under_nighttime_conditions)));
         return modifiers;
     }

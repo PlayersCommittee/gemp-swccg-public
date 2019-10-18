@@ -8,7 +8,6 @@ public enum SpecialRule {
     BLUFF_RULES("'Bluff Rules'"),
     CAVE_RULES("'Cave Rules'"),
     DEJARIK_RULES("'Dejarik Rules'"),
-    HOTH_ENERGY_SHIELD_RULES("'Hoth Energy Shield Rules'"),
     TRENCH_RULES("'Trench Rules'");
 
     private String _humanReadable;

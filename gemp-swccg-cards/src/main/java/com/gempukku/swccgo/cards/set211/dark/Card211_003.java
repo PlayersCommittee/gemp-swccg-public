@@ -93,10 +93,12 @@ public class Card211_003 extends AbstractAlien {
                                         new ChooseArbitraryCardsEffect(action, playerId, "Choose alien to take into hand", cards, Filters.alien,1, 1) {
                                             @Override
                                             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
-                                                PhysicalCard cardToTakeIntoHand = selectedCards.iterator().next();
-                                                if (cardToTakeIntoHand != null) {
-                                                    action.appendEffect(
-                                                            new TakeCardIntoHandFromReserveDeckEffect(action, playerId, cardToTakeIntoHand, false));
+                                                if (!selectedCards.isEmpty()) {
+                                                    PhysicalCard cardToTakeIntoHand = selectedCards.iterator().next();
+                                                    if (cardToTakeIntoHand != null) {
+                                                        action.appendEffect(
+                                                                new TakeCardIntoHandFromReserveDeckEffect(action, playerId, cardToTakeIntoHand, false));
+                                                    }
                                                 }
                                             }
                                         }

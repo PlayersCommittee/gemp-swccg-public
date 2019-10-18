@@ -92,7 +92,8 @@ public class Card13_096 extends AbstractDefensiveShield {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.and(Filters.opponents(playerId), Filters.titleContains("sabacc")))
-                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)
+                && GameConditions.hasHand(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             // Build action using common utility
@@ -108,7 +109,8 @@ public class Card13_096 extends AbstractDefensiveShield {
         Filter filter = Filters.and(Filters.opponents(playerId), Filters.titleContains("sabacc"));
 
         // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, filter)) {
+        if (GameConditions.canTargetToCancel(game, self, filter)
+                && GameConditions.hasHand(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             // Build action using common utility

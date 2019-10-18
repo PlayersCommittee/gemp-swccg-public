@@ -17,13 +17,13 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Coruscant: Private Platform (Docking Bay)
+ */
 public class Card211_018 extends AbstractSite {
-    /**
-     * Set: Set 11
-     * Type: Location
-     * Subtype: Site
-     * Title: Coruscant: Private Platform (Docking Bay)
-     */
     public Card211_018() {
         super(Side.DARK, Title.Private_Platform, Title.Coruscant);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force.");

@@ -115,7 +115,7 @@ public class Card207_002 extends AbstractRebel {
 
         // Check condition(s)
         if (TriggerConditions.justLost(game, effectResult, self)) {
-            if (GameConditions.canTakeCardsIntoHandFromForcePile(game, playerId, self, gameTextActionId)) {
+            if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Take Baze into hand from Reserve Deck");

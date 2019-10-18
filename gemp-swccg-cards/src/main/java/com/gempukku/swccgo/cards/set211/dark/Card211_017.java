@@ -13,13 +13,13 @@ import com.gempukku.swccgo.logic.modifiers.MovesFreeFromLocationModifier;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Coruscant: 500 Republica
+ */
 public class Card211_017 extends AbstractSite {
-    /**
-     * Set: Set 11
-     * Type: Location
-     * Subtype: Site
-     * Title: Coruscant: 500 Republica
-     */
     public Card211_017() {
         super(Side.DARK, Title._500_Republica, Title.Coruscant);
         setLocationDarkSideGameText("Grievous moves from here for free.");

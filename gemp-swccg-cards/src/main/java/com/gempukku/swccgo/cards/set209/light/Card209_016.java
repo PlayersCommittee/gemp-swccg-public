@@ -1,6 +1,5 @@
 package com.gempukku.swccgo.cards.set209.light;
 
-import com.gempukku.swccgo.cards.AbstractEffect;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
@@ -14,7 +13,6 @@ import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckE
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +24,6 @@ import java.util.List;
 public class Card209_016 extends AbstractNormalEffect {
     public Card209_016() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
-        setVirtualSuffix(true);
         setLore("");
         setGameText("If your [Episode VII] location on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_9);

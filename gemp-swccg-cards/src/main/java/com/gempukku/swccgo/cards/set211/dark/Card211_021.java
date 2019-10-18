@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Persona;
-import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -15,13 +12,18 @@ import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Invisible Hand: Docking Bay
+ */
 public class Card211_021 extends AbstractUniqueStarshipSite {
     public Card211_021() {
-        super(Side.DARK, "Invisible Hand: Docking Bay", Persona.INVISIBLE_HAND);
+        super(Side.DARK, Title.Invisible_Hand_Docking_Bay, Persona.INVISIBLE_HAND);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force (free if your [Presence] droid present).");
         setLocationLightSideGameText("Your docking bay transit from here requires 3 force (free if Palpatine present).");
         addIcon(Icon.DARK_FORCE, 1);

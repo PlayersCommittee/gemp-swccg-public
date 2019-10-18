@@ -42,6 +42,7 @@ public class Card206_014 extends AbstractStarfighter {
         addModelType(ModelType.TIE_ADVANCED_X1);
         setPilotCapacity(1);
         setMatchingPilotFilter(Filters.Vader);
+        addKeywords(Keyword.BLACK_SQUADRON);
     }
 
     @Override

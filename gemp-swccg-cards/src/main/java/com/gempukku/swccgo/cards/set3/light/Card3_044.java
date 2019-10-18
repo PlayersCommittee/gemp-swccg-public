@@ -73,10 +73,12 @@ public class Card3_044 extends AbstractLostInterrupt {
                             // Perform result(s)
                             action.appendEffect(
                                     new ReturnCardsToHandFromTableSimultaneouslyEffect(action, cardsToReturn, true));
-                            action.appendEffect(
-                                    new AddUntilEndOfPlayersNextTurnModifierEffect(action, opponent,
-                                            new DeploysFreeModifier(self, Filters.sameTitle(playedCard),
-                                                    new AndCondition(new PlayersNextTurnCondition(opponent, game), new CardTitleNotPlayedThisTurnCondition(playedCard))), null));
+                            for (PhysicalCard cardReturned : cardsToReturn) {
+                                action.appendEffect(
+                                        new AddUntilEndOfPlayersNextTurnModifierEffect(action, opponent,
+                                                new DeploysFreeModifier(self, Filters.sameTitle(cardReturned),
+                                                        new AndCondition(new PlayersNextTurnCondition(opponent, game), new CardTitleNotPlayedThisTurnCondition(cardReturned))), null));
+                            }
                         }
                     }
             );

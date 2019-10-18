@@ -29,6 +29,7 @@ public class Card7_205 extends AbstractImperial {
         setLore("Commanded a squad of snowtroopers in the Battle of Hoth. Trains snowtroopers in extreme-weather survival tactics. Originally from Ukio.");
         setGameText("While on Hoth, makes all your snowtroopers immune to Ice Storm. When in battle on Hoth with another snowtrooper, adds one battle destiny. Precise Attack targeting at same or related site is a Used Interrupt. Power -1 when not on Hoth.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
+        addPersona(Persona.NARTHAX);
         addKeywords(Keyword.SNOWTROOPER);
     }
 

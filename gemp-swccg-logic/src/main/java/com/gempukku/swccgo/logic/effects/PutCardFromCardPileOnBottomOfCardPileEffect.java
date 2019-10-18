@@ -14,18 +14,23 @@ public class PutCardFromCardPileOnBottomOfCardPileEffect extends AbstractStandar
     private String _playerId;
     private PhysicalCard _card;
     private boolean _hidden;
+    private Zone _newZonePlacement;
 
-    public PutCardFromCardPileOnBottomOfCardPileEffect(Action action, String playerId, PhysicalCard card, boolean hidden) {
+    public PutCardFromCardPileOnBottomOfCardPileEffect(Action action, String playerId, PhysicalCard card, Zone newZonePlacement, boolean hidden) {
         super(action);
         _playerId = playerId;
         _card = card;
         _hidden = hidden;
+        _newZonePlacement = newZonePlacement;
+    }
+
+    public PutCardFromCardPileOnBottomOfCardPileEffect(Action action, String playerId, PhysicalCard card, boolean hidden) {
+        this(action, playerId, card, card.getZone(), hidden);
     }
 
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
-        Zone cardPile = GameUtils.getZoneFromZoneTop(_card.getZone());
-        return (cardPile == Zone.RESERVE_DECK || cardPile == Zone.FORCE_PILE || cardPile == Zone.USED_PILE || cardPile == Zone.LOST_PILE);
+        return (_newZonePlacement == Zone.RESERVE_DECK || _newZonePlacement == Zone.FORCE_PILE || _newZonePlacement == Zone.USED_PILE || _newZonePlacement == Zone.LOST_PILE);
     }
 
     @Override
@@ -37,9 +42,9 @@ public class PutCardFromCardPileOnBottomOfCardPileEffect extends AbstractStandar
         Zone cardPile = GameUtils.getZoneFromZoneTop(_card.getZone());
         String playerNameForMsg = _playerId.equals(_card.getZoneOwner()) ? "" : _card.getZoneOwner() + "'s ";
         GameState gameState = game.getGameState();
-        gameState.sendMessage(_playerId + " puts " + cardInfo + " from " + playerNameForMsg + cardPile.getHumanReadable() + " to the bottom of " + cardPile.getHumanReadable());
+        gameState.sendMessage(_playerId + " puts " + cardInfo + " from " + playerNameForMsg + cardPile.getHumanReadable() + " to the bottom of " + _newZonePlacement.getHumanReadable());
         gameState.removeCardsFromZone(Collections.singleton(_card));
-        gameState.addCardToZone(_card, cardPile, _card.getOwner());
+        gameState.addCardToZone(_card, _newZonePlacement, _card.getOwner());
 
         return new FullEffectResult(true);
     }

@@ -72,7 +72,7 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
                                     if (_cardPiles.size() > 2) {
                                         cardPileText.append(",");
                                     }
-                                    cardPileText.append(" and").append(cardPileName);
+                                    cardPileText.append(" and ").append(cardPileName);
                                 }
                                 else {
                                     cardPileText.append(", ").append(cardPileName);
@@ -106,7 +106,7 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
                     if (_cardPiles.size() > 2) {
                         cardPileText.append(",");
                     }
-                    cardPileText.append(" and").append(cardPileName);
+                    cardPileText.append(" and ").append(cardPileName);
                 } else {
                     cardPileText.append(", ").append(cardPileName);
                 }
