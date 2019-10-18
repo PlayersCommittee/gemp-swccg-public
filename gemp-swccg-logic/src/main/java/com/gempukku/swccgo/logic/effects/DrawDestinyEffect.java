@@ -952,11 +952,13 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                                                                         @Override
                                                                                         protected void doPlayEffect(SwccgGame game) {
                                                                                             if (GameUtils.getZoneFromZoneTop(_drawnDestinyCard.getZone()) == Zone.UNRESOLVED_DESTINY_DRAW) {
+                                                                                                float destinyValueToUse = _drawnDestinyCard.getDestinyValueToUse();
                                                                                                 gameState.removeCardFromZone(_drawnDestinyCard);
-                                                                                                _drawnDestinyCard.setRaceDestinyForPlayer(_performingPlayerId);
+                                                                                                _drawnDestinyCard.setDestinyValueToUse(destinyValueToUse);
                                                                                                 gameState.stackCard(_drawnDestinyCard, stackRaceDestinyOn, false, false, false);
                                                                                                 game.getActionsEnvironment().emitEffectResult(
                                                                                                         new RaceDestinyStackedResult(subAction, _drawnDestinyCard, stackRaceDestinyOn));
+                                                                                                _drawnDestinyCard.setRaceDestinyForPlayer(_performingPlayerId);
                                                                                             }
                                                                                         }
                                                                                     });

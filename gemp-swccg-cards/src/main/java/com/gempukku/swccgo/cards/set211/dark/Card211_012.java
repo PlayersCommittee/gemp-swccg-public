@@ -12,12 +12,15 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.ResetDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -26,7 +29,6 @@ import java.util.List;
  * Subtype: Lost
  * Title: Always Two There Are
  */
-
 public class Card211_012 extends AbstractLostInterrupt {
     public Card211_012() {
         super(Side.DARK, 2, Title.Always_Two_There_Are);
@@ -41,8 +43,8 @@ public class Card211_012 extends AbstractLostInterrupt {
         final String opponent = game.getOpponent(playerId);
 
         int numDarkJedisOnTable = Filters.countActive(game, self, Filters.Dark_Jedi);
-        if ((numDarkJedisOnTable == 2) && GameConditions.isOncePerGame(game, self, GameTextActionId.ALWAYS_TWO_THERE_ARE__LOSE_2_OR_DESTINY_EQUALS_2))
-        {
+        if (GameConditions.isOncePerGame(game, self, GameTextActionId.ALWAYS_TWO_THERE_ARE__LOSE_2_OR_DESTINY_EQUALS_2)
+                && numDarkJedisOnTable == 2) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Opponent loses 2 Force");
             action.appendUsage(new OncePerGameEffect(action));
@@ -62,11 +64,13 @@ public class Card211_012 extends AbstractLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+        List<PlayInterruptAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.ALWAYS_TWO_THERE_ARE__LOSE_2_OR_DESTINY_EQUALS_2;
 
+        int numDarkJedisOnTable = Filters.countActive(game, self, Filters.Dark_Jedi);
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
-            && GameConditions.isOncePerGame(game, self, GameTextActionId.ALWAYS_TWO_THERE_ARE__LOSE_2_OR_DESTINY_EQUALS_2))
-        {
+                && GameConditions.isOncePerGame(game, self, GameTextActionId.ALWAYS_TWO_THERE_ARE__LOSE_2_OR_DESTINY_EQUALS_2)
+                && numDarkJedisOnTable == 2) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Set destiny to 2");
             action.appendUsage(new OncePerGameEffect(action));
@@ -76,13 +80,11 @@ public class Card211_012 extends AbstractLostInterrupt {
                     action.appendEffect(new ResetDestinyEffect(action, 2));
                 }
             });
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
-
         if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(self), Filters.Dark_Jedi))
-            && (Filters.countActive(game, self, Filters.Dark_Jedi) == 1))
-        {
+                && numDarkJedisOnTable == 1) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Take a Dark Jedi into hand from reserve");
             // no append usage here because this is not once per game.
@@ -92,9 +94,9 @@ public class Card211_012 extends AbstractLostInterrupt {
                     action.appendEffect(new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.Dark_Jedi, true));
                 }
             });
-            return Collections.singletonList(action);
+            actions.add(action);;
         }
 
-        return null;
+        return actions;
     }
 }

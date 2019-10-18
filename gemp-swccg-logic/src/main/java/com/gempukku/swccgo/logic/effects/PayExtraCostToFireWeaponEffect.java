@@ -36,7 +36,7 @@ public class PayExtraCostToFireWeaponEffect extends AbstractSubActionEffect {
      */
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
-        int extraCost = game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), _weaponCard, _permanentWeapon);
+        int extraCost = game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), _weaponCard);
         if (extraCost == 0)
             return true;
 
@@ -55,7 +55,7 @@ public class PayExtraCostToFireWeaponEffect extends AbstractSubActionEffect {
      */
     @Override
     protected SubAction getSubAction(SwccgGame game) {
-        int extraCost = game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), _weaponCard, _permanentWeapon);
+        int extraCost = game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), _weaponCard);
 
         SubAction subAction = new SubAction(_action);
         if (extraCost > 0) {

@@ -997,10 +997,9 @@ public interface ModifiersQuerying {
      * Gets the amount of extra Force required to fire the specified weapon (or permanent weapon).
      * @param gameState the game state
      * @param weaponCard the weapon card, or null if permanent weapon
-     * @param permanentWeapon the permanent weapon, or null if not a permanent weapon
      * @return the amount of Force
      */
-    int getExtraForceRequiredToFireWeapon(GameState gameState, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon);
+    int getExtraForceRequiredToFireWeapon(GameState gameState, PhysicalCard weaponCard);
 
     /**
      * Gets the amount of extra Force required to deploy the specified card to the specified target.

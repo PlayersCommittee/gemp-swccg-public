@@ -26,6 +26,7 @@ public enum ModelType implements Filterable {
     CORELLIAN_REPUBLIC_CRUISER("Corellian Republic Cruiser"),
     DESERT("Desert"),
     DESTROYER("Destroyer"),
+    DLANSEAUX_STAR_YACHT("D'Lanseaux Star Yacht"),
     DREADNAUGHT_CLASS_HEAVY_CRUISER("Dreadnaught-Class Heavy Cruiser"),
     DROID_STARFIGHTER("Droid Starfighter"),
     FIRESPRAY_CLASS_ATTACK_SHIP("Firespray-Class Attack Ship"),

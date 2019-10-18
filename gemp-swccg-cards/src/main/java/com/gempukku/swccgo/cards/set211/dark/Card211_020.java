@@ -18,10 +18,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Invisible Hand: Bridge
+ */
 public class Card211_020 extends AbstractUniqueStarshipSite{
-
     public Card211_020() {
-        super(Side.DARK, "Invisible Hand: Bridge", Persona.INVISIBLE_HAND);
+        super(Side.DARK, Title.Invisible_Hand_Bridge, Persona.INVISIBLE_HAND);
         setLocationDarkSideGameText("Once per game, if you control, may take Invisible Hand into hand from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Unless your [Clone Army] character here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

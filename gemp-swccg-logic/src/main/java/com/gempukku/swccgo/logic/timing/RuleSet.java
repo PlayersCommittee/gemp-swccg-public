@@ -42,7 +42,6 @@ public class RuleSet {
         new ExpandLocationGameTextRule(_actionsEnvironment).applyRule();
         new HabitatRule(_actionsEnvironment).applyRule();
         new HitCardOutsideOfAttackOrBattleRule(_actionsEnvironment).applyRule();
-        new HothEnergyShieldRule(_modifiersEnvironment).applyRule();
         new FrozenCaptiveRule(_modifiersEnvironment).applyRule();
         new InsertCardRevealedRule(_actionsEnvironment).applyRule();
         if (game.getFormat().hasJpSealedRule()) {

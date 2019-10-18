@@ -20,13 +20,13 @@ import java.util.List;
  * Set: Virtual Set 11
  * Type: Location
  * Subtype: Site
- * Title: Takonada: Maz's Castle
+ * Title: Takodana: Maz's Castle
  */
 public class Card211_038 extends AbstractSite {
     public Card211_038() {
         super(Side.LIGHT, Title.Mazs_Castle, Title.Takodana);
         setLocationDarkSideGameText("If you control, opponent must use 1 Force to use their Takodana: Maz's Castle game text.");
-        setLocationLightSideGameText("Oce per turn, may \\/ a Maz's Castle site.");
+        setLocationLightSideGameText("Oce per turn, may [download] a Maz's Castle site.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.VIRTUAL_SET_11, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.EPISODE_VII, Icon.VIRTUAL_SET_11);

@@ -452,6 +452,13 @@ public interface SwccgCardBlueprint {
     Float getAlternateDestiny();
 
     /**
+     * Gets cost in order to use alternate destiny value (for cards that have two values).
+     *
+     * @return the alternate destiny value
+     */
+    int getAlternateDestinyCost();
+
+    /**
      * Gets the pilot capacity.
      * @return the pilot capacity
      */

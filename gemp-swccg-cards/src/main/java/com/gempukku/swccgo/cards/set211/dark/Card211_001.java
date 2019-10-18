@@ -15,13 +15,17 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveGameTextCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,7 +40,7 @@ public class Card211_001 extends AbstractAlienImperial {
     public Card211_001() {
         super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE);
         setLore("Thrawn. Chiss commander. Leader.");
-        setGameText("[Pilot] 3. Thrawn's game text may not be canceled. May lose 1 Force to cancel a weapon destiny at same system. Once per turn, may target a related location: the next time opponent moves there this turn, they lose 1 Force.");
+        setGameText("[Pilot] 3. Once per turn, may target a related location; opponent loses 1 Force the next time they move to that location this turn. May lose 1 Force to cancel a just-drawn weapon destiny targeting a starship he is piloting. Thrawn’s game text may not be canceled.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_11);
         addPersona(Persona.THRAWN);
         addKeywords(Keyword.LEADER, Keyword.COMMANDER);
@@ -114,7 +118,7 @@ public class Card211_001 extends AbstractAlienImperial {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isWeaponDestinyJustDrawnTargeting(game, effectResult, Filters.any, Filters.and(Filters.starship, Filters.atSameSystem(self)))
+        if (TriggerConditions.isWeaponDestinyJustDrawnTargeting(game, effectResult, Filters.any, Filters.and(Filters.starship, Filters.hasPiloting(self)))
                 && GameConditions.canCancelDestiny(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);

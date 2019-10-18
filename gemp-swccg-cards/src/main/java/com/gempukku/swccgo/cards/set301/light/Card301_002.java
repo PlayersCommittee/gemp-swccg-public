@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * Set: Virtual Demonstration Deck
+ * Set: Virtual Premium Set
  * Type: Objective
  * Title: City In The Clouds / You Truly Belong Here With Us
  */

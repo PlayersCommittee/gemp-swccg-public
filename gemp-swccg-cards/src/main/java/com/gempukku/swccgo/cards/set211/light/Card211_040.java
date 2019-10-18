@@ -23,11 +23,10 @@ import java.util.List;
  * Subtype: Site
  * Title: Maz's Castle: Antechamber
  */
-
 public class Card211_040 extends AbstractSite {
     public Card211_040() {
         super(Side.LIGHT, Title.Antechamber, Title.Takodana);
-        setLocationLightSideGameText("Once per game, may \\/ an [Episode VII] alien here.");
+        setLocationLightSideGameText("Once per game, may [download] an [Episode VII] alien here.");
         setLocationDarkSideGameText("For drain -1 here.  While you control, Dobra Doompa is suspended.");
         addKeyword(Keyword.MAZS_CASTLE_LOCATION);
         addIcon(Icon.LIGHT_FORCE, 2);

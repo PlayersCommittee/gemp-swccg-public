@@ -11,14 +11,15 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ResetDefenseValueModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.TargetingEffect;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -108,7 +109,7 @@ public class Card211_051 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canSpot(game, self, 1, ep7LukeAtSite) &&
                 GameConditions.canSpot(game, self, 1, otherSitesWithYourCharacters)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
             action.setText("Make characters defense value = 5");
             action.setActionMsg("Make your characters at another site defense value = 5");
 
