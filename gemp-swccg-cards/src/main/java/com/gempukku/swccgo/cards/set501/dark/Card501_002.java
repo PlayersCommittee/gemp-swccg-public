@@ -36,7 +36,7 @@ public class Card501_002 extends AbstractLostOrStartingInterrupt {
     public Card501_002() {
         super(Side.DARK, 3, "Kill Them Immediately", Uniqueness.UNIQUE);
         setLore("Darth Sidious instructed Nute Gunray to dispose of the Jedi ambassadors. Rune Haako was not so confident.");
-        setGameText("LOST: If your Destroyer Droid just hit a Jedi, opponent has to lose that Jedi or 1 Force. STARTING: Deploy Droid Racks(v), Where Are Those Droidekas?(v) and one effect that is always [Immune to Alter]. May also deploy Well Guarded. Place this Interrupt in Lost Pile.");
+        setGameText("LOST: If your Destroyer Droid just hit a Jedi, opponent has to lose that Jedi or 1 Force. STARTING: Deploy [Set 8] Droid Racks, [Set 8] Where Are Those Droidekas? and one effect that is always [Immune to Alter]. May also deploy Well Guarded. Place this Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
         setTestingText("Kill Them Immediately v");
@@ -52,7 +52,7 @@ public class Card501_002 extends AbstractLostOrStartingInterrupt {
             final PhysicalCard cardHit = ((HitResult) effectResult).getCardHit();
             if (GameConditions.canTarget(game, self, targetingReason, cardHit)) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action.setText("Make opponent choose");
                 // Choose target(s)
                 action.appendTargeting(
