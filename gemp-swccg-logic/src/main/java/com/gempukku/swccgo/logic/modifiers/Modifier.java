@@ -537,6 +537,8 @@ public interface Modifier {
     boolean cantCancelForceDrain(GameState gameState, ModifiersQuerying modifiersQuerying, String playerCanceling, String playerDraining);
     boolean cantModifyForceDrain(GameState gameState, ModifiersQuerying modifiersQuerying, String playerModifying, String playerDraining);
 
+    boolean cantModifyForceLossFromForceDrain(GameState gameState, ModifiersQuerying modifiersQuerying, String playerModifying, String playerDraining);
+
     float getTotalForceGenerationModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
 
     float getAsteroidDestinyAtLocationModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
