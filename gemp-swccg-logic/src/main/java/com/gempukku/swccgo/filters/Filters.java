@@ -419,7 +419,7 @@ public class Filters {
      * @param icon the icon
      * @return Filter
      */
-    private static Filter icon(final Icon icon) {
+    public static Filter icon(final Icon icon) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -18454,6 +18454,7 @@ public class Filters {
     public static final Filter Were_In_Attack_Position_Now = Filters.title(Title.Were_In_Attack_Position_Now);
     public static final Filter Were_The_Bait = Filters.title(Title.Were_The_Bait);
     public static final Filter What_Is_Thy_Bidding_My_Master = Filters.title(Title.What_Is_Thy_Bidding_My_Master);
+    public static final Filter Where_Are_Those_Droidekas = Filters.title(Title.Where_Are_Those_Droidekas);
     public static final Filter Whiphid = Filters.species(Species.WHIPHID);
     public static final Filter Wild_Karrde = Filters.title(Title.Wild_Karrde);
     public static final Filter Williams = Filters.title(Title.Williams);
