@@ -3192,7 +3192,7 @@ var fixedImages = {
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
 "501_1":"/gemp-swccg/images/cards/Virtual2-Light/likemyfatherbeforeme.gif",
-"501_2":"/gemp-swccg/images/cards/Playtesting-Dark/killthemimmediately.gif"
+"501_2":"/gemp-swccg/images/cards/Coruscant-Dark/killthemimmediately.gif",
 "501_3":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
