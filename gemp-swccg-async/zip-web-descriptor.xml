@@ -4,7 +4,7 @@
 
     <includeBaseDirectory>false</includeBaseDirectory>
     <formats>
-        <format>tar</format>
+        <format>zip</format>
     </formats>
     <fileSets>
         <fileSet>
