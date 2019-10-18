@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card200_129 extends AbstractCapitalStarship {
     public Card200_129() {
-        super(Side.DARK, 2, 5, 5, 5, null, 3, 7, "Blockade Support Ship", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 5, 5, null, 3, 7, Title.Blockade_Support_Ship, Uniqueness.UNIQUE);
         setLore("These heavily modified battleships are used to control and direct the Trade Federation's automated army. Easily identified by its array of sensors and antennae.");
         setGameText("Unless Fondor on table, may deploy -3 as a 'react'. May add 3 pilots and 4 passengers. Permanent pilot provides ability of 2.");
         addModelType(ModelType.TRADE_FEDERATION_BATTLESHIP);

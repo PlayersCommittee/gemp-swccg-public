@@ -19,7 +19,10 @@ import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTransferredModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBePlacedOutOfPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -77,7 +80,7 @@ public class Card9_151 extends AbstractObjective {
                         new MayNotPlayModifier(self, Filters.Scanning_Crew), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotTargetToBePlacedOutOfPlayModifier(self, Filters.Luke, Filters.opponents(self)), null));
+                        new MayNotTargetToBePlacedOutOfPlayModifier(self, Filters.Luke, Filters.not(Filters.title(Title.We_Need_Luke_Skywalker))), null));
         final int permCardId = self.getPermanentCardId();
         action.appendEffect(
                 new AddUntilEndOfGameActionProxyEffect(action,

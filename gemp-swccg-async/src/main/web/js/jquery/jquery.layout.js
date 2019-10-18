@@ -3987,7 +3987,7 @@
             if (!$E.length) { // element not found
                 if (err) alert(lang.errButton + lang.selector + ": " + selector);
             }
-            else if (_c.borderPanes.indexOf(pane) == -1) { // invalid 'pane' sepecified
+            else if (_c.borderPanes.indexOf(pane) == -1) { // invalid 'pane' specified
                 if (err) alert(lang.errButton + lang.pane + ": " + pane);
             }
             else { // VALID

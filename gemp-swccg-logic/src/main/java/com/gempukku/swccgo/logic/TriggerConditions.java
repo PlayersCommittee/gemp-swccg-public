@@ -1270,6 +1270,30 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card accepted by the card filter is beginning to move to a location accepted by the location filter.
+     *
+     * @param game           the game
+     * @param effectResult   the effect result
+     * @param cardFilter     the card filter
+     * @param locationFilter the location filter
+     * @return true or false
+     */
+    public static boolean movingToLocation(SwccgGame game, EffectResult effectResult, Filterable cardFilter, Filterable locationFilter) {
+        if (moving(game, effectResult, cardFilter)) {
+            MovingResult moveEffect = (MovingResult) effectResult;
+            PhysicalCard movingTo = moveEffect.getMovingTo();
+            if (movingTo != null) {
+                PhysicalCard fromLocation = game.getModifiersQuerying().getLocationHere(game.getGameState(), movingTo);
+                if (fromLocation != null
+                        && Filters.and(locationFilter).accepts(game, fromLocation)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Determines if a card owned by the specified player is beginning to 'move away' from a battle location.
      * @param game the game
      * @param effectResult the effect result

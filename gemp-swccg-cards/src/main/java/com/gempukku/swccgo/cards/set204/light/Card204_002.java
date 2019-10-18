@@ -28,7 +28,7 @@ public class Card204_002 extends AbstractRebelRepublic {
         setPolitics(1);
         setLore("Alderaanian senator and leader.");
         setGameText("Agenda: rebellion. While in a senate majority (or Stolen Data Tapes on table), your Force drains at battlegrounds with your Alderaanian of ability < 4 are +1. While aboard a corvette, adds one battle destiny and it may not be targeted by weapons.");
-        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
+        addIcons(Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.SENATOR, Keyword.LEADER);
         setSpecies(Species.ALDERAANIAN);
     }

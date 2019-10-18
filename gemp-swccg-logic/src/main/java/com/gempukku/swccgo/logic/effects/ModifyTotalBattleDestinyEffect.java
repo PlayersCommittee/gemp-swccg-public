@@ -43,7 +43,7 @@ public class ModifyTotalBattleDestinyEffect extends AbstractSuccessfulEffect {
         if (_modifierAmount > 0) {
             gameState.sendMessage(performingPlayerId + " adds " + GuiUtils.formatAsString(_modifierAmount) + " to total battle destiny");
         } else if (_modifierAmount < 0) {
-            gameState.sendMessage(performingPlayerId + " subtracts " + GuiUtils.formatAsString(_modifierAmount) + " from total battle destiny");
+            gameState.sendMessage(performingPlayerId + " subtracts " + GuiUtils.formatAsString(-_modifierAmount) + " from total battle destiny");
         }
     }
 }

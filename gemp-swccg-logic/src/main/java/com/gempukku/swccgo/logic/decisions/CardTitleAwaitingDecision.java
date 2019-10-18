@@ -19,7 +19,7 @@ public abstract class CardTitleAwaitingDecision extends MultipleChoiceAwaitingDe
      * @param cardCategoryFilter the card category to include, or null if all card categories included
      */
     public CardTitleAwaitingDecision(SwccgGame game, String text, CardCategory cardCategoryFilter) {
-        super(text, null);
+        super(text, (String[]) null);
 
         Set<String> cardTitleSet = new HashSet<String>();
 

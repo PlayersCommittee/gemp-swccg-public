@@ -22,6 +22,7 @@ public enum Persona implements Filterable {
     CRACKEN("Cracken"),
     DASH("Dash"),
     DENGAR("Dengar"),
+    DJ("DJ"),
     DOFINE("Dofine"),
     DOOKU("Dooku"),
     DS_61_2("DS-61-2"),
@@ -54,6 +55,7 @@ public enum Persona implements Filterable {
     Maz("Maz"),
     MON_MOTHMA("Mon Mothma"),
     MOTTI("Motti"),
+    NARTHAX("Narthax"),
     OBIWAN("Obi-Wan"),
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
@@ -61,12 +63,14 @@ public enum Persona implements Filterable {
     PANAKA("Panaka"),
     PAPLOO("Paploo"),
     PIETT("Piett"),
+    PUCK("Puck"),
     QUEENS_ROYAL_STARSHIP("Queen's Royal Starship"),
     QUIGON("Qui-Gon"),
     R2D2("R2-D2"),
     RIC("Ric"),
     RED_LEADER("Red Leader"),
     REY("Rey"),
+    ROSE("Rose"),
     SIDIOUS("Sidious"),
     SNAP("Snap Wexley"),
     SNOKE("Snoke"),
@@ -97,6 +101,7 @@ public enum Persona implements Filterable {
     HOUNDS_TOOTH("Hound's Tooth"),
     IG2000("IG-2000"),
     INVISIBLE_HAND("Invisible Hand"),
+    LIBERTINE("Libertine"),
     MIST_HUNTER("Mist Hunter"),
     ONYX_1("Onyx 1"),
     PULSAR_SKATE("Pulsar Skate"),
@@ -124,6 +129,7 @@ public enum Persona implements Filterable {
     QUIGON_JINNS_LIGHTSABER("Qui-Gon Jinn's Lightsaber"),
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
     VADERS_LIGHTSABER("Vader's Lightsaber");
+
 
 
     private String _humanReadable;

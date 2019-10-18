@@ -33,7 +33,7 @@ public class Card204_003 extends AbstractRebel {
         super(Side.LIGHT, 3, 4, 4, 3, 6, Title.Hera, Uniqueness.UNIQUE);
         setLore("Female Twi'lek leader.");
         setGameText("[Pilot] 3. If with an Imperial (or two Rebels), adds one battle destiny. During battle, if you just drew a destiny < number of Rebels here, may cancel destiny and redraw that destiny.");
-        addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.FEMALE, Keyword.LEADER);
         setSpecies(Species.TWILEK);
     }
@@ -53,7 +53,7 @@ public class Card204_003 extends AbstractRebel {
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
             int numRebels = Filters.countActive(game, self, Filters.and(Filters.Rebel, Filters.here(self)));
             if (GameConditions.isDestinyValueLessThan(game, numRebels)) {

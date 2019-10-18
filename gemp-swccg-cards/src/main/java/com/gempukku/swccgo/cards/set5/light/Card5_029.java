@@ -48,7 +48,7 @@ public class Card5_029 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, Filters.Vader, 2));
+        modifiers.add(new PowerModifier(self, self.getAttachedTo(), 2));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Vader, ModifyGameTextType.VADER__DOES_NOT_ADD_1_TO_BATTLE_DESTINY));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Tarkin, ModifyGameTextType.TARKIN__CANNOT_CANCEL_DESTINY));
         return modifiers;

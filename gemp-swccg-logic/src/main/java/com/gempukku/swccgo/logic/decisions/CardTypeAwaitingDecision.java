@@ -19,7 +19,7 @@ public abstract class CardTypeAwaitingDecision extends MultipleChoiceAwaitingDec
      * @param text the text to show the player making the decision
      */
     public CardTypeAwaitingDecision(SwccgGame game, String text) {
-        super(text, null);
+        super(text, (String[]) null);
 
         // Get all the possible card types
         Set<CardType> cardTypeSet = new HashSet<CardType>();

@@ -27,9 +27,12 @@ public enum ModifyGameTextType {
     IMPERIAL_DECREE__DOES_NOT_COUNT_YAVIN_4_LOCATIONS("Does not count Yavin 4 locations"),
     LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES_AND_R2D2("May target only Undercover spies and R2-D2"),
     LOST_IN_THE_WILDERNESS__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
+    JAWA_SIESTA__DOUBLED_BY_KALIT("Doubled And May Deploy For Free"),
+    JAWA_PACK__DOUBLED_BY_WITTIN("Doubled And May Deploy For Free"),
     KETWOL__MAY_EXCHANGE_DOCKING_BAY_ONCE_PER_GAME("May exchange docking bay only once per game"),
     MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
     NABRUN_LEIDS_ELIS_HELROT__LIMIT_USAGE("Limited to owner's move phase and exterior sites"),
+    PREM_OBJECTIVE__RETRIEVE_FORCE_INTO_HAND("Force Retrieved may be taken into Hand"),
     PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED("May not be relocated"),
     RADAR_SCANNER__JAWAS_TUSKEN_RAIDERS_AND_STORMTROOPERS_LOST("Jawas, Tusken Raiders, and stormtroopers lost"),
     REBEL_PLANNERS__APPLIES_TO_EVERY_SYSTEM("Applies to every system"),
@@ -60,7 +63,8 @@ public enum ModifyGameTextType {
     VADER__DOES_NOT_ADD_1_TO_BATTLE_DESTINY("Does not add 1 to battle destiny"),
     YAVIN_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     YOU_CAN_EITHER_PROFIT_BY_THIS__DO_NOT_DEPLOY_HAN_AT_START_OF_GAME("Do not deploy Han at start of game"),
-    YOU_OVERESTIMATE_THEIR_CHANCES__TRIPLE_RESULT("Triple result");
+    YOU_OVERESTIMATE_THEIR_CHANCES__TRIPLE_RESULT("Triple result"),
+    YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE("Draw top card of Reserve Deck when you place a card in Used Pile.");
 
 
     //

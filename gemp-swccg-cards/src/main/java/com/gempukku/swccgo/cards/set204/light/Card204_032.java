@@ -37,7 +37,7 @@ public class Card204_032 extends AbstractObjective {
     public Card204_032() {
         super(Side.LIGHT, 0, Title.Old_Allies);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Jakku system and Niima Outpost Shipyard (with [Episode VII] Falcon there). May deploy Graveyard Of Giants. For remainder of game, you may not deploy Luke or Jedi. Your Destiny is suspended. Opponent's [Reflections II] Objective targets Rey Instead Of Luke. While Rey at a battleground site, Visage Of The Emperor is suspended. While this side up, once per turn, may [download] a Jakku location. Flip this card if you control Jakku system and occupy two Jakku battleground sites (or vice versa).");
+        setGameText("Deploy Jakku system and Niima Outpost Shipyard (with [Episode VII] Falcon there). May deploy Graveyard Of Giants. For remainder of game, you may not deploy Harc Seff, Luke, or Jedi. Your Destiny is suspended. Opponent's [Reflections II] Objective targets Rey Instead Of Luke. While Rey at a battleground site, Visage Of The Emperor is suspended. While this side up, once per turn, may [download] a Jakku location. Flip this card if you control Jakku system and occupy two Jakku battleground sites (or vice versa).");
         addIcons(Icon.PREMIUM, Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }
 
@@ -79,7 +79,7 @@ public class Card204_032 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.or(Filters.Luke, Filters.Jedi), playerId), null));
+                        new MayNotDeployModifier(self, Filters.or(Filters.Luke, Filters.Jedi, Filters.Harc), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new SuspendsCardModifier(self, Filters.Your_Destiny), null));

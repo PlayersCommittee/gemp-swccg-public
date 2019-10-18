@@ -18,7 +18,7 @@ import java.util.List;
 
 
 /**
- * Set: Virtual Demonstration Deck
+ * Set: Virtual Premium Set
  * Type: Character
  * Subtype: Republic
  * Title: Ahsoka Tano With Lightsabers

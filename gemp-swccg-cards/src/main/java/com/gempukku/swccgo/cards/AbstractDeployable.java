@@ -1874,7 +1874,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         SwccgBuiltInCardBlueprint permWeapon = game.getModifiersQuerying().getPermanentWeapon(game.getGameState(), self);
         if (permWeapon != null) {
             // Include any extra cost to fire permanent weapon if not a repeated firing
-            int extraCostForPermanentWeapon = (repeatedFiring ? extraForceRequired : (extraForceRequired + game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), null, permWeapon)));
+            int extraCostForPermanentWeapon = (repeatedFiring ? extraForceRequired : (extraForceRequired + game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(game.getGameState(), self)));
             return permWeapon.getGameTextFireWeaponActions(playerId, game, self, forFree, extraCostForPermanentWeapon, sourceCard, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit);
         }
         return null;
