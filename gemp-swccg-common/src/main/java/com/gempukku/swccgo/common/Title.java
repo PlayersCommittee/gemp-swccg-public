@@ -620,7 +620,7 @@ public interface Title {
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
-    String Mercenary_Armor = "Mercenary_Armor";
+    String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
     String Mianda = "Major Mianda";
     String Miiyoom_Onith = "M'iiyoom Onith";
