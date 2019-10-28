@@ -54,7 +54,7 @@ public class Card501_003 extends AbstractDarkJediMaster {
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId))
-                && (GameConditions.isInBattle(game, self) || TriggerConditions.isDestinyDrawType(game, effectResult, DestinyType.LIGHTSABER_COMBAT_DESTINY))
+                && (GameConditions.isInBattle(game, self) || GameConditions.isDuringLightsaberCombatWithParticipant(game, self))
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
