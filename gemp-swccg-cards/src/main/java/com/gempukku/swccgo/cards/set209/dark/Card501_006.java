@@ -22,7 +22,6 @@ import java.util.List;
  * Title: Shadows Of The Empire
  */
 
-
 public class Card501_006 extends AbstractNormalEffect {
     public Card501_006() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Shadows Of The Empire", Uniqueness.UNIQUE);
@@ -46,7 +45,7 @@ public class Card501_006 extends AbstractNormalEffect {
         // Check conditions for Coruscant site download action
         gameTextActionId = GameTextActionId.SHADOWS_OF_THE_EMPIRE__DOWNLOAD_IMPERIAL_SQUARE;
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canUseForce(game, playerId, 2)
+                && GameConditions.canUseForce(game, playerId, 1)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
                 && !GameConditions.canSpot(game, self, Filters.Coruscant_Imperial_Square)) {
 
@@ -92,9 +91,4 @@ public class Card501_006 extends AbstractNormalEffect {
 
         return actions;
     }
-}
-
-
-public class Card209_043  {
-
 }
