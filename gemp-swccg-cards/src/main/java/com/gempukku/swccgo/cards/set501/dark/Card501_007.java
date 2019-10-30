@@ -25,8 +25,8 @@ import java.util.List;
  * Subtype: Imperial
  * Title: Veers (V) (Errata)
  */
-public class Card501_006 extends AbstractImperial {
-    public Card501_006() {
+public class Card501_007 extends AbstractImperial {
+    public Card501_007() {
         super(Side.DARK, 1, 3, 3, 3, 5, "Veers", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("General of the AT-AT assault armor division sent by Darth Vader to crush the Rebellion on Hoth. Cold and ruthless.");
