@@ -818,7 +818,7 @@ public interface Title {
     String Sacrifice = "Sacrifice";
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
-    String Saddle = "Ahch To: Saddle";
+    String Saddle = "Ahch-To: Saddle";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
     String Sandwhirl = "Sandwhirl";
     String Sanity_And_Compassion = "Sanity And Compassion";
