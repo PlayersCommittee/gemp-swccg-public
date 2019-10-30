@@ -43,7 +43,6 @@ public class Card110_009 extends AbstractAlien {
         setGameText("When in battle, if opponent draws more than one battle destiny, may cancel one. Once per turn, when firing a rifle or blaster, may target for free and add 2 to total weapon destiny. May be targeted by Hidden Weapons. May 'fly' (landspeed = 3).");
         addIcons(Icon.PREMIUM, Icon.WARRIOR);
         addKeywords(Keyword.BOUNTY_HUNTER, Keyword.SCOUT);
-        setSpecies(Species.TRANDOSHAN);
     }
 
     @Override
