@@ -3196,6 +3196,7 @@ var fixedImages = {
 "501_3":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
+"501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
 };
 
 var packBlueprints = {
