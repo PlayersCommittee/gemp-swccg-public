@@ -14,6 +14,10 @@ import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Collections;
+
 /**
  * Set: PT Set 12
  * Type: Character
