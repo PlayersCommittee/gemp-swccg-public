@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -9,7 +10,6 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.InBattleCondition;
 import com.gempukku.swccgo.logic.effects.PutCardFromHandOnForcePileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
@@ -48,7 +48,7 @@ public class Card501_001 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ResetDeployCostModifier(self, deathStarIILuke, 6));
         modifiers.add(new MayNotBeDisarmedModifier(self, deathStarIILuke));
-        modifiers.add(new EachBattleDestinyModifier(self, new InBattleCondition(self, deathStarIILuke), 1, playerId));
+        modifiers.add(new EachBattleDestinyModifier(self, new AtCondition(self, Filters.any, Filters.sameLocationAs(self, SpotOverride.INCLUDE_CAPTIVE, Filters.Luke)), 1, playerId));
         return modifiers;
     }
 
@@ -60,7 +60,8 @@ public class Card501_001 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LUKES_LIGHTSABER)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LUKES_LIGHTSABER)
+                && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Luke, Filters.at(Filters.battleground)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Luke's Lightsaber from Reserve Deck");
@@ -76,7 +77,7 @@ public class Card501_001 extends AbstractNormalEffect {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.hasHand(game, playerId)
-                && GameConditions.canSpot(game, self, Filters.and(Filters.Luke, Filters.at(Filters.battleground)))) {
+                && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Luke, Filters.at(Filters.battleground)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place card from hand on Force Pile");
