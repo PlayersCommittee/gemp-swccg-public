@@ -3198,6 +3198,7 @@ var fixedImages = {
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
 "501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
 "501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
+"501_10": "/gemp-swccg/images/cards/Virtual9-Light/abraveresistance.gif",
 "501_11": "/gemp-swccg/images/cards/Virtual4-Light/senatormonmothma.gif",
 "501_12":"/gemp-swccg/images/cards/Virtual4-Light/oldallies.gif",
 "501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
