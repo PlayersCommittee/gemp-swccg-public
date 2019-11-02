@@ -3196,13 +3196,15 @@ var fixedImages = {
 "501_3":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
+"501_6": "/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
 "501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
+"501_8":"/gemp-swccg/images/cards/Virtual0-Light/lukeskywalkerrebelscout.gif",
 "501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
 "501_10": "/gemp-swccg/images/cards/Virtual9-Light/abraveresistance.gif",
 "501_11": "/gemp-swccg/images/cards/Virtual4-Light/senatormonmothma.gif",
 "501_12":"/gemp-swccg/images/cards/Virtual4-Light/oldallies.gif",
 "501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
-"501_13": "/gemp-swccg/images/cards/Virtual5-Light/leiaofalderaan.gif",
+"501_13":"/gemp-swccg/images/cards/Virtual5-Light/leiaofalderaan.gif",
 "501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
 };
 
