@@ -3206,6 +3206,10 @@ var fixedImages = {
 "501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
 "501_13":"/gemp-swccg/images/cards/Virtual5-Light/leiaofalderaan.gif",
 "501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
+"501_15":"/gemp-swccg/images/cards/Virtual10-Dark/ralltiiroperations.gif",
+"501_15_BACK":"/gemp-swccg/images/cards/Virtual10-Dark/inthehandsoftheempire.gif",
+"501_16":"/gemp-swccg/images/cards/DeathStarII-Dark/insignificantrebellion.gif",
+"501_17":"/gemp-swccg/images/cards/Virtual1-Dark/imperialdomination.gif",
 };
 
 var packBlueprints = {
