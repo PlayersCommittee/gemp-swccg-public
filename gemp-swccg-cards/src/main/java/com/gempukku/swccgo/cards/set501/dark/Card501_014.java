@@ -24,8 +24,8 @@ import java.util.List;
  * Type: Effect
  * Title: Overseeing It Personally (V) (Errata)
  */
-public class Card501_015 extends AbstractNormalEffect {
-    public Card501_015() {
+public class Card501_014 extends AbstractNormalEffect {
+    public Card501_014() {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Overseeing It Personally", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Though reluctant to leave Coruscant. Emperor Palpatine occasionally finds it necessary to personally put lagging Imperial operations back on schedule.");

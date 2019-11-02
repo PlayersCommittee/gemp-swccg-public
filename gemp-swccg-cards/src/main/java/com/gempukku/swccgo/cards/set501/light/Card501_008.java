@@ -7,16 +7,15 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Collections;
 
 /**
  * Set: PT Set 12
@@ -25,8 +24,8 @@ import java.util.Collections;
  * Title: Luke Skywalker, Rebel Scout (V)
  */
 
-public class Card501_007 extends AbstractRebel {
-    public Card501_007() {
+public class Card501_008 extends AbstractRebel {
+    public Card501_008() {
         super(Side.LIGHT, 1, 6, 6, 6, 9, "Luke Skywalker, Rebel Scout", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Resourceful scout and member of the Rebel infiltration team assembled to destroy the shield generator. Surrendered to his father so that he would not endanger the mission.");
