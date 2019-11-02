@@ -3197,6 +3197,11 @@ var fixedImages = {
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
 "501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
+"501_11": "/gemp-swccg/images/cards/Virtual4-Light/senatormonmothma.gif",
+"501_12":"/gemp-swccg/images/cards/Virtual4-Light/oldallies.gif",
+"501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
+"501_13": "/gemp-swccg/images/cards/Virtual5-Light/leiaofalderaan.gif",
+"501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
 };
 
 var packBlueprints = {
