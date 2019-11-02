@@ -3198,6 +3198,7 @@ var fixedImages = {
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
 "501_12":"/gemp-swccg/images/cards/Virtual4-Light/oldallies.gif",
 "501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
+"501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
 };
 
 var packBlueprints = {
