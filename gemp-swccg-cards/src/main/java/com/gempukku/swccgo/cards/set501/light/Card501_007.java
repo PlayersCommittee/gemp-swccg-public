@@ -53,9 +53,7 @@ public class Card501_007 extends AbstractRebel {
         GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
-        if ((TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId)
-                || TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, playerId))
-                && GameConditions.isDestinyCardMatchTo(game, self)
+        if (GameConditions.isDestinyCardMatchTo(game, self)
                 && GameConditions.canTakeDestinyCardIntoHand(game, playerId)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
