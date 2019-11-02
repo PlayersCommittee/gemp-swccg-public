@@ -53,7 +53,7 @@ public class Card501_004 extends AbstractAlien {
         if (rep != null) {
             repFilter = Filters.sameTitle(rep);
         } else {
-            repFilter = null;
+            repFilter = Filters.none;
         }
         Filter hanOrYourRep = Filters.and(Filters.your(self), Filters.or(Filters.Han, repFilter));
         Condition withHanOrYourRep = new WithCondition(self, hanOrYourRep);
