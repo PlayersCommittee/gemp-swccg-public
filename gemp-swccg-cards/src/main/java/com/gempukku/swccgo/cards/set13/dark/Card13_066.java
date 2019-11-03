@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card13_066 extends AbstractDefensiveShield {
     public Card13_066() {
-        super(Side.DARK, "Do They Have A Code Clearance?");
+        super(Side.DARK, Title.Do_They_Have_A_Code_Clearance);
         setLore("Imperial officers are always on the lookout for Rebel espionage.");
         setGameText("Plays on table. If opponent just retrieved Force using an Interrupt or Utinni Effect, you may place that card here. Opponent's Force retrieval is reduced by X, where X = number of cards here.");
         addIcons(Icon.REFLECTIONS_III, Icon.GRABBER);

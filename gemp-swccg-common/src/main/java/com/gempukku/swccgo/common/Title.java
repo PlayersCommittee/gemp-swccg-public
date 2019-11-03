@@ -259,6 +259,7 @@ public interface Title {
     String Diplomatic_Mission_To_Alderaan = "Diplomatic Mission To Alderaan";
     String Disarmed = "Disarmed";
     String Do_Or_Do_Not = "Do, Or Do Not";
+    String Do_They_Have_A_Code_Clearance = "Do They Have A Code Clearance?";
     String Doallyn = "Sergeant Doallyn";
     String Dobra_Doompa = "Dopra Doompa";
     String Docking_And_Repair_Facilities = "Docking And Repair Facilities";
