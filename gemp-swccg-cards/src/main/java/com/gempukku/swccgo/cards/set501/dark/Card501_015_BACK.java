@@ -44,7 +44,7 @@ public class Card501_015_BACK extends AbstractObjective {
         String opponent = game.getOpponent(playerId);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceDrainModifier(self, Filters.not(Filters.Ralltiir_location), -1, opponent));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.your(opponent), Filters.location), -1, opponent));
         modifiers.add(new TotalBattleDestinyModifier(self, new OccupiesWithEvaluator(self, playerId, Filters.Ralltiir_location, Filters.Imperial), playerId));
         return modifiers;
     }
