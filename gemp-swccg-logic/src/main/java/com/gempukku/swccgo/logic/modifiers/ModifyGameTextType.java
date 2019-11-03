@@ -10,6 +10,7 @@ public enum ModifyGameTextType {
     // Game text modifier flags
     // (Naming convention: CardIdentifier__ModificationIdentifier)
     ALWAYS_THINKING_WITH_YOUR_STOMACH__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
+    BOONTA_EVE_PODRACE__RETRIEVE_FORCE_INTO_HAND("Take any or all force retrieved into hand"),
     BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE("May not capture Luke"),
     BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
     COUNTER_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
