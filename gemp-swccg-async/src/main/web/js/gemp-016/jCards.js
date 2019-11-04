@@ -3210,6 +3210,7 @@ var fixedImages = {
 "501_15_BACK":"/gemp-swccg/images/cards/Virtual10-Dark/inthehandsoftheempire.gif",
 "501_16":"/gemp-swccg/images/cards/DeathStarII-Dark/insignificantrebellion.gif",
 "501_17":"/gemp-swccg/images/cards/Virtual1-Dark/imperialdomination.gif",
+"501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
 };
 
 var packBlueprints = {
