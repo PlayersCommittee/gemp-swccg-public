@@ -152,7 +152,7 @@ var CardFilter = Class.extend({
         this.formatSelect = $("<select id='formatSelect' class='filterInput'>"
             + "<option value='' selected='selected'>All</option>"
             + "<option value='open'>Open</option>"
-            + "<option value='jawa'>Jawa Format</option>"
+            + "<option value='jawa'>Jawa</option>"
             + "<option value='open_no_shields'>Open (no shields)</option>"
             + "<option value='open_no_virtual'>Open (no v-cards)</option>"
             + "<option value='open_no_shields_no_virtual'>Open (no shields / no v-cards)</option>"

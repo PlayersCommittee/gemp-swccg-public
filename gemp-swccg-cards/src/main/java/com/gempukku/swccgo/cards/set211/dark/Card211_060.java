@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card211_060 extends AbstractDroid {
     public Card211_060() {
-        super(Side.DARK, 2, 3, 2, 4, "IG MagnaGuard", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 3, 4, "IG MagnaGuard", Uniqueness.RESTRICTED_3);
         setArmor(4);
         setLore("Asassin.  Trade Federation.");
         setGameText("Grievous is defense value +2 here.  While aboard Invisible Hand, draws one battle destiny if unable to otherwise and characters here are immune to Clash Of Sabers.");
