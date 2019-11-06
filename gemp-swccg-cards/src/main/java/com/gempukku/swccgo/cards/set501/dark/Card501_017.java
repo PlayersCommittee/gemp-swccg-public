@@ -32,6 +32,7 @@ public class Card501_017 extends AbstractNormalEffect {
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
         setGameText("Deploy on table. Lost if your non-Imperial character (or starship) on table. Unless you occupy fewer locations than opponent: if you win a battle, retrieve an Imperial; and, during battle, may take an Imperial just drawn for destiny into hand to cancel and redraw that destiny. (Immune to Alter.)");
         addIcons(Icon.HOTH, Icon.VIRTUAL_SET_12);
+        addImmuneToCardTitle(Title.Alter);
         setTestingText("Imperial Enforcement");
     }
 
