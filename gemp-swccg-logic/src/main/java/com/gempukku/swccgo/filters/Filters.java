@@ -18210,7 +18210,7 @@ public class Filters {
     public static final Filter spaceport_site = Filters.keyword(Keyword.SPACEPORT_SITE);
     public static final Filter Special_Delivery = Filters.title(Title.Special_Delivery);
     public static final Filter Special_Modifications = Filters.title(Title.Special_Modifications);
-    public static final Filter speeder = Filters.or(ModelType.SPEEDER_BIKE, Keyword.LANDSPEEDER, Keyword.SANDSPEEDER, Keyword.SNOWSPEEDER);
+    public static final Filter speeder = Filters.or(ModelType.SPEEDER_BIKE, Keyword.SPEEDER, Keyword.LANDSPEEDER, Keyword.SANDSPEEDER, Keyword.SNOWSPEEDER);
     public static final Filter speeder_bike = Filters.modelType(ModelType.SPEEDER_BIKE);
     public static final Filter Spice_Mines_Of_Kessel = Filters.title(Title.Spice_Mines_Of_Kessel);
     public static final Filter spy = Filters.keyword(Keyword.SPY);
