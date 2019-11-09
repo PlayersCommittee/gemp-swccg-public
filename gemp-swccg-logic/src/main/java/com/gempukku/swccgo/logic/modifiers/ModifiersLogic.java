@@ -11919,6 +11919,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (card.isCrashed())
             return false;
 
+        // Pilots of landed vehicles are considered passengers.
+        if (isLanded(gameState,card))
+            return false;
+
         // Creature vehicles and Lift Tubes are piloted
         if (blueprint.getCardSubtype()==CardSubtype.CREATURE || card.getTitle().equals(Title.Lift_Tube))
             return true;
