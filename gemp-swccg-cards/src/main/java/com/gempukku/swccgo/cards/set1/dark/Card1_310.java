@@ -23,7 +23,7 @@ public class Card1_310 extends AbstractTransportVehicle {
         super(Side.DARK, 2, 2, 2, null, 6, 3, 4, "Ubrikkian 9000 Z001");
         setLore("Enclosed repulsorlift landspeeder. Micro-thrusters placed around spherical hull. Seats three. Extremely maneuverable. Top speed of 160 km per hour.");
         setGameText("May add 1 driver and 2 passengers. May move as a 'react.'");
-        addKeywords(Keyword.ENCLOSED);
+        addKeywords(Keyword.ENCLOSED, Keyword.LANDSPEEDER);
         setDriverCapacity(1);
         setPassengerCapacity(2);
     }

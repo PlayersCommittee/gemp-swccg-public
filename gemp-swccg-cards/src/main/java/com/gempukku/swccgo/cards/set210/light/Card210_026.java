@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -30,8 +31,9 @@ public class Card210_026 extends AbstractCombatVehicle {
     public Card210_026() {
         super(Side.LIGHT, 5, 2, 2, null, 5, 3, 4, "V-4X-D Ski Speeder");
         setLore("");
-        setGameText("Pilot's power = 0, and if targeted by Force Lightning, Trample, or a weapon, may use this card's defense value instead.");
+        setGameText("May add 1 Pilot. May move as a 'react'. Matching vehicle for any resistance pilot. Pilot's power = 0, and if targeted by Force Lightning, Trample, or a weapon, may use this card's defense value instead.");
         addModelType(ModelType.V_4X);
+        addKeyword(Keyword.SPEEDER);
         addIcons(Icon.EPISODE_VII);
         setPilotCapacity(1);
         setMatchingPilotFilter(Filters.and(Filters.pilot, Filters.Resistance_character));

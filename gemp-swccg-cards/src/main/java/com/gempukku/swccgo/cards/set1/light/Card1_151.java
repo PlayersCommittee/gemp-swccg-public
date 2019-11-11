@@ -26,7 +26,7 @@ public class Card1_151 extends AbstractTransportVehicle {
         super(Side.LIGHT, 4, 2, 0, null, 4, 3, 3, "SoroSuub V-35 Landspeeder");
         setLore("Typical old model Courier landspeeder such as the one used by Lars family for trips to Anchorhead. Has cargo compartment. Enclosed seating.");
         setGameText("May add 1 driver and 3 passengers. Moves free if Owen Lars, Beru Lars or Luke aboard. May move as a 'react'.");
-        addKeywords(Keyword.ENCLOSED);
+        addKeywords(Keyword.ENCLOSED, Keyword.LANDSPEEDER);
         setDriverCapacity(1);
         setPassengerCapacity(3);
     }
