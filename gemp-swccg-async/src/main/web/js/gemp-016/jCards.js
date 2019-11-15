@@ -3211,6 +3211,8 @@ var fixedImages = {
 "501_16":"/gemp-swccg/images/cards/DeathStarII-Dark/insignificantrebellion.gif",
 "501_17":"/gemp-swccg/images/cards/Virtual1-Dark/imperialdomination.gif",
 "501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
+"501_19":"/gemp-swccg/images/cards/Virtual4-Dark/f11dblasterrifle.gif",
+"501_20":"/gemp-swccg/images/cards/Virtual4-Dark/firstorderstormtrooper.gif",
 };
 
 var packBlueprints = {
