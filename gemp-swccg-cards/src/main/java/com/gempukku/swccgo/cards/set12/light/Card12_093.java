@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card12_093 extends AbstractStarfighter {
     public Card12_093() {
-        super(Side.LIGHT, 2, 4, 5, 4, null, 4, 7, "Republic Cruiser");
+        super(Side.LIGHT, 1, 3, 3, 4, null, 4, 6, "Republic Cruiser");
         setLore("Manufactured by Corellian Engineering Corporation, this consular ship design serves the Republic for a variety of dignitary transportation and diplomatic missions.");
         setGameText("May add 1 pilot and 3 passengers. Permanent pilot provides ability of 2. Has ship-docking capability. While at same system as opponent's battleship, opponent's battle destiny draws are each -1 here.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.REPUBLIC, Icon.PILOT, Icon.NAV_COMPUTER);
