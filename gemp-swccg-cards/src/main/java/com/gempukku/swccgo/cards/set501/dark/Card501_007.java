@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -57,7 +57,7 @@ public class Card501_007 extends AbstractImperial {
         GameTextActionId gameTextActionId = GameTextActionId.VEERS__UPLOAD_HOTH_COMBAT_VEHICLE_OR_SIXTH_MARKER;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.isAtLocation(game, self, Filters.Hoth_location)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
@@ -66,10 +66,10 @@ public class Card501_007 extends AbstractImperial {
             action.setActionMsg("Take a [Hoth] combat vehicle or Sixth Marker into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                    new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.combat_vehicle, Icon.HOTH), Filters.Sixth_Marker), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.AT_AT, Icon.HOTH), Filters.Sixth_Marker), true));
             return Collections.singletonList(action);
         }
         return null;
