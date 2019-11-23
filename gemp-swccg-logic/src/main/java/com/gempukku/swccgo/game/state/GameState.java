@@ -2186,7 +2186,10 @@ public class GameState implements Snapshotable<GameState> {
         // Transfer attached cards to the new card (if allowed)
         for (PhysicalCard attachedCard : attachedCardList) {
             if (attachedCard.getBlueprint().getValidTransferDuringCharacterReplacementTargetFilter(_game, attachedCard).accepts(_game, newCard)) {
-                attachedCard.setOwner(newOwner);
+                //Only change owners if the persona replacement is a conversion
+                if (isConversion) {
+                    attachedCard.setOwner(newOwner);
+                }
                 moveCardToAttached(attachedCard, newCard);
             }
             else {

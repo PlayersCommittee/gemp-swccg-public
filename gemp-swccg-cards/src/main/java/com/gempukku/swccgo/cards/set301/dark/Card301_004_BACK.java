@@ -25,7 +25,7 @@ import java.util.List;
 
 
 /**
- * Set: Virtual Demonstration Deck
+ * Set: Virtual Premium Set
  * Type: Objective
  * Title: Twin Suns Of Tatooine / Well Trained In The Jedi Arts
  */

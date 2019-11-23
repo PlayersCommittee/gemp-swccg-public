@@ -3138,7 +3138,7 @@ var fixedImages = {
 "211_19":"/gemp-swccg/images/cards/Virtual11-Dark/dqar.gif",
 "211_20":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandbridge.gif",
 "211_21":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehanddockingbay.gif",
-"211_22":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandhallway.gif",
+"211_22":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandhallway328.gif",
 "211_23":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
 "211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
 "211_24":"/gemp-swccg/images/cards/Virtual11-Dark/vengeance.gif",
@@ -3179,15 +3179,40 @@ var fixedImages = {
 "211_57":"/gemp-swccg/images/cards/Virtual11-Light/mazkanata.gif",
 "211_58":"/gemp-swccg/images/cards/Virtual11-Light/commandervandenwillard.gif",
 "211_59":"/gemp-swccg/images/cards/Virtual11-Light/ahsokatano.gif",
-"211_60":"/gemp-swccg/images/cards/Virtual11-Light/TBD.gif",
-"301_1":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/ahsokatanowithlightsabers.gif",
-"301_2":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/cityintheclouds.gif",
-"301_2_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/youtrulybelongherewithus.gif",
-"301_3":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/asajjventresswithlightsabers.gif",
-"301_4":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/twinsunsoftatooine.gif",
-"301_4_BACK":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Dark/welltrainedinthejediarts.gif",
-"301_5":"/gemp-swccg/images/cards/VirtualDemonstrationDeck-Light/yourship.gif",
-"501_1":"/gemp-swccg/images/cards/Playtesting-Dark/mitthrawnuruodo.gif"
+"211_60":"/gemp-swccg/images/cards/Virtual11-Dark/igmagnaguard.gif",
+"211_61":"/gemp-swccg/images/cards/Virtual11-Dark/sebulbaai.gif",
+"301_1":"/gemp-swccg/images/cards/VirtualPremium-Light/ahsokatanowithlightsabers.gif",
+"301_2":"/gemp-swccg/images/cards/VirtualPremium-Light/cityintheclouds.gif",
+"301_2_BACK":"/gemp-swccg/images/cards/VirtualPremium-Light/youtrulybelongherewithus.gif",
+"301_3":"/gemp-swccg/images/cards/VirtualPremium-Dark/asajjventresswithlightsabers.gif",
+"301_4":"/gemp-swccg/images/cards/VirtualPremium-Dark/twinsunsoftatooine.gif",
+"301_4_BACK":"/gemp-swccg/images/cards/VirtualPremium-Dark/welltrainedinthejediarts.gif",
+"301_5":"/gemp-swccg/images/cards/VirtualPremium-Light/yourship.gif",
+"301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
+"301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
+"301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
+"501_1":"/gemp-swccg/images/cards/Virtual2-Light/likemyfatherbeforeme.gif",
+"501_2":"/gemp-swccg/images/cards/Coruscant-Dark/killthemimmediately.gif",
+"501_3":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
+"501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
+"501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
+"501_6": "/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
+"501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
+"501_8":"/gemp-swccg/images/cards/Virtual0-Light/lukeskywalkerrebelscout.gif",
+"501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
+"501_10": "/gemp-swccg/images/cards/Virtual9-Light/abraveresistance.gif",
+"501_11": "/gemp-swccg/images/cards/Virtual4-Light/senatormonmothma.gif",
+"501_12":"/gemp-swccg/images/cards/Virtual4-Light/oldallies.gif",
+"501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
+"501_13":"/gemp-swccg/images/cards/Virtual5-Light/leiaofalderaan.gif",
+"501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
+"501_15":"/gemp-swccg/images/cards/Virtual10-Dark/ralltiiroperations.gif",
+"501_15_BACK":"/gemp-swccg/images/cards/Virtual10-Dark/inthehandsoftheempire.gif",
+"501_16":"/gemp-swccg/images/cards/DeathStarII-Dark/insignificantrebellion.gif",
+"501_17":"/gemp-swccg/images/cards/Virtual1-Dark/imperialdomination.gif",
+"501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
+"501_19":"/gemp-swccg/images/cards/Virtual4-Dark/f11dblasterrifle.gif",
+"501_20":"/gemp-swccg/images/cards/Virtual4-Dark/firstorderstormtrooper.gif",
 };
 
 var packBlueprints = {
@@ -3570,7 +3595,7 @@ var Card = Class.extend({
                    (cardNo >= 44 && cardNo <= 47);
         }
         if (setNo == 501) {
-            return (cardNo == 9);
+            return false;
         }
 
         return false;

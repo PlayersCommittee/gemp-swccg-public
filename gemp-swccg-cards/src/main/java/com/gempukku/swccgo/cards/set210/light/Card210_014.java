@@ -14,8 +14,12 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -31,6 +35,7 @@ import java.util.List;
 public class Card210_014 extends AbstractRebel {
     public Card210_014() {
         super(Side.LIGHT, 2, 4, 2, 4, 5, Title.Ezra, Uniqueness.UNIQUE);
+        setLore("Padawan. Spy.");
         setGameText("Power +1 for each Dark Jedi or Jedi on table. At start of opponent's turn, if at opponent's site, opponent chooses: their Force generation is -X this turn, or you may activate up to X Force, where X = number of [Dark Side Force] icons here.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_10);
         addKeywords(Keyword.PADAWAN, Keyword.SPY);

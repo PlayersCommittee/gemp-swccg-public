@@ -419,7 +419,7 @@ public class Filters {
      * @param icon the icon
      * @return Filter
      */
-    private static Filter icon(final Icon icon) {
+    public static Filter icon(final Icon icon) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -17997,6 +17997,7 @@ public class Filters {
     public static final Filter protocol_droid = Filters.modelType(ModelType.PROTOCOL);
     public static final Filter proton_bombs = Filters.title(Title.Proton_Bombs);
     public static final Filter Proton_Torpedoes = Filters.keyword(Keyword.PROTON_TORPEDOES);
+    public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);
     public static final Filter Queens_Royal_Starship = Filters.persona(Persona.QUEENS_ROYAL_STARSHIP);
@@ -18051,6 +18052,7 @@ public class Filters {
     public static final Filter Red_8 = Filters.title(Title.Red_8);
     public static final Filter Red_9 = Filters.title(Title.Red_9);
     public static final Filter Red_10 = Filters.title(Title.Red_10);
+    public static final Filter Red_12 = Filters.title(Title.Red_12);
     public static final Filter Red_Leader = Filters.persona(Persona.RED_LEADER);
     public static final Filter Red_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.RED_SQUADRON, Filters.piloting(Filters.keyword(Keyword.RED_SQUADRON))));
     public static final Filter Red_Squadron_starfighter = Filters.and(CardSubtype.STARFIGHTER, Keyword.RED_SQUADRON);
@@ -18208,7 +18210,7 @@ public class Filters {
     public static final Filter spaceport_site = Filters.keyword(Keyword.SPACEPORT_SITE);
     public static final Filter Special_Delivery = Filters.title(Title.Special_Delivery);
     public static final Filter Special_Modifications = Filters.title(Title.Special_Modifications);
-    public static final Filter speeder = Filters.or(ModelType.SPEEDER_BIKE, Keyword.LANDSPEEDER, Keyword.SANDSPEEDER, Keyword.SNOWSPEEDER);
+    public static final Filter speeder = Filters.or(ModelType.SPEEDER_BIKE, Keyword.SPEEDER, Keyword.LANDSPEEDER, Keyword.SANDSPEEDER, Keyword.SNOWSPEEDER);
     public static final Filter speeder_bike = Filters.modelType(ModelType.SPEEDER_BIKE);
     public static final Filter Spice_Mines_Of_Kessel = Filters.title(Title.Spice_Mines_Of_Kessel);
     public static final Filter spy = Filters.keyword(Keyword.SPY);
@@ -18336,6 +18338,7 @@ public class Filters {
     public static final Filter Thrawn = Filters.persona(Persona.THRAWN);
     public static final Filter Throne_Room = Filters.title(Title.Throne_Room);
     public static final Filter Throw_Me_Another_Charge = Filters.title(Title.Throw_Me_Another_Charge);
+    public static final Filter Thunderflare = Filters.title(Title.Thunderflare);
     public static final Filter Tibanna_Gas_Miner = Filters.title(Title.Tibanna_Gas_Miner);
     public static final Filter Tibrin_site = Filters.and(Filters.partOfSystem(Title.Tibrin), CardSubtype.SITE);
     public static final Filter TIE = Filters.tie();
@@ -18451,6 +18454,7 @@ public class Filters {
     public static final Filter Were_In_Attack_Position_Now = Filters.title(Title.Were_In_Attack_Position_Now);
     public static final Filter Were_The_Bait = Filters.title(Title.Were_The_Bait);
     public static final Filter What_Is_Thy_Bidding_My_Master = Filters.title(Title.What_Is_Thy_Bidding_My_Master);
+    public static final Filter Where_Are_Those_Droidekas = Filters.title(Title.Where_Are_Those_Droidekas);
     public static final Filter Whiphid = Filters.species(Species.WHIPHID);
     public static final Filter Wild_Karrde = Filters.title(Title.Wild_Karrde);
     public static final Filter Williams = Filters.title(Title.Williams);

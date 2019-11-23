@@ -14,7 +14,8 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -25,7 +26,7 @@ import java.util.List;
  * Set: Set 10
  * Type: Character
  * Subtype: Republic
- * Title: Nute Gunray
+ * Title: Nute Gunray (V)
  */
 public class Card210_040 extends AbstractRepublic {
     public Card210_040() {
@@ -57,7 +58,7 @@ public class Card210_040 extends AbstractRepublic {
         Filter yourRepublicOrTradeFedInLoreCharacter = Filters.and(
                 Filters.your(playerId),
                 Filters.not(self),
-                Filters.or(Filters.loreContains("Trade Federation"), Filters.Republic_character));
+                Filters.and(Filters.character, Filters.or(Filters.loreContains("Trade Federation"), Icon.REPUBLIC)));
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1)

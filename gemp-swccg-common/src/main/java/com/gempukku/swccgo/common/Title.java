@@ -259,6 +259,7 @@ public interface Title {
     String Diplomatic_Mission_To_Alderaan = "Diplomatic Mission To Alderaan";
     String Disarmed = "Disarmed";
     String Do_Or_Do_Not = "Do, Or Do Not";
+    String Do_They_Have_A_Code_Clearance = "Do They Have A Code Clearance?";
     String Doallyn = "Sergeant Doallyn";
     String Dobra_Doompa = "Dopra Doompa";
     String Docking_And_Repair_Facilities = "Docking And Repair Facilities";
@@ -620,7 +621,7 @@ public interface Title {
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
-    String Mercenary_Armor = "Mercenary_Armor";
+    String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
     String Mianda = "Major Mianda";
     String Miiyoom_Onith = "M'iiyoom Onith";
@@ -743,6 +744,7 @@ public interface Title {
     String Prophecy_Of_The_Force = "Prophecy Of The Force";
     String Program_Trap = "Program Trap";
     String Proton_Bombs = "Proton Bombs";
+    String Puck = "Puck";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
     String Quite_A_Mercenary = "Quite A Mercenary";
@@ -773,6 +775,7 @@ public interface Title {
     String Red_8 = "Red 8";
     String Red_9 = "Red 9";
     String Red_10 = "Red 10";
+    String Red_12 = "Red 12";
     String Reegesk = "Reegesk";
     String ReeYees = "Ree-Yees";
     String Reflection = "Reflection";
@@ -816,7 +819,7 @@ public interface Title {
     String Sacrifice = "Sacrifice";
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
-    String Saddle = "Ahch To: Saddle";
+    String Saddle = "Ahch-To: Saddle";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
     String Sandwhirl = "Sandwhirl";
     String Sanity_And_Compassion = "Sanity And Compassion";
@@ -967,6 +970,7 @@ public interface Title {
     String Thrawn = "Grand Admiral Thrawn";
     String Throne_Room = "Death Star II: Throne Room";
     String Throw_Me_Another_Charge = "Throw Me Another Charge";
+    String Thunderflare = "Thunderflare";
     String Tibanna_Gas_Miner = "Tibanna Gas Miner";
     String Tibrin = "Tibrin";
     String TIE_Assault_Squadron = "TIE Assault Squadron";
@@ -1041,8 +1045,9 @@ public interface Title {
     String Were_In_Attack_Position_Now = "We're In Attack Position Now";
     String Were_The_Bait = "We're The Bait";
     String What_Is_Thy_Bidding_My_Master = "What Is Thy Bidding, My Master?";
-    String Wild_Karrde = "Wild Karrde";
+    String Where_Are_Those_Droidekas = "Where Are Those Droidekas?!";
     String Why_Didnt_You_Tell_Me = "Why Didn't You Tell Me?";
+    String Wild_Karrde = "Wild Karrde";
     String Williams = "Lieutenant Williams";
     String Wioslea = "Wioslea";
     String Wise_Advice = "Wise Advice";

@@ -3268,18 +3268,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * Gets the amount of extra Force required to fire the specified weapon (or permanent weapon).
      * @param gameState the game state
      * @param weaponCard the weapon card, or null if permanent weapon
-     * @param permanentWeapon the permanent weapon, or null if not a permanent weapon
      * @return the amount of Force
      */
     @Override
-    public int getExtraForceRequiredToFireWeapon(GameState gameState, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon) {
+    public int getExtraForceRequiredToFireWeapon(GameState gameState, PhysicalCard weaponCard) {
         int result = 0;
         for (Modifier modifier : getModifiers(gameState, ModifierType.EXTRA_FORCE_COST_TO_FIRE_WEAPON)) {
             if (weaponCard != null && modifier.isAffectedTarget(gameState, this, weaponCard)) {
                 result += modifier.getValue(gameState, this, weaponCard);
-            }
-            if (permanentWeapon != null && modifier.isAffectedTarget(gameState, this, permanentWeapon)) {
-                result += modifier.getValue(gameState, this, permanentWeapon);
             }
         }
         result = Math.max(0, result);
@@ -9500,6 +9496,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return false;
     }
 
+    @Override
+    public boolean cantReduceForceLossFromForceDrainAtLocation(GameState gameState, PhysicalCard location, String playerReducing, String playerDraining) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_REDUCE_FORCE_LOSS_FROM_FORCE_DRAIN_AT_LOCATION, location)) {
+            if (modifier.cantModifyForceLossFromForceDrain(gameState, this, playerReducing, playerDraining))
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Determines if the specified card's deploy cost is not allowed to be modified.
      * @param gameState the game state
@@ -11914,6 +11919,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (card.isCrashed())
             return false;
 
+        // Pilots of landed vehicles are considered passengers.
+        if (blueprint.getCardCategory() == CardCategory.VEHICLE && card.isInCargoHoldAsVehicle())
+            return false;
+
         // Creature vehicles and Lift Tubes are piloted
         if (blueprint.getCardSubtype()==CardSubtype.CREATURE || card.getTitle().equals(Title.Lift_Tube))
             return true;
@@ -11925,6 +11934,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 || (card.getAtLocation() != null && !forStarshipTakeoff && Filters.and(Filters.site, Filters.not(Filters.Death_Star_Trench)).accepts(gameState, this, card.getAtLocation()))))
             return false;
 
+        // Make sure at least one active pilot fits the valid pilot filter (see "Mist Hunter" from Dagobah for example)
+        for (PhysicalCard pilotCard : gameState.getPilotCardsAboard(this, card, true)) {
+            if (gameState.isCardInPlayActive(pilotCard, false, false, false, forStarshipTakeoff, false, false, false, false)
+                    && card.getBlueprint().getValidPilotFilter(card.getOwner(), gameState.getGame(), card, false).accepts(gameState, gameState.getGame().getModifiersQuerying(), pilotCard)) {
+                return true;
+            }
+        }
+
         // Check for permanent pilots
         int permanentPilotCount = getIconCount(gameState, card, Icon.PILOT);
         if (permanentPilotCount > 0) {
@@ -11932,14 +11949,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 return permanentPilotCount >= blueprint.getModelTypes().size();
             }
             else {
-                return true;
-            }
-        }
-
-        // Make sure at least one active pilot fits the valid pilot filter (see "Mist Hunter" from Dagobah for example)
-        for (PhysicalCard pilotCard : gameState.getPilotCardsAboard(this, card, true)) {
-            if (gameState.isCardInPlayActive(pilotCard, false, false, false, forStarshipTakeoff, false, false, false, false)
-                    && card.getBlueprint().getValidPilotFilter(card.getOwner(), gameState.getGame(), card, false).accepts(gameState, gameState.getGame().getModifiersQuerying(), pilotCard)) {
                 return true;
             }
         }

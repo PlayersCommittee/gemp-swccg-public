@@ -36,8 +36,8 @@ import java.util.List;
 public class Card7_070 extends AbstractUtinniEffect {
     public Card7_070() {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Mechanical_Failure, Uniqueness.UNIQUE);
-        setLore("Starships can become damaged in combat and rendered ineffective until they can be repaired and re-outfitted.");
-        setGameText("Deploy on any system. Target an opponent's starship. Target's power and forfeit = 0. When target reaches Utinni Effect, target draws one destiny. Utinni Effect canceled if destiny > 2. Otherwise, draw again next move phase, etc.");
+        setLore("The massive war machines of the Empire require tremendous effort to maintain combat readiness.");
+        setGameText("Deploy on an exterior site. Target an opponent's combat vehicle at a related site. Target's power and forfeit = 0. When target reaches Utinni Effect, target draws one destiny. Utinni Effect canceled if destiny > 2. Otherwise, draw again next move phase, etc.");
         addIcons(Icon.SPECIAL_EDITION);
     }
 
@@ -48,12 +48,12 @@ public class Card7_070 extends AbstractUtinniEffect {
 
     @Override
     protected Filter getGameTextValidUtinniEffectTargetFilter(String playerId, SwccgGame game, PhysicalCard self, PhysicalCard deployTarget, TargetId targetId) {
-        return Filters.and(Filters.opponents(self), Filters.combat_vehicle, Filters.at(Filters.relatedSiteTo(self, Filters.hasAttached(self))));
+        return Filters.and(Filters.opponents(self), Filters.combat_vehicle, Filters.at(Filters.relatedSite(deployTarget)));
     }
 
     @Override
     protected Filter getGameTextValidUtinniEffectTargetFilterToRemainTargeting(SwccgGame game, PhysicalCard self, TargetId targetId) {
-        return Filters.vehicle;
+        return Filters.combat_vehicle;
     }
 
     @Override

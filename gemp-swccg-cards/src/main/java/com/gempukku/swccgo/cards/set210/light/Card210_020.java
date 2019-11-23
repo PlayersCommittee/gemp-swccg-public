@@ -27,7 +27,6 @@ import java.util.List;
  * Subtype: Jedi Master
  * Title: Luke Skywalker, The Last Jedi
  */
-
 public class Card210_020 extends AbstractJediMaster {
     public Card210_020() {
         super(Side.LIGHT, 4, 5, 5, 7, 8, "Luke Skywalker, The Last Jedi", Uniqueness.UNIQUE);
@@ -71,10 +70,12 @@ public class Card210_020 extends AbstractJediMaster {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
+        // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId))
+                && GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isDuringBattleWithParticipant(game, self))
-        {
+                && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
+
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Cancel destiny and cause re-draw");
             // Update usage limit(s)

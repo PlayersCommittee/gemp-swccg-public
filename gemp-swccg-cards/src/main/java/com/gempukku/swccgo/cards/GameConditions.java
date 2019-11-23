@@ -1538,6 +1538,21 @@ public class GameConditions {
     }
 
     /**
+     * Determines if a lightsaber combat is in progress that has a participant accepted by the participant filter.
+     *
+     * @param game              the game
+     * @param participantFilter the participant filter
+     * @return true or false
+     */
+    public static boolean isDuringLightsaberCombatWithParticipant(SwccgGame game, Filterable participantFilter) {
+        GameState gameState = game.getGameState();
+        LightsaberCombatState lightsaberCombatState = gameState.getLightsaberCombatState();
+        Filter filterToUse = Filters.or(participantFilter, Filters.hasPermanentAboard(Filters.and(participantFilter)), Filters.hasPermanentWeapon(Filters.and(participantFilter)));
+        return lightsaberCombatState != null
+                && Filters.canSpot(lightsaberCombatState.getLightsaberCombatParticipants(), game, 1, filterToUse);
+    }
+
+    /**
      * Determines if a duel is in progress.
      *
      * @param game the game

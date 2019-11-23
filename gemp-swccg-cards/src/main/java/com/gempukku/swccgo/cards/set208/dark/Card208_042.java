@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card208_042 extends AbstractNormalEffect {
     public Card208_042() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Where Are Those Droidekas?!", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Where_Are_Those_Droidekas, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("When two Jedi are attempting to breach your bridge, even a destroyer droid's response time seems far too slow.");
         setGameText("Deploy on table. Non-unique destroyer droids are deploy -1 and forfeit +1. While all your characters at sites are destroyer droids and Neimoidians, opponent's characters are defense value -1 (to a minimum of 3) for each destroyer droid present. [Immune to Alter]");

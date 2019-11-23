@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
@@ -30,6 +31,7 @@ public class Card14_060 extends AbstractTransportVehicle {
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
         setDriverCapacity(1);
         setPassengerCapacity(3);
+        addKeyword(Keyword.SPEEDER);
     }
 
     @Override

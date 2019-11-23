@@ -33,6 +33,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     private List<String> _comboCardTitles = new ArrayList<String>();
     private Float _destiny;
     private Float _alternateDestiny;
+    private int _alternateDestinyCost;
     private String _lore;
     private String _gameText;
     private String _testingText;
@@ -163,6 +164,14 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      */
     protected final void setAlternateDestiny(double destiny) {
         setAlternateDestiny((float) destiny);
+    }
+
+    protected final void setAlternateDestinyCost(int cost) {
+        _alternateDestinyCost = cost;
+    }
+
+    public int getAlternateDestinyCost() {
+        return _alternateDestinyCost;
     }
 
     /**

@@ -29,7 +29,7 @@ public class Card2_157 extends AbstractTransportVehicle {
         setLore("Enclosed landspeeder often used by nefarious characters due to its luxury and evasive capabilities. Features include automated steering and fine Corellian leather.");
         setGameText("May add 1 driver and 1 passenger. Moves free if Jabba or any bounty hunter aboard. May move for free as a 'react' to a battle where your thief, smuggler or bounty hunter is participating.");
         addIcons(Icon.A_NEW_HOPE, Icon.SCOMP_LINK);
-        addKeywords(Keyword.ENCLOSED);
+        addKeywords(Keyword.ENCLOSED, Keyword.LANDSPEEDER);
         setDriverCapacity(1);
         setPassengerCapacity(1);
     }

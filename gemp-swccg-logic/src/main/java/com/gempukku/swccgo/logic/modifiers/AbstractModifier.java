@@ -1373,6 +1373,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean cantModifyForceLossFromForceDrain(GameState gameState, ModifiersQuerying modifiersQuerying, String playerModifying, String playerDraining) {
+        return false;
+    }
+
+    @Override
     public float getSabaccTotalModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
         return 0;
     }

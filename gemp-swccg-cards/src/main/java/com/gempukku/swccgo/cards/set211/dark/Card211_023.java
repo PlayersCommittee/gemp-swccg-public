@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Starship
+ * Subtype: Capital
+ * Title: Invisible Hand
+ */
 public class Card211_023 extends AbstractCapitalStarship {
     public Card211_023() {
         super(Side.DARK, 2, 6, 6, 5, null, 3, 8, Title.Invisible_Hand, Uniqueness.UNIQUE);
@@ -32,7 +38,8 @@ public class Card211_023 extends AbstractCapitalStarship {
     @Override
     protected List<? extends AbstractPermanentAboard> getGameTextPermanentsAboard() {
         List<AbstractPermanentAboard> permanentsAboard = new ArrayList<AbstractPermanentAboard>();
-        permanentsAboard.add(new AbstractPermanentPilot(3){});
+        permanentsAboard.add(new AbstractPermanentPilot(3) {
+        });
         return permanentsAboard;
     }
 
