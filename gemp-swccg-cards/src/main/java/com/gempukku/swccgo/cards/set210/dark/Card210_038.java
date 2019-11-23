@@ -10,7 +10,9 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.MayNotUseAbilityTowardDrawingBattleDestinyUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyForfeitEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -33,7 +35,7 @@ public class Card210_038 extends AbstractCombatVehicle {
         setLore("Enclosed. Death Squadron.");
         setGameText("May add 1 pilot. Permanent pilot is •Marquand, who provides ability of 2. Cards Blizzard 6 hits are power and forfeit -2 and may not apply ability towards drawing battle destiny. Immune to attrition < 4.");
         addModelType(ModelType.AT_AT);
-        addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_10, Icon.SCOMP_LINK);
+        addIcons(Icon.PILOT, Icon.VIRTUAL_SET_10, Icon.SCOMP_LINK);
         addKeywords(Keyword.ENCLOSED);
         setPilotCapacity(1);
     }
