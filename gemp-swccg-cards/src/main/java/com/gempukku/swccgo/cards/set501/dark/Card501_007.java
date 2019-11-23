@@ -9,6 +9,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
@@ -67,6 +68,8 @@ public class Card501_007 extends AbstractImperial {
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
+            action.appendCost(
+                    new UseForceEffect(action, playerId,1));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.AT_AT, Icon.HOTH), Filters.Sixth_Marker), true));
