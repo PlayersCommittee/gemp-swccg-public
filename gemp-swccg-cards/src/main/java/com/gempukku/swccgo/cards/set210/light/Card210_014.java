@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.OptionalEffect;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -126,7 +127,7 @@ public class Card210_014 extends AbstractRebel {
                                         // We have force to activate. Let the user pick how much to use
                                         action.appendEffect(
                                                 new PlayoutDecisionEffect(action, playerId,
-                                                        new IntegerAwaitingDecision("Choose amount of Force to activate", 1, maxForceToActivate, maxForceToActivate) {
+                                                        new IntegerAwaitingDecision("Choose amount of Force to activate", 0, maxForceToActivate, maxForceToActivate) {
                                                             @Override
                                                             public void decisionMade(final int result) throws DecisionResultInvalidException {
                                                                 // Perform result(s)
