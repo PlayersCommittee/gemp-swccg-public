@@ -59,7 +59,7 @@ var GempSwccgHallUI = Class.extend({
 
         var that = this;
 
-        this.buttonsDiv.append("<a href='deckBuild.html'>Deck Builder</a>");
+        this.buttonsDiv.append("<a href='deckBuild.html' target='_blank'>Deck Builder</a>");
         this.buttonsDiv.append(" | ");
 
 //        this.buttonsDiv.append("<a href='merchant.html'>Merchant</a>");
