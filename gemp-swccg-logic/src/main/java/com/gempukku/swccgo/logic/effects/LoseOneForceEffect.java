@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -84,9 +85,15 @@ public class LoseOneForceEffect extends AbstractSuccessfulEffect {
         }
 
         if (_isBattleDamage) {
+            int increaseBy = 1;
+            if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DROIDS_SATISFY_FORCE_LOSS_UP_TO_THEIR_FORFEIT_VALUE, playerId)
+                    && _card.getBlueprint().hasIcon(Icon.DROID) && (zone.isLifeForce() || zone == Zone.HAND)) {
+                increaseBy = _card.getBlueprint().getForfeit().intValue();
+            }
+
             BattleState battleState = game.getGameState().getBattleState();
-            battleState.increaseBattleDamageSatisfied(playerId, 1);
-            battleState.increaseForceLostToBattleDamage(playerId, 1);
+            battleState.increaseBattleDamageSatisfied(playerId, increaseBy);
+            battleState.increaseForceLostToBattleDamage(playerId, increaseBy);
             _amountLostSoFar = battleState.getForceLostToBattleDamage(playerId);
         }
 
