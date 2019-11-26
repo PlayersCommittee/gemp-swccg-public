@@ -3213,6 +3213,8 @@ var fixedImages = {
 "501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
 "501_19":"/gemp-swccg/images/cards/Virtual4-Dark/f11dblasterrifle.gif",
 "501_20":"/gemp-swccg/images/cards/Virtual4-Dark/firstorderstormtrooper.gif",
+"501_21":"/gemp-swccg/images/cards/Virtual0-Dark/blasterrack.gif",
+"501_22":"/gemp-swccg/images/cards/Virtual0-Light/saitorrkalfas.gif",
 };
 
 var packBlueprints = {
