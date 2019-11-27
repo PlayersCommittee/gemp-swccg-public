@@ -9,10 +9,12 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,22 +37,36 @@ public class Card501_022 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.BLASTER_RACK__DOWNLOAD_MATCHING_WEAPON;
 
+        Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
+        Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
+        final Collection<PhysicalCard> validCharacters = new LinkedList<>();
+
+        for(PhysicalCard character: characters){
+            Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.matchingWeaponForCharacter(character));
+            for(PhysicalCard weapon: matchingWeaponsForCharacter){
+                if(!matchingWeapons.contains(weapon)){
+                    matchingWeapons.add(weapon);
+                    validCharacters.add(character);
+                }
+            }
+        }
+
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose Character", Filters.and(Filters.unique, Filters.character)) {
+                    new ChooseCardFromReserveDeckEffect(action, playerId, Filters.in(matchingWeapons)) {
                         @Override
-                        protected void cardSelected(PhysicalCard character) {
-                            action.setText("Deploy matching weapon on " + GameUtils.getFullName(character));
-                            action.setActionMsg("Deploy matching weapon on " + GameUtils.getCardLink(character) + " from Reserve Deck");
+                        protected void cardSelected(SwccgGame game, final PhysicalCard weapon) {
+                            action.setText("Deploy " + GameUtils.getCardLink(weapon));
+                            action.setActionMsg("Deploy " + GameUtils.getCardLink(weapon));
                             // Update usage limit(s)
                             action.appendUsage(
                                     new OncePerPhaseEffect(action));
                             // Perform result(s)
                             action.appendEffect(
-                                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.matchingWeaponForCharacter(character), Filters.sameCardId(character), true));
+                                    new DeployCardToTargetFromReserveDeckEffect(action, weapon, Filters.in(validCharacters), false, false, true));
                         }
                     }
             );
