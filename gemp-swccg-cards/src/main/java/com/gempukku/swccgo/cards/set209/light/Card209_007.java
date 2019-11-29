@@ -1,15 +1,20 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.MayNotCancelBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDrawMoreThanBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,19 +40,15 @@ public class Card209_007 extends AbstractRebel {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
 
-        Filter twoSnubsFilter = Filters.and(Filters.system, Filters.wherePresent(self,
-                Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter, Filters.presentWith(self, Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter)))));
+        Filter yourPilotedSnubFighter = Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter);
+        Filter systemWithTwoPilotedSnubFighters = Filters.and(Filters.system, Filters.wherePresent(self,
+                Filters.and(yourPilotedSnubFighter, Filters.presentWith(self, yourPilotedSnubFighter))));
+        Condition atWarRoomCondition = new AtCondition(self, Filters.war_room);
 
-        Condition twoSnubsCondition = new DuringBattleWithParticipantCondition(2, Filters.and(Filters.your(self), Filters.piloted, Filters.snub_fighter));
-
-        if (GameConditions.isAtLocation(game, self, Filters.war_room))
-        {
-            List<Modifier> modifiers = new LinkedList<Modifier>();
-            modifiers.add(new MoveCostFromLocationModifier(self, Filters.and(Filters.your(opponent), Filters.Imperial_starship), 1, twoSnubsFilter));
-            modifiers.add(new MayNotCancelBattleDestinyModifier(self, Filters.system, opponent, twoSnubsCondition, playerId));
-            modifiers.add(new MayNotDrawMoreThanBattleDestinyModifier(self, twoSnubsCondition, 1, opponent));
-            return modifiers;
-        }
-        return null;
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new MoveCostFromLocationModifier(self, Filters.and(Filters.your(opponent), Filters.Imperial_starship), atWarRoomCondition, 1, systemWithTwoPilotedSnubFighters));
+        modifiers.add(new MayNotCancelBattleDestinyModifier(self, systemWithTwoPilotedSnubFighters, opponent, atWarRoomCondition, playerId));
+        modifiers.add(new MayNotDrawMoreThanBattleDestinyModifier(self, systemWithTwoPilotedSnubFighters, atWarRoomCondition, 1, opponent));
+        return modifiers;
     }
 }
