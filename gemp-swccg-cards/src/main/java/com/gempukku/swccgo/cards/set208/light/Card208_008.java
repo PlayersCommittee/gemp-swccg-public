@@ -31,6 +31,7 @@ public class Card208_008 extends AbstractRebel {
         setGameText("[Pilot] 3. If armed with a blaster or rifle at a site (or piloting Red 5), may add one destiny to total power or attrition. Run Luke, Run! is a Used Interrupt. Immune to attrition < 4.");
         addPersona(Persona.LUKE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_8);
+        addKeyword(Keyword.RED_SQUADRON);
         setMatchingStarshipFilter(Filters.Red_5);
     }
 
