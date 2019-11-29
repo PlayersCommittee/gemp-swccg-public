@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -48,7 +47,7 @@ public class Card501_001 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ResetDeployCostModifier(self, deathStarIILuke, 6));
         modifiers.add(new MayNotBeDisarmedModifier(self, deathStarIILuke));
-        modifiers.add(new EachBattleDestinyModifier(self, new AtCondition(self, Filters.any, Filters.sameLocationAs(self, SpotOverride.INCLUDE_CAPTIVE , Filters.or(Filters.Luke))), 1, playerId));
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.sameLocationAs(self, SpotOverride.INCLUDE_CAPTIVE, Filters.or(Filters.Luke)), 1, playerId));
         return modifiers;
     }
 
