@@ -10,6 +10,7 @@ public enum ModifyGameTextType {
     // Game text modifier flags
     // (Naming convention: CardIdentifier__ModificationIdentifier)
     ALWAYS_THINKING_WITH_YOUR_STOMACH__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
+    BOONTA_EVE_PODRACE__RETRIEVE_FORCE_INTO_HAND("Take any or all force retrieved into hand"),
     BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE("May not capture Luke"),
     BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
     COUNTER_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
@@ -17,6 +18,7 @@ public enum ModifyGameTextType {
     DEATH_STAR__MAY_DEPLOY_WITHOUT_COMPLETING_DEATH_STAR_PLANS("May deploy without completing Death Star Plans"),
     DEATH_STAR_PLANS__ADD_DESTINY_TO_FORCE_RETRIEVED("Add one destiny to Force retrieved"),
     DEATH_STAR_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
+    DO_THEY_HAVE_A_CODE_CLEARANCE__DOESNT_MODIFY_FORFEIT("Does not modify Imperials' forfeit."),
     DONT_UNDERESTIMATE_OUR_CHANCES__TRIPLE_RESULT("Triple result"),
     EBO__ADDITIONAL_SITE_TO_CANCEL("Opponent must occupy additional Hoth site to cancel"),
     ELLORRS_MADAK__ADDITIONAL_2_TO_POWER_BONUS("Additional 2 to power bonus"),

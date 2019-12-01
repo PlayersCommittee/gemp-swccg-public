@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.DrawRaceDestinyEffect;
 import com.gempukku.swccgo.logic.effects.FinishPodraceEffect;
 import com.gempukku.swccgo.logic.effects.InitiatePodraceEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -154,8 +155,9 @@ public class Card11_079 extends AbstractEpicEventDeployable {
                 action.setText("Finish Podrace");
                 action.setActionMsg(null);
                 // Perform result(s)
+                boolean retrieveForceIntoHand = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BOONTA_EVE_PODRACE__RETRIEVE_FORCE_INTO_HAND) && (winner.equals(playerId));
                 action.appendEffect(
-                        new FinishPodraceEffect(action, 6, 6));
+                        new FinishPodraceEffect(action, 6, 6, retrieveForceIntoHand));
                 return Collections.singletonList(action);
 
             }

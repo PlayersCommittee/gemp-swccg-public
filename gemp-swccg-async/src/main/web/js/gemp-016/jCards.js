@@ -3196,6 +3196,25 @@ var fixedImages = {
 "501_3":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
 "501_5": "/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
+"501_6": "/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
+"501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
+"501_8":"/gemp-swccg/images/cards/Virtual0-Light/lukeskywalkerrebelscout.gif",
+"501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
+"501_10": "/gemp-swccg/images/cards/Virtual9-Light/abraveresistance.gif",
+"501_11": "/gemp-swccg/images/cards/Virtual4-Light/senatormonmothma.gif",
+"501_12":"/gemp-swccg/images/cards/Virtual4-Light/oldallies.gif",
+"501_12_BACK":"/gemp-swccg/images/cards/Virtual4-Light/weneedyourhelp.gif",
+"501_13":"/gemp-swccg/images/cards/Virtual5-Light/leiaofalderaan.gif",
+"501_14":"/gemp-swccg/images/cards/Virtual5-Dark/overseeingitpersonally.gif",
+"501_15":"/gemp-swccg/images/cards/Virtual10-Dark/ralltiiroperations.gif",
+"501_15_BACK":"/gemp-swccg/images/cards/Virtual10-Dark/inthehandsoftheempire.gif",
+"501_16":"/gemp-swccg/images/cards/DeathStarII-Dark/insignificantrebellion.gif",
+"501_17":"/gemp-swccg/images/cards/Virtual1-Dark/imperialdomination.gif",
+"501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
+"501_19":"/gemp-swccg/images/cards/Virtual4-Dark/f11dblasterrifle.gif",
+"501_20":"/gemp-swccg/images/cards/Virtual4-Dark/firstorderstormtrooper.gif",
+"501_21":"/gemp-swccg/images/cards/Virtual0-Dark/blasterrack.gif",
+"501_22":"/gemp-swccg/images/cards/Virtual0-Light/saitorrkalfas.gif",
 };
 
 var packBlueprints = {
@@ -3578,7 +3597,7 @@ var Card = Class.extend({
                    (cardNo >= 44 && cardNo <= 47);
         }
         if (setNo == 501) {
-            return (cardNo == 9);
+            return false;
         }
 
         return false;

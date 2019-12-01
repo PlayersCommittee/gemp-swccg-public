@@ -111,12 +111,21 @@ public class Card112_015 extends AbstractObjective {
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, Filters.operative, playerId), null));
+        // Was going to remove these from the code altogether, but then realized if someone v'ed No Bargain and Bad Feeling Have I
+        //  to  do something other than affect the deploy cost of characters, as worded this applies. - Jim
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new ImmuneToTitleModifier(self, Filters.Rebel, frozenHanOnTable, Title.No_Bargain), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new ImmuneToTitleModifier(self, Filters.Rebel, frozenHanOnTable, Title.Bad_Feeling_Have_I), null));
+        // The "Immune To Deploy Cost Modifiers To Location Modifier" is needed to negate the deploy cost modifiers.
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(action,
+                        new ImmuneToDeployCostModifiersToLocationModifier(self, Filters.Rebel, frozenHanOnTable, Filters.No_Bargain, Filters.location), null));
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(action,
+                        new ImmuneToDeployCostModifiersToLocationModifier(self, Filters.Rebel, frozenHanOnTable, Filters.Bad_Feeling_Have_I, Filters.location), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayDeployAsIfFromHandModifier(self, Filters.and(Filters.stackedOn(self), Filters.your(playerId), Filters.sameTitle(rep))), null));

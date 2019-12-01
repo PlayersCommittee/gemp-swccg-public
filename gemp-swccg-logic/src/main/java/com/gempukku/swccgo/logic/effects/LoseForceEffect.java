@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -395,7 +396,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
             subAction.appendEffect(
                     new PassthruEffect(subAction) {
                         @Override
-                        protected void doPlayEffect(SwccgGame game) {
+                        protected void doPlayEffect(final SwccgGame game) {
 
                             // 1) The player chooses which card to lose as Force loss.
                             final List<PhysicalCard> selectableCards = new LinkedList<PhysicalCard>();
@@ -442,7 +443,12 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                                         @Override
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
                                             List<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                                            _amountLostSoFar++;
+                                            if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DROIDS_SATISFY_FORCE_LOSS_UP_TO_THEIR_FORFEIT_VALUE, _playerToLoseForce)
+                                                    && cards.get(0).getBlueprint().hasIcon(Icon.DROID) && (_fromHand || _fromUsedPile || _fromForcePile || _fromReserveDeck)) {
+                                                _amountLostSoFar = _amountLostSoFar + cards.get(0).getBlueprint().getForfeit().intValue();
+                                            } else {
+                                                _amountLostSoFar++;
+                                            }
                                             subAction.appendEffect(
                                                     new LoseOneForceEffect(subAction, cards.get(0), _amountLostSoFar, false, _isFromForceDrain, _stackFaceDownOn, _asLiberationCard) {
                                                         @Override

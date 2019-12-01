@@ -11919,6 +11919,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (card.isCrashed())
             return false;
 
+        // Pilots of landed vehicles are considered passengers.
+        if (blueprint.getCardCategory() == CardCategory.VEHICLE && card.isInCargoHoldAsVehicle())
+            return false;
+
         // Creature vehicles and Lift Tubes are piloted
         if (blueprint.getCardSubtype()==CardSubtype.CREATURE || card.getTitle().equals(Title.Lift_Tube))
             return true;
@@ -11930,6 +11934,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 || (card.getAtLocation() != null && !forStarshipTakeoff && Filters.and(Filters.site, Filters.not(Filters.Death_Star_Trench)).accepts(gameState, this, card.getAtLocation()))))
             return false;
 
+        // Make sure at least one active pilot fits the valid pilot filter (see "Mist Hunter" from Dagobah for example)
+        for (PhysicalCard pilotCard : gameState.getPilotCardsAboard(this, card, true)) {
+            if (gameState.isCardInPlayActive(pilotCard, false, false, false, forStarshipTakeoff, false, false, false, false)
+                    && card.getBlueprint().getValidPilotFilter(card.getOwner(), gameState.getGame(), card, false).accepts(gameState, gameState.getGame().getModifiersQuerying(), pilotCard)) {
+                return true;
+            }
+        }
+
         // Check for permanent pilots
         int permanentPilotCount = getIconCount(gameState, card, Icon.PILOT);
         if (permanentPilotCount > 0) {
@@ -11937,14 +11949,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 return permanentPilotCount >= blueprint.getModelTypes().size();
             }
             else {
-                return true;
-            }
-        }
-
-        // Make sure at least one active pilot fits the valid pilot filter (see "Mist Hunter" from Dagobah for example)
-        for (PhysicalCard pilotCard : gameState.getPilotCardsAboard(this, card, true)) {
-            if (gameState.isCardInPlayActive(pilotCard, false, false, false, forStarshipTakeoff, false, false, false, false)
-                    && card.getBlueprint().getValidPilotFilter(card.getOwner(), gameState.getGame(), card, false).accepts(gameState, gameState.getGame().getModifiersQuerying(), pilotCard)) {
                 return true;
             }
         }

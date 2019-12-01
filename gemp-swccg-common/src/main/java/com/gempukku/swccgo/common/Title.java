@@ -259,6 +259,7 @@ public interface Title {
     String Diplomatic_Mission_To_Alderaan = "Diplomatic Mission To Alderaan";
     String Disarmed = "Disarmed";
     String Do_Or_Do_Not = "Do, Or Do Not";
+    String Do_They_Have_A_Code_Clearance = "Do They Have A Code Clearance?";
     String Doallyn = "Sergeant Doallyn";
     String Dobra_Doompa = "Dopra Doompa";
     String Docking_And_Repair_Facilities = "Docking And Repair Facilities";
@@ -620,7 +621,7 @@ public interface Title {
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation_Chamber = "Executor: Meditation Chamber";
-    String Mercenary_Armor = "Mercenary_Armor";
+    String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
     String Mianda = "Major Mianda";
     String Miiyoom_Onith = "M'iiyoom Onith";
@@ -818,7 +819,7 @@ public interface Title {
     String Sacrifice = "Sacrifice";
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
-    String Saddle = "Ahch To: Saddle";
+    String Saddle = "Ahch-To: Saddle";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
     String Sandwhirl = "Sandwhirl";
     String Sanity_And_Compassion = "Sanity And Compassion";

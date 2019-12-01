@@ -70,7 +70,7 @@ public class Card5_001 extends AbstractRebel {
 
         // Check condition(s)
         if ((TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId)))
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isInBattle(game, self)
                 && GameConditions.canUseForce(game, playerId, 2)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
