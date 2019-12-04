@@ -66,7 +66,7 @@ public class Card501_013 extends AbstractNormalEffect {
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
-        final Filter leaderFilter = Filters.and(Filters.leader, Filters.with(self), Filters.abilityLessThan(4));
+        final Filter leaderFilter = Filters.and(Filters.leader, Filters.opponents(self), Filters.with(self), Filters.abilityLessThan(4));
 
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
