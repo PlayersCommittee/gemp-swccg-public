@@ -24,14 +24,13 @@ import java.util.List;
 /**
  * Set: Set 1
  * Type: Effect
- * Title: Imperial Domination (V)
+ * Title: Imperial Enforcement
  */
 public class Card201_030 extends AbstractNormalEffect {
     public Card201_030() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Domination", Uniqueness.RESTRICTED_2);
-        setVirtualSuffix(true);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Enforcement", Uniqueness.UNIQUE);
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
-        setGameText("Deploy on table. Lost if your non-Imperial character (or starship) on table. Unless you occupy fewer locations than opponent: if you win a battle, retrieve an Imperial; and, during battle, may take an Imperial just drawn for destiny into hand to cancel and redraw that destiny. [Immune to Alter]");
+        setGameText("Deploy on table. Lost if your non-Imperial character (or starship) on table. Unless you occupy fewer locations than opponent: if you win a battle, retrieve an Imperial; and, during battle, may take an Imperial just drawn for destiny into hand to cancel and redraw that destiny. (Immune to Alter.)");
         addIcons(Icon.HOTH, Icon.VIRTUAL_SET_1);
         addImmuneToCardTitle(Title.Alter);
     }
