@@ -127,7 +127,7 @@ public class Card211_026_BACK extends AbstractObjective {
                                                     if (index == 0) {
                                                         gameState.sendMessage(opponent + " chooses to lose 2 Force and place card on bottom of Used Pile");
                                                         action.appendEffect(
-                                                                new LoseForceEffect(action, opponent, 2));
+                                                                new LoseForceEffect(action, opponent, 2, true));
                                                         action.appendEffect(
                                                                 new PutCardFromCardPileOnBottomOfCardPileEffect(action, playerId, selectedCard, Zone.USED_PILE, false));
                                                     } else {
