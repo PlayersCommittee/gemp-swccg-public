@@ -54,6 +54,8 @@ public class Card200_045 extends AbstractNormalEffect {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("[download] a matching weapon");
+            action.setActionMsg("[download] a matching weapon");
             action.appendTargeting(
                     new ChooseCardFromReserveDeckEffect(action, playerId, Filters.in(matchingWeapons)) {
                         @Override
