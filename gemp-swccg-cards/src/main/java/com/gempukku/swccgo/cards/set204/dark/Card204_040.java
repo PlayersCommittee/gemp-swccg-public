@@ -11,7 +11,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
-import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -35,7 +35,7 @@ public class Card204_040 extends AbstractFirstOrder {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeploysFreeToLocationModifier(self, Filters.sameSiteAs(self, Filters.First_Order_leader)));
+        modifiers.add(new DeployCostToLocationModifier(self, -1, Filters.sameSiteAs(self, Filters.First_Order_leader)));
         return modifiers;
     }
 

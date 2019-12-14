@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set210.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -23,19 +23,18 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Set: Set 12
+ * Set: Set 10
  * Type: Effect
  * Title: Insignificant Rebellion (V)
  */
-public class Card501_016 extends AbstractNormalEffect {
-    public Card501_016() {
+public class Card210_047 extends AbstractNormalEffect {
+    public Card210_047() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Insignificant_Rebellion, Uniqueness.UNIQUE);
         setLore("'Your fleet is lost. And your friends on the Endor moon will not survive. There is no escape, my young apprentice.'");
         setGameText("Deploy on table if Ralltiir Operations on table. Once per battle, when you draw battle destiny, may exchange a card in hand with a card of same card type in Lost Pile. Do They Have A Code Clearance? does not modify Imperials' forfeit values. [Immune to Alter.]");
-        addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_12);
+        addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_10);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
-        setTestingText("Insignificant Rebellion (V)");
     }
 
     @Override

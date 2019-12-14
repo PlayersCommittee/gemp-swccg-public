@@ -34,10 +34,9 @@ import java.util.List;
 public class Card204_032_BACK extends AbstractObjective {
     public Card204_032_BACK() {
         super(Side.LIGHT, 7, Title.We_Need_Your_Help);
-        setGameText("While this side up, once per turn may [download] a Jakku location. Once during opponent's control phase, if you control two Jakku battlegrounds and are about to lose Force, may reduce that Force loss to 1 (may not be further reduced). Once per battle involving your Resistance character, may subtract 2 from a just drawn destiny. While with Han, your [Episode VII] characters and [Episode VII] starships are defense value +2. Flip this card if you do not occupy two battlegrounds.");
+        setGameText("While this side up, once per turn may [download] a Jakku location. Once during opponent's control phase, if you control two Jakku battlegrounds and are about to lose Force (except to a Force drain at a Jakku location), may reduce that Force loss to 1 (may not be further reduced). Once per battle involving your Resistance character, may subtract 2 from a just drawn destiny. While with Han, your [Episode VII] characters and [Episode VII] starships are defense value +2. Flip this card if you do not occupy two battlegrounds.");
         addIcons(Icon.PREMIUM, Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }
-
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OLD_ALLIES__DOWNLOAD_JAKKU_LOCATION;
@@ -68,6 +67,7 @@ public class Card204_032_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (TriggerConditions.isAboutToLoseForceMoreThan(game, effectResult, playerId, 1)
+                && !TriggerConditions.isAboutToLoseForceFromForceDrainAt(game, effectResult, playerId, Filters.Jakku_location)
                 && GameConditions.canReduceForceLoss(game)
                 && GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.controls(game, playerId, 2, Filters.Jakku_battleground)) {

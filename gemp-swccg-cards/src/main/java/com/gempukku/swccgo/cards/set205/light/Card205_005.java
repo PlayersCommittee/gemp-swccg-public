@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set205.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -13,10 +13,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
-import com.gempukku.swccgo.logic.effects.CancelImmunityToAttritionUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -32,18 +34,18 @@ public class Card205_005 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Leia_Of_Alderaan, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("The face that launched a thousand starships.");
-        setGameText("Deploy on a Rebel leader. Opponent may not cancel or reduce Force drains at same battleground. If on Leia, she is a general, power +2, and, once per turn, may cancel the immunity to attrition of a character (or game text of a [Jabba's Palace] alien) here for remainder of turn.");
+        setGameText("Deploy on Leia (or your female of ability < 4). Opponent may not cancel or reduce Force drains at same battleground. If on Leia, she is power +2 and, once per battle, may cancel the game text of an opponent's leader of ability < 4 here.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_5);
     }
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Rebel_leader;
+        return Filters.and(Filters.your(self), Filters.or(Persona.LEIA, Filters.and(Filters.female, Filters.abilityLessThan(4))));
     }
 
     @Override
     protected Filter getGameTextValidTargetFilterToRemainAttachedToAfterCrossingOver(final SwccgGame game, final PhysicalCard self, PlayCardOptionId playCardOptionId) {
-        return Filters.Rebel;
+        return Filters.or(Persona.LEIA, Filters.and(Filters.female, Filters.abilityLessThan(4)));
     }
 
     @Override
@@ -56,79 +58,50 @@ public class Card205_005 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, sameBattleground, opponent, null));
         modifiers.add(new ForceDrainsMayNotBeReducedModifier(self, sameBattleground, opponent, null));
-        modifiers.add(new KeywordModifier(self, attachedTo, isOnLeia, Keyword.GENERAL));
         modifiers.add(new PowerModifier(self, attachedTo, isOnLeia, 2));
         return modifiers;
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        final Filter leaderFilter = Filters.and(Filters.leader, Filters.opponents(self), Filters.with(self), Filters.abilityLessThan(4));
+
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+        if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isInBattle(game, self)
+                && GameConditions.canTarget(game, self, leaderFilter)
                 && GameConditions.isAttachedTo(game, self, Filters.Leia)) {
-            Filter filter1 = Filters.and(Filters.character, Filters.here(self), Filters.hasAnyImmunityToAttrition);
-            if (GameConditions.canTarget(game, self, filter1)) {
 
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-                action.setText("Cancel character's immunity to attrition");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerTurnEffect(action));
-                // Choose target(s)
-                action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose character", filter1) {
-                            @Override
-                            protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
-                                action.addAnimationGroup(cardTargeted);
-                                // Allow response(s)
-                                action.allowResponses("Cancel " + GameUtils.getCardLink(cardTargeted) + "'s immunity to attrition",
-                                        new UnrespondableEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new CancelImmunityToAttritionUntilEndOfTurnEffect(action, cardTargeted,
-                                                                "Cancels " + GameUtils.getCardLink(cardTargeted) + "'s immunity to attrition"));
-                                            }
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            action.setText("Cancel a leader's game text");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerBattleEffect(action));
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose leader", leaderFilter) {
+                        @Override
+                        protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            // Allow response(s)
+                            action.allowResponses("Cancel " + GameUtils.getCardLink(targetedCard) + "'s game text",
+                                    new UnrespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new CancelGameTextUntilEndOfTurnEffect(action, targetedCard));
                                         }
-                                );
-                            }
+                                    }
+                            );
                         }
-                );
-                actions.add(action);
-            }
-            Filter filter2 = Filters.and(Icon.JABBAS_PALACE, Filters.alien, Filters.here(self));
-            if (GameConditions.canTarget(game, self, filter2)) {
-
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-                action.setText("Cancel alien's game text");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerTurnEffect(action));
-                // Choose target(s)
-                action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose alien", filter2) {
-                            @Override
-                            protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
-                                action.addAnimationGroup(cardTargeted);
-                                // Allow response(s)
-                                action.allowResponses("Cancel " + GameUtils.getCardLink(cardTargeted) + "'s game text",
-                                        new UnrespondableEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new CancelGameTextUntilEndOfTurnEffect(action, cardTargeted));
-                                            }
-                                        }
-                                );
-                            }
-                        }
-                );
-                actions.add(action);
-            }
+                    }
+            );
+            actions.add(action);
         }
         return actions;
     }

@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,7 +10,6 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
@@ -24,8 +22,6 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import java.util.Collections;
 import java.util.List;
 
-import static com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect.exchangeCardInHandWIthCardOfSameTypeInLostPile;
-
 /**
  * Set: Set 10
  * Type: Objective
@@ -36,7 +32,7 @@ public class Card210_042 extends AbstractObjective {
         super(Side.DARK, 0, Title.Ralltiir_Operations);
         setVirtualSuffix(true);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Ralltiir system. For remainder of game, spaceport sites are immune to He Hasn't Come Back Yet and Ounee Ta. Your Force generation is +1 at each Ralltiir location. Once per battle, when you draw battle destiny, may exchange a card in hand with a card of same card type in Lost Pile. While this side up, once per turn, may deploy from Reserve Deck a site (or non-unique Imperial) to Ralltiir. Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations.");
+        setGameText("Deploy Ralltiir system. For remainder of game, spaceport sites are immune to Always Thinking With Your Stomach, He Hasn't Come Back Yet, and Ounee Ta. Your Force generation is +1 at each Ralltiir location. While this side up, once per turn, may deploy a site (or non-unique Imperial) to Ralltiir from Reserve Deck; reshuffle. Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);
     }
 
@@ -52,23 +48,6 @@ public class Card210_042 extends AbstractObjective {
         action.appendEffect(spaceportSitesImmuneToOuneeTaForRemainderOfGame(self, action));
         yourForceGenPlusOneAtEachRalltiirLocation(self, game);
         return action;
-    }
-
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        // This is technically text for the front side, but it seemed needlessly complicated
-        //   to attempt to code it as a AddUntilEndOfGameModifierEffect. If there ever is a
-        //   "place out of play" condition for this objective, this will need to change.
-        GameTextActionId gameTextActionId = GameTextActionId.RALLTIIR_OPERATIONS__LOST_PILE_SWAP;
-        final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-        // Check condition(s)
-        if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, game.getDarkPlayer())
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-            action.setText("Exchange a card in hand with a card in Lost Pile");
-            action.appendUsage(new OncePerBattleEffect(action));
-            return exchangeCardInHandWIthCardOfSameTypeInLostPile(playerId, action);
-        }
-        return null;
     }
 
     @Override
