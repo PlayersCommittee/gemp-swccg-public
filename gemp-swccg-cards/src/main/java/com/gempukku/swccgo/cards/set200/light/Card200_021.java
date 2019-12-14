@@ -31,7 +31,7 @@ public class Card200_021 extends AbstractRebel {
         setLore("Resourceful scout and member of the Rebel infiltration team assembled to destroy the shield generator. Surrendered to his father so that he would not endanger the mission.");
         setGameText("[Pilot] 2. If drawn for destiny, may take into hand to cancel and redraw that destiny. Power +1 for each Dark Jedi here. Luke's weapon destiny draws are +1. At same site, opponent must first use 1 Force to fire a weapon. Immune to attrition < 6.");
         addPersona(Persona.LUKE);
-        addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR, Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_12);
+        addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR, Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.SCOUT);
     }
 

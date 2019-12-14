@@ -30,7 +30,6 @@ public class Card204_040 extends AbstractFirstOrder {
         setGameText("Deploys free to same site as a First Order leader. Opponent's characters here are cumulatively defense value -1 (limit -3).");
         addIcons(Icon.EPISODE_VII, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.STORMTROOPER);
-        ;
     }
 
     @Override
