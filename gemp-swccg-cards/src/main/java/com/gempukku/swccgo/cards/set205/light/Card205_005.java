@@ -15,7 +15,10 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -55,7 +58,6 @@ public class Card205_005 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, sameBattleground, opponent, null));
         modifiers.add(new ForceDrainsMayNotBeReducedModifier(self, sameBattleground, opponent, null));
-        modifiers.add(new KeywordModifier(self, attachedTo, isOnLeia, Keyword.GENERAL));
         modifiers.add(new PowerModifier(self, attachedTo, isOnLeia, 2));
         return modifiers;
     }
