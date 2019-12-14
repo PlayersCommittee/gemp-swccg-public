@@ -31,7 +31,7 @@ public class Card205_005 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Leia_Of_Alderaan, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("The face that launched a thousand starships.");
-        setGameText("Deploy on your female. Opponent may not cancel or reduce Force drains at same battleground. If on Leia, she is a general, power +2 and, once per turn, may cancel the immunity to attrition of a character (or game text of a [Jabba's Palace] alien) here for remainder of turn.");
+        setGameText("Deploy on Leia (or your female of ability < 4). Opponent may not cancel or reduce Force drains at same battleground. If on Leia, she is power +2 and, once per battle, may cancel the game text of an opponent's leader of ability < 4 here.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_5);
     }
 
