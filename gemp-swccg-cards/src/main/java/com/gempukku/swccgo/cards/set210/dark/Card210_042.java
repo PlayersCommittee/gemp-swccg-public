@@ -32,7 +32,7 @@ public class Card210_042 extends AbstractObjective {
         super(Side.DARK, 0, Title.Ralltiir_Operations);
         setVirtualSuffix(true);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Ralltiir system. For remainder of game, spaceport sites are immune to He Hasn't Come Back Yet and Ounee Ta. Your Force generation is +1 at each Ralltiir location. Once per battle, when you draw battle destiny, may exchange a card in hand with a card of same card type in Lost Pile. While this side up, once per turn, may deploy from Reserve Deck a site (or non-unique Imperial) to Ralltiir. Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations.");
+        setGameText("Deploy Ralltiir system. For remainder of game, spaceport sites are immune to Always Thinking With Your Stomach, He Hasn't Come Back Yet, and Ounee Ta. Your Force generation is +1 at each Ralltiir location. While this side up, once per turn, may deploy a site (or non-unique Imperial) to Ralltiir from Reserve Deck; reshuffle. Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);
     }
 
