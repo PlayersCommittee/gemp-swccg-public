@@ -2769,7 +2769,7 @@ var fixedImages = {
 "201_27":"/gemp-swccg/images/cards/Virtual1-Dark/wooof.gif",
 "201_28":"/gemp-swccg/images/cards/Virtual1-Dark/despair.gif",
 "201_29":"/gemp-swccg/images/cards/Virtual1-Dark/endorshield.gif",
-"201_30":"/gemp-swccg/images/cards/Virtual1-Dark/imperialdomination.gif",
+"201_30":"/gemp-swccg/images/cards/Virtual1-Dark/imperialenforcement.gif",
 "201_31":"/gemp-swccg/images/cards/Virtual1-Dark/jabbashaven.gif",
 "201_32":"/gemp-swccg/images/cards/Virtual1-Dark/ngokwarbeast.gif",
 "201_33":"/gemp-swccg/images/cards/Virtual1-Dark/adarktimefortherebellion.gif",
