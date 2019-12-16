@@ -36,16 +36,14 @@ public class Card200_045 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.BLASTER_RACK__DOWNLOAD_MATCHING_WEAPON;
 
-        Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
+        final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
         Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
-        final Collection<PhysicalCard> validCharacters = new LinkedList<>();
 
         for (PhysicalCard character : characters) {
             Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.matchingWeaponForCharacter(character));
             for (PhysicalCard weapon : matchingWeaponsForCharacter) {
                 if (!matchingWeapons.contains(weapon)) {
                     matchingWeapons.add(weapon);
-                    validCharacters.add(character);
                 }
             }
         }
@@ -67,7 +65,7 @@ public class Card200_045 extends AbstractNormalEffect {
                                     new OncePerPhaseEffect(action));
                             // Perform result(s)
                             action.appendEffect(
-                                    new DeployCardToTargetFromReserveDeckEffect(action, weapon, Filters.in(validCharacters), false, false, true));
+                                    new DeployCardToTargetFromReserveDeckEffect(action, weapon, Filters.in(characters), false, false, true));
                         }
                     }
             );
