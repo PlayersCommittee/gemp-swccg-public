@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -46,6 +47,7 @@ public class Card210_042 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(spaceportSitesImmuneToHeHasntComeBackYetForRemainderOfGame(self, action));
         action.appendEffect(spaceportSitesImmuneToOuneeTaForRemainderOfGame(self, action));
+        action.appendEffect(mayNotPlayAlwaysThinkingWithYourStomach(self, action));
         yourForceGenPlusOneAtEachRalltiirLocation(self, game);
         return action;
     }
@@ -111,5 +113,10 @@ public class Card210_042 extends AbstractObjective {
     private AddUntilEndOfGameModifierEffect spaceportSitesImmuneToOuneeTaForRemainderOfGame(PhysicalCard self, RequiredGameTextTriggerAction action) {
         return new AddUntilEndOfGameModifierEffect(action,
                 new ImmuneToTitleModifier(self, Filters.spaceport_site, Title.Ounee_Ta), null);
+    }
+
+    private AddUntilEndOfGameModifierEffect mayNotPlayAlwaysThinkingWithYourStomach(PhysicalCard self, RequiredGameTextTriggerAction action) {
+        return new AddUntilEndOfGameModifierEffect(action,
+                new MayNotPlayModifier(self, Filters.Always_Thinking_With_Your_Stomach, self.getOwner()), null);
     }
 }
