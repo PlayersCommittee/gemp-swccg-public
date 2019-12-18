@@ -8060,8 +8060,14 @@ public class Filters {
                 int numCaptives = gameState.getCaptivesOfEscort(card).size();
                 int pilotOrPassengerCapacity = physicalCard.getBlueprint().getPilotOrPassengerCapacity();
 
-                if (pilotOrPassengerCapacity > 0 && pilotOrPassengerCapacity < 1 + numCaptives)
-                    return false;
+                if (numCaptives > 0) {
+                    if (pilotOrPassengerCapacity > 0 && pilotOrPassengerCapacity < 1 + numCaptives)
+                        return false;
+
+                    if (gameState.getAvailablePassengerCapacity(modifiersQuerying, physicalCard, card) < numCaptives)
+                        return false;
+                }
+
 
                 return gameState.getAvailablePilotCapacity(modifiersQuerying, physicalCard, card) >= 1;
             }
