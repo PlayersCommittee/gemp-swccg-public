@@ -8057,6 +8057,12 @@ public class Filters {
                 if (!physicalCard.getBlueprint().getValidPilotFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, false).accepts(gameState, modifiersQuerying, card))
                     return false;
 
+                int numCaptives = gameState.getCaptivesOfEscort(card).size();
+                int pilotOrPassengerCapacity = physicalCard.getBlueprint().getPilotOrPassengerCapacity();
+
+                if (pilotOrPassengerCapacity > 0 && pilotOrPassengerCapacity < 1 + numCaptives)
+                    return false;
+
                 return gameState.getAvailablePilotCapacity(modifiersQuerying, physicalCard, card) >= 1;
             }
         };
@@ -8083,6 +8089,12 @@ public class Filters {
                     return false;
 
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER)
+                    return false;
+
+                int numCaptives = gameState.getCaptivesOfEscort(card).size();
+                int pilotOrPassengerCapacity = physicalCard.getBlueprint().getPilotOrPassengerCapacity();
+
+                if (pilotOrPassengerCapacity > 0 && pilotOrPassengerCapacity < 1 + numCaptives)
                     return false;
 
                 if (Filters.astromech_droid.accepts(gameState, modifiersQuerying, card)) {
