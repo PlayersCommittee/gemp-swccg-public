@@ -3198,6 +3198,7 @@ var fixedImages = {
 "501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
 "501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
 "501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
+"501_19":"/gemp-swccg/images/cards/Virtual0-Light/leia.gif",
 };
 
 var packBlueprints = {
