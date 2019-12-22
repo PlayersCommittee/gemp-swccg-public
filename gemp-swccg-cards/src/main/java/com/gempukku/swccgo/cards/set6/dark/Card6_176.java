@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card6_176 extends AbstractVehicleWeapon {
     public Card6_176() {
-        super(Side.DARK, 7, "Double Laser Cannon");
+        super(Side.DARK, 7, Title.Double_Laser_Cannon);
         setLore("Similar power output to the Atgar P-tower. Equipped with a hydraulic coolant system. Effective in dealing with raiding swoop gangs.");
         setGameText("Use 4 Force to deploy on Jabba's Sail Barge or your sandcrawler; it is power +3 and immune to attrition < 5. Your warrior present, if aboard, may target a vehicle using 2 Force. Draw destiny. Target hit if destiny +2 > defense value.");
         addIcons(Icon.JABBAS_PALACE);
