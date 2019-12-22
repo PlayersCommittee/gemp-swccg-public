@@ -3199,6 +3199,9 @@ var fixedImages = {
 "501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
 "501_18":"/gemp-swccg/images/cards/Virtual9-Light/reywithlightsaber.gif",
 "501_21":"/gemp-swccg/images/cards/Virtual3-Light/theforceisstrongwiththisone.gif",
+"501_22":"/gemp-swccg/images/cards/Virtual8-Dark/darthvaderslightsaber.gif",
+"501_23":"/gemp-swccg/images/cards/Virtual4-Dark/jabbassailbarge.gif",
+"501_24":"/gemp-swccg/images/cards/Virtual11-Dark/quietlyobserving.gif",
 };
 
 var packBlueprints = {
