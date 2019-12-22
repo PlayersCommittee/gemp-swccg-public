@@ -65,7 +65,7 @@ public class Card10_014 extends AbstractAdmiralsOrder {
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, playerId, Phase.CONTROL)) {
-            Collection<PhysicalCard> smugglersWhoCanUseLandspeed = Filters.filterActive(game, self, Filters.and(smugglerFilter, Filters.canMoveUsingLandspeed(playerId, false, false, false, 0)));
+            Collection<PhysicalCard> smugglersWhoCanUseLandspeed = Filters.filterActive(game, self, Filters.and(smugglerFilter, Filters.hasNotPerformedRegularMove, Filters.canMoveUsingLandspeed(playerId, false, false, false, 0)));
             if (!smugglersWhoCanUseLandspeed.isEmpty()) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Move smuggler using personal landspeed");
