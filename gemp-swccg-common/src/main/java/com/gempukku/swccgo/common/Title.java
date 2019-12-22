@@ -272,6 +272,7 @@ public interface Title {
     String Dont_Underestimate_Our_Chances = "Don't Underestimate Our Chances";
     String Double_Agent = "Double Agent";
     String Double_Back = "Double Back";
+    String Double_Laser_Cannon = "Double Laser Cannon";
     String Downtown_Plaza = "Cloud City: Downtown Plaza";
     String Duel_Of_The_Fates = "Duel Of The Fates";
     String Dune_Sea = "Tatooine: Dune Sea";
