@@ -139,7 +139,7 @@ public class HitCardResetForfeitAndRetrieveForceEffect extends AbstractSubAction
 
                                             if (_amountToRetrieve > 0) {
                                                 subAction.appendEffect(
-                                                        new RetrieveForceEffect(subAction, playerId, _amountToRetrieve));
+                                                        new RetrieveForceEffect(_cardFiringWeapon, subAction, playerId, _amountToRetrieve));
                                             }
                                         }
                                     }

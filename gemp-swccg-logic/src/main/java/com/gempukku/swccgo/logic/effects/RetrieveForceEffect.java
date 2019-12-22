@@ -14,6 +14,17 @@ public class RetrieveForceEffect extends ForceRetrievalEffect {
 
     /**
      * Creates an effect that causes the specified player to retrieve a specified amount of Force.
+     *
+     * @param action   the action performing this effect
+     * @param playerId the player to retrieve Force
+     * @param amount   the amount of Force to retrieve
+     */
+    public RetrieveForceEffect(PhysicalCard sourceCard, Action action, String playerId, float amount) {
+        super(sourceCard, action, playerId, Zone.USED_PILE, amount, false);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to retrieve a specified amount of Force.
      * @param action the action performing this effect
      * @param playerId the player to retrieve Force
      * @param amount the amount of Force to retrieve
