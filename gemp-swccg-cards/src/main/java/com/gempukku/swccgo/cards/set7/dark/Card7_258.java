@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -60,33 +61,27 @@ public class Card7_258 extends AbstractLostInterrupt {
                             @Override
                             protected void cardSelected(PhysicalCard system) {
                                 final Collection<PhysicalCard> starshipsAtSystem = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.starship, Filters.at(system)));
-
-                                // Build a list of all opponent's cards at the system that are affected
-                                // This will be all the ships AND the contents. Per the rules DS gets to put all
-                                // of the cards back in any order, so we need to target all the cards (not just the ships)
-                                ArrayList<PhysicalCard> affectedCards = new ArrayList<PhysicalCard>();
-
-                                // Add all contents of the starships first
-                                for (PhysicalCard starship: starshipsAtSystem) {
-                                    Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(starship));
-                                    affectedCards.addAll(cardsAboard);
-                                }
-
-                                // Add the starships
-                                affectedCards.addAll(starshipsAtSystem);
-
-                                // Build a "final" so we can give it to the calls below
-                                final ArrayList<PhysicalCard> affectedCardsCopy = new ArrayList<PhysicalCard>(affectedCards);
-
-                                action.addAnimationGroup(starshipsAtSystem);
-                                // Allow response(s)
-                                action.allowResponses("Place  " + GameUtils.getAppendedNames(starshipsAtSystem) + " in Used Pile",
-                                        new RespondablePlayCardEffect(action) {
+                                action.appendTargeting(
+                                        new TargetCardsOnTableEffect(action, playerId, "Target all starships at " + GameUtils.getCardLink(system), starshipsAtSystem.size(), starshipsAtSystem.size(), Filters.in(starshipsAtSystem)) {
                                             @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new PlaceCardsInUsedPileFromTableEffect(action, affectedCardsCopy, false, Zone.USED_PILE, true));
+                                            protected void cardsTargeted(int targetGroupId, Collection<PhysicalCard> targetedCards) {
+                                                final ArrayList<PhysicalCard> affectedCards = new ArrayList<PhysicalCard>();
+                                                for (PhysicalCard starship : starshipsAtSystem) {
+                                                    Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(starship));
+                                                    affectedCards.addAll(cardsAboard);
+                                                }
+                                                action.addAnimationGroup(starshipsAtSystem);
+                                                // Allow response(s)
+                                                action.allowResponses("Place  " + GameUtils.getAppendedNames(starshipsAtSystem) + " in Used Pile",
+                                                        new RespondablePlayCardEffect(action) {
+                                                            @Override
+                                                            protected void performActionResults(Action targetingAction) {
+                                                                // Perform result(s)
+                                                                action.appendEffect(
+                                                                        new PlaceCardsInUsedPileFromTableEffect(action, affectedCards, false, Zone.USED_PILE, true));
+                                                            }
+                                                        }
+                                                );
                                             }
                                         }
                                 );
