@@ -67,6 +67,7 @@ public class Card7_258 extends AbstractLostInterrupt {
                                             protected void cardsTargeted(int targetGroupId, Collection<PhysicalCard> targetedCards) {
                                                 final ArrayList<PhysicalCard> affectedCards = new ArrayList<PhysicalCard>();
                                                 for (PhysicalCard starship : starshipsAtSystem) {
+                                                    affectedCards.add(starship);
                                                     Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(starship));
                                                     affectedCards.addAll(cardsAboard);
                                                 }
