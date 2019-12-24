@@ -8085,8 +8085,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.DEVICE
-                        && physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
                         && physicalCard.getBlueprint().getCardCategory() != CardCategory.STARSHIP)
                     return false;
 
