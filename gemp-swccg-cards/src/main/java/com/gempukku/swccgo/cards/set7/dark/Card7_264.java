@@ -13,12 +13,14 @@ import com.gempukku.swccgo.game.state.AttackState;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.ModifyTotalPowerUntilEndOfAttackEffect;
 import com.gempukku.swccgo.logic.effects.ModifyTotalPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,67 +44,15 @@ public class Card7_264 extends AbstractUsedInterrupt {
 
         GameTextActionId gameTextActionId = GameTextActionId.TAUNTAUN_SKULL__PLACE_CARD_OUT_OF_PLAY_FROM_LOST_PILE;
 
-        // Check condition(s)
-        if (GameConditions.isDuringBattle(game)
-                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-            action.setText("Place card from Lost Pile out of play");
-            // Pay cost(s)
-            action.appendCost(
-                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, Filters.or(Filters.non_droid_character, Filters.creature, Filters.creature_vehicle), false) {
-                        @Override
-                        protected void cardPlacedOutOfPlay(PhysicalCard card) {
-                            final float destiny = game.getModifiersQuerying().getDestiny(game.getGameState(), card);
-                            // Allow response(s)
-                            action.allowResponses("Add " + GuiUtils.formatAsString(destiny) + " to total power",
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new ModifyTotalPowerUntilEndOfBattleEffect(action, destiny, playerId,
-                                                            "Adds " + GuiUtils.formatAsString(destiny) + " to total power"));
-                                        }
-                                    }
-                            );
-                        }
-                    }
-            );
-            actions.add(action);
-        }
-
-        // Check condition(s)
-        if (GameConditions.isDuringAttack(game)) {
-            AttackState attackState = game.getGameState().getAttackState();
-            if ((attackState.isNonCreatureAttackingCreature() && attackState.getAttackerOwner().equals(playerId))
-                    || (attackState.isCreatureAttackingNonCreature() && attackState.getDefenderOwner().equals(playerId))) {
-                if (GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
-
-                    final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-                    action.setText("Place card from Lost Pile out of play");
-                    // Pay cost(s)
-                    action.appendCost(
-                            new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, Filters.or(Filters.non_droid_character, Filters.creature, Filters.creature_vehicle), false) {
-                                @Override
-                                protected void cardPlacedOutOfPlay(PhysicalCard card) {
-                                    final float destiny = game.getModifiersQuerying().getDestiny(game.getGameState(), card);
-                                    // Allow response(s)
-                                    action.allowResponses("Add " + GuiUtils.formatAsString(destiny) + " to total power",
-                                            new RespondablePlayCardEffect(action) {
-                                                @Override
-                                                protected void performActionResults(Action targetingAction) {
-                                                    // Perform result(s)
-                                                    action.appendEffect(
-                                                            new ModifyTotalPowerUntilEndOfAttackEffect(action, destiny, playerId,
-                                                                    "Adds " + GuiUtils.formatAsString(destiny) + " to total power"));
-                                                }
-                                            }
-                                    );
-                                }
-                            }
-                    );
-                    actions.add(action);
+        if (GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
+            // Check condition(s)
+            if (GameConditions.isDuringBattle(game)) {
+                actions.add(getInterruptAction(self, game, gameTextActionId, playerId, false));
+            } else if (GameConditions.isDuringAttack(game)) {
+                AttackState attackState = game.getGameState().getAttackState();
+                if ((attackState.isNonCreatureAttackingCreature() && attackState.getAttackerOwner().equals(playerId))
+                        || (attackState.isCreatureAttackingNonCreature() && attackState.getDefenderOwner().equals(playerId))) {
+                    actions.add(getInterruptAction(self, game, gameTextActionId, playerId, true));
                 }
             }
         }
@@ -128,5 +78,45 @@ public class Card7_264 extends AbstractUsedInterrupt {
             actions.add(action);
         }
         return actions;
+    }
+
+    private PlayInterruptAction getInterruptAction(PhysicalCard self, final SwccgGame game, GameTextActionId gameTextActionId, final String playerId, final boolean isDuringAnAttack) {
+        final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
+        action.setText("Place card from Lost Pile out of play");
+        // Pay cost(s)
+        action.appendCost(
+                new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, Filters.or(Filters.non_droid_character, Filters.creature, Filters.creature_vehicle), false) {
+                    @Override
+                    protected void cardPlacedOutOfPlay(final PhysicalCard card) {
+                        action.appendCost(
+                                new RefreshPrintedDestinyValuesEffect(action, Collections.singletonList(card)) {
+                                    @Override
+                                    protected void refreshedPrintedDestinyValues() {
+                                        final float destiny = game.getModifiersQuerying().getDestiny(game.getGameState(), card);
+                                        // Allow response(s)
+                                        action.allowResponses("Add " + GuiUtils.formatAsString(destiny) + " to total power",
+                                                new RespondablePlayCardEffect(action) {
+                                                    @Override
+                                                    protected void performActionResults(Action targetingAction) {
+                                                        if (isDuringAnAttack) {
+                                                            action.appendEffect(
+                                                                    new ModifyTotalPowerUntilEndOfAttackEffect(action, destiny, playerId,
+                                                                            "Adds " + GuiUtils.formatAsString(destiny) + " to total power"));
+                                                        } else {
+                                                            // Perform result(s)
+                                                            action.appendEffect(
+                                                                    new ModifyTotalPowerUntilEndOfBattleEffect(action, destiny, playerId,
+                                                                            "Adds " + GuiUtils.formatAsString(destiny) + " to total power"));
+                                                        }
+                                                    }
+                                                }
+                                        );
+
+                                    }
+                                });
+                    }
+                }
+        );
+        return action;
     }
 }
