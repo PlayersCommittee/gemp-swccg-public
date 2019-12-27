@@ -26,13 +26,13 @@ public class Card7_168 extends AbstractAlien {
     public Card7_168() {
         super(Side.DARK, 1, 4, 3, 3, 3, Title.Boelo, Uniqueness.UNIQUE);
         setLore("Naroon Cuthus' predecessor as Jabba's right hand man. Sees what he wants to see. Hears what he wants to hear. Has a pet womp rat named Worra.");
-        setGameText("Deploys only on Tatooine or to same site as Jabba. When in a battle either at Audience Chamber or with your alien leader, may cancel one opponent's battle destiny just drawn.");
+        setGameText("Deploys only on Tatooine or to same location as Jabba. When in a battle either at Audience Chamber or with your alien leader, may cancel one opponent's battle destiny just drawn.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
     }
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(final SwccgGame game, final PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.or(Filters.Deploys_on_Tatooine, Filters.locationAndCardsAtLocation(Filters.sameSiteAs(self, Filters.Jabba)));
+        return Filters.or(Filters.Deploys_on_Tatooine, Filters.locationAndCardsAtLocation(Filters.sameLocationAs(self, Filters.Jabba)));
     }
 
     @Override
