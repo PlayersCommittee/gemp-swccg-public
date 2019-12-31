@@ -2,17 +2,20 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.InPlayDataEqualsCondition;
 import com.gempukku.swccgo.cards.effects.RevealCardFromOwnHandEffect;
-import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
+import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
@@ -56,26 +59,33 @@ public class Card7_216 extends AbstractDevice {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new SpecialFlagModifier(self, ModifierFlag.DO_NOT_SKIP_LISTENER_UPDATES_DURING_FORCE_ACTIVATION, self.getOwner()));
+        modifiers.add(new SpecialFlagModifier(self, new InPlayDataEqualsCondition(self, false), ModifierFlag.DO_NOT_SKIP_LISTENER_UPDATES_DURING_FORCE_ACTIVATION, self.getOwner()));
         return modifiers;
     }
 
     @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (self.getWhileInPlayData() != null && TriggerConditions.isStartOfEachTurn(game, effectResult)) {
+            self.setWhileInPlayData(new WhileInPlayData(false));
+        }
+        return null;
+    }
+
+    @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         // Check condition(s)
         if (TriggerConditions.forceActivated(game, effectResult, playerId)
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId)
-                && GameConditions.canUseDevice(game, self, self)) {
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             PhysicalCard cardActivated = ((ActivatedForceResult) effectResult).getCard();
             if (cardActivated.getZone() == Zone.TOP_OF_FORCE_PILE) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Draw activated Force into hand");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerTurnEffect(action));
-                action.appendUsage(
-                        new UseDeviceEffect(action, self));
                 // Perform result(s)
                 action.appendEffect(
                         new DrawCardIntoHandFromForcePileEffect(action, playerId) {
@@ -104,6 +114,9 @@ public class Card7_216 extends AbstractDevice {
                                 }
                             }
                         }
+                );
+                action.appendEffect(
+                        new SetWhileInPlayDataEffect(action, self, new WhileInPlayData(true))
                 );
                 return Collections.singletonList(action);
             }
