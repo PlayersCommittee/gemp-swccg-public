@@ -36,7 +36,7 @@ public class Card200_104 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.BLASTER_RACK__DOWNLOAD_MATCHING_WEAPON;
 
-        final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
+        final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.your(playerId), Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
         Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
 
         for (PhysicalCard character : characters) {
@@ -50,10 +50,11 @@ public class Card200_104 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
+                && !characters.isEmpty()) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("[download] a matching weapon");
-            action.setActionMsg("[download] a matching weapon");
+            action.setText("[Download] a matching weapon");
+            action.setActionMsg("[Download] a matching weapon");
             action.appendTargeting(
                     new ChooseCardFromReserveDeckEffect(action, playerId, Filters.in(matchingWeapons)) {
                         @Override
