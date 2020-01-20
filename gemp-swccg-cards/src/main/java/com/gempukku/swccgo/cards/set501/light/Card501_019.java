@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set501.light;
 
-import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.cards.AbstractRebelRepublic;
 import com.gempukku.swccgo.cards.conditions.HasSenateMajorityCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.*;
@@ -25,7 +25,7 @@ import static com.gempukku.swccgo.common.Title.Plea_To_The_Court;
  * Subtype: Rebel
  * Title: Leia (V) (Errata)
  */
-public class Card501_019 extends AbstractRebel {
+public class Card501_019 extends AbstractRebelRepublic {
     public Card501_019() {
         super(Side.LIGHT, 1, 3, 3, 4, 5, "Leia", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
