@@ -13567,7 +13567,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!occupiesLocation(gameState, location, playerId, spotOverrides))
             return false;
 
-        if (occupiesLocation(gameState, location, gameState.getOpponent(playerId), spotOverrides))
+        if (occupiesLocation(gameState, location, gameState.getOpponent(playerId), SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE))
             return false;
 
         if (!meetsExtraRequirementsToControlLocation(gameState, location, playerId, spotOverrides))
