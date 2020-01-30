@@ -59,8 +59,7 @@ public class Card501_004 extends AbstractAlien {
         Condition withHanOrYourRep = new WithCondition(self, hanOrYourRep);
 
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, hanOrYourRep, withHanOrYourRep));
-        modifiers.add(new MayNotBeTargetedByModifier(self, hanOrYourRep, withHanOrYourRep, Filters.Interrupt));
+        modifiers.add(new MayNotBeTargetedByModifier(self, hanOrYourRep, withHanOrYourRep, Filters.and(Filters.opponents(self.getOwner()), Filters.or(Filters.weapon, Filters.Interrupt))));
         modifiers.add(new ModifyGameTextModifier(self, Filters.and(Icon.PREMIUM, CardType.OBJECTIVE), ModifyGameTextType.PREM_OBJECTIVE__RETRIEVE_FORCE_INTO_HAND));
         return modifiers;
     }
