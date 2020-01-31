@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Set: Set 8
  * Type: Objective
- * Title: Yavin 4 Operations / The Time To Fight Is Now
+ * Title: Yavin 4 Base Operations / The Time To Fight Is Now
  */
 public class Card208_026 extends AbstractObjective {
     public Card208_026() {

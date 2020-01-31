@@ -27,11 +27,11 @@ import java.util.List;
  * Set: Set 10
  * Type: Vehicle
  * Subtype: Combat
- * Title: Marquand in Blizzard 6
+ * Title: Marquand In Blizzard 6
  */
 public class Card210_038 extends AbstractCombatVehicle {
     public Card210_038() {
-        super(Side.DARK, 1, 6, 6, 7, null, 1, 6, "Marquand in Blizzard 6", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 7, null, 1, 6, "Marquand In Blizzard 6", Uniqueness.UNIQUE);
         setLore("Enclosed. Death Squadron.");
         setGameText("May add 1 pilot. Permanent pilot is •Marquand, who provides ability of 2. Cards Blizzard 6 hits are power and forfeit -2 and may not apply ability towards drawing battle destiny. Immune to attrition < 4.");
         addModelType(ModelType.AT_AT);
