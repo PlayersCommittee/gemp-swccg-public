@@ -3190,6 +3190,7 @@ var fixedImages = {
 "301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
+
 "501_2":"/gemp-swccg/images/cards/Coruscant-Dark/killthemimmediately.gif",
 "501_3":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
@@ -3204,6 +3205,21 @@ var fixedImages = {
 "501_22":"/gemp-swccg/images/cards/Virtual8-Dark/darthvaderslightsaber.gif",
 "501_23":"/gemp-swccg/images/cards/Virtual4-Dark/jabbassailbarge.gif",
 "501_24":"/gemp-swccg/images/cards/Virtual11-Dark/quietlyobserving.gif",
+
+"501_25":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
+"501_26":"/gemp-swccg/images/cards/Virtual0-Dark/sithfury.gif,
+"501_27":"/gemp-swccg/images/cards/Virtual0-Dark/imperialjustice.gif",
+"501_28":"/gemp-swccg/images/cards/ReflectionsIII-Dark/fearismyally.gif",
+"501_29":"/gemp-swccg/images/cards/Virtual1-Dark/despair.gif",
+"501_30":"/gemp-swccg/images/cards/DeathStarII-Dark/captainsarkli.gif",
+"501_31":"/gemp-swccg/images/cards/Virtual8-Dark/lordmaulwithlightsaber.gif",
+"501_32":"/gemp-swccg/images/cards/Virtual3-Dark/darthmaullonehunter.gif",
+"501_33":"/gemp-swccg/images/cards/Tatooine-Dark/aurrasingai.gif",
+"501_34":"/gemp-swccg/images/cards/Virtual0-Light/hansheavyblasterpistol.gif",
+"501_35":"/gemp-swccg/images/cards/Virtual5-Light/hanchewieandthefalcon.gif",
+"501_36":"/gemp-swccg/images/cards/Virtual0-Light/moncalamaridockyards.gif",
+"501_37":"/gemp-swccg/images/cards/Virtual0-Light/evacuationcontrol.gif",
+"501_38":"/gemp-swccg/images/cards/Virtual1-Light/r2d2.gif",
 };
 
 var packBlueprints = {
