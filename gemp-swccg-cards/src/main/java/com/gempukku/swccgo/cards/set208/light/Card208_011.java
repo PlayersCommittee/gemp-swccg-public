@@ -52,7 +52,7 @@ public class Card208_011 extends AbstractResistance {
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
             PhysicalCard justLostBattleDroid = ((LostFromTableResult) effectResult).getCard();
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Steal " + GameUtils.getFullName(justLostBattleDroid) + " into hand");
             action.setActionMsg("Steal " + GameUtils.getCardLink(justLostBattleDroid) + " into hand");
             // Update usage limit(s)
