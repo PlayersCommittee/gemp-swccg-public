@@ -3207,7 +3207,7 @@ var fixedImages = {
 "501_24":"/gemp-swccg/images/cards/Virtual11-Dark/quietlyobserving.gif",
 
 "501_25":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
-"501_26":"/gemp-swccg/images/cards/Virtual0-Dark/sithfury.gif,
+"501_26":"/gemp-swccg/images/cards/Virtual0-Dark/sithfury.gif",
 "501_27":"/gemp-swccg/images/cards/Virtual0-Dark/imperialjustice.gif",
 "501_28":"/gemp-swccg/images/cards/ReflectionsIII-Dark/fearismyally.gif",
 "501_29":"/gemp-swccg/images/cards/Virtual1-Dark/despair.gif",
