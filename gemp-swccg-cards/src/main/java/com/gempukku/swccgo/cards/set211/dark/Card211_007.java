@@ -17,11 +17,11 @@ import java.util.List;
  * Set: Set 11
  * Type: Character
  * Subtype: Imperial
- * Title: Sergeant Narthax with E-web Blaster
+ * Title: Sergeant Narthax With E-web Blaster
  */
 public class Card211_007 extends AbstractImperial {
     public Card211_007(){
-        super(Side.DARK, 2, 3, 3, 2, 4, "Sergeant Narthax with E-web Blaster", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "Sergeant Narthax With E-web Blaster", Uniqueness.UNIQUE);
         setLore("Snowtrooper.");
         setGameText("Permanent weapon is E-web Blaster (may target a character, landed starfighter, or vehicle for free; if targeting a starfighter or vehicle, add one destiny to attrition; otherwise, subtract 3 from target's immunity to attrition (if any) until end of turn).");
         addIcons(Icon.VIRTUAL_SET_11, Icon.WARRIOR, Icon.PERMANENT_WEAPON);

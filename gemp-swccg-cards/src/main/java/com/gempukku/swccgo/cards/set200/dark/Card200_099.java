@@ -29,11 +29,11 @@ import java.util.List;
 /**
  * Set: Reflections III
  * Type: Defensive Shield
- * Title: Vote of No Confidence
+ * Title: Vote Of No Confidence
  */
 public class Card200_099 extends AbstractDefensiveShield {
     public Card200_099() {
-        super(Side.DARK, "Vote of No Confidence");
+        super(Side.DARK, "Vote Of No Confidence");
         setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Grimtaash). Once per turn (even at start of turn), target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }

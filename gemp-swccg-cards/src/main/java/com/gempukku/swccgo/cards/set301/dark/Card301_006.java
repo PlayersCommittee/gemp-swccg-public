@@ -38,6 +38,7 @@ public class Card301_006 extends AbstractImperial {
         addIcons(Icon.VIRTUAL_SET_P, Icon.A_NEW_HOPE, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.LEADER);
         setMatchingStarshipFilter(Filters.Thunderflare);
+        setVirtualSuffix(true);
     }
 
     @Override

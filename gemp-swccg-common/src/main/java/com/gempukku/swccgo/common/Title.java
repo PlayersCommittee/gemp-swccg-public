@@ -47,7 +47,7 @@ public interface Title {
     String Anoat = "Anoat";
     String Antechamber = "Maz's Castle: Antechamber";
     String Any_Methods_Necessary = "Any Methods Necessary";
-    String Ardon_Crell = "Ardon 'Vapor' Crell";
+    String Ardon_Crell = "Ardon \"Vapor\" Crell";
     String Arleil = "Arleil Schous";
     String Arnet = "Lieutenant Arnet";
     String Arven = "Lieutenant Arven Wendik";
@@ -180,7 +180,7 @@ public interface Title {
     String Combat_Readiness = "Combat Readiness";
     String Combat_Response = "Combat Response";
     String Combined_Attack = "Combined Attack";
-    String Come_Here_You_Big_Coward = "Come Here You Big Coward!";
+    String Come_Here_You_Big_Coward = "Come Here You Big Coward";
     String Come_With_Me = "Come With Me";
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
@@ -522,7 +522,7 @@ public interface Title {
     String Jawa_Pack = "Jawa Pack";
     String Jawa_Siesta = "Jawa Siesta";
     String Jedha = "Jedha";
-    String Jedha_City = "Jedha City";
+    String Jedha_City = "Jedha: Jedha City";
     String Jedi_Council_Chamber = "Coruscant: Jedi Council Chamber";
     String Jedi_Lightsaber = "Jedi Lightsaber";
     String Jedi_Presence = "Jedi Presence";
@@ -533,7 +533,7 @@ public interface Title {
     String Judicator = "Judicator";
     String Jundland_Wastes = "Tatooine: Jundland Wastes";
     String Juri_Juice = "Juri Juice";
-    String K2SO = "K-2SO (Kay-Tueesso)";
+    String K2SO = "K-2SO (Kay-Tuesso)";
     String Kabe = "Kabe";
     String KalFalnl_Cndros = "Kal'Falnl C'ndros";
     String Kalit = "Kalit";
@@ -830,7 +830,7 @@ public interface Title {
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
-    String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine";
+    String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine (Docking Bay)";
     String Scarif_Turbolift_Complex = "Scarif: Turbolift Complex";
     String Scimitar_1 = "Scimitar 1";
     String Scomp_Link_Access = "Scomp Link Access";
@@ -1023,7 +1023,7 @@ public interface Title {
     String Walker_Barrage = "Walker Barrage";
     String Walker_Garrison = "Walker Garrison";
     String Watto = "Watto";
-    String Wattos_Box = "Wattos Box";
+    String Wattos_Box = "Watto's Box";
     String Wattos_Chance_Cube = "Watto's Chance Cube";
     String Wattos_Junkyard = "Tatooine: Watto's Junkyard";
     String Watts = "Lieutenant Watts";
@@ -1068,7 +1068,7 @@ public interface Title {
     String Yarna_dal_Gargan = "Yarna d'al' Gargan";
     String Yavin_4 = "Yavin 4";
     String Yavin_4_Docking_Bay = "Yavin 4: Docking Bay";
-    String Yavin_4_Operations = "Yavin 4 Operations";
+    String Yavin_4_Operations = "Yavin 4 Base Operations";
     String Yavin_4_War_Room = "Yavin 4: Massassi War Room";
     String Yavin_Sentry = "Yavin Sentry";
     String Yoda_Stew = "Yoda Stew";
