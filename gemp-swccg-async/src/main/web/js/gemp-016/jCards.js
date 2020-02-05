@@ -3220,6 +3220,7 @@ var fixedImages = {
 "501_36":"/gemp-swccg/images/cards/Virtual0-Light/moncalamaridockyards.gif",
 "501_37":"/gemp-swccg/images/cards/Virtual0-Light/evacuationcontrol.gif",
 "501_38":"/gemp-swccg/images/cards/Virtual1-Light/r2d2.gif",
+"501_39":"/gemp-swccg/images/cards/Virtual6-Dark/vaderscustomtie.gif",
 };
 
 var packBlueprints = {
