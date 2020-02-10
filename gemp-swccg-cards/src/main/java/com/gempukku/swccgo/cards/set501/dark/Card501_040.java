@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set3.dark;
+package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractArtilleryWeapon;
 import com.gempukku.swccgo.common.*;
@@ -20,8 +20,8 @@ import java.util.List;
  * Subtype: Artillery
  * Title: E-web Blaster
  */
-public class Card3_159 extends AbstractArtilleryWeapon {
-    public Card3_159() {
+public class Card501_040 extends AbstractArtilleryWeapon {
+    public Card501_040() {
         super(Side.DARK, 5, 3, 1, Title.E_web_Blaster);
         setLore("Massive infantry weapon powerful enough to damage even starfighters.");
         setGameText("Deploy on any site. May be moved with two warriors for 1 additional Force. Your warrior present may target a starfighter (Use 5 as defense value), character, creature or vehicle using 2 Force. Draw Destiny. Target hit if destiny +1 > defense value.");

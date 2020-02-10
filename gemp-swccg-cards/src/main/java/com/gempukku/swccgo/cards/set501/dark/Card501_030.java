@@ -28,16 +28,17 @@ public class Card501_030 extends AbstractImperial {
     public Card501_030() {
         super(Side.DARK, 3, 4, 3, 4, 6, "Moff Gideon", Uniqueness.UNIQUE);
         setLore("ISB. Leader");
-        setGameText("[Pilot] 2. Rebels here (and at adjacent sites if E-web Blaster here) are power -1. When deployed, may deploy an E-web blaster or any Imperial stormtrooper from Reserve Deck for -3 Force; reshuffle.");
+        setGameText("[Pilot] 2. Rebels here are power -1 (and at adjacent sites if Ewebb Blaster here). When deployed, may deploy an Eweb blaster or any Imperial Stormtrooper here from Reserve Deck for -2 Force.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
         addKeywords(Keyword.LEADER);
+        setTestingText("Moff Gideon");
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, Filters.and(Filters.Rebel, Filters.sameLocation(self)), -1));
-        modifiers.add(new PowerModifier(self, Filters.and(Filters.Rebel, Filters.adjacentSite(self)), new HereCondition(self, Filters.title(Title.E_web_Blaster)), -1));
+        modifiers.add(new PowerModifier(self, Filters.and(Filters.Rebel, Filters.atSameLocation(self)), -1));
+        modifiers.add(new PowerModifier(self, Filters.and(Filters.Rebel, Filters.at(Filters.adjacentSite(self))), new HereCondition(self, Filters.title(Title.E_web_Blaster)), -1));
         return modifiers;
     }
 
@@ -54,7 +55,7 @@ public class Card501_030 extends AbstractImperial {
             action.setActionMsg("Deploy an E-web blaster or Imperial stormtrooper");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.Imperial, Filters.stormtrooper), Filters.title(Title.E_web_Blaster)), -3, true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.Imperial, Filters.stormtrooper), Filters.title(Title.E_web_Blaster)), -2, true));
             return Collections.singletonList(action);
         }
         return null;

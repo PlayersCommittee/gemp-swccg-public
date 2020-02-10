@@ -3211,7 +3211,7 @@ var fixedImages = {
 "501_27":"/gemp-swccg/images/cards/Virtual0-Dark/imperialjustice.gif",
 "501_28":"/gemp-swccg/images/cards/ReflectionsIII-Dark/fearismyally.gif",
 "501_29":"/gemp-swccg/images/cards/Virtual1-Dark/despair.gif",
-"501_30":"/gemp-swccg/images/cards/DeathStarII-Dark/captainsarkli.gif",
+"501_30":"/gemp-swccg/images/cards/JediPack-Dark/tarkin.gif",
 "501_31":"/gemp-swccg/images/cards/Virtual8-Dark/lordmaulwithlightsaber.gif",
 "501_32":"/gemp-swccg/images/cards/Virtual3-Dark/darthmaullonehunter.gif",
 "501_33":"/gemp-swccg/images/cards/Tatooine-Dark/aurrasingai.gif",
@@ -3221,6 +3221,7 @@ var fixedImages = {
 "501_37":"/gemp-swccg/images/cards/Virtual0-Light/evacuationcontrol.gif",
 "501_38":"/gemp-swccg/images/cards/Virtual1-Light/r2d2.gif",
 "501_39":"/gemp-swccg/images/cards/Virtual6-Dark/vaderscustomtie.gif",
+"501_40":"/gemp-swccg/images/cards/Hoth-Dark/ewebblaster.gif",
 };
 
 var packBlueprints = {
