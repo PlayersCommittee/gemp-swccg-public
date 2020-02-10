@@ -31,7 +31,7 @@ public class Card501_032 extends AbstractSith {
     public Card501_032() {
         super(Side.DARK, 1, 6, 7, 6, 8, "Darth Maul, Lone Hunter", Uniqueness.UNIQUE);
         setLore("Trade Federation.");
-        setGameText("If drawn for destiny, may take into hand to cancel and redraw. Cancels Blaster Deflection and gametext of Amidala and Qui-Gon here. Maul's weapon destiny draws may not be modified or canceled by opponent. Immune to attrition < 6.");
+        setGameText("If drawn for destiny, may take into hand to cancel and redraw. Cancels Blaster Deflection and gametext of Amidala and Qui-Gon here. Maul's weapon destiny draws may not be modified or canceled by opponent. Immune to attrition < 5.");
         addPersona(Persona.MAUL);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
         setTestingText("Darth Maul, Lone Hunter (Errata)");
@@ -45,7 +45,7 @@ public class Card501_032 extends AbstractSith {
         modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.or(Filters.Amidala, Filters.QuiGon), Filters.atSameSite(self))));
         modifiers.add(new MayNotModifyWeaponDestinyModifier(self, opponent, Filters.any, self));
         modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.any, self));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 6));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         return modifiers;
     }
 
