@@ -2,19 +2,16 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.LeaderModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -31,7 +28,7 @@ public class Card501_007 extends AbstractImperial {
         super(Side.DARK, 1, 3, 3, 3, 5, "Veers", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("General of the AT-AT assault armor division sent by Darth Vader to crush the Rebellion on Hoth. Cold and ruthless.");
-        setGameText("Adds 3 to power of anything he pilots. If on Hoth, once during your turn, may take a [Hoth] combat vehicle or 6th Marker into hand from Reserve Deck; reshuffle. Adds one battle destiny while piloting an AT-AT.");
+        setGameText("Adds 3 to the power of anything he pilots. Leader. If in battle on Hoth, adds one destiny to total power. If on Hoth, during your turn, may take a [H] AT-AT, 4th Marker, or 6th Marker into hand from Reserve Deck; reshuffle. While at 4th Marker, adds one [LS] here.");
         addPersona(Persona.VEERS);
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
         addKeywords(Keyword.GENERAL);
@@ -49,7 +46,8 @@ public class Card501_007 extends AbstractImperial {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
-        modifiers.add(new AddsBattleDestinyModifier(self, new PilotingCondition(self, Filters.AT_AT), 1));
+        modifiers.add(new AddsDestinyToPowerModifier(self, new OnCondition(self, Title.Hoth), 1));
+        modifiers.add(new IconModifier(self, Filters.Fourth_Marker, new AtCondition(self, Filters.Fourth_Marker), Icon.LIGHT_FORCE, 1));
         return modifiers;
     }
 
@@ -58,21 +56,19 @@ public class Card501_007 extends AbstractImperial {
         GameTextActionId gameTextActionId = GameTextActionId.VEERS__UPLOAD_HOTH_COMBAT_VEHICLE_OR_SIXTH_MARKER;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
+        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isAtLocation(game, self, Filters.Hoth_location)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take a [Hoth] combat vehicle or Sixth Marker into hand from Reserve Deck");
+            action.setActionMsg("Take 4th Marker, Sixth Marker, or a [Hoth] AT-AT into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerPhaseEffect(action));
-            action.appendCost(
-                    new UseForceEffect(action, playerId,1));
+                    new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.AT_AT, Icon.HOTH), Filters.Sixth_Marker), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.AT_AT, Icon.HOTH), Filters.Fourth_Marker, Filters.Sixth_Marker), true));
             return Collections.singletonList(action);
         }
         return null;
