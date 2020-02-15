@@ -325,6 +325,7 @@ public interface Title {
     String Establish_Secret_Base = "Establish Secret Base";
     String Evader = "Evader";
     String Evacuation_Control = "Evacuation Control";
+    String E_web_Blaster = "E-web Blaster";
     String Ewok_Bow = "Ewok Bow";
     String Ewok_Glider = "Ewok Glider";
     String Ewok_Rescue = "Ewok Rescue";
