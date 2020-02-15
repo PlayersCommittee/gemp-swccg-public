@@ -39,7 +39,7 @@ public class Card209_026 extends AbstractSite {
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DockingBayTransitFromCostModifier(self, 2, playerOnDarkSideOfLocation));
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.combat_vehicle, 1, Filters.Scarif_Docking_Bay));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.combat_vehicle), 1, Filters.Scarif_Docking_Bay));
 
         return modifiers;
     }
