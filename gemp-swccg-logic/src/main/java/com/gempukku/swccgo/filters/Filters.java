@@ -8057,6 +8057,18 @@ public class Filters {
                 if (!physicalCard.getBlueprint().getValidPilotFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, false).accepts(gameState, modifiersQuerying, card))
                     return false;
 
+                int numCaptives = gameState.getCaptivesOfEscort(card).size();
+                int pilotOrPassengerCapacity = physicalCard.getBlueprint().getPilotOrPassengerCapacity();
+
+                if (numCaptives > 0) {
+                    if (pilotOrPassengerCapacity > 0 && pilotOrPassengerCapacity < 1 + numCaptives)
+                        return false;
+
+                    if (gameState.getAvailablePassengerCapacity(modifiersQuerying, physicalCard, card) < numCaptives)
+                        return false;
+                }
+
+
                 return gameState.getAvailablePilotCapacity(modifiersQuerying, physicalCard, card) >= 1;
             }
         };
@@ -8073,8 +8085,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.DEVICE
-                        && physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
                         && physicalCard.getBlueprint().getCardCategory() != CardCategory.STARSHIP)
                     return false;
 
@@ -8083,6 +8094,12 @@ public class Filters {
                     return false;
 
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER)
+                    return false;
+
+                int numCaptives = gameState.getCaptivesOfEscort(card).size();
+                int pilotOrPassengerCapacity = physicalCard.getBlueprint().getPilotOrPassengerCapacity();
+
+                if (pilotOrPassengerCapacity > 0 && pilotOrPassengerCapacity < 1 + numCaptives)
                     return false;
 
                 if (Filters.astromech_droid.accepts(gameState, modifiersQuerying, card)) {

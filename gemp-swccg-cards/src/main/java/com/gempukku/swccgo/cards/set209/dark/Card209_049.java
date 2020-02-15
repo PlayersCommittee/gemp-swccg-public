@@ -19,7 +19,6 @@ import java.util.List;
  * Subtype: Site
  * Title: Jedha: Jedha City
  */
-
 public class Card209_049 extends AbstractSite {
     public Card209_049() {
         super(Side.DARK, Title.Jedha_City, Title.Jedha);

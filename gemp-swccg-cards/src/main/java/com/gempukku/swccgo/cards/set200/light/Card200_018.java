@@ -34,7 +34,7 @@ public class Card200_018 extends AbstractRebel {
         setLore("Adopted daughter of the Viceroy and First Chairman of Alderaan. Became a political leader at a young age. The injustices of the New Order led her to join the Rebellion.");
         setGameText("While at opponent's Galactic Senate, Leia's game text may not be canceled and may lose 1 Force to place Leia and any character present out of play. During battle, may cancel game text of a leader of ability < 5 with Leia for remainder of turn.");
         addPersona(Persona.LEIA);
-        addIcons(Icon.PREMIUM, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.REPUBLIC, Icon.PREMIUM, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.LEADER, Keyword.FEMALE);
         setSpecies(Species.ALDERAANIAN);
     }

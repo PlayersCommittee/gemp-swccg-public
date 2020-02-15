@@ -15,7 +15,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.AgendaModifier;
-import com.gempukku.swccgo.logic.modifiers.DeploysFreeAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.DestinyDrawnResult;
@@ -36,7 +36,7 @@ public class Card204_010 extends AbstractRebelRepublic {
         super(Side.LIGHT, 1, 3, 2, 3, 5, "Senator Mon Mothma", Uniqueness.UNIQUE);
         setPolitics(1);
         setLore("Native of Chandrila. Leader of the Alliance. A former member of the Imperial Senate where she was a formidable opponent of then-Senator Palpatine. Friend of Bail Organa.");
-        setGameText("Agenda: rebellion. Deploys free aboard your capital starship. Once per turn, while in a senate majority (or Stolen Data Tapes on table), may take your just drawn battle destiny into hand. Once per game, may [download] Chandrila.");
+        setGameText("Agenda: rebellion. Deploys -1 aboard your capital starship. Once per turn, while in a senate majority (or Stolen Data Tapes on table), may take your just drawn battle destiny into hand. Once per game, may [download] Chandrila.");
         addPersona(Persona.MON_MOTHMA);
         addIcons(Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.FEMALE, Keyword.SENATOR, Keyword.LEADER);
@@ -46,7 +46,7 @@ public class Card204_010 extends AbstractRebelRepublic {
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AgendaModifier(self, Agenda.REBELLION));
-        modifiers.add(new DeploysFreeAboardModifier(self, Filters.and(Filters.your(self), Filters.capital_starship)));
+        modifiers.add(new DeployCostAboardModifier(self, -1, Filters.and(Filters.your(self), Filters.capital_starship)));
         return modifiers;
     }
 

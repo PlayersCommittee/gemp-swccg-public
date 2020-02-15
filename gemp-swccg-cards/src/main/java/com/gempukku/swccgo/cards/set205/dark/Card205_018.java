@@ -2,14 +2,13 @@ package com.gempukku.swccgo.cards.set205.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInLostPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeReducedModifier;
@@ -29,18 +28,18 @@ public class Card205_018 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Overseeing It Personally", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Though reluctant to leave Coruscant. Emperor Palpatine occasionally finds it necessary to personally put lagging Imperial operations back on schedule.");
-        setGameText("Deploy on an Imperial leader. Opponent may not cancel or reduce Force drains at same battleground. Once per game, may place this Effect out of play to retrieve Vader.");
+        setGameText("Deploy on a your leader. Opponent may not cancel or reduce Force drains at same battleground. If on Emperor, may place Effect in Lost Pile to retrieve an Imperial Leader.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_5);
     }
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Imperial_leader;
+        return Filters.and(Filters.your(self.getOwner()), Filters.leader);
     }
 
     @Override
     protected Filter getGameTextValidTargetFilterToRemainAttachedToAfterCrossingOver(final SwccgGame game, final PhysicalCard self, PlayCardOptionId playCardOptionId) {
-        return Filters.Imperial;
+        return Filters.leader;
     }
 
     @Override
@@ -56,22 +55,17 @@ public class Card205_018 extends AbstractNormalEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OVERSEEING_IT_PERSONALLY__PLACE_OUT_OF_PLAY_TO_RETRIEVE_VADER;
+        if (GameConditions.isAttachedTo(game, self, Filters.Emperor)) {
 
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place out of play to retrieve Vader");
-            action.setActionMsg("Retrieve Vader");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerGameEffect(action));
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            action.setText("Place in Lost Pile to retrieve an Imperial Leader");
+            action.setActionMsg("Retrieve Imperial Leader");
             // Pay cost(s)
             action.appendCost(
-                    new PlaceCardOutOfPlayFromTableEffect(action, self));
+                    new PlaceCardInLostPileFromTableEffect(action, self));
             // Perform result(s)
             action.appendEffect(
-                    new RetrieveCardEffect(action, playerId, Filters.Vader));
+                    new RetrieveCardEffect(action, playerId, Filters.Imperial_leader));
             return Collections.singletonList(action);
         }
         return null;

@@ -6,7 +6,10 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.UsedInterruptModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.List;
  * Set: Virtual Set 11
  * Type: Character
  * Subtype: Rebel
- * Title: •••Rebel Trooper Reinforcements
+ * Title: Rebel Trooper Reinforcements
  */
 public class Card211_056 extends AbstractRebel {
     public Card211_056() {
@@ -34,7 +37,7 @@ public class Card211_056 extends AbstractRebel {
 
         Filter siteWithMoreOpponentsCharacters = Filters.and(Filters.site, Filters.wherePlayerHasFewerCharacters(self, self.getOwner()));
         modifiers.add(new DeployCostToLocationModifier(self, -2, siteWithMoreOpponentsCharacters));
-        modifiers.add(new MayDeployAsReactModifier(self));
+        modifiers.add(new MayDeployAsReactToLocationModifier(self, Filters.site));
         return modifiers;
     }
 

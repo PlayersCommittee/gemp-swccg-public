@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card5_010 extends AbstractAlien {
     public Card5_010() {
-        super(Side.LIGHT, 2, 3, 2, 2, 4, "Trooper Utris M'toc", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 4, "Trooper Utris M'Toc", Uniqueness.UNIQUE);
         setLore("Imzig Cloud City trooper and Wing Guard leader. Attempts to protect Cloud City citizens from less reputable members of local constabulary. Never accepts a bribe.");
         setGameText("Deploys only on Cloud City, but may move elsewhere. Deploys free to same Cloud City site as Lando. Power +2 when defending a battle. Your other Cloud City troopers are forfeit +2 where present.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

@@ -862,6 +862,7 @@ public class SwccgGameMediator {
     public void extendGameTimer(Player player, int minutesToExtend) {
         if (!_allowExtendGameTimer) {
             _userFeedback.sendWarning(player.getName(), "You can't extend the game timer for this game");
+            return;
         }
 
         if (_secondsGameTimerExtended > 0)

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Set: Reflections III
  * Type: Defensive Shield
- * Title: Come Here You Big Coward!
+ * Title: Come Here You Big Coward
  */
 public class Card13_061 extends AbstractDefensiveShield {
     public Card13_061() {

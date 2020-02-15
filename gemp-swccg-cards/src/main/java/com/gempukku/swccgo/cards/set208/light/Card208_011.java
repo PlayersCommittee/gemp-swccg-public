@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card208_011 extends AbstractResistance {
     public Card208_011() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Temmin 'Snap' Wexley", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Temmin \"Snap\" Wexley", Uniqueness.UNIQUE);
         setGameText("[Pilot] 3. Imperials and bounty hunters deploy +1 here. Once per game, if a battle droid was just lost from same location, may steal it into hand.");
         addPersonas(Persona.SNAP);
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_8);
@@ -52,7 +52,7 @@ public class Card208_011 extends AbstractResistance {
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
             PhysicalCard justLostBattleDroid = ((LostFromTableResult) effectResult).getCard();
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Steal " + GameUtils.getFullName(justLostBattleDroid) + " into hand");
             action.setActionMsg("Steal " + GameUtils.getCardLink(justLostBattleDroid) + " into hand");
             // Update usage limit(s)

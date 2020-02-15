@@ -26,11 +26,11 @@ import java.util.List;
  * Set: Premiere
  * Type: Character
  * Subtype: Alien
- * Title: Kitik Keed'lak
+ * Title: Kitik Keed'kak
  */
 public class Card1_183 extends AbstractAlien {
     public Card1_183() {
-        super(Side.DARK, 2, 6, 8, 1, 2, "Kitik Keed'lak", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 6, 8, 1, 2, "Kitik Keed'kak", Uniqueness.UNIQUE);
         setLore("A female insectoid Yam'rii. Very strong and easily angered. Known for stealth, but also has good technological aptitude. Meat eater. Loves eggs.");
         setGameText("Immediately lost if at same site as overprotective mother, Kal'Faln C'ndros. Cannot board starfighters or enclosed vehicles.");
         addKeywords(Keyword.FEMALE);

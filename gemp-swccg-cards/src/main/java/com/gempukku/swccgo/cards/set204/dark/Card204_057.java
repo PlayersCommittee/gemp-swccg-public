@@ -21,7 +21,7 @@ import java.util.List;
 public class Card204_057 extends AbstractCharacterWeapon {
     public Card204_057() {
         super(Side.DARK, 2, "F-11D Blaster Rifle");
-        setGameText("Deploy on your First Order warrior. May target a character or vehicle for free. Draw destiny. Target hit, and may not be used to satisfy attrition, if destiny +1 (+2 if fired by a stormtrooper) > defense value.");
+        setGameText("Deploy on your First Order warrior. May target a character or vehicle for free. Draw destiny. Target hit, and may not be used to satisfy attrition, if destiny (+1 if fired by a stormtrooper) > defense value.");
         addKeywords(Keyword.BLASTER_RIFLE);
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }

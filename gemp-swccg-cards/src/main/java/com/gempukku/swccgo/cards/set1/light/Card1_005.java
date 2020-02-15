@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_005 extends AbstractDroid {
     public Card1_005() {
-        super(Side.LIGHT, 3, 3, 1, 4, "C-3PO (See Threepio)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 4, "C-3PO (See-Threepio)", Uniqueness.UNIQUE);
         setLore("Cybot Galactica 3PO human-cyborg relations droid. Fluent in over six million forms of communication. 112 years old. Has never been memory-wiped... as far as he knows.");
         setGameText("Total power at same site is +2 for each of your droid/Rebel pairs present, including C-3PO. R2-D2 is forfeit +2 when present.");
         addPersona(Persona.C3PO);

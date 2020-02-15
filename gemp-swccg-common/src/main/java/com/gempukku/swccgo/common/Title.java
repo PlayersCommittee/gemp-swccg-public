@@ -47,7 +47,7 @@ public interface Title {
     String Anoat = "Anoat";
     String Antechamber = "Maz's Castle: Antechamber";
     String Any_Methods_Necessary = "Any Methods Necessary";
-    String Ardon_Crell = "Ardon 'Vapor' Crell";
+    String Ardon_Crell = "Ardon \"Vapor\" Crell";
     String Arleil = "Arleil Schous";
     String Arnet = "Lieutenant Arnet";
     String Arven = "Lieutenant Arven Wendik";
@@ -180,7 +180,7 @@ public interface Title {
     String Combat_Readiness = "Combat Readiness";
     String Combat_Response = "Combat Response";
     String Combined_Attack = "Combined Attack";
-    String Come_Here_You_Big_Coward = "Come Here You Big Coward!";
+    String Come_Here_You_Big_Coward = "Come Here You Big Coward";
     String Come_With_Me = "Come With Me";
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
@@ -272,6 +272,7 @@ public interface Title {
     String Dont_Underestimate_Our_Chances = "Don't Underestimate Our Chances";
     String Double_Agent = "Double Agent";
     String Double_Back = "Double Back";
+    String Double_Laser_Cannon = "Double Laser Cannon";
     String Downtown_Plaza = "Cloud City: Downtown Plaza";
     String Duel_Of_The_Fates = "Duel Of The Fates";
     String Dune_Sea = "Tatooine: Dune Sea";
@@ -324,6 +325,7 @@ public interface Title {
     String Establish_Secret_Base = "Establish Secret Base";
     String Evader = "Evader";
     String Evacuation_Control = "Evacuation Control";
+    String E_web_Blaster = "E-web Blaster";
     String Ewok_Bow = "Ewok Bow";
     String Ewok_Glider = "Ewok Glider";
     String Ewok_Rescue = "Ewok Rescue";
@@ -521,7 +523,7 @@ public interface Title {
     String Jawa_Pack = "Jawa Pack";
     String Jawa_Siesta = "Jawa Siesta";
     String Jedha = "Jedha";
-    String Jedha_City = "Jedha City";
+    String Jedha_City = "Jedha: Jedha City";
     String Jedi_Council_Chamber = "Coruscant: Jedi Council Chamber";
     String Jedi_Lightsaber = "Jedi Lightsaber";
     String Jedi_Presence = "Jedi Presence";
@@ -532,7 +534,7 @@ public interface Title {
     String Judicator = "Judicator";
     String Jundland_Wastes = "Tatooine: Jundland Wastes";
     String Juri_Juice = "Juri Juice";
-    String K2SO = "K-2SO (Kay-Tueesso)";
+    String K2SO = "K-2SO (Kay-Tuesso)";
     String Kabe = "Kabe";
     String KalFalnl_Cndros = "Kal'Falnl C'ndros";
     String Kalit = "Kalit";
@@ -722,6 +724,7 @@ public interface Title {
     String Phennir = "Major Turr Phennir";
     String Planet_Defender_Ion_Cannon = "Planet Defender Ion Cannon";
     String Plastoid_Armor = "Plastoid Armor";
+    String Plea_To_The_Court = "Plea To The Court";
     String Plead_My_Case_To_The_Senate = "Plead My Case To The Senate";
     String Podrace_Arena = "Tatooine: Podrace Arena";
     String Podracer_Bay = "Tatooine: Podracer Bay";
@@ -828,7 +831,7 @@ public interface Title {
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
-    String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine";
+    String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine (Docking Bay)";
     String Scarif_Turbolift_Complex = "Scarif: Turbolift Complex";
     String Scimitar_1 = "Scimitar 1";
     String Scomp_Link_Access = "Scomp Link Access";
@@ -1021,7 +1024,7 @@ public interface Title {
     String Walker_Barrage = "Walker Barrage";
     String Walker_Garrison = "Walker Garrison";
     String Watto = "Watto";
-    String Wattos_Box = "Wattos Box";
+    String Wattos_Box = "Watto's Box";
     String Wattos_Chance_Cube = "Watto's Chance Cube";
     String Wattos_Junkyard = "Tatooine: Watto's Junkyard";
     String Watts = "Lieutenant Watts";
@@ -1066,7 +1069,7 @@ public interface Title {
     String Yarna_dal_Gargan = "Yarna d'al' Gargan";
     String Yavin_4 = "Yavin 4";
     String Yavin_4_Docking_Bay = "Yavin 4: Docking Bay";
-    String Yavin_4_Operations = "Yavin 4 Operations";
+    String Yavin_4_Operations = "Yavin 4 Base Operations";
     String Yavin_4_War_Room = "Yavin 4: Massassi War Room";
     String Yavin_Sentry = "Yavin Sentry";
     String Yoda_Stew = "Yoda Stew";

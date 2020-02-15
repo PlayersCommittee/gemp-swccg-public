@@ -57,6 +57,19 @@ public class ForceRetrievalEffect extends AbstractSubActionEffect {
      * @param amount         the amount of Force to retrieve
      * @param randomly       true if cards are retrieved randomly, otherwise false
      */
+    protected ForceRetrievalEffect(PhysicalCard sourceCard, Action action, String playerId, Zone retrieveToZone, float amount, boolean randomly) {
+        this(sourceCard, action, playerId, retrieveToZone, amount, randomly, false, false, false, Filters.any);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to retrieve a specified amount of Force.
+     *
+     * @param action         the action performing this effect
+     * @param playerId       the player to retrieve Force
+     * @param retrieveToZone the zone to retrieve to
+     * @param amount         the amount of Force to retrieve
+     * @param randomly       true if cards are retrieved randomly, otherwise false
+     */
     protected ForceRetrievalEffect(Action action, String playerId, Zone retrieveToZone, float amount, boolean randomly) {
         this(action, playerId, retrieveToZone, amount, randomly, false, false, false, Filters.any);
     }
@@ -77,6 +90,34 @@ public class ForceRetrievalEffect extends AbstractSubActionEffect {
     protected ForceRetrievalEffect(Action action, String playerId, Zone retrieveToZone, float amount, boolean randomly, boolean retrieveSpecificCards, boolean upToAmount, boolean topmost, Filterable filters) {
         super(action);
         _sourceCard = action.getActionSource();
+        _playerToRetrieveForce = playerId;
+        _retrieveToZone = retrieveToZone;
+        _initialAmount = amount;
+        _randomly = randomly;
+        _retrieveSpecificCards = retrieveSpecificCards;
+        _upToAmount = upToAmount;
+        _topmost = topmost;
+        _filters = filters;
+        _forceRetrievalEffect = this;
+    }
+
+    /**
+     * Creates an effect that causes the specified player to retrieve a specified amount of Force or cards.
+     *
+     * @param sourceCard            source of the retrieval
+     * @param action                the action performing this effect
+     * @param playerId              the player to retrieve Force
+     * @param retrieveToZone        the zone to retrieve to
+     * @param amount                the amount of Force to retrieve
+     * @param randomly              true if cards are retrieved randomly, otherwise false
+     * @param retrieveSpecificCards true if specific cards are searched for and retrieved, otherwise false
+     * @param upToAmount            true if retrieval is up to specified amount, otherwise false
+     * @param topmost               true if only the topmost cards should be chosen from, otherwise false
+     * @param filters               the filter
+     */
+    protected ForceRetrievalEffect(PhysicalCard sourceCard, Action action, String playerId, Zone retrieveToZone, float amount, boolean randomly, boolean retrieveSpecificCards, boolean upToAmount, boolean topmost, Filterable filters) {
+        super(action);
+        _sourceCard = sourceCard;
         _playerToRetrieveForce = playerId;
         _retrieveToZone = retrieveToZone;
         _initialAmount = amount;

@@ -35,7 +35,7 @@ public class Card210_017 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jedi Business", Uniqueness.UNIQUE);
         setLore("The peacekeepers of the galaxy are not to be taken lightly.");
         setGameText("Deploy on table. Non-[Episode I] Jedi are lost. Qui-Gon is deploy -1. Unless with Anakin or Vader, Mace is immune to attrition. Once per turn, may choose: [download] an [Episode I] lightsaber or once per game, [download] Malastare, Mos Espa, or Night Club. [Immune to Alter.]");
-        addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_SET_10);
+        addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_SET_10, Icon.EPISODE_I);
         addImmuneToCardTitle(Title.Alter);
     }
 

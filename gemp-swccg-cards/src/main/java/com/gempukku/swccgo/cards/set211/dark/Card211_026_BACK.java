@@ -15,10 +15,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.PutCardFromCardPileOnBottomOfCardPileEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromForcePileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
@@ -127,7 +124,7 @@ public class Card211_026_BACK extends AbstractObjective {
                                                     if (index == 0) {
                                                         gameState.sendMessage(opponent + " chooses to lose 2 Force and place card on bottom of Used Pile");
                                                         action.appendEffect(
-                                                                new LoseForceEffect(action, opponent, 2));
+                                                                new LoseForceEffect(action, opponent, 2, true));
                                                         action.appendEffect(
                                                                 new PutCardFromCardPileOnBottomOfCardPileEffect(action, playerId, selectedCard, Zone.USED_PILE, false));
                                                     } else {
@@ -141,6 +138,9 @@ public class Card211_026_BACK extends AbstractObjective {
                             );
                         }
                     }
+            );
+            action.appendAfterEffect(
+                    new ShuffleForcePileEffect(action, self, playerId)
             );
             actions.add(action);
         }

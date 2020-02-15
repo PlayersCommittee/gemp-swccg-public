@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Set: Special Edition
  * Type: Effect
- * Title: Come Here You Big Coward!
+ * Title: Come Here You Big Coward
  */
 public class Card7_224 extends AbstractNormalEffect {
     public Card7_224() {
