@@ -42,7 +42,7 @@ public class Card501_032 extends AbstractSith {
         String opponent = game.getOpponent(self.getOwner());
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.or(Filters.Amidala, Filters.QuiGon), Filters.atSameSite(self))));
+        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Amidala, Filters.atSameLocation(self))));
         modifiers.add(new MayNotModifyWeaponDestinyModifier(self, opponent, Filters.any, self));
         modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.any, self));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
