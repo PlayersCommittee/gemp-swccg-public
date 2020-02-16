@@ -28,7 +28,7 @@ public class Card501_007 extends AbstractImperial {
         super(Side.DARK, 1, 3, 3, 3, 5, "Veers", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("General of the AT-AT assault armor division sent by Darth Vader to crush the Rebellion on Hoth. Cold and ruthless.");
-        setGameText("Adds 3 to the power of anything he pilots. Leader. If in battle on Hoth, adds one destiny to total power. If on Hoth, during your turn, may take a [H] AT-AT, 4th Marker, or 6th Marker into hand from Reserve Deck; reshuffle. While at 4th Marker, adds one [LS] here.");
+        setGameText("Adds 3 to the power of anything he pilots. Leader. If in battle on Hoth, adds one destiny to total power. If on Hoth, during your turn, may take a [H] AT-AT, 4th Marker, or 6th Marker into hand from Reserve Deck; reshuffle.");
         addPersona(Persona.VEERS);
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
         addKeywords(Keyword.GENERAL);
@@ -47,7 +47,6 @@ public class Card501_007 extends AbstractImperial {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new AddsDestinyToPowerModifier(self, new OnCondition(self, Title.Hoth), 1));
-        modifiers.add(new IconModifier(self, Filters.Fourth_Marker, new AtCondition(self, Filters.Fourth_Marker), Icon.LIGHT_FORCE, 1));
         return modifiers;
     }
 
