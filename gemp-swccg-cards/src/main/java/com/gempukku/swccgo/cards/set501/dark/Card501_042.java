@@ -56,7 +56,7 @@ public class Card501_042 extends AbstractStartingInterrupt {
 
                                 @Override
                                 protected void cardSelected (SwccgGame game, final PhysicalCard selectedSite){
-                                    if (!selectedSite.getBlueprint().getTitle().toLowerCase().contains("palace")) {
+                                    if (!selectedSite.getBlueprint().getTitle().toLowerCase().contains("palace")) { //should change this to Filters.titleContains("Palace");
                                         action.appendEffect(new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter), 1, 3, true, false));
                                     }
                                     action.appendEffect(new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedSite), false));
