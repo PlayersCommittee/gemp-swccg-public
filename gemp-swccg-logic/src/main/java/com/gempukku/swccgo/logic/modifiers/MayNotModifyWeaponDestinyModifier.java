@@ -20,6 +20,17 @@ public class MayNotModifyWeaponDestinyModifier extends AbstractModifier {
 
     /**
      * Creates a modifier that prevents weapon destiny draws from being modified by a specified player.
+     *
+     * @param source         the source of the modifier
+     * @param playerToModify the player that may not modify weapon destiny draws
+     * @param weaponFilter   the weapon filter
+     */
+    public MayNotModifyWeaponDestinyModifier(PhysicalCard source, String playerToModify, Filterable weaponFilter, Filterable weaponUserFilter) {
+        this(source, null, playerToModify, weaponFilter, weaponUserFilter);
+    }
+
+    /**
+     * Creates a modifier that prevents weapon destiny draws from being modified by a specified player.
      * @param source the source of the modifier
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param playerToModify the player that may not modify weapon destiny draws
