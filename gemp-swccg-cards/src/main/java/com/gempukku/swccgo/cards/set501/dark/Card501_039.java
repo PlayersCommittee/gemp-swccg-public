@@ -78,7 +78,7 @@ public class Card501_039 extends AbstractStarfighter {
                 && GameConditions.canTarget(game, self, targetFilter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Cancel a pilot of <4 or passenger's game text");
+            action.setText("Cancel a pilot of ability < 4 or passenger's game text");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerBattleEffect(action));
