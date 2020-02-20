@@ -3192,9 +3192,9 @@ var fixedImages = {
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
 
 "501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
-"501_6": "/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
+"501_6":"/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
 "501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
-"501_9": "/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
+"501_9":"/gemp-swccg/images/cards/Virtual10-Light/jedibusiness.gif",
 "501_20":"/gemp-swccg/images/cards/Virtual9-Dark/theywillbenomatchforyou.gif",
 "501_21":"/gemp-swccg/images/cards/Virtual3-Light/theforceisstrongwiththisone.gif",
 "501_22":"/gemp-swccg/images/cards/Virtual8-Dark/darthvaderslightsaber.gif",
@@ -3216,6 +3216,7 @@ var fixedImages = {
 "501_40":"/gemp-swccg/images/cards/Hoth-Dark/ewebblaster.gif",
 "501_41":"/gemp-swccg/images/cards/Virtual3-Light/wildkarrde.gif",
 "501_42":"/gemp-swccg/images/cards/CloudCity-Dark/slipslidingaway.gif",
+"501_43":"/gemp-swccg/images/cards/TheedPalace-Dark/silunch.gif",
 };
 
 var packBlueprints = {
