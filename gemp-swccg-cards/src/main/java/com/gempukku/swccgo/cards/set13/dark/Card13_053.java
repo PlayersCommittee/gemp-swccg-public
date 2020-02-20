@@ -25,6 +25,7 @@ public class Card13_053 extends AbstractCharacterWeapon {
         setGameText("Deploy on Aurra Sing. May target a character or creature for free. Target loses all immunity to attrition for remainder of turn. Draw destiny. Target hit if destiny +1 > defense value. Jedi hit by Aurra Sing are power = 0 for remainder of battle.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
         addKeywords(Keyword.BLASTER_RIFLE);
+        addPersona(Persona.AURRAS_BLASTER_RIFLE);
         setMatchingCharacterFilter(Filters.Aurra);
     }
 
