@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card501_033 extends AbstractAlien {
     public Card501_033() {
-        super(Side.DARK, 2, 4, 4, 4, 5, Title.Aurra_Sing, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 4, 5, "Aurra Sing With Blaster Rifle", Uniqueness.UNIQUE);
         setLore("Bounty hunter. Assassin.");
         setGameText("Permanent weapon is Aurra Sing's Blaster Rifle. May target a character for free, draw destiny(2 if targeting a jedi), target hit and forfeit=0, if destiny +1 > defense value.");
         addIcons(Icon.EPISODE_I, Icon.WARRIOR, Icon.VIRTUAL_SET_12, Icon.PERMANENT_WEAPON);
