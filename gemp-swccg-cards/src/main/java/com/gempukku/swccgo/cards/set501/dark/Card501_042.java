@@ -27,7 +27,7 @@ public class Card501_042 extends AbstractStartingInterrupt {
     public Card501_042() {
         super(Side.DARK, 3, "Slip Sliding Away", Uniqueness.UNIQUE);
         setLore("Luke got the shaft.");
-        setGameText("If you deployed exactly one location (and it was a non-Palace site with exactly 2 [DS]): deploy one non-Coruscant battleground site with a scomp link and up to 3 Effects that are always immune to Alter. Place Interrupt in Lost pile.");
+        setGameText("If you deployed exactly one location (which was a site with exactly 2 [DS]): deploy one non-Coruscant battleground site with a scomp link and up to 3 Effects that are always immune to Alter. Place Interrupt in Lost pile.");
         addIcons(Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
         setTestingText("Slip Sliding Away (V)");
@@ -36,7 +36,7 @@ public class Card501_042 extends AbstractStartingInterrupt {
     @Override
     protected PlayInterruptAction getGameTextStartingAction(final String playerId, SwccgGame game, final PhysicalCard self) {
         final Filter validStartingLocation = Filters.and(Filters.owner(playerId),
-                Filters.and(Filters.iconCount(Icon.DARK_FORCE, 2), Filters.site, Filters.not(Filters.titleContains("Palace"))));
+                Filters.and(Filters.iconCount(Icon.DARK_FORCE, 2), Filters.site));
      if (GameConditions.canSpotLocation(game, 1, Filters.owner(playerId)) &&
                 GameConditions.canSpotLocation(game, validStartingLocation)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
