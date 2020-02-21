@@ -30,7 +30,7 @@ public class Card501_030 extends AbstractImperial {
         setLore("ISB. Leader");
         setGameText("[Pilot] 2. Rebels here are power -1 (and at adjacent sites if Ewebb Blaster here). When deployed, may deploy an Eweb blaster or any Imperial Stormtrooper here from Reserve Deck for -2 Force.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.MOFF);
         setTestingText("Moff Gideon");
     }
 

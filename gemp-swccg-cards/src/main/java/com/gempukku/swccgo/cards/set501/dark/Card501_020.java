@@ -77,7 +77,6 @@ public class Card501_020 extends AbstractNormalEffect {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
         GameTextActionId gameTextActionId = GameTextActionId.THEY_WILL_BE_NO_MATCH_FOR_YOU__DOWNLOAD_MAULS_LIGHTSABER;
-        GameTextActionId gameTextActionId2 = GameTextActionId.THEY_WILL_BE_NO_MATCH_FOR_YOU__DEPLOY_MAULS_LIGHTSABER_LOST_PILE;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
@@ -94,9 +93,9 @@ public class Card501_020 extends AbstractNormalEffect {
                 actions.add(action);
             }
 
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId2, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
 
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Deploy Maul's Lightsaber from Lost Pile");
                 action.setActionMsg("Deploy Maul's Lightsaber from Lost Pile");
                 // Update usage limit(s)
