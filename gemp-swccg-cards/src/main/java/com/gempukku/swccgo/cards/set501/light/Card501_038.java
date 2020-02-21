@@ -24,7 +24,7 @@ import java.util.List;
  * Set: Set 1
  * Type: Character
  * Subtype: Droid
- * Title: R2-D2 (Artoo-Detoo) (V)
+ * Title: R2-D2 (Artoo-Detoo) (V) (Errata)
  */
 public class Card501_038 extends AbstractDroid {
     public Card501_038() {
@@ -37,6 +37,7 @@ public class Card501_038 extends AbstractDroid {
         addModelType(ModelType.ASTROMECH);
         addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_1);
         addKeywords(Keyword.SPY);
+        setTestingText("R2-D2 (Artoo-Detoo) (V) (Errata)");
     }
 
     @Override
