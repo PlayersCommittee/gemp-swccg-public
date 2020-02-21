@@ -3141,7 +3141,6 @@ var fixedImages = {
 "211_23":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehand.gif",
 "211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
 "211_24":"/gemp-swccg/images/cards/Virtual11-Dark/vengeance.gif",
-"211_25":"/gemp-swccg/images/cards/Virtual11-Dark/darkjedilightsaber.gif",
 "211_26":"/gemp-swccg/images/cards/Virtual11-Dark/astunningmove.gif",
 "211_26_BACK":"/gemp-swccg/images/cards/Virtual11-Dark/avaluablehostage.gif",
 "211_27":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandobservatoryentrance.gif",
@@ -3217,6 +3216,7 @@ var fixedImages = {
 "501_41":"/gemp-swccg/images/cards/Virtual3-Light/wildkarrde.gif",
 "501_42":"/gemp-swccg/images/cards/CloudCity-Dark/slipslidingaway.gif",
 "501_43":"/gemp-swccg/images/cards/TheedPalace-Dark/silunch.gif",
+"501_44":"/gemp-swccg/images/cards/Virtual8-Dark/lieutenantdopheldmitaka.gif",
 };
 
 var packBlueprints = {
