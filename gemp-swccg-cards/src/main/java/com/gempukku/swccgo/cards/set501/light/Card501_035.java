@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card501_035 extends AbstractStarfighter {
     public Card501_035() {
-        super(Side.LIGHT, 2, 5, 7, null, 5, 6, 8, "Han, Chewie, And The Falcon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 6, 7, null, 5, 7, 8, "Han, Chewie, And The Falcon", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setComboCard(true);
         setLore("Although temperamental, this trusty hunk of junk always seems to perform for its proud owner and his Wookiee co-pilot when needed the most.");
