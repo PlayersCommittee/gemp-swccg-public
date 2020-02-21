@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentAtScompLink;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -54,7 +55,8 @@ public class Card501_038 extends AbstractDroid {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, self)) {
+        if (TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, self)
+                && GameConditions.isAtScompLink(game, self)) {
             final AboutToForfeitCardFromTableResult result = (AboutToForfeitCardFromTableResult) effectResult;
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
