@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set203.light;
+package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;

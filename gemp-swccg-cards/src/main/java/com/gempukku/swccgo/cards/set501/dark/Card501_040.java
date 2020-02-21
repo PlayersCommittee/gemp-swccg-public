@@ -26,6 +26,7 @@ public class Card501_040 extends AbstractArtilleryWeapon {
         setLore("Massive infantry weapon powerful enough to damage even starfighters.");
         setGameText("Deploy on any site. May be moved with two warriors for 1 additional Force. Your warrior present may target a starfighter (Use 5 as defense value), character, creature or vehicle using 2 Force. Draw Destiny. Target hit if destiny +1 > defense value.");
         addIcons(Icon.HOTH);
+        setTestingText("E-Web Blaster (Incomplete)");
     }
 
     @Override

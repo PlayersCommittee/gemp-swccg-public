@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -41,10 +42,12 @@ public class Card501_032 extends AbstractSith {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String opponent = game.getOpponent(self.getOwner());
 
+        Filter maulsWeapons = Filters.and(Filters.weapon, Filters.attachedTo(self));
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Amidala, Filters.atSameLocation(self))));
-        modifiers.add(new MayNotModifyWeaponDestinyModifier(self, opponent, Filters.any, self));
-        modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.any, self));
+        modifiers.add(new MayNotModifyWeaponDestinyModifier(self, opponent, maulsWeapons, self));
+        modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, maulsWeapons, self));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         return modifiers;
     }
@@ -54,7 +57,6 @@ public class Card501_032 extends AbstractSith {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Blaster_Deflection)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)
-                && GameConditions.isAlone(game, self)
                 && GameConditions.isDuringWeaponFiringAtTarget(game, Filters.any, Filters.here(self))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

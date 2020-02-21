@@ -27,6 +27,7 @@ public class Card501_033 extends AbstractAlien {
         addIcons(Icon.EPISODE_I, Icon.WARRIOR, Icon.VIRTUAL_SET_12, Icon.PERMANENT_WEAPON);
         addKeywords(Keyword.BOUNTY_HUNTER, Keyword.ASSASSIN, Keyword.FEMALE);
         addPersona(Persona.AURRA);
+        setTestingText("Aurra Sing With Blaster Rifle");
     }
 
     // Define "Aurra Sing's Blaster Rifle" permanent weapon
