@@ -22,7 +22,7 @@ import java.util.List;
  * Set: Set 3
  * Type: Starship
  * Subtype: Capital
- * Title: Wild Karrde
+ * Title: Wild Karrde (Errata)
  */
 public class Card501_041 extends AbstractCapitalStarship {
     public Card501_041() {
@@ -32,6 +32,7 @@ public class Card501_041 extends AbstractCapitalStarship {
         addModelType(ModelType.MODIFIED_ACTION_VI_FREIGHTER);
         setPilotCapacity(3);
         setPassengerCapacity(6);
+        setTestingText("Wild Karrde (Errata)");
     }
 
     @Override
