@@ -13267,8 +13267,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         // Your starship or vehicle is alone at a location if the only active characters,
         // vehicles and starships you have at that location are aboard that starship or vehicle.
         if ((physicalCard.getBlueprint().getCardCategory() != CardCategory.VEHICLE
-                && physicalCard.getBlueprint().getCardCategory() != CardCategory.STARSHIP)
-                || physicalCard.getBlueprint().isComboCard())
+                && physicalCard.getBlueprint().getCardCategory() != CardCategory.STARSHIP))
             return false;
 
         PhysicalCard location = getLocationThatCardIsAt(gameState, physicalCard);
