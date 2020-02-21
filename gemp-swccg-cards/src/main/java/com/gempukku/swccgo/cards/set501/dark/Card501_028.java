@@ -50,7 +50,7 @@ public class Card501_028 extends AbstractNormalEffect {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             Filter ep1Lightsaber = Filters.and(Icon.EPISODE_I, Filters.lightsaber);
-            Filter hallway = Filters.titleContains("Hallway");
+            Filter mobileHallway = Filters.and(Filters.mobile_site, Filters.titleContains("Hallway"));
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy card from Reserve Deck");
@@ -62,7 +62,7 @@ public class Card501_028 extends AbstractNormalEffect {
 
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(ep1Lightsaber, hallway), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(ep1Lightsaber, mobileHallway), true));
 
             actions.add(action);
         }
