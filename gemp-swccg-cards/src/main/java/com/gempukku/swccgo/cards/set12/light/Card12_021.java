@@ -55,7 +55,7 @@ public class Card12_021 extends AbstractJediMaster {
 
         // Check condition(s)
         if ((TriggerConditions.isBattleDestinyJustDrawn(game, effectResult) || TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isAtLocation(game, self, Filters.Jedi_Council_Chamber)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
