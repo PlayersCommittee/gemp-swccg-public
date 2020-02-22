@@ -35,7 +35,7 @@ public class Card501_044 extends AbstractFirstOrder {
     public Card501_044() {
         super(Side.DARK, 3, 3, 3, 3, 5, "Allegiant General Pryde", Uniqueness.UNIQUE);
         setLore("Leader");
-        setGameText("[Pilot] 2. Hux is lost. Adds one battle destiny with opponents Resistance character. If Palpatine on table, your total attrition against opponent here is +1 for each First Order character here.");
+        setGameText("[Pilot] 2. Hux is lost. Adds one battle destiny with opponents Resistance character. If Emperor on table, your total attrition against opponent here is +1 for each First Order character here.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
         addKeywords(Keyword.LEADER, Keyword.GENERAL);
         setTestingText("Allegiant General Pryde");
@@ -46,7 +46,7 @@ public class Card501_044 extends AbstractFirstOrder {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new AddsBattleDestinyModifier(self, new WithCondition(self, Filters.and(Filters.opponents(self.getOwner()), Filters.Resistance_character)), 1));
-        modifiers.add(new AttritionModifier(self, Filters.here(self), new OnTableCondition(self, Filters.Palpatine), new HereEvaluator(self, Filters.First_Order_character), game.getOpponent(self.getOwner())));
+        modifiers.add(new AttritionModifier(self, Filters.here(self), new OnTableCondition(self, Filters.Emperor), new HereEvaluator(self, Filters.First_Order_character), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 

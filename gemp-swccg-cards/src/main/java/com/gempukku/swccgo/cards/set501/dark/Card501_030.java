@@ -10,6 +10,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -37,6 +38,7 @@ public class Card501_030 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new PowerModifier(self, Filters.and(Filters.Rebel, Filters.atSameLocation(self)), -1));
         modifiers.add(new PowerModifier(self, Filters.and(Filters.Rebel, Filters.at(Filters.adjacentSite(self))), new HereCondition(self, Filters.title(Title.E_web_Blaster)), -1));
         return modifiers;

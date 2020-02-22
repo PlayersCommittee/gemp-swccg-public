@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,10 +33,11 @@ import java.util.List;
 public class Card501_043 extends AbstractRepublic {
     public Card501_043() {
         super(Side.DARK, 2, 3, 3, 3, 5, "Admiral Trench", Uniqueness.UNIQUE);
-        setLore("Harch Commander.");
+        setLore("Harch Commander. Trade Federation Leader.");
         setGameText("Adds 2 to power of anything he pilots. May place Trench in Used Pile to make an [E1] starship here immune to attrition for remainder of turn. While at opponent's system, their starships deploy +1 here.");
-        addKeywords(Keyword.ADMIRAL, Keyword.COMMANDER);
-        addIcons(Icon.VIRTUAL_SET_12, Icon.SEPARATIST, Icon.PILOT);
+        addKeywords(Keyword.ADMIRAL, Keyword.COMMANDER, Keyword.LEADER);
+        addIcons(Icon.VIRTUAL_SET_12, Icon.SEPARATIST, Icon.TRADE_FEDERATION, Icon.PILOT);
+        setSpecies(Species.HARCH);
         setTestingText("Admiral Trench");
     }
 

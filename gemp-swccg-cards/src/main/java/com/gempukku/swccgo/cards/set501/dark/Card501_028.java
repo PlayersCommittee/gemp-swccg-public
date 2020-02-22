@@ -15,7 +15,6 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextOnSideOfLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -33,7 +32,7 @@ public class Card501_028 extends AbstractNormalEffect {
     public Card501_028() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Evil Is Everywhere!", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Deploy on table. Non-[EI] Dark Jedi are lost. Grievous is deploy -1. Your gametext on Jedi Council Chamber is cancelled. Unless with Obi-Wan, Dooku is immune to attrition. May deploy a Hallway or [EI] lightsaber from Reserve Deck; reshuffle.[Immune to Alter]");
+        setGameText("Deploy on table. Non-[EI] Dark Jedi are lost. Your gametext on Jedi Council Chamber is cancelled. Unless with Obi-Wan, Dooku is immune to attrition. May deploy a Hallway or [EI] lightsaber from Reserve Deck; reshuffle.[Immune to Alter]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("Evil Is Everywhere!");
@@ -75,7 +74,6 @@ public class Card501_028 extends AbstractNormalEffect {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
-        modifiers.add(new DeployCostModifier(self, Filters.Grievous, -1));
         modifiers.add(new ImmuneToAttritionModifier(self, Filters.and(Filters.Dooku, Filters.not(Filters.with(self, Filters.ObiWan)))));
         modifiers.add(new CancelsGameTextOnSideOfLocationModifier(self, Filters.Jedi_Council_Chamber, self.getOwner()));
 
