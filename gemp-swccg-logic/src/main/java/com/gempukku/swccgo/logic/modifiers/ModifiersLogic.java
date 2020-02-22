@@ -762,13 +762,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
 
-        for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierType.REMOVE_KEYWORD, keyword, physicalCard)) {
-            if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword)) {
-                retVal = false;
-                modifierCollector.addModifier(modifier);
-            }
-        }
-
         return retVal;
     }
 
