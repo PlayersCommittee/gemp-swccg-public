@@ -40,6 +40,7 @@ public enum Species implements Filterable {
     GRAN("Gran", true),
     GRINDALID("Grindalid", true),
     GUNGAN("Gungan", true),
+    HARCH("Harch", true),
     HNEMTHE("H'nemthe", true),
     HUTT("Hutt", true),
     IMZIG("Imzig", true),
