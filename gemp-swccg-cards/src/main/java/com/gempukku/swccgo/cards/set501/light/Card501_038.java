@@ -50,6 +50,7 @@ public class Card501_038 extends AbstractDroid {
         modifiers.add(new ManeuverModifier(self, starfighterAboard, 2));
         modifiers.add(new HyperspeedModifier(self, starfighterAboard, 2));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Fire_Extinguisher));
+        modifiers.add(new ImmuneToTitleModifier(self, Title.Restraining_Bolt));
         return modifiers;
     }
 
