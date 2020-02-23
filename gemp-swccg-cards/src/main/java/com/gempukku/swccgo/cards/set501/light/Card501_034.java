@@ -36,7 +36,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
         setGameText("Deploy on Han or Beckett. May target a character or creature for free. Draw destiny. Target hit, its forfeit = 0, if destiny +2 > defense value. If on non-spy Han, may fire once during your control phase or place in Used Pile to cancel a weapon destiny targeting Han.");
         addKeywords(Keyword.BLASTER);
         setMatchingCharacterFilter(Filters.or(Filters.Beckett, Filters.Han));
-        setTestingText("Han's Heavy Blaster Pistol (V)");
+        setTestingText("Han's Heavy Blaster Pistol (V) (Errata)");
     }
 
 
