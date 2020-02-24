@@ -40,7 +40,7 @@ public class Card501_031 extends AbstractSith {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new EachBattleDestinyModifier(self, 1, playerId));
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.your(self), 1));
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.weaponBeingFiredBy(self), 1));
         return modifiers;
     }
 
