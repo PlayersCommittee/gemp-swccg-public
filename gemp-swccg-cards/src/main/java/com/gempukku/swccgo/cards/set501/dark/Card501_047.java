@@ -28,8 +28,8 @@ import java.util.List;
  * Type: Effect
  * Title: Fanfare (V) (Errata)
  */
-public class Card501_046 extends AbstractDefensiveShield {
-    public Card501_046() {
+public class Card501_047 extends AbstractDefensiveShield {
+    public Card501_047() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fanfare");
         setVirtualSuffix(true);
         setLore("The Boonta Eve crowds are always looking for new and exciting developments at every Podrace.");
