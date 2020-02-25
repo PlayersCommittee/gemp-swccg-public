@@ -34,7 +34,7 @@ public class Card501_043 extends AbstractRepublic {
     public Card501_043() {
         super(Side.DARK, 2, 3, 3, 3, 5, "Admiral Trench", Uniqueness.UNIQUE);
         setLore("Harch Commander. Trade Federation Leader.");
-        setGameText("Adds 2 to power of anything he pilots. May place Trench in Used Pile to make an [E1] starship here immune to attrition for remainder of turn. While at opponent's system, their starships deploy +1 here.");
+        setGameText("Adds 2 to power of anything he pilots. Unless alone, may place Trench in Used Pile to make an [E1] starship here immune to attrition for remainder of turn. While at opponent's system, their starships deploy +1 here.");
         addKeywords(Keyword.ADMIRAL, Keyword.COMMANDER, Keyword.LEADER);
         addIcons(Icon.VIRTUAL_SET_12, Icon.SEPARATIST, Icon.TRADE_FEDERATION, Icon.PILOT);
         setSpecies(Species.HARCH);
@@ -54,7 +54,8 @@ public class Card501_043 extends AbstractRepublic {
         Filter ep1StarshipHere = Filters.and(Filters.icon(Icon.EPISODE_I), Filters.starship, Filters.atSameLocation(self));
 
         // Check condition(s)
-        if (GameConditions.canTarget(game, self, ep1StarshipHere)) {
+        if (GameConditions.canTarget(game, self, ep1StarshipHere)
+                && !GameConditions.isAlone(game, self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             action.setText("Place character in Used Pile");
