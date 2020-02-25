@@ -3213,6 +3213,9 @@ var fixedImages = {
 "501_42":"/gemp-swccg/images/cards/CloudCity-Dark/slipslidingaway.gif",
 "501_43":"/gemp-swccg/images/cards/TheedPalace-Dark/silunch.gif",
 "501_44":"/gemp-swccg/images/cards/Virtual8-Dark/lieutenantdopheldmitaka.gif",
+"501_45":"/gemp-swccg/images/cards/CloudCity-Dark/abilityabilityability.gif",
+"501_46":"/gemp-swccg/images/cards/CloudCity-Light/civildisorder.gif",
+
 };
 
 var packBlueprints = {

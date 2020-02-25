@@ -2990,6 +2990,22 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if the specified player just initiated lightsaber combat.
+     *
+     * @param game         the game
+     * @param effectResult the effect result
+     * @param playerId     the player
+     * @return true or false
+     */
+    public static boolean lightsaberCombatInitiated(SwccgGame game, EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.LIGHTSABER_COMBAT_INITIATED) {
+            LightsaberCombatInitiatedResult lightsaberCombatInitiatedResult = (LightsaberCombatInitiatedResult) effectResult;
+            return playerId.equals(lightsaberCombatInitiatedResult.getPerformingPlayerId()) && game.getGameState().getLightsaberCombatState().canContinue(game);
+        }
+        return false;
+    }
+
+    /**
      * Determines if a character accepted by the winner filter just won lightsaber combat against a character accepted by the loser filter.
      * @param game the game
      * @param effectResult the effect result
