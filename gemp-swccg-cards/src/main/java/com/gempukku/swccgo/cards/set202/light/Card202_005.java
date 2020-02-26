@@ -47,7 +47,7 @@ public class Card202_005 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ResetDeployCostModifier(self, deathStarIILuke, 6));
         modifiers.add(new MayNotBeDisarmedModifier(self, deathStarIILuke));
-        modifiers.add(new EachBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.Luke), new AtCondition(self, SpotOverride.INCLUDE_CAPTIVE, Filters.Luke, Filters.battleground), 1, playerId));
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.sameLocationAs(self, SpotOverride.INCLUDE_CAPTIVE, Filters.Luke), new AtCondition(self, SpotOverride.INCLUDE_CAPTIVE, Filters.Luke, Filters.battleground), 1, playerId));
         return modifiers;
     }
 
