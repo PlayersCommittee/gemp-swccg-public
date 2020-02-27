@@ -57,7 +57,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 2, Statistic.DEFENSE_VALUE, true, 0, 1);
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 2, Statistic.DEFENSE_VALUE, true, 0);
             return Collections.singletonList(action);
         }
         return null;

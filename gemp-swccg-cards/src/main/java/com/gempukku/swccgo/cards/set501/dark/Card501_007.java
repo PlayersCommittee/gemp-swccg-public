@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -49,7 +49,7 @@ public class Card501_007 extends AbstractImperial {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new AddsDestinyToPowerModifier(self, new AndCondition(new InBattleCondition(self), new PilotingCondition(self, Filters.Blizzard_1)), 1));
-        modifiers.add(new DeploysFreeAboardModifier(self, Filters.Blizzard_1));
+        modifiers.add(new DeploysFreeToTargetModifier(self, Filters.Blizzard_1));
         return modifiers;
     }
 
@@ -57,15 +57,15 @@ public class Card501_007 extends AbstractImperial {
     protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.VEERS__UPLOAD_HOTH_COMBAT_VEHICLE_OR_SIXTH_MARKER;
 
-        if (GameConditions.isOnceDuringYourPhase(game, self, gameTextSourceCardId, Phase.DEPLOY)
+        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Reveal to deploy 6th Marker or Blizzard 1 to Hoth from Reserve Deck");
-            action.setActionMsg("Deploy 6th Marker or Blizzard 1 to Hoth from Reserve Deck");
+            action.setText("Reveal to deploy 6th Marker or Blizzard 1");
+            action.setActionMsg("Deploy 6th Marker or Blizzard 1");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerPhaseEffect(action));
+                    new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
                     new ShowCardOnScreenEffect(action, self));
