@@ -33,7 +33,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
         super(Side.LIGHT, 2, Title.Hans_Heavy_Blaster_Pistol, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("BlasTech DL-44 heavy pistol. Short range, but relatively powerful. Carries energy for 25 shots. Illegal or restricted on most systems.");
-        setGameText("Deploy on Han or Beckett. May target a character or creature for free. Draw destiny. Target hit, its forfeit = 0, if destiny +2 > defense value. If on non-spy Han, may fire once during your control phase or place in Used Pile to cancel a weapon destiny targeting Han.");
+        setGameText("Deploy on Beckett or non-spy Han. May target a character. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. If on Han, may fire once during your control phase, and may place this weapon in Used Pile to cancel a weapon destiny targeting Han.");
         addKeywords(Keyword.BLASTER);
         setMatchingCharacterFilter(Filters.or(Filters.Beckett, Filters.Han));
         setTestingText("Han's Heavy Blaster Pistol (V) (Errata)");
@@ -42,7 +42,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.or(Filters.Han, Filters.Beckett));
+        return Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.Han, Filters.not(Filters.spy)), Filters.Beckett));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
     @Override
     protected List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
         FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                .targetForFree(Filters.or(Filters.character, targetedAsCharacter, Filters.creature), TargetingReason.TO_BE_HIT).finishBuildPrep();
+                .targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
 
             // Build action using common utility
@@ -69,7 +69,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.isAttachedTo(game, self, Filters.and(Filters.not(Filters.spy), Filters.Han))
+                && GameConditions.isAttachedTo(game, self, Filters.Han)
                 && Filters.canBeFired(self, 0).accepts(game, self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -80,7 +80,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new FireWeaponEffect(action, self, false, Filters.any));
+                    new FireWeaponEffect(action, self, false, Filters.character));
             return Collections.singletonList(action);
         }
         return null;

@@ -2,16 +2,20 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractSith;
+import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -28,7 +32,7 @@ public class Card501_031 extends AbstractSith {
     public Card501_031() {
         super(Side.DARK, 1, 6, 7, 6, 7, "Lord Maul With Lightsaber", Uniqueness.UNIQUE);
         setLore("Trade Federation.");
-        setGameText("Maul's weapon destinies and your battle destiny draws here are +1. Permanent weapon is •Maul's Lightsaber (may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
+        setGameText("Permanent weapon is •Maul's Lightsaber (may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value and may add 1 to Force drain where present). Your battle destiny draws here are +1.");
         addPersona(Persona.MAUL);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_8);
         setTestingText("Lord Maul With Lightsaber (Errata)");
@@ -40,8 +44,23 @@ public class Card501_031 extends AbstractSith {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new EachBattleDestinyModifier(self, 1, playerId));
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.weaponBeingFiredBy(self), 1));
         return modifiers;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
+                && GameConditions.isArmedWith(game, self, Filters.Mauls_Lightsaber)) {
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Add 1 to Force drain");
+            // Perform result(s)
+            action.appendEffect(
+                    new AddToForceDrainEffect(action, 1));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     // Define "Maul's Lightsaber" permanent weapon
