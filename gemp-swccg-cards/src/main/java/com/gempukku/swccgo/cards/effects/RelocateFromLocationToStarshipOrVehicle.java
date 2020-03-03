@@ -38,7 +38,13 @@ public class RelocateFromLocationToStarshipOrVehicle extends AbstractSuccessfulE
     protected void doPlayEffect(SwccgGame game) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        PhysicalCard locationRelocatingFrom = _card.getAtLocation();
+        PhysicalCard locationRelocatingFrom;
+        if (_card.isPilotOf() || _card.isPassengerOf()) {
+            locationRelocatingFrom = _card.getAttachedTo().getAtLocation();
+        } else {
+            locationRelocatingFrom = _card.getAtLocation();
+        }
+
         PhysicalCard locationRelocatingTo = modifiersQuerying.getLocationThatCardIsAt(gameState, _starshipOrVehicle);
         if (_asPilot) {
             if (_starshipOrVehicle.getBlueprint().getCardSubtype()== CardSubtype.TRANSPORT)
