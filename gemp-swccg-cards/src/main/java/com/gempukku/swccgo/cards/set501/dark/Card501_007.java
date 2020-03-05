@@ -41,6 +41,7 @@ public class Card501_007 extends AbstractImperial {
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new LeaderModifier(self));
+        modifiers.add(new DeploysFreeAboardModifier(self, Persona.BLIZZARD_1));
         return modifiers;
     }
 
@@ -49,7 +50,6 @@ public class Card501_007 extends AbstractImperial {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new AddsDestinyToPowerModifier(self, new AndCondition(new InBattleCondition(self), new PilotingCondition(self, Filters.Blizzard_1)), 1));
-        modifiers.add(new DeploysFreeToTargetModifier(self, Filters.Blizzard_1));
         return modifiers;
     }
 

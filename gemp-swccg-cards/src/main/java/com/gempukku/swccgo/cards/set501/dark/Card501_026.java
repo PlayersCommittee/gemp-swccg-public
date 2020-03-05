@@ -31,7 +31,7 @@ public class Card501_026 extends AbstractUsedOrLostInterrupt {
         super(Side.DARK, 4, "Sith Fury", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("At his peak, no one could stand up to the Dark Lord of the Sith. His superior tactics devastated those who opposed him.");
-        setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Once per game, exchange a character in hand with a Dark Jedi Master in your Lost Pile.");
+        setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Once per game, exchange a Dark Jedi in hand with a Dark Jedi in Lost Pile.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0);
         setTestingText("Sith Fury (V) (Errata)");
     }
@@ -77,7 +77,7 @@ public class Card501_026 extends AbstractUsedOrLostInterrupt {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, exchangeCardActionId, CardSubtype.LOST);
             action.setText("Exchange card in hand");
-            action.setActionMsg("Exchange card in hand with a Dark Jedi Master in lost pile.");
+            action.setActionMsg("Exchange Dark Jedi in hand with a Dark Jedi in lost pile.");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -90,7 +90,7 @@ public class Card501_026 extends AbstractUsedOrLostInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, Filters.any, CardType.DARK_JEDI_MASTER));
+                                    new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, Filters.Dark_Jedi, Filters.Dark_Jedi));
                         }
                     });
 

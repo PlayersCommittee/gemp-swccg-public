@@ -12,6 +12,7 @@ public enum Persona implements Filterable {
     AURRA("Aurra"),
     BB8("BB-8"),
     BECKETT("Beckett"),
+    BLIZZARD_1("Blizzard 1"),
     BOBA_FETT("Boba Fett"),
     BOOSTER("Booster"),
     BOSSK("Bossk"),
