@@ -57,19 +57,18 @@ public class Card211_034 extends AbstractStarfighter {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        final PhysicalCard Libertine = self;
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)) {
-            final Filter yourCharacterOfAbilityLessThanFour = Filters.and(Filters.your(self), Filters.character, Filters.abilityLessThanOrEqualTo(4));
-            final Filter relatedExteriorSite = Filters.and(Filters.exterior_site, Filters.relatedLocationTo(self, Filters.here(Libertine)));
+            final Filter yourCharacterOfAbilityLessThanFour = Filters.and(Filters.your(self), Filters.character, Filters.abilityLessThan(4));
+            final Filter relatedExteriorSite = Filters.and(Filters.exterior_site, Filters.relatedLocationTo(self, Filters.here(self)));
             final Filter validCharacters = Filters.and(
                     yourCharacterOfAbilityLessThanFour
                     , Filters.canBeRelocated(false)
                     , Filters.at(relatedExteriorSite)
-                    , Filters.not(Filters.mayNotBoard(Libertine)));
-            final int availablePassengerCapacity = game.getGameState().getAvailablePassengerCapacity(game.getModifiersQuerying(), Libertine, self);
-            final int availablePilotCapacity = game.getGameState().getAvailablePilotCapacity(game.getModifiersQuerying(), Libertine, self);
+                    , Filters.not(Filters.mayNotBoard(self)));
+            final int availablePassengerCapacity = game.getGameState().getAvailablePassengerCapacity(game.getModifiersQuerying(), self, self);
+            final int availablePilotCapacity = game.getGameState().getAvailablePilotCapacity(game.getModifiersQuerying(), self, self);
             final Filter validCharactersMeetingCapacityRequirements = validCharactersMeetingCapacityRequirements(validCharacters, availablePassengerCapacity, availablePilotCapacity);
             if (GameConditions.canSpot(game, self, validCharactersMeetingCapacityRequirements)
                     && (availablePassengerCapacity + availablePilotCapacity > 0)) {
@@ -99,20 +98,20 @@ public class Card211_034 extends AbstractStarfighter {
                                                 new MultipleChoiceAwaitingDecision("Choose capacity slot", capacityOptions) {
                                                     @Override
                                                     protected void validDecisionMade(int index, String result) {
-                                                        final boolean asPilot = (result == "Pilot") ? true : false;
+                                                        final boolean asPilot = result.equals("Pilot");
                                                         // Allow response(s)
-                                                        action.allowResponses("Relocate " + GameUtils.getCardLink(characterTargeted) + " to " + GameUtils.getCardLink(Libertine),
+                                                        action.allowResponses("Relocate " + GameUtils.getCardLink(characterTargeted) + " to " + GameUtils.getCardLink(self),
                                                                 new UnrespondableEffect(action) {
                                                                     @Override
                                                                     protected void performActionResults(Action targetingAction) {
                                                                         action.addAnimationGroup(characterTargeted);
-                                                                        action.addAnimationGroup(Libertine);
+                                                                        action.addAnimationGroup(self);
                                                                         // Pay cost(s)
                                                                         action.appendCost(
-                                                                                new PayRelocateBetweenLocationsCostEffect(action, playerId, characterTargeted, Libertine.getAtLocation(), 0));
+                                                                                new PayRelocateBetweenLocationsCostEffect(action, playerId, characterTargeted, self.getAtLocation(), 0));
                                                                         // Perform result(s)
                                                                         action.appendEffect(
-                                                                                new RelocateFromLocationToStarshipOrVehicle(action, characterTargeted, Libertine, asPilot, self));
+                                                                                new RelocateFromLocationToStarshipOrVehicle(action, characterTargeted, self, asPilot, self));
                                                                     }
                                                                 });
                                                     }
