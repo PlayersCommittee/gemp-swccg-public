@@ -3217,6 +3217,7 @@ var fixedImages = {
 "501_46":"/gemp-swccg/images/cards/CloudCity-Light/civildisorder.gif",
 "501_47":"/gemp-swccg/images/cards/Virtual0-Dark/fanfare.gif",
 "501_49":"/gemp-swccg/images/cards/Virtual0-Light/dontdothatagain.gif",
+"501_49":"/gemp-swccg/images/cards/Virtual11-Dark/vadersanger.gif",
 };
 
 var packBlueprints = {

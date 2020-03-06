@@ -28,6 +28,7 @@ public class Card3_154 extends AbstractCombatVehicle {
         addIcons(Icon.HOTH, Icon.SCOMP_LINK);
         addKeywords(Keyword.ENCLOSED);
         setPilotCapacity(2);
+        addPersona(Persona.BLIZZARD_1);
         setPassengerCapacity(8);
     }
 

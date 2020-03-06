@@ -26,7 +26,7 @@ import java.util.List;
  * Set: Set 11
  * Type: Interrupt
  * Subtype: Used
- * Title: Vader's Anger
+ * Title: Vader's Anger (V)
  */
 public class Card211_016 extends AbstractUsedInterrupt {
     public Card211_016() {
