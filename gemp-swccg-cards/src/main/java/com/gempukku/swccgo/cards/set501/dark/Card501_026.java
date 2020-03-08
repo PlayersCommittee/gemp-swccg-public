@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card501_026 extends AbstractUsedOrLostInterrupt {
     public Card501_026() {
-        super(Side.DARK, 4, "Sith Fury", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Sith_Fury, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("At his peak, no one could stand up to the Dark Lord of the Sith. His superior tactics devastated those who opposed him.");
         setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Once per game, exchange a Dark Jedi in hand with a Dark Jedi in Lost Pile.");

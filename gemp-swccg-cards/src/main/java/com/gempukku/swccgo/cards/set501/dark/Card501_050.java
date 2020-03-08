@@ -9,16 +9,16 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfBattleEffect;
-import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
-import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.HitResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,75 +32,83 @@ public class Card501_050 extends AbstractUsedInterrupt {
     public Card501_050() {
         super(Side.DARK, 5, "Vader's Anger", Uniqueness.UNIQUE);
         setLore("Anger and aggression fuel the dark side of the Force.");
-        setGameText("If Vader’s Lightsaber just 'hit' a character, cancel that character's game text (if it missed, swing again at same target). OR Cancel It's A Trap! at a Dark Jedi’s site. OR A revel trooper in battle with Vader is lost. [Immune to Sense]");
+        setGameText("For remainder of turn, opponent may not cancel your lightsaber weapon (or ‘choke’) destiny draws. OR If Vader in battle alone, your total battle destiny is +1 for each character in battle. OR Cancel It’s A Trap. OR Take Sith Fury into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_11);
-        addImmuneToCardTitle(Title.Sense);
         setVirtualSuffix(true);
         setTestingText("Vader's Anger (V) (Errata)");
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.Vader)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Rebel, Filters.trooper))) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Target rebel trooper to be lost", Filters.and(Filters.Rebel, Filters.trooper, Filters.with(self, Filters.Vader))) {
-                        @Override
-                        protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
-                            action.appendEffect(
-                                    new LoseCardFromTableEffect(action, targetedCard)
-                            );
-                        }
-                    }
-            );
-
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         // Check condition(s)
-        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, Filters.lightsaber, Filters.Vader)) {
-            final PhysicalCard cardHit = ((HitResult) effectResult).getCardHit();
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            action.setText("Cancel character's gametext.");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new CancelGameTextUntilEndOfBattleEffect(action, cardHit));
-                        }
-                    }
-            );
+        if (GameConditions.canTargetToCancel(game, self, Filters.Its_A_Trap)) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Its_A_Trap, Title.Its_A_Trap);
             actions.add(action);
         }
+
+        // Check condition(s)
+        if (GameConditions.isDuringBattle(game)
+                && GameConditions.isAllAbilityInBattleProvidedBy(game, playerId, Filters.Vader)) {
+            final int count = Filters.countActive(game, self, Filters.and(Filters.character, Filters.participatingInBattle));
+            if (count > 0) {
+
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                action.setText("Add " + count + " to total battle destiny");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new ModifyTotalBattleDestinyEffect(action, playerId, count));
+                            }
+                        }
+                );
+                actions.add(action);
+            }
+        }
+
+        GameTextActionId gameTextActionId = GameTextActionId.VADERS_ANGER__UPDLOAD_SITH_FURY;
+        if(GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)){
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.appendEffect(
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.title(Title.Sith_Fury), true)
+            );
+        }
+
+        PlayInterruptAction action = new PlayInterruptAction(game, self);
+        action.appendEffect(
+                new AddUntilEndOfTurnModifierEffect(action,
+                        new MayNotCancelWeaponDestinyModifier(self, game.getOpponent(playerId), Filters.and(Filters.your(playerId), Filters.lightsaber)), "")
+        );
+        action.appendEffect(
+                new AddUntilEndOfTurnModifierEffect(action,
+                        new ModifyGameTextModifier(self, Filters.or(Filters.title(Title.Darth_Vader_Dark_Lord_of_the_Sith), Filters.title(Title.Physical_Choke)) ,ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED),"")
+        );
 
         return actions;
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
-        List<PlayInterruptAction> actions = new LinkedList<>();
+        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Its_A_Trap)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.Dark_Jedi)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
-            PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            PlayInterruptAction action = new PlayInterruptAction(game, self);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             actions.add(action);
         }
-
         return actions;
     }
 }

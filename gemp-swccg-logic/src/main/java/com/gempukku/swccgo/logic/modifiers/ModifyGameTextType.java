@@ -13,6 +13,7 @@ public enum ModifyGameTextType {
     BOONTA_EVE_PODRACE__RETRIEVE_FORCE_INTO_HAND("Take any or all force retrieved into hand"),
     BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE("May not capture Luke"),
     BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
+    CHOKE_DESTINY_CANNOT_BE_CANCELLED("'Choke' destinies may not be cancelled."),
     COUNTER_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
     DARK_DEAL__ADDITIONAL_BESPIN_LOCATION_TO_CANCEL("Additional Bespin location required to cancel"),
     DEATH_STAR__MAY_DEPLOY_WITHOUT_COMPLETING_DEATH_STAR_PLANS("May deploy without completing Death Star Plans"),

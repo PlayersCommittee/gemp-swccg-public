@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -29,7 +30,7 @@ import java.util.*;
  */
 public class Card101_005 extends AbstractImperial {
     public Card101_005() {
-        super(Side.DARK, 1, 7, 4, 6, 5, "Vader", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, 4, 6, 5, Title.Vader, Uniqueness.UNIQUE);
         setLore("Sought to extinguish all Jedi. Former student of Obi-Wan Kenobi. Seduced by the dark side of the Force.");
         setGameText("Must deploy on Death Star, but may move elsewhere. May not be deployed if two or more of opponent's unique (•) characters on table. If in a losing battle, draw destiny. If destiny > 4, 'choke' (lose) one Imperial present (your choice).");
         addPersona(Persona.VADER);
@@ -60,7 +61,7 @@ public class Card101_005 extends AbstractImperial {
             action.setText("Draw destiny");
             // Perform result(s)
             action.appendEffect(
-                    new DrawDestinyEffect(action, playerId) {
+                    new DrawDestinyEffect(action, playerId, game, GameConditions.hasGameTextModification(game, self, ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED)) {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             GameState gameState = game.getGameState();

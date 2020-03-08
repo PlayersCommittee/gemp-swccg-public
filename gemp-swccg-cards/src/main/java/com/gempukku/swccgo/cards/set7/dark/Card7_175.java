@@ -18,6 +18,7 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class Card7_175 extends AbstractImperial {
     public Card7_175() {
-        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader, Dark Lord Of The Sith", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 6, 8, Title.Darth_Vader_Dark_Lord_of_the_Sith, Uniqueness.UNIQUE);
         setLore("Formerly Anakin Skywalker, Jedi Knight. Became Darth Vader. Ordered by Emperor Palpatine to deal with Luke Skywalker, but bargained for his son's life instead.");
         setGameText("Adds 3 to power of anything he pilots. When in a battle, may target one opponent's character present. Draw destiny. Target 'choked' (lost) if destiny > ability. Immune to attrition < 5.");
         addPersona(Persona.VADER);
@@ -50,7 +51,7 @@ public class Card7_175 extends AbstractImperial {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.isInBattle(game, self)) {
@@ -80,11 +81,12 @@ public class Card7_175 extends AbstractImperial {
 
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new DrawDestinyEffect(action, playerId) {
+                                                        new DrawDestinyEffect(action, playerId, game, GameConditions.hasGameTextModification(game, self, ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED)) {
                                                             @Override
                                                             protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                                 return Collections.singletonList(cardToChoke);
                                                             }
+
                                                             @Override
                                                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                                                 GameState gameState = game.getGameState();
