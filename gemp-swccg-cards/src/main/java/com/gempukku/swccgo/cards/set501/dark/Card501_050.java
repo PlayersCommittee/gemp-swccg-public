@@ -40,7 +40,7 @@ public class Card501_050 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, PhysicalCard self) {
-        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+        List<PlayInterruptAction> actions = new LinkedList<>();
 
         // Check condition(s)
         if (GameConditions.canTargetToCancel(game, self, Filters.Its_A_Trap)) {
@@ -90,7 +90,7 @@ public class Card501_050 extends AbstractUsedInterrupt {
         );
         action.appendEffect(
                 new AddUntilEndOfTurnModifierEffect(action,
-                        new ModifyGameTextModifier(self, Filters.or(Filters.title(Title.Darth_Vader_Dark_Lord_of_the_Sith), Filters.title(Title.Physical_Choke)) ,ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED),"")
+                        new ModifyGameTextModifier(self, Filters.or(Filters.title(Title.Darth_Vader_Dark_Lord_of_the_Sith), Filters.title(Title.Physical_Choke), Filters.title(Title.Vader)), ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED),"")
         );
 
         return actions;
@@ -98,7 +98,7 @@ public class Card501_050 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
-        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+        List<PlayInterruptAction> actions = new LinkedList<>();
 
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Its_A_Trap)
