@@ -146,7 +146,7 @@ public class Card501_024 extends AbstractNormalEffect {
     }
 
     private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, Action action) {
-        Filter filter = Filters.or(Filters.sameTitleAs(selectedCard, true));
+        Filter filter = Filters.sameTitleAs(selectedCard, true);
         action.appendEffect(
                 new ShowCardOnScreenEffect(action, selectedCard)
         );
