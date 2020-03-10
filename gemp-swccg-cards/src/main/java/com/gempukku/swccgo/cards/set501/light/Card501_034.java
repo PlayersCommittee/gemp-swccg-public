@@ -47,7 +47,7 @@ public class Card501_034 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.or(Filters.Han, Filters.Beckett);
+        return Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.Han, Filters.not(Filters.spy)), Filters.Beckett));
     }
 
     @Override

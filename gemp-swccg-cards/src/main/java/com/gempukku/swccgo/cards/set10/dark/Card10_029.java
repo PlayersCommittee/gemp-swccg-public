@@ -81,7 +81,7 @@ public class Card10_029 extends AbstractObjective {
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility,
-                                Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), playerId), null));
+                                Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotPlayModifier(self, Filters.Scanning_Crew), null));

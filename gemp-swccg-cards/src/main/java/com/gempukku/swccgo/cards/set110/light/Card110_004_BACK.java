@@ -19,7 +19,6 @@ import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsLandedToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -80,11 +79,6 @@ public class Card110_004_BACK extends AbstractObjective {
                         @Override
                         public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
                             return Collections.singletonList(han);
-                        }
-
-                        @Override
-                        public boolean mayBeTakenIntoHand() {
-                            return GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PREM_OBJECTIVE__RETRIEVE_FORCE_INTO_HAND);
                         }
                     });
             return Collections.singletonList(action);

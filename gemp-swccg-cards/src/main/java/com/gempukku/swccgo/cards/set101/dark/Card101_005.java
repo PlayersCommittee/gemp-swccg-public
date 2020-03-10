@@ -15,7 +15,6 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -61,7 +60,7 @@ public class Card101_005 extends AbstractImperial {
             action.setText("Draw destiny");
             // Perform result(s)
             action.appendEffect(
-                    new DrawDestinyEffect(action, playerId, game, GameConditions.hasGameTextModification(game, self, ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED)) {
+                    new DrawDestinyEffect(action, playerId) {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             GameState gameState = game.getGameState();

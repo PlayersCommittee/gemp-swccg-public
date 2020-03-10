@@ -18,7 +18,6 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -81,7 +80,7 @@ public class Card7_175 extends AbstractImperial {
 
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new DrawDestinyEffect(action, playerId, game, GameConditions.hasGameTextModification(game, self, ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED)) {
+                                                        new DrawDestinyEffect(action, playerId) {
                                                             @Override
                                                             protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                                 return Collections.singletonList(cardToChoke);

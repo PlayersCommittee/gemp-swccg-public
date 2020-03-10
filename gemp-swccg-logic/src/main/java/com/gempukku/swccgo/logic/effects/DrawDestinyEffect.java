@@ -67,18 +67,6 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     }
 
     /**
-     * Creates an effect that causes the player to draw a destiny.
-     * @param action the action performing this effect
-     * @param playerId the player to draw destiny
-     */
-    public DrawDestinyEffect(Action action, String playerId, SwccgGame game, boolean opponentMayNotCancelDestiny) {
-        this(action, playerId, 1);
-        if(opponentMayNotCancelDestiny){
-            setPlayerMayNotCancelDestiny(game.getOpponent(playerId));
-        }
-    }
-
-    /**
      * Creates an effect that causes the player to draw the specified number of destiny.
      * @param action the action performing this effect
      * @param playerId the player to draw destiny

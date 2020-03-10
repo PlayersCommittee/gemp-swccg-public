@@ -14,7 +14,6 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -107,7 +106,7 @@ public class Card1_264 extends AbstractLostInterrupt {
 
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new DrawDestinyEffect(action, playerId, game, GameConditions.hasGameTextModification(game, self, ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED)) {
+                                                    new DrawDestinyEffect(action, playerId) {
                                                         @Override
                                                         protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                             return Collections.singletonList(finalTarget);

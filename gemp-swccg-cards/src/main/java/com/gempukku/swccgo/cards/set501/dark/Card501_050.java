@@ -14,8 +14,6 @@ import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -39,7 +37,7 @@ public class Card501_050 extends AbstractUsedInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<>();
 
         // Check condition(s)
@@ -78,20 +76,35 @@ public class Card501_050 extends AbstractUsedInterrupt {
         if(GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)){
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.title(Title.Sith_Fury), true)
+            action.setText("Upload Sith Fury");
+            action.allowResponses(
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            action.appendEffect(
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.title(Title.Sith_Fury), true)
+                            );
+                        }
+                    }
             );
+            actions.add(action);
         }
 
-        PlayInterruptAction action = new PlayInterruptAction(game, self);
-        action.appendEffect(
-                new AddUntilEndOfTurnModifierEffect(action,
-                        new MayNotCancelWeaponDestinyModifier(self, game.getOpponent(playerId), Filters.and(Filters.your(playerId), Filters.lightsaber)), "")
+        final PlayInterruptAction action2 = new PlayInterruptAction(game, self);
+        action2.setText("Prevent Lightsaber weapon and 'choke' destinies from being cancelled for remainder of turn.");
+
+        action2.allowResponses(
+                new RespondablePlayCardEffect(action2) {
+                    @Override
+                    protected void performActionResults(Action targetingAction) {
+                        action2.appendEffect(
+                                new AddUntilEndOfTurnModifierEffect(action2,
+                                        new MayNotCancelWeaponDestinyModifier(self, game.getOpponent(playerId), Filters.and(Filters.your(playerId), Filters.lightsaber)), "")
+                        );
+                    }
+                }
         );
-        action.appendEffect(
-                new AddUntilEndOfTurnModifierEffect(action,
-                        new ModifyGameTextModifier(self, Filters.or(Filters.title(Title.Darth_Vader_Dark_Lord_of_the_Sith), Filters.title(Title.Physical_Choke), Filters.title(Title.Vader)), ModifyGameTextType.CHOKE_DESTINY_CANNOT_BE_CANCELLED),"")
-        );
+        actions.add(action2);
 
         return actions;
     }
