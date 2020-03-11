@@ -224,6 +224,7 @@ public interface Title {
     String Dark_Strike = "Dark Strike";
     String Dark_Waters = "Dark Waters";
     String Darklighter_Spin = "Darklighter Spin";
+    String Darth_Vader_Dark_Lord_of_the_Sith = "Darth Vader, Dark Lord Of The Sith";
     String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
@@ -722,6 +723,7 @@ public interface Title {
     String Phantom = "Phantom";
     String Phasma = "Captain Phasma";
     String Phennir = "Major Turr Phennir";
+    String Physical_Choke = "Physical Choke";
     String Planet_Defender_Ion_Cannon = "Planet Defender Ion Cannon";
     String Plastoid_Armor = "Plastoid Armor";
     String Plea_To_The_Court = "Plea To The Court";
@@ -865,6 +867,7 @@ public interface Title {
     String Sidon = "Sidon Ithano";
     String Sienar_Fleet_Systems = "Sienar Fleet Systems";
     String Silence_Is_Golden = "Silence Is Golden";
+    String Sith_Fury = "Sith Fury";
     String Sith_Probe_Droid = "Sith Probe Droid";
     String Skywalkers = "Skywalkers";
     String Slave_Quarters = "Tatooine: Slave Quarters";
@@ -1011,6 +1014,7 @@ public interface Title {
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";
     String Utinni = "Utinni!";
+    String Vader = "Vader";
     String Vaders_Castle = "Mustafar: Vader's Castle";
     String Vaders_Obsession = "Vader's Obsession";
     String Valorum = "Supreme Chancellor Valorum";

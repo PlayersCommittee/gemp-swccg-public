@@ -25,8 +25,20 @@ public class MayNotCancelWeaponDestinyModifier extends AbstractModifier {
      * @param playerToModify the player that may not cancel weapon destiny draws
      * @param weaponFilter   the weapon filter
      */
-    public MayNotCancelWeaponDestinyModifier(PhysicalCard source, String playerToModify, Filterable weaponFilter, Filterable weaponUserFilter) {
+    public MayNotCancelWeaponDestinyModifier(PhysicalCard source, String playerToModify, Filterable weaponFilter) {
         this(source, null, playerToModify, weaponFilter, Filters.any);
+    }
+
+    /**
+     * Creates a modifier that prevents weapon destiny draws from being canceled by a specified player.
+     *
+     * @param source         the source of the modifier
+     * @param playerToModify the player that may not cancel weapon destiny draws
+     * @param weaponFilter   the weapon filter
+     * @param weaponUserFilter the weapon user filter
+     */
+    public MayNotCancelWeaponDestinyModifier(PhysicalCard source, String playerToModify, Filterable weaponFilter, Filterable weaponUserFilter) {
+        this(source, null, playerToModify, weaponFilter, weaponUserFilter);
     }
 
     /**

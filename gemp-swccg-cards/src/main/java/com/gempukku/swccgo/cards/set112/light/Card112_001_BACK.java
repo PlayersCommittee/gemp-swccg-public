@@ -23,7 +23,6 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsDestinyToPowerModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -125,10 +124,6 @@ public class Card112_001_BACK extends AbstractObjective {
             // Perform result(s)
             action.appendEffect(
                     new RetrieveCardEffect(action, playerId, Filters.and(Filters.non_unique, Filters.alien, Filters.species(repSpecies))) {
-                        @Override
-                        public boolean mayBeTakenIntoHand() {
-                            return GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PREM_OBJECTIVE__RETRIEVE_FORCE_INTO_HAND);
-                        }
                     });
             return Collections.singletonList(action);
         }

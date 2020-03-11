@@ -29,7 +29,7 @@ import java.util.*;
  */
 public class Card101_005 extends AbstractImperial {
     public Card101_005() {
-        super(Side.DARK, 1, 7, 4, 6, 5, "Vader", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, 4, 6, 5, Title.Vader, Uniqueness.UNIQUE);
         setLore("Sought to extinguish all Jedi. Former student of Obi-Wan Kenobi. Seduced by the dark side of the Force.");
         setGameText("Must deploy on Death Star, but may move elsewhere. May not be deployed if two or more of opponent's unique (•) characters on table. If in a losing battle, draw destiny. If destiny > 4, 'choke' (lose) one Imperial present (your choice).");
         addPersona(Persona.VADER);

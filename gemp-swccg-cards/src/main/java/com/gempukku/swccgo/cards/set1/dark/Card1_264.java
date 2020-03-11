@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card1_264 extends AbstractLostInterrupt {
     public Card1_264() {
-        super(Side.DARK, 3, "Physical Choke");
+        super(Side.DARK, 3, Title.Physical_Choke);
         setLore("Darth Vader often used physical means of 'persuasion' to get information. Captain Antilles of Tantive IV chose to die rather than reveal the location of the stolen Death Star plans.");
         setGameText("Cause one Rebel Trooper to be immediately lost. OR If a Dark Jedi is present at a battle you have just won, use 1 Force to attempt to choke any opposing character present. Draw destiny. If destiny > target's ability, target is lost.");
     }
@@ -73,7 +74,7 @@ public class Card1_264 extends AbstractLostInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         Filter filter = Filters.and(Filters.opponents(self), Filters.character, Filters.presentInBattle);
         TargetingReason targetingReason = TargetingReason.TO_BE_CHOKED;
 

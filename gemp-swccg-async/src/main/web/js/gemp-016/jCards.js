@@ -3190,7 +3190,6 @@ var fixedImages = {
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
 
-"501_4":"/gemp-swccg/images/cards/JabbasPalace-Light/tamtelskreej.gif",
 "501_6":"/gemp-swccg/images/cards/Virtual9-Dark/shadowsoftheempire.gif",
 "501_7":"/gemp-swccg/images/cards/Virtual6-Dark/veers.gif",
 "501_21":"/gemp-swccg/images/cards/Virtual3-Light/theforceisstrongwiththisone.gif",
@@ -3217,7 +3216,7 @@ var fixedImages = {
 "501_46":"/gemp-swccg/images/cards/CloudCity-Light/civildisorder.gif",
 "501_47":"/gemp-swccg/images/cards/Virtual0-Dark/fanfare.gif",
 "501_49":"/gemp-swccg/images/cards/Virtual0-Light/dontdothatagain.gif",
-"501_49":"/gemp-swccg/images/cards/Virtual11-Dark/vadersanger.gif",
+"501_50":"/gemp-swccg/images/cards/Virtual11-Dark/vadersanger.gif",
 };
 
 var packBlueprints = {
