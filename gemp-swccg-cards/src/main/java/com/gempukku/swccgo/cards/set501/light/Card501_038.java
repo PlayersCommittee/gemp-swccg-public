@@ -11,10 +11,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
-import com.gempukku.swccgo.logic.timing.results.AboutToForfeitCardFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -32,7 +33,7 @@ public class Card501_038 extends AbstractDroid {
         setAlternateDestiny(5);
         setVirtualSuffix(true);
         setLore("Fiesty. Loyal. Heroic. Insecure. Rebel spy. Excels at trouble. Incorrigible counterpart of a mindless philosopher. Has picked up a slight flutter. A bit eccentric.");
-        setGameText("While aboard a starfighter, adds 2 to power, maneuver, and hyperspeed. While with a scomp link, adds 1 [LS icon] here, and if lost, place on Used Pile. Immune to Fire Extinguisher and Restraining Bolt.");
+        setGameText("While aboard a starfighter, adds 2 to power, maneuver, and hyperspeed. While with a Scomp link, adds one [Light Side] icon here, and, once per game, if about to be lost, may place in Used Pile. Immune to Fire Extinguisher and Restraining Bolt.");
         addPersona(Persona.R2D2);
         addModelType(ModelType.ASTROMECH);
         addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_1);
@@ -56,20 +57,24 @@ public class Card501_038 extends AbstractDroid {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.R2_D2_V__GOES_TO_USED_WHEN_LOST;
         // Check condition(s)
-        if (TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, self)
-                && GameConditions.isAtScompLink(game, self)) {
-            final AboutToForfeitCardFromTableResult result = (AboutToForfeitCardFromTableResult) effectResult;
-
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.isAtScompLink(game, self)
+                && (TriggerConditions.isAboutToBeLost(game, effectResult, self)
+                || TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, self))) {
+            final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+            final PhysicalCard cardToBeLost = result.getCardAboutToLeaveTable();
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place in Used Pile");
             action.setActionMsg("Place " + GameUtils.getCardLink(self) + " in Used Pile when forfeited");
-            // Perform result(s)
             action.appendEffect(
                     new PassthruEffect(action) {
                         @Override
                         protected void doPlayEffect(SwccgGame game) {
-                            result.getForfeitCardEffect().setForfeitToUsedPile();
+                            result.getPreventableCardEffect().preventEffectOnCard(cardToBeLost);
+                            action.appendEffect(
+                                    new PlaceCardInUsedPileFromTableEffect(action, cardToBeLost));
                         }
                     });
             return Collections.singletonList(action);

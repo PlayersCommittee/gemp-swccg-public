@@ -28,7 +28,7 @@ public class Card501_035 extends AbstractStarfighter {
         setVirtualSuffix(true);
         setComboCard(true);
         setLore("Although temperamental, this trusty hunk of junk always seems to perform for its proud owner and his Wookiee co-pilot when needed the most.");
-        setGameText("May add 2 passengers. Permanent pilots are •Han and •Chewie, who provide ability of 5. If in battle, add one destiny to total power. Immune to Come With Me, Life Debt and attrition < 6.");
+        setGameText("May add 2 passengers. Permanent pilots are •Han and •Chewie, who provide ability of 5. If in battle, add one destiny to total power. Immune to Come With Me, Life Debt and attrition < 5.");
         addPersona(Persona.FALCON);
         addIcons(Icon.REFLECTIONS_III, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_5);
         addIcon(Icon.PILOT, 2);
@@ -52,7 +52,7 @@ public class Card501_035 extends AbstractStarfighter {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ImmuneToTitleModifier(self, Title.Come_With_Me));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Life_Debt));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 6));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         modifiers.add(new AddsDestinyToPowerModifier(self, 1));
         return modifiers;
     }
