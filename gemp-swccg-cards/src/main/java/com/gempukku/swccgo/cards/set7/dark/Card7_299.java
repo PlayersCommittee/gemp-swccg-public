@@ -10,14 +10,15 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.IgnoresLocationDeploymentRestrictionsInGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -48,21 +49,14 @@ public class Card7_299 extends AbstractObjective {
     }
 
     @Override
-    protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
         Filter yourISBAgents = Filters.and(Filters.your(self), Filters.character,
                 Filters.or(Filters.loreContains("ISB"), Filters.loreContains("Rebel"), Filters.loreContains("Rebels"), Filters.loreContains("Rebellion")));
-
-        RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new KeywordModifier(self, yourISBAgents, Keyword.ISB_AGENT), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new KeywordModifier(self, yourISBAgents, Keyword.SPY), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new IgnoresLocationDeploymentRestrictionsInGameTextModifier(self, yourISBAgents), null));
-        return action;
+        modifiers.add(new KeywordModifier(self, yourISBAgents, Keyword.ISB_AGENT));
+        modifiers.add(new KeywordModifier(self, yourISBAgents, Keyword.SPY));
+        modifiers.add(new IgnoresLocationDeploymentRestrictionsInGameTextModifier(self, yourISBAgents));
+        return modifiers;
     }
 
     @Override
