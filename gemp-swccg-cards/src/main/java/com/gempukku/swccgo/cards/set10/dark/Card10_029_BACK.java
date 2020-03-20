@@ -18,9 +18,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -155,8 +153,12 @@ public class Card10_029_BACK extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
+        Filter yourBlackSunAgents = Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.alien, Filters.loreContains("Black Sun")), Filters.bounty_hunter, Filters.information_broker));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new KeywordModifier(self, yourBlackSunAgents, Keyword.BLACK_SUN_AGENT));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), playerId));
+        modifiers.add(new MayNotPlayModifier(self, Filters.Scanning_Crew));
         modifiers.add(new AttritionModifier(self, new InBattleEvaluator(self, Filters.Black_Sun_agent), opponent));
         return modifiers;
     }

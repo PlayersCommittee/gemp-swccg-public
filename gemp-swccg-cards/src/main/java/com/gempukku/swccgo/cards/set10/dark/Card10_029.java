@@ -12,16 +12,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -41,6 +37,17 @@ public class Card10_029 extends AbstractObjective {
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Imperial City (With Xizor there) and Coruscant system. For remainder of game, your aliens with 'Black Sun' in lore, bounty hunters, and information brokers are Black Sun Agents. You may not deploy cards with ability except Black Sun Agents, Emperor, or Independent starships. During your control phase, each of your bounty hunters may make a regular move to an adjacent site where there is a bounty. Scanning Crew may not be played. Flip this card if Xizor is at a battleground site and Luke is not at a battleground site.");
         addIcons(Icon.REFLECTIONS_II);
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        Filter yourBlackSunAgents = Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.alien, Filters.loreContains("Black Sun")), Filters.bounty_hunter, Filters.information_broker));
+        List<Modifier> modifiers = new ArrayList<>();
+        modifiers.add(new KeywordModifier(self, yourBlackSunAgents, Keyword.BLACK_SUN_AGENT));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility,
+                Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), self.getOwner()));
+        modifiers.add(new MayNotPlayModifier(self, Filters.Scanning_Crew));
+        return modifiers;
     }
 
     @Override
@@ -67,24 +74,6 @@ public class Card10_029 extends AbstractObjective {
                         return "Choose Coruscant system to deploy";
                     }
                 });
-        return action;
-    }
-
-    @Override
-    protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        Filter yourBlackSunAgents = Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.alien, Filters.loreContains("Black Sun")), Filters.bounty_hunter, Filters.information_broker));
-
-        RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new KeywordModifier(self, yourBlackSunAgents, Keyword.BLACK_SUN_AGENT), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility,
-                                Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), playerId), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotPlayModifier(self, Filters.Scanning_Crew), null));
         return action;
     }
 

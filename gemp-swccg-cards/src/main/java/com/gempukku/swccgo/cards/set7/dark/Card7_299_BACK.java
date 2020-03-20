@@ -14,6 +14,8 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.IgnoresLocationDeploymentRestrictionsInGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -57,8 +59,12 @@ public class Card7_299_BACK extends AbstractObjective {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
         Filter locationFilter = Filters.and(Filters.battleground_site, Filters.sameLocationAs(self, Filters.and(Filters.your(self), Filters.ISB_agent, Filters.not(Filters.undercover_spy))));
-
+        Filter yourISBAgents = Filters.and(Filters.your(self), Filters.character,
+                Filters.or(Filters.loreContains("ISB"), Filters.loreContains("Rebel"), Filters.loreContains("Rebels"), Filters.loreContains("Rebellion")));
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new KeywordModifier(self, yourISBAgents, Keyword.ISB_AGENT));
+        modifiers.add(new KeywordModifier(self, yourISBAgents, Keyword.SPY));
+        modifiers.add(new IgnoresLocationDeploymentRestrictionsInGameTextModifier(self, yourISBAgents));
         modifiers.add(new ForceDrainModifier(self, locationFilter, 1, playerId));
         modifiers.add(new ForceDrainModifier(self, Filters.sameOrRelatedLocationAs(self, locationFilter), -1, opponent));
         return modifiers;
