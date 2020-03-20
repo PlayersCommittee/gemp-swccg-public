@@ -11,7 +11,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.MayNotAttackTargetModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotMoveUsingLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveFromLocationToLocationUsingLandspeedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -41,8 +41,8 @@ public class Card6_138 extends AbstractCreature {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotAttackTargetModifier(self, Filters.and(Filters.your(self), Filters.character)));
-        modifiers.add(new MayNotMoveUsingLandspeedModifier(self, Filters.and(Filters.opponents(self), Filters.character,
-                Filters.present(self)), new AtCondition(self, Filters.Jabbas_Palace_site)));
+        modifiers.add(new MayNotMoveFromLocationToLocationUsingLandspeedModifier(self, Filters.and(Filters.opponents(self), Filters.character,
+                Filters.present(self)), new AtCondition(self, Filters.Jabbas_Palace_site), Filters.sameLocation(self), Filters.any));
         return modifiers;
     }
 }
