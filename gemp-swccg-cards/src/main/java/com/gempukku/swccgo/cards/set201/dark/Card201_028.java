@@ -22,7 +22,7 @@ public class Card201_028 extends AbstractNormalEffect {
         super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Despair, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("The carbonite froze more than just Han's body.");
-        setGameText("Deploy on table. At same site as Jabba's Prize, opponent's characters deploy +1 and your Force Drains are +1. My Favorite Decoration may not be placed out of play, and while Jabba's Prize with Scum and Villainy, your total power in battles is +3. [Immune to Alter]");
+        setGameText("Deploy on table. My Favorite Decoration may not be placed out of play. At same site as Jabba's Prize, opponent's characters deploy +1 and your Force Drains are +1. While Jabba's Prize with Scum and Villainy, your total power in battles is +3. [Immune to Alter]");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_1);
         addImmuneToCardTitle(Title.Alter);
     }

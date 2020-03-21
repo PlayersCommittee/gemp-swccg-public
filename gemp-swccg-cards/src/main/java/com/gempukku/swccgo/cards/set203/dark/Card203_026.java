@@ -32,7 +32,7 @@ public class Card203_026 extends AbstractSith {
     public Card203_026() {
         super(Side.DARK, 1, 6, 7, 6, 8, "Darth Maul, Lone Hunter", Uniqueness.UNIQUE);
         setLore("Trade Federation.");
-        setGameText("If drawn for destiny, may take into hand to cancel and redraw that destiny. Cancels Blaster Deflection and game text of Amidala here. Maul's weapon destiny draws may not be modified or canceled by opponent. Immune to attrition < 5.");
+        setGameText("If drawn for destiny, may take into hand to cancel and redraw that destiny. Cancels Blaster Deflection (and Amidala's game text) here. Maul's weapon destiny draws may not be modified or canceled by opponent. Immune to attrition < 5.");
         addPersona(Persona.MAUL);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
     }

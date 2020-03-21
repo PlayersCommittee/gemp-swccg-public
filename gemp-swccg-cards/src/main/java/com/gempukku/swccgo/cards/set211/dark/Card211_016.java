@@ -12,7 +12,6 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -30,7 +29,7 @@ public class Card211_016 extends AbstractUsedInterrupt {
     public Card211_016() {
         super(Side.DARK, 5, "Vader's Anger", Uniqueness.UNIQUE);
         setLore("Anger and aggression fuel the dark side of the Force.");
-        setGameText("For remainder of turn, opponent may not cancel your lightsaber weapon (or ‘choke’) destiny draws. OR If Vader in battle alone, your total battle destiny is +1 for each character in battle. OR Cancel It’s A Trap. OR Take Sith Fury into hand from Reserve Deck; reshuffle.");
+        setGameText("For remainder of turn, opponent may not cancel your lightsaber weapon (or ‘choke’) destiny draws. OR If Vader in battle alone, your total battle destiny is +1 for each character in battle. OR Cancel It’s A Trap.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_11);
         setVirtualSuffix(true);
     }
@@ -69,24 +68,6 @@ public class Card211_016 extends AbstractUsedInterrupt {
                 );
                 actions.add(action);
             }
-        }
-
-        GameTextActionId gameTextActionId = GameTextActionId.VADERS_ANGER__UPDLOAD_SITH_FURY;
-        if(GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)){
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Upload Sith Fury");
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.title(Title.Sith_Fury), true)
-                            );
-                        }
-                    }
-            );
-            actions.add(action);
         }
 
         final PlayInterruptAction action2 = new PlayInterruptAction(game, self);

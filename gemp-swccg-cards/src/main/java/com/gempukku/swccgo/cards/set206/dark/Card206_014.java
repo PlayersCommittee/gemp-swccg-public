@@ -36,7 +36,7 @@ public class Card206_014 extends AbstractStarfighter {
         super(Side.DARK, 2, 2, 2, null, 3, 3, 5, "Vader's Custom TIE", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("TIE advanced x1 prototype. First of a limited production run leading to the development of the TIE Interceptor. At Vader's insistence a hyperdrive was installed.");
-        setGameText("May add 1 pilot. Vader deploys -2 aboard. While Vader piloting, immune to attrition < 5 and during battle, may cancel gametext of a passenger (or pilot of ability < 4) here.");
+        setGameText("May add 1 pilot. Vader deploys -2 aboard. While Vader piloting, immune to attrition < 5 and during battle, may cancel game text of a passenger (or pilot of ability < 4) here.");
         addPersona(Persona.VADERS_CUSTOM_TIE);
         addIcons(Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_6);
         addModelType(ModelType.TIE_ADVANCED_X1);

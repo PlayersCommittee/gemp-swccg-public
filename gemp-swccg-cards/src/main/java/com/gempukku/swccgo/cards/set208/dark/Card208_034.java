@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
+import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -14,7 +14,6 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -34,7 +33,7 @@ public class Card208_034 extends AbstractSith {
     public Card208_034() {
         super(Side.DARK, 1, 6, 7, 6, 7, "Lord Maul With Lightsaber", Uniqueness.UNIQUE);
         setLore("Trade Federation.");
-        setGameText("Text: Unless Disarmed, your battle destiny draws (and Force drains, if present) are +1 here. Permanent weapon is •Maul's Lightsaber (may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
+        setGameText("Permanent weapon is •Maul's Lightsaber (may add 1 to Force drain where present; adds 1 to your battle destiny draws here; may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addPersona(Persona.MAUL);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_8);
     }
@@ -44,7 +43,7 @@ public class Card208_034 extends AbstractSith {
         String playerId = self.getOwner();
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new EachBattleDestinyModifier(self, new NotCondition(new HasAttachedCondition(self, Filters.Disarmed)), 1, playerId));
+        modifiers.add(new EachBattleDestinyModifier(self, new ArmedWithCondition(self, Filters.Mauls_Lightsaber), 1, playerId));
         return modifiers;
     }
 
@@ -53,7 +52,6 @@ public class Card208_034 extends AbstractSith {
         // Check condition(s)
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
                 && GameConditions.isArmedWith(game, self, Filters.Mauls_Lightsaber)
-                && !GameConditions.hasAttached(game, self, Filters.Disarmed)
                 && GameConditions.isPresent(game, self)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);

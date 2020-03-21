@@ -36,7 +36,7 @@ public class Card200_026 extends AbstractDefensiveShield {
         super(Side.LIGHT, "Don't Do That Again");
         setVirtualSuffix(true);
         setLore("The Jedi won't tolerate silly behavior for very long.");
-        setGameText("Plays on table. Once per game, may take an Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Mobilization Points is suspended. Always Thinking With Your Stomach, Ice Storm, and Sandwhirl are canceled.");
+        setGameText("Plays on table. Always Thinking With Your Stomach, Ice Storm, and Sandwhirl are canceled. Once per game, may take an Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Mobilization Points is suspended.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
 
@@ -60,6 +60,13 @@ public class Card200_026 extends AbstractDefensiveShield {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)) {
+            if (GameConditions.canTargetToCancel(game, self, Filters.Always_Thinking_With_Your_Stomach)) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Always_Thinking_With_Your_Stomach, Title.Always_Thinking_With_Your_Stomach);
+                actions.add(action);
+            }
             if (GameConditions.canTargetToCancel(game, self, Filters.Ice_Storm)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -72,13 +79,6 @@ public class Card200_026 extends AbstractDefensiveShield {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Sandwhirl, Title.Sandwhirl);
-                actions.add(action);
-            }
-            if (GameConditions.canTargetToCancel(game, self, Filters.Always_Thinking_With_Your_Stomach)) {
-
-                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                // Build action using common utility
-                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Always_Thinking_With_Your_Stomach, Title.Always_Thinking_With_Your_Stomach);
                 actions.add(action);
             }
         }

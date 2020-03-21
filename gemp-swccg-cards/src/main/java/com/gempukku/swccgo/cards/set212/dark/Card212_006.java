@@ -35,7 +35,7 @@ public class Card212_006 extends AbstractFirstOrder {
     public Card212_006() {
         super(Side.DARK, 3, 3, 3, 3, 5, "Allegiant General Pryde", Uniqueness.UNIQUE);
         setLore("Leader");
-        setGameText("[Pilot] 2. Hux is lost. Adds one battle destiny with opponents Resistance character. If Emperor on table, your total attrition against opponent here is +1 for each First Order character here.");
+        setGameText("[Pilot] 2. Hux is lost. While with a Resistance character, adds one battle destiny. If Emperor on table, your total attrition against opponent here is +1 for each First Order character here.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
         addKeywords(Keyword.LEADER, Keyword.GENERAL);
     }

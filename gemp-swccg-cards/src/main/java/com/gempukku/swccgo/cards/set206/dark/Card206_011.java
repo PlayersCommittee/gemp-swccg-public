@@ -30,7 +30,7 @@ public class Card206_011 extends AbstractImperial {
         super(Side.DARK, 1, 3, 3, 3, 5, "Veers", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("General of the AT-AT assault armor division sent by Darth Vader to crush the Rebellion on Hoth. Cold and ruthless.");
-        setGameText("Adds 3 to the power of anything he pilots. Leader. If piloting Blizzard 1 in battle, adds one destiny to total power. Deploys free aboard Blizzard 1. Once per turn, may reveal from hand to deploy 6th Marker or Blizzard 1 to Hoth from Reserve Deck; reshuffle.");
+        setGameText("Leader. Adds 3 to the power of anything he pilots. Leader. If piloting Blizzard 1 in battle, adds one destiny to total power. Deploys free aboard Blizzard 1. Once per turn, may reveal from hand to deploy 6th Marker or Blizzard 1 to Hoth from Reserve Deck; reshuffle.");
         addPersona(Persona.VEERS);
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
         addKeywords(Keyword.GENERAL);
