@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set212.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -28,14 +28,13 @@ import java.util.List;
  * Type: Effect
  * Title: Evil Is Everywhere!
  */
-public class Card501_028 extends AbstractNormalEffect {
-    public Card501_028() {
+public class Card212_001 extends AbstractNormalEffect {
+    public Card212_001() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Evil Is Everywhere!", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on table. Non-[EI] Dark Jedi are lost. Your gametext on Jedi Council Chamber is cancelled. Unless with Obi-Wan, Dooku is immune to attrition. May deploy a Hallway or [EI] lightsaber from Reserve Deck; reshuffle.[Immune to Alter]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
         addImmuneToCardTitle(Title.Alter);
-        setTestingText("Evil Is Everywhere!");
     }
 
     @Override

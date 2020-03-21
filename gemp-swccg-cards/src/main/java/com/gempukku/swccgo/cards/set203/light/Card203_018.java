@@ -30,15 +30,17 @@ public class Card203_018 extends AbstractLostInterrupt {
         super(Side.LIGHT, 5, Title.The_Force_Is_Strong_With_This_One);
         setVirtualSuffix(true);
         setLore("Luke's piloting skills and Force abilities made his X-wing a difficult target for Darth Vader as they raced down the Death Star trench.");
-        setGameText("If your padawan or Skywalker of ability < 6 is in battle with a Dark Jedi, either add one battle destiny or cancel I Have You Now.");
+        setGameText("If your padawan or Skywalker is in battle with a Dark Jedi, either add one battle destiny or cancel I Have You Now. OR If Luke is in battle with opponent's character of ability > 3, add one battle destiny.");
         addIcons(Icon.VIRTUAL_SET_3);
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.or(Filters.padawan, Filters.Skywalker), Filters.abilityLessThan(6)))
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.Dark_Jedi)
+        if ((GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.or(Filters.padawan, Filters.Skywalker)))
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.Dark_Jedi))
+                || (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Luke))
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.opponents(playerId), Filters.character, Filters.abilityMoreThan(3))))
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
@@ -63,7 +65,7 @@ public class Card203_018 extends AbstractLostInterrupt {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.I_Have_You_Now)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.or(Filters.padawan, Filters.Skywalker), Filters.abilityLessThan(6)))
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.or(Filters.padawan, Filters.Skywalker)))
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Dark_Jedi)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);

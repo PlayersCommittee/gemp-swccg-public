@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set211.dark;
+package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -8,32 +8,37 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.swccgo.logic.decisions.YesNoDecision;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Set: Set 11
  * Type: Effect
- * Title: Quietly Observing (V)
+ * Title: Quietly Observing
  */
 public class Card211_010 extends AbstractNormalEffect {
     public Card211_010() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quietly Observing", Uniqueness.UNIQUE);
         setLore("On her assignment to kill Sharad Hett, Aurra used her patience and cunning to help track down the Jedi Master.");
-        setGameText("Deploy on table. Aurra, Bossk, and Cad are destiny +2. Once per game, may reveal a unique (•) alien from hand or Reserve Deck (reshuffle); for remainder of game, that card is an assassin and ignores [Reflections II] and [Theed Palace] objective deployment restrictions. [Immune to Alter.]");
+        setGameText("Text: Deploy on table. Aurra, Bossk, and Cad are destiny +2. Once per game, may reveal up to two unique (•) aliens from hand and/or Reserve Deck (reshuffle); for remainder of game, those cards are assassins and Black Sun agents. [Immune to Alter.]");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.VIRTUAL_SET_11);
         setVirtualSuffix(true);
         addImmuneToCardTitle(Title.Alter);
@@ -42,80 +47,117 @@ public class Card211_010 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-
         modifiers.add(new DestinyModifier(self, Filters.or(Filters.Aurra, Filters.Bossk, Filters.Cad), 2));
-
         return modifiers;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new ArrayList<>();
-
-        GameTextActionId gameTextActionId = GameTextActionId.QUIETLY_OBSERVING_REVEAL;
-        Filter uniqueAliens = Filters.and(Filters.unique, Filters.alien);
-
+        GameTextActionId gameTextActionId = GameTextActionId.QUIETLY__OBSERVING_REVEAL;
+        final Filter uniqueAliens = Filters.and(Filters.unique, Filters.alien);
+        final Collection<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
+        final Collection<PhysicalCard> uniqueAliensInHand = Filters.filter(cardsInHand, game, uniqueAliens);
 
         // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSearchReserveDeck(game, playerId, self, gameTextActionId)) {
-            if (!game.getGameState().getReserveDeck(playerId).isEmpty()) {
-                final TopLevelGameTextAction revealFromReserve = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                revealFromReserve.setText("Reveal a unique (•) alien from Reserve Deck");
-                revealFromReserve.setActionMsg("Reveal a unique (•) alien from Reserve Deck");
-                revealFromReserve.appendUsage(
-                        new OncePerGameEffect(revealFromReserve));
-                revealFromReserve.appendEffect(
-                        new ChooseCardFromReserveDeckEffect(revealFromReserve, playerId, uniqueAliens) {
-                            @Override
-                            protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                                setModifiers(self, game, selectedCard);
-                            }
-                        }
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Reveal up to two unique (•) aliens");
+            action.appendUsage(
+                    new OncePerGameEffect(action)
+            );
+
+
+            if (!uniqueAliensInHand.isEmpty()) {
+                int numAliensInHand = Math.min(2, uniqueAliensInHand.size());
+                String[] possibleResults = new String[numAliensInHand + 1];
+                for (int i = 0; i < numAliensInHand + 1; i++) {
+                    possibleResults[i] = String.valueOf(i);
+                }
+
+                action.appendEffect(
+                        new PlayoutDecisionEffect(action, playerId,
+                                new MultipleChoiceAwaitingDecision("Choose number of aliens to reveal from hand", possibleResults) {
+                                    @Override
+                                    protected void validDecisionMade(int index, String result) {
+                                        switch (index) {
+                                            case 0:
+                                                chooseCardFromReserveDeck(action, playerId, uniqueAliens, self, 2);
+                                                break;
+                                            case 1:
+                                                action.appendEffect(
+                                                        new ChooseCardFromHandEffect(action, playerId, uniqueAliens) {
+                                                            @Override
+                                                            protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                                                                action.appendEffect(
+                                                                        new PlayoutDecisionEffect(action, playerId,
+                                                                                new YesNoDecision("Reveal another alien from Reserve Deck?") {
+                                                                                    @Override
+                                                                                    protected void yes() {
+                                                                                        chooseCardFromReserveDeck(action, playerId, uniqueAliens, self, 1);
+                                                                                    }
+                                                                                }
+                                                                        )
+                                                                );
+                                                                appendEffects(self, selectedCard, action);
+                                                            }
+                                                        }
+                                                );
+                                                break;
+                                            case 2:
+                                                action.appendEffect(
+                                                        new ChooseCardsFromHandEffect(action, playerId, 0, 2, uniqueAliens) {
+                                                            @Override
+                                                            protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
+                                                                for (PhysicalCard selectedCard : selectedCards) {
+                                                                    appendEffects(self, selectedCard, action);
+                                                                }
+                                                            }
+                                                        }
+                                                );
+                                                break;
+                                        }
+                                    }
+                                })
                 );
-                revealFromReserve.appendEffect(
-                        new ShuffleReserveDeckEffect(revealFromReserve));
-                actions.add(revealFromReserve);
+            } else {
+                chooseCardFromReserveDeck(action, playerId, uniqueAliens, self, 2);
             }
+            return Collections.singletonList(action);
         }
 
-        Collection<PhysicalCard> uniqueAliensInHand = Filters.filter(game.getGameState().getHand(playerId), game, uniqueAliens);
+        return null;
+    }
 
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && !uniqueAliensInHand.isEmpty()) {
-            final TopLevelGameTextAction revealFromHand = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            revealFromHand.setText("Reveal a unique (•) alien from hand");
-            revealFromHand.setActionMsg("Reveal a unique (•) alien from hand");
-            revealFromHand.appendUsage(
-                    new OncePerGameEffect(revealFromHand));
-            revealFromHand.appendEffect(
-                    new ChooseCardFromHandEffect(revealFromHand, playerId, uniqueAliens) {
-                        @Override
-                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                            setModifiers(self, game, selectedCard);
+    private void chooseCardFromReserveDeck(final Action action, String playerId, Filter uniqueAliens, final PhysicalCard self, int max) {
+        action.appendEffect(
+                new ChooseCardsFromReserveDeckEffect(action, playerId, 0, max, uniqueAliens) {
+                    @Override
+                    protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
+                        for (PhysicalCard selectedCard : selectedCards) {
+                            appendEffects(self, selectedCard, action);
                         }
                     }
-            );
-            actions.add(revealFromHand);
-        }
-
-        return actions;
+                }
+        );
+        action.appendEffect(
+                new ShuffleReserveDeckEffect(action)
+        );
     }
 
-    private void setModifiers(PhysicalCard self, SwccgGame game, PhysicalCard selectedCard) {
-        GameState gameState = game.getGameState();
-        gameState.showCardOnScreen(selectedCard);
-        Filter filter = Filters.or(Filters.sameTitleAs(selectedCard, true));
-        self.setWhileInPlayData(new WhileInPlayData(selectedCard));
-        game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.ASSASSIN));
-        game.getModifiersEnvironment().addUntilEndOfGameModifier(new KeywordModifier(self, filter, Keyword.QUIETLY_OBSERVING));
-    }
-
-    @Override
-    public String getDisplayableInformation(SwccgGame game, PhysicalCard self) {
-        if (self.getWhileInPlayData() != null) {
-            return "Character(s) chosen: " + GameUtils.getCardLink(self.getWhileInPlayData().getPhysicalCard());
-        }
-        return null;
+    private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, Action action) {
+        Filter filter = Filters.sameTitleAs(selectedCard, true);
+        action.appendEffect(
+                new ShowCardOnScreenEffect(action, selectedCard)
+        );
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(
+                        action, new KeywordModifier(self, filter, Keyword.ASSASSIN), GameUtils.getCardLink(selectedCard) + " is an Assassin for remainder of Game"
+                )
+        );
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(
+                        action, new KeywordModifier(self, filter, Keyword.BLACK_SUN_AGENT), GameUtils.getCardLink(selectedCard) + " is a Black Sun Agent for remainder of Game"
+                )
+        );
     }
 }

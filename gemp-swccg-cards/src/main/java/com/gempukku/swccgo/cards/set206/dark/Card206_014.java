@@ -36,7 +36,7 @@ public class Card206_014 extends AbstractStarfighter {
         super(Side.DARK, 2, 2, 2, null, 3, 3, 5, "Vader's Custom TIE", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("TIE advanced x1 prototype. First of a limited production run leading to the development of the TIE Interceptor. At Vader's insistence a hyperdrive was installed.");
-        setGameText("May add 1 pilot. Non-[Set 0] Vader deploys -2 aboard. If Vader piloting, immune to attrition < 5 and once per battle, may cancel game text of opponent's pilot aboard a starfighter here.");
+        setGameText("May add 1 pilot. Vader deploys -2 aboard. While Vader piloting, immune to attrition < 5 and during battle, may cancel gametext of a passenger (or pilot of ability < 4) here.");
         addPersona(Persona.VADERS_CUSTOM_TIE);
         addIcons(Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_6);
         addModelType(ModelType.TIE_ADVANCED_X1);
@@ -48,14 +48,14 @@ public class Card206_014 extends AbstractStarfighter {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.and(Filters.Vader, Filters.not(Icon.VIRTUAL_SET_0)), -2));
+        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.Vader, -2));
         return modifiers;
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToTargetModifier(self, Filters.and(Filters.Vader, Filters.not(Icon.VIRTUAL_SET_0)), -2, self));
+        modifiers.add(new DeployCostToTargetModifier(self, Filters.Vader, -2, self));
         return modifiers;
     }
 
@@ -68,7 +68,7 @@ public class Card206_014 extends AbstractStarfighter {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        final Filter targetFilter = Filters.and(Filters.opponents(self), Filters.pilot, Filters.here(self), Filters.aboard(Filters.starfighter));
+        final Filter targetFilter = Filters.and(Filters.opponents(self), Filters.or(Filters.aboardAsPassenger(Filters.any), Filters.and(Filters.pilot, Filters.abilityLessThan(4))), Filters.here(self), Filters.aboard(Filters.any));
 
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
@@ -77,7 +77,7 @@ public class Card206_014 extends AbstractStarfighter {
                 && GameConditions.canTarget(game, self, targetFilter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Cancel a pilot's game text");
+            action.setText("Cancel a pilot of ability < 4 or passenger's game text");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerBattleEffect(action));

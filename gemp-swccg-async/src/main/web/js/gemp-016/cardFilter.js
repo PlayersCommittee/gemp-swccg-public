@@ -364,6 +364,7 @@ var CardFilter = Class.extend({
             + "<option value='VIRTUAL_SET_9'>Set 9</option>"
             + "<option value='VIRTUAL_SET_10'>Set 10</option>"
             + "<option value='VIRTUAL_SET_11'>Set 11</option>"
+            + "<option value='VIRTUAL_SET_12'>Set 12</option>"
             + "<option value='VIRTUAL_SET_P'>Set P</option>"
             + "<option value='SPACE'>Space</option>"
             + "<option value='SPECIAL_EDITION'>Special Edition</option>"

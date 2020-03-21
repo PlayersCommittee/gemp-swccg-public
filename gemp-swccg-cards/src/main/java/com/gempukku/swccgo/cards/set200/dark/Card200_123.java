@@ -11,8 +11,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -32,7 +31,7 @@ public class Card200_123 extends AbstractUsedOrLostInterrupt {
         super(Side.DARK, 4, Title.Sith_Fury, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("At his peak, no one could stand up to the Dark Lord of the Sith. His superior tactics devastated those who opposed him.");
-        setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Once per game, use 4 Force to [download] a Dark Jedi.");
+        setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Once per game, exchange a Dark Jedi in hand with a Dark Jedi in Lost Pile.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0);
     }
 
@@ -69,32 +68,31 @@ public class Card200_123 extends AbstractUsedOrLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
-        GameTextActionId gameTextActionId = GameTextActionId.SITH_FURY__DOWNLOAD_DARK_JEDI;
-
+        GameTextActionId exchangeCardActionId = GameTextActionId.SITH_FURY__EXCHANGE_CARD;
         // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 4)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+        if (GameConditions.hasHand(game, playerId) &&
+                GameConditions.canTakeCardsIntoHandFromLostPile(game, playerId, self, exchangeCardActionId) &&
+                GameConditions.isOncePerGame(game, self, exchangeCardActionId)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
-            action.setText("Deploy a Dark Jedi from Reserve Deck");
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, exchangeCardActionId, CardSubtype.LOST);
+            action.setText("Exchange card in hand");
+            action.setActionMsg("Exchange Dark Jedi in hand with a Dark Jedi in lost pile.");
+
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 4));
-            // Allow response(s)
+
+            // Allow Responses
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new DeployCardFromReserveDeckEffect(action, Filters.Dark_Jedi, true));
+                                    new ExchangeCardInHandWithCardInLostPileEffect(action, playerId, Filters.Dark_Jedi, Filters.Dark_Jedi));
                         }
-                    }
-            );
+                    });
+
             return Collections.singletonList(action);
         }
         return null;

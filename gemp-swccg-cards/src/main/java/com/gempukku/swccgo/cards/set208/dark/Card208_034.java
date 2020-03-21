@@ -2,21 +2,22 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractSith;
-import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
+import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
+import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.UnlessCondition;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -33,7 +34,7 @@ public class Card208_034 extends AbstractSith {
     public Card208_034() {
         super(Side.DARK, 1, 6, 7, 6, 7, "Lord Maul With Lightsaber", Uniqueness.UNIQUE);
         setLore("Trade Federation.");
-        setGameText("During battle with a Jedi (unless Obi-Wan here), your battle and weapon destiny draws are +1. Permanent weapon is •Maul's Lightsaber (may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
+        setGameText("Text: Unless Disarmed, your battle destiny draws (and Force drains, if present) are +1 here. Permanent weapon is •Maul's Lightsaber (may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addPersona(Persona.MAUL);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_8);
     }
@@ -41,12 +42,28 @@ public class Card208_034 extends AbstractSith {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
-        Condition condition = new AndCondition(new InBattleWithCondition(self, Filters.Jedi), new UnlessCondition(new HereCondition(self, Filters.ObiWan)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new EachBattleDestinyModifier(self, condition, 1, playerId));
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.your(self), condition, 1));
+        modifiers.add(new EachBattleDestinyModifier(self, new NotCondition(new HasAttachedCondition(self, Filters.Disarmed)), 1, playerId));
         return modifiers;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
+                && GameConditions.isArmedWith(game, self, Filters.Mauls_Lightsaber)
+                && !GameConditions.hasAttached(game, self, Filters.Disarmed)
+                && GameConditions.isPresent(game, self)) {
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Add 1 to Force drain");
+            // Perform result(s)
+            action.appendEffect(
+                    new AddToForceDrainEffect(action, 1));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     // Define "Maul's Lightsaber" permanent weapon

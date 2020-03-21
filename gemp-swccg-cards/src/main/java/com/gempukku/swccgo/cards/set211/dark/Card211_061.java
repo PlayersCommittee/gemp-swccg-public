@@ -16,7 +16,7 @@ import java.util.List;
  * Set: Set 11
  * Type: Character
  * Subtype: Alien
- * Title: Sebulba AI(V)
+ * Title: Sebulba AI (V)
  */
 public class Card211_061 extends AbstractAlien {
     public Card211_061() {
