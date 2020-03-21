@@ -59,7 +59,8 @@ public class Card209_051 extends AbstractSite {
 
         GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__RETRIEVE_CORELLIAN;
 
-        if(GameConditions.isOncePerGame(game, self, gameTextActionId)){
+        if(GameConditions.isOncePerGame(game, self, gameTextActionId)
+            && GameConditions.controls(game, playerOnLightSideOfLocation, self)){
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve a Corellian");
             // Update usage limit(s)
