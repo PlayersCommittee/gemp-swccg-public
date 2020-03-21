@@ -157,7 +157,7 @@ public class Card10_029_BACK extends AbstractObjective {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new KeywordModifier(self, yourBlackSunAgents, Keyword.BLACK_SUN_AGENT));
-        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), playerId));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), playerId));
         modifiers.add(new MayNotPlayModifier(self, Filters.Scanning_Crew));
         modifiers.add(new AttritionModifier(self, new InBattleEvaluator(self, Filters.Black_Sun_agent), opponent));
         return modifiers;

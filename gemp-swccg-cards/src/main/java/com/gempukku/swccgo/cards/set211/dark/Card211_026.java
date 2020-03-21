@@ -15,7 +15,6 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -50,7 +49,7 @@ public class Card211_026 extends AbstractObjective {
     @Override
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        Filter cardsThatMayNotDeployForRemainderOfGame = Filters.and(Filters.or(Filters.Sidious, Filters.First_Order_character, Filters.Imperial), Filters.not(Filters.Quietly_Observing));
+        Filter cardsThatMayNotDeployForRemainderOfGame = Filters.and(Filters.or(Filters.Sidious, Filters.First_Order_character, Filters.Imperial));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, cardsThatMayNotDeployForRemainderOfGame, playerId), null));
