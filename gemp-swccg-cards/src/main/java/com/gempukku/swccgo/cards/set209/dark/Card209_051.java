@@ -8,7 +8,8 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.RetrieveCardIntoHandEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,8 +23,8 @@ import java.util.List;
 public class Card209_051 extends AbstractSite {
     public Card209_051() {
         super(Side.DARK, Title.Sewer, Title.Coruscant);
-        setLocationDarkSideGameText("Once per game, if you occupy three battlegrounds, may retrieve a Black Sun agent into hand.");
-        setLocationLightSideGameText("Once per game, if you control, may retrieve [Reflections II] Dash into hand.");
+        setLocationDarkSideGameText("Once per game, may exchange an alien in hand with a non-spy Black Sun Agent in Lost Pile.");
+        setLocationLightSideGameText("Once per game, if you control, may retrieve a Corellian.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addKeywords(Keyword.XIZORS_PALACE_SITE);
@@ -33,21 +34,21 @@ public class Card209_051 extends AbstractSite {
     @Override
     protected List<TopLevelGameTextAction> getGameTextDarkSideTopLevelActions(final String playerOnDarkSideOfLocation, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
 
-        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__RETRIEVE_BLACK_SUN_AGENT_INTO_HAND;
+        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__EXCHANGE_ALIEN_FOR_BLACK_SUN_AGENT;
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSearchLostPile(game, playerOnDarkSideOfLocation, self, gameTextActionId, true)
-                && GameConditions.occupies(game, playerOnDarkSideOfLocation, 3, Filters.battleground)) {
+                && GameConditions.hasHand(game, playerOnDarkSideOfLocation)
+                && GameConditions.canTakeCardsIntoHandFromLostPile(game, playerOnDarkSideOfLocation, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Retrieve Black Sun agent into hand");
-            action.setActionMsg("Retrieve a Black Sun agent into hand");
+            action.setText("Exchange Alien in hand for Black Sun agent in Lost Pile");
+            action.setActionMsg("Exchange Alien in hand for Black Sun agent in Lost Pile");
             // Update usage limit(s)
             action.appendUsage(new OncePerGameEffect(action));
-            // Perform result(s)
             action.appendEffect(
-                    new RetrieveCardIntoHandEffect(action, playerOnDarkSideOfLocation, Filters.Black_Sun_agent));
+                    new ExchangeCardInHandWithCardInLostPileEffect(action, playerOnDarkSideOfLocation, Filters.alien, Filters.and(Filters.not(Filters.spy), Filters.Black_Sun_agent))
+            );
             return Collections.singletonList(action);
         }
         return null;
@@ -56,21 +57,17 @@ public class Card209_051 extends AbstractSite {
     @Override
     protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(final String playerOnLightSideOfLocation, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
 
-        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__RETRIEVE_DASH_INTO_HAND;
+        GameTextActionId gameTextActionId = GameTextActionId.XIZORS_PALACE_SEWER__RETRIEVE_CORELLIAN;
 
-        // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSearchLostPile(game, playerOnLightSideOfLocation, self, gameTextActionId, true)
-                && GameConditions.controls(game, playerOnLightSideOfLocation, self)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Retrieve [Reflections II] Dash into hand");
-            action.setActionMsg("Retrieve [Reflections II] Dash into hand");
+        if(GameConditions.isOncePerGame(game, self, gameTextActionId)){
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Retrieve a Corellian");
             // Update usage limit(s)
-            action.appendUsage(new OncePerGameEffect(action));
+            action.appendUsage(
+                    new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new RetrieveCardIntoHandEffect(action, playerOnLightSideOfLocation, Filters.and(Filters.Dash, Icon.REFLECTIONS_II)));
+                    new RetrieveCardEffect(action, playerOnLightSideOfLocation, Filters.Corellian));
             return Collections.singletonList(action);
         }
         return null;
