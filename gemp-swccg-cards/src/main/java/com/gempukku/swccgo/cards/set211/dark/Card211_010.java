@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Set: Set 11
  * Type: Effect
- * Title: Quietly Observing
+ * Title: Quietly Observing (V)
  */
 public class Card211_010 extends AbstractNormalEffect {
     public Card211_010() {
