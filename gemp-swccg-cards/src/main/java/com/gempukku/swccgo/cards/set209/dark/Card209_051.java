@@ -42,8 +42,8 @@ public class Card209_051 extends AbstractSite {
                 && GameConditions.canTakeCardsIntoHandFromLostPile(game, playerOnDarkSideOfLocation, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Exchange Alien in hand for Black Sun agent in Lost Pile");
-            action.setActionMsg("Exchange Alien in hand for Black Sun agent in Lost Pile");
+            action.setText("Exchange card in hand for card in Lost Pile");
+            action.setActionMsg("Exchange card in hand for card in Lost Pile");
             // Update usage limit(s)
             action.appendUsage(new OncePerGameEffect(action));
             action.appendEffect(
@@ -61,8 +61,9 @@ public class Card209_051 extends AbstractSite {
 
         if(GameConditions.isOncePerGame(game, self, gameTextActionId)
             && GameConditions.controls(game, playerOnLightSideOfLocation, self)){
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve a Corellian");
+            action.setActionMsg("Retrieve a Corellian");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
