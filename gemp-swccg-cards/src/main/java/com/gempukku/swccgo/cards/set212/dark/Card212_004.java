@@ -1,11 +1,8 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set212.dark;
 
 import com.gempukku.swccgo.cards.AbstractStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.CardSubtype;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,14 +21,13 @@ import com.gempukku.swccgo.logic.timing.Action;
  * Subtype: Starting
  * Title: Slip Sliding Away (V)
  */
-public class Card501_042 extends AbstractStartingInterrupt {
-    public Card501_042() {
-        super(Side.DARK, 3, "Slip Sliding Away", Uniqueness.UNIQUE);
+public class Card212_004 extends AbstractStartingInterrupt {
+    public Card212_004() {
+        super(Side.DARK, 3, Title.Slip_Sliding_Away, Uniqueness.UNIQUE);
         setLore("Luke got the shaft.");
         setGameText("If you deployed exactly one location (and it was a site with exactly 2 [Dark Side Force]), deploy a battleground site, then if you have not deployed a site with “Palace” in title, may also deploy up to 3 Effects that are always immune to Alter. Place Interrupt in Lost Pile.");
         addIcons(Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
-        setTestingText("Slip Sliding Away (V)");
     }
 
     @Override

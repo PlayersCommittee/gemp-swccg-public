@@ -15,8 +15,6 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -35,14 +33,14 @@ public class Card200_095 extends AbstractDefensiveShield {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fanfare");
         setVirtualSuffix(true);
         setLore("The Boonta Eve crowds are always looking for new and exciting developments at every Podrace.");
-        setGameText("Plays on table. Cancels Order To Engage and Scramble. Once per game, may [upload] an Immediate Effect. While opponent occupies no battleground systems, Staging Areas is suspended. 'Missing' on Lost In The Wilderness is treated as 'landspeed = 0 for remainder of turn'.");
+        setGameText("Plays on table. Ice Storm, Lost In The Wilderness, Order To Engage, Sandwhirl and Scramble are canceled. Once per game, may take an Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Staging Areas is suspended.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Order_To_Engage, Filters.Scramble))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Order_To_Engage, Filters.Scramble, Filters.Ice_Storm, Filters.Sandwhirl, Filters.Lost_In_The_Wilderness))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -58,12 +56,34 @@ public class Card200_095 extends AbstractDefensiveShield {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
         // Check condition(s)
+        if (GameConditions.canTargetToCancel(game, self, Filters.Ice_Storm)) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Ice_Storm, Title.Ice_Storm);
+            actions.add(action);
+        }
+        if (GameConditions.canTargetToCancel(game, self, Filters.Lost_In_The_Wilderness)) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Lost_In_The_Wilderness, Title.Lost_In_The_Wilderness);
+            actions.add(action);
+        }
         if (TriggerConditions.isTableChanged(game, effectResult)) {
             if (GameConditions.canTargetToCancel(game, self, Filters.Order_To_Engage)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Order_To_Engage, Title.Order_To_Engage);
+                actions.add(action);
+            }
+
+            if (GameConditions.canTargetToCancel(game, self, Filters.Sandwhirl)) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Sandwhirl, Title.Sandwhirl);
                 actions.add(action);
             }
             if (GameConditions.canTargetToCancel(game, self, Filters.Scramble)) {
@@ -105,7 +125,6 @@ public class Card200_095 extends AbstractDefensiveShield {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new SuspendsCardModifier(self, Filters.Staging_Areas, new NotCondition(new OccupiesCondition(opponent, Filters.battleground_system))));
-        modifiers.add(new ModifyGameTextModifier(self, Filters.Lost_In_The_Wilderness, ModifyGameTextType.LOST_IN_THE_WILDERNESS__MISSING_TREATED_AS_LANDSPEED_0));
         return modifiers;
     }
 }

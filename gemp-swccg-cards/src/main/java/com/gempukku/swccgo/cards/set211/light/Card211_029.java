@@ -15,7 +15,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -34,7 +34,7 @@ public class Card211_029 extends AbstractNormalEffect {
     public Card211_029() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Make Ten Men Feel Like A Hundred", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If Stardust on table, deploy on table. Saw is a spy and Resistance Agent. Once per game, may [download] Saw. Rebel spies are deploy -1. During battle, if you just drew a Rebel spy for destiny, retrieve 1 Force. Nightfall is canceled. [Immune to Alter.]");
+        setGameText("If Stardust on table, deploy on table. Saw is a Resistance Agent and spy. Once per game, may [download] Saw. Rebel spies deploy -1 to Scarif. Once per battle, if you just drew a Rebel spy for destiny, may retrieve 1 Force. Nightfall is canceled. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -64,7 +64,7 @@ public class Card211_029 extends AbstractNormalEffect {
 
         modifiers.add(new KeywordModifier(self, Filters.Saw, Keyword.SPY));
         modifiers.add(new KeywordModifier(self, Filters.Saw, Keyword.RESISTANCE_AGENT));
-        modifiers.add(new DeployCostModifier(self, Filters.and(Filters.Rebel, Filters.spy), -1));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.Rebel, Filters.spy), -1, Filters.Scarif_location));
 
         return modifiers;
     }

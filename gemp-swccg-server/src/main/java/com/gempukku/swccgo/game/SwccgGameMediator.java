@@ -1124,6 +1124,12 @@ public class SwccgGameMediator {
                     // Combat Readiness (v)
                     return startingLocation.getBlueprint().getSystemName() + " CRv";
                 }
+                if(Filters.Slip_Sliding_Away.accepts(_swccgoGame, startingInterrupt)
+                        && startingInterrupt.getBlueprint().hasVirtualSuffix()
+                        && startingLocation.getBlueprint().getTitle() != null){
+                    // Slip Sliding Away (v)
+                    return startingLocation.getBlueprint().getTitle() + " SSAv";
+                }
             }
         }
 

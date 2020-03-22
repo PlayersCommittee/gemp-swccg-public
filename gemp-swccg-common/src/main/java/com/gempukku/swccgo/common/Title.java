@@ -871,6 +871,7 @@ public interface Title {
     String Sith_Probe_Droid = "Sith Probe Droid";
     String Skywalkers = "Skywalkers";
     String Slave_Quarters = "Tatooine: Slave Quarters";
+    String Slip_Sliding_Away = "Slip Sliding Away";
     String Smoke_Screen = "Smoke Screen";
     String Sniper = "Sniper";
     String Snoke = "Snoke";

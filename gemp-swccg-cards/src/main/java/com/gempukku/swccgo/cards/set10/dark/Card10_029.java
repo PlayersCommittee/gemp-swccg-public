@@ -45,7 +45,7 @@ public class Card10_029 extends AbstractObjective {
         List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new KeywordModifier(self, yourBlackSunAgents, Keyword.BLACK_SUN_AGENT));
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility,
-                Filters.not(Filters.or(Keyword.QUIETLY_OBSERVING, Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), self.getOwner()));
+                Filters.not(Filters.or(Filters.Black_Sun_agent, yourBlackSunAgents, Filters.Emperor, Filters.and(Icon.INDEPENDENT, Filters.starship)))), self.getOwner()));
         modifiers.add(new MayNotPlayModifier(self, Filters.Scanning_Crew));
         return modifiers;
     }

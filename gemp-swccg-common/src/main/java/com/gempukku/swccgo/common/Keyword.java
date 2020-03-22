@@ -124,7 +124,6 @@ public enum Keyword implements Filterable {
     PIT("Pit", false),
     PRISON("Prison", true),
     PROTON_TORPEDOES("Proton Torpedoes", false),
-    QUIETLY_OBSERVING("Quietly Observing", true),
     RED_SQUADRON("Red Squadron", true),
     RESISTANCE_AGENT("Resistance Agent", true),
     RECRUIT("Recruit", true),

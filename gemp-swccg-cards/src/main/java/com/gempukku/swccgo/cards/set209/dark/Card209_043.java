@@ -5,7 +5,6 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
-
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -26,7 +25,7 @@ public class Card209_043 extends AbstractNormalEffect {
     public Card209_043() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Shadows Of The Empire", Uniqueness.UNIQUE);
         setLore("");
-        setGameText ("If Agents Of Black Sun on table, deploy on table. Once per turn, may use 2 Force to [download] Imperial Square. Once per turn, if Emperor on Coruscant, may draw top card of Force Pile (if during your turn and you occupy three battlegrounds, opponent also loses 1 Force). [Immune to Alter.]");
+        setGameText ("If Agents Of Black Sun on table, deploy on table. Once per turn, may use 1 Force to [download] Imperial Square. Once per turn, if Emperor on Coruscant, may draw top card of Force Pile (if during your turn and you occupy three battlegrounds, opponent also loses 1 Force). [Immune to Alter.]");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -44,7 +43,7 @@ public class Card209_043 extends AbstractNormalEffect {
         // Check conditions for Coruscant site download action
         gameTextActionId = GameTextActionId.SHADOWS_OF_THE_EMPIRE__DOWNLOAD_IMPERIAL_SQUARE;
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canUseForce(game, playerId, 2)
+                && GameConditions.canUseForce(game, playerId, 1)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
                 && !GameConditions.canSpot(game, self, Filters.Coruscant_Imperial_Square)) {
 
@@ -56,7 +55,7 @@ public class Card209_043 extends AbstractNormalEffect {
                     new OncePerTurnEffect(action));
             // Pay cost(s)
             action.appendCost(
-                    new UseForceEffect(action, playerId, 2));
+                    new UseForceEffect(action, playerId, 1));
             // Perform result(s)
             action.appendEffect(
                     new DeployCardFromReserveDeckEffect(action, Filters.Coruscant_Imperial_Square, true));

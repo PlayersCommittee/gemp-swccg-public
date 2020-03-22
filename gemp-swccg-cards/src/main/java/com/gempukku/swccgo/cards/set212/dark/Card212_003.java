@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set212.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
@@ -19,15 +19,14 @@ import java.util.List;
  * Subtype: Alien
  * Title: Aurra Sing with Blaster Rifle
  */
-public class Card501_033 extends AbstractAlien {
-    public Card501_033() {
+public class Card212_003 extends AbstractAlien {
+    public Card212_003() {
         super(Side.DARK, 2, 4, 4, 4, 5, "Aurra Sing With Blaster Rifle", Uniqueness.UNIQUE);
         setLore("Bounty hunter. Assassin.");
         setGameText("Permanent weapon is Aurra Sing's Blaster Rifle. May target a character for free, draw destiny(2 if targeting a jedi), target hit and forfeit=0, if destiny +1 > defense value.");
         addIcons(Icon.EPISODE_I, Icon.WARRIOR, Icon.VIRTUAL_SET_12, Icon.PERMANENT_WEAPON);
         addKeywords(Keyword.BOUNTY_HUNTER, Keyword.ASSASSIN, Keyword.FEMALE);
         addPersona(Persona.AURRA);
-        setTestingText("Aurra Sing With Blaster Rifle");
     }
 
     // Define "Aurra Sing's Blaster Rifle" permanent weapon

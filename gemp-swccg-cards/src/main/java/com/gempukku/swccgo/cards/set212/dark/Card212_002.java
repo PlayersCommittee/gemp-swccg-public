@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.dark;
+package com.gempukku.swccgo.cards.set212.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -25,14 +25,13 @@ import java.util.List;
  * Subtype: Imperial
  * Title: Moff Gideon
  */
-public class Card501_030 extends AbstractImperial {
-    public Card501_030() {
+public class Card212_002 extends AbstractImperial {
+    public Card212_002() {
         super(Side.DARK, 3, 4, 3, 4, 6, "Moff Gideon", Uniqueness.UNIQUE);
         setLore("ISB. Leader");
         setGameText("[Pilot] 2. Rebels here are power -1 (and at adjacent sites if Ewebb Blaster here). When deployed, may deploy an Eweb blaster or any Imperial Stormtrooper here from Reserve Deck for -3 Force.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
         addKeywords(Keyword.LEADER, Keyword.MOFF);
-        setTestingText("Moff Gideon");
     }
 
     @Override
