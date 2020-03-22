@@ -77,13 +77,13 @@ public class Card206_014 extends AbstractStarfighter {
                 && GameConditions.canTarget(game, self, targetFilter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Cancel a pilot of ability < 4 or passenger's game text");
+            action.setText("Cancel a character's game text");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerBattleEffect(action));
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose pilot", targetFilter) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose passenger or pilot of ability < 4 here", targetFilter) {
                         @Override
                         protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
