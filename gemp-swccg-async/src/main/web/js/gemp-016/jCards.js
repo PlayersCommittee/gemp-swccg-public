@@ -3180,7 +3180,7 @@ var fixedImages = {
 "211_60":"/gemp-swccg/images/cards/Virtual11-Dark/igmagnaguard.gif",
 "211_61":"/gemp-swccg/images/cards/Virtual11-Dark/sebulbaai.gif",
 "212_1":"/gemp-swccg/images/cards/Virtual12-Dark/eviliseverywhere.gif",
-"212_2":"/gemp-swccg/images/cards/Virtual12-Dark/moffigideon.gif",
+"212_2":"/gemp-swccg/images/cards/Virtual12-Dark/moffgideon.gif",
 "212_3":"/gemp-swccg/images/cards/Virtual12-Dark/aurrasingwithblasterrifle.gif",
 "212_4":"/gemp-swccg/images/cards/Virtual12-Dark/slipslidingaway.gif",
 "212_5":"/gemp-swccg/images/cards/Virtual12-Dark/admiraltrench.gif",
