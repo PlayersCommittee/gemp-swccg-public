@@ -42,8 +42,8 @@ public class Card208_034 extends AbstractSith {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
 
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new EachBattleDestinyModifier(self, new ArmedWithCondition(self, Filters.Mauls_Lightsaber), 1, playerId));
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), new ArmedWithCondition(self, Filters.Mauls_Lightsaber), 1, playerId));
         return modifiers;
     }
 
@@ -52,6 +52,7 @@ public class Card208_034 extends AbstractSith {
         // Check condition(s)
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
                 && GameConditions.isArmedWith(game, self, Filters.Mauls_Lightsaber)
+                && GameConditions.canUseWeapon(game, self, self)
                 && GameConditions.isPresent(game, self)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);

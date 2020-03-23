@@ -2,7 +2,7 @@ package com.gempukku.swccgo.cards.set201.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.PresentAtScompLink;
+import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -46,7 +46,7 @@ public class Card201_006 extends AbstractDroid {
         Filter starfighterAboard = Filters.and(Filters.starfighter, Filters.hasAboard(self));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new IconModifier(self, Filters.sameLocation(self), new PresentAtScompLink(self), Icon.LIGHT_FORCE, 1));
+        modifiers.add(new IconModifier(self, Filters.sameLocation(self), new WithCondition(self, Icon.SCOMP_LINK), Icon.LIGHT_FORCE, 1));
         modifiers.add(new PowerModifier(self, starfighterAboard, 2));
         modifiers.add(new ManeuverModifier(self, starfighterAboard, 2));
         modifiers.add(new HyperspeedModifier(self, starfighterAboard, 2));

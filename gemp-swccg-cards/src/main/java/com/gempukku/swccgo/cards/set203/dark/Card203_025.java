@@ -83,7 +83,7 @@ public class Card203_025 extends AbstractImperial {
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isPiloting(game, self, Filters.Avenger)
                 && (GameConditions.hasInHand(game, playerId, Filters.Imperial)
                 || GameConditions.canSpot(game, self, Filters.and(Filters.Imperial, Filters.aboard(Filters.Avenger))))) {
