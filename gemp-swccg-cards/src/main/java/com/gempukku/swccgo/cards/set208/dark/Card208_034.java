@@ -43,7 +43,7 @@ public class Card208_034 extends AbstractSith {
         String playerId = self.getOwner();
 
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new EachBattleDestinyModifier(self, Filters.wherePresent(self), new ArmedWithCondition(self, Filters.Mauls_Lightsaber), 1, playerId));
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), new ArmedWithCondition(self, Filters.Mauls_Lightsaber), 1, playerId));
         return modifiers;
     }
 
