@@ -10,7 +10,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,27 +35,16 @@ public class Card212_003 extends AbstractAlien {
         AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.AURRAS_BLASTER_RIFLE) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
-                List<FireWeaponAction> actions = new LinkedList<FireWeaponAction>();
-
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                        .targetForFree(Filters.and(Filters.Jedi, Filters.or(Filters.character, targetedAsCharacter)), TargetingReason.TO_BE_HIT).finishBuildPrep();
+                        .targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
                 if (actionBuilder != null) {
 
                     // Build action using common utility
-                    FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(2, 1, Statistic.DEFENSE_VALUE, true, 0);
-                    actions.add(action);
+                    FireWeaponAction action = actionBuilder.buildFireWeaponPermanentAurraSingsBlasterRifleAction();
+                    return Collections.singletonList(action);
                 }
 
-                FireWeaponActionBuilder actionBuilder2 = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                        .targetForFree(Filters.and(Filters.not(Filters.Jedi), Filters.or(Filters.character, targetedAsCharacter)), TargetingReason.TO_BE_HIT).finishBuildPrep();
-                if (actionBuilder2 != null) {
-
-                    // Build action using common utility
-                    FireWeaponAction action2 = actionBuilder2.buildFireWeaponWithHitAction(1, 1, Statistic.DEFENSE_VALUE, true, 0);
-                    actions.add(action2);
-                }
-
-                return actions;
+                return null;
             }
         };
         permanentWeapon.addKeyword(Keyword.BLASTER_RIFLE);

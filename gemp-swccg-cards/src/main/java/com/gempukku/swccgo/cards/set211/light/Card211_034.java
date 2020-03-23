@@ -66,6 +66,7 @@ public class Card211_034 extends AbstractStarfighter {
                     yourCharacterOfAbilityLessThanFour
                     , Filters.canBeRelocated(false)
                     , Filters.at(relatedExteriorSite)
+                    , Filters.not(Filters.aboard(Filters.any))
                     , Filters.not(Filters.mayNotBoard(self)));
             final int availablePassengerCapacity = game.getGameState().getAvailablePassengerCapacity(game.getModifiersQuerying(), self, self);
             final int availablePilotCapacity = game.getGameState().getAvailablePilotCapacity(game.getModifiersQuerying(), self, self);

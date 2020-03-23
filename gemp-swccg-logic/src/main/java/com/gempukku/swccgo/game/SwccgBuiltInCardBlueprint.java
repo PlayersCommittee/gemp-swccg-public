@@ -5,7 +5,9 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.List;
 import java.util.Set;
@@ -105,6 +107,9 @@ public interface SwccgBuiltInCardBlueprint {
      * @return the modifiers
      */
     List<Modifier> getGameTextModifiers(PhysicalCard self);
+
+    List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId);
+
 
     /**
      * Gets the fire weapon actions for each way the permanent weapon can be fired.
