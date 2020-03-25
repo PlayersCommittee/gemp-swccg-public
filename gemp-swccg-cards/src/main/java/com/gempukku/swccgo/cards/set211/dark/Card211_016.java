@@ -48,8 +48,7 @@ public class Card211_016 extends AbstractUsedInterrupt {
         }
 
         // Check condition(s)
-        if (GameConditions.isDuringBattle(game)
-                && GameConditions.isAllAbilityInBattleProvidedBy(game, playerId, Filters.Vader)) {
+        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Vader, Filters.alone))) {
             final int count = Filters.countActive(game, self, Filters.and(Filters.character, Filters.participatingInBattle));
             if (count > 0) {
 
