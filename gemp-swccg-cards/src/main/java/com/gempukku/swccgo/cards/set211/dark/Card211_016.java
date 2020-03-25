@@ -13,6 +13,8 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
+import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -69,21 +71,25 @@ public class Card211_016 extends AbstractUsedInterrupt {
             }
         }
 
-        final PlayInterruptAction action2 = new PlayInterruptAction(game, self);
-        action2.setText("Prevent Lightsaber weapon and 'choke' destinies from being cancelled for remainder of turn.");
+        final PlayInterruptAction action = new PlayInterruptAction(game, self);
+        action.setText("Prevent destinies from being cancelled.");
 
-        action2.allowResponses(
-                new RespondablePlayCardEffect(action2) {
+        action.allowResponses(
+                new RespondablePlayCardEffect(action) {
                     @Override
                     protected void performActionResults(Action targetingAction) {
-                        action2.appendEffect(
-                                new AddUntilEndOfTurnModifierEffect(action2,
-                                        new MayNotCancelWeaponDestinyModifier(self, game.getOpponent(playerId), Filters.and(Filters.your(playerId), Filters.lightsaber)), "")
+                        action.appendEffect(
+                                new AddUntilEndOfTurnModifierEffect(action,
+                                        new MayNotCancelWeaponDestinyModifier(self, game.getOpponent(playerId), Filters.and(Filters.your(playerId), Filters.lightsaber)), "Opponent may not cancel your lightsaber weapon destiny draws")
+                        );
+                        action.appendEffect(
+                                new AddUntilEndOfTurnModifierEffect(action,
+                                        new  SpecialFlagModifier(self, ModifierFlag.CHOKE_DESTINIES_MAY_NOT_BE_CANCELLED, self.getOwner()), "Opponent may not cancel your 'choke' destiny draws")
                         );
                     }
                 }
         );
-        actions.add(action2);
+        actions.add(action);
 
         return actions;
     }
