@@ -88,13 +88,13 @@ public class Card5_145 extends AbstractUsedOrLostInterrupt {
             }
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Forfeit captives");
+            action.setText("Forfeit captive(s)");
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardsOnTableEffect(action, playerId, "Target captives(s) to forfeit", 1, validCaptives.size(), Filters.in(validCaptives)) {
+                    new TargetCardsOnTableEffect(action, playerId, "Target captives(s) to forfeit", 1, validCaptives.size(), SpotOverride.INCLUDE_CAPTIVE, Filters.in(validCaptives)) {
                         @Override
                         protected void cardsTargeted(final int targetGroupId, final Collection<PhysicalCard> targetedCards) {
-                            action.allowResponses("Forfeit ",
+                            action.allowResponses("Forfeit " + GameUtils.getAppendedNames(targetedCards),
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
