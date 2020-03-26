@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
@@ -106,7 +107,7 @@ public class Card1_264 extends AbstractLostInterrupt {
 
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new DrawDestinyEffect(action, playerId) {
+                                                    new DrawDestinyEffect(action, playerId, 1, DestinyType.CHOKE_DESTINY) {
                                                         @Override
                                                         protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                             return Collections.singletonList(finalTarget);

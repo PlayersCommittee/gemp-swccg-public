@@ -60,7 +60,7 @@ public class Card101_005 extends AbstractImperial {
             action.setText("Draw destiny");
             // Perform result(s)
             action.appendEffect(
-                    new DrawDestinyEffect(action, playerId) {
+                    new DrawDestinyEffect(action, playerId, 1, DestinyType.CHOKE_DESTINY) {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             GameState gameState = game.getGameState();

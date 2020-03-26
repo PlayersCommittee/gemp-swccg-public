@@ -80,7 +80,7 @@ public class Card7_175 extends AbstractImperial {
 
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new DrawDestinyEffect(action, playerId) {
+                                                        new DrawDestinyEffect(action, playerId, 1, DestinyType.CHOKE_DESTINY) {
                                                             @Override
                                                             protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                                 return Collections.singletonList(cardToChoke);

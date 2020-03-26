@@ -4774,7 +4774,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 }
             }
         }
-
+        else if(drawDestinyEffect.getDestinyType() == DestinyType.CHOKE_DESTINY
+                && gameState.getGame().getModifiersQuerying().hasFlagActive(gameState.getGame().getGameState(), ModifierFlag.CHOKE_DESTINIES_MAY_NOT_BE_CANCELLED, drawDestinyEffect.getPlayerDrawingDestiny())){
+            return true;
+        }
 
         return false;
     }
