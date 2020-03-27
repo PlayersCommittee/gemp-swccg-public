@@ -64,7 +64,7 @@ public class Card8_037 extends AbstractNormalEffect {
         if ((TriggerConditions.isAboutToDrawBattleDestiny(game, effectResult, playerId)
                 || TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId))
                 && GameConditions.canSubstituteDestiny(game)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Han)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Chewie)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Leia)) {
