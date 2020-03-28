@@ -40,7 +40,7 @@ public class Card5_145 extends AbstractUsedOrLostInterrupt {
 
         Filter impPresentWithCaptive = Filters.and(Filters.Imperial, Filters.presentInBattle, Filters.escorting(Filters.any));
         // Check condition(s)
-        if (TriggerConditions.justHitBy(game, effectResult, impPresentWithCaptive, Filters.and(Filters.opponents(playerId), Filters.weapon))) {
+        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, impPresentWithCaptive, Filters.and(Filters.opponents(playerId), Filters.weapon))) {
             PhysicalCard cardHit = ((HitResult) effectResult).getCardHit();
             Collection<PhysicalCard> validCaptives = Filters.filter(game.getGameState().getCaptivesOfEscort(cardHit), game, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_HIT));
             if(!validCaptives.isEmpty()){
