@@ -13,7 +13,6 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToBeHitResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
 import java.util.Collection;
@@ -40,8 +39,8 @@ public class Card5_145 extends AbstractUsedOrLostInterrupt {
 
         Filter impPresentWithCaptive = Filters.and(Filters.Imperial, Filters.presentInBattle, Filters.escorting(Filters.any));
         // Check condition(s)
-        if (TriggerConditions.isAboutToBeHitBy(game, effectResult, impPresentWithCaptive, Filters.and(Filters.opponents(playerId), Filters.weapon))) {
-            PhysicalCard cardHit = ((HitResult) effectResult).getCardHit();
+        if (TriggerConditions.justHitBy(game, effectResult, impPresentWithCaptive, Filters.and(Filters.opponents(playerId), Filters.weapon))) {
+            final PhysicalCard cardHit = ((HitResult) effectResult).getCardHit();
             Collection<PhysicalCard> validCaptives = Filters.filter(game.getGameState().getCaptivesOfEscort(cardHit), game, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_HIT));
             if(!validCaptives.isEmpty()){
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
@@ -62,9 +61,11 @@ public class Card5_145 extends AbstractUsedOrLostInterrupt {
                                                 PhysicalCard captiveToHit = targetingAction.getPrimaryTargetCard(targetGroupId);
 
                                                 // Perform result(s)
-                                                ((AboutToBeHitResult) effectResult).getPreventableCardEffect().preventEffectOnCard(self);
                                                 action.appendEffect(
                                                         new HitCardEffect(action, captiveToHit, self));
+                                                action.appendEffect(
+                                                        new RestoreCardToNormalEffect(action, cardHit)
+                                                );
                                             }
                                         });
                             }
@@ -108,7 +109,6 @@ public class Card5_145 extends AbstractUsedOrLostInterrupt {
                                         }
                                     });
                         }
-
                     }
             );
             actions.add(action);
