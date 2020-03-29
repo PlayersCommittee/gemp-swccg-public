@@ -31,8 +31,7 @@ import java.util.List;
 public class Card111_006_BACK extends AbstractObjective {
     public Card111_006_BACK() {
         super(Side.DARK, 7, Title.The_Ultimate_Power_In_The_Universe);
-        setGameText(
-            "While this side up, once during each of your deploy phases, may deploy one battleground system from Reserve Deck; reshuffle. Your Star Destroyers deploy -2 (or -1 if Victory class) to Death Star system. Your Force drains at battleground systems where you have a Star Destroyer are each +2 (or +1 if Victory class). If Yavin 4 system is 'blown away,' adds 3 to Force lost for each opponent's Yavin 4 site. Place out of play if Death Star is 'blown away.'");
+        setGameText("While this side up, once during each of your deploy phases, may deploy one battleground system from Reserve Deck; reshuffle. Your Star Destroyers deploy -2 (or -1 if Victory class) to Death Star system. Your Force drains at battleground systems where you have a Star Destroyer are each +2 (or +1 if Victory class). If Yavin 4 system is 'blown away,' adds 3 to Force lost for each opponent's Yavin 4 site. Place out of play if Death Star is 'blown away.'");
         addIcons(Icon.PREMIUM);
     }
 
