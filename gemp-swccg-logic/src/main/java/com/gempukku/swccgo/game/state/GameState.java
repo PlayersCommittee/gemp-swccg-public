@@ -902,6 +902,7 @@ public class GameState implements Snapshotable<GameState> {
         card.atLocation(null);
         card.stackOn(null, false, false);
         card.attachTo(moveTo, false, false, false, false, false);
+        card.setTargetedCard(TargetId.DEPLOY_TARGET, moveTo.getTargetGroupId(TargetId.DEPLOY_TARGET), moveTo, Filters.sameCardId(moveTo));
         card.setZone(Zone.ATTACHED);
         card.setZoneOwner(moveTo.getZoneOwner());
 
