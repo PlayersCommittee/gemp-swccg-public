@@ -34,7 +34,7 @@ public class Card201_028 extends AbstractNormalEffect {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.character), 1, sameSiteAsJabbasPrize));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.battleground_site, sameSiteAsJabbasPrize), 1, playerId));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.site, sameSiteAsJabbasPrize), 1, playerId));
         modifiers.add(new MayNotBePlacedOutOfPlayModifier(self, Filters.My_Favorite_Decoration));
         modifiers.add(new TotalPowerModifier(self, Filters.any, new AtCondition(self, Filters.Scum_And_Villainy, sameSiteAsJabbasPrize), 3, playerId));
         return modifiers;
