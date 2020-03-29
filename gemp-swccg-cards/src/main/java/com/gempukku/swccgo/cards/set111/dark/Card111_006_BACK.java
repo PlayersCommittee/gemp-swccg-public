@@ -24,11 +24,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * Set: Premium (Third Anthology)
- * Type: Objective
- * Title: Set Your Course For Alderaan / The Ultimate Power In The Universe
+ * Set: Premium (Third Anthology) Type: Objective Title: Set Your Course For Alderaan / The Ultimate Power In The
+ * Universe
  */
 public class Card111_006_BACK extends AbstractObjective {
     public Card111_006_BACK() {
@@ -38,24 +36,62 @@ public class Card111_006_BACK extends AbstractObjective {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game,
+            EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Yavin_4_system)) {
+            int amountToAddToForceLoss =
+                3 * Filters.countTopLocationsOnTable(game,
+                        Filters.and(Filters.opponents(self), Filters.Yavin_4_site,
+                            Filters.notIgnoredDuringEpicEventCalculation));
+            if (amountToAddToForceLoss > 0) {
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.skipInitialMessageAndAnimation();
 
-        GameTextActionId gameTextActionId = GameTextActionId.THE_ULTIMATE_POWER_IN_THE_UNIVERSE__DOWNLOAD_BATTLEGROUND_SYSTEM;
+                // Perform result(s)
+                action.appendEffect(new AddToBlownAwayForceLossEffect(action, game.getOpponent(self.getOwner()),
+                        amountToAddToForceLoss));
+                return Collections.singletonList(action);
+            }
+        }
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Death_Star_system)) {
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Place out of play");
+            action.setActionMsg("Place " + GameUtils.getCardLink(self) + " out of play");
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            // Perform result(s)
+            action.appendEffect(new PlaceCardOutOfPlayFromTableEffect(action, self));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game,
+            final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+
+        GameTextActionId gameTextActionId =
+            GameTextActionId.THE_ULTIMATE_POWER_IN_THE_UNIVERSE__DOWNLOAD_BATTLEGROUND_SYSTEM;
+
+        // Check condition(s)
+        if (
+            GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId,
+                    Phase.DEPLOY)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+            final TopLevelGameTextAction action =
+                new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy battleground system from Reserve Deck");
             action.setActionMsg("Deploy a battleground system from Reserve Deck");
+
             // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
+            action.appendUsage(new OncePerPhaseEffect(action));
+
             // Perform result(s)
-            action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.system, Filters.battleground, true));
+            action.appendEffect(new DeployCardFromReserveDeckEffect(action, Filters.system, Filters.battleground,
+                    true));
             actions.add(action);
         }
         return actions;
@@ -64,47 +100,24 @@ public class Card111_006_BACK extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
-        Filter yourStarDestroyers = Filters.and(Filters.your(self), Filters.Star_Destroyer);
-        Filter victoryClass = Filters.Victory_class_Star_Destroyer;
+        Filter yourNonVictoryClassStarDestroyers =
+            Filters.and(Filters.your(self),
+                Filters.or(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.INTERDICTOR_CLASS_STAR_DESTROYER,
+                    ModelType.RESURGENT_CLASS_STAR_DESTROYER, ModelType.SUPER_CLASS_STAR_DESTROYER));
+        Filter yourVictoryClassStarDestroyers = Filters.and(Filters.your(self), ModelType.VICTORY_CLASS_STAR_DESTROYER);
         Filter deathStarSystem = Filters.Death_Star_system;
         Filter battlegroundSystem = Filters.battleground_system;
-        Filter sameSystemAsYourNonVictoryClassSd = Filters.sameSystemAs(self, Filters.and(yourStarDestroyers, Filters.not(victoryClass)));
-        Filter sameSystemAsYourVictoryClassSd = Filters.sameSystemAs(self, Filters.and(yourStarDestroyers, victoryClass));
+        Filter sameSystemAsYourNonVictoryClassSd =
+            Filters.sameSystemAs(self, Filters.and(yourNonVictoryClassStarDestroyers));
+        Filter sameSystemAsYourVictoryClassSd = Filters.sameSystemAs(self, Filters.and(yourVictoryClassStarDestroyers));
 
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(yourStarDestroyers, Filters.not(victoryClass)), -2, deathStarSystem));
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(yourStarDestroyers, victoryClass), -1, deathStarSystem));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourNonVictoryClassSd), 2, playerId));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourVictoryClassSd, Filters.not(sameSystemAsYourNonVictoryClassSd)), 1, playerId));
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new DeployCostToLocationModifier(self, yourVictoryClassStarDestroyers, -1, deathStarSystem));
+        modifiers.add(new DeployCostToLocationModifier(self, yourNonVictoryClassStarDestroyers, -2, deathStarSystem));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourVictoryClassSd), 1,
+                playerId));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourNonVictoryClassSd),
+                2, playerId));
         return modifiers;
-    }
-
-    @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
-        if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Yavin_4_system)) {
-            int amountToAddToForceLoss = 3 * Filters.countTopLocationsOnTable(game, Filters.and(Filters.opponents(self), Filters.Yavin_4_site, Filters.notIgnoredDuringEpicEventCalculation));
-            if (amountToAddToForceLoss > 0) {
-
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.skipInitialMessageAndAnimation();
-                // Perform result(s)
-                action.appendEffect(
-                        new AddToBlownAwayForceLossEffect(action, game.getOpponent(self.getOwner()), amountToAddToForceLoss));
-                return Collections.singletonList(action);
-            }
-        }
-        // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Death_Star_system)) {
-
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Place out of play");
-            action.setActionMsg("Place " + GameUtils.getCardLink(self) + " out of play");
-            // Perform result(s)
-            action.appendEffect(
-                    new PlaceCardOutOfPlayFromTableEffect(action, self));
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 }
