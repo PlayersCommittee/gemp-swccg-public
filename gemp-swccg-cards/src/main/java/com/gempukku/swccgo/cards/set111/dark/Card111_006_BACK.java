@@ -2,32 +2,22 @@ package com.gempukku.swccgo.cards.set111.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-
 import com.gempukku.swccgo.common.*;
-
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-
 import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -39,12 +29,6 @@ import java.util.List;
  * Universe
  */
 public class Card111_006_BACK extends AbstractObjective {
-
-    //~ Constructors ---------------------------------------------------------------------------------------------------
-
-    /**
-     * Creates a new Card111_006_BACK object.
-     */
     public Card111_006_BACK() {
         super(Side.DARK, 7, Title.The_Ultimate_Power_In_The_Universe);
         setGameText(
@@ -52,16 +36,13 @@ public class Card111_006_BACK extends AbstractObjective {
         addIcons(Icon.PREMIUM);
     }
 
-    //~ Methods --------------------------------------------------------------------------------------------------------
-
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game,
             EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Yavin_4_system)) {
             int amountToAddToForceLoss =
-                3
-                    * Filters.countTopLocationsOnTable(game,
+                3 * Filters.countTopLocationsOnTable(game,
                         Filters.and(Filters.opponents(self), Filters.Yavin_4_site,
                             Filters.notIgnoredDuringEpicEventCalculation));
             if (amountToAddToForceLoss > 0) {
