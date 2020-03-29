@@ -59,7 +59,7 @@ public class Card106_003 extends AbstractNormalEffect {
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeCanceled(game, self)
-                && GameConditions.controls(game, opponent, Filters.sameSite(self))) {
+                && GameConditions.controls(game, opponent, Filters.sameLocation(self))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
