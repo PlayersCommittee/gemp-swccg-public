@@ -70,9 +70,9 @@ public class Card200_123 extends AbstractUsedOrLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
         GameTextActionId exchangeCardActionId = GameTextActionId.SITH_FURY__EXCHANGE_CARD;
         // Check condition(s)
-        if (GameConditions.hasHand(game, playerId) &&
-                GameConditions.canTakeCardsIntoHandFromLostPile(game, playerId, self, exchangeCardActionId) &&
-                GameConditions.isOncePerGame(game, self, exchangeCardActionId)) {
+        if (GameConditions.hasInHand(game, playerId, Filters.Dark_Jedi)
+                && GameConditions.canTakeCardsIntoHandFromLostPile(game, playerId, self, exchangeCardActionId)
+                && GameConditions.isOncePerGame(game, self, exchangeCardActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, exchangeCardActionId, CardSubtype.LOST);
             action.setText("Exchange card in hand");
