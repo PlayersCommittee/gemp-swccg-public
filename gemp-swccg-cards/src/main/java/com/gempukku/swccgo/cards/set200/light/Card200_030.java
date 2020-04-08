@@ -15,8 +15,7 @@ import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Set: Set 0
@@ -35,19 +34,21 @@ public class Card200_030 extends AbstractDefensiveShield {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String opponent = game.getOpponent(self.getOwner());
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        List<GameTextActionId> idList = new ArrayList<>(Arrays.asList(
+                GameTextActionId.OTHER_CARD_ACTION_1, GameTextActionId.OTHER_CARD_ACTION_2, GameTextActionId.OTHER_CARD_ACTION_3, GameTextActionId.OTHER_CARD_ACTION_4
+                , GameTextActionId.OTHER_CARD_ACTION_5, GameTextActionId.OTHER_CARD_ACTION_6, GameTextActionId.OTHER_CARD_ACTION_7));
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
-        // Check condition(s)
-        if (TriggerConditions.justExcludedFromBattle(game, effectResult, opponent, Filters.character)) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+        int numExclusions = TriggerConditions.numberOfExclusionsFromBattle(game, effectResult, opponent, Filters.character);
+        for (int i = 0; i < Math.min(numExclusions, idList.size()); i++) {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, idList.get(i));
             action.setText("Make " + opponent + " lose 2 Force");
             // Perform result(s)
             action.appendEffect(
                     new LoseForceEffect(action, opponent, 2));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
 
     @Override
