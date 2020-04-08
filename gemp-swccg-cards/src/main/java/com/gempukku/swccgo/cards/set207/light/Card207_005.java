@@ -31,6 +31,7 @@ public class Card207_005 extends AbstractResistance {
         super(Side.LIGHT, 1, 4, 4, 5, 8, "General Leia Organa", Uniqueness.UNIQUE);
         setLore("Leader.");
         setGameText("While at a war room or battleground, game text of Admiral’s Orders is suspended and whenever you initiate a battle with a Resistance character, retrieve 1 Force (2 if initiating against a First Order character). Immune to attrition < 4.");
+        setSpecies(Species.ALDERAANIAN);
         addPersona(Persona.LEIA);
         addIcons(Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.GENERAL, Keyword.FEMALE, Keyword.LEADER);
