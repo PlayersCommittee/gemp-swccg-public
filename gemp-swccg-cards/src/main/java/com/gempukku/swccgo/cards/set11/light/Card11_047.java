@@ -14,7 +14,7 @@ import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfNextTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DrawsRaceDestinyAndChooseModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsRaceDestinyModifier;
@@ -73,7 +73,7 @@ public class Card11_047 extends AbstractPodracer {
                 action.appendEffect(
                         new SetWhileInPlayDataEffect(action, self, new WhileInPlayData(true)));
                 action.appendEffect(
-                        new AddUntilEndOfTurnModifierEffect(action, new DrawsRaceDestinyAndChooseModifier(self, 3, 2),
+                        new AddUntilEndOfNextTurnModifierEffect(action, new DrawsRaceDestinyAndChooseModifier(self, 3, 2),
                                 "Draws 3 and chooses 2 race destiny next turn"));
                 return Collections.singletonList(action);
             }

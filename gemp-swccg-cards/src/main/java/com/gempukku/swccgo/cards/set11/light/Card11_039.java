@@ -92,6 +92,7 @@ public class Card11_039 extends AbstractLostOrStartingInterrupt {
                         }
                     }
             );
+            return Collections.singletonList(action);
         }
         return null;
     }
