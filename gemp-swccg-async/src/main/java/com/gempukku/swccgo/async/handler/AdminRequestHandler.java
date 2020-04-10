@@ -391,6 +391,17 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String name = getFormParameterSafely(postDecoder, "name");
         int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
+        String allowSpectatorsOnOff = getFormParameterSafely(postDecoder, "allowSpectators");
+        boolean allowSpectators = allowSpectatorsOnOff != null && allowSpectatorsOnOff.equals("on");
+
+        String allowTimeExtensionsOnOff = getFormParameterSafely(postDecoder, "allowTimeExtensions");
+        boolean allowTimeExtensions = allowTimeExtensionsOnOff != null && allowTimeExtensionsOnOff.equals("on");
+
+        String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
+        boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
+
+        int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
+
         String code = String.valueOf(System.currentTimeMillis());
 
         StringBuilder sb = new StringBuilder();
@@ -405,7 +416,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds);
 
         _leagueService.clearCache();
 
@@ -490,6 +501,17 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String name = getFormParameterSafely(postDecoder, "name");
         int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
+        String allowSpectatorsOnOff = getFormParameterSafely(postDecoder, "allowSpectators");
+        boolean allowSpectators = allowSpectatorsOnOff != null && allowSpectatorsOnOff.equals("on");
+
+        String allowTimeExtensionsOnOff = getFormParameterSafely(postDecoder, "allowTimeExtensions");
+        boolean allowTimeExtensions = allowTimeExtensionsOnOff != null && allowTimeExtensionsOnOff.equals("on");
+
+        String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
+        boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
+
+        int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
+
         String code = String.valueOf(System.currentTimeMillis());
 
         String parameters = format + "," + start + "," + seriesDuration + "," + maxMatches + "," + code + "," + name;
@@ -498,7 +520,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds);
 
         _leagueService.clearCache();
 

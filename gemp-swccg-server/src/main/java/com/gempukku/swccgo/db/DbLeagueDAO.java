@@ -18,10 +18,10 @@ public class DbLeagueDAO implements LeagueDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addLeague(int cost, String name, String type, String clazz, String parameters, int start, int endTime) throws SQLException, IOException {
+    public void addLeague(int cost, String name, String type, String clazz, String parameters, int start, int endTime, boolean allowSpectators, boolean allowTimeExtensions, boolean showPlayerNames, int decisionTimeoutSeconds) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, class, parameters, start, end, status, cost) values (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, class, parameters, start, end, status, cost, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             try {
                 statement.setString(1, name);
                 statement.setString(2, type);
@@ -31,6 +31,10 @@ public class DbLeagueDAO implements LeagueDAO {
                 statement.setInt(6, endTime);
                 statement.setInt(7, 0);
                 statement.setInt(8, cost);
+                statement.setBoolean(9, allowSpectators);
+                statement.setBoolean(10, allowTimeExtensions);
+                statement.setBoolean(11, showPlayerNames);
+                statement.setInt(12, decisionTimeoutSeconds);
                 statement.execute();
             } finally {
                 statement.close();
@@ -43,7 +47,7 @@ public class DbLeagueDAO implements LeagueDAO {
     public List<League> loadActiveLeagues(SwccgCardBlueprintLibrary library, int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select name, type, class, parameters, status, cost from league where end>=? order by start desc");
+            PreparedStatement statement = conn.prepareStatement("select name, type, class, parameters, status, cost, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds from league where end>=? order by start desc");
             try {
                 statement.setInt(1, currentTime);
                 ResultSet rs = statement.executeQuery();
@@ -56,7 +60,11 @@ public class DbLeagueDAO implements LeagueDAO {
                         String parameters = rs.getString(4);
                         int status = rs.getInt(5);
                         int cost = rs.getInt(6);
-                        activeLeagues.add(new League(library, cost, name, type, clazz, parameters, status));
+                        boolean allowSpectators = rs.getBoolean(7);
+                        boolean allowTimeExtensions = rs.getBoolean(8);
+                        boolean showPlayerNames = rs.getBoolean(9);
+                        int decisionTimeoutSeconds = rs.getInt(10);
+                        activeLeagues.add(new League(library, cost, name, type, clazz, parameters, status, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds));
                     }
                     return activeLeagues;
                 } finally {

@@ -98,6 +98,10 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
         leagueElem.setAttribute("cost", String.valueOf(league.getCost()));
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
         leagueElem.setAttribute("end", String.valueOf(end));
+        leagueElem.setAttribute("allowTimeExtensions", String.valueOf(league.getAllowTimeExtensions()));
+        leagueElem.setAttribute("allowSpectators", String.valueOf(league.getAllowSpectators()));
+        leagueElem.setAttribute("showPlayerNames", String.valueOf(league.getShowPlayerNames()));
+        leagueElem.setAttribute("decisionTimeoutSeconds", String.valueOf(league.getDecisionTimeoutSeconds()));
 
         for (LeagueSeriesData serie : series) {
             Element serieElem = doc.createElement("serie");
