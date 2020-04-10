@@ -47,7 +47,13 @@ public class Card211_010 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DestinyModifier(self, Filters.or(Filters.Aurra, Filters.Bossk, Filters.Cad), 2));
+        modifiers.add(new DestinyModifier(self, Filters.or(
+                Filters.Aurra,
+                Filters.Bossk,
+                Filters.Cad,
+                Filters.hasPermanentAboard(Filters.persona(Persona.AURRA)),
+                Filters.hasPermanentAboard(Filters.persona(Persona.BOSSK)),
+                Filters.hasPermanentAboard(Filters.persona(Persona.CAD))), 2));
         return modifiers;
     }
 
