@@ -203,7 +203,7 @@ public class Card9_151 extends AbstractObjective {
                 action.setText("Deploy Leia from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Leia, true));
+                        new DeployCardFromLostPileEffect(action, Filters.Leia, false));
                 actions.add(action);
             }
 
@@ -229,7 +229,7 @@ public class Card9_151 extends AbstractObjective {
                 action.setText("Deploy Luke from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Luke, true));
+                        new DeployCardFromLostPileEffect(action, Filters.Luke, false));
                 actions.add(action);
             }
 

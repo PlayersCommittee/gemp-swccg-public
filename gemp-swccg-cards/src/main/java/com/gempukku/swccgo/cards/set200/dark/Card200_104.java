@@ -37,13 +37,15 @@ public class Card200_104 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.BLASTER_RACK__DOWNLOAD_MATCHING_WEAPON;
 
         final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.your(playerId), Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
-        Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
+        final Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
+        final Collection<PhysicalCard> matchingCharacters = new LinkedList<>();
 
         for (PhysicalCard character : characters) {
             Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.matchingWeaponForCharacter(character));
             for (PhysicalCard weapon : matchingWeaponsForCharacter) {
                 if (!matchingWeapons.contains(weapon)) {
                     matchingWeapons.add(weapon);
+                    matchingCharacters.add(character);
                 }
             }
         }
@@ -66,7 +68,7 @@ public class Card200_104 extends AbstractNormalEffect {
                                     new OncePerPhaseEffect(action));
                             // Perform result(s)
                             action.appendEffect(
-                                    new DeployCardToTargetFromReserveDeckEffect(action, weapon, Filters.in(characters), false, false, true));
+                                    new DeployCardToTargetFromReserveDeckEffect(action, weapon, Filters.in(matchingCharacters), false, false, true));
                         }
                     }
             );

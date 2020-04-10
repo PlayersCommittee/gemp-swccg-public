@@ -101,10 +101,8 @@ public class Card111_006_BACK extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
         Filter yourNonVictoryClassStarDestroyers =
-            Filters.and(Filters.your(self),
-                Filters.or(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.INTERDICTOR_CLASS_STAR_DESTROYER,
-                    ModelType.RESURGENT_CLASS_STAR_DESTROYER, ModelType.SUPER_CLASS_STAR_DESTROYER));
-        Filter yourVictoryClassStarDestroyers = Filters.and(Filters.your(self), ModelType.VICTORY_CLASS_STAR_DESTROYER);
+            Filters.and(Filters.your(self), Filters.Star_Destroyer, Filters.not(Filters.Victory_class_Star_Destroyer));
+        Filter yourVictoryClassStarDestroyers = Filters.and(Filters.your(self), Filters.Victory_class_Star_Destroyer);
         Filter deathStarSystem = Filters.Death_Star_system;
         Filter battlegroundSystem = Filters.battleground_system;
         Filter sameSystemAsYourNonVictoryClassSd =
@@ -112,8 +110,8 @@ public class Card111_006_BACK extends AbstractObjective {
         Filter sameSystemAsYourVictoryClassSd = Filters.sameSystemAs(self, Filters.and(yourVictoryClassStarDestroyers));
 
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DeployCostToLocationModifier(self, yourVictoryClassStarDestroyers, -1, deathStarSystem));
-        modifiers.add(new DeployCostToLocationModifier(self, yourNonVictoryClassStarDestroyers, -2, deathStarSystem));
+        modifiers.add(new DeployCostToLocationModifier(self, yourNonVictoryClassStarDestroyers, -2, deathStarSystem, true));
+        modifiers.add(new DeployCostToLocationModifier(self, yourVictoryClassStarDestroyers, -1, deathStarSystem, true));
         modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourVictoryClassSd), 1,
                 playerId));
         modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourNonVictoryClassSd),
