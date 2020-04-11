@@ -16,8 +16,6 @@ import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
 import com.gempukku.swccgo.logic.timing.results.*;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 // This class contain methods to be used by cards
 // to check if the current trigger (i.e. Effect or EffectResult)
@@ -4113,32 +4111,6 @@ public class TriggerConditions {
             }
         }
         return false;
-    }
-
-    /**
-     * Counts the number of unique exclusions accepted by cardExcludedFilter was just excluded from battle by the specified player.
-     * @param game the game
-     * @param effectResult the effect result
-     * @param playerId the player that excluded cards from battle
-     * @param cardExcludedFilter the card excluded filter
-     * @return count of exclusions
-     */
-    public static int numberOfExclusionsFromBattle(SwccgGame game, EffectResult effectResult, String playerId, Filterable cardExcludedFilter) {
-        if (effectResult.getType() == EffectResult.Type.EXCLUDED_FROM_BATTLE) {
-            ExcludedFromBattleResult excludedResult = (ExcludedFromBattleResult) effectResult;
-            Collection<PhysicalCard> excludedCards = Filters.filter(excludedResult.getCardsExcluded(), game, cardExcludedFilter);
-            int numExclusions = 0;
-            Set<Integer> uniqueExcludingCards = new HashSet<Integer>();
-            for (PhysicalCard excludedCard : excludedCards) {
-                PhysicalCard excludedByCard = excludedResult.getExcludedByCard(excludedCard);
-                if (excludedByCard != null && playerId.equals(excludedByCard.getOwner()) && !uniqueExcludingCards.contains(excludedByCard.getCardId())) {
-                    uniqueExcludingCards.add(excludedByCard.getCardId());
-                    numExclusions++;
-                }
-            }
-            return numExclusions;
-        }
-        return 0;
     }
 
     /**
