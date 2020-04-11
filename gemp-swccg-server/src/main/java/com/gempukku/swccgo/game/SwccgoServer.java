@@ -83,7 +83,7 @@ public class SwccgoServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer) {
+    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -108,7 +108,7 @@ public class SwccgoServer extends AbstractServer {
                 maxPlayerTime = 60 * swccgFormat.getRequiredDeckSize();
             }
             SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
-                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, 1000 * 60 * 5);
+                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds);
 
 
             swccgGameMediator.addGameResultListener(
