@@ -30,7 +30,7 @@ public class DrawsRaceDestinyModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the number of destiny
      */
-    private DrawsRaceDestinyModifier(PhysicalCard source, Filterable affectedFilter, Condition condition, Evaluator evaluator) {
+    public DrawsRaceDestinyModifier(PhysicalCard source, Filterable affectedFilter, Condition condition, Evaluator evaluator) {
         super(source, null, Filters.and(Filters.Podracer, affectedFilter), condition, ModifierType.NUM_RACE_DESTINY_DRAWS, true);
         _evaluator = evaluator;
     }

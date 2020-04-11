@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractPodracer;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
@@ -14,8 +15,9 @@ import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.modifiers.DrawsRaceDestinyAndChooseModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsRaceDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -47,7 +49,8 @@ public class Card11_047 extends AbstractPodracer {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DrawsRaceDestinyModifier(self, 2));
+        modifiers.add(new DrawsRaceDestinyModifier(self, self, new NotCondition(new InPlayDataSetCondition(self)), new ConstantEvaluator(2)));
+        modifiers.add(new DrawsRaceDestinyAndChooseModifier(self, self, new InPlayDataSetCondition(self), 3, 2));
         return modifiers;
     }
 
@@ -55,6 +58,10 @@ public class Card11_047 extends AbstractPodracer {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
+
+        if(TriggerConditions.isStartOfYourTurn(game, effectResult, self)){
+            self.setWhileInPlayData(null);
+        }
 
         // Check condition(s)
         if (!GameConditions.cardHasWhileInPlayDataSet(self)
@@ -71,10 +78,7 @@ public class Card11_047 extends AbstractPodracer {
                 action.setText("Draw 3 and choose 2 race destiny next turn");
                 // Perform result(s)
                 action.appendEffect(
-                        new SetWhileInPlayDataEffect(action, self, new WhileInPlayData(true)));
-                action.appendEffect(
-                        new AddUntilEndOfTurnModifierEffect(action, new DrawsRaceDestinyAndChooseModifier(self, 3, 2),
-                                "Draws 3 and chooses 2 race destiny next turn"));
+                        new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
                 return Collections.singletonList(action);
             }
         }

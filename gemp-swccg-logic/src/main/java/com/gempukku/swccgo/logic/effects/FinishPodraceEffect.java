@@ -56,7 +56,7 @@ public class FinishPodraceEffect extends AbstractSubActionEffect {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         // Set Podrace has finishing
-                        gameState.setPodraceFinished();
+                        gameState.setPodraceFinishing();
 
                         // Set winner/loser
                         float darkRaceTotal = modifiersQuerying.getHighestRaceTotal(gameState, game.getDarkPlayer());

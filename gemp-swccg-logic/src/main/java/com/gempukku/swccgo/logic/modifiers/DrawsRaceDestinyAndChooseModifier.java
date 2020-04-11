@@ -33,7 +33,7 @@ public class DrawsRaceDestinyAndChooseModifier extends AbstractModifier {
      * @param numToDraw the number of destiny to draw
      * @param numToChoose the number of destiny to choose
      */
-    private DrawsRaceDestinyAndChooseModifier(PhysicalCard source, Filterable affectedFilter, Condition condition, int numToDraw, int numToChoose) {
+    public DrawsRaceDestinyAndChooseModifier(PhysicalCard source, Filterable affectedFilter, Condition condition, int numToDraw, int numToChoose) {
         super(source, null, Filters.and(Filters.Podracer, affectedFilter), condition, ModifierType.NUM_RACE_DESTINY_DRAW_AND_CHOOSE, true);
         _numToDrawEvaluator = new ConstantEvaluator(numToDraw);
         _numToChooseEvaluator = new ConstantEvaluator(numToChoose);
@@ -48,7 +48,7 @@ public class DrawsRaceDestinyAndChooseModifier extends AbstractModifier {
 
     @Override
     public int getNumToDraw(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return (int) _numToChooseEvaluator.evaluateExpression(gameState, modifiersQuerying, card);
+        return (int) _numToDrawEvaluator.evaluateExpression(gameState, modifiersQuerying, card);
     }
 
     @Override

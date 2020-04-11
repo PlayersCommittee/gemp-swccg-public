@@ -10,6 +10,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -67,7 +68,8 @@ public class Card11_024 extends AbstractEpicEventDeployable {
         // Check condition(s)
         if (GameConditions.isDuringPodraceInitiatedByCard(game, self)
                 && GameConditions.isOnceDuringOpponentsPhase(game, self, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.canDrawRaceDestiny(game, playerId)) {
+                && GameConditions.canDrawRaceDestiny(game, playerId)
+                && !GameConditions.cardHasWhileInPlayDataSet(self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Draw race destiny");
@@ -77,6 +79,7 @@ public class Card11_024 extends AbstractEpicEventDeployable {
             // Perform result(s)
             action.appendEffect(
                     new DrawRaceDestinyEffect(action));
+            self.setWhileInPlayData(new WhileInPlayData());
             actions.add(action);
         }
 
@@ -128,6 +131,10 @@ public class Card11_024 extends AbstractEpicEventDeployable {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
+
+        if(TriggerConditions.isStartOfYourTurn(game, effectResult, self)){
+            self.setWhileInPlayData(null);
+        }
 
         // Check condition(s)
         if (GameConditions.isDuringPodraceInitiatedByCard(game, self)

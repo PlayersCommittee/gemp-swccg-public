@@ -76,7 +76,9 @@ public class Card11_039 extends AbstractLostOrStartingInterrupt {
                                                                     new PassthruEffect(action) {
                                                                         @Override
                                                                         protected void doPlayEffect(SwccgGame game) {
+                                                                            float destiny = selectedCard.getDestinyValueToUse();
                                                                             gameState.removeCardFromZone(selectedCard);
+                                                                            selectedCard.setDestinyValueToUse(destiny);
                                                                             selectedCard.setRaceDestinyForPlayer(playerId);
                                                                             gameState.stackCard(selectedCard, stackRaceDestinyOn, false, false, false);
                                                                             game.getActionsEnvironment().emitEffectResult(
@@ -92,6 +94,7 @@ public class Card11_039 extends AbstractLostOrStartingInterrupt {
                         }
                     }
             );
+            return Collections.singletonList(action);
         }
         return null;
     }
