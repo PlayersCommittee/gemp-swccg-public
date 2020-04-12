@@ -79,6 +79,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`league` (
   `allowTimeExtensions` BIT DEFAULT 0,
   `showPlayerNames` BIT DEFAULT 0,
   `decisionTimeoutSeconds` INT(11) DEFAULT 300 ,
+  `timePerPlayerMinutes` INT(11) DEFAULT 50 ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 32

@@ -401,6 +401,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
 
         int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
+        int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
 
         String code = String.valueOf(System.currentTimeMillis());
 
@@ -416,7 +417,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds, timePerPlayerMinutes);
 
         _leagueService.clearCache();
 
@@ -511,6 +512,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
 
         int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
+        int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
 
         String code = String.valueOf(System.currentTimeMillis());
 
@@ -520,7 +522,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds, timePerPlayerMinutes);
 
         _leagueService.clearCache();
 
