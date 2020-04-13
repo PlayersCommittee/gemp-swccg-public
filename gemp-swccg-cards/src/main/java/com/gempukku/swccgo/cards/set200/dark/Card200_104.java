@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -36,24 +37,27 @@ public class Card200_104 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.BLASTER_RACK__DOWNLOAD_MATCHING_WEAPON;
 
-        final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.your(playerId), Filters.unique, Filters.character, Filters.presentAt(Filters.site)));
-        final Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
-        final Collection<PhysicalCard> matchingCharacters = new LinkedList<>();
-
-        for (PhysicalCard character : characters) {
-            Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.matchingWeaponForCharacter(character));
-            for (PhysicalCard weapon : matchingWeaponsForCharacter) {
-                if (!matchingWeapons.contains(weapon)) {
-                    matchingWeapons.add(weapon);
-                    matchingCharacters.add(character);
-                }
-            }
-        }
+        Filter uniqueCharactersPresentAtSites = Filters.and(Filters.your(playerId), Filters.unique, Filters.character, Filters.presentAt(Filters.site));
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
-                && !characters.isEmpty()) {
+                && GameConditions.canSpot(game, self, uniqueCharactersPresentAtSites)) {
+            final Collection<PhysicalCard> characters = Filters.filterActive(game, self, uniqueCharactersPresentAtSites);
+            final Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
+            final Collection<PhysicalCard> matchingCharacters = new LinkedList<>();
+            for (PhysicalCard character : characters) {
+                Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.matchingWeaponForCharacter(character));
+                if(!matchingWeaponsForCharacter.isEmpty()){
+                    matchingCharacters.add(character);
+                    for(PhysicalCard weapon: matchingWeaponsForCharacter){
+                        if(!matchingWeapons.contains(weapon)){
+                            matchingWeapons.add(weapon);
+                        }
+                    }
+                }
+            }
+
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("[Download] a matching weapon");
             action.setActionMsg("[Download] a matching weapon");
