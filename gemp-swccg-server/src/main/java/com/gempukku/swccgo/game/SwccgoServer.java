@@ -83,7 +83,7 @@ public class SwccgoServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds) {
+    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -101,12 +101,7 @@ public class SwccgoServer extends AbstractServer {
                 _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat);
             }
 
-            int maxPlayerTime;
-            if (tournamentName.contains("OCS")){
-                maxPlayerTime = 50 * swccgFormat.getRequiredDeckSize();
-            } else {
-                maxPlayerTime = 60 * swccgFormat.getRequiredDeckSize();
-            }
+            int maxPlayerTime = timePerPlayerMinutes * 60;
             SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
                         maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds);
 

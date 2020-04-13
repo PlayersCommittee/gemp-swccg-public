@@ -752,12 +752,14 @@ public class HallServer extends AbstractServer {
         int decisionTimeoutSeconds = 300; // 5 minutes;
         boolean allowSpectators = true;
         boolean allowTimerExtensions = true;
+        int timePerPlayerMinutes = 60;
         if (league != null) {
             decisionTimeoutSeconds = league.getDecisionTimeoutSeconds();
             allowSpectators = league.getAllowSpectators();
             allowTimerExtensions = league.getAllowTimeExtensions();
+            timePerPlayerMinutes = league.getTimePerPlayerMinutes();
         }
-        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, true, league == null, allowTimerExtensions, decisionTimeoutSeconds);
+        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, true, league == null, allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes);
         _awaitingTables.remove(tableId);
         removeWaitingTablesWithPlayers(players);
     }
@@ -787,8 +789,8 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds) {
-        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds);
+    private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
+        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes);
         if (listener != null) {
             swccgGameMediator.addGameResultListener(listener);
         }
@@ -930,6 +932,7 @@ public class HallServer extends AbstractServer {
     private class HallTournamentCallback implements TournamentCallback {
         private Tournament _tournament;
         private int _decisionTimeoutSeconds = 300; // 5 minutes
+        private int _timePerPlayerMinutes = 50;
 
         private HallTournamentCallback(Tournament tournament) {
             _tournament = tournament;
@@ -958,7 +961,7 @@ public class HallServer extends AbstractServer {
                                 public void gameCancelled() {
                                     createGameInternal(participants, allowSpectators);
                                 }
-                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds);
+                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes);
                 }
             } finally {
                 _hallDataAccessLock.writeLock().unlock();

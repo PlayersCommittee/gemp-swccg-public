@@ -17,10 +17,11 @@ public class League {
     private boolean _allowSpectators;
     private boolean _showPlayerNames;
     private int _decisionTimeoutSeconds;
+    private int _timePerPlayerMinutes;
     private LeagueData _leagueData;
 
 
-    public League(SwccgCardBlueprintLibrary library, int cost, String name, String type, String clazz, String parameters, int status, boolean allowSpectators, boolean allowTimeExtensions, boolean showPlayerNames, int decisionTimeoutSeconds) {
+    public League(SwccgCardBlueprintLibrary library, int cost, String name, String type, String clazz, String parameters, int status, boolean allowSpectators, boolean allowTimeExtensions, boolean showPlayerNames, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
         _library = library;
         _cost = cost;
         _name = name;
@@ -32,6 +33,7 @@ public class League {
         _allowSpectators = allowSpectators;
         _showPlayerNames = showPlayerNames;
         _decisionTimeoutSeconds = decisionTimeoutSeconds;
+        _timePerPlayerMinutes = timePerPlayerMinutes;
     }
 
     public int getCost() {
@@ -53,6 +55,8 @@ public class League {
     public boolean getShowPlayerNames() { return _showPlayerNames; }
 
     public int getDecisionTimeoutSeconds() { return _decisionTimeoutSeconds; }
+
+    public int getTimePerPlayerMinutes() { return _timePerPlayerMinutes; }
 
     public synchronized LeagueData getLeagueData() {
         if (_leagueData == null) {
