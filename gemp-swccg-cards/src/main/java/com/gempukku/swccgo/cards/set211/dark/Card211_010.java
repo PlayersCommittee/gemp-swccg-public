@@ -22,7 +22,6 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromReserveDeckEffect
 import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -104,7 +103,7 @@ public class Card211_010 extends AbstractNormalEffect {
                                                                                 }
                                                                         )
                                                                 );
-                                                                appendEffects(self, selectedCard, action);
+                                                                appendEffects(self, selectedCard, action, false);
                                                             }
                                                         }
                                                 );
@@ -115,7 +114,7 @@ public class Card211_010 extends AbstractNormalEffect {
                                                             @Override
                                                             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
-                                                                    appendEffects(self, selectedCard, action);
+                                                                    appendEffects(self, selectedCard, action, false);
                                                                 }
                                                             }
                                                         }
@@ -134,13 +133,13 @@ public class Card211_010 extends AbstractNormalEffect {
         return null;
     }
 
-    private void chooseCardFromReserveDeck(final Action action, String playerId, Filter uniqueAliens, final PhysicalCard self, int max) {
+    private void chooseCardFromReserveDeck(final TopLevelGameTextAction action, String playerId, Filter uniqueAliens, final PhysicalCard self, int max) {
         action.appendEffect(
                 new ChooseCardsFromReserveDeckEffect(action, playerId, 0, max, uniqueAliens) {
                     @Override
                     protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                         for (PhysicalCard selectedCard : selectedCards) {
-                            appendEffects(self, selectedCard, action);
+                            appendEffects(self, selectedCard, action, true);
                         }
                     }
                 }
@@ -150,8 +149,13 @@ public class Card211_010 extends AbstractNormalEffect {
         );
     }
 
-    private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, Action action) {
+    private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, TopLevelGameTextAction action, boolean fromReserveDeck) {
         Filter filter = Filters.sameTitleAs(selectedCard, true);
+        if(fromReserveDeck){
+            action.setActionMsg("Reveals " + GameUtils.getCardLink(selectedCard) + " from Reserve Deck");
+        }else{
+            action.setActionMsg("Reveals " + GameUtils.getCardLink(selectedCard) + " from Hand");
+        }
         action.appendEffect(
                 new ShowCardOnScreenEffect(action, selectedCard)
         );

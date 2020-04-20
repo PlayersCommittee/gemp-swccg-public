@@ -62,7 +62,7 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, uploadCardGametextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, uploadCardGametextActionId, CardSubtype.USED);
-            action.setText("[Upload] Han's Dice or non-[Maintenance] Han");
+            action.setText("Upload Card");
 
             // Allow response(s)
             action.allowResponses(
