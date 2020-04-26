@@ -12,10 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
-import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromReserveDeckEffect;
@@ -150,18 +147,22 @@ public class Card211_010 extends AbstractNormalEffect {
     }
 
     private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, TopLevelGameTextAction action, boolean fromReserveDeck) {
+        String revealedFromLocation;
         Filter filter = Filters.sameTitleAs(selectedCard, true);
         if(fromReserveDeck){
-            action.setActionMsg("Reveals " + GameUtils.getCardLink(selectedCard) + " from Reserve Deck");
+            revealedFromLocation = "Reserve Deck";
         }else{
-            action.setActionMsg("Reveals " + GameUtils.getCardLink(selectedCard) + " from Hand");
+            revealedFromLocation = "Hand";
         }
         action.appendEffect(
                 new ShowCardOnScreenEffect(action, selectedCard)
         );
         action.appendEffect(
+                new SendMessageEffect(action, self.getOwner() + " reveals " + GameUtils.getCardLink(selectedCard) + " from " + revealedFromLocation)
+        );
+        action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(
-                        action, new KeywordModifier(self, filter, Keyword.ASSASSIN), GameUtils.getCardLink(selectedCard) + " is an Assassin for remainder of Game"
+                        action, new KeywordModifier(self, filter, Keyword.ASSASSIN), GameUtils.getCardLink(selectedCard) + " is an Assassin for remainder of Game "
                 )
         );
         action.appendEffect(
