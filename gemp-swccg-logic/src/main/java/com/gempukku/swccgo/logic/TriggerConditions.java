@@ -4985,6 +4985,19 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isAboutToBeEatenBy(SwccgGame game, EffectResult effectResult, Filterable filter, Filterable eatenByFilter){
+        if (effectResult.getType() == EffectResult.Type.ABOUT_TO_BE_EATEN) {
+            AboutToBeEatenResult aboutToBeEatenResult = (AboutToBeEatenResult) effectResult;
+            PhysicalCard card = aboutToBeEatenResult.getCardToBeEaten();
+
+            if (Filters.and(Filters.onTable, filter).accepts(game, card)) {
+                PhysicalCard eatenByCard = aboutToBeEatenResult.getEatenByCard();
+                return (eatenByCard != null && Filters.and(eatenByFilter).accepts(game, eatenByCard));
+            }
+        }
+        return false;
+    }
+
     /**
      * Determines if a card accepted by the filter is about to be 'hit'.
      * @param game the game

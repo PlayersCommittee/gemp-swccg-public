@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToBeEatenResult;
 import com.gempukku.swccgo.logic.timing.results.DefeatedResult;
 import com.gempukku.swccgo.logic.timing.results.EatenResult;
 
@@ -127,6 +128,8 @@ public class AttackDamageSegmentAction extends SystemQueueAction {
                                         }
                                         else if (attackState.isDefenderDefeated()) {
                                             if (attackState.isCreatureAttackingNonCreature()) {
+                                                effectResults.add(
+                                                        new AboutToBeEatenResult(that,  defendingCard, attackingCard));
                                                 if (Filters.at(Filters.attackLocation).accepts(game, defendingCard)) {
                                                     // Defeated card is 'eaten'
                                                     float power = modifiersQuerying.getPower(gameState, defendingCard);
@@ -149,29 +152,31 @@ public class AttackDamageSegmentAction extends SystemQueueAction {
                                             }
                                         }
 
-                                        // Emit 'eaten' results
-                                        final boolean eaten = !effectResults.isEmpty();
-                                        appendEffect(
-                                                new TriggeringResultsEffect(that, effectResults));
+                                        if(attackState.canContinue()){
+                                            // Emit 'eaten' results
+                                            final boolean eaten = !effectResults.isEmpty();
+                                            appendEffect(
+                                                    new TriggeringResultsEffect(that, effectResults));
 
-                                        // Cause defeated cards still at attack location to be lost or placed out of play
-                                        if (!cardsToBeLost.isEmpty()) {
-                                            appendEffect(
-                                                    new LoseCardsFromTableEffect(that, cardsToBeLost) {
-                                                        @Override
-                                                        protected boolean asEaten() {
-                                                            return eaten;
-                                                        }
-                                                    });
-                                        }
-                                        if (!cardsToBePlacedOutOfPlay.isEmpty()) {
-                                            appendEffect(
-                                                    new PlaceCardsOutOfPlayFromTableEffect(that, cardsToBePlacedOutOfPlay) {
-                                                        @Override
-                                                        protected boolean asEaten() {
-                                                            return eaten;
-                                                        }
-                                                    });
+                                            // Cause defeated cards still at attack location to be lost or placed out of play
+                                            if (!cardsToBeLost.isEmpty()) {
+                                                appendEffect(
+                                                        new LoseCardsFromTableEffect(that, cardsToBeLost) {
+                                                            @Override
+                                                            protected boolean asEaten() {
+                                                                return eaten;
+                                                            }
+                                                        });
+                                            }
+                                            if (!cardsToBePlacedOutOfPlay.isEmpty()) {
+                                                appendEffect(
+                                                        new PlaceCardsOutOfPlayFromTableEffect(that, cardsToBePlacedOutOfPlay) {
+                                                            @Override
+                                                            protected boolean asEaten() {
+                                                                return eaten;
+                                                            }
+                                                        });
+                                            }
                                         }
 
                                         // Make any 'hit' creatures lost
