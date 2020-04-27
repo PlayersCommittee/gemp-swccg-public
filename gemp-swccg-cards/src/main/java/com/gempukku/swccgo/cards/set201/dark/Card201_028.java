@@ -2,11 +2,13 @@ package com.gempukku.swccgo.cards.set201.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.LinkedList;
@@ -36,7 +38,7 @@ public class Card201_028 extends AbstractNormalEffect {
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.character), 1, sameSiteAsJabbasPrize));
         modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.site, sameSiteAsJabbasPrize), 1, playerId));
         modifiers.add(new MayNotBePlacedOutOfPlayModifier(self, Filters.My_Favorite_Decoration));
-        modifiers.add(new TotalPowerModifier(self, Filters.any, new AtCondition(self, Filters.Scum_And_Villainy, sameSiteAsJabbasPrize), 3, playerId));
+        modifiers.add(new TotalPowerModifier(self, Filters.any, new AndCondition(new DuringBattleCondition(), new AtCondition(self, Filters.Scum_And_Villainy, sameSiteAsJabbasPrize)), 3, playerId));
         return modifiers;
     }
 }

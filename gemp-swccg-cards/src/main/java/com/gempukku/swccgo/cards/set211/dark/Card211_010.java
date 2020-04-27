@@ -12,17 +12,13 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
-import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -104,7 +100,7 @@ public class Card211_010 extends AbstractNormalEffect {
                                                                                 }
                                                                         )
                                                                 );
-                                                                appendEffects(self, selectedCard, action);
+                                                                appendEffects(self, selectedCard, action, false);
                                                             }
                                                         }
                                                 );
@@ -115,7 +111,7 @@ public class Card211_010 extends AbstractNormalEffect {
                                                             @Override
                                                             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
-                                                                    appendEffects(self, selectedCard, action);
+                                                                    appendEffects(self, selectedCard, action, false);
                                                                 }
                                                             }
                                                         }
@@ -134,13 +130,13 @@ public class Card211_010 extends AbstractNormalEffect {
         return null;
     }
 
-    private void chooseCardFromReserveDeck(final Action action, String playerId, Filter uniqueAliens, final PhysicalCard self, int max) {
+    private void chooseCardFromReserveDeck(final TopLevelGameTextAction action, String playerId, Filter uniqueAliens, final PhysicalCard self, int max) {
         action.appendEffect(
                 new ChooseCardsFromReserveDeckEffect(action, playerId, 0, max, uniqueAliens) {
                     @Override
                     protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                         for (PhysicalCard selectedCard : selectedCards) {
-                            appendEffects(self, selectedCard, action);
+                            appendEffects(self, selectedCard, action, true);
                         }
                     }
                 }
@@ -150,14 +146,23 @@ public class Card211_010 extends AbstractNormalEffect {
         );
     }
 
-    private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, Action action) {
+    private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, TopLevelGameTextAction action, boolean fromReserveDeck) {
+        String revealedFromLocation;
         Filter filter = Filters.sameTitleAs(selectedCard, true);
+        if(fromReserveDeck){
+            revealedFromLocation = "Reserve Deck";
+        }else{
+            revealedFromLocation = "Hand";
+        }
         action.appendEffect(
                 new ShowCardOnScreenEffect(action, selectedCard)
         );
         action.appendEffect(
+                new SendMessageEffect(action, self.getOwner() + " reveals " + GameUtils.getCardLink(selectedCard) + " from " + revealedFromLocation)
+        );
+        action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(
-                        action, new KeywordModifier(self, filter, Keyword.ASSASSIN), GameUtils.getCardLink(selectedCard) + " is an Assassin for remainder of Game"
+                        action, new KeywordModifier(self, filter, Keyword.ASSASSIN), GameUtils.getCardLink(selectedCard) + " is an Assassin for remainder of Game "
                 )
         );
         action.appendEffect(
