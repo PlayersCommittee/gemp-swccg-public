@@ -102,10 +102,10 @@ public class Card211_031 extends AbstractNormalEffect {
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.canSpot(game, self, Filters.Quiet_Mining_Colony)) {
 
-            final Filter independent_starfighter = Filters.and(Icon.INDEPENDENT, Filters.starfighter);
+            final Filter independentStarfighter = Filters.and(Icon.INDEPENDENT, Filters.starfighter);
 
             final Collection<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
-            final Collection<PhysicalCard> independentStarfightersInHand = Filters.filter(cardsInHand, game, independent_starfighter);
+            final Collection<PhysicalCard> independentStarfightersInHand = Filters.filter(cardsInHand, game, independentStarfighter);
             final Collection<PhysicalCard> starfightersWithMatchingPilotsInHand = new ArrayList<>();
             for (PhysicalCard starfighter : independentStarfightersInHand) {
                 Collection<PhysicalCard> matchingPilotsInHand = Filters.filter(cardsInHand, game, Filters.matchingPilot(starfighter));
@@ -128,7 +128,6 @@ public class Card211_031 extends AbstractNormalEffect {
                                     protected void yes() {
                                         action.setActionMsg("Choose a unique [Independent] starfighter and matching pilot from hand and/or Reserve Deck");
                                         // Perform result(s)
-                                        //action.appendEffect(getChooseCardsEffect(action));
                                         chooseCards(self, game, action, playerId, cardsInHand);
                                     }
 
@@ -181,7 +180,7 @@ public class Card211_031 extends AbstractNormalEffect {
     }
 
     private void chooseCards(final PhysicalCard self, final SwccgGame game, final Action action, final String playerId, final Collection<PhysicalCard> cardsInHand) {
-        final Filter independent_starfighter = Filters.and(Icon.INDEPENDENT, Filters.starfighter);
+        final Filter independentStarfighter = Filters.and(Icon.INDEPENDENT, Filters.starfighter);
 
         final Collection<PhysicalCard> cardsInReserveAndHand = new ArrayList<>();
         final Collection<PhysicalCard> choicesInReserveDeck = new ArrayList<>();
@@ -190,7 +189,7 @@ public class Card211_031 extends AbstractNormalEffect {
         cardsInReserveAndHand.addAll(cardsInReserve);
         cardsInReserveAndHand.addAll(cardsInHand);
 
-        final Collection<PhysicalCard> independentStarfightersInReserve = Filters.filter(cardsInReserve, game, independent_starfighter);
+        final Collection<PhysicalCard> independentStarfightersInReserve = Filters.filter(cardsInReserve, game, independentStarfighter);
         for (PhysicalCard starfighter : independentStarfightersInReserve) {
             Collection<PhysicalCard> matchingPilots = Filters.filter(cardsInReserveAndHand, game, Filters.matchingPilot(starfighter));
             if (!matchingPilots.isEmpty()) {
