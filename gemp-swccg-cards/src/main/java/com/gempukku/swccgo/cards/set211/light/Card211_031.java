@@ -14,10 +14,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
@@ -272,6 +269,9 @@ public class Card211_031 extends AbstractNormalEffect {
                                 new TakeCardIntoHandFromReserveDeckEffect(action, playerId, card, false)
                         );
                         reduceCost(self, action, card);
+                        action.appendEffect(
+                                new ShuffleReserveDeckEffect(action)
+                        );
                     }
                 }
         );
@@ -289,6 +289,9 @@ public class Card211_031 extends AbstractNormalEffect {
                                 new TakeCardIntoHandFromReserveDeckEffect(action, playerId, card, false)
                         );
                         reduceCost(self, action, card);
+                        action.appendEffect(
+                                new ShuffleReserveDeckEffect(action)
+                        );
                     }
                 }
         );
