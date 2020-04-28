@@ -9,16 +9,18 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PlaceInUsedPileWhenCanceledModifier;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Premiere
+ * Set: Set 11
  * Type: Location
  * Subtype: System
- * Title: Yavin 4
+ * Title: Yavin 4 (V)
  */
 public class Card211_032 extends AbstractSystem {
     public Card211_032() {
@@ -34,8 +36,7 @@ public class Card211_032 extends AbstractSystem {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        // not working!!
-        modifiers.add(new MayNotDeployToLocationModifier(self, Filters.and(Filters.owner(playerOnDarkSideOfLocation), Filters.Effect),
+        modifiers.add(new MayNotDeployToTargetModifier(self, Filters.and(Filters.owner(playerOnDarkSideOfLocation), Filters.Effect),
                 new UnlessCondition(new ControlsCondition(playerOnDarkSideOfLocation, Filters.Yavin_4_system)), Filters.relatedLocation(self)));
         return modifiers;
     }
