@@ -8,7 +8,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.AttackState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -17,7 +16,7 @@ import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToBeEatenResult;
+import com.gempukku.swccgo.logic.timing.results.DefeatedResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -39,9 +38,9 @@ public class Card4_071 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(String playerId, final SwccgGame game, EffectResult effectResult, PhysicalCard self) {
-        if(TriggerConditions.isAboutToBeEatenBy(game, effectResult, Filters.character, Filters.or(Filters.Dragonsnake, Filters.Rancor, Filters.Sarlacc, Filters.Dianoga, Keyword.WAMPA))){
-            AboutToBeEatenResult aboutToBeEatenResult = (AboutToBeEatenResult) effectResult;
-            final PhysicalCard characterDefeated = aboutToBeEatenResult.getCardToBeEaten();
+        if(TriggerConditions.justDefeatedBy(game, effectResult, Filters.character, Filters.or(Filters.Dragonsnake, Filters.Rancor, Filters.Sarlacc, Filters.Dianoga, Keyword.WAMPA))){
+            DefeatedResult defeatedResult = (DefeatedResult) effectResult;
+            final PhysicalCard characterDefeated = defeatedResult.getCardDefeated();
             Collection<PhysicalCard> siteToRelocateTo = Filters.filterTopLocationsOnTable(game,
                     Filters.and(Filters.adjacentSite(characterDefeated), Filters.locationCanBeRelocatedTo(characterDefeated, true, false, true, 0, true)));
             if(!siteToRelocateTo.isEmpty()){
@@ -58,8 +57,6 @@ public class Card4_071 extends AbstractUsedInterrupt {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
                                                 // Perform result(s)
-                                                AttackState attackState = game.getGameState().getAttackState();
-                                                attackState.cancel();
                                                 action.appendEffect(
                                                         new RelocateBetweenLocationsEffect(action, characterDefeated, siteSelected));
                                             }

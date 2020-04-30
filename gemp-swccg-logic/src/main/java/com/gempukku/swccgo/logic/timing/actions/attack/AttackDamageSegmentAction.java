@@ -15,7 +15,6 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
-import com.gempukku.swccgo.logic.timing.results.AboutToBeEatenResult;
 import com.gempukku.swccgo.logic.timing.results.DefeatedResult;
 import com.gempukku.swccgo.logic.timing.results.EatenResult;
 
@@ -128,8 +127,6 @@ public class AttackDamageSegmentAction extends SystemQueueAction {
                                         }
                                         else if (attackState.isDefenderDefeated()) {
                                             if (attackState.isCreatureAttackingNonCreature()) {
-                                                effectResults.add(
-                                                        new AboutToBeEatenResult(that,  defendingCard, attackingCard));
                                                 if (Filters.at(Filters.attackLocation).accepts(game, defendingCard)) {
                                                     // Defeated card is 'eaten'
                                                     float power = modifiersQuerying.getPower(gameState, defendingCard);
