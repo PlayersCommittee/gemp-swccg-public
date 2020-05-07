@@ -11,7 +11,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.CancelGameTextEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfBattleEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
@@ -94,7 +94,7 @@ public class Card206_014 extends AbstractStarfighter {
                                         protected void performActionResults(Action targetingAction) {
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new CancelGameTextEffect(action, targetedCard));
+                                                    new CancelGameTextUntilEndOfBattleEffect(action, targetedCard));
                                         }
                                     }
                             );

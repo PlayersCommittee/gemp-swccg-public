@@ -10,7 +10,10 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveTotalAbilityReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -29,15 +32,8 @@ public class Card203_007 extends AbstractAlien {
         setLore("Female Duros. Expert pilot. Helps run the docking facilities in Mos Eisley. Friends with Ellorrs Madak. Approves all cargo manifests. Forgiving of minor transgressions.");
         setGameText("[Pilot] 3. Smuggler. Adds 1 to hyperspeed of any freighter she pilots. Your total ability at same docking bay or system may not be reduced. Once per game, may [download] a card with 'Ellorrs' in title here.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.VIRTUAL_SET_3);
-        addKeywords(Keyword.FEMALE);
+        addKeywords(Keyword.FEMALE, Keyword.SMUGGLER);
         setSpecies(Species.DUROS);
-    }
-
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new KeywordModifier(self, Keyword.SMUGGLER));
-        return modifiers;
     }
 
     @Override
