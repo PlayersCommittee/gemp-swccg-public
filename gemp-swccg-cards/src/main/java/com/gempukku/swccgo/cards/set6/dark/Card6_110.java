@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card6_110 extends AbstractAlien {
     public Card6_110() {
-        super(Side.DARK, 2, 5, 4, 1, 3, "J'Quille", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 4, 1, 3, Title.Jquille, Uniqueness.UNIQUE);
         setLore("Whiphid spy in league with Lady Valarian. Yearns for battle. Enjoys hearing the screams of his victims. Plotting to kill Jabba.");
         setGameText("Power +2 on Hoth. At the start of a battle, may cause one opponent's character of ability < 3 present to be excluded from the battle. While at Audience Chamber, all your other Whipids are forfeit +2.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
