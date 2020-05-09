@@ -56,24 +56,26 @@ public class Card4_151 extends AbstractLostInterrupt {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             GameState gameState = game.getGameState();
+                            boolean canRemoveCardsFromOpponentsHand = !game.getModifiersQuerying().mayNotRemoveCardsFromOpponentsHand(gameState, self, playerId);
+
                             // Perform result(s)
-                            if (game.getModifiersQuerying().mayNotRemoveCardsFromOpponentsHand(gameState, self, playerId)) {
-                                game.getGameState().sendMessage(opponent + " is not allowed to remove cards from " + opponent + "'s hand");
-                                return;
-                            }
                             int numCardsToDraw = game.getGameState().getHand(playerId).size();
-                            int numOpponentsCardsToDraw = game.getGameState().getHand(opponent).size();
                             action.appendEffect(
                                     new ShuffleHandAndUsedPileIntoReserveDeckEffect(action, playerId));
-                            action.appendEffect(
-                                    new ShuffleHandAndUsedPileIntoReserveDeckEffect(action, opponent));
                             if (numCardsToDraw > 0) {
                                 action.appendEffect(
                                         new DrawCardsIntoHandFromReserveDeckEffect(action, playerId, numCardsToDraw));
                             }
-                            if (numOpponentsCardsToDraw > 0) {
+                            if(canRemoveCardsFromOpponentsHand){
+                                int numOpponentsCardsToDraw = game.getGameState().getHand(opponent).size();
                                 action.appendEffect(
-                                        new DrawCardsIntoHandFromReserveDeckEffect(action, opponent, numOpponentsCardsToDraw));
+                                        new ShuffleHandAndUsedPileIntoReserveDeckEffect(action, opponent));
+                                if (numOpponentsCardsToDraw > 0) {
+                                    action.appendEffect(
+                                            new DrawCardsIntoHandFromReserveDeckEffect(action, opponent, numOpponentsCardsToDraw));
+                                }
+                            }else{
+                                game.getGameState().sendMessage(opponent + " is not allowed to remove cards from " + opponent + "'s hand");
                             }
                         }
                     }
