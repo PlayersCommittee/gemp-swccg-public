@@ -40,7 +40,7 @@ public class Card209_017 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return playCardOptionId == PlayCardOptionId.PLAY_CARD_OPTION_2 ? Filters.and(Filters.or(Filters.Star_Destroyer, Filters.vehicle)) : Filters.none;
+        return playCardOptionId == PlayCardOptionId.PLAY_CARD_OPTION_2 ? Filters.or(Filters.Star_Destroyer, Filters.vehicle) : Filters.none;
     }
 
     @Override
