@@ -8,6 +8,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -59,25 +60,19 @@ public class Card12_117 extends AbstractRepublic {
             // Perform result(s)
             action.appendEffect(
                     new PlayoutDecisionEffect(action, playerId,
-                            new MultipleChoiceAwaitingDecision("Choose number", new String[]{"0", "1", "2", "3", "π", "4", "5", "6", "2π", "7", "8", "9"}) {
+                            new MultipleChoiceAwaitingDecision("Choose number", new String[]{"0", "1", "2", "3", "π", "4", "5", "6", "2π", "7"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     final float chosenDestiny;
-                                    if (index > 8) {
-                                        chosenDestiny = index - 2;
-                                    }
-                                    else if (index == 8) {
-                                        chosenDestiny = 2 * (float) Math.PI;
-                                    }
-                                    else if (index > 4) {
-                                        chosenDestiny = index - 1;
-                                    }
-                                    else if (index == 4) {
+                                    if(result.equalsIgnoreCase("π")){
                                         chosenDestiny = (float) Math.PI;
                                     }
-                                    else {
-                                        chosenDestiny = index;
+                                    else if(result.equalsIgnoreCase("2π")){
+                                        chosenDestiny = 2 * (float) Math.PI;
+                                    }else{
+                                        chosenDestiny = Float.parseFloat(result);
                                     }
+                                    self.clearForRemainderOfGameData();
                                     game.getGameState().sendMessage(playerId + " chooses " + GuiUtils.formatAsString(chosenDestiny) + " as number");
                                     final int permCardId = self.getPermanentCardId();
                                     action.appendEffect(
@@ -91,27 +86,21 @@ public class Card12_117 extends AbstractRepublic {
 
                                                             // Check condition(s)
                                                             if (TriggerConditions.isDestinyJustDrawnBy(swccgGame, effectResult, game.getOpponent(playerId), true)
-                                                                    && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId2)) {
-
-                                                                final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId2);
-                                                                // Update usage limit(s)
-                                                                action2.appendUsage(
-                                                                        new OncePerBattleEffect(action2));
+                                                                    && !GameConditions.cardHasAnyForRemainderOfGameDataSet(self)) {
 
                                                                 // Check more condition(s)
                                                                 DestinyDrawnResult destinyDrawnResult = (DestinyDrawnResult) effectResult;
                                                                 PhysicalCard drawnCard = destinyDrawnResult.getCard();
                                                                 if (drawnCard != null
                                                                         && drawnCard.getDestinyValueToUse().equals(chosenDestiny)) {
+                                                                    final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId2);
                                                                      action2.setText("Reset destiny to 0");
                                                                      // Perform result(s)
                                                                      action2.appendEffect(
                                                                              new ResetDestinyEffect(action2, 0));
+                                                                    actions.add(action2);
                                                                 }
-                                                                else {
-                                                                    action2.skipInitialMessageAndAnimation();
-                                                                }
-                                                                actions.add(action2);
+                                                                self.setForRemainderOfGameData(self.getCardId(), new ForRemainderOfGameData());
                                                             }
                                                             return actions;
                                                         }
