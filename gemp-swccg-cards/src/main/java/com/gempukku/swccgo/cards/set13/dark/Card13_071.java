@@ -37,13 +37,14 @@ public class Card13_071 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isAtLocation(game, self, Filters.Podrace_Arena)
                 && GameConditions.canDrawDestiny(game, playerId)
                 && GameConditions.canDrawDestiny(game, game.getOpponent(playerId))) {
             final String opponent = game.getOpponent(playerId);
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setActionMsg("Wager");
             action.setText("Wager");
             // Update usage limit(s)
@@ -70,8 +71,9 @@ public class Card13_071 extends AbstractAlien {
                                                 opponentsTotalDestiny = opponentsDestiny + 2;
                                             }
 
-                                            gameState.sendMessage(playerId + "'s destiny: " + (playersTotalDestiny != null ? GuiUtils.formatAsString(playersTotalDestiny) : "Failed destiny draw"));
-                                            gameState.sendMessage(opponent + "'s destiny: " + (opponentsTotalDestiny != null ? GuiUtils.formatAsString(opponentsTotalDestiny) : "Failed destiny draw"));
+                                            gameState.sendMessage(playerId + "'s 'Wager' destiny: " + (playersTotalDestiny != null ? GuiUtils.formatAsString(playersTotalDestiny) : "Failed destiny draw"));
+                                            gameState.sendMessage(opponent + "'s 'Wager' destiny: " + (opponentsTotalDestiny != null ? GuiUtils.formatAsString(opponentsTotalDestiny) : "Failed destiny draw"));
+
 
                                             final String loser = (playersTotalDestiny != null && (opponentsTotalDestiny == null || playersTotalDestiny < opponentsTotalDestiny)) ? playerId :
                                                     ((opponentsTotalDestiny != null && (playersTotalDestiny == null || opponentsTotalDestiny < playersTotalDestiny)) ? opponent : null);

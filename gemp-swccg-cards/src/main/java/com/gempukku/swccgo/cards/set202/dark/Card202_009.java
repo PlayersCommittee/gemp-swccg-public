@@ -18,7 +18,6 @@ import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -44,13 +43,7 @@ public class Card202_009 extends AbstractAlien {
         setGameText("[Pilot] 2. Information Broker. When deployed, may [download] a droid here or a Retraining Bolt. During battle, may retarget an opponent's weapon targeting your droid to another one of your characters present (even Daroe).");
         addIcons(Icon.TATOOINE, Icon.PILOT, Icon.VIRTUAL_SET_2);
         setSpecies(Species.JAWA);
-    }
-
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new KeywordModifier(self, Keyword.INFORMATION_BROKER));
-        return modifiers;
+        addKeyword(Keyword.INFORMATION_BROKER);
     }
 
     @Override

@@ -18,7 +18,6 @@ import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -40,15 +39,8 @@ public class Card201_001 extends AbstractAlien {
         setLore("Gambler. Scoundrel. Former owner of the Millennium Falcon. Despite a notorious past, has become a successful chief administrator of a Tibanna gas mining facility.");
         setGameText("[Pilot] 2. Smuggler. When deployed, may [upload] a character with 'Cloud City' in lore. During battle, may use 1 Force to cancel the game text of a Dark Jedi (except Vader) at same site.");
         addIcons(Icon.CLOUD_CITY, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_1);
-        addKeywords(Keyword.GAMBLER);
+        addKeywords(Keyword.GAMBLER, Keyword.SMUGGLER);
         addPersona(Persona.LANDO);
-    }
-
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new KeywordModifier(self, Keyword.SMUGGLER));
-        return modifiers;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
@@ -79,7 +80,9 @@ public class Card11_024 extends AbstractEpicEventDeployable {
             // Perform result(s)
             action.appendEffect(
                     new DrawRaceDestinyEffect(action));
-            self.setWhileInPlayData(new WhileInPlayData());
+            action.appendEffect(
+                    new SetWhileInPlayDataEffect(action, self, new WhileInPlayData())
+            );
             actions.add(action);
         }
 

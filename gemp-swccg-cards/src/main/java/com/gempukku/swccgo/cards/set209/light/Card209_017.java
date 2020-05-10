@@ -1,16 +1,16 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
+import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.ArrayList;
@@ -46,7 +46,6 @@ public class Card209_017 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
-        String opponent = game.getOpponent(playerId);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
 

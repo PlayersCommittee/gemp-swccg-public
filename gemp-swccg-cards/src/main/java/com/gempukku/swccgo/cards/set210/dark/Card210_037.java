@@ -106,17 +106,22 @@ public class Card210_037 extends AbstractNormalEffect {
             actions.add(action);
         }
 
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, GameTextActionId.MACROSCAN__ONCE_PER_TURN_ACTION)
+        GameTextActionId gameTextActionId2 = GameTextActionId.MACROSCAN__ONCE_PER_TURN_ACTION;
+
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
                 && GameConditions.hasReserveDeck(game, playerId)
                 && GameConditions.canUseForce(game, playerId, 1)) {
 
             // Use X Force to reveal top X cards of your Reserve Deck;
             // may place one in Used Pile (replace other cards in same order).
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, GameTextActionId.MACROSCAN__ONCE_PER_TURN_ACTION);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
             action.setText("Reveal top X cards of reserve deck");
 
             int forcePileSize = game.getGameState().getForcePileSize(playerId);
 
+            action.appendUsage(
+                    new OncePerTurnEffect(action)
+            );
             // Pay cost(s)
             action.appendCost(
                     new PlayoutDecisionEffect(action, playerId,

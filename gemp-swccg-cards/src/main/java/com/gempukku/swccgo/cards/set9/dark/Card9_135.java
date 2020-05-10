@@ -68,7 +68,7 @@ public class Card9_135 extends AbstractEpicEventDeployable {
                 && GameConditions.canSpotLocation(game, systemFilter)) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-            int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_site, Filters.notIgnoredDuringEpicEventCalculation, Filters.occupies(playerId), Filters.relatedSiteTo(self, systemFilter)));
+            int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_site, Filters.occupies(playerId), Filters.relatedSiteTo(self, systemFilter)));
             float numForce = modifiersQuerying.getVariableValue(gameState, self, Variable.X, 2 + numSites);
             if (numForce > 0) {
 
