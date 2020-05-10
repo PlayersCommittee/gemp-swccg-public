@@ -24,8 +24,8 @@ import java.util.List;
 
 /**
  * Set: Dagobah
- * Type: Effect
- * Subtype: Immediate
+ * Type: Interrupt
+ * Subtype: Used
  * Title: WHAAAAAAAAAOOOOW!
  */
 public class Card4_071 extends AbstractUsedInterrupt {

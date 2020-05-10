@@ -311,7 +311,6 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // Creatures
         BULLSEYED,
         DEFEATED,
-        ABOUT_TO_BE_EATEN,
         EATEN,
         PARASITE_ATTACHED,
         PARASITE_DETACHED,

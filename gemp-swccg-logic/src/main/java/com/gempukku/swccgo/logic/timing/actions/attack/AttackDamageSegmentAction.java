@@ -149,31 +149,29 @@ public class AttackDamageSegmentAction extends SystemQueueAction {
                                             }
                                         }
 
-                                        if(attackState.canContinue()){
-                                            // Emit 'eaten' results
-                                            final boolean eaten = !effectResults.isEmpty();
-                                            appendEffect(
-                                                    new TriggeringResultsEffect(that, effectResults));
+                                        // Emit 'eaten' results
+                                        final boolean eaten = !effectResults.isEmpty();
+                                        appendEffect(
+                                                new TriggeringResultsEffect(that, effectResults));
 
-                                            // Cause defeated cards still at attack location to be lost or placed out of play
-                                            if (!cardsToBeLost.isEmpty()) {
-                                                appendEffect(
-                                                        new LoseCardsFromTableEffect(that, cardsToBeLost) {
-                                                            @Override
-                                                            protected boolean asEaten() {
-                                                                return eaten;
-                                                            }
-                                                        });
-                                            }
-                                            if (!cardsToBePlacedOutOfPlay.isEmpty()) {
-                                                appendEffect(
-                                                        new PlaceCardsOutOfPlayFromTableEffect(that, cardsToBePlacedOutOfPlay) {
-                                                            @Override
-                                                            protected boolean asEaten() {
-                                                                return eaten;
-                                                            }
-                                                        });
-                                            }
+                                        // Cause defeated cards still at attack location to be lost or placed out of play
+                                        if (!cardsToBeLost.isEmpty()) {
+                                            appendEffect(
+                                                    new LoseCardsFromTableEffect(that, cardsToBeLost) {
+                                                        @Override
+                                                        protected boolean asEaten() {
+                                                            return eaten;
+                                                        }
+                                                    });
+                                        }
+                                        if (!cardsToBePlacedOutOfPlay.isEmpty()) {
+                                            appendEffect(
+                                                    new PlaceCardsOutOfPlayFromTableEffect(that, cardsToBePlacedOutOfPlay) {
+                                                        @Override
+                                                        protected boolean asEaten() {
+                                                            return eaten;
+                                                        }
+                                                    });
                                         }
 
                                         // Make any 'hit' creatures lost
@@ -191,7 +189,7 @@ public class AttackDamageSegmentAction extends SystemQueueAction {
                                         );
                                     }
                                 });
-                        }
+                    }
                 }
         );
     }
