@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlienImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.ClearForRemainderOfGameDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -10,21 +9,19 @@ import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
-import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveGameTextCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +32,6 @@ import java.util.List;
  * Subtype: Alien/Imperial
  * Title: Mitth'raw'nuruodo
  */
-
 public class Card211_001 extends AbstractAlienImperial {
     public Card211_001() {
         super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE);
@@ -48,13 +44,11 @@ public class Card211_001 extends AbstractAlienImperial {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new MayNotHaveGameTextCanceledModifier(self));
         return modifiers;
     }
-
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
@@ -63,48 +57,50 @@ public class Card211_001 extends AbstractAlienImperial {
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Choose a location.");
-            action.setActionMsg("Choose a location.");
+            action.setText("Target a location.");
+            action.setActionMsg("Target a location.");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
-            //Clearing the once per turn flag if Thrawn retrieved a force
-            action.appendEffect(new ClearForRemainderOfGameDataEffect(action, self, true));
+            //Clearing the once per turn flag if Thrawn made opponent lose a force
+            self.clearForRemainderOfGameData();
             //Select a location
-            action.appendEffect(new ChooseCardsOnTableEffect(action, playerId, "Choose a related location.", 1, 1, Filters.relatedLocation(self)){
-                @java.lang.Override
-                protected FullEffectResult playEffectReturningResult(SwccgGame game) {
-                    return super.playEffectReturningResult(game);
-                }
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target a related location", Filters.relatedLocation(self)){
                 @Override
-                protected void cardsSelected(Collection<PhysicalCard> selectedCards){
-                    final PhysicalCard chosenLocation = selectedCards.size() == 1 ? selectedCards.iterator().next() : null;
-                    game.getGameState().sendMessage("The location chosen for Thrawn is " + chosenLocation.getTitle());
-                    //Add in the Proxy effect so that Thrawn will fire the second half of it this turn
-                    action.appendEffect(
-                            new AddUntilEndOfTurnActionProxyEffect(action,
-                                    new AbstractActionProxy() {
-                                        @Override
-                                        public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-                                            List<TriggerAction> actions = new LinkedList<TriggerAction>();
+                protected void cardTargeted(int targetGroupId, final PhysicalCard location) {
+                    action.addAnimationGroup(location);
+                    // Allow response(s)
+                    action.allowResponses("Target " + GameUtils.getCardLink(location),
+                            new UnrespondableEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new AddUntilEndOfTurnActionProxyEffect(action,
+                                                    new AbstractActionProxy() {
+                                                        @Override
+                                                        public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
+                                                            List<TriggerAction> actions = new LinkedList<>();
 
-                                            // Check condition(s)
-                                            if (TriggerConditions.movedToLocation(game, effectResult, Filters.opponents(self), Filters.sameLocation(chosenLocation))
-                                                    && !GameConditions.cardHasAnyForRemainderOfGameDataSet(self)) {
-                                                self.setForRemainderOfGameData((Integer)self.getCardId(), new ForRemainderOfGameData());
+                                                            // Check condition(s)
+                                                            if (TriggerConditions.movedToLocation(game, effectResult, Filters.opponents(self), location)
+                                                                    && !GameConditions.cardHasAnyForRemainderOfGameDataSet(self)) {
+                                                                self.setForRemainderOfGameData(self.getCardId(), new ForRemainderOfGameData());
 
-                                                final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());
-                                                action2.setText("Opponent loses a force.");
-                                                action2.setActionMsg("Light Side has fallen into Thrawn's trap and loses 1 Force.");
-                                                // Actually retrieve the force
-                                                action2.appendEffect(new LoseForceEffect(action, game.getOpponent(playerId), 1));
-                                                actions.add(action2);
-                                                return actions;
-                                            }
-                                            return null;
-                                        }
-                                    }
-                            ));
+                                                                final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());
+                                                                action2.setText("Make opponent lose 1 force.");
+                                                                action2.setActionMsg("Make opponent lose 1 force.");
+                                                                // Actually retrieve the force
+                                                                action2.appendEffect(new LoseForceEffect(action, game.getOpponent(playerId), 1));
+                                                                actions.add(action2);
+                                                            }
+                                                            return actions;
+                                                        }
+                                                    }
+                                            ));
+                                }
+                            }
+                    );
                 }
             });
 
@@ -125,11 +121,12 @@ public class Card211_001 extends AbstractAlienImperial {
             action.setText("Cancel weapon destiny");
             // Pay cost(s)
             action.appendCost(
-                    new LoseForceEffect(action, playerId, 1, true));
-
+                    new LoseForceEffect(action, playerId, 1, true)
+            );
             // Perform result(s)
             action.appendEffect(
-                    new CancelDestinyEffect(action));
+                    new CancelDestinyEffect(action)
+            );
             return Collections.singletonList(action);
         }
         return null;
