@@ -189,7 +189,7 @@ public class AttackDamageSegmentAction extends SystemQueueAction {
                                         );
                                     }
                                 });
-                        }
+                    }
                 }
         );
     }

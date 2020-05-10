@@ -15,6 +15,7 @@ import java.util.*;
 public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
     private boolean _booleanValue;
     private Float _floatValue;
+    private int _intValue;
     private String _textValue;
     private Set<String> _textValues = new HashSet<String>();
     private PhysicalCard _physicalCard;
@@ -48,6 +49,12 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
      */
     public WhileInPlayData() {
     }
+
+    /**
+     * Creates data that is stored in while in play data.
+     * @param intValue the boolean value of the data
+     */
+    public WhileInPlayData(int intValue){_intValue = intValue;}
 
     /**
      * Creates data that is stored in while in play data.
@@ -176,6 +183,12 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
     public Float getFloatValue() {
         return _floatValue;
     }
+
+    /**
+     * Gets the int value of the data.
+     * @return the int value
+     */
+    public int getIntValue(){return _intValue;};
 
     /**
      * Gets the text value of the data.
