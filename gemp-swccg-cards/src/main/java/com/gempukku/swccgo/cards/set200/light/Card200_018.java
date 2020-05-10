@@ -101,7 +101,7 @@ public class Card200_018 extends AbstractRebel {
                 && GameConditions.isInBattle(game, self)
                 && GameConditions.canTarget(game, self, leaderFilter)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Cancel a leader's game text");
             // Update usage limit(s)
             action.appendUsage(
