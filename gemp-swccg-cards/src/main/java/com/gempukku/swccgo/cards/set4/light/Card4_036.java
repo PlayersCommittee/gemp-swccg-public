@@ -48,7 +48,7 @@ public class Card4_036 extends AbstractUtinniEffect {
 
     @Override
     protected Filter getGameTextValidUtinniEffectTargetFilter(String playerId, SwccgGame game, PhysicalCard self, PhysicalCard deployTarget, TargetId targetId) {
-        return Filters.and(Filters.your(self), Filters.starfighter, Filters.at(Filters.and(Filters.planet_system, Filters.relatedSystemTo(self, Filters.and(Filters.Big_One, Filters.hasAttached(self))))));
+        return Filters.and(Filters.your(self), Filters.starfighter, Filters.at(Filters.and(Filters.planet_system, Filters.relatedSystem(deployTarget))));
     }
 
     @Override
