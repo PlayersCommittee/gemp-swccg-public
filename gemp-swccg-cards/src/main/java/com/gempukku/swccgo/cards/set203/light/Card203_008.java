@@ -33,12 +33,12 @@ public class Card203_008 extends AbstractRebel {
         setLore("Hero of Nentan. Supervised construction of Echo Base on Hoth. Head of base security. At the Mos Eisley Cantina, everyone knows his name.");
         setGameText("Scout. Deploys free to (and power +2 at) Cantina, Endor, or Hoth. Opponent may not 'react' to or from here. Once per game, may retrieve an Explosive Charge into hand.");
         addIcons(Icon.HOTH, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
+        addKeywords(Keyword.SCOUT);
     }
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new KeywordModifier(self, Keyword.SCOUT));
         modifiers.add(new DeploysFreeToLocationModifier(self, Filters.or(Filters.Cantina, Filters.Deploys_at_Endor, Filters.Deploys_at_Hoth)));
         return modifiers;
     }
