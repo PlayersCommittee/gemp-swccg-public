@@ -13,7 +13,10 @@ import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.InBattleCondition;
 import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsDestinyToPowerModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -33,13 +36,12 @@ public class Card206_011 extends AbstractImperial {
         setGameText("Leader. Adds 3 to the power of anything he pilots. Leader. If piloting Blizzard 1 in battle, adds one destiny to total power. Deploys free aboard Blizzard 1. Once per turn, may reveal from hand to deploy 6th Marker or Blizzard 1 to Hoth from Reserve Deck; reshuffle.");
         addPersona(Persona.VEERS);
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
-        addKeywords(Keyword.GENERAL);
+        addKeywords(Keyword.GENERAL, Keyword.LEADER);
     }
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new LeaderModifier(self));
         modifiers.add(new DeploysFreeAboardModifier(self, Persona.BLIZZARD_1));
         return modifiers;
     }
