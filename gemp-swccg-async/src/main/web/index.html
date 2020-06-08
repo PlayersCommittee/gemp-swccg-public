@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gemp-Swccg</title>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+        }
+
+        .ui-button-text-only .ui-button-text {
+            font-size: 70%;
+            padding: .2em .5em;
+        }
+
+        a {
+            color: gray;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery/jQueryRotate.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-016/common.js"></script>
+    <script type="text/javascript" src="js/gemp-016/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-016/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-016/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-016/merchantUi.js"></script>
+
+    <script type="text/javascript">
+        jQuery.fn.center = function () {
+            this.css("position", "absolute");
+            this.css("top", (($(window).height() - this.outerHeight()) / 2));
+            this.css("left", (($(window).width() - this.outerWidth()) / 2));
+            return this;
+        };
+
+        var comm = new GempSwccgCommunication("/gemp-swccg-server", function () {
+            alert("Unable to contact the server");
+        });
+
+        function register() {
+            var login = $("#login").val();
+            var password = $("#password").val();
+            var password2 = $("#password2").val();
+            if (password != password2) {
+                $(".error").html("Password and Password repeated are different! Try again");
+            } else {
+                comm.register(login, password, function() {
+                    location.href="/gemp-swccg/hall.html";
+                },
+                        {
+                            "0": function() {
+                                alert("Unable to connect to server, either server is down or there is a problem" +
+                                      " with your internet connection");
+                            },
+                            "400":function() {
+                                $(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>" +
+                                         " english letters, numbers or _ (underscore) and - (dash) characters.");
+                            },
+                            "401":function() {
+                                $(".error").html("Invalid username or password. Try again.");
+                                loginScreen();
+                            },
+                            "403": function() {
+                                $(".error").html("You have been permanently banned.");
+                                $(".interaction").html("");
+                            },
+                            "405": function() {
+                                $(".error").html("You are not allowed to register.");
+                                $(".interaction").html("");
+                            },
+                            "409": function() {
+                                $(".error").html("You have been temporarily banned. You can try logging in at a later time.");
+                                $(".interaction").html("");
+                            },
+                            "503": function() {
+                                $(".error").html("Server is down for maintenance. Please come at a later time.");
+                            }
+                        });
+            }
+
+        }
+
+        function registrationScreen() {
+            comm.getRegistrationForm(
+                    function(html) {
+                        $(".error").html();
+                        $(".interaction").html(html);
+                        $("#registerButton").button().click(register);
+                    });
+        }
+
+        function login() {
+            var login = $("#login").val();
+            var password = $("#password").val();
+            comm.login(login, password, function() {
+                        location.href = "/gemp-swccg/hall.html";
+                    },
+                    {
+                        "0": function() {
+                            alert("Unable to connect to server, either server is down or there is a problem" +
+                                  " with your internet connection");
+                        },
+                        "401":function() {
+                            $(".error").html("Invalid username or password. Try again.");
+                            loginScreen();
+                        },
+                        "403": function() {
+                            $(".error").html("You have been permanently banned.");
+                            $(".interaction").html("");
+                        },
+                        "409": function() {
+                            $(".error").html("You have been temporarily banned. You can try logging in at a later time.");
+                            $(".interaction").html("");
+                        },
+                        "503": function() {
+                            $(".error").html("Server is down for maintenance. Please come at a later time.");
+                        }
+                    });
+        }
+
+        function loginScreen() {
+            $(".interaction").html("");
+            $(".interaction").append("Login below, or ");
+            var registerButton = $("<div>Register</div>").button();
+            registerButton.click(registrationScreen);
+
+            $(".interaction").append(registerButton);
+            $(".interaction").append("<br/>Login: <input id='login' type='text' autofocus='autofocus'><br/>Password: <input id='password' type='password'><br/>");
+
+            var loginButton = $("<div>Login</div>").button();
+            loginButton.click(login);
+
+            $("#password").keypress(function (e) {
+                if (e.which == 13) {
+                    login();
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $(".interaction").append(loginButton);
+            $(".interaction").append("<br/><br/>Watch a <a href='https://www.youtube.com/playlist?list=PL4JOT3i4_gRaAeTPwy1ADiqiMAYd3Oe1M'>video tutorial</a> to get started.");
+        }
+
+        $(document).keydown(function (e) {
+            if (e.which === 8 && !$(e.target).is("input, textarea")) {
+                e.preventDefault();
+            }
+        });
+
+        $(document).ready(
+                function () {
+                    comm.getStatus(
+                            function(html) {
+                                $(".status").append(html);
+                            });
+                    loginScreen();
+                    $(".centerContainer").center();
+                });
+    </script>
+
+</head>
+<body bgcolor="#000000">
+<div style="float: top; text-align: center;"><a href='http://www.starwarsccg.org/'><img src="images/starwars.jpg"/></div></a>
+<div style="color: #FFFFFF; text-align: center;"><h1>Welcome to Gemp-Swccg!</h1></div>
+<div class="centerContainer">
+    <div class="status" style="color:#ffffff;"></div>
+    <div class="error" style="color: #ff0000;"></div>
+    <div class="interaction" style="color: #ffffff; a { color: inherit; }"></div>
+</div>
+<div style="position:absolute; bottom:0; width:100%">
+<div style="text-align: center;">
+    <a href='http://www.starwarsccg.org/cardlists/PremiereType.html'><img src="images/premiere.jpg" border="0" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/ANewHopeType.html'><img src="images/anewhope.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/HothType.html'><img src="images/hoth.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/DagobahType.html'><img src="images/dagobah.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/CloudCityType.html'><img src="images/cloudcity.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/JabbasPalaceType.html'><img src="images/jabbaspalace.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/SpecialEditionType.html'><img src="images/specialedition.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/EndorType.html'><img src="images/endor.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/DeathStar2Type.html'><img src="images/deathstar2.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/ReflectionsType.html'><img src="images/ref2.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/TatooineType.html'><img src="images/tatooine.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/CoruscantType.html'><img src="images/coruscant.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/ReflectionsType.html'><img src="images/ref3.jpg" vspace="25" hspace="1"/></a>
+    <a href='http://www.starwarsccg.org/cardlists/TheedType.html'><img src="images/theedpalace.jpg" vspace="25" hspace="1"/></a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+package com.gempukku.swccgo.packagedProduct;
+
+/**
+ * Defines constants for the prices of the packaged card products.
+ */
+public interface ProductPrice {
+
+    // Base card price
+    int BASE_CARD_PRICE = 250;
+
+    // Booster pack prices
+    int PREMIERE_BOOSTER_PACK = 300;
+    int A_NEW_HOPE_BOOSTER_PACK = 300;
+    int HOTH_BOOSTER_PACK = 300;
+    int DAGOBAH_BOOSTER_PACK = 250;
+    int CLOUD_CITY_BOOSTER_PACK = 250;
+    int JABBAS_PALACE_BOOSTER_PACK = 250;
+    int SPECIAL_EDITION_BOOSTER_PACK = 250;
+    int ENDOR_BOOSTER_PACK = 250;
+    int DEATH_STAR_II_BOOSTER_PACK = 329;
+    int TATOOINE_BOOSTER_PACK = 329;
+    int CORUSCANT_BOOSTER_PACK = 329;
+    int THEED_PALACE_BOOSTER_PACK = 329;
+    int REFLECTIONS_BOOSTER_PACK = 495;
+    int REFLECTIONS_II_BOOSTER_PACK = 495;
+    int REFLECTIONS_III_BOOSTER_PACK = 495;
+
+    // Booster box prices
+    int PREMIERE_BOOSTER_BOX = 9000;
+    int A_NEW_HOPE_BOOSTER_BOX = 9000;
+    int HOTH_BOOSTER_BOX = 9000;
+    int DAGOBAH_BOOSTER_BOX = 10000;
+    int CLOUD_CITY_BOOSTER_BOX = 10000;
+    int JABBAS_PALACE_BOOSTER_BOX = 10000;
+    int SPECIAL_EDITION_BOOSTER_BOX = 6000;
+    int ENDOR_BOOSTER_BOX = 6000;
+    int DEATH_STAR_II_BOOSTER_BOX = 11000;
+    int TATOOINE_BOOSTER_BOX = 8000;
+    int CORUSCANT_BOOSTER_BOX = 8000;
+    int THEED_PALACE_BOOSTER_BOX = 8000;
+    int REFLECTIONS_BOOSTER_BOX = 13000;
+    int REFLECTIONS_II_BOOSTER_BOX = 13000;
+    int REFLECTIONS_III_BOOSTER_BOX = 13000;
+
+    // Starter set/deck prices
+    int PREMIERE_STARTER_SET = 995;
+    int SPECIAL_EDITION_STARTER_DECK = 1295;
+    int DEATH_STAR_II_PRE_CONSTRUCTED_DECK = 1095;
+
+    // Enhanced Set prices
+    int ENHANCED_PREMIERE_PACK = 1495;
+    int ENHANCED_CLOUD_CITY_PACK = 1495;
+    int ENHANCED_JABBAS_PALACE_PACK = 1495;
+
+    // Promotional Cards
+    int JEDI_PACK = 0;
+    int REBEL_LEADER_PACK = 0;
+
+    // Anthology Boxes
+    int FIRST_ANTHOLOGY_BOX = 3000;
+    int SECOND_ANTHOLOGY_BOX = 3200;
+    int THIRD_ANTHOLOGY_BOX = 3200;
+
+    // Sealed Decks
+    int OFFICIAL_TOURNAMENT_SEALED_DECK = 2000;
+    int JABBAS_PALACE_SEALED_DECK = 2000;
+
+    // Introductory 2-Player Games
+    int PREMIERE_INTRODUCTORY_TWO_PLAYER_GAME = 1900;
+    int EMPIRE_STRIKES_BACK_INTRODUCTORY_TWO_PLAYER_GAME = 2900;
+}

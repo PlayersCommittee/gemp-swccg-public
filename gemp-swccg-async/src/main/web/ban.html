@@ -1,0 +1,214 @@
+<html>
+<head>
+    <title>Gemp-Swccg Ban Manager</title>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/hall.css">
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery/jQueryRotate.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-016/common.js"></script>
+    <script type="text/javascript" src="js/gemp-016/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-016/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-016/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-016/merchantUi.js"></script>
+
+    <script type="text/javascript">
+        function submitFormToAddress(url, formElem, success, error) {
+            var data = {};
+
+            var inputs = $("input[type='text'], input[type='checkbox']:checked, option:selected", formElem).each(
+                    function () {
+                        var input = $(this);
+                        var name = null;
+                        var value = null;
+                        if (input.prop("tagName") == "INPUT") {
+                            name = input.attr("name");
+                            value = input.val();
+                        } else if (input.prop("tagName") == "OPTION") {
+                            name = input.parents("select").attr("name");
+                            value = input.attr("value");
+                        }
+                        if (name != null && value != null) {
+                            if (data[name] == null)
+                                data[name] = new Array();
+                            data[name].push(value);
+                        }
+                    });
+
+            $.ajax({
+                type:"POST",
+                url:url,
+                cache:false,
+                data:data,
+                traditional:true,
+                success:success,
+                error:error,
+                dataType:"xml"
+            });
+        }
+
+        function banMultiple() {
+            var actionSuccess = function () {
+                alert("Operation was successful");
+            };
+
+            var actionFailure = function (xhr) {
+                var status = xhr.status;
+                if (status == 404)
+                    alert("Specified resource (player, league) does not exist. Check the spelling and try again.");
+                else
+                    alert("Unknown error. Status code - "+status);
+            };
+
+            submitFormToAddress("/gemp-swccg-server/admin/banMultiple", $("#banMultipleForm").eq(0), actionSuccess, actionFailure);
+        }
+        
+        function deactivateMultiple() {
+            var actionSuccess = function () {
+                alert("Operation was successful");
+            };
+
+            var actionFailure = function (xhr) {
+                var status = xhr.status;
+                if (status == 404)
+                    alert("Specified resource (player, league) does not exist. Check the spelling and try again.");
+                else
+                    alert("Unknown error. Status code - "+status);
+            };
+
+            submitFormToAddress("/gemp-swccg-server/admin/deactivateMultiple", $("#banMultipleForm").eq(0), actionSuccess, actionFailure);
+        }
+
+        $(document).ready(
+                function () {
+                    var actionSuccess = function () {
+                        alert("Operation was successful");
+                    };
+
+                    var actionFailure = function (xhr) {
+                        var status = xhr.status;
+                        if (status == 404)
+                            alert("Specified resource (player, league) does not exist. Check the spelling and try again.");
+                        else
+                            alert("Unknown error. Status code - "+status);
+                    };
+
+                    var displayUsers = function (xml) {
+                        var root = xml.documentElement;
+                        if (root.tagName == 'players') {
+                            var playersDiv = $("#displayUsers");
+                            playersDiv.html("");
+                            playersDiv.append("Similar accounts:");
+                            var form = $("<form id='banMultipleForm' method='POST' action='/gemp-swccg-server/admin/banMultiple'></form>");
+
+                            var table = $("<table class='tables'></table>");
+                            table.append("<tr><th></th><th>Id</th><th>Name</th><th>Password (hash)</th><th>Create IP</th><th>Login IP</th><th>Last Login Reward</th><th>User status</th></tr>");
+
+                            var players = root.getElementsByTagName("player");
+                            for (var j=0; j<players.length; j++) {
+                                var player = players[j];
+                                var id=player.getAttribute("id");
+                                var name=player.getAttribute("name");
+                                var password = player.getAttribute("password");
+                                var createIp = player.getAttribute("createIp");
+                                var loginIp = player.getAttribute("loginIp");
+                                var lastLoginReward = player.getAttribute("lastLoginReward");
+                                var status = player.getAttribute("status");
+                                table.append("<tr><td><input type='checkbox' name='login' value='"+name+"'></td><td>"+id+"</td><td>"+name+"</td><td>"+password+"</td><td>"+createIp+"</td><td>"+loginIp+"</td><td>"+lastLoginReward+"</td><td>"+status+"</td></tr>");
+                            }
+                            form.append(table);
+                            form.append("<input type='button' value='Ban selected' onClick='banMultiple();'>");
+                            form.append("<input type='button' value='Deactivate selected' onClick='deactivateMultiple();'>");
+
+                            playersDiv.append(form);
+                        }
+                    };
+
+                    $("#banUser").click(
+                            function() {
+                                submitFormToAddress("/gemp-swccg-server/admin/banUser", $("#banUserForm").eq(0), actionSuccess, actionFailure);
+                            });
+                    $("#banUserTemp").click(
+                            function() {
+                                submitFormToAddress("/gemp-swccg-server/admin/banUserTemp", $("#banUserTempForm").eq(0), actionSuccess, actionFailure);
+                            });
+                    $("#unBanUser").click(
+                            function() {
+                                submitFormToAddress("/gemp-swccg-server/admin/unBanUser", $("#unBanUserForm").eq(0), actionSuccess, actionFailure);
+                            });
+                    $("#findMultipleAccounts").click(
+                            function() {
+                                submitFormToAddress("/gemp-swccg-server/admin/findMultipleAccounts", $("#findMultipleAccountsForm").eq(0), displayUsers, actionFailure);
+                            });
+                });
+    </script>
+</head>
+<body>
+<h1>Ban user</h1>
+<h2>Permanently</h2>
+<form id="banUserForm" method="POST" action="/gemp-swccg-server/admin/banUser">
+    Name (case-sensitive): <input type="text" name="login"><br/>
+    <input id="banUser" type="button" value="Ban user permanently">
+</form>
+<h2>Temporarily</h2>
+<form id="banUserTempForm" method="POST" action="/gemp-swccg-server/admin/banUserTemp">
+    Name (case-sensitive): <input type="text" name="login"><br/>
+    Duration:
+    <select name="duration">
+        <option value="1">1 day</option>
+        <option value="3">3 days</option>
+        <option value="7">7 days</option>
+        <option value="14">14 days</option>
+        <option value="30">30 days</option>
+    </select><br/>
+    <input id="banUserTemp" type="button" value="Ban user temporarily">
+</form>
+<h1>Unban user</h1>
+<form id="unBanUserForm" method="POST" action="/gemp-swccg-server/admin/unBanUser">
+    Name (case-sensitive): <input type="text" name="login"><br/>
+    <input id="unBanUser" type="button" value="Unban user">
+</form>
+<h1>Find suspicious behaviour</h1>
+<h2>Multiple user accounts</h2>
+<form id="findMultipleAccountsForm" method="POST" action="/gemp-swccg-server/admin/findMultipleAccounts">
+    Name (case-sensitive) or IP address: <input type="text" name="login"><br/>
+    <input id="findMultipleAccounts" type="button" value="Find similar accounts">
+</form>
+<div id="displayUsers"></div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<html>
+<head>
+    <title>Gemp-Swccg Playtesting Administration</title>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/hall.css">
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery/jQueryRotate.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-016/common.js"></script>
+    <script type="text/javascript" src="js/gemp-016/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-016/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-016/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-016/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-016/merchantUi.js"></script>
+
+    <script type="text/javascript">
+        function submitFormToAddress(url, formElem, success, error) {
+            var data = {};
+
+            var inputs = $("input[type='text'], input[type='checkbox']:checked, option:selected", formElem).each(
+                    function () {
+                        var input = $(this);
+                        var name = null;
+                        var value = null;
+                        if (input.prop("tagName") == "INPUT") {
+                            name = input.attr("name");
+                            value = input.val();
+                        } else if (input.prop("tagName") == "OPTION") {
+                            name = input.parents("select").attr("name");
+                            value = input.attr("value");
+                        }
+                        if (name != null && value != null) {
+                            if (data[name] == null)
+                                data[name] = new Array();
+                            data[name].push(value);
+                        }
+                    });
+
+            $.ajax({
+                type:"POST",
+                url:url,
+                cache:false,
+                data:data,
+                traditional:true,
+                success:success,
+                error:error,
+                dataType:"xml"
+            });
+        }
+
+        function removePlaytesters() {
+            var actionSuccess = function () {
+                alert("Operation was successful");
+            };
+
+            var actionFailure = function (xhr) {
+                var status = xhr.status;
+                if (status == 404)
+                    alert("Specified resource (playtester) does not exist. Check the spelling and try again.");
+                else
+                    alert("Unknown error. Status code - "+status);
+            };
+
+            submitFormToAddress("/gemp-swccg-server/admin/removePlaytesters", $("#removePlaytestersForm").eq(0), actionSuccess, actionFailure);
+        }
+
+        $(document).ready(
+                function () {
+                    var actionSuccess = function () {
+                        alert("Operation was successful");
+                    };
+
+                    var actionFailure = function (xhr) {
+                        var status = xhr.status;
+                        if (status == 404)
+                            alert("Specified resource (playtester) does not exist. Check the spelling and try again.");
+                        else
+                            alert("Unknown error. Status code - "+status);
+                    };
+
+                    var displayUsers = function (xml) {
+                        var root = xml.documentElement;
+                        if (root.tagName == 'players') {
+                            var playersDiv = $("#displayUsers");
+                            playersDiv.html("");
+                            playersDiv.append("Playtesters:");
+                            var form = $("<form id='removePlaytestersForm' method='POST' action='/gemp-swccg-server/admin/removePlaytesters'></form>");
+
+                            var table = $("<table class='tables'></table>");
+                            table.append("<tr><th></th><th>Name</th></tr>");
+
+                            var players = root.getElementsByTagName("player");
+                            for (var j=0; j<players.length; j++) {
+                                var player = players[j];
+                                var name=player.getAttribute("name");
+                                table.append("<tr><td><input type='checkbox' name='login' value='"+name+"'></td><td>"+name+"</td></tr>");
+                            }
+                            form.append(table);
+                            form.append("<input type='button' value='Remove selected' onClick='removePlaytesters();'>");
+
+                            playersDiv.append(form);
+                        }
+                    };
+
+                    $("#addPlaytester").click(
+                            function() {
+                                submitFormToAddress("/gemp-swccg-server/admin/addPlaytester", $("#addPlaytesterForm").eq(0), actionSuccess, actionFailure);
+                            });
+                    $("#showPlaytesters").click(
+                            function() {
+                                submitFormToAddress("/gemp-swccg-server/admin/showPlaytesters", $("#showPlaytestersForm").eq(0), displayUsers, actionFailure);
+                            });
+                });
+    </script>
+</head>
+<body>
+<h1>Add playtester</h1>
+<form id="addPlaytesterForm" method="POST" action="/gemp-swccg-server/admin/addPlaytester">
+    Name (case-sensitive): <input type="text" name="login"><br/>
+    <input id="addPlaytester" type="button" value="Add">
+</form>
+<h1>Show playtesters</h1>
+<form id="showPlaytestersForm" method="POST" action="/gemp-swccg-server/admin/showPlaytesters">
+    <input id="showPlaytesters" type="button" value="Show">
+</form>
+<div id="displayUsers"></div>
+</body>
+</html>
