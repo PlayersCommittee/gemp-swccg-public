@@ -19,7 +19,7 @@ public class ApplicationConfiguration {
                 props.load(ApplicationConfiguration.class.getResourceAsStream("/gemp-swccg.properties"));
                 String gempPropertiesOverride = System.getProperty("gemp-swccg.override");
                 if (gempPropertiesOverride != null)
-                    props.load(ApplicationConfiguration.class.getResourceAsStream(gempPropertiesOverride));
+                    props.load(new java.io.FileInputStream(gempPropertiesOverride));
                 _properties = props;
             } catch (Exception exp) {
                 LOGGER.error("Can't load application configuration", exp);

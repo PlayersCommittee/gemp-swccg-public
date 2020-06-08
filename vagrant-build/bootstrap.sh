@@ -48,8 +48,8 @@ sudo systemctl enable --now mariadb
 # -----------------------------------------
 #   Load seed database
 # -----------------------------------------
-mysql -u root mysql <<< "CREATE USER 'gemp-lotr'@'localhost' IDENTIFIED BY 'gemp-lotr';"
-mysql -u root mysql <<< "GRANT ALL PRIVILEGES ON *.* TO 'gemp-lotr'@'localhost' WITH GRANT OPTION;"
+mysql -u root mysql <<< "CREATE USER 'gemp'@'localhost' IDENTIFIED BY 'gemp';"
+mysql -u root mysql <<< "GRANT ALL PRIVILEGES ON *.* TO 'gemp'@'localhost' WITH GRANT OPTION;"
 mysql -u root mysql < /vagrant/database_script.sql
 
 # Add test users
