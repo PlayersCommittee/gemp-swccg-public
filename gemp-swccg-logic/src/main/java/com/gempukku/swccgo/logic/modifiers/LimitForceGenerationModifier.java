@@ -34,7 +34,7 @@ public class LimitForceGenerationModifier extends AbstractModifier {
      * @param evaluator the evaluator that calculates the amount of the modifier
      * @param playerId the player whose Force generation is modified
      */
-    private LimitForceGenerationModifier(PhysicalCard source, Filterable locationFilter, Condition condition, Evaluator evaluator, String playerId) {
+    public LimitForceGenerationModifier(PhysicalCard source, Filterable locationFilter, Condition condition, Evaluator evaluator, String playerId) {
         super(source, null, Filters.and(Filters.location, locationFilter), condition, ModifierType.LIMIT_FORCE_GENERATION_AT_LOCATION, true);
         _evaluator = evaluator;
         _playerId = playerId;
