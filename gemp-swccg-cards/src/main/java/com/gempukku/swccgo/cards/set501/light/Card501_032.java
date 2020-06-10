@@ -27,7 +27,7 @@ public class Card501_032 extends AbstractSystem {
         setLocationLightSideGameText("Your freighters and Correlians are each deploy -1 here. Your starships moving to or from here are hyperspeed +1");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 2);
-        addIcons(Icon.A_NEW_HOPE, Icon.PLANET);
+        addIcons(Icon.A_NEW_HOPE, Icon.PLANET, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
         setTestingText("Corellia (v)");
     }
