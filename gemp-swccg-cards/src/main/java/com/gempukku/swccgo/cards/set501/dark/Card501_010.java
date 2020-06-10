@@ -32,7 +32,7 @@ public class Card501_010 extends AbstractImmediateEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Jabbas_Influence, Uniqueness.UNIQUE);
         setLore("Jabba makes offers one cannot refuse. Smugglers, thieves and competitors who do not acquiesce have been rumored to wake up with a bantha's head in their bed.");
         setGameText("If you just moved a captive to Audience Chamber, deploy on that location; no battles or Force Drains may take place here until end of your next turn. Once per game, may deploy a character with \"captive\" in Gametext here from Reserve deck; reshuffle. Immune to Control.");
-        addIcons(Icon.SPECIAL_EDITION);
+        addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
         isImmuneToCardTitle(Title.Control);
         setTestingText("Jabba's Influence (v)");
         setVirtualSuffix(true);
