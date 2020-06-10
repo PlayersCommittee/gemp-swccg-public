@@ -43,7 +43,7 @@ public class Card211_036 extends AbstractObjective {
                 "For remainder of game, you may not Force drain on Ahch-To. You may not deploy [Episode I] locations or non-[Episode VII] Luke. Once per game, may take any one card into hand from Force Pile; reshuffle. Luke deploys only to Ahch-To.\n" +
                 "While this side up, once per turn, may use 1 Force to [download] an Ahch-To location or [Episode VII] battleground.\n" +
                 "May flip this card if Luke on Ahch-To and a battle was just initiated involving a Resistance character.");
-        addIcons(Icon.VIRTUAL_SET_11);
+        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);
     }
 
     @Override
