@@ -31,7 +31,7 @@ public class Card501_002 extends AbstractAlien {
         super(Side.DARK, 1, 4, 4, 3, 6, "Boba Fett", Uniqueness.UNIQUE);
         setArmor(5);
         setLore("Infamous bounty hunter. Hired to help Jabba intimidate debtors and smugglers. Crack shot. Mandalorian armor and jet pack provide protection and flight capability.");
-        setGameText("Adds 3 to power of anything he pilots. When deployed, may peek at top 4 cards (6 if a captive here) of Used Pile and take one into hand; reshuffle. Draws one battle destiny if unable to otherwise. If armed or with a captive, your total battle destiny here is +1. Immune to attrition < 4.");
+        setGameText("Adds 3 to power of anything he pilots. When deployed, may peek at top 5 cards of Used Pile and take one into hand; reshuffle. Draws one battle destiny if unable to otherwise. If armed or with a captive, your total battle destiny here is +1. Immune to attrition < 4.");
         addPersona(Persona.BOBA_FETT);
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.BOUNTY_HUNTER);
@@ -54,7 +54,8 @@ public class Card501_002 extends AbstractAlien {
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self.getOwner(), self)
             && GameConditions.hasUsedPile(game, playerId)) {
-            int numCardsToPeakAt = GameConditions.isWith(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.captive) ? 6 : 4;
+
+            int numCardsToPeakAt = 5;
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Peak at top " + numCardsToPeakAt + " cards");
