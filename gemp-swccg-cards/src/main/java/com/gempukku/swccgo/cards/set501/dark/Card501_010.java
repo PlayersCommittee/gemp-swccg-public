@@ -8,6 +8,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -33,6 +34,8 @@ public class Card501_010 extends AbstractImmediateEffect {
         setGameText("If you just moved a captive to Audience Chamber, deploy on that location; no battles or Force Drains may take place here until end of your next turn. Once per game, may deploy a character with \"captive\" in Gametext here from Reserve deck; reshuffle. Immune to Control.");
         addIcons(Icon.SPECIAL_EDITION);
         isImmuneToCardTitle(Title.Control);
+        setTestingText("Jabba's Influence (v)");
+        setVirtualSuffix(true);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class Card501_010 extends AbstractImmediateEffect {
     @Override
     protected List<PlayCardAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.movedToLocation(game, effectResult, Filters.captive, Filters.Audience_Chamber)) {
+        if (TriggerConditions.movedToLocation(game, effectResult, Filters.escorting(Filters.any), Filters.Audience_Chamber)) {
             PlayCardAction action = getPlayCardAction(playerId, game, self, self, false, 0, null, null, null, null, null, false, 0, Filters.Audience_Chamber, null);
             if (action != null) {
                 return Collections.singletonList(action);
@@ -58,11 +61,12 @@ public class Card501_010 extends AbstractImmediateEffect {
         if (TriggerConditions.justDeployed(game, effectResult, self)) {
            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
            action.appendEffect(
-                    new AddUntilEndOfPlayersNextTurnModifierEffect(action, self.getOwner(), new MayNotInitiateBattleAtLocationModifier(self, Filters.here(self)),"")
-            );
+                    new AddUntilEndOfPlayersNextTurnModifierEffect(action, self.getOwner(), new MayNotInitiateBattleAtLocationModifier(self, Filters.hasAttached(self)),"No battles at " + GameUtils.getCardLink(self.getAttachedTo())
+            ));
             action.appendEffect(
-                    new AddUntilEndOfPlayersNextTurnModifierEffect(action, self.getOwner(), new MayNotForceDrainAtLocationModifier(self, Filters.here(self)),"")
-            );
+                    new AddUntilEndOfPlayersNextTurnModifierEffect(action, self.getOwner(), new MayNotForceDrainAtLocationModifier(self, Filters.hasAttached(self)),"No force drains at " + GameUtils.getCardLink(self.getAttachedTo())
+            ));
+            return Collections.singletonList(action);
         }
         return null;
     }
@@ -81,7 +85,7 @@ public class Card501_010 extends AbstractImmediateEffect {
                     new OncePerGameEffect(action));
             // Choose target(s)
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Filters.character, Filters.gameTextContains("captive")) , Filters.here(self), true)
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Filters.character, Filters.gameTextContains("captive")), Filters.here(self), true)
             );
             return Collections.singletonList(action);
         }
