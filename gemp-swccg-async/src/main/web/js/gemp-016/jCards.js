@@ -3195,6 +3195,46 @@ var fixedImages = {
 "301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
+//playtesting
+"501_1":"/gemp-swccg/images/cards/Hoth-Dark/admiralozzel.gif",
+"501_2":"/gemp-swccg/images/cards/SpecialEdition-Dark/bobafett.gif",
+"501_3":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
+"501_4":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
+"501_5":"/gemp-swccg/images/cards/Premiere-Dark/deathstartrooper.gif",
+"501_6":"/gemp-swccg/images/cards/Premiere-Dark/colonelwullfyularen.gif",
+"501_7":"/gemp-swccg/images/cards/Dagobah-Dark/zuckuss.gif",
+"501_8":"/gemp-swccg/images/cards/Dagobah-Dark/failureatthecave.gif",
+"501_9":"/gemp-swccg/images/cards/Premiere-Dark/observationholocam.gif",
+"501_10":"/gemp-swccg/images/cards/SpecialEdition-Dark/jabbasinfluence.gif",
+"501_11":"/gemp-swccg/images/cards/Dagobah-Light/rogueasteroid.gif",
+"501_12":"/gemp-swccg/images/cards/CloudCity-Dark/epicduel.gif",
+"501_13":"/gemp-swccg/images/cards/Coruscant-Dark/maulstrikes.gif",
+"501_14":"/gemp-swccg/images/cards/Dagobah-Dark/executormeditationchamber.gif",
+"501_15":"/gemp-swccg/images/cards/Virtual3-Dark/coruscantxizorspalace.gif",
+"501_16":"/gemp-swccg/images/cards/Virtual9-Dark/xizorspalacesewer.gif",
+"501_17":"/gemp-swccg/images/cards/SpecialEdition-Dark/wakeelmui.gif",
+"501_18":"/gemp-swccg/images/cards/Dagobah-Dark/misthunter.gif",
+"501_19":"/gemp-swccg/images/cards/Dagobah-Light/yodashope.gif",
+"501_20":"/gemp-swccg/images/cards/Premiere-Light/solohan.gif",
+"501_21":"/gemp-swccg/images/cards/Coruscant-Light/control.gif",
+"501_22":"/gemp-swccg/images/cards/Virtual1-Light/melas.gif",
+"501_23":"/gemp-swccg/images/cards/ReflectionsII-Light/lebo2d9leebo.gif",
+"501_24":"/gemp-swccg/images/cards/Virtual10-Light/dashrendar.gif",
+"501_25":"/gemp-swccg/images/cards/SpecialEdition-Light/camie.gif",
+"501_26":"/gemp-swccg/images/cards/ReflectionsIII-Light/yodamasteroftheforce.gif",
+"501_27":"/gemp-swccg/images/cards/Hoth-Light/youhavefailedmeforthelasttime.gif",
+"501_28":"/gemp-swccg/images/cards/JabbasPalace-Light/strangle.gif",
+"501_29":"/gemp-swccg/images/cards/DeathStarII-Light/twilightisuponme.gif",
+"501_30":"/gemp-swccg/images/cards/DeathStarII-Light/anakinskywalker.gif",
+"501_31":"/gemp-swccg/images/cards/Premiere-Light/hansdice.gif",
+"501_32":"/gemp-swccg/images/cards/ANewHope-Light/corellia.gif",
+"501_33":"/gemp-swccg/images/cards/Dagobah-Light/dagobah.gif",
+"501_34":"/gemp-swccg/images/cards/OfficialTournamentSealedDeck-Light/goldsquadronywing.gif",
+"501_35":"/gemp-swccg/images/cards/DeathStarII-Light/luminous.gif",
+"501_36":"/gemp-swccg/images/cards/Virtual2-Light/azureangel.gif",
+"501_37":"/gemp-swccg/images/cards/TheedPalace-Light/bravofighter.gif",
+"501_38":"/gemp-swccg/images/cards/Virtual1-Light/tantiveiv.gif",
+"501_39":"/gemp-swccg/images/cards/TheedPalace-Light/electropole.gif",
 };
 
 var packBlueprints = {
@@ -3577,7 +3617,9 @@ var Card = Class.extend({
                    (cardNo >= 44 && cardNo <= 47);
         }
         if (setNo == 501) {
-            return false;
+            return (cardNo == 14) ||
+                   (cardNo == 15) ||
+                   (cardNo == 16);
         }
 
         return false;
