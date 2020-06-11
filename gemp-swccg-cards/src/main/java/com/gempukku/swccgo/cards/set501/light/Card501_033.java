@@ -35,7 +35,7 @@ public class Card501_033 extends AbstractSystem {
         setLocationLightSideGameText("Once per turn, may take a Jedi Test or Dagobah location into hand from Reserve Deck; reshuffle. Players may not Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 2);
-        addIcons(Icon.DAGOBAH, Icon.PLANET);
+        addIcons(Icon.DAGOBAH, Icon.PLANET, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
         setTestingText("Dagobah (v)");
     }
@@ -44,16 +44,16 @@ public class Card501_033 extends AbstractSystem {
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotForceDrainAtLocationModifier(self));
-        modifiers.add(new LimitForceGenerationModifier(self, self, new OnTableCondition(self, 2, Filters.and(Filters.opponents(playerOnDarkSideOfLocation), Filters.character, Filters.on(Title.Dagobah))), new ConstantEvaluator(1), self.getOwner()));
+        modifiers.add(new LimitForceGenerationModifier(self, self, new OnTableCondition(self, 2, Filters.and(Filters.opponents(playerOnDarkSideOfLocation), Filters.character, Filters.on(Title.Dagobah))), new ConstantEvaluator(1), playerOnDarkSideOfLocation));
         return modifiers;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(final String playerOnLightSideOfLocation, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.DAGOBAH__DOWNLOAD_DAGOBAH_SITE;
 
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOncePerTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId)
             && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
