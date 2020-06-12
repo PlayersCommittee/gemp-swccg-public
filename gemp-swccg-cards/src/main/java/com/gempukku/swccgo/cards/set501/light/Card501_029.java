@@ -73,7 +73,7 @@ public class Card501_029 extends AbstractNormalEffect {
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Take card into hand from Reserve Deck");
+            action.setText("Take (•) battleground into hand from Reserve Deck");
             action.setActionMsg("Take (•) battleground into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
