@@ -114,6 +114,7 @@ public enum Persona implements Filterable {
     RED_5("Red 5"),
     SCIMITAR_2("Scimitar 2"),
     SLAVE_I("Slave I"),
+    TANTIVE_IV("Tantive IV"),
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),
 
     // Vehicles
