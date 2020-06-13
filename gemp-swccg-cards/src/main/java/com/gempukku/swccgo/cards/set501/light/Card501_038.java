@@ -11,13 +11,16 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.ExcludeFromBattleEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -74,12 +77,22 @@ public class Card501_038 extends AbstractCapitalStarship {
                             action.appendTargeting(
                                     new TargetCardOnTableEffect(action, playerId, "Choose opponent's leader or droid here to exclude", Filters.and(Filters.opponents(playerId), Filters.inBattleWith(self), Filters.or(Filters.leader, Filters.droid))) {
                                         @Override
-                                        protected void cardTargeted(int targetGroupId, PhysicalCard opponentsCharacter) {
-                                            action.appendEffect(
-                                                    new PlaceCardInUsedPileFromTableEffect(action, senator)
-                                            );
-                                            action.appendEffect(
-                                                    new ExcludeFromBattleEffect(action, opponentsCharacter)
+                                        protected void cardTargeted(int targetGroupId, final PhysicalCard opponentsCharacter) {
+                                            action.addAnimationGroup(senator, opponentsCharacter);
+                                            // Allow response(s)
+                                            action.allowResponses("Exclude " + GameUtils.getCardLink(opponentsCharacter) + " from battle.",
+                                                    new RespondableEffect(action) {
+                                                        @Override
+                                                        protected void performActionResults(Action targetingAction) {
+                                                            // Perform result(s)
+                                                            action.appendEffect(
+                                                                    new PlaceCardInUsedPileFromTableEffect(action, senator)
+                                                            );
+                                                            action.appendEffect(
+                                                                    new ExcludeFromBattleEffect(action, opponentsCharacter)
+                                                            );
+                                                        }
+                                                    }
                                             );
                                         }
                                     }
