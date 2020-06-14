@@ -76,13 +76,13 @@ public class Card501_018 extends AbstractStarfighter {
                                             new YesNoDecision("Do you want to place " + GameUtils.getCardLink(peekedAtCard) + " on bottom of Reserve Deck?") {
                                                 @Override
                                                 protected void yes() {
-                                                    gameState.sendMessage(playerId + " chooses to place " + GameUtils.getCardLink(peekedAtCard) + " on bottom of Reserve Deck");
+                                                    gameState.sendMessage(playerId + " chooses to place card on bottom of Reserve Deck");
                                                     action.appendEffect(
                                                             new PutCardFromReserveDeckOnBottomOfCardPileEffect(action, peekedAtCard, Zone.RESERVE_DECK, true));
                                                 }
                                                 @Override
                                                 protected void no() {
-                                                    gameState.sendMessage(playerId + " chooses to not place " + GameUtils.getCardLink(peekedAtCard) + " on bottom of Reserve Deck");
+                                                    gameState.sendMessage(playerId + " chooses to not place card on bottom of Reserve Deck");
                                                 }
                                             }
                                     )
