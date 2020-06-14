@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,10 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
-import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.DestinyDrawnResult;
 
@@ -44,7 +42,8 @@ public class Card501_007 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, new CardMatchesEvaluator(2, 3, Filters.persona(Persona.MIST_HUNTER)), Filters.starship));
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, new CardMatchesEvaluator(2, 3, Filters.persona(Persona.MIST_HUNTER))));
+        modifiers.add(new ManeuverModifier(self, new CardMatchesEvaluator(2, 3, Filters.persona(Persona.MIST_HUNTER))));
         modifiers.add(new MayMoveAsReactModifier(self));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 3));
         return modifiers;
@@ -58,12 +57,16 @@ public class Card501_007 extends AbstractAlien {
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.canTakeDestinyCardIntoHand(game, playerId)
                 && (GameConditions.isDuringBattleWithParticipant(game, Filters._4_LOM)
-                || Filters.countActive(game, self, Filters.and(Filters.bounty_hunter, Filters.inBattleWith(self))) == 1)) {
+                || Filters.countActive(game, self, Filters.and(Filters.bounty_hunter, Filters.inBattleWith(self))) == 1)
+                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take destiny card into hand");
             action.setActionMsg("Take just drawn destiny card, " + GameUtils.getCardLink(((DestinyDrawnResult) effectResult).getCard()) + ", into hand");
             // Perform result(s)
+            action.appendUsage(
+                    new OncePerBattleEffect(action)
+            );
             action.appendEffect(
                     new TakeDestinyCardIntoHandEffect(action));
             return Collections.singletonList(action);
