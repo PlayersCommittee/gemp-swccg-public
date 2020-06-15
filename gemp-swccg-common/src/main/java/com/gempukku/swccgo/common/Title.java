@@ -750,6 +750,7 @@ public interface Title {
     String Prophecy_Of_The_Force = "Prophecy Of The Force";
     String Program_Trap = "Program Trap";
     String Proton_Bombs = "Proton Bombs";
+    String Proxima = "Lady Proxima";
     String Puck = "Puck";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
