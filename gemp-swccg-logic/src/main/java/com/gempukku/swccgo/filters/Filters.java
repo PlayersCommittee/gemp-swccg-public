@@ -2632,6 +2632,36 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are locations where the given player has
+     * fewer starships than the opponent
+     *
+     * @param source    Source card making the query
+     * @param playerId  Player who's cards we are looking at
+     * @return Filter
+     */
+    public static Filter wherePlayerHasFewerStarships(final PhysicalCard source, final String playerId) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+
+                // Only accepts locations
+                if (!Filters.location.accepts(gameState, modifiersQuerying, physicalCard)) {
+                    return false;
+                }
+
+                // Count the characters at the location
+                Filter opponentStarshipsHere = Filters.and(Filters.starship, Filters.opponents(playerId), Filters.here(physicalCard));
+                Filter playersStarshipsHere = Filters.and(Filters.starship, Filters.owner(playerId), Filters.here(physicalCard));
+
+                int opponentStarshipCount = Filters.countActive(gameState.getGame(), source, opponentStarshipsHere);
+                int playerStarshipCount = Filters.countActive(gameState.getGame(), source, playersStarshipsHere);
+
+                return playerStarshipCount < opponentStarshipCount;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that are locations controlled for the purposes of Force draining by the specified player.
      *
      * @param playerId the player
