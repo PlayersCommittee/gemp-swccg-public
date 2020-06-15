@@ -28,6 +28,7 @@ public class Card501_017 extends AbstractSystem {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.SPECIAL_EDITION, Icon.PLANET, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
+        setTestingText("Wakeelmui (V)");
     }
 
     @Override
