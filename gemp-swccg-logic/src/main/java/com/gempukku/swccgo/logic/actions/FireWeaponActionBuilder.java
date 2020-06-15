@@ -2707,13 +2707,13 @@ public class FireWeaponActionBuilder {
                                         // This needs to be done in case the target(s) were changed during the responses.
                                         final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
                                         _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
-
-
+                                        
                                         action.appendEffect(
                                                 new ModifyPowerUntilEndOfTurnEffect(action, cardFiredAt, -3));
 
                                         if (Filters.persona(Persona.PROXIMA).accepts(_game, cardFiredAt)) {
                                             action.appendEffect(new ExcludeFromBattleEffect(action, cardFiredAt));
+                                            action.appendEffect(new MayNotBattleUntilEndOfTurnEffect(action, cardFiredAt));
                                         }
                                     }
                                 });
