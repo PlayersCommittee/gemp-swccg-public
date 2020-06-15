@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Set: Death Star II
  * Type: Effect
- * Title: Twilight Is Upon Me
+ * Title: The Way Of Things
  */
 public class Card9_045 extends AbstractNormalEffect {
     public Card9_045() {
