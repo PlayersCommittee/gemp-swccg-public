@@ -18019,6 +18019,7 @@ public class Filters {
     public static final Filter protocol_droid = Filters.modelType(ModelType.PROTOCOL);
     public static final Filter proton_bombs = Filters.title(Title.Proton_Bombs);
     public static final Filter Proton_Torpedoes = Filters.keyword(Keyword.PROTON_TORPEDOES);
+    public static final Filter Proxima = Filters.title(Title.Proxima);
     public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);

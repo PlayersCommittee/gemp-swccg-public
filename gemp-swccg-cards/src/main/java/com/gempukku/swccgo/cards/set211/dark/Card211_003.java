@@ -31,12 +31,13 @@ import java.util.List;
  */
 public class Card211_003 extends AbstractAlien {
     public Card211_003(){
-        super(Side.DARK, 2, 4, 2, 4, 6, "Lady Proxima", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 2, 4, 6, Title.Proxima, Uniqueness.UNIQUE);
         setLore("Female Grindalid. Gangster. Leader.");
         setGameText("Lost if at an exterior site. While with two of your other aliens, adds one battle destiny. During your control phase, may reveal the top three cards of your Reserve Deck, take one alien into hand (if possible), and shuffle your Reserve Deck.");
         addIcons(Icon.VIRTUAL_SET_11);
         addKeywords(Keyword.FEMALE, Keyword.GANGSTER, Keyword.LEADER);
         setSpecies(Species.GRINDALID);
+        addPersona(Persona.PROXIMA);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.gempukku.swccgo.logic.actions;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.ActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -2657,6 +2658,63 @@ public class FireWeaponActionBuilder {
                                                     }
                                                 }
                                         );
+                                    }
+                                });
+                    }
+                }
+        );
+
+        return action;
+    }
+
+    /**
+     * Builds a fire weapon action for a "Rock".
+     * @return the action
+     */
+    public FireSingleWeaponAction buildFireWeaponRockAction() {
+
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        action.setText("Fire " + action.getWeaponTitle(_game));
+
+        // Choose target(s)
+        action.appendTargeting(
+                new TargetCardOnTableEffect(action, _playerId, "Choose target", getTargetFiltersMap(action.getCardFiringWeapon())) {
+                    @Override
+                    protected boolean isIncludeStackedCardsTargetedByWeaponsAsIfPresent() {
+                        return true;
+                    }
+                    @Override
+                    protected void cardTargeted(final int targetGroupId, PhysicalCard cardTargeted) {
+                        action.addAnimationGroup(cardTargeted);
+                        _game.getGameState().getWeaponFiringState().setTarget(cardTargeted);
+
+                        // Pay cost(s)
+                        float forceToUse = getUseForceCost(action.getCardFiringWeapon(), cardTargeted);
+                        if (forceToUse > 0) {
+                            action.appendCost(
+                                    new UseForceEffect(action, _playerId, forceToUse));
+                        }
+
+                        action.appendCost(
+                                new PlaceCardInUsedPileFromTableEffect(action, _weaponOrCardWithPermanentWeapon));
+
+                        // Allow response(s)
+                        action.allowResponses("Fire " + GameUtils.getCardLink(action.getWeaponToFire()) + " at " + GameUtils.getCardLink(cardTargeted),
+                                new RespondableWeaponFiringEffect(action) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                        // This needs to be done in case the target(s) were changed during the responses.
+                                        final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
+                                        _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
+                                        
+                                        action.appendEffect(
+                                                new ModifyPowerUntilEndOfTurnEffect(action, cardFiredAt, -3));
+
+                                        if (Filters.persona(Persona.PROXIMA).accepts(_game, cardFiredAt)) {
+                                            action.appendEffect(new ExcludeFromBattleEffect(action, cardFiredAt));
+                                            action.appendEffect(new MayNotBattleUntilEndOfTurnEffect(action, cardFiredAt));
+                                        }
                                     }
                                 });
                     }
