@@ -33,6 +33,7 @@ public class Card501_011 extends AbstractMobileEffect {
         setGameText("Deploy on a planet system (except Dagobah). Sectors drawn for asteroid destiny are cancelled and redrawn. Once during your turn, you may deploy a sector here from reserve deck; reshuffle or make an additional regular move from a related sector. Immune to alter.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
         addImmuneToCardTitle(Title.Alter);
+        setTestingText("Planetary Rings");
     }
 
     @Override
@@ -62,7 +63,7 @@ public class Card501_011 extends AbstractMobileEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
