@@ -36,6 +36,7 @@ public enum Species implements Filterable {
     GABDORIN("Gabdorin", true),
     GAMORREAN("Gamorrean", true),
     GAND("Gand", true),
+    GLEE_ANSELMIAN("Glee Anselmian", true),
     GOTAL("Gotal", true),
     GRAN("Gran", true),
     GRINDALID("Grindalid", true),
