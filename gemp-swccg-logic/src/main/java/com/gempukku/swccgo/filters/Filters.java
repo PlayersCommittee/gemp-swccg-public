@@ -17196,6 +17196,7 @@ public class Filters {
     public static final Filter character_without_politics = Filters.and(CardCategory.CHARACTER, Filters.politicsEqualTo(0));
     public static final Filter character_with_permanent_character_weapon = Filters.and(Filters.character, Filters.hasPermanentWeapon());
     public static final Filter character_weapon_or_character_with_permanent_character_weapon = Filters.or(Filters.character_weapon(), Filters.and(Filters.character, Filters.hasPermanentWeapon()));
+    public static final Filter Chasm_Walkway = Filters.title(Title.Chasm_Walkway);
     public static final Filter Chewie = Filters.persona(Persona.CHEWIE);
     public static final Filter Chief_Bast = Filters.title(Title.Chief_Bast);
     public static final Filter Chief_Chirpa = Filters.title(Title.Chief_Chirpa);
@@ -17674,6 +17675,7 @@ public class Filters {
     public static final Filter Infantry_Mine = Filters.title(Title.Infantry_Mine);
     public static final Filter information_broker = Filters.keyword(Keyword.INFORMATION_BROKER);
     public static final Filter Information_Exchange = Filters.title(Title.Information_Exchange);
+    public static final Filter inquisitor = Filters.and(Filters.character, Filters.keyword(Keyword.INQUISITOR));
     public static final Filter Inner_Strength = Filters.title(Title.Inner_Strength);
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
     public static final Filter Insidious_Prisoner = Filters.title(Title.Insidious_Prisoner);
@@ -17845,6 +17847,7 @@ public class Filters {
     public static final Filter maintenance_droid = Filters.modelType(ModelType.MAINTENANCE);
     public static final Filter Major_Panno = Filters.title(Title.Major_Panno);
     public static final Filter Malakili = Filters.title(Title.Malakili);
+    public static final Filter Malachor_location = Filters.partOfSystem(Title.Malachor);
     public static final Filter Malastare = Filters.title(Title.Malastare);
     public static final Filter male = Filters.and(CardCategory.CHARACTER, Filters.or(Keyword.MALE, Filters.not(Filters.keyword(Keyword.FEMALE))));
     public static final Filter Mandalorian_Armor = Filters.title(Title.Mandalorian_Armor);
