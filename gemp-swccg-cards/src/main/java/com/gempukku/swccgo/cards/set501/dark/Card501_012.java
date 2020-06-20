@@ -76,14 +76,14 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
-            Filter siteFilter = null;
+            Filter locationFilter = null;
             //Master
             if (GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_1)) {
-                siteFilter = Filters.or(Filters.Carbonite_Chamber, Filters.Chasm_Walkway);
+                locationFilter = Filters.or(Filters.Carbonite_Chamber, Filters.Chasm_Walkway);
             }
             //Apprentice
             if (GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_2)) {
-                siteFilter = Filters.Malachor_location;
+                locationFilter = Filters.Malachor_location;
             }
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -94,7 +94,7 @@ public class Card501_012 extends AbstractEpicEventDeployable {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, siteFilter, true));
+                    new DeployCardFromReserveDeckEffect(action, locationFilter, true));
             return Collections.singletonList(action);
         }
 
