@@ -49,40 +49,34 @@ public class Card4_135 extends AbstractNormalEffect {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
-
+        String playerId = self.getOwner();
         // Check condition(s)
         if(GameConditions.hasGameTextModification(game, self, ModifyGameTextType.VIAGE_OF_THE_EMPEROR__TRIGGERS_ONLY_AT_END_PLAYERS_TURN)){
             if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)) {
-                String currentPlayer = game.getGameState().getCurrentPlayerId();
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Opponent loses 1 Force");
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(currentPlayer), 1));
+                        new LoseForceEffect(action, game.getOpponent(playerId), 1));
                  actions.add(action);
-            }
-            if (TriggerConditions.isEndOfYourTurn(game, effectResult, self)) {
-                String currentPlayer = game.getGameState().getCurrentPlayerId();
-
+            } else if (TriggerConditions.isEndOfYourTurn(game, effectResult, self)) {
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("You lose 1 Force");
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseForceEffect(action, currentPlayer, 1));
+                        new LoseForceEffect(action, playerId, 1));
                 actions.add(action);
             }
         }else{
             if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
-                String currentPlayer = game.getGameState().getCurrentPlayerId();
-
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Make each player lose 1 Force");
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(currentPlayer), 1));
+                        new LoseForceEffect(action, playerId, 1));
                 action.appendEffect(
-                        new LoseForceEffect(action, currentPlayer, 1));
+                        new LoseForceEffect(action, game.getOpponent(playerId), 1));
                 actions.add(action);
             }
         }

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card501_015 extends AbstractSite {
     public Card501_015() {
-        super(Side.DARK, "Sith Temple", Title.Malachor);
+        super(Side.DARK, "Malachor: Sith Temple", Title.Malachor);
         setLocationDarkSideGameText("Your Force drain bonuses here may not be canceled. While alone, vader is power +2 here.");
         setLocationLightSideGameText("While alone (or with Ezra), Ahsoka is power +2 here.");
         addIcon(Icon.DARK_FORCE, 2);

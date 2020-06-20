@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card501_016 extends AbstractSite {
     public Card501_016() {
-        super(Side.DARK, "Sith Temple Entrance", Title.Malachor);
+        super(Side.DARK, "Malachor: Sith Temple Entrance", Title.Malachor);
         setLocationDarkSideGameText("Your inqusitors may battle for free here. If a hatred card stacked here, Force drain +1.");
         setLocationLightSideGameText("Once per game you may deploy a padawan here from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 2);
@@ -40,7 +40,7 @@ public class Card501_016 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.wherePresent(self, Filters.inquisitor), playerOnDarkSideOfLocation));
+        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.and(Filters.here(self), Filters.wherePresent(self, Filters.inquisitor)), playerOnDarkSideOfLocation));
         modifiers.add(new ForceDrainModifier(self, new HasStackedCondition(self, Filters.hatredCard), 1, playerOnDarkSideOfLocation));
         return modifiers;
     }

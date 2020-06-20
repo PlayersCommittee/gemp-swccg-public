@@ -4,9 +4,10 @@ import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
@@ -42,11 +43,10 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-
+        List<Modifier> modifiers = new LinkedList<>();
 
         modifiers.add(new ModifyGameTextModifier(self, Filters.Visage_Of_The_Emperor, ModifyGameTextType.VIAGE_OF_THE_EMPEROR__TRIGGERS_ONLY_AT_END_PLAYERS_TURN));
-        modifiers.add(new MayNotPlayModifier(self, Filters.or(Filters.not(Filters.Imperial), Filters.not(Filters.bounty_hunter)), self.getOwner()));
+        modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.character, Filters.not(Filters.or(Filters.Imperial, Filters.bounty_hunter))), self.getOwner()));
 
         //Master
         Condition playCardOptionId1 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_1);
@@ -56,7 +56,7 @@ public class Card501_012 extends AbstractEpicEventDeployable {
         //Apprentice
         Condition playCardOptionId2 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2);
         Evaluator inquisitorsAndHatredCardsInBattleEvaluator = new InBattleEvaluator(self, Filters.or(Filters.inquisitor, Filters.hatredCard));
-        modifiers.add(new DestinyModifier(self, Filters.inquisitor, playCardOptionId2,2));
+        modifiers.add(new DestinyModifier(self, Filters.inquisitor, playCardOptionId2, 2));
         modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2, inquisitorsAndHatredCardsInBattleEvaluator, self.getOwner()));
         return modifiers;
     }
@@ -71,39 +71,33 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<>();
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.EPIC_DUEL__DOWNLOAD_LOCATION;
 
-        //Master
-        if(GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-            && GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_1)){
+
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.DEPLOY)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+            Filter siteFilter = null;
+            //Master
+            if (GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_1)) {
+                siteFilter = Filters.or(Filters.Carbonite_Chamber, Filters.Chasm_Walkway);
+            }
+            //Apprentice
+            if (GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_2)) {
+                siteFilter = Filters.Malachor_location;
+            }
+
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy a site from Reserve Deck");
-            action.setActionMsg("Deploy a site from Reserve Deck");
+            action.setText("Deploy a location from Reserve Deck");
+            action.setActionMsg("Deploy a location from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                    new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Carbonite_Chamber, Filters.Chasm_Walkway), true));
+                    new DeployCardFromReserveDeckEffect(action, siteFilter, true));
             return Collections.singletonList(action);
         }
 
-        //Apprentice
-        if(GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_2)){
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy a Malachor site from Reserve Deck");
-            action.setActionMsg("Deploy a Malachor site from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Malachor_location, true));
-            return Collections.singletonList(action);
-        }
-
-        return actions;
+        return null;
     }
 }
