@@ -56,20 +56,6 @@ public class Card200_095 extends AbstractDefensiveShield {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
         // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, Filters.Ice_Storm)) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Ice_Storm, Title.Ice_Storm);
-            actions.add(action);
-        }
-        if (GameConditions.canTargetToCancel(game, self, Filters.Lost_In_The_Wilderness)) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Lost_In_The_Wilderness, Title.Lost_In_The_Wilderness);
-            actions.add(action);
-        }
         if (TriggerConditions.isTableChanged(game, effectResult)) {
             if (GameConditions.canTargetToCancel(game, self, Filters.Order_To_Engage)) {
 
@@ -78,12 +64,25 @@ public class Card200_095 extends AbstractDefensiveShield {
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Order_To_Engage, Title.Order_To_Engage);
                 actions.add(action);
             }
-
             if (GameConditions.canTargetToCancel(game, self, Filters.Sandwhirl)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Sandwhirl, Title.Sandwhirl);
+                actions.add(action);
+            }
+            if (GameConditions.canTargetToCancel(game, self, Filters.Ice_Storm)) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Ice_Storm, Title.Ice_Storm);
+                actions.add(action);
+            }
+            if (GameConditions.canTargetToCancel(game, self, Filters.Lost_In_The_Wilderness)) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Lost_In_The_Wilderness, Title.Lost_In_The_Wilderness);
                 actions.add(action);
             }
             if (GameConditions.canTargetToCancel(game, self, Filters.Scramble)) {
