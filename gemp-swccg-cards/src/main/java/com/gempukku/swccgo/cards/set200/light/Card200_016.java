@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set200.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.conditions.CapturedOnlyCondition;
 import com.gempukku.swccgo.cards.effects.SetForRemainderOfGameDataEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -15,7 +14,6 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
@@ -164,10 +162,8 @@ public class Card200_016 extends AbstractRebel {
 
     @Override
     protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        String opponent = game.getOpponent(self.getOwner());
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), new AndCondition(new AtCondition(self, Filters.Audience_Chamber), new CapturedOnlyCondition(self)), 1, opponent));
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.Audience_Chamber, new AtCondition(self, Filters.Audience_Chamber), 1, game.getOpponent(self.getOwner()), true));
         return modifiers;
     }
 }
