@@ -48,11 +48,10 @@ public class Card501_011 extends AbstractMobileEffect {
         // Check condition(s)
         if (TriggerConditions.isAsteroidDestinyJustDrawnMatching(game, effectResult, Filters.sector)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
-
+            PhysicalCard starshipDrawingAsteroidDestinyAgainst = game.getGameState().getStarshipDrawingAsteroidDestinyAgainst();
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.skipInitialMessageAndAnimation();
             action.setText("Cancel and redraw asteroid destiny");
-            action.setActionMsg(null);
+            action.setActionMsg("Cancel and redraw asteroid destiny");
             // Perform result(s)
             action.appendEffect(
                     new CancelDestinyAndCauseRedrawEffect(action));
@@ -62,47 +61,52 @@ public class Card501_011 extends AbstractMobileEffect {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.PLANETARY_RINGS__DOWNLOAD_SECTOR;
 
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy a sector here");
-            action.setActionMsg("Deploy a sector here");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardToSystemFromReserveDeckEffect(action, Filters.sector, self.getAttachedTo().getTitle(), true));
-            actions.add(action);
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Deploy a sector here");
+                action.setActionMsg("Deploy a sector here");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerTurnEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new DeployCardToSystemFromReserveDeckEffect(action, Filters.sector, self.getAttachedTo().getTitle(), true));
+                actions.add(action);
 
-        }
+            }
 
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Make an additional regular move");
-            action.setActionMsg("Make an additional regular move");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose starship to make an additional move", Filters.relatedSector(self.getAttachedTo())) {
-                        @Override
-                        protected void cardSelected(PhysicalCard selectedCard) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new MoveCardAsRegularMoveEffect(action, playerId, selectedCard, false, true, Filters.sameOrRelatedLocation(self.getAttachedTo())));
+            final Filter cardAtRelatedSector = Filters.and(Filters.your(playerId), Filters.or(Filters.starship, Filters.vehicle), Filters.movableAsAdditionalMove(playerId), Filters.at(Filters.relatedSector(self)));
+            if (GameConditions.canSpot(game, self, cardAtRelatedSector)) {
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Make an additional regular move");
+                action.setActionMsg("Make an additional regular move");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerTurnEffect(action));
+                action.appendTargeting(
+                        new ChooseCardOnTableEffect(action, playerId, "Choose starship or vehicle to make an additional move", cardAtRelatedSector) {
+                            @Override
+                            protected void cardSelected(PhysicalCard selectedCard) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new MoveCardAsRegularMoveEffect(action, playerId, selectedCard, false, true, Filters.relatedLocation(selectedCard)));
+
+                            }
                         }
-                    }
-            );
-            actions.add(action);
+                );
+                actions.add(action);
+            }
+
         }
+
         return actions;
     }
 }
