@@ -45,13 +45,12 @@ public class Card501_026 extends AbstractJediMaster {
         setTestingText("Yoda, Master Of The Force (v)");
     }
 
-
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Condition defendingBattleCondition = new DefendingBattleCondition(self);
         Condition exactlyTwoJediOnTable = new OnTableCondition(self, 2, true, Filters.and(Filters.your(self.getOwner()), Filters.Jedi));
-        modifiers.add(new PowerModifier(self , new OrCondition(defendingBattleCondition, exactlyTwoJediOnTable), 3));
+        modifiers.add(new PowerModifier(self, new OrCondition(defendingBattleCondition, exactlyTwoJediOnTable), 3));
         modifiers.add(new ImmuneToAttritionModifier(self));
         return modifiers;
     }
@@ -72,22 +71,22 @@ public class Card501_026 extends AbstractJediMaster {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose location to relocate to", Filters.or(Filters.Dagobah_site, Filters.battleground)) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate to", Filters.or(Filters.Dagobah_site, Filters.battleground_site)) {
                         @Override
-                        protected void cardSelected(final PhysicalCard locationSelected) {
+                        protected void cardSelected(final PhysicalCard siteSelected) {
                             action.addAnimationGroup(self);
-                            action.addAnimationGroup(locationSelected);
+                            action.addAnimationGroup(siteSelected);
                             // Pay cost(s)
                             action.appendCost(
-                                    new PayRelocateBetweenLocationsCostEffect(action, playerId, self, locationSelected, 1));
+                                    new PayRelocateBetweenLocationsCostEffect(action, playerId, self, siteSelected, 1));
                             // Allow response(s)
-                            action.allowResponses("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(locationSelected),
+                            action.allowResponses("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(siteSelected),
                                     new UnrespondableEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new RelocateBetweenLocationsEffect(action, self, locationSelected, true));
+                                                    new RelocateBetweenLocationsEffect(action, self, siteSelected, true));
                                         }
                                     });
                         }
