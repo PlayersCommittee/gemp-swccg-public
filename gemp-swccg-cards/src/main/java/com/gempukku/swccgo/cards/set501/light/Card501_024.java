@@ -26,7 +26,7 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * Subtype: Alien
- * Title: Tobias Beckett (v)
+ * Title: Tobias Beckett
  */
 public class Card501_024 extends AbstractAlien {
     public Card501_024() {
