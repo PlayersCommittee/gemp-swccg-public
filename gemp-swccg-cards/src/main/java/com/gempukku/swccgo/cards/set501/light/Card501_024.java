@@ -54,7 +54,7 @@ public class Card501_024 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.TOBIAS_BECKETT__SMUGGLE_BLASTER;
         if(GameConditions.isOncePerGame(game, self, gameTextActionId)
             && GameConditions.hasLostPile(game, playerId)){
-            TopLevelGameTextAction action = new TopLevelGameTextAction();
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("'Smuggle' a blaster");
             action.appendUsage(
                     new OncePerGameEffect(action)
