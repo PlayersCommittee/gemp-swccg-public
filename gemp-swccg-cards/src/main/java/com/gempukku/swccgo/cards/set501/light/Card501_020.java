@@ -59,8 +59,8 @@ public class Card501_020 extends AbstractRebel {
         GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
 
         if (GameConditions.isPiloting(game, self, Filters.Falcon)
-                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId1)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId1);
             action.appendUsage(
                     new OncePerBattleEffect(action)
             );
@@ -88,10 +88,10 @@ public class Card501_020 extends AbstractRebel {
         }
 
         if (GameConditions.isDuringBattle(game)
-                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId2)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId2)) {
             final int numCardsToPeekAt = 2;
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
-            action.setText("'Smuggle'");
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId2);
+            action.setText("'Smuggle' a card to used pile");
             action.appendUsage(
                     new OncePerBattleEffect(action)
             );
@@ -125,6 +125,7 @@ public class Card501_020 extends AbstractRebel {
                         }
                     }
             );
+            actions.add(action);
         }
 
         return actions;
