@@ -15,6 +15,8 @@ import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NotLostIfAsteroidSectorDrawnForAsteroidDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,6 +36,13 @@ public class Card501_011 extends AbstractMobileEffect {
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("Planetary Rings");
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new NotLostIfAsteroidSectorDrawnForAsteroidDestinyModifier(self, Filters.starship));
+        return modifiers;
     }
 
     @Override
