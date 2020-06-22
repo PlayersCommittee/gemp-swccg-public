@@ -32,7 +32,9 @@ public class Card501_041 extends AbstractStartingInterrupt {
         super(Side.LIGHT, 5, Title.Endor_Celebration, Uniqueness.UNIQUE);
         setLore("The Rebel presence on Endor meant that the Ewoks would be able to live free from the Empire's tyranny.");
         setGameText("If your starting location had exactly 2 [LS] icons, deploy [V13] Chirpa's Hut up to three Effects (except Strike Planning) that deploy for free and are always immune to Alter. If Ewok Celebration on table, may take any Ewok into hand. Place Interrupt in Lost Pile.");
-        addIcons(Icon.ENDOR);
+        addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_13);
+        setVirtualSuffix(true);
+        setTestingText("Endor Celebration (v)");
     }
 
     @Override
