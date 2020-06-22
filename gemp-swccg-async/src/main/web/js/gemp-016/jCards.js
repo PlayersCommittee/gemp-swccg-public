@@ -3246,7 +3246,7 @@ var fixedImages = {
 "501_48":"/gemp-swccg/images/cards/Coruscant-Dark/darthmaulyoungapprenticeai.gif",
 "501_49":"/gemp-swccg/images/cards/TheedPalace-Dark/bokaskol.gif",
 "501_50":"/gemp-swccg/images/cards/JediPack-Dark/darkforces.gif",
-"501_51":"/gemp-swccg/images/cards/Endor-Dark/hotpursuit.gif",
+"501_51":"/gemp-swccg/images/cards/Endor-Dark/eeechuwawa.gif",
 "501_52":"/gemp-swccg/images/cards/Tatooine-Dark/thereisnoconflict.gif",
 "501_53":"/gemp-swccg/images/cards/Premiere-Dark/imperialcodecylinder.gif",
 "501_54":"/gemp-swccg/images/cards/Coruscant-Dark/killthemimmediately.gif",
