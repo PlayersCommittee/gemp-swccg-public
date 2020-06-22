@@ -3235,6 +3235,7 @@ var fixedImages = {
 "501_37":"/gemp-swccg/images/cards/TheedPalace-Light/bravofighter.gif",
 "501_38":"/gemp-swccg/images/cards/Virtual1-Light/tantiveiv.gif",
 "501_39":"/gemp-swccg/images/cards/TheedPalace-Light/electropole.gif",
+"501_40":"/gemp-swccg/images/cards/Endor-Light/endorchiefchirpashut.gif",
 };
 
 var packBlueprints = {
@@ -3619,7 +3620,8 @@ var Card = Class.extend({
         if (setNo == 501) {
             return (cardNo == 14) ||
                    (cardNo == 15) ||
-                   (cardNo == 16);
+                   (cardNo == 16) ||
+                   (cardNo == 40);
         }
 
         return false;
