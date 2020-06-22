@@ -3235,7 +3235,31 @@ var fixedImages = {
 "501_37":"/gemp-swccg/images/cards/TheedPalace-Light/bravofighter.gif",
 "501_38":"/gemp-swccg/images/cards/Virtual1-Light/tantiveiv.gif",
 "501_39":"/gemp-swccg/images/cards/TheedPalace-Light/electropole.gif",
+"501_40":"/gemp-swccg/images/cards/Endor-Light/endorchiefchirpashut.gif",
+"501_41":"/gemp-swccg/images/cards/Endor-Light/endorcelebration.gif",
 "501_42":"/gemp-swccg/images/cards/Virtual0-Dark/imperialdecree.gif",
+"501_43":"/gemp-swccg/images/cards/JabbasPalace-Dark/amanaman.gif",
+"501_44":"/gemp-swccg/images/cards/Virtual0-Dark/countdooku.gif",
+"501_45":"/gemp-swccg/images/cards/ReflectionsII-Dark/princexizor.gif",
+"501_46":"/gemp-swccg/images/cards/ReflectionsII-Dark/drevazan&pondababa.gif",
+"501_47":"/gemp-swccg/images/cards/SpecialEdition-Dark/chyler.gif",
+"501_48":"/gemp-swccg/images/cards/Coruscant-Dark/darthmaulyoungapprenticeai.gif",
+"501_49":"/gemp-swccg/images/cards/TheedPalace-Dark/bokaskol.gif",
+"501_50":"/gemp-swccg/images/cards/JediPack-Dark/darkforces.gif",
+"501_51":"/gemp-swccg/images/cards/Endor-Dark/eeechuwawa.gif",
+"501_52":"/gemp-swccg/images/cards/Tatooine-Dark/thereisnoconflict.gif",
+"501_53":"/gemp-swccg/images/cards/Premiere-Dark/imperialcodecylinder.gif",
+"501_54":"/gemp-swccg/images/cards/Coruscant-Dark/killthemimmediately.gif",
+"501_55":"/gemp-swccg/images/cards/DeathStarII-Dark/deathstariithroneroom.gif",
+"501_56":"/gemp-swccg/images/cards/JabbasPalace-Dark/jabbassailbargepassengerdeck.gif",
+"501_57":"/gemp-swccg/images/cards/ReflectionsIII-Dark/blockadeflagshiphallway.gif",
+"501_58":"/gemp-swccg/images/cards/ReflectionsII-Dark/agentsofblacksun.gif",
+"501_58_BACK":"/gemp-swccg/images/cards/ReflectionsII-Dark/vengeanceofthedarkprince.gif",
+"501_59":"/gemp-swccg/images/cards/Virtual7-Dark/mesonmartinet.gif",
+"501_60":"/gemp-swccg/images/cards/JabbasPalaceSealedDeck-Dark/stunblaster.gif",
+"501_61":"/gemp-swccg/images/cards/SpecialEdition-Light/disruptorpistol.gif",
+"501_62":"/gemp-swccg/images/cards/CloudCity-Light/cloudcityblaster.gif",
+"501_63":"/gemp-swccg/images/cards/JabbasPalace-Dark/thermaldetonator.gif",
 };
 
 var packBlueprints = {
@@ -3620,7 +3644,10 @@ var Card = Class.extend({
         if (setNo == 501) {
             return (cardNo == 14) ||
                    (cardNo == 15) ||
-                   (cardNo == 16);
+                   (cardNo == 16) ||
+                   (cardNo == 55) ||
+                   (cardNo == 56) ||
+                   (cardNo == 57);
         }
 
         return false;

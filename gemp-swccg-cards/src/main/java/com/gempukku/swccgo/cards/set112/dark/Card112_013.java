@@ -43,7 +43,7 @@ public class Card112_013 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new AddsPowerToDrivenBySelfModifier(self, 2));
-        modifiers.add(new AddsBattleDestinyModifier(self, new DrivingCondition(self, Filters.transport_vehicle), 1));
+        modifiers.add(new AddsBattleDestinyModifier(self, new DrivingCondition(self, Filters.transport_vehicle), 1, self.getOwner()));
         return modifiers;
     }
 
@@ -62,7 +62,7 @@ public class Card112_013 extends AbstractAlien {
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new AddBattleDestinyEffect(action, 1));
+                    new AddBattleDestinyEffect(action, 1, self.getOwner()));
             return Collections.singletonList(action);
         }
         return null;

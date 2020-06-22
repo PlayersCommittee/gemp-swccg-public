@@ -31,6 +31,7 @@ public enum Keyword implements Filterable {
     CLOUD_SECTOR("Cloud Sector", false),
     COMMANDER("Commander", true),
     CORUSCANT_GUARD("Coruscant Guard", true),
+    CRIMSON_DAWN("Crimson Dawn", true),
     CRUISER("Cruiser", true),
     DEATH_STAR_TROOPER("Death Star Trooper", true),
     DEATH_TROOPER("Death Trooper", true),
