@@ -11,8 +11,9 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutCardFromReserveDeckOnTopOfCardPileEffect;
@@ -106,19 +107,19 @@ public class Card501_020 extends AbstractRebel {
                                     new PeekAtTopCardsOfReserveDeckEffect(action, playerId, cardPileOwner, numCardsToPeekAt) {
                                         @Override
                                         protected void cardsPeekedAt(final List<PhysicalCard> peekedAtCards) {
-                                            final String[] choices = new String[peekedAtCards.size()];
-                                            for (int i = 0; i < peekedAtCards.size(); i++) {
-                                                choices[i] = GameUtils.getCardLink(peekedAtCards.get(i));
-                                            }
                                             action.appendEffect(
-                                                    new PlayoutDecisionEffect(action, playerId, new MultipleChoiceAwaitingDecision("Chose which card to 'smuggle' (move to top of owner's Used Pile)", choices) {
+                                                    new PlayoutDecisionEffect(action, playerId, new ArbitraryCardsSelectionDecision("Choose card in place in Used Pile", peekedAtCards, 1, 1) {
                                                         @Override
-                                                        protected void validDecisionMade(int index, String result) {
-                                                            action.appendEffect(
-                                                                    new PutCardFromReserveDeckOnTopOfCardPileEffect(action, peekedAtCards.get(index), Zone.USED_PILE, true)
-                                                            );
+                                                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                                            if (!selectedCards.isEmpty()) {
+                                                                action.appendEffect(
+                                                                        new PutCardFromReserveDeckOnTopOfCardPileEffect(action, selectedCards.get(0), Zone.USED_PILE, true)
+                                                                );
+                                                            }
                                                         }
-                                                    })
+                                                    }
+                                                    )
                                             );
                                         }
                                     });
