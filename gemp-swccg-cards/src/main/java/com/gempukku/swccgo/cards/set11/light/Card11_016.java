@@ -80,7 +80,7 @@ public class Card11_016 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
-        if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(self), Filters.Jar_Jar))) {
+        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.and(Filters.your(self), Filters.Jar_Jar), Filters.site)) {
             PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
