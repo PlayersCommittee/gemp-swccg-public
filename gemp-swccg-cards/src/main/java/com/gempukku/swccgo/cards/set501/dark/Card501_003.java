@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfCardPileEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card501_003 extends AbstractImperial {
     public Card501_003() {
-        super(Side.DARK, 2, 4, 3, 5, 5, "Fifth Brother");
+        super(Side.DARK, 2, 4, 3, 5, 5, "Fifth Brother", Uniqueness.UNIQUE);
         setLore("Inquisitor");
         setGameText("Power +2 while with a Jedi or Padawan. When you initiate a battle here, may peek at the top two cards of your Reserve Deck; place one in Used Pile and return the other. Immune to attrition < 4.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
