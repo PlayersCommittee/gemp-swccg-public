@@ -18,7 +18,6 @@ import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.BattleInitiatedResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -50,20 +49,17 @@ public class Card501_003 extends AbstractImperial {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self))
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, playerId, Filters.here(self))
                 && GameConditions.hasReserveDeck(game, playerId)) {
-            BattleInitiatedResult initiateBattleResult = (BattleInitiatedResult) effectResult;
-            String battleInitiator = initiateBattleResult.getPerformingPlayerId();
-            if (battleInitiator.equals(playerId)) {
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
-                action.setText("Peek at top 2 cards of Reserve Deck");
-                action.appendEffect(
-                        new PeekAtTopCardsOfCardPileEffect(action, playerId, playerId, Zone.RESERVE_DECK, 2) {
-                            @Override
-                            protected void cardsPeekedAt(final List<PhysicalCard> peekedAtCards) {
-                                action.appendEffect(
-                                        new PlayoutDecisionEffect(action, playerId, new ArbitraryCardsSelectionDecision("Choose card in place in Used Pile", peekedAtCards, 1, 1) {
-                                            @Override
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
+            action.setText("Peek at top 2 cards of Reserve Deck");
+            action.appendEffect(
+                    new PeekAtTopCardsOfCardPileEffect(action, playerId, playerId, Zone.RESERVE_DECK, 2) {
+                        @Override
+                        protected void cardsPeekedAt(final List<PhysicalCard> peekedAtCards) {
+                            action.appendEffect(
+                                    new PlayoutDecisionEffect(action, playerId, new ArbitraryCardsSelectionDecision("Choose card in place in Used Pile", peekedAtCards, 1, 1) {
+                                        @Override
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                                 List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                                 if (!selectedCards.isEmpty()) {
@@ -79,7 +75,6 @@ public class Card501_003 extends AbstractImperial {
                         }
                 );
                 return Collections.singletonList(action);
-            }
         }
         return null;
     }
