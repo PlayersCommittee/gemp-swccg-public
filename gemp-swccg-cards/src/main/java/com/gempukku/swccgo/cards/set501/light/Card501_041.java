@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractStartingInterrupt;
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -13,13 +12,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.PutCardFromVoidInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 
 /**
@@ -38,22 +37,14 @@ public class Card501_041 extends AbstractStartingInterrupt {
 
     @Override
     protected PlayInterruptAction getGameTextStartingAction(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        List<PhysicalCard> cardsPlayedThisGame = game.getModifiersQuerying().getCardsPlayedThisGame(playerId);
-
-        final List<PhysicalCard> startingLocations = new ArrayList<>();
-        for (PhysicalCard card : cardsPlayedThisGame) {
-            if (Filters.location.accepts(game, card)) {
-                startingLocations.add(card);
-            }
-        }
-
+        final PhysicalCard startingLocation = game.getModifiersQuerying().getStartingLocation(playerId);
         final Filter validStartingLocationFilter = Filters.and(Filters.owner(playerId),
                 Filters.and(Filters.iconCount(Icon.LIGHT_FORCE, 2), Filters.location));
 
         // Check condition(s)
-        if (validStartingLocationFilter.accepts(game, startingLocations.get(0))) {
+        if (Filters.iconCount(Icon.LIGHT_FORCE, 2).accepts(game, startingLocation)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Deploy [V13] Chirpa's Hut up to three Effects");
+            action.setText("Deploy [V13] Chirpa's Hut and up to three Effects");
             // Allow response(s)
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {
@@ -62,14 +53,30 @@ public class Card501_041 extends AbstractStartingInterrupt {
                             // Perform result(s)
                             action.appendEffect(
                                     new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Chief_Chirpas_Hut, Filters.icon(Icon.VIRTUAL_SET_13)), true, false));
+
                             action.appendEffect(
-                                    new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.immune_to_Alter, Filters.not(Filters.title("Strike Planning")),
-                                            Filters.or(Filters.gameTextContains("deploy on table"), Filters.gameTextContains("deploy on your side of table"))), 1, 3, true, false));
-                            if (GameConditions.canSpot(game, self, Filters.title("Ewok Celebration"))) {
-                                action.appendEffect(
-                                        new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.Ewok, true)
-                                );
-                            }
+                                    new ChooseCardsFromReserveDeckEffect(action, playerId, 1, 3, Filters.and(Filters.Effect, Filters.immune_to_Alter, Filters.deploysForFree, Filters.not(Filters.title("Strike Planning")))) {
+                                        @Override
+                                        protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
+                                            action.appendEffect(
+                                                    new DeployCardsFromReserveDeckEffect(action, Filters.in(selectedCards), selectedCards.size(), selectedCards.size(), true)
+                                            );
+
+                                            boolean ewokCelebration = false;
+                                            for (PhysicalCard physicalCard : selectedCards) {
+                                                if (Filters.title("Ewok Celebration").accepts(game, physicalCard)) {
+                                                    ewokCelebration = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (ewokCelebration) {
+                                                action.appendEffect(
+                                                        new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.Ewok, true)
+                                                );
+                                            }
+                                        }
+                                    }
+                            );
                             action.appendEffect(
                                     new PutCardFromVoidInLostPileEffect(action, playerId, self));
                         }

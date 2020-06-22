@@ -3235,6 +3235,7 @@ var fixedImages = {
 "501_37":"/gemp-swccg/images/cards/TheedPalace-Light/bravofighter.gif",
 "501_38":"/gemp-swccg/images/cards/Virtual1-Light/tantiveiv.gif",
 "501_39":"/gemp-swccg/images/cards/TheedPalace-Light/electropole.gif",
+"501_41":"/gemp-swccg/images/cards/Endor-Light/endorcelebration.gif",
 };
 
 var packBlueprints = {
