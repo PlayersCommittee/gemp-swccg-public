@@ -17676,6 +17676,8 @@ public class Filters {
     public static final Filter Information_Exchange = Filters.title(Title.Information_Exchange);
     public static final Filter Inner_Strength = Filters.title(Title.Inner_Strength);
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
+    public static final Filter inquisitor = Filters.and(Filters.character, Filters.keyword(Keyword.INQUISITOR));
+    public static final Filter Inquisitor_Lightsaber = Filters.title("Inquisitor Lightsaber");
     public static final Filter Insidious_Prisoner = Filters.title(Title.Insidious_Prisoner);
     public static final Filter Insurrection = Filters.title(Title.Insurrection);
     public static final Filter Intensify_The_Forward_Batteries = Filters.title(Title.Intensify_The_Forward_Batteries);

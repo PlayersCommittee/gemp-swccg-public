@@ -83,6 +83,7 @@ public enum Species implements Filterable {
     SULLUSTAN("Sullustan", true),
     SWOKES_SWOKES("Swokes Swokes", true),
     TALZ("Talz", true),
+    TERRELIAN_JANGO_JUMPER("Terrelian Jango Jumper", true),
     TOGRUTA("Togruta", true),
     TOYDARIAN("Toydarian", true),
     TRANDOSHAN("Trandoshan", true),
