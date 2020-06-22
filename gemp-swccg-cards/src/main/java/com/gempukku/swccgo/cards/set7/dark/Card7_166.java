@@ -85,7 +85,7 @@ public class Card7_166 extends AbstractAlien {
                                                 else {
                                                     action.appendEffect(
                                                             new PlayoutDecisionEffect(action, winner,
-                                                                    new YesNoDecision("Do you want to retrieve a random card from your Lost Pile?") {
+                                                                    new YesNoDecision("Do you want to retrieve a card from your Lost Pile?") {
                                                                         @Override
                                                                         protected void yes() {
                                                                             gameState.sendMessage(winner + " chooses to retrieve 1 Force");
