@@ -62,6 +62,7 @@ public enum ModifyGameTextType {
     WATTOS_BOX__MAY_DEPLOY_REGARDLESS_OF_RACE_TOTAL("May deploy regardless of race total"),
     WELL_HANDLE_THIS__ONLY_TARGET_UNDERCOVER_SPIES_AND_5D6RA7("May target only Undercover spies and 5D6-RA-7"),
     VADER__DOES_NOT_ADD_1_TO_BATTLE_DESTINY("Does not add 1 to battle destiny"),
+    VIAGE_OF_THE_EMPEROR__TRIGGERS_ONLY_AT_END_PLAYERS_TURN("Players only lose Force to Visage Of The Emperor at the end of their own turn"),
     YAVIN_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     YOU_CAN_EITHER_PROFIT_BY_THIS__DO_NOT_DEPLOY_HAN_AT_START_OF_GAME("Do not deploy Han at start of game"),
     YOU_OVERESTIMATE_THEIR_CHANCES__TRIPLE_RESULT("Triple result"),

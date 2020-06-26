@@ -155,6 +155,7 @@ public interface Title {
     String Cease_Fire = "Cease Fire!";
     String Cell_2187 = "Cell 2187";
     String Chandrila = "Chandrila";
+    String Chasm_Walkway = "Cloud City: Chasm Walkway";
     String Chewbaccas_Bowcaster = "Chewbacca's Bowcaster";
     String Chief_Bast = "Chief Bast";
     String Chief_Chirpa = "Chief Chirpa";
@@ -604,6 +605,7 @@ public interface Title {
     String Main_Corridor = "Executor: Main Corridor";
     String Main_Power_Generators = "Hoth: Main Power Generators (1st Marker)";
     String Major_Panno = "Major Panno";
+    String Malachor = "Malachor";
     String Malastare = "Malastare";
     String Mandalorian_Armor = "Mandalorian Armor";
     String Maneuvering_Flaps = "Maneuvering Flaps";
