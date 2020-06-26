@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Set: Set 13
- * Type: Effect
+ * Type: Defensive Shield
  * Title: Imperial Decree (V)
  */
 public class Card501_042 extends AbstractDefensiveShield {
@@ -30,8 +30,7 @@ public class Card501_042 extends AbstractDefensiveShield {
         setVirtualSuffix(true);
         setLore("To Imperial command personnel: The Rebellion must be crushed! Minor acts of sedition are to be ignored. The destruction of the Alliance is your primary goal.");
         setGameText("Plays on table. During opponent's control phase, may reduce force loss (except from Force drains), by the number of battlegrounds you occupy (to a minimum of 1). Opponent generates no Force at Massassi Throne Room.");
-        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_0);
-        addImmuneToCardTitle(Title.Alter);
+        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_13);
         setTestingText("Imperial Decree (v)");
     }
 
