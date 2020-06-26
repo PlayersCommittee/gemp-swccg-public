@@ -490,6 +490,7 @@ public interface Title {
     String Independent_Operation = "Independent Operation";
     String Infantry_Mine = "Infantry Mine";
     String Innocent_Scoundrel = "Innocent Scoundrel";
+    String Inquisitor_Lightsaber = "Inquisitor Lightsaber";
     String Insidious_Prisoner = "Insidious Prisoner";
     String Insignificant_Rebellion = "Insignificant Rebellion";
     String Insurrection = "Insurrection";
