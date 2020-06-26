@@ -3215,7 +3215,7 @@ var fixedImages = {
 "501_17":"/gemp-swccg/images/cards/SpecialEdition-Dark/wakeelmui.gif",
 "501_18":"/gemp-swccg/images/cards/Dagobah-Dark/misthunter.gif",
 "501_19":"/gemp-swccg/images/cards/Dagobah-Light/yodashope.gif",
-"501_20":"/gemp-swccg/images/cards/Premiere-Light/solohan.gif",
+"501_20":"/gemp-swccg/images/cards/Premiere-Light/hansolo.gif",
 "501_21":"/gemp-swccg/images/cards/Coruscant-Light/control.gif",
 "501_22":"/gemp-swccg/images/cards/Virtual1-Light/melas.gif",
 "501_23":"/gemp-swccg/images/cards/ReflectionsII-Light/lebo2d9leebo.gif",
