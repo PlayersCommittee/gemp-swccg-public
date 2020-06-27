@@ -17675,7 +17675,6 @@ public class Filters {
     public static final Filter Infantry_Mine = Filters.title(Title.Infantry_Mine);
     public static final Filter information_broker = Filters.keyword(Keyword.INFORMATION_BROKER);
     public static final Filter Information_Exchange = Filters.title(Title.Information_Exchange);
-    public static final Filter inquisitor = Filters.keyword(Keyword.INQUISITOR);
     public static final Filter Inner_Strength = Filters.title(Title.Inner_Strength);
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
     public static final Filter Inquisitor_Lightsaber = Filters.title(Title.Inquisitor_Lightsaber);
