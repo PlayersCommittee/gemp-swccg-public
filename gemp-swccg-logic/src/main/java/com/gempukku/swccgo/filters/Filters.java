@@ -17475,7 +17475,7 @@ public class Filters {
     public static final Filter exterior_site = Filters.icon(Icon.EXTERIOR_SITE);
     public static final Filter exterior_Tatooine_site = Filters.and(Icon.EXTERIOR_SITE, Filters.partOfSystem(Title.Tatooine));
     public static final Filter Eyes_In_The_Dark = Filters.title(Title.Eyes_In_The_Dark);
-    public static final Filter Ezra = Filters.title(Title.Ezra);
+    public static final Filter Ezra = Filters.persona(Persona.EZRA);
     public static final Filter Fambaa = Filters.keyword(Keyword.FAMBAA);
     public static final Filter Falcon = Filters.persona(Persona.FALCON);
     public static final Filter Falleens_Fist = Filters.title(Title.Falleens_Fist);
