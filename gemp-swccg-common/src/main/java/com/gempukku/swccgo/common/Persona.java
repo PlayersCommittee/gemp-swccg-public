@@ -115,6 +115,7 @@ public enum Persona implements Filterable {
     RED_1("Red 1"),
     RED_2("Red 2"),
     RED_5("Red 5"),
+    RIO("Rio"),
     SCIMITAR_2("Scimitar 2"),
     SLAVE_I("Slave I"),
     TANTIVE_IV("Tantive IV"),

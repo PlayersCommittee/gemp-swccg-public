@@ -3206,7 +3206,7 @@ var fixedImages = {
 "501_8":"/gemp-swccg/images/cards/Dagobah-Dark/failureatthecave.gif",
 "501_9":"/gemp-swccg/images/cards/Premiere-Dark/observationholocam.gif",
 "501_10":"/gemp-swccg/images/cards/SpecialEdition-Dark/jabbasinfluence.gif",
-"501_11":"/gemp-swccg/images/cards/Dagobah-Light/rogueasteroid.gif",
+    "501_11": "/gemp-swccg/images/cards/Dagobah-Dark/rogueasteroid.gif",
 "501_12":"/gemp-swccg/images/cards/CloudCity-Dark/epicduel.gif",
 "501_13":"/gemp-swccg/images/cards/Coruscant-Dark/maulstrikes.gif",
 "501_14":"/gemp-swccg/images/cards/Dagobah-Dark/executormeditationchamber.gif",
@@ -3645,6 +3645,7 @@ var Card = Class.extend({
             return (cardNo == 14) ||
                    (cardNo == 15) ||
                    (cardNo == 16) ||
+                   (cardNo == 40) ||
                    (cardNo == 55) ||
                    (cardNo == 56) ||
                    (cardNo == 57);

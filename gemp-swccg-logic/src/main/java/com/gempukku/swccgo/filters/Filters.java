@@ -17705,6 +17705,7 @@ public class Filters {
     public static final Filter Insignificant_Rebellion = Filters.title(Title.Insignificant_Rebellion);
     public static final Filter ion_cannon = Filters.keyword(Keyword.ION_CANNON);
     public static final Filter Ion_Cannon = Filters.title(Title.Ion_Cannon);
+    public static final Filter inquisitor = Filters.keyword(Keyword.INQUISITOR);
     public static final Filter Irol = Filters.title(Title.Irol);
     public static final Filter ISB_agent = Filters.keyword(Keyword.ISB_AGENT);
     public static final Filter ISB_Operations = Filters.title(Title.ISB_Operations);
