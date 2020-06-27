@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_079 extends AbstractSite {
     public Card5_079() {
-        super(Side.LIGHT, "Cloud City: Chasm Walkway", Title.Bespin);
+        super(Side.LIGHT, Title.Chasm_Walkway, Title.Bespin);
         setLocationDarkSideGameText("If Weather Vane on table, characters 'hit' here are instead immediately relocated there.");
         setLocationLightSideGameText("If Weather Vane on table, characters 'hit' here are instead immediately relocated there.");
         addIcon(Icon.DARK_FORCE, 1);

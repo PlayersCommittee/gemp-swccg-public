@@ -17196,6 +17196,7 @@ public class Filters {
     public static final Filter character_without_politics = Filters.and(CardCategory.CHARACTER, Filters.politicsEqualTo(0));
     public static final Filter character_with_permanent_character_weapon = Filters.and(Filters.character, Filters.hasPermanentWeapon());
     public static final Filter character_weapon_or_character_with_permanent_character_weapon = Filters.or(Filters.character_weapon(), Filters.and(Filters.character, Filters.hasPermanentWeapon()));
+    public static final Filter Chasm_Walkway = Filters.title(Title.Chasm_Walkway);
     public static final Filter Chewie = Filters.persona(Persona.CHEWIE);
     public static final Filter Chief_Bast = Filters.title(Title.Chief_Bast);
     public static final Filter Chief_Chirpa = Filters.title(Title.Chief_Chirpa);
@@ -17674,6 +17675,7 @@ public class Filters {
     public static final Filter Infantry_Mine = Filters.title(Title.Infantry_Mine);
     public static final Filter information_broker = Filters.keyword(Keyword.INFORMATION_BROKER);
     public static final Filter Information_Exchange = Filters.title(Title.Information_Exchange);
+    public static final Filter inquisitor = Filters.keyword(Keyword.INQUISITOR);
     public static final Filter Inner_Strength = Filters.title(Title.Inner_Strength);
     public static final Filter Innocent_Scoundrel = Filters.title(Title.Innocent_Scoundrel);
     public static final Filter inquisitor = Filters.and(Filters.character, Filters.keyword(Keyword.INQUISITOR));
@@ -17847,6 +17849,7 @@ public class Filters {
     public static final Filter maintenance_droid = Filters.modelType(ModelType.MAINTENANCE);
     public static final Filter Major_Panno = Filters.title(Title.Major_Panno);
     public static final Filter Malakili = Filters.title(Title.Malakili);
+    public static final Filter Malachor_location = Filters.partOfSystem(Title.Malachor);
     public static final Filter Malastare = Filters.title(Title.Malastare);
     public static final Filter male = Filters.and(CardCategory.CHARACTER, Filters.or(Keyword.MALE, Filters.not(Filters.keyword(Keyword.FEMALE))));
     public static final Filter Mandalorian_Armor = Filters.title(Title.Mandalorian_Armor);
@@ -18327,7 +18330,7 @@ public class Filters {
     public static final Filter Tallon_Roll = Filters.title(Title.Tallon_Roll);
     public static final Filter Talz = Filters.species(Species.TALZ);
     public static final Filter Tanbris = Filters.title(Title.Tanbris);
-    public static final Filter Tantive_IV = Filters.title(Title.Tantive_IV);
+    public static final Filter Tantive_IV = Filters.persona(Persona.TANTIVE_IV);
     public static final Filter Target_The_Main_Generator = Filters.title(Title.Target_The_Main_Generator);
     public static final Filter Targeting_Computer = Filters.title(Title.Targeting_Computer);
     public static final Filter Tarkin = Filters.persona(Persona.TARKIN);
