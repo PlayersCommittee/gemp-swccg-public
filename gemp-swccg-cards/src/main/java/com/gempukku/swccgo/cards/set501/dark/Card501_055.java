@@ -14,7 +14,6 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -37,6 +36,7 @@ public class Card501_055 extends AbstractSite {
         setLocationLightSideGameText("If Maul here, your spies (except Ezra) may not deploy here. Opponent may not force drain here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
+        setTestingText("Dathomir: Maul's Chambers");
     }
 
     @Override
