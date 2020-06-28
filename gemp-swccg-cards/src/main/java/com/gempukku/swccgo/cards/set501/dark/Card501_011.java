@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-import com.gempukku.swccgo.cards.AbstractMobileEffect;
+import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -15,8 +15,6 @@ import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.NotLostIfAsteroidSectorDrawnForAsteroidDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -28,21 +26,14 @@ import java.util.List;
  * Type: Effect
  * Title: Planetary Rings
  */
-public class Card501_011 extends AbstractMobileEffect {
+public class Card501_011 extends AbstractNormalEffect {
     public Card501_011() {
-        super(Side.DARK, 4, "Planetary Rings", Uniqueness.DIAMOND_1);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Planetary Rings", Uniqueness.DIAMOND_1);
         setLore("'We're gonna get pulverized if we stay out here much longer.'");
         setGameText("Deploy on a planet system (except Dagobah). Sectors drawn for asteroid destiny are cancelled and redrawn. Once during your turn, you may deploy a sector here from reserve deck; reshuffle or make an additional regular move from a related sector. Immune to alter.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("Planetary Rings");
-    }
-
-    @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new NotLostIfAsteroidSectorDrawnForAsteroidDestinyModifier(self, Filters.starship));
-        return modifiers;
     }
 
     @Override
