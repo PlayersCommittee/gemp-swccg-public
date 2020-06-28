@@ -228,6 +228,7 @@ public interface Title {
     String Darth_Vader_Dark_Lord_of_the_Sith = "Darth Vader, Dark Lord Of The Sith";
     String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
+    String Dathomir = "Dathomir";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
     String Dead_Ewok = "Dead Ewok";

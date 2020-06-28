@@ -32,6 +32,7 @@ public enum Persona implements Filterable {
     DUTCH("Dutch"),
     ELIS("Elis"),
     EMPEROR("Emperor"),
+    EZRA("Ezra"),
     GREEN_LEADER("Green Leader"),
     GRIEVOUS("Grievous"),
     GUNRAY("Gunray"),
