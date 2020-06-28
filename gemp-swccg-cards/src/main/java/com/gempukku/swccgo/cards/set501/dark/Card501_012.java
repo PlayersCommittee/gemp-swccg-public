@@ -100,4 +100,16 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
         return null;
     }
+
+    @Override
+    public String getDisplayableInformation(SwccgGame game, PhysicalCard self) {
+        String text = "Chosen effect is: ";
+        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_1) {
+            return text + "Master";
+        }
+        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2) {
+            return text + "Apprentice";
+        }
+        return null;
+    }
 }
