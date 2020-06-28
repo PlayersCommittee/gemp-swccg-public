@@ -5,7 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
+import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -55,9 +55,9 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
         //Apprentice
         Condition playCardOptionId2 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2);
-        Evaluator inquisitorsAndHatredCardsInBattleEvaluator = new InBattleEvaluator(self, Filters.or(Filters.inquisitor, Filters.hatredCard));
+        Evaluator inquisitorsInBattleEvaluator = new HereEvaluator(self, Filters.or(Filters.inquisitor, Filters.hatredCard));
         modifiers.add(new DestinyModifier(self, Filters.inquisitor, playCardOptionId2, 2));
-        modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2, inquisitorsAndHatredCardsInBattleEvaluator, self.getOwner()));
+        modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2, inquisitorsInBattleEvaluator, self.getOwner()));
         return modifiers;
     }
 
@@ -98,6 +98,18 @@ public class Card501_012 extends AbstractEpicEventDeployable {
             return Collections.singletonList(action);
         }
 
+        return null;
+    }
+
+    @Override
+    public String getDisplayableInformation(SwccgGame game, PhysicalCard self) {
+        String text = "Chosen effect is: ";
+        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_1) {
+            return text + "Master";
+        }
+        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2) {
+            return text + "Apprentice";
+        }
         return null;
     }
 }

@@ -26,9 +26,8 @@ import java.util.List;
  */
 public class Card501_050 extends AbstractNormalEffect {
     public Card501_050() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "There Are Many Hunting You Now", Uniqueness.UNIQUE);
-        setGameText("Deploy on table. Once during your turn, may stack top card of Lost Pile face down (as a ‘Hatred’ card) on an opponent’s character\n" +
-                "with your Inquisitor. That character’s gametext is canceled for remainder of turn unless opponent loses 1 force. [Immune To Alter.]");
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "There Are Many Hunting You Now");
+        setGameText("Deploy on table. Once during your turn, may stack top card of Lost Pile face down (as a ‘Hatred’ card) on an opponent’s character with your Inquisitor. That character’s gametext is canceled for remainder of turn unless opponent loses 1 force. [Immune To Alter.]");
         addImmuneToCardTitle(Title.Alter);
         addIcon(Icon.VIRTUAL_SET_13);
         setTestingText("There Are Many Hunting You Now");

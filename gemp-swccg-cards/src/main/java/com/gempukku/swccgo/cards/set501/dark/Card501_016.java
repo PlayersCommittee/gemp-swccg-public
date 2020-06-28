@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.InitiateBattlesForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,15 +50,16 @@ public class Card501_016 extends AbstractSite {
     protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.MALACHOR_SITH_TEMPLE_ENTRANCE__DEPLOY_PADAWAN;
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, self.getOwner(), self, gameTextActionId)) {
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                && GameConditions.canDeployCardFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId)) {
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a Padawan");
             action.appendUsage(
                     new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.padawan, Filters.sameCardId(self), true)
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.padawan, Filters.here(self), true)
             );
+            return Collections.singletonList(action);
         }
         return null;
     }
