@@ -14,7 +14,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,6 +34,7 @@ public class Card501_035 extends AbstractCapitalStarship {
         setPassengerCapacity(5);
         isDeploysAndMovesLikeStarfighter();
         addIcons(Icon.RESISTANCE, Icon.VIRTUAL_SET_13);
+        setTestingText("Leia's Resistance Transport");
     }
 
     @Override
@@ -55,7 +56,7 @@ public class Card501_035 extends AbstractCapitalStarship {
             action.setActionMsg("Deploy a Resistance Leader aboard " + GameUtils.getCardLink(self) + " from Lost Pile");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromLostPileEffect(action, Filters.Resistance_leader, Filters.sameCardId(self), true));
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.Resistance_leader, Filters.sameCardId(self), true, true));
             return Collections.singletonList(action);
         }
         return null;
