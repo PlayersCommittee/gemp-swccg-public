@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card501_005 extends AbstractImperial {
     public Card501_005() {
-        super(Side.DARK, 2, 4, 3, 5, 5, "Fifth Brother", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 3, 5, 5, "Eighth Brother", Uniqueness.UNIQUE);
         setLore("Terrelian Jango Jumper. Inquisitor");
         setGameText("May move as a 'react' to same site as a 'Hatred' card. During your move phase, unless alone or with Maul, may return one of your Inquisitors here (and all cards on them) to owner's hand. While armed with Inquisitor Lightsaber, may 'fly' (landspeed = 2).");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
