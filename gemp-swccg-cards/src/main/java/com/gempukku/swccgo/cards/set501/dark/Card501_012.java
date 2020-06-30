@@ -74,7 +74,7 @@ public class Card501_012 extends AbstractEpicEventDeployable {
         GameTextActionId gameTextActionId = GameTextActionId.EPIC_DUEL__DOWNLOAD_LOCATION;
 
 
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.DEPLOY)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             Filter locationFilter = null;
             //Master
@@ -86,7 +86,7 @@ public class Card501_012 extends AbstractEpicEventDeployable {
                 locationFilter = Filters.Malachor_location;
             }
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a location from Reserve Deck");
             action.setActionMsg("Deploy a location from Reserve Deck");
             // Update usage limit(s)
