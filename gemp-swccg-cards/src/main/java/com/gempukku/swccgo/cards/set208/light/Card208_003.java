@@ -33,7 +33,7 @@ public class Card208_003 extends AbstractRepublic {
         setLore("Clone trooper commander.");
         setGameText("[Pilot] 2. Droid starfighters are power and forfeit -1 here. During battle, may add or subtract 1 from a just drawn even destiny.");
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_8);
-        addPersona(Persona.ODDBALL);
+        addPersona(Persona.ODD_BALL);
         addKeywords(Keyword.CLONE_TROOPER, Keyword.COMMANDER);
     }
 
