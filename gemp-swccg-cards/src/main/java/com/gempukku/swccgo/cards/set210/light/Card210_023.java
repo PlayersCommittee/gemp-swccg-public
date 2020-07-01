@@ -10,7 +10,9 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.LoseTopCardOfForcePileEffect;
+import com.gempukku.swccgo.logic.effects.ModifyForfeitUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 
@@ -32,6 +34,7 @@ public class Card210_023 extends AbstractJediMaster {
         setGameText("Deploys -2 to same location as Ahsoka (or vice versa). Once per turn, may lose top card of Force Pile to make your character (or piloted [Episode I] starfighter) here forfeit +2 and immune to attrition for remainder of turn.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR, Icon.PILOT);
         addKeywords(Keyword.JEDI_COUNCIL_MEMBER);
+        addPersona(Persona.PLO);
         setSpecies(Species.KEL_DOR);
         setVirtualSuffix(true);
     }

@@ -2501,15 +2501,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!hasManeuver(gameState, physicalCard, true))
             return 0;
 
-        if ((physicalCard.getBlueprint().getCardCategory()==CardCategory.STARSHIP || physicalCard.getBlueprint().getCardCategory()==CardCategory.VEHICLE)
+        if ((physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP || physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE)
                 && !isPiloted(gameState, physicalCard, false))
             return 0;
 
         Float result = physicalCard.getBlueprint().getManeuver();
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PRINTED_MANEUVER, physicalCard)) {
+            result = modifier.getPrintedValueDefinedByGameText(gameState, this, physicalCard);
+            modifierCollector.addModifier(modifier);
+        }
 
         if (result != null) {
             // If card is a character and it is "doubled", then double the printed number
-            if (physicalCard.getBlueprint().getCardCategory()==CardCategory.CHARACTER
+            if (physicalCard.getBlueprint().getCardCategory() == CardCategory.CHARACTER
                     && isDoubled(gameState, physicalCard, modifierCollector)) {
                 result *= 2;
             }

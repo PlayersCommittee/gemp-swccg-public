@@ -40,6 +40,7 @@ public enum ModelType implements Filterable {
     INTERDICTOR_CLASS_STAR_DESTROYER("Interdictor-Class Star Destroyer"),
     INTERROGATOR("Interrogator"),
     J_TYPE_327_NUBIAN("J-Type 327 Nubian"),
+    JEDI_INTERCEPTOR("Jedi Interceptor"),
     LAMBDA_CLASS_SHUTTLE("Lambda-Class Shuttle"),
     MAINTENANCE("Maintenance"),
     MEDICAL("Medical"),
