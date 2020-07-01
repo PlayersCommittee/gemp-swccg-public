@@ -60,6 +60,7 @@ public enum Persona implements Filterable {
     MOTTI("Motti"),
     NARTHAX("Narthax"),
     OBIWAN("Obi-Wan"),
+    ODDBALL("Oddball"),
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
     PALPATINE("Palpatine"),

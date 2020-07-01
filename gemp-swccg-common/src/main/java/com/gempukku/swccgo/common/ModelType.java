@@ -101,6 +101,7 @@ public enum ModelType implements Filterable {
     UPSILON_CLASS_SHUTTLE("Upsilon-Class Shuttle"),
     U_WING("U-wing"),
     V_4X("V-4X"),
+    V_19_TORRENT_STARFIGHTER("V-19 Torrent starfighter"),
     VEHICLE("Vehicle"),
     VICTORY_CLASS_STAR_DESTROYER("Victory-Class Star Destroyer"),
     VT_49_DECIMATOR("VT-49 Decimator"),
