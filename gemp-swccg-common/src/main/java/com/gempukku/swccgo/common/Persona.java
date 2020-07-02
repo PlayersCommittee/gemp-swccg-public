@@ -52,6 +52,7 @@ public enum Persona implements Filterable {
     LUKE("Luke"),
     MARA_JADE("Mara Jade"),
     MARA_SKYWALKER("Mara Skywalker"),
+    MARGO("Margo"),
     MARQUAND("Marquand"),
     MACE("Mace"),
     MAUL("Maul"),
