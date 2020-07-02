@@ -41,10 +41,14 @@ public class Card501_057 extends AbstractUniqueStarshipSite {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
         Filter yourUniqueCharacters = Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.character, Filters.unique);
+        Filter yourUniqueCharactersNotMargo = Filters.and(yourUniqueCharacters, Filters.not(Filters.and(Persona.MARGO)));
         Filter margo = Filters.and(Persona.MARGO);
 
-        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereEvaluator(self, yourUniqueCharacters), playerOnDarkSideOfLocation));
-        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereEvaluator(self, margo), playerOnDarkSideOfLocation));
+        // Force Generation +1 for each non-Margo
+        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereEvaluator(self, yourUniqueCharactersNotMargo), playerOnDarkSideOfLocation));
+
+        // Force Generation +2 more for Margo
+        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereCondition(self, margo), 2, playerOnDarkSideOfLocation));
 
         return modifiers;
     }

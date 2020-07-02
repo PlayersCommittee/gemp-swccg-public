@@ -45,28 +45,30 @@ public class Card501_056 extends AbstractUniqueStarshipSite {
         Filter crimsonDawnLeaderHere = Filters.and(Filters.here(self), crimsonDawnLeader);
         Filter crimsonDawnLeaderOtherLocation = Filters.and(Filters.not(Filters.here(self)), crimsonDawnLeader);
 
-        // Move FROM here to another side
-        if (GameConditions.isDuringYourPhase(game, playerOnDarkSideOfLocation, Phase.MOVE)
-                && GameConditions.canSpotLocation(game, otherSite)
-                && GameConditions.canSpot(game, self, crimsonDawnLeaderHere)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, crimsonDawnLeaderHere, self, otherSite, false)) {
+
+        if (GameConditions.isDuringYourPhase(game, playerOnDarkSideOfLocation, Phase.MOVE)) {
+
+            // Move FROM here to another site
+            if (GameConditions.canSpotLocation(game, otherSite)
+                    && GameConditions.canSpot(game, self, crimsonDawnLeaderHere)
+                    && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, crimsonDawnLeaderHere, self, otherSite, false)) {
 
                 MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, crimsonDawnLeaderHere, self, otherSite, false);
                 action.setText("Move from here to other battleground site");
                 actions.add(action);
             }
-        }
 
-        // Move TO this site from another location
-        if (GameConditions.isDuringYourPhase(game, playerOnDarkSideOfLocation, Phase.MOVE)
-                && GameConditions.canSpotLocation(game, otherSite)
-                && GameConditions.canSpot(game, self, crimsonDawnLeaderOtherLocation)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, crimsonDawnLeaderOtherLocation, otherSite, self, false)) {
+            // Move TO this site from another site
+            if (GameConditions.canSpotLocation(game, otherSite)
+                    && GameConditions.canSpot(game, self, crimsonDawnLeaderOtherLocation)
+                    && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, crimsonDawnLeaderOtherLocation, otherSite, self, false)) {
+
                 MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, crimsonDawnLeaderOtherLocation, otherSite, self, false);
                 action.setText("Move from other battleground site to here");
                 actions.add(action);
             }
-            }
+        }
+
 
         return actions;
     }
