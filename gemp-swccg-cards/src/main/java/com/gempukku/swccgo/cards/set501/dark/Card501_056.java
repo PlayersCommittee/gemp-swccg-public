@@ -92,7 +92,9 @@ public class Card501_056 extends AbstractUniqueStarshipSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.blaster, Filters.here(self)), 1));
+
+        Filter blasterInBattle = Filters.and(Filters.participatingInBattle, Filters.blaster);
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), blasterInBattle, Filters.here(self)), 1));
         return modifiers;
     }
 
