@@ -84,6 +84,7 @@ public enum Persona implements Filterable {
     TALLIE_LINTRA("TALLIE"),
     TYCHO("Tycho"),
     VADER("Vader"),
+    VAL("VAL"),
     VEERS("Veers"),
     VOS("Vos"),
     WEDGE("Wedge"),

@@ -39,6 +39,7 @@ public class Card501_025 extends AbstractAlien {
         addKeywords(Keyword.FEMALE, Keyword.SCOUT, Keyword.SMUGGLER, Keyword.THIEF);
         addIcons(Icon.VIRTUAL_SET_13, Icon.WARRIOR);
         setTestingText("Val");
+        addPersona(Persona.VAL);
     }
 
     @Override
