@@ -60,16 +60,15 @@ public class Card12_117 extends AbstractRepublic {
             // Perform result(s)
             action.appendEffect(
                     new PlayoutDecisionEffect(action, playerId,
-                            new MultipleChoiceAwaitingDecision("Choose number", new String[]{"0", "1", "2", "3", "π", "4", "5", "6", "2π", "7"}) {
+                            new MultipleChoiceAwaitingDecision("Choose number", new String[]{"0", ".5", "1", "2", "3", "π", "4", "5", "6", "2π", "7"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     final float chosenDestiny;
-                                    if(result.equalsIgnoreCase("π")){
+                                    if (result.equalsIgnoreCase("π")) {
                                         chosenDestiny = (float) Math.PI;
-                                    }
-                                    else if(result.equalsIgnoreCase("2π")){
+                                    } else if (result.equalsIgnoreCase("2π")) {
                                         chosenDestiny = 2 * (float) Math.PI;
-                                    }else{
+                                    } else {
                                         chosenDestiny = Float.parseFloat(result);
                                     }
                                     self.clearForRemainderOfGameData();
