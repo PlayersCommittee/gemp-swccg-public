@@ -152,14 +152,17 @@ public class Card501_058_BACK extends AbstractObjective {
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)) {
             int numForceToLose = 1;
             int numBattleDestiniesToAdd = 1;
-            String text = "Lose 1 force to add a battle destiny";
+            String text = "Add 1 battle destiny";
+            String actionMsg = "Lose 1 force to add a battle destiny";
             if (GameConditions.isDuringBattleWithParticipant(game, Persona.QIRA)) {
                 numForceToLose = 2;
                 numBattleDestiniesToAdd = 2;
-                text = "Lose 2 force to add 2 battle destinies against Qi'ra";
+                text = "Add 2 battle destinies";
+                actionMsg = "Lose 2 force to add 2 battle destinies against Qi'ra";
             }
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
             action.setText(text);
+            action.setActionMsg(actionMsg);
             action.appendUsage(
                     new OncePerBattleEffect(action)
             );

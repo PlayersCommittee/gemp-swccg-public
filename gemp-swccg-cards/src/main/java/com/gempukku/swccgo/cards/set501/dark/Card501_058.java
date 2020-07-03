@@ -108,7 +108,7 @@ public class Card501_058 extends AbstractObjective {
             actions.add(action);
         }
 
-        if (TriggerConditions.justHit(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character))) {
+        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, Filters.your(playerId))) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
             action.setText("Flip");
