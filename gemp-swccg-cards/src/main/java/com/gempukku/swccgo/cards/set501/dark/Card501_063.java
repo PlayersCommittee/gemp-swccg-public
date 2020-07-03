@@ -33,6 +33,7 @@ public class Card501_063 extends AbstractCharacterWeapon {
         addIcon(Icon.VIRTUAL_SET_13);
         setTestingText("•••Inquisitor Lightsaber");
         setMatchingCharacterFilter(Filters.inquisitor);
+        addKeyword(Keyword.LIGHTSABER);
     }
 
     @Override
