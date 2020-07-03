@@ -14,10 +14,8 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.RecirculateEffect;
-import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.decisions.YesNoDecision;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
@@ -43,6 +41,7 @@ public class Card501_058_BACK extends AbstractObjective {
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("You Know Who I Answer To");
     }
+
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
@@ -72,7 +71,7 @@ public class Card501_058_BACK extends AbstractObjective {
         //Flip this card at the end of each turn; you may retrieve a blaster (if you occupy 3 battlegrounds, opponent loses 1 Force).
         if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
             if (GameConditions.occupies(game, playerId, 3, Filters.battleground)) {
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
                 action.setText("Flip");
                 action.setActionMsg(null);
@@ -80,14 +79,24 @@ public class Card501_058_BACK extends AbstractObjective {
                 action.appendEffect(
                         new FlipCardEffect(action, self));
                 action.appendEffect(
-                        new RetrieveCardEffect(action, playerId, Filters.blaster)
+                        new PlayoutDecisionEffect(action, playerId,
+                                new YesNoDecision("Retrieve a blaster?") {
+                                    @Override
+                                    protected void yes() {
+                                        action.appendEffect(
+                                                new RetrieveCardEffect(action, playerId, Filters.blaster)
+                                        );
+                                        action.appendEffect(
+                                                new LoseForceEffect(action, game.getOpponent(playerId), 1)
+                                        );
+                                    }
+                                }
+                        )
                 );
-                action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(playerId), 1)
-                );
+
                 actions.add(action);
             } else {
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
                 action.setText("Flip");
                 action.setActionMsg(null);
@@ -95,7 +104,16 @@ public class Card501_058_BACK extends AbstractObjective {
                 action.appendEffect(
                         new FlipCardEffect(action, self));
                 action.appendEffect(
-                        new RetrieveCardEffect(action, playerId, Filters.blaster)
+                        new PlayoutDecisionEffect(action, playerId,
+                                new YesNoDecision("Retrieve a blaster?") {
+                                    @Override
+                                    protected void yes() {
+                                        action.appendEffect(
+                                                new RetrieveCardEffect(action, playerId, Filters.blaster)
+                                        );
+                                    }
+                                }
+                        )
                 );
                 actions.add(action);
             }
@@ -134,12 +152,14 @@ public class Card501_058_BACK extends AbstractObjective {
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)) {
             int numForceToLose = 1;
             int numBattleDestiniesToAdd = 1;
+            String text = "Lose 1 force to add a battle destiny";
             if (GameConditions.isDuringBattleWithParticipant(game, Persona.QIRA)) {
                 numForceToLose = 2;
                 numBattleDestiniesToAdd = 2;
+                text = "Lose 2 force to add 2 battle destinies against Qi'ra";
             }
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
-            action.setText("Lose 1 to add a battle destiny");
+            action.setText(text);
             action.appendUsage(
                     new OncePerBattleEffect(action)
             );
