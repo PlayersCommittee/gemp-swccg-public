@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -17,12 +18,13 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.RecirculateEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -110,24 +112,33 @@ public class Card501_058_BACK extends AbstractObjective {
         Filter starshipsAndArmedCharacters = Filters.and(Filters.your(self.getOwner()), Filters.or(Filters.starship, Filters.and(Filters.character, Filters.armedWith(Filters.any))));
         modifiers.add(new PowerModifier(self, starshipsAndArmedCharacters, 2));
         modifiers.add(new ImmunityToAttritionChangeModifier(self, starshipsAndArmedCharacters, 2));
+        //From front side
+        Filter independentCapitals = Filters.and(Icon.INDEPENDENT, Filters.capital_starship);
+        Filter ep1BountyHunters = Filters.and(Icon.EPISODE_I, Filters.bounty_hunter);
+        Filter loreCharacters = Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt"));
+        Filter keywordCharacters = Filters.or(Keyword.ASSASSIN, Keyword.GANGSTER);
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE),
+                Filters.not(Filters.or(independentCapitals, ep1BountyHunters, loreCharacters, keywordCharacters)));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         // May lose a Force to add a battle destiny where you have an alien leader or a gangster (lose 2 Force if against Qi’ra to add 2 battle destiny instead).
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
+        GameTextActionId gameTextActionId1 = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.or(Filters.alien_leader, Keyword.GANGSTER)))
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)) {
             int numForceToLose = 1;
             int numBattleDestiniesToAdd = 1;
             if (GameConditions.isDuringBattleWithParticipant(game, Persona.QIRA)) {
                 numForceToLose = 2;
                 numBattleDestiniesToAdd = 2;
             }
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
             action.setText("Lose 1 to add a battle destiny");
             action.appendUsage(
                     new OncePerBattleEffect(action)
@@ -138,8 +149,23 @@ public class Card501_058_BACK extends AbstractObjective {
             action.appendEffect(
                     new AddBattleDestinyEffect(action, numBattleDestiniesToAdd)
             );
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+
+        GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        // Check condition(s)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.DEPLOY)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
+            action.setText("Deploy a card from Reserve Deck");
+            action.appendUsage(
+                    new OncePerPhaseEffect(action)
+            );
+            action.appendEffect(
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")), true)
+            );
+            actions.add(action);
+        }
+        return actions;
     }
 }

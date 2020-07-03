@@ -44,10 +44,10 @@ public class Card501_058 extends AbstractObjective {
         Filter ep1BountyHunters = Filters.and(Icon.EPISODE_I, Filters.bounty_hunter);
         Filter loreCharacters = Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt"));
         Filter keywordCharacters = Filters.or(Keyword.ASSASSIN, Keyword.GANGSTER);
-        Filter cardsThatCanDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE),
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE),
                 Filters.not(Filters.or(independentCapitals, ep1BountyHunters, loreCharacters, keywordCharacters)));
         List<Modifier> modifiers = new ArrayList<>();
-        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatCanDeploy), self.getOwner()));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
     }
 
@@ -71,8 +71,6 @@ public class Card501_058 extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)) {
-
-
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a card from Reserve Deck");
             action.appendUsage(
