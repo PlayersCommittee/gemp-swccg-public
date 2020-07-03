@@ -77,7 +77,8 @@ public class Card501_004 extends AbstractImperial {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         if (TriggerConditions.battleInitiatedAt(game, effectResult, self.getOwner(), Filters.here(self))
-                && GameConditions.isWith(game, self, Filters.or(Filters.Jedi, Filters.padawan, Filters.hatredCard))) {
+                && (GameConditions.isDuringBattleWithParticipant(game, Filters.or(Filters.Jedi, Filters.padawan, Filters.hasStacked(Filters.hatredCard)))
+                || GameConditions.isDuringBattleAt(game, Filters.hasStacked(Filters.hatredCard)))) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make Opponent lose 1 force");
             action.appendEffect(

@@ -5795,7 +5795,7 @@ public class FireWeaponActionBuilder {
                                                         if (totalDestiny > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
-                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                                    new HitCardEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
                                                             action.appendEffect(
                                                                     new TakeStackedCardIntoHandEffect(action, _weaponOrCardWithPermanentWeapon.getOwner(), cardFiredAt, Filters.hatredCard)
                                                             );

@@ -33,8 +33,8 @@ import java.util.List;
 public class Card501_012 extends AbstractEpicEventDeployable {
     public Card501_012() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Epic_Duel);
-        setGameText("Deploy on table. Players only lose Force to Visage Of The Emperor at the end of their own turn. You may not deploy characters except Imperials and Bounty Hunters. Choose one:\n" +
-                "Master: Once per turn may deploy Carbonite Chamber or Chasm Walkway. While Their Fire Has Gone Out Of The Universe on table, opponent's Force drain bonuses are canceled.\n" +
+        setGameText("Deploy on table. Players only lose Force to Visage Of The Emperor at the end of their own turn. You may not deploy characters except Imperials and Bounty Hunters. Choose one:" +
+                "Master: Once per turn may deploy Carbonite Chamber or Chasm Walkway. While Their Fire Has Gone Out Of The Universe on table, opponent's Force drain bonuses are canceled." +
                 "Apprentice: Once per turn you may deploy a Malachor location. Inquisitors are destiny +2. Your total battle destiny is +1 for each Inquisitor or Hatred card in battle.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
