@@ -788,6 +788,32 @@ public class SwccgGameMediator {
                 }
             }
 
+            // Special output for cards with "testingText" (playtesting)
+            String testingText = card.getBlueprint().getTestingText();
+            if (testingText != null && !testingText.isEmpty())
+            {
+                SwccgCardBlueprint blueprint = card.getBlueprint();
+
+                String lore = blueprint.getLore();
+                if (lore != null && !lore.isEmpty()) {
+                    sb.append("<br>");
+                    sb.append("Lore ");
+                    sb.append("<div>");
+                    sb.append(lore);
+                    sb.append("</div>");
+                }
+
+                String gametext = blueprint.getGameText();
+                if (gametext != null && !gametext.isEmpty()) {
+                    sb.append("<br>");
+                    sb.append("Gametext ");
+                    sb.append("<div>");
+                    sb.append(gametext);
+                    sb.append("</div>");
+                }
+
+            }
+
             // Surround with div (if any card info)
             if (sb.length() > 0) {
                 sb.insert(0, "<div class='cardInfo'>");
