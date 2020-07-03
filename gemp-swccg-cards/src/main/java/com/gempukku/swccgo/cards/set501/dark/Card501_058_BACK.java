@@ -38,7 +38,7 @@ public class Card501_058_BACK extends AbstractObjective {
         setGameText("Immediately recirculate; may 'peek' at top two cards of Reserve Deck and take one into hand." +
                 "While this side up, your starships and armed characters are power and immunity to attrition +2. May lose a Force to add a battle destiny where you have an alien leader or a gangster (lose 2 Force if against Qi’ra to add 2 battle destiny instead)." +
                 "Flip this card at the end of each turn; you may retrieve a blaster (if you occupy 3 battlegrounds, opponent loses 1 Force).");
-        addIcons(Icon.REFLECTIONS_II);
+        addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("You Know Who I Answer To");
     }
 
