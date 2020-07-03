@@ -18474,6 +18474,7 @@ public class Filters {
     public static final Filter Vigo = Filters.title(Title.Vigo);
     public static final Filter Visage_Of_The_Emperor = Filters.title(Title.Visage_Of_The_Emperor);
     public static final Filter Visored_Vision = Filters.title(Title.Visored_Vision);
+    public static final Filter Vos = Filters.persona(Persona.VOS);
     public static final Filter Vul_Tazaene = Filters.title(Title.Vul_Tazaene);
     public static final Filter Wakeelmui_system = Filters.title(Title.Wakeelmui);
     public static final Filter Walker_Barrage = Filters.title(Title.Walker_Barrage);
