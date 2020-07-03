@@ -32,7 +32,6 @@ public class Card501_035 extends AbstractCapitalStarship {
         setGameText("May add 2 pilot and 5 passengers. Permanent pilot provides ability of 2. Deploys and moves like a starfighter. When deployed, may deploy a Resistance leader aboard for free from Reserve Deck; reshuffle.");
         setPilotCapacity(2);
         setPassengerCapacity(5);
-        isDeploysAndMovesLikeStarfighter();
         addIcons(Icon.RESISTANCE, Icon.VIRTUAL_SET_13);
         setTestingText("Leia's Resistance Transport");
     }
@@ -41,6 +40,11 @@ public class Card501_035 extends AbstractCapitalStarship {
     protected List<? extends AbstractPermanentAboard> getGameTextPermanentsAboard() {
         return Collections.singletonList(new AbstractPermanentPilot(2) {
         });
+    }
+
+    @Override
+    public boolean isDeploysAndMovesLikeStarfighter() {
+        return true;
     }
 
     @Override
@@ -53,7 +57,7 @@ public class Card501_035 extends AbstractCapitalStarship {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Resistance Leader from Reserve Deck");
-            action.setActionMsg("Deploy a Resistance Leader aboard " + GameUtils.getCardLink(self) + " from Lost Pile");
+            action.setActionMsg("Deploy a Resistance Leader aboard " + GameUtils.getCardLink(self) + " from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
                     new DeployCardToTargetFromReserveDeckEffect(action, Filters.Resistance_leader, Filters.sameCardId(self), true, true));
