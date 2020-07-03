@@ -3258,7 +3258,7 @@ var fixedImages = {
 "501_59":"/gemp-swccg/images/cards/Virtual7-Dark/mesonmartinet.gif",
 "501_60":"/gemp-swccg/images/cards/JabbasPalaceSealedDeck-Dark/stunblaster.gif",
 "501_61":"/gemp-swccg/images/cards/SpecialEdition-Light/disruptorpistol.gif",
-"501_62":"/gemp-swccg/images/cards/CloudCity-Light/cloudcityblaster.gif",
+"501_62":"/gemp-swccg/images/cards/CloudCity-Dark/cloudcityblaster.gif",
 "501_63":"/gemp-swccg/images/cards/JabbasPalace-Dark/thermaldetonator.gif",
 };
 
