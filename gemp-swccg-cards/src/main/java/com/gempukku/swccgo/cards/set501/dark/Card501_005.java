@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -39,7 +40,8 @@ public class Card501_005 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayMoveAsReactToLocationModifier(self, Filters.and(Filters.site, Filters.hasStacked(Filters.hasStacked(Filters.hatredCard)))));
+        Filter siteWithHatredCardStacked = Filters.and(Filters.site, Filters.or(Filters.hasStacked(Filters.hatredCard), Filters.sameSiteAs(self, Filters.and(Filters.character, Filters.hasStacked(Filters.hatredCard)))));
+        modifiers.add(new MayMoveAsReactToLocationModifier(self, siteWithHatredCardStacked));
         modifiers.add(new DefinedByGameTextLandspeedModifier(self, new ArmedWithCondition(self, Filters.Inquisitor_Lightsaber), 2));
         return modifiers;
     }

@@ -48,7 +48,7 @@ public class Card501_020 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new ManeuverModifier(self, 2));
+        modifiers.add(new ManeuverModifier(self, Filters.hasPiloting(self), 2));
         return modifiers;
     }
 
