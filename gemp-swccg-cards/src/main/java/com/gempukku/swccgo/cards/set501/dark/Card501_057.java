@@ -23,18 +23,18 @@ import java.util.List;
  * Set: Set 13
  * Type: Location
  * Subtype: Site
- * Title: •First Light: Reception Area
+ * Title: First Light: Reception Area
  */
 public class Card501_057 extends AbstractUniqueStarshipSite {
     public Card501_057() {
-        super(Side.DARK, "•First Light: Reception Area", Persona.FIRST_LIGHT);
+        super(Side.DARK, "First Light: Reception Area", Persona.FIRST_LIGHT);
         setLocationDarkSideGameText("Your Force generation here is +1 for each of your unique characters here (Margo adds 2 instead).");
         setLocationLightSideGameText("Force drain -1 here (+1 instead if your smuggler here).");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.VIRTUAL_SET_13, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.MOBILE, Icon.STARSHIP_SITE);
+        setTestingText("First Light: Reception Area");
     }
-
 
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
