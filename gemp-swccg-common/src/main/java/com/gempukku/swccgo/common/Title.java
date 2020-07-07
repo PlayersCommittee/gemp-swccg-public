@@ -335,6 +335,8 @@ public interface Title {
     String Ewok_Spearman = "Ewok Spearman";
     String Ewok_Village = "Endor: Ewok Village";
     String Executor = "Executor";
+    String Exegol = "Exegol";
+    String Exegol_Sith_Throne = "Exegol: Sith Throne";
     String Expand_The_Empire = "Expand The Empire";
     String Explosive_Charge = "Explosive Charge";
     String Exposure = "Exposure";

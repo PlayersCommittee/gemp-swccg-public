@@ -3260,6 +3260,9 @@ var fixedImages = {
 "501_61":"/gemp-swccg/images/cards/SpecialEdition-Light/disruptorpistol.gif",
 "501_62":"/gemp-swccg/images/cards/CloudCity-Dark/cloudcityblaster.gif",
 "501_63":"/gemp-swccg/images/cards/JabbasPalace-Dark/thermaldetonator.gif",
+"501_64":"/gemp-swccg/images/cards/Virtual9-Dark/supremeleadersnoke.gif",
+"501_65":"/gemp-swccg/images/cards/Virtual4-Dark/bowtothefirstorder.gif",
+"501_66":"/gemp-swccg/images/cards/Hoth-Dark/hothwampacave.gif",
 "501_67":"/gemp-swccg/images/cards/SpecialEdition-Light/camie.gif",
 };
 
@@ -3649,7 +3652,8 @@ var Card = Class.extend({
                    (cardNo == 40) ||
                    (cardNo == 55) ||
                    (cardNo == 56) ||
-                   (cardNo == 57);
+                   (cardNo == 57) ||
+                   (cardNo == 66);
         }
 
         return false;

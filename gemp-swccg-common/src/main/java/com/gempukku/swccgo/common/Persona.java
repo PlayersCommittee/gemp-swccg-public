@@ -70,6 +70,7 @@ public enum Persona implements Filterable {
     PIETT("Piett"),
     PLO("Plo Koon"),
     PROXIMA("Proxima"),
+    PRYDE("Pryde"),
     PUCK("Puck"),
     QUEENS_ROYAL_STARSHIP("Queen's Royal Starship"),
     QUIGON("Qui-Gon"),
@@ -124,6 +125,7 @@ public enum Persona implements Filterable {
     RIO("Rio"),
     SCIMITAR_2("Scimitar 2"),
     SLAVE_I("Slave I"),
+    STEADFAST("Steadfast"),
     TANTIVE_IV("Tantive IV"),
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),
 

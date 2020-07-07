@@ -52,7 +52,7 @@ public class Card501_005 extends AbstractImperial {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && !GameConditions.isAlone(game, self)
                 && !GameConditions.isWith(game, self, Filters.Maul)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction();
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Return Inquisitor To Hand");
             action.appendUsage(
                     new OncePerPhaseEffect(action)

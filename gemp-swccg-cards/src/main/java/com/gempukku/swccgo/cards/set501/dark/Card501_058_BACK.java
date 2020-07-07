@@ -86,14 +86,13 @@ public class Card501_058_BACK extends AbstractObjective {
                                         action.appendEffect(
                                                 new RetrieveCardEffect(action, playerId, Filters.blaster)
                                         );
-                                        action.appendEffect(
-                                                new LoseForceEffect(action, game.getOpponent(playerId), 1)
-                                        );
                                     }
                                 }
                         )
                 );
-
+                action.appendEffect(
+                        new LoseForceEffect(action, game.getOpponent(playerId), 1)
+                );
                 actions.add(action);
             } else {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
