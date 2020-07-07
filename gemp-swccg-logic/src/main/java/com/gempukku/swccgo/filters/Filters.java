@@ -18054,6 +18054,7 @@ public class Filters {
     public static final Filter proton_bombs = Filters.title(Title.Proton_Bombs);
     public static final Filter Proton_Torpedoes = Filters.keyword(Keyword.PROTON_TORPEDOES);
     public static final Filter Proxima = Filters.title(Title.Proxima);
+    public static final Filter Pryde = Filters.persona(Persona.PRYDE);
     public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);
@@ -18274,6 +18275,7 @@ public class Filters {
     public static final Filter squadron = Filters.subtype(CardSubtype.SQUADRON);
     public static final Filter Staging_Areas = Filters.title(Title.Staging_Areas);
     public static final Filter Stalker = Filters.title(Title.Stalker);
+    public static final Filter Steadfast = Filters.persona(Persona.STEADFAST);
     public static final Filter STAP = Filters.modelType(ModelType.STAP);
     public static final Filter Star_Cruiser = Filters.or(ModelType.MON_CALAMARI_STAR_CRUISER);
     public static final Filter Star_Destroyer = Filters.or(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.INTERDICTOR_CLASS_STAR_DESTROYER, ModelType.RESURGENT_CLASS_STAR_DESTROYER, ModelType.SUPER_CLASS_STAR_DESTROYER, ModelType.VICTORY_CLASS_STAR_DESTROYER);

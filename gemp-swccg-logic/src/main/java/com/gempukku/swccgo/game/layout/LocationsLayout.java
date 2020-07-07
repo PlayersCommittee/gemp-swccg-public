@@ -121,8 +121,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
         addToLayouts(new DefaultPlanetLayout(Title.Scarif, 7));
         addToLayouts(new DefaultPlanetLayout(Title.Ahch_To, 9));
         addToLayouts(new DefaultPlanetLayout(Title.Kamino, 7));
-        addToLayouts(new DefaultPlanetLayout(Title.Malachor, 8));
-        addToLayouts(new DefaultPlanetLayout(Title.Dathomir, 99));
+        addToLayouts(new DefaultPlanetLayout(Title.Malachor, 6));
+        addToLayouts(new DefaultPlanetLayout(Title.Dathomir, 4));
+        addToLayouts(new DefaultPlanetLayout(Title.Exegol, 10));
     }
 
     /**
