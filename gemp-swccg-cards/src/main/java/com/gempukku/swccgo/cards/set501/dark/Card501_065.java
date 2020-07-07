@@ -24,7 +24,7 @@ import java.util.List;
 public class Card501_065 extends AbstractNormalEffect {
     public Card501_065() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Final Order", Uniqueness.UNIQUE);
-        setGameText("Deploy on table if I Will Finish What You Started on table. You may not deploy [E1] characters. Once per turn, may deploy [E7] Palpatine, Sith Throne, or Steadfast from Reserve Deck; reshuffle. [Immune to Alter.]");
+        setGameText("Deploy on table if I Will Finish What You Started on table. You may not deploy [E1] characters. Once per turn, may deploy [E7] Emperor, Sith Throne, or Steadfast from Reserve Deck; reshuffle. [Immune to Alter.]");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_13);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("The Final Order");
