@@ -3206,7 +3206,7 @@ var fixedImages = {
 "501_8":"/gemp-swccg/images/cards/Dagobah-Dark/failureatthecave.gif",
 "501_9":"/gemp-swccg/images/cards/Premiere-Dark/observationholocam.gif",
 "501_10":"/gemp-swccg/images/cards/SpecialEdition-Dark/jabbasinfluence.gif",
-    "501_11": "/gemp-swccg/images/cards/Dagobah-Dark/rogueasteroid.gif",
+"501_11": "/gemp-swccg/images/cards/Dagobah-Dark/rogueasteroid.gif",
 "501_12":"/gemp-swccg/images/cards/CloudCity-Dark/epicduel.gif",
 "501_13":"/gemp-swccg/images/cards/Coruscant-Dark/maulstrikes.gif",
 "501_14":"/gemp-swccg/images/cards/Dagobah-Dark/executormeditationchamber.gif",
@@ -3263,6 +3263,7 @@ var fixedImages = {
 "501_64":"/gemp-swccg/images/cards/Virtual9-Dark/supremeleadersnoke.gif",
 "501_65":"/gemp-swccg/images/cards/Virtual4-Dark/bowtothefirstorder.gif",
 "501_66":"/gemp-swccg/images/cards/Hoth-Dark/hothwampacave.gif",
+"501_67":"/gemp-swccg/images/cards/SpecialEdition-Light/camie.gif",
 };
 
 var packBlueprints = {
