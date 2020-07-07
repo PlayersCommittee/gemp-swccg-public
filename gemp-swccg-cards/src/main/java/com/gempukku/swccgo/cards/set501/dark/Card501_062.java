@@ -29,7 +29,7 @@ import java.util.List;
  * Set: Set 13
  * Type: Weapon
  * Subtype: Character
- * Title: Kyuzo Petars
+ * Title: Dryden Vos’s Kyuzo Petars
  */
 public class Card501_062 extends AbstractCharacterWeapon {
     public Card501_062() {
@@ -38,7 +38,7 @@ public class Card501_062 extends AbstractCharacterWeapon {
         setGameText("Deploy on Vos. While at opponent’s site, may use 1 Force to add 1 to your Force drain here. May target a character for free; draw two destiny; target ‘hit’ if total destiny -2> defense value (may lose top card of Force pile to make ‘hit’ target lost).");
         addIcons(Icon.VIRTUAL_SET_13);
         setMatchingCharacterFilter(Filters.Vos);
-        setTestingText("Kyuzo Petars");
+        setTestingText("Dryden Vos’s Kyuzo Petars");
     }
 
     @Override
