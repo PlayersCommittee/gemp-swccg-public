@@ -80,6 +80,9 @@ public class Card501_048 extends AbstractSith {
             actions.add(action);
 
             action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.appendUsage(
+                    new OncePerTurnEffect(action)
+            );
             action.setText("Subtract 1 from destiny draw");
             // Perform result(s)
             action.appendEffect(
