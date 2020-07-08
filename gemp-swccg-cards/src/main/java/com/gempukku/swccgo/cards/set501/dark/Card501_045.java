@@ -92,39 +92,26 @@ public class Card501_045 extends AbstractAlien {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
                 && GameConditions.canUseForce(game, playerId, 2)
-                && Filters.canBeFired(self, 0).accepts(game, self)
+                && Filters.canUseWeapon(self).accepts(game, self)
                 && GameConditions.canSpot(game, self, weaponFilter)) {
 
+            PhysicalCard weapon = Filters.findFirstActive(game, self, weaponFilter);
+            if (weapon == null) {
+                return null;
+            }
+            
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Fire Kyuzo Petas");
+            action.setText("Fire Kyuzo Petars");
 
             // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
+            action.appendUsage(new OncePerPhaseEffect(action));
 
             // Pay Costs
             action.appendCost(new UseForceEffect(action, playerId, 2));
 
-            // Choose target(s)
-            action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
-                        @Override
-                        protected void cardSelected(final PhysicalCard weapon) {
-                            action.addAnimationGroup(weapon);
-                            // Allow response(s)
-                            action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
-                                    new UnrespondableEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new FireWeaponEffect(action, weapon, false, Filters.any));
-                                        }
-                                    }
-                            );
-                        }
-                    }
-            );
+            // Perform results
+            action.appendEffect(new FireWeaponEffect(action, weapon, false, Filters.any));
+
             return Collections.singletonList(action);
         }
         return null;
