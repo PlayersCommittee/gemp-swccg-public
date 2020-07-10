@@ -41,12 +41,13 @@ public class Card501_060 extends AbstractCharacterWeapon {
         setGameText("Deploy on a warrior for 1 Force (free if your Crimson Dawn leader on table). May target a character or vehicle; draw destiny. If destiny +1 > defense value, target hit (if at opponent’s site, may lose top card of Force Pile to make forfeit = 0).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("Crimson Dawn Blaster");
+        addKeyword(Keyword.BLASTER);
     }
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
 
-        Filter blackSunLeader = Filters.and(Filters.Crimson_Dawn , Filters.leader);
+        Filter crimsonDawnLeader = Filters.and(Filters.Crimson_Dawn , Filters.leader);
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefinedByGameTextDeployCostModifier(self, 1));
         modifiers.add(new DeploysFreeModifier(self, self, new OnTableCondition(self, blackSunLeader)));
