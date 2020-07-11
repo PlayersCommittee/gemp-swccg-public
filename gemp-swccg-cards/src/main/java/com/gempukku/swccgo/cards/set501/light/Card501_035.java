@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,6 +30,7 @@ public class Card501_035 extends AbstractCapitalStarship {
         setPilotCapacity(2);
         setPassengerCapacity(5);
         addIcons(Icon.RESISTANCE, Icon.NAV_COMPUTER, Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addModelType(ModelType.TRANSPORT);
         setTestingText("Leia's Resistance Transport");
     }
 

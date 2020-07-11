@@ -20,9 +20,8 @@ import java.util.List;
  * Set: Set 9
  * Type: Character
  * Subtype: Resistance Character
- * Title: *Lieutenant Kaydel Connix
+ * Title: Lieutenant Kaydel Connix
  */
-
 public class Card209_009 extends AbstractResistance {
     public Card209_009() {
         super(Side.LIGHT, 2, 2, 1, 2, 4, "Lieutenant Kaydel Connix", Uniqueness.UNIQUE);
@@ -33,7 +32,6 @@ public class Card209_009 extends AbstractResistance {
         setGameText("[Pilot]2. Your shuttling, landing, and taking off to or from here is free. Once per game, may use 1 Force to [upload] Evacuation Control, a [Resistance] bomber, or a [Resistance] transport.");
         addIcons(Icon.PILOT, Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);
         addPersona(Persona.CONNIX);
-
     }
 
     // Copied and pasted over from Commander Desanne (DS
