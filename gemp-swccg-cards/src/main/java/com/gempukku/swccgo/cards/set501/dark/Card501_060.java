@@ -50,7 +50,7 @@ public class Card501_060 extends AbstractCharacterWeapon {
         Filter crimsonDawnLeader = Filters.and(Filters.Crimson_Dawn , Filters.leader);
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefinedByGameTextDeployCostModifier(self, 1));
-        modifiers.add(new DeploysFreeModifier(self, self, new OnTableCondition(self, blackSunLeader)));
+        modifiers.add(new DeploysFreeModifier(self, self, new OnTableCondition(self, crimsonDawnLeader)));
         return modifiers;
     }
 

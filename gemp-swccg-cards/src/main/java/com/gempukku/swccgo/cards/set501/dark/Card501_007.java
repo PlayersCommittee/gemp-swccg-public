@@ -58,9 +58,9 @@ public class Card501_007 extends AbstractAlien {
                 && GameConditions.canTakeDestinyCardIntoHand(game, playerId)
                 && (GameConditions.isDuringBattleWithParticipant(game, Filters._4_LOM)
                 || Filters.countActive(game, self, Filters.and(Filters.bounty_hunter, Filters.inBattleWith(self))) == 1)
-                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Take destiny card into hand");
             action.setActionMsg("Take just drawn destiny card, " + GameUtils.getCardLink(((DestinyDrawnResult) effectResult).getCard()) + ", into hand");
             // Perform result(s)

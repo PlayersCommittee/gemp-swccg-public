@@ -37,6 +37,13 @@ public class Card501_067 extends AbstractAlien {
     }
 
     @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new MayNotHaveDeployCostIncreasedModifier(self));
+        return modifiers;
+    }
+
+    @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         Condition hanOnTableCondition = new OnTableCondition(self, Filters.Han);
