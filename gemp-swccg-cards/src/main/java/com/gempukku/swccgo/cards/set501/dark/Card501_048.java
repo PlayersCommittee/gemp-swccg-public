@@ -69,7 +69,7 @@ public class Card501_048 extends AbstractSith {
                 && GameConditions.isAlone(game, self)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
 
-            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );

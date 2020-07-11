@@ -32,7 +32,7 @@ public class Card501_035 extends AbstractCapitalStarship {
         setGameText("May add 2 pilot and 5 passengers. Permanent pilot provides ability of 2. Deploys and moves like a starfighter. When deployed, may deploy a Resistance leader aboard for free from Reserve Deck; reshuffle.");
         setPilotCapacity(2);
         setPassengerCapacity(5);
-        addIcons(Icon.RESISTANCE, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.RESISTANCE, Icon.NAV_COMPUTER, Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
         setTestingText("Leia's Resistance Transport");
     }
 
