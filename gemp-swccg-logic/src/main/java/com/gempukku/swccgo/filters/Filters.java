@@ -17299,6 +17299,7 @@ public class Filters {
     public static final Filter Dead_Ewok = Filters.title(Title.Dead_Ewok);
     public static final Filter Death_Mark = Filters.title(Title.Death_Mark);
     public static final Filter Death_Squadron = Filters.title(Title.Death_Squadron);
+    public static final Filter Death_Squadron_Star_Destroyer = Filters.and(Filters.Star_Destroyer, Filters.loreContains("Death Squadron"));
     public static final Filter Death_Star_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star));
     public static final Filter Death_Star_Central_Core = Filters.title(Title.Death_Star_Central_Core);
     public static final Filter Death_Star_Conference_Room = Filters.title(Title.Death_Star_Conference_Room);
@@ -17999,7 +18000,7 @@ public class Filters {
     public static final Filter Overseeing_It_Personally = Filters.title(Title.Overseeing_It_Personally);
     public static final Filter Overwhelmed = Filters.title(Title.Overwhelmed);
     public static final Filter Owen = Filters.title(Title.Owen_Lars);
-    public static final Filter Ozzel = Filters.title(Title.Ozzel);
+    public static final Filter Ozzel = Filters.persona(Persona.OZZEL);
     public static final Filter padawan = Filters.keyword(Keyword.PADAWAN);
     public static final Filter Padme = Filters.title(Title.Padme);
     public static final Filter Paige = Filters.title(Title.Paige);

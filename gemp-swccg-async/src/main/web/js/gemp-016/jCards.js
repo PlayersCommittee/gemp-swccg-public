@@ -3257,7 +3257,7 @@ var fixedImages = {
 "501_58_BACK":"/gemp-swccg/images/cards/ReflectionsII-Dark/vengeanceofthedarkprince.gif",
 "501_59":"/gemp-swccg/images/cards/Virtual7-Dark/mesonmartinet.gif",
 "501_60":"/gemp-swccg/images/cards/JabbasPalaceSealedDeck-Dark/stunblaster.gif",
-"501_61":"/gemp-swccg/images/cards/SpecialEdition-Light/disruptorpistol.gif",
+"501_61":"/gemp-swccg/images/cards/SpecialEdition-Dark/disruptorpistol.gif",
 "501_62":"/gemp-swccg/images/cards/CloudCity-Dark/cloudcityblaster.gif",
 "501_63":"/gemp-swccg/images/cards/JabbasPalace-Dark/thermaldetonator.gif",
 "501_64":"/gemp-swccg/images/cards/Virtual9-Dark/supremeleadersnoke.gif",
