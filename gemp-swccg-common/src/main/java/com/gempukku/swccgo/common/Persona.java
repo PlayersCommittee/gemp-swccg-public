@@ -64,6 +64,7 @@ public enum Persona implements Filterable {
     ODD_BALL("Odd ball"),
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
+    OZZEL("Ozzel"),
     PALPATINE("Palpatine"),
     PANAKA("Panaka"),
     PAPLOO("Paploo"),
