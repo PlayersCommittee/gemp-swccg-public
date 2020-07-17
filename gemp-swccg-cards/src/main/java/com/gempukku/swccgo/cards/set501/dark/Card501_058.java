@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -33,7 +34,7 @@ public class Card501_058 extends AbstractObjective {
     public Card501_058() {
         super(Side.DARK, 0, "Shadow Collective");
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Reception Area and Maul’s Chambers. For remainder of game you may not deploy cards with ability (or [P]) except capital [Ind] starships, [Ep 1] bounty hunters, assassins, gangsters, and characters with Black Sun, Crimson Dawn, or Hutt in lore. Once per turn, may deploy a non-unique blaster or a card with First Light in title from Reserve Deck; reshuffle. Flip this card if you control 2 battlegrounds (and opponent controls no battleground site) during your control phase OR If you just 'hit' a character.");
+        setGameText("Deploy Maul’s Chambers. May deploy Reception Area. For remainder of game you may not deploy cards with ability (or [P]) except capital [Ind] starships, [Ep 1] bounty hunters, assassins, gangsters, and characters with Black Sun, Crimson Dawn, or Hutt in lore. Once per turn, may deploy a non-unique blaster or a card with First Light in title from Reserve Deck; reshuffle. Flip this card if you control 2 battlegrounds (and opponent controls no battleground site) during your control phase OR If you just 'hit' a character.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("Shadow Collective");
     }
@@ -55,12 +56,15 @@ public class Card501_058 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.title("First Light: Reception Area"), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.title("Dathomir: Maul's Chambers"), true, false) {
 
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.title("Dathomir: Maul's Chambers"), true, false) {
-
+                new DeployCardsFromReserveDeckEffect(action, Filters.title("First Light: Reception Area"), 0, 1, true, false) {
+                    @Override
+                    public String getChoiceText(int numCardsToChoose) {
+                        return "Choose Reception Area to deploy";
+                    }
                 });
         return action;
     }

@@ -1,6 +1,5 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
@@ -36,7 +35,7 @@ public class Card501_001 extends AbstractImperial {
         addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addPersona(Persona.OZZEL);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
-        setMatchingStarshipFilter(Filters.Death_Squadron_Star_Destroyer);
+        setMatchingStarshipFilter(Filters.and(Filters.Star_Destroyer, Filters.loreContains("Death Squadron")));
         setVirtualSuffix(true);
         setTestingText("Admiral Ozzel (v)");
     }
@@ -47,7 +46,7 @@ public class Card501_001 extends AbstractImperial {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isPiloting(game, self, Filters.Death_Squadron_Star_Destroyer)) {
+        if (GameConditions.isPiloting(game, self, Filters.and(Filters.Star_Destroyer, Filters.loreContains("Death Squadron")))) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
             final PhysicalCard location = modifiersQuerying.getLocationThatCardIsAt(gameState, self);

@@ -34,7 +34,7 @@ public class Card501_022 extends AbstractAlien {
         setLore("Ardennian smuggler and thief.");
         setGameText("Adds 2 to power and 1 to maneuver of anything he pilots. During your deploy phase, may “smuggle” one of your smugglers of power < 4 here (move them to an adjacent site as a regular move). If about to be lost, place all weapons on him in Used pile.");
         addPersona(Persona.RIO);
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.THIEF);
         setSpecies(Species.ARDENNIAN);
         setTestingText("Rio Durant");

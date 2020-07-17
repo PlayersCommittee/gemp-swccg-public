@@ -18,7 +18,6 @@ import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,26 +49,28 @@ public class Card501_024 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        //Once per game, may 'smuggle' a blaster (deploy on Beckett from Lost pile, even as a 'react')
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.TOBIAS_BECKETT__SMUGGLE_BLASTER;
         if(GameConditions.isOncePerGame(game, self, gameTextActionId)
-            && GameConditions.hasLostPile(game, playerId)){
+                && GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, false)){
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("'Smuggle' a blaster");
+            action.setText("'Smuggle' a blaster from lost pile");
             action.appendUsage(
                     new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new DeployCardToTargetFromLostPileEffect(action, Filters.blaster, Filters.sameCardId(self), false, true, false)
+                    new DeployCardToTargetFromLostPileEffect(action, Filters.blaster, Filters.sameCardId(self), false, false, false)
             );
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
+
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self))
                 && GameConditions.isArmedWith(game, self, Filters.blaster)) {
 
@@ -79,8 +80,24 @@ public class Card501_024 extends AbstractAlien {
             // Perform result(s)
             action.appendEffect(
                     new TakeFirstBattleWeaponsSegmentActionEffect(action, playerId));
-            return Collections.singletonList(action);
+           actions.add(action);
         }
-        return null;
+
+        GameTextActionId gameTextActionId = GameTextActionId.TOBIAS_BECKETT__SMUGGLE_BLASTER;
+        //As a 'react'
+        if(GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(playerId), Filters.sameSite(self))
+                && GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, true)){
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("'Smuggle' a blaster from lost pile as a 'react'");
+            action.appendUsage(
+                    new OncePerGameEffect(action)
+            );
+            action.appendEffect(
+                    new DeployCardToTargetFromLostPileEffect(action, Filters.blaster, Filters.sameCardId(self), false, true, false)
+            );
+            actions.add(action);
+        }
+        return actions;
     }
 }

@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,16 +21,16 @@ import java.util.List;
  * Set: Set 13
  * Type: Weapon
  * Subtype: Character
- * Title: Disruptor Pistol (V)
+ * Title: Black Sun Blaster
  */
 public class Card501_061 extends AbstractCharacterWeapon {
     public Card501_061() {
-        super(Side.DARK, 4, "Disruptor Pistol");
+        super(Side.DARK, 4, "Black Sun Blaster", Uniqueness.RESTRICTED_3);
         setLore("Highly specialized weapon used for disintegration. Commonly found on the black market and in criminal arsenals. One of the favored weapons of the Black Sun.");
         setGameText("Deploy on an alien warrior for 1 Force (free if your Black Sun leader on table). May target a character or vehicle; draw destiny. If destiny +1 > target's printed defense value, target hit and may not be used to satisfy attrition.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
-        setVirtualSuffix(true);
-        setTestingText("Disruptor Pistol (V)");
+        addKeyword(Keyword.BLASTER);
+        setTestingText("Black Sun Blaster");
     }
 
     @Override

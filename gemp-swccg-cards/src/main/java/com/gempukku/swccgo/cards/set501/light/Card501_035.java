@@ -26,7 +26,7 @@ import java.util.List;
 public class Card501_035 extends AbstractCapitalStarship {
     public Card501_035() {
         super(Side.LIGHT, 3, 3, 3, 4, null, 3, 5, "Leia's Resistance Transport", Uniqueness.UNIQUE);
-        setGameText("May add 2 pilot and 5 passengers. Permanent pilot provides ability of 2. Deploys and moves like a starfighter. When deployed, may deploy a Resistance leader aboard for free from Reserve Deck; reshuffle.");
+        setGameText("May add 2 pilot and 5 passengers. Permanent pilot provides ability of 2. Deploys and moves like a starfighter. When deployed, may deploy a Resistance female aboard for free from Reserve Deck; reshuffle.");
         setPilotCapacity(2);
         setPassengerCapacity(5);
         addIcons(Icon.RESISTANCE, Icon.NAV_COMPUTER, Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
@@ -47,7 +47,7 @@ public class Card501_035 extends AbstractCapitalStarship {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggersEvenIfUnpiloted(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.LEIAS_RESISTANCE_TRANSPORT__DOWNLOAD_RESISTANCE_LEADER;
+        GameTextActionId gameTextActionId = GameTextActionId.LEIAS_RESISTANCE_TRANSPORT__DOWNLOAD_RESISTANCE_FEMALE;
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)
@@ -58,7 +58,7 @@ public class Card501_035 extends AbstractCapitalStarship {
             action.setActionMsg("Deploy a Resistance Leader aboard " + GameUtils.getCardLink(self) + " from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.Resistance_leader, Filters.sameCardId(self), true, true));
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.and(Filters.Resistance, Filters.female), Filters.sameCardId(self), true, true));
             return Collections.singletonList(action);
         }
         return null;
