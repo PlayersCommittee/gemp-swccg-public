@@ -56,7 +56,7 @@ public class Card501_014 extends AbstractUniqueStarshipSite {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextLightSideRequiredAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, self)
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, playerOnLightSideOfLocation, self)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
