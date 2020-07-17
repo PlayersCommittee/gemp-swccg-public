@@ -191,6 +191,7 @@ public interface Title {
     String Concussion_Missiles = "Concussion Missiles";
     String Control = "Control";
     String Coolant_Shaft = "Death Star II: Coolant Shaft";
+    String Control_Station = "Executor: Control Station";
     String Corellia = "Corellia";
     String Corellian_Corvette = "Corellian Corvette";
     String Corellian_Engineering_Corporation = "Corellian Engineering Corporation";

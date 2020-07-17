@@ -14,15 +14,11 @@ import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.LightsaberCombatTotalModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeStolenModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,7 +29,7 @@ import java.util.List;
  */
 public class Card501_062 extends AbstractCharacterWeapon {
     public Card501_062() {
-        super(Side.DARK, 2, "Kyuzo Petars", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Dryden Vos’s Kyuzo Petars", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on Vos. While at opponent’s site, may use 1 Force to add 1 to your Force drain here. May target a character for free; draw two destiny; target ‘hit’ if total destiny -2> defense value (may lose top card of Force pile to make ‘hit’ target lost).");
         addIcons(Icon.VIRTUAL_SET_13);
