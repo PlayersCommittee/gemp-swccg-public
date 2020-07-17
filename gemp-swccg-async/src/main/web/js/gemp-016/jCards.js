@@ -3264,6 +3264,16 @@ var fixedImages = {
 "501_65":"/gemp-swccg/images/cards/Virtual4-Dark/bowtothefirstorder.gif",
 "501_66":"/gemp-swccg/images/cards/Hoth-Dark/hothwampacave.gif",
 "501_67":"/gemp-swccg/images/cards/SpecialEdition-Light/camie.gif",
+"501_68":"/gemp-swccg/images/cards/CloudCity-Light/cloudcitychasmwalkway.gif",
+"501_69":"/gemp-swccg/images/cards/Dagobah-Light/thisismorelikeit.gif",
+"501_70":"/gemp-swccg/images/cards/Dagobah-Light/effectiverepairs.gif",
+"501_71":"/gemp-swccg/images/cards/Premiere-Light/kesselrun.gif",
+"501_72":"/gemp-swccg/images/cards/CloudCity-Light/landocalrissian.gif",
+"501_73":"/gemp-swccg/images/cards/Endor-Dark/battleorder.gif",
+"501_74":"/gemp-swccg/images/cards/Virtual11-Dark/coruscantprivateplatform.gif",
+"501_75":"/gemp-swccg/images/cards/Endor-Dark/endorbackdoor.gif",
+"501_76":"/gemp-swccg/images/cards/Premiere-Dark/tatooine.gif",
+"501_77":"/gemp-swccg/images/cards/SpecialEdition-Dark/homingbeacon.gif",
 };
 
 var packBlueprints = {
@@ -3653,7 +3663,9 @@ var Card = Class.extend({
                    (cardNo == 55) ||
                    (cardNo == 56) ||
                    (cardNo == 57) ||
-                   (cardNo == 66);
+                   (cardNo == 66) ||
+                   (cardNo == 74) ||
+                   (cardNo == 75);
         }
 
         return false;
