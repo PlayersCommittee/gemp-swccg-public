@@ -48,7 +48,7 @@ public class Card501_019 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Filter yourAliensWithPowerLessThanFour = Filters.and(Filters.your(self.getOwner()), Filters.alien, Filters.powerLessThan(4));
+        Filter yourAliensWithPowerLessThanFour = Filters.and(Filters.your(self.getOwner()), Filters.alien, Filters.powerLessThan(4), Filters.here(self));
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new DefenseValueModifier(self, yourAliensWithPowerLessThanFour, 1));
         modifiers.add(new ForfeitModifier(self, yourAliensWithPowerLessThanFour, 1));
