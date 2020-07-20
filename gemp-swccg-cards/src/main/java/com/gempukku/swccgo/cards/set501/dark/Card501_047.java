@@ -30,6 +30,7 @@ public class Card501_047 extends AbstractAlien {
         setGameText("During opponents deploy phase, may use 1 force to; 'break cover' of opponent's undercover spy here OR draw destiny; if destiny = the number of opponent’s characters here, they must use 2 Force to initiate a battle here this turn (4 if at opponent’s site).");
         setSpecies(Species.IMROOSIAN);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.FEMALE);
+        addIcon(Icon.VIRTUAL_SET_13);
         setTestingText("Margo");
     }
 
