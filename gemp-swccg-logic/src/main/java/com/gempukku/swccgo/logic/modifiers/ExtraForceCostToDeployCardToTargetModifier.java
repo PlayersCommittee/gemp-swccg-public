@@ -35,7 +35,7 @@ public class ExtraForceCostToDeployCardToTargetModifier extends AbstractModifier
     }
 
     @Override
-    public float getValue(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardToDeploy, PhysicalCard target) {
-        return _evaluator.evaluateExpression(gameState, modifiersQuerying, cardToDeploy, target);
+    public float getValue(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardToDeploy) {
+        return _evaluator.evaluateExpression(gameState, modifiersQuerying, cardToDeploy);
     }
 }
