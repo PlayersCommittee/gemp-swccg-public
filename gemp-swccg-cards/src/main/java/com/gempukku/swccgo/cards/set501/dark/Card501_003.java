@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutCardFromReserveDeckOnTopOfCardPileEffect;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -23,6 +24,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+//•Fifth Brother [TBD (V)] 2
+//[TBD - TBD]
+//Lore: Inquisitor.
+//DARK - CHARACTER - IMPERIAL
+//POWER 4 ABILITY 5 FORCE-SENSITIVE
+//Text: Power +3 and defense value -2 while with a Jedi, Padawan, or 'Hatred' card. Whenever you initiate battle here, may peek at the top two cards of your Reserve Deck and place one in Used Pile.
+//DEPLOY 4 FORFEIT 6
+//[Pilot] [Warrior] [Set 13]
+
 /**
  * Set: Set 13
  * Type: Character
@@ -31,10 +41,10 @@ import java.util.List;
  */
 public class Card501_003 extends AbstractImperial {
     public Card501_003() {
-        super(Side.DARK, 2, 4, 3, 5, 5, "Fifth Brother", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 5, 6, "Fifth Brother", Uniqueness.UNIQUE);
         setLore("Inquisitor");
-        setGameText("Power +2 while with a Jedi or Padawan. When you initiate a battle here, may peek at the top two cards of your Reserve Deck; place one in Used Pile and return the other. Immune to attrition < 4.");
-        addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
+        setGameText("Power +3 and defense value -2 while with a Jedi, Padawan, or 'Hatred' card. Whenever you initiate battle here, may peek at the top two cards of your Reserve Deck and place one in Used Pile.");
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.INQUISITOR);
         setTestingText("Fifth Brother");
     }
@@ -42,7 +52,9 @@ public class Card501_003 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new PowerModifier(self, new WithCondition(self, Filters.or(Filters.Jedi, Filters.padawan)), 2));
+        WithCondition withJediPadawanOrHatredCardCondition = new WithCondition(self, Filters.or(Filters.Jedi, Filters.padawan, Filters.hasStacked(Filters.hatredCard)));
+        modifiers.add(new PowerModifier(self, withJediPadawanOrHatredCardCondition, 3));
+        modifiers.add(new DefenseValueModifier(self, withJediPadawanOrHatredCardCondition, -2));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
         return modifiers;
     }

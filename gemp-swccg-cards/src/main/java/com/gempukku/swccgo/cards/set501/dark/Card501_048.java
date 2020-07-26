@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,8 +10,8 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotCancelBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -31,7 +30,7 @@ public class Card501_048 extends AbstractSith {
     public Card501_048() {
         super(Side.DARK, .5F, 4, 4, 6, 8, "Maul", Uniqueness.UNIQUE);
         setLore("Gangster. Crimson Dawn leader.");
-        setGameText("Never deploys to a battleground. While no other Dark Jedi on table your characters deploy -1 to the same location as your gangsters and if alone, once per turn may add or subtract 1 from a just drawn weapon or battle destiny. Immune to attrition < 5.");
+        setGameText("Never deploys to a battleground. Once per turn, if no other Dark Jedi on table, may add or subtract 1 from a just drawn weapon or battle destiny. Opponent may not cancel your weapon or battle destinies at sites.");
         addPersona(Persona.MAUL);
         addKeywords(Keyword.GANGSTER, Keyword.CRIMSON_DAWN, Keyword.LEADER);
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
@@ -48,12 +47,10 @@ public class Card501_048 extends AbstractSith {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToLocationModifier(self,
-                Filters.and(Filters.your(self.getOwner()), Filters.character),
-                new CantSpotCondition(self, Filters.and(Filters.Dark_Jedi, Filters.not(self))),
-                -1,
-                Filters.sameLocationAs(self, Filters.gangster)));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
+        String playerId = self.getOwner();
+        String opponent = game.getOpponent(playerId);
+        modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.and(Filters.your(playerId), Filters.at(Filters.site))));
+        modifiers.add(new MayNotCancelBattleDestinyModifier(self, Filters.site, playerId, opponent));
         return modifiers;
     }
 

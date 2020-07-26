@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -12,7 +11,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
@@ -33,7 +31,7 @@ public class Card501_055 extends AbstractSite {
     public Card501_055() {
         super(Side.DARK, "Dathomir: Maul's Chambers", Title.Dathomir);
         setLocationDarkSideGameText("May deploy Maul here from Reserve Deck; reshuffle (at start of game if Massassi Throne Room on table)");
-        setLocationLightSideGameText("If Maul here, your spies (except Ezra) may not deploy here. Opponent may not force drain here.");
+        setLocationLightSideGameText("Jar Jar and your spies (except Ezra) may not deploy here. Opponent may not force drain here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
         setTestingText("Dathomir: Maul's Chambers");
@@ -87,9 +85,8 @@ public class Card501_055 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Condition maulHere = new HereCondition(self, Filters.Maul);
         Filter yourSpiesExceptEzra = Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.spy, Filters.not(Filters.Ezra));
-        modifiers.add(new MayNotDeployToLocationModifier(self, yourSpiesExceptEzra, maulHere, Filters.here(self)));
+        modifiers.add(new MayNotDeployToLocationModifier(self, Filters.or(Filters.Jar_Jar, yourSpiesExceptEzra), Filters.here(self)));
         modifiers.add(new MayNotForceDrainAtLocationModifier(self, game.getOpponent(playerOnLightSideOfLocation)));
         return modifiers;
     }
