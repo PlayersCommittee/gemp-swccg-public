@@ -24,15 +24,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-//•Fifth Brother [TBD (V)] 2
-//[TBD - TBD]
-//Lore: Inquisitor.
-//DARK - CHARACTER - IMPERIAL
-//POWER 4 ABILITY 5 FORCE-SENSITIVE
-//Text: Power +3 and defense value -2 while with a Jedi, Padawan, or 'Hatred' card. Whenever you initiate battle here, may peek at the top two cards of your Reserve Deck and place one in Used Pile.
-//DEPLOY 4 FORFEIT 6
-//[Pilot] [Warrior] [Set 13]
-
 /**
  * Set: Set 13
  * Type: Character
