@@ -27,7 +27,7 @@ public class Card501_047 extends AbstractAlien {
     public Card501_047() {
         super(Side.DARK, 2, 2, 2, 2, 3, "Margo", Uniqueness.UNIQUE);
         setLore("Female Imroosian. Crimson Dawn.");
-        setGameText("During opponents deploy phase, may use 1 force to; 'break cover' of opponent's undercover spy here OR draw destiny; if destiny = the number of opponent’s characters here, they must use 2 Force to initiate a battle here this turn (4 if at opponent’s site).");
+        setGameText("During opponents deploy phase, may use 1 force to; 'break cover' of opponent's undercover spy here OR draw destiny; if destiny = the number of opponent’s characters here, they must use 1 Force to initiate a battle here this turn (3 if at opponent’s site).");
         setSpecies(Species.IMROOSIAN);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.FEMALE);
         addIcon(Icon.VIRTUAL_SET_13);
@@ -89,7 +89,7 @@ public class Card501_047 extends AbstractAlien {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             if (totalDestiny == Filters.countActive(game, self, Filters.and(Filters.opponents(playerId), Filters.character, Filters.here(self)))) {
-                                int numForce = GameConditions.isAtLocation(game, self, Filters.and(Filters.opponents(playerId), Filters.site)) ? 4 : 2;
+                                int numForce = GameConditions.isAtLocation(game, self, Filters.and(Filters.opponents(playerId), Filters.site)) ? 3 : 1;
                                 action.appendEffect(
                                         new AddUntilEndOfTurnModifierEffect(action,
                                                 new InitiateBattleCostModifier(self, Filters.here(self), numForce, game.getOpponent(playerId)),
