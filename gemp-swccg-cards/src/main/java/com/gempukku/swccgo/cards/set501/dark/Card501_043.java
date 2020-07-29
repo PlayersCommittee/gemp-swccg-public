@@ -24,17 +24,17 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * SubType: Alien
- * Title: Aemon Gremm With JND-41 Precussive Cannon
+ * Title: Aemon Gremm With Precussive Cannon
  */
 public class Card501_043 extends AbstractAlien {
     public Card501_043() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "Aemon Gremm With JND-41 Precussive Cannon", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "Aemon Gremm With Precussive Cannon", Uniqueness.UNIQUE);
         setLore("Crimson Dawn. Hylobon guard leader.");
         setGameText("While with another guard or at opponent’s site, each opponent’s weapon destiny is -1 here. Permanent weapon is JND-41 Percussive Cannon (may target a character of vehicle for free; draw destiny. If destiny > defense value, target ‘hit’ and power and forfeit -2).");
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER);
         setSpecies(Species.HYLOBON);
         addIcons(Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_13);
-        setTestingText("Aemon Gremm With JND-41 Precussive Cannon");
+        setTestingText("Aemon Gremm With Precussive Cannon");
     }
 
     @Override
@@ -44,15 +44,15 @@ public class Card501_043 extends AbstractAlien {
         String opponent = game.getOpponent(playerId);
         List<Modifier> modifiers = new LinkedList<>();
         Condition atOpponentsSiteCondition = new AtCondition(self, Filters.and(Filters.your(opponent), Filters.site));
-        Condition withOtherGuardCondition = new WithCondition(self, Filters.and(Filters.other(self), Filters.character, Filters.loreContains("guard")));
+        Condition withOtherGuardCondition = new WithCondition(self, Filters.and(Filters.other(self), Filters.character, Filters.or(Filters.titleContains("Guard"), Filters.loreContains("guard"))));
         modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(opponent), Filters.weapon, Filters.here(self)), new OrCondition(atOpponentsSiteCondition, withOtherGuardCondition), -1));
         return modifiers;
     }
 
-    // Define "JND-41 Percussive Cannon" permanent weapon
+    // Define "Percussive Cannon" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("JND-41 Percussive Cannon") {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("Percussive Cannon") {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
