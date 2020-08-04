@@ -29,12 +29,12 @@ import java.util.List;
  */
 public class Card501_004 extends AbstractImperial {
     public Card501_004() {
-        super(Side.DARK, 2, 4, 4, 5, 6, "Seventh Sister", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 4, 5, 7, "Seventh Sister", Uniqueness.UNIQUE);
         setLore("Female Mirialan Inquisitor.");
         setGameText("While with a Jedi, Padawan, or 'Hatred' card, opponent loses 1 Force whenever you initiate battle here. Once per turn, may use 1 Force (free if with your probe droid) to draw top card of Reserve Deck. Immune to attrition < 4.");
         setSpecies(Species.MIRIALAN);
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);
-        addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         setTestingText("Seventh Sister");
     }
 

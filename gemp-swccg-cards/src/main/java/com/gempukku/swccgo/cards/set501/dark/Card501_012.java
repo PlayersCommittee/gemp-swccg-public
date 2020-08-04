@@ -2,10 +2,11 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.evaluators.InBattleOrStackedInBattle;
+import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -16,7 +17,6 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.ArrayList;
@@ -33,9 +33,9 @@ import java.util.List;
 public class Card501_012 extends AbstractEpicEventDeployable {
     public Card501_012() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Epic_Duel);
-        setGameText("Deploy on table. Players only lose Force to Visage Of The Emperor at the end of their own turn. You may not deploy characters except Imperials and Bounty Hunters. Choose one:" +
-                "Master: Once per turn may deploy Carbonite Chamber or Chasm Walkway. While Their Fire Has Gone Out Of The Universe on table, opponent's Force drain bonuses are canceled." +
-                "Apprentice: Once per turn you may deploy a Malachor location. Inquisitors are destiny +2. Your total battle destiny is +1 for each Inquisitor or Hatred card in battle.");
+        setGameText("Deploy on table. Players only lose Force to Visage Of The Emperor at the end of their own turn. You may not deploy characters except droids, Imperials and Bounty Hunters. Inquisitors are destiny +2. Choose one:" +
+                "Master: Once per turn may deploy [CC] battleground site from Reserve Deck; reshuffle. While Their Fire Has Gone Out Of The Universe on table, opponent's Force drain bonuses are canceled." +
+                "Apprentice: Once per turn you may deploy a Malakor battleground site. Your total battle destiny is +1 for each Inquistor in battle (Additional +1 if with a hatred card)");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
         setTestingText("Epic Duel (v)");
@@ -46,7 +46,8 @@ public class Card501_012 extends AbstractEpicEventDeployable {
         List<Modifier> modifiers = new LinkedList<>();
 
         modifiers.add(new ModifyGameTextModifier(self, Filters.Visage_Of_The_Emperor, ModifyGameTextType.VIAGE_OF_THE_EMPEROR__TRIGGERS_ONLY_AT_END_PLAYERS_TURN));
-        modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.character, Filters.not(Filters.or(Filters.Imperial, Filters.bounty_hunter))), self.getOwner()));
+        modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.character, Filters.not(Filters.or(Filters.droid, Filters.Imperial, Filters.bounty_hunter))), self.getOwner()));
+        modifiers.add(new DestinyModifier(self, Filters.inquisitor, 2));
 
         //Master
         Condition playCardOptionId1 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_1);
@@ -55,9 +56,9 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
         //Apprentice
         Condition playCardOptionId2 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2);
-        Evaluator inquisitorsAndHatredCardsInBattleEvaluator = new InBattleOrStackedInBattle(self, Filters.inquisitor, Filters.hatredCard);
-        modifiers.add(new DestinyModifier(self, Filters.inquisitor, playCardOptionId2, 2));
-        modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2, inquisitorsAndHatredCardsInBattleEvaluator, self.getOwner()));
+        modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2, new InBattleEvaluator(self, Filters.inquisitor), self.getOwner()));
+        Filter siteWithHatredCardStacked = Filters.and(Filters.site, Filters.or(Filters.hasStacked(Filters.hatredCard), Filters.sameSiteAs(self, Filters.and(Filters.character, Filters.hasStacked(Filters.hatredCard)))));
+        modifiers.add(new TotalBattleDestinyModifier(self, new AndCondition(new InBattleAtCondition(self, siteWithHatredCardStacked), playCardOptionId2), 1, self.getOwner()));
         return modifiers;
     }
 
@@ -79,7 +80,7 @@ public class Card501_012 extends AbstractEpicEventDeployable {
             Filter locationFilter = null;
             //Master
             if (GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_1)) {
-                locationFilter = Filters.or(Filters.Carbonite_Chamber, Filters.Chasm_Walkway);
+                locationFilter = Filters.and(Filters.battleground_site, Filters.icon(Icon.CLOUD_CITY));
             }
             //Apprentice
             if (GameConditions.isPlayCardOption(game, self, PlayCardOptionId.PLAY_CARD_OPTION_2)) {
