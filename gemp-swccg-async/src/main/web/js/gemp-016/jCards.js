@@ -3274,6 +3274,7 @@ var fixedImages = {
 "501_75":"/gemp-swccg/images/cards/Endor-Dark/endorbackdoor.gif",
 "501_76":"/gemp-swccg/images/cards/Premiere-Dark/tatooine.gif",
 "501_77":"/gemp-swccg/images/cards/SpecialEdition-Dark/homingbeacon.gif",
+"501_78":"/gemp-swccg/images/cards/DeathStarII-Dark/thunderflare.gif",
 };
 
 var packBlueprints = {
