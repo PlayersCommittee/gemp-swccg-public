@@ -29,7 +29,7 @@ public class Card501_078 extends AbstractCapitalStarship {
         setLore("");
         setGameText("May add 6 pilots, 8 passengers, 2 starfighters, and 1 vehicle. Permanent pilot provides ability of 2. While alone, adds Force icons to equalize them for both sides here. Immune to attrition < 6 if Pryde aboard.");
         addPersona(Persona.STEADFAST);
-        addIcons(Icon.EPISODE_VII, Icon.FIRST_ORDER, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.EPISODE_VII, Icon.FIRST_ORDER, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
         addModelType(ModelType.RESURGENT_CLASS_STAR_DESTROYER);
         setMatchingPilotFilter(Filters.Pryde);
         setPilotCapacity(6);
