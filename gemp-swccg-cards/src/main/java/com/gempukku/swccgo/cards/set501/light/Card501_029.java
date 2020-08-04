@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +24,7 @@ public class Card501_029 extends AbstractNormalEffect {
     public Card501_029() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Twilight Is Upon Me", Uniqueness.UNIQUE);
         setLore("When a Jedi dies, the spirit spreads through the Force and touches the living.");
-        setGameText("If Dagobah or He Is The Chosen One on table, deploy on table. Once during your turn, may take Yoda’s Hut, [Death Star II] Anakin Skywalker or, once per game, a unique (•) battleground, into hand from Reserve Deck; reshuffle. You may not deploy [Episode I] locations. [Immune to Alter.]");
+        setGameText("If Dagobah or He Is The Chosen One on table, deploy on table. Once per turn, may take a Dagobah or Death Star II site into hand from Reserve Deck; reshuffle. You may not deploy [Episode I] locations. [Immune to Alter].");
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
@@ -48,41 +47,21 @@ public class Card501_029 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
-        // Card action 1
-        GameTextActionId gameTextActionId = GameTextActionId.TWILIGHT_IS_UPON_ME__UPLOAD_THE_FORCE_IS_STRONG_WITH_THIS_ONE_OR_ANAKIN_SKYWALKER;
+        GameTextActionId gameTextActionId = GameTextActionId.TWILIGHT_IS_UPON_ME__UPLOAD_LOCATION;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take Yoda's Hut or [Death Star II] Anakin Skywalker into hand from Reserve Deck");
+            action.setActionMsg("Take a Dagobah Site or Death Star II site into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Yodas_Hut, Filters.Anakin_Skywalker), true));
-            actions.add(action);
-        }
-
-        // Check condition(s)
-        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Take (•) battleground into hand from Reserve Deck");
-            action.setActionMsg("Take (•) battleground into hand from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            action.appendUsage(
-                    new OncePerGameEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.unique, Filters.battleground), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Dagobah_site, Filters.Death_Star_II_site), true));
             actions.add(action);
         }
 
