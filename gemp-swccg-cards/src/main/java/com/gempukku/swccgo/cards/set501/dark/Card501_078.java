@@ -31,6 +31,7 @@ public class Card501_078 extends AbstractCapitalStarship {
         addPersona(Persona.STEADFAST);
         addIcons(Icon.EPISODE_VII, Icon.FIRST_ORDER, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.RESURGENT_CLASS_STAR_DESTROYER);
+        setMatchingPilotFilter(Filters.Pryde);
         setPilotCapacity(6);
         setPassengerCapacity(8);
         setStarfighterCapacity(2);
