@@ -46,6 +46,7 @@ public enum Species implements Filterable {
     HNEMTHE("H'nemthe", true),
     HUTT("Hutt", true),
     HYLOBON("Hylobon", true),
+    IMROOSIAN("Imroosian", true),
     IMZIG("Imzig", true),
     ISHI_TIB("Ishi Tib", true),
     ITHORIAN("Ithorian", true),
