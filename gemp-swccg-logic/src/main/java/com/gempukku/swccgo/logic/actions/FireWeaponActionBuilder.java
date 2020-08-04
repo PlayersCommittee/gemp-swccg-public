@@ -922,7 +922,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -933,19 +933,33 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic) {
-        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new FalseCondition(), false, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new FalseCondition(), false, 0, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
     }
 
     /**
      * Builds a fire weapon action that targets a card present with the weapon, draws destiny, and if successful affects the card's attributes.
-     * @param numDestiny the number of weapon destiny to draw
-     * @param statistic the statistic to compare total weapon destiny against
-     * @param resetForfeit true if the target's forfeit is reset if
+     *
+     * @param numDestiny                  the number of weapon destiny to draw
+     * @param statistic                   the statistic to compare total weapon destiny against
+     * @param resetForfeit                true if the target's forfeit is reset if
      * @param forfeitModifierOrResetValue the amount target's forfeit is modified by (or reset to if resetForfeit is true)
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, final boolean resetForfeit, final int forfeitModifierOrResetValue) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+    }
+
+    /**
+     * Builds a fire weapon action that targets a card present with the weapon, draws destiny, and if successful affects the card's attributes.
+     *
+     * @param numDestiny                  the number of weapon destiny to draw
+     * @param statistic                   the statistic to compare total weapon destiny against
+     * @param resetForfeit                true if the target's forfeit is reset if
+     * @param forfeitModifierOrResetValue the amount target's forfeit is modified by (or reset to if resetForfeit is true)
+     * @return the action
+     */
+    public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, final boolean resetForfeit, final int forfeitModifierOrResetValue, final int powerModifierValue) {
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, powerModifierValue, Filters.none, 0, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -958,7 +972,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic, final boolean resetForfeit, final int forfeitModifierOrResetValue) {
-        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -971,7 +985,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, Condition affectForfeitCondition, final boolean resetForfeit, final int forfeitModifierOrResetValue) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, affectForfeitCondition, resetForfeit, forfeitModifierOrResetValue, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, affectForfeitCondition, resetForfeit, forfeitModifierOrResetValue, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -985,7 +999,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic, Condition affectForfeitCondition, final boolean resetForfeit, final int forfeitModifierOrResetValue) {
-        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, affectForfeitCondition, resetForfeit, forfeitModifierOrResetValue, Filters.none, 0, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, affectForfeitCondition, resetForfeit, forfeitModifierOrResetValue, 0, Filters.none, 0, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -996,7 +1010,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, int opponentsForceLoss) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, 0, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
     }
 
 
@@ -1050,7 +1064,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, final Filter activateForceTargetFilter, final int activateForceAmount) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, Filters.none, 0, activateForceTargetFilter, activateForceAmount, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, 0, Filters.none, 0, activateForceTargetFilter, activateForceAmount, Filters.none, 0);
     }
 
     /**
@@ -1064,7 +1078,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic, final boolean resetForfeit, final int forfeitModifierOrResetValue, int opponentsForceLoss) {
-        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, 0, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -1078,7 +1092,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, final boolean resetForfeit, final int forfeitModifierOrResetValue, Filter forceLossTargetFilter, int opponentsForceLoss) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, forceLossTargetFilter, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new TrueCondition(), resetForfeit, forfeitModifierOrResetValue, 0, forceLossTargetFilter, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -1090,7 +1104,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic, int opponentsForceLoss) {
-        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new FalseCondition(), false, 0, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
+        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new FalseCondition(), false, 0, 0, Filters.any, opponentsForceLoss, Filters.none, 0, Filters.none, 0);
     }
 
     /**
@@ -1102,7 +1116,7 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, final Filter alternateDefenseValueFilter, final float alternateDefenseValue) {
-        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, Filters.none, 0, Filters.none, 0, alternateDefenseValueFilter, alternateDefenseValue);
+        return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, 0, Filters.none, 0, Filters.none, 0, alternateDefenseValueFilter, alternateDefenseValue);
     }
 
     /**
@@ -1123,7 +1137,8 @@ public class FireWeaponActionBuilder {
      * @return the action
      */
     private FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic,
-                                                                final Condition affectForfeitCondition, final boolean resetForfeit, final int forfeitModifierOrResetValue,
+                                                                final Condition affectForfeitCondition, final boolean resetForfeit,
+                                                                final int forfeitModifierOrResetValue, final int powerModifierValue,
                                                                 final Filter forceLossTargetFilter, final int opponentsForceLoss,
                                                                 final Filter activateForceTargetFilter, final int activateForceAmount,
                                                                 final Filter alternateDefenseValueFilter, final float alternateDefenseValue) {
@@ -1211,6 +1226,8 @@ public class FireWeaponActionBuilder {
                                                                     } else {
                                                                         if (opponentsForceLoss > 0 && forceLossTargetFilter.accepts(game, cardFiredAt)) {
                                                                             effectList.add(new HitCardModifyForfeitAndOpponentLosesForceEffect(action, cardFiredAt, forfeitModifierOrResetValue, opponentsForceLoss, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                                        } else if (forfeitModifierOrResetValue != 0 && powerModifierValue != 0) {
+                                                                            effectList.add(new HitCardAndModifyPowerAndForfeitEffect(action, cardFiredAt, powerModifierValue, forfeitModifierOrResetValue, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
                                                                         } else {
                                                                             effectList.add(new HitCardAndModifyForfeitEffect(action, cardFiredAt, forfeitModifierOrResetValue, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
                                                                         }
@@ -1684,15 +1701,14 @@ public class FireWeaponActionBuilder {
                                         // This needs to be done in case the target(s) were changed during the responses.
                                         final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
                                         _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
-
                                         if (untilEndOfTurn) {
                                             action.appendEffect(
                                                     new CancelGameTextUntilEndOfTurnEffect(action, cardFiredAt));
-                                        }
-                                        else {
+                                        } else {
                                             action.appendEffect(
                                                     new CancelGameTextEffect(action, cardFiredAt));
-                                        }
+                                            }
+
                                     }
                                 });
                     }
