@@ -11,19 +11,15 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
-import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -41,7 +37,7 @@ public class Card501_045 extends AbstractAlien {
     public Card501_045() {
         super(Side.DARK, 1, 6, 4, 3, 6, "Dryden Vos", Uniqueness.UNIQUE);
         setLore("Crimson Dawn leader. Gangster.");
-        setGameText("Deploys -2 while Maul on table. When deployed, may deploy a weapon here from Reserve Deck; reshuffle. Once during your control phase, may use 2 Force to fire Kyuzo Petars. Immune to attrition < 5 (< 3 if Qi’ra here).");
+        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. Once during your control phase, may use 2 Force to fire Kyuzo Petars. Immune to attrition < 5 (< 3 if with Qi'ra).");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER, Keyword.GANGSTER);
         setArmor(5);
@@ -78,7 +74,7 @@ public class Card501_045 extends AbstractAlien {
 
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.weapon, Filters.here(self), true));
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.weapon, Filters.sameCardId(self), true));
             return Collections.singletonList(action);
         }
         return null;
@@ -87,7 +83,7 @@ public class Card501_045 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter weaponFilter = Filters.and(Filters.title(Title.Kyuzo_Petars), Filters.attachedTo(self));
+        Filter weaponFilter = Filters.and(Filters.title("Dryden Vos's Kyuzo Petars"), Filters.attachedTo(self));
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
@@ -101,7 +97,7 @@ public class Card501_045 extends AbstractAlien {
             }
             
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Fire Kyuzo Petars");
+            action.setText("Fire Dryden Vos's Kyuzo Petars");
 
             // Update usage limit(s)
             action.appendUsage(new OncePerPhaseEffect(action));

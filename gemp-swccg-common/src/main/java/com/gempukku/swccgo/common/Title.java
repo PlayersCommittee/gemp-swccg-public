@@ -567,7 +567,6 @@ public interface Title {
     String Krennic = "Director Orson Krennic";
     String Kuat = "Kuat";
     String Kuat_Drive_Yards = "Kuat Drive Yards";
-    String Kyuzo_Petars = "Kyuzo Petars";
     String Lana_Dobreed = "Lana Dobreed";
     String Landing_Claw = "Landing Claw";
     String Landing_Platform = "Endor: Landing Platform (Docking Bay)";
