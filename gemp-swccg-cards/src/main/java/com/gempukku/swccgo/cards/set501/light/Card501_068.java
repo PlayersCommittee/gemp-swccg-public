@@ -27,7 +27,7 @@ public class Card501_068 extends AbstractSite {
         setLocationLightSideGameText("Jedi are power +2 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 2);
-        addIcons(Icon.INTERIOR_SITE, Icon.MOBILE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.DEATH_STAR_II, Icon.INTERIOR_SITE, Icon.MOBILE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
         setTestingText("Death Star II: Chasm Walkway");
     }
 
