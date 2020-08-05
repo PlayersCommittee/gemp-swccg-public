@@ -11,7 +11,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelForceIconModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
@@ -31,7 +31,7 @@ public class Card501_066 extends AbstractSite {
     public Card501_066() {
         super(Side.DARK, Title.Exegol_Sith_Throne, Title.Exegol);
         addIcon(Icon.DARK_FORCE, 2);
-        setLocationDarkSideGameText("Once per game, you may deploy [Episode VII] Emperor here from Lost Pile.");
+        setLocationDarkSideGameText("Once per game, you may deploy [Episode VII] Emperor here from Reserve Deck.");
         setLocationLightSideGameText("Force drains and [Light Side] icons are canceled here. Your characters deploy +2 here.");
         addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.EPISODE_VII, Icon.VIRTUAL_SET_13);
         setTestingText("Exegol: Sith Throne");
@@ -48,7 +48,7 @@ public class Card501_066 extends AbstractSite {
                     new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new DeployCardToLocationFromLostPileEffect(action, Filters.and(Filters.Emperor, Filters.icon(Icon.EPISODE_VII)), Filters.here(self), false)
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Filters.Emperor, Filters.icon(Icon.EPISODE_VII)), Filters.here(self), false)
             );
             return Collections.singletonList(action);
         }
