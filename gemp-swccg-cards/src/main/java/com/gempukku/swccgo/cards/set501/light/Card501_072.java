@@ -84,7 +84,7 @@ public class Card501_072 extends AbstractAlien {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Return to hand");
-            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");\
+            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
