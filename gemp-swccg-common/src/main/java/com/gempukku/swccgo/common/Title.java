@@ -241,6 +241,7 @@ public interface Title {
     String Death_Star_Conference_Room = "Death Star: Conference Room";
     String Death_Star_II = "Death Star II";
     String Death_Star_II_Docking_Bay = "Death Star II: Docking Bay";
+    String Death_Star_II_Chasm_Walkway = "Death Star II: Chasm Walkway";
     String Death_Star_Plans = "Death Star Plans";
     String Death_Star_Sentry = "Death Star Sentry";
     String Death_Star_Tractor_Beam = "Death Star Tractor Beam";

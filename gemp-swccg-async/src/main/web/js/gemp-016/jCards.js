@@ -3665,6 +3665,7 @@ var Card = Class.extend({
                    (cardNo == 56) ||
                    (cardNo == 57) ||
                    (cardNo == 66) ||
+                   (cardNo == 68) ||
                    (cardNo == 74) ||
                    (cardNo == 75);
         }
