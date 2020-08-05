@@ -2,7 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
@@ -27,6 +27,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+////You Know Who I Answer To
+////DARK - OBJECTIVE 7
+////Immediately recirculate; may 'peek' at top two cards of Reserve Deck and take one into hand.
+////While this side up, your starships and armed characters are power and immunity to attrition +2. If your gangster leader in battle, may add one destiny to your total power.
+////Flip this card at the end of each turn; you may retrieve a blaster or character with “Black Sun,” “Crimson Dawn” or “Hutt” in lore and, if you occupy 3 battlegrounds, opponent loses 1 Force.
+
 /**
  * Set: Set 13
  * Type: Objective
@@ -36,8 +42,8 @@ public class Card501_058_BACK extends AbstractObjective {
     public Card501_058_BACK() {
         super(Side.DARK, 7, "You Know Who I Answer To");
         setGameText("Immediately recirculate; may 'peek' at top two cards of Reserve Deck and take one into hand." +
-                "While this side up, your starships and armed characters are power and immunity to attrition +2. May lose a Force to add a battle destiny where you have an alien leader or a gangster (lose 2 Force if against Qi’ra to add 2 battle destiny instead)." +
-                "Flip this card at the end of each turn; you may retrieve a blaster (if you occupy 3 battlegrounds, opponent loses 1 Force).");
+                "While this side up, your starships and armed characters are power and immunity to attrition +2. If your gangster leader in battle, may add one destiny to your total power." +
+                "Flip this card at the end of each turn; you may retrieve a blaster or character with “Black Sun,” “Crimson Dawn” or “Hutt” in lore and, if you occupy 3 battlegrounds, opponent loses 1 Force.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("You Know Who I Answer To");
     }
@@ -80,11 +86,11 @@ public class Card501_058_BACK extends AbstractObjective {
                         new FlipCardEffect(action, self));
                 action.appendEffect(
                         new PlayoutDecisionEffect(action, playerId,
-                                new YesNoDecision("Retrieve a blaster?") {
+                                new YesNoDecision("Retrieve a card and make opponent lose 1 force?") {
                                     @Override
                                     protected void yes() {
                                         action.appendEffect(
-                                                new RetrieveCardEffect(action, playerId, Filters.blaster)
+                                                new RetrieveCardEffect(action, playerId, Filters.or(Filters.blaster, Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))
                                         );
                                     }
                                 }
@@ -104,11 +110,11 @@ public class Card501_058_BACK extends AbstractObjective {
                         new FlipCardEffect(action, self));
                 action.appendEffect(
                         new PlayoutDecisionEffect(action, playerId,
-                                new YesNoDecision("Retrieve a blaster?") {
+                                new YesNoDecision("Retrieve a card?") {
                                     @Override
                                     protected void yes() {
                                         action.appendEffect(
-                                                new RetrieveCardEffect(action, playerId, Filters.blaster)
+                                                new RetrieveCardEffect(action, playerId, Filters.or(Filters.blaster, Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))
                                         );
                                     }
                                 }
@@ -130,46 +136,30 @@ public class Card501_058_BACK extends AbstractObjective {
         modifiers.add(new PowerModifier(self, starshipsAndArmedCharacters, 2));
         modifiers.add(new ImmunityToAttritionChangeModifier(self, starshipsAndArmedCharacters, 2));
         //From front side
-        Filter independentCapitals = Filters.and(Icon.INDEPENDENT, Filters.capital_starship);
-        Filter ep1BountyHunters = Filters.and(Icon.EPISODE_I, Filters.bounty_hunter);
-        Filter loreCharacters = Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt"));
-        Filter keywordCharacters = Filters.or(Keyword.ASSASSIN, Keyword.GANGSTER);
-        Filter cardsThatMayNotDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE),
-                Filters.not(Filters.or(independentCapitals, ep1BountyHunters, loreCharacters, keywordCharacters)));
+        Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
+        Filter v13Maul = Filters.and(Icon.VIRTUAL_SET_13, Filters.Maul);
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, v13Maul, Filters.alien))));
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        // May lose a Force to add a battle destiny where you have an alien leader or a gangster (lose 2 Force if against Qi’ra to add 2 battle destiny instead).
         List<TopLevelGameTextAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId1 = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.or(Filters.alien_leader, Keyword.GANGSTER)))
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)) {
-            int numForceToLose = 1;
-            int numBattleDestiniesToAdd = 1;
-            String text = "Add 1 battle destiny";
-            String actionMsg = "Lose 1 force to add a battle destiny";
-            if (GameConditions.isDuringBattleWithParticipant(game, Persona.QIRA)) {
-                numForceToLose = 2;
-                numBattleDestiniesToAdd = 2;
-                text = "Add 2 battle destinies";
-                actionMsg = "Lose 2 force to add 2 battle destinies against Qi'ra";
-            }
+        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Keyword.GANGSTER)))
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)
+                && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
-            action.setText(text);
-            action.setActionMsg(actionMsg);
+            action.setText("Add 1 destiny to power.");
+            action.setActionMsg("Add 1 destiny to power.");
             action.appendUsage(
                     new OncePerBattleEffect(action)
             );
             action.appendEffect(
-                    new LoseForceEffect(action, playerId, numForceToLose)
-            );
-            action.appendEffect(
-                    new AddBattleDestinyEffect(action, numBattleDestiniesToAdd)
+                    new AddDestinyToTotalPowerEffect(action, 1)
             );
             actions.add(action);
         }

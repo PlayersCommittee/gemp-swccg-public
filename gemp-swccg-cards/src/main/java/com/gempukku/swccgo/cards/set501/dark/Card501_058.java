@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Set: Set 13
  * Type: Objective
@@ -34,19 +33,19 @@ public class Card501_058 extends AbstractObjective {
     public Card501_058() {
         super(Side.DARK, 0, "Shadow Collective");
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Maul’s Chambers. May deploy Reception Area. For remainder of game you may not deploy cards with ability (or [P]) except capital [Ind] starships, [Ep 1] bounty hunters, assassins, gangsters, and characters with Black Sun, Crimson Dawn, or Hutt in lore. Once per turn, may deploy a non-unique blaster or a card with First Light in title from Reserve Deck; reshuffle. Flip this card if you control 2 battlegrounds (and opponent controls no battleground site) during your control phase OR If you just 'hit' a character.");
+        setGameText("Deploy Maul’s Chambers. " +
+                "For remainder of game you may not deploy cards with ability except [Ind] starships, [V13] Maul, and aliens." +
+                "Once per turn, may deploy a non-unique blaster on your alien or a card with First Light in title from Reserve Deck; reshuffle." +
+                "Flip this card if you just 'hit' a character (OR if you have 4 characters with “Black Sun,” “Crimson Dawn,” “Hutt,” in lore on table during your deploy phase).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("Shadow Collective");
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        Filter independentCapitals = Filters.and(Icon.INDEPENDENT, Filters.capital_starship);
-        Filter ep1BountyHunters = Filters.and(Icon.EPISODE_I, Filters.bounty_hunter);
-        Filter loreCharacters = Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt"));
-        Filter keywordCharacters = Filters.or(Keyword.ASSASSIN, Keyword.GANGSTER);
-        Filter cardsThatMayNotDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE),
-                Filters.not(Filters.or(independentCapitals, ep1BountyHunters, loreCharacters, keywordCharacters)));
+        Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
+        Filter v13Maul = Filters.and(Icon.VIRTUAL_SET_13, Filters.Maul);
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, v13Maul, Filters.alien))));
         List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
@@ -93,14 +92,12 @@ public class Card501_058 extends AbstractObjective {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
 
         String playerId = self.getOwner();
-        String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeFlipped(game, self)
-                && GameConditions.isDuringYourPhase(game, playerId, Phase.CONTROL)
-                && GameConditions.controls(game, playerId, 2, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.battleground)
-                && !GameConditions.controls(game, opponent, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.battleground_site)) {
+                && GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY)
+                && GameConditions.canSpot(game, self, 4, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
