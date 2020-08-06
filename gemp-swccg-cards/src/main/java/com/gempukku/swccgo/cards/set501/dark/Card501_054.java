@@ -37,6 +37,7 @@ public class Card501_054 extends AbstractUsedOrLostInterrupt {
         setGameText("If you have two Crimson Dawn characters in battle together, draw destiny and subtract that amount from attrition against you. LOST: Deploy up to two Crimson Dawn characters from Reserve Deck; reshuffle. OR Cancel a hologram.");
         addIcons(Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.HOLOGRAM);
+        setTestingText("Working Much More Closely");
     }
 
 

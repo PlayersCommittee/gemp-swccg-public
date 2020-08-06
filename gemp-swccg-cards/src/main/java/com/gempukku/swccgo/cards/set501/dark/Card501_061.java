@@ -27,7 +27,7 @@ public class Card501_061 extends AbstractCharacterWeapon {
     public Card501_061() {
         super(Side.DARK, 4, "Black Sun Blaster", Uniqueness.RESTRICTED_3);
         setLore("Highly specialized weapon used for disintegration. Commonly found on the black market and in criminal arsenals. One of the favored weapons of the Black Sun.");
-        setGameText("Deploy on an alien warrior for 1 Force (free if your Black Sun leader on table). May target a character or vehicle; draw destiny. If destiny +1 > target's printed defense value, target hit and may not be used to satisfy attrition.");
+        setGameText("Use 1 Force to deploy on your alien warrior (free if your Black Sun agent leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and opponent loses 1 Force.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.BLASTER);
         setTestingText("Black Sun Blaster");
@@ -55,12 +55,12 @@ public class Card501_061 extends AbstractCharacterWeapon {
 
     @Override
     protected List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, final SwccgGame game, final PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
-        FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                .targetUsingForce(Filters.or(Filters.character, targetedAsCharacter, Filters.vehicle), 0, TargetingReason.TO_BE_HIT).finishBuildPrep();
+        FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, null, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
+                .targetForFree(Filters.or(Filters.character, targetedAsCharacter, Filters.vehicle), TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildDisruptorPistolVAction();
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 1, Statistic.DEFENSE_VALUE, 1);
             return Collections.singletonList(action);
         }
         return null;

@@ -3,13 +3,16 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -25,7 +28,7 @@ public class Card501_056 extends AbstractUniqueStarshipSite {
     public Card501_056() {
         super(Side.DARK, "First Light: Dryden’s Study", Persona.FIRST_LIGHT);
         setLocationDarkSideGameText("Once during your move phase, your Crimson Dawn leader may move between here and any site.");
-        setLocationLightSideGameText("During battle here, add 1 to each of your blaster weapon destiny draws.");
+        setLocationLightSideGameText("During battle here, your blaster weapon destinies are +1. Force drain -1 here (+1 instead if Vos on table)");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 0);
         addIcons(Icon.VIRTUAL_SET_13, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.MOBILE, Icon.STARSHIP_SITE);
@@ -75,6 +78,8 @@ public class Card501_056 extends AbstractUniqueStarshipSite {
 
         Filter blasterInBattle = Filters.and(Filters.participatingInBattle, Filters.blaster);
         modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), blasterInBattle, Filters.here(self)), 1));
+        modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new OnTableCondition(self, Filters.Vos)), -1, playerOnLightSideOfLocation));
+        modifiers.add(new ForceDrainModifier(self, new OnTableCondition(self, Filters.Vos), 1, playerOnLightSideOfLocation));
         return modifiers;
     }
 

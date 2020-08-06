@@ -10,10 +10,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotCancelBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -30,7 +27,7 @@ public class Card501_048 extends AbstractSith {
     public Card501_048() {
         super(Side.DARK, .5F, 4, 4, 6, 8, "Maul", Uniqueness.UNIQUE);
         setLore("Gangster. Crimson Dawn leader.");
-        setGameText("Never deploys to a battleground. Once per turn, if no other Dark Jedi on table, may add or subtract 1 from a just drawn weapon or battle destiny. Opponent may not cancel your weapon or battle destinies at sites.");
+        setGameText("Never deploys to a battleground. Once per turn, may add or subtract 1 from a just drawn weapon or battle destiny. Opponent may not cancel your weapon or battle destinies at sites. Immune to attrition < 5.");
         addPersona(Persona.MAUL);
         addKeywords(Keyword.GANGSTER, Keyword.CRIMSON_DAWN, Keyword.LEADER);
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
@@ -51,6 +48,7 @@ public class Card501_048 extends AbstractSith {
         String opponent = game.getOpponent(playerId);
         modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.and(Filters.your(playerId), Filters.at(Filters.site))));
         modifiers.add(new MayNotCancelBattleDestinyModifier(self, Filters.site, playerId, opponent));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         return modifiers;
     }
 
