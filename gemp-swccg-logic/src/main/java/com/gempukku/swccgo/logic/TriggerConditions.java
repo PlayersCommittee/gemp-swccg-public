@@ -1607,6 +1607,23 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card accepted by the moved card filter just took off.
+     *
+     * @param game            the game
+     * @param effectResult    the effect result
+     * @param movedCardFilter the moved card filter
+     * @return true or false
+     */
+    public static boolean justTookOff(SwccgGame game, EffectResult effectResult, Filterable movedCardFilter) {
+        if (effectResult.getType() == EffectResult.Type.TOOK_OFF) {
+            MovedResult movedResult = (MovedResult) effectResult;
+            Collection<PhysicalCard> movedCards = movedResult.getMovedCards();
+            return Filters.canSpot(movedCards, game, movedCardFilter);
+        }
+        return false;
+    }
+
+    /**
      * Determines if a card accepted by the moved card filter just landed at a location accepted by the to card filter.
      * @param game the game
      * @param effectResult the effect result
