@@ -52,7 +52,7 @@ public class Card501_059 extends AbstractStarfighter {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Condition hasVosAboardCondition = new HasAboardCondition(self, Filters.Vos);
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(3, 6, hasVosAboardCondition)));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, hasVosAboardCondition, 6));
         return modifiers;
     }
 
