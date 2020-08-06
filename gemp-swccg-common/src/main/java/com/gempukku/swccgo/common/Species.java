@@ -27,6 +27,7 @@ public enum Species implements Filterable {
     DEFEL("Defel", true),
     DELPHIDIAN("Delphidian", true),
     DEVARONIAN("Devaronian", true),
+    DOWUTIN("Dowutin", true),
     DRESSELIAN("Dresselian", true),
     DUG("Dug", true),
     DUROS("Duros", true),

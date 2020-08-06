@@ -3275,6 +3275,7 @@ var fixedImages = {
 "501_76":"/gemp-swccg/images/cards/Premiere-Dark/tatooine.gif",
 "501_77":"/gemp-swccg/images/cards/SpecialEdition-Dark/homingbeacon.gif",
 "501_78":"/gemp-swccg/images/cards/DeathStarII-Dark/thunderflare.gif",
+"501_79":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
 };
 
 var packBlueprints = {
