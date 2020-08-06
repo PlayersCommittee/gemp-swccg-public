@@ -90,7 +90,7 @@ public class Card501_058_BACK extends AbstractObjective {
                                     @Override
                                     protected void yes() {
                                         action.appendEffect(
-                                                new RetrieveCardEffect(action, playerId, Filters.or(Filters.blaster, Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))
+                                                new RetrieveCardEffect(action, playerId, Filters.or(Filters.blaster, Filters.and(Filters.character, Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))))
                                         );
                                     }
                                 }
