@@ -44,7 +44,7 @@ public class Card501_058 extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
         Filter v13Maul = Filters.and(Icon.VIRTUAL_SET_13, Filters.Maul);
-        Filter cardsThatMayNotDeploy = Filters.not(Filters.and(Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, v13Maul, Filters.alien)))));
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, v13Maul, Filters.alien)));
         List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
