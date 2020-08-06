@@ -14,7 +14,6 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -57,13 +56,6 @@ public class Card501_058 extends AbstractObjective {
         action.appendRequiredEffect(
                 new DeployCardFromReserveDeckEffect(action, Filters.title("Dathomir: Maul's Chambers"), true, false) {
 
-                });
-        action.appendRequiredEffect(
-                new DeployCardsFromReserveDeckEffect(action, Filters.title("First Light: Reception Area"), 0, 1, true, false) {
-                    @Override
-                    public String getChoiceText(int numCardsToChoose) {
-                        return "Choose Reception Area to deploy";
-                    }
                 });
         return action;
     }
