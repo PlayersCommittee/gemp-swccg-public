@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
+import com.gempukku.swccgo.cards.conditions.LandedCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -11,6 +12,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -52,7 +54,7 @@ public class Card501_059 extends AbstractStarfighter {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Condition hasVosAboardCondition = new HasAboardCondition(self, Filters.Vos);
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, hasVosAboardCondition, 6));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, new AndCondition(hasVosAboardCondition, new LandedCondition(self)), 6));
         return modifiers;
     }
 
