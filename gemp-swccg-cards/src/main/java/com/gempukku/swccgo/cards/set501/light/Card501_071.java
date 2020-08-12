@@ -42,6 +42,7 @@ public class Card501_071 extends AbstractNormalEffect {
                 "move phase, if your smuggler here, may place a" +
                 "stacked card on Force Pile. If total = 0, Kessel Run" +
                 "‘completed’ (place in Used Pile and retrieve 3 Force).");
+        setVirtualSuffix(true);
         setTestingText("Kessel Run (V)");
     }
 
