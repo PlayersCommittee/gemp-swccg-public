@@ -5916,7 +5916,7 @@ public class FireWeaponActionBuilder {
      * Builds a fire weapon action for Blaster Rifle (V).
      * @return the action
      */
-    public FireSingleWeaponAction buildBlasterRifleVAction() {
+    public FireSingleWeaponAction buildBlasterRifleVAction(final int plusorminus) {
         final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
         action.setText("Fire " + action.getWeaponTitle(_game));
 
@@ -5975,7 +5975,7 @@ public class FireWeaponActionBuilder {
                                                         }
                                                         gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(valueToCompare));
 
-                                                        if (totalDestiny > valueToCompare) {
+                                                        if (totalDestiny + plusorminus > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
                                                                     new HitCardAndMayNotBeUsedToSatisfyAttritionEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
