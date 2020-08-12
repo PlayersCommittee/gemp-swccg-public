@@ -11,6 +11,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
@@ -64,6 +65,9 @@ public class Card7_179 extends AbstractAlien {
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
+            action.appendCost(
+                    new UseForceEffect(action, playerId, 1)
+            );
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.Rodian, true));
