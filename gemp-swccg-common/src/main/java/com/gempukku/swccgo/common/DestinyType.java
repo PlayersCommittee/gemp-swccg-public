@@ -8,6 +8,7 @@ public enum DestinyType {
     BATTLE_DESTINY("battle destiny"),
     CARBON_FREEZING_DESTINY("carbon freezing destiny"),
     CHOKE_DESTINY("choke destiny"),
+    COAXIUM_DESTINY("coaxium destiny"),
     DARK_HOURS_DESTINY("dark hours destiny"),
     DESTINY("destiny"),
     DESTINY_TO_ATTRITION("destiny to attrition"),

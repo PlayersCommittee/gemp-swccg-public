@@ -45,7 +45,9 @@ public class StackDestinyCardEffect extends AbstractSubActionEffect {
                             PhysicalCard destinyCard = drawDestinyState.getDrawDestinyEffect().getDrawnDestinyCard();
                             if (destinyCard != null
                                     && destinyCard.getZone().isUnresolvedDestinyDraw()) {
+                                float destinyToUse = destinyCard.getDestinyValueToUse();
                                 gameState.removeCardFromZone(destinyCard);
+                                destinyCard.setDestinyValueToUse(destinyToUse);
                                 gameState.stackCard(destinyCard, _stackOn, false, false, false);
                                 gameState.sendMessage(_action.getPerformingPlayer() + " stacks just drawn destiny card, " + GameUtils.getCardLink(destinyCard) + ", on " + GameUtils.getCardLink(_stackOn));
                             }
