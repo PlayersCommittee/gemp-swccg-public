@@ -3295,7 +3295,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (target != null) {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.EXTRA_FORCE_COST_TO_DEPLOY_TO_TARGET, cardToDeploy)) {
                 if (modifier.isAffectedTarget(gameState, this, target)) {
-                    result += modifier.getValue(gameState, this, cardToDeploy);
+                    result += modifier.getValue(gameState, this, cardToDeploy, target);
                 }
             }
         }
