@@ -6,12 +6,12 @@ import com.gempukku.swccgo.logic.timing.Action;
 import java.util.Collections;
 
 /**
- * An effect to put stacked cards into the Used Pile.
+ * An effect to put stacked cards into the Force Pile.
  */
 public class PutStackedCardInForcePileEffect extends PutStackedCardsInForcePileEffect {
 
     /**
-     * Creates an effect that causes the player to put specified stacked cards in the specified card pile.
+     * Creates an effect that causes the player to put specified stacked cards in the Force pile.
      *
      * @param action   the action performing this effect
      * @param playerId the player

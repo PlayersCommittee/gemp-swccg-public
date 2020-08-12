@@ -31,7 +31,6 @@ import java.util.List;
 /**
  * Set: Set 13
  * Type: Effect
- * Subtype: Utinni
  * Title: Kessel Run (V)
  */
 public class Card501_071 extends AbstractNormalEffect {
