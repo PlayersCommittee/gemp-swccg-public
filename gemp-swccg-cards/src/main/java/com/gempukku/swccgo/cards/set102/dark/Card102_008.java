@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.results.MovingResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,10 +44,29 @@ public class Card102_008 extends AbstractLostInterrupt {
             final PhysicalCard starship = movingResult.getCardMoving();
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Target " + GameUtils.getFullName(starship));
+
+            final float highestAbilityPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false, false);
+            float highestAbilityCharacterPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false, true);
+            float highestAbilityPermanentPilotPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, true, false);
+
+            Filter targetFilter;
+            String text;
+
+            if (highestAbilityCharacterPiloting == highestAbilityPermanentPilotPiloting) {
+                targetFilter = Filters.or(starship, Filters.and(Filters.piloting(starship), Filters.abilityEqualTo(highestAbilityCharacterPiloting)));
+                text = "starship (permanent pilot) or pilot character aboard";
+            } else if (highestAbilityCharacterPiloting > highestAbilityPermanentPilotPiloting) {
+                targetFilter = Filters.and(Filters.piloting(starship), Filters.abilityEqualTo(highestAbilityCharacterPiloting));
+                text = "pilot character aboard";
+            } else {
+                targetFilter = Filters.sameCardId(starship);
+                text = "starship (permanent pilot)";
+            }
+
+            action.setText("Target " + text);
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose starship", targetingReason, starship) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose " + text, targetingReason, targetFilter) {
                         @Override
                         protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
@@ -63,6 +83,11 @@ public class Card102_008 extends AbstractLostInterrupt {
                                             action.appendEffect(
                                                     new DrawDestinyEffect(action, playerId) {
                                                         @Override
+                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                            return Collections.singletonList(finalTarget);
+                                                        }
+
+                                                        @Override
                                                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                                             GameState gameState = game.getGameState();
                                                             if (totalDestiny == null) {
@@ -71,15 +96,14 @@ public class Card102_008 extends AbstractLostInterrupt {
                                                             }
 
                                                             gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-                                                            float ability = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false);
-                                                            gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
+                                                            gameState.sendMessage("Ability: " + GuiUtils.formatAsString(highestAbilityPiloting));
 
-                                                            if (totalDestiny > ability) {
+                                                            if (totalDestiny > highestAbilityPiloting) {
                                                                 gameState.sendMessage("Result: Starship returns to original location");
                                                                 movingResult.getPreventableCardEffect().preventEffectOnCard(finalTarget);
                                                                 action.appendEffect(
                                                                         new MayNotMoveUntilEndOfTurnEffect(action, finalTarget));
-                                                            } else if (totalDestiny == ability) {
+                                                            } else if (totalDestiny == highestAbilityPiloting) {
                                                                 gameState.sendMessage("Result: Starship is lost");
                                                                 movingResult.getPreventableCardEffect().preventEffectOnCard(finalTarget);
                                                                 action.appendEffect(
