@@ -1650,14 +1650,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     @Override
-    public float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots) {
+    public float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots, boolean excludePermPilots) {
         SwccgCardBlueprint blueprint = physicalCard.getBlueprint();
         if (blueprint.getCardCategory()!=CardCategory.STARSHIP && blueprint.getCardCategory()!=CardCategory.VEHICLE)
             return 0;
 
         float result = 0;
         List<SwccgBuiltInCardBlueprint> permPilots = getPermanentPilotsAboard(gameState, physicalCard);
-        if (permPilots != null) {
+        if (!excludePermPilots && permPilots != null) {
             for (SwccgBuiltInCardBlueprint permPilot : permPilots) {
                 float permPilotAbility = permPilot.getAbility();
                 if (permPilotAbility == 1) {
