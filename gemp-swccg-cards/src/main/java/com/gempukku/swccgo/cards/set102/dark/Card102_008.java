@@ -35,7 +35,7 @@ public class Card102_008 extends AbstractLostInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
         TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
         Filter filter = Filters.and(Filters.opponents(self), Filters.starship, Filters.canBeTargetedBy(self, targetingReason));
 
@@ -82,9 +82,13 @@ public class Card102_008 extends AbstractLostInterrupt {
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new DrawDestinyEffect(action, playerId) {
+
                                                         @Override
                                                         protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                            return Collections.singletonList(finalTarget);
+                                                            if (Filters.character.accepts(game, finalTarget)) {
+                                                                return Collections.singletonList(finalTarget);
+                                                            }
+                                                            return null;
                                                         }
 
                                                         @Override
@@ -100,12 +104,12 @@ public class Card102_008 extends AbstractLostInterrupt {
 
                                                             if (totalDestiny > highestAbilityPiloting) {
                                                                 gameState.sendMessage("Result: Starship returns to original location");
-                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(finalTarget);
+                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(starship);
                                                                 action.appendEffect(
-                                                                        new MayNotMoveUntilEndOfTurnEffect(action, finalTarget));
+                                                                        new MayNotMoveUntilEndOfTurnEffect(action, starship));
                                                             } else if (totalDestiny == highestAbilityPiloting) {
                                                                 gameState.sendMessage("Result: Starship is lost");
-                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(finalTarget);
+                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(starship);
                                                                 action.appendEffect(
                                                                         new LoseCardFromTableEffect(action, starship));
                                                             } else {
