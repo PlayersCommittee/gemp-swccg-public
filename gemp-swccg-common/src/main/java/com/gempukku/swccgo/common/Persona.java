@@ -95,6 +95,7 @@ public enum Persona implements Filterable {
     VEERS("Veers"),
     VOS("Vos"),
     WEDGE("Wedge"),
+    WUHER("Wuher"),
     YODA("Yoda"),
     ZUCKUSS("Zuckuss"),
 

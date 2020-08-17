@@ -3276,6 +3276,7 @@ var fixedImages = {
 "501_77":"/gemp-swccg/images/cards/SpecialEdition-Dark/homingbeacon.gif",
 "501_78":"/gemp-swccg/images/cards/DeathStarII-Dark/thunderflare.gif",
 "501_79":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
+"501_87":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandobservatoryentrance.gif"
 };
 
 var packBlueprints = {
@@ -3668,7 +3669,8 @@ var Card = Class.extend({
                    (cardNo == 66) ||
                    (cardNo == 68) ||
                    (cardNo == 74) ||
-                   (cardNo == 75);
+                   (cardNo == 75) ||
+                   (cardNo == 87);
         }
 
         return false;

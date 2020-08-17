@@ -31,6 +31,7 @@ public class Card501_047 extends AbstractAlien {
         setSpecies(Species.IMROOSIAN);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.FEMALE);
         addIcon(Icon.VIRTUAL_SET_13);
+        addPersona(Persona.MARGO);
         setTestingText("Margo");
     }
 
