@@ -16,13 +16,16 @@ import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardsToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Set 13
@@ -55,32 +58,39 @@ public class Card501_058 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.title("Dathomir: Maul's Chambers"), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Dathomir_Mauls_Chambers), true, false) {
 
                 });
         // Check condition(s)
         if (GameConditions.canSpot(game, self, Filters.title(Title.Massassi_Throne_Room))) {
             action.appendOptionalEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.Maul, Filters.here(self), true, true));
+                    new DeployCardsToLocationFromReserveDeckEffect(action, Filters.Maul, 0, 1, Filters.title(Title.Dathomir_Mauls_Chambers), true, true) {
+                        public String getChoiceText(int numCardsToChoose) {
+                            return "Choose Maul to deploy";
+                        }
+                    });
         }
         return action;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a card from Reserve Deck");
+            ArrayList<String> options = new ArrayList<>();
+            options.add("Non-unique blaster");
+            options.add("Card with First Light in title");
             action.appendUsage(
                     new OncePerPhaseEffect(action)
             );
             action.appendEffect(
                     new PlayoutDecisionEffect(action, playerId,
-                            new MultipleChoiceAwaitingDecision("What would you like to deploy?", (ArrayList<String>) Arrays.asList("Non-Unique Blaster", "Card with First Light in title")) {
+                            new MultipleChoiceAwaitingDecision("What would you like to deploy?", options) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {

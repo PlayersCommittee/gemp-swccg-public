@@ -5965,7 +5965,7 @@ public class FireWeaponActionBuilder {
                                                             return;
                                                         }
 
-                                                        gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                        gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny + plusorminus));
                                                         float valueToCompare;
                                                         if (_targetedAsCharacter != null && _targetedAsCharacter.accepts(game, cardFiredAt)) {
                                                             valueToCompare = _defenseValueAsCharacter;

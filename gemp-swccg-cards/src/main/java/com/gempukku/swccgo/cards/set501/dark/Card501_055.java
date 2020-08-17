@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card501_055 extends AbstractSite {
     public Card501_055() {
-        super(Side.DARK, "Dathomir: Maul's Chambers", Title.Dathomir);
+        super(Side.DARK, Title.Dathomir_Mauls_Chambers, Title.Dathomir);
         setLocationDarkSideGameText("May deploy Maul here from Reserve Deck; reshuffle");
         setLocationLightSideGameText("Jar Jar and your spies (except Ezra) may not deploy here. Opponent may not force drain here.");
         addIcon(Icon.DARK_FORCE, 2);

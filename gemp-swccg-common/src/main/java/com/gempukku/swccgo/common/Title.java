@@ -230,6 +230,7 @@ public interface Title {
     String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Dathomir = "Dathomir";
+    String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
     String Dead_Ewok = "Dead Ewok";
