@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card501_058 extends AbstractObjective {
     public Card501_058() {
-        super(Side.DARK, 0, "Shadow Collective");
+        super(Side.DARK, 0, Title.Shadow_Collective);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Maul’s Chambers. " +
                 "For remainder of game you may not deploy cards with ability except [Ind] starships, [V13] Maul, and aliens." +
