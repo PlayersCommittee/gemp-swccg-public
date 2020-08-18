@@ -26,13 +26,6 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import java.util.LinkedList;
 import java.util.List;
 
-
-////You Know Who I Answer To
-////DARK - OBJECTIVE 7
-////Immediately recirculate; may 'peek' at top two cards of Reserve Deck and take one into hand.
-////While this side up, your starships and armed characters are power and immunity to attrition +2. If your gangster leader in battle, may add one destiny to your total power.
-////Flip this card at the end of each turn; you may retrieve a blaster or character with “Black Sun,” “Crimson Dawn” or “Hutt” in lore and, if you occupy 3 battlegrounds, opponent loses 1 Force.
-
 /**
  * Set: Set 13
  * Type: Objective
