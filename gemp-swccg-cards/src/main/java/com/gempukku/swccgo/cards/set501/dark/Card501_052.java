@@ -63,7 +63,7 @@ public class Card501_052 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.hasInHand(game, playerId, Filters.character)
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Place a character from hand on Used pile");
             // Allow response(s)
             action.allowResponses(
@@ -83,7 +83,7 @@ public class Card501_052 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
-        GameTextActionId gameTextActionId2 = GameTextActionId.I_NEVER_ASK_FOR_ANYTHING_TWICE__UPLOAD_CARD;
+        GameTextActionId gameTextActionId2 = GameTextActionId.I_NEVER_ASK_FOR_ANYTHING_TWICE__EXCHANGE;
 
         if (GameConditions.isOncePerGame(game, self, gameTextActionId2)
                 && GameConditions.numCardsInHand(game, playerId) >= 2
