@@ -230,6 +230,7 @@ public interface Title {
     String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Dathomir = "Dathomir";
+    String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
     String Dead_Ewok = "Dead Ewok";
@@ -291,6 +292,7 @@ public interface Title {
     String Droid_Shutdown = "Droid Shutdown";
     String Droid_Starfighter_Laser_Cannons = "Droid Starfighter Laser Cannons";
     String Droid_Workshop = "Jabba's Palace: Droid Workshop";
+    String Dyden_Vos_s_Kyuzo_Petars = "Dryden Vos’s Kyuzo Petars";
     String DS_181_3 = "DS-181-3";
     String DS_181_4 = "DS-181-4";
     String DS_61_5 = "DS-61-5";
