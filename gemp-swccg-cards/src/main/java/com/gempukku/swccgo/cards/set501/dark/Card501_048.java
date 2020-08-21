@@ -64,25 +64,25 @@ public class Card501_048 extends AbstractSith {
                 && GameConditions.isAlone(game, self)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
 
-            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.appendUsage(
-                    new OncePerTurnEffect(action)
+            OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action1.setText("Add 1 to destiny draw");
+            action1.appendUsage(
+                    new OncePerTurnEffect(action1)
             );
-            action.setText("Add 1 to destiny draw");
             // Perform result(s)
-            action.appendEffect(
-                    new ModifyDestinyEffect(action, 1));
-            actions.add(action);
+            action1.appendEffect(
+                    new ModifyDestinyEffect(action1, 1));
+            actions.add(action1);
 
-            action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.appendUsage(
-                    new OncePerTurnEffect(action)
+            OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action2.setText("Subtract 1 from destiny draw");
+            action2.appendUsage(
+                    new OncePerTurnEffect(action2)
             );
-            action.setText("Subtract 1 from destiny draw");
             // Perform result(s)
-            action.appendEffect(
-                    new ModifyDestinyEffect(action, -1));
-            actions.add(action);
+            action2.appendEffect(
+                    new ModifyDestinyEffect(action2, -1));
+            actions.add(action2);
         }
         return actions;
     }

@@ -2696,15 +2696,6 @@ public class GameConditions {
         return !Filters.filter(game.getGameState().getStackedCards(card), game, filter).isEmpty();
     }
 
-    public static boolean hasStackedCardsTotalDestinyIsEqualTo(SwccgGame game, PhysicalCard card, float valueToCompare) {
-        float totalDestinyStacked = 0;
-        Collection<PhysicalCard> stackedCards = Filters.filterStacked(game, Filters.stackedOn(card));
-        for (PhysicalCard stackedCard : stackedCards) {
-            totalDestinyStacked = totalDestinyStacked + stackedCard.getDestinyValueToUse();
-        }
-        return totalDestinyStacked == valueToCompare;
-    }
-
     /**
      * Checks if the player has a race destiny.
      * @param game the game

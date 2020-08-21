@@ -14,12 +14,14 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -30,27 +32,13 @@ import java.util.List;
  */
 public class Card501_036 extends AbstractStarfighter {
     public Card501_036() {
-        super(Side.LIGHT, 2, 3, 2, null, 0, 6, 5, "Plo Koon's Jedi Starfighter", Uniqueness.UNIQUE);
-        setGameText("May add 1 Jedi pilot. * = pilot's ability. Plo deploys -1 aboard. While Plo piloting, Power +2, once per turn if your weapon or battle destiny was just drawn here, may cancel and cause a re-draw and Immune to Attrition < 3.");
+        super(Side.LIGHT, 2, 2, 2, null, 0, 6, 5, "Plo Koon's Jedi Starfighter", Uniqueness.UNIQUE);
+        setGameText("May add 1 Jedi pilot. *Maneuver = pilot's ability. While Plo piloting, power +2, immune to attrition < 3, and once per turn, may cancel and redraw your weapon or battle destiny just drawn here.");
         addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_13);
         addModelType(ModelType.JEDI_INTERCEPTOR);
         setPilotCapacity(1);
         setMatchingPilotFilter(Filters.persona(Persona.PLO));
         setTestingText("Plo Koon's Jedi Starfighter");
-    }
-
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Persona.PLO, -1));
-        return modifiers;
-    }
-
-    @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToTargetModifier(self, Persona.PLO, -1, self));
-        return modifiers;
     }
 
     @Override

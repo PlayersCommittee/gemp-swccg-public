@@ -12,7 +12,6 @@ import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +40,6 @@ public class Card501_060 extends AbstractCharacterWeapon {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefinedByGameTextDeployCostModifier(self, 1));
         modifiers.add(new DeploysFreeModifier(self, self, new OnTableCondition(self, crimsonDawnLeader)));
-        modifiers.add(new TotalWeaponDestinyModifier(self, 1, Filters.or(Filters.character, Filters.vehicle)));
         return modifiers;
     }
 
@@ -62,7 +60,7 @@ public class Card501_060 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildBlasterRifleVAction();
+            FireWeaponAction action = actionBuilder.buildBlasterRifleVAction(1);
             return Collections.singletonList(action);
         }
         return null;
