@@ -2,17 +2,22 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
+import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
+import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
+import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.choose.StealCardIntoHandFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,52 +31,67 @@ import java.util.List;
  */
 public class Card501_067 extends AbstractAlien {
     public Card501_067() {
-        super(Side.LIGHT, 2, 3, 3, 4, 5, "Qi'ra", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 4, 3, "Qi'ra", Uniqueness.UNIQUE);
         setLore("Female thief. Correlian");
-        setGameText("Qi’ra’s deploy cost may not be increased. May use any ‘stolen’ weapon. Once per game, Qi’ra may steal a non-lightsaber character weapon (or device) into hand from opponent’s Lost pile. While Han on table, Qi’ra and Han are each defense value = 5 and immune to attrition < 5");
+        setGameText("When forfeited from same location as Han or Vos, may satisfy all remaining battle damage against you. If you just initiated a battle or Force drain at same battleground and you have completed a Kessel Run, opponent loses 1 Force. Immune to attrition < 3 (< 5 if armed).");
         addPersona(Persona.QIRA);
         setSpecies(Species.CORELLIAN);
-        addKeywords(Keyword.FEMALE, Keyword.THIEF);
+        addKeywords(Keyword.FEMALE, Keyword.THIEF, Keyword.SMUGGLER);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
+        setArmor(5);
         setTestingText("Qi'ra");
     }
 
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotHaveDeployCostIncreasedModifier(self));
-        return modifiers;
-    }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        Condition hanOnTableCondition = new OnTableCondition(self, Filters.Han);
-        Filter hanAndQiraFilter = Filters.or(Filters.Han, self);
-        modifiers.add(new MayNotHaveDeployCostIncreasedModifier(self));
-        modifiers.add(new MayUseWeaponModifier(self, Filters.stolen));
-        modifiers.add(new ResetDefenseValueModifier(self, hanAndQiraFilter, hanOnTableCondition, 5));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, hanAndQiraFilter, hanOnTableCondition, 5));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(3, 5, new ArmedWithCondition(self, Filters.any))));
         return modifiers;
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.QIRA__STEAL_WEAPON_OR_DEVICE_INTO_HAND;
-
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSearchOpponentsLostPile(game, playerId, self, gameTextActionId)) {
+        if (GameConditions.hasCompletedUtinniEffect(game, self.getOwner(), Filters.Kessel_Run)
+                && (TriggerConditions.battleInitiatedAt(game, effectResult, self.getOwner(), Filters.and(Filters.sameLocation(self), Filters.battleground)) ||
+                TriggerConditions.forceDrainInitiatedBy(game, effectResult, self.getOwner(), Filters.and(Filters.sameLocation(self), Filters.battleground)))) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Steal card from Lost Pile");
-            action.setActionMsg("Steal a card from opponent's Lost Pile");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerGameEffect(action));
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Make opponent lose 1 Force");
+            action.setActionMsg("Make opponent lose 1 Force");
             // Perform result(s)
             action.appendEffect(
-                    new StealCardIntoHandFromLostPileEffect(action, playerId, Filters.or(Filters.device, Filters.and(Filters.character_weapon, Filters.not(Filters.lightsaber)))));
+                    new LoseForceEffect(action, game.getOpponent(self.getOwner()), 1));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.isResolvingBattleDamageAndAttrition(game, effectResult, playerId)
+                && GameConditions.canForfeitToSatisfyAttritionAndBattleDamage(game, playerId, self)
+                && GameConditions.isInBattleWith(game, self, Filters.or(Filters.Han, Filters.Vos))) {
+            boolean cannotSatisfyAttrition = game.getModifiersQuerying().cannotSatisfyAttrition(game.getGameState(), self);
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            if (cannotSatisfyAttrition)
+                action.setText("Forfeit to satisfy all battle damage");
+            else
+                action.setText("Forfeit to satisfy all battle damage and attrition");
+            // Pay cost(s)
+            action.appendCost(
+                    new ForfeitCardFromTableEffect(action, self));
+            action.setActionMsg(null);
+            // Perform result(s)
+            if (cannotSatisfyAttrition)
+                action.appendEffect(
+                        new SatisfyAllBattleDamageEffect(action, playerId));
+            else
+                action.appendEffect(
+                        new SatisfyAllBattleDamageAndAttritionEffect(action, playerId));
             return Collections.singletonList(action);
         }
         return null;
