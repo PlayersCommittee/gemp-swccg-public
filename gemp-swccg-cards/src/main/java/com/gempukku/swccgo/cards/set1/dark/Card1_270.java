@@ -109,7 +109,7 @@ public class Card1_270 extends AbstractUsedInterrupt {
                                                                                             if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY)) {
                                                                                                 opponentsManeuver = modifiersQuerying.getManeuver(gameState, opponentsFinalTarget);
                                                                                                 gameState.sendMessage(GameUtils.getCardLink(opponentsFinalTarget) + "'s maneuver: " + GuiUtils.formatAsString(opponentsManeuver));
-                                                                                                opponentsAbility = modifiersQuerying.getHighestAbilityPiloting(gameState, opponentsFinalTarget, false);
+                                                                                                opponentsAbility = modifiersQuerying.getHighestAbilityPiloting(gameState, opponentsFinalTarget, false, false);
                                                                                                 gameState.sendMessage(GameUtils.getCardLink(opponentsFinalTarget) + "'s pilot's ability: " + GuiUtils.formatAsString(opponentsAbility));
                                                                                             }
 

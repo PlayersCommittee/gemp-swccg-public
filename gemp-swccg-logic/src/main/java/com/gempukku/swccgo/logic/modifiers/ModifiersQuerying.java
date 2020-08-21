@@ -406,7 +406,7 @@ public interface ModifiersQuerying {
      */
     boolean hasPoliticsEqualTo(GameState gameState, PhysicalCard card, float value);
 
-    float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots);
+    float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots, boolean excludePermPilots);
 
     List<Float> getAbilityOfPilotsAboard(GameState gameState, PhysicalCard physicalCard);
 

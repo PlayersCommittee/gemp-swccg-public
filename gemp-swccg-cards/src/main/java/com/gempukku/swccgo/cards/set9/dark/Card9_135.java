@@ -147,7 +147,7 @@ public class Card9_135 extends AbstractEpicEventDeployable {
                                                                             if (Filters.character.accepts(game, pilot))
                                                                                 pilotAbility = modifiersQuerying.getAbility(gameState, pilot);
                                                                             else
-                                                                                pilotAbility = modifiersQuerying.getHighestAbilityPiloting(gameState, pilot, true);
+                                                                                pilotAbility = modifiersQuerying.getHighestAbilityPiloting(gameState, pilot, true, false);
                                                                             Modifier modifier = new TotalDestinyModifier(self, drawDestinyState.getId(), new AddEvaluator(pilotAbility, new ConditionEvaluator(0, 3, new ArmedWithCondition(starfighter, Filters.or(Filters.torpedo, Filters.missile)))));
                                                                             return Collections.singletonList(modifier);
                                                                         }
