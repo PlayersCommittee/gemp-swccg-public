@@ -37,12 +37,11 @@ public class Card501_071 extends AbstractNormalEffect {
     public Card501_071() {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE);
         setLore("Planet Kessel has infamous glitterstim spice mines attracting smugglers and pirates. A 'Kessel run' is a long, dangerous hyper-route they must travel quickly.");
-        setGameText("Deploy on Kessel and draw destiny, stacking face up" +
-                "here, until total > 12 (can't deploy otherwise). Once per" +
-                "move phase, if your smuggler here, may place a" +
-                "stacked card on Force Pile. If total = 0, Kessel Run" +
-                "‘completed’ (place in Used Pile and retrieve 3 Force).");
-        setVirtualSuffix(true);
+        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking" +
+                "face up here until total > 12 (cannot deploy otherwise)." +
+                "During each move phase, if your smuggler here, place" +
+                "a 'coaxium' card on Force Pile. When no 'coaxium'" +
+                "cards here, place Effect in Used Pile; retrieve 3 Force.");
         setTestingText("Kessel Run (V)");
     }
 
@@ -97,7 +96,7 @@ public class Card501_071 extends AbstractNormalEffect {
         }
 
         if (self.getWhileInPlayData() != null
-                && GameConditions.hasStackedCardsTotalDestinyIsEqualTo(game, self, 0)) {
+                && !GameConditions.hasStackedCards(game, self)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Complete Kessel Run");
             action.setActionMsg("Complete Kessel Run");

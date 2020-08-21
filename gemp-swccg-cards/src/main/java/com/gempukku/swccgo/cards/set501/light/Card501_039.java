@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +31,7 @@ public class Card501_039 extends AbstractCharacterWeapon {
     public Card501_039() {
         super(Side.LIGHT, 5, "Rock");
         setLore("");
-        setGameText("Deploy on your warrior or Ewok. May “throw” (place in Used pile) to target a character at same site. Target is power -3 (if Proxima, she is excluded from battle) for remainder of turn. If deployed on a Correlian, you take the first weapon phase action during battle.");
+        setGameText("Deploy on your warrior or Ewok. May “throw” (place in Used pile) to target a character at same site. Target is power -3 (if Proxima, she is excluded from battle) for remainder of turn. If deployed on a Correlian, you take the first weapon phase action during battle with Rock.");
         addIcon(Icon.VIRTUAL_SET_13);
         setTestingText("Rock");
     }

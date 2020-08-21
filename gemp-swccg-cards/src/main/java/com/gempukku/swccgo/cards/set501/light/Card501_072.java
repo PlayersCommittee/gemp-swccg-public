@@ -12,7 +12,6 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
@@ -33,7 +32,7 @@ public class Card501_072 extends AbstractAlien {
     public Card501_072() {
         super(Side.LIGHT, 3, 2, 2, 3, 5, "Captain Lando Calrissian", Uniqueness.UNIQUE);
         setLore("Smuggler and gambler.");
-        setGameText("Adds 2 to power of anything he pilots. If a battle was just initiated, may \"smuggle\" (exchange) a card in hand with an Interrupt of destiny = 4 from Reserve deck; reshuffle. Once per game, if a Kessel Run completed, may take Lando into hand from table.");
+        setGameText("Adds 2 to power of anything he pilots. If a battle was just initiated, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve deck; reshuffle. Once per game, if a Kessel Run completed, may take Lando into hand from table.");
         addPersona(Persona.LANDO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER);
@@ -46,7 +45,6 @@ public class Card501_072 extends AbstractAlien {
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         return modifiers;
     }
-
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
@@ -76,11 +74,11 @@ public class Card501_072 extends AbstractAlien {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.LANDO__RETURN_TO_HAND;
 
         // Check condition(s)
         if (GameConditions.hasCompletedUtinniEffect(game, playerId, Filters.Kessel_Run)
-                && GameConditions.isOncePerGame(game, self, GameTextActionId.LANDO__RETURN_TO_HAND)) {
+                && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Return to hand");
