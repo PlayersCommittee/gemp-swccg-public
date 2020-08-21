@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card501_062 extends AbstractCharacterWeapon {
     public Card501_062() {
-        super(Side.DARK, 2, "Dryden Vos’s Kyuzo Petars", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Dyden_Vos_s_Kyuzo_Petars, Uniqueness.UNIQUE);
         setLore("");
         setGameText(" Deploy on Vos. If present at an opponent's site, may use 1 Force to add 1 to Force drain here. May target a character for free. Draw two destiny. If total destiny -2 > defense value, target hit and you may lose top card of Force Pile to place target in Lost Pile.");
         addIcons(Icon.VIRTUAL_SET_13);

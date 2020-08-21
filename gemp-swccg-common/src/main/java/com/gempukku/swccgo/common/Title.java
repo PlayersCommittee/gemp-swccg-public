@@ -95,6 +95,7 @@ public interface Title {
     String Bith_Shuffle = "The Bith Shuffle";
     String Black_4 = "Black 4";
     String Black_5 = "Black 5";
+    String Black_Sun_Blaster = "Black Sun Blaster";
     String Blast_The_Door_Kid = "Blast The Door, Kid!";
     String Blasted_Droid = "Blasted Droid";
     String Blaster_Deflection = "Blaster Deflection";
@@ -207,6 +208,7 @@ public interface Title {
     String Covert_Landing = "Covert Landing";
     String Crash_Site_Memorial = "Crash Site Memorial";
     String Credits_Will_Do_Fine = "Credits Will Do Fine";
+    String Crimson_Dawn_Blaster = "Crimson Dawn Blaster";
     String Crossfire = "Crossfire";
     String Cyborg_Construct = "Cyborg Construct";
     String Dagobah = "Dagobah";
@@ -230,6 +232,7 @@ public interface Title {
     String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
     String Dathomir = "Dathomir";
+    String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
     String Dead_Ewok = "Dead Ewok";
@@ -291,6 +294,7 @@ public interface Title {
     String Droid_Shutdown = "Droid Shutdown";
     String Droid_Starfighter_Laser_Cannons = "Droid Starfighter Laser Cannons";
     String Droid_Workshop = "Jabba's Palace: Droid Workshop";
+    String Dyden_Vos_s_Kyuzo_Petars = "Dryden Vos’s Kyuzo Petars";
     String DS_181_3 = "DS-181-3";
     String DS_181_4 = "DS-181-4";
     String DS_61_5 = "DS-61-5";
@@ -866,6 +870,7 @@ public interface Title {
     String Sewer = "Xizor's Palace: Sewer";
     String S_foils = "S-foils";
     String SFS_Lx93_Laser_Cannons = "SFS L-s9.3 Laser Cannons";
+    String Shadow_Collective = "Shadow Collective";
     String Shield_Gate = "Shield Gate";
     String Shmi = "Shmi Skywalker";
     String Shocking_Information = "Shocking Information";
@@ -1095,6 +1100,7 @@ public interface Title {
     String You_Can_Either_Profit_By_This = "You Can Either Profit By This...";
     String You_Cannot_Hide_Forever = "You Cannot Hide Forever";
     String You_Do_Have_Your_Moments = "You Do Have Your Moments";
+    String You_Know_Who_I_Answer_To = "You Know Who I Answer To";
     String You_May_Start_Your_Landing = "You May Start Your Landing";
     String You_Must_Confront_Vader = "You Must Confront Vader";
     String You_Overestimate_Their_Chances = "You Overestimate Their Chances";
