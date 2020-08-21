@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card501_060 extends AbstractCharacterWeapon {
     public Card501_060() {
-        super(Side.DARK, 3, "Crimson Dawn Blaster", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, Title.Crimson_Dawn_Blaster, Uniqueness.RESTRICTED_3);
         setLore("");
         setGameText("Use 1 Force to deploy on your warrior (free if your Crimson Dawn leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and may not be used to satisfy attrition.");
         addIcons(Icon.VIRTUAL_SET_13);
