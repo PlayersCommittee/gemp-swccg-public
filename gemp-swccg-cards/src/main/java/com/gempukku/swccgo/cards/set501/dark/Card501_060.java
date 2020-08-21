@@ -12,7 +12,6 @@ import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class Card501_060 extends AbstractCharacterWeapon {
     public Card501_060() {
-        super(Side.DARK, 3, "Crimson Dawn Blaster", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, Title.Crimson_Dawn_Blaster, Uniqueness.RESTRICTED_3);
         setLore("");
         setGameText("Use 1 Force to deploy on your warrior (free if your Crimson Dawn leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and may not be used to satisfy attrition.");
         addIcons(Icon.VIRTUAL_SET_13);
@@ -41,7 +40,6 @@ public class Card501_060 extends AbstractCharacterWeapon {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefinedByGameTextDeployCostModifier(self, 1));
         modifiers.add(new DeploysFreeModifier(self, self, new OnTableCondition(self, crimsonDawnLeader)));
-        modifiers.add(new TotalWeaponDestinyModifier(self, 1, Filters.or(Filters.character, Filters.vehicle)));
         return modifiers;
     }
 
@@ -62,7 +60,7 @@ public class Card501_060 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildBlasterRifleVAction();
+            FireWeaponAction action = actionBuilder.buildBlasterRifleVAction(1);
             return Collections.singletonList(action);
         }
         return null;

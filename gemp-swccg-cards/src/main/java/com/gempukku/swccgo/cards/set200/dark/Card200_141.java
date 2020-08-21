@@ -58,7 +58,7 @@ public class Card200_141 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildBlasterRifleVAction();
+            FireWeaponAction action = actionBuilder.buildBlasterRifleVAction(0);
             return Collections.singletonList(action);
         }
         return null;

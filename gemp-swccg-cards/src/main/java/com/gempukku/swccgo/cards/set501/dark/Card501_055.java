@@ -8,14 +8,11 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -29,35 +26,12 @@ import java.util.List;
  */
 public class Card501_055 extends AbstractSite {
     public Card501_055() {
-        super(Side.DARK, "Dathomir: Maul's Chambers", Title.Dathomir);
-        setLocationDarkSideGameText("May deploy Maul here from Reserve Deck; reshuffle (at start of game if Massassi Throne Room on table)");
+        super(Side.DARK, Title.Dathomir_Mauls_Chambers, Title.Dathomir);
+        setLocationDarkSideGameText("May deploy Maul here from Reserve Deck; reshuffle");
         setLocationLightSideGameText("Jar Jar and your spies (except Ezra) may not deploy here. Opponent may not force drain here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
         setTestingText("Dathomir: Maul's Chambers");
-    }
-
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.MAULS_CHAMBERS__DOWNLOAD_MAUL;
-
-        // Check condition(s)
-        if (TriggerConditions.isStartingLocationsAndObjectivesCompletedStep(game, effectResult)
-                && (GameConditions.canSpot(game, self, Filters.title(Title.Massassi_Throne_Room)))
-                && GameConditions.canDeployCardFromReserveDeck(game, playerOnDarkSideOfLocation, self, gameTextActionId, true, false, Persona.MAUL)) {
-
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Maul from Reserve Deck");
-            action.setActionMsg("Deploy Maul from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.Maul, Filters.here(self), true, true));
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 
     @Override

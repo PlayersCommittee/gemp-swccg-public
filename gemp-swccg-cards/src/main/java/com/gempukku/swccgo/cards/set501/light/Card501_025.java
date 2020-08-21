@@ -1,9 +1,8 @@
 package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.SatisfyAllAttritionEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,13 +10,13 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.FireWeaponAction;
+import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableUsingForfeitValueEffect;
 import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -35,7 +34,7 @@ public class Card501_025 extends AbstractAlien {
     public Card501_025() {
         super(Side.LIGHT, 2, 2, 2, 2, 4, "Val", Uniqueness.UNIQUE);
         setLore("Female scout, smuggler, and thief.");
-        setGameText("Once per turn, may 'smuggle' (deploy for free from Reserve Deck; reshuffle) a blaster onto your smuggler here. May forfeit instead of your 'hit' smuggler here, restoring that smuggler to normal (if Beckett, Val also satisfies all attrition against you).");
+        setGameText("May forfeit in place of your 'hit' [Set 13] smuggler here, restoring that smuggler to normal. Permanent weapon is Blaster Pistol (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
         addKeywords(Keyword.FEMALE, Keyword.SCOUT, Keyword.SMUGGLER, Keyword.THIEF);
         addIcons(Icon.VIRTUAL_SET_13, Icon.WARRIOR);
         setTestingText("Val");
@@ -43,63 +42,34 @@ public class Card501_025 extends AbstractAlien {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.VAL__DOWNLOAD_WEAPON;
-        Filter smugglerHere = Filters.and(Filters.your(self), Filters.character, Filters.smuggler, Filters.present(self));
-
-        // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canSpot(game, self, smugglerHere)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy blaster from Reserve Deck");
-            action.setActionMsg("Deploy (smuggle) a blaster from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.blaster, smugglerHere, true,true));
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter targetFilter = Filters.and(Filters.your(playerId), Filters.other(self), Filters.hit, Filters.character, Filters.smuggler, Filters.atSameSite(self));
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        Filter targetFilter = Filters.and(Filters.your(playerId), Filters.hit, Filters.and(Filters.smuggler, Filters.icon(Icon.VIRTUAL_SET_13)), Filters.presentWith(self));
 
         // Check condition(s)
         if (TriggerConditions.isResolvingBattleDamageAndAttrition(game, effectResult, playerId)
+                && GameConditions.isInBattle(game, self)
                 && GameConditions.canTarget(game, self, targetFilter)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Forfeit to restore 'hit' smuggler");
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Forfeit to restore 'hit' character");
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose 'hit' smuggler", targetFilter) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose 'hit' character", targetFilter) {
                         @Override
                         protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
                             action.addAnimationGroup(cardTargeted);
                             // Pay cost(s)
                             action.appendCost(
-                                    new ForfeitCardFromTableEffect(action, self));
+                                    new ForfeitCardFromTableUsingForfeitValueEffect(action, self, 0));
                             // Allow response(s)
                             action.allowResponses("Restore " + GameUtils.getCardLink(cardTargeted) + " to normal",
                                     new UnrespondableEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
-
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new RestoreCardToNormalEffect(action, cardTargeted));
-
-                                            if (Filters.Beckett.accepts(game, cardTargeted)) {
-                                                action.appendEffect(
-                                                        new SatisfyAllAttritionEffect(action, playerId)
-                                                );
-                                            }
                                         }
                                     });
                         }
@@ -108,5 +78,25 @@ public class Card501_025 extends AbstractAlien {
             return Collections.singletonList(action);
         }
         return null;
+    }
+
+    @Override
+    protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("Blaster Pistol") {
+            @Override
+            public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
+                FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
+                        .targetForFree(Filters.or(Filters.character, targetedAsCharacter, Filters.creature), TargetingReason.TO_BE_HIT).finishBuildPrep();
+                if (actionBuilder != null) {
+
+                    // Build action using common utility
+                    FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 1, Statistic.DEFENSE_VALUE, true, 0);
+                    return Collections.singletonList(action);
+                }
+                return null;
+            }
+        };
+        permanentWeapon.addKeyword(Keyword.BLASTER);
+        return permanentWeapon;
     }
 }

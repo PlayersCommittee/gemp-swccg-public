@@ -83,7 +83,7 @@ public class Card501_045 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter weaponFilter = Filters.and(Filters.title("Dryden Vos's Kyuzo Petars"), Filters.attachedTo(self));
+        Filter weaponFilter = Filters.and(Filters.title(Title.Dyden_Vos_s_Kyuzo_Petars), Filters.attachedTo(self));
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
