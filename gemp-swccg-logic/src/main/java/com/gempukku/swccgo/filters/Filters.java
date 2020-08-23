@@ -17494,6 +17494,7 @@ public class Filters {
     public static final Filter Finalizer = Filters.title(Title.Finalizer);
     public static final Filter Finn = Filters.title(Title.Finn);
     public static final Filter First_Light = Filters.persona(Persona.FIRST_LIGHT);
+    public static final Filter First_Light_site = Filters.siteOfStarshipOrVehicle(Persona.FIRST_LIGHT, false);
     public static final Filter First_Marker = Filters.keyword(Keyword.MARKER_1);
     public static final Filter First_Order_character = Filters.and(Icon.FIRST_ORDER, CardCategory.CHARACTER);
     public static final Filter First_Order_leader = Filters.and(Icon.FIRST_ORDER, CardCategory.CHARACTER, Keyword.LEADER);

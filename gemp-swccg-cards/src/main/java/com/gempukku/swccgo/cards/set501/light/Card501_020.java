@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set501.light;
 
-import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
@@ -26,7 +26,7 @@ import java.util.List;
  * Subtype: Rebel
  * Title: Han... Solo
  */
-public class Card501_020 extends AbstractRebel {
+public class Card501_020 extends AbstractAlien {
     public Card501_020() {
         super(Side.LIGHT, 1, 2, 3, 3, 5, "Han... Solo", Uniqueness.UNIQUE);
         setLore("Smuggler, gambler, and thief. Correlian.");

@@ -65,7 +65,7 @@ public class Card201_006 extends AbstractDroid {
                 || TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, self))) {
             final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
             final PhysicalCard cardToBeLost = result.getCardAboutToLeaveTable();
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Place in Used Pile");
             action.setActionMsg("Place " + GameUtils.getCardLink(self) + " in Used Pile when forfeited");
             action.appendUsage(
