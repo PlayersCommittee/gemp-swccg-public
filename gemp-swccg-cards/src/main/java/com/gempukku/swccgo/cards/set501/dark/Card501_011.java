@@ -39,8 +39,8 @@ public class Card501_011 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        Filter yourRelatedBigOne = Filters.and(Filters.your(self.getOwner()), Filters.sameCardId(self.getAttachedTo()), Filters.Big_One);
-        modifiers.add(new IconModifier(self, yourRelatedBigOne, Icon.LIGHT_FORCE));
+        Filter yourRelatedBigOne = Filters.and(Filters.your(self.getOwner()), Filters.relatedSectorTo(self, Filters.sameCardId(self.getAttachedTo())), Filters.Big_One);
+        modifiers.add(new IconModifier(self, yourRelatedBigOne, Icon.LIGHT_FORCE, 1));
         return modifiers;
     }
 
