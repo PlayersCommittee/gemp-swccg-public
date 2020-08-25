@@ -61,7 +61,6 @@ public class Card501_048 extends AbstractSith {
         // Check condition(s)
         if ((TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult)
                 || TriggerConditions.isBattleDestinyJustDrawn(game, effectResult))
-                && GameConditions.isAlone(game, self)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
 
             OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);

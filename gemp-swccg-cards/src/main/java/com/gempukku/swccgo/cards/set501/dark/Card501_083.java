@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MinEvaluator;
@@ -47,10 +48,11 @@ public class Card501_083 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         Evaluator valueOfX = new MinEvaluator(new ConstantEvaluator(3), new HereEvaluator(self, Filters.musician));
         Condition aboardFirstLightCondition = new AboardCondition(self, Filters.persona(Persona.FIRST_LIGHT));
+        Condition atFirstLightSite = new AtCondition(self, Filters.First_Light_site);
         Condition withVosCondition = new WithCondition(self, Filters.Vos);
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DefenseValueModifier(self, self, new OrCondition(aboardFirstLightCondition, withVosCondition), valueOfX));
-        modifiers.add(new ForceDrainModifier(self, Filters.here(self), new OrCondition(aboardFirstLightCondition, withVosCondition), valueOfX, self.getOwner()));
+        modifiers.add(new DefenseValueModifier(self, self, new OrCondition(aboardFirstLightCondition, withVosCondition, atFirstLightSite), valueOfX));
+        modifiers.add(new ForceDrainModifier(self, Filters.here(self), new OrCondition(aboardFirstLightCondition, withVosCondition, atFirstLightSite), valueOfX, self.getOwner()));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, valueOfX));
         return modifiers;
     }

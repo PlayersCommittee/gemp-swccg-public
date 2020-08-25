@@ -84,13 +84,14 @@ public class Card501_071 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.justDeployed(game, effectResult, self)) {
+        if (TriggerConditions.justDeployed(game, effectResult, self)
+                && GameConditions.hasReserveDeck(game, self.getOwner())) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Draw 'coaxium' destiny");
             action.setActionMsg("Draw 'coaxium' destiny");
 
             // Perform result(s)
-            drawCoaxiumDestiny(action, self, game, self.getOwner(), gameTextSourceCardId);
+            drawCoaxiumDestiny(action, self, self.getOwner(), gameTextSourceCardId);
 
             actions.add(action);
         }
@@ -118,9 +119,8 @@ public class Card501_071 extends AbstractNormalEffect {
     }
 
 
-    private void drawCoaxiumDestiny(final Action action, final PhysicalCard self, SwccgGame game, final String playerId, final int gameTextSourceCardId) {
+    private void drawCoaxiumDestiny(final Action action, final PhysicalCard self, final String playerId, final int gameTextSourceCardId) {
         // Perform result(s)
-        if (GameConditions.hasReserveDeck(game, playerId)) {
             action.appendEffect(
                     new DrawDestinyEffect(action, playerId, 1) {
                         @Override
@@ -128,7 +128,7 @@ public class Card501_071 extends AbstractNormalEffect {
                             ActionProxy actionProxy = new AbstractActionProxy() {
                                 @Override
                                 public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-                                    List<TriggerAction> actions = new LinkedList<TriggerAction>();
+                                    List<TriggerAction> actions = new LinkedList<>();
                                     // Check condition(s)
                                     if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
                                             && GameConditions.canStackDestinyCard(game)) {
@@ -165,16 +165,18 @@ public class Card501_071 extends AbstractNormalEffect {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             if (self.getWhileInPlayData().getFloatValue() <= 12) {
-                                drawCoaxiumDestiny(action, self, game, playerId, gameTextSourceCardId);
+                                if (GameConditions.hasReserveDeck(game, playerId)) {
+                                    drawCoaxiumDestiny(action, self, playerId, gameTextSourceCardId);
+                                } else {
+                                    game.getGameState().sendMessage("Result: Failed. (No cards left in Reserve Deck to draw for coaxium destiny.");
+                                    action.appendEffect(
+                                            new ReturnCardToHandFromTableEffect(action, self, Zone.RESERVE_DECK)
+                                    );
+                                }
+                            } else {
+                                game.getGameState().sendMessage("Result: Success. Total coaxium destiny = " + self.getWhileInPlayData().getFloatValue());
                             }
                         }
                     });
-
-        } else {
-            game.getGameState().sendMessage("Coaxium destiny never exceeded 12, deployment failed.");
-            action.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action, self, Zone.RESERVE_DECK)
-            );
-        }
     }
 }

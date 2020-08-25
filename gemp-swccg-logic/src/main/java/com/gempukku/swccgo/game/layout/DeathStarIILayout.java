@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.game.layout;
 
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 
 import java.util.ArrayList;
@@ -38,7 +39,9 @@ public class DeathStarIILayout extends AbstractSystemLayout {
                 new LocationReversibleGroupOrder(
                         //  A) Throne Room
                         new LocationGroup("Throne Room", Filters.Throne_Room),
-                        //  B) Docking bay
+                        //  B) Chasm Walkway
+                        new LocationGroup("Chasm Walkway", Filters.title(Title.Death_Star_II_Chasm_Walkway)),
+                        //  C) Docking bay
                         new LocationGroup("Docking bay", Filters.and(Filters.docking_bay, Filters.partOfSystem(systemName)))));
 
         List<LocationGroup> fixedGroupOrder = new ArrayList<LocationGroup>();

@@ -47,7 +47,7 @@ public class Card501_078 extends AbstractCapitalStarship {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceIconsEqualizedModifier(self, Filters.sameSystem(self), new AloneCondition(self)));
+        modifiers.add(new ForceIconsEqualizedModifier(self, Filters.sameLocation(self), new AloneCondition(self)));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, new HasAboardCondition(self, Filters.Pryde), 6));
         return modifiers;
     }
