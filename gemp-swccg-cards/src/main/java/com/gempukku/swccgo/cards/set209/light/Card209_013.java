@@ -9,7 +9,6 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromBottomOfUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
@@ -32,7 +31,8 @@ public class Card209_013 extends AbstractRebel {
         super(Side.LIGHT, 3, 2, 2, 2, 4, "Taidu Sefla", Uniqueness.UNIQUE);
         setLore("Trooper.");
         setGameText("When deployed (or just lost), may draw bottom card of Used Pile. During battle, may subtract X (limit 3) from a just drawn weapon or battle destiny, where X = number of your spies out of play. Your spies here are immune to Nevar Yalnal.");
-        addIcons(Icon. WARRIOR, Icon.VIRTUAL_SET_9);
+        addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_9);
+        addPersona(Persona.SEFLA);
         addKeywords(Keyword.TROOPER);
     }
 
@@ -103,7 +103,4 @@ public class Card209_013 extends AbstractRebel {
 
         return null;
     }
-
-
-
 }
