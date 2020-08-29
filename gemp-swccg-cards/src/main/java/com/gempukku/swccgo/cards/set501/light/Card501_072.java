@@ -35,7 +35,7 @@ public class Card501_072 extends AbstractAlien {
         setGameText("Adds 2 to power of anything he pilots. If a battle was just initiated, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve deck; reshuffle. Once per game, if a Kessel Run completed, may take Lando into hand from table.");
         addPersona(Persona.LANDO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
-        addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER);
+        addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER, Keyword.CAPTAIN);
         setTestingText("Captain Lando Calrissian");
     }
 

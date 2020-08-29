@@ -28,7 +28,7 @@ public class Card200_004 extends AbstractRebel {
         setLore("Scout.");
         setGameText("Artillery weapons here are 'powered'. Permanent weapon is Blaster Cannon (may target a character, creature, or vehicle at same or adjacent site for free; draw destiny; target 'hit' and forfeit = 0 if destiny +1 > defense value).");
         addIcons(Icon.HOTH, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_0);
-        addKeywords(Keyword.SCOUT);
+        addKeywords(Keyword.SCOUT, Keyword.CAPTAIN);
     }
 
     @Override

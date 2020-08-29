@@ -25,6 +25,7 @@ public enum Keyword implements Filterable {
     CAN_RELEASE_CAPTIVES("Can release captives", false),
     CANNON("Cannon", false),
     CANYON("Canyon", true),
+    CAPTAIN("Captain", true),
     CLONE_TROOPER("Clone Trooper", true),
     CLOUD_CITY_LOCATION("Cloud City Location", false),
     CLOUD_CITY_TROOPER("Cloud City Trooper", true),

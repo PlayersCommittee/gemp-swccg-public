@@ -33,7 +33,7 @@ public class Card14_007 extends AbstractAlien {
         setLore("Gungan leader of the forces that patrol and protect the city of Otoh Gunga. Consistently placed in the top ten of the Big Nasty Free-For-All.");
         setGameText("Adds 1 to power of your other Gungans at same site. Opponent's characters may not move to underwater sites. Once per turn, if you just drew a Gungan for battle destiny, may deploy that Gungan for free to cancel that destiny and re-draw.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
         setSpecies(Species.GUNGAN);
     }
 
