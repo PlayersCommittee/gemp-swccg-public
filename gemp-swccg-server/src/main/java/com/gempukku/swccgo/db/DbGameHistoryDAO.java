@@ -32,8 +32,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                     statement.setString(8, tournament);
                     statement.setString(9, winnerDeckName);
                     statement.setString(10, loserDeckName);
-                    statement.setString(11, winnerDeckArchetype);
-                    statement.setString(12, loserDeckArchetype);
+                    statement.setString(11, (winnerDeckArchetype==null?"":winnerDeckArchetype));
+                    statement.setString(12, (loserDeckArchetype==null?"":loserDeckArchetype));
                     statement.setString(13, winnerSide);
                     statement.setLong(14, startDate.getTime());
                     statement.setLong(15, endDate.getTime());
