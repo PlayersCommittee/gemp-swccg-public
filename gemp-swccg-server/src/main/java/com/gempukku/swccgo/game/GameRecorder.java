@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.game;
 
 import com.gempukku.swccgo.common.ApplicationConfiguration;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.state.EventSerializer;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import com.gempukku.swccgo.game.state.GameEvent;
@@ -62,7 +63,7 @@ public class GameRecorder {
             @Override
             public void finishRecording(String winner, String winReason, String loser, String loseReason) {
                 Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
-                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, tournament, deckNames.get(winner), deckNames.get(loser), startData, new Date());
+                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, tournament, deckNames.get(winner), deckNames.get(loser), swccgo.getDeckArchetypeLabel(winner), swccgo.getDeckArchetypeLabel(loser), swccgo.getWinningSide().getHumanReadable(), startData, new Date());
             }
         };
     }
