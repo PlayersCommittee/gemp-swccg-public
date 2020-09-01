@@ -8,7 +8,7 @@ function formatToTwoDigits(no) {
 }
 
 function formatDate(date) {
-    return monthNames[date.getMonth()] + " " + date.getDate() + " " + formatToTwoDigits(date.getHours()) + ":" + formatToTwoDigits(date.getMinutes()) + ":" + formatToTwoDigits(date.getSeconds());
+    return monthNames[date.getMonth()] + " " + date.getDate() + " " + (date.getDate()-100+2000) + " " + formatToTwoDigits(date.getHours()) + ":" + formatToTwoDigits(date.getMinutes()) + ":" + formatToTwoDigits(date.getSeconds());
 }
 
 function formatPrice(price) {
