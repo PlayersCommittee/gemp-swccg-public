@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.game;
 
 import com.gempukku.swccgo.common.ApplicationConfiguration;
-import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.state.EventSerializer;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import com.gempukku.swccgo.game.state.GameEvent;
