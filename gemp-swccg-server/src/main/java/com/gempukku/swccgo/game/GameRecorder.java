@@ -58,12 +58,13 @@ public class GameRecorder {
             swccgoGame.addGameStateListener(playerId, recordChannel);
             recordingChannels.put(playerId, recordChannel);
         }
-
+        final SwccgGameMediator mediator = swccgoGame;
+        
         return new GameRecordingInProgress() {
             @Override
             public void finishRecording(String winner, String winReason, String loser, String loseReason) {
                 Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
-                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, tournament, deckNames.get(winner), deckNames.get(loser), swccgo.getDeckArchetypeLabel(winner), swccgo.getDeckArchetypeLabel(loser), swccgo.getWinningSide().getHumanReadable(), startData, new Date());
+                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, tournament, deckNames.get(winner), deckNames.get(loser), mediator.getDeckArchetypeLabel(winner), mediator.getDeckArchetypeLabel(loser), mediator.getWinningSide().getHumanReadable(), startData, new Date());
             }
         };
     }
