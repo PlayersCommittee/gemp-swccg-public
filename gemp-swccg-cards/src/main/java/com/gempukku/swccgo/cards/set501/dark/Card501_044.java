@@ -36,7 +36,7 @@ public class Card501_044 extends AbstractDarkJediMaster {
     }
 
     @Override
-    public List<Modifier> getWhileInPlayModifiers(SwccgGame game, PhysicalCard self) {
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new DefenseValueModifier(self, new ArmedWithCondition(self, Filters.lightsaber), 1));
         modifiers.add(new PowerModifier(self, Filters.and(Filters.Jedi, Filters.here(self)), -1));
