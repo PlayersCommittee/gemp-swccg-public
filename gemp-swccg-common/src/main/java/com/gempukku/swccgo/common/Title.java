@@ -354,6 +354,7 @@ public interface Title {
     String Fearless_And_Inventive = "Fearless And Inventive";
     String Fel = "Baron Soontir Fel";
     String Feltipern_Trevagg = "Feltipern Trevagg";
+    String Field_Promotion = "Field Promotion";
     String Fighters_Coming_In = "Fighters Coming In";
     String Finalizer = "Finalizer";
     String Finn = "Finn";

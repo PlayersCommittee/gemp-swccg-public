@@ -8,10 +8,8 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromHandEffect;
-import com.gempukku.swccgo.logic.effects.PutRandomCardsFromHandOnUsedPileEffect;
-import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -34,7 +32,7 @@ public class Card2_135 extends AbstractUsedOrLostInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
         final String opponent = game.getOpponent(playerId);
 
@@ -75,6 +73,11 @@ public class Card2_135 extends AbstractUsedOrLostInterrupt {
                                     new RevealOpponentsHandEffect(action, playerId) {
                                         @Override
                                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.MONNOK__PUT_TWO_CARDS_IN_USED)) {
+                                                action.appendEffect(
+                                                        new PutCardsFromHandOnUsedPileEffect(action, opponent, 0, 2)
+                                                );
+                                            }
                                             action.appendEffect(
                                                     new LoseCardsFromHandEffect(action, opponent, Filters.and(Filters.duplicatesOfInHand(opponent), Filters.canBeTargetedBy(self))));
                                         }
