@@ -78,7 +78,7 @@ public class Card209_009 extends AbstractResistance {
                     new UseForceEffect(action, playerId, 1));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Evacuation_Control, Filters.and(Filters.Resistance, Filters.or(Filters.transport, Filters.bomber))), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Evacuation_Control, Filters.and(Filters.resistance, Filters.or(Filters.transport, Filters.bomber))), true));
             actions.add(action);
         }
 

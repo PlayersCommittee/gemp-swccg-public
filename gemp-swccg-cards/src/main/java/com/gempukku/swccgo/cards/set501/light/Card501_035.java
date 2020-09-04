@@ -54,11 +54,11 @@ public class Card501_035 extends AbstractCapitalStarship {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Resistance Leader from Reserve Deck");
-            action.setActionMsg("Deploy a Resistance Leader aboard " + GameUtils.getCardLink(self) + " from Reserve Deck");
+            action.setText("Deploy Resistance female from Reserve Deck");
+            action.setActionMsg("Deploy a Resistance female aboard " + GameUtils.getCardLink(self) + " from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.and(Filters.Resistance, Filters.female), Filters.sameCardId(self), true, true));
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.and(Filters.resistance, Filters.female), Filters.sameCardId(self), true, true));
             return Collections.singletonList(action);
         }
         return null;
