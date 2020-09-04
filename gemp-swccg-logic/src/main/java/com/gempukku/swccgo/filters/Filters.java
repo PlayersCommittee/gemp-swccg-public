@@ -17872,7 +17872,7 @@ public class Filters {
     public static final Filter Maul = Filters.persona(Persona.MAUL);
     public static final Filter Mauls_Lightsaber = Filters.persona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);
     public static final Filter Maul_Strikes = Filters.title(Title.Maul_Strikes);
-    public static final Filter Maz = Filters.persona(Persona.Maz);
+    public static final Filter Maz = Filters.persona(Persona.MAZ);
     public static final Filter Mazs_Castle = Filters.title(Title.Mazs_Castle);
     public static final Filter Mazs_Castle_Location = Filters.keyword(Keyword.MAZS_CASTLE_LOCATION);
     //public static final Filter Mazs_Castle_Site= Filters.and(Filters.keyword(Keyword.MAZS_CASTLE_LOCATION), Filters.site);
@@ -17880,6 +17880,7 @@ public class Filters {
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);
     public static final Filter Meditation_Chamber = Filters.title(Title.Meditation_Chamber);
     public static final Filter medium_transport = Filters.keyword(Keyword.MEDIUM_TRANSPORT);
+    public static final Filter Melshi = Filters.persona(Persona.MELSHI);
     public static final Filter Meson_Martinet = Filters.title(Title.Meson_Martinet);
     public static final Filter Mianda = Filters.title(Title.Mianda);
     public static final Filter Miiyoom_Onith = Filters.title(Title.Miiyoom_Onith);
@@ -18219,6 +18220,7 @@ public class Filters {
     public static final Filter Security_Precautions = Filters.title(Title.Security_Precautions);
     public static final Filter Security_Tower = Filters.title(Title.Security_Tower);
     public static final Filter seeker = Filters.keyword(Keyword.SEEKER);
+    public static final Filter Sefla = Filters.persona(Persona.SEFLA);
     public static final Filter Sei_Taria = Filters.title(Title.Sei_Taria);
     public static final Filter senator = Filters.keyword(Keyword.SENATOR);
     public static final Filter Sense = Filters.title(Title.Sense);
