@@ -12,6 +12,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -36,60 +37,66 @@ public class Card2_048 extends AbstractLostInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
-        Filter filter = Filters.and(Filters.opponents(self), Filters.spy, Filters.at(Filters.sameSiteAs(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Filters.your(self), Filters.spy))));
-        TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
+        final Filter yourSpy = Filters.and(Filters.your(self), Filters.spy, Filters.at(Filters.site), Filters.canBeTargetedBy(self), Filters.with(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Filters.opponents(playerId), Filters.spy, Filters.canBeTargetedBy(self))));
 
         // Check condition(s)
-        if (GameConditions.canTarget(game, self, SpotOverride.INCLUDE_UNDERCOVER, targetingReason, filter)) {
+        if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_UNDERCOVER, yourSpy)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Make opponent's spy lost");
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose opponent's spy", SpotOverride.INCLUDE_UNDERCOVER, targetingReason, filter) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose your spy", SpotOverride.INCLUDE_UNDERCOVER, yourSpy) {
                         @Override
-                        protected void cardTargeted(final int targetGroupId, final PhysicalCard opponentsSpy) {
-                            action.addAnimationGroup(opponentsSpy);
-                            // Allow response(s)
-                            action.allowResponses("Make " + GameUtils.getCardLink(opponentsSpy) + " lost",
-                                    new RespondablePlayCardEffect(action) {
+                        protected void cardSelected(PhysicalCard yourSpy) {
+                            Filter opponentSpy = Filters.and(Filters.opponents(playerId), Filters.spy, Filters.atSameSite(yourSpy), Filters.canBeTargetedBy(self));
+                            action.appendTargeting(
+                                    new TargetCardOnTableEffect(action, playerId, "Choose opponent's spy", SpotOverride.INCLUDE_UNDERCOVER, TargetingReason.TO_BE_LOST, opponentSpy) {
                                         @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Get the targeted card(s) from the action using the targetGroupId.
-                                            // This needs to be done in case the target(s) were changed during the responses.
-                                            final PhysicalCard finalOpponentsSpy = action.getPrimaryTargetCard(targetGroupId);
-
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new DrawDestinyEffect(action, playerId) {
+                                        protected void cardTargeted(final int targetGroupId, final PhysicalCard opponentsSpy) {
+                                            action.addAnimationGroup(opponentsSpy);
+                                            // Allow response(s)
+                                            action.allowResponses("Make " + GameUtils.getCardLink(opponentsSpy) + " lost",
+                                                    new RespondablePlayCardEffect(action) {
                                                         @Override
-                                                        protected List<Modifier> getDrawDestinyModifiers(SwccgGame game, DrawDestinyState drawDestinyState) {
-                                                            if (Filters.undercover_spy.accepts(game, finalOpponentsSpy)) {
-                                                                Modifier modifier = new TotalDestinyModifier(self, drawDestinyState.getId(), 2);
-                                                                return Collections.singletonList(modifier);
-                                                            }
-                                                            return null;
-                                                        }
-                                                        @Override
-                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                                                            GameState gameState = game.getGameState();
-                                                            if (totalDestiny == null) {
-                                                                gameState.sendMessage("Result: Failed due to failed destiny draw");
-                                                                return;
-                                                            }
+                                                        protected void performActionResults(Action targetingAction) {
+                                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                                            // This needs to be done in case the target(s) were changed during the responses.
+                                                            final PhysicalCard finalOpponentsSpy = action.getPrimaryTargetCard(targetGroupId);
 
-                                                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-                                                            if (totalDestiny > 2) {
-                                                                gameState.sendMessage("Result: Succeeded");
-                                                                action.appendEffect(
-                                                                        new LoseCardFromTableEffect(action, finalOpponentsSpy));
-                                                            }
-                                                            else {
-                                                                gameState.sendMessage("Result: Failed");
-                                                            }
+                                                            // Perform result(s)
+                                                            action.appendEffect(
+                                                                    new DrawDestinyEffect(action, playerId) {
+                                                                        @Override
+                                                                        protected List<Modifier> getDrawDestinyModifiers(SwccgGame game, DrawDestinyState drawDestinyState) {
+                                                                            if (Filters.undercover_spy.accepts(game, finalOpponentsSpy)) {
+                                                                                Modifier modifier = new TotalDestinyModifier(self, drawDestinyState.getId(), 2);
+                                                                                return Collections.singletonList(modifier);
+                                                                            }
+                                                                            return null;
+                                                                        }
+
+                                                                        @Override
+                                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                                            GameState gameState = game.getGameState();
+                                                                            if (totalDestiny == null) {
+                                                                                gameState.sendMessage("Result: Failed due to failed destiny draw");
+                                                                                return;
+                                                                            }
+
+                                                                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                                            if (totalDestiny > 2) {
+                                                                                gameState.sendMessage("Result: Succeeded");
+                                                                                action.appendEffect(
+                                                                                        new LoseCardFromTableEffect(action, finalOpponentsSpy));
+                                                                            } else {
+                                                                                gameState.sendMessage("Result: Failed");
+                                                                            }
+                                                                        }
+                                                                    }
+                                                            );
                                                         }
                                                     }
                                             );
