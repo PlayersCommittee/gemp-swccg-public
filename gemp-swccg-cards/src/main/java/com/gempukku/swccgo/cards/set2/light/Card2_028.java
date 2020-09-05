@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Set: A New Hope
- * Type: Effect
+ * Type: Device
  * Title: Remote
  */
 public class Card2_028 extends AbstractDevice {

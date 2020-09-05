@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Coruscant
+ * Set: Set 9
  * Type: Effect
  * Title: An Inkling Of Its Destructive Potential
  *

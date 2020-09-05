@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virutal Set 11
+ * Set: Set 11
  * Type: Interrupt
  * Subtype: Used or Lost
  * Title: Force Projection

@@ -23,6 +23,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Kamino: Clone Birthing Center
+ */
 public class Card211_042 extends AbstractSite {
     public Card211_042() {
         super(Side.LIGHT, "Kamino: Clone Birthing Center", "Kamino");

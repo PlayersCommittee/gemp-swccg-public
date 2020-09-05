@@ -25,53 +25,53 @@ import java.util.List;
  */
 
 public class Card211_059 extends AbstractRebel {
-        public Card211_059() {
-            super(Side.LIGHT, 1, 5, 5, 6, 7, "Ahsoka Tano", Uniqueness.UNIQUE);
-            setLore("Female Togruta.");
-            setGameText("Subtracts 1 from opponent's battle destiny draws here. During any deploy phase, if a Padawan or a Sith character at an adjacent site, Ahsoka may move to that site (using landspeed) as a regular move. Immune to [Permanent Weapon] weapons and attrition < 5.");
-            addIcons(Icon.PILOT, Icon.WARRIOR,Icon.WARRIOR, Icon.VIRTUAL_SET_11);
-            addKeywords(Keyword.FEMALE);
-            setSpecies(Species.TOGRUTA);
-            addPersona(Persona.AHSOKA);
-        }
+    public Card211_059() {
+        super(Side.LIGHT, 1, 5, 5, 6, 7, "Ahsoka Tano", Uniqueness.UNIQUE);
+        setLore("Female Togruta.");
+        setGameText("Subtracts 1 from opponent's battle destiny draws here. During any deploy phase, if a Padawan or a Sith character at an adjacent site, Ahsoka may move to that site (using landspeed) as a regular move. Immune to [Permanent Weapon] weapons and attrition < 5.");
+        addIcons(Icon.PILOT, Icon.WARRIOR,Icon.WARRIOR, Icon.VIRTUAL_SET_11);
+        addKeywords(Keyword.FEMALE);
+        setSpecies(Species.TOGRUTA);
+        addPersona(Persona.AHSOKA);
+    }
 
-        @Override
-        protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-            List<Modifier> modifiers = new LinkedList<Modifier>();
-            modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), -1, game.getDarkPlayer()));
-            //it might be self, Filter.self
-            modifiers.add(new MayNotBeTargetedByPermanentWeaponsModifier(self));
-            modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
-            return modifiers;
-        }
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), -1, game.getDarkPlayer()));
+        //it might be self, Filter.self
+        modifiers.add(new MayNotBeTargetedByPermanentWeaponsModifier(self));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
+        return modifiers;
+    }
 
-        //new action: move
-        @Override
-        protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerOnLightSideOfLocation, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-            List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
-            GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_5;
+    //new action: move
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerOnLightSideOfLocation, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_5;
 
-            // Check condition(s)
-            if (GameConditions.isDuringEitherPlayersPhase(game, Phase.DEPLOY)
-                && Filters.movableAsRegularMove(playerOnLightSideOfLocation, false, 0, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))).accepts(game, self)
-                ) {
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Move Ahsoka to a Sith or Padawan");
-                action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerOnLightSideOfLocation, "Choose site to move to", Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))) {
-                    @Override
-                    protected void cardSelected(PhysicalCard targetSite) {
-                        action.addAnimationGroup(self);
-                        action.setActionMsg("Move " + GameUtils.getCardLink(self) + " to an adjacent site where there is a Sith or Padawan");
-                                // Perform result(s)
-                        action.appendEffect(
-                        new MoveCardAsRegularMoveEffect(action, playerOnLightSideOfLocation, self, false, false, Filters.sameTitle(targetSite)));
-                    }
-            }
-                );
-                actions.add(action);
+        // Check condition(s)
+        if (GameConditions.isDuringEitherPlayersPhase(game, Phase.DEPLOY)
+            && Filters.movableAsRegularMove(playerOnLightSideOfLocation, false, 0, false, Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))).accepts(game, self)
+            ) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Move Ahsoka to a Sith or Padawan");
+            action.appendTargeting(
+                new ChooseCardOnTableEffect(action, playerOnLightSideOfLocation, "Choose site to move to", Filters.and(Filters.adjacentSite(self), Filters.or(Filters.sameSiteAs(self, Filters.Sith), Filters.sameSiteAs(self, Filters.padawan)))) {
+                @Override
+                protected void cardSelected(PhysicalCard targetSite) {
+                    action.addAnimationGroup(self);
+                    action.setActionMsg("Move " + GameUtils.getCardLink(self) + " to an adjacent site where there is a Sith or Padawan");
+                            // Perform result(s)
+                    action.appendEffect(
+                    new MoveCardAsRegularMoveEffect(action, playerOnLightSideOfLocation, self, false, false, Filters.sameTitle(targetSite)));
                 }
-
-            return actions;
         }
+            );
+            actions.add(action);
+            }
+
+        return actions;
+    }
 }

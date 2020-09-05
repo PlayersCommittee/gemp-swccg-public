@@ -22,7 +22,7 @@ import java.util.List;
 
 
 /**
- * Set: Virtual Set 10
+ * Set: Set 10
  * Type: Character
  * Subtype: Jedi Master
  * Title: Plo Koon (V)
