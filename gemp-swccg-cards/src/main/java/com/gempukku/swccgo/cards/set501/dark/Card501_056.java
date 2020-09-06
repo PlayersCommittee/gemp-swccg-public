@@ -28,7 +28,7 @@ public class Card501_056 extends AbstractUniqueStarshipSite {
     public Card501_056() {
         super(Side.DARK, "First Light: Dryden’s Study", Persona.FIRST_LIGHT);
         setLocationDarkSideGameText("Once during your move phase, your Crimson Dawn leader may move between here and any site.");
-        setLocationLightSideGameText("During battle here, your blaster weapon destinies are +1. Force drain -1 here (+1 instead if Vos on table)");
+        setLocationLightSideGameText("Add 1 to your blaster weapon destiny draws here. Unless Vos on table, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 0);
         addIcons(Icon.VIRTUAL_SET_13, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.MOBILE, Icon.STARSHIP_SITE);
@@ -75,11 +75,8 @@ public class Card501_056 extends AbstractUniqueStarshipSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-
-        Filter blasterInBattle = Filters.and(Filters.participatingInBattle, Filters.blaster);
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), blasterInBattle, Filters.here(self)), 1));
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.blaster, Filters.here(self)), 1));
         modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new OnTableCondition(self, Filters.Vos)), -1, playerOnLightSideOfLocation));
-        modifiers.add(new ForceDrainModifier(self, new OnTableCondition(self, Filters.Vos), 1, playerOnLightSideOfLocation));
         return modifiers;
     }
 

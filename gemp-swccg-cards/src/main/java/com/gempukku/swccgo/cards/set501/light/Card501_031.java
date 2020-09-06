@@ -19,15 +19,15 @@ import java.util.List;
  * Set: Set 13
  * Type: Interrupt
  * Subtype: Used
- * Title: Han's Dice (v)
+ * Title: Han's Dice (V)
  */
 public class Card501_031 extends AbstractUsedInterrupt {
     public Card501_031() {
         super(Side.LIGHT, 3, Title.Hans_Dice);
         setLore("A pair of dice dangling above Millennium Falcon's cockpit, for luck. 'I've never seen anything to make me believe there's one, all-powerful Force controlling everything.'");
-        setGameText("If Han or your gambler is in battle (with no Jedi), draw destiny: (0) no effect; (1-2) subtract destiny draw from opponent's total battle destiny; (3-4) cancel a character's game text; (5+) cancel all opponent's immunity to attrition this battle.");
+        setGameText("If Han or your gambler is in battle (with no Jedi), draw destiny: (0-2) subtract that amount from opponent's total battle destiny; (3-4) cancel the game text of a character participating in battle (if any); (5+) opponent loses all immunity to attrition (if any) this battle.");
         setVirtualSuffix(true);
-        setTestingText("Han's Dice (v)");
+        setTestingText("Han's Dice (V)");
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Card501_031 extends AbstractUsedInterrupt {
                             action.appendEffect(new DrawDestinyEffect(action, playerId) {
                                 @Override
                                 protected void destinyDraws(final SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, final Float totalDestiny) {
-                                    if (totalDestiny >= 1 && totalDestiny <= 2) {
+                                    if (totalDestiny >= 0 && totalDestiny <= 2) {
                                         //(1-2) subtract destiny draw from opponent's total battle destiny
                                         action.appendEffect(
                                                 new ModifyTotalBattleDestinyEffect(action, game.getOpponent(playerId), -totalDestiny));
