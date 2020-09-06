@@ -79,6 +79,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             addPlayersToLeague(request, responseWriter, e);
         } else if (uri.equals("/addItems") && request.getMethod() == HttpMethod.POST) {
             addItems(request, responseWriter);
+        } else if (uri.equals("/addCurrency") && request.getMethod() == HttpMethod.POST) {
+            addCurrency(request, responseWriter);
         } else if (uri.equals("/addItemsToCollection") && request.getMethod() == HttpMethod.POST) {
             addItemsToCollection(request, responseWriter);
         } else if (uri.equals("/addPlaytester") && request.getMethod() == HttpMethod.POST) {
@@ -337,6 +339,23 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             Player player = _playerDao.getPlayer(playerName);
 
             _collectionManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
+        }
+
+        responseWriter.writeHtmlResponse("OK");
+    }
+
+    private void addCurrency(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String players = getFormParameterSafely(postDecoder, "players");
+        int currencyAmount = Integer.parseInt(getFormParameterSafely(postDecoder, "currencyAmount"));
+
+        List<String> playerNames = getItems(players);
+
+        for (String playerName : playerNames) {
+            Player player = _playerDao.getPlayer(playerName);
+            _collectionManager.addCurrencyToPlayerCollection(true,"Administrator action", player, createCollectionType("permanent"), currencyAmount);
         }
 
         responseWriter.writeHtmlResponse("OK");
