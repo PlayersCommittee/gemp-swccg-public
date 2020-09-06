@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Premiere
+ * Set: Dagobah
  * Type: Effect
  * Title: The Professor
  */

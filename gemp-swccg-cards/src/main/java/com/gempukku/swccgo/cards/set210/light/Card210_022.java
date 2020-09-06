@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import java.util.*;
 
 /*
- * Set: Virtual Set 10
+ * Set: Set 10
  * Type: Character
  * Subtype: Alien
  * Title: Paploo

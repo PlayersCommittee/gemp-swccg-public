@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: Unfriendly Fire
+ * Set: Jabba's Palace
  * Type: Interrupt
  * Subtype: Used
  * Title: Unfriendly Fire

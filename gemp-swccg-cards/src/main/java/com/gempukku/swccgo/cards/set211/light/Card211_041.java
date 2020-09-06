@@ -17,7 +17,12 @@ import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * Set: Set 11
+ * Type: Location
+ * Subtype: Site
+ * Title: Kamino: Clone Training Center
+ */
 public class Card211_041 extends AbstractSite {
     public Card211_041() {
         super(Side.LIGHT, "Kamino: Clone Training Center", "Kamino");

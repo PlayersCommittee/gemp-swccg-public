@@ -25,8 +25,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Premium (Third Anthology) Type: Objective Title: Set Your Course For Alderaan / The Ultimate Power In The
- * Universe
+ * Set: Premium (Third Anthology) 
+ * Type: Objective 
+ * Title: Set Your Course For Alderaan / The Ultimate Power In The Universe
  */
 public class Card111_006_BACK extends AbstractObjective {
     public Card111_006_BACK() {

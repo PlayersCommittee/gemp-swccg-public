@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Set: Set 8
+ * Type: Interrupt
  * Subtype: Lost Or Starting
  * Title: You Know What I've Come For
  */

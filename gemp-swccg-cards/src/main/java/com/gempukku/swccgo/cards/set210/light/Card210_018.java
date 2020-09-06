@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virutal Set 10
+ * Set: Set 10
  * Type: Interrupt
  * Subtype: Used
  * Title: Jedi Mind Trick

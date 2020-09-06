@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 11
+ * Set: Set 11
  * Type: Location
  * Subtype: Site
  * Title: Maz's Castle: Antechamber

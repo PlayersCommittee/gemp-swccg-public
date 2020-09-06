@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 10
+ * Set: Set 10
  * Type: Effect
  * Title: Ancient Watering Hole
  */
