@@ -2,23 +2,20 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotReactToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -37,7 +34,7 @@ public class Card501_045 extends AbstractAlien {
     public Card501_045() {
         super(Side.DARK, 1, 6, 4, 3, 6, "Dryden Vos", Uniqueness.UNIQUE);
         setLore("Crimson Dawn leader. Gangster.");
-        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. Once during your control phase, may use 2 Force to fire Kyuzo Petars. Immune to attrition < 5 (< 3 if with Qi'ra).");
+        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. While armed, opponent may not react at same site. Immune to attrition < 5 (< 3 if with Qi'ra).");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER, Keyword.GANGSTER);
         setArmor(5);
@@ -56,6 +53,7 @@ public class Card501_045 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(5, 3, new WithCondition(self, Filters.persona(Persona.QIRA)))));
+        modifiers.add(new MayNotReactToLocationModifier(self, Filters.here(self), new ArmedWithCondition(self, Filters.any), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 
@@ -81,35 +79,4 @@ public class Card501_045 extends AbstractAlien {
     }
 
 
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter weaponFilter = Filters.and(Filters.title(Title.Dyden_Vos_s_Kyuzo_Petars), Filters.attachedTo(self));
-
-        // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
-                && GameConditions.canUseForce(game, playerId, 2)
-                && Filters.canUseWeapon(self).accepts(game, self)
-                && GameConditions.canSpot(game, self, weaponFilter)) {
-
-            PhysicalCard weapon = Filters.findFirstActive(game, self, weaponFilter);
-            if (weapon == null) {
-                return null;
-            }
-            
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Fire Dryden Vos's Kyuzo Petars");
-
-            // Update usage limit(s)
-            action.appendUsage(new OncePerPhaseEffect(action));
-
-            // Pay Costs
-            action.appendCost(new UseForceEffect(action, playerId, 2));
-
-            // Perform results
-            action.appendEffect(new FireWeaponEffect(action, weapon, false, Filters.any));
-
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
 }

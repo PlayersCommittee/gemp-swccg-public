@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
+import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsAttritionEffect;
 import com.gempukku.swccgo.common.*;
@@ -30,7 +30,7 @@ import java.util.List;
  * Subtype: Used Or Lost
  * Title: Working Much More Closely
  */
-public class Card501_054 extends AbstractUsedOrLostInterrupt {
+public class Card501_054 extends AbstractLostInterrupt {
     public Card501_054() {
         super(Side.DARK, 3, "Working Much More Closely", Uniqueness.UNIQUE);
         setLore("Hologram");
@@ -119,7 +119,7 @@ public class Card501_054 extends AbstractUsedOrLostInterrupt {
             final float currentAttrition = battleState.getAttritionTotal(game, playerId);
             if (currentAttrition > 0) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action.setText("Reduce opponent's attrition");
 
                 // Allow response(s)
