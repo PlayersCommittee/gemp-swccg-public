@@ -2,10 +2,8 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +31,7 @@ public class Card501_067 extends AbstractAlien {
     public Card501_067() {
         super(Side.LIGHT, 2, 3, 3, 4, 3, "Qi'ra", Uniqueness.UNIQUE);
         setLore("Female thief. Correlian");
-        setGameText("When forfeited from same location as Han or Vos, may satisfy all remaining battle damage against you. If you just initiated a battle or Force drain at same battleground and you have completed a Kessel Run, opponent loses 1 Force. Immune to attrition < 3 (< 5 if armed).");
+        setGameText(" When forfeited at same location as Han or Vos, may satisfy all remaining battle damage against you. If you just initiated a battle or Force drain at same battleground and you have completed a Kessel Run, opponent loses 1 Force. Immune to attrition < 3.");
         addPersona(Persona.QIRA);
         setSpecies(Species.CORELLIAN);
         addKeywords(Keyword.FEMALE, Keyword.THIEF, Keyword.SMUGGLER);
@@ -46,7 +44,7 @@ public class Card501_067 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(3, 5, new ArmedWithCondition(self, Filters.any))));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 3));
         return modifiers;
     }
 

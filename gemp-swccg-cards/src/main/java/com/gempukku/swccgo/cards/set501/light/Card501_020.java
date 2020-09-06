@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.conditions.UntinniEffectCompletedCondition;
 import com.gempukku.swccgo.common.*;
@@ -12,7 +11,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.choose.TakeStackedCardIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 
@@ -30,7 +28,7 @@ public class Card501_020 extends AbstractAlien {
     public Card501_020() {
         super(Side.LIGHT, 1, 2, 3, 3, 5, "Han... Solo", Uniqueness.UNIQUE);
         setLore("Smuggler, gambler, and thief. Correlian.");
-        setGameText("Adds 2 to power and maneuver of anything he pilots or drives. While piloting Falcon and Kessel Run on table (or completed), adds a battle destiny and opponent generates no Force here. If exactly 1 card stacked on Kessel Run, may take it into hand.");
+        setGameText("Adds 2 to power and maneuver of anything he pilots or drives. If exactly one 'coaxium' card on Kessel Run, may take it into hand. While piloting Falcon and you have completed a Kessel Run, adds one battle destiny and opponent generates no Force here.");
         addPersona(Persona.HAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER, Keyword.THIEF);
@@ -45,7 +43,7 @@ public class Card501_020 extends AbstractAlien {
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new ManeuverModifier(self, Filters.hasPiloting(self), 2));
 
-        Condition condition = new AndCondition(new PilotingCondition(self, Filters.Falcon), new OrCondition(new OnTableCondition(self, Filters.Kessel_Run), new UntinniEffectCompletedCondition(self.getOwner(), Filters.Kessel_Run)));
+        Condition condition = new AndCondition(new PilotingCondition(self, Filters.Falcon), new UntinniEffectCompletedCondition(self.getOwner(), Filters.Kessel_Run));
 
         modifiers.add(new GenerateNoForceModifier(self, Filters.here(self), condition, game.getOpponent(self.getOwner())));
         modifiers.add(new AddsBattleDestinyModifier(self, condition, 1));

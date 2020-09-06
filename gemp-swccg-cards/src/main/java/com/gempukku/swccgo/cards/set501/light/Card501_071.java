@@ -37,11 +37,7 @@ public class Card501_071 extends AbstractNormalEffect {
     public Card501_071() {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE);
         setLore("Planet Kessel has infamous glitterstim spice mines attracting smugglers and pirates. A 'Kessel run' is a long, dangerous hyper-route they must travel quickly.");
-        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking" +
-                "face up here until total > 12 (cannot deploy otherwise)." +
-                "During each move phase, if your smuggler here, place" +
-                "a 'coaxium' card on Force Pile. When no 'coaxium'" +
-                "cards here, place Effect in Used Pile; retrieve 3 Force.");
+        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, move a 'coaxium' card here to Force Pile. When no 'coaxium' cards here, retrieve 3 Force; lose Effect.");
         setTestingText("Kessel Run (V)");
     }
 
@@ -81,17 +77,18 @@ public class Card501_071 extends AbstractNormalEffect {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
+        final String playerId = self.getOwner();
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)
-                && GameConditions.hasReserveDeck(game, self.getOwner())) {
+                && GameConditions.hasReserveDeck(game, playerId)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Draw 'coaxium' destiny");
             action.setActionMsg("Draw 'coaxium' destiny");
 
             // Perform result(s)
-            drawCoaxiumDestiny(action, self, self.getOwner(), gameTextSourceCardId);
+            drawCoaxiumDestiny(action, self, playerId, gameTextSourceCardId);
 
             actions.add(action);
         }
@@ -111,10 +108,35 @@ public class Card501_071 extends AbstractNormalEffect {
                     new PlaceCardInUsedPileFromTableEffect(action, self)
             );
             action.appendEffect(
-                    new RetrieveForceEffect(action, self.getOwner(), 3)
+                    new RetrieveForceEffect(action, playerId, 3)
             );
             actions.add(action);
         }
+
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        if (TriggerConditions.isEndOfEachPhase(game, effectResult, Phase.MOVE)
+                && GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
+                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Place stacked card in Force Pile");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerPhaseEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new ChooseStackedCardEffect(action, playerId, self) {
+                        @Override
+                        protected void cardSelected(PhysicalCard selectedCard) {
+                            action.appendEffect(
+                                    new PutStackedCardInForcePileEffect(action, playerId, selectedCard, false)
+                            );
+                        }
+                    }
+            );
+            actions.add(action);
+        }
+
         return actions;
     }
 
