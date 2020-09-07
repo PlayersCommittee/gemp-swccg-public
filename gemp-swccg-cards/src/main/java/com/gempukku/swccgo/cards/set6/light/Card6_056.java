@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card6_056 extends AbstractNormalEffect {
     public Card6_056() {
-        super(Side.LIGHT, 5, null, "Projection Of A Skywalker", Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 5, null, Title.Projection_Of_A_Skywalker, Uniqueness.RESTRICTED_2);
         setLore("'Greetings, Exalted One. Allow me to introduce myself. I am Luke Skywalker, Jedi Knight and friend to Captain Solo.' Hologram.");
         setGameText("Deploy on your side of table. Your Force drains are +1 at holosites and opponent must lose an additional 1 Force to draw a card with Shot In The Dark. (Immune to Alter.) OR Deploy on any planet site. Opponent's Force drains are -1 here.");
         addIcons(Icon.JABBAS_PALACE);

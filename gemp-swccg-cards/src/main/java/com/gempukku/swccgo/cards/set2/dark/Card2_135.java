@@ -68,16 +68,16 @@ public class Card2_135 extends AbstractUsedOrLostInterrupt {
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
+                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.MONNOK__PUT_TWO_CARDS_IN_USED)) {
+                                action.appendEffect(
+                                        new PutCardsFromHandOnUsedPileEffect(action, opponent, 0, 2)
+                                );
+                            }
                             // Perform result(s)
                             action.appendEffect(
                                     new RevealOpponentsHandEffect(action, playerId) {
                                         @Override
                                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.MONNOK__PUT_TWO_CARDS_IN_USED)) {
-                                                action.appendEffect(
-                                                        new PutCardsFromHandOnUsedPileEffect(action, opponent, 0, 2)
-                                                );
-                                            }
                                             action.appendEffect(
                                                     new LoseCardsFromHandEffect(action, opponent, Filters.and(Filters.duplicatesOfInHand(opponent), Filters.canBeTargetedBy(self))));
                                         }

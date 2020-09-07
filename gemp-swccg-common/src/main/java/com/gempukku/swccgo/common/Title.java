@@ -760,6 +760,7 @@ public interface Title {
     String Probe_Droid = "Probe Droid";
     String Probe_Telemetry = "Probe Telemetry";
     String Profundity = "Profundity";
+    String Projection_Of_A_Skywalker = "Projection Of A Skywalker";
     String Prophecy_Of_The_Force = "Prophecy Of The Force";
     String Program_Trap = "Program Trap";
     String Proton_Bombs = "Proton Bombs";
