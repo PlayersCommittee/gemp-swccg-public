@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.TotalAbilityMoreThanCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -9,8 +10,12 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.LookAtForcePileEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotInitiateBattleAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -27,7 +32,7 @@ public class Card501_048 extends AbstractSith {
     public Card501_048() {
         super(Side.DARK, .5F, 4, 4, 6, 8, "Maul", Uniqueness.UNIQUE);
         setLore("Gangster. Crimson Dawn leader.");
-        setGameText("Never deploys to a battleground. Once per turn, may add or subtract 1 from a just drawn weapon or battle destiny. Opponent may not cancel your weapon or battle destinies at sites. Immune to attrition < 5.");
+        setGameText("Never deploys to a battleground. Opponent requires total ability > 5 to initiate battle here. Once per turn, may add or subtract 1 from a just drawn weapon or battle destiny. At the end of your turn, may peek at the cards in your Force pile. Immune to attrition < 5.");
         addPersona(Persona.MAUL);
         addKeywords(Keyword.GANGSTER, Keyword.CRIMSON_DAWN, Keyword.LEADER);
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
@@ -46,8 +51,7 @@ public class Card501_048 extends AbstractSith {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
-        modifiers.add(new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.and(Filters.your(playerId), Filters.at(Filters.site))));
-        modifiers.add(new MayNotCancelBattleDestinyModifier(self, Filters.site, playerId, opponent));
+        modifiers.add(new MayNotInitiateBattleAtLocationModifier(self, Filters.here(self), new TotalAbilityMoreThanCondition(opponent, 5, Filters.here(self)), opponent));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         return modifiers;
     }
@@ -57,6 +61,16 @@ public class Card501_048 extends AbstractSith {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        if (TriggerConditions.isEndOfYourTurn(game, effectResult, self)
+                && GameConditions.hasForcePile(game, playerId)) {
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.appendEffect(
+                    new LookAtForcePileEffect(action, playerId, playerId));
+            actions.add(action);
+        }
+
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         // Check condition(s)
         if ((TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult)

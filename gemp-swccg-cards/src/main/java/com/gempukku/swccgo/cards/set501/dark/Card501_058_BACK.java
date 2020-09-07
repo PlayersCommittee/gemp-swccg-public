@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
-import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
@@ -14,15 +13,16 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RecirculateEffect;
+import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,9 +34,9 @@ import java.util.List;
 public class Card501_058_BACK extends AbstractObjective {
     public Card501_058_BACK() {
         super(Side.DARK, 7, Title.You_Know_Who_I_Answer_To);
-        setGameText("Immediately recirculate; may 'peek' at top two cards of Reserve Deck and take one into hand." +
-                "While this side up, your starships and armed characters are power and immunity to attrition +2. If your gangster leader in battle, may add one destiny to your total power." +
-                "Flip this card at the end of each turn; you may retrieve a blaster or character with “Black Sun,” “Crimson Dawn” or “Hutt” in lore and, if you occupy 3 battlegrounds, opponent loses 1 Force.");
+        setGameText("May Immediately re-circulate; reshuffle" +
+                "While this side up, if your gangster leader in battle with your non-unique blaster, may add one destiny to total power." +
+                "Flip this card at end of each turn (opponent loses 1 Force if you occupy 3 battlegrounds).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("You Know Who I Answer To");
     }
@@ -54,20 +54,20 @@ public class Card501_058_BACK extends AbstractObjective {
         if (TriggerConditions.cardFlipped(game, effectResult, self)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setPerformingPlayer(playerId);
-            action.setText("Recirculate and peek at cards.");
-            action.setActionMsg("Recirculate and peek at cards.");
+            action.setText("Re-circulate and reshuffle.");
+            action.setActionMsg("Re-circulate and reshuffle.");
 
             action.appendEffect(
                     new RecirculateEffect(action, playerId)
             );
             action.appendEffect(
-                    new PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect(action, playerId, 2, 1, 1)
+                    new ShuffleReserveDeckEffect(action, playerId)
             );
 
             actions.add(action);
         }
 
-        //Flip this card at the end of each turn; you may retrieve a blaster (if you occupy 3 battlegrounds, opponent loses 1 Force).
+        //Flip this card at the end of each turn; (if you occupy 3 battlegrounds, opponent loses 1 Force).
         if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
             if (GameConditions.occupies(game, playerId, 3, Filters.battleground)) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -77,41 +77,9 @@ public class Card501_058_BACK extends AbstractObjective {
                 // Perform result(s)
                 action.appendEffect(
                         new FlipCardEffect(action, self));
-                action.appendEffect(
-                        new PlayoutDecisionEffect(action, playerId,
-                                new YesNoDecision("Retrieve a card and make opponent lose 1 force?") {
-                                    @Override
-                                    protected void yes() {
-                                        action.appendEffect(
-                                                new RetrieveCardEffect(action, playerId, Filters.or(Filters.blaster, Filters.and(Filters.character, Filters.or(Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))))
-                                        );
-                                    }
-                                }
-                        )
-                );
+
                 action.appendEffect(
                         new LoseForceEffect(action, game.getOpponent(playerId), 1)
-                );
-                actions.add(action);
-            } else {
-                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setSingletonTrigger(true);
-                action.setText("Flip");
-                action.setActionMsg(null);
-                // Perform result(s)
-                action.appendEffect(
-                        new FlipCardEffect(action, self));
-                action.appendEffect(
-                        new PlayoutDecisionEffect(action, playerId,
-                                new YesNoDecision("Retrieve a card?") {
-                                    @Override
-                                    protected void yes() {
-                                        action.appendEffect(
-                                                new RetrieveCardEffect(action, playerId, Filters.or(Filters.blaster, Filters.loreContains("Black Sun"), Filters.loreContains("Crimson Dawn"), Filters.loreContains("Hutt")))
-                                        );
-                                    }
-                                }
-                        )
                 );
                 actions.add(action);
             }
@@ -123,15 +91,11 @@ public class Card501_058_BACK extends AbstractObjective {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        //While this side up, your starships and armed characters are power and immunity to attrition +2.
-        List<Modifier> modifiers = new LinkedList<>();
-        Filter starshipsAndArmedCharacters = Filters.and(Filters.your(self.getOwner()), Filters.or(Filters.starship, Filters.and(Filters.character, Filters.armedWith(Filters.any))));
-        modifiers.add(new PowerModifier(self, starshipsAndArmedCharacters, 2));
-        modifiers.add(new ImmunityToAttritionChangeModifier(self, starshipsAndArmedCharacters, 2));
-        //From front side
         Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
-        Filter v13Maul = Filters.and(Icon.VIRTUAL_SET_13, Filters.Maul);
-        Filter cardsThatMayNotDeploy = Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, v13Maul, Filters.alien)));
+        Filter episode1BountyHunters = Filters.and(Filters.icon(Icon.EPISODE_I), Filters.bounty_hunter);
+        Filter loreCharacters = Filters.or(Filters.loreContains("Crimson Dawn"), Filters.loreContains("Black Sun"), Filters.loreContains("Hutt"));
+        Filter cardsThatMayNotDeploy = Filters.or(Filters.and(Filters.icon(Icon.EPISODE_I), Filters.droid), Filters.not(Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, episode1BountyHunters, Filters.assassin, Filters.gangster, loreCharacters)))));
+        List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
     }
@@ -142,7 +106,8 @@ public class Card501_058_BACK extends AbstractObjective {
         GameTextActionId gameTextActionId1 = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Keyword.GANGSTER)))
+        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Filters.gangster)))
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.non_unique, Filters.blaster))
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)
                 && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);

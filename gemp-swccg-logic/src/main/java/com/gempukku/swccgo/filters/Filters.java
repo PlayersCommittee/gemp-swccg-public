@@ -17046,6 +17046,7 @@ public class Filters {
     public static final Filter Arven = Filters.title(Title.Arven);
     public static final Filter Ascension_Guns = Filters.title(Title.Ascension_Guns);
     public static final Filter As_Good_As_Gone = Filters.title(Title.As_Good_As_Gone);
+    public static final Filter assassin = Filters.keyword(Keyword.ASSASSIN);
     public static final Filter Asteroid_Sanctuary = Filters.title(Title.Asteroid_Sanctuary);
     public static final Filter Asteroids_Do_Not_Concern_Me = Filters.title(Title.Asteroids_Do_Not_Concern_Me);
     public static final Filter Asteroid_Field = Filters.title(Title.Asteroid_Field);
