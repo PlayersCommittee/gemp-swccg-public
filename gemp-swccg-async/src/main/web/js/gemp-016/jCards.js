@@ -3286,6 +3286,7 @@ var fixedImages = {
 "501_91":"/gemp-swccg/images/cards/Endor-Light/dresseliancommando.gif",
 "501_92":"/gemp-swccg/images/cards/Premiere-Light/panic.gif",
 "501_94":"/gemp-swccg/images/cards/Premiere-Light/kessel.gif",
+"501_95":"/gemp-swccg/images/cards/Endor-Dark/deadewok.gif",
 };
 
 var packBlueprints = {
