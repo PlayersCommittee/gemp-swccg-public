@@ -35,6 +35,7 @@ public class Card501_004 extends AbstractImperial {
         setSpecies(Species.MIRIALAN);
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
+        addPersona(Persona.SEVENTH_SISTER);
         setTestingText("Seventh Sister");
     }
 

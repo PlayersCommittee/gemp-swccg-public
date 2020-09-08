@@ -3280,6 +3280,7 @@ var fixedImages = {
 "501_85":"/gemp-swccg/images/cards/Virtual7-Dark/savageopress.gif",
 "501_88":"/gemp-swccg/images/cards/Premiere-Dark/tiescout.gif",
 "501_86":"/gemp-swccg/images/cards/JabbasPalace-Dark/banthafodder.gif",
+"501_84":"/gemp-swccg/images/cards/Tatooine-Dark/sithprobedroid.gif",
 "501_87":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandobservatoryentrance.gif",
 "501_90":"/gemp-swccg/images/cards/ANewHope-Light/chewbacca.gif",
 "501_91":"/gemp-swccg/images/cards/Endor-Light/dresseliancommando.gif",
