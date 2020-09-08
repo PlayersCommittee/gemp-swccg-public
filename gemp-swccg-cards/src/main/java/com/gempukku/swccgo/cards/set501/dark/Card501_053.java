@@ -28,7 +28,7 @@ import java.util.List;
  * Set: Set 13
  * Type: Interrupt
  * Subtype: Used
- * Title: Imperial Code Cylinder
+ * Title: Imperial Code Cylinder (V)
  */
 public class Card501_053 extends AbstractUsedInterrupt {
     public Card501_053() {
