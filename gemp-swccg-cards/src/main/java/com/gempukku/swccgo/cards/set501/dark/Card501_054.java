@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Set: Set 13
  * Type: Interrupt
- * Subtype: Used Or Lost
+ * Subtype: Lost
  * Title: Working Much More Closely
  */
 public class Card501_054 extends AbstractLostInterrupt {
