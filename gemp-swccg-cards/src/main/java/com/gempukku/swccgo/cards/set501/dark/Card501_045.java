@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
@@ -12,6 +13,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -34,7 +36,7 @@ public class Card501_045 extends AbstractAlien {
     public Card501_045() {
         super(Side.DARK, 1, 6, 4, 3, 6, "Dryden Vos", Uniqueness.UNIQUE);
         setLore("Crimson Dawn leader. Gangster.");
-        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. While armed, opponent may not react at same site. Immune to attrition < 5 (< 3 if with Qi'ra).");
+        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. While armed and present at a site, opponent may not react at same site. Immune to attrition < 5 (< 3 if with Qi'ra).");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER, Keyword.GANGSTER);
         setArmor(5);
@@ -53,7 +55,7 @@ public class Card501_045 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(5, 3, new WithCondition(self, Filters.persona(Persona.QIRA)))));
-        modifiers.add(new MayNotReactToLocationModifier(self, Filters.here(self), new ArmedWithCondition(self, Filters.any), game.getOpponent(self.getOwner())));
+        modifiers.add(new MayNotReactToLocationModifier(self, Filters.sameSite(self), new AndCondition(new ArmedWithCondition(self, Filters.any), new PresentAtCondition(self, Filters.site)), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 
