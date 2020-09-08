@@ -2346,15 +2346,44 @@ public class TriggerConditions {
     }
 
     /**
-     * Determines if a card accepted by the filter was just placed out of play.
+     * Determines if a card accepted by the filter was just placed out of play from table.
+     *
+     * @param game         the game
+     * @param effectResult the effect result
+     * @param filter       the filter
+     * @return true or false
+     */
+    public static boolean justPlacedOutOfPlay(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        return justPlacedOutOfPlayFromTable(game, effectResult, filter) || justPlacedOutOfPlayFromOffTable(game, effectResult, filter);
+    }
+
+    /**
+     * Determines if a card accepted by the filter was just placed out of play from table.
      * @param game the game
      * @param effectResult the effect result
      * @param filter the filter
      * @return true or false
      */
-    public static boolean justPlacedOutOfPlay(SwccgGame game, EffectResult effectResult, Filterable filter) {
+    public static boolean justPlacedOutOfPlayFromTable(SwccgGame game, EffectResult effectResult, Filterable filter) {
         if (effectResult.getType() == EffectResult.Type.PLACED_OUT_OF_PLAY_FROM_TABLE) {
             PhysicalCard cardPlacedOutOfPlay = ((PlacedCardOutOfPlayFromTableResult) effectResult).getCard();
+
+            return Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlacedOutOfPlay);
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a card accepted by the filter was just placed out of play from off table.
+     *
+     * @param game         the game
+     * @param effectResult the effect result
+     * @param filter       the filter
+     * @return true or false
+     */
+    public static boolean justPlacedOutOfPlayFromOffTable(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        if (effectResult.getType() == EffectResult.Type.PLACED_OUT_OF_PLAY_FROM_OFF_TABLE) {
+            PhysicalCard cardPlacedOutOfPlay = ((PlacedCardOutOfPlayFromOffTableResult) effectResult).getCard();
 
             return Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlacedOutOfPlay);
         }

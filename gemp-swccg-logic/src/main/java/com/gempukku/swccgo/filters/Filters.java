@@ -17097,6 +17097,7 @@ public class Filters {
     public static final Filter Bespin_cloud_sector = Filters.and(Filters.partOfSystem(Title.Bespin), Keyword.CLOUD_SECTOR);
     public static final Filter Bespin_location = Filters.partOfSystem(Title.Bespin);
     public static final Filter Bespin_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Bespin));
+    public static final Filter Bestoon_Legacy = Filters.persona(Persona.BESTOON_LEGACY);
     public static final Filter Bib = Filters.title(Title.Bib);
     public static final Filter biker_scout = Filters.keyword(Keyword.BIKER_SCOUT);
     public static final Filter Big_One = Filters.title(Title.Big_One);
@@ -17967,6 +17968,7 @@ public class Filters {
     public static final Filter ObiWans_Journal = Filters.title(Title.ObiWans_Journal);
     public static final Filter Objective = Filters.type(CardType.OBJECTIVE);
     public static final Filter Obsidian_10 = Filters.title(Title.Obsidian_10);
+    public static final Filter Ochi = Filters.persona(Persona.OCHI);
     public static final Filter Off_The_Edge = Filters.title(Title.Off_The_Edge);
     public static final Filter Old_Allies = Filters.title(Title.Old_Allies);
     public static final Filter Old_Ben = Filters.title(Title.Old_Ben);

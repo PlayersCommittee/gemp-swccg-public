@@ -44,7 +44,7 @@ public class Card11_019 extends AbstractImmediateEffect {
     @Override
     protected List<PlayCardAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.justPlacedOutOfPlay(game, effectResult, Filters.ObiWan)) {
+        if (TriggerConditions.justPlacedOutOfPlayFromTable(game, effectResult, Filters.ObiWan)) {
 
             PlayCardAction action = getPlayCardAction(playerId, game, self, self, false, 0, null, null, null, null, null, false, 0, Filters.none, null);
             if (action != null) {
