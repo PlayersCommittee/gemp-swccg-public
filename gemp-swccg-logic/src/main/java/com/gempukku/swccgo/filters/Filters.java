@@ -10749,7 +10749,6 @@ public class Filters {
         return probeCard;
     }
 
-
     /**
      * Filter that accepts cards that are 'hatred' cards.
      */
@@ -18284,6 +18283,7 @@ public class Filters {
     public static final Filter Spice_Mines_Of_Kessel = Filters.title(Title.Spice_Mines_Of_Kessel);
     public static final Filter spy = Filters.keyword(Keyword.SPY);
     public static final Filter squadron = Filters.subtype(CardSubtype.SQUADRON);
+    public static final Filter stackedHatredCard = Filters.or(Filters.and(Filters.hasStacked(Filters.hatredCard), Filters.or(Filters.site, Filters.character)));
     public static final Filter Staging_Areas = Filters.title(Title.Staging_Areas);
     public static final Filter Stalker = Filters.title(Title.Stalker);
     public static final Filter Steadfast = Filters.persona(Persona.STEADFAST);
