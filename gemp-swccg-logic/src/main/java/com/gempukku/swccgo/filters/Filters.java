@@ -18228,6 +18228,7 @@ public class Filters {
     public static final Filter Set_For_Stun = Filters.title(Title.Set_For_Stun);
     public static final Filter Set_Your_Course_For_Alderaan = Filters.title(Title.Set_Your_Course_For_Alderaan);
     public static final Filter Seventh_Marker = Filters.keyword(Keyword.MARKER_7);
+    public static final Filter Seventh_Sister = Filters.persona(Persona.SEVENTH_SISTER);
     public static final Filter Sewer = Filters.title(Title.Sewer);
     public static final Filter S_foils = Filters.title(Title.S_foils);
     public static final Filter SFS_Lx93_Laser_Cannons = Filters.title(Title.SFS_Lx93_Laser_Cannons);

@@ -3278,11 +3278,11 @@ var fixedImages = {
 "501_79":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
 "501_83":"/gemp-swccg/images/cards/Virtual9-Dark/drchellilonaaphra.gif",
 "501_86":"/gemp-swccg/images/cards/JabbasPalace-Dark/banthafodder.gif",
+"501_84":"/gemp-swccg/images/cards/Tatooine-Dark/sithprobedroid.gif",
 "501_87":"/gemp-swccg/images/cards/Virtual11-Dark/invisiblehandobservatoryentrance.gif",
 "501_90":"/gemp-swccg/images/cards/ANewHope-Light/chewbacca.gif",
 "501_92":"/gemp-swccg/images/cards/Premiere-Light/panic.gif",
 "501_94":"/gemp-swccg/images/cards/Premiere-Light/kessel.gif",
-
 };
 
 var packBlueprints = {
