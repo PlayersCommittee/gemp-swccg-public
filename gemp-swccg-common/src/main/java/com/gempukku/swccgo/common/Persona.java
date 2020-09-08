@@ -63,6 +63,7 @@ public enum Persona implements Filterable {
     MOTTI("Motti"),
     NARTHAX("Narthax"),
     OBIWAN("Obi-Wan"),
+    OCHI("Ochi"),
     ODD_BALL("Odd ball"),
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
@@ -102,6 +103,7 @@ public enum Persona implements Filterable {
     ZUCKUSS("Zuckuss"),
 
     // Starships
+    BESTOON_LEGACY("Bestoon Legacy"),
     BLACK_1("Black 1"),
     BLACK_2("Black 2"),
     BLACK_3("Black 3"),
