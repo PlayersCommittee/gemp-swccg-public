@@ -1,5 +1,4 @@
 package com.gempukku.swccgo.cards.set501.dark;
-//
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;

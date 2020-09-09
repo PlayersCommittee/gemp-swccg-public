@@ -2688,7 +2688,7 @@ public class FireWeaponActionBuilder {
      */
     public FireSingleWeaponAction buildFireWeaponRockAction() {
 
-        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit, true);
         action.setText("Fire " + action.getWeaponTitle(_game));
 
         // Choose target(s)

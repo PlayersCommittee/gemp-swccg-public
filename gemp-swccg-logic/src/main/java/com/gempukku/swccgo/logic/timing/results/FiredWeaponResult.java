@@ -13,6 +13,7 @@ public class FiredWeaponResult extends EffectResult {
     private PhysicalCard _weaponCard;
     private SwccgBuiltInCardBlueprint _permanentWeapon;
     private PhysicalCard _cardFiringWeapon;
+    private boolean _thrown;
 
     /**
      * Creates an effect result that is triggered when a weapon (or permanent weapon) has been fired.
@@ -21,13 +22,14 @@ public class FiredWeaponResult extends EffectResult {
      * @param permanentWeapon the permanent weapon (or null if weapon is not a permanent weapon)
      * @param cardFiringWeapon the card that fired the weapon (or null if the card is self-firing)
      */
-    public FiredWeaponResult(SwccgGame game, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon, PhysicalCard cardFiringWeapon) {
+    public FiredWeaponResult(SwccgGame game, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon, PhysicalCard cardFiringWeapon, boolean thrown) {
         super(Type.FIRED_WEAPON, (weaponCard != null ? weaponCard.getOwner() :
                 (permanentWeapon != null ? permanentWeapon.getPhysicalCard(game).getOwner()
                         : (cardFiringWeapon != null ? cardFiringWeapon.getOwner() : null))));
         _weaponCard = weaponCard;
         _permanentWeapon = permanentWeapon;
         _cardFiringWeapon = cardFiringWeapon;
+        _thrown = thrown;
     }
 
     /**
@@ -55,17 +57,31 @@ public class FiredWeaponResult extends EffectResult {
     }
 
     /**
+     * True if the weapon was 'thrown'
+     *
+     * @return the card that fired the weapon, or null
+     */
+    public boolean wasThrown() {
+        return _thrown;
+    }
+
+    /**
      * Gets the text to show to describe the effect result.
      * @param game the game
      * @return the text
      */
     @Override
     public String getText(SwccgGame game) {
-        if (_permanentWeapon != null) {
-            return "Fired " + GameUtils.getCardLink(_permanentWeapon.getPhysicalCard(game));
+        String text = "Fired ";
+
+        if (_thrown) {
+            text = "Threw ";
         }
-        else {
-            return "Fired " + GameUtils.getCardLink(_weaponCard);
+
+        if (_permanentWeapon != null) {
+            return text + GameUtils.getCardLink(_permanentWeapon.getPhysicalCard(game));
+        } else {
+            return text + GameUtils.getCardLink(_weaponCard);
         }
     }
 }
