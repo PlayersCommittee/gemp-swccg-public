@@ -30,8 +30,8 @@ import java.util.List;
  * Subtype: Used Or Lost
  * Title: Ee Chu Wawa (V)
  */
-public class Card501_096 extends AbstractUsedOrLostInterrupt {
-    public Card501_096() {
+public class Card501_051 extends AbstractUsedOrLostInterrupt {
+    public Card501_051() {
         super(Side.DARK, 4, "Ee Chu Wawa", Uniqueness.UNIQUE);
         setLore("Paploo's brave diversion provided more of a ride than the adventurous Ewok had bargained for.");
         setGameText("USED: If opponent occupies your location (or if a forest on table), peek at top two cards of your Reserve Deck; take one into hand." +
