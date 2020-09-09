@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtBottomCardOfCardPileEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -16,6 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChoosePlayerBySideEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -67,41 +65,40 @@ public class Card501_053 extends AbstractUsedInterrupt {
 
         GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        // Check condition(s)
-        if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId2)) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId2);
-            action.setText("Peek at bottom card of any card pile");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new ChooseExistingCardPileEffect(action, playerId, "Choose card pile to peek at bottom card of", Filters.any) {
-                                        @Override
-                                        public void pileChosen(SwccgGame game, String cardPileOwner, Zone cardPile) {
-                                            action.appendEffect(
-                                                    new PeekAtBottomCardOfCardPileEffect(action, playerId, cardPileOwner, cardPile));
-                                        }
+        final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId2);
+        action.setText("Peek at bottom card of any card pile");
+        // Allow response(s)
+        action.allowResponses(
+                new RespondablePlayCardEffect(action) {
+                    @Override
+                    protected void performActionResults(Action targetingAction) {
+                        // Perform result(s)
+                        action.appendEffect(
+                                new ChoosePlayerBySideEffect(action, playerId) {
+                                    @Override
+                                    protected void playerChosen(SwccgGame game, final String playerChosen) {
+                                        action.appendEffect(
+                                                new ChooseExistingCardPileEffect(action, playerId, playerChosen) {
+                                                    @Override
+                                                    public void pileChosen(SwccgGame game, String cardPileOwner, Zone cardPile) {
+                                                        action.appendEffect(
+                                                                new PeekAtBottomCardOfCardPileEffect(action, playerId, cardPileOwner, cardPile));
+                                                    }
+                                                });
                                     }
-                            );
-                        }
+                                }
+                        );
                     }
-            );
-            actions.add(action);
-        }
+                });
+        actions.add(action);
 
         return actions;
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
-        final String opponent = game.getOpponent(playerId);
-
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
-                && !TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
+                && !TriggerConditions.isDestinyDrawType(game, effectResult, DestinyType.BATTLE_DESTINY)
                 && GameConditions.canCancelDestiny(game, playerId)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.captain))) {
 
@@ -109,8 +106,7 @@ public class Card501_053 extends AbstractUsedInterrupt {
 
             if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.other(captain), Filters.leader))) {
                 BattleState battleState = game.getGameState().getBattleState();
-                if (battleState != null &&
-                        battleState.isReachedPowerSegment()) {
+                if (battleState != null && battleState.isReachedPowerSegment()) {
                     final PlayInterruptAction action = new PlayInterruptAction(game, self);
                     action.setText("Cancel a non-battle destiny draw");
                     // Allow response(s)

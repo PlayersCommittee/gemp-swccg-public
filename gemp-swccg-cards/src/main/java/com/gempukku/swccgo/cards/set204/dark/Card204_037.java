@@ -32,7 +32,7 @@ public class Card204_037 extends AbstractImperial {
         setLore("Tactical officer from Dentaal. Leader. Familiar with utilizing computer controls to lure an invading enemy into a tactically weak position.");
         setGameText("While at a Cloud City site, adds one to the number of Bespin locations required to cancel Dark Deal. Once per turn, if Dark Deal on table, may search your Force Pile and take one Interrupt into hand; reshuffle.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.CAPTAIN, Keyword.LEADER);
     }
 
     @Override

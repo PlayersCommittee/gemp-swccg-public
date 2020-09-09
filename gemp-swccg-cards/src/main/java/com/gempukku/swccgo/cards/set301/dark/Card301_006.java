@@ -28,7 +28,7 @@ import java.util.List;
  * Set: Virtual Premium Set
  * Type: Character
  * Subtype: Imperial
- * Title: Captain Khurgee V
+ * Title: Captain Khurgee (V)
  */
 public class Card301_006 extends AbstractImperial {
     public Card301_006() {

@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class PeekAtBottomCardsOfCardPileEffect extends AbstractSuccessfulEffect 
         GameState gameState = game.getGameState();
         String cardPileText = (_playerId.equals(_cardPileOwner) ? "" : (_cardPileOwner + "'s ")) + _cardPile.getHumanReadable();
 
-        List<PhysicalCard> deck = gameState.getCardPile(_cardPileOwner, _cardPile);
+        List<PhysicalCard> deck = new ArrayList<>(gameState.getCardPile(_cardPileOwner, _cardPile));
         Collections.reverse(deck);
         int count = Math.min(deck.size(), _count);
         final List<PhysicalCard> bottomCards = new LinkedList<PhysicalCard>(deck.subList(0, count));
