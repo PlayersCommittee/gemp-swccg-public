@@ -51,8 +51,8 @@ public class Card7_030 extends AbstractRebel {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
-        if (TriggerConditions.isFiringWeapon(game, effect, Filters.starship_weapon, Filters.and(Filters.starfighter, Filters.hasPiloting(self)))) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.starship_weapon, Filters.and(Filters.starfighter, Filters.hasPiloting(self)))) {
             WeaponFiringState weaponFiringState = game.getGameState().getWeaponFiringState();
             final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.character, Filters.aboardOrAboardCargoOf(Filters.in(weaponFiringState.getTargets())), Filters.canBeTargetedBy(self)));
             if (!characters.isEmpty()) {
