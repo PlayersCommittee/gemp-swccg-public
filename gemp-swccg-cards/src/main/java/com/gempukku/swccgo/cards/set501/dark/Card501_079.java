@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.TotalAbilityMoreThanCondition;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -38,12 +37,11 @@ public class Card501_079 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String opponent = game.getOpponent(self.getOwner());
-        Filter sameSite = Filters.and(Filters.here(self), Filters.site);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefenseValueModifier(self, new HereCondition(self, Filters.and(Filters.your(opponent), Filters.weapon)), -2));
-        modifiers.add(new ResetTotalBattleDestinyModifier(self, sameSite, new AndCondition(new InBattleCondition(self),
-                new UnlessCondition(new TotalAbilityMoreThanCondition(opponent, 4, sameSite))), 0, opponent));
+        modifiers.add(new ResetTotalBattleDestinyModifier(self, Filters.sameSite(self), new AndCondition(new InBattleCondition(self),
+                new UnlessCondition(new TotalAbilityMoreThanCondition(opponent, 4, Filters.sameSite(self)))), 0, opponent));
         return modifiers;
     }
 }

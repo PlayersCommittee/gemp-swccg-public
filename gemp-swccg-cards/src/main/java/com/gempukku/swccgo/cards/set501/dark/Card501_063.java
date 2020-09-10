@@ -43,7 +43,7 @@ public class Card501_063 extends AbstractCharacterWeapon {
     }
 
     @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new PowerModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new ResetLandspeedModifier(self, Filters.hasAttached(self), 2));
