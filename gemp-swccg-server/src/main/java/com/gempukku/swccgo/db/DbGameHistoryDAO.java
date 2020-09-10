@@ -36,7 +36,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                     statement.setLong(12, endDate.getTime());
 
                     statement.execute();
-                   } finally {
+                } finally {
                     statement.close();
                 }
             } finally {
