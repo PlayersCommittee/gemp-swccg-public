@@ -1,7 +1,7 @@
 var GameHistoryUI = Class.extend({
     communication:null,
     itemStart:0,
-    pageSize:50,
+    pageSize:20,
 
     init:function (url) {
         this.communication = new GempSwccgCommunication(url,
