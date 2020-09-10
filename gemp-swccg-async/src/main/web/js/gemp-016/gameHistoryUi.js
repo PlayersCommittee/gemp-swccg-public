@@ -72,3 +72,4 @@ var GameHistoryUI = Class.extend({
         }
     }
 });
+
