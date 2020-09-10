@@ -3276,6 +3276,7 @@ var fixedImages = {
 "501_77":"/gemp-swccg/images/cards/SpecialEdition-Dark/homingbeacon.gif",
 "501_78":"/gemp-swccg/images/cards/DeathStarII-Dark/thunderflare.gif",
 "501_79":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
+"501_81":"/gemp-swccg/images/cards/CloudCity-Dark/riteofpassage.gif",
 "501_83":"/gemp-swccg/images/cards/Virtual9-Dark/drchellilonaaphra.gif",
 "501_85":"/gemp-swccg/images/cards/Virtual7-Dark/savageopress.gif",
 "501_88":"/gemp-swccg/images/cards/Premiere-Dark/tiescout.gif",
