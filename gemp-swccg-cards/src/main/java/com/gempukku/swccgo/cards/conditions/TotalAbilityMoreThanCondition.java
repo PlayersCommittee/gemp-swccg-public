@@ -36,7 +36,7 @@ public class TotalAbilityMoreThanCondition implements Condition {
     public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
         Collection<PhysicalCard> locations = Filters.filterTopLocationsOnTable(gameState.getGame(), _locationFilter);
         for (PhysicalCard location : locations) {
-            if (modifiersQuerying.getTotalAbilityAtLocation(gameState, _playerId, location, false, false, false, null, false, false, null) < _ability) {
+            if (modifiersQuerying.getTotalAbilityAtLocation(gameState, _playerId, location, false, false, false, null, false, false, null) > _ability) {
                 return true;
             }
         }

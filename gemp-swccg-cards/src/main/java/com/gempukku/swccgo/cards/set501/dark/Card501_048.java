@@ -10,6 +10,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.effects.LookAtForcePileEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -51,7 +52,7 @@ public class Card501_048 extends AbstractSith {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
-        modifiers.add(new MayNotInitiateBattleAtLocationModifier(self, Filters.here(self), new TotalAbilityMoreThanCondition(opponent, 5, Filters.here(self)), opponent));
+        modifiers.add(new MayNotInitiateBattleAtLocationModifier(self, Filters.here(self), new UnlessCondition(new TotalAbilityMoreThanCondition(opponent, 5, Filters.here(self))), opponent));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         return modifiers;
     }

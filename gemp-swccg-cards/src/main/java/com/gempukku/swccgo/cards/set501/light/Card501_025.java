@@ -36,7 +36,7 @@ public class Card501_025 extends AbstractAlien {
         setLore("Female scout, smuggler, and thief.");
         setGameText("May forfeit in place of your 'hit' [Set 13] smuggler here, restoring that smuggler to normal. Permanent weapon is Blaster Pistol (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
         addKeywords(Keyword.FEMALE, Keyword.SCOUT, Keyword.SMUGGLER, Keyword.THIEF);
-        addIcons(Icon.VIRTUAL_SET_13, Icon.WARRIOR);
+        addIcons(Icon.VIRTUAL_SET_13, Icon.WARRIOR, Icon.PERMANENT_WEAPON);
         setTestingText("Val");
         addPersona(Persona.VAL);
     }

@@ -2,11 +2,11 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
+import com.gempukku.swccgo.cards.evaluators.InBattleOrStackedInBattle;
+import com.gempukku.swccgo.cards.evaluators.MinEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.ArrayList;
@@ -28,17 +29,17 @@ import java.util.List;
 /**
  * Set: Set 13
  * Type: Epic Event
- * Title: Epic Duel (v)
+ * Title: Epic Duel (V)
  */
 public class Card501_012 extends AbstractEpicEventDeployable {
     public Card501_012() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Epic_Duel);
-        setGameText("Deploy on table. Players only lose Force to Visage Of The Emperor at the end of their own turn. You may not deploy characters except droids, Imperials and Bounty Hunters. Inquisitors are destiny +2. Choose one:" +
-                "Master: Once per turn may deploy [CC] battleground site from Reserve Deck; reshuffle. While Their Fire Has Gone Out Of The Universe on table, opponent's Force drain bonuses are canceled." +
-                "Apprentice: Once per turn you may deploy a Malakor battleground site. Your total battle destiny is +1 for each Inquistor in battle (Additional +1 if with a hatred card)");
+        setGameText("Deploy on table. Players lose no Force from Visage Of The Emperor during their opponent's turn. You may not deploy characters except bounty hunters, droids, and Imperials. Inquisitors are destiny +2. Choose one:" +
+                "Master: Once per turn, may deploy a [Cloud City] battleground site from Reserve Deck; reshuffle. While Their Fire Has Gone Out Of The Universe on table, opponent's Force drain bonuses are canceled." +
+                "Apprentice: Once per turn, may deploy a Malachor battleground site from Reserve Deck; reshuffle. Where you have an Inquisitor, your total battle destiny is +1 for each Inquisitor and 'Hatred' card there (limit +3).");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
-        setTestingText("Epic Duel (v)");
+        setTestingText("Epic Duel (V)");
     }
 
     @Override
@@ -56,9 +57,8 @@ public class Card501_012 extends AbstractEpicEventDeployable {
 
         //Apprentice
         Condition playCardOptionId2 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2);
-        modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2, new InBattleEvaluator(self, Filters.inquisitor), self.getOwner()));
-        Filter siteWithHatredCardStacked = Filters.and(Filters.site, Filters.or(Filters.hasStacked(Filters.hatredCard), Filters.sameSiteAs(self, Filters.and(Filters.character, Filters.hasStacked(Filters.hatredCard)))));
-        modifiers.add(new TotalBattleDestinyModifier(self, new AndCondition(new InBattleAtCondition(self, siteWithHatredCardStacked), playCardOptionId2), 1, self.getOwner()));
+        modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2,
+                new MinEvaluator(new ConstantEvaluator(3), new InBattleOrStackedInBattle(self, Filters.inquisitor, Filters.hatredCard)), self.getOwner()));
         return modifiers;
     }
 
