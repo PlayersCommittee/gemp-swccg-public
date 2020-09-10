@@ -125,10 +125,6 @@ public class SwccgGameMediator {
     public String getWinner() {
         return _swccgoGame.getWinner();
     }
-    
-    public Side getWinningSide() {
-        return _swccgoGame.getSide(_swccgoGame.getWinner());
-    }
 
     public List<SwccgGameParticipant> getPlayersPlaying() {
         return new LinkedList<SwccgGameParticipant>(_playersPlaying);
