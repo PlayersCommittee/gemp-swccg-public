@@ -37,7 +37,7 @@ public class Card5_001 extends AbstractRebel {
         setLore("Smuggler and scoundrel. His piloting abilities have become legend in the Rebellion. Intends to leave the Alliance to pay off Jabba the Hutt.");
         setGameText("Deploys only on Falcon, Hoth or Cloud City. Adds 3 to power of anything he pilots. When piloting Falcon, adds one battle destiny and 2 to maneuver. Once during each battle, may use 2 Force to cancel one opponent's destiny just drawn and cause a re-draw.");
         addIcons(Icon.CLOUD_CITY, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.SMUGGLER);
+        addKeywords(Keyword.SMUGGLER, Keyword.CAPTAIN);
         addPersona(Persona.HAN);
         setSpecies(Species.CORELLIAN);
         setMatchingStarshipFilter(Filters.Falcon);

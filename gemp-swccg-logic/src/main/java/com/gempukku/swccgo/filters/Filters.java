@@ -17174,6 +17174,7 @@ public class Filters {
     public static final Filter Capacitors = Filters.title(Title.Capacitors);
     public static final Filter capital_starship = Filters.and(CardType.STARSHIP, CardSubtype.CAPITAL);
     public static final Filter Capital_Support = Filters.title(Title.Capital_Support);
+    public static final Filter captain = Filters.keyword(Keyword.CAPTAIN);
     public static final Filter Captain_Tarpals = Filters.title(Title.Captain_Tarpals);
     public static final Filter Captive_Fury = Filters.title(Title.Captive_Fury);
     public static final Filter Captive_Pursuit = Filters.title(Title.Captive_Pursuit);

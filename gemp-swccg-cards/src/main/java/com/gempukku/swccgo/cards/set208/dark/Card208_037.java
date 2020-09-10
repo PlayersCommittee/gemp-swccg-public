@@ -24,7 +24,7 @@ public class Card208_037 extends AbstractFirstOrder {
         setLore("Leader.");
         setGameText("[Pilot] 3. Deploys -1 to Finalizer. While piloting Finalizer, it is immune to attrition < 8 (< 10 while with a Resistance character or [Resistance] starship). May be targeted by Imperial Command as an admiral (even if a unit of Force).");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.VIRTUAL_SET_8);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
         setMatchingStarshipFilter(Filters.Finalizer);
     }
 

@@ -31,7 +31,7 @@ public class Card204_038 extends AbstractFirstOrder {
         setLore("Female leader. Stormtrooper.");
         setGameText("Adds one battle destiny with a stormtrooper. If you just won a battle at same or related location, may retrieve a trooper.");
         addIcons(Icon.EPISODE_VII, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
-        addKeywords(Keyword.FEMALE, Keyword.LEADER, Keyword.STORMTROOPER);
+        addKeywords(Keyword.FEMALE, Keyword.LEADER, Keyword.STORMTROOPER, Keyword.CAPTAIN);
     }
 
     @Override
