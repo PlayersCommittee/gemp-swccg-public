@@ -69,20 +69,19 @@ public class Card501_058_BACK extends AbstractObjective {
 
         //Flip this card at the end of each turn; (if you occupy 3 battlegrounds, opponent loses 1 Force).
         if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setSingletonTrigger(true);
+            action.setText("Flip");
+            action.setActionMsg(null);
+            // Perform result(s)
+            action.appendEffect(
+                    new FlipCardEffect(action, self));
             if (GameConditions.occupies(game, playerId, 3, Filters.battleground)) {
-                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setSingletonTrigger(true);
-                action.setText("Flip");
-                action.setActionMsg(null);
-                // Perform result(s)
-                action.appendEffect(
-                        new FlipCardEffect(action, self));
-
                 action.appendEffect(
                         new LoseForceEffect(action, game.getOpponent(playerId), 1)
                 );
-                actions.add(action);
             }
+            actions.add(action);
         }
 
         return actions;
@@ -94,7 +93,7 @@ public class Card501_058_BACK extends AbstractObjective {
         Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
         Filter episode1BountyHunters = Filters.and(Filters.icon(Icon.EPISODE_I), Filters.bounty_hunter);
         Filter loreCharacters = Filters.or(Filters.loreContains("Crimson Dawn"), Filters.loreContains("Black Sun"), Filters.loreContains("Hutt"));
-        Filter cardsThatMayNotDeploy = Filters.or(Filters.and(Filters.icon(Icon.EPISODE_I), Filters.droid), Filters.not(Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, episode1BountyHunters, Filters.assassin, Filters.gangster, loreCharacters)))));
+        Filter cardsThatMayNotDeploy = Filters.or(Filters.and(Filters.icon(Icon.EPISODE_I), Filters.droid), Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, episode1BountyHunters, Filters.assassin, Filters.gangster, loreCharacters))));
         List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
