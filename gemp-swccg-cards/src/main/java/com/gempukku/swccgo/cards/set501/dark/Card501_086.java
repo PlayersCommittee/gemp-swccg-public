@@ -25,7 +25,7 @@ import java.util.List;
  * Set: Set 13
  * Type: Interrupt
  * Subtype: Used
- * Title:A Lawless Time
+ * Title: A Lawless Time
  */
 public class Card501_086 extends AbstractUsedInterrupt {
     public Card501_086() {
