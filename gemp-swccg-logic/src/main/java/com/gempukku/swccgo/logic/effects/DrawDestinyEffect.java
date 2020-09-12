@@ -137,7 +137,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         _performingPlayerId = playerId;
         _normalNumToDraw = numberOfDraws;
         _drawX = drawX;
-        _extraDrawsFromDrawX = (_drawX > 0 ? _drawX - 1 : 0);
+        _extraDrawsFromDrawX = (_drawX > 0 ? _drawX - chooseY : 0);
         _chooseY = chooseY;
         _takeOtherIntoHand = takeOtherIntoHand;
         _destinyType = type;
