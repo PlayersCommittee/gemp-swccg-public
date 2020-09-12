@@ -110,7 +110,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private Map<String, List<PhysicalCard>> _cardWithAbilityDeployedThisTurn = new HashMap<String, List<PhysicalCard>>();
     private Map<String, Map<Integer, List<PhysicalCard>>> _cardPlayedToLocationThisTurn = new HashMap<String, Map<Integer, List<PhysicalCard>>>();
     private boolean _bluffCardStacked;
-    private boolean _flippedSYCFAWithInklingThisTurn;
     private Set<String> _usedCombatCard = new HashSet<String>();
     private Map<Integer, List<PhysicalCard>> _targetedByWeaponsMap = new HashMap<Integer, List<PhysicalCard>>();
     private Map<Integer, List<SwccgBuiltInCardBlueprint>> _targetedByPermanentWeaponsMap = new HashMap<Integer, List<SwccgBuiltInCardBlueprint>>();
@@ -438,7 +437,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
         snapshot._bluffCardStacked = _bluffCardStacked;
-        snapshot._flippedSYCFAWithInklingThisTurn = _flippedSYCFAWithInklingThisTurn;
 
 
         snapshot._usedCombatCard.addAll(_usedCombatCard);
@@ -3390,14 +3388,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     @Override
     public boolean isBluffCardStackedThisTurn() {
         return _bluffCardStacked;
-    }
-
-    @Override
-    public void setFlippedSYCFAWithInklingThisTurn(boolean flipped) { _flippedSYCFAWithInklingThisTurn = flipped; }
-
-    @Override
-    public boolean hasFlippedSYCFAWithInklingThisTurn() {
-        return _flippedSYCFAWithInklingThisTurn;
     }
 
     /**
