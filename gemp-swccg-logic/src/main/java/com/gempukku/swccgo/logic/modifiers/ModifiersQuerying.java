@@ -1041,17 +1041,6 @@ public interface ModifiersQuerying {
     boolean isBluffCardStackedThisTurn();
 
     /**
-     * Records that a SYCFA was flipped with Inkling this turn.
-     */
-    void setFlippedSYCFAWithInklingThisTurn(boolean flipped);
-
-    /**
-     * Determines if SYCFA was flipped with Inkling this turn.
-     * @return true or false
-     */
-    boolean hasFlippedSYCFAWithInklingThisTurn();
-
-    /**
      * Records that the specified card being played (or being deployed).
      * @param card the card
      */

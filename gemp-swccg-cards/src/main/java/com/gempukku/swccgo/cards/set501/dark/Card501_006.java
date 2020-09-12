@@ -78,6 +78,8 @@ public class Card501_006 extends AbstractImperial {
             action.setPerformingPlayer(playerId);
             action.setText("Make opponent lose 1 Force");
             // Perform result(s)
+            action.appendUsage(
+                    new OncePerPhaseEffect(action));
             action.appendEffect(
                     new LoseForceEffect(action, opponent, 1));
             actions.add(action);

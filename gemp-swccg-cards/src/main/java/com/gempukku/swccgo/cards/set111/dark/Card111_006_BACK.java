@@ -3,8 +3,8 @@ package com.gempukku.swccgo.cards.set111.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -101,22 +101,10 @@ public class Card111_006_BACK extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
-        Filter yourNonVictoryClassStarDestroyers =
-            Filters.and(Filters.your(self), Filters.Star_Destroyer, Filters.not(Filters.Victory_class_Star_Destroyer));
-        Filter yourVictoryClassStarDestroyers = Filters.and(Filters.your(self), Filters.Victory_class_Star_Destroyer);
-        Filter deathStarSystem = Filters.Death_Star_system;
-        Filter battlegroundSystem = Filters.battleground_system;
-        Filter sameSystemAsYourNonVictoryClassSd =
-            Filters.sameSystemAs(self, Filters.and(yourNonVictoryClassStarDestroyers));
-        Filter sameSystemAsYourVictoryClassSd = Filters.sameSystemAs(self, Filters.and(yourVictoryClassStarDestroyers));
-
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DeployCostToLocationModifier(self, yourNonVictoryClassStarDestroyers, -2, deathStarSystem, true));
-        modifiers.add(new DeployCostToLocationModifier(self, yourVictoryClassStarDestroyers, -1, deathStarSystem, true));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourVictoryClassSd), 1,
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.Star_Destroyer, new CardMatchesEvaluator(-2, -1, Filters.Victory_class_Star_Destroyer), Filters.Death_Star_system));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Star_Destroyer)), new CardMatchesEvaluator(2, 1, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Victory_class_Star_Destroyer))),
                 playerId));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(battlegroundSystem, sameSystemAsYourNonVictoryClassSd),
-                2, playerId));
         return modifiers;
     }
 }
