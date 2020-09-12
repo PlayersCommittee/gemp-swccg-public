@@ -89,12 +89,13 @@ public class Card501_058 extends AbstractObjective {
                         @Override
                         protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
                             if (Filters.and(Filters.non_unique, Filters.blaster).accepts(game, selectedCard)) {
+                                // Perform result(s)
                                 action.appendEffect(
-                                        new DeployCardToTargetFromReserveDeckEffect(action, Filters.in(Collections.singletonList(selectedCard)), Filters.and(Filters.your(playerId), Filters.alien), true)
+                                        new DeployCardToTargetFromReserveDeckEffect(action, selectedCard, Filters.and(Filters.your(playerId), Filters.alien), false, false, true)
                                 );
                             } else {
                                 action.appendEffect(
-                                        new DeployCardFromReserveDeckEffect(action, Filters.in(Collections.singletonList(selectedCard)), true)
+                                        new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedCard), true)
                                 );
                             }
                         }

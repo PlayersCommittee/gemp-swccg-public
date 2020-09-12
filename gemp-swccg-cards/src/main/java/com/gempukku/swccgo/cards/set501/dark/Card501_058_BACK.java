@@ -4,7 +4,7 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -17,7 +17,9 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.RecirculateEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -121,19 +123,31 @@ public class Card501_058_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
-
+        GameTextActionId gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.DEPLOY)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a card from Reserve Deck");
             action.appendUsage(
-                    new OncePerPhaseEffect(action)
+                    new OncePerTurnEffect(action)
             );
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")), true)
-            );
-            actions.add(action);
+                    new ChooseCardFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light"))) {
+                        @Override
+                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                            if (Filters.and(Filters.non_unique, Filters.blaster).accepts(game, selectedCard)) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new DeployCardToTargetFromReserveDeckEffect(action, selectedCard, Filters.and(Filters.your(playerId), Filters.alien), false, false, true)
+                                );
+                            } else {
+                                action.appendEffect(
+                                        new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedCard), true)
+                                );
+                            }
+                        }
+                    });
         }
         return actions;
     }
