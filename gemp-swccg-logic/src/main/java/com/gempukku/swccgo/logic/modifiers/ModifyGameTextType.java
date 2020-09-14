@@ -9,6 +9,7 @@ public enum ModifyGameTextType {
 
     // Game text modifier flags
     // (Naming convention: CardIdentifier__ModificationIdentifier)
+    ADD_TWO_TO_BLOW_AWAY_SHIELD_GATE("Add 2 to total to blow away Shield Gate"),
     ALWAYS_THINKING_WITH_YOUR_STOMACH__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
     BOONTA_EVE_PODRACE__RETRIEVE_FORCE_INTO_HAND("Take any or all force retrieved into hand"),
     BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE("May not capture Luke"),
@@ -52,6 +53,7 @@ public enum ModifyGameTextType {
     SPECIAL_DELIVERY__TAKE_TWO_ADDITIONAL_CARDS_INTO_HAND("Take two additional cards into hand"),
     SPECIAL_MODIFICATIONS__IMMUNE_TO_ATTRITION_LESS_THAN_FOUR("Makes target to attrition < 4"),
     SPICE_MINES_OF_KESSEL__ADD_4_TO_FORCE_RETRIEVED("Add 4 to Force retrieved"),
+    SUBTRACT_TWO_FROM_BLOW_AWAY_SHIELD_GATE("Subtract 2 from total to blow away Shield Gate"),
     SURPRISE_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
     TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY("Opponent adds maneuver and ability"),
     TARKIN__CANNOT_CANCEL_DESTINY("Cannot cancel destiny"),
