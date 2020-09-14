@@ -849,6 +849,7 @@ public interface Title {
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
+    String Scarif_Citadel_Tower = "Scarif: Citadel Tower";
     String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine (Docking Bay)";
     String Scarif_Turbolift_Complex = "Scarif: Turbolift Complex";
     String Scimitar_1 = "Scimitar 1";
