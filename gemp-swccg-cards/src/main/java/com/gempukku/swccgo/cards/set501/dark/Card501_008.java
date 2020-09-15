@@ -75,7 +75,6 @@ public class Card501_008 extends AbstractDefensiveShield {
             actions.add(action);
         }
 
-
         return actions;
     }
 }
