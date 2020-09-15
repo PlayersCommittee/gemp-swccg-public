@@ -127,7 +127,7 @@ public class SwccgGameMediator {
     }
     
     public String getWinningSideString() {
-        if(_swccgoGame.getWinner()==null||_swccgoGame.getSide(_swccgoGame.getWinner())==null)
+        if(_swccgoGame.isCancelled()||_swccgoGame.getWinner()==null||_swccgoGame.getSide(_swccgoGame.getWinner())==null)
             return "None";
         
         return _swccgoGame.getSide(_swccgoGame.getWinner()).getHumanReadable();
