@@ -288,6 +288,16 @@ public interface ModifiersQuerying {
     boolean isPoliticsUsedForPower(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
     /**
+     * Determines if a card's defense value may not be increased by the specified player.
+     *
+     * @param gameState         the game state
+     * @param card              a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's defense value may not be increased, otherwise false
+     */
+    boolean isProhibitedFromHavingDefenseValueIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+
+    /**
      * Determines if a card's defense value may not be reduced by the specified player.
      * @param gameState the game state
      * @param card a card
@@ -504,7 +514,6 @@ public interface ModifiersQuerying {
      */
     boolean isProhibitedFromHavingForfeitReduced(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
-
     /**
      * Determines if a card's forfeit may not be increased above printed value
      * @param gameState the game state
@@ -512,9 +521,7 @@ public interface ModifiersQuerying {
      * @param modifierCollector collector of affecting modifiers
      * @return true if card's forfeit may not be increased above printed values
      */
-    boolean isProhibitedFromHavingForfeitInceasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
-
-
+    boolean isProhibitedFromHavingForfeitIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
     /**
      * Determines if a card's game text may not be canceled.

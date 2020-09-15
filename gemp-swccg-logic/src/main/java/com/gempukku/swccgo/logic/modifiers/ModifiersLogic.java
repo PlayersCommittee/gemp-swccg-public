@@ -1904,7 +1904,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             result = lowestResetValue;
         }
 
-        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingForfeitInceasedBeyondPrinted(gameState, physicalCard, modifierCollector);
+        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingForfeitIncreasedBeyondPrinted(gameState, physicalCard, modifierCollector);
         if (forfeitMayNotIncreaseBeyondPrinted) {
             if (result > printedForfeit) {
                 result = printedForfeit;
@@ -1953,6 +1953,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return retVal;
     }
 
+    /**
+     * Determines if a card's defense value may not be increased above printed value
+     *
+     * @param gameState         the game state
+     * @param card              a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased above printed values
+     */
+    @Override
+    public boolean isProhibitedFromHavingDefenseValueIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_DEFENSE_VALUE_INCREASED_ABOVE_PRINTED, card)) {
+            retVal = true;
+            modifierCollector.addModifier(modifier);
+        }
+        return retVal;
+    }
 
     /**
      * Determines if a card's forfeit may not be increased above printed value
@@ -1962,7 +1979,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @return true if card's forfeit may not be increased above printed values
      */
     @Override
-    public boolean isProhibitedFromHavingForfeitInceasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+    public boolean isProhibitedFromHavingForfeitIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
         boolean retVal = false;
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_INCREASED_ABOVE_PRINTED, card)) {
             retVal = true;
@@ -2700,6 +2717,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         if (lowestResetValue != null) {
             result = lowestResetValue;
+        }
+
+        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingDefenseValueIncreasedBeyondPrinted(gameState, physicalCard, modifierCollector);
+        if (forfeitMayNotIncreaseBeyondPrinted) {
+            if (result > defenseValueBeforeModified) {
+                result = defenseValueBeforeModified;
+            }
         }
 
         return Math.max(0, result);
