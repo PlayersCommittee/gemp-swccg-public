@@ -84,7 +84,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
      * @param chooseY the number of destiny to choose (for draw X and choose Y)
      */
     public DrawDestinyEffect(Action action, String playerId, int drawX, int chooseY) {
-        this(action, playerId, drawX, drawX, chooseY, false, DestinyType.DESTINY);
+        this(action, playerId, chooseY, drawX, chooseY, false, DestinyType.DESTINY);
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
      * @param takeOtherIntoHand true if the destinies not chosen (for draw X and choose Y) are taken into hand, otherwise false
      */
     public DrawDestinyEffect(Action action, String playerId, int drawX, int chooseY, boolean takeOtherIntoHand) {
-        this(action, playerId, drawX, drawX, chooseY, takeOtherIntoHand, DestinyType.DESTINY);
+        this(action, playerId, chooseY, drawX, chooseY, takeOtherIntoHand, DestinyType.DESTINY);
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
      * @param type the type of destiny
      */
     public DrawDestinyEffect(Action action, String playerId, int drawX, int chooseY, DestinyType type) {
-        this(action, playerId, 1, drawX, chooseY, false, type);
+        this(action, playerId, chooseY, drawX, chooseY, false, type);
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         _performingPlayerId = playerId;
         _normalNumToDraw = numberOfDraws;
         _drawX = drawX;
-        _extraDrawsFromDrawX = (_drawX > 0 ? _drawX - 1 : 0);
+        _extraDrawsFromDrawX = (_drawX > 0 ? _drawX - chooseY : 0);
         _chooseY = chooseY;
         _takeOtherIntoHand = takeOtherIntoHand;
         _destinyType = type;
