@@ -66,6 +66,26 @@ COLLATE = utf8_bin;
 
 
 -- -----------------------------------------------------
+-- View `gemp-swccg`.`deck_archetype_view_public`
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW `gemp-swccg`.`deck_archetype_view_public`
+AS SELECT id
+,winner
+,loser
+,win_reason
+,lose_reason
+,start_date
+,end_date
+,format_name
+,tournament
+,winner_deck_archetype
+,loser_deck_archetype
+,winner_side
+FROM `gemp-swccg`.`game_history`
+WHERE LOWER(format_name) NOT LIKE '%playtest%';
+
+
+-- -----------------------------------------------------
 -- Table `gemp-swccg`.`league`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`league` (
