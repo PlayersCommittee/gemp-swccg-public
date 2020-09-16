@@ -55,12 +55,11 @@ public class Card9_015 extends AbstractRebel {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         
-        PhysicalCard starshipPiloting = self.getAttachedTo();
+        PhysicalCard starshipPiloting = Filters.findFirstActive(game,self,Filters.and(Filters.hasPiloting(self),Filters.starship));
         
-        if (TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.ion_cannon)
+        if (starshipPiloting!=null
+        		&& TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.ion_cannon)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-        		    && Filters.starship.accepts(game, starshipPiloting)
-        		    && Filters.piloting(starshipPiloting).accepts(game, self)
                 && GameConditions.isDuringWeaponFiringAtTarget(game, Filters.weaponBeingFiredBy(starshipPiloting), Filters.any)
                 && GameConditions.canDrawDestinyAndChoose(game, 2)
                 ) {
@@ -72,5 +71,4 @@ public class Card9_015 extends AbstractRebel {
         }
         return null;
     }
-    
 }
