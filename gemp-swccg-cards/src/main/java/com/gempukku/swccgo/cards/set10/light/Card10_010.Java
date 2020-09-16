@@ -91,29 +91,29 @@ public class Card10_010 extends AbstractRebel {
     	
     	GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_DEFAULT;
     	
-    	final PhysicalCard escortedBy = self.getAttachedTo();
-    	final PhysicalCard DsIIThroneRoom = Filters.findFirstFromTopLocationsOnTable(game, Filters.title("Death Star II: Throne Room"));
+    	final PhysicalCard escortedBy = Filters.findFirstActive(game, self, Filters.and(Filters.Vader,Filters.escort,Filters.escorting(self)));
+    	final PhysicalCard dsIIThroneRoom = Filters.findFirstFromTopLocationsOnTable(game, Filters.title("Death Star II: Throne Room"));
     	
     	
-    	if(GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
-    			&&GameConditions.canSpot(game, self, Filters.Take_Your_Fathers_Place)
-    			&&GameConditions.canSpot(game, self, Filters.title("Death Star II: Throne Room"))
-    			&&Filters.Vader.accepts(game, escortedBy)
-    			&&Filters.escort.accepts(game, escortedBy)
-    			&&Filters.escortedCaptive.accepts(game, self)
-    			&&Filters.canBeRelocatedToLocation(DsIIThroneRoom, false, true, true, 0, false).accepts(game, escortedBy)
-    			&&GameConditions.canTarget(game, self, escortedBy)
+    	if(escortedBy!=null
+    			&& dsIIThroneRoom!=null
+    			&& GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
+    			&& GameConditions.canSpot(game, self, Filters.Take_Your_Fathers_Place)
+    			&& GameConditions.canSpot(game, self, Filters.title("Death Star II: Throne Room"))
+    			&& GameConditions.canTarget(game, self, escortedBy)
+    			&& Filters.canBeRelocatedToLocation(dsIIThroneRoom, false, true, true, 0, false).accepts(game, escortedBy)
+    			&& Filters.canBeRelocatedToLocation(dsIIThroneRoom, false, true, true, 0, false).accepts(game, self)
     			) {
 
     		final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
     		action.setText("Relocate Vader and Luke to Throne Room");
-            action.allowResponses("Relocate " + GameUtils.getCardLink(escortedBy) + " to " + GameUtils.getCardLink(DsIIThroneRoom),
+            action.allowResponses("Relocate " + GameUtils.getCardLink(escortedBy) + " to " + GameUtils.getCardLink(dsIIThroneRoom),
                     new UnrespondableEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new RelocateBetweenLocationsEffect(action, escortedBy, DsIIThroneRoom));
+                                    new RelocateBetweenLocationsEffect(action, escortedBy, dsIIThroneRoom));
                         }
                     }
             );
