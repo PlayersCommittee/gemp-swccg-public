@@ -5812,8 +5812,9 @@ public class FireWeaponActionBuilder {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
                                                                     new HitCardEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                            Collection<PhysicalCard> hatredCards = Filters.filterStacked(game, Filters.and(Filters.stackedOn(cardFiredAt), Filters.hatredCard));
                                                             action.appendEffect(
-                                                                    new TakeStackedCardIntoHandEffect(action, _weaponOrCardWithPermanentWeapon.getOwner(), cardFiredAt, Filters.hatredCard)
+                                                                    new TakeStackedCardsIntoHandEffect(action, _weaponOrCardWithPermanentWeapon.getOwner(), 1, hatredCards.size(), cardFiredAt, Filters.hatredCard)
                                                             );
                                                         } else {
                                                             gameState.sendMessage("Result: Failed");

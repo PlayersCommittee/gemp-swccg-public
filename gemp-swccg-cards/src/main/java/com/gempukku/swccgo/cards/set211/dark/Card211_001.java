@@ -2,13 +2,14 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlienImperial;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
@@ -62,8 +63,6 @@ public class Card211_001 extends AbstractAlienImperial {
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
-            //Clearing the once per turn flag if Thrawn made opponent lose a force
-            self.clearForRemainderOfGameData();
             //Select a location
             action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target a related location", Filters.relatedLocation(self)){
                 @Override
@@ -76,6 +75,9 @@ public class Card211_001 extends AbstractAlienImperial {
                                 protected void performActionResults(Action targetingAction) {
                                     // Perform result(s)
                                     action.appendEffect(
+                                            new SetWhileInPlayDataEffect(action, location, new WhileInPlayData())
+                                    );
+                                    action.appendEffect(
                                             new AddUntilEndOfTurnActionProxyEffect(action,
                                                     new AbstractActionProxy() {
                                                         @Override
@@ -84,14 +86,14 @@ public class Card211_001 extends AbstractAlienImperial {
 
                                                             // Check condition(s)
                                                             if (TriggerConditions.movedToLocation(game, effectResult, Filters.opponents(self), location)
-                                                                    && !GameConditions.cardHasAnyForRemainderOfGameDataSet(self)) {
-                                                                self.setForRemainderOfGameData(self.getCardId(), new ForRemainderOfGameData());
+                                                                    && GameConditions.cardHasWhileInPlayDataSet(location)) {
 
                                                                 final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());
                                                                 action2.setText("Make opponent lose 1 force.");
                                                                 action2.setActionMsg("Make opponent lose 1 force.");
                                                                 // Actually retrieve the force
-                                                                action2.appendEffect(new LoseForceEffect(action, game.getOpponent(playerId), 1));
+                                                                action2.appendEffect(new SetWhileInPlayDataEffect(action, location, null));
+                                                                action2.appendEffect(new LoseForceEffect(action2, game.getOpponent(playerId), 1));
                                                                 actions.add(action2);
                                                             }
                                                             return actions;
@@ -103,9 +105,6 @@ public class Card211_001 extends AbstractAlienImperial {
                     );
                 }
             });
-
-            // Perform result(s)
-
             return Collections.singletonList(action);
         }
         return null;

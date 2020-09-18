@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -76,25 +76,28 @@ public class Card501_081 extends AbstractUsedInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         //Check Condition
-        if (TriggerConditions.isAboutToBeLost(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character, Filters.hasStacked(Filters.hatredCard)))) {
-            final AboutToLoseCardFromTableResult result = (AboutToLoseCardFromTableResult) effectResult;
-            final PhysicalCard cardToBeLost = result.getCardToBeLost();
-            final Collection<PhysicalCard> hatredCards = Filters.filterStacked(game, Filters.stackedOn(cardToBeLost));
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Place any hatred cards in Used Pile");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new PutStackedCardsInUsedPileEffect(action, playerId, hatredCards, false)
-                            );
+        if (TriggerConditions.isAboutToBeLost(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character))
+                || TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character))) {
+            final AboutToLeaveTableResult aboutToLeaveTableResult = (AboutToLeaveTableResult) effectResult;
+            final PhysicalCard cardToBeLost = aboutToLeaveTableResult.getCardAboutToLeaveTable();
+            final Collection<PhysicalCard> hatredCards = Filters.filterStacked(game, Filters.and(Filters.hatredCard, Filters.stackedOn(cardToBeLost)));
+            if (!hatredCards.isEmpty()) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Place any hatred cards in Used Pile");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new PutStackedCardsInUsedPileEffect(action, playerId, 1, hatredCards.size(), false, cardToBeLost)
+                                );
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            }
         }
 
         return null;

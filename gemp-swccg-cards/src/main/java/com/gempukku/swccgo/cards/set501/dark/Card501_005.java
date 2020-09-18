@@ -10,7 +10,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactToLocationModifier;
@@ -60,15 +60,17 @@ public class Card501_005 extends AbstractImperial {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && !GameConditions.isAlone(game, self)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Return Inquisitor To Hand");
+            action.setText("Return an Inquisitor here To hand");
             action.appendUsage(
                     new OncePerPhaseEffect(action)
             );
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose target Inquisitor", Filters.and(Filters.here(self), Filters.inquisitor)) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose target Inquisitor", Filters.and(Filters.here(self), Filters.inquisitor)) {
                         @Override
-                        protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
-                            new ReturnCardToHandFromTableEffect(action, targetedCard, Zone.HAND);
+                        protected void cardSelected(PhysicalCard selectedCard) {
+                            action.appendEffect(
+                                    new ReturnCardToHandFromTableEffect(action, selectedCard, Zone.HAND)
+                            );
                         }
                     }
             );
