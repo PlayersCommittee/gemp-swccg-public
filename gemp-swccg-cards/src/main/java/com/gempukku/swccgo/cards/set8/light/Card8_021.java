@@ -31,7 +31,6 @@ public class Card8_021 extends AbstractAlien {
         setLore("Ewok archer. Wood carver. Tribal elder that advises Chief Chirpa. Crafts and maintains weapons.");
         setGameText("Deploys only on Endor. Power and forfeit +1 for each Light side icon at same Endor site. When on Endor, adds 1 to total weapon destiny whenever you have any Ewok using an Ewok weapon at an Endor site.");
         addIcons(Icon.ENDOR);
-        addKeywords(Keyword.MUSICIAN);
         setSpecies(Species.EWOK);
     }
 

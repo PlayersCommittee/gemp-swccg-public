@@ -32,6 +32,7 @@ public class Card8_030 extends AbstractAlien {
         setLore("Ewok watcher of the stars. Musician and poet at heart. Wears a horned Gurreck skull decorated with Churi feathers. Carries a stone hatchet. Student of Logray.");
         setGameText("Deploys only on Endor. Power and forfeit +1 for each [Light Side] icon at same Endor site. While on Endor, adds 1 (or 2 if present with Logray) to forfeit of each of your Ewoks at Endor sites.");
         addIcons(Icon.ENDOR);
+        addKeywords(Keyword.MUSICIAN);
         setSpecies(Species.EWOK);
     }
 
