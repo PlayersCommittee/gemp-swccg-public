@@ -445,7 +445,8 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                                             List<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                             if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DROIDS_SATISFY_FORCE_LOSS_UP_TO_THEIR_FORFEIT_VALUE, _playerToLoseForce)
                                                     && cards.get(0).getBlueprint().hasIcon(Icon.DROID) && (_fromHand || _fromUsedPile || _fromForcePile || _fromReserveDeck)) {
-                                                _amountLostSoFar = _amountLostSoFar + cards.get(0).getBlueprint().getForfeit().intValue();
+                                            	int forceLossToApply = (int)Math.min(getForceLossRemaining(game),cards.get(0).getBlueprint().getForfeit().intValue());
+                                                _amountLostSoFar = _amountLostSoFar + forceLossToApply;
                                             } else {
                                                 _amountLostSoFar++;
                                             }
