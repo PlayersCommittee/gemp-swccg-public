@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card501_061 extends AbstractCharacterWeapon {
     public Card501_061() {
-        super(Side.DARK, 4, Title.Black_Sun_Blaster, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 4, Title.Black_Sun_Blaster);
         setLore("Highly specialized weapon used for disintegration. Commonly found on the black market and in criminal arsenals. One of the favored weapons of the Black Sun.");
         setGameText("Use 1 Force to deploy on your alien warrior (free if your Black Sun agent leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and opponent loses 1 Force.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
