@@ -128,6 +128,8 @@ public class Card11_064 extends AbstractDroid {
 
     				protected void cardSelected(PhysicalCard selectedCard) {
     					if(selectedCard!=null) {
+							gm.getGameState().sendMessage("Enforcing limit of 1 Sith Probe Droid at "+GameUtils.getCardLink(selectedCard));
+
     						String playerOne = self.getOwner();
     						String playerTwo = gm.getOpponent(playerOne);
 
@@ -151,7 +153,7 @@ public class Card11_064 extends AbstractDroid {
         						action.insertEffect(new ChooseCardToLoseFromTableEffect(action, playerOne, null,true, Filters.in(playerOneDroids), SpotOverride.INCLUDE_ALL));
     						} else if(playerTwoDroids.size()>1) {
         						action.setText("Have " + playerTwo + " choose a Sith Probe Droid to be lost");
-        						action.insertEffect(new ChooseCardToLoseFromTableEffect(action, playerOne, null,true, Filters.in(playerTwoDroids), SpotOverride.INCLUDE_ALL));
+        						action.insertEffect(new ChooseCardToLoseFromTableEffect(action, playerTwo, null,true, Filters.in(playerTwoDroids), SpotOverride.INCLUDE_ALL));
     						}
     						
     					}
