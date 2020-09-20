@@ -61,7 +61,7 @@ public class OperativesRule implements Rule {
                                 action.setText(darkSidePlayerId + "'s operative lost");
                                 action.setMessage(darkSidePlayerId + " must choose operative to be lost");
                                 action.appendEffect(
-                                        new ChooseCardToLoseFromTableEffect(action, darkSidePlayerId, true, Filters.in(darkOperatives)));
+                                        new ChooseCardToLoseFromTableEffect(action, darkSidePlayerId, null,true, Filters.in(darkOperatives), SpotOverride.INCLUDE_ALL));
                                 triggerActions.add(action);
                             }
 
@@ -74,7 +74,7 @@ public class OperativesRule implements Rule {
                                 action.setText(lightSidePlayerId + "'s operative lost");
                                 action.setMessage(lightSidePlayerId + " must choose operative to be lost");
                                 action.appendEffect(
-                                        new ChooseCardToLoseFromTableEffect(action, lightSidePlayerId, true, Filters.in(lightOperatives)));
+                                        new ChooseCardToLoseFromTableEffect(action, lightSidePlayerId, null,true, Filters.in(lightOperatives), SpotOverride.INCLUDE_ALL));
                                 triggerActions.add(action);
                             }
 
