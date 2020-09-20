@@ -229,8 +229,6 @@ public class HallServer extends AbstractServer {
                         throw new HallException("You have already played max games in league");
                     format = _formatLibrary.getFormat(leagueSerie.getFormat());
                     collectionType = leagueSerie.getCollectionType();
-
-                    verifyNotPlayingLeagueGame(player, league);
                 }
             }
             // It's not a normal format and also not a league one
@@ -240,6 +238,11 @@ public class HallServer extends AbstractServer {
             verifyNotExceedingMaxTables(player, true);
 
             SwccgDeck swccgDeck = validateUserAndDeck(format, player, deckName, collectionType, sampleDeck, librarian);
+            Side side = swccgDeck.getSide(_library);
+
+            if (league != null) {
+                verifyNotPlayingLeagueGame(player, side, league);
+            }
 
             String tableId = String.valueOf(_nextTableId++);
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc);
@@ -252,11 +255,23 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private void verifyNotPlayingLeagueGame(Player player, League league) throws HallException {
+    private void verifyNotPlayingLeagueGame(Player player, Side side, League league) throws HallException {
+        String playerId = player.getName();
+
         for (AwaitingTable awaitingTable : _awaitingTables.values()) {
             if (awaitingTable.getLeague() == league
-                    && awaitingTable.hasPlayer(player.getName())) {
-                throw new HallException("You can't play in multiple league games at the same time");
+                    && awaitingTable.hasPlayer(playerId)) {
+
+                Set<SwccgGameParticipant> players = awaitingTable.getPlayers();
+                for (SwccgGameParticipant awaitingTablePlayer : players) {
+                    if (playerId == awaitingTablePlayer.getPlayerId()) {
+                        Side awaitingTablePlayerSide = awaitingTablePlayer.getDeck().getSide(_library);
+
+                        if (awaitingTablePlayerSide == side) {
+                            throw new HallException("You can't host multiple league games on the same side of the force");
+                        }
+                    }
+                }
             }
         }
 
