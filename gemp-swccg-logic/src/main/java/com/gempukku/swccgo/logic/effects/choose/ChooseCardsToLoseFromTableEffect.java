@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.logic.effects.choose;
 
 import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,9 +17,7 @@ import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An effect that causes the specified player to choose cards on table to be lost.
@@ -29,6 +29,7 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
     private boolean _allCardsSituation;
     private Set<TargetingReason> _targetingReasons = new HashSet<TargetingReason>();
     private Filterable _cardFilter;
+    private Map<InactiveReason, Boolean> _spotOverrides = new HashMap<InactiveReason, Boolean>();
 
     /**
      * Creates an effect that causes the specified player to choose cards on table to be lost.
@@ -54,6 +55,21 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
      * @param cardFilter the card filter
      */
     protected ChooseCardsToLoseFromTableEffect(Action action, String playerId, TargetingReason additionalTargetingReason, int minimum, int maximum, boolean allCardsSituation, Filterable cardFilter) {
+        this(action,playerId,additionalTargetingReason,minimum,maximum,allCardsSituation,cardFilter,null);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to choose cards on table to be lost.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param additionalTargetingReason the additional targeting reason (in addition to "to be lost")
+     * @param minimum the minimum number of cards to target
+     * @param maximum the maximum number of cards to target
+     * @param allCardsSituation true if treated as an all cards situation, otherwise false
+     * @param cardFilter the card filter
+     * @param spotOverrides the spot overrides
+     */
+    protected ChooseCardsToLoseFromTableEffect(Action action, String playerId, TargetingReason additionalTargetingReason, int minimum, int maximum, boolean allCardsSituation, Filterable cardFilter,Map<InactiveReason, Boolean> spotOverrides) {
         super(action);
         _performingPlayerId = playerId;
         _minimum = minimum;
@@ -63,6 +79,9 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
         if (additionalTargetingReason != null)
             _targetingReasons.add(additionalTargetingReason);
         _cardFilter = cardFilter;
+        if (spotOverrides != null) {
+            _spotOverrides.putAll(spotOverrides);
+        }
     }
 
     @Override
@@ -74,7 +93,8 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
     protected SubAction getSubAction(final SwccgGame game) {
         final SubAction subAction = new SubAction(_action, _performingPlayerId);
         subAction.appendTargeting(
-                new TargetCardsOnTableEffect(subAction, _performingPlayerId, "Choose card" + GameUtils.s(_maximum) + " to be lost", _minimum, _maximum, _targetingReasons, _cardFilter) {
+
+                new TargetCardsOnTableEffect(subAction, _performingPlayerId, "Choose card" + GameUtils.s(_maximum) + " to be lost", _minimum, _maximum, _spotOverrides, _targetingReasons, _cardFilter) {
                     @Override
                     protected void cardsTargeted(final int targetGroupId, final Collection<PhysicalCard> targetedCards) {
                         subAction.addAnimationGroup(targetedCards);
