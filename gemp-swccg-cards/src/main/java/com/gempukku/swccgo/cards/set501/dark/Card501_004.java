@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.cards.evaluators.InBattleOrStackedInBattle;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -42,7 +43,7 @@ public class Card501_004 extends AbstractImperial {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, Filters.and(Filters.here(self),Filters.or(Keyword.INQUISITOR,Filters.probe_droid)), 4));
-        modifiers.add(new AttritionModifier(self, Filters.here(self), new NegativeEvaluator(new HereEvaluator(self,Filters.or(Filters.Jedi,Filters.padawan,Filters.probe_droid,Filters.hatredCard))),self.getOwner()));
+        modifiers.add(new AttritionModifier(self, Filters.here(self), new NegativeEvaluator(new InBattleOrStackedInBattle(self,Filters.or(Filters.Jedi,Filters.padawan,Filters.probe_droid),Filters.hatredCard)),self.getOwner()));
         return modifiers;
     }
 
