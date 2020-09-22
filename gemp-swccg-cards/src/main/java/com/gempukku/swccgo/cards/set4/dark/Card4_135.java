@@ -51,22 +51,22 @@ public class Card4_135 extends AbstractNormalEffect {
         String playerId = self.getOwner();
         // Check condition(s)
 
-            if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Make each player lose 1 Force");
-                // Perform result(s)
-                action.appendEffect(
-                        new LoseForceEffect(action, playerId, 1));
-                action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(playerId), 1));
-                actions.add(action);
-            }
+        if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Make each player lose 1 Force");
+            // Perform result(s)
+            action.appendEffect(
+                    new LoseForceEffect(action, playerId, 1));
+            action.appendEffect(
+                    new LoseForceEffect(action, game.getOpponent(playerId), 1));
+            actions.add(action);
+        }
 
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                    && GameConditions.canBeCanceled(game, self)
-                    && GameConditions.controls(game, game.getOpponent(self.getOwner()), SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.sameLocation(self))) {
+                && GameConditions.canBeCanceled(game, self)
+                && GameConditions.controls(game, game.getOpponent(self.getOwner()), SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.sameLocation(self))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
