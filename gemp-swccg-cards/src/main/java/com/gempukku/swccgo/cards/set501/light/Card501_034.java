@@ -4,27 +4,18 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.cards.evaluators.AbilityOfPilotEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
-import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -83,6 +74,7 @@ public class Card501_034 extends AbstractStarfighter {
                         protected void doPlayEffect(SwccgGame game) {
                             result.getPreventableCardEffect().preventEffectOnCard(cardToBeLost);
 
+                            final int cardId = self.getCardId();
                             action.appendEffect(
                                     new AddUntilEndOfGameActionProxyEffect(action,
                                             new AbstractActionProxy() {
@@ -93,13 +85,14 @@ public class Card501_034 extends AbstractStarfighter {
                                                     GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
 
                                                     // Check condition(s)
-                                                    if (TriggerConditions.battleEnded(game, effectResult)
-                                                            || TriggerConditions.battleCanceled(game, effectResult)) {
-                                                                final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId2);
-                                                                action2.setRepeatableTrigger(true);
-                                                                action2.setText("Make "+GameUtils.getFullName(cardToBeLost)+" lost");
-                                                                action2.appendEffect(new LoseCardFromTableEffect(action2, cardToBeLost, true));
-                                                                actions.add(action2);
+                                                    if (Filters.onTable.accepts(game,cardToBeLost)
+                                                        &&(TriggerConditions.battleEnded(game, effectResult)
+                                                            || TriggerConditions.battleCanceled(game, effectResult))) {
+                                                        final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId2);
+                                                        action2.setRepeatableTrigger(true);
+                                                        action2.setText("Make "+GameUtils.getFullName(cardToBeLost)+" lost");
+                                                        action2.appendEffect(new LoseCardFromTableEffect(action2, cardToBeLost, true));
+                                                        actions.add(action2);
                                                     }
                                                     return actions;
                                                 }
