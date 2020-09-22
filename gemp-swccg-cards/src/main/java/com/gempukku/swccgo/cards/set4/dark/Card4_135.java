@@ -13,7 +13,6 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
@@ -51,24 +50,7 @@ public class Card4_135 extends AbstractNormalEffect {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
         String playerId = self.getOwner();
         // Check condition(s)
-        if(GameConditions.hasGameTextModification(game, self, ModifyGameTextType.VIAGE_OF_THE_EMPEROR__TRIGGERS_ONLY_AT_END_PLAYERS_TURN)){
-            if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)) {
 
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Opponent loses 1 Force");
-                // Perform result(s)
-                action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(playerId), 1));
-                 actions.add(action);
-            } else if (TriggerConditions.isEndOfYourTurn(game, effectResult, self)) {
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("You lose 1 Force");
-                // Perform result(s)
-                action.appendEffect(
-                        new LoseForceEffect(action, playerId, 1));
-                actions.add(action);
-            }
-        }else{
             if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Make each player lose 1 Force");
@@ -79,7 +61,7 @@ public class Card4_135 extends AbstractNormalEffect {
                         new LoseForceEffect(action, game.getOpponent(playerId), 1));
                 actions.add(action);
             }
-        }
+
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
