@@ -36,6 +36,7 @@ public class Card501_089 extends AbstractCharacterWeapon {
         setGameText("Deploy on Ahsoka or a non-[Episode I] Padawan. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value (if hit target is an Inquisitor, opponent also loses 1 Force).");
         addIcon(Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.LIGHTSABER);
+        addPersona(Persona.AHSOKAS_SHOTO_LIGHTSABER);
         setMatchingCharacterFilter(Filters.Ahsoka);
         setTestingText("Ahsoka's Shoto Lightsaber");
     }
