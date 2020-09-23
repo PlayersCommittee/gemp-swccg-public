@@ -141,7 +141,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     private void showCommentators(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validatePlaytestingAdmin(request);
+        validateCommentatorAdmin(request);
 
         List<Player> commentators = _playerDAO.findCommentators();
         if (commentators == null)

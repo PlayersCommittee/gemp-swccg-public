@@ -211,14 +211,23 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
             else {
                 if (playerTypes.contains(Player.Type.LEAGUE_ADMIN) || playerTypes.contains(Player.Type.PLAY_TESTING_ADMIN)) {
                     sb.insert(0, " ");
+                    if (playerTypes.contains(Player.Type.COMMENTATOR)) {
+                        sb.insert(0,"&#231;");
+                    }
                     if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
                         sb.insert(0, "&beta;");
                     }
                     sb.insert(0, "+");
                 }
                 else {
-                    if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
-                        sb.insert(0, "&beta; ");
+                    if(playerTypes.contains(Player.Type.PLAY_TESTER)||playerTypes.contains(Player.Type.COMMENTATOR)) {
+                        sb.insert(0, " ");
+                        if (playerTypes.contains(Player.Type.COMMENTATOR)) {
+                            sb.insert(0, "&#231;");
+                        }
+                        if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
+                            sb.insert(0, "&beta;");
+                        }
                     }
                     sb.append(" ");
 
