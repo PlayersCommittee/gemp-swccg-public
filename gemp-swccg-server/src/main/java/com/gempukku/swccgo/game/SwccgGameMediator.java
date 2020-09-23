@@ -249,6 +249,9 @@ public class SwccgGameMediator {
             if (card.isLiberationCard()) {
                 sb.append("<div>").append("Liberation card").append("</div>");
             }
+            if (card.isHatredCard()) {
+                sb.append("<div>").append("'Hatred' card").append("</div>");
+            }
 
             if (cardZone.isInPlay() || cardZone == Zone.HAND) {
 
@@ -797,7 +800,7 @@ public class SwccgGameMediator {
                 String lore = blueprint.getLore();
                 if (lore != null && !lore.isEmpty()) {
                     sb.append("<br>");
-                    sb.append("Lore ");
+                    sb.append("Lore: ");
                     sb.append("<div>");
                     sb.append(lore);
                     sb.append("</div>");
@@ -806,10 +809,31 @@ public class SwccgGameMediator {
                 String gametext = blueprint.getGameText();
                 if (gametext != null && !gametext.isEmpty()) {
                     sb.append("<br>");
-                    sb.append("Gametext ");
+                    sb.append("Game text: ");
                     sb.append("<div>");
                     sb.append(gametext);
                     sb.append("</div>");
+                }
+
+                if(blueprint.isCardType(CardType.LOCATION)) {
+
+                    String darkLocationGametext = blueprint.getLocationDarkSideGameText();
+                    if (darkLocationGametext != null && !darkLocationGametext.isEmpty()) {
+                        sb.append("<br>");
+                        sb.append("Dark side location game text: ");
+                        sb.append("<div>");
+                        sb.append(darkLocationGametext);
+                        sb.append("</div>");
+                    }
+
+                    String lightLocationGametext = blueprint.getLocationLightSideGameText();
+                    if (lightLocationGametext != null && !lightLocationGametext.isEmpty()) {
+                        sb.append("<br>");
+                        sb.append("Light side location game text: ");
+                        sb.append("<div>");
+                        sb.append(lightLocationGametext);
+                        sb.append("</div>");
+                    }
                 }
 
             }
