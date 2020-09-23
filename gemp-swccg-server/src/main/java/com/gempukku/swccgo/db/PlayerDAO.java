@@ -90,7 +90,7 @@ public interface PlayerDAO {
     /**
      * Sets whether a player is considered a commentator.
      * @param playerName the player name
-     * @param commentator true if playtester, false if not commentator
+     * @param commentator true if commentator, false if not commentator
      * @return true if successful, otherwise false
      * @throws SQLException an SQL exception
      */
