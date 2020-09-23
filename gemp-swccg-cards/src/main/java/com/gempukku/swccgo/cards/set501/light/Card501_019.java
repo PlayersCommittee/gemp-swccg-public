@@ -38,7 +38,7 @@ public class Card501_019 extends AbstractAlien {
     public Card501_019() {
         super(Side.LIGHT, 1, 3, 4, 3, 6, "Din Djarin", Uniqueness.UNIQUE);
         setLore("Mandalorian");
-        setGameText("Adds 2 to power of anything he pilots. Your aliens here are defense value and forfeit +1. Once per turn, may target opponent’s non-'hit' character here; if target lost this turn, retrieve 1 Force (may instead retrieve 2 Force and place target in Used Pile).");
+        setGameText("Adds 2 to power of anything he pilots. Your other aliens here are defense value and forfeit +1. Once per turn, may target opponent’s non-'hit' character here; if target lost this turn, retrieve 1 Force (may instead retrieve 2 Force and place target in Used Pile).");
         setArmor(5);
         setSpecies(Species.MANDALORIAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
@@ -48,10 +48,10 @@ public class Card501_019 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Filter yourAliensHere = Filters.and(Filters.your(self.getOwner()), Filters.alien, Filters.here(self));
+        Filter yourOtherAliensHere = Filters.and(Filters.your(self.getOwner()), Filters.other(self), Filters.alien, Filters.here(self));
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new DefenseValueModifier(self, yourAliensHere, 1));
-        modifiers.add(new ForfeitModifier(self, yourAliensHere, 1));
+        modifiers.add(new DefenseValueModifier(self, yourOtherAliensHere, 1));
+        modifiers.add(new ForfeitModifier(self, yourOtherAliensHere, 1));
         return modifiers;
     }
 
