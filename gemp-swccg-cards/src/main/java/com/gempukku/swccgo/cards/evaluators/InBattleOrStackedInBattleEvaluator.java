@@ -13,7 +13,7 @@ import java.util.Collection;
 /**
  * An evaluator that returns the number of cards accepted by the specified filter that are in battle.
  */
-public class InBattleOrStackedInBattle extends BaseEvaluator {
+public class InBattleOrStackedInBattleEvaluator extends BaseEvaluator {
     private int _permSourceCardId;
     private Filter _inBattleFilter;
     private Filter _stackedInBattleFilter;
@@ -23,7 +23,7 @@ public class InBattleOrStackedInBattle extends BaseEvaluator {
      * @param source the card that is creating this evaluator
      * @param inBattleFilter the filter
      */
-    public InBattleOrStackedInBattle(PhysicalCard source, Filterable inBattleFilter, Filterable stackedInBattleFilter) {
+    public InBattleOrStackedInBattleEvaluator(PhysicalCard source, Filterable inBattleFilter, Filterable stackedInBattleFilter) {
         _permSourceCardId = source.getPermanentCardId();
         _inBattleFilter = Filters.and(inBattleFilter);
         _stackedInBattleFilter = Filters.and(stackedInBattleFilter);

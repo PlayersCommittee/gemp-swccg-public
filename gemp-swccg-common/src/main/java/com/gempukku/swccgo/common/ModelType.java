@@ -67,6 +67,7 @@ public enum ModelType implements Filterable {
     PROTOCOL("Protocol"),
     PROVIDENCE_CLASS_DREADNAUGHT("Providence-Class Dreadnaught"),
     RECON("Recon"),
+    RECONNAISSANCE_FIGHTER("Reconnaissance Fighter"),
     RESURGENT_CLASS_STAR_DESTROYER("Resurgent-Class Star Destroyer"),
     SCAVENGER("Scavenger"),
     SECURITY("Security"),
