@@ -46,7 +46,14 @@ public class CancelGameTextEffect extends AbstractSuccessfulEffect {
         ModifiersEnvironment modifiersEnvironment = game.getModifiersEnvironment();
         PhysicalCard source = _action.getActionSource();
 
-        gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is canceled until end of the turn");
+        // If during battle and the source if the action is not a weapon, then cancel until end of the battle, otherwise
+        // lasts for remainder of game (until card leaves play).
+        if (gameState.isDuringBattle()
+                && !Filters.weapon_or_character_with_permanent_weapon.accepts(gameState, modifiersQuerying, source)) {
+            gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is canceled until end of the turn");
+        } else {
+            gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is canceled");
+        }
         gameState.cardAffectsCard(_action.getPerformingPlayer(), source, _targetCard);
 
         // Filter for same card while it is in play
