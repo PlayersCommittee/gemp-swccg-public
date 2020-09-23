@@ -5,7 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.evaluators.InBattleOrStackedInBattle;
+import com.gempukku.swccgo.cards.evaluators.InBattleOrStackedInBattleEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MinEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -58,7 +58,7 @@ public class Card501_012 extends AbstractEpicEventDeployable {
         //Apprentice
         Condition playCardOptionId2 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2);
         modifiers.add(new TotalBattleDestinyModifier(self, playCardOptionId2,
-                new MinEvaluator(new ConstantEvaluator(3), new InBattleOrStackedInBattle(self, Filters.inquisitor, Filters.hatredCard)), self.getOwner()));
+                new MinEvaluator(new ConstantEvaluator(3), new InBattleOrStackedInBattleEvaluator(self, Filters.inquisitor, Filters.hatredCard)), self.getOwner()));
         return modifiers;
     }
 
