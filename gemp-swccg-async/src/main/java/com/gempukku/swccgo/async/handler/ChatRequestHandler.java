@@ -183,19 +183,38 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
     private class CaseInsensitiveStringComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            if (o1.startsWith("*") && !o2.startsWith("*")) {
+            //put users with specific roles at the top of the list
+            if(o1.contains(" ")&&!o2.contains(" ")) {
                 return -1;
             }
-            if (o2.startsWith("*") && !o1.startsWith("*")) {
+            if(!o1.contains(" ")&&o2.contains(" ")) {
                 return 1;
             }
-            if (o1.startsWith("+") && !(o2.startsWith("*") || o2.startsWith("+"))) {
-                return -1;
+
+            //normal sorting for users without specific roles
+            if(!o1.contains(" ")&&!o2.contains(" ")) {
+                return o1.toLowerCase().compareTo(o2.toLowerCase());
             }
-            if (o2.startsWith("+") && !(o1.startsWith("*") || o1.startsWith("+"))) {
-                return 1;
-            }
-            return o1.toLowerCase().compareTo(o2.toLowerCase());
+
+            //replace the symbols with letters to be able to just use a standard compareTo
+            String oneWithSubstitutions = o1.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
+            String twoWithSubstitutions = o2.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
+
+            return oneWithSubstitutions.toLowerCase().compareTo(twoWithSubstitutions.toLowerCase());
+//	  	old
+//            if (o1.startsWith("*") && !o2.startsWith("*")) {
+//                return -1;
+//            }
+//            if (o2.startsWith("*") && !o1.startsWith("*")) {
+//                return 1;
+//            }
+//            if (o1.startsWith("+") && !(o2.startsWith("*") || o2.startsWith("+"))) {
+//                return -1;
+//            }
+//            if (o2.startsWith("+") && !(o1.startsWith("*") || o1.startsWith("+"))) {
+//                return 1;
+//            }
+//            return o1.toLowerCase().compareTo(o2.toLowerCase());
         }
     }
 
