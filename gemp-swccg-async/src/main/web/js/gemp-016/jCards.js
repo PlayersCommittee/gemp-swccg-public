@@ -3290,6 +3290,9 @@ var fixedImages = {
 "501_93":"/gemp-swccg/images/cards/Tatooine-Dark/hitracer.gif",
 "501_94":"/gemp-swccg/images/cards/Premiere-Light/kessel.gif",
 "501_95":"/gemp-swccg/images/cards/Endor-Dark/deadewok.gif",
+"501_96":"/gemp-swccg/images/cards/SpecialEdition-Dark/huntdownanddestroythejedi.gif",
+"501_96_BACK":"/gemp-swccg/images/cards/SpecialEdition-Dark/theirfirehasgoneoutoftheuniverse.gif",
+"501_97":"/gemp-swccg/images/cards/Dagobah-Dark/visageoftheemperor.gif",
 };
 
 var packBlueprints = {
