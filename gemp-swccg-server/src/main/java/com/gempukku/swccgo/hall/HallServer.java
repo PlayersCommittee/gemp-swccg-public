@@ -548,6 +548,7 @@ public class HallServer extends AbstractServer {
 
             // Only show playtesting table details if player is a playtester or admin
             boolean playtestingVisible = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAY_TESTER);
+            boolean visibleToCommentator = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.COMMENTATOR);
 
             // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
@@ -570,7 +571,7 @@ public class HallServer extends AbstractServer {
                         for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                             deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                         }
-                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), player.getType().contains("a") || (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible);
+                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), player.getType().contains("a") || (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)) || (!swccgGameMediator.getFormat().isPlaytesting()&& visibleToCommentator), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible);
                     }
                     else {
                         finishedTables.put(runningGame.getKey(), runningTable);
