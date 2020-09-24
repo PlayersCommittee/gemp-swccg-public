@@ -264,7 +264,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
                 }
             }
         }
-        sb.setLength(Math.min(sb.length(), 20));
+        sb.setLength(Math.min(sb.length(), 40));
         return sb.toString().trim();
     }
 }
