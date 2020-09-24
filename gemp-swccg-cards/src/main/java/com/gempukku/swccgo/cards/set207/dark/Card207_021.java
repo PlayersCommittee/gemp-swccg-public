@@ -14,10 +14,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.MoveCardUsingLandspeedEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.MovedResult;
 
@@ -49,7 +46,8 @@ public class Card207_021 extends AbstractImperial {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new KeywordModifier(self, atBattlegroundSite, Keyword.GENERAL));
-        modifiers.add(new CancelsGameTextModifier(self, Filters.Admirals_Order, atBattlegroundSite));
+        //modifiers.add(new CancelsGameTextModifier(self, Filters.Admirals_Order, atBattlegroundSite));
+        modifiers.add(new SuspendsCardModifier(self, Filters.Admirals_Order, atBattlegroundSite));
         return modifiers;
     }
 
