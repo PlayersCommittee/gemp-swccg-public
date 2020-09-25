@@ -262,7 +262,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private boolean privateGamesAllowed() {
+    public boolean privateGamesAllowed() {
         return _serverSettingDAO.privateGamesEnabled();
     }
 
@@ -599,7 +599,7 @@ public class HallServer extends AbstractServer {
                         for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                             deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                         }
-                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), player.getType().contains("a") || (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)) || (!swccgGameMediator.getFormat().isPlaytesting()&& visibleToCommentator), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible);
+                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), !swccgGameMediator.isPrivate()&&(player.hasType(Player.Type.ADMIN)|| (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)) || (!swccgGameMediator.getFormat().isPlaytesting()&& visibleToCommentator)), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, !swccgGameMediator.isPrivate()&&(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible));
                     }
                     else {
                         finishedTables.put(runningGame.getKey(), runningTable);
@@ -990,7 +990,7 @@ public class HallServer extends AbstractServer {
                                 public void gameCancelled() {
                                     createGameInternal(participants, allowSpectators);
                                 }
-                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes);
+                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes, false);
                 }
             } finally {
                 _hallDataAccessLock.writeLock().unlock();

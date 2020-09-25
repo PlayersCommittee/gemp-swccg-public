@@ -685,6 +685,17 @@ var GempSwccgCommunication = Class.extend({
             dataType:"html"
         });
     },
+    privateGamesEnabled:function(callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/privateGamesEnabled",
+            cache:true,
+            data:{},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
     login:function (login, password, callback, errorMap) {
         $.ajax({
             type:"POST",

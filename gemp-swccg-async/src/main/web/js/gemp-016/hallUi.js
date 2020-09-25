@@ -94,6 +94,9 @@ var GempSwccgHallUI = Class.extend({
 
         this.isPrivateCheckbox = $("$<input type='checkbox' name='isPrivateCheckbox'>Private game</input>")
         //check if this should be hidden or not
+        var arePrivateGamesEnabled = true;
+
+
 
         this.decksSelect = $("<select style='width: 300px'></select>");
         this.decksSelect.hide();
@@ -104,7 +107,9 @@ var GempSwccgHallUI = Class.extend({
         this.buttonsDiv.append(this.decksSelect);
         this.buttonsDiv.append(this.tableDescInput);
         this.buttonsDiv.append(this.createTableButton);
-        this.buttonsDiv.append(this.isPrivateCheckbox);
+        if(arePrivateGamesEnabled) {
+            this.buttonsDiv.append(this.isPrivateCheckbox);
+        }
 
         this.div.append(this.buttonsDiv);
 

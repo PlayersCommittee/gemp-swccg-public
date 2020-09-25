@@ -1,14 +1,9 @@
 package com.gempukku.swccgo.db;
 
-import com.gempukku.swccgo.game.Player;
-import com.sun.security.ntlm.Server;
 
-import java.security.MessageDigest;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
 
 /**
  * A server setting database access object that accesses the database.

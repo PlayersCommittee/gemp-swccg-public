@@ -78,6 +78,8 @@ public class SwccgGameMediator {
         _userFeedback.setGame(_swccgoGame);
     }
 
+    public boolean isPrivate() { return _isPrivate;};
+
     public boolean isDestroyed() {
         return _destroyed;
     }
@@ -1001,6 +1003,8 @@ public class SwccgGameMediator {
 
     public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
+        if(_isPrivate&&!isPlayerPlaying(playerName))
+            throw new PrivateInformationException();
         if(!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR)
                 && !_allowSpectators && !isPlayerPlaying(playerName))
             throw new PrivateInformationException();
@@ -1046,6 +1050,8 @@ public class SwccgGameMediator {
 
     public void signupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
         String playerName = player.getName();
+        if(_isPrivate&&!isPlayerPlaying(playerName))
+            throw new PrivateInformationException();
         if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR)
                 && !_allowSpectators && !isPlayerPlaying(playerName))
             throw new PrivateInformationException();
@@ -1108,6 +1114,9 @@ public class SwccgGameMediator {
     }
 
     private String getPlayerLifeForce() {
+        if(_isPrivate)
+            return "";
+
         StringBuilder stringBuilder = new StringBuilder();
         for (SwccgGameParticipant player : _playersPlaying) {
             stringBuilder.append(_swccgoGame.getGameState().getPlayerLifeForce(player.getPlayerId())).append(", ");
