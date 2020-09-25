@@ -25,9 +25,9 @@ import java.util.List;
  */
 public class Card501_079 extends AbstractImperial {
     public Card501_079() {
-        super(Side.DARK, 1, 5, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE);
         setLore("Female Dowutin. Inquisitor.");
-        setGameText("Defense value -2 if opponent's weapon here. Unless opponent has total ability > 4 at same site, opponent's total battle destiny here = 0.");
+        setGameText("Defense value -2 if opponent's weapon here. Unless opponent's character of ability > 3 here, opponent's total battle destiny at same site = 0.");
         setSpecies(Species.DOWUTIN);
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
@@ -41,7 +41,8 @@ public class Card501_079 extends AbstractImperial {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefenseValueModifier(self, new HereCondition(self, Filters.and(Filters.your(opponent), Filters.weapon)), -2));
         modifiers.add(new ResetTotalBattleDestinyModifier(self, Filters.sameSite(self), new AndCondition(new InBattleCondition(self),
-                new UnlessCondition(new TotalAbilityMoreThanCondition(opponent, 4, Filters.sameSite(self)))), 0, opponent));
+                new UnlessCondition(new HereCondition(self, Filters.and(Filters.opponents(self), Filters.character,
+                        Filters.abilityMoreThan(3))))), 0, opponent));
         return modifiers;
     }
 }
