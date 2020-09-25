@@ -28,11 +28,11 @@ public class AwaitingTable {
         _isPrivate = isPrivate;
     }
 
-    public boolean addPlayer(SwccgGameParticipant player) {
-        //if it's a private game and the username doesn't match the description don't let them join (unless they're the first player added)
-        if(_players.size()>0&&_isPrivate&&!player.getPlayerId().equals(_tableDesc))
-            return false;
+    public boolean isPrivate() {
+        return _isPrivate;
+    }
 
+    public boolean addPlayer(SwccgGameParticipant player) {
         _players.put(player.getPlayerId(), player);
         return _players.size() == _capacity;
     }

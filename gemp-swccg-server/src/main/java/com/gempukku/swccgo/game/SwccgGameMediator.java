@@ -43,6 +43,7 @@ public class SwccgGameMediator {
     private int _playerDecisionTimeoutPeriod; // in milliseconds
     private boolean _disablePlayerDecisionTimer;
     private int _secondsGameTimerExtended;
+    private boolean _isPrivate;
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -51,7 +52,7 @@ public class SwccgGameMediator {
     private volatile boolean _destroyed;
 
     public SwccgGameMediator(String gameId, SwccgFormat swccgFormat, SwccgGameParticipant[] participants, SwccgCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds) {
+                             boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds, boolean isPrivate) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         _allowSpectators = allowSpectators;
@@ -59,6 +60,7 @@ public class SwccgGameMediator {
         _cancellable = cancellable;
         _allowExtendGameTimer = allowExtendGameTimer;
         _playerDecisionTimeoutPeriod = decisionTimeoutSeconds * 1000;
+        _isPrivate = isPrivate;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 

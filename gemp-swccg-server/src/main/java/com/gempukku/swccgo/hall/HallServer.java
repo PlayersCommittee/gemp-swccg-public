@@ -383,6 +383,9 @@ public class HallServer extends AbstractServer {
             if (awaitingTable.getLeague() != null && !_leagueService.isPlayerInLeague(awaitingTable.getLeague(), player))
                 throw new HallException("You're not in that league");
 
+            if (awaitingTable.isPrivate() && !awaitingTable.getTableDesc().equals(player.getName()))
+                throw new HallException("You may not join this private game");
+
             verifyNotExceedingMaxTables(player, false);
 
             SwccgDeck swccgDeck = validateUserAndDeck(awaitingTable.getSwccgoFormat(), player, deckName, awaitingTable.getCollectionType(), sampleDeck, librarian);
@@ -775,7 +778,7 @@ public class HallServer extends AbstractServer {
 
 
         int decisionTimeoutSeconds = 300; // 5 minutes;
-        boolean allowSpectators = true;
+        boolean allowSpectators = !awaitingTable.isPrivate();
         boolean allowTimerExtensions = true;
         int timePerPlayerMinutes = 60;
         if (league != null) {
@@ -784,7 +787,7 @@ public class HallServer extends AbstractServer {
             allowTimerExtensions = league.getAllowTimeExtensions();
             timePerPlayerMinutes = league.getTimePerPlayerMinutes();
         }
-        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, true, league == null, allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes);
+        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, !awaitingTable.isPrivate(), (league == null)||!awaitingTable.isPrivate(), allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes, awaitingTable.isPrivate());
         _awaitingTables.remove(tableId);
         removeWaitingTablesWithPlayers(players);
     }
@@ -814,8 +817,8 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
-        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes);
+    private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate) {
+        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes, isPrivate);
         if (listener != null) {
             swccgGameMediator.addGameResultListener(listener);
         }
