@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -14,14 +15,13 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.DestinyDrawnResult;
 
 import java.util.*;
 
@@ -34,7 +34,10 @@ import java.util.*;
 public class Card209_029_BACK extends AbstractObjective {
     public Card209_029_BACK() {
         super(Side.LIGHT, 7, Title.Until_We_Win_Or_The_Chances_Are_Spent);
-        setGameText("While this side up, your spies are defense value +2 (and power +1 if with Stardust) and are immune to Undercover. While Stardust on your spy, opponent may not cancel your Force drains at battlegrounds. Once per turn, may place a Rebel in your Lost Pile out of play to cancel a just drawn destiny targeting the ability or defense value of your non-undercover Rebel or to make a regular move with your spy during your control phase. Flip this card if you do not occupy two Scarif locations (unless Rogue One at a Scarif site you occupy).");
+        setGameText("While this side up, your spies are defense value +2 (and power +1 if with Stardust) and are immune to Undercover. " +
+                "While Stardust on your spy, opponent may not cancel your Force drains at battlegrounds. Once per turn, " +
+                "may place a Rebel in your Lost Pile out of play to cancel an attempt to target a non-Undercover spy with a weapon or to make a regular move with your spy during your control phase." +
+                "Flip this card if you do not occupy two Scarif locations (unless Rogue One at a Scarif site you occupy).");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_9);
     }
 
@@ -125,23 +128,20 @@ public class Card209_029_BACK extends AbstractObjective {
     }
 
     @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
         Filter rebelFilter = Filters.and(Filters.Rebel, Filters.character, Filters.not(Filters.undercover_spy));
 
         // Check conditions(s) - Once per turn, may place a Rebel in your Lost Pile out of play to cancel a just drawn
         // destiny targeting the ability or defense value of your Rebel
         GameTextActionId gameTextActionId = GameTextActionId.UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE;
-        if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
-                && TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult, rebelFilter)
+        if (TriggerConditions.isTargetedByWeapon(game, effect, Filters.and(Filters.Rebel, Filters.not(Filters.undercover_spy)), Filters.any)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canCancelDestiny(game, playerId)
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Rebel in Lost Pile out of play");
-            action.setActionMsg("Cancel just drawn " + ((DestinyDrawnResult) effectResult).getDestinyType().getHumanReadable());
+            action.setActionMsg("Cancel weapon targeting");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
@@ -150,14 +150,12 @@ public class Card209_029_BACK extends AbstractObjective {
                     new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelFilter, false));
             // Perform result(s)
             action.appendEffect(
-                    new CancelDestinyEffect(action));
+                    new CancelWeaponTargetingEffect(action));
 
             actions.add(action);
         }
         return actions;
     }
-
-
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {

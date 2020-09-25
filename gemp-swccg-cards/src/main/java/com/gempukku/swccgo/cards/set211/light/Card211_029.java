@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,9 +11,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -34,7 +31,7 @@ public class Card211_029 extends AbstractNormalEffect {
     public Card211_029() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Make Ten Men Feel Like A Hundred", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If Stardust on table, deploy on table. Saw is a Resistance Agent and spy. Once per game, may [download] Saw. Rebel spies deploy -1 to Scarif. Once per battle, if you just drew a Rebel spy for destiny, may retrieve 1 Force. Nightfall is canceled. [Immune to Alter.]");
+        setGameText("Deploy on table if Stardust also on table. Nightfall is canceled. Saw is a spy. Rebel spies are deploy -1 to Scarif. Once per battle, if you just drew a Rebel spy for destiny, may retrieve 1 Force. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -60,12 +57,9 @@ public class Card211_029 extends AbstractNormalEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new KeywordModifier(self, Filters.Saw, Keyword.SPY));
-        modifiers.add(new KeywordModifier(self, Filters.Saw, Keyword.RESISTANCE_AGENT));
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.Rebel, Filters.spy), -1, Filters.Scarif_location));
-
         return modifiers;
     }
 
@@ -108,27 +102,5 @@ public class Card211_029 extends AbstractNormalEffect {
         }
 
         return actions;
-    }
-
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.MAKE_TEN_MEN_FEEL_LIKE_A_HUNDRED_DOWNLOAD_SAW;
-
-        // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Saw from Reserve Deck");
-            action.setActionMsg("Deploy Saw from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerGameEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Saw,true));
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 }
