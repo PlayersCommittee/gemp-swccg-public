@@ -120,62 +120,62 @@ public class Card501_071 extends AbstractNormalEffect {
 
     private void drawCoaxiumDestiny(final Action action, final PhysicalCard self, final String playerId, final int gameTextSourceCardId) {
         // Perform result(s)
-        action.appendEffect(
-                new DrawDestinyEffect(action, playerId, 1) {
-                    @Override
-                    protected List<ActionProxy> getDrawDestinyActionProxies(SwccgGame game, final DrawDestinyState drawDestinyState) {
-                        ActionProxy actionProxy = new AbstractActionProxy() {
-                            @Override
-                            public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-                                List<TriggerAction> actions = new LinkedList<>();
-                                // Check condition(s)
-                                if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
-                                        && GameConditions.canStackDestinyCard(game)) {
+            action.appendEffect(
+                    new DrawDestinyEffect(action, playerId, 1) {
+                        @Override
+                        protected List<ActionProxy> getDrawDestinyActionProxies(SwccgGame game, final DrawDestinyState drawDestinyState) {
+                            ActionProxy actionProxy = new AbstractActionProxy() {
+                                @Override
+                                public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
+                                    List<TriggerAction> actions = new LinkedList<>();
+                                    // Check condition(s)
+                                    if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
+                                            && GameConditions.canStackDestinyCard(game)) {
 
-                                    PhysicalCard card = drawDestinyState.getDrawDestinyEffect().getDrawnDestinyCard();
-                                    RequiredGameTextTriggerAction action1 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                                    action1.skipInitialMessageAndAnimation();
-                                    action1.setPerformingPlayer(playerId);
-                                    action1.setText("Stack drawn destiny");
-                                    action1.setActionMsg(null);
-                                    float value;
-                                    if (self.getWhileInPlayData() != null) {
-                                        value = self.getWhileInPlayData().getFloatValue() + card.getDestinyValueToUse();
-                                    } else {
-                                        value = card.getDestinyValueToUse();
+                                        PhysicalCard card = drawDestinyState.getDrawDestinyEffect().getDrawnDestinyCard();
+                                        RequiredGameTextTriggerAction action1 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                                        action1.skipInitialMessageAndAnimation();
+                                        action1.setPerformingPlayer(playerId);
+                                        action1.setText("Stack drawn destiny");
+                                        action1.setActionMsg(null);
+                                        float value;
+                                        if (self.getWhileInPlayData() != null) {
+                                            value = self.getWhileInPlayData().getFloatValue() + card.getDestinyValueToUse();
+                                        } else {
+                                            value = card.getDestinyValueToUse();
+                                        }
+                                        action1.appendEffect(
+                                                new SetWhileInPlayDataEffect(action, self, new WhileInPlayData(value))
+                                        );
+                                        // Perform result(s)
+                                        action1.appendEffect(
+                                                new StackDestinyCardEffect(action1, self)
+
+                                        );
+                                        actions.add(action1);
                                     }
-                                    action1.appendEffect(
-                                            new SetWhileInPlayDataEffect(action, self, new WhileInPlayData(value))
-                                    );
-                                    // Perform result(s)
-                                    action1.appendEffect(
-                                            new StackDestinyCardEffect(action1, self)
 
-                                    );
-                                    actions.add(action1);
+                                    return actions;
                                 }
-
-                                return actions;
-                            }
-                        };
-                        return Collections.singletonList(actionProxy);
-                    }
-
-                    @Override
-                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                        if (self.getWhileInPlayData().getFloatValue() <= 12) {
-                            if (GameConditions.hasReserveDeck(game, playerId)) {
-                                drawCoaxiumDestiny(action, self, playerId, gameTextSourceCardId);
-                            } else {
-                                game.getGameState().sendMessage("Result: Failed. (No cards left in Reserve Deck to draw for coaxium destiny.");
-                                action.appendEffect(
-                                        new ReturnCardToHandFromTableEffect(action, self, Zone.RESERVE_DECK)
-                                );
-                            }
-                        } else {
-                            game.getGameState().sendMessage("Result: Success. Total coaxium destiny = " + self.getWhileInPlayData().getFloatValue());
+                            };
+                            return Collections.singletonList(actionProxy);
                         }
-                    }
-                });
+
+                        @Override
+                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                            if (self.getWhileInPlayData().getFloatValue() <= 12) {
+                                if (GameConditions.hasReserveDeck(game, playerId)) {
+                                    drawCoaxiumDestiny(action, self, playerId, gameTextSourceCardId);
+                                } else {
+                                    game.getGameState().sendMessage("Result: Failed. (No cards left in Reserve Deck to draw for coaxium destiny.");
+                                    action.appendEffect(
+                                            new ReturnCardToHandFromTableEffect(action, self, Zone.RESERVE_DECK)
+                                    );
+                                }
+                            } else {
+                                game.getGameState().sendMessage("Result: Success. Total coaxium destiny = " + self.getWhileInPlayData().getFloatValue());
+                            }
+                        }
+                    });
     }
 }
