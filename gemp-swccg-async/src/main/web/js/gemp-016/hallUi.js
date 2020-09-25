@@ -78,18 +78,23 @@ var GempSwccgHallUI = Class.extend({
                 that.supportedFormatsSelect.hide();
                 that.decksSelect.hide();
                 that.createTableButton.hide();
+                that.isPrivateCheckbox.parent.hide();
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
                 var sampleDeck = that.decksSelect[0][that.decksSelect[0].selectedIndex].getAttribute("data-sample-deck")
                 var tableDesc = that.tableDescInput.val();
+                var isPrivate = that.getElementById("isPrivateCheckbox").checked();
                 if (deck != null) {
-                    that.comm.createTable(format, deck, sampleDeck, tableDesc, function (xml) {
+                    that.comm.createTable(format, deck, sampleDeck, tableDesc, isPrivate, function (xml) {
                         that.processResponse(xml);
                     });
                 }
             });
         this.createTableButton.hide();
-        
+
+        this.isPrivateCheckbox = $("$<input type='checkbox' name='isPrivateCheckbox'>Private game</input>")
+        //check if this should be hidden or not
+
         this.decksSelect = $("<select style='width: 300px'></select>");
         this.decksSelect.hide();
 
@@ -99,6 +104,7 @@ var GempSwccgHallUI = Class.extend({
         this.buttonsDiv.append(this.decksSelect);
         this.buttonsDiv.append(this.tableDescInput);
         this.buttonsDiv.append(this.createTableButton);
+        this.buttonsDiv.append(this.isPrivateCheckbox);
 
         this.div.append(this.buttonsDiv);
 
