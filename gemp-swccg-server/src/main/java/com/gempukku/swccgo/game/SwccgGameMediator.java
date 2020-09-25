@@ -1001,7 +1001,8 @@ public class SwccgGameMediator {
 
     public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
-        if (!player.getType().contains("a") && !_allowSpectators && !isPlayerPlaying(playerName))
+        if(!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR)
+                && !_allowSpectators && !isPlayerPlaying(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();
@@ -1045,7 +1046,8 @@ public class SwccgGameMediator {
 
     public void signupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
         String playerName = player.getName();
-        if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !isPlayerPlaying(playerName))
+        if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR)
+                && !_allowSpectators && !isPlayerPlaying(playerName))
             throw new PrivateInformationException();
 
         // Only allow viewing of playtesting formats game if player is a playtester or admin
