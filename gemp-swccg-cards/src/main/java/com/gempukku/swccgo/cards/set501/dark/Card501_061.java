@@ -27,7 +27,7 @@ public class Card501_061 extends AbstractCharacterWeapon {
     public Card501_061() {
         super(Side.DARK, 4, Title.Black_Sun_Blaster);
         setLore("Highly specialized weapon used for disintegration. Commonly found on the black market and in criminal arsenals. One of the favored weapons of the Black Sun.");
-        setGameText("Use 1 Force to deploy on your alien warrior (free if your Black Sun agent leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and opponent loses 1 Force.");
+        setGameText("Use 1 Force to deploy on your alien warrior (free if your Black Sun agent leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and you may activate 1 Force.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.BLASTER);
         setTestingText("Black Sun Blaster");
@@ -60,7 +60,7 @@ public class Card501_061 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 1, Statistic.DEFENSE_VALUE, 1);
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 1, Statistic.DEFENSE_VALUE, Filters.any, 1);
             return Collections.singletonList(action);
         }
         return null;

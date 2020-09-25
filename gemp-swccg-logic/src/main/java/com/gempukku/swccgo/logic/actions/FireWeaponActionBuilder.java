@@ -1056,7 +1056,7 @@ public class FireWeaponActionBuilder {
 
 
     /**
-     * Builds a fire weapon action that targets a card present with the weapon, draws destiny, and if successful affects the card's attributes.
+     * Builds a fire weapon action that targets a card present with the weapon, draws destiny, and if successful activates force
      * @param numDestiny the number of weapon destiny to draw
      * @param statistic the statistic to compare total weapon destiny against
      * @param activateForceTargetFilter player may activate Force (as determined by activateForceAmount) if weapon firing successful against card accepted by the filter
@@ -1065,6 +1065,19 @@ public class FireWeaponActionBuilder {
      */
     public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final Statistic statistic, final Filter activateForceTargetFilter, final int activateForceAmount) {
         return buildFireWeaponWithHitAction(numDestiny, 0, statistic, new FalseCondition(), false, 0, 0, Filters.none, 0, activateForceTargetFilter, activateForceAmount, Filters.none, 0);
+    }
+
+    /**
+     * Builds a fire weapon action that targets a card present with the weapon, draws destiny, and if successful activates force
+     * @param numDestiny the number of weapon destiny to draw
+     * @param plusOrMinus how much to add to the total weapon destiny
+     * @param statistic the statistic to compare total weapon destiny against
+     * @param activateForceTargetFilter player may activate Force (as determined by activateForceAmount) if weapon firing successful against card accepted by the filter
+     * @param activateForceAmount the amount of Force player may activate if successful
+     * @return the action
+     */
+    public FireSingleWeaponAction buildFireWeaponWithHitAction(final int numDestiny, final int plusOrMinus, final Statistic statistic, final Filter activateForceTargetFilter, final int activateForceAmount) {
+        return buildFireWeaponWithHitAction(numDestiny, plusOrMinus, statistic, new FalseCondition(), false, 0, 0, Filters.none, 0, activateForceTargetFilter, activateForceAmount, Filters.none, 0);
     }
 
     /**
