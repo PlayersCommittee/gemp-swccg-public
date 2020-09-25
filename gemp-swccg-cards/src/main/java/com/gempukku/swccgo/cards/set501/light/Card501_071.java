@@ -36,8 +36,9 @@ import java.util.List;
 public class Card501_071 extends AbstractNormalEffect {
     public Card501_071() {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE);
+        setVirtualSuffix(true);
         setLore("Planet Kessel has infamous glitterstim spice mines attracting smugglers and pirates. A 'Kessel run' is a long, dangerous hyper-route they must travel quickly.");
-        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, move a 'coaxium' card here to Force Pile. When no 'coaxium' cards here, retrieve 3 Force; lose Effect.");
+        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, may move a 'coaxium' card from here to Used Pile. If no 'coaxium' cards here, retrieve 4 Force and lose Effect.");
         setTestingText("Kessel Run (V)");
     }
 
@@ -108,7 +109,7 @@ public class Card501_071 extends AbstractNormalEffect {
                     new PlaceCardInUsedPileFromTableEffect(action, self)
             );
             action.appendEffect(
-                    new RetrieveForceEffect(action, playerId, 3)
+                    new RetrieveForceEffect(action, playerId, 4)
             );
             actions.add(action);
         }
@@ -129,7 +130,7 @@ public class Card501_071 extends AbstractNormalEffect {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             action.appendEffect(
-                                    new PutStackedCardInForcePileEffect(action, playerId, selectedCard, false)
+                                    new PutStackedCardInUsedPileEffect(action, playerId, selectedCard, false)
                             );
                         }
                     }
