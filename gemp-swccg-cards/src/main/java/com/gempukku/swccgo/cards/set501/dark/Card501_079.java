@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card501_079 extends AbstractImperial {
     public Card501_079() {
-        super(Side.DARK, 1, 4, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE);
         setLore("Female Dowutin. Inquisitor.");
         setGameText("Defense value -2 if opponent's weapon here. Unless opponent's character of ability > 3 here, opponent's total battle destiny at same site = 0.");
         setSpecies(Species.DOWUTIN);
