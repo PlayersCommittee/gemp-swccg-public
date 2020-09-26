@@ -7,6 +7,7 @@ var GempSwccgHallUI = Class.extend({
     decksSelect:null,
     tableDescInput:null,
     createTableButton:null,
+    arePrivateGamesEnabled:false,
 
     tablesDiv:null,
     buttonsDiv:null,
@@ -98,8 +99,8 @@ var GempSwccgHallUI = Class.extend({
         this.isPrivateCheckbox = $("$<input type='checkbox' id='isPrivateCheckbox1'>Private game</input>")
         this.privateGamesDiv.append(this.isPrivateCheckbox);
         //check if this should be hidden or not
-        var arePrivateGamesEnabled = true;
-        if(arePrivateGamesEnabled) {
+
+        if(this.arePrivateGamesEnabled) {
             this.privateGamesDiv.show();
         } else {
             this.privateGamesDiv.hide();
@@ -115,7 +116,7 @@ var GempSwccgHallUI = Class.extend({
         this.buttonsDiv.append(this.decksSelect);
         this.buttonsDiv.append(this.tableDescInput);
         this.buttonsDiv.append(this.createTableButton);
-        if(arePrivateGamesEnabled) {
+        if(this.arePrivateGamesEnabled) {
             this.buttonsDiv.append(this.isPrivateCheckbox);
         }
 
@@ -486,6 +487,15 @@ var GempSwccgHallUI = Class.extend({
                 this.pocketValue = currency;
                 this.pocketDiv.html(formatPrice(currency));
             }
+
+            var privateGamesEnabled = root.getAttribute("privateGamesEnabledBoolean");
+            if (privateGamesEnabled=="true") {
+               this.arePrivateGamesEnabled = true;
+            }
+            else {
+               this.arePrivateGamesEnabled = false;
+            }
+
 
             var motd = root.getAttribute("motd");
             if (motd != null)

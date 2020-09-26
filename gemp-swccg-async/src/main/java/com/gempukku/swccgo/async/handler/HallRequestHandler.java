@@ -91,8 +91,6 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             leaveTable(request, uri.substring(1, uri.length() - 6), responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             joinTable(request, uri.substring(1), responseWriter);
-        } else if (uri.startsWith("/privateGamesEnabled/") && request.getMethod() == HttpMethod.GET) {
-            privateGamesEnabled(request, responseWriter);
         } else {
             responseWriter.writeError(404);
         }
@@ -546,7 +544,9 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                 }
             }
 
+            hall.setAttribute("privateGamesEnabledBoolean", String.valueOf(_hallServer.privateGamesAllowed()));
             doc.appendChild(hall);
+
 
             responseWriter.writeXmlResponse(doc);
         } catch (HttpProcessingException exp) {
@@ -572,25 +572,6 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             responseWriter.writeError(410);
         } catch (SubscriptionConflictException exp) {
             responseWriter.writeError(409);
-        }
-    }
-
-    private void privateGamesEnabled(HttpRequest request, ResponseWriter responseWriter) {
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            Document doc = documentBuilder.newDocument();
-
-            Element privateGamesEnabled = doc.createElement("setting");
-
-            privateGamesEnabled.setAttribute("privateGames",String.valueOf(_hallServer.privateGamesAllowed()));
-
-            doc.appendChild(privateGamesEnabled);
-
-            responseWriter.writeXmlResponse(doc);
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
         }
     }
 
@@ -626,6 +607,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     _hallCommunicationChannel.processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
                     hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
 
+                    hall.setAttribute("privateGamesEnabledBoolean", String.valueOf(_hallServer.privateGamesAllowed()));
                     doc.appendChild(hall);
 
                     Map<String, String> headers = new HashMap<String, String>();
