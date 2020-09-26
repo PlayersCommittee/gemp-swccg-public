@@ -25,7 +25,7 @@ public class DbServerSettingDAO implements ServerSettingDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                ResultSet result = connection.createStatement().executeQuery("select value from server_settings where id = 'privateGamesEnabled'");
+                ResultSet result = connection.createStatement().executeQuery("select settingValue from server_settings where settingName = 'privateGamesEnabled'");
                 try {
                     while(result.next()) {
                         toReturn = result.getBoolean(1);
@@ -47,7 +47,7 @@ public class DbServerSettingDAO implements ServerSettingDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                connection.createStatement().executeQuery("update server_settings set value = 1-value where setting = 'privateGamesEnabled'");
+                connection.createStatement().executeQuery("update server_settings set settingValue = 1-settingValue where settingName = 'privateGamesEnabled'");
             } finally {
                 connection.close();
             }

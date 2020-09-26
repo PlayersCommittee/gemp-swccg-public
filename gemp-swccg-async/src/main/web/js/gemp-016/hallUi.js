@@ -10,6 +10,8 @@ var GempSwccgHallUI = Class.extend({
 
     tablesDiv:null,
     buttonsDiv:null,
+    privateGamesDiv:null,
+    isPrivateCheckbox:null,
 
     pocketDiv:null,
     pocketValue:null,
@@ -78,12 +80,12 @@ var GempSwccgHallUI = Class.extend({
                 that.supportedFormatsSelect.hide();
                 that.decksSelect.hide();
                 that.createTableButton.hide();
-                that.isPrivateCheckbox.parent.hide();
+                that.privateGamesDiv.hide();
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
                 var sampleDeck = that.decksSelect[0][that.decksSelect[0].selectedIndex].getAttribute("data-sample-deck")
                 var tableDesc = that.tableDescInput.val();
-                var isPrivate = that.getElementById("isPrivateCheckbox").checked();
+                var isPrivate = document.getElementById('isPrivateCheckbox1').checked;
                 if (deck != null) {
                     that.comm.createTable(format, deck, sampleDeck, tableDesc, isPrivate, function (xml) {
                         that.processResponse(xml);
@@ -92,10 +94,16 @@ var GempSwccgHallUI = Class.extend({
             });
         this.createTableButton.hide();
 
-        this.isPrivateCheckbox = $("$<input type='checkbox' name='isPrivateCheckbox'>Private game</input>")
+        this.privateGamesDiv = $("<div></div>");
+        this.isPrivateCheckbox = $("$<input type='checkbox' id='isPrivateCheckbox1'>Private game</input>")
+        this.privateGamesDiv.append(this.isPrivateCheckbox);
         //check if this should be hidden or not
         var arePrivateGamesEnabled = true;
-
+        if(arePrivateGamesEnabled) {
+            this.privateGamesDiv.show();
+        } else {
+            this.privateGamesDiv.hide();
+        }
 
 
         this.decksSelect = $("<select style='width: 300px'></select>");

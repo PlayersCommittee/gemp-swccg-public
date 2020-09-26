@@ -10,13 +10,13 @@ USE `gemp-swccg` ;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `gemp-swccg`.`server_settings` (
-  `setting` NVARCHAR(45) PRIMARY KEY,
-  `value` BOOLEAN NOT NULL )
+  `settingName` NVARCHAR(45) PRIMARY KEY,
+  `settingValue` BOOLEAN NOT NULL )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-INSERT IGNORE INTO `gemp-swccg`.`server_settings` (setting,value) values ('privateGamesEnabled',0);
+INSERT IGNORE INTO `gemp-swccg`.`server_settings` (settingName,settingValue) values ('privateGamesEnabled',0);
 
 -- -----------------------------------------------------
 -- Table `gemp-swccg`.`collection`
