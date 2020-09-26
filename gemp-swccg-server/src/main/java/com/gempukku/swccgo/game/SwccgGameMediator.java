@@ -152,6 +152,9 @@ public class SwccgGameMediator {
      * @return the game status
      */
     public String getGameStatus() {
+        if(_isPrivate)
+            return "";
+
         if (_swccgoGame.isCancelled())
             return "Cancelled";
         if (_swccgoGame.isFinished())
@@ -159,8 +162,6 @@ public class SwccgGameMediator {
         final Phase currentPhase = _swccgoGame.getGameState().getCurrentPhase();
         if (currentPhase == Phase.PLAY_STARTING_CARDS)
             return "Preparation";
-        if(_isPrivate)
-            return "";
         return "Life Force: " + getPlayerLifeForce();
     }
 

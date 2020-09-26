@@ -249,12 +249,15 @@ public class HallServer extends AbstractServer {
                 verifyNotPlayingLeagueGame(player, side, league);
             }
 
-            boolean isPrivateGame = isPrivate&&privateGamesAllowed();
-            if (isPrivateGame) {
-                System.out.println("HallServer.java\tTrying to create a private table");
-            } else {
-                System.out.println("HallServer.java\tNot trying to create a private table");
+            if(isPrivate&&league!=null) {
+                throw new HallException("League games cannot be private");
             }
+            if(isPrivate&&format.isPlaytesting()) {
+                throw new HallException("Playtesting games cannot be private");
+            }
+
+            boolean isPrivateGame = isPrivate&&privateGamesAllowed();
+
 
             String tableId = String.valueOf(_nextTableId++);
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc, isPrivateGame);
