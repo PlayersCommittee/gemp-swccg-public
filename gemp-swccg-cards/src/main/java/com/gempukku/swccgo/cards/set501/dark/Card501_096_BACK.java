@@ -37,6 +37,7 @@ public class Card501_096_BACK extends AbstractObjective {
         setGameText("While this side up, you lose no Force to Visage Of The Emperor. While Vader armed with a lightsaber, opponent’s Force drain bonuses are canceled and your lightsaber Force drain bonuses may not be canceled. Once per game, may take lightsaber into hand from your Lost Pile." +
                 "Flip this card if Luke or a Jedi or padawan at a battleground site.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
+        setTestingText("Their Fire Has Gone Out Of The Universe (V)");
     }
 
     @Override
