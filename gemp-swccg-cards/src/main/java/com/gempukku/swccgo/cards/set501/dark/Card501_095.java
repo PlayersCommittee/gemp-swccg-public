@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
+import com.gempukku.swccgo.cards.effects.choose.ChooseAndLoseCardFromHandEffect;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
@@ -13,6 +15,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardsIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -29,7 +32,7 @@ public class Card501_095 extends AbstractLostInterrupt {
     public Card501_095() {
         super(Side.DARK, 5, "Hunt Down The Children Of The Jedi");
         setLore("");
-        setGameText("If two Inquisitors are in battle together, draw destiny and subtract that amount from opponent's attrition and total power.");
+        setGameText("If two Inquisitors are in battle together, draw destiny and subtract that amount from opponent's attrition and total power. OR Lose Vader or an Inquistor from hand to take up to two Inquisitors into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("Hunt Down The Children Of The Jedi");
     }
@@ -69,6 +72,38 @@ public class Card501_095 extends AbstractLostInterrupt {
                 return Collections.singletonList(action);
             }
         }
+        return null;
+    }
+
+    @Override
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+        GameTextActionId gametextActionId = GameTextActionId.HUNT_DOWN_THE_CHILDREN_OF_THE_JEDI__UPLOAD_INQUISITORS;
+
+        // Check condition(s)
+        if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gametextActionId)
+            && GameConditions.hasInHand(game, playerId, Filters.or(Filters.Vader, Filters.inquisitor))) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gametextActionId);
+
+            action.setText("Upload up to two Inquisitors");
+
+            action.appendCost(
+                    new ChooseAndLoseCardFromHandEffect(action, playerId, Filters.or(Filters.Vader, Filters.inquisitor)));
+
+            // Allow response(s)
+            action.allowResponses(
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new TakeCardsIntoHandFromReserveDeckEffect(action, playerId, 1, 2, Filters.inquisitor,true));
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
+        }
+
         return null;
     }
 }
