@@ -46,16 +46,13 @@ public class Card501_086 extends AbstractUsedInterrupt {
             action.setText("Retrieve a Crimson Dawn leader");
             // Pay cost(s)
             action.appendCost(
-                    new UseForceEffect(action, playerId, 3));
+                    new LoseForceEffect(action, playerId, 2));
             // Allow response(s)
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
-                            action.appendEffect(
-                                    new LoseForceEffect(action, playerId, 2)
-                            );
                             action.appendEffect(
                                     new RetrieveCardEffect(action, playerId, Filters.and(Filters.Crimson_Dawn, Filters.leader)));
                         }
