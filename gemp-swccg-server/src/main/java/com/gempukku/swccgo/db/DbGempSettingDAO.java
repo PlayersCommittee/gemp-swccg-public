@@ -8,14 +8,14 @@ import java.sql.SQLException;
 /**
  * A server setting database access object that accesses the database.
  */
-public class DbServerSettingDAO implements ServerSettingDAO {
+public class DbGempSettingDAO implements GempSettingDAO {
     private DbAccess _dbAccess;
 
     /**
      * Creates a gemp_setting data access object that access the database.
      * @param dbAccess the database access
      */
-    public DbServerSettingDAO(DbAccess dbAccess) {
+    public DbGempSettingDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
     }
 

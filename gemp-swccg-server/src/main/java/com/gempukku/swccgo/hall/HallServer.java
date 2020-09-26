@@ -9,7 +9,7 @@ import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.db.IpBanDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
-import com.gempukku.swccgo.db.ServerSettingDAO;
+import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.draft.Draft;
@@ -46,7 +46,7 @@ public class HallServer extends AbstractServer {
     private PairingMechanismRegistry _pairingMechanismRegistry;
     private PlayerDAO _playerDAO;
     private IpBanDAO _ipBanDAO;
-    private ServerSettingDAO _serverSettingDAO;
+    private GempSettingDAO _gempSettingDAO;
     private AdminService _adminService;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
@@ -58,6 +58,7 @@ public class HallServer extends AbstractServer {
 
     private boolean _operational;
     private boolean _shutdown;
+    private boolean _privateGamesEnabled;
 
     private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
 
@@ -75,7 +76,7 @@ public class HallServer extends AbstractServer {
 
     public HallServer(SwccgoServer swccgoServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, SwccgCardBlueprintLibrary library,
                       SwccgoFormatLibrary formatLibrary, CollectionsManager collectionsManager,
-                      PlayerDAO playerDAO, IpBanDAO ipBanDAO, ServerSettingDAO serverSettingDAO,
+                      PlayerDAO playerDAO, IpBanDAO ipBanDAO, GempSettingDAO gempSettingDAO,
                       AdminService adminService,
                       TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                       PairingMechanismRegistry pairingMechanismRegistry) {
@@ -88,7 +89,8 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _playerDAO = playerDAO;
         _ipBanDAO = ipBanDAO;
-        _serverSettingDAO = serverSettingDAO;
+        _gempSettingDAO = gempSettingDAO;
+        _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
         _adminService = adminService;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
@@ -270,8 +272,13 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    public void togglePrivateGames() {
+        _gempSettingDAO.togglePrivateGamesEnabled();
+        _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
+    }
+
     public boolean privateGamesAllowed() {
-        return _serverSettingDAO.privateGamesEnabled();
+        return _privateGamesEnabled;
     }
 
     private void verifyNotPlayingLeagueGame(Player player, Side side, League league) throws HallException {

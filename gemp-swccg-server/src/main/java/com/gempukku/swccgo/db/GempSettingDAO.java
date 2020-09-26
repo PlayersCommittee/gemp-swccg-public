@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * An interface to represent the player database access object.
  */
-public interface ServerSettingDAO {
+public interface GempSettingDAO {
 
     /**
      * Gets whether the privateGamesEnabled setting is on or off

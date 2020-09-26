@@ -7,7 +7,7 @@ import com.gempukku.swccgo.cache.CacheManager;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.db.LeagueDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
-import com.gempukku.swccgo.db.ServerSettingDAO;
+import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.game.CardCollection;
@@ -42,7 +42,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private LeagueDAO _leagueDao;
     private CollectionsManager _collectionManager;
     private PlayerDAO _playerDAO;
-    private ServerSettingDAO _serverSettingDAO;
+    private GempSettingDAO _gempSettingDAO;
     private AdminService _adminService;
 
     public AdminRequestHandler(Map<Type, Object> context) {
@@ -57,7 +57,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _adminService = extractObject(context, AdminService.class);
-        _serverSettingDAO = extractObject(context, ServerSettingDAO.class);
+        _gempSettingDAO = extractObject(context, GempSettingDAO.class);
     }
 
     @Override
@@ -745,9 +745,9 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
     private void togglePrivateGames(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
         validateAdmin(request);
-        _serverSettingDAO.togglePrivateGamesEnabled();
+        _hallServer.togglePrivateGames();
 
-        responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_serverSettingDAO.privateGamesEnabled()));
+        responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_hallServer.privateGamesAllowed()));
     }
 
 
