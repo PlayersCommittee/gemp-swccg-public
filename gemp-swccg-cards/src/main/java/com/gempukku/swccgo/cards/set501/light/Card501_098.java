@@ -110,8 +110,6 @@ public class Card501_098 extends AbstractResistance {
             actionList.add(action);
         }
 
-        if(actionList.isEmpty())
-            return null;
         return actionList;
     }
 
