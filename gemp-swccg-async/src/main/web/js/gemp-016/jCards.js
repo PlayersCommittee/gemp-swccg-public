@@ -3293,6 +3293,7 @@ var fixedImages = {
 "501_96":"/gemp-swccg/images/cards/SpecialEdition-Dark/huntdownanddestroythejedi.gif",
 "501_96_BACK":"/gemp-swccg/images/cards/SpecialEdition-Dark/theirfirehasgoneoutoftheuniverse.gif",
 "501_97":"/gemp-swccg/images/cards/Dagobah-Dark/visageoftheemperor.gif",
+"501_98":"/gemp-swccg/images/cards/Virtual11-Light/viceadmiralholdo.gif",
 };
 
 var packBlueprints = {
