@@ -3000,8 +3000,11 @@ public class GameConditions {
             List<PhysicalCard> outOfPlay = gameState.getAllOutOfPlayCards();
 
             for (Persona persona : personas) {
-                // Check if persona is out of play
-                if (Filters.canSpot(outOfPlay, game, 1, persona))
+                // Check if persona is out of play (only if it's a character, vehicle, or starship)
+                //AR: Any unique character, vehicle, or starship that is out of
+                //play prevents any additional copies of that card (or
+                //other versions of its persona) from being played.
+                if (Filters.canSpot(outOfPlay, game, 1, Filters.and(persona, Filters.or(Filters.character, Filters.vehicle, Filters.starship))))
                     continue;
 
                 // Check if persona is in play (and cannot be converted by player)
