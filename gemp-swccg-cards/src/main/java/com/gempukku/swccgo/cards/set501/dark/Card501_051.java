@@ -3,20 +3,19 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
-import com.gempukku.swccgo.common.CardSubtype;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealOneCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
@@ -28,17 +27,31 @@ import java.util.List;
  * Set: Set 13
  * Type: Interrupt
  * Subtype: Used Or Lost
- * Title: Ee Chu Wawa (V)
+ * Title: Eee Chu Wawa! (V)
  */
 public class Card501_051 extends AbstractUsedOrLostInterrupt {
     public Card501_051() {
-        super(Side.DARK, 4, "Ee Chu Wawa", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Eee_Chu_Wawa, Uniqueness.UNIQUE);
         setLore("Paploo's brave diversion provided more of a ride than the adventurous Ewok had bargained for.");
         setGameText("USED: If opponent occupies your location (or if a forest on table), peek at top two cards of your Reserve Deck; take one into hand." +
-                "LOST: While defending a battle, add 1 to your total battle destiny for each (DS icon) at same site. OR Steal a just 'thrown' weapon into hand.");
+                "LOST: While defending a battle, add 1 to your total battle destiny for each (DS icon) at same site. OR Cancel Take The Initiative.");
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
-        setTestingText("Ee Chu Wawa (V)");
+        setTestingText("Eee Chu Wawa! (V)");
+    }
+
+    @Override
+    protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self) {
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Take_The_Initiative)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override
@@ -111,6 +124,15 @@ public class Card501_051 extends AbstractUsedOrLostInterrupt {
                         }
                     }
             );
+            actions.add(action);
+        }
+
+        // Check condition(s)
+        if (GameConditions.canTargetToCancel(game, self, Filters.Take_The_Initiative)) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Take_The_Initiative, Title.Take_The_Initiative);
             actions.add(action);
         }
 
