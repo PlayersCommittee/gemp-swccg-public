@@ -62,7 +62,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
 
         try {
             if (message != null && !message.trim().isEmpty()) {
-                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
+                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.hasType(Player.Type.ADMIN));
                 responseWriter.writeXmlResponse(null);
             } else {
                 ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
@@ -135,7 +135,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
         if (chatRoom == null)
             throw new HttpProcessingException(404);
         try {
-            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.getType().contains("a"));
+            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.hasType(Player.Type.ADMIN), resourceOwner.hasType(Player.Type.PLAY_TESTER));
             Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

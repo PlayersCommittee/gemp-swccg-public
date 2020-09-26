@@ -275,13 +275,21 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
         //TODO remove this
         System.out.println("getFormParameterSafely\t" + getFormParameterSafely(postDecoder, "isPrivate"));
         System.out.println("valueof isPrivateVal\t" + String.valueOf(isPrivateVal));
-        if(isPrivate)
-            System.out.println("private game");
+        if(isPrivate) {
+            System.out.println("user wants to create a private game");
+            if(_hallServer.privateGamesAllowed()) {
+                System.out.println("private games currently enabled");
+            } else {
+                System.out.println("private games currently disabled");
+            }
+        }
 
         String tableDesc = getFormParameterSafely(postDecoder, "tableDesc");
 
         if(isPrivate&&tableDesc.length()==0) {
-            throw new HallException("Private games must have your intended opponent in the description");
+//            throw new HallException("Private games must have your intended opponent in the description");
+            responseWriter.writeXmlResponse(marshalException(new HallException("Private games must have your intended opponent in the description")));
+            return;
         }
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);

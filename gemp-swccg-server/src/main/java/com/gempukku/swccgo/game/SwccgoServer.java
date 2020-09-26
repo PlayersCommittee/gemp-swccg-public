@@ -98,7 +98,7 @@ public class SwccgoServer extends AbstractServer {
             if (!allowSpectatorsToViewChat||isPrivate) {
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else {
-                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat);
+                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat, swccgFormat.isPlaytesting());
             }
 
             int maxPlayerTime = timePerPlayerMinutes * 60;

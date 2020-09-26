@@ -92,7 +92,7 @@ public class HallServer extends AbstractServer {
         _adminService = adminService;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
-        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, null, true);
+        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, null, true, false);
         _hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
                     @Override
@@ -250,6 +250,11 @@ public class HallServer extends AbstractServer {
             }
 
             boolean isPrivateGame = isPrivate&&privateGamesAllowed();
+            if (isPrivateGame) {
+                System.out.println("HallServer.java\tTrying to create a private table");
+            } else {
+                System.out.println("HallServer.java\tNot trying to create a private table");
+            }
 
             String tableId = String.valueOf(_nextTableId++);
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc, isPrivateGame);
@@ -749,6 +754,9 @@ public class HallServer extends AbstractServer {
 
     private String getTournamentName(AwaitingTable table) {
         String tournamentName = (table.getSwccgoFormat().isPlaytesting() ? "Playtesting" : "Casual");
+        if(table.isPrivate())
+            tournamentName += " (Private)";
+
         final League league = table.getLeague();
         if (league != null) {
             tournamentName = league.getName() + " - " + table.getLeagueSeries().getName();
