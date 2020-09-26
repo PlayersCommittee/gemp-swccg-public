@@ -159,6 +159,8 @@ public class SwccgGameMediator {
         final Phase currentPhase = _swccgoGame.getGameState().getCurrentPhase();
         if (currentPhase == Phase.PLAY_STARTING_CARDS)
             return "Preparation";
+        if(_isPrivate)
+            return "";
         return "Life Force: " + getPlayerLifeForce();
     }
 

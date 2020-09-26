@@ -15,7 +15,7 @@ public interface HallInfoVisitor {
 
     void motd(String motd);
 
-    void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, String tableDesc, List<SwccgGameParticipant> playerIds, Map<String, String> deckArchetypeMap, boolean playing, String winner, boolean hidePlayer, SwccgCardBlueprintLibrary library, boolean hideDescAndDecks);
+    void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, String tableDesc, List<SwccgGameParticipant> playerIds, Map<String, String> deckArchetypeMap, boolean playing, String winner, boolean hidePlayer, SwccgCardBlueprintLibrary library, boolean hideDesc, boolean hideDecks);
 
     void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName, String tournamentPrizes,
                                      String pairingDescription, String startCondition, int playerCount, boolean playerSignedUp, boolean joinable);

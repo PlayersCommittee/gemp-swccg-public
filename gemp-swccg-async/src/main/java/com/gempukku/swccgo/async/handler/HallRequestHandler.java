@@ -269,25 +269,20 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
         String format = getFormParameterSafely(postDecoder, "format");
         String deckName = getFormParameterSafely(postDecoder, "deckName");
         String sampleDeckVal = getFormParameterSafely(postDecoder, "sampleDeck");
-        boolean sampleDeck = sampleDeckVal != null ? Boolean.valueOf(sampleDeckVal) : false;
+        boolean sampleDeck = (sampleDeckVal != null ? Boolean.valueOf(sampleDeckVal) : false);
         String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
-        boolean isPrivate = isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false;
-        //TODO remove this
-        System.out.println("getFormParameterSafely\t" + getFormParameterSafely(postDecoder, "isPrivate"));
-        System.out.println("valueof isPrivateVal\t" + String.valueOf(isPrivateVal));
-        if(isPrivate) {
-            System.out.println("user wants to create a private game");
-            if(_hallServer.privateGamesAllowed()) {
-                System.out.println("private games currently enabled");
-            } else {
-                System.out.println("private games currently disabled");
-            }
+        boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
+
+        //if they tried creating a private game while they are disabled, let them know instead of creating the table
+        if(isPrivate&&!_hallServer.privateGamesAllowed()) {
+                responseWriter.writeXmlResponse(marshalException(new HallException("Private games are currently disabled")));
+                return;
         }
 
         String tableDesc = getFormParameterSafely(postDecoder, "tableDesc");
 
+        //if the private games doesn't have anything in the description they can't create the game
         if(isPrivate&&tableDesc.length()==0) {
-//            throw new HallException("Private games must have your intended opponent in the description");
             responseWriter.writeXmlResponse(marshalException(new HallException("Private games must have your intended opponent in the description")));
             return;
         }
