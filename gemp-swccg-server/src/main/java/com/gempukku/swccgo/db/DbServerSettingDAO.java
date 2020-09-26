@@ -12,7 +12,7 @@ public class DbServerSettingDAO implements ServerSettingDAO {
     private DbAccess _dbAccess;
 
     /**
-     * Creates a player data access object that access the database.
+     * Creates a gemp_setting data access object that access the database.
      * @param dbAccess the database access
      */
     public DbServerSettingDAO(DbAccess dbAccess) {
@@ -25,7 +25,7 @@ public class DbServerSettingDAO implements ServerSettingDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                ResultSet result = connection.createStatement().executeQuery("select settingValue from server_settings where settingName = 'privateGamesEnabled'");
+                ResultSet result = connection.createStatement().executeQuery("select settingValue from gemp_settings where settingName = 'privateGamesEnabled'");
                 try {
                     while(result.next()) {
                         toReturn = result.getBoolean(1);
@@ -47,12 +47,12 @@ public class DbServerSettingDAO implements ServerSettingDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                connection.createStatement().executeQuery("update server_settings set settingValue = 1-settingValue where settingName = 'privateGamesEnabled'");
+                connection.createStatement().executeUpdate("update gemp_settings set settingValue = 1-settingValue where settingName = 'privateGamesEnabled'");
             } finally {
                 connection.close();
             }
         } catch (SQLException exp) {
-            throw new RuntimeException("Unable to edit server setting", exp);
+            throw new RuntimeException("Unable to edit privateGamesEnabled setting", exp);
         }
     }
 }

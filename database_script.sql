@@ -6,17 +6,17 @@ CREATE SCHEMA IF NOT EXISTS `gemp-swccg` DEFAULT CHARACTER SET utf8 ;
 USE `gemp-swccg` ;
 
 -- -----------------------------------------------------
--- Table `gemp-swccg`.`server_settings`
+-- Table `gemp-swccg`.`gemp_settings`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `gemp-swccg`.`server_settings` (
+CREATE TABLE IF NOT EXISTS `gemp-swccg`.`gemp_settings` (
   `settingName` NVARCHAR(45) PRIMARY KEY,
   `settingValue` BOOLEAN NOT NULL )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-INSERT IGNORE INTO `gemp-swccg`.`server_settings` (settingName,settingValue) values ('privateGamesEnabled',0);
+INSERT IGNORE INTO `gemp-swccg`.`gemp_settings` (settingName,settingValue) values ('privateGamesEnabled',0);
 
 -- -----------------------------------------------------
 -- Table `gemp-swccg`.`collection`
