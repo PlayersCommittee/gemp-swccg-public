@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Side;
@@ -37,28 +38,19 @@ public class Card501_057 extends AbstractUniqueStarshipSite {
 
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-
+        List<Modifier> modifiers = new LinkedList<>();
         Filter margo = Filters.and(Persona.MARGO);
-
-        // Force Generation +1 for unique Alien
-        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereCondition(self, Filters.and(Filters.unique, Filters.alien, Filters.not(margo))), 1, playerOnDarkSideOfLocation));
-
-        // Force Generation +2 more for Margo
-        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereCondition(self, margo), 2, playerOnDarkSideOfLocation));
-
+        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereCondition(self, Filters.and(Filters.unique, Filters.alien)), new ConditionEvaluator(1, 2, new HereCondition(self, margo)), playerOnDarkSideOfLocation));
         return modifiers;
     }
 
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-
+        List<Modifier> modifiers = new LinkedList<>();
         Condition smugglerHere = new HereCondition(self, Filters.smuggler);
         modifiers.add(new ForceDrainModifier(self, new UnlessCondition(smugglerHere), -1, playerOnLightSideOfLocation));
         modifiers.add(new ForceDrainModifier(self, smugglerHere, 1, playerOnLightSideOfLocation));
         return modifiers;
     }
-
 }
