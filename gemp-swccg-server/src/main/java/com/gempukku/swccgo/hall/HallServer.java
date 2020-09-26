@@ -633,7 +633,7 @@ public class HallServer extends AbstractServer {
                     for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                         deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                     }
-                    visitor.visitTable(nonPlayingGame.getKey(), swccgGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, !swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible), swccgGameMediator.isPrivate());
+                    visitor.visitTable(nonPlayingGame.getKey(), swccgGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible), swccgGameMediator.isPrivate());
                 }
             }
 
