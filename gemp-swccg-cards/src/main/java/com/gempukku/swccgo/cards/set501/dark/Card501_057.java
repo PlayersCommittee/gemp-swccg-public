@@ -18,13 +18,6 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 
-//•First Light: Reception Area [TBD (V)]
-//[TBD - TBD]
-//DARK – LOCATION - SITE
-//DARK (2): Your Force generation here is +1 if your unique (•) alien here (+2 for Margo).
-//LIGHT (1): Force drain -1 here (if your smuggler here, Force drain +1 instead).
-//[Interior] [Starship] [Mobile] [Scomp Link] [Set 13]
-
 /**
  * Set: Set 13
  * Type: Location
