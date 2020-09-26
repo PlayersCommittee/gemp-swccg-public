@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,6 +28,7 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         setLore("'You were right about me. Tell your sister ... you were right.'");
         setGameText("USED: Relocate Prophecy Of The Force to a site. LOST: If Luke in battle and I Feel The Conflict on table, place Luke's Lightsaber in Used Pile and choose: Add one destiny to attrition. OR Cancel the game text of a character of ability < 4 with Luke.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_13);
+        setVirtualSuffix(true);
         setTestingText("Anakin Skywalker (V)");
     }
 
@@ -85,11 +87,13 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
                 actions.add(action);
             }
 
-            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.opponents(playerId), Filters.character, Filters.abilityLessThan(4)))) {
+            Filter characterAbilityLessThanFour = Filters.and(Filters.character, Filters.abilityLessThan(4));
+
+            if (GameConditions.isDuringBattleWithParticipant(game, characterAbilityLessThanFour)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action.setText("Cancel game text of character ability less than 4");
                 action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose character of ability less than 4", Filters.and(Filters.opponents(playerId), Filters.character, Filters.abilityLessThan(4))) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose character of ability less than 4", characterAbilityLessThanFour) {
                             @Override
                             protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
                                 action.allowResponses(new RespondablePlayCardEffect(action) {
