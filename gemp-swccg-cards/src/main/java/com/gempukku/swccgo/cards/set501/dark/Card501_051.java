@@ -7,17 +7,13 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.StealOneCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
-import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -49,30 +45,6 @@ public class Card501_051 extends AbstractUsedOrLostInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.weaponJustThrown(game, effectResult, Filters.any)) {
-            FiredWeaponResult weaponFiredResult = (FiredWeaponResult) effectResult;
-            final PhysicalCard weaponCardThrown = weaponFiredResult.getWeaponCardFired();
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Steal " + GameUtils.getCardLink(weaponCardThrown) + " into hand");
-            action.setActionMsg("Steal " + GameUtils.getCardLink(weaponCardThrown) + " into hand");
-            // Allow response(s)
-            action.allowResponses("Steal " + GameUtils.getCardLink(weaponCardThrown) + " into hand",
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new StealOneCardIntoHandEffect(action, weaponCardThrown));
-                        }
-                    }
-            );
             return Collections.singletonList(action);
         }
         return null;

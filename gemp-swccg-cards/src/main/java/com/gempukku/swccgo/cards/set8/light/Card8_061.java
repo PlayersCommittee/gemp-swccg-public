@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_061 extends AbstractUsedOrLostInterrupt {
     public Card8_061() {
-        super(Side.LIGHT, 3, Title.Take_Evasive_Action, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Take_The_Initiative, Uniqueness.UNIQUE);
         setLore("The ability to think and act independently gave the Rebels an advantage over their Imperial foes.");
         setGameText("USED: If all of your ability in a battle is provided by scouts and/or spies, they each add 1 to your total battle destiny (limit +6). LOST: For remainder of turn, your unique (•) scouts and unique (•) spies are each power +1 (or +2 while being attacked by a creature).");
         addIcons(Icon.ENDOR);
