@@ -592,7 +592,7 @@ public class HallServer extends AbstractServer {
                 List<SwccgGameParticipant> players = new LinkedList<SwccgGameParticipant>(table.getPlayers());
 
                 boolean hidePlayerId = table.getLeague() != null && !table.getLeague().getShowPlayerNames();
-                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getSwccgoFormat().getName(), getTournamentName(table), table.getLeague() != null ? null : table.getTableDesc(), players, null, table.getPlayerNames().contains(player.getName()), null, hidePlayerId, _library, table.getSwccgoFormat().isPlaytesting() && !playtestingVisible, true);
+                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getSwccgoFormat().getName(), getTournamentName(table), table.getLeague() != null ? null : table.getTableDesc(), players, null, table.getPlayerNames().contains(player.getName()), null, hidePlayerId, _library, table.getSwccgoFormat().isPlaytesting() && !playtestingVisible, true, true);
             }
 
             // Then non-finished
@@ -607,7 +607,7 @@ public class HallServer extends AbstractServer {
                         for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                             deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                         }
-                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), !swccgGameMediator.isPrivate()&&(player.hasType(Player.Type.ADMIN)|| (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)) || (!swccgGameMediator.getFormat().isPlaytesting()&& visibleToCommentator)), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible));
+                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), !swccgGameMediator.isPrivate()&&(player.hasType(Player.Type.ADMIN)|| (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)) || (!swccgGameMediator.getFormat().isPlaytesting()&& visibleToCommentator)), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible), swccgGameMediator.isPrivate());
                     }
                     else {
                         finishedTables.put(runningGame.getKey(), runningTable);
@@ -626,7 +626,7 @@ public class HallServer extends AbstractServer {
                     for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                         deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                     }
-                    visitor.visitTable(nonPlayingGame.getKey(), swccgGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, !swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible));
+                    visitor.visitTable(nonPlayingGame.getKey(), swccgGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, !swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible), swccgGameMediator.isPrivate());
                 }
             }
 

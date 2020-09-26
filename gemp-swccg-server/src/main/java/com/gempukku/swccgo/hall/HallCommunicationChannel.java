@@ -83,7 +83,7 @@ public class HallCommunicationChannel implements LongPollableResource {
                     }
 
                     @Override
-                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, String tableDesc, List<SwccgGameParticipant> players, Map<String, String> deckArchetypeMap, boolean playing, String winner, boolean hidePlayerId, SwccgCardBlueprintLibrary library, boolean hideDesc, boolean hideDecks) {
+                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, String tableDesc, List<SwccgGameParticipant> players, Map<String, String> deckArchetypeMap, boolean playing, String winner, boolean hidePlayerId, SwccgCardBlueprintLibrary library, boolean hideDesc, boolean hideDecks, boolean hideWinner) {
 
                         List<String> playerInfo = new LinkedList<String>();
 
@@ -114,7 +114,7 @@ public class HallCommunicationChannel implements LongPollableResource {
                         props.put("players", StringUtils.join(playerInfo, ","));
                         props.put("playing", String.valueOf(playing));
                         if (winner != null)
-                            props.put("winner", winner);
+                            props.put("winner", hideWinner?"":winner);
 
                         tablesOnServer.put(tableId, props);
                     }
