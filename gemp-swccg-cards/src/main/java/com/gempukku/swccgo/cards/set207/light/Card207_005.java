@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +13,6 @@ import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -42,8 +40,7 @@ public class Card207_005 extends AbstractResistance {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        //modifiers.add(new CancelsGameTextModifier(self, Filters.Admirals_Order, new AtCondition(self, Filters.or(Filters.war_room, Filters.battleground))));
-        modifiers.add(new SuspendsCardModifier(self, Filters.Admirals_Order, new AtCondition(self, Filters.or(Filters.war_room, Filters.battleground))));
+        modifiers.add(new CancelsGameTextModifier(self, Filters.Admirals_Order, new AtCondition(self, Filters.or(Filters.war_room, Filters.battleground))));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
         return modifiers;
     }
