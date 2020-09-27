@@ -11,12 +11,10 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.RecirculateEffect;
-import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
@@ -25,6 +23,7 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,25 +35,20 @@ import java.util.List;
 public class Card501_058_BACK extends AbstractObjective {
     public Card501_058_BACK() {
         super(Side.DARK, 7, Title.You_Know_Who_I_Answer_To);
-        setGameText("May Immediately re-circulate; reshuffle" +
-                "While this side up, if your gangster leader in battle with your non-unique blaster, may add one destiny to total power." +
-                "Flip this card at end of each turn (opponent loses 1 Force if you occupy 3 battlegrounds).");
+        setGameText("May immediately re-circulate and shuffle your Reserve Deck." +
+                "While this side up, if your gangster leader in battle at same site as your non-unique blaster, may add one destiny to total power. If Maul alone, during your draw phase may peek at the cards in your Force Pile" +
+                "Flip this card at end of turn (if you occupy three battlegrounds, opponent also loses 1 Force).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("You Know Who I Answer To");
     }
 
-
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
-
-        final String playerId = self.getOwner();
-
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
         if (TriggerConditions.cardFlipped(game, effectResult, self)) {
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setPerformingPlayer(playerId);
             action.setText("Re-circulate and reshuffle.");
             action.setActionMsg("Re-circulate and reshuffle.");
@@ -66,8 +60,14 @@ public class Card501_058_BACK extends AbstractObjective {
                     new ShuffleReserveDeckEffect(action, playerId)
             );
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
+        return null;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        final String playerId = self.getOwner();
 
         //Flip this card at the end of each turn; (if you occupy 3 battlegrounds, opponent loses 1 Force).
         if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
@@ -83,11 +83,10 @@ public class Card501_058_BACK extends AbstractObjective {
                         new LoseForceEffect(action, game.getOpponent(playerId), 1)
                 );
             }
-            actions.add(action);
+            return Collections.singletonList(action);
         }
 
-        return actions;
-
+        return null;
     }
 
     @Override
@@ -104,14 +103,14 @@ public class Card501_058_BACK extends AbstractObjective {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
-        GameTextActionId gameTextActionId1 = GameTextActionId.OTHER_CARD_ACTION_1;
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Filters.gangster)))
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.non_unique, Filters.blaster))
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId1)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Add 1 destiny to power.");
             action.setActionMsg("Add 1 destiny to power.");
             action.appendUsage(
@@ -123,7 +122,18 @@ public class Card501_058_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        GameTextActionId gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        if (GameConditions.isDuringYourPhase(game, playerId, Phase.DRAW)
+                && GameConditions.hasForcePile(game, playerId)
+                && GameConditions.canSpot(game, self, Filters.and(Filters.Maul, Filters.alone))) {
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.appendEffect(
+                    new LookAtForcePileEffect(action, playerId, playerId));
+            actions.add(action);
+        }
+
+        gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
