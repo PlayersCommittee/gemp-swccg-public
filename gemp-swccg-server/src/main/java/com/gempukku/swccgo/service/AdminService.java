@@ -26,6 +26,14 @@ public class AdminService {
         }
     }
 
+    public boolean setUserAsCommentator(String login, boolean commentator) {
+        try {
+            return _playerDAO.setPlayerAsCommentator(login, commentator);
+        } catch (SQLException exp) {
+            return false;
+        }
+    }
+
     public boolean resetUserPassword(String login) {
         try {
             final boolean success = _playerDAO.setPlayerAsDeactivated(login, false);

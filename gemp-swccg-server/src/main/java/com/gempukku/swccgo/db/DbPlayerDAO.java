@@ -238,6 +238,67 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
+    public synchronized boolean setPlayerAsCommentator(String playerName, boolean playtester) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            final Player player = getPlayerFromDBByName(playerName, false);
+            if (player == null) {
+                return false;
+            }
+
+            // Add/remove commentator type
+            List<Player.Type> types = Player.Type.getTypes(player.getType());
+            if (playtester) {
+                if (!types.contains(Player.Type.COMMENTATOR)) {
+                    types.add(Player.Type.COMMENTATOR);
+                }
+            }
+            else {
+                types.remove(Player.Type.COMMENTATOR);
+            }
+
+            PreparedStatement statement = conn.prepareStatement("update player set type=? where id=?");
+            try {
+                statement.setString(1, Player.Type.getTypeString(types));
+                statement.setInt(2, player.getId());
+                return statement.executeUpdate() == 1;
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    @Override
+    public List<Player> findCommentators() {
+        try {
+            List<Player> commentators = new LinkedList<Player>();
+            Connection conn = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where type like '%" + Player.Type.COMMENTATOR + "%'" + _notDeactivated);
+                try {
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        while (rs.next()) {
+                            commentators.add(getPlayerFromResultSet(rs));
+                        }
+                        return commentators;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Error while retrieving commentators", exp);
+        }
+    }
+
+    @Override
     public boolean setPlayerAsDeactivated(String playerName, boolean deactivate) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
