@@ -267,14 +267,29 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
         String format = getFormParameterSafely(postDecoder, "format");
         String deckName = getFormParameterSafely(postDecoder, "deckName");
         String sampleDeckVal = getFormParameterSafely(postDecoder, "sampleDeck");
-        boolean sampleDeck = sampleDeckVal != null ? Boolean.valueOf(sampleDeckVal) : false;
+        boolean sampleDeck = (sampleDeckVal != null ? Boolean.valueOf(sampleDeckVal) : false);
+        String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
+        boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
+
+        //if they tried creating a private game while they are disabled, let them know instead of creating the table
+        if(isPrivate&&!_hallServer.privateGamesAllowed()) {
+                responseWriter.writeXmlResponse(marshalException(new HallException("Private games are currently disabled")));
+                return;
+        }
+
         String tableDesc = getFormParameterSafely(postDecoder, "tableDesc");
+
+        //if the private games doesn't have anything in the description they can't create the game
+        if(isPrivate&&tableDesc.length()==0) {
+            responseWriter.writeXmlResponse(marshalException(new HallException("Private games must have your intended opponent in the description")));
+            return;
+        }
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         Player librarian = sampleDeck ? getLibrarian() : null;
 
         try {
-            _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, librarian);
+            _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian);
             responseWriter.writeXmlResponse(null);
         } catch (HallException e) {
             responseWriter.writeXmlResponse(marshalException(e));
@@ -529,7 +544,9 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                 }
             }
 
+            hall.setAttribute("privateGamesEnabledBoolean", String.valueOf(_hallServer.privateGamesAllowed()));
             doc.appendChild(hall);
+
 
             responseWriter.writeXmlResponse(doc);
         } catch (HttpProcessingException exp) {
@@ -590,6 +607,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     _hallCommunicationChannel.processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
                     hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
 
+                    hall.setAttribute("privateGamesEnabledBoolean", String.valueOf(_hallServer.privateGamesAllowed()));
                     doc.appendChild(hall);
 
                     Map<String, String> headers = new HashMap<String, String>();

@@ -19,16 +19,18 @@ public class ChatRoomMediator {
     private boolean _privateRoom;
     private Set<String> _allowedPlayers;
     private boolean _allowSpectatorsToChat;
+    private boolean _playtesting;
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
     private Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<String, ChatCommandCallback>();
 
-    public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean privateRoom, Set<String> allowedPlayers, boolean allowSpectatorsToChat) {
+    public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean privateRoom, Set<String> allowedPlayers, boolean allowSpectatorsToChat, boolean playtesting) {
         _logger = Logger.getLogger("chat."+roomName);
         _privateRoom = privateRoom;
         _allowedPlayers = allowedPlayers;
         _allowSpectatorsToChat = allowSpectatorsToChat;
+        _playtesting = playtesting;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
         _chatRoom = new ChatRoom(muteJoinPartMessages);
     }
@@ -37,10 +39,12 @@ public class ChatRoomMediator {
         _chatCommandCallbacks.put(command.toLowerCase(), callback);
     }
 
-    public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException {
+    public List<ChatMessage> joinUser(String playerId, boolean admin, boolean playtester) throws PrivateInformationException {
         _lock.writeLock().lock();
         try {
-            if (!admin && _privateRoom && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
+            if(_allowedPlayers != null && !_allowedPlayers.contains(playerId) && _privateRoom)
+                throw new PrivateInformationException();
+            if(_allowedPlayers != null && !_allowedPlayers.contains(playerId) && _playtesting && !admin && !playtester)
                 throw new PrivateInformationException();
 
             ChatCommunicationChannel value = new ChatCommunicationChannel();
