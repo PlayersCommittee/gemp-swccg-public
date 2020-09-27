@@ -18334,6 +18334,7 @@ public class Filters {
     public static final Filter Tactical_Support = Filters.title(Title.Tactical_Support);
     public static final Filter Tagge = Filters.title(Title.Tagge);
     public static final Filter Take_Evasive_Action = Filters.title(Title.Take_Evasive_Action);
+    public static final Filter Take_The_Initiative = Filters.title(Title.Take_The_Initiative);
     public static final Filter Take_Them_Away = Filters.title(Title.Take_Them_Away);
     public static final Filter Take_Your_Fathers_Place = Filters.title(Title.Take_Your_Fathers_Place);
     public static final Filter Takeel = Filters.title(Title.Takeel);
