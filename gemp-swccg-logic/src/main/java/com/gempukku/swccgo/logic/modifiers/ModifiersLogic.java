@@ -1882,10 +1882,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         boolean forfeitMayNotBeReduced = isProhibitedFromHavingForfeitReduced(gameState, physicalCard, modifierCollector);
+        boolean forfeitMayNotBeIncreased = isProhibitedFromHavingForfeitValueIncreased(gameState, physicalCard, modifierCollector);
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FORFEIT_VALUE, physicalCard)) {
             float modifierAmount = modifier.getForfeitModifier(gameState, this, physicalCard);
-            if (modifierAmount >= 0 || !forfeitMayNotBeReduced) {
+            if ((modifierAmount >= 0 && !forfeitMayNotBeIncreased) || (modifierAmount <= 0 && !forfeitMayNotBeReduced)) {
                 result += modifierAmount;
                 modifierCollector.addModifier(modifier);
             }
@@ -1982,6 +1983,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public boolean isProhibitedFromHavingForfeitIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
         boolean retVal = false;
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_INCREASED_ABOVE_PRINTED, card)) {
+            retVal = true;
+            modifierCollector.addModifier(modifier);
+        }
+        return retVal;
+    }
+
+    /**
+     * Determines if a card's forfeit may not be increased
+     * @param gameState the game state
+     * @param card a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased
+     */
+    @Override
+    public boolean isProhibitedFromHavingForfeitValueIncreased(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_INCREASED, card)) {
             retVal = true;
             modifierCollector.addModifier(modifier);
         }
@@ -4762,7 +4780,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         // See if we have a global "cannot cancel destiny" rule in effect
         for (Modifier modifier : getModifiers(gameState, ModifierType.MAY_NOT_CANCEL_DESTINY_DRAWS)) {
-            return true;
+            if (modifier.isForPlayer(playerId)) {
+                return true;
+            }
         }
 
         DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();

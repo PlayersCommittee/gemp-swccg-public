@@ -307,6 +307,7 @@ public interface Title {
     String Echo_Base_Operations = "Echo Base Operations";
     String Echo_Docking_Bay = "Hoth: Echo Docking Bay";
     String Echo_Med_Lab = "Hoth: Echo Med Lab";
+    String Eee_Chu_Wawa = "Eee Chu Wawa!";
     String Effective_Repairs = "Effective Repairs";
     String Eject_Eject = "Eject! Eject!";
     String Egregious_Pilot_Error = "Egregious Pilot Error";
@@ -932,6 +933,7 @@ public interface Title {
     String Tagge = "General Tagge";
     String Tallon_Roll = "Tallon Roll";
     String Take_Evasive_Action = "Take Evasive Action";
+    String Take_The_Initiative = "Take the Initiative";
     String Take_Them_Away = "Take Them Away";
     String Take_Your_Fathers_Place = "Take Your Father's Place";
     String Takeel = "Takeel";
