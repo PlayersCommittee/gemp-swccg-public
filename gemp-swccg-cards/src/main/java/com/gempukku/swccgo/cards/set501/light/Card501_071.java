@@ -36,8 +36,9 @@ import java.util.List;
 public class Card501_071 extends AbstractNormalEffect {
     public Card501_071() {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE);
+        setVirtualSuffix(true);
         setLore("Planet Kessel has infamous glitterstim spice mines attracting smugglers and pirates. A 'Kessel run' is a long, dangerous hyper-route they must travel quickly.");
-        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, move a 'coaxium' card here to Force Pile. When no 'coaxium' cards here, retrieve 3 Force; lose Effect.");
+        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, may move a 'coaxium' card from here to Used Pile. If no 'coaxium' cards here, retrieve 4 Force and lose Effect.");
         setTestingText("Kessel Run (V)");
     }
 
@@ -53,7 +54,7 @@ public class Card501_071 extends AbstractNormalEffect {
         if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place stacked card in Force Pile");
+            action.setText("Place stacked card in Used Pile");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
@@ -63,7 +64,7 @@ public class Card501_071 extends AbstractNormalEffect {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             action.appendEffect(
-                                    new PutStackedCardInForcePileEffect(action, playerId, selectedCard, false)
+                                    new PutStackedCardInUsedPileEffect(action, playerId, selectedCard, false)
                             );
                         }
                     }
@@ -105,34 +106,10 @@ public class Card501_071 extends AbstractNormalEffect {
                     new RecordUtinniEffectCompletedEffect(action, self)
             );
             action.appendEffect(
-                    new PlaceCardInUsedPileFromTableEffect(action, self)
+                    new RetrieveForceEffect(action, playerId, 4)
             );
             action.appendEffect(
-                    new RetrieveForceEffect(action, playerId, 3)
-            );
-            actions.add(action);
-        }
-
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-
-        if (TriggerConditions.isEndOfEachPhase(game, effectResult, Phase.MOVE)
-                && GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
-                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place stacked card in Force Pile");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new ChooseStackedCardEffect(action, playerId, self) {
-                        @Override
-                        protected void cardSelected(PhysicalCard selectedCard) {
-                            action.appendEffect(
-                                    new PutStackedCardInForcePileEffect(action, playerId, selectedCard, false)
-                            );
-                        }
-                    }
+                    new LoseCardFromTableEffect(action, self)
             );
             actions.add(action);
         }

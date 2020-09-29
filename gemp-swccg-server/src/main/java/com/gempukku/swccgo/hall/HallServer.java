@@ -9,6 +9,7 @@ import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.db.IpBanDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
+import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.draft.Draft;
@@ -45,6 +46,7 @@ public class HallServer extends AbstractServer {
     private PairingMechanismRegistry _pairingMechanismRegistry;
     private PlayerDAO _playerDAO;
     private IpBanDAO _ipBanDAO;
+    private GempSettingDAO _gempSettingDAO;
     private AdminService _adminService;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
@@ -56,6 +58,7 @@ public class HallServer extends AbstractServer {
 
     private boolean _operational;
     private boolean _shutdown;
+    private boolean _privateGamesEnabled;
 
     private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
 
@@ -73,7 +76,8 @@ public class HallServer extends AbstractServer {
 
     public HallServer(SwccgoServer swccgoServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, SwccgCardBlueprintLibrary library,
                       SwccgoFormatLibrary formatLibrary, CollectionsManager collectionsManager,
-                      PlayerDAO playerDAO, IpBanDAO ipBanDAO, AdminService adminService,
+                      PlayerDAO playerDAO, IpBanDAO ipBanDAO, GempSettingDAO gempSettingDAO,
+                      AdminService adminService,
                       TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                       PairingMechanismRegistry pairingMechanismRegistry) {
         _swccgoServer = swccgoServer;
@@ -85,10 +89,12 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _playerDAO = playerDAO;
         _ipBanDAO = ipBanDAO;
+        _gempSettingDAO = gempSettingDAO;
+        _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
         _adminService = adminService;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
-        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, null, true);
+        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, null, true, false);
         _hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
                     @Override
@@ -200,7 +206,7 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, Player librarian) throws HallException {
+    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, boolean isPrivate, Player librarian) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. No games may be started. Server will be restarted after all games have finished.");
 
@@ -229,9 +235,7 @@ public class HallServer extends AbstractServer {
                         throw new HallException("You have already played max games in league");
                     format = _formatLibrary.getFormat(leagueSerie.getFormat());
                     collectionType = leagueSerie.getCollectionType();
-
-                    verifyNotPlayingLeagueGame(player, league);
-                }
+               }
             }
             // It's not a normal format and also not a league one
             if (format == null)
@@ -241,8 +245,24 @@ public class HallServer extends AbstractServer {
 
             SwccgDeck swccgDeck = validateUserAndDeck(format, player, deckName, collectionType, sampleDeck, librarian);
 
+            Side side = swccgDeck.getSide(_library);
+
+            if (league != null) {
+                verifyNotPlayingLeagueGame(player, side, league);
+            }
+
+            if(isPrivate&&league!=null) {
+                throw new HallException("League games cannot be private");
+            }
+            if(isPrivate&&format.isPlaytesting()) {
+                throw new HallException("Playtesting games cannot be private");
+            }
+
+            boolean isPrivateGame = isPrivate&&privateGamesAllowed();
+
+
             String tableId = String.valueOf(_nextTableId++);
-            AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc);
+            AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc, isPrivateGame);
             _awaitingTables.put(tableId, table);
 
             joinTableInternal(tableId, player.getName(), table, swccgDeck);
@@ -252,11 +272,31 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private void verifyNotPlayingLeagueGame(Player player, League league) throws HallException {
+    public void togglePrivateGames() {
+        _gempSettingDAO.togglePrivateGamesEnabled();
+        _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
+    }
+
+    public boolean privateGamesAllowed() {
+        return _privateGamesEnabled;
+    }
+
+    private void verifyNotPlayingLeagueGame(Player player, Side side, League league) throws HallException {
+        String playerId = player.getName();
         for (AwaitingTable awaitingTable : _awaitingTables.values()) {
             if (awaitingTable.getLeague() == league
-                    && awaitingTable.hasPlayer(player.getName())) {
-                throw new HallException("You can't play in multiple league games at the same time");
+                    && awaitingTable.hasPlayer(playerId)) {
+
+                Set<SwccgGameParticipant> players = awaitingTable.getPlayers();
+                for (SwccgGameParticipant awaitingTablePlayer : players) {
+                    if (playerId.equals(awaitingTablePlayer.getPlayerId())) {
+                        Side awaitingTablePlayerSide = awaitingTablePlayer.getDeck().getSide(_library);
+
+                        if (awaitingTablePlayerSide == side) {
+                            throw new HallException("You can't host multiple league games on the same side of the force");
+                        }
+                    }
+                }
             }
         }
 
@@ -357,6 +397,9 @@ public class HallServer extends AbstractServer {
 
             if (awaitingTable.getLeague() != null && !_leagueService.isPlayerInLeague(awaitingTable.getLeague(), player))
                 throw new HallException("You're not in that league");
+
+            if (awaitingTable.isPrivate() && !awaitingTable.getTableDesc().equals(player.getName()))
+                throw new HallException("You may not join this private game");
 
             verifyNotExceedingMaxTables(player, false);
 
@@ -548,6 +591,7 @@ public class HallServer extends AbstractServer {
 
             // Only show playtesting table details if player is a playtester or admin
             boolean playtestingVisible = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAY_TESTER);
+            boolean visibleToCommentator = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.COMMENTATOR);
 
             // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
@@ -555,7 +599,7 @@ public class HallServer extends AbstractServer {
                 List<SwccgGameParticipant> players = new LinkedList<SwccgGameParticipant>(table.getPlayers());
 
                 boolean hidePlayerId = table.getLeague() != null && !table.getLeague().getShowPlayerNames();
-                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getSwccgoFormat().getName(), getTournamentName(table), table.getLeague() != null ? null : table.getTableDesc(), players, null, table.getPlayerNames().contains(player.getName()), null, hidePlayerId, _library, table.getSwccgoFormat().isPlaytesting() && !playtestingVisible);
+                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getSwccgoFormat().getName(), getTournamentName(table), table.getLeague() != null ? null : table.getTableDesc(), players, null, table.getPlayerNames().contains(player.getName()), null, hidePlayerId, _library, table.getSwccgoFormat().isPlaytesting() && !playtestingVisible, true, true);
             }
 
             // Then non-finished
@@ -570,7 +614,7 @@ public class HallServer extends AbstractServer {
                         for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                             deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                         }
-                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), player.getType().contains("a") || (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible);
+                        visitor.visitTable(runningGame.getKey(), swccgGameMediator.getGameId(), !swccgGameMediator.isPrivate()&&(player.hasType(Player.Type.ADMIN)|| (swccgGameMediator.isAllowSpectators() && (!swccgGameMediator.getFormat().isPlaytesting() || playtestingVisible)) || (!swccgGameMediator.getFormat().isPlaytesting()&& visibleToCommentator)), HallInfoVisitor.TableStatus.PLAYING, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible), swccgGameMediator.isPrivate());
                     }
                     else {
                         finishedTables.put(runningGame.getKey(), runningTable);
@@ -589,7 +633,7 @@ public class HallServer extends AbstractServer {
                     for (SwccgGameParticipant participant : swccgGameMediator.getPlayersPlaying()) {
                         deckArchetypeMap.put(participant.getPlayerId(), swccgGameMediator.getDeckArchetypeLabel(participant.getPlayerId()));
                     }
-                    visitor.visitTable(nonPlayingGame.getKey(), swccgGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible);
+                    visitor.visitTable(nonPlayingGame.getKey(), swccgGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, swccgGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap, swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible, swccgGameMediator.isPrivate()||(swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible), swccgGameMediator.isPrivate());
                 }
             }
 
@@ -720,6 +764,9 @@ public class HallServer extends AbstractServer {
 
     private String getTournamentName(AwaitingTable table) {
         String tournamentName = (table.getSwccgoFormat().isPlaytesting() ? "Playtesting" : "Casual");
+        if(table.isPrivate())
+            tournamentName += " (Private)";
+
         final League league = table.getLeague();
         if (league != null) {
             tournamentName = league.getName() + " - " + table.getLeagueSeries().getName();
@@ -750,7 +797,7 @@ public class HallServer extends AbstractServer {
 
 
         int decisionTimeoutSeconds = 300; // 5 minutes;
-        boolean allowSpectators = true;
+        boolean allowSpectators = !awaitingTable.isPrivate();
         boolean allowTimerExtensions = true;
         int timePerPlayerMinutes = 60;
         if (league != null) {
@@ -759,7 +806,7 @@ public class HallServer extends AbstractServer {
             allowTimerExtensions = league.getAllowTimeExtensions();
             timePerPlayerMinutes = league.getTimePerPlayerMinutes();
         }
-        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, true, league == null, allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes);
+        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, !awaitingTable.isPrivate(), (league == null)||!awaitingTable.isPrivate(), allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes, awaitingTable.isPrivate());
         _awaitingTables.remove(tableId);
         removeWaitingTablesWithPlayers(players);
     }
@@ -789,8 +836,8 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
-        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes);
+    private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate) {
+        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes, isPrivate);
         if (listener != null) {
             swccgGameMediator.addGameResultListener(listener);
         }
@@ -961,7 +1008,7 @@ public class HallServer extends AbstractServer {
                                 public void gameCancelled() {
                                     createGameInternal(participants, allowSpectators);
                                 }
-                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes);
+                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes, false);
                 }
             } finally {
                 _hallDataAccessLock.writeLock().unlock();

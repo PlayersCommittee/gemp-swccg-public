@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card501_024 extends AbstractAlien {
     public Card501_024() {
-        super(Side.LIGHT, 0, 3, 4, 3, 6, "Tobias Beckett", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, 3, 4, 3, 5, "Tobias Beckett", Uniqueness.UNIQUE);
         setLore("Smuggler, musician, thief, and information broker. Glee Anselmian.");
         setGameText("While present at a battleground and armed with a blaster, adds one [Dark Side] icon here and if a battle was just initiated here, you may take the first weapons segment action. Unless with Aurra, opponent may use 3 Force to 'bribe' (exclude) Beckett from battle.");
         addPersona(Persona.BECKETT);

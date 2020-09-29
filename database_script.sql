@@ -6,6 +6,19 @@ CREATE SCHEMA IF NOT EXISTS `gemp-swccg` DEFAULT CHARACTER SET utf8 ;
 USE `gemp-swccg` ;
 
 -- -----------------------------------------------------
+-- Table `gemp-swccg`.`gemp_settings`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `gemp-swccg`.`gemp_settings` (
+  `settingName` NVARCHAR(45) PRIMARY KEY,
+  `settingValue` BOOLEAN NOT NULL )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+INSERT IGNORE INTO `gemp-swccg`.`gemp_settings` (settingName,settingValue) values ('privateGamesEnabled',0);
+
+-- -----------------------------------------------------
 -- Table `gemp-swccg`.`collection`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`collection` (
@@ -146,7 +159,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`player` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   `password` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
-  `type` VARCHAR(5) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL DEFAULT 'u' ,
+  `type` VARCHAR(15) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL DEFAULT 'u' ,
   `last_login_reward` INT(11) NULL DEFAULT NULL ,
   `last_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `create_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,

@@ -43,6 +43,7 @@ public class SwccgGameMediator {
     private int _playerDecisionTimeoutPeriod; // in milliseconds
     private boolean _disablePlayerDecisionTimer;
     private int _secondsGameTimerExtended;
+    private boolean _isPrivate;
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -51,7 +52,7 @@ public class SwccgGameMediator {
     private volatile boolean _destroyed;
 
     public SwccgGameMediator(String gameId, SwccgFormat swccgFormat, SwccgGameParticipant[] participants, SwccgCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds) {
+                             boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds, boolean isPrivate) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         _allowSpectators = allowSpectators;
@@ -59,6 +60,7 @@ public class SwccgGameMediator {
         _cancellable = cancellable;
         _allowExtendGameTimer = allowExtendGameTimer;
         _playerDecisionTimeoutPeriod = decisionTimeoutSeconds * 1000;
+        _isPrivate = isPrivate;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -75,6 +77,8 @@ public class SwccgGameMediator {
         _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_swccgoGame);
     }
+
+    public boolean isPrivate() { return _isPrivate;};
 
     public boolean isDestroyed() {
         return _destroyed;
@@ -148,6 +152,9 @@ public class SwccgGameMediator {
      * @return the game status
      */
     public String getGameStatus() {
+        if(_isPrivate)
+            return "";
+
         if (_swccgoGame.isCancelled())
             return "Cancelled";
         if (_swccgoGame.isFinished())
@@ -1023,7 +1030,10 @@ public class SwccgGameMediator {
 
     public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
-        if (!player.getType().contains("a") && !_allowSpectators && !isPlayerPlaying(playerName))
+        if(_isPrivate&&!isPlayerPlaying(playerName))
+            throw new PrivateInformationException();
+        if(!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR)
+                && !_allowSpectators && !isPlayerPlaying(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();
@@ -1067,7 +1077,10 @@ public class SwccgGameMediator {
 
     public void signupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
         String playerName = player.getName();
-        if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !isPlayerPlaying(playerName))
+        if(_isPrivate&&!isPlayerPlaying(playerName))
+            throw new PrivateInformationException();
+        if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR)
+                && !_allowSpectators && !isPlayerPlaying(playerName))
             throw new PrivateInformationException();
 
         // Only allow viewing of playtesting formats game if player is a playtester or admin
@@ -1128,6 +1141,9 @@ public class SwccgGameMediator {
     }
 
     private String getPlayerLifeForce() {
+        if(_isPrivate)
+            return "";
+
         StringBuilder stringBuilder = new StringBuilder();
         for (SwccgGameParticipant player : _playersPlaying) {
             stringBuilder.append(_swccgoGame.getGameState().getPlayerLifeForce(player.getPlayerId())).append(", ");
