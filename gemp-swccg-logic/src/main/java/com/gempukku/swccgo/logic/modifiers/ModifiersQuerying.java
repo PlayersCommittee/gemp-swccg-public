@@ -4287,6 +4287,15 @@ public interface ModifiersQuerying {
     boolean isOperativePreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location);
 
     /**
+     * Determines if the specified Sith Probe Droid is prevented from deploying to or moving to location.
+     * @param gameState the game state
+     * @param card the Sith Probe Droid
+     * @param location the location
+     * @return true if Sith Probe Droid cannot deploy or move to location, otherwise false
+     */
+    boolean isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location);
+
+    /**
      * Determines if the specified card is explicitly not allowed to 'cloak'.
      * @param gameState the game state
      * @param card the card

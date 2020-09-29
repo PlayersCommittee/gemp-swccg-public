@@ -6630,7 +6630,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
 
             // Check if card has (limit 1 per location)
-            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, curToSite)) {
+            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, curToSite)
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, curToSite)) {
                 return true;
             }
 
@@ -6715,7 +6716,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
 
             // Check if card has (limit 1 per location)
-            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
+            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
                 return true;
             }
 
@@ -6773,7 +6775,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
 
             // Check if card has (limit 1 per location)
-            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
+            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
                 return true;
             }
         }
@@ -6860,7 +6863,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
 
             // Check if card has (limit 1 per location)
-            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, curToLocation)) {
+            if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, curToLocation)
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
                 return true;
             }
 
@@ -12326,7 +12330,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         // Check if card has (limit 1 per location)
         if (location != null
-                && isOperativePreventedFromDeployingToOrMovingToLocation(gameState, playedCard, location)) {
+                && (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, playedCard, location)
+                || isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, playedCard, location))) {
             return true;
         }
 
@@ -12432,6 +12437,29 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                     Filters.and(Filters.your(card), Filters.operative, Filters.sameTitleAs(card)))).accepts(gameState, this, location)) {
                 return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_DEPLOY_MOVE_OPERATIVE_RULE, card).isEmpty();
             }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the specified Sith Probe Droid is prevented from deploying to or moving to location.
+     * @param gameState the game state
+     * @param card the Sith Probe Droid
+     * @param location the location
+     * @return true if Sith Probe Droid cannot deploy or move to location, otherwise false
+     */
+    @Override
+    public boolean isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location) {
+        // Limit 1 Sith Probe Droid per location from Tatooine Sith Probe Droid
+        // AR entry: The "limit 1 per location" text on this droid works as per the operative
+        // rules (see Characteristics - Operatives, Ap. D). A player may not voluntarily deploy
+        // or move a Sith Probe Droid to or across a location where another Sith Probe Droid is
+        // located. If this should ever happen accidentally, the owner must choose one to be
+        // lost. If they belong to different owners, the droid lost is determined randomly.
+
+        if (Filters.Sith_Probe_Droid.accepts(gameState, this, card)
+                &&Filters.sameLocationAs(null, SpotOverride.INCLUDE_ALL,Filters.Sith_Probe_Droid).accepts(gameState, this, location)) {
+            return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_DEPLOY_MOVE_SITH_PROBE_DROID, card).isEmpty();
         }
         return false;
     }
