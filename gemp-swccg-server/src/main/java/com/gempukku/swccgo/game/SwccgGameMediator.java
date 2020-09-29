@@ -125,6 +125,13 @@ public class SwccgGameMediator {
     public String getWinner() {
         return _swccgoGame.getWinner();
     }
+    
+    public String getWinningSideString() {
+        if(_swccgoGame.isCancelled()||_swccgoGame.getWinner()==null||_swccgoGame.getSide(_swccgoGame.getWinner())==null)
+            return "None";
+        
+        return _swccgoGame.getSide(_swccgoGame.getWinner()).getHumanReadable();
+    }
 
     public List<SwccgGameParticipant> getPlayersPlaying() {
         return new LinkedList<SwccgGameParticipant>(_playersPlaying);

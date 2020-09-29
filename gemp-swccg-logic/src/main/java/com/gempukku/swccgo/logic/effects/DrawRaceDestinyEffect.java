@@ -119,7 +119,7 @@ public class DrawRaceDestinyEffect extends AbstractSubActionEffect {
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                         }
                     });
-
+        }
     }
 
     @Override

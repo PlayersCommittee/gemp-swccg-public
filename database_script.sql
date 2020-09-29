@@ -55,11 +55,34 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`game_history` (
   `winner_deck_name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `loser_deck_name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `tournament` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+   `winner_deck_archetype` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `loser_deck_archetype` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `winner_side` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 71300
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- View `gemp-swccg`.`deck_archetype_view_public`
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW `gemp-swccg`.`deck_archetype_view_public`
+AS SELECT id
+,winner
+,loser
+,win_reason
+,lose_reason
+,start_date
+,end_date
+,format_name
+,tournament
+,winner_deck_archetype
+,loser_deck_archetype
+,winner_side
+FROM `gemp-swccg`.`game_history`
+WHERE LOWER(format_name) NOT LIKE '%playtest%';
 
 
 -- -----------------------------------------------------
