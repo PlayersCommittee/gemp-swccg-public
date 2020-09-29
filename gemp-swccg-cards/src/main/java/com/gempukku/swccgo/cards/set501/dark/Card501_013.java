@@ -95,11 +95,9 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)) {
-
             boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, downloadLightsaberActionId);
             final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
-            List<List<PhysicalCard>> validPlaysFromHandOnly = getValidPlays(self, game, cardsInHand);
-
+            LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlaysFromHandOnly = getValidPlays(self, game, cardsInHand);
             if (!validPlaysFromHandOnly.isEmpty() || canDeployCardFromReserveDeck) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, downloadLightsaberActionId, CardSubtype.USED);
@@ -126,7 +124,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
     private void appendActionForHandOnly(SwccgGame game, PhysicalCard self, String playerId, final PlayInterruptAction action) {
         action.setActionMsg("Deploy a lightsaber from hand");
         final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
-        ArrayList<List<PhysicalCard>> playsFromHand = getValidPlays(self, game, cardPool);
+        LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHand = getValidPlays(self, game, cardPool);
         action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForValidPlays(playsFromHand)));
     }
 
@@ -134,24 +132,37 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         action.setActionMsg("Deploy a lightsaber from hand and/or Reserve Deck");
         final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
         cardPool.addAll(game.getGameState().getReserveDeck(playerId));
-        ArrayList<List<PhysicalCard>> playsFromHandAndReserve = getValidPlays(self, game, cardPool);
+        LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHandAndReserve = getValidPlays(self, game, cardPool);
         action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForValidPlays(playsFromHandAndReserve)));
     }
 
-    private ArrayList<List<PhysicalCard>> getValidPlays(PhysicalCard self, SwccgGame game, List<PhysicalCard> cardPool) {
-        ArrayList<List<PhysicalCard>> validPlays = new ArrayList<List<PhysicalCard>>();
-        Collection<PhysicalCard> lightsabersInHand = Filters.filter(cardPool, game, Filters.lightsaber);
+    private LinkedHashMap<PhysicalCard, List<PhysicalCard>> appendToValidPlays(LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays, PhysicalCard lightsaber, PhysicalCard character) {
+        List<PhysicalCard> charactersCanDeployTo;
+        if (validPlays.get(lightsaber) == null) {
+            charactersCanDeployTo = new ArrayList<>();
+        } else {
+            charactersCanDeployTo = validPlays.get(lightsaber);
+        }
+        charactersCanDeployTo.add(character);
+        validPlays.put(lightsaber, charactersCanDeployTo);
+        return validPlays;
+    }
+
+    private LinkedHashMap<PhysicalCard, List<PhysicalCard>> getValidPlays(PhysicalCard self, SwccgGame game, List<PhysicalCard> cardPool) {
+        LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays = new LinkedHashMap<>();
+        Collection<PhysicalCard> lightsabersInPool = Filters.filter(cardPool, game, Filters.lightsaber);
         Collection<PhysicalCard> deployableLightsabers = Filters.filter(cardPool, game, Filters.and(Filters.lightsaber, Filters.deployable(self, null, false, 0)));
         // 1) Get all standalone lightsaber plays
         for (PhysicalCard lightsaber : deployableLightsabers) {
-            validPlays.add(new ArrayList<>(Arrays.asList(lightsaber)));
+            // Adding a null character to signify standalone
+            appendToValidPlays(validPlays, lightsaber, null);
         }
         // 2) Get all lightsaber pairs deployable with Dark Jedi/Inquisitor
-        for (PhysicalCard lightsaber : lightsabersInHand) {
+        for (PhysicalCard lightsaber : lightsabersInPool) {
             // Get all DJ/Sith this lightsaber is a matching weapon for, and also can deploy
             Filter validCharacters = Filters.and(Filters.or(Filters.Dark_Jedi, Filters.Sith), Filters.matchingCharacter(lightsaber), Filters.deployable(self, null, false, 0));
             for (PhysicalCard character : Filters.filter(cardPool, game, validCharacters)) {
-                validPlays.add(new ArrayList<>(Arrays.asList(lightsaber, character)));
+                appendToValidPlays(validPlays, lightsaber, character);
             }
         }
         return validPlays;
