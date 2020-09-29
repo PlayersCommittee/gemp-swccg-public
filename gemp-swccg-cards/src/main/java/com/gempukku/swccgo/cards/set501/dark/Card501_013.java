@@ -9,21 +9,18 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardCombinationFromHandAndOrReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.StandardEffect;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -101,30 +98,24 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
 
             boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, downloadLightsaberActionId);
             final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
-            final List<PhysicalCard> validLightsabersInHand = new ArrayList<PhysicalCard>();
-            Collection<PhysicalCard> lightsabersInHand = Filters.filter(cardsInHand, game, Filters.lightsaber);
+            List<List<PhysicalCard>> validPlaysFromHandOnly = getValidPlays(self, game, cardsInHand);
 
-//            // TODO -- not sure if characters/lightsabers are simultaneously deployable with each other
-//            for (PhysicalCard lightsaber : lightsabersInHand) {
-//                if (Filters.canSpot(cardsInHand, game, Filters.and(Filters.matchingCharacter(lightsaber), Filters.deployableSimultaneouslyWith(self, lightsaber, false, 0, false, 0)))
-//                    || (Filters.canSpot(game, self, Filters.matchingCharacter(lightsaber)))) {
-//                    validLightsabersInHand.add(lightsaber);
-//                }
-//            }
-
-            if (!validLightsabersInHand.isEmpty() || canDeployCardFromReserveDeck) {
+            if (!validPlaysFromHandOnly.isEmpty() || canDeployCardFromReserveDeck) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, downloadLightsaberActionId, CardSubtype.USED);
-                action.setText("Deploy lightsaber");
+                action.setText("Deploy lightsaber from hand and/or reserve deck");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerTurnEffect(action));
-                if (!validLightsabersInHand.isEmpty() && canDeployCardFromReserveDeck) {
-                    action.appendTargeting(getPlayoutDecisionEffect(self, action, playerId, validLightsabersInHand, cardsInHand));
+                if (!validPlaysFromHandOnly.isEmpty() && canDeployCardFromReserveDeck) {
+                    // DS gets a choice for if they want to search reserve deck or not
+                    action.appendTargeting(getPlayoutDecisionEffect(game, self, action, playerId, cardsInHand));
+                } else if (validPlaysFromHandOnly.isEmpty()) {
+                    // Must search reserve deck
+                    appendActionForReserveDeckAndHand(game, self, playerId, action);
                 } else {
-                    action.setActionMsg("Deploy a unique [Independent] starfighter and matching pilot from hand and/or Reserve Deck");
-                    // Perform result(s)
-                    action.appendEffect(getChooseCardsEffect(action));
+                    // Play must come from hand
+                    appendActionForHandOnly(game, self, playerId, action);
                 }
                 actions.add(action);
             }
@@ -132,108 +123,66 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         return actions;
     }
 
-    private PlayoutDecisionEffect getPlayoutDecisionEffect(final PhysicalCard self, final PlayInterruptAction action, final String playerId, final List<PhysicalCard> validLightsabersInHand, final List<PhysicalCard> cardsInHand) {
+    private void appendActionForHandOnly(SwccgGame game, PhysicalCard self, String playerId, final PlayInterruptAction action) {
+        action.setActionMsg("Deploy a lightsaber from hand");
+        final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
+        ArrayList<List<PhysicalCard>> playsFromHand = getValidPlays(self, game, cardPool);
+        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForValidPlays(playsFromHand)));
+    }
+
+    private void appendActionForReserveDeckAndHand(SwccgGame game, PhysicalCard self, String playerId, final PlayInterruptAction action) {
+        action.setActionMsg("Deploy a lightsaber from hand and/or Reserve Deck");
+        final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
+        cardPool.addAll(game.getGameState().getReserveDeck(playerId));
+        ArrayList<List<PhysicalCard>> playsFromHandAndReserve = getValidPlays(self, game, cardPool);
+        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForValidPlays(playsFromHandAndReserve)));
+    }
+
+    private ArrayList<List<PhysicalCard>> getValidPlays(PhysicalCard self, SwccgGame game, List<PhysicalCard> cardPool) {
+        ArrayList<List<PhysicalCard>> validPlays = new ArrayList<List<PhysicalCard>>();
+        Collection<PhysicalCard> lightsabersInHand = Filters.filter(cardPool, game, Filters.lightsaber);
+        Collection<PhysicalCard> deployableLightsabers = Filters.filter(cardPool, game, Filters.and(Filters.lightsaber, Filters.deployable(self, null, false, 0)));
+        // 1) Get all standalone lightsaber plays
+        for (PhysicalCard lightsaber : deployableLightsabers) {
+            validPlays.add(new ArrayList<>(Arrays.asList(lightsaber)));
+        }
+        // 2) Get all lightsaber pairs deployable with Dark Jedi/Inquisitor
+        for (PhysicalCard lightsaber : lightsabersInHand) {
+            // Get all DJ/Sith this lightsaber is a matching weapon for, and also can deploy
+            Filter validCharacters = Filters.and(Filters.or(Filters.Dark_Jedi, Filters.Sith), Filters.matchingCharacter(lightsaber), Filters.deployable(self, null, false, 0));
+            for (PhysicalCard character : Filters.filter(cardPool, game, validCharacters)) {
+                validPlays.add(new ArrayList<>(Arrays.asList(lightsaber, character)));
+            }
+        }
+        return validPlays;
+    }
+
+    private MultipleChoiceAwaitingDecision getMultipleChoiceForValidPlays(ArrayList<List<PhysicalCard>> validPlays) {
+        // TODO create choices -- see Card1_195 Tonnika Sisters
+        List<String> choicesText = new LinkedList<String>();
+        String[] choices = new String[choicesText.size()];
+
+        return new MultipleChoiceAwaitingDecision("Choose a lightsaber play combination", choices) {
+            @Override
+            protected void validDecisionMade(int index, String result) {
+                // TODO
+            }
+        };
+    }
+
+    private PlayoutDecisionEffect getPlayoutDecisionEffect(final SwccgGame game, final PhysicalCard self, final PlayInterruptAction action, final String playerId, final List<PhysicalCard> cardsInHand) {
         return new PlayoutDecisionEffect(action, playerId,
                 new YesNoDecision("You have valid lightsaber and Dark Jedi/Sith combinations in hand or on table. Do you want to search Reserve Deck as well?") {
                     @Override
                     protected void yes() {
-                        action.setActionMsg("Deploy a lightsaber from hand and/or Reserve Deck");
-                        // Perform result(s)
-                        // TODO HERE
-                        action.appendEffect(getChooseCardsEffect(action));
+                        appendActionForReserveDeckAndHand(game, self, playerId, action);
                     }
 
                     @Override
                     protected void no() {
-                        action.setActionMsg("Deploy a unique [Independent] starfighter and matching pilot from hand");
-                        action.appendTargeting(
-                                new ChooseCardFromHandEffect(action, playerId, Filters.in(validLightsabersInHand)) {
-                                    @Override
-                                    public String getChoiceText(int numCardsToChoose) {
-                                        return "Choose unique [Independent] starfighter";
-                                    }
-
-                                    @Override
-                                    protected void cardSelected(SwccgGame game, final PhysicalCard starfighter) {
-                                        Collection<PhysicalCard> pilots = Filters.filter(cardsInHand, game, Filters.and(Filters.matchingPilot(starfighter),
-                                                Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, -1)));
-                                        action.appendTargeting(
-                                                new ChooseCardFromHandEffect(action, playerId, Filters.in(pilots)) {
-                                                    @Override
-                                                    public String getChoiceText(int numCardsToChoose) {
-                                                        return "Choose matching pilot";
-                                                    }
-
-                                                    @Override
-                                                    protected void cardSelected(SwccgGame game, PhysicalCard pilot) {
-                                                        // Perform result(s)
-                                                        action.appendEffect(
-                                                                new DeployCardsSimultaneouslyEffect(action, starfighter, false, -1, pilot, false, -1));
-                                                    }
-                                                }
-                                        );
-                                    }
-                                }
-                        );
+                        appendActionForHandOnly(game, self, playerId, action);
                     }
                 }
         );
-    }
-
-    private StandardEffect getChooseCardsEffect(final PlayInterruptAction action) {
-
-        /*
-        TODO
-        -- lightsabers that can deploy on their own
-        -- lightsabers that can deploy only if you deploy a matching character with them
-        -- lightsabers that cannot deploy
-        */
-
-        return new ChooseCardCombinationFromHandAndOrReserveDeckEffect(action) {
-            @Override
-            public String getChoiceText(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
-                return "Choose a lightsaber to deploy. May also choose a matching Dark Jedi or Sith character to deploy simultaneously.";
-            }
-
-            @Override
-            public Filter getValidToSelectFilter(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
-                String playerId = action.getPerformingPlayer();
-                GameState gameState = game.getGameState();
-                Collection<PhysicalCard> cardsToChooseFrom = new LinkedList<PhysicalCard>(gameState.getHand(playerId));
-                cardsToChooseFrom.addAll(gameState.getCardPile(playerId, Zone.RESERVE_DECK));
-
-                if (cardsSelected.isEmpty()) {
-                    final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
-                    Collection<PhysicalCard> starfighters = Filters.filter(cardsToChooseFrom, game, Filters.and(Filters.starfighter, Icon.INDEPENDENT));
-                    for (PhysicalCard starfighter : starfighters) {
-                        if (Filters.canSpot(cardsToChooseFrom, game, Filters.and(Filters.matchingPilot(starfighter), Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, -1)))) {
-                            validStarfighters.add(starfighter);
-                        }
-                    }
-                    return Filters.in(validStarfighters);
-                } else if (cardsSelected.size() == 1) {
-                    PhysicalCard starfighter = cardsSelected.iterator().next();
-                    return Filters.and(Filters.matchingPilot(starfighter), Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, -1));
-                }
-                return Filters.none;
-            }
-
-            @Override
-            public boolean isSelectionValid(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
-                return (cardsSelected.size() > 0 && cardsSelected.size() <= 2);
-            }
-
-            @Override
-            protected void cardsChosen(List<PhysicalCard> cardsChosen) {
-                PhysicalCard lightsaber = cardsChosen.get(0);
-                PhysicalCard character = null;
-                if (cardsChosen.size() == 2) {
-                    character = cardsChosen.get(1);
-                }
-                // Perform result(s)
-                action.appendEffect(
-                        new DeployCardsSimultaneouslyEffect(action, lightsaber, false, -1, character, false, -1));
-            }
-        };
     }
 }
