@@ -1045,6 +1045,7 @@ public interface Title {
     String We_Need_Your_Help = "We Need Your Help";
     String Weather_Vane = "Weather Vane";
     String Weequay_Guard = "Weequay Guard";
+    String Weequay_Marksman = "Weequay Marksman";
     String Well_Guarded = "Well Guarded";
     String Well_Handle_This = "We'll Handle This";
     String Well_Need_A_New_One = "We'll Need A New One";
