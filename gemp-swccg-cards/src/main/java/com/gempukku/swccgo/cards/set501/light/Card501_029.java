@@ -2,15 +2,17 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Card501_029 extends AbstractNormalEffect {
     public Card501_029() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Twilight Is Upon Me", Uniqueness.UNIQUE);
         setLore("When a Jedi dies, the spirit spreads through the Force and touches the living.");
-        setGameText("If He Is The Chosen One on table, deploy on table. During your turn, may take a [Dag] or Death Star II site into hand from Reserve Deck; reshuffle. Opponent may not modify or cancel your Force drains or battle destiny draws with Prophecy Of The Force. [Immune to Alter.]");
+        setGameText("If He Is The Chosen One on table, deploy on table. If Luke with Prophecy Of The Force, your total Force generation is +1 and opponent’s is -1. During your turn, may take Yoda’s Hut or a Death Star II site into hand from Reserve Deck; reshuffle. [Immune to Alter.]");
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
@@ -40,12 +42,10 @@ public class Card501_029 extends AbstractNormalEffect {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
+        Condition lukeWithProphecyCondition = new OnTableCondition(self, Filters.and(Filters.Luke, Filters.at(Filters.hasAttached(Filters.Prophecy_Of_The_Force))));
         List<Modifier> modifiers = new LinkedList<>();
-        Filter locationWithProphecy = Filters.and(Filters.hasAttached(Filters.Prophecy_Of_The_Force));
-        modifiers.add(new ForceDrainsMayNotBeModifiedModifier(self, locationWithProphecy, opponent, playerId));
-        modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, locationWithProphecy, opponent, playerId));
-        modifiers.add(new MayNotModifyBattleDestinyModifier(self, locationWithProphecy, playerId, opponent));
-        modifiers.add(new MayNotCancelBattleDestinyModifier(self, locationWithProphecy, playerId, opponent));
+        modifiers.add(new ForceGenerationModifier(self, lukeWithProphecyCondition, 1, playerId));
+        modifiers.add(new ForceGenerationModifier(self, lukeWithProphecyCondition, -1, opponent));
         return modifiers;
     }
 
@@ -61,13 +61,13 @@ public class Card501_029 extends AbstractNormalEffect {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take a [Dagobah] Site or Death Star II site into hand from Reserve Deck");
+            action.setActionMsg("Take Yoda's Hut or a Death Star II site into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.icon(Icon.DAGOBAH), Filters.site), Filters.Death_Star_II_site), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Yodas_Hut, Filters.Death_Star_II_site), true));
             actions.add(action);
         }
 
