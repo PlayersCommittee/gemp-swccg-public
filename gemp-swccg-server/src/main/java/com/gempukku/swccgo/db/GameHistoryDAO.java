@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface GameHistoryDAO {
-    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, Date startDate, Date endDate);
+    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winningSide, Date startDate, Date endDate);
 
     public List<GameHistoryEntry> getGameHistoryForPlayer(Player player, int start, int count);
 

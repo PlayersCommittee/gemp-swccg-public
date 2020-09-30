@@ -11340,14 +11340,14 @@ public class Filters {
                 PhysicalCard source = gameState.findCardByPermanentId(permSourceCardId);
 
                 // New escort needs to be able to move to transfer captive
-                if (!modifiersQuerying.mayNotBeTransferred(gameState, physicalCard)) {
+                if (!modifiersQuerying.mayNotMove(gameState, physicalCard)) {
                     for (PhysicalCard escort : Filters.filterActive(gameState.getGame(), source, Filters.escort())) {
                         // Old escort needs to be able to move to transfer captive
                         if (!modifiersQuerying.mayNotMove(gameState, escort)) {
                             Collection<PhysicalCard> captives = gameState.getCaptivesOfEscort(escort);
                             for (PhysicalCard captive : captives) {
                                 // Captive needs to be able to move to transfer
-                                if (!modifiersQuerying.mayNotMove(gameState, captive)) {
+                                if (!modifiersQuerying.mayNotMove(gameState, captive)&&!modifiersQuerying.mayNotBeTransferred(gameState, captive)) {
                                     if (Filters.and(Filters.canEscortCaptive(captive), Filters.presentWith(escort)).accepts(gameState, modifiersQuerying, physicalCard)) {
                                         return true;
                                     }

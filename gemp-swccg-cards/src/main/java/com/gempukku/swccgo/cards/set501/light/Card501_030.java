@@ -9,9 +9,12 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
     public Card501_030() {
         super(Side.LIGHT, 4, Title.Anakin_Skywalker, Uniqueness.UNIQUE);
         setLore("'You were right about me. Tell your sister ... you were right.'");
-        setGameText("USED: Relocate Prophecy Of The Force to a site. LOST: If Luke in battle and I Feel The Conflict on table, place Luke's Lightsaber in Used Pile and choose: Add one destiny to attrition. OR Cancel the game text of a character of ability < 4 with Luke.");
+        setGameText("Relocate Prophecy Of The Force to a site. OR Cancel an Interrupt targeting Luke. LOST: If I Feel The Conflict on table, during battle, place Luke's Lightsaber in Used Pile to either add one destiny to attrition OR Cancel the game text of a character of ability < 4.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
         setTestingText("Anakin Skywalker (V)");
@@ -58,9 +61,9 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
                         });
                     }
                 });
+
                 actions.add(action);
             }
-
         }
 
         if (GameConditions.canSpot(game, self, Filters.I_Feel_The_Conflict)
@@ -114,6 +117,22 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
 
                 actions.add(action);
             }
+        }
+        return actions;
+    }
+
+    @Override
+    protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
+        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.Interrupt, Filters.Luke)
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            actions.add(action);
         }
         return actions;
     }

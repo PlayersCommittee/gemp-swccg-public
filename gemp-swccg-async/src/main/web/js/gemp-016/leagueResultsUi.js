@@ -232,7 +232,7 @@ var LeagueResultsUI = Class.extend({
     createStandingsTable:function (standings) {
         var standingsTable = $("<table class='standings'></table>");
 
-        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th></tr>");
+        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>W</th><th>L</th><th>Opp. Win %</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>W</th><th>L</th><th>Opp. Win %</th></tr>");
 
         var secondColumnBaseIndex = Math.ceil(standings.length / 2);
 
@@ -244,7 +244,7 @@ var LeagueResultsUI = Class.extend({
             var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
             var opponentWinPerc = standing.getAttribute("opponentWin");
 
-            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td></tr>");
+            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + ((points-gamesPlayed)/2) + "</td><td>" + (gamesPlayed-(points-gamesPlayed)/2) + "</td><td>" + opponentWinPerc + "</td></tr>");
         }
 
         for (var k = secondColumnBaseIndex; k < standings.length; k++) {
@@ -255,7 +255,7 @@ var LeagueResultsUI = Class.extend({
             var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
             var opponentWinPerc = standing.getAttribute("opponentWin");
 
-            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td>");
+            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + ((points-gamesPlayed)/2) + "</td><td>" + (gamesPlayed-(points-gamesPlayed)/2) + "</td><td>" + opponentWinPerc + "</td>");
         }
 
         return standingsTable;
