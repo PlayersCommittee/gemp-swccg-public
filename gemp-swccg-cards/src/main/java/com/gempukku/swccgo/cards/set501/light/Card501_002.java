@@ -1,9 +1,5 @@
 package com.gempukku.swccgo.cards.set501.light;
 
-//•Meditation (V)
-//EFFECT
-//Deploy on your character of ability > 3. Opponent’s aliens are power -1 here (and forfeit -2 if a leader or [PW] or [M] card). If opponent has more characters at same site, may add one battle destiny (then lose Effect at end of battle).
-
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
