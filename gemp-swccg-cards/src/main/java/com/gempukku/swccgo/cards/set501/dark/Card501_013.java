@@ -42,7 +42,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         GameTextActionId exchangeCardActionId = GameTextActionId.OTHER_CARD_ACTION_1;
@@ -97,26 +97,31 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)) {
-            boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, downloadLightsaberActionId);
+            final boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, downloadLightsaberActionId);
             final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
-            LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlaysFromHandOnly = getValidPlays(self, game, cardsInHand);
+            final LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlaysFromHandOnly = getValidPlays(self, game, cardsInHand);
             if (!validPlaysFromHandOnly.isEmpty() || canDeployCardFromReserveDeck) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, downloadLightsaberActionId, CardSubtype.USED);
-                action.setText("Deploy lightsaber from hand and/or reserve deck");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerTurnEffect(action));
-                if (!validPlaysFromHandOnly.isEmpty() && canDeployCardFromReserveDeck) {
-                    // DS gets a choice for if they want to search reserve deck or not
-                    action.appendTargeting(getPlayoutDecisionEffect(game, self, action, playerId, cardsInHand));
-                } else if (validPlaysFromHandOnly.isEmpty()) {
-                    // Must search reserve deck
-                    appendActionForReserveDeckAndHand(game, self, playerId, action);
-                } else {
-                    // Play must come from hand
-                    appendActionForHandOnly(game, self, playerId, action);
-                }
+                action.setText("Deploy lightsaber from hand/reserve deck");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                if (!validPlaysFromHandOnly.isEmpty() && canDeployCardFromReserveDeck) {
+                                    // DS gets a choice for if they want to search reserve deck or not
+                                    action.appendTargeting(getPlayoutDecisionEffect(game, self, action, playerId, cardsInHand));
+                                } else if (validPlaysFromHandOnly.isEmpty()) {
+                                    // Must search reserve deck
+                                    appendActionForReserveDeckAndHand(game, self, playerId, action);
+                                } else {
+                                    // Play must come from hand
+                                    appendActionForHandOnly(game, self, playerId, action);
+                                }
+                            }
+                        }
+                );
                 actions.add(action);
             }
         }
