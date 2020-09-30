@@ -18,6 +18,8 @@ import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.*;
@@ -125,7 +127,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         action.setActionMsg("Deploy a lightsaber from hand");
         final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
         LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHand = getValidPlays(self, game, cardPool);
-        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForValidPlays(playsFromHand)));
+        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHand, action)));
     }
 
     private void appendActionForReserveDeckAndHand(SwccgGame game, PhysicalCard self, String playerId, final PlayInterruptAction action) {
@@ -133,7 +135,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
         cardPool.addAll(game.getGameState().getReserveDeck(playerId));
         LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHandAndReserve = getValidPlays(self, game, cardPool);
-        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForValidPlays(playsFromHandAndReserve)));
+        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHandAndReserve, action)));
     }
 
     private LinkedHashMap<PhysicalCard, List<PhysicalCard>> appendToValidPlays(LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays, PhysicalCard lightsaber, PhysicalCard character) {
@@ -168,17 +170,55 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         return validPlays;
     }
 
-    private MultipleChoiceAwaitingDecision getMultipleChoiceForValidPlays(ArrayList<List<PhysicalCard>> validPlays) {
-        // TODO create choices -- see Card1_195 Tonnika Sisters
-        List<String> choicesText = new LinkedList<String>();
-        String[] choices = new String[choicesText.size()];
+    private MultipleChoiceAwaitingDecision getMultipleChoiceForLightsaberPlay(final String playerId, final LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays, final PlayInterruptAction action) {
+        final List<String> choicesText = new LinkedList<>();
+        final List<PhysicalCard> lightsaberList = new ArrayList<>();
+        for (PhysicalCard lightsaber : validPlays.keySet()) {
+            choicesText.add(lightsaber.getTitle() + " from " + lightsaber.getZone().getHumanReadable());
+            lightsaberList.add(lightsaber);
+        }
+        final String[] lightsaberChoices = new String[choicesText.size()];
 
-        return new MultipleChoiceAwaitingDecision("Choose a lightsaber play combination", choices) {
+        return new MultipleChoiceAwaitingDecision("Choose a lightsaber to deploy", lightsaberChoices) {
             @Override
             protected void validDecisionMade(int index, String result) {
-                // TODO
+                PhysicalCard lightsaberChosen = lightsaberList.get(index);
+                List<PhysicalCard> characterList = validPlays.get(lightsaberChosen);
+                action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForCharacterPlay(action, playerId, lightsaberChosen, characterList)));
             }
         };
+    }
+
+    private MultipleChoiceAwaitingDecision getMultipleChoiceForCharacterPlay(final PlayInterruptAction action, final String playerId, final PhysicalCard lightsaber, final List<PhysicalCard> characterList) {
+        final List<String> choiceText = new LinkedList<>();
+        for (PhysicalCard character : characterList) {
+            if (character == null) {
+                choiceText.add("None");
+            } else {
+                choiceText.add(character.getTitle() + " from " + character.getZone().getHumanReadable());
+            }
+        }
+        final String[] characterChoices = new String[choiceText.size()];
+        return new MultipleChoiceAwaitingDecision("Choose a character to deploy with lightsaber", characterChoices) {
+            @Override
+            protected void validDecisionMade(int index, String result) {
+                if (result == "None") {
+                    appendDeployEffect(lightsaber, playerId, action);
+                } else {
+                    PhysicalCard characterToDeploy = characterList.get(index);
+                    appendDeployEffect(characterToDeploy, playerId, action);
+                    appendDeployEffect(lightsaber, playerId, action);
+                }
+            }
+        };
+    }
+
+    private void appendDeployEffect(PhysicalCard cardToDeploy, String playerId, PlayInterruptAction action) {
+        if (cardToDeploy.getZone() == Zone.RESERVE_DECK) {
+            action.appendEffect(new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(cardToDeploy), true));
+        } else if (cardToDeploy.getZone() == Zone.HAND) {
+            action.appendEffect(new DeployCardFromHandEffect(action, playerId, Filters.sameCardId(cardToDeploy), false));
+        }
     }
 
     private PlayoutDecisionEffect getPlayoutDecisionEffect(final SwccgGame game, final PhysicalCard self, final PlayInterruptAction action, final String playerId, final List<PhysicalCard> cardsInHand) {
