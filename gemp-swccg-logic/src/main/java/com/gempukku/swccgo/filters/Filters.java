@@ -17880,6 +17880,7 @@ public class Filters {
     //public static final Filter Mazs_Castle_Site= Filters.and(Filters.keyword(Keyword.MAZS_CASTLE_LOCATION), Filters.site);
     public static final Filter Mechanical_Failure = Filters.title(Title.Mechanical_Failure);
     public static final Filter medical_droid = Filters.modelType(ModelType.MEDICAL);
+    public static final Filter Meditation = Filters.title(Title.Meditation);
     public static final Filter Meditation_Chamber = Filters.title(Title.Meditation_Chamber);
     public static final Filter medium_transport = Filters.keyword(Keyword.MEDIUM_TRANSPORT);
     public static final Filter Melshi = Filters.persona(Persona.MELSHI);
