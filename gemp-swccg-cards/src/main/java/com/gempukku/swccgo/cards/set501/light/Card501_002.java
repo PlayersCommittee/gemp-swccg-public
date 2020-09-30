@@ -70,7 +70,8 @@ public class Card501_002 extends AbstractNormalEffect {
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && (Filters.countActive(game, self, Filters.and(Filters.opponents(playerId), Filters.character, Filters.at(Filters.sameSite(self))))
                 > Filters.countActive(game, self, Filters.and(Filters.your(playerId), Filters.character, Filters.at(Filters.sameSite(self)))))
-                && GameConditions.canAddBattleDestinyDraws(game, self)) {
+                && GameConditions.canAddBattleDestinyDraws(game, self)
+                && !GameConditions.cardHasWhileInPlayDataSet(self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Add one battle destiny");
