@@ -27,7 +27,7 @@ public class Card212_004 extends AbstractStartingInterrupt {
     public Card212_004() {
         super(Side.DARK, 3, Title.Slip_Sliding_Away, Uniqueness.UNIQUE);
         setLore("Luke got the shaft.");
-        setGameText("If you deployed exactly one location (and it was a site with exactly 2 [Dark Side Force]), deploy a battleground site, then if you have not deployed a site with “Palace” in title, may also deploy up to 3 Effects that are always immune to Alter. Place Interrupt in Lost Pile.");
+        setGameText("If you have deployed a site with exactly two [Dark Side Force] (and no other locations), deploy a battleground site. Then, unless you have deployed Imperial Square or a site with 'Palace in title, may deploy up to three Effects that are always immune to Alter. Place Interrupt in Lost Pile.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
     }
@@ -61,7 +61,8 @@ public class Card212_004 extends AbstractStartingInterrupt {
                                             action.appendEffect(
                                                     new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedCard), false)
                                             );
-                                            if (!Filters.titleContains("Palace").accepts(game, startingLocations.get(0)) && !Filters.titleContains("Palace").accepts(game, selectedCard)) {
+                                            if (!Filters.titleContains("Palace").accepts(game, startingLocations.get(0)) && !Filters.titleContains("Palace").accepts(game, selectedCard)
+                                                    && Filters.Coruscant_Imperial_Square.accepts(game, startingLocations.get(0)) && Filters.Coruscant_Imperial_Square.accepts(game, selectedCard)) {
                                                 action.appendEffect(
                                                         new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter), 1, 3, true, false));
                                             }
