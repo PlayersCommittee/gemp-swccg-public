@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.InBattleOrStackedInBattleEvaluator;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
@@ -11,8 +10,6 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
@@ -33,7 +30,7 @@ public class Card501_004 extends AbstractImperial {
     public Card501_004() {
         super(Side.DARK, 2, 5, 4, 5, 7, "Seventh Sister", Uniqueness.UNIQUE);
         setLore("Female Mirialan Inquisitor.");
-        setGameText("Attrition against you is -1 here if with a 'Hatred' card, Jedi, Padawan, or probe droid. Once per turn, may use 1 Force (free if your probe droid here) to draw top card of Reserve Deck. Your Inquisitors and probe droids here are immune to attrition < 4.");
+        setGameText("Attrition against you is -1 here for each 'Hatred' card, Jedi, Padawan, and probe droid here. Once per turn, may use 1 Force (free if your probe droid here) to draw top card of Reserve Deck. Your Inquisitors and probe droids here are immune to attrition < 4.");
         setSpecies(Species.MIRIALAN);
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
@@ -45,7 +42,7 @@ public class Card501_004 extends AbstractImperial {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, Filters.and(Filters.here(self),Filters.or(Keyword.INQUISITOR,Filters.probe_droid)), 4));
-        modifiers.add(new AttritionModifier(self, Filters.here(self), new WithCondition(self, Filters.or(Filters.Jedi,Filters.padawan,Filters.probe_droid,Filters.hasStacked(Filters.hatredCard),Filters.at(Filters.hasStacked(Filters.hatredCard)))), -1, self.getOwner()));
+        modifiers.add(new AttritionModifier(self, Filters.here(self), new NegativeEvaluator(new InBattleOrStackedInBattleEvaluator(self,Filters.or(Filters.Jedi,Filters.padawan,Filters.probe_droid),Filters.hatredCard)),self.getOwner()));
         return modifiers;
     }
 
