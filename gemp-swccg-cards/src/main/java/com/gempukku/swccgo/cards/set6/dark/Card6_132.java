@@ -37,8 +37,8 @@ public class Card6_132 extends AbstractAlien {
     public Card6_132() {
         super(Side.DARK, 2, 4, 2, 1, 3, Title.Weequay_Marksman, Uniqueness.RESTRICTED_3);
         setLore("Patient and quiet. Jabba uses many of his Weequay henchmen as assassins. Use womp rats for target practice during their religious ceremonies.");
-        setGameText("Deploys only on Tatooine. May fire one weapon during your control phase (at double use of Force). May use 2 Force to 'assassinate' any character 'hit' by Weequay Marksman (victim is immediately lost)");
-        addIcons(Icon.WARRIOR);
+        setGameText("Deploys only on Tatooine. May fire one weapon during your control phase (at double use of Force). May use 2 Force to 'assassinate' any character just 'hit' by Weequay Marksman (victim is immediately lost).");
+        addIcons(Icon.WARRIOR, Icon.JABBAS_PALACE);
         setSpecies(Species.WEEQUAY);
         addKeywords(Keyword.ASSASSIN);
     }
