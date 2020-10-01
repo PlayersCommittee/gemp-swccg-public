@@ -103,7 +103,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             if (!validPlaysFromHandOnly.isEmpty() || canDeployCardFromReserveDeck) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, downloadLightsaberActionId, CardSubtype.USED);
-                action.setText("Deploy lightsaber from hand/reserve deck");
+                action.setText("Deploy lightsaber from hand/Reserve Deck");
                 // Allow response(s)
                 action.allowResponses(
                         new RespondablePlayCardEffect(action) {
@@ -183,6 +183,9 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             lightsaberList.add(lightsaber);
         }
         final String[] lightsaberChoices = new String[choicesText.size()];
+        for (int i = 0; i < choicesText.size(); i++) {
+            lightsaberChoices[i] = choicesText.get(i);
+        }
 
         return new MultipleChoiceAwaitingDecision("Choose a lightsaber to deploy", lightsaberChoices) {
             @Override
@@ -195,15 +198,19 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
     }
 
     private MultipleChoiceAwaitingDecision getMultipleChoiceForCharacterPlay(final PlayInterruptAction action, final String playerId, final PhysicalCard lightsaber, final List<PhysicalCard> characterList) {
-        final List<String> choiceText = new LinkedList<>();
+        final List<String> choicesText = new LinkedList<>();
         for (PhysicalCard character : characterList) {
             if (character == null) {
-                choiceText.add("None");
+                choicesText.add("None");
             } else {
-                choiceText.add(character.getTitle() + " from " + character.getZone().getHumanReadable());
+                choicesText.add(character.getTitle() + " from " + character.getZone().getHumanReadable());
             }
         }
-        final String[] characterChoices = new String[choiceText.size()];
+        final String[] characterChoices = new String[choicesText.size()];
+        for (int i = 0; i < choicesText.size(); i++) {
+            characterChoices[i] = choicesText.get(i);
+        }
+
         return new MultipleChoiceAwaitingDecision("Choose a character to deploy with lightsaber", characterChoices) {
             @Override
             protected void validDecisionMade(int index, String result) {
