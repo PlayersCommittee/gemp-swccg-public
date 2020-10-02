@@ -86,7 +86,7 @@ public class Card501_070 extends AbstractUsedOrLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.Kessel_Run)
+        if (TriggerConditions.justPutCoaxiumCardInCardPile(effectResult, Zone.USED_PILE)
                 && GameConditions.hasLostPile(game, playerId)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
             action.setText("Randomly retrieve 1 force");

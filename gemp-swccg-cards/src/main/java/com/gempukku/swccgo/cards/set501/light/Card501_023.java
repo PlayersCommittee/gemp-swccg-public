@@ -38,6 +38,7 @@ public class Card501_023 extends AbstractDroid {
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.FEMALE);
         addModelTypes(ModelType.CUSTOM_PILOT_DROID);
+        addPersona(Persona.L3_37);
         setTestingText("L3-37 (El-tree Tree-seven)");
     }
 

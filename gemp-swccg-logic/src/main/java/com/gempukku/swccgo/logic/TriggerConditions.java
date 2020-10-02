@@ -344,6 +344,7 @@ public class TriggerConditions {
                 || isBlownAwayLastStep(game, effectResult, Filters.any)
                 || effectResult.getType() == EffectResult.Type.HIT
                 || effectResult.getType() == EffectResult.Type.RETURNED_TO_HAND_FROM_OFF_TABLE
+                || effectResult.getType() == EffectResult.Type.REMOVED_COAXIUM_CARD
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_CARD_PILE
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_HAND
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_TABLE
@@ -2195,12 +2196,17 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean justRemovedCoaxiumCard(SwccgGame game, EffectResult effectResult, Filterable cardFilter, Filterable locationFilter) {
-
-    }
-
-    public static boolean justPutCoaxiumCardInCardPile(SwccgGame game, EffectResult effectResult, Filterable cardFilter, Filterable locationFilter) {
-
+    public static boolean justPutCoaxiumCardInCardPile(EffectResult effectResult, Zone cardPile) {
+        if (effectResult.getType() == EffectResult.Type.REMOVED_COAXIUM_CARD) {
+            RemovedCoaxiumCardResult removedCoaxiumCardResult = (RemovedCoaxiumCardResult) effectResult;
+            if (removedCoaxiumCardResult.getCardPile() == cardPile) {
+                PhysicalCard card = removedCoaxiumCardResult.getCard();
+                if (card != null
+                        && GameUtils.getZoneFromZoneTop(card.getZone()) == cardPile)
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**

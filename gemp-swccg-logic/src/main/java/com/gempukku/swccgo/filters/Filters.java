@@ -10749,6 +10749,13 @@ public class Filters {
         return probeCard;
     }
 
+    public static final Filter coaxiumCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isCoaxiumCard();
+        }
+    };
+
     /**
      * Filter that accepts cards that are 'hatred' cards.
      */
@@ -10758,11 +10765,19 @@ public class Filters {
             return physicalCard.isHatredCard();
         }
     };
+
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
     private static Filter hatredCard() {
         return hatredCard;
+    }
+
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter coaxiumCard() {
+        return coaxiumCard;
     }
 
     /**

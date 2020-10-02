@@ -8,7 +8,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 /**
  * This effect result is triggered when a 'coaxium' card is removed and put in another zone.
  */
-public class RemoveCoaxiumCardResult extends EffectResult {
+public class RemovedCoaxiumCardResult extends EffectResult {
     private PhysicalCard _card;
     private String _cardPileOwner;
     private Zone _cardPile;
@@ -21,8 +21,8 @@ public class RemoveCoaxiumCardResult extends EffectResult {
      * @param cardPileOwner      the card pile owner
      * @param cardPile           the card pile
      */
-    public RemoveCoaxiumCardResult(String performingPlayerId, PhysicalCard card, String cardPileOwner, Zone cardPile) {
-        super(Type.REMOVE_COAXIUM_DESTINY, performingPlayerId);
+    public RemovedCoaxiumCardResult(String performingPlayerId, PhysicalCard card, String cardPileOwner, Zone cardPile) {
+        super(Type.REMOVED_COAXIUM_CARD, performingPlayerId);
         _card = card;
         _cardPileOwner = cardPileOwner;
         _cardPile = cardPile;
