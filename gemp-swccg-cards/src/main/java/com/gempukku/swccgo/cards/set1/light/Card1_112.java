@@ -32,7 +32,7 @@ public class Card1_112 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.droid, Filters.vehicle), Filters.at(Filters.or(Filters.Mos_Eisley, Filters.sameSiteAs(self, Filters.Wioslea))));
+        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.droid, Filters.vehicle), Filters.at(Filters.or(Filters.Mos_Eisley, Filters.sameSiteAs(self, Filters.Wioslea),Filters.sameSiteAs(self, Filters.Droid_Merchant))));
 
         // Check condition(s)
         if (GameConditions.canTarget(game, self, filter)) {
