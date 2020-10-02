@@ -2195,11 +2195,20 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean justRemovedCoaxiumCard(SwccgGame game, EffectResult effectResult, Filterable cardFilter, Filterable locationFilter) {
+
+    }
+
+    public static boolean justPutCoaxiumCardInCardPile(SwccgGame game, EffectResult effectResult, Filterable cardFilter, Filterable locationFilter) {
+
+    }
+
     /**
      * Determines if a card accepted by the card filter was just lost from a location accepted by the location filter (and still in Lost Pile).
-     * @param game the game
-     * @param effectResult the effect result
-     * @param cardFilter the card filter
+     *
+     * @param game           the game
+     * @param effectResult   the effect result
+     * @param cardFilter     the card filter
      * @param locationFilter the location filter
      * @return true or false
      */

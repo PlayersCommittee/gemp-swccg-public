@@ -147,6 +147,7 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
 
         // Leaves table and/or card pile changed
         // Note: Escape option for Capturing also changes card piles
+        REMOVE_COAXIUM_DESTINY,
         RETURNED_TO_HAND_FROM_TABLE,
         RETURNED_TO_HAND_FROM_OFF_TABLE,
         PUT_IN_RESERVE_DECK_FROM_TABLE,

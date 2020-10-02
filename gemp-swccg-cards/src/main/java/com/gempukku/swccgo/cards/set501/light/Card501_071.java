@@ -54,7 +54,7 @@ public class Card501_071 extends AbstractNormalEffect {
         if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place stacked card in Used Pile");
+            action.setText("Place 'coaxium' card in Used Pile");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
@@ -64,7 +64,7 @@ public class Card501_071 extends AbstractNormalEffect {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             action.appendEffect(
-                                    new PutStackedCardInUsedPileEffect(action, playerId, selectedCard, false)
+                                    new RemoveCoaxiumCardEffect(action, selectedCard, Zone.USED_PILE)
                             );
                         }
                     }
