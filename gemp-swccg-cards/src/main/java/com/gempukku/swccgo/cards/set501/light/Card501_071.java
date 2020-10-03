@@ -65,7 +65,7 @@ public class Card501_071 extends AbstractNormalEffect {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             action.appendEffect(
-                                    new PutCoaxiumCardInUsedPileEffect(action, selectedCard)
+                                    new PutStackedCardInUsedPileEffect(action, playerId, selectedCard, false)
                             );
                         }
                     }

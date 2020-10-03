@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
+import com.gempukku.swccgo.logic.timing.results.RemovedCoaxiumCardResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -194,7 +195,7 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
         }
     }
 
-    private void cardsSelected(final SubAction subAction, final SwccgGame game, PhysicalCard card) {
+    private void cardsSelected(final SubAction subAction, final SwccgGame game, final PhysicalCard card) {
         String cardInfo = (_hidden && card.getZone().isFaceDown()) ? "a card" : GameUtils.getCardLink(card);
         String whereInPile = _bottom ? "bottom of " : "";
         String msgText = _playerId + " puts " + cardInfo + " on " + whereInPile + _cardPile.getHumanReadable() + " from " + GameUtils.getCardLink(card.getStackedOn());
@@ -255,6 +256,10 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
                 }
 
                 _remainingCards.remove(selectedCard);
+                if (Filters.coaxiumCard.accepts(game, selectedCard)) {
+                    game.getActionsEnvironment().emitEffectResult(
+                            new RemovedCoaxiumCardResult(_playerId, selectedCard, _playerId, _cardPile));
+                }
                 if (!_remainingCards.isEmpty())
                     _subAction.appendEffect(
                             new ChooseAndPutNextCardInCardPile(_subAction, _playerId, _remainingCards));

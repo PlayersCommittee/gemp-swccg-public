@@ -11,7 +11,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.TakeCoaxiumCardInHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeStackedCardIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.Collections;
@@ -60,7 +60,7 @@ public class Card501_020 extends AbstractAlien {
             action.setText("Take 'coaxium' card into hand");
             // Perform result(s)
             action.appendEffect(
-                    new TakeCoaxiumCardInHandEffect(action, Filters.Kessel_Run)
+                    new TakeStackedCardIntoHandEffect(action, playerId, Filters.Kessel_Run, Filters.coaxiumCard)
             );
 
             return Collections.singletonList(action);
