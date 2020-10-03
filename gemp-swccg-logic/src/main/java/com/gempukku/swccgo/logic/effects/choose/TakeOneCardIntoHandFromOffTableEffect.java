@@ -1,12 +1,14 @@
 package com.gempukku.swccgo.logic.effects.choose;
 
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.results.RemovedCoaxiumCardResult;
 
 import java.util.Collections;
 
@@ -47,6 +49,12 @@ abstract class TakeOneCardIntoHandFromOffTableEffect extends AbstractStandardEff
         _card.setOwner(_playerId);
         gameState.addCardToZone(_card, Zone.HAND, _playerId);
         gameState.sendMessage(_msgText);
+
+        if (Filters.coaxiumCard.accepts(game, _card)) {
+            game.getActionsEnvironment().emitEffectResult(
+                    new RemovedCoaxiumCardResult(_playerId, _card, _playerId, Zone.HAND));
+            _card.setCoaxiumCard(false);
+        }
 
         // A callback that can be used to schedule the next card to be taken into hand
         afterCardTakenIntoHand();

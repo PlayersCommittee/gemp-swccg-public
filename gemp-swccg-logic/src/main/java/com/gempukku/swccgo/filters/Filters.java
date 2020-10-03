@@ -10749,6 +10749,13 @@ public class Filters {
         return probeCard;
     }
 
+    public static final Filter coaxiumCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isCoaxiumCard();
+        }
+    };
+
     /**
      * Filter that accepts cards that are 'hatred' cards.
      */
@@ -10758,11 +10765,19 @@ public class Filters {
             return physicalCard.isHatredCard();
         }
     };
+
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
     private static Filter hatredCard() {
         return hatredCard;
+    }
+
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter coaxiumCard() {
+        return coaxiumCard;
     }
 
     /**
@@ -16990,6 +17005,7 @@ public class Filters {
     public static final Filter A_Dangerous_Time = Filters.title(Title.A_Dangerous_Time);
     public static final Filter A_Gift = Filters.title(Title.A_Gift);
     public static final Filter A_Stunning_Move = Filters.title(Title.A_Stunning_Move);
+    public static final Filter A_Useless_Gesture = Filters.title(Title.A_Useless_Gesture);
     public static final Filter A_Valuable_Hostage = Filters.title(Title.A_Valuable_Hostage);
     public static final Filter A_Weakness_Can_Be_Found = Filters.title(Title.A_Weakness_Can_Be_Found);
     public static final Filter A_wing = Filters.modelType(ModelType.A_WING);
@@ -17795,6 +17811,7 @@ public class Filters {
     public static final Filter Kuat_system = Filters.title(Title.Kuat);
     public static final Filter Kylo = Filters.persona(Persona.KYLO);
     public static final Filter Kylos_Lightsaber = Filters.persona(Persona.KYLOS_LIGHTSABER);
+    public static final Filter L3_37 = Filters.persona(Persona.L3_37);
     public static final Filter Lambda_shuttle = Filters.modelType(ModelType.LAMBDA_CLASS_SHUTTLE);
     public static final Filter Lana_Dobreed = Filters.title(Title.Lana_Dobreed);
     public static final Filter Landing_Claw = Filters.title(Title.Landing_Claw);
