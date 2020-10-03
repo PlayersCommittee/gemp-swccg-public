@@ -524,6 +524,15 @@ public interface ModifiersQuerying {
     boolean isProhibitedFromHavingForfeitIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
     /**
+     * Determines if a card's forfeit may not be increased
+     * @param gameState the game state
+     * @param card a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased
+     */
+    boolean isProhibitedFromHavingForfeitValueIncreased(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+
+    /**
      * Determines if a card's game text may not be canceled.
      * @param gameState the game state
      * @param card a card
@@ -924,6 +933,14 @@ public interface ModifiersQuerying {
      * @return the total Force generation for the player
      */
     float getTotalForceGeneration(GameState gameState, String playerId);
+
+    /**
+     * Gets the total Force Icon count for the specified player.
+     *
+     * @param gameState the game state
+     * @param playerId  the player
+     */
+    float getTotalForceIconCount(GameState gameState, String playerId);
 
     /**
      * Determines if this deploys and moves like a starfighter.
@@ -4276,6 +4293,15 @@ public interface ModifiersQuerying {
      * @return true if Operative cannot deploy or move to location, otherwise false
      */
     boolean isOperativePreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location);
+
+    /**
+     * Determines if the specified Sith Probe Droid is prevented from deploying to or moving to location.
+     * @param gameState the game state
+     * @param card the Sith Probe Droid
+     * @param location the location
+     * @return true if Sith Probe Droid cannot deploy or move to location, otherwise false
+     */
+    boolean isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location);
 
     /**
      * Determines if the specified card is explicitly not allowed to 'cloak'.

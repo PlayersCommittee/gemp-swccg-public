@@ -10,6 +10,7 @@ var GempSwccgHallUI = Class.extend({
 
     tablesDiv:null,
     buttonsDiv:null,
+    isPrivateCheckbox:null,
 
     pocketDiv:null,
     pocketValue:null,
@@ -78,18 +79,24 @@ var GempSwccgHallUI = Class.extend({
                 that.supportedFormatsSelect.hide();
                 that.decksSelect.hide();
                 that.createTableButton.hide();
+                that.isPrivateCheckbox.hide();
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
                 var sampleDeck = that.decksSelect[0][that.decksSelect[0].selectedIndex].getAttribute("data-sample-deck")
                 var tableDesc = that.tableDescInput.val();
+                var isPrivate = false;
+                if(document.getElementById('isPrivateCheckbox1')!=null)
+                    isPrivate = document.getElementById('isPrivateCheckbox1').checked;
                 if (deck != null) {
-                    that.comm.createTable(format, deck, sampleDeck, tableDesc, function (xml) {
+                    that.comm.createTable(format, deck, sampleDeck, tableDesc, isPrivate, function (xml) {
                         that.processResponse(xml);
                     });
                 }
             });
         this.createTableButton.hide();
-        
+
+        this.isPrivateCheckbox = $("$<label><input type='checkbox' id='isPrivateCheckbox1'>Private game</input></label>")
+
         this.decksSelect = $("<select style='width: 300px'></select>");
         this.decksSelect.hide();
 
@@ -99,6 +106,7 @@ var GempSwccgHallUI = Class.extend({
         this.buttonsDiv.append(this.decksSelect);
         this.buttonsDiv.append(this.tableDescInput);
         this.buttonsDiv.append(this.createTableButton);
+        this.buttonsDiv.append(this.isPrivateCheckbox);
 
         this.div.append(this.buttonsDiv);
 
@@ -467,6 +475,17 @@ var GempSwccgHallUI = Class.extend({
                 this.pocketValue = currency;
                 this.pocketDiv.html(formatPrice(currency));
             }
+
+            var privateGamesEnabled = root.getAttribute("privateGamesEnabledBoolean");
+            if (privateGamesEnabled=="true") {
+               this.isPrivateCheckbox.show();
+            }
+            else {
+               if(document.getElementById('isPrivateCheckbox1')!=null)
+                   document.getElementById('isPrivateCheckbox1').checked = false;
+               this.isPrivateCheckbox.hide();
+            }
+
 
             var motd = root.getAttribute("motd");
             if (motd != null)
