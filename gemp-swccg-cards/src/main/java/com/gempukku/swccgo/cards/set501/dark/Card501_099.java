@@ -150,7 +150,7 @@ public class Card501_099 extends AbstractUsedOrLostInterrupt {
             Filter characterFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.battleLocation));
             if (GameConditions.canTarget(game, self, 4, targetingReason, characterFilter)) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action.setActionMsg("Make opponent lose a character");
                 // Choose target(s)
                 action.appendTargeting(

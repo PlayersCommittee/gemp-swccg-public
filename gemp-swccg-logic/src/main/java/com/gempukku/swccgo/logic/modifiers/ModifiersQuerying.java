@@ -935,6 +935,14 @@ public interface ModifiersQuerying {
     float getTotalForceGeneration(GameState gameState, String playerId);
 
     /**
+     * Gets the total Force Icon count for the specified player.
+     *
+     * @param gameState the game state
+     * @param playerId  the player
+     */
+    float getTotalForceIconCount(GameState gameState, String playerId);
+
+    /**
      * Determines if this deploys and moves like a starfighter.
      * @param gameState the game state
      * @param card the card
