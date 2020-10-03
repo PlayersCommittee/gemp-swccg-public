@@ -78,7 +78,8 @@ public class Card501_092 extends AbstractUsedInterrupt {
                 actions.add(action);
             }
 
-            if (game.getModifiersQuerying().getIconCount(gameState, self, Icon.DARK_FORCE) > game.getModifiersQuerying().getIconCount(gameState, self, Icon.LIGHT_FORCE)) {
+
+            if (game.getModifiersQuerying().getTotalForceIconCount(gameState, opponent) > game.getModifiersQuerying().getTotalForceIconCount(gameState, playerId)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Activate 2 Force");
                 // Allow response(s)
