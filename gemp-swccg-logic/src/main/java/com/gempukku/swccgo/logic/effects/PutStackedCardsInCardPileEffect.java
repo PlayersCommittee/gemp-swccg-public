@@ -259,6 +259,7 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
                 if (Filters.coaxiumCard.accepts(game, selectedCard)) {
                     game.getActionsEnvironment().emitEffectResult(
                             new RemovedCoaxiumCardResult(_playerId, selectedCard, _playerId, _cardPile));
+                    selectedCard.setCoaxiumCard(false);
                 }
                 if (!_remainingCards.isEmpty())
                     _subAction.appendEffect(

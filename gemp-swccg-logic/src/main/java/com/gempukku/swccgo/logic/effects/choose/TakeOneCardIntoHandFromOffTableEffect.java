@@ -53,6 +53,7 @@ abstract class TakeOneCardIntoHandFromOffTableEffect extends AbstractStandardEff
         if (Filters.coaxiumCard.accepts(game, _card)) {
             game.getActionsEnvironment().emitEffectResult(
                     new RemovedCoaxiumCardResult(_playerId, _card, _playerId, Zone.HAND));
+            _card.setCoaxiumCard(false);
         }
 
         // A callback that can be used to schedule the next card to be taken into hand
