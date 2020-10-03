@@ -30,18 +30,18 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * Subtype: Droid
- * Title: •••ID-9 Seeker
+ * Title: •••ID-9 Probe Droid
  */
 public class Card501_084 extends AbstractDroid {
     public Card501_084() {
-        super(Side.DARK, 5, 1, 1, 4, "ID-9 Seeker", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 5, 1, 1, 4, "ID-9 Probe Droid", Uniqueness.RESTRICTED_3);
         setArmor(4);
         setLore("Spy.");
         setGameText("During your deploy phase, may use 2 Force to relocate an Inquisitor to same site and place this droid in Used Pile. While present with Seventh Sister, opponent may not target Seventh Sister with weapons unless this card 'hit.'");
         addIcons(Icon.VIRTUAL_SET_13);
         addModelTypes(ModelType.PROBE);
         addKeyword(Keyword.SPY);
-        setTestingText("•••ID-9 Seeker");
+        setTestingText("•••ID-9 Probe Droid");
     }
 
     @Override
