@@ -11588,6 +11588,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_FREE, weapon).isEmpty()) {
             return 0;
         }
+
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_BY_FOR_FREE, cardFiringWeapon)) {
             if (modifier.isAffectedTarget(gameState, this, weapon)) {
                 return 0;
@@ -11609,6 +11610,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             if (modifier.isAffectedTarget(gameState, this, weapon)) {
                 result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
+        }
+
+        // Check if fires for double
+        if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_DOUBLE, weapon).isEmpty()) {
+            result = result * 2;
         }
 
         result = Math.max(0, result);
