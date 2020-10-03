@@ -3202,7 +3202,7 @@ var fixedImages = {
 "501_4":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
 "501_5":"/gemp-swccg/images/cards/Premiere-Dark/deathstartrooper.gif",
 "501_6":"/gemp-swccg/images/cards/Premiere-Dark/colonelwullfyularen.gif",
-"501_7":"/gemp-swccg/images/cards/Dagobah-Dark/zuckuss.gif",
+"501_7":"/gemp-swccg/images/cards/Premiere-Light/helpmeobiwankenobi.gif",
 "501_8":"/gemp-swccg/images/cards/Dagobah-Dark/failureatthecave.gif",
 "501_9":"/gemp-swccg/images/cards/Premiere-Dark/observationholocam.gif",
 "501_10":"/gemp-swccg/images/cards/SpecialEdition-Dark/jabbasinfluence.gif",

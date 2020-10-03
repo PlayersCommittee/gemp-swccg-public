@@ -426,6 +426,7 @@ public interface Title {
     String He_Will_Bring_Balance = "He Will Bring Balance";
     String Heart_Of_The_Chasm = "Heart Of The Chasm";
     String Hebsly = "Lieutenant Hebsly";
+    String Help_Me_Obi_Wan_Kenobi = "Help Me Obi-Wan Kenobi";
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
@@ -638,6 +639,7 @@ public interface Title {
     String Mazs_Castle = "Takodana: Maz's Castle";
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
+    String Meditation = "Meditation";
     String Meditation_Chamber = "Executor: Meditation Chamber";
     String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
