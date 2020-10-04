@@ -18171,6 +18171,7 @@ public class Filters {
     public static final Filter Reys_Encampment = Filters.title(Title.Reys_Encampment);
     public static final Filter Ric = Filters.persona(Persona.RIC);
     public static final Filter rifle = Filters.or(Keyword.RIFLE, Keyword.BLASTER_RIFLE);
+    public static final Filter Rio = Filters.persona(Persona.RIO);
     public static final Filter Rite_Of_Passage = Filters.title(Title.Rite_Of_Passage);
     public static final Filter Roche_system = Filters.title(Title.Roche);
     public static final Filter Rodian = Filters.species(Species.RODIAN);
@@ -18495,6 +18496,7 @@ public class Filters {
     public static final Filter Vaders_Custom_TIE = Filters.persona(Persona.VADERS_CUSTOM_TIE);
     public static final Filter Vaders_Lightsaber = Filters.persona(Persona.VADERS_LIGHTSABER);
     public static final Filter Vaders_Obsession = Filters.title(Title.Vaders_Obsession);
+    public static final Filter Val = Filters.persona(Persona.VAL);
     public static final Filter Valorum = Filters.title(Title.Valorum);
     public static final Filter Vaporator = Filters.title(Title.Vaporator);
     public static final Filter Veers = Filters.persona(Persona.VEERS);
