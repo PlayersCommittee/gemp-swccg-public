@@ -27,16 +27,15 @@ import java.util.List;
 /**
  * Set: Set 13
  * Type: Defensive Shield
- * Title: You Have Failed Me For The Last Time (V)
+ * Title: Clumsy And Stupid
  */
 public class Card501_027 extends AbstractDefensiveShield {
     public Card501_027() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You Have Failed Me For The Last Time");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Clumsy And Stupid");
         setLore("'Lord Vader, the fleet has moved out of lightspeed and we're preparing to aah...ukh...uh...uuuuukkk!'");
-        setGameText("Plays to table. Opponent's Undercover spies are immune to Nevar Yalnal. Field Promotion is canceled if on opponent's [M] card or Ozzel. If Monnok just revealed your hand, you may place up to 2 cards in your Used Pile.");
+        setGameText("Plays on table. Opponent's Undercover spies are immune to Nevar Yalnal. Field Promotion is canceled if on Ozzel or opponent's [Maintenance] card. If Monnok just revealed your hand, you may place up to two cards in your Used Pile.");
         addIcons(Icon.VIRTUAL_SET_13);
-        setTestingText("You Have Failed Me For The Last Time (V)");
-        setVirtualSuffix(true);
+        setTestingText("Clumsy And Stupid");
     }
 
     @Override
