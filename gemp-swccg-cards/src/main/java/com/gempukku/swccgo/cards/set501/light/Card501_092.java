@@ -41,10 +41,7 @@ public class Card501_092 extends AbstractUsedInterrupt {
         GameState gameState = game.getGameState();
 
         final boolean v13HanOnTable = GameConditions.canSpot(game, self, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.Han));
-        String numCardsText = String.valueOf(2);
-        if (v13HanOnTable) {
-            numCardsText = String.valueOf(3);
-        }
+        String numCardsText = v13HanOnTable ? String.valueOf(3) : String.valueOf(2);
 
         if (GameConditions.canSpot(game, self, 2, Filters.and(Filters.your(playerId), Filters.smuggler))) {
             if (gameState.getHand(opponent).size() > gameState.getHand(playerId).size()
