@@ -109,7 +109,7 @@ public class Card209_018 extends AbstractNormalEffect {
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int NUM_FORCE = 2;
+            int NUM_FORCE = 1;
             if (damageConditionsSatisfied(game, self, playerId)) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setPerformingPlayer(playerId);

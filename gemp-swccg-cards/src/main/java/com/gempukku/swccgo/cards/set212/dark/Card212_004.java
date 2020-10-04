@@ -61,8 +61,8 @@ public class Card212_004 extends AbstractStartingInterrupt {
                                             action.appendEffect(
                                                     new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedCard), false)
                                             );
-                                            Filter filter = Filters.or(Filters.titleContains("Palace"), Filters.Coruscant_Imperial_Square);
-                                            if (!filter.accepts(game, startingLocations.get(0)) && !filter.accepts(game, selectedCard)) {
+                                            if (!Filters.titleContains("Palace").accepts(game, startingLocations.get(0)) && !Filters.titleContains("Palace").accepts(game, selectedCard)
+                                                    && !Filters.Coruscant_Imperial_Square.accepts(game, startingLocations.get(0)) && !Filters.Coruscant_Imperial_Square.accepts(game, selectedCard)) {
                                                 action.appendEffect(
                                                         new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter), 1, 3, true, false));
                                             }

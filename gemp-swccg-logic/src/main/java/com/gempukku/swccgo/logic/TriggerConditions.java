@@ -344,6 +344,7 @@ public class TriggerConditions {
                 || isBlownAwayLastStep(game, effectResult, Filters.any)
                 || effectResult.getType() == EffectResult.Type.HIT
                 || effectResult.getType() == EffectResult.Type.RETURNED_TO_HAND_FROM_OFF_TABLE
+                || effectResult.getType() == EffectResult.Type.REMOVED_COAXIUM_CARD
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_CARD_PILE
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_HAND
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_TABLE
@@ -2195,11 +2196,25 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean justPutCoaxiumCardInCardPile(EffectResult effectResult, Zone cardPile) {
+        if (effectResult.getType() == EffectResult.Type.REMOVED_COAXIUM_CARD) {
+            RemovedCoaxiumCardResult removedCoaxiumCardResult = (RemovedCoaxiumCardResult) effectResult;
+            if (removedCoaxiumCardResult.getCardPile() == cardPile) {
+                PhysicalCard card = removedCoaxiumCardResult.getCard();
+                if (card != null
+                        && GameUtils.getZoneFromZoneTop(card.getZone()) == cardPile)
+                    return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Determines if a card accepted by the card filter was just lost from a location accepted by the location filter (and still in Lost Pile).
-     * @param game the game
-     * @param effectResult the effect result
-     * @param cardFilter the card filter
+     *
+     * @param game           the game
+     * @param effectResult   the effect result
+     * @param cardFilter     the card filter
      * @param locationFilter the location filter
      * @return true or false
      */

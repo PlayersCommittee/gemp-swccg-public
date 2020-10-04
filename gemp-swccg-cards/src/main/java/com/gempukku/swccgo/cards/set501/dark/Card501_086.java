@@ -10,10 +10,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -31,8 +28,8 @@ public class Card501_086 extends AbstractUsedInterrupt {
     public Card501_086() {
         super(Side.DARK, 4, "A Lawless Time", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Take a blaster into hand from Reserve Deck; reshuffle. OR If you just fired Black Sun Blaster or" +
-                "Crimson Dawn Blaster, add one battle destiny. OR During any control phase, if Maul or Vos at a battleground site, flip Shadow Collective (or You Know Who I Answer To).");
+        setGameText("Lose 2 Force to retrieve a Crimson Dawn leader. OR If you just fired Black Sun Blaster or Crimson Dawn Blaster, " +
+                "add one battle destiny. OR During any control phase, if Maul or Vos at a battleground site, flip Shadow Collective (or You Know Who I Answer To).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("A Lawless Time");
     }
@@ -41,27 +38,28 @@ public class Card501_086 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.A_LAWLESS_TIME__UPLOAD_BLASTER;
+        GameTextActionId gameTextActionId = GameTextActionId.A_LAWLESS_TIME__RETRIEVE_CRIMSON_DAWN_LEADER;
 
         // Check condition(s)
-        if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Take a blaster into hand from Reserve Deck");
+        if (GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
+            action.setText("Retrieve a Crimson Dawn leader");
+            // Pay cost(s)
+            action.appendCost(
+                    new LoseForceEffect(action, playerId, 2));
             // Allow response(s)
-            action.allowResponses("Take a blaster into hand from Reserve Deck",
+            action.allowResponses(
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.blaster, true));
+                                    new RetrieveCardEffect(action, playerId, Filters.and(Filters.Crimson_Dawn, Filters.leader)));
                         }
                     }
             );
             actions.add(action);
         }
-
 
         // Check condition(s)
         if (GameConditions.isDuringEitherPlayersPhase(game, Phase.CONTROL)
@@ -91,7 +89,6 @@ public class Card501_086 extends AbstractUsedInterrupt {
 
             actions.add(action);
         }
-
         return actions;
     }
 

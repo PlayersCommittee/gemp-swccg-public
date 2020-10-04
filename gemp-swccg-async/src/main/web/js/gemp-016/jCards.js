@@ -3197,12 +3197,12 @@ var fixedImages = {
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
 //playtesting
 "501_1":"/gemp-swccg/images/cards/Hoth-Dark/admiralozzel.gif",
-"501_2":"/gemp-swccg/images/cards/SpecialEdition-Dark/bobafett.gif",
+"501_2":"/gemp-swccg/images/cards/SpecialEdition-Light/meditation.gif",
 "501_3":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "501_4":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
 "501_5":"/gemp-swccg/images/cards/Premiere-Dark/deathstartrooper.gif",
 "501_6":"/gemp-swccg/images/cards/Premiere-Dark/colonelwullfyularen.gif",
-"501_7":"/gemp-swccg/images/cards/Dagobah-Dark/zuckuss.gif",
+"501_7":"/gemp-swccg/images/cards/Premiere-Light/helpmeobiwankenobi.gif",
 "501_8":"/gemp-swccg/images/cards/Dagobah-Dark/failureatthecave.gif",
 "501_9":"/gemp-swccg/images/cards/Premiere-Dark/observationholocam.gif",
 "501_10":"/gemp-swccg/images/cards/SpecialEdition-Dark/jabbasinfluence.gif",
@@ -3293,6 +3293,9 @@ var fixedImages = {
 "501_96":"/gemp-swccg/images/cards/SpecialEdition-Dark/huntdownanddestroythejedi.gif",
 "501_96_BACK":"/gemp-swccg/images/cards/SpecialEdition-Dark/theirfirehasgoneoutoftheuniverse.gif",
 "501_97":"/gemp-swccg/images/cards/Dagobah-Dark/visageoftheemperor.gif",
+"501_98":"/gemp-swccg/images/cards/Virtual11-Light/viceadmiralholdo.gif",
+"501_95":"/gemp-swccg/images/cards/ReflectionsII-Light/alter&friendlyfire.gif",
+"501_99":"/gemp-swccg/images/cards/ReflectionsII-Dark/alter&collateraldamage.gif",
 };
 
 var packBlueprints = {

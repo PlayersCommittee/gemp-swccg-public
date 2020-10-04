@@ -2,18 +2,21 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.StealCardIntoHandFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class Card501_022 extends AbstractAlien {
     public Card501_022() {
         super(Side.LIGHT, 4, 3, 3, 2, 4, "Rio Durant", Uniqueness.UNIQUE);
         setLore("Ardennian smuggler and thief.");
-        setGameText("Adds 2 to power of anything he pilots. Matching pilot for any stolen or [Independent] starship. Once during your deploy phase, your smuggler of power < 4 here may move to an adjacent site (using landspeed) as a regular move.");
+        setGameText("Adds 2 to power of anything he pilots. Once per turn, when your smuggler is deployed here, may place a card from hand on used pile to activate two force. Once per game when you win a battle here, may steal a starfighter from opponent’s Lost Pile.");
         addPersona(Persona.RIO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.THIEF);
@@ -44,29 +47,46 @@ public class Card501_022 extends AbstractAlien {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
+
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canSpot(game, self, Filters.adjacentSite(self))) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Move one of your smugglers.");
+        if (TriggerConditions.justDeployedToLocation(game, effectResult, playerId, Filters.smuggler, Filters.here(self))
+                && GameConditions.hasHand(game, playerId)
+                && GameConditions.hasReserveDeck(game, playerId)
+                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)) {
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Activate 2 force");
+            action.setActionMsg("Place a card from hand on used pile to activate two force");
             action.appendUsage(
-                    new OncePerPhaseEffect(action)
+                    new OncePerTurnEffect(action)
             );
-            action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Move one of your smugglers of power < 4 here", Filters.and(Filters.your(playerId), Filters.smuggler, Filters.powerLessThan(4), Filters.here(self))) {
-                        @Override
-                        protected void cardSelected(final PhysicalCard smugglerToMove) {
-                            action.appendEffect(
-                                    new MoveCardAsRegularMoveEffect(action, playerId, smugglerToMove, false, false, Filters.adjacentSite(self))
-                            );
-                        }
-                    }
+            action.appendCost(
+                    new PutCardFromHandOnUsedPileEffect(action, playerId)
             );
-            return Collections.singletonList(action);
+            action.appendEffect(
+                    new ActivateForceEffect(action, playerId, 2)
+            );
         }
-        return null;
+
+        GameTextActionId gameTextActionId1 = GameTextActionId.RIO_DURANT__STEAL_STARSHIP;
+        if (TriggerConditions.wonBattle(game, effectResult, playerId)
+                && GameConditions.hasLostPile(game, game.getOpponent(playerId))
+                && GameConditions.isOncePerGame(game, self, gameTextActionId1)) {
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId1);
+            action.setText("Steel starfighter");
+            action.setActionMsg("Steal a starfighter from opponent’s Lost Pile");
+            action.appendUsage(
+                    new OncePerGameEffect(action)
+            );
+            // Perform result(s)
+            action.appendEffect(
+                    new StealCardIntoHandFromLostPileEffect(action, playerId, Filters.starfighter));
+            actions.add(action);
+        }
+        return actions;
     }
 }
 

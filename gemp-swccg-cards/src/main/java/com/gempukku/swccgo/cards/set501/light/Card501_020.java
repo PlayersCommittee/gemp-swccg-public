@@ -55,12 +55,12 @@ public class Card501_020 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         if (GameConditions.canSpot(game, self, Filters.Kessel_Run)
-                && Filters.countStacked(game, Filters.stackedOn(self, Filters.Kessel_Run)) == 1) {
+                && Filters.countStacked(game, Filters.and(Filters.coaxiumCard, Filters.stackedOn(self, Filters.Kessel_Run))) == 1) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Take stacked card into hand");
+            action.setText("Take 'coaxium' card into hand");
             // Perform result(s)
             action.appendEffect(
-                    new TakeStackedCardIntoHandEffect(action, playerId, Filters.Kessel_Run)
+                    new TakeStackedCardIntoHandEffect(action, playerId, Filters.Kessel_Run, Filters.coaxiumCard)
             );
 
             return Collections.singletonList(action);

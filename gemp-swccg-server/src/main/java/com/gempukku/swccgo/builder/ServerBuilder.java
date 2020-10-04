@@ -95,6 +95,7 @@ public class ServerBuilder {
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, IpBanDAO.class),
+                        extract(objectMap, GempSettingDAO.class),
                         extract(objectMap, AdminService.class),
                         tournamentPrizeSchemeRegistry,
                         pairingMechanismRegistry

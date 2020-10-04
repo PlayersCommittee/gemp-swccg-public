@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card8_141 extends AbstractLostInterrupt {
     public Card8_141() {
-        super(Side.DARK, 4, "Eee Chu Wawa!", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Eee_Chu_Wawa, Uniqueness.UNIQUE);
         setLore("Paploo's brave diversion provided more of a ride than the adventurous Ewok had bargained for.");
         setGameText("USED: For remainder of turn, subtract 1 from forfeit of each opponent's Ewok (or subtract 2 from any one opponent's character). LOST: Cancel one Ewok's game text for remainder of turn. OR Cancel Sound The Attack.");
         addIcons(Icon.ENDOR);

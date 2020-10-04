@@ -38,7 +38,7 @@ public class Card200_090 extends AbstractDroid {
         setManeuver(3);
         setLore("Patrol droids utilized by the Sith. Each droid has several multispectral imaging devices and a communications package. Used by Maul to track down Amidala.");
         setGameText("When drawn for destiny during a battle or duel involving a Dark Jedi, destiny +2. During your move phase, may use 2 Force to relocate a Dark Jedi (with any captives they are escorting) to same site; place this droid in Used Pile.");
-        addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0, Icon.EPISODE_I);
         addModelTypes(ModelType.PROBE, ModelType.RECON);
     }
 
