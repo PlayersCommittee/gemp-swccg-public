@@ -27,7 +27,7 @@ public class Card501_046 extends AbstractAlien {
     public Card501_046() {
         super(Side.DARK, 3, 4, 3, 2, 4, "Hylobon Enforcers", Uniqueness.RESTRICTED_2);
         setLore("Crimson Dawn. Hylobon guard.");
-        setGameText("Deploy -1 and forfeit +1 at same or related location as Vos or at an opponent's site. Permanent weapon is Percussive Cannon (may target a character using 1 Force; draw destiny; if destiny +1 > defense value, target's game text is canceled).");
+        setGameText("Deploy -1 and forfeit +1 at same or related location as Vos or at an opponent's site. Permanent weapon is Percussive Cannon (may target a character using 1 Force; draw destiny; if destiny +1 > defense value, target's game text is canceled for remainder of turn).");
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.CRIMSON_DAWN);
         setSpecies(Species.HYLOBON);
@@ -61,8 +61,7 @@ public class Card501_046 extends AbstractAlien {
                 if (actionBuilder != null) {
 
                     // Build action
-                    //right now it cancels game text for the rest of the game, but changing false to true in the next line will make it for remainder of turn if D&D changes that
-                    FireWeaponAction action = actionBuilder.buildFireWeaponWithCancelGameTextAction(1, 1, Statistic.DEFENSE_VALUE, false);
+                    FireWeaponAction action = actionBuilder.buildFireWeaponWithCancelGameTextAction(1, 1, Statistic.DEFENSE_VALUE, true);
                     return Collections.singletonList(action);
                 }
                 return null;

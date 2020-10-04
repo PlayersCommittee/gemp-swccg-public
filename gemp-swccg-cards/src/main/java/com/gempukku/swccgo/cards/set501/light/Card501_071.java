@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackDestinyCardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -54,13 +55,13 @@ public class Card501_071 extends AbstractNormalEffect {
         if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place stacked card in Used Pile");
+            action.setText("Place 'coaxium' card in Used Pile");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new ChooseStackedCardEffect(action, playerId, self) {
+                    new ChooseStackedCardEffect(action, playerId, self, Filters.coaxiumCard) {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             action.appendEffect(
@@ -95,6 +96,7 @@ public class Card501_071 extends AbstractNormalEffect {
         }
 
         if (self.getWhileInPlayData() != null
+                && TriggerConditions.isTableChanged(game, effectResult)
                 && !GameConditions.hasStackedCards(game, self)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Complete Kessel Run");
@@ -132,7 +134,7 @@ public class Card501_071 extends AbstractNormalEffect {
                                     if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
                                             && GameConditions.canStackDestinyCard(game)) {
 
-                                        PhysicalCard card = drawDestinyState.getDrawDestinyEffect().getDrawnDestinyCard();
+                                        final PhysicalCard card = drawDestinyState.getDrawDestinyEffect().getDrawnDestinyCard();
                                         RequiredGameTextTriggerAction action1 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                                         action1.skipInitialMessageAndAnimation();
                                         action1.setPerformingPlayer(playerId);
@@ -151,6 +153,14 @@ public class Card501_071 extends AbstractNormalEffect {
                                         action1.appendEffect(
                                                 new StackDestinyCardEffect(action1, self)
 
+                                        );
+                                        action.appendEffect(
+                                                new PassthruEffect(action) {
+                                                    @Override
+                                                    protected void doPlayEffect(SwccgGame game) {
+                                                        card.setCoaxiumCard(true);
+                                                    }
+                                                }
                                         );
                                         actions.add(action1);
                                     }

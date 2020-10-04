@@ -83,7 +83,7 @@ public class SwccgoServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
+    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -95,15 +95,15 @@ public class SwccgoServer extends AbstractServer {
                 allowedUsers.add(participant.getPlayerId());
             }
 
-            if (!allowSpectatorsToViewChat) {
+            if (!allowSpectatorsToViewChat||isPrivate) {
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else {
-                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat);
+                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat, swccgFormat.isPlaytesting());
             }
 
             int maxPlayerTime = timePerPlayerMinutes * 60;
             SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
-                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds);
+                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds, isPrivate);
 
 
             swccgGameMediator.addGameResultListener(

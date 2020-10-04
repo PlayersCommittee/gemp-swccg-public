@@ -78,6 +78,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isObjectiveDeploymentComplete;
     private boolean _isProbeCard;
     private boolean _isHatredCard;
+    private boolean _isCoaxiumCard;
     private boolean _isLiberationCard;
     private boolean _isBluffCard;
     private boolean _isCombatCard;
@@ -194,6 +195,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         snapshot._isObjectiveDeploymentComplete = _isObjectiveDeploymentComplete;
         snapshot._isProbeCard = _isProbeCard;
         snapshot._isHatredCard = _isHatredCard;
+        snapshot._isCoaxiumCard = _isCoaxiumCard;
         snapshot._isBluffCard = _isBluffCard;
         snapshot._isLiberationCard = _isLiberationCard;
         snapshot._isCombatCard = _isCombatCard;
@@ -1244,6 +1246,16 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     @Override
     public boolean isHatredCard() {
         return _isHatredCard;
+    }
+
+    @Override
+    public boolean isCoaxiumCard() {
+        return _isCoaxiumCard;
+    }
+
+    @Override
+    public void setCoaxiumCard(boolean coaxiumCard) {
+        _isCoaxiumCard = coaxiumCard;
     }
 
     @Override

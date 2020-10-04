@@ -8,17 +8,15 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.DrawCardsIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitIncreasedAbovePrintedModifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.RecirculateEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.DrawCardsIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,7 +30,7 @@ public class Card501_092 extends AbstractUsedInterrupt {
     public Card501_092() {
         super(Side.LIGHT, 4, "I've Got A Really Good Feeling About This", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Recirculate if Han or Lando on table. OR At the start of any turn, place 3 cards from hand on Reserve Deck, reshuffle, and draw 3 cards. (Opponent may do the same.) OR For remainder of turn, all characters are power -1 and ignore forfeit bonuses.");
+        setGameText("If you have two smugglers on table, choose one: If your opponent has more cards in hand, draw 2 cards. OR If opponent has less cards in Lost Pile, retreive a freighter. OR If more [DS] than [LS] on table, activate 2 Force. OR Recirculate.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("I've Got A Really Good Feeling About This");
     }
@@ -40,8 +38,65 @@ public class Card501_092 extends AbstractUsedInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+        String opponent = game.getOpponent(playerId);
+        GameState gameState = game.getGameState();
 
-        if (GameConditions.canSpot(game, self, Filters.or(Filters.Han, Filters.Lando))) {
+        if (GameConditions.canSpot(game, self, 2, Filters.and(Filters.your(playerId), Filters.smuggler))) {
+            if (gameState.getHand(opponent).size() > gameState.getHand(playerId).size()) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Draw 2 cards");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new DrawCardsIntoHandFromForcePileEffect(action, playerId, 2)
+                                );
+                            }
+                        }
+                );
+                actions.add(action);
+            }
+
+            if (gameState.getLostPile(opponent).size() < gameState.getLostPile(playerId).size()) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Retrieve a freighter");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new RetrieveCardEffect(action, playerId, Filters.freighter)
+                                );
+                            }
+                        }
+                );
+                actions.add(action);
+            }
+
+
+            if (game.getModifiersQuerying().getTotalForceIconCount(gameState, opponent) > game.getModifiersQuerying().getTotalForceIconCount(gameState, playerId)) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Activate 2 Force");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new ActivateForceEffect(action, playerId, 2)
+                                );
+                            }
+                        }
+                );
+                actions.add(action);
+            }
+
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Recirculate");
             // Allow response(s)
@@ -59,72 +114,6 @@ public class Card501_092 extends AbstractUsedInterrupt {
             actions.add(action);
         }
 
-        final PlayInterruptAction action = new PlayInterruptAction(game, self);
-        action.setText("Affect characters");
-        // Allow response(s)
-        action.allowResponses("Make opponent use 1 Force to fire a weapon and make opponent's starship weapon destiny draws -1 for remainder of turn",
-                new RespondablePlayCardEffect(action) {
-                    @Override
-                    protected void performActionResults(Action targetingAction) {
-                        // Perform result(s)
-                        action.appendEffect(
-                                new AddUntilEndOfTurnModifierEffect(action,
-                                        new PowerModifier(self, Filters.character, -1),
-                                        "Makes characters power -1"));
-                        action.appendEffect(
-                                new AddUntilEndOfTurnModifierEffect(action,
-                                        new MayNotHaveForfeitIncreasedAbovePrintedModifier(self, Filters.character),
-                                        "Characters ignore forfeit bonuses"));
-                    }
-                }
-        );
-        actions.add(action);
-
         return actions;
-    }
-
-    @Override
-    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        final String opponent = game.getOpponent(playerId);
-        if (TriggerConditions.isStartOfEachTurn(game, effectResult)
-                && GameConditions.hasInHand(game, playerId, 3, Filters.any)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Place cards in Reserve Deck");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new PutCardsFromHandOnBottomOfReserveDeckEffect(action, playerId, 3, 3));
-                            action.appendEffect(
-                                    new ShuffleReserveDeckEffect(action, playerId));
-                            action.appendEffect(
-                                    new DrawCardsIntoHandFromReserveDeckEffect(action, playerId, 3)
-                            );
-                            if (GameConditions.hasInHand(game, opponent, 3, Filters.any)) {
-                                action.appendEffect(
-                                        new PlayoutDecisionEffect(action, opponent,
-                                                new YesNoDecision("Put 3 Cards from hand into Reserve to draw 3 cards?") {
-                                                    @Override
-                                                    protected void yes() {
-                                                        action.appendEffect(
-                                                                new PutCardsFromHandOnBottomOfReserveDeckEffect(action, opponent, 3, 3));
-                                                        action.appendEffect(
-                                                                new ShuffleReserveDeckEffect(action, opponent));
-                                                        action.appendEffect(
-                                                                new DrawCardsIntoHandFromReserveDeckEffect(action, opponent, 3)
-                                                        );
-                                                    }
-                                                })
-                                );
-                            }
-                        }
-                    }
-            );
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 }
