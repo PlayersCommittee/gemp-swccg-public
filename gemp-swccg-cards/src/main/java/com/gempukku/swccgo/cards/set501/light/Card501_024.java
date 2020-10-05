@@ -2,23 +2,20 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
-import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.ExcludeFromBattleEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.TakeFirstBattleWeaponsSegmentActionEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -35,8 +32,8 @@ import java.util.List;
 public class Card501_024 extends AbstractAlien {
     public Card501_024() {
         super(Side.LIGHT, 0, 3, 4, 3, 5, "Tobias Beckett", Uniqueness.UNIQUE);
-        setLore("Smuggler, musician, thief, and information broker. Glee Anselmian.");
-        setGameText("While present at a battleground and armed with a blaster, adds one [Dark Side] icon here and if a battle was just initiated here, you may take the first weapons segment action. Unless with Aurra, opponent may use 3 Force to 'bribe' (exclude) Beckett from battle.");
+        setLore("Glee Anselmian smuggler. Information broker, musician, and thief.");
+        setGameText("Destiny +3 if Val, Rio, Vos, or v13 Han on table. Aurra Sing’s game text is canceled here. When lost may place out of play (for remainder of game, Han adds one battle destiny). If armed with a blaster at a site, you may take the first weapons phase action.");
         addPersona(Persona.BECKETT);
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.MUSICIAN, Keyword.THIEF, Keyword.INFORMATION_BROKER);
@@ -45,20 +42,24 @@ public class Card501_024 extends AbstractAlien {
     }
 
     @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new DestinyModifier(self, self, new OnTableCondition(self, Filters.or(Filters.Val, Filters.Rio, Filters.Vos, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.Han))), 3));
+        return modifiers;
+    }
+
+    @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        Condition armedWithABlasterCondition = new ArmedWithCondition(self, Filters.blaster);
-        Condition presentAtABattlegroundCondition = new PresentAtCondition(self, Filters.battleground);
-        modifiers.add(new IconModifier(self, Filters.and(Filters.battleground_site, Filters.here(self)), new AndCondition(presentAtABattlegroundCondition, armedWithABlasterCondition), Icon.DARK_FORCE));
+        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Aurra, Filters.here(self))));
         return modifiers;
     }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self))
-                && GameConditions.isPresentAt(game, self, Filters.battleground)
+                && GameConditions.isPresentAt(game, self, Filters.site)
                 && GameConditions.isArmedWith(game, self, Filters.blaster)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
@@ -67,32 +68,24 @@ public class Card501_024 extends AbstractAlien {
             // Perform result(s)
             action.appendEffect(
                     new TakeFirstBattleWeaponsSegmentActionEffect(action, playerId));
-           actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
-        if (GameConditions.isInBattle(game, self)
-                && !GameConditions.isInBattleWith(game, self, Filters.Aurra)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.canUseForce(game, playerId, 3)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
-            action.setText("'Bribe' from battle");
-            action.setActionMsg("'Bribe' " + GameUtils.getCardLink(self) + " from battle");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 3));
+    protected List<OptionalGameTextTriggerAction> getGameTextLeavesTableOptionalTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.justLost(game, effectResult, self)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Place out of play");
+            action.setActionMsg("Place out of play");
             // Perform result(s)
             action.appendEffect(
-                    new ExcludeFromBattleEffect(action, self));
+                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, self, false));
+            action.appendEffect(
+                    new AddUntilEndOfGameModifierEffect(action,
+                            new AddsBattleDestinyModifier(self, new DuringBattleWithParticipantCondition(Filters.Han), 1, playerId, true), null)
+            );
             return Collections.singletonList(action);
         }
         return null;

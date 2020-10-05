@@ -11,8 +11,8 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,8 +44,8 @@ public class Card501_029 extends AbstractNormalEffect {
         String opponent = game.getOpponent(playerId);
         Condition lukeWithProphecyCondition = new OnTableCondition(self, Filters.and(Filters.Luke, Filters.at(Filters.hasAttached(Filters.Prophecy_Of_The_Force))));
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new ForceGenerationModifier(self, lukeWithProphecyCondition, 1, playerId));
-        modifiers.add(new ForceGenerationModifier(self, lukeWithProphecyCondition, -1, opponent));
+        modifiers.add(new TotalForceGenerationModifier(self, lukeWithProphecyCondition, 1, playerId));
+        modifiers.add(new TotalForceGenerationModifier(self, lukeWithProphecyCondition, -1, opponent));
         return modifiers;
     }
 

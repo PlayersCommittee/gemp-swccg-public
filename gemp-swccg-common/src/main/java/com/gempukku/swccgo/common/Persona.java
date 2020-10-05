@@ -46,6 +46,7 @@ public enum Persona implements Filterable {
     JONUS("Jonus"),
     KRENNIC("Krennic"),
     KYLO("Kylo"),
+    L3_37("L3-37"),
     LADY_VADER("Lady Vader"),
     LANDO("Lando"),
     LEIA("Leia"),

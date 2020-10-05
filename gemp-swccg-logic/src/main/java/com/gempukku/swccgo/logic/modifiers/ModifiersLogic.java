@@ -3050,6 +3050,31 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Gets the total Force generation for the specified player.
+     *
+     * @param gameState the game state
+     * @param playerId  the player
+     * @return the total Force generation for the player
+     */
+    @Override
+    public float getTotalForceIconCount(GameState gameState, String playerId) {
+        float total = 0;
+        Icon icon = playerId.equals(gameState.getDarkPlayer()) ? Icon.DARK_FORCE : Icon.LIGHT_FORCE;
+        // Add Force generation from locations
+        List<PhysicalCard> locations = gameState.getTopLocations();
+        for (PhysicalCard location : locations) {
+            total += getIconCount(gameState, location, icon);
+        }
+
+        // Add 1 for each character with matching Force icon
+        icon = playerId.equals(gameState.getDarkPlayer()) ? Icon.DARK_JEDI_MASTER : Icon.JEDI_MASTER;
+        total += Filters.countActive(gameState.getGame(), null, Filters.and(CardCategory.CHARACTER, icon));
+
+        return Math.max(0, total);
+    }
+
+
+    /**
      * Increments the amount of Force that has been activated by the player.
      * @param playerId the player
      * @param fromForceGeneration true if Force was activated due to Force generation, otherwise false
@@ -11588,6 +11613,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_FREE, weapon).isEmpty()) {
             return 0;
         }
+
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_BY_FOR_FREE, cardFiringWeapon)) {
             if (modifier.isAffectedTarget(gameState, this, weapon)) {
                 return 0;
@@ -11609,6 +11635,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             if (modifier.isAffectedTarget(gameState, this, weapon)) {
                 result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
+        }
+
+        // Check if fires for double
+        if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_DOUBLE, weapon).isEmpty()) {
+            result = result * 2;
         }
 
         result = Math.max(0, result);

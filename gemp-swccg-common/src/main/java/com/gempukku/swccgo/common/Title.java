@@ -14,6 +14,7 @@ public interface Title {
     String A_Dangerous_Time = "A Dangerous Time";
     String A_Gift = "A Gift";
     String A_Stunning_Move = "A Stunning Move";
+    String A_Useless_Gesture = "A Useless Gesture";
     String A_Valuable_Hostage = "A Valuable Hostage";
     String A_Weakness_Can_Be_Found = "A Weakness Can Be Found";
     String A280_Sharpshooter_Rifle = "A280 Sharpshooter Rifle";
@@ -426,6 +427,7 @@ public interface Title {
     String He_Will_Bring_Balance = "He Will Bring Balance";
     String Heart_Of_The_Chasm = "Heart Of The Chasm";
     String Hebsly = "Lieutenant Hebsly";
+    String Help_Me_Obi_Wan_Kenobi = "Help Me Obi-Wan Kenobi";
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
@@ -638,6 +640,7 @@ public interface Title {
     String Mazs_Castle = "Takodana: Maz's Castle";
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
+    String Meditation = "Meditation";
     String Meditation_Chamber = "Executor: Meditation Chamber";
     String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
@@ -1064,6 +1067,7 @@ public interface Title {
     String We_Need_Your_Help = "We Need Your Help";
     String Weather_Vane = "Weather Vane";
     String Weequay_Guard = "Weequay Guard";
+    String Weequay_Marksman = "Weequay Marksman";
     String Well_Guarded = "Well Guarded";
     String Well_Handle_This = "We'll Handle This";
     String Well_Need_A_New_One = "We'll Need A New One";

@@ -59,7 +59,7 @@ public class Card501_021 extends AbstractJediMaster {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromLostPileEffect(action, Filters.title("Meditation"), Filters.sameCardId(self), false));
+                    new DeployCardToTargetFromLostPileEffect(action, Filters.Meditation, Filters.sameCardId(self), false));
             return Collections.singletonList(action);
         }
         return null;

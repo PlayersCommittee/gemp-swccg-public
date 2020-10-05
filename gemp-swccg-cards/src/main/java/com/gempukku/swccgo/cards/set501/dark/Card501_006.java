@@ -44,7 +44,7 @@ public class Card501_006 extends AbstractImperial {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.isPresentAt(game, self, Filters.battleground_site)
+                && GameConditions.isPresentAt(game, self, Filters.site)
                 && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -70,8 +70,8 @@ public class Card501_006 extends AbstractImperial {
 
         // Check condition(s)
         // Check if reached end of each control phase and action was not performed yet.
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.isPresentAt(game, self, Filters.battleground_site)
+        if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
+                && GameConditions.isPresentAt(game, self, Filters.site)
                 && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

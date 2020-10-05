@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +36,7 @@ import java.util.List;
  */
 public class Card1_086 extends AbstractUsedInterrupt {
     public Card1_086() {
-        super(Side.LIGHT, 3, "Help Me Obi-Wan Kenobi");
+        super(Side.LIGHT, 3, Title.Help_Me_Obi_Wan_Kenobi);
         setLore("Leia sent a hologram plea, 'General Kenobi, years ago you served my father in the Clone Wars. Now he begs you to help him in his struggle against the Empire.'");
         setGameText("If Obi-Wan is at a site you control, he may apply any amount of his ability toward drawing a battle destiny at any other location. Ability he uses this way cannot be used again this turn. OR One Rebel may move as a 'react' to an adjacent battle site.");
         addKeywords(Keyword.HOLOGRAM);
