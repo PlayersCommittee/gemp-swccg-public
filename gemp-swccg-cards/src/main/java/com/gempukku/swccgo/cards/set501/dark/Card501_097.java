@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -71,7 +72,7 @@ public class Card501_097 extends AbstractNormalEffect {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a lightsaber from Reserve Deck");
             action.appendUsage(
-                    new OncePerTurnEffect(action)
+                    new OncePerPhaseEffect(action)
             );
             action.appendEffect(
                     new DeployCardToTargetFromReserveDeckEffect(action, Filters.lightsaber, Filters.and(Filters.your(playerId), Filters.inquisitor), false, false, true)
