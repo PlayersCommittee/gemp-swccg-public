@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -137,7 +136,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
 
     private void appendActionForReserveDeckAndHand(SwccgGame game, PhysicalCard self, String playerId, final PlayInterruptAction action) {
         action.setActionMsg("Deploy a lightsaber from hand and/or Reserve Deck");
-        final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
+        List<PhysicalCard> cardPool = new ArrayList<>(game.getGameState().getHand(playerId));
         cardPool.addAll(game.getGameState().getReserveDeck(playerId));
         LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHandAndReserve = getValidPlays(self, game, cardPool);
         action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHandAndReserve, action)));
@@ -169,7 +168,9 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             // Get all DJ/Sith this lightsaber is a matching weapon for, and also can deploy
             Filter validCharacters = Filters.and(Filters.or(Filters.Dark_Jedi, Filters.Sith), Filters.matchingCharacter(lightsaber), Filters.deployable(self, null, false, 0));
             for (PhysicalCard character : Filters.filter(cardPool, game, validCharacters)) {
-                appendToValidPlays(validPlays, lightsaber, character);
+                if (cardPool.contains(character)) {
+                    appendToValidPlays(validPlays, lightsaber, character);
+                }
             }
         }
         return validPlays;
