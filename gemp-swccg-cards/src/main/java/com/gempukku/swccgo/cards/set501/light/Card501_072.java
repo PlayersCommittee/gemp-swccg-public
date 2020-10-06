@@ -11,12 +11,14 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,9 +47,27 @@ public class Card501_072 extends AbstractAlien {
     }
 
     @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.LANDO__RETURN_TO_HAND;
 
+        // Check condition(s)
+        if (GameConditions.canSpot(game, self, Filters.Kessel_Run)
+                && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Return to hand");
+            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
+            action.appendUsage(
+                    new OncePerGameEffect(action)
+            );
+            action.appendEffect(
+                    new ReturnCardToHandFromTableEffect(action, self, Zone.HAND, Zone.HAND));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.LANDO__EXCHANGE_CARD_WITH_CARD_IN_RESERVE_DECK;
 
         // Check condition(s)
@@ -63,25 +83,8 @@ public class Card501_072 extends AbstractAlien {
             // Perform result(s)
             action.appendEffect(
                     new ExchangeCardInHandWithCardInReserveDeckEffect(action, playerId, Filters.any, interruptWithDestiny4, true));
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        gameTextActionId = GameTextActionId.LANDO__RETURN_TO_HAND;
-
-        // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.Kessel_Run)
-                && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Return to hand");
-            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
-            action.appendUsage(
-                    new OncePerGameEffect(action)
-            );
-            action.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action, self, Zone.HAND, Zone.HAND));
-            actions.add(action);
-        }
-
-        return actions;
+        return null;
     }
 }
