@@ -60,7 +60,7 @@ public class Card501_072 extends AbstractAlien {
                     new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action, self, Zone.HAND, Zone.HAND));
+                    new ReturnCardToHandFromTableEffect(action, self, Zone.HAND, Zone.LOST_PILE));
             return Collections.singletonList(action);
         }
         return null;
