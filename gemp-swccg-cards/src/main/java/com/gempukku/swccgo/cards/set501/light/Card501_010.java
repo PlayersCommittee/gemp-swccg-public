@@ -87,7 +87,7 @@ public class Card501_010 extends AbstractNormalEffect {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, opponentsAliensAndIndShips, 1, here));
-        modifiers.add(new PowerModifier(self, Filters.and(opponentsAliensAndIndShips, here), -1));
+        modifiers.add(new PowerModifier(self, Filters.and(opponentsAliensAndIndShips, Filters.at(here)), -1));
         modifiers.add(new ResetForceRetrievalFromCardModifier(self, Filters.Scum_And_Villainy,
                 hanOrLandoHereCondition, 0, opponent));
         return modifiers;
