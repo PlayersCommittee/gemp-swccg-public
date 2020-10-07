@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -10,11 +11,10 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -32,7 +32,7 @@ public class Card501_072 extends AbstractAlien {
     public Card501_072() {
         super(Side.LIGHT, 3, 2, 2, 3, 4, "Captain Lando Calrissian", Uniqueness.UNIQUE);
         setLore("Smuggler and gambler.");
-        setGameText("Adds 2 to power of anything he pilots (if an [Ind] starship, it is immune to attrition < 5). If opponent just initiated a battle here and Lando is with Kessel Run, may either take any Interrupt of destiny = 4 into hand or lose 2 Force to return Lando to hand.");
+        setGameText("Adds 2 to power of anything he pilots. If a battle was just initiated here, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve Deck; reshuffle. Once per game, if Kessel Run on table, may return Lando (and your cards on him) to hand.");
         addPersona(Persona.LANDO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER, Keyword.CAPTAIN);
@@ -43,43 +43,47 @@ public class Card501_072 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, Filters.and(Filters.icon(Icon.INDEPENDENT), Filters.hasPiloting(self)), 5));
         return modifiers;
     }
 
     @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.LANDO__RETURN_TO_HAND;
+
+        // Check condition(s)
+        if (GameConditions.canSpot(game, self, Filters.Kessel_Run)
+                && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Return to hand");
+            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
+            action.appendUsage(
+                    new OncePerGameEffect(action)
+            );
+            action.appendEffect(
+                    new ReturnCardToHandFromTableEffect(action, self, Zone.HAND, Zone.LOST_PILE));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.LANDO__EXCHANGE_CARD_WITH_CARD_IN_RESERVE_DECK;
 
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self))
-                && GameConditions.isWith(game, self, Filters.Kessel_Run)
                 && GameConditions.hasHand(game, playerId)
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
             Filter interruptWithDestiny4 = Filters.and(Filters.destinyEqualTo(4), Filters.Interrupt);
 
-            final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action1.setText("Exchange card with card in Reserve Deck");
-            action1.setActionMsg("Exchange a card in hand with a card in Reserve Deck");
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Exchange card with card in Reserve Deck");
+            action.setActionMsg("Exchange a card in hand with a card in Reserve Deck");
             // Perform result(s)
-            action1.appendEffect(
-                    new ExchangeCardInHandWithCardInReserveDeckEffect(action1, playerId, Filters.any, interruptWithDestiny4, true));
-            actions.add(action1);
-
-            final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action2.setText("Return to hand");
-            action2.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
-            // Perform result(s)
-            action2.appendCost(
-                    new LoseForceEffect(action2, playerId, 2)
-            );
-            action2.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action2, self, Zone.HAND, Zone.LOST_PILE));
-            actions.add(action2);
-
-            return Collections.singletonList(action1);
+            action.appendEffect(
+                    new ExchangeCardInHandWithCardInReserveDeckEffect(action, playerId, Filters.any, interruptWithDestiny4, true));
+            return Collections.singletonList(action);
         }
         return null;
     }
