@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.packagedProduct;
 
+import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.SwccgCardBlueprint;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
@@ -34,6 +35,24 @@ public abstract class BasePackagedCardProduct implements PackagedCardProduct {
                 SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
                 if (blueprint == null) {
                     iterator.remove();
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes cards with the specified icon
+     * @param icon the icon
+     * @param include true if cards must include the icon, false if they must not include the icon
+     */
+    protected void filterIcon(Collection<String> cards, Icon icon, boolean include) {
+        Iterator<String> iterator = cards.iterator();
+        while(iterator.hasNext()) {
+            String blueprintId = iterator.next();
+            if(blueprintId.contains("_")) {
+                SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                if (blueprint != null && (blueprint.hasIcon(icon)!=include)) {
+                        iterator.remove();
                 }
             }
         }

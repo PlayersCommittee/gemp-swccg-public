@@ -17,11 +17,13 @@ public interface ProductName {
     String ENDOR_BOOSTER_PACK_NO_RANDOM_FOIL = "Endor Booster Pack (no random foils)";
     String DEATH_STAR_II_BOOSTER_PACK = "Death Star II Booster Pack";
     String TATOOINE_BOOSTER_PACK = "Tatooine Booster Pack";
+    String TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY = "Tatooine Booster Pack (Episode I only)";
     String CORUSCANT_BOOSTER_PACK = "Coruscant Booster Pack";
     String THEED_PALACE_BOOSTER_PACK = "Theed Palace Booster Pack";
     String REFLECTIONS_BOOSTER_PACK = "Reflections Booster Pack";
     String REFLECTIONS_II_BOOSTER_PACK = "Reflections II Booster Pack";
     String REFLECTIONS_III_BOOSTER_PACK = "Reflections III Booster Pack";
+    String REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS = "Reflections III Booster Pack (Episode I only no shields)";
 
     // Booster box
     String PREMIERE_BOOSTER_BOX = "Premiere Booster Box";
