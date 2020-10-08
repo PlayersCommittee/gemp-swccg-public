@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -31,7 +32,7 @@ public class Card501_094 extends AbstractSystem {
     public Card501_094() {
         super(Side.LIGHT, Title.Kessel, 8);
         setLocationDarkSideGameText("If you control, Kessel Run is prevented (canceled).");
-        setLocationLightSideGameText("While you occupy with Chewie, Han, Lando, Qi'ra, or Falcon, Kessel Run may not be canceled.");
+        setLocationLightSideGameText("While Chewie, Han, Lando, Qi'ra, or piloted Falcon here, Kessel Run may not be canceled.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.PLANET);
@@ -72,7 +73,7 @@ public class Card501_094 extends AbstractSystem {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotBeCanceledModifier(self, Filters.Kessel_Run, new OccupiesWithCondition(playerOnLightSideOfLocation, self, Filters.or(Filters.Chewie, Filters.Han, Filters.Lando, Filters.Qira, Filters.Falcon))));
+        modifiers.add(new MayNotBeCanceledModifier(self, Filters.Kessel_Run, new HereCondition(self, Filters.or(Filters.Chewie, Filters.Han, Filters.Lando, Filters.Qira, Filters.and(Filters.Falcon,Filters.piloted)))));
         return modifiers;
     }
 }
