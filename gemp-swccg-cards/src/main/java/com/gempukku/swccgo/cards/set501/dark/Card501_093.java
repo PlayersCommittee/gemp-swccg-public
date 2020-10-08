@@ -30,14 +30,14 @@ import java.util.List;
  * Set: Set 13
  * Type: Interrupt
  * Subtype: Used Or Lost
- * Title: There Are Some Things Far More Frightening Than Death
+ * Title: Far More Frightening Than Death
  */
 public class Card501_093 extends AbstractUsedOrLostInterrupt {
     public Card501_093() {
-        super(Side.DARK, 4, "There Are Some Things Far More Frightening Than Death", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Far More Frightening Than Death", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Stack top card of Lost Pile (as a 'Hatred' card) face down on opponent's leader or character of ability >3 at a battleground. " +
-                "LOST: Add 1 battle destiny If your Inquisitor is in battle with a Jedi, Padawan, or ‘hatred’ card (2 if all three) OR move an inquisitor as a 'react'.");
+        setGameText("USED: Stack top card of Lost Pile face down (as a 'Hatred' card) on opponent's leader (or character of ability > 3) at a battleground. "
+                + "LOST: If your Inquisitor in battle with a Jedi, Padawan, or 'Hatred' card, add one battle destiny (add two if with all three).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("There Are Some Things Far More Frightening Than Death");
     }
@@ -97,44 +97,6 @@ public class Card501_093 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
         return actions;
-    }
-
-
-    @Override
-    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        String opponent = game.getOpponent(playerId);
-        Filter inquisitorFilter = Filters.and(Filters.your(self), Filters.inquisitor, Filters.canMoveAsReactAsActionFromOtherCard(self, false, 0, false));
-
-        // Check condition(s)
-        if ((TriggerConditions.forceDrainInitiatedBy(game, effectResult, opponent)
-                || TriggerConditions.battleInitiated(game, effectResult, opponent))
-                && GameConditions.canTarget(game, self, inquisitorFilter)) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Move inquisitor as 'react'");
-            // Choose target(s)
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose inquisitor", inquisitorFilter) {
-                        @Override
-                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
-                            action.addAnimationGroup(targetedCard);
-                            // Allow response(s)
-                            action.allowResponses("Move " + GameUtils.getCardLink(targetedCard) + " as a 'react'",
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Get the final targeted card(s)
-                                            final PhysicalCard finalInquisitor = targetingAction.getPrimaryTargetCard(targetGroupId);
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new MoveAsReactEffect(action, finalInquisitor, false));
-                                        }
-                                    });
-                        }
-                    });
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 
     private PlayInterruptAction getAction(PhysicalCard self, SwccgGame game, final int numDestinies) {
