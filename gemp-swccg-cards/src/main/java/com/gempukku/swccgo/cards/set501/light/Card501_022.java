@@ -52,13 +52,13 @@ public class Card501_022 extends AbstractAlien {
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        if (TriggerConditions.justDeployedToLocation(game, effectResult, playerId, Filters.smuggler, Filters.here(self))
+        if (TriggerConditions.justDeployedToLocation(game, effectResult, playerId, Filters.and(Filters.your(self.getOwner()),Filters.smuggler), Filters.here(self))
                 && GameConditions.hasHand(game, playerId)
                 && GameConditions.hasReserveDeck(game, playerId)
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Activate 2 force");
-            action.setActionMsg("Place a card from hand on used pile to activate two force");
+            action.setActionMsg("Place a card from hand on used pile to activate 2 force");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );
@@ -68,15 +68,18 @@ public class Card501_022 extends AbstractAlien {
             action.appendEffect(
                     new ActivateForceEffect(action, playerId, 2)
             );
+
+            actions.add(action);
         }
 
         GameTextActionId gameTextActionId1 = GameTextActionId.RIO_DURANT__STEAL_STARSHIP;
         if (TriggerConditions.wonBattle(game, effectResult, playerId)
                 && GameConditions.hasLostPile(game, game.getOpponent(playerId))
+                && GameConditions.canSearchOpponentsLostPile(game, playerId, self, gameTextActionId1)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId1)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId1);
-            action.setText("Steel starfighter");
+            action.setText("Steal a starfighter");
             action.setActionMsg("Steal a starfighter from opponent’s Lost Pile");
             action.appendUsage(
                     new OncePerGameEffect(action)

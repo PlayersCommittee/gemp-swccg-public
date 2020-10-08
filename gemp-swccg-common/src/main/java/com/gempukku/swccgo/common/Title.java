@@ -869,6 +869,7 @@ public interface Title {
     String Secret_Plans = "Secret Plans";
     String Security_Precautions = "Security Precautions";
     String Security_Tower = "Cloud City: Security Tower";
+    String Seeking_An_Audience = "Seeking An Audience";
     String Sei_Taria = "Sei Taria";
     String Sense = "Sense";
     String Set_For_Stun = "Set For Stun";

@@ -29,7 +29,7 @@ public enum ModifyGameTextType {
     HUNT_DOWN__DO_NOT_PLACE_OUT_OF_PLAY_IF_MAUL_DUELS("Not placed out of play if Maul initiates a duel"),
     IT_IS_THE_FUTURE_YOU_SEE__STACK_DESTINY_CARD_ON_JEDI_TEST_5("Stack destiny card on Jedi Test #5"),
     IMPERIAL_DECREE__DOES_NOT_COUNT_YAVIN_4_LOCATIONS("Does not count Yavin 4 locations"),
-    LEIA_JABBAS_PALACE__DEPLOY_AS_ESCORTED_CAPTIVE_TO_NON_BOUNTY_HUNTERS("[Jabba's Palace Expansion] Leia may deploy as an escorted captive of any warrior at Audience Chamber"),
+    LEIA_JABBAS_PALACE__TARGET_WARRIOR_AT_AUDIENCE_CHAMBER_INSTEAD_OF_JABBA("[Jabba's Palace] Leia may target a warrior at Audience Chamber instead of Jabba"),
     LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES_AND_R2D2("May target only Undercover spies and R2-D2"),
     LOST_IN_THE_WILDERNESS__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
     JAWA_SIESTA__DOUBLED_BY_KALIT("Doubled And May Deploy For Free"),

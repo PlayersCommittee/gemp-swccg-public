@@ -806,7 +806,7 @@ public class HallServer extends AbstractServer {
             allowTimerExtensions = league.getAllowTimeExtensions();
             timePerPlayerMinutes = league.getTimePerPlayerMinutes();
         }
-        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, !awaitingTable.isPrivate(), (league == null)||!awaitingTable.isPrivate(), allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes, awaitingTable.isPrivate());
+        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getSwccgoFormat(), getTournamentName(awaitingTable), league != null ? null : awaitingTable.getTableDesc(), allowSpectators, true, !awaitingTable.isPrivate(), (league == null)&&!awaitingTable.isPrivate(), allowTimerExtensions, decisionTimeoutSeconds, timePerPlayerMinutes, awaitingTable.isPrivate());
         _awaitingTables.remove(tableId);
         removeWaitingTablesWithPlayers(players);
     }
