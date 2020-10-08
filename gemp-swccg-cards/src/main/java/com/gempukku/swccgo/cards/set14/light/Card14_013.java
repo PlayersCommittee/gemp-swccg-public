@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Species;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,6 +28,7 @@ public class Card14_013 extends AbstractAlien {
         setGameText("Your Gungan leaders present may not be targeted by weapons. While defending a battle on Naboo, Power +4 and, whenever you draw a Gungan for battle destiny, add 3 to that destiny. Requires +2 Force to use landspeed.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);
         setSpecies(Species.GUNGAN);
+        addKeyword(Keyword.GUARD);
     }
 
     @Override

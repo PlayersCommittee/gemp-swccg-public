@@ -35,6 +35,7 @@ public class Card6_105 extends AbstractAlien {
         setGameText("Deploys only to Tatooine. Power -1 when not at a Tatooine site. May be sacrificed (lost) to cancel an attack just initiated by a creature present.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         setSpecies(Species.GAMORREAN);
+        addKeyword(Keyword.GUARD);
     }
 
     @Override
