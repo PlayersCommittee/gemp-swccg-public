@@ -39,7 +39,7 @@ public class Card501_093 extends AbstractUsedOrLostInterrupt {
         setGameText("USED: Stack top card of Lost Pile face down (as a 'Hatred' card) on opponent's leader (or character of ability > 3) at a battleground. "
                 + "LOST: If your Inquisitor in battle with a Jedi, Padawan, or 'Hatred' card, add one battle destiny (add two if with all three).");
         addIcons(Icon.VIRTUAL_SET_13);
-        setTestingText("There Are Some Things Far More Frightening Than Death");
+        setTestingText("Far More Frightening Than Death");
     }
 
     @Override
