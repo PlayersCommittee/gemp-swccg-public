@@ -17583,6 +17583,7 @@ public class Filters {
     public static final Filter Grievous = Filters.persona(Persona.GRIEVOUS);
     public static final Filter Grimtaash = Filters.title(Title.Grimtaash);
     public static final Filter Grond = Filters.title(Title.Grond);
+    public static final Filter guard = Filters.or(Keyword.GUARD, Keyword.BODYGUARD, Keyword.MAGNAGUARD, Keyword.ROYAL_GUARD, Keyword.CORUSCANT_GUARD, Keyword.IMPERIAL_TROOPER_GUARD);
     public static final Filter Gungan = Filters.species(Species.GUNGAN);
     public static final Filter Gungan_Energy_Shield = Filters.title(Title.Gungan_Energy_Shield);
     public static final Filter gunner = Filters.keyword(Keyword.GUNNER);

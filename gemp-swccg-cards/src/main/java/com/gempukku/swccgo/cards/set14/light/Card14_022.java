@@ -34,7 +34,7 @@ public class Card14_022 extends AbstractRepublic {
         setLore("Royal Naboo security guard who can disassemble and reassemble a Naboo blaster in less than sixty seconds. During the occupation, was a prisoner at Camp Four.");
         setGameText("Once during your deploy phase, may use 1 Force to relocate Perosei to an adjacent Naboo site. While with a Republic character during battle, may place Perosei out of play to add 5 to your total power this battle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);
-        addKeywords(Keyword.ROYAL_NABOO_SECURITY);
+        addKeywords(Keyword.ROYAL_NABOO_SECURITY, Keyword.GUARD);
     }
 
     @Override
