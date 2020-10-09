@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Card201_006 extends AbstractDroid {
     public Card201_006() {
-        super(Side.LIGHT, 2, 1, 1, 4, "R2-D2 (Artoo-Detoo)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 4, "R2-D2 (Artoo-Detoo)", Uniqueness.UNIQUE);
         setAlternateDestiny(5);
         setVirtualSuffix(true);
         setLore("Fiesty. Loyal. Heroic. Insecure. Rebel spy. Excels at trouble. Incorrigible counterpart of a mindless philosopher. Has picked up a slight flutter. A bit eccentric.");
