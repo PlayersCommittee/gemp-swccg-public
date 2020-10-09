@@ -102,7 +102,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             if (!validPlaysFromHandOnly.isEmpty() || canDeployCardFromReserveDeck) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, downloadLightsaberActionId, CardSubtype.USED);
-                action.setText("Deploy lightsaber from hand/Reserve Deck");
+                action.setText("Deploy a lightsaber");
                 // Allow response(s)
                 action.allowResponses(
                         new RespondablePlayCardEffect(action) {
