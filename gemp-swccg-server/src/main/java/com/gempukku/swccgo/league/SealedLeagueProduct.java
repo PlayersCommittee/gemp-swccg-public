@@ -113,6 +113,8 @@ public class SealedLeagueProduct {
         firstWeek.addItem("12_78",1); //Naboo (Light)
         firstWeek.addItem("12_172",1); //Naboo: Theed Palace Courtyard (Dark)
         firstWeek.addItem("12_81",1); //Naboo: Theed Palace Courtyard (Light)
+        firstWeek.addItem("12_184",1); //Trade Federation Battleship
+        firstWeek.addItem("12_91",1); //Queen's Royal Starship
 
         episodeISealed.add(firstWeek);
 
