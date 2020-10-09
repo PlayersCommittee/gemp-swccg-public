@@ -99,10 +99,10 @@ public class SealedLeagueProduct {
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
         //first week
-        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 4);
-        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,4);
-        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 4);
-        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,4);
+        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 5);
+        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,5);
+        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 5);
+        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,5);
         firstWeek.addItem("12_62",1); //Mindful Of The Future
         firstWeek.addItem("12_154",1); //Neimoidian Advisor
         firstWeek.addItem("11_93",1); //Tatooine: Mos Espa (Dark)
