@@ -3312,6 +3312,7 @@ var packBlueprints = {
     "Tatooine Booster Pack":"/gemp-swccg/images/packs/tatooine_booster_pack.png",
     "Tatooine Booster Pack (Episode I only)":"/gemp-swccg/images/packs/tatooine_booster_pack.png",
     "Coruscant Booster Pack":"/gemp-swccg/images/packs/coruscant_booster_pack.png",
+    "Coruscant Booster Pack (Episode I only)":"/gemp-swccg/images/packs/coruscant_booster_pack.png",
     "Theed Palace Booster Pack":"/gemp-swccg/images/packs/theed_palace_booster_pack.png",
     "Reflections Booster Pack":"/gemp-swccg/images/packs/reflections_booster_pack.png",
     "Reflections II Booster Pack":"/gemp-swccg/images/packs/reflections_2_booster_pack.png",

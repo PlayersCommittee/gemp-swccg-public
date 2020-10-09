@@ -19,6 +19,7 @@ public interface ProductName {
     String TATOOINE_BOOSTER_PACK = "Tatooine Booster Pack";
     String TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY = "Tatooine Booster Pack (Episode I only)";
     String CORUSCANT_BOOSTER_PACK = "Coruscant Booster Pack";
+    String CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY = "Coruscant Booster Pack (Episode I only)";
     String THEED_PALACE_BOOSTER_PACK = "Theed Palace Booster Pack";
     String REFLECTIONS_BOOSTER_PACK = "Reflections Booster Pack";
     String REFLECTIONS_II_BOOSTER_PACK = "Reflections II Booster Pack";

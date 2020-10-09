@@ -60,6 +60,8 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new CoruscantBoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new CoruscantBoosterPack(library, false);
+            packStorage.addPackagedProduct(product.getProductName(), product);
             product = new TheedPalaceBoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
 

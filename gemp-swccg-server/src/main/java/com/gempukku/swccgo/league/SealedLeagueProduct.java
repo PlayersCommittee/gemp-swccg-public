@@ -100,8 +100,7 @@ public class SealedLeagueProduct {
         MutableCardCollection firstWeek = new DefaultCardCollection();
         //first week
         firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 4);
-        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK,4);
-        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK,3);
+        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,4);
         firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 4);
         firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,4);
         firstWeek.addItem("12_62",1); //Mindful Of The Future
@@ -114,15 +113,14 @@ public class SealedLeagueProduct {
         firstWeek.addItem("12_78",1); //Naboo (Light)
         firstWeek.addItem("12_172",1); //Naboo: Theed Palace Courtyard (Dark)
         firstWeek.addItem("12_81",1); //Naboo: Theed Palace Courtyard (Light)
-        firstWeek.addItem("(S)Booster Choice -- Non-Reflections",1);
 
         episodeISealed.add(firstWeek);
 
         MutableCardCollection secondWeek = new DefaultCardCollection();
         //second week
         secondWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 2);
-        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK,2);
-        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 2);
+        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,2);
+        secondWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 2);
         secondWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,2);
         episodeISealed.add(secondWeek);
 
