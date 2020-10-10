@@ -28,8 +28,8 @@ import java.util.List;
 public class Card501_016 extends AbstractSite {
     public Card501_016() {
         super(Side.DARK, "Malachor: Sith Temple Entrance", Title.Malachor);
-        setLocationDarkSideGameText("You initiate battles free here. Unless you occupy, Inquisitors deploy -1 here.");
-        setLocationLightSideGameText("Once per game you may deploy a padawan (except Anakin) here from Reserve Deck; reshuffle.");
+        setLocationDarkSideGameText("You initiate battles here for free. Unless you occupy, Inquisitors deploy -1 here.");
+        setLocationLightSideGameText("Once per game, you may deploy a Padawan (except Anakin) here from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.UNDERGROUND, Icon.PLANET, Icon.VIRTUAL_SET_13);

@@ -31,8 +31,8 @@ public class Card501_066 extends AbstractSite {
     public Card501_066() {
         super(Side.DARK, Title.Exegol_Sith_Throne, Title.Exegol);
         addIcon(Icon.DARK_FORCE, 2);
-        setLocationDarkSideGameText("Once per game, you may deploy [Episode VII] Emperor here from Reserve Deck.");
-        setLocationLightSideGameText("Force drains and [Light Side] icons are canceled here. Your characters deploy +2 here.");
+        setLocationDarkSideGameText("Once per game, may deploy [Episode VII] Emperor here from Reserve Deck; reshuffle.");
+        setLocationLightSideGameText("No Force drains here. [Light Side] icons are canceled here. Your characters deploy +2 here.");
         addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.EPISODE_VII, Icon.VIRTUAL_SET_13);
         setTestingText("Exegol: Sith Throne");
     }

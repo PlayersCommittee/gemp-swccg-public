@@ -31,9 +31,11 @@ public class Card501_007 extends AbstractUsedOrLostInterrupt {
     public Card501_007() {
         super(Side.LIGHT, 4, "Help Me Obi-Wan Kenobi & Quite A Mercenary");
         addComboCardTitles(Title.Help_Me_Obi_Wan_Kenobi, Title.Quite_A_Mercenary);
-        setGameText("If opponent’s Audience Chamber on table, opponent loses 1 Force when you play this Interrupt." +
-                "USED: Cancel None Shall Pass (unless targeting your [PW] or [M] Rebel) or Elis Helrot (Immune to Sense) OR Cancel a smuggler's game text for remainder of turn." +
-                "LOST: During your move phase, 'break cover' of an Undercover spy. OR During battle involving your smuggler or Jedi, exclude opponent’s character of ability < 2.");
+        setGameText("If opponent's Audience Chamber on table, opponent loses 1 Force when you play this Interrupt. " +
+                "USED: Cancel None Shall Pass (unless targeting your [Maintenance] or [Permanent Weapon] Rebel) or Elis Helrot. [Immune to Sense.] " +
+                "OR Cancel a smuggler's game text for remainder of turn. " +
+                "LOST: During your move phase, 'break cover' of an Undercover spy. OR " +
+                "During battle, target an opponent's character of ability < 2 with your Jedi or smuggler; target is excluded from battle.");
         addIcon(Icon.VIRTUAL_SET_13);
         setTestingText("Help Me Obi-Wan Kenobi & Quite A Mercenary");
     }

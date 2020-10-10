@@ -27,7 +27,7 @@ public class Card501_079 extends AbstractImperial {
     public Card501_079() {
         super(Side.DARK, 2, 4, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE);
         setLore("Female Dowutin. Inquisitor.");
-        setGameText("Defense value -2 if opponent's weapon here. Unless opponent's character of ability > 3 here, opponent's total battle destiny at same site = 0.");
+        setGameText("Defense value -2 while opponent has a weapon present. Unless opponent's character of ability > 3 at same site, reset opponent's total battle destiny here to 0.");
         setSpecies(Species.DOWUTIN);
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);

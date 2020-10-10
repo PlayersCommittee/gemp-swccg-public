@@ -28,8 +28,8 @@ import java.util.List;
 public class Card501_057 extends AbstractUniqueStarshipSite {
     public Card501_057() {
         super(Side.DARK, "First Light: Reception Area", Persona.FIRST_LIGHT);
-        setLocationDarkSideGameText("Your Force generation here is +1 if your unique (•) alien here (+2 for Margo).");
-        setLocationLightSideGameText("Force drain -1 here (if your smuggler here, Force drain +1 instead)");
+        setLocationDarkSideGameText("While your unique (•) alien here, your Force generation is +1 here (+2 if Margo).");
+        setLocationLightSideGameText("Force drain -1 here (if your smuggler here, Force drain +1 instead).");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.VIRTUAL_SET_13, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.MOBILE, Icon.STARSHIP_SITE);

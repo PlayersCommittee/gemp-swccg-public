@@ -32,7 +32,7 @@ public class Card501_053 extends AbstractUsedInterrupt {
     public Card501_053() {
         super(Side.DARK, 4, "Imperial Code Cylinder");
         setLore("");
-        setGameText("Take a non-spy Captain (or Krennic) into hand from Reserve Deck; reshuffle. OR 'glance' at the bottom card of any pile. OR if your Captain in battle with your other leader, cancel a destiny draw during the power segment of battle (except a battle destiny)");
+        setGameText("Take Krennic or a non-spy captain into hand from Reserve Deck; reshuffle. OR Peek at the bottom card of any deck or pile. OR During the power segment of a battle, if your captain in battle with your leader, cancel one destiny just drawn (except a battle destiny).");
         addIcons(Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
         setTestingText("Imperial Code Cylinder");

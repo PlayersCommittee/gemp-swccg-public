@@ -15,10 +15,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotReactToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -36,7 +33,7 @@ public class Card501_045 extends AbstractAlien {
     public Card501_045() {
         super(Side.DARK, 1, 6, 4, 3, 6, "Dryden Vos", Uniqueness.UNIQUE);
         setLore("Crimson Dawn leader. Gangster.");
-        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. While armed and present at a site, opponent may not react at same site. Immune to attrition < 5 (< 3 if with Qi'ra).");
+        setGameText("Deploys -2 if Maul on table. When deployed, may deploy a weapon on Vos from Reserve Deck; reshuffle. While armed and present at a site, opponent may not 'react' to or from here. Immune to attrition < 5 (< 3 if with Qi'ra).");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER, Keyword.GANGSTER);
         setArmor(5);
@@ -56,6 +53,7 @@ public class Card501_045 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(5, 3, new WithCondition(self, Filters.persona(Persona.QIRA)))));
         modifiers.add(new MayNotReactToLocationModifier(self, Filters.sameSite(self), new AndCondition(new ArmedWithCondition(self, Filters.any), new PresentAtCondition(self, Filters.site)), game.getOpponent(self.getOwner())));
+        modifiers.add(new MayNotReactFromLocationModifier(self, Filters.sameSite(self), new AndCondition(new ArmedWithCondition(self, Filters.any), new PresentAtCondition(self, Filters.site)), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 
@@ -70,7 +68,7 @@ public class Card501_045 extends AbstractAlien {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy weapon from Reserve Deck");
-            action.setActionMsg("Deploy a weapon here from Reserve Deck");
+            action.setActionMsg("Deploy a weapon on Vos from Reserve Deck");
 
             // Perform result(s)
             action.appendEffect(
