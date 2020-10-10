@@ -30,17 +30,12 @@ public class MindscanCharacterUntilEndOfBattleEffect extends AddModifierWithDura
 
         //TODO if mindscanned character is a maintenance card give Bane a maintenance icon
         //TODO if mindscanned character has a keyword from its game text (Lando Calrissian (V) is a smuggler, for example) add that
-        //TODO need to give Bane Malar all of the mindscanned character's modifiers since you can't do that in getGameTextWhileActiveInPlayModifiers
         if(game.getModifiersQuerying().hasMindscannedCharacter(game.getGameState(), _self)) {
-            int i=0;
-//            System.out.println("debug Bane Malar modifiers from source size="+game.getModifiersQuerying().getModifiersFromSource(game.getGameState(), _mindscanned).size());
-            System.out.println("debug Bane Malar modifiers from source size="+_mindscanned.getBlueprint().getWhileInPlayModifiers(game, _mindscanned).size());
             for(Modifier m: _mindscanned.getBlueprint().getWhileInPlayModifiers(game, _mindscanned)) {//game.getModifiersQuerying().getModifiersFromSource(game.getGameState(), _mindscanned)) {
-                System.out.println("debug Bane Malar "+(i++)+": "+m.getModifierType().toString() + "\t" + m.getForPlayer());
                 try {
                     game.getModifiersEnvironment().addUntilEndOfBattleModifier(m.getCopyWithNewSource(_self, _self.getOwner(), game.getOpponent(_self.getOwner()),true));
                 } catch(CloneNotSupportedException e) {
-                    System.out.println("Bane Malar: clone modifier not allowed");
+                    System.out.println("Bane Malar: cloning modifier not allowed");
                 }
             }
         }

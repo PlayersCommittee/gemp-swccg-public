@@ -94,7 +94,7 @@ public class Card6_095 extends AbstractAlien {
 
                                             action.appendEffect(new MindscanCharacterUntilEndOfBattleEffect(action,
                                                     new MindscannedCharacterModifier(self, mindscannedCharacter),
-                                                    "Mindscanned "+GameUtils.getFullName(mindscannedCharacter),
+                                                    "Mindscanned "+GameUtils.getCardLink(mindscannedCharacter),
                                                     self,
                                                     mindscannedCharacter)
                                             );
