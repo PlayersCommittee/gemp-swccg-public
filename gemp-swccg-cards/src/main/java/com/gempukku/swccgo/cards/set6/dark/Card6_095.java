@@ -13,15 +13,14 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
-import com.gempukku.swccgo.logic.effects.RespondableEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -46,23 +45,6 @@ public class Card6_095 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 3));
-        //should probably have a MindscannedCharacterCondition or something like that
-        modifiers.add(new PowerModifier(self, new Evaluator() {
-            @Override
-            public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                if(modifiersQuerying.hasMindscannedCharacter(gameState,self))
-                    return modifiersQuerying.getMindscannedCharacterBlueprint(gameState, cardAffected).getPower();
-                return 0;
-            }
-
-            @Override
-            public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected, PhysicalCard otherCard) {
-                if(modifiersQuerying.hasMindscannedCharacter(gameState,self))
-                    return modifiersQuerying.getMindscannedCharacterBlueprint(gameState, cardAffected).getPower();
-                return 0;
-            }
-        }));
-
         return modifiers;
     }
 
@@ -95,20 +77,28 @@ public class Card6_095 extends AbstractAlien {
                                         protected void performActionResults(Action targetingAction) {
                                             // Get the targeted card(s) from the action using the targetGroupId.
                                             // This needs to be done in case the target(s) were changed during the responses.
-                                            final PhysicalCard character = targetingAction.getPrimaryTargetCard(targetGroupId);
+                                            final PhysicalCard mindscannedCharacter = targetingAction.getPrimaryTargetCard(targetGroupId);
 
+
+                                            // Perform result(s)
+
+                                            //add the mindscanned character's power to Bane Malar
+                                            action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                    new PowerModifier(self, self, game.getModifiersQuerying().getPower(game.getGameState(), mindscannedCharacter)),
+                                                    null)
+                                            );
 
                                             //TODO check if the mindscanned character's game text was canceled at the time
                                             //https://forum.starwarsccg.org/viewtopic.php?p=1208646#p1208646
                                             //If you cancel Leia's text first, then try to use Bane, there is a blank text box for him to copy. In order words, Bane IS allowed to do the copy, but he won't add any text (he still gets to add Leia's power to his own).
 
-                                            //TODO need to note what the mindscanned character's power was at the time to add that instead of their printed power
-                                            
+                                            action.appendEffect(new MindscanCharacterUntilEndOfBattleEffect(action,
+                                                    new MindscannedCharacterModifier(self, mindscannedCharacter),
+                                                    "Mindscanned "+GameUtils.getFullName(mindscannedCharacter),
+                                                    self,
+                                                    mindscannedCharacter)
+                                            );
 
-                                            // Perform result(s)
-                                            action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
-                                                    new MindscannedCharacterModifier(self, character),
-                                                    "Mindscanned "+GameUtils.getFullName(character)));
                                         }
                                     });
                         }
@@ -134,8 +124,6 @@ public class Card6_095 extends AbstractAlien {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
         if(game.getModifiersQuerying().hasMindscannedCharacter(game.getGameState(), self)) {
-            System.out.println("debug: trying to get the top level actions of the mindscanned character");
-
             for(Action a:(game.getModifiersQuerying().getMindscannedCharacterBlueprint(game.getGameState(), self)).getTopLevelActions(self.getOwner(), game, self))
                 actions.add((TopLevelGameTextAction) a);
         }
@@ -157,6 +145,50 @@ public class Card6_095 extends AbstractAlien {
         return actions;
     }
 
+    protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        //TODO ask about what happens if he is excluded from the battle
+        return null;
+    }
 
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggersWhenInactiveInPlay(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggersWhenInactiveInPlay(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalBeforeTriggers(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalBeforeTriggersWhenInactiveInPlay(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggersWhenInactiveInPlay(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggersAlwaysWhenInPlay(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
 
 }

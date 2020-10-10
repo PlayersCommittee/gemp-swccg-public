@@ -18,7 +18,7 @@ import java.util.Collection;
 // modifier to see "if" and "how much" a particular
 // modifier affects a card or the game.
 //
-public abstract class AbstractModifier implements Modifier {
+public abstract class AbstractModifier implements Modifier, Cloneable {
     private Integer _permCardId;
     protected String _playerId; // tells which player if affected by the modifier, if it only affects one player
     private String _locationSidePlayer; // tells which players side of location the modifier is from
@@ -35,6 +35,7 @@ public abstract class AbstractModifier implements Modifier {
     private Filter _affectFilter;
     private Condition _condition;
     private ModifierType _effect;
+    private boolean _affectFilterIsSelf;
 
     protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, ModifierType effect) {
         this(source, text, affectFilter, null, effect, false);
@@ -52,10 +53,40 @@ public abstract class AbstractModifier implements Modifier {
         _permCardId = source != null ? source.getPermanentCardId() : null;
         _locationSidePlayer = null;
         _text = text;
+        _affectFilterIsSelf = (source==affectFilter);
         _affectFilter = (affectFilter != null) ? Filters.and(affectFilter) : null;
         _condition = condition;
         _effect = effect;
         _cumulative = cumulative;
+    }
+
+    public void setSource(PhysicalCard source) {
+        _permCardId = source != null ? source.getPermanentCardId() : null;
+    }
+
+    public void setAffectFilter(Filterable affectFilter) {
+        _affectFilter = (affectFilter != null) ? Filters.and(affectFilter) : null;
+    }
+
+    public void setPlayerAffected(String playerId) {
+        _playerId = playerId;
+    }
+
+    public Modifier getCopyWithNewSource(PhysicalCard source, String newOwner, String opponent, boolean swapSideAffected) throws CloneNotSupportedException {
+        AbstractModifier result = (AbstractModifier)this.clone();
+        String playerId = result.getForPlayer();
+        if(playerId!=null&&swapSideAffected) {
+            if(playerId.equals(newOwner)) {
+                result.setPlayerAffected(opponent);
+            } else {
+                result.setPlayerAffected(newOwner);
+            }
+        }
+        result.setSource(source);
+        //if the modifier affects itself change the _affectFilter as well
+        if(_affectFilterIsSelf)
+            result.setAffectFilter(source);
+        return result;
     }
 
     @Override
@@ -1429,5 +1460,9 @@ public abstract class AbstractModifier implements Modifier {
     @Override
     public boolean mayNotCancelDestiny(String playerDrawing, String playerToModify) {
         return false;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

@@ -4494,4 +4494,6 @@ public interface ModifiersQuerying {
     boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card);
 
     SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
+
+    List<Modifier> getModifiersFromSource(GameState gameState, PhysicalCard source);
 }

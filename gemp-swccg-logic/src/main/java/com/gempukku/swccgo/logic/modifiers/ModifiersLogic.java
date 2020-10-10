@@ -16083,4 +16083,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         return null;
     }
+
+    public List<Modifier> getModifiersFromSource(GameState gameState, PhysicalCard source) {
+        List<Modifier> modifierList = new LinkedList<Modifier>();
+        if (_modifiers!=null) {
+            for (List<Modifier> modList : _modifiers.values()) {
+                if (modList != null) {
+                    for (Modifier m : modList) {
+                        if (m.getSource(gameState).equals(source)) {
+                            modifierList.add(m);
+                        }
+                    }
+                }
+            }
+        }
+        return modifierList;
+    }
 }
