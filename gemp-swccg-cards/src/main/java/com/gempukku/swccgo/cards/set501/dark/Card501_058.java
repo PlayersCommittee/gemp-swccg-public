@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -136,9 +135,6 @@ public class Card501_058 extends AbstractObjective {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make opponent lose 1 force");
             action.setActionMsg("Make opponent lose 1 force");
-            action.appendUsage(
-                    new OncePerGameEffect(action)
-            );
             action.appendEffect(
                     new LoseForceEffect(action, game.getOpponent(playerId), 1)
             );
