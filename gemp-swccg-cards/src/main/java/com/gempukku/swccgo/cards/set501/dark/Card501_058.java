@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
@@ -22,7 +23,6 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -74,6 +74,8 @@ public class Card501_058 extends AbstractObjective {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
+
         GameTextActionId gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
 
         // Check condition(s)
@@ -101,10 +103,25 @@ public class Card501_058 extends AbstractObjective {
                         }
                     });
 
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
-        return null;
+        // Check condition(s)
+        if (GameConditions.isDuringYourPhase(game, self, Phase.BATTLE)
+                && GameConditions.canBeFlipped(game, self)
+                && GameConditions.controlsWith(game, self, playerId, 2, Filters.battleground, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.gangster)) {
+
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            action.setSingletonTrigger(true);
+            action.setText("Flip");
+            action.setActionMsg(null);
+            // Perform result(s)
+            action.appendEffect(
+                    new FlipCardEffect(action, self));
+            actions.add(action);
+        }
+
+        return actions;
     }
 
     @Override
@@ -113,10 +130,20 @@ public class Card501_058 extends AbstractObjective {
 
         String playerId = self.getOwner();
 
+        if (TriggerConditions.cardFlipped(game, effectResult, self)
+                && GameConditions.occupies(game, playerId, 3, Filters.battleground)) {
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Make opponent lose 1 force");
+            action.setActionMsg("Make opponent lose 1 force");
+            action.appendEffect(
+                    new LoseForceEffect(action, game.getOpponent(playerId), 1)
+            );
+            actions.add(action);
+        }
+
         // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)
+        if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.BATTLE)
                 && GameConditions.canBeFlipped(game, self)
-                && GameConditions.isDuringYourPhase(game, playerId, Phase.BATTLE)
                 && GameConditions.controlsWith(game, self, playerId, 2, Filters.battleground, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.gangster)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

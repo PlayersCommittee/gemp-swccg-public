@@ -3,24 +3,31 @@ package com.gempukku.swccgo.cards.set501.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
+import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -91,10 +98,46 @@ public class Card501_096 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.character, Filters.not(Filters.or(Filters.droid, Filters.Imperial, Filters.bounty_hunter))), self.getOwner()));
         modifiers.add(new DestinyModifier(self, Filters.inquisitor, 2));
-        modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.inquisitor), new ConditionEvaluator(1, 2, new OrCondition(new AtCondition(self, Filters.hasStacked(Filters.hatredCard)), new HereCondition(self, Filters.hasStacked(Filters.hatredCard)))), self.getOwner()));
+        modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.inquisitor), new ConditionEvaluator(1, 2, new OrCondition(new DuringBattleAtCondition(Filters.hasStacked(Filters.hatredCard)), new DuringBattleWithParticipantCondition(Filters.hasStacked(Filters.hatredCard)))), self.getOwner()));
         return modifiers;
     }
 
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.HUNT_DOWN_V__TAKE_VADER_INTO_HAND;
+        if (TriggerConditions.cardFlipped(game, effectResult, self)
+                && GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canSpot(game, self, Filters.and(Filters.site, Filters.controlsWith(playerId, self, Filters.Vader)))) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Take Vader into Hand");
+            action.setActionMsg("Take Vader into Hand");
+            action.appendUsage(
+                    new OncePerGameEffect(action)
+            );
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose Vader to take into hand", Filters.Vader) {
+                        @Override
+                        protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            // Allow response(s)
+                            action.allowResponses("Take " + GameUtils.getCardLink(targetedCard) + " into hand",
+                                    new UnrespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new ReturnCardToHandFromTableEffect(action, targetedCard, Zone.HAND, Zone.LOST_PILE));
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
