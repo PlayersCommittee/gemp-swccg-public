@@ -72,7 +72,7 @@ public class Card209_029_BACK extends AbstractObjective {
 
         GameTextActionId gameTextActionId = GameTextActionId.UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE;
 
-        final Filter rebelFilter = Filters.and(Filters.Rebel, Filters.character);
+        final Filter rebelSpyFilter = Filters.and(Filters.Rebel, Filters.spy, Filters.character);
 
         // Check condition(s) - Once per turn, may place a Rebel in your Lost Pile out of play to ... make a regular
         // move with your spy during your control phase.
@@ -81,7 +81,7 @@ public class Card209_029_BACK extends AbstractObjective {
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId))
         {
             // Look for spies who can move (Modified version of Black Sun Fleet)
-            Collection<PhysicalCard> spies = Filters.filterActive(game, self, Filters.and(Filters.your(self), Filters.spy));
+            Collection<PhysicalCard> spies = Filters.filterActive(game, self, Filters.and(Filters.your(self), Filters.spy, Filters.Rebel));
             if (!spies.isEmpty()) {
                 List<PhysicalCard> validSpies = new ArrayList<PhysicalCard>();
                 for (PhysicalCard spy : spies) {
@@ -108,7 +108,7 @@ public class Card209_029_BACK extends AbstractObjective {
 
                                     // Pay cost(s)
                                     action.appendCost(
-                                            new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelFilter, false));
+                                            new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelSpyFilter, false));
 
                                     action.addAnimationGroup(rebel);
                                     action.setActionMsg("Have " + GameUtils.getCardLink(rebel) + " make a regular move");
