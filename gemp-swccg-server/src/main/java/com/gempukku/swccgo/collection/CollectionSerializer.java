@@ -249,7 +249,7 @@ public class CollectionSerializer {
                 collection.addItem(blueprintId + "*", foilCount);
 
         }
-        System.out.println("end of 1");
+
         return collection;
     }
 
