@@ -27,8 +27,8 @@ import java.util.List;
 public class Card501_055 extends AbstractSite {
     public Card501_055() {
         super(Side.DARK, Title.Dathomir_Mauls_Chambers, Title.Dathomir);
-        setLocationDarkSideGameText("May deploy Maul here from Reserve Deck; reshuffle");
-        setLocationLightSideGameText("Jar Jar and your spies (except Ezra) may not deploy here. Opponent may not force drain here.");
+        setLocationDarkSideGameText("May deploy [Set 13] Maul here from Reserve Deck; reshuffle.");
+        setLocationLightSideGameText("Jar Jar and your spies (except Ezra) may not deploy here. Opponent may not Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
         setTestingText("Dathomir: Maul's Chambers");
@@ -50,7 +50,7 @@ public class Card501_055 extends AbstractSite {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.Maul, Filters.here(self), true));
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Filters.Maul,Filters.icon(Icon.VIRTUAL_SET_13)), Filters.here(self), true));
             return Collections.singletonList(action);
         }
         return null;

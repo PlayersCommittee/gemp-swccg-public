@@ -30,8 +30,8 @@ import java.util.List;
 public class Card501_076 extends AbstractSystem {
     public Card501_076() {
         super(Side.DARK, Title.Scarif, 7);
-        setLocationLightSideGameText("If Shield Gate here, your shuttling and moving to or from (and deploying to) here requires +1 Force.");
-        setLocationDarkSideGameText("If Shield Gate here, Force drain +1 here. If Death Star in orbit, Superlaser fires for free.");
+        setLocationLightSideGameText("While Shield Gate here, your cards deploy +1 here and your movement to or from here requires +1 Force.");
+        setLocationDarkSideGameText("If Shield Gate here, Force drain +1 here. While Death Star orbiting Scarif, Superlaser fires for free.");
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.PLANET, Icon.VIRTUAL_SET_13);

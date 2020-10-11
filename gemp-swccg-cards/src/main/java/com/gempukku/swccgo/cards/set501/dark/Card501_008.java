@@ -32,7 +32,7 @@ public class Card501_008 extends AbstractDefensiveShield {
     public Card501_008() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Failure At The Cave");
         setLore("'Lord Vader, the fleet has moved out of lightspeed and we're preparing to aah...ukh...uh...uuuuukkk!'");
-        setGameText("Plays to table. Opponent’s Undercover spies are immune to Double Agent. If a Jedi Test is on table, Projection Of A Skywalker is canceled. If Grimtaash just revealed your hand, you may place up to 2 cards in your Used Pile.");
+        setGameText("Plays on table. Opponent's Undercover spies are immune to Double Agent. While a Jedi Test on table, Projection Of A Skywalker is canceled. If Grimtaash just revealed your hand, you may place up to two cards in your Used Pile.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("Failure At The Cave (V)");
         setVirtualSuffix(true);

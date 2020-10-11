@@ -27,19 +27,19 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * Subtype: Imperial
- * Title: Admiral Ozzel (v)
+ * Title: Admiral Ozzel (V)
  */
 public class Card501_001 extends AbstractImperial {
     public Card501_001() {
         super(Side.DARK, 0, 2, 2, 2, 4, Title.Ozzel, Uniqueness.UNIQUE);
         setLore("Leader of the Emperor's Death Squadron assigned to hunt down and crush the Rebellion. As clumsy as he is stupid. Has just failed Darth Vader for the next-to-last time.");
-        setGameText("Adds 2 to the power of anything he pilots. Matching pilot for any death squadron star destroyer, and, while piloting one, instead of force draining may draw top card of Reserve Deck or raise your same or related location to the top.");
+        setGameText("Adds 2 to power of anything he pilots. Matching pilot for any Death Squadron Star Destroyer and, while piloting one, instead of Force draining here, may draw top card of Reserve Deck or raise your same or related converted location to the top.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addPersona(Persona.OZZEL);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
         setMatchingStarshipFilter(Filters.and(Filters.Star_Destroyer, Filters.loreContains("Death Squadron")));
         setVirtualSuffix(true);
-        setTestingText("Admiral Ozzel (v)");
+        setTestingText("Admiral Ozzel (V)");
     }
 
     @Override

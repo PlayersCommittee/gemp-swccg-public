@@ -76,8 +76,7 @@ public class Card501_091 extends AbstractRebel {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s) for during battle response
-        if ((TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
-                || TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult))
+        if (TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
                 && GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)) {
 

@@ -44,10 +44,10 @@ public class Card501_096 extends AbstractObjective {
         super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi);
         setFrontOfDoubleSidedCard(true);
         setVirtualSuffix(true);
-        setGameText("[Deploy Vader’s Castle and Visage Of The Emperor." +
-                "For remainder of game, you may not deploy characters except bounty hunters, droids, and Imperials. Inquisitors are destiny +2. Where you have an Inquisitor, your total battle destiny is +1 (+2 if a 'Hatred' card also there)." +
-                "While this side up, once per turn, may deploy a [Cloud City] or Malachor battleground site from Reserve Deck; reshuffle." +
-                "Flip this card if Vader is at a battleground site and no Jedi, padawan or Luke is at a battleground site.");
+        setGameText("Deploy Vader's Castle and [Set 13] Visage Of The Emperor. " +
+                "For remainder of game, you may not deploy characters except bounty hunters, droids, and Imperials. Where you have an Inquisitor, your total battle destiny is +1 (+2 if with a 'Hatred' card). Inquisitors are destiny +2. " +
+                "While this side up, once per turn, may deploy a [Cloud City] or Malachor battleground site from Reserve Deck; reshuffle. " +
+                "Flip this card if Vader is at a battleground site unless Luke, a Jedi, or a Padawan at a battleground site.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
         setTestingText("Hunt Down And Destroy The Jedi (V)");
     }
@@ -63,7 +63,7 @@ public class Card501_096 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Visage_Of_The_Emperor, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Visage_Of_The_Emperor,Filters.icon(Icon.VIRTUAL_SET_13)), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose Visage Of The Emperor to deploy";

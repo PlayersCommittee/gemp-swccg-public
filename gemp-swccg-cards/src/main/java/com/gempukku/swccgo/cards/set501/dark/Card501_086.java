@@ -28,8 +28,8 @@ public class Card501_086 extends AbstractUsedInterrupt {
     public Card501_086() {
         super(Side.DARK, 4, "A Lawless Time", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Lose 2 Force to retrieve a Crimson Dawn leader. OR If you just fired Black Sun Blaster or Crimson Dawn Blaster, " +
-                "add one battle destiny. OR During any control phase, if Maul or Vos at a battleground site, flip Shadow Collective (or You Know Who I Answer To).");
+        setGameText("Lose 2 Force to retrieve a Crimson Dawn leader. OR If you just fired a [Set 13] blaster during a battle, add one battle destiny. " +
+                "OR During any control phase, if Maul or Vos at a battleground site, flip Shadow Collective (or You Know Who I Answer To).");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("A Lawless Time");
     }
@@ -96,7 +96,7 @@ public class Card501_086 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
         // Check condition(s)
         if (GameConditions.isDuringBattle(game)
-                && TriggerConditions.weaponJustFired(game, effectResult, Filters.or(Filters.title(Title.Black_Sun_Blaster), Filters.title(Title.Crimson_Dawn_Blaster)))
+                && TriggerConditions.weaponJustFired(game, effectResult, Filters.and(Filters.blaster, Filters.icon(Icon.VIRTUAL_SET_13)))
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);

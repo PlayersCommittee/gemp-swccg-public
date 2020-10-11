@@ -18,18 +18,18 @@ import java.util.List;
  * Set: Set 13
  * Type: Location
  * Subtype: System
- * Title: Corellia (v)
+ * Title: Corellia (V)
  */
 public class Card501_032 extends AbstractSystem {
     public Card501_032() {
         super(Side.LIGHT, Title.Corellia, 1);
-        setLocationDarkSideGameText("If This Place Can Be a Little Rough on table, force drain -1 here.");
-        setLocationLightSideGameText("Your freighters and Correlians are each deploy -1 here. Your starships moving to or from here are hyperspeed +1");
+        setLocationDarkSideGameText("If This Place Can Be A Little Rough on table, Force drain -1 here.");
+        setLocationLightSideGameText("Your Corellians and freighters deploy -1 here. Your starships are hyperspeed +1 when moving to or from here.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.A_NEW_HOPE, Icon.PLANET, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
-        setTestingText("Corellia (v)");
+        setTestingText("Corellia (V)");
     }
 
     @Override

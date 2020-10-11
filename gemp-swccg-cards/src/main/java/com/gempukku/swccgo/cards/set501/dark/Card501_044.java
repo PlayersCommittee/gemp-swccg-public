@@ -27,7 +27,7 @@ import java.util.List;
 public class Card501_044 extends AbstractDarkJediMaster {
     public Card501_044() {
         super(Side.DARK, 1, 6, 5, 7, 8, "Darth Tyranus", Uniqueness.UNIQUE);
-        setLore("Serennoian leader. Trade federation.");
+        setLore("Serennian leader. Trade Federation.");
         setGameText("Defense value +1 while armed with a lightsaber. Jedi here are power and immunity to attrition -1. During battle or lightsaber combat involving Dooku, may cancel and redraw an opponent's just drawn destiny. Immune to Sorry About The Mess and attrition < 6.");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.SEPARATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.LEADER);

@@ -12,10 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.modifiers.MayNotHaveDefenseValueIncreasedAbovePrintedModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitIncreasedAbovePrintedModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotReactToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -32,7 +29,7 @@ public class Card501_009 extends AbstractDevice {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Observation Holocam");
         setVirtualSuffix(true);
         setLore("Remote surveillance viewers with droid controllers supplement security. Can activate alarms and automated weapons when needed, bringing help to endangered locations.");
-        setGameText("Deploy on a site. Opponent may not ‘react’ here. Characters here may not have their forfeit or defense value increased above their printed value. Lost if opponent controls this site.");
+        setGameText("Deploy on a site. Opponent may not 'react' to or from here. Characters here may not have their defense value or forfeit increased above their printed value. Device lost if opponent controls this site.");
         setTestingText("Observation Holocam (V)");
     }
 
@@ -46,6 +43,7 @@ public class Card501_009 extends AbstractDevice {
         String opponent = game.getOpponent(self.getOwner());
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotReactToLocationModifier(self, self.getAttachedTo(), opponent));
+        modifiers.add(new MayNotReactFromLocationModifier(self, self.getAttachedTo(), opponent));
         modifiers.add(new MayNotHaveForfeitIncreasedAbovePrintedModifier(self, Filters.and(Filters.character, Filters.here(self.getAttachedTo()))));
         modifiers.add(new MayNotHaveDefenseValueIncreasedAbovePrintedModifier(self, Filters.and(Filters.character, Filters.here(self.getAttachedTo()))));
         return modifiers;

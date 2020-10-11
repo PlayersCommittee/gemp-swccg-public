@@ -32,7 +32,7 @@ public class Card501_003 extends AbstractImperial {
     public Card501_003() {
         super(Side.DARK, 2, 4, 4, 5, 6, "Fifth Brother", Uniqueness.UNIQUE);
         setLore("Inquisitor.");
-        setGameText("Power +3 and defense value -2 if with a Jedi, padawan or hatred card. Characters here may not have their forfeit value increased.");
+        setGameText("Power +3 and defense value -2 while with a Jedi, Padawan, or 'Hatred' card. Characters here may not have their forfeit increased.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.INQUISITOR);
         setTestingText("Fifth Brother");

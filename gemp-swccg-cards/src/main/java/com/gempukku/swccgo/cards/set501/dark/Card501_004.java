@@ -33,7 +33,7 @@ public class Card501_004 extends AbstractImperial {
     public Card501_004() {
         super(Side.DARK, 2, 5, 4, 5, 7, "Seventh Sister", Uniqueness.UNIQUE);
         setLore("Female Mirialan Inquisitor.");
-        setGameText("Attrition against you is -1 here if with a 'Hatred' card, Jedi, Padawan, or probe droid. Once per turn, may use 1 Force (free if your probe droid here) to draw top card of Reserve Deck. Your Inquisitors and probe droids here are immune to attrition < 4.");
+        setGameText("Attrition against you is -1 here while with a Jedi, Padawan, probe droid, or 'Hatred' card. Once per turn, may use 1 Force (free if your probe droid here) to draw top card of Reserve Deck. Your Inquisitors and probe droids here are immune to attrition < 4.");
         setSpecies(Species.MIRIALAN);
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);

@@ -36,7 +36,7 @@ public class Card501_097 extends AbstractNormalEffect {
         super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Visage_Of_The_Emperor, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Palpatine's hologram. Imposing. Ominous. Intimidating. Instrument for the evil Emperor's sinister reach across the galaxy. Used on a secret frequency of the Imperial HoloNet.");
-        setGameText("Lose 2 Force to deploy on Vader’s Castle. Your Force generation here may not be limited. Each player must lose 1 Force at the end of their turn. Once per turn, may deploy a lightsaber on an Inquisitor from Reserve Deck; reshuffle. May not be canceled.");
+        setGameText("Lose 2 Force to deploy on Vader's Castle. Your Force generation here may not be limited. Each player loses 1 Force at the end of their own turn. Once per turn, may deploy a lightsaber on an Inquisitor from Reserve Deck; reshuffle. May not be canceled.");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.HOLOGRAM);
         addImmuneToCardTitle(Title.Alter);

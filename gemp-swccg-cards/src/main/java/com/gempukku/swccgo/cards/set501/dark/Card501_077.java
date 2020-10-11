@@ -68,7 +68,7 @@ public class Card501_077 extends AbstractDevice {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.justLost(game, effectResult, Filters.starship)
+        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.starship, Filters.hasAttached(self))
                 || TriggerConditions.forceDrainCompleted(game, effectResult, playerId, Filters.hasAttached(self))) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

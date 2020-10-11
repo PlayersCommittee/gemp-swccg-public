@@ -37,7 +37,7 @@ public class Card501_074 extends AbstractSite {
     public Card501_074() {
         super(Side.DARK, Title.Scarif_Citadel_Tower, Title.Scarif);
         setLocationLightSideGameText("If a player just Force drained here, they may raise a converted Scarif location to the top.");
-        setLocationDarkSideGameText("If you occupy, may use 1 Force to deploy a Scarif site from Reserve deck; reshuffle.");
+        setLocationDarkSideGameText("Once per turn, if you occupy, may use 1 Force to deploy a Scarif site from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.PLANET, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);

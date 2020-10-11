@@ -28,7 +28,7 @@ public class Card501_073 extends AbstractCapitalStarship {
         super(Side.DARK, 1, 11, 12, 10, null, 2, 12, "Intimidator & Persecutor", Uniqueness.UNIQUE);
         addComboCardTitles("Intimidator", "Persecutor");
         setLore("");
-        setGameText("Deploys -4 to opponent’s system (or Scarif). May add 4 pilots, 4 TIEs, and 2 vehicles. Permanent pilots provide ability of 4. While at Scarif, subtracts 2 from an attempt to “blow away” Shield Gate.");
+        setGameText("Deploys -4 to Scarif or opponent's system. May add 4 pilots, 4 TIEs, and 2 vehicles. Permanent pilots provide total ability of 4. While at Scarif, subtracts 2 from attempts to 'blow away' Shield Gate.");
         addIcons(Icon.PILOT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
         addModelTypes(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
         setPilotCapacity(4);
