@@ -128,6 +128,9 @@ public class CollectionSerializer {
             }
         }
 
+        _cardCountsNonFoil.clear();
+        _cardCountsFoil.clear();
+
         for (String itemId : _singleByteCountItems) {
             if(!itemId.endsWith("*")) {
                 final CardCollection.Item count = collectionCounts.get(itemId);
