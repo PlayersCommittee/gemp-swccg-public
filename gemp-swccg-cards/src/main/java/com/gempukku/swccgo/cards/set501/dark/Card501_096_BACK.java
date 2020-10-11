@@ -35,7 +35,7 @@ public class Card501_096_BACK extends AbstractObjective {
         super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
         setVirtualSuffix(true);
         setGameText("While this side up, you lose no Force to Visage Of The Emperor. While Vader armed with a lightsaber, opponent’s Force drain bonuses are canceled." +
-                "Flip this card if Luke or a Jedi or padawan at a battleground site.");
+                "Flip this card if Luke, a Jedi, or a Padawan at a battleground site; once per game, may take Vader and your cards on him into hand from a site you control.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
         setTestingText("Their Fire Has Gone Out Of The Universe (V)");
     }
