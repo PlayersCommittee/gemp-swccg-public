@@ -24,17 +24,17 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * SubType: Alien
- * Title: Aemon Gremm With Precussive Cannon
+ * Title: Aemon Gremm With Percussive Cannon
  */
 public class Card501_043 extends AbstractAlien {
     public Card501_043() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "Aemon Gremm With Precussive Cannon", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "Aemon Gremm With Percussive Cannon", Uniqueness.UNIQUE);
         setLore("Crimson Dawn. Hylobon guard leader.");
-        setGameText("While with another guard or at opponent’s site, each opponent’s weapon destiny is -1 here. Permanent weapon is JND-41 Percussive Cannon (may target a character of vehicle for free; draw destiny. If destiny > defense value, target ‘hit’ and power and forfeit -2).");
-        addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER);
+        setGameText(" Permanent weapon is Percussive Cannon (may target a character or vehicle for free; draw destiny; if destiny > defense value, target hit and is power and forfeit -2). While with your guard or at an opponent's site, opponent's weapon destiny draws here are -1.");
+        addKeywords(Keyword.CRIMSON_DAWN, Keyword.LEADER, Keyword.GUARD);
         setSpecies(Species.HYLOBON);
-        addIcons(Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_13);
-        setTestingText("Aemon Gremm With Precussive Cannon");
+        addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_13);
+        setTestingText("Aemon Gremm With Percussive Cannon");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Card501_043 extends AbstractAlien {
         String opponent = game.getOpponent(playerId);
         List<Modifier> modifiers = new LinkedList<>();
         Condition atOpponentsSiteCondition = new AtCondition(self, Filters.and(Filters.your(opponent), Filters.site));
-        Condition withOtherGuardCondition = new WithCondition(self, Filters.and(Filters.other(self), Filters.character, Filters.or(Filters.titleContains("Guard"), Filters.loreContains("guard"))));
+        Condition withOtherGuardCondition = new WithCondition(self, Filters.and(Filters.other(self), Filters.your(self), Filters.character, Filters.guard));
         modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(opponent), Filters.weapon, Filters.here(self)), new OrCondition(atOpponentsSiteCondition, withOtherGuardCondition), -1));
         return modifiers;
     }

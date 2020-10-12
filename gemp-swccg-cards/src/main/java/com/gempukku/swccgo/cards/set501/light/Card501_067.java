@@ -30,7 +30,7 @@ import java.util.List;
 public class Card501_067 extends AbstractAlien {
     public Card501_067() {
         super(Side.LIGHT, 2, 3, 3, 4, 3, "Qi'ra", Uniqueness.UNIQUE);
-        setLore("Female thief. Correlian");
+        setLore("Female thief. Corellian smuggler.");
         setGameText(" When forfeited at same location as Han or Vos, may satisfy all remaining battle damage against you. If you just initiated a battle or Force drain at same battleground and you have completed a Kessel Run, opponent loses 1 Force. Immune to attrition < 3.");
         addPersona(Persona.QIRA);
         setSpecies(Species.CORELLIAN);

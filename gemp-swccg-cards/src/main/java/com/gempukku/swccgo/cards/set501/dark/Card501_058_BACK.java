@@ -14,7 +14,10 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LookAtForcePileEffect;
+import com.gempukku.swccgo.logic.effects.RecirculateEffect;
+import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
@@ -37,7 +40,7 @@ public class Card501_058_BACK extends AbstractObjective {
         super(Side.DARK, 7, Title.You_Know_Who_I_Answer_To);
         setGameText("May immediately re-circulate and shuffle your Reserve Deck." +
                 "While this side up, if your gangster leader in battle at same site as your non-unique blaster, may add one destiny to total power. If Maul alone, during your draw phase may peek at the cards in your Force Pile" +
-                "Flip this card at end of turn (if you occupy three battlegrounds, opponent also loses 1 Force).");
+                "Flip this card at end of turn. If you are about to flip this card and you occupy three battlegrounds, opponent loses 1 Force.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("You Know Who I Answer To");
     }
@@ -78,11 +81,6 @@ public class Card501_058_BACK extends AbstractObjective {
             // Perform result(s)
             action.appendEffect(
                     new FlipCardEffect(action, self));
-            if (GameConditions.occupies(game, playerId, 3, Filters.battleground)) {
-                action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(playerId), 1)
-                );
-            }
             return Collections.singletonList(action);
         }
 

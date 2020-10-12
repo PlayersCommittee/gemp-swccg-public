@@ -22,8 +22,8 @@ import java.util.List;
 public class Card501_017 extends AbstractSystem {
     public Card501_017() {
         super(Side.DARK, Title.Wakeelmui, 2);
-        setLocationDarkSideGameText("Your TIEs may deploy here as a react.");
-        setLocationLightSideGameText("If you have fewer starships here than opponent, they are each power -1");
+        setLocationDarkSideGameText("Your TIEs may deploy here as a 'react.'");
+        setLocationLightSideGameText("While opponent has more starships here than you, your starships here are power -1.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.SPECIAL_EDITION, Icon.PLANET, Icon.VIRTUAL_SET_13);

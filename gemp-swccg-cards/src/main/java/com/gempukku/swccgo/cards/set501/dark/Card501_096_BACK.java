@@ -2,8 +2,8 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
+import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.Icon;
@@ -35,7 +35,7 @@ public class Card501_096_BACK extends AbstractObjective {
         super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
         setVirtualSuffix(true);
         setGameText("While this side up, you lose no Force to Visage Of The Emperor. While Vader armed with a lightsaber, opponent’s Force drain bonuses are canceled." +
-                "Flip this card if Luke or a Jedi or padawan at a battleground site.");
+                "Flip this card if Luke, a Jedi, or a Padawan at a battleground site; once per game, may take Vader and your cards on him into hand from a site you control.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
         setTestingText("Their Fire Has Gone Out Of The Universe (V)");
     }
@@ -50,7 +50,7 @@ public class Card501_096_BACK extends AbstractObjective {
         modifiers.add(new CancelOpponentsForceDrainBonusesModifier(self, vaderArmedWithLightsaberOnTableCondition));
         modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.character, Filters.not(Filters.or(Filters.droid, Filters.Imperial, Filters.bounty_hunter))), self.getOwner()));
         modifiers.add(new DestinyModifier(self, Filters.inquisitor, 2));
-        modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.inquisitor), new ConditionEvaluator(1, 2, new OrCondition(new AtCondition(self, Filters.hasStacked(Filters.hatredCard)), new HereCondition(self, Filters.hasStacked(Filters.hatredCard)))), self.getOwner()));
+        modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.inquisitor), new ConditionEvaluator(1, 2, new OrCondition(new DuringBattleAtCondition(Filters.hasStacked(Filters.hatredCard)), new DuringBattleWithParticipantCondition(Filters.hasStacked(Filters.hatredCard)))), self.getOwner()));
         return modifiers;
     }
 

@@ -27,7 +27,7 @@ public class Card501_015 extends AbstractSite {
         setLocationLightSideGameText("While Ahsoka alone (or with Ezra) here, she is power +2.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_13);
         setTestingText("Malachor: Sith Temple");
     }
 

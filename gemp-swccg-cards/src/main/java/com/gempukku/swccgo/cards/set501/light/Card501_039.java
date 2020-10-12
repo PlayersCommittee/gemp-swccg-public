@@ -1,21 +1,19 @@
 package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.InBattleCondition;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
-import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -31,8 +29,9 @@ public class Card501_039 extends AbstractCharacterWeapon {
     public Card501_039() {
         super(Side.LIGHT, 5, "Rock");
         setLore("");
-        setGameText("Deploy on your warrior or Ewok. May “throw” (place in Used pile) to target a character at same site. Target is power -3 (if Proxima, she is excluded from battle) for remainder of turn. If deployed on a Correlian, you take the first weapon phase action during battle with Rock.");
+        setGameText("Ewok weapon. Deploy on your warrior or Ewok. May 'throw' (place in Used Pile) to target a character. For remainder of turn, target is power -3 (and if Proxima, she cannot battle). If on a Corellian and a battle just initiated at same site, may 'throw' Rock.");
         addIcon(Icon.VIRTUAL_SET_13);
+        addKeyword(Keyword.EWOK_WEAPON);
         setTestingText("Rock");
     }
 
@@ -62,14 +61,20 @@ public class Card501_039 extends AbstractCharacterWeapon {
     }
 
     @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if(TriggerConditions.battleInitiated(game, effectResult)
+                && GameConditions.isAttachedTo(game, self, Filters.and(Filters.Corellian, Filters.armedWith(self), Filters.participatingInBattle, Filters.at(Filters.site)))
+                && Filters.canBeFired(self, 0).accepts(game, self)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
 
-        Filter correlianWithRock = Filters.and(Filters.Corellian, Filters.armedWith(self));
-        Condition correlianWithRockInBattle = new InBattleCondition(self, correlianWithRock);
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new SpecialFlagModifier(self, correlianWithRockInBattle, ModifierFlag.TAKES_FIRST_BATTLE_WEAPONS_SEGMENT_ACTION, self.getOwner()));
-        return modifiers;
+            action.setText("Throw " + GameUtils.getFullName(self));
+            action.setActionMsg("Throw " + GameUtils.getCardLink(self));
+            // Perform result(s)
+            action.appendEffect(
+                    new FireWeaponEffect(action, self, false, Filters.character));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
-
 }
