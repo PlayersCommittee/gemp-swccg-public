@@ -20,6 +20,7 @@ public enum ModifyGameTextType {
     DEATH_STAR_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     DO_THEY_HAVE_A_CODE_CLEARANCE__DOESNT_MODIFY_FORFEIT("Does not modify Imperials' forfeit."),
     DONT_UNDERESTIMATE_OUR_CHANCES__TRIPLE_RESULT("Triple result"),
+    SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION("Allows Spaceport Speeders to be played at Droid Merchant's site."),
     EBO__ADDITIONAL_SITE_TO_CANCEL("Opponent must occupy additional Hoth site to cancel"),
     ELLORRS_MADAK__ADDITIONAL_2_TO_POWER_BONUS("Additional 2 to power bonus"),
     FEAR_WILL_KEEP_THEM_IN_LINE__ADDS_1_TO_ATTRITION("Add 1 to attrition"),
