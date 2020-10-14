@@ -28,9 +28,14 @@ public class Card200_047 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Wokling", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Every Ewok is taught to be protective of the younger members of their clan.");
-        setGameText("Deploy on table. Your total Force generation is +1. Once per game, may use 3 Force to [upload] an Effect that has no deploy cost and deploys on another card. May place this Effect out of play to retrieve 1 Force. (Immune to Alter.)");
+        setGameText("Unless Massassi Throne Room on table, deploy on table. Your total Force generation is +1. Once per game, may use 3 Force to [upload] an Effect that has no deploy cost and deploys on another card. May place this Effect out of play to retrieve 1 Force. [Immune to Alter.]");
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
+    }
+
+    @Override
+    protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        return !Filters.canSpot(game, self, Filters.Massassi_Throne_Room);
     }
 
     @Override
@@ -42,7 +47,7 @@ public class Card200_047 extends AbstractNormalEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
 
         GameTextActionId gameTextActionId = GameTextActionId.WOKLING__UPLOAD_EFFECT;
 
