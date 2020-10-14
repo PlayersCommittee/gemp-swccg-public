@@ -26,7 +26,7 @@
 		"banned": ["1_44"]
     },
     {
-        "name":"Open (no v-cards)",
+        "name": "Decipher Cards Only",
         "code":"open_no_virtual",
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112],
 		"banned": ["1_44"]
