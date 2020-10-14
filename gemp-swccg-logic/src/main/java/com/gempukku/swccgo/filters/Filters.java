@@ -18254,6 +18254,7 @@ public class Filters {
     public static final Filter Sewer = Filters.title(Title.Sewer);
     public static final Filter S_foils = Filters.title(Title.S_foils);
     public static final Filter SFS_Lx93_Laser_Cannons = Filters.title(Title.SFS_Lx93_Laser_Cannons);
+    public static final Filter Shadow_Collective = Filters.title(Title.Shadow_Collective);
     public static final Filter Shield_Gate = Filters.title(Title.Shield_Gate);
     public static final Filter Shmi = Filters.title(Title.Shmi);
     public static final Filter Shocking_Information = Filters.title(Title.Shocking_Information);
@@ -18586,6 +18587,7 @@ public class Filters {
     public static final Filter Yorr = Filters.title(Title.Yorr);
     public static final Filter You_Are_Beaten = Filters.title(Title.You_Are_Beaten);
     public static final Filter You_Can_Either_Profit_By_This = Filters.title(Title.You_Can_Either_Profit_By_This);
+    public static final Filter You_Know_Who_I_Answer_To = Filters.title(Title.You_Know_Who_I_Answer_To);
     public static final Filter You_May_Start_Your_Landing = Filters.title(Title.You_May_Start_Your_Landing);
     public static final Filter You_Must_Confront_Vader = Filters.title(Title.You_Must_Confront_Vader);
     public static final Filter You_Rebel_Scum = Filters.title(Title.You_Rebel_Scum);

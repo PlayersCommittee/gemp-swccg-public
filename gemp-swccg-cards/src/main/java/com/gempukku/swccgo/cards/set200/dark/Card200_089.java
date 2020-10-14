@@ -38,7 +38,7 @@ public class Card200_089 extends AbstractAlien {
     public Card200_089() {
         super(Side.DARK, 3, 2, 2, 2, 3, "R'tic H'weei", Uniqueness.UNIQUE);
         setLore("Jawa.");
-        setGameText("Once per game, may [upload] Jawa Blaster or a card with 'sandcrawler' in title or gametext. Once per turn, if present at a Tatooine battleground and there is more than 1 Force in opponent's Force Pile, you may use 1 Force in opponent's Force Pile.");
+        setGameText("Once per game, may [upload] Jawa Blaster or a card with 'sandcrawler' in title or game text. During opponent's turn, if present at a Tatooine battleground and there is more than 1 Force in opponent's Force Pile, you may use 1 Force in opponent's Force Pile.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0);
         setSpecies(Species.JAWA);
     }
@@ -81,7 +81,7 @@ public class Card200_089 extends AbstractAlien {
 
         // Check condition(s)
         if (TriggerConditions.isUsingForce(game, effect, playerId)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isOnceDuringOpponentsTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isPresentAt(game, self, Filters.and(Filters.Tatooine_location, Filters.battleground)))  {
             final UseForceEffect useForceEffect = (UseForceEffect) effect;
             final int maxForceToUseViaCard = game.getModifiersQuerying().getMaxOpponentsForceToUseViaCard(game.getGameState(), playerId, self, useForceEffect.getAmountForOpponentToUse(), 0);

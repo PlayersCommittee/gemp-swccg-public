@@ -92,8 +92,8 @@ public class HitCardAndModifyPowerAndForfeitEffect extends AbstractSubActionEffe
                                     @Override
                                     protected void doPlayEffect(SwccgGame game) {
                                         if (!isEffectOnCardPrevented(_cardHitAndReset) && Filters.or(Filters.onTable, Filters.canBeTargetedByWeaponAsIfPresent).accepts(game, _cardHitAndReset)) {
-                                            boolean modifyPower = modifiersQuerying.isProhibitedFromHavingPowerReduced(gameState, _cardHitAndReset, _hitByCard.getOwner());
-                                            boolean modifyForfeit = modifiersQuerying.isProhibitedFromHavingForfeitReduced(gameState, _cardHitAndReset);
+                                            boolean modifyPower = !modifiersQuerying.isProhibitedFromHavingPowerReduced(gameState, _cardHitAndReset, _hitByCard.getOwner());
+                                            boolean modifyForfeit = !modifiersQuerying.isProhibitedFromHavingForfeitReduced(gameState, _cardHitAndReset);
                                             String message = GameUtils.getCardLink(_cardHitAndReset) + " is 'hit' by " + GameUtils.getCardLink(_hitByCard);
 
                                             if (modifyPower && modifyForfeit) {

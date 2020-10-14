@@ -745,4 +745,6 @@ public interface Modifier {
      * @return true or false
      */
     boolean hasAgenda(Agenda agenda);
+
+    boolean mayNotCancelDestiny(String playerDrawing, String playerToModify);
 }
