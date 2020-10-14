@@ -92,7 +92,7 @@ public class Card501_021 extends AbstractJediMaster {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ImmuneToAttritionModifier(self));
         modifiers.add(new TotalBattleDestinyModifier(self, new AndCondition(new InBattleCondition(self), new AloneCondition(self)), new InPlayDataAsFloatEvaluator(self), self.getOwner()));
-        modifiers.add(new MayNotCancelDestinyDrawsModifier(self, new AndCondition(new InBattleCondition(self), new AloneCondition(self)), game.getOpponent(self.getOwner())));
+        modifiers.add(new MayNotCancelDestinyDrawsModifier(self, new AndCondition(new InBattleCondition(self), new AloneCondition(self)), self.getOwner(), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 }

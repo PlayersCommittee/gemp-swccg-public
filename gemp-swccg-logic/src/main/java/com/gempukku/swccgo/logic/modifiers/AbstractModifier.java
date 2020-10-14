@@ -1425,4 +1425,9 @@ public abstract class AbstractModifier implements Modifier {
     public boolean hasAgenda(Agenda agenda) {
         return false;
     }
+
+    @Override
+    public boolean mayNotCancelDestiny(String playerDrawing, String playerToModify) {
+        return false;
+    }
 }
