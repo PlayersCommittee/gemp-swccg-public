@@ -1211,166 +1211,175 @@ public class SwccgGameMediator {
 
         // Based on Objective
         if (objective != null) {
+            String objectiveLabel = null;
             if (Filters.or(Filters.Agents_In_The_Court, Filters.No_Love_For_The_Empire).accepts(_swccgoGame, objective)) {
                 // Agents In The Court
-                return "AITC";
+                objectiveLabel = "AITC";
             }
             if (Filters.or(Filters.Agents_Of_Black_Sun, Filters.Vengeance_Of_The_Dark_Prince).accepts(_swccgoGame, objective)) {
                 // Agents Of Black Sun
-                return "AOBS";
+                objectiveLabel = "AOBS";
             }
             if (Filters.or(Filters.A_Stunning_Move, Filters.A_Valuable_Hostage).accepts(_swccgoGame, objective)) {
                 // A Stunning Move
-                return "ASM";
+                objectiveLabel = "ASM";
             }
             if (Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place).accepts(_swccgoGame, objective)) {
                 // Bring Him Before Me
-                return "BHBM";
+                objectiveLabel = "BHBM";
             }
             if (Filters.or(Filters.Carbon_Chamber_Testing, Filters.My_Favorite_Decoration).accepts(_swccgoGame, objective)) {
                 // Carbon Chamber Testing
-                return "CCT";
+                objectiveLabel = "CCT";
             }
             if (Filters.or(Filters.Well_Handle_This, Filters.Duel_Of_The_Fates, Filters.Let_Them_Make_The_First_Move, Filters.At_Last_We_Will_Have_Revenge).accepts(_swccgoGame, objective)) {
                 // Combat
-                return "Combat";
+                objectiveLabel = "Combat";
             }
             if (Filters.or(Filters.Court_Of_The_Vile_Gangster, Filters.I_Shall_Enjoy_Watching_You_Die).accepts(_swccgoGame, objective)) {
                 // Court Of The Vile Gangster
-                return "Court";
+                objectiveLabel = "Court";
             }
             if (Filters.or(Filters.Dantooine_Base_Operations, Filters.More_Dangerous_Than_You_Realize).accepts(_swccgoGame, objective)) {
                 // Dantooine Base Operations
-                return "DBO";
+                objectiveLabel = "DBO";
             }
             if (Filters.or(Filters.City_In_The_Clouds, Filters.You_Truly_Belong_Here_With_Us, Filters.Twin_Suns_Of_Tatooine, Filters.Well_Trained_In_The_Jedi_Arts).accepts(_swccgoGame, objective)) {
                 // Demo Deck
-                return "Demo";
+                objectiveLabel = "Demo";
             }
             if (Filters.or(Filters.Diplomatic_Mission_To_Alderaan, Filters.A_Weakness_Can_Be_Found).accepts(_swccgoGame, objective)) {
                 // Diplomatic Mission To Alderaan
-                return "Diplo";
+                objectiveLabel = "Diplo";
             }
             if (Filters.or(Filters.Endor_Operations, Filters.Imperial_Outpost).accepts(_swccgoGame, objective)) {
                 if (startingInterrupt != null && Filters.Operational_As_Planned.accepts(_swccgoGame, startingInterrupt)) {
                     // That Thing's Operational
-                    return "TTO";
+                    objectiveLabel = "TTO";
+                } else {
+                    // Endor Operations
+                    objectiveLabel = "Endor Ops";
                 }
-                // Endor Operations
-                return "Endor Ops";
             }
             if (Filters.or(Filters.He_Is_The_Chosen_One, Filters.He_Will_Bring_Balance).accepts(_swccgoGame, objective)) {
                 // He Is The Chosen One
-                return "HITCO";
+                objectiveLabel = "HITCO";
             }
             if (Filters.or(Filters.Hidden_Base, Filters.Systems_Will_Slip_Through_Your_Fingers).accepts(_swccgoGame, objective)) {
                 // Hidden Base
-                return "Hidden Base";
+                objectiveLabel = "Hidden Base";
             }
             if (Filters.or(Filters.Hunt_Down_And_Destroy_The_Jedi, Filters.Their_Fire_Has_Gone_Out_Of_The_Universe).accepts(_swccgoGame, objective)) {
                 // Hunt Down
-                return "Hunt Down";
+                objectiveLabel = "Hunt Down";
             }
             if (Filters.or(Filters.The_Hyperdrive_Generators_Gone, Filters.Well_Need_A_New_One).accepts(_swccgoGame, objective)) {
                 // The Hyperdrive Generators Gone
-                return "Hyperdrive";
+                objectiveLabel = "Hyperdrive";
             }
             if (Filters.or(Filters.I_Want_That_Map, Filters.And_Now_Youll_Give_It_To_Me).accepts(_swccgoGame, objective)) {
                 // I Want That Map
-                return "Map";
+                objectiveLabel = "Map";
             }
             if (Filters.or(Filters.Imperial_Entanglements, Filters.No_One_To_Stop_Us_This_Time).accepts(_swccgoGame, objective)) {
                 // Imperial Entanglements
-                return "IE";
+                objectiveLabel = "IE";
             }
             if (Filters.or(Filters.Invasion, Filters.In_Complete_Control).accepts(_swccgoGame, objective)) {
                 // Invasion
-                return "Invasion";
+                objectiveLabel = "Invasion";
             }
             if (Filters.or(Filters.ISB_Operations, Filters.Empires_Sinister_Agents).accepts(_swccgoGame, objective)) {
                 // ISB Operations
-                return "ISB";
+                objectiveLabel = "ISB";
             }
             if (Filters.or(Filters.The_Galaxy_May_Need_A_Legend, Filters.We_Need_Luke_Skywalker).accepts(_swccgoGame, objective)) {
                 // The Galaxy May Need A Legend
-                return "Legend";
+                objectiveLabel = "Legend";
             }
             if (Filters.or(Filters.Massassi_Base_Operations, Filters.One_In_A_Million).accepts(_swccgoGame, objective)) {
                 // Massassi Base Operations
-                return "MBO";
+                objectiveLabel = "MBO";
             }
             if (Filters.or(Filters.My_Kind_Of_Scum, Filters.Fearless_And_Inventive).accepts(_swccgoGame, objective)) {
                 // My Kind Of Scum
-                return "MKOS";
+                objectiveLabel = "MKOS";
             }
             if (Filters.or(Filters.Mind_What_You_Have_Learned, Filters.Save_You_It_Can).accepts(_swccgoGame, objective)) {
                 // Mind What Your Have Learned
-                return "MWYHL";
+                objectiveLabel = "MWYHL";
             }
             if (Filters.or(Filters.They_Have_No_Idea_Were_Coming, Filters.Until_We_Win_Or_The_Chances_Are_Spent).accepts(_swccgoGame, objective)) {
                 // They Have No Idea We're Coming
-                return "No Idea";
+                objectiveLabel = "No Idea";
             }
             if (Filters.or(Filters.Old_Allies, Filters.We_Need_Your_Help).accepts(_swccgoGame, objective)) {
                 // Old Allies
-                return "Old Allies";
+                objectiveLabel = "Old Allies";
             }
             if (Filters.or(Filters.Local_Uprising, Filters.Liberation, Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
                 // Operatives
-                return "Operatives";
+                objectiveLabel = "Operatives";
             }
             if (Filters.or(Filters.You_Can_Either_Profit_By_This, Filters.Or_Be_Destroyed).accepts(_swccgoGame, objective)) {
                 // Your Can Either Profit By This...
-                return "Profit";
+                objectiveLabel = "Profit";
             }
             if (Filters.or(Filters.Quiet_Mining_Colony, Filters.Independent_Operation).accepts(_swccgoGame, objective)) {
                 // Quiet Mining Colony
-                return "QMC";
+                objectiveLabel = "QMC";
             }
             if (Filters.or(Filters.Ralltiir_Operations, Filters.In_The_Hands_Of_The_Empire).accepts(_swccgoGame, objective)) {
                 // Ralltiir Operations
-                return "Ralltiir Ops";
+                objectiveLabel = "ROps";
             }
             if (Filters.or(Filters.Rebel_Strike_Team, Filters.Garrison_Destroyed).accepts(_swccgoGame, objective)) {
                 // Rebel Strike Team
-                return "RST";
+                objectiveLabel = "RST";
             }
             if (Filters.or(Filters.Rescue_The_Princess, Filters.Sometimes_I_Amaze_Even_Myself).accepts(_swccgoGame, objective)) {
                 // Rescue The Princess
-                return "RTP";
+                objectiveLabel = "RTP";
             }
             if (Filters.or(Filters.Plead_My_Case_To_The_Senate, Filters.Sanity_And_Compassion, Filters.My_Lord_Is_That_Legal, Filters.I_Will_Make_It_Legal).accepts(_swccgoGame, objective)) {
                 // Senate
-                return "Senate";
+                objectiveLabel = "Senate";
+            }
+            if (Filters.or(Filters.Shadow_Collective, Filters.You_Know_Who_I_Answer_To).accepts(_swccgoGame, objective)) {
+                // Shadow Collective
+                objectiveLabel = "Shadow Collective";
             }
             if (Filters.or(Filters.Set_Your_Course_For_Alderaan, Filters.The_Ultimate_Power_In_The_Universe).accepts(_swccgoGame, objective)) {
                 // Set Your Course For Alderaan
-                return "SYCFA";
+                objectiveLabel = "SYCFA";
             }
             if (Filters.or(Filters.This_Deal_Is_Getting_Worse_All_The_Time, Filters.Pray_I_Dont_Alter_It_Any_Further).accepts(_swccgoGame, objective)) {
                 // This Deal Is Getting Worse All The Time
-                return "TDIGWATT";
+                objectiveLabel = "TDIGWATT";
             }
             if (Filters.or(Filters.There_Is_Good_In_Him, Filters.I_Can_Save_Him).accepts(_swccgoGame, objective)) {
                 // There Is Good In Him
-                return "TIGIH";
+                objectiveLabel = "TIGIH";
             }
             if (Filters.or(Filters.No_Money_No_Parts_No_Deal, Filters.Youre_A_Slave).accepts(_swccgoGame, objective)) {
                 // Watto
-                return "Watto";
+                objectiveLabel = "Watto";
             }
             if (Filters.or(Filters.We_Have_A_Plan, Filters.They_Will_Be_Lost_And_Confused).accepts(_swccgoGame, objective)) {
                 // WHAP
-                return "WHAP";
+                objectiveLabel = "WHAP";
             }
             if (Filters.or(Filters.Watch_Your_Step, Filters.This_Place_Can_Be_A_Little_Rough).accepts(_swccgoGame, objective)) {
                 // Watch Your Step
-                return "WYS";
+                objectiveLabel = "WYS";
             }
             if (Filters.or(Filters.Yavin_4_Operations, Filters.The_Time_To_Fight_Is_Now).accepts(_swccgoGame, objective)) {
                 // Yavin 4 Operations
-                return "Y4O";
+                objectiveLabel = "Y4O";
             }
+            if (objective.getBlueprint().hasVirtualSuffix())
+                objectiveLabel = objectiveLabel + " v";
+            return objectiveLabel;
         }
 
         return "Other";
