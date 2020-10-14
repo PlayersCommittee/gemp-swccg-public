@@ -1377,7 +1377,7 @@ public class SwccgGameMediator {
                 // Yavin 4 Operations
                 objectiveLabel = "Y4O";
             }
-            if (objective.getBlueprint().hasVirtualSuffix())
+            if (objectiveLabel != null & objective.getBlueprint().hasVirtualSuffix())
                 objectiveLabel = objectiveLabel + " v";
             return objectiveLabel;
         }
