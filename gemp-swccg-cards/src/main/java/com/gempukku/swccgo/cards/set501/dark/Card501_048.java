@@ -49,7 +49,7 @@ public class Card501_048 extends AbstractSith {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
-        modifiers.add(new MayNotCancelDestinyDrawsModifier(self, game.getOpponent(self.getOwner())));
+        modifiers.add(new MayNotCancelDestinyDrawsModifier(self, self.getOwner(), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 

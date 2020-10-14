@@ -106,13 +106,8 @@ public class Card211_002 extends AbstractUsedInterrupt {
                 protected void performActionResults(Action targetingAction) {
                     preventDestinyCancelAction.appendEffect(
                             new AddUntilEndOfTurnModifierEffect(preventDestinyCancelAction,
-                                    new MayNotCancelDestinyDrawsModifier(self, new DuringBattleAtCondition(Filters.site), playerId),
+                                    new MayNotCancelDestinyDrawsModifier(self, new DuringBattleAtCondition(Filters.site), true),
                                         "During battles at sites, prevents all destiny draws from being canceled this turn.")
-                    );
-                    preventDestinyCancelAction.appendEffect(
-                            new AddUntilEndOfTurnModifierEffect(preventDestinyCancelAction,
-                                    new MayNotCancelDestinyDrawsModifier(self, new DuringBattleAtCondition(Filters.site), game.getOpponent(playerId)),
-                                    "During battles at sites, prevents all destiny draws from being canceled this turn.")
                     );
                 }
             }
