@@ -36,7 +36,7 @@ public class Card209_029 extends AbstractObjective {
         setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room." +
                 "For remainder of game, you may not deploy Jedi. Baze, Chirrut, and Rebel troopers are spies." +
                 "While this side up, once per turn, may [download] a Rebel starship (except Home One or [Reflections III] Falcon) or a Scarif site." +
-                "Flip this card if you control two Scarif locations.");
+                "Flip this card if you control two Scarif locations..");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_9);
     }
 

@@ -38,7 +38,7 @@ public class Card200_089 extends AbstractAlien {
     public Card200_089() {
         super(Side.DARK, 3, 2, 2, 2, 3, "R'tic H'weei", Uniqueness.UNIQUE);
         setLore("Jawa.");
-        setGameText("Once per game, may [upload] Jawa Blaster or a card with 'sandcrawler' in title or gametext. Once during opponent’s turn, if there is more than 1 Force in opponent's Force Pile, you may use 1 Force in opponent's Force Pile.");
+        setGameText("Once per game, may [upload] Jawa Blaster or a card with 'sandcrawler' in title or game text. During opponent's turn, if present at a Tatooine battleground and there is more than 1 Force in opponent's Force Pile, you may use 1 Force in opponent's Force Pile.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0);
         setSpecies(Species.JAWA);
     }

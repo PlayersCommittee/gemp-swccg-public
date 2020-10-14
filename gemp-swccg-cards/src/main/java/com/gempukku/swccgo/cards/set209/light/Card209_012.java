@@ -30,7 +30,7 @@ public class Card209_012 extends AbstractRebel {
     public Card209_012() {
         super(Side.LIGHT, 2, 4, 4, 3, 6, "Saw Gerrera", Uniqueness.UNIQUE);
         setLore("Leader.");
-        setGameText("Attrition against opponent is +1 here for each of their characters present. Opponent may not reduce your Force drains here. Trooper Assault is canceled here.");
+        setGameText("Attrition against opponent is +1 here for each of their characters present. Opponent may not reduce your Force drains here. Cancels Trooper Assault here.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.LEADER);
     }

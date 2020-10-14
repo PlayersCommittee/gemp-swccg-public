@@ -27,7 +27,7 @@ public class Card212_004 extends AbstractStartingInterrupt {
     public Card212_004() {
         super(Side.DARK, 3, Title.Slip_Sliding_Away, Uniqueness.UNIQUE);
         setLore("Luke got the shaft.");
-        setGameText("If you have deployed a site with exactly two [Dark Side Force] (and no other locations), deploy a battleground site. Then, unless you have deployed Imperial Square or a site with 'Palace in title, may deploy up to three Effects that are always immune to Alter. Place Interrupt in Lost Pile.");
+        setGameText("If you have deployed a site with exactly two [Dark Side Force] (and no other locations), deploy a battleground site. Then, unless you have deployed Imperial Square or a site with 'Palace' in title, deploy up to three Effects that are always immune to Alter. Place Interrupt in Lost Pile.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
     }

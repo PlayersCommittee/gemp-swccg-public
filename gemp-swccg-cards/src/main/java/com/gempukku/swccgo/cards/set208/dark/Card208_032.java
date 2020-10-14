@@ -28,7 +28,7 @@ public class Card208_032 extends AbstractImperial {
         super(Side.DARK, 3, 3, 5, 3, 4, "Kir Kanos", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Fiercely devoted Royal Guard. Feels deeply indebted to those who risk their life for him. Unaware of the extent of Palpatine's atrocities and cruelty.");
-        setGameText("When deployed, may [upload] a Royal Guard. If present at a site in battle with an Imperial, once per game may cancel a non-[Immune to Sense] Interrupt.");
+        setGameText("When deployed, may [upload] a Royal Guard. During battle, if present at a site with an Imperial, once per game may cancel a non-[Immune to Sense] Interrupt.");
         addIcons(Icon.REFLECTIONS_II, Icon.WARRIOR, Icon.VIRTUAL_SET_8);
         addKeywords(Keyword.ROYAL_GUARD);
     }
