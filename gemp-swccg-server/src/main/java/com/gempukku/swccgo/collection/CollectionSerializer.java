@@ -14,14 +14,13 @@ import java.util.Map;
 public class CollectionSerializer {
     private List<String> _doubleByteCountItems = new ArrayList<String>();
     private List<String> _singleByteCountItems = new ArrayList<String>();
-    private Map<String,Integer> _cardCountsNonFoil = new HashMap<String,Integer>();
-    private Map<String,Integer> _cardCountsFoil = new HashMap<String,Integer>();
+    private List<String> _singleByteCountItemsForVer0 = new ArrayList<String>();
 
     public CollectionSerializer() {
         try {
             fillDoubleByteItems();
-
             fillSingleByteItems();
+            loadForDeserializeVer0();
 
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading collection data", exp);
@@ -29,7 +28,6 @@ public class CollectionSerializer {
     }
 
     private void fillSingleByteItems() throws IOException {
-        _singleByteCountItems.clear();
         for (int i = 1; i < (1 + CardCounts.FULL_SETS_CARD_COUNTS.length); i++) {
             loadSet(String.valueOf(i));
         }
@@ -57,15 +55,14 @@ public class CollectionSerializer {
 
     private void loadForDeserializeVer0() throws IOException {
         BufferedReader cardReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/forDeserializeVer0.txt"), "UTF-8"));
-        _singleByteCountItems.clear();
         try {
             String line;
 
             while ((line = cardReader.readLine()) != null) {
                 // Normal
-                _singleByteCountItems.add(translateToBlueprintId(line));
+                _singleByteCountItemsForVer0.add(translateToBlueprintId(line));
                 // Foil
-                _singleByteCountItems.add(translateToBlueprintId(line) + "*");
+                _singleByteCountItemsForVer0.add(translateToBlueprintId(line) + "*");
             }
         } finally {
             cardReader.close();
@@ -107,15 +104,14 @@ public class CollectionSerializer {
     }
 
     public void serializeCollection(CardCollection collection, OutputStream outputStream) throws IOException {
-        fillSingleByteItems();
         byte version = 1;
         outputStream.write(version);
 
         int currency = collection.getCurrency();
         printInt(outputStream, currency, 3);
 
-        byte packTypes = (byte) _doubleByteCountItems.size();
-        outputStream.write(packTypes);
+        int packTypes = _doubleByteCountItems.size();
+        printInt(outputStream, packTypes, 1);
 
         final Map<String, CardCollection.Item> collectionCounts = collection.getAll();
         for (String itemId : _doubleByteCountItems) {
@@ -128,8 +124,8 @@ public class CollectionSerializer {
             }
         }
 
-        _cardCountsNonFoil.clear();
-        _cardCountsFoil.clear();
+        Map<String,Integer> cardCountsNonFoil = new HashMap<String,Integer>();
+        Map<String,Integer> cardCountsFoil = new HashMap<String,Integer>();
 
         for (String itemId : _singleByteCountItems) {
             if(!itemId.endsWith("*")) {
@@ -140,21 +136,21 @@ public class CollectionSerializer {
                     int nonFoilCount = Math.min(255, count == null? 0: count.getCount());
                     int foilCount = Math.min(255, countFoil == null? 0: countFoil.getCount());
 
-                    _cardCountsNonFoil.put(itemId, nonFoilCount);
-                    _cardCountsFoil.put(itemId, foilCount);
+                    cardCountsNonFoil.put(itemId, nonFoilCount);
+                    cardCountsFoil.put(itemId, foilCount);
                 }
             }
         }
 
         //number of cards with non-zero counts since cards with zero in both aren't inserted into the map
-        printInt(outputStream, _cardCountsNonFoil.size(), 2);
+        printInt(outputStream, cardCountsNonFoil.size(), 2);
 
-        for(String itemId : _cardCountsNonFoil.keySet()) {
+        for(String itemId : cardCountsNonFoil.keySet()) {
             try {
                 int setId = getSetId(itemId);
                 int cardId = getCardId(itemId);
-                int nonFoilCount = _cardCountsNonFoil.get(itemId);
-                int foilCount = _cardCountsFoil.get(itemId);
+                int nonFoilCount = cardCountsNonFoil.get(itemId);
+                int foilCount = cardCountsFoil.get(itemId);
 
                 printInt(outputStream, setId, 2);
                 printInt(outputStream, cardId, 2);
@@ -189,10 +185,10 @@ public class CollectionSerializer {
             }
         }
 
-        int cardBytes = _singleByteCountItems.size();
+        int cardBytes = _singleByteCountItemsForVer0.size();
         printInt(outputStream, cardBytes, 2);
 
-        for (String itemId : _singleByteCountItems) {
+        for (String itemId : _singleByteCountItemsForVer0) {
             final CardCollection.Item count = collectionCounts.get(itemId);
             if (count == null)
                 outputStream.write(0);
@@ -257,7 +253,6 @@ public class CollectionSerializer {
     }
 
     private MutableCardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {
-        loadForDeserializeVer0();
         DefaultCardCollection collection = new DefaultCardCollection();
 
         int byte1 = inputStream.read();
@@ -287,7 +282,7 @@ public class CollectionSerializer {
         for (int i = 0; i < cards.length; i++) {
             int count = convertToInt(cards[i]);
             if (count>0) {
-                final String blueprintId = _singleByteCountItems.get(i);
+                final String blueprintId = _singleByteCountItemsForVer0.get(i);
                 collection.addItem(blueprintId, count);
             }
         }
