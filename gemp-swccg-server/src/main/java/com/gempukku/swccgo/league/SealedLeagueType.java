@@ -9,7 +9,8 @@ public enum SealedLeagueType {
     PREMIERE_ANH_SEALED("premiere_anh_sealed", "sealed"),
     HOTH_DAGOBAH_CC_SEALED("hoth_dagobah_cc_sealed", "sealed"),
     JP_SEALED("jp_sealed", "jp_sealed"),
-    ENDOR_DSII_SEALED("endor_dsII_sealed", "sealed");
+    ENDOR_DSII_SEALED("endor_dsII_sealed", "sealed"),
+    EPISODE_I_SEALED("episode_i_sealed", "sealed");
 
     public static SealedLeagueType getLeagueType(String sealedCode) {
         for (SealedLeagueType sealedLeagueType : SealedLeagueType.values()) {
