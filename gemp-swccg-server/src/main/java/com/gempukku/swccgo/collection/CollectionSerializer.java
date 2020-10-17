@@ -95,12 +95,12 @@ public class CollectionSerializer {
 
     private int getSetId(String itemId) {
         String setNo = itemId.substring(0, itemId.indexOf("_",1));
-        return Integer.valueOf(setNo);
+        return Integer.parseInt(setNo);
     }
 
     private int getCardId(String itemId) {
         String cardNo = itemId.substring(itemId.lastIndexOf("_")+1);
-        return Integer.valueOf(cardNo);
+        return Integer.parseInt(cardNo);
     }
 
     public void serializeCollection(CardCollection collection, OutputStream outputStream) throws IOException {
