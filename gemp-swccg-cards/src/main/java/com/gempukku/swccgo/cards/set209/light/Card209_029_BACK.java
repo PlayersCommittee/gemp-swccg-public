@@ -72,7 +72,7 @@ public class Card209_029_BACK extends AbstractObjective {
 
         GameTextActionId gameTextActionId = GameTextActionId.UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE;
 
-        final Filter rebelSpyFilter = Filters.and(Filters.Rebel, Filters.spy, Filters.character);
+        final Filter rebelToPlaceOutOfPlayFilter = Filters.and(Filters.Rebel, Filters.character);
 
         // Check condition(s) - Once per turn, may place a Rebel in your Lost Pile out of play to ... make a regular
         // move with your spy during your control phase.
@@ -108,7 +108,7 @@ public class Card209_029_BACK extends AbstractObjective {
 
                                     // Pay cost(s)
                                     action.appendCost(
-                                            new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelSpyFilter, false));
+                                            new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelToPlaceOutOfPlayFilter, false));
 
                                     action.addAnimationGroup(rebel);
                                     action.setActionMsg("Have " + GameUtils.getCardLink(rebel) + " make a regular move");
@@ -130,12 +130,12 @@ public class Card209_029_BACK extends AbstractObjective {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
-        Filter rebelFilter = Filters.and(Filters.Rebel, Filters.character, Filters.not(Filters.undercover_spy));
+        Filter rebelToPlaceOutOfPlayFilter = Filters.and(Filters.Rebel, Filters.character);
 
         // Check conditions(s) - Once per turn, may place a Rebel in your Lost Pile out of play to cancel a just drawn
         // destiny targeting the ability or defense value of your Rebel
         GameTextActionId gameTextActionId = GameTextActionId.UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE;
-        if (TriggerConditions.isTargetedByWeapon(game, effect, Filters.and(Filters.Rebel, Filters.not(Filters.undercover_spy)), Filters.any)
+        if (TriggerConditions.isTargetedByWeapon(game, effect, Filters.and(Filters.Rebel, Filters.spy, Filters.not(Filters.undercover_spy)), Filters.any)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
 
@@ -147,7 +147,7 @@ public class Card209_029_BACK extends AbstractObjective {
                     new OncePerTurnEffect(action));
             // Pay cost(s)
             action.appendCost(
-                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelFilter, false));
+                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebelToPlaceOutOfPlayFilter, false));
             // Perform result(s)
             action.appendEffect(
                     new CancelWeaponTargetingEffect(action));
