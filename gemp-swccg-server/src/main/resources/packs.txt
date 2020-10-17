@@ -62,3 +62,7 @@ ESB Intro Two-Player Game
 (S)Enhanced Jabba's Palace Pack Choice
 (S)Enhanced Premiere Pack Choice -- Dark
 (S)Enhanced Premiere Pack Choice -- Light
+Endor Booster Pack (no random foils)
+Tatooine Booster Pack (Episode I only)
+Coruscant Booster Pack (Episode I only)
+Reflections III Booster Pack (Episode I only no shields)

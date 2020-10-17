@@ -3,6 +3,7 @@ package com.gempukku.swccgo.packagedProduct;
 import com.gempukku.swccgo.cards.packs.RarityReader;
 import com.gempukku.swccgo.cards.packs.SetRarity;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
@@ -15,15 +16,26 @@ import java.util.*;
 public class CoruscantBoosterPack extends BasePackagedCardProduct {
     private Random _random = new Random();
     private SetRarity _setRarity;
+    private boolean _includeNonEpisodeI;
 
     /**
      * Creates a Coruscant booster pack.
      * @param library the blueprint library
      */
     public CoruscantBoosterPack(SwccgCardBlueprintLibrary library) {
+        this(library, true);
+    }
+
+    /**
+     * Creates a Coruscant booster pack.
+     * @param library the blueprint library
+     * @param includeNonEpisodeI false if non-Episode I cards should be excluded
+     */
+    public CoruscantBoosterPack(SwccgCardBlueprintLibrary library, boolean includeNonEpisodeI) {
         super(library);
         RarityReader rarityReader = new RarityReader();
         _setRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.CORUSCANT.getSetNumber()));
+        _includeNonEpisodeI = includeNonEpisodeI;
     }
 
     /**
@@ -32,7 +44,7 @@ public class CoruscantBoosterPack extends BasePackagedCardProduct {
      */
     @Override
     public String getProductName() {
-        return ProductName.CORUSCANT_BOOSTER_PACK;
+        return _includeNonEpisodeI?ProductName.CORUSCANT_BOOSTER_PACK:ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY;
     }
 
     /**
@@ -89,6 +101,8 @@ public class CoruscantBoosterPack extends BasePackagedCardProduct {
             possibleCards.remove("12_36");  // Yoda, Senior Council Member (AI)
         }
         filterNonExistingCards(possibleCards);
+        if(!_includeNonEpisodeI)
+            filterIcon(possibleCards, Icon.EPISODE_I,true);
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }
@@ -106,6 +120,8 @@ public class CoruscantBoosterPack extends BasePackagedCardProduct {
         possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.C));
         possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.C));
         filterNonExistingCards(possibleCards);
+        if(!_includeNonEpisodeI)
+            filterIcon(possibleCards,Icon.EPISODE_I,true);
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }

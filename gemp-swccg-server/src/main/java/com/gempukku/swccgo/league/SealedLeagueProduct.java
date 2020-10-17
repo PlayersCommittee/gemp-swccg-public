@@ -23,6 +23,7 @@ public class SealedLeagueProduct {
         createPremiereAnhSealed();
         createJpSealed();
         createEndorDsIISealed();
+        createEpisodeISealed();
     }
 
     /**
@@ -88,6 +89,44 @@ public class SealedLeagueProduct {
         endorDsIISealed.add(secondWeek);
 
         _collections.put(SealedLeagueType.ENDOR_DSII_SEALED.getSealedCode(), endorDsIISealed);
+    }
+
+    /**
+     * Creates the collection of products to use for Episode I sealed.
+     */
+    private void createEpisodeISealed() {
+        List<CardCollection> episodeISealed = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        //first week
+        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 4);
+        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,4);
+        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 4);
+        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,4);
+        firstWeek.addItem("12_62",1); //Mindful Of The Future
+        firstWeek.addItem("12_154",1); //Neimoidian Advisor
+        firstWeek.addItem("11_93",1); //Tatooine: Mos Espa (Dark)
+        firstWeek.addItem("11_43",1); //Tatooine: Mos Espa (Light)
+        firstWeek.addItem("12_175",1); //Tatooine (Dark)
+        firstWeek.addItem("12_84",1); //Tatooine (Light)
+        firstWeek.addItem("12_169",1); //Naboo (Dark)
+        firstWeek.addItem("12_78",1); //Naboo (Light)
+        firstWeek.addItem("12_172",1); //Naboo: Theed Palace Courtyard (Dark)
+        firstWeek.addItem("12_81",1); //Naboo: Theed Palace Courtyard (Light)
+        firstWeek.addItem("12_184",1); //Trade Federation Battleship
+        firstWeek.addItem("12_91",1); //Queen's Royal Starship
+
+        episodeISealed.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        //second week
+        secondWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 2);
+        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,2);
+        secondWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 2);
+        secondWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,2);
+        episodeISealed.add(secondWeek);
+
+        _collections.put(SealedLeagueType.EPISODE_I_SEALED.getSealedCode(), episodeISealed);
     }
 
     /**
