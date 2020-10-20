@@ -2,8 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -14,9 +13,8 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationImmuneToLimitModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -36,7 +34,7 @@ public class Card501_097 extends AbstractNormalEffect {
         super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Visage_Of_The_Emperor, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Palpatine's hologram. Imposing. Ominous. Intimidating. Instrument for the evil Emperor's sinister reach across the galaxy. Used on a secret frequency of the Imperial HoloNet.");
-        setGameText("Lose 2 Force to deploy on Vader's Castle. Your Force generation here may not be limited. Each player loses 1 Force at the end of their own turn. Once per turn, may deploy a lightsaber on an Inquisitor from Reserve Deck; reshuffle. May not be canceled.");
+        setGameText("Lose 2 Force to deploy on Vader's Castle. Your Force generation here may not be limited. Each player loses 1 Force at the end of their own turn. Once per game, may [upload] a lightsaber. [Immune to Alter].");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.HOLOGRAM);
         addImmuneToCardTitle(Title.Alter);
@@ -56,26 +54,24 @@ public class Card501_097 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotBeCanceledModifier(self, self));
         modifiers.add(new ForceGenerationImmuneToLimitModifier(self, Filters.hasAttached(self), Filters.opponents(self.getOwner())));
         return modifiers;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.VISAGE__DEPLOY_LIGHTSABER;
+        GameTextActionId gameTextActionId = GameTextActionId.VISAGE__UPLOAD_LIGHTSABER;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
-                && GameConditions.canSpot(game, self, Filters.inquisitor)) {
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy a lightsaber from Reserve Deck");
+            action.setText("Take a lightsaber into hand from Reserve Deck");
             action.appendUsage(
-                    new OncePerPhaseEffect(action)
+                    new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.lightsaber, Filters.and(Filters.your(playerId), Filters.inquisitor), false, false, true)
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.lightsaber, true)
             );
             return Collections.singletonList(action);
         }
