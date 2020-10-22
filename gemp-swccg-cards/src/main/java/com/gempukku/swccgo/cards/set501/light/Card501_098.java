@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
+import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
@@ -42,7 +43,7 @@ public class Card501_098 extends AbstractResistance {
     public Card501_098() {
         super(Side.LIGHT, 2, 3, 3, 3, 5, "Larma D'Acy", Uniqueness.UNIQUE);
         setLore("Female commander. Leader.");
-        setGameText("During your control phase, if with an opponent's spy, opponent loses 1 Force (2 Force and may not be reduced if spy is Undercover). Finn and Poe are power + 1 here. If present with Leia and present at a battleground, Their Fire Has Gone Out Of The Universe flips and may not flip back.");
+        setGameText("Finn and Poe are power +1 here. During your control phase, if with an opponent's spy, opponent loses 1 Force (2 Force if spy is Undercover). If Leia present at a battleground site, Their Fire Has Gone Out Of The Universe flips and may not flip back.");
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_13, Icon.EPISODE_VII);
         addKeywords(Keyword.FEMALE,Keyword.COMMANDER,Keyword.LEADER);
         setTestingText("Larma D'Acy");
@@ -53,7 +54,7 @@ public class Card501_098 extends AbstractResistance {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new PowerModifier(self, Filters.and(Filters.here(self),Filters.or(Filters.Finn,Filters.Poe)),1));
         modifiers.add(new MayNotBeFlippedModifier(self,
-                new AndCondition(new PresentWithCondition(self, Filters.Leia),new PresentAtCondition(self, Filters.battleground)),
+                new PresentAtCondition(Filters.Leia, Filters.battleground),
                 Filters.Hunt_Down_And_Destroy_The_Jedi));
         return modifiers;
     }
@@ -66,8 +67,7 @@ public class Card501_098 extends AbstractResistance {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.isPresentWith(game, self, Filters.Leia)
-                && GameConditions.isPresentAt(game, self, Filters.battleground)
+                && GameConditions.isPresentAt(game, Filters.findFirstActive(game, self, Filters.Leia), Filters.battleground)
                 ) {
             PhysicalCard theirFireHasGoneOutOfTheUniverse = Filters.findFirstActive(game, self, Filters.Their_Fire_Has_Gone_Out_Of_The_Universe);
             if (theirFireHasGoneOutOfTheUniverse != null
@@ -95,10 +95,8 @@ public class Card501_098 extends AbstractResistance {
                 && GameConditions.isWith(game, self, SpotOverride.INCLUDE_UNDERCOVER, spyFilter)) {
 
             int forceToLose = 1;
-            boolean mayNotBeReduced = false;
             if(GameConditions.isWith(game, self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(spyFilter, Filters.undercover_spy))) {
                 forceToLose = 2;
-                mayNotBeReduced = true;
             }
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
@@ -106,7 +104,7 @@ public class Card501_098 extends AbstractResistance {
             action.setText("Make opponent lose " + forceToLose + " Force");
             // Perform result(s)
             action.appendEffect(
-                    new LoseForceEffect(action, game.getOpponent(playerId), forceToLose, mayNotBeReduced));
+                    new LoseForceEffect(action, game.getOpponent(playerId), forceToLose));
             actionList.add(action);
         }
 
@@ -122,10 +120,8 @@ public class Card501_098 extends AbstractResistance {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isWith(game, self, SpotOverride.INCLUDE_UNDERCOVER, spyFilter)) {
             int forceToLose = 1;
-            boolean mayNotBeReduced = false;
             if(GameConditions.canSpot(game, self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(spyFilter, Filters.undercover_spy))) {
                 forceToLose = 2;
-                mayNotBeReduced = true;
             }
 
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -135,7 +131,7 @@ public class Card501_098 extends AbstractResistance {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new LoseForceEffect(action, game.getOpponent(playerId), forceToLose, mayNotBeReduced));
+                    new LoseForceEffect(action, game.getOpponent(playerId), forceToLose));
 
             return Collections.singletonList(action);
         }

@@ -10,7 +10,7 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 /**
  * A condition that is fulfilled when a card accepted specified filter has been Completed.
  */
-public class UntinniEffectCompletedCondition implements Condition {
+public class UtinniEffectCompletedCondition implements Condition {
     private String _playerId;
     private Filter _filters;
 
@@ -19,7 +19,7 @@ public class UntinniEffectCompletedCondition implements Condition {
      *
      * @param filters the filter
      */
-    public UntinniEffectCompletedCondition(String playerId, Filterable filters) {
+    public UtinniEffectCompletedCondition(String playerId, Filterable filters) {
         _playerId = playerId;
         _filters = Filters.and(filters);
     }

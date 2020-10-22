@@ -27,19 +27,19 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * Subtype: Droid
- * Title: L3-37 (El-tree Tree-seven)
+ * Title: L3-37 (Elthree-threeseven)
  */
 public class Card501_023 extends AbstractDroid {
     public Card501_023() {
-        super(Side.LIGHT, 3, 2, 2, 4, " L3-37 (El-tree Tree-seven)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 4, "L3-37 (Elthree-threeseven)", Uniqueness.UNIQUE);
         setArmor(4);
         setLore("Female Smuggler.");
-        setGameText("While aboard (or stacked on) a freighter, adds 1 to power, maneuver, and hyperspeed, and if she is about to be lost, stack on that starship. May lose L3-37 to cancel a non-[Immune to Sense] Interrupt targeting a freighter she is aboard or stacked on.");
+        setGameText("While aboard (or stacked on) a freighter, adds 1 to power, maneuver, and hyperspeed, and when forfeiting L3-37, stack her on that freighter. May lose L3-37 to cancel a non-[Immune to Sense] Interrupt targeting a freighter she is aboard or stacked on.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.FEMALE);
         addModelTypes(ModelType.CUSTOM_PILOT_DROID);
         addPersona(Persona.L3_37);
-        setTestingText("L3-37 (El-tree Tree-seven)");
+        setTestingText("L3-37 (Elthree-threeseven)");
     }
 
     @Override
@@ -69,8 +69,7 @@ public class Card501_023 extends AbstractDroid {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if ((TriggerConditions.isAboutToBeLost(game, effectResult, self)
-                || TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, self))
+        if (TriggerConditions.isAboutToBeForfeited(game, effectResult, self)
                 && GameConditions.isAboard(game, self, Filters.freighter)) {
             final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
             final PhysicalCard cardToBeLost = result.getCardAboutToLeaveTable();
