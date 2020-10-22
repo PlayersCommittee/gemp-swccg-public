@@ -34,7 +34,7 @@ public class Card7_015 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ModifyGameTextModifier(self, Filters.Spaceport_Speeders, ModifyGameTextType.SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION));
+        modifiers.add(new ModifyGameTextModifier(self, Filters.title(Title.Spaceport_Speeders), ModifyGameTextType.SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION));
         return modifiers;
     }
 
