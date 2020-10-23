@@ -46,23 +46,21 @@ public class Card501_081 extends AbstractUsedOrLostInterrupt {
             final AboutToLeaveTableResult aboutToLeaveTableResult = (AboutToLeaveTableResult) effectResult;
             final PhysicalCard cardToBeLost = aboutToLeaveTableResult.getCardAboutToLeaveTable();
             final Collection<PhysicalCard> hatredCards = Filters.filterStacked(game, Filters.and(Filters.hatredCard, Filters.stackedOn(cardToBeLost)));
-//            if (!hatredCards.isEmpty()) {
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-                action.setText("Place any hatred cards in Used Pile");
-                // Allow response(s)
-                action.allowResponses(
-                        new RespondablePlayCardEffect(action) {
-                            @Override
-                            protected void performActionResults(Action targetingAction) {
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new PutStackedCardsInUsedPileEffect(action, playerId, hatredCards.size(), hatredCards.size(), false, cardToBeLost)
-                                );
-                            }
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setText("Place hatred cards in Used Pile");
+            // Allow response(s)
+            action.allowResponses(
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new PutStackedCardsInUsedPileEffect(action, playerId, hatredCards.size(), hatredCards.size(), false, cardToBeLost)
+                            );
                         }
-                );
-                return Collections.singletonList(action);
-//            }
+                    }
+            );
+            return Collections.singletonList(action);
         }
 
         return null;
