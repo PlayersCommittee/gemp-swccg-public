@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.StackCardFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
@@ -67,7 +68,7 @@ public class Card501_023 extends AbstractDroid {
     }
 
     @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isAboutToBeForfeited(game, effectResult, self)
                 && GameConditions.isAboard(game, self, Filters.freighter)) {
@@ -75,7 +76,7 @@ public class Card501_023 extends AbstractDroid {
             final PhysicalCard cardToBeLost = result.getCardAboutToLeaveTable();
             final PhysicalCard starship = Filters.findFirstActive(game, self, Filters.hasAboard(self));
             if (starship != null) {
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Stack on " + GameUtils.getCardLink(starship));
                 action.setActionMsg("Stack on " + GameUtils.getCardLink(starship));
                 action.appendEffect(

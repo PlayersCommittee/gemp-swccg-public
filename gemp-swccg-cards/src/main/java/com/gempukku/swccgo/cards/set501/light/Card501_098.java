@@ -67,6 +67,7 @@ public class Card501_098 extends AbstractResistance {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canSpot(game, self, Filters.Leia)
                 && GameConditions.isPresentAt(game, Filters.findFirstActive(game, self, Filters.Leia), Filters.battleground)
                 ) {
             PhysicalCard theirFireHasGoneOutOfTheUniverse = Filters.findFirstActive(game, self, Filters.Their_Fire_Has_Gone_Out_Of_The_Universe);
