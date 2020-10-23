@@ -54,7 +54,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
+                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, winner_deck_archetype, loser_deck_name, loser_deck_archetype, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
                 try {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
@@ -73,11 +73,13 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                             String formatName = rs.getString(7);
                             String tournament = rs.getString(8);
                             String winnerDeckName = rs.getString(9);
-                            String loserDeckName = rs.getString(10);
-                            Date startDate = new Date(rs.getLong(11));
-                            Date endDate = new Date(rs.getLong(12));
+                            String winnerDeckArchetype = rs.getString(10);
+                            String loserDeckName = rs.getString(11);
+                            String loserDeckArchetype = rs.getString(12);
+                            Date startDate = new Date(rs.getLong(13));
+                            Date endDate = new Date(rs.getLong(14));
 
-                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, startDate, endDate);
+                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, winnerDeckArchetype, loserDeckName, loserDeckArchetype, startDate, endDate);
                             result.add(entry);
                         }
                         return result;
