@@ -40,6 +40,10 @@ public class ForceIconsPresentEvaluator extends BaseEvaluator {
         if (location == null)
             return 0;
 
+        if (!Filters.presentAt(Filters.sameCardId(location)).accepts(gameState.getGame(), source)) {
+            return 0;
+        }
+
         Collection<PhysicalCard> cards = Filters.filterActive(gameState.getGame(), source, Filters.present(location));
 
         int count = 0;
