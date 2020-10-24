@@ -30,7 +30,7 @@ public class Card501_022 extends AbstractAlien {
     public Card501_022() {
         super(Side.LIGHT, 4, 3, 3, 2, 4, "Rio Durant", Uniqueness.UNIQUE);
         setLore("Ardennian smuggler and thief.");
-        setGameText("Adds 2 to power of anything he pilots. Once per turn, when your smuggler is deployed here, may place a card from hand on used pile to activate two force. Once per game when you win a battle here, may steal a starfighter from opponent’s Lost Pile.");
+        setGameText("Adds 2 to power of anything he pilots. Once per turn, if you just deployed a smuggler here, may place a card from hand in Used Pile to activate 2 Force. Once per game, if you just won a battle here, may steal a starfighter from opponent's Lost Pile into hand.");
         addPersona(Persona.RIO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.THIEF);
@@ -79,8 +79,8 @@ public class Card501_022 extends AbstractAlien {
                 && GameConditions.isOncePerGame(game, self, gameTextActionId1)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId1);
-            action.setText("Steal a starfighter");
-            action.setActionMsg("Steal a starfighter from opponent’s Lost Pile");
+            action.setText("Steal a starfighter into hand");
+            action.setActionMsg("Steal a starfighter from opponent's Lost Pile");
             action.appendUsage(
                     new OncePerGameEffect(action)
             );
