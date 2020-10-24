@@ -36,7 +36,7 @@ public class Card210_038 extends AbstractCombatVehicle {
         setGameText("May add 1 pilot. Permanent pilot is •Marquand, who provides ability of 2. Cards Blizzard 6 hits are power and forfeit -2 and may not apply ability towards drawing battle destiny. Immune to attrition < 4.");
         addModelType(ModelType.AT_AT);
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_10, Icon.SCOMP_LINK);
-        addKeywords(Keyword.ENCLOSED);
+        addKeywords(Keyword.ENCLOSED, Keyword.DEATH_SQUADRON);
         setPilotCapacity(1);
     }
 

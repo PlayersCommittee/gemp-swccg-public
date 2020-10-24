@@ -33,7 +33,7 @@ public class Card3_082 extends AbstractImperial {
         setGameText("Adds 2 to the power of anything he pilots. Subtracts 1 from deploy cost of each of your capital starships at same system. Lost if Vader on table and opponent 'reacts' to same location as Ozzel.");
         addIcons(Icon.HOTH, Icon.PILOT);
         addPersona(Persona.OZZEL);
-        addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
+        addKeywords(Keyword.ADMIRAL, Keyword.LEADER, Keyword.DEATH_SQUADRON);
     }
 
     @Override

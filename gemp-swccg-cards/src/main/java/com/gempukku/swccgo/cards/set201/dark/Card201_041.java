@@ -33,6 +33,7 @@ public class Card201_041 extends AbstractCapitalStarship {
         setGameText("May add 6 pilots, 8 passengers, 2 vehicles and 4 TIEs. Permanent pilot provides ability of 1. If opponent's starship just moved from here, Stalker may follow it as a regular move (if withing range).");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_1);
         addModelType(ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
+        addKeywords(Keyword.DEATH_SQUADRON);
         setPilotCapacity(6);
         setPassengerCapacity(8);
         setVehicleCapacity(2);

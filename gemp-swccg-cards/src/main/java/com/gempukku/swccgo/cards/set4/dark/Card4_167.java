@@ -29,6 +29,7 @@ public class Card4_167 extends AbstractCapitalStarship {
         addIcons(Icon.DAGOBAH, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addIcon(Icon.PILOT, 3);
         addModelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
+        addKeywords(Keyword.DEATH_SQUADRON);
         setPilotCapacity(Integer.MAX_VALUE);
         setPassengerCapacity(Integer.MAX_VALUE);
         setVehicleCapacity(Integer.MAX_VALUE);

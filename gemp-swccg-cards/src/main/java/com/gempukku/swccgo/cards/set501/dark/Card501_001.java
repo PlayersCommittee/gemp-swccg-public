@@ -36,8 +36,8 @@ public class Card501_001 extends AbstractImperial {
         setGameText("Adds 2 to power of anything he pilots. Matching pilot for any Death Squadron Star Destroyer and, while piloting one, instead of Force draining here, may draw top card of Reserve Deck or raise your same or related converted location to the top.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_13);
         addPersona(Persona.OZZEL);
-        addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
-        setMatchingStarshipFilter(Filters.and(Filters.Star_Destroyer, Filters.loreContains("Death Squadron")));
+        addKeywords(Keyword.ADMIRAL, Keyword.LEADER, Keyword.DEATH_SQUADRON);
+        setMatchingStarshipFilter(Filters.and(Filters.Star_Destroyer, Keyword.DEATH_SQUADRON));
         setVirtualSuffix(true);
         setTestingText("Admiral Ozzel (V)");
     }
@@ -55,7 +55,7 @@ public class Card501_001 extends AbstractImperial {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isPiloting(game, self, Filters.and(Filters.Star_Destroyer, Filters.loreContains("Death Squadron")))) {
+        if (GameConditions.isPiloting(game, self, Filters.and(Filters.Star_Destroyer, Keyword.DEATH_SQUADRON))) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
             final PhysicalCard location = modifiersQuerying.getLocationThatCardIsAt(gameState, self);
