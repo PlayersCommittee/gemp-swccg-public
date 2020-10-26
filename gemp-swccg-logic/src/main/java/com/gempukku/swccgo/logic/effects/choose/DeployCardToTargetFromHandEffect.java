@@ -22,6 +22,19 @@ public class DeployCardToTargetFromHandEffect extends DeployCardFromHandEffect {
         this(action, playerId, cardFilter, targetFilter, false);
     }
 
+    /** Keir Santage
+     * Creates an effect that causes the player performing the action to choose and deploy a card accepted by the card filter
+     * to the specified target from hand.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @param targetFilter the target filter
+     * @param changeInCost the change in cost
+     */
+    public DeployCardToTargetFromHandEffect(Action action, String playerId, Filter cardFilter, Filter targetFilter, float changeInCost) {
+        super(action, playerId, cardFilter, targetFilter, changeInCost);
+    }
+
     /**
      * Creates an effect that causes the player performing the action to choose and deploy a card accepted by the card filter
      * to the specified target from hand.
