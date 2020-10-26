@@ -53,7 +53,7 @@ public class DeployCardFromHandEffect extends AbstractSubActionEffect {
         this(action, playerId, cardFilter, null, null, null, false, changeInCost, null, null);
     }
 
-    /** Keir Santage
+    /**
      * Creates an effect that causes the specified player to choose and deploy a card accepted by the card filter from hand.
      * @param action the action performing this effect
      * @param playerId the player

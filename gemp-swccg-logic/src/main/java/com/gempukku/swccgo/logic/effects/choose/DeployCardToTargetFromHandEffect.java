@@ -22,7 +22,7 @@ public class DeployCardToTargetFromHandEffect extends DeployCardFromHandEffect {
         this(action, playerId, cardFilter, targetFilter, false);
     }
 
-    /** Keir Santage
+    /**
      * Creates an effect that causes the player performing the action to choose and deploy a card accepted by the card filter
      * to the specified target from hand.
      * @param action the action performing this effect
