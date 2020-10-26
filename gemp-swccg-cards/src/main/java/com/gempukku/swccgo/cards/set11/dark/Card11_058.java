@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -49,7 +50,8 @@ public class Card11_058 extends AbstractAlien {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.justDeployedTo(game, effectResult, Filters.and(Filters.opponents(self), Filters.hasAbilityOrHasPermanentPilotWithAbility), Filters.sameSite(self))) {
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+                && TriggerConditions.justDeployedTo(game, effectResult, Filters.and(Filters.opponents(self), Filters.hasAbilityOrHasPermanentPilotWithAbility), Filters.sameSite(self))) {
             final PhysicalCard cardJustDeployed = ((PlayCardResult) effectResult).getPlayedCard();
             if (GameConditions.canTarget(game, self, cardJustDeployed)
                     && GameConditions.canUseForce(game, playerId, 1)) {
@@ -62,6 +64,9 @@ public class Card11_058 extends AbstractAlien {
                             @Override
                             protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                                 action.addAnimationGroup(targetedCard);
+                                // Update usage limit(s)
+                                action.appendUsage(
+                                        new OncePerTurnEffect(action));
                                 // Pay cost(s)
                                 action.appendCost(
                                         new UseForceEffect(action, playerId, 1));
