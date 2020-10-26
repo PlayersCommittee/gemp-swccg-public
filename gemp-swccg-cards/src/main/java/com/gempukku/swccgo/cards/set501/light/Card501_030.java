@@ -10,7 +10,10 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -28,8 +31,9 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         super(Side.LIGHT, 4, Title.Anakin_Skywalker, Uniqueness.UNIQUE);
         setLore("'You were right about me. Tell your sister ... you were right.'");
         setGameText("If I Feel The Conflict on table: " +
-                "USED: Relocate Prophecy Of The Force to a site. OR [upload] a Death Star II site. " +
-                "LOST: If Luke in battle, place Luke's Lightsaber in Used Pile to choose: Add one destiny to attrition. OR Cancel the game text of a character of ability < 4.");
+                "USED: [upload] a Death Star II site. OR Relocate Prophecy Of The Force to a site. " +
+                "LOST: During battle at a site, if Luke armed with [DSII] Luke's Lightsaber, choose: Add one destiny to " +
+                "attrition. OR Cancel the game text of a character of ability < 4.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
         setTestingText("Anakin Skywalker (V)");
@@ -88,10 +92,8 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         }
 
         if (GameConditions.canSpot(game, self, Filters.I_Feel_The_Conflict)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.Luke)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.Lukes_Lightsaber)) {
-
-            final PhysicalCard lukesLightsaber = Filters.findFirstActive(game, self, Filters.Lukes_Lightsaber);
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Luke, Filters.at(Filters.site)))
+                && GameConditions.isArmedWith(game, Filters.findFirstActive(game, self, Filters.Luke), Filters.and(Filters.icon(Icon.DEATH_STAR_II), Filters.Lukes_Lightsaber))) {
 
             if (GameConditions.canAddDestinyDrawsToAttrition(game, playerId)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
@@ -99,9 +101,6 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
                 action.allowResponses(new RespondablePlayCardEffect(action) {
                     @Override
                     protected void performActionResults(Action targetingAction) {
-                        action.appendEffect(
-                                new PlaceCardInUsedPileFromTableEffect(action, lukesLightsaber)
-                        );
                         action.appendEffect(
                                 new AddDestinyToAttritionEffect(action, 1)
                         );
@@ -124,9 +123,6 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
                                     @Override
                                     protected void performActionResults(Action targetingAction) {
                                         final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-                                        action.appendEffect(
-                                                new PlaceCardInUsedPileFromTableEffect(action, lukesLightsaber)
-                                        );
                                         action.appendEffect(
                                                 new CancelGameTextUntilEndOfBattleEffect(action, finalTarget)
                                         );
