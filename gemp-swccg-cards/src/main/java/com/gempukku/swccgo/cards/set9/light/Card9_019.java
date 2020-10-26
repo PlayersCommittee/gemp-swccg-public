@@ -8,7 +8,6 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
