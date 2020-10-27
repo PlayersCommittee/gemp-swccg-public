@@ -10,7 +10,8 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 
@@ -26,7 +27,7 @@ public class Card501_029 extends AbstractNormalEffect {
     public Card501_029() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Twilight Is Upon Me", Uniqueness.UNIQUE);
         setLore("When a Jedi dies, the spirit spreads through the Force and touches the living.");
-        setGameText("If He Is The Chosen One on table, deploy on table. If Luke with Prophecy Of The Force, your total Force generation is +1 and opponent’s is -1. During your turn, may take Yoda’s Hut or a Death Star II site into hand from Reserve Deck; reshuffle. [Immune to Alter.]");
+        setGameText("If He Is The Chosen One on table, deploy on table. You may not deploy [E1] sites. While Luke with Prophecy Of The Force, your Force generation is +1 and opponent's is -1. During your deploy phase, may [download] Yoda's Hut. [Immune to Alter.]");
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
@@ -46,6 +47,7 @@ public class Card501_029 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new TotalForceGenerationModifier(self, lukeWithProphecyCondition, 1, playerId));
         modifiers.add(new TotalForceGenerationModifier(self, lukeWithProphecyCondition, -1, opponent));
+        modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.icon(Icon.EPISODE_I), Filters.site), playerId));
         return modifiers;
     }
 
@@ -57,17 +59,17 @@ public class Card501_029 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take Yoda's Hut or a Death Star II site into hand from Reserve Deck");
+            action.setText("Deploy Yoda's Hut from Reserve Deck");
+            action.setActionMsg("Deploy Yoda's Hut from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Yodas_Hut, Filters.Death_Star_II_site), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.Yodas_Hut, true));
             actions.add(action);
         }
 

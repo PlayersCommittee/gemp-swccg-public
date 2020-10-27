@@ -15,12 +15,14 @@ public class GameHistoryEntry {
     private String _formatName;
     private String _tournament;
     private String _winnerDeckName;
+    private String _winnerDeckArchetype;
     private String _loserDeckName;
+    private String _loserDeckArchetype;
 
     private Date _startTime;
     private Date _endTime;
 
-    public GameHistoryEntry(String winner, String winReason, String winnerRecording, String loser, String loseReason, String loserRecording, String formatName, String tournament, String winnerDeckName, String loserDeckName, Date startTime, Date endTime) {
+    public GameHistoryEntry(String winner, String winReason, String winnerRecording, String loser, String loseReason, String loserRecording, String formatName, String tournament, String winnerDeckName, String winnerDeckArchetype, String loserDeckName, String loserDeckArchetype, Date startTime, Date endTime) {
         _winner = winner;
         _winReason = winReason;
         _winnerRecording = winnerRecording;
@@ -30,7 +32,9 @@ public class GameHistoryEntry {
         _formatName = formatName;
         _tournament = tournament;
         _winnerDeckName = winnerDeckName;
+        _winnerDeckArchetype = winnerDeckArchetype;
         _loserDeckName = loserDeckName;
+        _loserDeckArchetype = loserDeckArchetype;
         _startTime = startTime;
         _endTime = endTime;
     }
@@ -71,8 +75,16 @@ public class GameHistoryEntry {
         return _winnerDeckName;
     }
 
+    public String getwinnerDeckArchetype() {
+        return _winnerDeckArchetype;
+    }
+
     public String getLoserDeckName() {
         return _loserDeckName;
+    }
+
+    public String getloserDeckArchetype() {
+        return _loserDeckArchetype;
     }
 
     public Date getEndTime() {

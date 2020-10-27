@@ -904,6 +904,7 @@ public interface Title {
     String Sonic_Bombardment = "Sonic Bombardment";
     String Sorry_About_The_Mess = "Sorry About The Mess";
     String Sound_The_Attack = "Sound The Attack";
+    String Spaceport_Speeders = "Spaceport Speeders";
     String Space_Slug = "Space Slug";
     String Space_Slug_Belly = "Space Slug Belly";
     String Special_Delivery = "Special Delivery";

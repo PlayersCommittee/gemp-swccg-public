@@ -33,7 +33,7 @@ public class Card501_081 extends AbstractUsedOrLostInterrupt {
     public Card501_081() {
         super(Side.DARK, 4, "I've Been Searching For You For Some Time");
         setLore("");
-        setGameText("USED: If opponent's character is about to be lost, place any 'Hatred' cards on that character in owner's Used Pile. LOST: Lose Vader or an Inquistor from hand to take up to two Inquisitors into hand from Reserve Deck; reshuffle.");
+        setGameText("USED: If opponent's character is about to be lost, place all 'Hatred' cards (if any) on that character in owner's Used Pile. LOST: Lose Vader or an Inquistor from hand to take up to two Inquisitors into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("I've Been Searching For You For Some Time");
     }
@@ -46,23 +46,21 @@ public class Card501_081 extends AbstractUsedOrLostInterrupt {
             final AboutToLeaveTableResult aboutToLeaveTableResult = (AboutToLeaveTableResult) effectResult;
             final PhysicalCard cardToBeLost = aboutToLeaveTableResult.getCardAboutToLeaveTable();
             final Collection<PhysicalCard> hatredCards = Filters.filterStacked(game, Filters.and(Filters.hatredCard, Filters.stackedOn(cardToBeLost)));
-            if (!hatredCards.isEmpty()) {
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-                action.setText("Place any hatred cards in Used Pile");
-                // Allow response(s)
-                action.allowResponses(
-                        new RespondablePlayCardEffect(action) {
-                            @Override
-                            protected void performActionResults(Action targetingAction) {
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new PutStackedCardsInUsedPileEffect(action, playerId, 1, hatredCards.size(), false, cardToBeLost)
-                                );
-                            }
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setText("Place hatred cards in Used Pile");
+            // Allow response(s)
+            action.allowResponses(
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new PutStackedCardsInUsedPileEffect(action, playerId, hatredCards.size(), hatredCards.size(), false, cardToBeLost)
+                            );
                         }
-                );
-                return Collections.singletonList(action);
-            }
+                    }
+            );
+            return Collections.singletonList(action);
         }
 
         return null;

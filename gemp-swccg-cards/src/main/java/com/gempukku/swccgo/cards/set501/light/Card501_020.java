@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set501.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.cards.conditions.UntinniEffectCompletedCondition;
+import com.gempukku.swccgo.cards.conditions.UtinniEffectCompletedCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,8 +27,8 @@ import java.util.List;
 public class Card501_020 extends AbstractAlien {
     public Card501_020() {
         super(Side.LIGHT, 1, 2, 3, 3, 5, "Han... Solo", Uniqueness.UNIQUE);
-        setLore("Smuggler, gambler, and thief. Correlian.");
-        setGameText("Adds 2 to power and maneuver of anything he pilots or drives. If exactly one 'coaxium' card on Kessel Run, may take it into hand. While piloting Falcon and you have completed a Kessel Run, adds one battle destiny and opponent generates no Force here.");
+        setLore("Corellian gambler, smuggler, and thief.");
+        setGameText("Adds 2 to power and maneuver of anything he pilots or drives. If exactly one 'coaxium' card here, may take it into hand. While piloting Falcon and you have completed a Kessel Run, adds one battle destiny and opponent generates no Force here.");
         addPersona(Persona.HAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER, Keyword.THIEF);
@@ -43,7 +43,7 @@ public class Card501_020 extends AbstractAlien {
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new ManeuverModifier(self, Filters.hasPiloting(self), 2));
 
-        Condition condition = new AndCondition(new PilotingCondition(self, Filters.Falcon), new UntinniEffectCompletedCondition(self.getOwner(), Filters.Kessel_Run));
+        Condition condition = new AndCondition(new PilotingCondition(self, Filters.Falcon), new UtinniEffectCompletedCondition(self.getOwner(), Filters.Kessel_Run));
 
         modifiers.add(new GenerateNoForceModifier(self, Filters.here(self), condition, game.getOpponent(self.getOwner())));
         modifiers.add(new AddsBattleDestinyModifier(self, condition, 1));
@@ -55,6 +55,7 @@ public class Card501_020 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         if (GameConditions.canSpot(game, self, Filters.Kessel_Run)
+                && GameConditions.isHere(game, self, Filters.Kessel_Run)
                 && Filters.countStacked(game, Filters.and(Filters.coaxiumCard, Filters.stackedOn(self, Filters.Kessel_Run))) == 1) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Take 'coaxium' card into hand");
