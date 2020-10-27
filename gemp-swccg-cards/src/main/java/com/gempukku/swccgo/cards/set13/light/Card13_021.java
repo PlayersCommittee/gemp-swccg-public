@@ -28,7 +28,7 @@ public class Card13_021 extends AbstractStarfighter {
         setComboCard(true);
         setLore("Although temperamental, this trusty hunk of junk always seems to perform for its proud owner and his Wookiee co-pilot when needed the most.");
         setGameText("Permanent pilots are •Han and •Chewie: provide ability of 5, add one battle destiny, and add 5 to power. Immune to attrition < 6, Come With Me, and Lateral Damage. End of your turn: Use 3 Force to maintain OR Place out of play.");
-        addPersona(Persona.FALCON);
+        addPersonas(Persona.FALCON,Persona.HAN,Persona.CHEWIE);
         addIcons(Icon.REFLECTIONS_III, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.MAINTENANCE);
         addIcon(Icon.PILOT, 2);
         addModelType(ModelType.HEAVILY_MODIFIED_LIGHT_FREIGHTER);

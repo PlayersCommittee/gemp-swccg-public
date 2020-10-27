@@ -29,7 +29,7 @@ public class Card205_007 extends AbstractStarfighter {
         setComboCard(true);
         setLore("Although temperamental, this trusty hunk of junk always seems to perform for its proud owner and his Wookiee co-pilot when needed the most.");
         setGameText("May add 2 passengers. Permanent pilots are •Han and •Chewie, who provide ability of 5. If in battle, add one destiny to total power. Immune to Come With Me, Life Debt and attrition < 5.");
-        addPersona(Persona.FALCON);
+        addPersonas(Persona.FALCON, Persona.HAN,Persona.CHEWIE);
         addIcons(Icon.REFLECTIONS_III, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_5);
         addIcon(Icon.PILOT, 2);
         setPassengerCapacity(2);
