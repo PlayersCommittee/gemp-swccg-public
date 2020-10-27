@@ -35,6 +35,13 @@ public class Card501_044 extends AbstractDarkJediMaster {
     }
 
     @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new DeployCostToLocationModifier(self, -1, Filters.icon(Icon.EPISODE_I)));
+        return modifiers;
+    }
+
+    @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new DeployCostToLocationModifier(self, -1, Filters.icon(Icon.EPISODE_I)));
