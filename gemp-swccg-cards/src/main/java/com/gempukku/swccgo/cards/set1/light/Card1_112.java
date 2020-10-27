@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,6 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -25,15 +27,19 @@ import java.util.List;
  */
 public class Card1_112 extends AbstractUsedInterrupt {
     public Card1_112() {
-        super(Side.LIGHT, 6, "Spaceport Speeders", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 6, Title.Spaceport_Speeders, Uniqueness.RESTRICTED_3);
         setLore("Spaceport Speeders buys, trades and sells floaters. Wioslea is known as a shrewd bargainer. Luke got 2,000 credits for his X-24 speeder.");
         setGameText("Sell one of your vehicles or droids at Mos Eisley or same site as Wioslea. Draw two destiny (three destiny if vehicle is Luke's X-34 Landspeeder). The total is the 'offer,' which you must accept. Activate that much Force; then vehicle or droid is lost.");
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.droid, Filters.vehicle), Filters.at(Filters.or(Filters.Mos_Eisley, Filters.sameSiteAs(self, Filters.Wioslea))));
-
+        Filter sellFilter = Filters.and(Filters.your(playerId), Filters.or(Filters.droid, Filters.vehicle));
+        Filter sellAtFilter = Filters.or(Filters.Mos_Eisley, Filters.sameSiteAs(self, Filters.Wioslea));
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION)) {
+            sellAtFilter = Filters.or(sellAtFilter, Filters.sameSiteAs(self, Filters.and(Filters.not(Filters.isGameTextCanceled), Filters.Droid_Merchant)));
+        }
+        Filter filter = Filters.and(sellFilter, Filters.at(sellAtFilter));
         // Check condition(s)
         if (GameConditions.canTarget(game, self, filter)) {
 

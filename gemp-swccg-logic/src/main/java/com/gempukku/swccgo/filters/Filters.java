@@ -18294,6 +18294,7 @@ public class Filters {
     public static final Filter Sorry_About_The_Mess = Filters.title(Title.Sorry_About_The_Mess);
     public static final Filter Sound_The_Attack = Filters.title(Title.Sound_The_Attack);
     public static final Filter space_creature = Filters.and(CardType.CREATURE, ModelType.SPACE);
+    public static final Filter Spaceport_Speeders = Filters.title(Title.Space);
     public static final Filter Space_Slug = Filters.title(Title.Space_Slug);
     public static final Filter Space_Slug_Belly = Filters.title(Title.Space_Slug_Belly);
     public static final Filter space_system = Filters.and(Icon.SPACE, CardSubtype.SYSTEM);
