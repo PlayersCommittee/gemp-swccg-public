@@ -244,15 +244,16 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
         protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 game.getGameState().removeCardsFromZone(Collections.singletonList(selectedCard));
+                String cardInfo = (_hidden && _cardPile.isFaceDown()) ? "a card" : GameUtils.getCardLink(selectedCard);
                 String playerToPutCardInPile = _playerId != null ? _playerId : selectedCard.getOwner();
                 String cardPileText = selectedCard.getOwner().equals(playerToPutCardInPile) ? _cardPile.getHumanReadable() : (selectedCard.getOwner() + "'s " + _cardPile.getHumanReadable());
 
                 if (_bottom) {
                     game.getGameState().addCardToZone(selectedCard, _cardPile, selectedCard.getOwner());
-                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + GameUtils.getCardLink(selectedCard) + " on bottom of " + cardPileText);
+                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + cardInfo + " on bottom of " + cardPileText);
                 } else {
                     game.getGameState().addCardToTopOfZone(selectedCard, _cardPile, selectedCard.getOwner());
-                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + GameUtils.getCardLink(selectedCard) + " on " + cardPileText);
+                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + cardInfo + " on " + cardPileText);
                 }
 
                 _remainingCards.remove(selectedCard);
