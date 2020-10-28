@@ -40,7 +40,7 @@ public class Card501_057 extends AbstractUniqueStarshipSite {
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         Filter margo = Filters.and(Persona.MARGO);
-        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereCondition(self, Filters.and(Filters.unique, Filters.alien)), new ConditionEvaluator(1, 2, new HereCondition(self, margo)), playerOnDarkSideOfLocation));
+        modifiers.add(new ForceGenerationModifier(self, Filters.here(self), new HereCondition(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.unique, Filters.alien)), new ConditionEvaluator(1, 2, new HereCondition(self, margo)), playerOnDarkSideOfLocation));
         return modifiers;
     }
 
