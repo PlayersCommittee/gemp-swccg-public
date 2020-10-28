@@ -32,7 +32,7 @@ public class Card501_007 extends AbstractUsedOrLostInterrupt {
         super(Side.LIGHT, 4, "Help Me Obi-Wan Kenobi & Quite A Mercenary");
         addComboCardTitles(Title.Help_Me_Obi_Wan_Kenobi, Title.Quite_A_Mercenary);
         setGameText("If opponent's Audience Chamber on table, opponent loses 1 Force when you play this Interrupt. " +
-                "USED: Cancel None Shall Pass (unless targeting your [Maintenance] or [Permanent Weapon] Rebel) or Elis Helrot. [Immune to Sense.] " +
+                "USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.] " +
                 "OR Cancel a smuggler's game text for remainder of turn. " +
                 "LOST: During your move phase, 'break cover' of an Undercover spy. OR " +
                 "During battle, target an opponent's character of ability < 2 with your Jedi or smuggler; target is excluded from battle.");
@@ -73,8 +73,7 @@ public class Card501_007 extends AbstractUsedOrLostInterrupt {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.None_Shall_Pass,
-                Filters.and(Filters.your(playerId), Filters.not(Filters.or(Icon.PERMANENT_WEAPON, Icon.MAINTENANCE))))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Stunning_Leader)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
@@ -100,6 +99,15 @@ public class Card501_007 extends AbstractUsedOrLostInterrupt {
             action.setImmuneTo(Title.Sense);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Elis_Helrot, Title.Elis_Helrot);
+            actions.add(action);
+        }
+
+        if (GameConditions.canTargetToCancel(game, self, Filters.Stunning_Leader)) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setImmuneTo(Title.Sense);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Stunning_Leader, Title.Stunning_Leader);
             actions.add(action);
         }
 

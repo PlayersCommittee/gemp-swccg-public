@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractDarkJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,9 +25,9 @@ import java.util.List;
  */
 public class Card501_044 extends AbstractDarkJediMaster {
     public Card501_044() {
-        super(Side.DARK, 1, 6, 5, 7, 8, "Darth Tyranus", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, 5, 7, 8, "Darth Tyranus", Uniqueness.UNIQUE);
         setLore("Serennian leader. Trade Federation.");
-        setGameText("Defense value +1 while armed with a lightsaber. Jedi here are power and immunity to attrition -1. During battle or lightsaber combat involving Dooku, may cancel and redraw an opponent's just drawn destiny. Immune to Sorry About The Mess and attrition < 6.");
+        setGameText("Deploys -1 to an [Episode I] location. Jedi here are power and immunity to attrition -1. During battle or lightsaber combat involving Dooku, may cancel and redraw an opponent's just drawn destiny. Immune to Sorry About The Mess and attrition < 6.");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.SEPARATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.LEADER);
         addPersona(Persona.DOOKU);
@@ -36,9 +35,16 @@ public class Card501_044 extends AbstractDarkJediMaster {
     }
 
     @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new DeployCostToLocationModifier(self, -1, Filters.icon(Icon.EPISODE_I)));
+        return modifiers;
+    }
+
+    @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DefenseValueModifier(self, new ArmedWithCondition(self, Filters.lightsaber), 1));
+        modifiers.add(new DeployCostToLocationModifier(self, -1, Filters.icon(Icon.EPISODE_I)));
         modifiers.add(new PowerModifier(self, Filters.and(Filters.Jedi, Filters.here(self)), -1));
         modifiers.add(new ImmunityToAttritionChangeModifier(self, Filters.and(Filters.Jedi, Filters.here(self)), -1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 6));
