@@ -27,7 +27,7 @@ public class Card9_101 extends AbstractImperial {
         setLore("Often flies as top cover during bombing runs. Served with Death Squadron. Narrowly escaped death by space slug. Scored several kills against rebel blockade runners.");
         setGameText("Deploys -2 aboard Scimitar 2. Adds 2 to power of anything he pilots. When forfeited from a TIE/sa, also satisfies all remaining attrition and battle damage against you.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);
-        addKeywords(Keyword.SCIMITAR_SQUADRON, Keyword.CAPTAIN);
+        addKeywords(Keyword.SCIMITAR_SQUADRON, Keyword.DEATH_SQUADRON, Keyword.CAPTAIN);
         setMatchingStarshipFilter(Filters.Scimitar_2);
     }
 

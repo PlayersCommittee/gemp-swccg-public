@@ -28,6 +28,7 @@ public class Card3_152 extends AbstractCapitalStarship {
         setGameText("May add 6 pilots, 8 passengers, 2 vehicles and 4 TIEs. Has ship-docking capability. Permanent pilot provides ability of 1. Probe droids deploy free to sites related to same system.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
+        addKeywords(Keyword.DEATH_SQUADRON);
         setPilotCapacity(6);
         setPassengerCapacity(8);
         setVehicleCapacity(2);

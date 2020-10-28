@@ -36,6 +36,7 @@ public enum Keyword implements Filterable {
     CRIMSON_DAWN("Crimson Dawn", true),
     CRUISER("Cruiser", true),
     DEATH_STAR_TROOPER("Death Star Trooper", true),
+    DEATH_SQUADRON("Death Squadron", true),
     DEATH_TROOPER("Death Trooper", true),
     DEJARIK("Dejarik", true),
     DESERT("Desert", true),
