@@ -78,4 +78,22 @@ public class SwccgDeck {
         else
             return null;
     }
+
+    public String toString() {
+        //copied from DeckSerialization
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < getCards().size(); i++) {
+            if (i > 0)
+                sb.append(",");
+            sb.append(getCards().get(i));
+        }
+        sb.append("|");
+        for (int i = 0; i < getCardsOutsideDeck().size(); i++) {
+            if (i > 0)
+                sb.append(",");
+            sb.append(getCardsOutsideDeck().get(i));
+        }
+
+        return sb.toString();
+    }
 }
