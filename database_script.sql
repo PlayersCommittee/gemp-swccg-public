@@ -71,6 +71,8 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`game_history` (
   `loser_deck_archetype` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `winner_side` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `tournament` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `dark_deck_string` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' ,
+  `light_deck_string` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 71300
