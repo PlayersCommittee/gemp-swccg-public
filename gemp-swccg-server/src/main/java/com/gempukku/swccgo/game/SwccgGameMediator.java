@@ -1164,6 +1164,10 @@ public class SwccgGameMediator {
         return stringBuilder.toString();
     }
 
+    public String getDeckString(Side side) {
+        return _swccgoGame.getDeckString(side);
+    }
+
     /**
      * Gets the deck archetype being played by the specified player.
      * @param playerId the player

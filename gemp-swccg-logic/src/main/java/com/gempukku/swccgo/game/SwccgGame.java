@@ -254,4 +254,6 @@ public interface SwccgGame {
      * @param description the description
      */
     void takeSnapshot(String description);
+
+    String getDeckString(Side side);
 }

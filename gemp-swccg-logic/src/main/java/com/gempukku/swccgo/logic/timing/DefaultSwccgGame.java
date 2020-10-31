@@ -32,6 +32,7 @@ public class DefaultSwccgGame implements SwccgGame {
     private String _lightPlayerId;
     private String _darkPlayerId;
     private SwccgCardBlueprintLibrary _library;
+    private Map<String, String> _decks;
     private Map<String, List<String>> _cards;
     private Map<String, List<String>> _outSideOfDeckCards;
     private String _winnerPlayerId;
@@ -66,11 +67,13 @@ public class DefaultSwccgGame implements SwccgGame {
         // Sets the "cards in deck" and "cards outside of deck" for each player
         _cards = new HashMap<String, List<String>>();
         _outSideOfDeckCards = new HashMap<String, List<String>>();
+        _decks = new HashMap<String, String>();
         for (String playerId : _allPlayers) {
             List<String> deck = new LinkedList<String>();
             List<String> outsideOfDeck = new LinkedList<String>();
 
             SwccgDeck swccgDeck = decks.get(playerId);
+            _decks.put(playerId, swccgDeck.toString());
             deck.addAll(swccgDeck.getCards());
             outsideOfDeck.addAll(swccgDeck.getCardsOutsideDeck());
 
@@ -465,5 +468,15 @@ public class DefaultSwccgGame implements SwccgGame {
             // Remove the current snapshot from the iterator and the list.
             iterator.remove();
         }
+    }
+
+    public String getDeckString(Side side) {
+        if(side.equals(Side.DARK)) {
+            return _decks.get(_darkPlayerId);
+        } else if(side.equals(Side.LIGHT)) {
+            return _decks.get(_lightPlayerId);
+        }
+
+        return "";
     }
 }
