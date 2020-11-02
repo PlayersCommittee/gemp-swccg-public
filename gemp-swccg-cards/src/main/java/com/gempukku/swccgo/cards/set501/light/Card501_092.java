@@ -29,7 +29,7 @@ public class Card501_092 extends AbstractUsedInterrupt {
     public Card501_092() {
         super(Side.LIGHT, 4, "I've Got A Really Good Feeling About This", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If you have two smugglers on table, choose one: If opponent has more cards in hand than you, draw two cards from Reserve Deck. (3 if V-13 Han on table.) Or if there are more [DS] than [LS] on table, activate 2 Force. (3 if V-13 Han on table.) OR Re-circulate.");
+        setGameText("If you have two smugglers on table, choose one: If opponent has more cards in hand than you, draw one card from Reserve Deck (two if [Set 13] Han on table). OR If there are more [Dark Side] than [Light Side] on table, activate 1 Force (2 if [Set 13] Han on table). OR Re-circulate.");
         addIcons(Icon.VIRTUAL_SET_13);
         setTestingText("I've Got A Really Good Feeling About This");
     }
@@ -41,13 +41,13 @@ public class Card501_092 extends AbstractUsedInterrupt {
         GameState gameState = game.getGameState();
 
         final boolean v13HanOnTable = GameConditions.canSpot(game, self, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.Han));
-        String numCardsText = v13HanOnTable ? String.valueOf(3) : String.valueOf(2);
+        String numCardsText = v13HanOnTable ? String.valueOf(2) : String.valueOf(1);
 
         if (GameConditions.canSpot(game, self, 2, Filters.and(Filters.your(playerId), Filters.smuggler))) {
             if (gameState.getHand(opponent).size() > gameState.getHand(playerId).size()
                     && GameConditions.hasReserveDeck(game, playerId)) {
                 if (v13HanOnTable) {
-                    numCardsText = String.valueOf(3);
+                    numCardsText = String.valueOf(2);
                 }
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Draw " + numCardsText + " cards");
@@ -58,7 +58,7 @@ public class Card501_092 extends AbstractUsedInterrupt {
                             protected void performActionResults(Action targetingAction) {
                                 // Perform result(s)
                                 action.appendEffect(
-                                        new DrawCardsIntoHandFromReserveDeckEffect(action, playerId, v13HanOnTable ? 3 : 2)
+                                        new DrawCardsIntoHandFromReserveDeckEffect(action, playerId, v13HanOnTable ? 2 : 1)
                                 );
                             }
                         }
@@ -76,7 +76,7 @@ public class Card501_092 extends AbstractUsedInterrupt {
                             protected void performActionResults(Action targetingAction) {
                                 // Perform result(s)
                                 action.appendEffect(
-                                        new ActivateForceEffect(action, playerId, v13HanOnTable ? 3 : 2)
+                                        new ActivateForceEffect(action, playerId, v13HanOnTable ? 2 : 1)
                                 );
                             }
                         }
