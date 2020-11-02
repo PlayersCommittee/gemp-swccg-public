@@ -32,7 +32,7 @@ public class Card501_072 extends AbstractAlien {
     public Card501_072() {
         super(Side.LIGHT, 3, 2, 2, 3, 4, "Captain Lando Calrissian", Uniqueness.UNIQUE);
         setLore("Smuggler and gambler.");
-        setGameText("Adds 2 to power of anything he pilots. If a battle was just initiated here, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve Deck; reshuffle. Once per game, if Kessel Run on table, may return Lando (and your cards on him) to hand.");
+        setGameText("[Pilot] 2. If a battle was just initiated here, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve Deck; reshuffle. Once per game, if you have completed a Kessel Run, may return Lando to hand.");
         addPersona(Persona.LANDO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER, Keyword.CAPTAIN);
@@ -51,7 +51,7 @@ public class Card501_072 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.LANDO__RETURN_TO_HAND;
 
         // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.Kessel_Run)
+        if (GameConditions.hasCompletedUtinniEffect(game, self.getOwner(), Filters.Kessel_Run)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Return to hand");
@@ -60,7 +60,7 @@ public class Card501_072 extends AbstractAlien {
                     new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action, self, Zone.HAND, Zone.LOST_PILE));
+                    new ReturnCardToHandFromTableEffect(action, self));
             return Collections.singletonList(action);
         }
         return null;

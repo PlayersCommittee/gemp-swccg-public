@@ -39,7 +39,7 @@ public class Card501_071 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Planet Kessel has infamous glitterstim spice mines attracting smugglers and pirates. A 'Kessel run' is a long, dangerous hyper-route they must travel quickly.");
-        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, may move a 'coaxium' card from here to Used Pile. If no 'coaxium' cards here, retrieve 4 Force and lose Effect.");
+        setGameText("Deploy on Kessel; draw 'coaxium' destinies, stacking face up here until total > 12 (cannot deploy otherwise). During each move phase, if your smuggler here, move a 'coaxium' card from here to Used Pile. If no 'coaxium' cards here, retrieve 4 Force; place Effect out of play.");
         setTestingText("Kessel Run (V)");
     }
 
@@ -95,6 +95,32 @@ public class Card501_071 extends AbstractNormalEffect {
             actions.add(action);
         }
 
+        GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
+
+        if (TriggerConditions.isEndOfEachPhase(game, effectResult, Phase.MOVE)
+                && GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.MOVE)
+                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId2);
+            action.setText("Place 'coaxium' card in Used Pile");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerPhaseEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new ChooseStackedCardEffect(action, playerId, self, Filters.coaxiumCard) {
+                        @Override
+                        protected void cardSelected(PhysicalCard selectedCard) {
+                            action.appendEffect(
+                                    new PutStackedCardInUsedPileEffect(action, playerId, selectedCard, false)
+                            );
+                        }
+                    }
+            );
+            actions.add(action);
+        }
+
+
+
         if (self.getWhileInPlayData() != null
                 && TriggerConditions.isTableChanged(game, effectResult)
                 && !GameConditions.hasStackedCards(game, self)) {
@@ -111,7 +137,7 @@ public class Card501_071 extends AbstractNormalEffect {
                     new RetrieveForceEffect(action, playerId, 4)
             );
             action.appendEffect(
-                    new LoseCardFromTableEffect(action, self)
+                    new PlaceCardOutOfPlayFromTableEffect(action, self)
             );
             actions.add(action);
         }
