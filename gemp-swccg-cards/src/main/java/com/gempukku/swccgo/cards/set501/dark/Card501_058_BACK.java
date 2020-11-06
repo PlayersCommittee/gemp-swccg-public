@@ -141,21 +141,10 @@ public class Card501_058_BACK extends AbstractObjective {
                     new OncePerTurnEffect(action)
             );
             action.appendEffect(
-                    new ChooseCardFromReserveDeckEffect(action, playerId, Filters.or(Filters.and(Filters.non_unique, Filters.blaster, Filters.deployable(self, Filters.any, false, 0)), Filters.titleContains("First Light"))) {
-                        @Override
-                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                            if (Filters.and(Filters.non_unique, Filters.blaster).accepts(game, selectedCard)) {
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new DeployCardToTargetFromReserveDeckEffect(action, selectedCard, Filters.and(Filters.your(playerId), Filters.alien), false, false, true)
-                                );
-                            } else {
-                                action.appendEffect(
-                                        new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedCard), true)
-                                );
-                            }
-                        }
-                    });
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")),
+                            Filters.and(Filters.your(playerId), Filters.alien), Filters.titleContains("First Light"), null, false, true)
+            );
+
         }
         return actions;
     }
