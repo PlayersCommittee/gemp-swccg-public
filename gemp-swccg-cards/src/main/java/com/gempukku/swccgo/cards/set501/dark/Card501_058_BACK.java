@@ -18,8 +18,6 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LookAtForcePileEffect;
 import com.gempukku.swccgo.logic.effects.RecirculateEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
