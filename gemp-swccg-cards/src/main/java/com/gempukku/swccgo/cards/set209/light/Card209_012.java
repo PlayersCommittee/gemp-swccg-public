@@ -50,7 +50,8 @@ public class Card209_012 extends AbstractRebel {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Trooper_Assault)
-                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)
+                && GameConditions.isDuringBattleAt(game, Filters.here(self))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             // Build action using common utility
@@ -66,7 +67,8 @@ public class Card209_012 extends AbstractRebel {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.canTargetToCancel(game, self, Filters.Trooper_Assault)) {
+                && GameConditions.canTargetToCancel(game, self, Filters.Trooper_Assault)
+                && GameConditions.isDuringBattleAt(game, Filters.here(self))) {
 
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

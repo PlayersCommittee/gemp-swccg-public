@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfCardPileEffect;
 import com.gempukku.swccgo.common.*;
@@ -11,6 +12,8 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
@@ -41,7 +44,10 @@ public class Card501_003 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        WithCondition withJediPadawanOrHatredCardCondition = new WithCondition(self, Filters.or(Filters.Jedi, Filters.padawan, Filters.hasStacked(Filters.hatredCard)));
+        Condition withJediPadawanOrHatredCardCondition = new OrCondition(
+                new WithCondition(self, Filters.or(Filters.Jedi, Filters.padawan, Filters.hasStacked(Filters.hatredCard))),
+                new AtCondition(self, Filters.hasStacked(Filters.hatredCard))
+                );
         Filter charactersHere = Filters.and(Filters.character, Filters.here(self));
 
         modifiers.add(new PowerModifier(self, withJediPadawanOrHatredCardCondition, 3));
