@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -64,22 +65,33 @@ public class Card501_070 extends AbstractUsedOrLostInterrupt {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId2)
-                && GameConditions.canSpot(game, self, Filters.stackedOn(self, Filters.and(Filters.A_Useless_Gesture, Filters.icon(Icon.VIRTUAL_DEFENSIVE_SHIELD))))) {
+                && GameConditions.canSpot(game, self, Filters.and(Filters.A_Useless_Gesture, Filters.icon(Icon.VIRTUAL_DEFENSIVE_SHIELD)))) {
+            final PhysicalCard auselessgesturev = Filters.findFirstActive(game, self, Filters.and(Filters.A_Useless_Gesture, Filters.icon(Icon.VIRTUAL_DEFENSIVE_SHIELD)));
+            if(GameConditions.hasStackedCards(game, auselessgesturev)) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId2, CardSubtype.LOST);
+                action.setText("Place a card stacked on A Useless Gesture in your Lost Pile.");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new ChooseStackedCardEffect(action, playerId, auselessgesturev) {
+                                            @Override
+                                            protected void cardSelected(PhysicalCard selectedCard) {
+                                                action.appendEffect(
+                                                        new PutStackedCardInLostPileEffect(action, playerId, selectedCard, false)
+                                                );
+                                            }
+                                        }
+                                );
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId2, CardSubtype.LOST);
-            action.setText("Place a card stacked on A Useless Gesture in your Lost Pile.");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new PutStackedCardInLostPileEffect(action, playerId, Filters.findFirstActive(game, self, Filters.and(Filters.A_Useless_Gesture, Filters.icon(Icon.VIRTUAL_DEFENSIVE_SHIELD))), false));
+                            }
                         }
-                    }
-            );
-            actions.add(action);
+                );
+                actions.add(action);
+            }
         }
         return actions;
     }
@@ -88,7 +100,7 @@ public class Card501_070 extends AbstractUsedOrLostInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.justPutCoaxiumCardInCardPile(effectResult, Zone.USED_PILE)
                 && GameConditions.hasLostPile(game, playerId)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Randomly retrieve 1 force");
             // Allow response(s)
             action.allowResponses(

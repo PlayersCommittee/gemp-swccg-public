@@ -50,7 +50,7 @@ public class Card501_092 extends AbstractUsedInterrupt {
                     numCardsText = String.valueOf(2);
                 }
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Draw " + numCardsText + " cards");
+                action.setText("Draw " + numCardsText + " card" + (numCardsText.equals(String.valueOf(1))?"":"s"));
                 // Allow response(s)
                 action.allowResponses(
                         new RespondablePlayCardEffect(action) {

@@ -63,7 +63,7 @@ public class Card501_024 extends AbstractAlien {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self))
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(self.getOwner()), Filters.here(self))
                 && GameConditions.isPresentAt(game, self, Filters.site)
                 && GameConditions.isArmedWith(game, self, Filters.blaster)
                 ) {
