@@ -1,30 +1,19 @@
 package com.gempukku.swccgo.cards.set501.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.InBattleCondition;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
-import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 13
+ * Set: Set 13
  * Type: Weapon
  * Subtype: Character
  * Title: Ahsoka's Shoto Lightsaber
