@@ -3191,7 +3191,7 @@ var fixedImages = {
 "213_4":"/gemp-swccg/images/cards/Virtual13-Dark/drydenvos.gif",
 "213_5":"/gemp-swccg/images/cards/Virtual13-Dark/eighthbrother.gif",
 "213_6":"/gemp-swccg/images/cards/Virtual13-Dark/fifthbrother.gif",
-"213_7":"/gemp-swccg/images/cards/Virtual13-Dark/hybolonenforcer.gif",
+"213_7":"/gemp-swccg/images/cards/Virtual13-Dark/hylobonenforcer.gif",
 "213_8":"/gemp-swccg/images/cards/Virtual13-Dark/id9probedroid.gif",
 "213_9":"/gemp-swccg/images/cards/Virtual13-Dark/margo.gif",
 "213_10":"/gemp-swccg/images/cards/Virtual13-Dark/maul.gif",
