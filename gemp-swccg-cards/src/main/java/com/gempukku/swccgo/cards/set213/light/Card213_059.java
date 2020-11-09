@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set501.light;
+package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -24,14 +24,13 @@ import java.util.List;
  * Subtype: Character
  * Title: Rock
  */
-public class Card501_039 extends AbstractCharacterWeapon {
-    public Card501_039() {
+public class Card213_059 extends AbstractCharacterWeapon {
+    public Card213_059() {
         super(Side.LIGHT, 5, "Rock");
         setLore("");
         setGameText("Ewok weapon. Deploy on your warrior or Ewok. May 'throw' (place in Used Pile) to target a character. For remainder of turn, target is power -3 (and if Proxima, she cannot battle). If on a Corellian and a battle just initiated at same site, may 'throw' Rock.");
         addIcon(Icon.VIRTUAL_SET_13);
         addKeyword(Keyword.EWOK_WEAPON);
-        setTestingText("Rock");
     }
 
     @Override
@@ -62,7 +61,7 @@ public class Card501_039 extends AbstractCharacterWeapon {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if(TriggerConditions.battleInitiated(game, effectResult)
+        if (TriggerConditions.battleInitiated(game, effectResult)
                 && GameConditions.isAttachedTo(game, self, Filters.and(Filters.Corellian, Filters.armedWith(self), Filters.participatingInBattle, Filters.at(Filters.site)))
                 && Filters.canBeFired(self, 0).accepts(game, self)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
