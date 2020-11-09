@@ -2497,7 +2497,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      */
     @Override
     public boolean hasManeuver(GameState gameState, PhysicalCard card) {
-        return hasManeuver(gameState, card, false);
+        return hasManeuver(gameState, card, true);
     }
 
     private boolean hasManeuver(GameState gameState, PhysicalCard card, boolean skipManeuverValueCheck) {
