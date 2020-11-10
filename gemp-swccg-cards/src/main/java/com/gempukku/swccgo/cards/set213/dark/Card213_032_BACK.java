@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -117,23 +118,24 @@ public class Card213_032_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_2;
 
-        if (GameConditions.isOnceDuringYourPhase(game, self, gameTextSourceCardId, Phase.DRAW)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.DRAW)
                 && GameConditions.hasForcePile(game, playerId)
                 && GameConditions.canSpot(game, self, Filters.and(Filters.Maul, Filters.alone))) {
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.appendUsage(new OncePerTurnEffect(action));
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId2);
+            action.setText("Peek at Force Pile");
+            action.appendUsage(new OncePerPhaseEffect(action));
             action.appendEffect(
                     new LookAtForcePileEffect(action, playerId, playerId));
             actions.add(action);
         }
 
-        gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
+        GameTextActionId gameTextActionId3 = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId3)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId3)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId3);
             action.setText("Deploy a card from Reserve Deck");
             action.appendUsage(
                     new OncePerTurnEffect(action)

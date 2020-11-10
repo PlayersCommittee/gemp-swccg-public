@@ -92,21 +92,6 @@ public class Card213_032 extends AbstractObjective {
             actions.add(action);
         }
 
-        // Check condition(s)
-        if (GameConditions.isDuringYourPhase(game, self, Phase.BATTLE)
-                && GameConditions.canBeFlipped(game, self)
-                && GameConditions.controlsWith(game, self, playerId, 2, Filters.battleground, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.gangster)) {
-
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setSingletonTrigger(true);
-            action.setText("Flip");
-            action.setActionMsg(null);
-            // Perform result(s)
-            action.appendEffect(
-                    new FlipCardEffect(action, self));
-            actions.add(action);
-        }
-
         return actions;
     }
 
@@ -128,7 +113,8 @@ public class Card213_032 extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.BATTLE)
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.isDuringYourPhase(game, playerId, Phase.BATTLE)
                 && GameConditions.canBeFlipped(game, self)
                 && GameConditions.controlsWith(game, self, playerId, 2, Filters.battleground, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.gangster)) {
 
