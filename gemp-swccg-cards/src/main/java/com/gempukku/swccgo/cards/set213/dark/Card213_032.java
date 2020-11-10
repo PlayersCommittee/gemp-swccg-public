@@ -86,7 +86,7 @@ public class Card213_032 extends AbstractObjective {
             );
             action.appendEffect(
                     new DeployCardToTargetFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")),
-                            Filters.and(Filters.your(playerId), Filters.alien), Filters.titleContains("First Light"), null, false, true)
+                            Filters.any, Filters.titleContains("First Light"), null, false, true)
             );
 
             actions.add(action);

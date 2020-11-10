@@ -101,7 +101,7 @@ public class Card213_032_BACK extends AbstractObjective {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Filters.gangster)))
+        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Filters.gangster, Filters.at(Filters.site))))
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.non_unique, Filters.blaster))
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
@@ -119,10 +119,11 @@ public class Card213_032_BACK extends AbstractObjective {
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
-        if (GameConditions.isDuringYourPhase(game, playerId, Phase.DRAW)
+        if (GameConditions.isOnceDuringYourPhase(game, self, gameTextSourceCardId, Phase.DRAW)
                 && GameConditions.hasForcePile(game, playerId)
                 && GameConditions.canSpot(game, self, Filters.and(Filters.Maul, Filters.alone))) {
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.appendUsage(new OncePerTurnEffect(action));
             action.appendEffect(
                     new LookAtForcePileEffect(action, playerId, playerId));
             actions.add(action);
@@ -139,7 +140,7 @@ public class Card213_032_BACK extends AbstractObjective {
             );
             action.appendEffect(
                     new DeployCardToTargetFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")),
-                            Filters.and(Filters.your(playerId), Filters.alien), Filters.titleContains("First Light"), null, false, true)
+                            Filters.any, Filters.titleContains("First Light"), null, false, true)
             );
 
         }
