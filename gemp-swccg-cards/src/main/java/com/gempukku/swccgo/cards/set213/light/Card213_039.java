@@ -31,7 +31,7 @@ public class Card213_039 extends AbstractAlien {
     public Card213_039() {
         super(Side.LIGHT, 2, 3, 3, 4, 3, "Qi'ra", Uniqueness.UNIQUE);
         setLore("Female thief. Corellian smuggler.");
-        setGameText(" When forfeited at same location as Han or Vos, may satisfy all remaining battle damage against you. If you just initiated a battle or Force drain at same battleground and you have completed a Kessel Run, opponent loses 1 Force. Immune to attrition < 3.");
+        setGameText("When forfeited at same location as Han or Vos, may satisfy all remaining battle damage against you. If you just initiated a battle or Force drain at same battleground and you have completed a Kessel Run, opponent loses 1 Force. Immune to attrition < 3.");
         addPersona(Persona.QIRA);
         setSpecies(Species.CORELLIAN);
         addKeywords(Keyword.FEMALE, Keyword.THIEF, Keyword.SMUGGLER);
@@ -69,26 +69,18 @@ public class Card213_039 extends AbstractAlien {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isResolvingBattleDamageAndAttrition(game, effectResult, playerId)
-                && GameConditions.canForfeitToSatisfyAttritionAndBattleDamage(game, playerId, self)
+                && GameConditions.canForfeitToSatisfyBattleDamage(game, playerId, self)
                 && GameConditions.isInBattleWith(game, self, Filters.or(Filters.Han, Filters.Vos))) {
-            boolean cannotSatisfyAttrition = game.getModifiersQuerying().cannotSatisfyAttrition(game.getGameState(), self);
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            if (cannotSatisfyAttrition)
-                action.setText("Forfeit to satisfy all battle damage");
-            else
-                action.setText("Forfeit to satisfy all battle damage and attrition");
+            action.setText("Forfeit to satisfy all battle damage");
             // Pay cost(s)
             action.appendCost(
                     new ForfeitCardFromTableEffect(action, self));
             action.setActionMsg(null);
             // Perform result(s)
-            if (cannotSatisfyAttrition)
-                action.appendEffect(
-                        new SatisfyAllBattleDamageEffect(action, playerId));
-            else
-                action.appendEffect(
-                        new SatisfyAllBattleDamageAndAttritionEffect(action, playerId));
+            action.appendEffect(
+                    new SatisfyAllBattleDamageEffect(action, playerId));
             return Collections.singletonList(action);
         }
         return null;
