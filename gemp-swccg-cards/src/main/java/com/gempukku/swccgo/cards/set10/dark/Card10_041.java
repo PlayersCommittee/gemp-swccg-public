@@ -27,7 +27,7 @@ public class Card10_041 extends AbstractDroid {
         setLore("Human-replica droid. Programmed to function as Xizor's personal bodyguard and assassin. Black Sun agent. Cost 9 million credits. Worth every decicred.");
         setGameText("Adds 2 to power of anything she pilots. When present with Xizor, he may not be targeted by weapons. While Vader not here, opponent may draw no more than one battle destiny here. Immune to purchase, Restraining Bolt, and attrition < 5.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.FEMALE, Keyword.BLACK_SUN_AGENT, Keyword.BODYGUARD);
+        addKeywords(Keyword.FEMALE, Keyword.BLACK_SUN_AGENT, Keyword.BODYGUARD, Keyword.ASSASSIN);
         addModelTypes(ModelType.ASSASSIN);
     }
 
