@@ -28,7 +28,6 @@ public class Card13_033 extends AbstractRepublic {
         setGameText("Deploys -2 to Naboo. Power +2 if Maul present. If Qui-Gon is participating in lightsaber combat and Obi-Wan is present, Qui-Gon may use Obi-Wan's combat cards. Immune to Sniper and attrition < 5.");
         addPersona(Persona.OBIWAN);
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.WARRIOR);
-        addKeywords(Keyword.PADAWAN);
     }
 
     @Override

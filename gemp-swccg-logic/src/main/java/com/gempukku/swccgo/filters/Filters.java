@@ -18027,7 +18027,7 @@ public class Filters {
     public static final Filter Overwhelmed = Filters.title(Title.Overwhelmed);
     public static final Filter Owen = Filters.title(Title.Owen_Lars);
     public static final Filter Ozzel = Filters.persona(Persona.OZZEL);
-    public static final Filter padawan = Filters.keyword(Keyword.PADAWAN);
+    public static final Filter padawan = Filters.and(Filters.keyword(Keyword.PADAWAN), Filters.not(Filters.abilityMoreThanOrEqualTo(6)));
     public static final Filter Padme = Filters.title(Title.Padme);
     public static final Filter Paige = Filters.title(Title.Paige);
     public static final Filter Palace_Raider = Filters.title(Title.Palace_Raider);
