@@ -35,7 +35,6 @@ public class Card213_041 extends AbstractAlien {
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.THIEF);
         setSpecies(Species.ARDENNIAN);
-        setMatchingStarshipFilter(Filters.or(Filters.stolen, Filters.icon(Icon.INDEPENDENT)));
     }
 
     @Override
@@ -72,7 +71,7 @@ public class Card213_041 extends AbstractAlien {
         }
 
         GameTextActionId gameTextActionId1 = GameTextActionId.RIO_DURANT__STEAL_STARSHIP;
-        if (TriggerConditions.wonBattle(game, effectResult, playerId)
+        if (TriggerConditions.wonBattleAt(game, effectResult, playerId, Filters.here(self))
                 && GameConditions.hasLostPile(game, game.getOpponent(playerId))
                 && GameConditions.canSearchOpponentsLostPile(game, playerId, self, gameTextActionId1)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId1)) {

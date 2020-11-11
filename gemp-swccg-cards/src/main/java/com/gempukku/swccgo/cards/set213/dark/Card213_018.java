@@ -55,7 +55,7 @@ public class Card213_018 extends AbstractUsedOrLostInterrupt {
             actions.add(getAction(self, game, numDestinies));
         }
 
-        Filter filter = Filters.and(Filters.opponents(playerId), Filters.character, Filters.or(Filters.leader, Filters.abilityMoreThan(3)));
+        Filter filter = Filters.and(Filters.opponents(playerId), Filters.character, Filters.or(Filters.leader, Filters.abilityMoreThan(3)), Filters.at(Filters.battleground));
         if (GameConditions.hasLostPile(game, playerId)
                 && GameConditions.canSpot(game, self, filter)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
