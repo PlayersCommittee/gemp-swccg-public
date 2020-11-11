@@ -10634,7 +10634,9 @@ public class Filters {
     public static final Filter cannotParticipateInForceDrain = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            //Only applies to characters, vehicles, starships, weapons, and devices
             return modifiersQuerying.hasParticipatedInForceDrainThisTurn(physicalCard)
+                    && Filters.or(Filters.character, Filters.vehicle, Filters.starship, Filters.weapon, Filters.device).accepts(gameState, modifiersQuerying, physicalCard)
                     && !modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.FORCE_DRAIN_MULTI_PARTICIPANT);
         }
     };

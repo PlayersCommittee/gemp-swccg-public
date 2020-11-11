@@ -22,11 +22,11 @@ import java.util.List;
  * Set: Set 13
  * Type: Location
  * Subtype: Site
- * Title: First Light: Dryden’s Study
+ * Title: First Light: Dryden's Study
  */
 public class Card213_026 extends AbstractUniqueStarshipSite {
     public Card213_026() {
-        super(Side.DARK, "First Light: Dryden’s Study", Persona.FIRST_LIGHT);
+        super(Side.DARK, "First Light: Dryden's Study", Persona.FIRST_LIGHT);
         setLocationDarkSideGameText("Once during your move phase, your Crimson Dawn leader may move between here and any site.");
         setLocationLightSideGameText("Add 1 to your blaster weapon destiny draws here. Unless Vos on table, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
