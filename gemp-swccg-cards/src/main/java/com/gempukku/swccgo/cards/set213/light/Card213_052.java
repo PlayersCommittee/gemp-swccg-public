@@ -183,7 +183,7 @@ public class Card213_052 extends AbstractUsedOrLostInterrupt {
         // Check condition(s)
         if (GameConditions.isDuringBattle(game)) {
             Filter filter = Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(2), Filters.participatingInBattle,
-                    Filters.presentWith(self, Filters.and(Filters.your(self), Filters.or(Filters.Jedi, Filters.smuggler))));
+                    Filters.with(self, Filters.and(Filters.your(self), Filters.or(Filters.Jedi, Filters.smuggler))));
             TargetingReason targetingReason = TargetingReason.TO_BE_EXCLUDED_FROM_BATTLE;
             if (GameConditions.canTarget(game, self, targetingReason, filter)) {
 
