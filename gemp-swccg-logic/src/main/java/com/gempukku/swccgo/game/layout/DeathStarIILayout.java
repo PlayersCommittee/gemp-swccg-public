@@ -13,7 +13,7 @@ public class DeathStarIILayout extends AbstractSystemLayout {
 
     // Layout order for Death Star II:
     //  1) Sites (in forward or reverse order)
-    //      A) Throne Room
+    //      A) Interior sites
     //      B) Docking bay
     //  2) Death Star II
     //  3) Coolant Shaft
@@ -37,11 +37,9 @@ public class DeathStarIILayout extends AbstractSystemLayout {
         //  1) Sites (in forward or reverse order)
         _groupOrders.add(
                 new LocationReversibleGroupOrder(
-                        //  A) Throne Room
-                        new LocationGroup("Throne Room", Filters.Throne_Room),
-                        //  B) Chasm Walkway
-                        new LocationGroup("Chasm Walkway", Filters.title(Title.Death_Star_II_Chasm_Walkway)),
-                        //  C) Docking bay
+                        //  A) Interior sites
+                        new LocationGroup("Interior sites", Filters.and(Filters.interior_site, Filters.not(Filters.exterior_site), Filters.partOfSystem(systemName))),
+                        //  B) Docking bay
                         new LocationGroup("Docking bay", Filters.and(Filters.docking_bay, Filters.partOfSystem(systemName)))));
 
         List<LocationGroup> fixedGroupOrder = new ArrayList<LocationGroup>();

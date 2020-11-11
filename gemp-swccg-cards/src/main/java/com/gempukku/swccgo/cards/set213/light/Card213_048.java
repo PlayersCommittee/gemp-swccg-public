@@ -58,7 +58,7 @@ public class Card213_048 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Yodas_Hut)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Yoda's Hut from Reserve Deck");

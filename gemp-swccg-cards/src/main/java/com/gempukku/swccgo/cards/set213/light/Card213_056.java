@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -34,7 +35,7 @@ public class Card213_056 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new TotalPowerModifier(self, Filters.here(self), new StackedEvaluator(self, Filters.I_Feel_The_Conflict), playerOnDarkSideOfLocation));
+        modifiers.add(new TotalPowerModifier(self, Filters.here(self), new NegativeEvaluator(new StackedEvaluator(self, Filters.I_Feel_The_Conflict)), playerOnDarkSideOfLocation));
         return modifiers;
     }
 
