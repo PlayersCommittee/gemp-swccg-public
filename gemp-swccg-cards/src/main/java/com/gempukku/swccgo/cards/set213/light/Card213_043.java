@@ -13,10 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableUsingForfeitValueEffect;
-import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -60,7 +57,7 @@ public class Card213_043 extends AbstractAlien {
                             action.addAnimationGroup(cardTargeted);
                             // Pay cost(s)
                             action.appendCost(
-                                    new ForfeitCardFromTableUsingForfeitValueEffect(action, self, 0));
+                                    new ForfeitCardFromTableEffect(action, self));
                             // Allow response(s)
                             action.allowResponses("Restore " + GameUtils.getCardLink(cardTargeted) + " to normal",
                                     new UnrespondableEffect(action) {
