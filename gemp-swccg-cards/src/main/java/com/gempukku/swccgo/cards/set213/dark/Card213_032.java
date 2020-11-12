@@ -15,7 +15,6 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -85,25 +84,9 @@ public class Card213_032 extends AbstractObjective {
                     new OncePerTurnEffect(action)
             );
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")),
-                            Filters.and(Filters.your(playerId), Filters.alien), Filters.titleContains("First Light"), null, false, true)
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")), true)
             );
 
-            actions.add(action);
-        }
-
-        // Check condition(s)
-        if (GameConditions.isDuringYourPhase(game, self, Phase.BATTLE)
-                && GameConditions.canBeFlipped(game, self)
-                && GameConditions.controlsWith(game, self, playerId, 2, Filters.battleground, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.gangster)) {
-
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setSingletonTrigger(true);
-            action.setText("Flip");
-            action.setActionMsg(null);
-            // Perform result(s)
-            action.appendEffect(
-                    new FlipCardEffect(action, self));
             actions.add(action);
         }
 
@@ -128,7 +111,8 @@ public class Card213_032 extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.BATTLE)
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.isDuringYourPhase(game, playerId, Phase.BATTLE)
                 && GameConditions.canBeFlipped(game, self)
                 && GameConditions.controlsWith(game, self, playerId, 2, Filters.battleground, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.gangster)) {
 

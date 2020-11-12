@@ -60,24 +60,25 @@ public class Card213_044 extends AbstractJediMaster {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.isDuringYourPhase(game, self, Phase.MOVE)) {
+                && GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
+                && !GameConditions.mayNotMove(game, self)
+                && GameConditions.canSpot(game, self, Filters.and(Filters.battleground_site, Filters.otherLocation(self)))
+                && Filters.hasNotPerformedRegularMove.accepts(game, self)
+            ) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Relocate to a battleground");
-            action.setActionMsg("Relocate to a battleground");
+            action.setText("Relocate to a battleground site");
+            action.setActionMsg("Relocate to a battleground site");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate to", Filters.battleground_site) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate to", Filters.and(Filters.battleground_site, Filters.otherLocation(self))) {
                         @Override
                         protected void cardSelected(final PhysicalCard siteSelected) {
                             action.addAnimationGroup(self);
                             action.addAnimationGroup(siteSelected);
-                            // Pay cost(s)
-                            action.appendCost(
-                                    new PayRelocateBetweenLocationsCostEffect(action, playerId, self, siteSelected, 1));
                             // Allow response(s)
                             action.allowResponses("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(siteSelected),
                                     new UnrespondableEffect(action) {

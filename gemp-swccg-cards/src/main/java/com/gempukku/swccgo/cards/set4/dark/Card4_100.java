@@ -33,7 +33,7 @@ public class Card4_100 extends AbstractAlien {
         setGameText("Adds 2 to power of anything he pilots. Power +1 for each opponent's character present. While present, may reduce Han's forfeit to zero.");
         addPersona(Persona.DENGAR);
         addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.BOUNTY_HUNTER);
+        addKeywords(Keyword.BOUNTY_HUNTER, Keyword.ASSASSIN);
         setSpecies(Species.CORELLIAN);
     }
 
