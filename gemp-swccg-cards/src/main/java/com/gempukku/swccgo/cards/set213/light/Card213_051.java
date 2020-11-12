@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card213_051 extends AbstractUsedOrLostInterrupt {
     public Card213_051() {
-        super(Side.LIGHT, 4, "He’s The Best Smuggler Around", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "He's The Best Smuggler Around", Uniqueness.UNIQUE);
         setLore("");
         setGameText("USED: Take Lando, L3-37, or Kessel Run, into hand from Reserve Deck; reshuffle. OR If you just placed a Coaxium card on Used pile randomly retrieve 1 Force." +
                 "LOST: Once per game, may place a card stacked on [Set D] A Useless Gesture in your Lost Pile.)");
@@ -69,6 +70,9 @@ public class Card213_051 extends AbstractUsedOrLostInterrupt {
             if (GameConditions.hasStackedCards(game, auselessgesturev)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId2, CardSubtype.LOST);
                 action.setText("Place a card stacked on A Useless Gesture in your Lost Pile.");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerGameEffect(action));
                 // Allow response(s)
                 action.allowResponses(
                         new RespondablePlayCardEffect(action) {

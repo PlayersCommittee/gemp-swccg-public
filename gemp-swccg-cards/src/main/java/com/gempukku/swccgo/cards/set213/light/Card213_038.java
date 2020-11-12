@@ -28,13 +28,13 @@ import java.util.List;
  * Set: Set 13
  * Type: Character
  * Subtype: Droid
- * Title: L3-37 (Elthree-threeseven)
+ * Title: L3-37 (Elthree-Threeseven)
  */
 public class Card213_038 extends AbstractDroid {
     public Card213_038() {
-        super(Side.LIGHT, 3, 2, 2, 4, "L3-37 (Elthree-threeseven)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 4, "L3-37 (Elthree-Threeseven)", Uniqueness.UNIQUE);
         setArmor(4);
-        setLore("Female Smuggler.");
+        setLore("Female smuggler.");
         setGameText("While aboard (or stacked on) a freighter, adds 1 to power, maneuver, and hyperspeed, and when forfeiting L3-37, stack her on that freighter. May lose L3-37 to cancel a non-[Immune to Sense] Interrupt targeting a freighter she is aboard or stacked on.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.FEMALE);

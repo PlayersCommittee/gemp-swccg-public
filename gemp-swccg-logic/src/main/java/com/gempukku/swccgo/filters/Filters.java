@@ -10634,7 +10634,9 @@ public class Filters {
     public static final Filter cannotParticipateInForceDrain = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            //Only applies to characters, vehicles, starships, weapons, and devices
             return modifiersQuerying.hasParticipatedInForceDrainThisTurn(physicalCard)
+                    && Filters.or(Filters.character, Filters.vehicle, Filters.starship, Filters.weapon, Filters.device).accepts(gameState, modifiersQuerying, physicalCard)
                     && !modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.FORCE_DRAIN_MULTI_PARTICIPANT);
         }
     };
@@ -18025,7 +18027,7 @@ public class Filters {
     public static final Filter Overwhelmed = Filters.title(Title.Overwhelmed);
     public static final Filter Owen = Filters.title(Title.Owen_Lars);
     public static final Filter Ozzel = Filters.persona(Persona.OZZEL);
-    public static final Filter padawan = Filters.keyword(Keyword.PADAWAN);
+    public static final Filter padawan = Filters.and(Filters.keyword(Keyword.PADAWAN), Filters.not(Filters.abilityMoreThanOrEqualTo(6)));
     public static final Filter Padme = Filters.title(Title.Padme);
     public static final Filter Paige = Filters.title(Title.Paige);
     public static final Filter Palace_Raider = Filters.title(Title.Palace_Raider);
