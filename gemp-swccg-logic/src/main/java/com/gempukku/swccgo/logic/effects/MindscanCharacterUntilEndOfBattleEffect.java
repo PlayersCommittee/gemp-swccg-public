@@ -42,22 +42,16 @@ public class MindscanCharacterUntilEndOfBattleEffect extends AddModifierWithDura
 
             // copy modifiers
             if(!mindscannedCharacterHadGameTextCanceled) {
-                for (Modifier m : _mindscanned.getBlueprint().getWhileInPlayModifiers(game, _mindscanned)) {
-                    try {
-                        game.getModifiersEnvironment().addUntilEndOfBattleModifier(m.getCopyWithNewSource(_self, _self.getOwner(), game.getOpponent(_self.getOwner()), true, new NotCondition(new GameTextCanceledCondition(_self))));
-                    } catch (CloneNotSupportedException e) {
-                        System.out.println("Bane Malar: cloning modifier not allowed");
-                    }
+                for (Modifier m : _mindscanned.getBlueprint().getWhileInPlayModifiers(game, _self)) {
+                    m.appendCondition(new NotCondition(new GameTextCanceledCondition(_self)));
+                    game.getModifiersEnvironment().addUntilEndOfBattleModifier(m);
                 }
             }
 
             // modifiers that are always on even if game text is canceled
-            for (Modifier m : _mindscanned.getBlueprint().getAlwaysOnModifiers(game, _mindscanned)) {
-                try {
-                    game.getModifiersEnvironment().addUntilEndOfBattleModifier(m.getCopyWithNewSource(_self, _self.getOwner(), game.getOpponent(_self.getOwner()), true, new NotCondition(new GameTextCanceledCondition(_self))));
-                } catch (CloneNotSupportedException e) {
-                    System.out.println("Bane Malar: cloning modifier not allowed");
-                }
+            for (Modifier m : _mindscanned.getBlueprint().getAlwaysOnModifiers(game, _self)) {
+                m.appendCondition(new NotCondition(new GameTextCanceledCondition(_self)));
+                game.getModifiersEnvironment().addUntilEndOfBattleModifier(m);
             }
         }
 

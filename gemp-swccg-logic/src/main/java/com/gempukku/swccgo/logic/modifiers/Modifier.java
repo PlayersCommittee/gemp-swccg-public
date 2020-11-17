@@ -41,11 +41,7 @@ public interface Modifier {
     Condition getCondition();
     Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
     void appendCondition(Condition addCondition);
-    void setSource(PhysicalCard source);
-    void setAffectFilter(Filterable affectFilter);
-    void swapAffectedSides(String newOwner, String opponent);
-    Modifier getCopyWithNewSource(PhysicalCard source, String newOwner, String opponent, boolean swapSideAffected, Condition addCondition) throws CloneNotSupportedException;
-
+    
     /**
      * Sets the condition that, when fulfilled, causes the modifier to be automatically removed.
      * @param expireCondition the condition, or null

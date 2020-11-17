@@ -82,15 +82,12 @@ public class Card6_095 extends AbstractAlien {
 
                                             // Perform result(s)
 
-                                            //add the mindscanned character's power to Bane Malar
+                                            // add the mindscanned character's power to Bane Malar
                                             action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
                                                     new PowerModifier(self, self, game.getModifiersQuerying().getPower(game.getGameState(), mindscannedCharacter)),
                                                     null)
                                             );
 
-                                            //TODO check if the mindscanned character's game text was canceled at the time
-                                            //https://forum.starwarsccg.org/viewtopic.php?p=1208646#p1208646
-                                            //If you cancel Leia's text first, then try to use Bane, there is a blank text box for him to copy. In order words, Bane IS allowed to do the copy, but he won't add any text (he still gets to add Leia's power to his own).
 
                                             action.appendEffect(new MindscanCharacterUntilEndOfBattleEffect(action,
                                                     new MindscannedCharacterModifier(self, mindscannedCharacter),
