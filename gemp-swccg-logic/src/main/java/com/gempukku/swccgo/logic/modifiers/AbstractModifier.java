@@ -7,6 +7,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -72,21 +73,32 @@ public abstract class AbstractModifier implements Modifier, Cloneable {
         _playerId = playerId;
     }
 
-    public Modifier getCopyWithNewSource(PhysicalCard source, String newOwner, String opponent, boolean swapSideAffected) throws CloneNotSupportedException {
+    public Modifier getCopyWithNewSource(PhysicalCard source, String newOwner, String opponent, boolean swapSideAffected, Condition addCondition) throws CloneNotSupportedException {
         AbstractModifier result = (AbstractModifier)this.clone();
         String playerId = result.getForPlayer();
-        if(playerId!=null&&swapSideAffected) {
-            if(playerId.equals(newOwner)) {
-                result.setPlayerAffected(opponent);
-            } else {
-                result.setPlayerAffected(newOwner);
+
+        if(swapSideAffected) {
+            if (playerId != null) {
+                if (playerId.equals(newOwner)) {
+                    result.setPlayerAffected(opponent);
+                } else {
+                    result.setPlayerAffected(newOwner);
+                }
             }
+
+            result.swapAffectedSides(newOwner, opponent);
         }
         result.setSource(source);
         //if the modifier affects itself change the _affectFilter as well
         if(_affectFilterIsSelf)
             result.setAffectFilter(source);
+
+        result.appendCondition(addCondition);
         return result;
+    }
+
+    public void swapAffectedSides(String newOwner, String opponent) {
+        //to override
     }
 
     @Override
@@ -97,6 +109,15 @@ public abstract class AbstractModifier implements Modifier, Cloneable {
     @Override
     public Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         return null;
+    }
+
+    @Override
+    public void appendCondition(Condition addCondition) {
+        if(_condition!=null) {
+            _condition = new AndCondition(addCondition, _condition);
+        } else {
+            _condition = addCondition;
+        }
     }
 
     @Override

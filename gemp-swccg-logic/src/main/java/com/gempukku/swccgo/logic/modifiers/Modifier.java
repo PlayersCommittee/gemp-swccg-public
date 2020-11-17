@@ -40,10 +40,11 @@ public interface Modifier {
     ModifierType getModifierType();
     Condition getCondition();
     Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
+    void appendCondition(Condition addCondition);
     void setSource(PhysicalCard source);
     void setAffectFilter(Filterable affectFilter);
-//    void setAffectedPlayer(String playerId);
-    Modifier getCopyWithNewSource(PhysicalCard source, String newOwner, String opponent, boolean swapSideAffected) throws CloneNotSupportedException;
+    void swapAffectedSides(String newOwner, String opponent);
+    Modifier getCopyWithNewSource(PhysicalCard source, String newOwner, String opponent, boolean swapSideAffected, Condition addCondition) throws CloneNotSupportedException;
 
     /**
      * Sets the condition that, when fulfilled, causes the modifier to be automatically removed.
