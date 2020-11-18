@@ -50,7 +50,6 @@ public class MindscanCharacterUntilEndOfBattleEffect extends AddModifierWithDura
 
             // modifiers that are always on even if game text is canceled
             for (Modifier m : _mindscanned.getBlueprint().getAlwaysOnModifiers(game, _self)) {
-                m.appendCondition(new NotCondition(new GameTextCanceledCondition(_self)));
                 game.getModifiersEnvironment().addUntilEndOfBattleModifier(m);
             }
         }
