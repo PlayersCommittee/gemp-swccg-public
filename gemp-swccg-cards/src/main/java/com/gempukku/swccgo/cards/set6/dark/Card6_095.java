@@ -219,4 +219,31 @@ public class Card6_095 extends AbstractAlien {
         return null;
     }
 
+    @Override
+    protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+        if(game.getModifiersQuerying().hasMindscannedCharacter(game.getGameState(), self)) {
+            for(Action a:game.getModifiersQuerying().getMindscannedCharacterBlueprint(game.getGameState(), self).getOpponentsCardTopLevelActions(playerId, game, self)) {
+                if(a instanceof TopLevelGameTextAction) {
+                    actions.add((TopLevelGameTextAction)a);
+                }
+            }
+        }
+
+        return actions;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
+        if(game.getModifiersQuerying().hasMindscannedCharacter(game.getGameState(), self)) {
+            for(Action a:game.getModifiersQuerying().getMindscannedCharacterBlueprint(game.getGameState(), self).getOpponentsCardOptionalAfterTriggers(playerId, game, effectResult, self)) {
+                if(a instanceof OptionalGameTextTriggerAction) {
+                    actions.add((OptionalGameTextTriggerAction)a);
+                }
+            }
+        }
+
+        return actions;
+    }
 }

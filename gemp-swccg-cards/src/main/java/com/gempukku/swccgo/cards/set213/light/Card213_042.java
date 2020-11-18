@@ -113,4 +113,45 @@ public class Card213_042 extends AbstractAlien {
         }
         return null;
     }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(self.getOwner()), Filters.here(self))
+                && GameConditions.canSpot(game, self, Filters.and(Filters.opponents(self), Filters.Beckett))
+                ) {
+            final PhysicalCard beckett = Filters.findFirstActive(game, self, Filters.and(Filters.opponents(self), Filters.Beckett));
+
+            if(GameConditions.isPresentAt(game, beckett, Filters.site)
+                    && GameConditions.isArmedWith(game, beckett, Filters.blaster)
+                ) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Have Beckett fire a blaster");
+                action.setActionMsg("Have Beckett fire a blaster");
+                Filter weaponFilter = Filters.and(Filters.weapon, Filters.attachedTo(beckett), Filters.blaster, Filters.canBeFired(self, 0));
+                // Perform result(s)
+                action.appendTargeting(
+                        new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
+                            @Override
+                            protected void cardSelected(final PhysicalCard weapon) {
+                                action.addAnimationGroup(weapon);
+                                // Allow response(s)
+                                action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
+                                        new UnrespondableEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new FireWeaponEffect(action, weapon, true, Filters.any));
+                                            }
+                                        }
+                                );
+                            }
+                        }
+                );
+                return Collections.singletonList(action);
+            }
+        }
+        return null;
+    }
 }

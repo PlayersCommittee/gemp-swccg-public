@@ -9977,6 +9977,39 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts weapons that are currently being fired by the specified card.
+     *
+     * @param weaponUser the weapon user
+     * @return Filter
+     */
+    public static Filter weaponBeingFiredBy(final Filter firedByFilter) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                WeaponFiringState weaponFiringState = gameState.getWeaponFiringState();
+                if (weaponFiringState != null) {
+                    PhysicalCard cardFiringWeapon = weaponFiringState.getCardFiringWeapon();
+                    PhysicalCard weapon = weaponFiringState.getCardFiring();
+                    return cardFiringWeapon != null && firedByFilter.accepts(gameState, modifiersQuerying, cardFiringWeapon)
+                            && weapon != null && Filters.sameCardId(physicalCard).accepts(gameState, modifiersQuerying, weapon);
+                }
+                return false;
+            }
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, SwccgBuiltInCardBlueprint builtInCardBlueprint) {
+                WeaponFiringState weaponFiringState = gameState.getWeaponFiringState();
+                if (weaponFiringState != null) {
+                    PhysicalCard cardFiringWeapon = weaponFiringState.getCardFiringWeapon();
+                    SwccgBuiltInCardBlueprint permanentWeapon = weaponFiringState.getPermanentWeaponFiring();
+                    return cardFiringWeapon != null && firedByFilter.accepts(gameState, modifiersQuerying, cardFiringWeapon)
+                            && permanentWeapon != null && Filters.sameCardId(permanentWeapon.getPhysicalCard(gameState.getGame())).accepts(gameState, modifiersQuerying, builtInCardBlueprint.getPhysicalCard(gameState.getGame()));
+                }
+                return false;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that has built-in permanent weapon accepted by the specified filter.
      *
      * @param filters the filters

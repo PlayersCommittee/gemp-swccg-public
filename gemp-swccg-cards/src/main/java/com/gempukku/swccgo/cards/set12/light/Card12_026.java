@@ -46,7 +46,7 @@ public class Card12_026 extends AbstractRepublic {
         Condition atSameSiteAsAmidala = new AtSameSiteAsCondition(self, Filters.Amidala);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, atSameSiteAsAmidala, 2));
+        modifiers.add(new PowerModifier(self, Filters.title("Sache"), atSameSiteAsAmidala, 2));
         modifiers.add(new DefenseValueModifier(self, Filters.Amidala, atSameSiteAsAmidala, 2));
         return modifiers;
     }

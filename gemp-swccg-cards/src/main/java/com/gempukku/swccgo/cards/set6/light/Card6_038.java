@@ -30,7 +30,7 @@ public class Card6_038 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition onTatooine = new OnCondition(self, Title.Tatooine);
+        Condition onTatooine = new OnCondition(self, Filters.title(Title.Doallyn), Title.Tatooine);
         Filter tuskenBreathMask = Filters.Tusken_Breath_Mask;
 
         List<Modifier> modifiers = new LinkedList<Modifier>();

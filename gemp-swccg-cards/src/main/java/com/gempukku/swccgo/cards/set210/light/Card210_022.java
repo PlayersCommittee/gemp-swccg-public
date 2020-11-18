@@ -22,7 +22,7 @@ import java.util.*;
  * Set: Set 10
  * Type: Character
  * Subtype: Alien
- * Title: Paploo
+ * Title: Paploo (V)
  */
 public class Card210_022 extends AbstractAlien {
     public Card210_022() {
@@ -46,51 +46,52 @@ public class Card210_022 extends AbstractAlien {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
-        GameTextActionId gameTextActionId = GameTextActionId.PAPLOO__RELOCATE;
-        final Filter validSitesToMoveTo = Filters.adjacentSite(self);
-        int numValidSitesToMoveTo = Filters.countActive(game, self, validSitesToMoveTo);
-        int numScoutsInBattleWithPaploo = Filters.countActive(game, self, Filters.and(Filters.scout, Filters.inBattleWith(self)));
-        Filter validCharactersToMoveFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(self), Filters.not(Filters.hit));
-        Collection<PhysicalCard> validCharactersToMoveCollection = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(self), Filters.not(Filters.hit)));
+        if(GameConditions.canSpot(game, self, Filters.title(Title.Paploo))) {
+            final PhysicalCard paploo = Filters.findFirstActive(game, self, Filters.title(Title.Paploo));
 
-        // Check condition(s)
-        // so the conditions that need to be met are:
-        // - At least one valid site to move to
-        // - Two scouts in battle with Paploo *OR* one speeder bike
-        // - Paploo isn't hit
-        // - At least one valid opponent's character for you to move
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                &&  (numValidSitesToMoveTo >= 1)
-                && ((numScoutsInBattleWithPaploo >= 2) || GameConditions.isInBattleWith(game, self, Filters.speeder_bike))
-                && !(self.isHit())
-                && !validCharactersToMoveCollection.isEmpty()) {
+            GameTextActionId gameTextActionId = GameTextActionId.PAPLOO__RELOCATE;
+            final Filter validSitesToMoveTo = Filters.adjacentSite(self);
+            int numValidSitesToMoveTo = Filters.countActive(game, self, validSitesToMoveTo);
+            int numScoutsInBattle = Filters.countActive(game, self, Filters.and(Filters.scout, Filters.inBattleWith(self)));
+            Filter validCharactersToMoveFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(self), Filters.not(Filters.hit));
+            Collection<PhysicalCard> validCharactersToMoveCollection = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(paploo), Filters.not(Filters.hit)));
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Relocate characters to adjacent site");
-            action.appendUsage(new OncePerGameEffect(action));
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose character", validCharactersToMoveFilter) {
-                        @Override
-                        protected  void cardTargeted(final int targetGroupId, final PhysicalCard opponentsCharacterSelected)
-                        {
-                            action.appendTargeting (
-                                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate " + GameUtils.getCardLink(opponentsCharacterSelected) + " to", validSitesToMoveTo) {
-                                        @Override
-                                        protected void cardSelected(final PhysicalCard siteSelected) {
-                                            action.allowResponses("Make Paploo and " + GameUtils.getCardLink(opponentsCharacterSelected) + " move to adjacent site", new RespondableEffect(action) {
-                                                @Override
-                                                protected void performActionResults(Action targetingAction) {
-                                                    Collection<PhysicalCard> finalCharacters = Filters.filterActive(game, self, Filters.or(self, opponentsCharacterSelected));
-                                                    action.appendEffect(new RelocateBetweenLocationsEffect(action, finalCharacters, siteSelected));
-                                                    // works, but one at a time, probably wrong but I had done it this way first:
-//                                                    action.appendEffect(new RelocateBetweenLocationsEffect(action, self, siteSelected));
-//                                                    action.appendEffect(new RelocateBetweenLocationsEffect(action, opponentsCharacterSelected, siteSelected ));
-                                                }
-                                            });
-                                        }
-                                    });
-                        }});
-             actions.add(action);
+            // Check condition(s)
+            // so the conditions that need to be met are:
+            // - At least one valid site to move to
+            // - Two scouts or one speeder bike in battle with self
+            // - Paploo isn't hit
+            // - At least one valid opponent's character for you to move
+            if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                    && (numValidSitesToMoveTo >= 1)
+                    && ((numScoutsInBattle >= 2) || GameConditions.isInBattleWith(game, self, Filters.speeder_bike))
+                    && !(paploo.isHit())
+                    && !validCharactersToMoveCollection.isEmpty()) {
+
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Relocate characters to adjacent site");
+                action.appendUsage(new OncePerGameEffect(action));
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose character", validCharactersToMoveFilter) {
+                            @Override
+                            protected void cardTargeted(final int targetGroupId, final PhysicalCard opponentsCharacterSelected) {
+                                action.appendTargeting(
+                                        new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate " + GameUtils.getCardLink(opponentsCharacterSelected) + " to", validSitesToMoveTo) {
+                                            @Override
+                                            protected void cardSelected(final PhysicalCard siteSelected) {
+                                                action.allowResponses("Make " + GameUtils.getCardLink(paploo) + " and " + GameUtils.getCardLink(opponentsCharacterSelected) + " move to adjacent site", new RespondableEffect(action) {
+                                                    @Override
+                                                    protected void performActionResults(Action targetingAction) {
+                                                        Collection<PhysicalCard> finalCharacters = Filters.filterActive(game, self, Filters.or(paploo, opponentsCharacterSelected));
+                                                        action.appendEffect(new RelocateBetweenLocationsEffect(action, finalCharacters, siteSelected));
+                                                    }
+                                                });
+                                            }
+                                        });
+                            }
+                        });
+                actions.add(action);
+            }
         }
         return actions;
     }

@@ -32,7 +32,7 @@ public class Card7_018 extends AbstractRebel {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition onHothCondition = new OnCondition(self, Title.Hoth);
+        Condition onHothCondition = new OnCondition(self, Filters.title("General McQuarrie"), Title.Hoth);
         Filter hothSentryFilter = Filters.and(Filters.your(self), Filters.Hoth_Sentry);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();

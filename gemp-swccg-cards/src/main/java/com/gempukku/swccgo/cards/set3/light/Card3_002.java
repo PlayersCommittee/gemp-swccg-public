@@ -37,7 +37,7 @@ public class Card3_002 extends AbstractRebel {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, new AtCondition(self, Filters.Defensive_Perimeter), 1));
         modifiers.add(new MovesForFreeTowardTargetModifier(self, Filters.and(Filters.your(self), Filters.vehicle, Filters.onSamePlanet(self)),
-                new AtCondition(self, Filters.site), Filters.sameSite(self)));
+                new AtCondition(self, Filters.title("Cal Alder"), Filters.site), Filters.sameSite(self)));
         return modifiers;
     }
 }

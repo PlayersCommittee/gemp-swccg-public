@@ -33,7 +33,7 @@ public class Card6_034 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Filter starfighterPiloted = Filters.and(Filters.starfighter, Filters.hasPiloting(self));
+        Filter starfighterPiloted = Filters.and(Filters.starfighter, Filters.hasPiloting(self, Filters.title("Rayc Ryjerd")));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, new ConditionEvaluator(2, 4, new TrainedByCondition(self, Filters.Rycar_Ryjerd))));

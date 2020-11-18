@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -53,41 +54,44 @@ public class Card3_019 extends AbstractRebel {
         Filter troopersAtAdjacentSites = Filters.and(Filters.at(adjacentSiteFilter), Filters.trooper, Filters.your(playerId), Filters.hasNotPerformedRegularMove);
         Filter troopersAtSitesNotAboardSomething = Filters.and(troopersAtAdjacentSites, Filters.not(Filters.aboardAnyStarship), Filters.not(Filters.aboardAnyVehicle));
 
+        if(GameConditions.canSpot(game, self, Filters.title("Shawn Valdez"))) {
+            final PhysicalCard shawn = Filters.findFirstActive(game, self, Filters.title("Shawn Valdez"));
 
-        // Check condition(s)
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self)) &&
-                TriggerConditions.battleInitiated(game, effectResult, self.getOwner()) &&
-                GameConditions.canSpot(game, self, troopersAtSitesNotAboardSomething)) {
+            // Check condition(s)
+            if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.atSameSite(shawn)) &&
+                    TriggerConditions.battleInitiated(game, effectResult, self.getOwner()) &&
+                    GameConditions.canSpot(game, self, troopersAtSitesNotAboardSomething)) {
 
-            BattleInitiatedResult battleInitiatedResult = (BattleInitiatedResult) effectResult;
-            final PhysicalCard currentLocation = battleInitiatedResult.getLocation();
-            Filter currentLocationFilter = Filters.sameCardId(currentLocation);
-            Filter yourTroopersAtSitesNotAboardAnything = Filters.and(Filters.your(self), troopersAtSitesNotAboardSomething);
+                BattleInitiatedResult battleInitiatedResult = (BattleInitiatedResult) effectResult;
+                final PhysicalCard currentLocation = battleInitiatedResult.getLocation();
+                Filter currentLocationFilter = Filters.sameCardId(currentLocation);
+                Filter yourTroopersAtSitesNotAboardAnything = Filters.and(Filters.your(self), troopersAtSitesNotAboardSomething);
 
-            // We have the filter of valid troopers. However, we also need to check which of them is actually
-            // capable of moving (based on game-state)
+                // We have the filter of valid troopers. However, we also need to check which of them is actually
+                // capable of moving (based on game-state)
 
-            // Of those which are still valid, allow the user to click them (one at a time)
-            List<PhysicalCard> validTroopers = getValidTroopers(game, playerId, currentLocationFilter, self, yourTroopersAtSitesNotAboardAnything);
-            if (!validTroopers.isEmpty()) {
+                // Of those which are still valid, allow the user to click them (one at a time)
+                List<PhysicalCard> validTroopers = getValidTroopers(game, playerId, currentLocationFilter, self, yourTroopersAtSitesNotAboardAnything);
+                if (!validTroopers.isEmpty()) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Move adjacent trooper here");
-                action.setActionMsg("Move adjacent trooper here");
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                    action.setText("Move adjacent trooper here");
+                    action.setActionMsg("Move adjacent trooper here");
 
-                // Allow user to choose a single trooper at a time. This special function allows picking the trooper
-                // and queues up additional 'pick' actions as add-on-effects
-                ChooseCardOnTableEffect chooseCardOnTableEffect = buildAnotherChooseCardEffect(game, self, yourTroopersAtSitesNotAboardAnything, action, playerId, currentLocation);
+                    // Allow user to choose a single trooper at a time. This special function allows picking the trooper
+                    // and queues up additional 'pick' actions as add-on-effects
+                    ChooseCardOnTableEffect chooseCardOnTableEffect = buildAnotherChooseCardEffect(game, self, yourTroopersAtSitesNotAboardAnything, action, playerId, currentLocation);
 
-                // Choose target(s) - Troopers which can move
-                action.appendTargeting(
-                        chooseCardOnTableEffect
-                );
+                    // Choose target(s) - Troopers which can move
+                    action.appendTargeting(
+                            chooseCardOnTableEffect
+                    );
 
-                actions.add(action);
+                    actions.add(action);
+
+                }
 
             }
-
         }
 
 
@@ -180,6 +184,7 @@ public class Card3_019 extends AbstractRebel {
 
             }
         }
+
 
         // No troopers to continue moving. No more 'bonus' actions
         return null;

@@ -38,7 +38,7 @@ public class Card3_022 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotMoveFromLocationToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.or(Filters.alien, Filters.Imperial)),
-                Filters.sameSite(self), Filters.or(Filters.Echo_site, Filters.and(Filters.interior_site, Filters.Yavin_4_site))));
+                Filters.sameSiteAs(self, Filters.title("Tigran Jamiro")), Filters.or(Filters.Echo_site, Filters.and(Filters.interior_site, Filters.Yavin_4_site))));
         return modifiers;
     }
 }

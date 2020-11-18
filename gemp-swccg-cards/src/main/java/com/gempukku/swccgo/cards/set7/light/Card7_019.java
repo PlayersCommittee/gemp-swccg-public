@@ -33,7 +33,7 @@ public class Card7_019 extends AbstractRebel {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition onYavin4Condition = new OnCondition(self, Title.Yavin_4);
+        Condition onYavin4Condition = new OnCondition(self, Filters.title("Grondorn Muse"), Title.Yavin_4);
         Filter yavinSentryFilter = Filters.and(Filters.your(self), Filters.Yavin_Sentry);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();

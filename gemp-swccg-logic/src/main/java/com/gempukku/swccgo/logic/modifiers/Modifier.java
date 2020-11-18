@@ -41,7 +41,7 @@ public interface Modifier {
     Condition getCondition();
     Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
     void appendCondition(Condition addCondition);
-    
+
     /**
      * Sets the condition that, when fulfilled, causes the modifier to be automatically removed.
      * @param expireCondition the condition, or null

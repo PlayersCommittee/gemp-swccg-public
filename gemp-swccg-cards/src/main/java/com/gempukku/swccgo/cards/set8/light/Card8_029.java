@@ -40,7 +40,7 @@ public class Card8_029 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeactivateTheShieldGeneratorTotalModifier(self, new AtCondition(self, Filters.Bunker), new HereEvaluator(self, Filters.Explosive_Charge)));
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.character), Filters.and(Filters.Concussion_Grenade, Filters.weaponBeingFiredBy(self))));
+        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.character), Filters.and(Filters.Concussion_Grenade, Filters.weaponBeingFiredBy(Filters.title("Sergeant Junkin")))));
         return modifiers;
     }
 
@@ -49,7 +49,7 @@ public class Card8_029 extends AbstractRebel {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
 
         // Check condition(s)
-        if (TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult, Filters.Concussion_Grenade, self)) {
+        if (TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult, Filters.Concussion_Grenade, Filters.title("Sergeant Junkin"))) {
 
             OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Add 1 to weapon destiny");

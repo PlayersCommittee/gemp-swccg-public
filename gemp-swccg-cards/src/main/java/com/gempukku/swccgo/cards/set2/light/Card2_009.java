@@ -51,7 +51,7 @@ public class Card2_009 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, new AndCondition(new AtCondition(self, Filters.site),
+        modifiers.add(new PowerModifier(self, Filters.title("Het Nkik"), new AndCondition(new AtCondition(self, Filters.site),
                 new UnlessCondition(new PresentCondition(self, Filters.Reegesk))), new AtSameSiteEvaluator(self, Filters.stormtrooper)));
         return modifiers;
     }

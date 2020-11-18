@@ -60,6 +60,7 @@ public class Card14_014 extends AbstractRepublic {
         // Check condition(s)
         if (TriggerConditions.isResolvingBattleDamageAndAttrition(game, effectResult, playerId)
                 && GameConditions.canForfeitToSatisfyAttritionAndBattleDamage(game, playerId, self)
+                && self.getTitle().equals("Jerus Jannick")
                 && GameConditions.isInBattleWith(game, self, Filters.or(Filters.Amidala, Filters.Leia))) {
             boolean cannotSatisfyAttrition = game.getModifiersQuerying().cannotSatisfyAttrition(game.getGameState(), self);
 
