@@ -35,6 +35,7 @@ public class Card6_025 extends AbstractAlien {
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         addKeywords(Keyword.FEMALE);
         setSpecies(Species.CORELLIAN);
+        addPersona(Persona.LAUDICA);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class Card6_025 extends AbstractAlien {
             action.setActionMsg("Deploy a non-unique blaster as 'react' on " + GameUtils.getCardLink(self) + " from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.and(Filters.non_unique, Filters.blaster), Filters.title("Laudica"), true, true, true));
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.and(Filters.non_unique, Filters.blaster), Filters.Laudica, true, true, true));
             return Collections.singletonList(action);
         }
         return null;

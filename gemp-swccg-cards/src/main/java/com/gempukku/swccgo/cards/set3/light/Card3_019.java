@@ -32,9 +32,8 @@ public class Card3_019 extends AbstractRebel {
         setGameText("Whenever you just initiated a battle at same site as Shawn, your troopers at adjacent sites who have not already battled this turn may immediately move to same site (as a regular move).");
         addIcons(Icon.HOTH, Icon.WARRIOR);
         addKeywords(Keyword.LEADER, Keyword.MUSICIAN, Keyword.ECHO_BASE_TROOPER);
+        addPersona(Persona.SHAWN);
     }
-
-
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
@@ -50,8 +49,8 @@ public class Card3_019 extends AbstractRebel {
         Filter troopersAtAdjacentSites = Filters.and(Filters.at(adjacentSiteFilter), Filters.trooper, Filters.your(playerId), Filters.hasNotPerformedRegularMove);
         Filter troopersAtSitesNotAboardSomething = Filters.and(troopersAtAdjacentSites, Filters.not(Filters.aboardAnyStarship), Filters.not(Filters.aboardAnyVehicle));
 
-        if(GameConditions.canSpot(game, self, Filters.title("Shawn Valdez"))) {
-            final PhysicalCard shawn = Filters.findFirstActive(game, self, Filters.title("Shawn Valdez"));
+        if(GameConditions.canSpot(game, self, Filters.Shawn)) {
+            final PhysicalCard shawn = Filters.findFirstActive(game, self, Filters.Shawn);
 
             // Check condition(s)
             if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.sameSite(shawn)) &&

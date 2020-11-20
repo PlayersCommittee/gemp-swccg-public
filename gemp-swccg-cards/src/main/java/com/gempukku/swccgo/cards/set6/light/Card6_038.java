@@ -26,11 +26,12 @@ public class Card6_038 extends AbstractAlien {
         setGameText("When Doallyn is on Tatooine, Tusken Breath Mask may target one of your characters on Tatooine, is immune to Alter, is not unique, doubles its power and forfeit bonuses and provides protection from Gravel Storm and Sandwhirl.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         addKeywords(Keyword.GAMBLER);
+        addPersona(Persona.DOALLYN);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition onTatooine = new OnCondition(self, Filters.title(Title.Doallyn), Title.Tatooine);
+        Condition onTatooine = new OnCondition(self, Filters.Doallyn, Title.Tatooine);
         Filter tuskenBreathMask = Filters.Tusken_Breath_Mask;
 
         List<Modifier> modifiers = new LinkedList<Modifier>();

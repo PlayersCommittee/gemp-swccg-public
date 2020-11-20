@@ -46,7 +46,7 @@ public class Card210_022 extends AbstractAlien {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
-        if(GameConditions.canSpot(game, self, Filters.title(Title.Paploo))) {
+        if(GameConditions.canSpot(game, self, Filters.Paploo)) {
             final PhysicalCard paploo = Filters.findFirstActive(game, self, Filters.title(Title.Paploo));
 
             GameTextActionId gameTextActionId = GameTextActionId.PAPLOO__RELOCATE;

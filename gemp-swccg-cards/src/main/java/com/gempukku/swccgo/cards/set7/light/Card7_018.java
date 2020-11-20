@@ -28,11 +28,12 @@ public class Card7_018 extends AbstractRebel {
         setGameText("While McQuarrie is on Hoth, your Hoth Sentry is not unique (•), is doubled, deploys free, applies all of its modifiers and is immune to Alter. Power -1 when not on Hoth.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
         addKeywords(Keyword.GENERAL, Keyword.COMMANDER);
+        addPersona(Persona.MCQUARRIE);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition onHothCondition = new OnCondition(self, Filters.title("General McQuarrie"), Title.Hoth);
+        Condition onHothCondition = new OnCondition(self, Filters.McQuarrie, Title.Hoth);
         Filter hothSentryFilter = Filters.and(Filters.your(self), Filters.Hoth_Sentry);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();

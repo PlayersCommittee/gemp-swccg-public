@@ -35,14 +35,15 @@ public class Card14_022 extends AbstractRepublic {
         setGameText("Once during your deploy phase, may use 1 Force to relocate Perosei to an adjacent Naboo site. While with a Republic character during battle, may place Perosei out of play to add 5 to your total power this battle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);
         addKeywords(Keyword.ROYAL_NABOO_SECURITY, Keyword.GUARD);
+        addPersona(Persona.PEROSEI);
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-        if(GameConditions.canSpot(game, self, Filters.title("Officer Perosei"))) {
-            final PhysicalCard perosei = Filters.findFirstActive(game, self, Filters.title("Officer Perosei"));
+        if(GameConditions.canSpot(game, self, Filters.Perosei)) {
+            final PhysicalCard perosei = Filters.findFirstActive(game, self, Filters.Perosei);
             // Card action 1
             GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 

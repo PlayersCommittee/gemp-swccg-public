@@ -35,6 +35,7 @@ public class Card7_045 extends AbstractAlien {
         addIcons(Icon.SPECIAL_EDITION);
         addKeywords(Keyword.LEADER);
         setSpecies(Species.JAWA);
+        addPersona(Persona.THEDIT);
     }
 
     @Override
@@ -53,8 +54,8 @@ public class Card7_045 extends AbstractAlien {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
 
-        if(GameConditions.canSpot(game, self, Filters.title("Thedit"))) {
-            final PhysicalCard thedit = Filters.findFirstActive(game, self, Filters.title("Thedit"));
+        if(GameConditions.canSpot(game, self, Filters.Thedit)) {
+            final PhysicalCard thedit = Filters.findFirstActive(game, self, Filters.Thedit);
             // Check condition(s)
             if (TriggerConditions.isInitialAttritionJustCalculated(game, effectResult)
                     && GameConditions.isDuringBattleAt(game, Filters.sameSite(thedit))

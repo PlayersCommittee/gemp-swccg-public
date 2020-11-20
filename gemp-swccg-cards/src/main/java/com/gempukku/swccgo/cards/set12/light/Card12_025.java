@@ -33,6 +33,7 @@ public class Card12_025 extends AbstractRepublic {
         setGameText("While at same site as Amidala, Sabe is power +2 and Amidala is immune to attrition. When at a site, during your deploy phase may place Sabe out of play to deploy Amidala to that site (for free) from your Reserve Deck (reshuffle) or Lost Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
         addKeywords(Keyword.FEMALE, Keyword.HANDMAIDEN);
+        addPersona(Persona.SABE);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Card12_025 extends AbstractRepublic {
         Condition atSameSiteAsAmidala = new AtSameSiteAsCondition(self, Filters.Amidala);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, Filters.title("Sabe"), atSameSiteAsAmidala, 2));
+        modifiers.add(new PowerModifier(self, Filters.Sabe, atSameSiteAsAmidala, 2));
         modifiers.add(new ImmuneToAttritionModifier(self, Filters.Amidala, atSameSiteAsAmidala));
         return modifiers;
     }

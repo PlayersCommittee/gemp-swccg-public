@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,13 +31,14 @@ public class Card8_029 extends AbstractRebel {
         setGameText("When at Bunker, adds 1 to Deactivate The Shield Generator total for each Explosive Charge here. When Junkin uses a Concussion Grenade, all your characters are immune to that grenade and you may add or subtract 1 from weapon destiny draw.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
         addKeywords(Keyword.SCOUT);
+        addPersona(Persona.JUNKIN);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeactivateTheShieldGeneratorTotalModifier(self, new AtCondition(self, Filters.Bunker), new HereEvaluator(self, Filters.Explosive_Charge)));
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.character), Filters.and(Filters.Concussion_Grenade, Filters.weaponBeingFiredBy(Filters.title("Sergeant Junkin")))));
+        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.character), Filters.and(Filters.Concussion_Grenade, Filters.weaponBeingFiredBy(Filters.Junkin))));
         return modifiers;
     }
 
