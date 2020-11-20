@@ -59,7 +59,9 @@ public class Card6_095 extends AbstractAlien {
                 && GameConditions.canUseForce(game, playerId, 1)
                 && GameConditions.canTarget(game, self, filter)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_7;
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Mindscan a character");
             // Choose target(s)
             action.appendTargeting(
