@@ -10,13 +10,13 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 /**
- * An effect that adds a modifier until the end of battle.
+ * An effect that mindscans a character until the end of battle.
  */
 public class MindscanCharacterUntilEndOfBattleEffect extends AddModifierWithDurationEffect {
     private PhysicalCard _self;
     private PhysicalCard _mindscanned;
     /**
-     * Creates an effect that adds a modifier until the end of battle.
+     * Creates an effect that mindscans a character until the end of battle.
      * @param action the action adding the modifier
      * @param modifier the modifier
      * @param actionMsg the action message
