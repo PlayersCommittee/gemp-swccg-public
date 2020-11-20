@@ -54,7 +54,7 @@ public class Card3_019 extends AbstractRebel {
             final PhysicalCard shawn = Filters.findFirstActive(game, self, Filters.title("Shawn Valdez"));
 
             // Check condition(s)
-            if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.atSameSite(shawn)) &&
+            if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.sameSite(shawn)) &&
                     TriggerConditions.battleInitiated(game, effectResult, self.getOwner()) &&
                     GameConditions.canSpot(game, self, troopersAtSitesNotAboardSomething)) {
 

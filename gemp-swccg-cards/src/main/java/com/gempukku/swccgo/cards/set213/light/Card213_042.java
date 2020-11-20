@@ -120,6 +120,8 @@ public class Card213_042 extends AbstractAlien {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // this part is just to make it work correctly for Bane Malar
+
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(self.getOwner()), Filters.here(self))
                 && GameConditions.canSpot(game, self, Filters.and(Filters.opponents(self), Filters.Beckett))

@@ -53,7 +53,7 @@ public class Card210_022 extends AbstractAlien {
             final Filter validSitesToMoveTo = Filters.adjacentSite(self);
             int numValidSitesToMoveTo = Filters.countActive(game, self, validSitesToMoveTo);
             int numScoutsInBattle = Filters.countActive(game, self, Filters.and(Filters.scout, Filters.inBattleWith(self)));
-            Filter validCharactersToMoveFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(self), Filters.not(Filters.hit));
+            Filter validCharactersToMoveFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(paploo), Filters.not(Filters.hit));
             Collection<PhysicalCard> validCharactersToMoveCollection = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.character, Filters.abilityLessThan(4), Filters.presentWith(paploo), Filters.not(Filters.hit)));
 
             // Check condition(s)
