@@ -99,9 +99,9 @@ public class Card213_021 extends AbstractUsedInterrupt {
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
                 && !TriggerConditions.isDestinyDrawType(game, effectResult, DestinyType.BATTLE_DESTINY)
                 && GameConditions.canCancelDestiny(game, playerId)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.captain))) {
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.captain, Filters.inBattleWith(Filters.and(Filters.your(playerId), Filters.leader))))) {
 
-            PhysicalCard captain = Filters.findFirstActive(game, self, Filters.and(Filters.your(playerId), Filters.captain, Filters.presentInBattle));
+            PhysicalCard captain = Filters.findFirstActive(game, self, Filters.and(Filters.your(playerId), Filters.captain, Filters.inBattleWith(Filters.and(Filters.your(playerId), Filters.leader))));
 
             if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.other(captain), Filters.leader))) {
                 BattleState battleState = game.getGameState().getBattleState();
