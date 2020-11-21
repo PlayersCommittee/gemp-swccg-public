@@ -4,7 +4,10 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -16,15 +19,19 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotReactFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Starship
  * Subtype: Starfighter
  * Title: ARC-170 Starfighter
@@ -33,7 +40,7 @@ public class Card501_034 extends AbstractStarfighter {
     public Card501_034() {
         super(Side.LIGHT, 3, 3, 3, null, 4, 4, 6, "ARC-170 Starfighter");
         setGameText("May add 1 pilot or passenger. Permanent pilot provides ability of 2. Opponent may not 'react' to or from here. During battle, if about to be lost before the damage segment, lost at end of battle instead.");
-        addIcons(Icon.CLONE_ARMY, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_13, Icon.SCOMP_LINK, Icon.PILOT);
+        addIcons(Icon.CLONE_ARMY, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_14, Icon.SCOMP_LINK, Icon.PILOT);
         addModelType(ModelType.RECONNAISSANCE_FIGHTER);
         setPilotOrPassengerCapacity(1);
         setTestingText("ARC-170 Starfighter");

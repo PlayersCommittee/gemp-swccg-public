@@ -28,7 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Interrupt
  * Subtype: Used Or Lost
  * Title: Alter & Collateral Damage (V)
@@ -41,7 +41,7 @@ public class Card501_099 extends AbstractUsedOrLostInterrupt {
         setGameText("USED: Cancel Sense." +
                 "LOST: Target an Effect, Political Effect or Utinni Effect, and one of your characters on table. Draw destiny. If destiny < character's ability, target Effect is canceled. " +
                 "OR If a battle was just initiated as a site where opponent has four or more characters, draw destiny. If destiny < numbers of opponent's character at that site, opponent chooses one to be lost (you lose no Force to Do, Or Do Not). (Immune to opponent's Objective).");
-        addIcons(Icon.REFLECTIONS_II, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.REFLECTIONS_II, Icon.VIRTUAL_SET_14);
         setImmuneToOpponentsObjective(true);
         setTestingText("Alter & Collateral Damage (V)");
     }

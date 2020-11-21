@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Weapon
  * Subtype: Character
  * Title: Ahsoka's Shoto Lightsaber
@@ -23,7 +23,7 @@ public class Card501_089 extends AbstractCharacterWeapon {
         super(Side.LIGHT, 5, "Ahsoka's Shoto Lightsaber", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on Ahsoka or a non-[Episode I] Padawan. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value (if hit target is an Inquisitor, opponent also loses 1 Force).");
-        addIcon(Icon.VIRTUAL_SET_13);
+        addIcon(Icon.VIRTUAL_SET_14);
         addKeyword(Keyword.LIGHTSABER);
         addPersona(Persona.AHSOKAS_SHOTO_LIGHTSABER);
         setMatchingCharacterFilter(Filters.Ahsoka);

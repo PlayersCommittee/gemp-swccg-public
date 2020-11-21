@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Location
  * SubType: Site
  * Title: Exegol: Sith Throne
@@ -33,7 +33,7 @@ public class Card501_066 extends AbstractSite {
         addIcon(Icon.DARK_FORCE, 2);
         setLocationDarkSideGameText("Once per game, may deploy [Episode VII] Emperor here from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("No Force drains here. [Light Side] icons are canceled here. Your characters deploy +2 here.");
-        addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.EPISODE_VII, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         setTestingText("Exegol: Sith Throne");
     }
 

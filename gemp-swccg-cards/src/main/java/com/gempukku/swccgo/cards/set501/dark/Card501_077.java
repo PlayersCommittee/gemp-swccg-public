@@ -23,17 +23,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: Set 3
+ * Set: Set 14
  * Type: Device
  * Title: Shield Gate
  */
 public class Card501_077 extends AbstractDevice {
     public Card501_077() {
         super(Side.DARK, 0, PlayCardZoneOption.ATTACHED, Title.Shield_Gate, Uniqueness.UNIQUE);
-        setVirtualSuffix(true);
         setLore("");
         setGameText("Deploy on Scarif. May deploy Citadel Tower from Reserve Deck; reshuffle. If a starship was just lost from here or opponent just Force drained here, opponent may draw destiny. Add 1 for each spy out of play. If total destiny > 8, Shield Gate \"blown away\" (place out of play).");
-        addIcons(Icon.VIRTUAL_SET_13);
+        addIcons(Icon.VIRTUAL_SET_14);
+        setVirtualSuffix(true);
         setTestingText("Shield Gate");
     }
 
