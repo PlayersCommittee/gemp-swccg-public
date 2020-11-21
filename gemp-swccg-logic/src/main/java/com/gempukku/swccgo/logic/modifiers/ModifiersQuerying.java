@@ -4494,4 +4494,6 @@ public interface ModifiersQuerying {
     boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card);
 
     SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
+
+    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
 }

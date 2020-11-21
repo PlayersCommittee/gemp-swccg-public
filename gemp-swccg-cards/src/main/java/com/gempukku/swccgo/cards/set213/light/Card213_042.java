@@ -17,10 +17,7 @@ import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -48,7 +45,7 @@ public class Card213_042 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DestinyModifier(self, self, new OnTableCondition(self, Filters.or(Filters.Vos, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.smuggler))), 3));
+        modifiers.add(new DestinyWhenDrawnForDestinyModifier(self, self, new OnTableCondition(self, Filters.or(Filters.Vos, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.smuggler))), 3));
         return modifiers;
     }
 

@@ -16083,4 +16083,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         return null;
     }
+
+    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card) {
+        //there shouldn't be more than one
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card)) {
+            return ((MindscannedCharacterModifier) m).wasGameTextCanceled();
+        }
+        return true;
+    }
 }
