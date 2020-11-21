@@ -556,6 +556,14 @@ public class SwccgGameMediator {
                         sb.append("</div>");
                     }
 
+                    // Show species
+                    if (card.getBlueprint().hasSpeciesAttribute() && card.getBlueprint().getSpecies() != null && card.getBlueprint().getSpecies().isInfoDisplayable()) {
+                        sb.append("<div>");
+                        sb.append("Species: ");
+                        sb.append(card.getBlueprint().getSpecies().getHumanReadable());
+                        sb.append("</div>");
+                    }
+
                     // Show if card gametext is canceled
                     if (card.isSuspended()) {
                         modifiersQuerying.getCardsMarkingCardSuspended(gameState, card, modifierCollector);
