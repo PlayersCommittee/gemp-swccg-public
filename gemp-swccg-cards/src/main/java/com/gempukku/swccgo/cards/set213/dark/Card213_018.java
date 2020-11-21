@@ -40,21 +40,6 @@ public class Card213_018 extends AbstractUsedOrLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
-        // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.inquisitor)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.or(Filters.Jedi, Filters.padawan, Filters.hasStacked(Filters.hatredCard)))) {
-
-            int numDestinies = 1;
-
-            if (GameConditions.isDuringBattleWithParticipant(game, Filters.Jedi)
-                    && GameConditions.isDuringBattleWithParticipant(game, Filters.padawan)
-                    && (GameConditions.isDuringBattleWithParticipant(game, Filters.hasStacked(Filters.hatredCard))
-                    || GameConditions.isDuringBattleAt(game, Filters.hasStacked(Filters.hatredCard)))) {
-                numDestinies = 2;
-            }
-            actions.add(getAction(self, game, numDestinies));
-        }
-
         Filter filter = Filters.and(Filters.opponents(playerId), Filters.character, Filters.or(Filters.leader, Filters.abilityMoreThan(3)), Filters.at(Filters.battleground));
         if (GameConditions.hasLostPile(game, playerId)
                 && GameConditions.canSpot(game, self, filter)) {
@@ -90,6 +75,23 @@ public class Card213_018 extends AbstractUsedOrLostInterrupt {
             );
             actions.add(action);
         }
+
+        // Check condition(s)
+        if (GameConditions.isDuringBattleWithParticipant(game, Filters.inquisitor)
+                && (GameConditions.isDuringBattleWithParticipant(game, Filters.or(Filters.Jedi, Filters.padawan, Filters.hasStacked(Filters.hatredCard)))
+                || GameConditions.isDuringBattleAt(game, Filters.hasStacked(Filters.hatredCard)))) {
+
+            int numDestinies = 1;
+
+            if (GameConditions.isDuringBattleWithParticipant(game, Filters.Jedi)
+                    && GameConditions.isDuringBattleWithParticipant(game, Filters.padawan)
+                    && (GameConditions.isDuringBattleWithParticipant(game, Filters.hasStacked(Filters.hatredCard))
+                    || GameConditions.isDuringBattleAt(game, Filters.hasStacked(Filters.hatredCard)))) {
+                numDestinies = 2;
+            }
+            actions.add(getAction(self, game, numDestinies));
+        }
+
         return actions;
     }
 
