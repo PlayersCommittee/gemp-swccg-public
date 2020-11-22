@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Starship
  * Subtype: Starfighter
  * Title: Plo Koon's Jedi Starfighter
@@ -34,7 +34,7 @@ public class Card501_036 extends AbstractStarfighter {
     public Card501_036() {
         super(Side.LIGHT, 2, 2, 2, null, 0, 6, 5, "Plo Koon's Jedi Starfighter", Uniqueness.UNIQUE);
         setGameText("May add 1 Jedi pilot. *Maneuver = pilot's ability. While Plo piloting, power +2, immune to attrition < 3, and once per turn, may cancel and redraw your weapon or battle destiny just drawn here.");
-        addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_14);
         addModelType(ModelType.JEDI_INTERCEPTOR);
         setPilotCapacity(1);
         setMatchingPilotFilter(Filters.persona(Persona.PLO));

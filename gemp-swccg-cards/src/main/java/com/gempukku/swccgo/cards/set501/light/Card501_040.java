@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Location
  * Subtype: Site
  * Title: Endor: Chief Chirpa's Hut (V)
@@ -27,7 +27,7 @@ public class Card501_040 extends AbstractSite {
         setLocationDarkSideGameText("Force generation here may not be prevented by Objectives.");
         setLocationLightSideGameText("You may not generate more than 2 Force at non-battlegrounds. Ewoks deploy -2 here.");
         addIcon(Icon.LIGHT_FORCE, 2);
-        addIcons(Icon.ENDOR, Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.ENDOR, Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_14);
         setVirtualSuffix(true);
         setTestingText("Endor: Chief Chirpa's Hut (V)");
     }

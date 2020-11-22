@@ -1,13 +1,8 @@
 package com.gempukku.swccgo.cards.set501.light;
 
-import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
-import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -16,25 +11,21 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeFlippedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Character
  * Subtype: Resistance
  * Title: Larma D'Acy
@@ -44,8 +35,8 @@ public class Card501_098 extends AbstractResistance {
         super(Side.LIGHT, 2, 3, 3, 3, 5, "Larma D'Acy", Uniqueness.UNIQUE);
         setLore("Female commander. Leader.");
         setGameText("Finn and Poe are power +1 here. During your control phase, if with an opponent's spy, opponent loses 1 Force (2 Force if spy is Undercover). If Leia present at a battleground site, Their Fire Has Gone Out Of The Universe flips and may not flip back.");
-        addIcons(Icon.PILOT, Icon.VIRTUAL_SET_13, Icon.EPISODE_VII);
-        addKeywords(Keyword.FEMALE,Keyword.COMMANDER,Keyword.LEADER);
+        addIcons(Icon.PILOT, Icon.VIRTUAL_SET_14, Icon.EPISODE_VII);
+        addKeywords(Keyword.FEMALE, Keyword.COMMANDER, Keyword.LEADER);
         setTestingText("Larma D'Acy");
     }
 

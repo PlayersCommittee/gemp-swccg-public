@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Interrupt
  * Subtype: Used Or Lost
  * Title: Eee Chu Wawa! (V)
@@ -31,7 +31,7 @@ public class Card501_051 extends AbstractUsedOrLostInterrupt {
         setLore("Paploo's brave diversion provided more of a ride than the adventurous Ewok had bargained for.");
         setGameText("USED: If opponent occupies your location (or if a forest on table), peek at top two cards of your Reserve Deck; take one into hand." +
                 "LOST: While defending a battle, add 1 to your total battle destiny for each (DS icon) at same site. OR Cancel Take The Initiative.");
-        addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_14);
         setVirtualSuffix(true);
         setTestingText("Eee Chu Wawa! (V)");
     }

@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Starship
  * Subtype: Starfighter
  * Title: Bestoon Legacy
@@ -30,7 +30,7 @@ public class Card501_088 extends AbstractStarfighter {
         setLore("");
         setGameText("May add 2 pilots and 3 passengers. During your control phase, may peek at the top card of your Reserve Deck; may place it on Used Pile (if card is an assassin, may take it into hand).");
         addPersona(Persona.BESTOON_LEGACY);
-        addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
         addModelType(ModelType.WTK_85A_INTERSTELLAR_TRANSPORT);
         addKeyword(Keyword.TRANSPORT_SHIP);
         setMatchingPilotFilter(Filters.Ochi);

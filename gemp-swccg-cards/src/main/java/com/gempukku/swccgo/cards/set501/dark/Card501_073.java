@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Starship
  * Subtype: Capital
  * Title: Intimidator & Persecutor
@@ -29,7 +29,7 @@ public class Card501_073 extends AbstractCapitalStarship {
         addComboCardTitles("Intimidator", "Persecutor");
         setLore("");
         setGameText("Deploys -4 to Scarif or opponent's system. May add 4 pilots, 4 TIEs, and 2 vehicles. Permanent pilots provide total ability of 4. While at Scarif, subtracts 2 from attempts to 'blow away' Shield Gate.");
-        addIcons(Icon.PILOT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.PILOT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
         addModelTypes(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
         setPilotCapacity(4);
         setVehicleCapacity(2);

@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Character
  * SubType: Sith
  * Title: Ochi
@@ -32,7 +32,7 @@ public class Card501_085 extends AbstractSith {
         setLore("Assassin.");
         setGameText("Adds 2 to power of anything he pilots. While piloting Bestoon Legacy, it is immune to attrition < 5. " +
                 "While [Episode VII] Emperor on table, your total power here is +3. If opponent's character was just placed out of play, opponent loses 1 Force.");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addPersona(Persona.OCHI);
         addKeywords(Keyword.ASSASSIN);
         setMatchingStarshipFilter(Filters.Bestoon_Legacy);

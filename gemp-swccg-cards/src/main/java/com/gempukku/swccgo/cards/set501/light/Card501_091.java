@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Character
  * Subtype: Rebel
  * Title: Corporal Pao
@@ -35,7 +35,7 @@ public class Card501_091 extends AbstractRebel {
         super(Side.LIGHT, 2, 2, 2, 2, 3, "Corporal Pao", Uniqueness.UNIQUE);
         setLore("Drabatan trooper.");
         setGameText("Power +1 while with Melshi or Sefla. During battle, may add X (limit 3) to a just drawn battle destiny, where X = number of your spies out of play. If just lost from a site, may draw cards from Reserve Deck until you have up to six cards in hand.");
-        addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_9);
+        addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_14);
         addKeywords(Keyword.TROOPER);
         setSpecies(Species.DRABATAN);
         setTestingText("Corporal Pao");

@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Effect
  * Title: Slimy Piece Of Worm-Ridden Filth!
  */
@@ -27,7 +27,7 @@ public class Card501_028 extends AbstractNormalEffect {
         super(Side.LIGHT, 7, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Slimy Piece Of Worm-Ridden Filth!", Uniqueness.UNIQUE);
         setLore("'Aacccck!'");
         setGameText("Deploy on table. [Jabba's Palace] Leia may target a warrior at Audience Chamber instead of Jabba. May deploy [Jabba's Palace] Leia from Reserve Deck; reshuffle. Your aliens are immune to Dr. Evazan and Sniper. Seeking An Audience is immune to Alter. [Immune to Alter.]");
-        addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_14);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("Slimy Piece Of Worm-Ridden Filth!");
     }

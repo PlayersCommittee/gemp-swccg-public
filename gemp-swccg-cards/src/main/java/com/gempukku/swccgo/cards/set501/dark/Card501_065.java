@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Effect
  * Title: The Dead Speak!
  */
@@ -32,7 +32,7 @@ public class Card501_065 extends AbstractNormalEffect {
     public Card501_065() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Dead Speak!", Uniqueness.UNIQUE);
         setGameText("If I Will Finish What You Started on table, deploy on table. May deploy Sith Throne from Reserve Deck; reshuffle. While [Episode VII] Emperor on Exegol, attrition against opponent is +2 at same location as Kylo, Pryde, or Rey. Your [Episode I] characters are lost. [Immune to Alter.]");
-        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("The Dead Speak!");
     }

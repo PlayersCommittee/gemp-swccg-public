@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Starship
  * Subtype: Capital
  * Title: Steadfast
@@ -29,7 +29,7 @@ public class Card501_078 extends AbstractCapitalStarship {
         setLore("");
         setGameText("May add 6 pilots, 8 passengers, and 2 starfighters. Permanent pilot provides ability of 2. While alone, adds Force icons to equalize them for both sides here. While Pryde aboard, immune to attrition < 6.");
         addPersona(Persona.STEADFAST);
-        addIcons(Icon.EPISODE_VII, Icon.FIRST_ORDER, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.EPISODE_VII, Icon.FIRST_ORDER, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
         addModelType(ModelType.RESURGENT_CLASS_STAR_DESTROYER);
         setMatchingPilotFilter(Filters.Pryde);
         setPilotCapacity(6);

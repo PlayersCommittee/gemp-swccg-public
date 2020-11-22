@@ -36,6 +36,7 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_11("Set 11", true),
     VIRTUAL_SET_12("Set 12", true),
     VIRTUAL_SET_13("Set 13", true),
+    VIRTUAL_SET_14("Set 14", true),
 
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),
