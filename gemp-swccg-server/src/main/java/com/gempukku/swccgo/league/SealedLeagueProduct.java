@@ -99,12 +99,30 @@ public class SealedLeagueProduct {
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
         //first week
-        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 4);
-        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,4);
-        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 4);
-        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,4);
-        firstWeek.addItem("12_62",1); //Mindful Of The Future
+        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 5);
+        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,5);
+        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,5);
+        firstWeek.addItem("13_74",1); //Lord Maul
+        firstWeek.addItem("13_33",1); //Obi-Wan Kenobi, Jedi Knight
+        firstWeek.addItem("11_97",1); //Sebulba's Podracer
+        firstWeek.addItem("11_47",1); //Anakin's Podracer
+        firstWeek.addItem("14_114",1); //Blockade Flagship
+        firstWeek.addItem("12_184",2); //Trade Federation Battleship
+        firstWeek.addItem("12_91",1); //Queen's Royal Starship
+        firstWeek.addItem("12_93",2); //Republic Cruiser
+        firstWeek.addItem("14_82",1); //Nute Gunray, Neimoidian Viceroy
+        firstWeek.addItem("11_52",1); //Aurra Sing
+        firstWeek.addItem("12_107",1); //Grotto Werribee
+        firstWeek.addItem("14_73",1); //Battle Droid Officer
+        firstWeek.addItem("12_118",1); //Security Battle Droid
+        firstWeek.addItem("14_26",1); //Queen Amidala
+        firstWeek.addItem("12_20",1); //Phylo Gandish
+        firstWeek.addItem("14_12",1); //Gungan General
+        firstWeek.addItem("12_7",1); //Gungan Warrior
         firstWeek.addItem("12_154",1); //Neimoidian Advisor
+        firstWeek.addItem("12_136",1); //Mind Tricks Don't Work On Me
+        firstWeek.addItem("12_62",1); //Mindful Of The Future
+        firstWeek.addItem("12_50",1); //We're Leaving
         firstWeek.addItem("11_93",1); //Tatooine: Mos Espa (Dark)
         firstWeek.addItem("11_43",1); //Tatooine: Mos Espa (Light)
         firstWeek.addItem("12_175",1); //Tatooine (Dark)
@@ -113,17 +131,16 @@ public class SealedLeagueProduct {
         firstWeek.addItem("12_78",1); //Naboo (Light)
         firstWeek.addItem("12_172",1); //Naboo: Theed Palace Courtyard (Dark)
         firstWeek.addItem("12_81",1); //Naboo: Theed Palace Courtyard (Light)
-        firstWeek.addItem("12_184",1); //Trade Federation Battleship
-        firstWeek.addItem("12_91",1); //Queen's Royal Starship
+        firstWeek.addItem("12_167",1); //Coruscant: Galactic Senate (Dark)
+        firstWeek.addItem("12_75",1); //Coruscant: Galactic Senate (Light)
 
         episodeISealed.add(firstWeek);
 
         MutableCardCollection secondWeek = new DefaultCardCollection();
         //second week
-        secondWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 2);
-        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,2);
-        secondWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS, 2);
-        secondWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,2);
+        secondWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK_EPISODE_I_ONLY, 3);
+        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK_EPISODE_I_ONLY,3);
+        secondWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,3);
         episodeISealed.add(secondWeek);
 
         _collections.put(SealedLeagueType.EPISODE_I_SEALED.getSealedCode(), episodeISealed);
