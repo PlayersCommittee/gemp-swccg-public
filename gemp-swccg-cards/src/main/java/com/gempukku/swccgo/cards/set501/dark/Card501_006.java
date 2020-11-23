@@ -23,7 +23,7 @@ import java.util.List;
 
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Character
  * SubType: Imperial
  * Title: The Client
@@ -33,7 +33,7 @@ public class Card501_006 extends AbstractImperial {
         super(Side.DARK, 5, 1, 1, 3, 2, "The Client", Uniqueness.UNIQUE);
         setLore("");
         setGameText("During your control phase, if present at a site and your bounty hunter is at a battleground, opponent loses 1 Force. If you just lost a bounty hunter anywhere, may take a bounty hunter into hand from Reserve Deck; reshuffle. Lost if Gideon here.");
-        addIcons(Icon.VIRTUAL_SET_13);
+        addIcons(Icon.VIRTUAL_SET_14);
         setTestingText("The Client");
     }
 

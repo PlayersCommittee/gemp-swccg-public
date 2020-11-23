@@ -29,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Character
  * SubType: Alien
  * Title: Din Djarin
@@ -41,7 +41,7 @@ public class Card501_019 extends AbstractAlien {
         setGameText("Adds 2 to power of anything he pilots. Your other aliens here are defense value and forfeit +1. Once per turn, may target opponent’s non-'hit' character here; if target lost this turn, retrieve 1 Force (may instead retrieve 2 Force and place target in Used Pile).");
         setArmor(5);
         setSpecies(Species.MANDALORIAN);
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_14);
         setTestingText("Din Djarin");
     }
 

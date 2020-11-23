@@ -7,6 +7,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -66,6 +67,15 @@ public abstract class AbstractModifier implements Modifier {
     @Override
     public Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         return null;
+    }
+
+    @Override
+    public void appendCondition(Condition addCondition) {
+        if(_condition!=null) {
+            _condition = new AndCondition(addCondition, _condition);
+        } else {
+            _condition = addCondition;
+        }
     }
 
     @Override

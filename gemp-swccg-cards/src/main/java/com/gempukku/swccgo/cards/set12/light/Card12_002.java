@@ -73,7 +73,7 @@ public class Card12_002 extends AbstractRepublic {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, Filters.blaster, self)
+        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, Filters.blaster, Filters.Panaka)
                 && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

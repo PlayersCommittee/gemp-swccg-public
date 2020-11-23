@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Location
  * Subtype: Site
  * Title: Scarif: Citadel Tower
@@ -40,7 +40,7 @@ public class Card501_074 extends AbstractSite {
         setLocationDarkSideGameText("Once per turn, if you occupy, may use 1 Force to deploy a Scarif site from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.PLANET, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.PLANET, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
         setTestingText("Scarif: Citadel Tower");
     }
 

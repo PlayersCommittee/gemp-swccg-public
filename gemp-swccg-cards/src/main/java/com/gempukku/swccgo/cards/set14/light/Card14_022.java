@@ -35,69 +35,74 @@ public class Card14_022 extends AbstractRepublic {
         setGameText("Once during your deploy phase, may use 1 Force to relocate Perosei to an adjacent Naboo site. While with a Republic character during battle, may place Perosei out of play to add 5 to your total power this battle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);
         addKeywords(Keyword.ROYAL_NABOO_SECURITY, Keyword.GUARD);
+        addPersona(Persona.PEROSEI);
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-        // Card action 1
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        if(GameConditions.canSpot(game, self, Filters.Perosei)) {
+            final PhysicalCard perosei = Filters.findFirstActive(game, self, Filters.Perosei);
+            // Card action 1
+            GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)) {
-            Filter siteToRelocateTo = Filters.and(Filters.Naboo_site, Filters.adjacentSite(self), Filters.locationCanBeRelocatedTo(self, 1));
-            if (GameConditions.canSpotLocation(game, siteToRelocateTo)) {
+            // Check condition(s)
+            if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)) {
+                Filter siteToRelocateTo = Filters.and(Filters.Naboo_site, Filters.adjacentSite(self), Filters.locationCanBeRelocatedTo(perosei, 1));
+                if (GameConditions.canSpotLocation(game, siteToRelocateTo)) {
+
+                    final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                    action.setText("Relocate to adjacent site");
+                    // Update usage limit(s)
+                    action.appendUsage(
+                            new OncePerPhaseEffect(action));
+                    // Choose target(s)
+                    action.appendTargeting(
+                            new ChooseCardOnTableEffect(action, self.getOwner(), "Choose site to relocate " + GameUtils.getCardLink(perosei), siteToRelocateTo) {
+                                @Override
+                                protected void cardSelected(final PhysicalCard selectedCard) {
+                                    action.addAnimationGroup(selectedCard);
+                                    // Pay cost(s)
+                                    action.appendCost(
+                                            new PayRelocateBetweenLocationsCostEffect(action, playerId, self, selectedCard, 1));
+                                    // Allow response(s)
+                                    action.allowResponses("Relocate " + GameUtils.getCardLink(selectedCard) + " to " + GameUtils.getCardLink(selectedCard),
+                                            new UnrespondableEffect(action) {
+                                                @Override
+                                                protected void performActionResults(Action targetingAction) {
+                                                    // Perform result(s)
+                                                    action.appendEffect(
+                                                            new RelocateBetweenLocationsEffect(action, perosei, selectedCard));
+                                                }
+                                            }
+                                    );
+                                }
+                            }
+                    );
+                    actions.add(action);
+                }
+            }
+
+            // Card action 2
+            gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+
+            // Check condition(s)
+            if (GameConditions.isInBattleWith(game, self, Filters.Republic_character)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Relocate to adjacent site");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerPhaseEffect(action));
-                // Choose target(s)
-                action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, self.getOwner(), "Choose site to relocate " + GameUtils.getCardLink(self), siteToRelocateTo) {
-                            @Override
-                            protected void cardSelected(final PhysicalCard selectedCard) {
-                                action.addAnimationGroup(selectedCard);
-                                // Pay cost(s)
-                                action.appendCost(
-                                        new PayRelocateBetweenLocationsCostEffect(action, playerId, self, selectedCard, 1));
-                                // Allow response(s)
-                                action.allowResponses("Relocate " + GameUtils.getCardLink(selectedCard) + " to " + GameUtils.getCardLink(selectedCard),
-                                        new UnrespondableEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new RelocateBetweenLocationsEffect(action, self, selectedCard));
-                                            }
-                                        }
-                                );
-                            }
-                        }
-                );
+                action.setText("Place Perosei out of play to add 5 to total power");
+                action.setActionMsg("Add 5 to total power");
+                // Pay cost(s)
+                action.appendCost(
+                        new PlaceCardOutOfPlayFromTableEffect(action, perosei));
+                // Perform result(s)
+                action.appendEffect(
+                        new ModifyTotalPowerUntilEndOfBattleEffect(action, 5, playerId, "Adds 5 to total power"));
                 actions.add(action);
             }
         }
 
-        // Card action 2
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-
-        // Check condition(s)
-        if (GameConditions.isInBattleWith(game, self, Filters.Republic_character)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place out of play to add 5 to total power");
-            action.setActionMsg("Add 5 to total power");
-            // Pay cost(s)
-            action.appendCost(
-                    new PlaceCardOutOfPlayFromTableEffect(action, self));
-            // Perform result(s)
-            action.appendEffect(
-                    new ModifyTotalPowerUntilEndOfBattleEffect(action, 5, playerId, "Adds 5 to total power"));
-            actions.add(action);
-        }
         return actions;
     }
 }

@@ -51,15 +51,17 @@ public class Card213_035 extends AbstractAlien {
 
         // Check condition(s)
         if (GameConditions.hasCompletedUtinniEffect(game, self.getOwner(), Filters.Kessel_Run)
-                && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
+                && GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canSpot(game, self, Filters.Lando)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            PhysicalCard lando = Filters.findFirstActive(game, self, Filters.Lando);
             action.setText("Return to hand");
-            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
+            action.setActionMsg("Return " + GameUtils.getCardLink(lando) + " to hand");
             action.appendUsage(
                     new OncePerGameEffect(action)
             );
             action.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action, self));
+                    new ReturnCardToHandFromTableEffect(action, lando));
             return Collections.singletonList(action);
         }
         return null;

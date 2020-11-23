@@ -155,7 +155,7 @@ public class Card213_046 extends AbstractNormalEffect {
                             public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
                                 List<TriggerAction> actions = new LinkedList<>();
                                 // Check condition(s)
-                                if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
+                                if (TriggerConditions.isDestinyDrawComplete(game, effectResult, drawDestinyState)
                                         && GameConditions.canStackDestinyCard(game)) {
 
                                     final PhysicalCard card = drawDestinyState.getDrawDestinyEffect().getDrawnDestinyCard();

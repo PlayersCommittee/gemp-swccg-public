@@ -59,7 +59,7 @@ public class Card11_008 extends AbstractRepublic {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, new AndCondition(new PresentWithCondition(self,
+        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, Filters.Amidala, new AndCondition(new PresentWithCondition(self,
                 Filters.and(Filters.your(self), Filters.Jedi)), new AtCondition(self, Filters.site))));
         return modifiers;
     }

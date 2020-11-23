@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 13
+ * Set: Set 14
  * Type: Effect
  * Title: You've Got A Lot Of Guts Coming Here (V)
  */
@@ -35,7 +35,7 @@ public class Card501_010 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("The Empire, Lando Calrissian, Jabba the Hutt. For Han Solo, it can be very hard to tell when your past is going to catch up with you.");
         setGameText("Text: Deploy on table. Once per game during your turn, may relocate Effect to Audience Chamber or your system. If Han or Lando here, opponent retrieves no Force from Scum And Villainy. Opponent's aliens and [Independent] starships are deploy +1 and power -1 here. [Immune to Alter.]");
-        addIcons(Icon.CORUSCANT, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.CORUSCANT, Icon.VIRTUAL_SET_14);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("You've Got A Lot Of Guts Coming Here (V)");
     }
