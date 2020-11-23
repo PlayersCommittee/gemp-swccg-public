@@ -31,7 +31,7 @@ public class Card207_001 extends AbstractRebel {
     public Card207_001() {
         super(Side.LIGHT, 2, 4, 4, 3, 5, Title.Baze, Uniqueness.UNIQUE);
         setArmor(5);
-        setGameText("If about to be lost, may fire Baze’s Cannon. Permanent weapon is •Baze’s Cannon (may target a character for free; draw destiny; add 1 if targeting a character of ability < 3; target hit, and its forfeit = 0, if destiny + 1 > defense value).");
+        setGameText("If about to be lost, may fire Baze's Cannon. Permanent weapon is •Baze's Cannon (may target a character for free; draw destiny; add 1 if targeting a character of ability < 3; target hit, and its forfeit = 0, if destiny + 1 > defense value).");
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_7);
     }
 
@@ -45,7 +45,7 @@ public class Card207_001 extends AbstractRebel {
                 && Filters.canBeFiredForFree(self, 0, true).accepts(game, self)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Fire Baze’s Cannon");
+            action.setText("Fire Baze's Cannon");
             action.setActionMsg("Fire " + GameUtils.getCardLink(self));
             // Perform result(s)
             action.appendEffect(

@@ -16072,4 +16072,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return locations;
     }
 
+    public boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card).isEmpty();
+    }
+
+    public SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card) {
+        //there shouldn't be more than one
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card)) {
+            return ((MindscannedCharacterModifier) m).getmindScannedCharacter().getBlueprint();
+        }
+        return null;
+    }
+
+    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card) {
+        //there shouldn't be more than one
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card)) {
+            return ((MindscannedCharacterModifier) m).wasGameTextCanceled();
+        }
+        return true;
+    }
 }

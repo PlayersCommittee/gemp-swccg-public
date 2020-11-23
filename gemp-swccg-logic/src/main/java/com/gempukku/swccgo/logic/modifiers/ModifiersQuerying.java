@@ -4490,4 +4490,10 @@ public interface ModifiersQuerying {
      */
     Filter getValidDuelParticipant(GameState gameState, PhysicalCard card, Side side);
 
+
+    boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card);
+
+    SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
+
+    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
 }

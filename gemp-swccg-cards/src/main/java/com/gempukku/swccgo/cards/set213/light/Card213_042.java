@@ -17,10 +17,7 @@ import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -48,7 +45,7 @@ public class Card213_042 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DestinyModifier(self, self, new OnTableCondition(self, Filters.or(Filters.Vos, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.smuggler))), 3));
+        modifiers.add(new DestinyWhenDrawnForDestinyModifier(self, self, new OnTableCondition(self, Filters.or(Filters.Vos, Filters.and(Filters.icon(Icon.VIRTUAL_SET_13), Filters.smuggler))), 3));
         return modifiers;
     }
 
@@ -63,35 +60,39 @@ public class Card213_042 extends AbstractAlien {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(self.getOwner()), Filters.here(self))
-                && GameConditions.isPresentAt(game, self, Filters.site)
-                && GameConditions.isArmedWith(game, self, Filters.blaster)
+                && GameConditions.canSpot(game, self, Filters.and(Filters.your(self), Filters.Beckett))
         ) {
+            final PhysicalCard beckett = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Beckett));
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Fire a blaster");
-            action.setActionMsg("Fire a blaster");
-            Filter weaponFilter = Filters.and(Filters.weapon, Filters.attachedTo(self), Filters.blaster, Filters.canBeFired(self, 0));
-            // Perform result(s)
-            action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
-                        @Override
-                        protected void cardSelected(final PhysicalCard weapon) {
-                            action.addAnimationGroup(weapon);
-                            // Allow response(s)
-                            action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
-                                    new UnrespondableEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new FireWeaponEffect(action, weapon, true, Filters.any));
+            if(GameConditions.isPresentAt(game, beckett, Filters.site)
+                    && GameConditions.isArmedWith(game, beckett, Filters.and(Filters.blaster, Filters.canBeFired(beckett, 0)))
+            ) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Have Beckett fire a blaster");
+                action.setActionMsg("Have Beckett fire a blaster");
+                Filter weaponFilter = Filters.and(Filters.weapon, Filters.attachedTo(beckett), Filters.blaster, Filters.canBeFired(beckett, 0));
+                // Perform result(s)
+                action.appendTargeting(
+                        new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
+                            @Override
+                            protected void cardSelected(final PhysicalCard weapon) {
+                                action.addAnimationGroup(weapon);
+                                // Allow response(s)
+                                action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
+                                        new UnrespondableEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new FireWeaponEffect(action, weapon, true, Filters.any));
+                                            }
                                         }
-                                    }
-                            );
+                                );
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
@@ -110,6 +111,49 @@ public class Card213_042 extends AbstractAlien {
                             new AddsBattleDestinyModifier(self, new DuringBattleWithParticipantCondition(Filters.Han), 1, playerId, true), null)
             );
             return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // this part is just to make it work correctly for Bane Malar
+
+        // Check condition(s)
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(self.getOwner()), Filters.here(self))
+                && GameConditions.canSpot(game, self, Filters.and(Filters.opponents(self), Filters.Beckett))
+        ) {
+            final PhysicalCard beckett = Filters.findFirstActive(game, self, Filters.and(Filters.opponents(self), Filters.Beckett));
+
+            if(GameConditions.isPresentAt(game, beckett, Filters.site)
+                    && GameConditions.isArmedWith(game, beckett, Filters.and(Filters.blaster, Filters.canBeFired(beckett, 0)))
+            ) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Have Beckett fire a blaster");
+                action.setActionMsg("Have Beckett fire a blaster");
+                Filter weaponFilter = Filters.and(Filters.weapon, Filters.attachedTo(beckett), Filters.blaster, Filters.canBeFired(beckett, 0));
+                // Perform result(s)
+                action.appendTargeting(
+                        new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
+                            @Override
+                            protected void cardSelected(final PhysicalCard weapon) {
+                                action.addAnimationGroup(weapon);
+                                // Allow response(s)
+                                action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
+                                        new UnrespondableEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new FireWeaponEffect(action, weapon, true, Filters.any));
+                                            }
+                                        }
+                                );
+                            }
+                        }
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

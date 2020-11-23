@@ -1,10 +1,7 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,6 +24,7 @@ public class Card3_022 extends AbstractRebel {
         setLore("Senior logistics officer from Onderon. Left Dantooine to serve on Yavin 4 before coming to Hoth. All personnel entering Echo Base must report to him.");
         setGameText("Deploy only on Yavin 4 or Hoth, but may move elsewhere. Opponent's aliens and Imperials may not move from same site as Tigran to an Echo or an interior Yavin site.");
         addIcons(Icon.HOTH, Icon.WARRIOR);
+        addPersona(Persona.TIGRAN);
     }
 
     @Override
@@ -38,7 +36,7 @@ public class Card3_022 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotMoveFromLocationToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.or(Filters.alien, Filters.Imperial)),
-                Filters.sameSite(self), Filters.or(Filters.Echo_site, Filters.and(Filters.interior_site, Filters.Yavin_4_site))));
+                Filters.sameSiteAs(self, Filters.Tigran), Filters.or(Filters.Echo_site, Filters.and(Filters.interior_site, Filters.Yavin_4_site))));
         return modifiers;
     }
 }
