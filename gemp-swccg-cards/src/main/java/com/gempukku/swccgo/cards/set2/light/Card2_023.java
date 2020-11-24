@@ -45,8 +45,8 @@ public class Card2_023 extends AbstractRebel {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
-        modifiers.add(new ManeuverModifier(self, Filters.hasPiloting(self), pilotingRed2, 2));
-        modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, pilotingRed2, 1));
+        modifiers.add(new ManeuverModifier(self, Filters.and(Filters.Red_2, Filters.hasPiloting(self)), 2));
+        modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, new PilotingCondition(self, Filters.Red_2), 1));
         return modifiers;
     }
 
