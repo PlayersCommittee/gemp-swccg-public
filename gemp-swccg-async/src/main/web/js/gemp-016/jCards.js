@@ -3357,6 +3357,18 @@ var fixedImages = {
 "501_98":"/gemp-swccg/images/cards/Virtual11-Light/viceadmiralholdo.gif",
 "501_95":"/gemp-swccg/images/cards/ReflectionsII-Light/alter&friendlyfire.gif",
 "501_99":"/gemp-swccg/images/cards/ReflectionsII-Dark/alter&collateraldamage.gif",
+"204_029ai":"/gemp-swccg/images/packs/premiere_booster_pack.png",
+"213_1ai":"/gemp-swccg/images/packs/premiere_booster_pack.png",
+"213_2ai":"/gemp-swccg/images/packs/a_new_hope_booster_pack.png",
+"213_3ai":"/gemp-swccg/images/packs/hoth_booster_pack.png",
+"213_4ai":"/gemp-swccg/images/packs/dagobah_booster_pack.png",
+"213_5ai":"/gemp-swccg/images/packs/cloud_city_booster_pack.png",
+"213_6ai":"/gemp-swccg/images/packs/jabbas_palace_booster_pack.png",
+"213_7ai":"/gemp-swccg/images/packs/special_edition_booster_pack.png",
+"213_8ai":"/gemp-swccg/images/packs/endor_booster_pack.png",
+"213_9ai":"/gemp-swccg/images/packs/endor_booster_pack.png",
+"213_10ai":"/gemp-swccg/images/packs/death_star_2_booster_pack.png",
+"213_11ai":"/gemp-swccg/images/packs/tatooine_booster_pack.png",
 };
 
 var packBlueprints = {
@@ -3421,6 +3433,7 @@ var packBlueprints = {
 
     "Jedi Pack":"/gemp-swccg/images/packs/jedi_pack.png",
     "Rebel Leader Pack":"/gemp-swccg/images/packs/rebel_leader_pack.png",
+    "Virtual Alternate Image Booster Pack":"/gemp-swccg/images/packs/virtual_alternate_image_booster_pack.png",
 
     "First Anthology Box":"/gemp-swccg/images/packs/first_anthology_box.png",
     "Second Anthology Box":"/gemp-swccg/images/packs/second_anthology_box.png",
@@ -3445,6 +3458,7 @@ var Card = Class.extend({
     blueprintId:null,
     bareBlueprint:null,
     foil:null,
+    alternateImage:null,
     horizontal:null,
     imageUrl:null,
     backSideImageUrl:null,
@@ -3476,6 +3490,14 @@ var Card = Class.extend({
         if (this.foil) {
             imageBlueprint = imageBlueprint.substring(0, len - 1);
         }
+
+        this.alternateImage = imageBlueprint.substring(len - 1, len) == "^";
+        if (this.alternateImage) {
+            imageBlueprint = imageBlueprint.substring(0, len - 1);
+             if (fixedImages[imageBlueprint+"ai"] != null)
+                imageBlueprint = imageBlueprint + "ai";
+        }
+
         this.bareBlueprint = imageBlueprint;
 
         this.testingText = null;

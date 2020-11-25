@@ -422,7 +422,7 @@ public class GameState implements Snapshotable<GameState> {
         String backBlueprintId = playerId.equals(_darkSidePlayer) ? "-1_2" : "-1_1";
         SwccgCardBlueprint cardBack = null;
         if (cardFront.isFrontOfDoubleSidedCard()) {
-            backBlueprintId = library.stripBlueprintModifiers(blueprintId) + "_BACK" + (library.isFoil(blueprintId) ? "*" : "");
+            backBlueprintId = library.stripBlueprintModifiers(blueprintId) + "_BACK" + (library.isFoil(blueprintId) ? "*" : "") + (library.isAlternateImage(blueprintId) ? "^" : "");
             cardBack = library.getSwccgoCardBlueprint(backBlueprintId);
         }
 
