@@ -153,6 +153,7 @@ var CardFilter = Class.extend({
             + "<option value='' selected='selected'>All</option>"
             + "<option value='open'>Open</option>"
             + "<option value='jawa'>Jawa</option>"
+            + "<option value='swccg_2_0'>SWCCG 2.0</option>"
             + "<option value='open_no_shields'>Open (no shields)</option>"
             + "<option value='open_no_virtual'>Open (no v-cards)</option>"
             + "<option value='open_no_shields_no_virtual'>Open (no shields / no v-cards)</option>"
