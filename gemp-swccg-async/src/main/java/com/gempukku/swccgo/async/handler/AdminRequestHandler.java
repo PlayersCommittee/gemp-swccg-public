@@ -481,9 +481,9 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String players = getFormParameterSafely(postDecoder, "players");
         int currencyAmount = Integer.parseInt(getFormParameterSafely(postDecoder, "currencyAmount"));
 
-        int currentAddLimit = 10000;
+        int currencyAddLimit = 10000;
 
-        if(currencyAmount>currentAddLimit || currencyAmount<0) {
+        if(currencyAmount>currencyAddLimit || currencyAmount<0) {
             responseWriter.writeHtmlResponse("Cannot add "+currencyAmount);
         } else {
 
