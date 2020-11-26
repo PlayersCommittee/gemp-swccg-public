@@ -394,7 +394,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
 
             for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
-                _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
+                _collectionManager.addItemsToPlayerCollection(true, reason + " (" + getResourceOwnerSafely(request,null).getName() + ")", playerCollection.getKey(), createCollectionType(collectionType), productItems);
 
             responseWriter.writeHtmlResponse("OK");
         }
@@ -420,7 +420,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             for (String playerName : playerNames) {
                 Player player = _playerDao.getPlayer(playerName);
 
-                _collectionManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
+                _collectionManager.addItemsToPlayerCollection(true, "Administrator action ("+getResourceOwnerSafely(request,null).getName()+")", player, createCollectionType(collectionType), productItems);
             }
 
             responseWriter.writeHtmlResponse("OK");
@@ -428,11 +428,11 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     private String listToString(List<String> cannotAdd) {
-        String result = "Unable to add items:";
+        StringBuilder stringBuilder = new StringBuilder("Did not add any items. Unable to add:");
         for (String s : cannotAdd) {
-            result += "<br>" + s;
+            stringBuilder.append("<br>" + s);
         }
-        return result;
+        return stringBuilder.toString();
     }
 
     private List<String> validateItemsToAdd(Collection<CardCollection.Item> productItems) throws IOException {
@@ -491,7 +491,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
             for (String playerName : playerNames) {
                 Player player = _playerDao.getPlayer(playerName);
-                _collectionManager.addCurrencyToPlayerCollection(true, "Administrator action", player, createCollectionType("permanent"), currencyAmount);
+                _collectionManager.addCurrencyToPlayerCollection(true, "Administrator action ("+getResourceOwnerSafely(request,null).getName()+")", player, createCollectionType("permanent"), currencyAmount);
             }
 
             responseWriter.writeHtmlResponse("OK");
