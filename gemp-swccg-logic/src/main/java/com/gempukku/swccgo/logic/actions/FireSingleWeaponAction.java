@@ -217,7 +217,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                 // Emit effect result that weapon was fired
                 if (!_emitFiredWeaponResult) {
                     _emitFiredWeaponResult = true;
-                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown));
+                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, game.getGameState().getWeaponFiringState().getTargets()));
                 }
             }
         }
