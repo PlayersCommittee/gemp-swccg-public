@@ -83,7 +83,7 @@ public class Card213_035 extends AbstractAlien {
             action.setActionMsg("Exchange a card in hand with a card in Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new ExchangeCardInHandWithCardInReserveDeckEffect(action, playerId, Filters.any, interruptWithDestiny4, true));
+                    new ExchangeCardInHandWithCardInReserveDeckEffect(action, playerId, Filters.any, interruptWithDestiny4, true, true));
             return Collections.singletonList(action);
         }
         return null;
