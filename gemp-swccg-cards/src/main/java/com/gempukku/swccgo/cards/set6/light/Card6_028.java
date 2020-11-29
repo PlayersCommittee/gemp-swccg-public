@@ -24,10 +24,10 @@ import java.util.List;
 public class Card6_028 extends AbstractAlien {
     public Card6_028() {
         super(Side.LIGHT, 2, 3, 1, 1, 2, "Max Rebo", Uniqueness.UNIQUE);
-        setLore("Ortolan musician and gambler. Leader of The Max Rebo Band. Signed a lifetime contract to Jabba in exchange for unlimited food.");
+        setLore("Ortolan musician and gambler. Head of The Max Rebo Band. Signed a lifetime contract to Jabba in exchange for unlimited food.");
         setGameText("Power +2 on Hoth. If at same site as another of you musicians, you may play Bith Shuffle to cancel a Force drain at an adjacent site. While at Audience Chamber, all your other musicians are deploy -1 and forfeit +3.");
         addIcons(Icon.JABBAS_PALACE);
-        addKeywords(Keyword.MUSICIAN, Keyword.GAMBLER, Keyword.LEADER);
+        addKeywords(Keyword.MUSICIAN, Keyword.GAMBLER);
         setSpecies(Species.ORTOLAN);
     }
 
