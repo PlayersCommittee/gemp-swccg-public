@@ -246,20 +246,45 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             if (forceDrainLocation != null
                     && game.getModifiersQuerying().mayPlayInterruptToCancelForceDrain(game.getGameState(), self, forceDrainLocation)) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Cancel Force drain");
-                // Allow response(s)
-                action.allowResponses(
-                        new RespondablePlayCardEffect(action) {
-                            @Override
-                            protected void performActionResults(Action targetingAction) {
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new CancelForceDrainEffect(action));
+                CardSubtype subtype = game.getModifiersQuerying().getInterruptType(game.getGameState(), self);
+
+                // USED
+                if (subtype == CardSubtype.USED || subtype == CardSubtype.USED_OR_LOST || subtype == CardSubtype.USED_OR_STARTING) {
+
+                    final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                    action.setText("Cancel Force drain");
+                    // Allow response(s)
+                    action.allowResponses(
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new CancelForceDrainEffect(action));
+                                }
                             }
-                        }
-                );
-                actions.add(action);
+                    );
+                    actions.add(action);
+                }
+
+                // LOST
+                if (subtype == CardSubtype.LOST || subtype == CardSubtype.USED_OR_LOST || subtype == CardSubtype.LOST_OR_STARTING) {
+
+                    final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+                    action.setText("Cancel Force drain");
+                    // Allow response(s)
+                    action.allowResponses(
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new CancelForceDrainEffect(action));
+                                }
+                            }
+                    );
+                    actions.add(action);
+                }
             }
         }
 
