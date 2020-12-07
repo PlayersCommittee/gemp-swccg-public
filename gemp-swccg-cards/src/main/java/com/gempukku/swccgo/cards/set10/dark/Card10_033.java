@@ -27,7 +27,7 @@ public class Card10_033 extends AbstractImperial {
         setLore("Corellian leader. Lied about his age to enter the Academy. Took command of Chimaera when its captain was killed at the Battle of Endor. Admires Grand Admiral Thrawn.");
         setGameText("Deploys for free to Thrawn's location. Each other Imperial aboard same capital starship is forfeit +2. Adds 2 to power of any capital starship he pilots (3 if Chimaera). While aboard Chimaera with Thrawn, also adds 2 to that starship's armor and hyperspeed.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
         setSpecies(Species.CORELLIAN);
         setMatchingStarshipFilter(Filters.Chimaera);
     }

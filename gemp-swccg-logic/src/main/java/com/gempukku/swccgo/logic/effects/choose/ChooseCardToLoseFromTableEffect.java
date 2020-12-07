@@ -15,8 +15,9 @@ public class ChooseCardToLoseFromTableEffect extends ChooseCardsToLoseFromTableE
 
     /**
      * Creates an effect that causes the specified player to choose a card on table to be lost.
-     * @param action the action performing this effect
-     * @param playerId the player
+     *
+     * @param action     the action performing this effect
+     * @param playerId   the player
      * @param cardFilter the card filter
      */
     public ChooseCardToLoseFromTableEffect(Action action, String playerId, Filterable cardFilter) {
@@ -25,10 +26,11 @@ public class ChooseCardToLoseFromTableEffect extends ChooseCardsToLoseFromTableE
 
     /**
      * Creates an effect that causes the specified player to choose a card on table to be lost.
-     * @param action the action performing this effect
-     * @param playerId the player
+     *
+     * @param action            the action performing this effect
+     * @param playerId          the player
      * @param allCardsSituation true if treated as an all cards situation, otherwise false
-     * @param cardFilter the card filter
+     * @param cardFilter        the card filter
      */
     public ChooseCardToLoseFromTableEffect(Action action, String playerId, boolean allCardsSituation, Filterable cardFilter) {
         this(action, playerId, null, allCardsSituation, cardFilter);
@@ -36,10 +38,11 @@ public class ChooseCardToLoseFromTableEffect extends ChooseCardsToLoseFromTableE
 
     /**
      * Creates an effect that causes the specified player to choose cards on table to be lost.
-     * @param action the action performing this effect
-     * @param playerId the player
+     *
+     * @param action                    the action performing this effect
+     * @param playerId                  the player
      * @param additionalTargetingReason the additional targeting reason (in addition to "to be lost")
-     * @param cardFilter the card filter
+     * @param cardFilter                the card filter
      */
     public ChooseCardToLoseFromTableEffect(Action action, String playerId, TargetingReason additionalTargetingReason, Filterable cardFilter) {
         this(action, playerId, additionalTargetingReason, false, cardFilter);
@@ -47,24 +50,26 @@ public class ChooseCardToLoseFromTableEffect extends ChooseCardsToLoseFromTableE
 
     /**
      * Creates an effect that causes the specified player to choose cards on table to be lost.
-     * @param action the action performing this effect
-     * @param playerId the player
+     *
+     * @param action                    the action performing this effect
+     * @param playerId                  the player
      * @param additionalTargetingReason the additional targeting reason (in addition to "to be lost")
-     * @param allCardsSituation true if treated as an all cards situation, otherwise false
-     * @param cardFilter the card filter
+     * @param allCardsSituation         true if treated as an all cards situation, otherwise false
+     * @param cardFilter                the card filter
      */
     public ChooseCardToLoseFromTableEffect(Action action, String playerId, TargetingReason additionalTargetingReason, boolean allCardsSituation, Filterable cardFilter) {
-        this(action, playerId, additionalTargetingReason, allCardsSituation, cardFilter,null);
+        this(action, playerId, additionalTargetingReason, allCardsSituation, cardFilter, null);
     }
 
     /**
      * Creates an effect that causes the specified player to choose cards on table to be lost.
-     * @param action the action performing this effect
-     * @param playerId the player
+     *
+     * @param action                    the action performing this effect
+     * @param playerId                  the player
      * @param additionalTargetingReason the additional targeting reason (in addition to "to be lost")
-     * @param allCardsSituation true if treated as an all cards situation, otherwise false
-     * @param cardFilter the card filter
-     * @param spotOverrides the spot overrides
+     * @param allCardsSituation         true if treated as an all cards situation, otherwise false
+     * @param cardFilter                the card filter
+     * @param spotOverrides             the spot overrides
      */
     public ChooseCardToLoseFromTableEffect(Action action, String playerId, TargetingReason additionalTargetingReason, boolean allCardsSituation, Filterable cardFilter, Map<InactiveReason, Boolean> spotOverrides) {
         super(action, playerId, additionalTargetingReason, 1, 1, allCardsSituation, cardFilter, spotOverrides);

@@ -97,28 +97,31 @@ public class DrawRaceDestinyEffect extends AbstractSubActionEffect {
         gameState.sendMessage(performingPlayerId + " targets " + GameUtils.getCardLink(podracerOrArena) + " to draw " + numDestinyToDraw
                 + (isDrawXChooseY ? (" and choose " + numDestinyToChoose) : "") + " race destiny");
         gameState.cardAffectsCard(performingPlayerId, subAction.getActionAttachedToCard(), podracerOrArena);
-        if(isDrawXChooseY) {
+        if (isDrawXChooseY) {
             subAction.appendEffect(
-            		new DrawDestinyEffect(subAction, performingPlayerId, numDestinyToChoose, numDestinyToDraw, numDestinyToChoose, false, DestinyType.RACE_DESTINY) {
-            			@Override
-            			public PhysicalCard getStackRaceDestinyOn() {
-            				return podracerOrArena;
-            			}
-            			@Override
+                    new DrawDestinyEffect(subAction, performingPlayerId, numDestinyToChoose, numDestinyToDraw, numDestinyToChoose, false, DestinyType.RACE_DESTINY) {
+                        @Override
+                        public PhysicalCard getStackRaceDestinyOn() {
+                            return podracerOrArena;
+                        }
+
+                        @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                         }
                     });
         } else {
             subAction.appendEffect(
-            		new DrawDestinyEffect(subAction, performingPlayerId, numDestinyToDraw, DestinyType.RACE_DESTINY) {
-            			@Override
-            			public PhysicalCard getStackRaceDestinyOn() {
-            				return podracerOrArena;
-            			}
-            			@Override
+                    new DrawDestinyEffect(subAction, performingPlayerId, numDestinyToDraw, DestinyType.RACE_DESTINY) {
+                        @Override
+                        public PhysicalCard getStackRaceDestinyOn() {
+                            return podracerOrArena;
+                        }
+
+                        @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                         }
                     });
+
         }
     }
 

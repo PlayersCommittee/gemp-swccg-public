@@ -33,6 +33,7 @@ public class Card3_085 extends AbstractImperial {
         setGameText("Power +1 when at same site as Vader. Adds 2 to power of anything he pilots (3 if starship is Executor). May use 1 Force to take one Probe Droid into hand from Reserve Deck; reshuffle.");
         addPersona(Persona.PIETT);
         addIcons(Icon.HOTH, Icon.PILOT);
+        addKeyword(Keyword.CAPTAIN);
         setMatchingStarshipFilter(Filters.Executor);
     }
 

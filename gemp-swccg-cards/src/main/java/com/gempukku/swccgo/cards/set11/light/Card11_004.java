@@ -49,81 +49,86 @@ public class Card11_004 extends AbstractAlien {
         Filter targetFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.present(self));
         TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
 
-        // Check condition(s)
-        if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.isInBattle(game, self)
-                && GameConditions.canUseForce(game, playerId, 1)
-                && GameConditions.canTarget(game, self, targetingReason, targetFilter)) {
+        if(GameConditions.canSpot(game, self, Filters.Jar_Jar)) {
+            final PhysicalCard jarjar = Filters.findFirstActive(game, self, Filters.Jar_Jar);
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Make a character lost");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Choose target(s)
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose character", targetingReason, targetFilter) {
-                        @Override
-                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
-                            action.addAnimationGroup(targetedCard);
-                            // Pay cost(s)
-                            action.appendCost(
-                                    new UseForceEffect(action, playerId, 1));
-                            // Allow response(s)
-                            action.allowResponses("Make " + GameUtils.getCardLink(targetedCard) + " lost",
-                                    new RespondableEffect(action) {
-                                        @Override
-                                        protected void performActionResults(final Action targetingAction) {
-                                            // Get the targeted card(s) from the action using the targetGroupId.
-                                            // This needs to be done in case the target(s) were changed during the responses.
-                                            final PhysicalCard character = targetingAction.getPrimaryTargetCard(targetGroupId);
+            // Check condition(s)
+            if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
+                    && GameConditions.isInBattle(game, self)
+                    && GameConditions.canUseForce(game, playerId, 1)
+                    && GameConditions.canTarget(game, jarjar, targetingReason, targetFilter)) {
 
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new DrawDestinyEffect(action, playerId) {
-                                                        @Override
-                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                            return Collections.singletonList(character);
-                                                        }
-                                                        @Override
-                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> playersDestinyCardDraws, List<Float> playersDestinyDrawValues, final Float playersTotalDestiny) {
-                                                            final String opponent = game.getOpponent(playerId);
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+                action.setText("Make a character lost");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerBattleEffect(action));
+                // Choose target(s)
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose character", targetingReason, targetFilter) {
+                            @Override
+                            protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
+                                action.addAnimationGroup(targetedCard);
+                                // Pay cost(s)
+                                action.appendCost(
+                                        new UseForceEffect(action, playerId, 1));
+                                // Allow response(s)
+                                action.allowResponses("Make " + GameUtils.getCardLink(targetedCard) + " lost",
+                                        new RespondableEffect(action) {
+                                            @Override
+                                            protected void performActionResults(final Action targetingAction) {
+                                                // Get the targeted card(s) from the action using the targetGroupId.
+                                                // This needs to be done in case the target(s) were changed during the responses.
+                                                final PhysicalCard character = targetingAction.getPrimaryTargetCard(targetGroupId);
 
-                                                            action.appendEffect(
-                                                                    new DrawDestinyEffect(action, opponent) {
-                                                                        @Override
-                                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                            return Collections.singletonList(character);
-                                                                        }
-                                                                        @Override
-                                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> opponentsDestinyCardDraws, List<Float> opponentsDestinyDrawValues, Float opponentsTotalDestiny) {
-                                                                            GameState gameState = game.getGameState();
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new DrawDestinyEffect(action, playerId) {
+                                                            @Override
+                                                            protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                                return Collections.singletonList(character);
+                                                            }
 
-                                                                            gameState.sendMessage(playerId + "'s destiny: " + (playersTotalDestiny != null ? GuiUtils.formatAsString(playersTotalDestiny) : "Failed destiny draw"));
-                                                                            gameState.sendMessage(opponent + "'s destiny: " + (opponentsTotalDestiny != null ? GuiUtils.formatAsString(opponentsTotalDestiny) : "Failed destiny draw"));
-                                                                            float ability = game.getModifiersQuerying().getAbility(gameState, character);
-                                                                            gameState.sendMessage(GameUtils.getCardLink(character) + "'s ability: " + GuiUtils.formatAsString(ability));
+                                                            @Override
+                                                            protected void destinyDraws(SwccgGame game, List<PhysicalCard> playersDestinyCardDraws, List<Float> playersDestinyDrawValues, final Float playersTotalDestiny) {
+                                                                final String opponent = game.getOpponent(playerId);
 
-                                                                            if ((((playersTotalDestiny != null ? playersTotalDestiny : 0) + 2) > ((opponentsTotalDestiny != null ? opponentsTotalDestiny : 0) + ability))) {
-                                                                                gameState.sendMessage("Result: Succeeded");
-                                                                                List<StandardEffect> effectsToOrder = new ArrayList<StandardEffect>();
-                                                                                effectsToOrder.add(new LoseCardFromTableEffect(action, self));
-                                                                                effectsToOrder.add(new LoseCardFromTableEffect(action, character));
-                                                                                action.appendEffect(
-                                                                                        new ChooseEffectOrderEffect(action, effectsToOrder));
+                                                                action.appendEffect(
+                                                                        new DrawDestinyEffect(action, opponent) {
+                                                                            @Override
+                                                                            protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                                                return Collections.singletonList(character);
                                                                             }
-                                                                            else {
-                                                                                gameState.sendMessage("Result: Failed");
+
+                                                                            @Override
+                                                                            protected void destinyDraws(SwccgGame game, List<PhysicalCard> opponentsDestinyCardDraws, List<Float> opponentsDestinyDrawValues, Float opponentsTotalDestiny) {
+                                                                                GameState gameState = game.getGameState();
+
+                                                                                gameState.sendMessage(playerId + "'s destiny: " + (playersTotalDestiny != null ? GuiUtils.formatAsString(playersTotalDestiny) : "Failed destiny draw"));
+                                                                                gameState.sendMessage(opponent + "'s destiny: " + (opponentsTotalDestiny != null ? GuiUtils.formatAsString(opponentsTotalDestiny) : "Failed destiny draw"));
+                                                                                float ability = game.getModifiersQuerying().getAbility(gameState, character);
+                                                                                gameState.sendMessage(GameUtils.getCardLink(character) + "'s ability: " + GuiUtils.formatAsString(ability));
+
+                                                                                if ((((playersTotalDestiny != null ? playersTotalDestiny : 0) + 2) > ((opponentsTotalDestiny != null ? opponentsTotalDestiny : 0) + ability))) {
+                                                                                    gameState.sendMessage("Result: Succeeded");
+                                                                                    List<StandardEffect> effectsToOrder = new ArrayList<StandardEffect>();
+                                                                                    effectsToOrder.add(new LoseCardFromTableEffect(action, jarjar));
+                                                                                    effectsToOrder.add(new LoseCardFromTableEffect(action, character));
+                                                                                    action.appendEffect(
+                                                                                            new ChooseEffectOrderEffect(action, effectsToOrder));
+                                                                                } else {
+                                                                                    gameState.sendMessage("Result: Failed");
+                                                                                }
                                                                             }
-                                                                        }
-                                                                    });
-                                                        }
-                                                    });
-                                        }
-                                    });
-                        }
-                    });
-            return Collections.singletonList(action);
+                                                                        });
+                                                            }
+                                                        });
+                                            }
+                                        });
+                            }
+                        });
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

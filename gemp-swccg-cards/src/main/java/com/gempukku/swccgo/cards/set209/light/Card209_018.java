@@ -33,7 +33,7 @@ public class Card209_018 extends AbstractNormalEffect {
     public Card209_018() {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Stardust, Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Deploy on Data Vault. At any time, may relocate Stardust to your spy present. During your control phase, if on your spy at a battleground you occupy, opponent loses 2 Force. If about to leave table, relocate to Data Vault (if possible). [Immune to Alter.]");
+        setGameText("Deploy on Data Vault. At any time, may relocate Stardust to your spy present. During your control phase, if on your spy at a battleground you occupy, opponent loses 1 Force. If about to leave table, relocate to Data Vault (if possible). [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -81,7 +81,7 @@ public class Card209_018 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int NUM_FORCE = 2;
+            int NUM_FORCE = 1;
             if (damageConditionsSatisfied(game, self, playerId)) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Make opponent lose " + NUM_FORCE + " Force");
@@ -109,7 +109,7 @@ public class Card209_018 extends AbstractNormalEffect {
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int NUM_FORCE = 2;
+            int NUM_FORCE = 1;
             if (damageConditionsSatisfied(game, self, playerId)) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setPerformingPlayer(playerId);

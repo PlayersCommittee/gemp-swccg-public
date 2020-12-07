@@ -31,6 +31,7 @@ public class Card9_100 extends AbstractImperial {
         setLore("Elite fleet engineer. Technically brilliant. Key operator of magnetic signature sensors monitoring Star Destroyer hulls.");
         setGameText("Adds 3 to power of any capital starship he pilots. While aboard a Star Destroyer, adds 1 to armor, adds 1 to hyperspeed and, once during each of your move phases, may cancel Landing Claw at same system or sector.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);
+        addKeyword(Keyword.CAPTAIN);
     }
 
     @Override

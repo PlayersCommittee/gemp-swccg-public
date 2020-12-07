@@ -31,7 +31,7 @@ public class Card12_109 extends AbstractRepublic {
         setLore("A highly paid assassin and spy, Keder has infiltrated the Senate disguised as a Coruscant Guard. The identity of his target and his employer remains a mystery to all but him.");
         setGameText("Deploys only to a site as an Undercover spy (-2 on Coruscant). During your control phase, may 'break cover' to target one character with politics present. Draw destiny. If destiny +1 > target's politics, target and Keder are lost.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR);
-        addKeywords(Keyword.SPY, Keyword.ROYAL_GUARD);
+        addKeywords(Keyword.SPY, Keyword.ROYAL_GUARD, Keyword.ASSASSIN);
         setDeploysAsUndercoverSpy(true);
     }
 

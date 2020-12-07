@@ -41,9 +41,11 @@ import java.util.List;
 public class Card211_036_BACK extends AbstractObjective {
     public Card211_036_BACK() {
         super(Side.LIGHT, 7, Title.We_Need_Luke_Skywalker);
-        setGameText("Immediately place Luke out of play (ignore [Death Star II] objective restrictions, if any). For remainder of battle, opponent may not fire weapons. \n" +
-                "While this side up, opponent's immunity to attrition is limited to < 5. Your Force drains are +1 where you have two unique (•) Resistance characters. Once during your turn, may peek at the top card of your Force Pile and Reserve Deck; place both cards (in any order) on top of one of those piles. Once per turn during battle, may cancel an opponent's just drawn destiny to cause a re-draw.");
-        addIcons(Icon.VIRTUAL_SET_11);
+        setGameText("Immediately place Luke out of play (ignore [Death Star II] objective restrictions, if any). For remainder of battle, opponent may not fire weapons." +
+                "While this side up, opponent's immunity to attrition is limited to < 5. Your Force drains are +1 where you have two unique (•) Resistance characters. " +
+                "Once during your turn, may peek at the top card of your Force Pile and Reserve Deck; place both cards (in any order) on top of one of those piles. " +
+                "Once per turn during battle involving two Resistance characters, may cancel an opponent's just drawn destiny to cause a re-draw.");
+        addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);
     }
 
     @Override
@@ -126,7 +128,7 @@ public class Card211_036_BACK extends AbstractObjective {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
 
         Filter cardsWithMoreThan5ITA = Filters.and(Filters.opponents(self.getOwner()), Filters.immunityToAttritionLessThan(5));
         modifiers.add(new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
@@ -143,6 +145,7 @@ public class Card211_036_BACK extends AbstractObjective {
         if ((TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId)))
                 && GameConditions.isOncePerTurn(game, self, playerId,gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattle(game)
+                && Filters.countActive(game, self, Filters.and(Filters.Resistance_character, Filters.participatingInBattle)) >= 2
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

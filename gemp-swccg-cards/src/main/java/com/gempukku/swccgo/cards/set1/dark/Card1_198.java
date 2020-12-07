@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,6 +30,7 @@ public class Card1_198 extends AbstractAlien {
         super(Side.DARK, 3, 2, 2, 1, 3, "Wuher", Uniqueness.UNIQUE);
         setLore("Gruff, surly, no-blasters-allowed bartender. Hates droids. 'We don't serve their kind here.' Wants to concoct the perfect drink for Jabba so he can work as his personal bartender.");
         setGameText("If at the beginning of your control phase any weapons or droids are present at same site, all of them are lost. If in the Cantina, all weapons and droids there are immediately lost.");
+        addPersona(Persona.WUHER);
     }
 
     @Override

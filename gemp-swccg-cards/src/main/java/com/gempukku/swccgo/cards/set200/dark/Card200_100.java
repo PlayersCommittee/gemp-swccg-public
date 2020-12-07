@@ -23,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Reflections III
+ * Set: Set 0
  * Type: Defensive Shield
  * Title: You Cannot Hide Forever (V)
  */

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card13_051 extends AbstractDefensiveShield {
     public Card13_051() {
-        super(Side.DARK, "A Useless Gesture");
+        super(Side.DARK, Title.A_Useless_Gesture);
         setLore("Imperial officers aboard the Death Star considered the Rebellion a minor threat.");
         setGameText("Plays on table. Cancels Don't Underestimate Our Chances. When opponent plays an Interrupt and has 3 smugglers on table, if that Interrupt is place in Lost Pile, place it out of play. Ketwol may exchange a docking bay only once per game.");
         addIcons(Icon.REFLECTIONS_III);

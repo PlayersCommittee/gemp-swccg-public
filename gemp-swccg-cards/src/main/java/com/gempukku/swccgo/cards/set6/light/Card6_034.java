@@ -29,11 +29,12 @@ public class Card6_034 extends AbstractAlien {
         setGameText("Adds 2 to power of anything he pilots (or 4 if trained by Rycar Ryjerd). Any starfighter Rayc pilots is immune to Tallon Roll and is not lost if an asteroid sector is drawn for asteroid destiny.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT);
         addKeywords(Keyword.SMUGGLER);
+        addPersona(Persona.RAYC);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Filter starfighterPiloted = Filters.and(Filters.starfighter, Filters.hasPiloting(self));
+        Filter starfighterPiloted = Filters.and(Filters.starfighter, Filters.hasPiloting(self, Filters.Rayc));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, new ConditionEvaluator(2, 4, new TrainedByCondition(self, Filters.Rycar_Ryjerd))));

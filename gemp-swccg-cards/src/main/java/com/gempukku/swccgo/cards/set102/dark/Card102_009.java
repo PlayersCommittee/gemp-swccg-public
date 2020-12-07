@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.Side;
 
 /**
  * Set: Premium (Jedi Pack)
+ * Type: Non-Playable
  * Title: Hyperoute Navigation Chart
  */
 public class Card102_009 extends AbstractSwccgCardBlueprint {

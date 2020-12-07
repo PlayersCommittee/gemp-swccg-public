@@ -62,7 +62,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
 
         try {
             if (message != null && !message.trim().isEmpty()) {
-                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
+                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.hasType(Player.Type.ADMIN));
                 responseWriter.writeXmlResponse(null);
             } else {
                 ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
@@ -135,7 +135,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
         if (chatRoom == null)
             throw new HttpProcessingException(404);
         try {
-            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.getType().contains("a"));
+            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.hasType(Player.Type.ADMIN), resourceOwner.hasType(Player.Type.PLAY_TESTER));
             Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -183,19 +183,38 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
     private class CaseInsensitiveStringComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            if (o1.startsWith("*") && !o2.startsWith("*")) {
+            //put users with specific roles at the top of the list
+            if(o1.contains(" ")&&!o2.contains(" ")) {
                 return -1;
             }
-            if (o2.startsWith("*") && !o1.startsWith("*")) {
+            if(!o1.contains(" ")&&o2.contains(" ")) {
                 return 1;
             }
-            if (o1.startsWith("+") && !(o2.startsWith("*") || o2.startsWith("+"))) {
-                return -1;
+
+            //normal sorting for users without specific roles
+            if(!o1.contains(" ")&&!o2.contains(" ")) {
+                return o1.toLowerCase().compareTo(o2.toLowerCase());
             }
-            if (o2.startsWith("+") && !(o1.startsWith("*") || o1.startsWith("+"))) {
-                return 1;
-            }
-            return o1.toLowerCase().compareTo(o2.toLowerCase());
+
+            //replace the symbols with letters to be able to just use a standard compareTo
+            String oneWithSubstitutions = o1.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
+            String twoWithSubstitutions = o2.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
+
+            return oneWithSubstitutions.toLowerCase().compareTo(twoWithSubstitutions.toLowerCase());
+//	  	old
+//            if (o1.startsWith("*") && !o2.startsWith("*")) {
+//                return -1;
+//            }
+//            if (o2.startsWith("*") && !o1.startsWith("*")) {
+//                return 1;
+//            }
+//            if (o1.startsWith("+") && !(o2.startsWith("*") || o2.startsWith("+"))) {
+//                return -1;
+//            }
+//            if (o2.startsWith("+") && !(o1.startsWith("*") || o1.startsWith("+"))) {
+//                return 1;
+//            }
+//            return o1.toLowerCase().compareTo(o2.toLowerCase());
         }
     }
 
@@ -211,14 +230,23 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
             else {
                 if (playerTypes.contains(Player.Type.LEAGUE_ADMIN) || playerTypes.contains(Player.Type.PLAY_TESTING_ADMIN)) {
                     sb.insert(0, " ");
+                    if (playerTypes.contains(Player.Type.COMMENTATOR)) {
+                        sb.insert(0,"&#231;");
+                    }
                     if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
                         sb.insert(0, "&beta;");
                     }
                     sb.insert(0, "+");
                 }
                 else {
-                    if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
-                        sb.insert(0, "&beta; ");
+                    if(playerTypes.contains(Player.Type.PLAY_TESTER)||playerTypes.contains(Player.Type.COMMENTATOR)) {
+                        sb.insert(0, " ");
+                        if (playerTypes.contains(Player.Type.COMMENTATOR)) {
+                            sb.insert(0, "&#231;");
+                        }
+                        if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
+                            sb.insert(0, "&beta;");
+                        }
                     }
                     sb.append(" ");
 
@@ -236,7 +264,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
                 }
             }
         }
-        sb.setLength(Math.min(sb.length(), 20));
+        sb.setLength(Math.min(sb.length(), 40));
         return sb.toString().trim();
     }
 }

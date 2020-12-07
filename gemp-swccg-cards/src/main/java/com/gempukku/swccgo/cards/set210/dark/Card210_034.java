@@ -23,7 +23,7 @@ import java.util.List;
 
 
 /**
- * Set: Virtual Set 10
+ * Set: Set 10
  * Type: Starship
  * Subtype: Capital
  * Title: Jabba's Space Cruiser (V)

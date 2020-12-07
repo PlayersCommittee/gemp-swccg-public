@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 11
+ * Set: Set 11
  * Type: Interrupt
  * Subtype: Used
  * Title: See You Around, Kid
@@ -38,8 +38,6 @@ public class Card211_002 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-
-
         // Cancel a just-deployed First Order character’s game text until end of turn
 
         // Check condition(s)
@@ -89,7 +87,7 @@ public class Card211_002 extends AbstractUsedInterrupt {
 
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         //
@@ -108,7 +106,7 @@ public class Card211_002 extends AbstractUsedInterrupt {
                 protected void performActionResults(Action targetingAction) {
                     preventDestinyCancelAction.appendEffect(
                             new AddUntilEndOfTurnModifierEffect(preventDestinyCancelAction,
-                                    new MayNotCancelDestinyDrawsModifier(self, new DuringBattleAtCondition(Filters.site)),
+                                    new MayNotCancelDestinyDrawsModifier(self, new DuringBattleAtCondition(Filters.site), true),
                                         "During battles at sites, prevents all destiny draws from being canceled this turn.")
                     );
                 }

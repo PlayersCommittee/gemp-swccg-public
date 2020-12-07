@@ -27,6 +27,7 @@ public class Card6_130 extends AbstractAlien {
         setGameText("Deploys only on Tatooine. Deploy -1 to same site as any Weequay. When at same site as any Weequay, (except Weequay Guards), may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         setSpecies(Species.WEEQUAY);
+        addKeyword(Keyword.GUARD);
     }
 
     @Override

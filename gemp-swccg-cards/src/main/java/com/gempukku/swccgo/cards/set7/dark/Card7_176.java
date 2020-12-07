@@ -49,7 +49,7 @@ public class Card7_176 extends AbstractAlien {
                 && GameConditions.hasForcePile(game, playerId)) {
             int numOtherMusiciansAtSameSite = Filters.countActive(game, self, Filters.and(Filters.not(self), Filters.atSameSite(self), Filters.musician));
             if (numOtherMusiciansAtSameSite > 0) {
-                TopLevelGameTextAction action = new TopLevelGameTextAction();
+                TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Peak at top " + numOtherMusiciansAtSameSite + " cards.");
                 action.setActionMsg("Peak at top " + numOtherMusiciansAtSameSite + " cards.");
                 action.appendUsage(new OncePerPhaseEffect(action));

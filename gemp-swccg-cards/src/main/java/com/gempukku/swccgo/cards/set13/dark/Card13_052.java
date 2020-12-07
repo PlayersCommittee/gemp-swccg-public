@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Set: Reflections III
  * Type: Defensive Shield
- * Title: A Tragedy Has Occurred
+ * Title: Allegations Of Corruption
  */
 public class Card13_052 extends AbstractDefensiveShield {
     public Card13_052() {

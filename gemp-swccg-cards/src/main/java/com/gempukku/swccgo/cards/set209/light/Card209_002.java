@@ -11,9 +11,14 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ReleaseCaptiveEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -35,6 +40,7 @@ public class Card209_002 extends AbstractRebel {
         setGameText("When deployed (or if just lost), may [upload] Throw Me Another Charge or a trooper. Opponent's troopers are power and forfeit -1 here. During any move phase, may use 2 Force to release an imprisoned captive here.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.SCOUT, Keyword.TROOPER, Keyword.COMMANDER, Keyword.CAN_RELEASE_CAPTIVES);
+        addPersona(Persona.MELSHI);
     }
 
     @Override

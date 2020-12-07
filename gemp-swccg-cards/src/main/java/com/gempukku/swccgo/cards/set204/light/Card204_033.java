@@ -3,16 +3,13 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.ModelType;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -52,7 +49,7 @@ public class Card204_033 extends AbstractCapitalStarship {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new TotalWeaponDestinyModifier(self, Filters.any, -2, Filters.and(Filters.your(self), Filters.starship, Filters.here(self))));
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.any, Filters.any, -2, Filters.and(Filters.your(self), Filters.starship, Filters.here(self))));
         return modifiers;
     }
 }

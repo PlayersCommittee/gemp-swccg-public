@@ -28,6 +28,7 @@ public class Card4_166 extends AbstractCapitalStarship {
         setGameText("May add 6 pilots, 8 passengers, 2 vehicles, and 4 TIEs. Has ship-docking capability. Permanent pilot aboard provides ability of 2. Subtract 2 from asteroid destiny draws targeting Avenger.");
         addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
+        addKeywords(Keyword.DEATH_SQUADRON);
         setPilotCapacity(6);
         setPassengerCapacity(8);
         setVehicleCapacity(2);

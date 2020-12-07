@@ -36,7 +36,7 @@ public class Card205_023 extends AbstractAlien {
         setGameText("[Pilot] 2. Characters about to be 'hit' by Dengar may be captured instead. If Dengar is about to be 'hit' while escorting a captive, captive is hit instead. If Dengar just seized a Rebel or a smuggler, opponent loses 1 Force (2 if Han).");
         addPersona(Persona.DENGAR);
         addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_5);
-        addKeywords(Keyword.BOUNTY_HUNTER);
+        addKeywords(Keyword.BOUNTY_HUNTER, Keyword.ASSASSIN);
         setSpecies(Species.CORELLIAN);
     }
 

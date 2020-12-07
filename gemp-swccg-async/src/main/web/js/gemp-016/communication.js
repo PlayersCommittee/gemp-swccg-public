@@ -644,7 +644,7 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    createTable:function (format, deckName, sampleDeck, tableDesc, callback, errorMap) {
+    createTable:function (format, deckName, sampleDeck, tableDesc, isPrivate, callback, errorMap) {
         $.ajax({
             type:"POST",
             url:this.url + "/hall",
@@ -654,6 +654,7 @@ var GempSwccgCommunication = Class.extend({
                 deckName:deckName,
                 sampleDeck:sampleDeck,
                 tableDesc:tableDesc,
+                isPrivate:isPrivate,
                 participantId:getUrlParam("participantId")},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),

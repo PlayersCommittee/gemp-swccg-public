@@ -26,7 +26,7 @@ public class Card203_003 extends AbstractRebel {
         setLore("Alderaanian leader.");
         setGameText("[Pilot] 2, 3: any Rebel capital starship. Deploys -1 aboard Tantive IV. While aboard Tantive IV, it is immune to Lateral Damage and attrition < 5.");
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_3);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
         setSpecies(Species.ALDERAANIAN);
         setMatchingStarshipFilter(Filters.Tantive_IV);
     }

@@ -26,7 +26,7 @@ public class Card2_083 extends AbstractImperial {
         setLore("Docking bay security officer. Leader. Honored for bravery aboard the Star Destroyer Thunderflare where he rescued five officers from the wreckage of a shuttle crash.");
         setGameText("Once during each of your control phases, you may use 2 Force to take one Scanning Crew into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
     }
 
     @Override

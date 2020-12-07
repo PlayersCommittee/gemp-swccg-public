@@ -29,7 +29,7 @@ import java.util.List;
  * Set: Set 1
  * Type: Interrupt
  * Subtype: Used Or Lost
- * Title: Hear Me Baby, Hold Together
+ * Title: Hear Me Baby, Hold Together (V)
  */
 public class Card201_013 extends AbstractUsedOrLostInterrupt {
     public Card201_013() {

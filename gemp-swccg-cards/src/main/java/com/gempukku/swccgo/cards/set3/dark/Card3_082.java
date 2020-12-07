@@ -32,7 +32,8 @@ public class Card3_082 extends AbstractImperial {
         setLore("Leader of the Emperor's Death Squadron assigned to hunt down and crush the Rebellion. As clumsy as he is stupid. Has just failed Darth Vader for the next-to-last time.");
         setGameText("Adds 2 to the power of anything he pilots. Subtracts 1 from deploy cost of each of your capital starships at same system. Lost if Vader on table and opponent 'reacts' to same location as Ozzel.");
         addIcons(Icon.HOTH, Icon.PILOT);
-        addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
+        addPersona(Persona.OZZEL);
+        addKeywords(Keyword.ADMIRAL, Keyword.LEADER, Keyword.DEATH_SQUADRON);
     }
 
     @Override

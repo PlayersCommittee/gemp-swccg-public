@@ -27,6 +27,7 @@ public class Card2_073 extends AbstractCapitalStarship {
         setGameText("May be deployed even without presence or Force icons. May add 3 pilots and 4 passengers. Has ship-docking capability. Permanent pilot provides ability of 2.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.CORELLIAN_CORVETTE);
+        addPersona(Persona.TANTIVE_IV);
         setPilotCapacity(3);
         setPassengerCapacity(4);
     }

@@ -40,6 +40,7 @@ public interface Modifier {
     ModifierType getModifierType();
     Condition getCondition();
     Condition getAdditionalCondition(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
+    void appendCondition(Condition addCondition);
 
     /**
      * Sets the condition that, when fulfilled, causes the modifier to be automatically removed.
@@ -745,4 +746,6 @@ public interface Modifier {
      * @return true or false
      */
     boolean hasAgenda(Agenda agenda);
+
+    boolean mayNotCancelDestiny(String playerDrawing, String playerToModify);
 }

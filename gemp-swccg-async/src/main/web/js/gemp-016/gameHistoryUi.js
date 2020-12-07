@@ -1,7 +1,7 @@
 var GameHistoryUI = Class.extend({
     communication:null,
     itemStart:0,
-    pageSize:20,
+    pageSize:100,
 
     init:function (url) {
         this.communication = new GempSwccgCommunication(url,
@@ -23,7 +23,7 @@ var GameHistoryUI = Class.extend({
         var root = xml.documentElement;
         if (root.tagName == 'gameHistory') {
             var historyTable = $("<table class='gameHistory'></table>");
-            historyTable.append("<tr><th>Format</th><th>Tournament</th><th>Deck</th><th>Winner</th><th>Loser</th><th>Win reason</th><th>Lose reason</th><th>Finished on</th><th>Replay link</th></tr>");
+            historyTable.append("<tr><th>Format</th><th>Tournament</th><th>Deck</th><th>Winner</th><th>Winner archetype</th><th>Loser</th><th>Loser archetype</th><th>Win reason</th><th>Lose reason</th><th>Finished on</th><th>Replay link</th></tr>");
 
             var entries = root.getElementsByTagName("historyEntry");
             for (var i = 0; i < entries.length; i++) {
@@ -32,7 +32,9 @@ var GameHistoryUI = Class.extend({
                 var tournament = historyEntry.getAttribute("tournament");
                 var deck = historyEntry.getAttribute("deckName");
                 var winner = historyEntry.getAttribute("winner");
+                var winnerArchetype = historyEntry.getAttribute("winnerDeckArchetype");
                 var loser = historyEntry.getAttribute("loser");
+                var loserArchetype = historyEntry.getAttribute("loserDeckArchetype");
                 var winReason = historyEntry.getAttribute("winReason");
                 var loseReason = historyEntry.getAttribute("loseReason");
                 var endTime = formatDate(new Date(parseInt(historyEntry.getAttribute("endTime"))));
@@ -52,7 +54,9 @@ var GameHistoryUI = Class.extend({
                 else
                     row.append($("<td></td>").html("&nbsp;"));
                 row.append($("<td></td>").html(winner));
+                row.append($("<td></td>").html(winnerArchetype));
                 row.append($("<td></td>").html(loser));
+                row.append($("<td></td>").html(loserArchetype));
                 row.append($("<td></td>").html(winReason));
                 row.append($("<td></td>").html(loseReason));
                 row.append($("<td></td>").html(endTime));

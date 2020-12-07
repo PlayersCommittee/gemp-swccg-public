@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Species;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,6 +25,7 @@ public class Card12_099 extends AbstractAlien {
         setLore("Klatooinian bodyguard currently in the paid service of Jabba the Hutt. Chokk takes pride in his work, and he is very good at it.");
         setGameText("Each of your alien leaders present is defense value +2. Power +3 while defending a battle. Adds 2 to his total weapon destiny when firing a blaster. Your characters present may not have their forfeit value reduced.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR);
+        addKeyword(Keyword.BODYGUARD);
         setSpecies(Species.KLATOOINIAN);
     }
 

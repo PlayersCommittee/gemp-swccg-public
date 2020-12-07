@@ -33,4 +33,18 @@ public class PutStackedCardsInUsedPileEffect extends PutStackedCardsInCardPileEf
     protected PutStackedCardsInUsedPileEffect(Action action, String playerId, Collection<PhysicalCard> stackedCards, boolean bottom, boolean hidden) {
         super(action, playerId, stackedCards, Zone.USED_PILE, bottom, hidden);
     }
+
+    /**
+     * Creates an effect that causes the player to put cards stacked on the specified card in the specified card pile.
+     *
+     * @param action    the action performing this effect
+     * @param playerId  the player
+     * @param minimum   the minimum number of cards to put in card pile
+     * @param maximum   the maximum number of cards to put in card pile
+     * @param bottom    true if cards are to be put on the bottom of the card pile, otherwise false
+     * @param stackedOn the card that the stacked cards are stacked on
+     */
+    public PutStackedCardsInUsedPileEffect(Action action, String playerId, int minimum, int maximum, boolean bottom, PhysicalCard stackedOn) {
+        super(action, playerId, minimum, maximum, Zone.USED_PILE, bottom, stackedOn);
+    }
 }

@@ -28,14 +28,14 @@ public class Card208_032 extends AbstractImperial {
         super(Side.DARK, 3, 3, 5, 3, 4, "Kir Kanos", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Fiercely devoted Royal Guard. Feels deeply indebted to those who risk their life for him. Unaware of the extent of Palpatine's atrocities and cruelty.");
-        setGameText("When deployed, may [upload] a Royal Guard. If in battle with an Imperial, once per game may cancel a non-[Immune to Sense] Interrupt.");
+        setGameText("When deployed, may [upload] a Royal Guard. During battle, if with an Imperial and present at a site, once per game may cancel a non-[Immune to Sense] Interrupt.");
         addIcons(Icon.REFLECTIONS_II, Icon.WARRIOR, Icon.VIRTUAL_SET_8);
         addKeywords(Keyword.ROYAL_GUARD);
     }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.KIR_KANOS__UPLOAD_REBEL_GUARD;
+        GameTextActionId gameTextActionId = GameTextActionId.KIR_KANOS__UPLOAD_ROYAL_GUARD;
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)
@@ -59,6 +59,7 @@ public class Card208_032 extends AbstractImperial {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.and(Filters.Interrupt, Filters.not(Filters.immune_to_Sense)))
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.isPresentAt(game, self, Filters.site)
                 && GameConditions.isInBattleWith(game, self, Filters.Imperial)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 

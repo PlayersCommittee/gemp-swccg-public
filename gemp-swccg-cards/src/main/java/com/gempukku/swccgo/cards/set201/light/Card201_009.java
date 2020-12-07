@@ -27,7 +27,7 @@ import java.util.*;
  */
 public class Card201_009 extends AbstractNormalEffect {
     public Card201_009() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Seeking An Audience", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Seeking_An_Audience, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("'With your wisdom, I'm sure that we can work out an arrangement which will be mutually beneficial and enable us to avoid any unpleasant confrontation.'");
         setGameText("If a Jabba's Palace site on table, deploy on table. His Name Is Anakin is canceled. Once per turn, if Han frozen, may use 2 Force to [download] non-[Reflections III]: C-3PO, Chewie, Lando, Leia, or R2-D2. Once per game, may place this Effect out of play to retrieve an alien or [Independent] starship into hand. [Immune to Alter]");

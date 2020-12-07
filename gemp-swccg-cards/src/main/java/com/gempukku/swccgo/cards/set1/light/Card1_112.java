@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -14,7 +15,6 @@ import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
-import com.gempukku.swccgo.common.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,10 +36,10 @@ public class Card1_112 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         Filter sellFilter = Filters.and(Filters.your(playerId), Filters.or(Filters.droid, Filters.vehicle));
         Filter sellAtFilter = Filters.or(Filters.Mos_Eisley, Filters.sameSiteAs(self, Filters.Wioslea));
-        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION)){
-            sellAtFilter = Filters.or(sellAtFilter, Filters.sameSiteAs(self, Filters.and(Filters.not(Filters.isGameTextCanceled), Filters.Droid_Merchant)));}
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION)) {
+            sellAtFilter = Filters.or(sellAtFilter, Filters.sameSiteAs(self, Filters.and(Filters.not(Filters.isGameTextCanceled), Filters.Droid_Merchant)));
+        }
         Filter filter = Filters.and(sellFilter, Filters.at(sellAtFilter));
-
         // Check condition(s)
         if (GameConditions.canTarget(game, self, filter)) {
 

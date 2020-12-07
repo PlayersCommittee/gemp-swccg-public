@@ -31,6 +31,32 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
     private Filter _targetedAsCharacter;
     private Float _defenseValueAsCharacter;
     private boolean _ignorePerAttackOrBattleLimit;
+    private boolean _thrown;
+
+    /**
+     * Creates an action for firing a single weapon.
+     *
+     * @param sourceCard                      the card to initiate the firing
+     * @param weaponOrCardWithPermanentWeapon the weapon (or card with a permanent weapon)
+     * @param permanentWeapon                 the permanent weapon built-in (or null if not a permanent weapon)
+     * @param repeatedFiring                  true if a repeated firing, otherwise false
+     * @param targetedAsCharacter             filter for cards may be targeted as characters
+     * @param defenseValueAsCharacter         defense value to use for cards may be targeted as characters, or null
+     * @param fireAtTargetFilter              the filter for where the card can be played
+     * @param ignorePerAttackOrBattleLimit    true if per attack/battle firing limit is ignored, otherwise false
+     * @param thrown                          true if the weapon was 'thrown'
+     */
+    public FireSingleWeaponAction(PhysicalCard sourceCard, PhysicalCard weaponOrCardWithPermanentWeapon, SwccgBuiltInCardBlueprint permanentWeapon, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit, boolean thrown) {
+        super(weaponOrCardWithPermanentWeapon, permanentWeapon, repeatedFiring, fireAtTargetFilter);
+        _sourceCard = sourceCard;
+        if (permanentWeapon != null) {
+            setCardFiringWeapon(weaponOrCardWithPermanentWeapon);
+        }
+        _targetedAsCharacter = targetedAsCharacter;
+        _defenseValueAsCharacter = defenseValueAsCharacter;
+        _ignorePerAttackOrBattleLimit = ignorePerAttackOrBattleLimit;
+        _thrown = thrown;
+    }
 
     /**
      * Creates an action for firing a single weapon.
@@ -52,6 +78,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
         _targetedAsCharacter = targetedAsCharacter;
         _defenseValueAsCharacter = defenseValueAsCharacter;
         _ignorePerAttackOrBattleLimit = ignorePerAttackOrBattleLimit;
+        _thrown = false;
     }
 
     @Override
@@ -190,7 +217,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                 // Emit effect result that weapon was fired
                 if (!_emitFiredWeaponResult) {
                     _emitFiredWeaponResult = true;
-                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon()));
+                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, game.getGameState().getWeaponFiringState().getTargets()));
                 }
             }
         }

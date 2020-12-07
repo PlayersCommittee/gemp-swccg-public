@@ -288,6 +288,16 @@ public interface ModifiersQuerying {
     boolean isPoliticsUsedForPower(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
     /**
+     * Determines if a card's defense value may not be increased by the specified player.
+     *
+     * @param gameState         the game state
+     * @param card              a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's defense value may not be increased, otherwise false
+     */
+    boolean isProhibitedFromHavingDefenseValueIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+
+    /**
      * Determines if a card's defense value may not be reduced by the specified player.
      * @param gameState the game state
      * @param card a card
@@ -406,7 +416,7 @@ public interface ModifiersQuerying {
      */
     boolean hasPoliticsEqualTo(GameState gameState, PhysicalCard card, float value);
 
-    float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots);
+    float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots, boolean excludePermPilots);
 
     List<Float> getAbilityOfPilotsAboard(GameState gameState, PhysicalCard physicalCard);
 
@@ -504,7 +514,6 @@ public interface ModifiersQuerying {
      */
     boolean isProhibitedFromHavingForfeitReduced(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
-
     /**
      * Determines if a card's forfeit may not be increased above printed value
      * @param gameState the game state
@@ -512,9 +521,16 @@ public interface ModifiersQuerying {
      * @param modifierCollector collector of affecting modifiers
      * @return true if card's forfeit may not be increased above printed values
      */
-    boolean isProhibitedFromHavingForfeitInceasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+    boolean isProhibitedFromHavingForfeitIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
-
+    /**
+     * Determines if a card's forfeit may not be increased
+     * @param gameState the game state
+     * @param card a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased
+     */
+    boolean isProhibitedFromHavingForfeitValueIncreased(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
 
     /**
      * Determines if a card's game text may not be canceled.
@@ -919,6 +935,14 @@ public interface ModifiersQuerying {
     float getTotalForceGeneration(GameState gameState, String playerId);
 
     /**
+     * Gets the total Force Icon count for the specified player.
+     *
+     * @param gameState the game state
+     * @param playerId  the player
+     */
+    float getTotalForceIconCount(GameState gameState, String playerId);
+
+    /**
      * Determines if this deploys and moves like a starfighter.
      * @param gameState the game state
      * @param card the card
@@ -1039,17 +1063,6 @@ public interface ModifiersQuerying {
      * @return true or false
      */
     boolean isBluffCardStackedThisTurn();
-
-    /**
-     * Records that a SYCFA was flipped with Inkling this turn.
-     */
-    void setFlippedSYCFAWithInklingThisTurn(boolean flipped);
-
-    /**
-     * Determines if SYCFA was flipped with Inkling this turn.
-     * @return true or false
-     */
-    boolean hasFlippedSYCFAWithInklingThisTurn();
 
     /**
      * Records that the specified card being played (or being deployed).
@@ -4289,7 +4302,7 @@ public interface ModifiersQuerying {
      * @return true if Sith Probe Droid cannot deploy or move to location, otherwise false
      */
     boolean isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location);
-    
+
     /**
      * Determines if the specified card is explicitly not allowed to 'cloak'.
      * @param gameState the game state
@@ -4477,4 +4490,10 @@ public interface ModifiersQuerying {
      */
     Filter getValidDuelParticipant(GameState gameState, PhysicalCard card, Side side);
 
+
+    boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card);
+
+    SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
+
+    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
 }

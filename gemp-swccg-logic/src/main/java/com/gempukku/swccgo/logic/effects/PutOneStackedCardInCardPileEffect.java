@@ -51,6 +51,6 @@ abstract class PutOneStackedCardInCardPileEffect extends PutOneCardInCardPileEff
     }
 
     @Override
-    protected final void afterCardPutInCardPile() {
+    protected void afterCardPutInCardPile() {
     }
 }
