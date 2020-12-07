@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 9
+ * Set: Set 9
  * Type: Character
  * Subtype: Imperial
  * Title: Vanee

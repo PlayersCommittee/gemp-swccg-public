@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -39,6 +36,7 @@ public class Card12_026 extends AbstractRepublic {
         setGameText("While at same site as Amidala, Sache is power +2 and Amidala is defense value +2. If just lost during a battle, may use 2 Force to take Sache into hand.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
         addKeywords(Keyword.FEMALE, Keyword.HANDMAIDEN);
+        addPersona(Persona.SACHE);
     }
 
     @Override
@@ -46,7 +44,7 @@ public class Card12_026 extends AbstractRepublic {
         Condition atSameSiteAsAmidala = new AtSameSiteAsCondition(self, Filters.Amidala);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, atSameSiteAsAmidala, 2));
+        modifiers.add(new PowerModifier(self, Filters.Sache, atSameSiteAsAmidala, 2));
         modifiers.add(new DefenseValueModifier(self, Filters.Amidala, atSameSiteAsAmidala, 2));
         return modifiers;
     }

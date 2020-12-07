@@ -29,7 +29,7 @@ public class Card5_092 extends AbstractImperial {
         setLore("Tactical officer from Dentaal. Leader. Familiar with utilizing computer controls to lure an invading enemy into a tactically weak position.");
         setGameText("During your control phase, may search your Reserve Deck, take one Laser Gate, Heart Of The Chasm or Rite Of Passage into hand and reshuffle. Opponent's characters may not move from same site as Bewil to a mobile site.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
     }
 
     @Override

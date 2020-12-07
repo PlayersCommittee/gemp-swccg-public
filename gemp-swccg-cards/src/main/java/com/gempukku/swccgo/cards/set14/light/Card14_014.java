@@ -5,10 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -38,6 +35,7 @@ public class Card14_014 extends AbstractRepublic {
         setGameText("Deploys -2 to same site as Amidala. While in a battle with Amidala or Leia, your leaders present may not be targeted by weapons, and Jerus may be forfeited to satisfy all battle damage and attrition against you.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);
         addKeywords(Keyword.ROYAL_NABOO_SECURITY);
+        addPersona(Persona.JERUS);
     }
 
     @Override
@@ -60,6 +58,7 @@ public class Card14_014 extends AbstractRepublic {
         // Check condition(s)
         if (TriggerConditions.isResolvingBattleDamageAndAttrition(game, effectResult, playerId)
                 && GameConditions.canForfeitToSatisfyAttritionAndBattleDamage(game, playerId, self)
+                && Filters.Jerus.accepts(game, self)
                 && GameConditions.isInBattleWith(game, self, Filters.or(Filters.Amidala, Filters.Leia))) {
             boolean cannotSatisfyAttrition = game.getModifiersQuerying().cannotSatisfyAttrition(game.getGameState(), self);
 

@@ -110,7 +110,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private Map<String, List<PhysicalCard>> _cardWithAbilityDeployedThisTurn = new HashMap<String, List<PhysicalCard>>();
     private Map<String, Map<Integer, List<PhysicalCard>>> _cardPlayedToLocationThisTurn = new HashMap<String, Map<Integer, List<PhysicalCard>>>();
     private boolean _bluffCardStacked;
-    private boolean _flippedSYCFAWithInklingThisTurn;
     private Set<String> _usedCombatCard = new HashSet<String>();
     private Map<Integer, List<PhysicalCard>> _targetedByWeaponsMap = new HashMap<Integer, List<PhysicalCard>>();
     private Map<Integer, List<SwccgBuiltInCardBlueprint>> _targetedByPermanentWeaponsMap = new HashMap<Integer, List<SwccgBuiltInCardBlueprint>>();
@@ -438,7 +437,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
         snapshot._bluffCardStacked = _bluffCardStacked;
-        snapshot._flippedSYCFAWithInklingThisTurn = _flippedSYCFAWithInklingThisTurn;
 
 
         snapshot._usedCombatCard.addAll(_usedCombatCard);
@@ -1650,14 +1648,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     @Override
-    public float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots) {
+    public float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots, boolean excludePermPilots) {
         SwccgCardBlueprint blueprint = physicalCard.getBlueprint();
         if (blueprint.getCardCategory()!=CardCategory.STARSHIP && blueprint.getCardCategory()!=CardCategory.VEHICLE)
             return 0;
 
         float result = 0;
         List<SwccgBuiltInCardBlueprint> permPilots = getPermanentPilotsAboard(gameState, physicalCard);
-        if (permPilots != null) {
+        if (!excludePermPilots && permPilots != null) {
             for (SwccgBuiltInCardBlueprint permPilot : permPilots) {
                 float permPilotAbility = permPilot.getAbility();
                 if (permPilotAbility == 1) {
@@ -1884,10 +1882,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         boolean forfeitMayNotBeReduced = isProhibitedFromHavingForfeitReduced(gameState, physicalCard, modifierCollector);
+        boolean forfeitMayNotBeIncreased = isProhibitedFromHavingForfeitValueIncreased(gameState, physicalCard, modifierCollector);
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FORFEIT_VALUE, physicalCard)) {
             float modifierAmount = modifier.getForfeitModifier(gameState, this, physicalCard);
-            if (modifierAmount >= 0 || !forfeitMayNotBeReduced) {
+            if ((modifierAmount >= 0 && !forfeitMayNotBeIncreased) || (modifierAmount <= 0 && !forfeitMayNotBeReduced)) {
                 result += modifierAmount;
                 modifierCollector.addModifier(modifier);
             }
@@ -1906,7 +1905,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             result = lowestResetValue;
         }
 
-        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingForfeitInceasedBeyondPrinted(gameState, physicalCard, modifierCollector);
+        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingForfeitIncreasedBeyondPrinted(gameState, physicalCard, modifierCollector);
         if (forfeitMayNotIncreaseBeyondPrinted) {
             if (result > printedForfeit) {
                 result = printedForfeit;
@@ -1955,6 +1954,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return retVal;
     }
 
+    /**
+     * Determines if a card's defense value may not be increased above printed value
+     *
+     * @param gameState         the game state
+     * @param card              a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased above printed values
+     */
+    @Override
+    public boolean isProhibitedFromHavingDefenseValueIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_DEFENSE_VALUE_INCREASED_ABOVE_PRINTED, card)) {
+            retVal = true;
+            modifierCollector.addModifier(modifier);
+        }
+        return retVal;
+    }
 
     /**
      * Determines if a card's forfeit may not be increased above printed value
@@ -1964,9 +1980,26 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @return true if card's forfeit may not be increased above printed values
      */
     @Override
-    public boolean isProhibitedFromHavingForfeitInceasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+    public boolean isProhibitedFromHavingForfeitIncreasedBeyondPrinted(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
         boolean retVal = false;
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_INCREASED_ABOVE_PRINTED, card)) {
+            retVal = true;
+            modifierCollector.addModifier(modifier);
+        }
+        return retVal;
+    }
+
+    /**
+     * Determines if a card's forfeit may not be increased
+     * @param gameState the game state
+     * @param card a card
+     * @param modifierCollector collector of affecting modifiers
+     * @return true if card's forfeit may not be increased
+     */
+    @Override
+    public boolean isProhibitedFromHavingForfeitValueIncreased(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HAVE_FORFEIT_VALUE_INCREASED, card)) {
             retVal = true;
             modifierCollector.addModifier(modifier);
         }
@@ -2464,7 +2497,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      */
     @Override
     public boolean hasManeuver(GameState gameState, PhysicalCard card) {
-        return hasManeuver(gameState, card, false);
+        return hasManeuver(gameState, card, true);
     }
 
     private boolean hasManeuver(GameState gameState, PhysicalCard card, boolean skipManeuverValueCheck) {
@@ -2501,15 +2534,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!hasManeuver(gameState, physicalCard, true))
             return 0;
 
-        if ((physicalCard.getBlueprint().getCardCategory()==CardCategory.STARSHIP || physicalCard.getBlueprint().getCardCategory()==CardCategory.VEHICLE)
+        if ((physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP || physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE)
                 && !isPiloted(gameState, physicalCard, false))
             return 0;
 
         Float result = physicalCard.getBlueprint().getManeuver();
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PRINTED_MANEUVER, physicalCard)) {
+            result = modifier.getPrintedValueDefinedByGameText(gameState, this, physicalCard);
+            modifierCollector.addModifier(modifier);
+        }
 
         if (result != null) {
             // If card is a character and it is "doubled", then double the printed number
-            if (physicalCard.getBlueprint().getCardCategory()==CardCategory.CHARACTER
+            if (physicalCard.getBlueprint().getCardCategory() == CardCategory.CHARACTER
                     && isDoubled(gameState, physicalCard, modifierCollector)) {
                 result *= 2;
             }
@@ -2698,6 +2735,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         if (lowestResetValue != null) {
             result = lowestResetValue;
+        }
+
+        boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingDefenseValueIncreasedBeyondPrinted(gameState, physicalCard, modifierCollector);
+        if (forfeitMayNotIncreaseBeyondPrinted) {
+            if (result > defenseValueBeforeModified) {
+                result = defenseValueBeforeModified;
+            }
         }
 
         return Math.max(0, result);
@@ -3004,6 +3048,31 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         return Math.max(0, total);
     }
+
+    /**
+     * Gets the total Force generation for the specified player.
+     *
+     * @param gameState the game state
+     * @param playerId  the player
+     * @return the total Force generation for the player
+     */
+    @Override
+    public float getTotalForceIconCount(GameState gameState, String playerId) {
+        float total = 0;
+        Icon icon = playerId.equals(gameState.getDarkPlayer()) ? Icon.DARK_FORCE : Icon.LIGHT_FORCE;
+        // Add Force generation from locations
+        List<PhysicalCard> locations = gameState.getTopLocations();
+        for (PhysicalCard location : locations) {
+            total += getIconCount(gameState, location, icon);
+        }
+
+        // Add 1 for each character with matching Force icon
+        icon = playerId.equals(gameState.getDarkPlayer()) ? Icon.DARK_JEDI_MASTER : Icon.JEDI_MASTER;
+        total += Filters.countActive(gameState.getGame(), null, Filters.and(CardCategory.CHARACTER, icon));
+
+        return Math.max(0, total);
+    }
+
 
     /**
      * Increments the amount of Force that has been activated by the player.
@@ -3386,14 +3455,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     @Override
     public boolean isBluffCardStackedThisTurn() {
         return _bluffCardStacked;
-    }
-
-    @Override
-    public void setFlippedSYCFAWithInklingThisTurn(boolean flipped) { _flippedSYCFAWithInklingThisTurn = flipped; }
-
-    @Override
-    public boolean hasFlippedSYCFAWithInklingThisTurn() {
-        return _flippedSYCFAWithInklingThisTurn;
     }
 
     /**
@@ -4741,13 +4802,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (drawDestinyState == null)
             return true;
 
+        DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
 
         // See if we have a global "cannot cancel destiny" rule in effect
         for (Modifier modifier : getModifiers(gameState, ModifierType.MAY_NOT_CANCEL_DESTINY_DRAWS)) {
-            return true;
+            if (modifier.mayNotCancelDestiny(drawDestinyEffect.getPlayerDrawingDestiny(), playerId)) {
+                return true;
+            }
         }
-
-        DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
 
         if (drawDestinyEffect.isDestinyCanceled()
                 || drawDestinyEffect.getSubstituteDestiny() != null
@@ -6593,7 +6655,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
             // Check if card has (limit 1 per location)
             if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, curToSite)
-            		||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, curToSite)) {
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, curToSite)) {
                 return true;
             }
 
@@ -6679,7 +6741,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
             // Check if card has (limit 1 per location)
             if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)
-            		||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
                 return true;
             }
 
@@ -6738,7 +6800,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
             // Check if card has (limit 1 per location)
             if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)
-            		||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
                 return true;
             }
         }
@@ -6826,7 +6888,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
             // Check if card has (limit 1 per location)
             if (isOperativePreventedFromDeployingToOrMovingToLocation(gameState, card, curToLocation)
-            		||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
+                    ||isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(gameState, card, toLocation)) {
                 return true;
             }
 
@@ -11551,11 +11613,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return 0;
         }
 
-        // Check if fires for double
-        if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_DOUBLE, weapon).isEmpty()) {
-            return result * 2;
-        }
-
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_BY_FOR_FREE, cardFiringWeapon)) {
             if (modifier.isAffectedTarget(gameState, this, weapon)) {
                 return 0;
@@ -11577,6 +11634,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             if (modifier.isAffectedTarget(gameState, this, weapon)) {
                 result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
+        }
+
+        // Check if fires for double
+        if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_DOUBLE, weapon).isEmpty()) {
+            result = result * 2;
         }
 
         result = Math.max(0, result);
@@ -12408,7 +12470,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         return false;
     }
-    
+
     /**
      * Determines if the specified Sith Probe Droid is prevented from deploying to or moving to location.
      * @param gameState the game state
@@ -12419,18 +12481,18 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     @Override
     public boolean isSithProbeDroidPreventedFromDeployingToOrMovingToLocation(GameState gameState, PhysicalCard card, PhysicalCard location) {
         // Limit 1 Sith Probe Droid per location from Tatooine Sith Probe Droid
-    	// AR entry: The "limit 1 per location" text on this droid works as per the operative 
-    	// rules (see Characteristics - Operatives, Ap. D). A player may not voluntarily deploy 
-    	// or move a Sith Probe Droid to or across a location where another Sith Probe Droid is 
-    	// located. If this should ever happen accidentally, the owner must choose one to be 
-    	// lost. If they belong to different owners, the droid lost is determined randomly.
-    	
+        // AR entry: The "limit 1 per location" text on this droid works as per the operative
+        // rules (see Characteristics - Operatives, Ap. D). A player may not voluntarily deploy
+        // or move a Sith Probe Droid to or across a location where another Sith Probe Droid is
+        // located. If this should ever happen accidentally, the owner must choose one to be
+        // lost. If they belong to different owners, the droid lost is determined randomly.
+
         if (Filters.Sith_Probe_Droid.accepts(gameState, this, card)
-        	&&Filters.sameLocationAs(null, SpotOverride.INCLUDE_ALL,Filters.Sith_Probe_Droid).accepts(gameState, this, location)) {
-                return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_DEPLOY_MOVE_SITH_PROBE_DROID, card).isEmpty();
+                &&Filters.sameLocationAs(null, SpotOverride.INCLUDE_ALL,Filters.Sith_Probe_Droid).accepts(gameState, this, location)) {
+            return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_DEPLOY_MOVE_SITH_PROBE_DROID, card).isEmpty();
         }
         return false;
-    }    
+    }
 
     /**
      * Determines if the specified card is explicitly not allowed to 'cloak'.
@@ -16010,4 +16072,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return locations;
     }
 
+    public boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card).isEmpty();
+    }
+
+    public SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card) {
+        //there shouldn't be more than one
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card)) {
+            return ((MindscannedCharacterModifier) m).getmindScannedCharacter().getBlueprint();
+        }
+        return null;
+    }
+
+    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card) {
+        //there shouldn't be more than one
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.MINDSCANNED_CHARACTER, card)) {
+            return ((MindscannedCharacterModifier) m).wasGameTextCanceled();
+        }
+        return true;
+    }
 }

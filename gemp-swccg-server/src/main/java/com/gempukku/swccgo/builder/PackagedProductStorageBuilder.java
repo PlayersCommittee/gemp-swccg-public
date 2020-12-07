@@ -56,7 +56,11 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new TatooineBoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new TatooineBoosterPack(library,false);
+            packStorage.addPackagedProduct(product.getProductName(), product);
             product = new CoruscantBoosterPack(library);
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new CoruscantBoosterPack(library, false);
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new TheedPalaceBoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
@@ -94,6 +98,9 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new ReflectionsIIIBoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new ReflectionsIIIBoosterPack(library, false, false);
+            packStorage.addPackagedProduct(product.getProductName(), product);
+
 
             // Add Reflections Booster Boxes
             product = new ReflectionsBoosterBox(library);

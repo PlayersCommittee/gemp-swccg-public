@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -39,6 +36,7 @@ public class Card6_116 extends AbstractAlien {
         setLore("Guard from Corulag. Former bouncer at the Mos Eisley cantina. Assigned by Jabba to guard celebrities visiting Jabba's palace. Friend of Wuher. Loves juri juice.");
         setGameText("Power +3 when present with your musician. When present at the start of a battle, may cause one opponent's character of ability < X to move away for free (or that character is immediately lost) where X = the number of your musicians present.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
+        addKeyword(Keyword.GUARD);
     }
 
     @Override

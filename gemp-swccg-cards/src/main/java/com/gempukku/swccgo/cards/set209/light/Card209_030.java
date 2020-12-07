@@ -3,12 +3,15 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.CancelImmunityToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +44,7 @@ public class Card209_030 extends AbstractCapitalStarship {
         modifiers.add(new CancelImmunityToAttritionModifier(self, Filters.and(Filters.opponents(self), Filters.atSameLocation(self))));
         return modifiers;
     }
-
+    
 // Need to add modifier for adding 2 to attempts to blow away Shield Gate
 
 }

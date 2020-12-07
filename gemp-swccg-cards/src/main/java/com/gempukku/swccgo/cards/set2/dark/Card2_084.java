@@ -5,10 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SoupEatenEvaluator;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Species;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -40,6 +37,7 @@ public class Card2_084 extends AbstractAlien {
         setGameText("Once per battle, may use 1 Force to 'eat the soup' of (place out of play) one opposing non-droid character just lost or forfeited at same site. *Power = 1 + total ability of all victims whose soup was eaten.");
         addIcons(Icon.A_NEW_HOPE);
         setSpecies(Species.ANZATI);
+        addKeyword(Keyword.ASSASSIN);
     }
 
     @Override

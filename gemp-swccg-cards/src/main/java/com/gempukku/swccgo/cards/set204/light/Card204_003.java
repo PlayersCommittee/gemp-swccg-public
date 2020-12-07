@@ -34,7 +34,7 @@ public class Card204_003 extends AbstractRebel {
         setLore("Female Twi'lek leader.");
         setGameText("[Pilot] 3. If with an Imperial (or two Rebels), adds one battle destiny. During battle, if you just drew a destiny < number of Rebels here, may cancel destiny and redraw that destiny.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
-        addKeywords(Keyword.FEMALE, Keyword.LEADER);
+        addKeywords(Keyword.FEMALE, Keyword.LEADER, Keyword.CAPTAIN);
         setSpecies(Species.TWILEK);
     }
 

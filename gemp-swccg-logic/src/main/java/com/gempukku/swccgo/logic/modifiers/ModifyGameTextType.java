@@ -9,6 +9,7 @@ public enum ModifyGameTextType {
 
     // Game text modifier flags
     // (Naming convention: CardIdentifier__ModificationIdentifier)
+    ADD_TWO_TO_BLOW_AWAY_SHIELD_GATE("Add 2 to total to blow away Shield Gate"),
     ALWAYS_THINKING_WITH_YOUR_STOMACH__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
     BOONTA_EVE_PODRACE__RETRIEVE_FORCE_INTO_HAND("Take any or all force retrieved into hand"),
     BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE("May not capture Luke"),
@@ -20,10 +21,10 @@ public enum ModifyGameTextType {
     DEATH_STAR_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     DO_THEY_HAVE_A_CODE_CLEARANCE__DOESNT_MODIFY_FORFEIT("Does not modify Imperials' forfeit."),
     DONT_UNDERESTIMATE_OUR_CHANCES__TRIPLE_RESULT("Triple result"),
-    SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION("Allows Spaceport Speeders to be played at Droid Merchant's site."),
     EBO__ADDITIONAL_SITE_TO_CANCEL("Opponent must occupy additional Hoth site to cancel"),
     ELLORRS_MADAK__ADDITIONAL_2_TO_POWER_BONUS("Additional 2 to power bonus"),
     FEAR_WILL_KEEP_THEM_IN_LINE__ADDS_1_TO_ATTRITION("Add 1 to attrition"),
+    GRIMTAASH__PUT_TWO_CARDS_IN_USED("Place two cards in used pile first"),
     HOTH_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     HUNT_DOWN__DO_NOT_PLACE_OUT_OF_PLAY_IF_MAUL_DUELS("Not placed out of play if Maul initiates a duel"),
     IT_IS_THE_FUTURE_YOU_SEE__STACK_DESTINY_CARD_ON_JEDI_TEST_5("Stack destiny card on Jedi Test #5"),
@@ -34,6 +35,7 @@ public enum ModifyGameTextType {
     JAWA_PACK__DOUBLED_BY_WITTIN("Doubled And May Deploy For Free"),
     KETWOL__MAY_EXCHANGE_DOCKING_BAY_ONCE_PER_GAME("May exchange docking bay only once per game"),
     MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
+    MONNOK__PUT_TWO_CARDS_IN_USED("Place two cards in used pile first"),
     NABRUN_LEIDS_ELIS_HELROT__LIMIT_USAGE("Limited to owner's move phase and exterior sites"),
     PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED("May not be relocated"),
     RADAR_SCANNER__JAWAS_TUSKEN_RAIDERS_AND_STORMTROOPERS_LOST("Jawas, Tusken Raiders, and stormtroopers lost"),
@@ -47,6 +49,7 @@ public enum ModifyGameTextType {
     SHOT_IN_THE_DARK__LOSE_ADDITIONAL_FORCE_TO_DRAW("Must lose an additional 1 Force to draw a card"),
     SOLO__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE("May not play interrupt from lost pile"),
     SORRY_ABOUT_THE_MESS__WEAPONS_FIRED_MUST_TARGET_GREEDO_IF_POSSIBLE("Weapons fired must target Greedo (if possible)"),
+    SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION("Spaceport Speeders may be played at Droid Merchant's site."),
     SPECIAL_DELIVERY__TAKE_TWO_ADDITIONAL_CARDS_INTO_HAND("Take two additional cards into hand"),
     SPECIAL_MODIFICATIONS__IMMUNE_TO_ATTRITION_LESS_THAN_FOUR("Makes target to attrition < 4"),
     SPICE_MINES_OF_KESSEL__ADD_4_TO_FORCE_RETRIEVED("Add 4 to Force retrieved"),

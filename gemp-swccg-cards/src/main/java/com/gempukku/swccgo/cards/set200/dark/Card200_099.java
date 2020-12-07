@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Reflections III
+ * Set: Set 0
  * Type: Defensive Shield
  * Title: Vote Of No Confidence
  */

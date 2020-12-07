@@ -15,7 +15,8 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -32,7 +33,10 @@ public class Card209_029 extends AbstractObjective {
     public Card209_029() {
         super(Side.LIGHT, 0, Title.They_Have_No_Idea_Were_Coming);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room.{For} remainder of game, you may not deploy Jedi. Baze, Chirrut, and Rebel troopers are spies.{While} this side up, once per turn, may deploy a Rebel starship (except Home One or [Reflections III] Falcon) or a Scarif site from Reserve Deck; reshuffle. Each player's characters (except Imperials and spies) and vehicles deploy +2 to Scarif sites that player does not occupy.");
+        setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room." +
+                "For remainder of game, you may not deploy Jedi. Baze, Chirrut, and Rebel troopers are spies." +
+                "While this side up, once per turn, may [download] a Rebel starship (except Home One or [Reflections III] Falcon) or a Scarif site." +
+                "Flip this card if you control two Scarif locations..");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_9);
     }
 
@@ -91,38 +95,6 @@ public class Card209_029 extends AbstractObjective {
                         new KeywordModifier(self, bazeChirrutAndRebelTroopersFilter, Keyword.SPY), null));
 
         return action;
-    }
-
-    @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-
-        String player = self.getOwner();
-
-
-        // Each player's characters (except Imperials and spies) and vehicles deploy +2 to Scarif sites that player does not occupy
-        Filter characterOrVehicle = Filters.or(Filters.character, Filters.vehicle);
-        Filter notImperialNotSpy = Filters.and(Filters.not(Filters.Imperial), Filters.not(Filters.spy));
-        Filter affectedCards = Filters.and(characterOrVehicle, notImperialNotSpy);
-
-        Filter yourAffectedCards = Filters.and(Filters.your(player), affectedCards);
-        Filter opponentsAffectedCards = Filters.and(Filters.opponents(self), affectedCards);
-
-        Filter notOccupiedByPlayer = Filters.not(Filters.occupies(player));
-        Filter notOccupiedByOpponent = Filters.not(Filters.occupies(game.getOpponent(self.getOwner())));
-
-        Filter scarifSite = Filters.and(Filters.Scarif_location, Filters.site);
-
-
-        // Note:  Since this 'looks' like two separate modifiers coming from the same card, the system thinks it needs
-        //        to enforce a cumulative rule. Rather than tinkering with that code and potentially breaking a lot of
-        //        things, we can work around this issue by setting these modifiers to be cumulative. Note that this
-        //        will have absolutely no game-effect since you can't have more than one of the same objective on table
-        //        and therefore setting 'cumulative = true' just works around the bug nicely.
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToLocationModifier(self, yourAffectedCards, 2, Filters.and(scarifSite, notOccupiedByPlayer), true));
-        modifiers.add(new DeployCostToLocationModifier(self, opponentsAffectedCards,2, Filters.and(scarifSite, notOccupiedByOpponent), true));
-
-        return modifiers;
     }
 
 

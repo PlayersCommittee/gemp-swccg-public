@@ -53,7 +53,9 @@ public class GameHistoryRequestHandler extends SwccgoServerRequestHandler implem
             for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
                 Element historyEntry = doc.createElement("historyEntry");
                 historyEntry.setAttribute("winner", gameHistoryEntry.getWinner());
+                historyEntry.setAttribute("winnerDeckArchetype", gameHistoryEntry.getwinnerDeckArchetype());
                 historyEntry.setAttribute("loser", gameHistoryEntry.getLoser());
+                historyEntry.setAttribute("loserDeckArchetype", gameHistoryEntry.getloserDeckArchetype());
 
                 historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
                 historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());

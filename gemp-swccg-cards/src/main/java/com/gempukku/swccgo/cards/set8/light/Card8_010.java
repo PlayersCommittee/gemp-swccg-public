@@ -27,8 +27,8 @@ import java.util.List;
 public class Card8_010 extends AbstractRebel {
     public Card8_010() {
         super(Side.LIGHT, 3, 2, 2, 1, 3, "Endor Scout Trooper");
-        setLore("Rebel troopers receive Scout training that helps them to survive combat in harsh environments. Often protect 'specialists' while they accomplish mission tasks.");
-        setGameText("Power -1 while not on Endor. While Endor Scout Trooper is on Endor, Lieutenant Page and each of your Rebel scouts of ability < 3 at same and adjacent exterior sites are immune to attrition < 2.");
+        setLore("Rebel troopers receive scout training that helps them to survive combat in harsh environments. Often protect 'specialists' while they accomplish mission tasks.");
+        setGameText("Power -1 while not on Endor. While this character is on Endor, Lieutenant Page and each of your Rebel scouts of ability < 3 at same and adjacent exterior sites are immune to attrition < 2.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
         addKeywords(Keyword.TROOPER, Keyword.SCOUT);
     }
@@ -38,7 +38,7 @@ public class Card8_010 extends AbstractRebel {
         Condition onEndor = new OnCondition(self, Title.Endor);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, new NotCondition(onEndor), -1));
+        modifiers.add(new PowerModifier(self, new NotCondition(new OnCondition(self, Title.Endor)), -1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, Filters.and(Filters.or(Filters.Lieutenant_Page,
                 Filters.and(Filters.your(self), Filters.Rebel_scout, Filters.abilityLessThan(3))),
                 Filters.at(Filters.and(Filters.exterior_site, Filters.sameOrAdjacentSite(self)))), onEndor, 2));

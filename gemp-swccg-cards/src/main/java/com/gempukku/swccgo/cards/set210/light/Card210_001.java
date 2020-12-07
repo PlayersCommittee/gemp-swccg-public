@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 10
+ * Set: Set 10
  * Type: Location
  * Subtype: Site
  * Title: Ahch To: Saddle

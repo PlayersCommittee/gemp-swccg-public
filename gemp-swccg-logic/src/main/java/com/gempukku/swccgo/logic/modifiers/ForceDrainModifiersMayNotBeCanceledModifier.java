@@ -24,7 +24,7 @@ public class ForceDrainModifiersMayNotBeCanceledModifier extends AbstractModifie
      * @param condition the condition
      * @param affectFilter the filter
      */
-    private ForceDrainModifiersMayNotBeCanceledModifier(PhysicalCard source, Condition condition, Filterable affectFilter) {
+    public ForceDrainModifiersMayNotBeCanceledModifier(PhysicalCard source, Condition condition, Filterable affectFilter) {
         super(source, null, affectFilter, condition, ModifierType.FORCE_DRAIN_MODIFIERS_MAY_NOT_BE_CANCELED, true);
     }
 }

@@ -28,7 +28,7 @@ import java.util.List;
  * Set: Set 0
  * Type: Character
  * Subtype: Alien
- * Title: Leesub Sirln
+ * Title: Leesub Sirln (V)
  */
 public class Card200_017 extends AbstractAlien {
     public Card200_017() {
@@ -39,6 +39,7 @@ public class Card200_017 extends AbstractAlien {
         addIcons(Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.FEMALE);
         setSpecies(Species.QIRAASH);
+        setVirtualSuffix(true);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class Card9_007 extends AbstractRebel {
         setLore("Mon Calamari computer technician. Expert in power systems. His skills are desperately needed by Rebel fleet. Gunner.");
         setGameText("Allows your starship weapons at same location to fire and deploy for 1 less Force. While aboard your capital starship, adds 1 to each of its weapon destiny draws (2 when targeting a capital starship).");
         addIcons(Icon.DEATH_STAR_II);
-        addKeywords(Keyword.GUNNER);
+        addKeywords(Keyword.GUNNER, Keyword.CAPTAIN);
         setSpecies(Species.MON_CALAMARI);
     }
 

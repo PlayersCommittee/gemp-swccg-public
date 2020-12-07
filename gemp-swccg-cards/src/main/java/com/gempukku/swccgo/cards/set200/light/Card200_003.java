@@ -31,7 +31,7 @@ public class Card200_003 extends AbstractRepublic {
         setLore("Leader. Clone trooper.");
         setGameText("Your clones deploy -1 here. While at an [Episode 1] battleground site, adds one battle destiny. Permanent weapon is •Twin Blasters (may target a character for free; draw two destiny; target hit and forfeit -3 if total destiny -2 > defense value).");
         addIcons(Icon.EPISODE_I, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_0);
-        addKeywords(Keyword.LEADER, Keyword.CLONE_TROOPER);
+        addKeywords(Keyword.LEADER, Keyword.CLONE_TROOPER, Keyword.CAPTAIN);
     }
 
     @Override

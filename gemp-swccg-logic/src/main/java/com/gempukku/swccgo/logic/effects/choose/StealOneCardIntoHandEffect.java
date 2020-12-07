@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * An effect that carries out the stealing of a single card (and place it in the player's hand).
  */
-class StealOneCardIntoHandEffect extends AbstractSubActionEffect implements PreventableCardEffect {
+public class StealOneCardIntoHandEffect extends AbstractSubActionEffect implements PreventableCardEffect {
     private String _playerId;
     private PhysicalCard _cardToBeStolen;
     private Set<PhysicalCard> _preventedCards = new HashSet<PhysicalCard>();

@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -9,10 +10,12 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -21,10 +24,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Coruscant
+ * Set: Set 9
  * Type: Effect
  * Title: An Inkling Of Its Destructive Potential
- *
  */
 public class Card209_041 extends AbstractNormalEffect {
     public Card209_041() {
@@ -45,8 +47,8 @@ public class Card209_041 extends AbstractNormalEffect {
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId1)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
-            action.setText("Take A Set 9 Epic Event Into Hand");
-            action.setActionMsg("Take A Set 9 Epic Event Into Hand");
+            action.setText("Take A [Set 9] Epic Event Into Hand");
+            action.setActionMsg("Take A [Set 9] Epic Event Into Hand");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
@@ -57,21 +59,24 @@ public class Card209_041 extends AbstractNormalEffect {
         }
 
         GameTextActionId gameTextActionId2 = GameTextActionId.AN_INKLING_OF_ITS_DESTRUCTIVE_POWER__FLIP_SYCFA;
-        if( GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY))
-        {
-            final Filter KrennicAtDeathStarLocation = Filters.and(Filters.Krennic, Filters.at(Filters.Death_Star_location));
-            if (GameConditions.canSpot(game, self, KrennicAtDeathStarLocation) ) {
+        if (GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY)
+                && GameConditions.canSpot(game, self, Filters.Set_Your_Course_For_Alderaan)) {
+            final Filter krennicAtDeathStarLocation = Filters.and(Filters.Krennic, Filters.at(Filters.Death_Star_location));
+            if (GameConditions.canSpot(game, self, krennicAtDeathStarLocation)) {
                 PhysicalCard sycfa = Filters.findFirstActive(game, self, Filters.Set_Your_Course_For_Alderaan);
 
-                if (sycfa != null && GameConditions.canBeFlipped(game, sycfa))
-                {
-                    final TopLevelGameTextAction action2 = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
-                    action2.setText("Flip SYCFA");
-                    action2.setActionMsg("Flip SYCFA");
-                    action2.appendUsage(new OncePerTurnEffect(action2));
-                    action2.appendEffect(new FlipCardEffect(action2, sycfa));
-                    game.getModifiersQuerying().setFlippedSYCFAWithInklingThisTurn(true);
-                    actions.add(action2);
+                if (sycfa != null && GameConditions.canBeFlipped(game, sycfa)) {
+                    final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
+                    action.setText("Flip " + GameUtils.getCardLink(sycfa));
+                    action.setActionMsg("Flip " + GameUtils.getCardLink(sycfa));
+                    action.appendUsage(
+                            new OncePerTurnEffect(action));
+                    action.appendEffect(
+                            new FlipCardEffect(action, sycfa));
+                    action.appendEffect(
+                            new SetWhileInPlayDataEffect(action, self, new WhileInPlayData())
+                    );
+                    actions.add(action);
                 }
             }
         }
@@ -85,17 +90,18 @@ public class Card209_041 extends AbstractNormalEffect {
         final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
 
         if (TriggerConditions.isStartOfYourTurn(game, effectResult, selfOwner)) {
-            game.getModifiersQuerying().setFlippedSYCFAWithInklingThisTurn(false);
+            self.setWhileInPlayData(null);
         }
 
         if (TriggerConditions.isEndOfYourTurn(game, effectResult, selfOwner)
-                && GameConditions.hasFlippedSYCFAWithInklingThisTurn(game))
-        {
-            PhysicalCard ultimatepower = Filters.findFirstActive(game, self, Filters.The_Ultimate_Power_In_The_Universe);
-            if (ultimatepower != null) {
-                game.getModifiersQuerying().setFlippedSYCFAWithInklingThisTurn(false);
-                action.setText("Flip Ultimate Power In The Universe");
-                action.appendEffect(new FlipCardEffect(action, ultimatepower));
+                && GameConditions.cardHasWhileInPlayDataSet(self)
+                && GameConditions.canSpot(game, self, Filters.The_Ultimate_Power_In_The_Universe)) {
+            PhysicalCard ultimatePower = Filters.findFirstActive(game, self, Filters.The_Ultimate_Power_In_The_Universe);
+            if (ultimatePower != null && GameConditions.canBeFlipped(game, ultimatePower)) {
+                action.setText("Flip " + ultimatePower);
+                action.setActionMsg("Flip " + ultimatePower);
+                action.appendEffect(
+                        new FlipCardEffect(action, ultimatePower));
                 return Collections.singletonList(action);
             }
         }

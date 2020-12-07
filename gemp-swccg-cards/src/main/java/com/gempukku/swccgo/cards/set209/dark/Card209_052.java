@@ -16,8 +16,8 @@ import java.util.List;
 
 /**
  * Set: Set 9
- * Type: Starfighter
- * Subtype: TIE/SF
+ * Type: Starship
+ * Subtype: Starfighter
  * Title: First Order Special Forces Tie
  */
 

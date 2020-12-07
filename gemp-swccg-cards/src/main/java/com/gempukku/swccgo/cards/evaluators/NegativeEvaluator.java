@@ -22,6 +22,6 @@ public class NegativeEvaluator extends BaseEvaluator {
 
     @Override
     public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Math.abs(_evaluator.evaluateExpression(gameState, modifiersQuerying, self));
+        return 0.0f-Math.abs(_evaluator.evaluateExpression(gameState, modifiersQuerying, self));
     }
 }

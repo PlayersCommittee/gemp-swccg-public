@@ -9,7 +9,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -29,8 +29,9 @@ public class Card212_002 extends AbstractImperial {
     public Card212_002() {
         super(Side.DARK, 3, 4, 3, 4, 6, "Moff Gideon", Uniqueness.UNIQUE);
         setLore("ISB. Leader");
-        setGameText("[Pilot] 2. Rebels here are power -1 (and at adjacent sites if Ewebb Blaster here). When deployed, may deploy an Eweb blaster or any Imperial Stormtrooper here from Reserve Deck for -3 Force.");
+        setGameText("[Pilot] 2. Rebels here (and at adjacent sites if your E-web blaster here) are power -1. When deployed, may [download] an E-web blaster (or an Imperial stormtrooper) here for -2 Force.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
+        addPersona(Persona.GIDEON);
         addKeywords(Keyword.LEADER, Keyword.MOFF);
     }
 
@@ -52,11 +53,11 @@ public class Card212_002 extends AbstractImperial {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy an E-web blaster or Imperial stormtrooper");
-            action.setActionMsg("Deploy an E-web blaster or Imperial stormtrooper");
+            action.setText("Deploy an E-web blaster or Imperial stormtrooper here");
+            action.setActionMsg("Deploy an E-web blaster or Imperial stormtrooper here");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.Imperial, Filters.stormtrooper), Filters.title(Title.E_web_Blaster)), -3, true));
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.Imperial, Filters.stormtrooper), Filters.title(Title.E_web_Blaster)), Filters.here(self), -2, true));
             return Collections.singletonList(action);
         }
         return null;

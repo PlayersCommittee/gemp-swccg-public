@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
+import com.gempukku.swccgo.logic.timing.results.RemovedCoaxiumCardResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -194,7 +195,7 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
         }
     }
 
-    private void cardsSelected(final SubAction subAction, final SwccgGame game, PhysicalCard card) {
+    private void cardsSelected(final SubAction subAction, final SwccgGame game, final PhysicalCard card) {
         String cardInfo = (_hidden && card.getZone().isFaceDown()) ? "a card" : GameUtils.getCardLink(card);
         String whereInPile = _bottom ? "bottom of " : "";
         String msgText = _playerId + " puts " + cardInfo + " on " + whereInPile + _cardPile.getHumanReadable() + " from " + GameUtils.getCardLink(card.getStackedOn());
@@ -243,18 +244,24 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
         protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 game.getGameState().removeCardsFromZone(Collections.singletonList(selectedCard));
+                String cardInfo = (_hidden && _cardPile.isFaceDown()) ? "a card" : GameUtils.getCardLink(selectedCard);
                 String playerToPutCardInPile = _playerId != null ? _playerId : selectedCard.getOwner();
                 String cardPileText = selectedCard.getOwner().equals(playerToPutCardInPile) ? _cardPile.getHumanReadable() : (selectedCard.getOwner() + "'s " + _cardPile.getHumanReadable());
 
                 if (_bottom) {
                     game.getGameState().addCardToZone(selectedCard, _cardPile, selectedCard.getOwner());
-                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + GameUtils.getCardLink(selectedCard) + " on bottom of " + cardPileText);
+                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + cardInfo + " on bottom of " + cardPileText);
                 } else {
                     game.getGameState().addCardToTopOfZone(selectedCard, _cardPile, selectedCard.getOwner());
-                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + GameUtils.getCardLink(selectedCard) + " on " + cardPileText);
+                    game.getGameState().sendMessage(playerToPutCardInPile + " puts " + cardInfo + " on " + cardPileText);
                 }
 
                 _remainingCards.remove(selectedCard);
+                if (Filters.coaxiumCard.accepts(game, selectedCard)) {
+                    game.getActionsEnvironment().emitEffectResult(
+                            new RemovedCoaxiumCardResult(_playerId, selectedCard, _playerId, _cardPile));
+                    selectedCard.setCoaxiumCard(false);
+                }
                 if (!_remainingCards.isEmpty())
                     _subAction.appendEffect(
                             new ChooseAndPutNextCardInCardPile(_subAction, _playerId, _remainingCards));

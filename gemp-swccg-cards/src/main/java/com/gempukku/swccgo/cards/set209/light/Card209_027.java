@@ -14,9 +14,10 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.RotateLocationModifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -28,11 +29,9 @@ import java.util.List;
  * Subtype: Site
  * Title: Scarif: Turbolift Complex
  */
-
 public class Card209_027 extends AbstractSite {
     public Card209_027() {
         super(Side.LIGHT, Title.Scarif_Turbolift_Complex, Title.Scarif);
-        setVirtualSuffix(true);
         setLocationLightSideGameText("During your move phase, may move free between here and any related site.");
         setLocationDarkSideGameText("If you initiate a Force drain here, may rotate this site. Immune to Expand The Empire.");
         addIcon(Icon.DARK_FORCE, 1);

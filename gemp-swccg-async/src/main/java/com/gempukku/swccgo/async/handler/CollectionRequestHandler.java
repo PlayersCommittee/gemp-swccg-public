@@ -151,6 +151,11 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
         String selection = getFormParameterSafely(postDecoder, "selection");
         String packId = getFormParameterSafely(postDecoder, "pack");
 
+        // Players are not allowed to open selection packs without specifying a choice, or they get all packs
+        if (packId.startsWith("(S)") && selection == null) {
+            throw new HttpProcessingException(500);
+        }
+
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CollectionType collectionTypeObj = createCollectionType(collectionType);

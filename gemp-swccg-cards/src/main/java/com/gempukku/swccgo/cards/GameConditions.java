@@ -2806,6 +2806,21 @@ public class GameConditions {
      * @param playerId the player
      * @param self the self
      * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @param skipDeployPhaseCheck true if checking it is the player's deploy phase is skipped, otherwise false
+     * @param asReact true if as a 'react', otherwise false
+     * @param persona persona that can be chosen to deploy that are identified by persona
+     * @return true or false
+     */
+    public static boolean canDeployCardFromReserveDeck(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, boolean skipDeployPhaseCheck, boolean asReact, Persona persona) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.RESERVE_DECK, gameTextActionId, skipDeployPhaseCheck, asReact, Collections.singleton(persona), Collections.<String>emptyList());
+    }
+
+    /**
+     * Checks if the player can deploy a card from Reserve Deck.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
      * @param title card that can be chosen to deploy that is identified by title
      * @return true or false
      */
@@ -2985,8 +3000,11 @@ public class GameConditions {
             List<PhysicalCard> outOfPlay = gameState.getAllOutOfPlayCards();
 
             for (Persona persona : personas) {
-                // Check if persona is out of play
-                if (Filters.canSpot(outOfPlay, game, 1, persona))
+                // Check if persona is out of play (only if it's a character, vehicle, or starship)
+                //AR: Any unique character, vehicle, or starship that is out of
+                //play prevents any additional copies of that card (or
+                //other versions of its persona) from being played.
+                if (Filters.canSpot(outOfPlay, game, 1, Filters.and(persona, Filters.or(Filters.character, Filters.vehicle, Filters.starship))))
                     continue;
 
                 // Check if persona is in play (and cannot be converted by player)
@@ -5382,16 +5400,4 @@ public class GameConditions {
         List<PhysicalCard> cardsDeployed = game.getModifiersQuerying().getCardsPlayedThisTurnToLocation(playerId, location);
         return Filters.filterCount(cardsDeployed, game, count, cardFilter).size() >= count;
     }
-
-    /**
-     * Determines if any player has flipped SYCFA with Inkling Of It's Destructive Potential this turn
-     * the specified location this turn.
-     * @param game the game
-     * @return true or false
-     */
-
-    public static boolean hasFlippedSYCFAWithInklingThisTurn(SwccgGame game) {
-        return game.getModifiersQuerying().hasFlippedSYCFAWithInklingThisTurn();
-    }
-
 }

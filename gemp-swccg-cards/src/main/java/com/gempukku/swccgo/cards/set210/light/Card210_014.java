@@ -39,6 +39,7 @@ public class Card210_014 extends AbstractRebel {
         setLore("Padawan. Spy.");
         setGameText("Power +1 for each Dark Jedi or Jedi on table. At start of opponent's turn, if at opponent's site, opponent chooses: their Force generation is -X this turn, or you may activate up to X Force, where X = number of [Dark Side Force] icons here.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_10);
+        addPersona(Persona.EZRA);
         addKeywords(Keyword.PADAWAN, Keyword.SPY);
     }
 

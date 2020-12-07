@@ -88,6 +88,21 @@ public interface PlayerDAO {
     List<Player> findPlaytesters();
 
     /**
+     * Sets whether a player is considered a commentator.
+     * @param playerName the player name
+     * @param commentator true if commentator, false if not commentator
+     * @return true if successful, otherwise false
+     * @throws SQLException an SQL exception
+     */
+    boolean setPlayerAsCommentator(String playerName, boolean commentator) throws SQLException;
+
+    /**
+     * Gets a list of players that are commentators.
+     * @return the list of play testers
+     */
+    List<Player> findCommentators();
+
+    /**
      * Deactivate the specified player.
      * @param playerName the player name
      * @param deactivate true to deactivate, false to reactivate

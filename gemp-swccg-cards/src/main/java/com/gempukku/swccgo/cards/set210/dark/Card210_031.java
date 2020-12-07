@@ -9,7 +9,8 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackOneCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -21,7 +22,7 @@ import java.util.*;
 /**
  * Set: Set 10
  * Type: Effect
- * Title: The Dark Path
+ * Title: The Dark Path (V)
  */
 public class Card210_031 extends AbstractNormalEffect {
     public Card210_031() {
@@ -38,9 +39,9 @@ public class Card210_031 extends AbstractNormalEffect {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
 
         // Add one [DS] icon at each site where you have a 'Hatred’ card
-        Filter locationWithHatredCard = Filters.and(Filters.site, Filters.hasStacked(Filters.hatredCard));
+        Filter siteWithHatredCardStacked = Filters.and(Filters.site, Filters.or(Filters.hasStacked(Filters.hatredCard), Filters.sameSiteAs(self, Filters.and(Filters.character, Filters.hasStacked(Filters.hatredCard)))));
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new IconModifier(self, locationWithHatredCard, Icon.DARK_FORCE, 1));
+        modifiers.add(new IconModifier(self, siteWithHatredCardStacked, Icon.DARK_FORCE, 1));
         return modifiers;
     }
 
@@ -57,6 +58,7 @@ public class Card210_031 extends AbstractNormalEffect {
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.hasLostPile(game, playerId)
+                && game.getGameState().getLostPile(playerId).size() >= 2
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)
                 && GameConditions.canSpot(game, self, 2, battlegroundsYouOccupy)) {
 

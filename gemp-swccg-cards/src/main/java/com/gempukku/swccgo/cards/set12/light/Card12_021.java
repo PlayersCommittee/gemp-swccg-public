@@ -34,6 +34,7 @@ public class Card12_021 extends AbstractJediMaster {
         setGameText("Deploys only to Jedi Council Chamber. While at Jedi Council Chamber, immune to attrition and, once per turn if a weapon or battle destiny was just drawn, may cancel and cause a re-draw.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR);
         addKeywords(Keyword.JEDI_COUNCIL_MEMBER);
+        addPersona(Persona.PLO);
         setSpecies(Species.KEL_DOR);
     }
 

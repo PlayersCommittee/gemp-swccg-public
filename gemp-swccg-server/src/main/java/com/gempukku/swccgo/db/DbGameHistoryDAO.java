@@ -16,11 +16,11 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winnerSide, Date startDate, Date endDate) {
+    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winnerSide, String darkDeckString, String lightDeckString, Date startDate, Date endDate) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, winner_deck_archetype, loser_deck_archetype, winner_side, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, winner_deck_archetype, loser_deck_archetype, winner_side, dark_deck_string, light_deck_string, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 try {
                     statement.setString(1, winner);
                     statement.setString(2, loser);
@@ -35,8 +35,10 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                     statement.setString(11, (winnerDeckArchetype==null?"":winnerDeckArchetype));
                     statement.setString(12, (loserDeckArchetype==null?"":loserDeckArchetype));
                     statement.setString(13, winnerSide);
-                    statement.setLong(14, startDate.getTime());
-                    statement.setLong(15, endDate.getTime());
+                    statement.setString(14, darkDeckString);
+                    statement.setString(15, lightDeckString);
+                    statement.setLong(16, startDate.getTime());
+                    statement.setLong(17, endDate.getTime());
 
                     statement.execute();
                 } finally {
@@ -54,7 +56,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
+                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, winner_deck_archetype, loser_deck_name, loser_deck_archetype, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
                 try {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
@@ -73,11 +75,13 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                             String formatName = rs.getString(7);
                             String tournament = rs.getString(8);
                             String winnerDeckName = rs.getString(9);
-                            String loserDeckName = rs.getString(10);
-                            Date startDate = new Date(rs.getLong(11));
-                            Date endDate = new Date(rs.getLong(12));
+                            String winnerDeckArchetype = rs.getString(10);
+                            String loserDeckName = rs.getString(11);
+                            String loserDeckArchetype = rs.getString(12);
+                            Date startDate = new Date(rs.getLong(13));
+                            Date endDate = new Date(rs.getLong(14));
 
-                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, startDate, endDate);
+                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, winnerDeckArchetype, loserDeckName, loserDeckArchetype, startDate, endDate);
                             result.add(entry);
                         }
                         return result;

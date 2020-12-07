@@ -36,7 +36,7 @@ public class Card206_003 extends AbstractRebel {
         setLore("Information broker and spy.");
         setGameText("Deploys -1 if a Rebel leader on table. Once per game, may place a character in your Lost Pile out of play to cancel a just drawn weapon or battle destiny here. If just lost, may activate 1 Force. While at opponent's location, immune to attrition < 4.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
-        addKeywords(Keyword.INFORMATION_BROKER, Keyword.SPY);
+        addKeywords(Keyword.INFORMATION_BROKER, Keyword.SPY, Keyword.CAPTAIN);
     }
 
     @Override

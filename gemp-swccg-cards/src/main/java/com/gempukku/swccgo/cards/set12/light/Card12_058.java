@@ -26,7 +26,7 @@ import java.util.List;
  * Set: Coruscant
  * Type: Interrupt
  * Subtype: Used
- * Title: StealCardIntoHandFromOpponentsHandFree Ride & Endor Celebration
+ * Title: Free Ride & Endor Celebration
  */
 public class Card12_058 extends AbstractUsedInterrupt {
     public Card12_058() {

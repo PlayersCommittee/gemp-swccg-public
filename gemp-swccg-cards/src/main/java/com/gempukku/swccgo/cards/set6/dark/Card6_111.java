@@ -28,7 +28,7 @@ public class Card6_111 extends AbstractAlien {
         setGameText("Deploys only on Tatooine. Adds 1 to power of anything he pilots. Power = 1 + ability of opponent's highest-ability character present.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR);
         setSpecies(Species.KLATOOINIAN);
-        addKeywords(Keyword.MUSICIAN);
+        addKeywords(Keyword.MUSICIAN, Keyword.ASSASSIN);
     }
 
     @Override

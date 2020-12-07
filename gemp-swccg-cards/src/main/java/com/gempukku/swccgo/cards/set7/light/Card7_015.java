@@ -9,8 +9,11 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -30,10 +33,10 @@ public class Card7_015 extends AbstractAlien {
         setGameText("Spaceport Speeders may be played at same site. Once per game, may do one of the following: activate 1 Force when you deploy a droid OR retrieve 1 Force when you deploy an astromech to a starfighter.");
         addIcons(Icon.SPECIAL_EDITION);
     }
+
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ModifyGameTextModifier(self, Filters.Spaceport_Speeders, ModifyGameTextType.SPACEPORT_SPEEDERS_CAN_BE_PLAYED_AT_DROID_MERCHANTS_LOCATION));
         return modifiers;
     }
@@ -41,33 +44,33 @@ public class Card7_015 extends AbstractAlien {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.DROID_MERCHANT_ACTIVATE_RETRIEVE;
-        List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         // Check condition(s)
-        if (TriggerConditions.justDeployedAboard(game, effectResult, Filters.and(Filters.your(self), Filters.or(Filters.astromech_droid)), Filters.starfighter)
-                && (GameConditions.isOncePerGame(game, self, gameTextActionId))) {
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Retrieve 1 Force");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerGameEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new RetrieveForceEffect(action, playerId, 1));
-            actions.add(action);
-        }
-        // Check condition(s)
-        if (TriggerConditions.justDeployed(game, effectResult, Filters.and(Filters.your(self), Filters.droid))
-                && GameConditions.canActivateForce(game, playerId)
-                && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Activate 1 Force");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerGameEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new ActivateForceEffect(action, playerId, 1));
-            actions.add(action);
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
+            if (TriggerConditions.justDeployedAboard(game, effectResult, Filters.and(Filters.your(self), Filters.or(Filters.astromech_droid)), Filters.starfighter)) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Retrieve 1 Force");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerGameEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new RetrieveForceEffect(action, playerId, 1));
+                actions.add(action);
+            }
+            // Check condition(s)
+            if (TriggerConditions.justDeployed(game, effectResult, Filters.and(Filters.your(self), Filters.droid))
+                    && GameConditions.canActivateForce(game, playerId)) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Activate 1 Force");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerGameEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new ActivateForceEffect(action, playerId, 1));
+                actions.add(action);
+            }
         }
         return actions;
     }

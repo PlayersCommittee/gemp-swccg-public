@@ -34,7 +34,7 @@ public class Card7_172 extends AbstractImperial {
         setLore("Death Star trooper and detention block guard. Volunteered for prison detail. Takes sadistic pleasure in seeing Imperial justice enforced.");
         setGameText("When at a prison, instead of Force draining there, may use X Force to retrieve X Force, where X = number of imprisoned Rebels there. Power -2 when not on Death Star.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
-        addKeywords(Keyword.DEATH_STAR_TROOPER);
+        addKeywords(Keyword.DEATH_STAR_TROOPER, Keyword.GUARD);
     }
 
     @Override
