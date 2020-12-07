@@ -33,6 +33,7 @@ public class Card14_076 extends AbstractRepublic {
         setLore("Neimoidian captain of the Trade Federation Droid Control Ship blockading Naboo. Cowardly, lazy, and extremely greedy.");
         setGameText("Adds 3 to power of any capital starship he pilots. Once per game may take Activate The Droids into hand from Reserve Deck; reshuffle. While aboard Blockade Flagship, it is immune to attrition < 5 and Activate The Droids is immune to Alter.");
         addPersona(Persona.DOFINE);
+        addKeyword(Keyword.CAPTAIN);
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT);
         setSpecies(Species.NEIMOIDIAN);
         setMatchingStarshipFilter(Filters.Blockade_Flagship);

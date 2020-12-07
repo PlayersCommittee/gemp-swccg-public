@@ -121,16 +121,20 @@ public class Card9_136 extends AbstractUsedOrLostInterrupt {
                                                                             GameState gameState = game.getGameState();
 
                                                                             float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), finalTarget);
-                                                                            gameState.sendMessage("Destiny: " + (totalDestiny != null ? GuiUtils.formatAsString(totalDestiny) : "Failed destiny draw"));
-                                                                            gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
 
-                                                                            if (((totalDestiny != null ? totalDestiny : 0) + 1) > defenseValue) {
-                                                                                gameState.sendMessage("Result: Succeeded");
-                                                                                action.appendEffect(
-                                                                                        new LoseCardFromTableEffect(action, finalTarget));
-                                                                            }
-                                                                            else {
-                                                                                gameState.sendMessage("Result: Failed");
+
+                                                                            if (totalDestiny != null) {
+                                                                                gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                                                gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
+                                                                                if ((totalDestiny + 1) > defenseValue) {
+                                                                                    gameState.sendMessage("Result: Succeeded");
+                                                                                    action.appendEffect(
+                                                                                            new LoseCardFromTableEffect(action, finalTarget));
+                                                                                } else {
+                                                                                    gameState.sendMessage("Result: Failed");
+                                                                                }
+                                                                            } else {
+                                                                                gameState.sendMessage("Result: Failed Destiny Draw.");
                                                                             }
                                                                         }
                                                                     });

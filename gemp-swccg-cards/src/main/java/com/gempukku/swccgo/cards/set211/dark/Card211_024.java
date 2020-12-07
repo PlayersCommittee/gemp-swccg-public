@@ -19,7 +19,7 @@ import java.util.List;
  * Set: Set 11
  * Type: Starship
  * Subtype: Capital
- * Title: Vengeance V
+ * Title: Vengeance (V)
  */
 public class Card211_024 extends AbstractCapitalStarship {
     public Card211_024() {
@@ -28,6 +28,7 @@ public class Card211_024 extends AbstractCapitalStarship {
         setGameText("May add 6 pilots, 8 passengers, 1 vehicle, and 6 TIEs. Permanent pilot provides ability of 2. Whenever you win a battle here, opponent loses 1 Force.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_11);
         addModelType(ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
+        addKeywords(Keyword.DEATH_SQUADRON);
         setPilotCapacity(6);
         setPassengerCapacity(8);
         setVehicleCapacity(1);

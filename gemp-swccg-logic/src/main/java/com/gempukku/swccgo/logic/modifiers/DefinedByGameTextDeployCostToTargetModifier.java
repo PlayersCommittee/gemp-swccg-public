@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.common.Filterable;
-import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +15,6 @@ import com.gempukku.swccgo.logic.evaluators.Evaluator;
 public class DefinedByGameTextDeployCostToTargetModifier extends AbstractModifier {
     private Evaluator _evaluator;
     private Filter _targetFilter;
-    private PlayCardOptionId _playCardOptionId;
 
     /**
      * Creates a modifier to define the initial printed deploy cost when deploying to specified targets.
@@ -53,13 +51,14 @@ public class DefinedByGameTextDeployCostToTargetModifier extends AbstractModifie
 
     /**
      * Creates a modifier to define the initial printed deploy cost when deploying to specified targets.
-     * @param source the source of the modifier
+     *
+     * @param source             the source of the modifier
      * @param cardToDeployFilter the filter for cards whose printed deploy cost is defined when deploying to specified targets
-     * @param evaluator the evaluator that calculates the amount of the modifier
-     * @param targetFilter the target filter
+     * @param evaluator          the evaluator that calculates the amount of the modifier
+     * @param targetFilter       the target filter
      */
     public DefinedByGameTextDeployCostToTargetModifier(PhysicalCard source, Filterable cardToDeployFilter, Evaluator evaluator, Filterable targetFilter) {
-        super(source, null, cardToDeployFilter, null, ModifierType.PRINTED_DEPLOY_COST_TO_TARGET, true);
+        super(source, null, cardToDeployFilter, ModifierType.PRINTED_DEPLOY_COST_TO_TARGET, true);
         _evaluator = evaluator;
         _targetFilter = Filters.and(targetFilter);
     }

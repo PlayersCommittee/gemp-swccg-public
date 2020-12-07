@@ -28,7 +28,7 @@ public class Card12_001 extends AbstractRepublic {
         setLore("Captain of the Radiant VII. Has gained her rank through consistent excellent performance, and has one of the finest service records of all Republic officers.");
         setGameText("Adds 2 to power of anything she pilots. While piloting Radiant VII and you have no other starships at same system, opponent may not draw more than one battle destiny here.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.FEMALE);
+        addKeywords(Keyword.FEMALE, Keyword.CAPTAIN);
         setMatchingStarshipFilter(Filters.Radiant_VII);
     }
 

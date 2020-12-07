@@ -28,6 +28,17 @@ public class DockingBayTransitToCostModifier extends AbstractModifier {
     }
 
     /**
+     * Creates a modifier that defines the docking bay transit cost to the specified docking bay for the specified player.
+     *
+     * @param source    the source of the modifier
+     * @param evaluator the docking bay transit to evaluator
+     * @param playerId  the player
+     */
+    public DockingBayTransitToCostModifier(PhysicalCard source, Evaluator evaluator, String playerId) {
+        this(source, source, null, evaluator, playerId);
+    }
+
+    /**
      * Creates a modifier that defines the docking bay transit cost to docking bays accepted by the filter for the specified player.
      * @param source the source of the modifier
      * @param affectFilter the filter

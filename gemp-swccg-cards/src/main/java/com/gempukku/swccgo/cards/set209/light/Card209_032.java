@@ -21,8 +21,7 @@ import java.util.List;
 /**
  * Set: Set 9
  * Type: Vehicle
- * Subtype: Combat Vehicle
- * Subtype: U-Wing
+ * Subtype: Combat
  * Title: Blue 11
  */
 

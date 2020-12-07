@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.MayMoveCondition;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,6 +28,7 @@ public class Card1_026 extends AbstractRebel {
         super(Side.LIGHT, 3, 2, 0, 1, 1, Title.Rebel_Guard);
         setLore("Galen Torg was selected for honor guard duty during ceremony following the Battle of Yavin. He is typical of the hard-working, unsung heros in the Rebel Alliance.");
         setGameText("Power +4 when defending a battle. Cannot move.");
+        addKeyword(Keyword.GUARD);
     }
 
     @Override

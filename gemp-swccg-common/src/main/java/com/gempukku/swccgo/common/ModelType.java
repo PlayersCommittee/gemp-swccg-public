@@ -24,6 +24,7 @@ public enum ModelType implements Filterable {
     CORELLIAN_CORVETTE("Corellian Corvette"),
     CORELLIAN_JM_5000("Corellian Jm 5000"),
     CORELLIAN_REPUBLIC_CRUISER("Corellian Republic Cruiser"),
+    CUSTOM_PILOT_DROID("Custom Pilot Droid"),
     DESERT("Desert"),
     DESTROYER("Destroyer"),
     DLANSEAUX_STAR_YACHT("D'Lanseaux Star Yacht"),

@@ -1,4 +1,5 @@
 package com.gempukku.swccgo.cards.set6.dark;
+
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
@@ -16,14 +17,16 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.FiresForDoubleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
 /**
  * Set: Jabba's Palace
  * Type: Character
@@ -34,24 +37,26 @@ public class Card6_132 extends AbstractAlien {
     public Card6_132() {
         super(Side.DARK, 2, 4, 2, 1, 3, Title.Weequay_Marksman, Uniqueness.RESTRICTED_3);
         setLore("Patient and quiet. Jabba uses many of his Weequay henchmen as assassins. Use womp rats for target practice during their religious ceremonies.");
-        setGameText("Deploys only on Tatooine. May fire one weapon during your control phase (at double use of Force). May use 2 Force to 'assassinate' any character 'hit' by Weequay Marksman (victim is immediately lost)");
-        addIcons(Icon.WARRIOR);
+        setGameText("Deploys only on Tatooine. May fire one weapon during your control phase (at double use of Force). May use 2 Force to 'assassinate' any character just 'hit' by Weequay Marksman (victim is immediately lost).");
+        addIcons(Icon.WARRIOR, Icon.JABBAS_PALACE);
         setSpecies(Species.WEEQUAY);
         addKeywords(Keyword.ASSASSIN);
     }
+
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new FiresForDoubleModifier(self, Filters.any, new InPlayDataSetCondition(self)));
         return modifiers;
     }
+
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         return Filters.Deploys_on_Tatooine;
     }
+
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter otherCharacterPresent = Filters.and(Filters.other(self), Filters.character, Filters.present(self));
         TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
         // Check condition(s)
         if (TriggerConditions.justHitBy(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), self)
@@ -90,6 +95,7 @@ public class Card6_132 extends AbstractAlien {
         }
         return null;
     }
+
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         Filter weaponFilter = Filters.and(Filters.weapon, Filters.attachedTo(self), Filters.canBeFired(self, 0));
@@ -115,13 +121,12 @@ public class Card6_132 extends AbstractAlien {
                                                     new SetWhileInPlayDataEffect(action, self, new WhileInPlayData())
                                             );
                                             // Perform result(s)
-                                                action.appendEffect(
-                                                        new FireWeaponEffect(action, weapon, false, Filters.any) {
-                                                        }
-                                                );
-                                                action.appendEffect(
-                                                        new SetWhileInPlayDataEffect(action, self, null));
-                                            }
+                                            action.appendEffect(
+                                                    new FireWeaponEffect(action, weapon, false, Filters.any)
+                                            );
+                                            action.appendEffect(
+                                                    new SetWhileInPlayDataEffect(action, self, null));
+                                        }
                                     }
                             );
                         }

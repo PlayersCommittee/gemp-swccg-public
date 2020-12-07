@@ -5,10 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -36,6 +33,7 @@ public class Card212_006 extends AbstractFirstOrder {
         super(Side.DARK, 3, 3, 3, 3, 5, "Allegiant General Pryde", Uniqueness.UNIQUE);
         setLore("Leader");
         setGameText("[Pilot] 2. Hux is lost. While with a Resistance character, adds one battle destiny. If Emperor on table, your total attrition against opponent here is +1 for each First Order character here.");
+        addPersona(Persona.PRYDE);
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_12);
         addKeywords(Keyword.LEADER, Keyword.GENERAL);
     }

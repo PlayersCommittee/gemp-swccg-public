@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -34,6 +35,7 @@ public class Card7_045 extends AbstractAlien {
         addIcons(Icon.SPECIAL_EDITION);
         addKeywords(Keyword.LEADER);
         setSpecies(Species.JAWA);
+        addPersona(Persona.THEDIT);
     }
 
     @Override
@@ -52,19 +54,22 @@ public class Card7_045 extends AbstractAlien {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
 
-        // Check condition(s)
-        if (TriggerConditions.isInitialAttritionJustCalculated(game, effectResult)
-                && GameConditions.isDuringBattleAt(game, Filters.sameSite(self))
-                && GameConditions.hasGreaterBattleDestinyTotal(game, playerId, false)
-                && GameConditions.isAttritionRemaining(game, playerId)
-                && GameConditions.canModifyAttritionAgainst(game, playerId)) {
+        if(GameConditions.canSpot(game, self, Filters.Thedit)) {
+            final PhysicalCard thedit = Filters.findFirstActive(game, self, Filters.Thedit);
+            // Check condition(s)
+            if (TriggerConditions.isInitialAttritionJustCalculated(game, effectResult)
+                    && GameConditions.isDuringBattleAt(game, Filters.sameSite(thedit))
+                    && GameConditions.hasGreaterBattleDestinyTotal(game, playerId, false)
+                    && GameConditions.isAttritionRemaining(game, playerId)
+                    && GameConditions.canModifyAttritionAgainst(game, playerId)) {
 
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Reduce attrition");
-            // Perform result(s)
-            action.appendEffect(
-                    new ReduceAttritionEffect(action, playerId, 3));
-            return Collections.singletonList(action);
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Reduce attrition");
+                // Perform result(s)
+                action.appendEffect(
+                        new ReduceAttritionEffect(action, playerId, 3));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

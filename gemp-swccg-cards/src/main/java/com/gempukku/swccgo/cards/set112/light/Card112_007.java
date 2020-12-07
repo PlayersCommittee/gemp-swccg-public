@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class Card112_007 extends AbstractNormalEffect {
     public Card112_007() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Seeking An Audience", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Seeking_An_Audience, Uniqueness.UNIQUE);
         setLore("'With your wisdom, I'm sure that we can work out an arrangement which will be mutually beneficial and enable us to avoid any unpleasant confrontation.'");
         setGameText("Deploy on table. Once during each of your turns, may deploy one Underworld Contacts, [Jabba's Palace] Lando, [Jabba's Palace] Leia, R2-D2, or C-3PO from Reserve Deck; reshuffle. Also, while Luke is at a Jabba's Palace site, opponent's aliens there must use +1 Force to use their landspeed.");
         addIcons(Icon.PREMIUM);

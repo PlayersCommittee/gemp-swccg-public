@@ -14,6 +14,8 @@ public class Player {
         LEAGUE_ADMIN("l"),
         PLAY_TESTER("t"),
         PLAY_TESTING_ADMIN("p"),
+        COMMENTATOR("c"),
+        COMMENTATOR_ADMIN("m"),
         UNBANNED("u");
 
         private String _value;

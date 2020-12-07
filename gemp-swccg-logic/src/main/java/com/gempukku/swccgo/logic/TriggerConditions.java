@@ -344,6 +344,7 @@ public class TriggerConditions {
                 || isBlownAwayLastStep(game, effectResult, Filters.any)
                 || effectResult.getType() == EffectResult.Type.HIT
                 || effectResult.getType() == EffectResult.Type.RETURNED_TO_HAND_FROM_OFF_TABLE
+                || effectResult.getType() == EffectResult.Type.REMOVED_COAXIUM_CARD
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_CARD_PILE
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_HAND
                 || effectResult.getType() == EffectResult.Type.STACKED_FROM_TABLE
@@ -1607,6 +1608,23 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card accepted by the moved card filter just took off.
+     *
+     * @param game            the game
+     * @param effectResult    the effect result
+     * @param movedCardFilter the moved card filter
+     * @return true or false
+     */
+    public static boolean justTookOff(SwccgGame game, EffectResult effectResult, Filterable movedCardFilter) {
+        if (effectResult.getType() == EffectResult.Type.TOOK_OFF) {
+            MovedResult movedResult = (MovedResult) effectResult;
+            Collection<PhysicalCard> movedCards = movedResult.getMovedCards();
+            return Filters.canSpot(movedCards, game, movedCardFilter);
+        }
+        return false;
+    }
+
+    /**
      * Determines if a card accepted by the moved card filter just landed at a location accepted by the to card filter.
      * @param game the game
      * @param effectResult the effect result
@@ -2178,11 +2196,25 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean justPutCoaxiumCardInCardPile(EffectResult effectResult, Zone cardPile) {
+        if (effectResult.getType() == EffectResult.Type.REMOVED_COAXIUM_CARD) {
+            RemovedCoaxiumCardResult removedCoaxiumCardResult = (RemovedCoaxiumCardResult) effectResult;
+            if (removedCoaxiumCardResult.getCardPile() == cardPile) {
+                PhysicalCard card = removedCoaxiumCardResult.getCard();
+                if (card != null
+                        && GameUtils.getZoneFromZoneTop(card.getZone()) == cardPile)
+                    return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Determines if a card accepted by the card filter was just lost from a location accepted by the location filter (and still in Lost Pile).
-     * @param game the game
-     * @param effectResult the effect result
-     * @param cardFilter the card filter
+     *
+     * @param game           the game
+     * @param effectResult   the effect result
+     * @param cardFilter     the card filter
      * @param locationFilter the location filter
      * @return true or false
      */
@@ -2329,15 +2361,44 @@ public class TriggerConditions {
     }
 
     /**
-     * Determines if a card accepted by the filter was just placed out of play.
+     * Determines if a card accepted by the filter was just placed out of play from table.
+     *
+     * @param game         the game
+     * @param effectResult the effect result
+     * @param filter       the filter
+     * @return true or false
+     */
+    public static boolean justPlacedOutOfPlay(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        return justPlacedOutOfPlayFromTable(game, effectResult, filter) || justPlacedOutOfPlayFromOffTable(game, effectResult, filter);
+    }
+
+    /**
+     * Determines if a card accepted by the filter was just placed out of play from table.
      * @param game the game
      * @param effectResult the effect result
      * @param filter the filter
      * @return true or false
      */
-    public static boolean justPlacedOutOfPlay(SwccgGame game, EffectResult effectResult, Filterable filter) {
+    public static boolean justPlacedOutOfPlayFromTable(SwccgGame game, EffectResult effectResult, Filterable filter) {
         if (effectResult.getType() == EffectResult.Type.PLACED_OUT_OF_PLAY_FROM_TABLE) {
             PhysicalCard cardPlacedOutOfPlay = ((PlacedCardOutOfPlayFromTableResult) effectResult).getCard();
+
+            return Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlacedOutOfPlay);
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a card accepted by the filter was just placed out of play from off table.
+     *
+     * @param game         the game
+     * @param effectResult the effect result
+     * @param filter       the filter
+     * @return true or false
+     */
+    public static boolean justPlacedOutOfPlayFromOffTable(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        if (effectResult.getType() == EffectResult.Type.PLACED_OUT_OF_PLAY_FROM_OFF_TABLE) {
+            PhysicalCard cardPlacedOutOfPlay = ((PlacedCardOutOfPlayFromOffTableResult) effectResult).getCard();
 
             return Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlacedOutOfPlay);
         }
@@ -3943,6 +4004,28 @@ public class TriggerConditions {
     }
 
 */
+
+    /**
+     * Determines if a weapon accepted by the weapon filter was just 'thrown'.
+     *
+     * @param game         the game
+     * @param effectResult the effect result
+     * @param weaponFilter the weapon filter
+     * @return true or false
+     */
+    public static boolean weaponJustThrown(SwccgGame game, EffectResult effectResult, Filterable weaponFilter) {
+        if (effectResult.getType() == EffectResult.Type.FIRED_WEAPON) {
+            FiredWeaponResult weaponFiredResult = (FiredWeaponResult) effectResult;
+            PhysicalCard weaponCardFired = weaponFiredResult.getWeaponCardFired();
+            SwccgBuiltInCardBlueprint permanentWeaponFired = weaponFiredResult.getPermanentWeaponFired();
+
+            return (weaponCardFired != null && Filters.and(weaponFilter).accepts(game.getGameState(), game.getModifiersQuerying(), weaponCardFired))
+                    || (permanentWeaponFired != null && Filters.and(weaponFilter).accepts(game.getGameState(), game.getModifiersQuerying(), permanentWeaponFired))
+                    && weaponFiredResult.wasThrown();
+        }
+        return false;
+    }
+
     /**
      * Determines if a weapon accepted by the weapon filter was just fired.
      * @param game the game

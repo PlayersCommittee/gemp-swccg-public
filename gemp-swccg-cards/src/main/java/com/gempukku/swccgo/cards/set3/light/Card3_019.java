@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.OptionalEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -13,10 +12,8 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
-import com.gempukku.swccgo.logic.timing.StandardEffect;
 import com.gempukku.swccgo.logic.timing.results.BattleInitiatedResult;
 
 import java.util.*;
@@ -35,9 +32,8 @@ public class Card3_019 extends AbstractRebel {
         setGameText("Whenever you just initiated a battle at same site as Shawn, your troopers at adjacent sites who have not already battled this turn may immediately move to same site (as a regular move).");
         addIcons(Icon.HOTH, Icon.WARRIOR);
         addKeywords(Keyword.LEADER, Keyword.MUSICIAN, Keyword.ECHO_BASE_TROOPER);
+        addPersona(Persona.SHAWN);
     }
-
-
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
@@ -53,41 +49,44 @@ public class Card3_019 extends AbstractRebel {
         Filter troopersAtAdjacentSites = Filters.and(Filters.at(adjacentSiteFilter), Filters.trooper, Filters.your(playerId), Filters.hasNotPerformedRegularMove);
         Filter troopersAtSitesNotAboardSomething = Filters.and(troopersAtAdjacentSites, Filters.not(Filters.aboardAnyStarship), Filters.not(Filters.aboardAnyVehicle));
 
+        if(GameConditions.canSpot(game, self, Filters.Shawn)) {
+            final PhysicalCard shawn = Filters.findFirstActive(game, self, Filters.Shawn);
 
-        // Check condition(s)
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.here(self)) &&
-                TriggerConditions.battleInitiated(game, effectResult, self.getOwner()) &&
-                GameConditions.canSpot(game, self, troopersAtSitesNotAboardSomething)) {
+            // Check condition(s)
+            if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.sameSite(shawn)) &&
+                    TriggerConditions.battleInitiated(game, effectResult, self.getOwner()) &&
+                    GameConditions.canSpot(game, self, troopersAtSitesNotAboardSomething)) {
 
-            BattleInitiatedResult battleInitiatedResult = (BattleInitiatedResult) effectResult;
-            final PhysicalCard currentLocation = battleInitiatedResult.getLocation();
-            Filter currentLocationFilter = Filters.sameCardId(currentLocation);
-            Filter yourTroopersAtSitesNotAboardAnything = Filters.and(Filters.your(self), troopersAtSitesNotAboardSomething);
+                BattleInitiatedResult battleInitiatedResult = (BattleInitiatedResult) effectResult;
+                final PhysicalCard currentLocation = battleInitiatedResult.getLocation();
+                Filter currentLocationFilter = Filters.sameCardId(currentLocation);
+                Filter yourTroopersAtSitesNotAboardAnything = Filters.and(Filters.your(self), troopersAtSitesNotAboardSomething);
 
-            // We have the filter of valid troopers. However, we also need to check which of them is actually
-            // capable of moving (based on game-state)
+                // We have the filter of valid troopers. However, we also need to check which of them is actually
+                // capable of moving (based on game-state)
 
-            // Of those which are still valid, allow the user to click them (one at a time)
-            List<PhysicalCard> validTroopers = getValidTroopers(game, playerId, currentLocationFilter, self, yourTroopersAtSitesNotAboardAnything);
-            if (!validTroopers.isEmpty()) {
+                // Of those which are still valid, allow the user to click them (one at a time)
+                List<PhysicalCard> validTroopers = getValidTroopers(game, playerId, currentLocationFilter, self, yourTroopersAtSitesNotAboardAnything);
+                if (!validTroopers.isEmpty()) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Move adjacent trooper here");
-                action.setActionMsg("Move adjacent trooper here");
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                    action.setText("Move adjacent trooper here");
+                    action.setActionMsg("Move adjacent trooper here");
 
-                // Allow user to choose a single trooper at a time. This special function allows picking the trooper
-                // and queues up additional 'pick' actions as add-on-effects
-                ChooseCardOnTableEffect chooseCardOnTableEffect = buildAnotherChooseCardEffect(game, self, yourTroopersAtSitesNotAboardAnything, action, playerId, currentLocation);
+                    // Allow user to choose a single trooper at a time. This special function allows picking the trooper
+                    // and queues up additional 'pick' actions as add-on-effects
+                    ChooseCardOnTableEffect chooseCardOnTableEffect = buildAnotherChooseCardEffect(game, self, yourTroopersAtSitesNotAboardAnything, action, playerId, currentLocation);
 
-                // Choose target(s) - Troopers which can move
-                action.appendTargeting(
-                        chooseCardOnTableEffect
-                );
+                    // Choose target(s) - Troopers which can move
+                    action.appendTargeting(
+                            chooseCardOnTableEffect
+                    );
 
-                actions.add(action);
+                    actions.add(action);
+
+                }
 
             }
-
         }
 
 
@@ -180,6 +179,7 @@ public class Card3_019 extends AbstractRebel {
 
             }
         }
+
 
         // No troopers to continue moving. No more 'bonus' actions
         return null;

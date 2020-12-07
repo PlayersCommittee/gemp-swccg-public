@@ -17,7 +17,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -47,24 +47,26 @@ public class Card4_135 extends AbstractNormalEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
+        String playerId = self.getOwner();
         // Check condition(s)
-        if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
-            String currentPlayer = game.getGameState().getCurrentPlayerId();
 
+        if (TriggerConditions.isEndOfEachTurn(game, effectResult)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make each player lose 1 Force");
             // Perform result(s)
             action.appendEffect(
-                    new LoseForceEffect(action, game.getOpponent(currentPlayer), 1));
+                    new LoseForceEffect(action, playerId, 1));
             action.appendEffect(
-                    new LoseForceEffect(action, currentPlayer, 1));
-            return Collections.singletonList(action);
+                    new LoseForceEffect(action, game.getOpponent(playerId), 1));
+            actions.add(action);
         }
+
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                    && GameConditions.canBeCanceled(game, self)
-                    && GameConditions.controls(game, game.getOpponent(self.getOwner()), SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.sameLocation(self))) {
+                && GameConditions.canBeCanceled(game, self)
+                && GameConditions.controls(game, game.getOpponent(self.getOwner()), SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.sameLocation(self))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
@@ -73,8 +75,8 @@ public class Card4_135 extends AbstractNormalEffect {
             // Perform result(s)
             action.appendEffect(
                     new CancelCardOnTableEffect(action, self));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
 }

@@ -15,15 +15,21 @@ public class AwaitingTable {
     private LeagueSeriesData _leagueSeries;
     private String _tableDesc;
     private Map<String, SwccgGameParticipant> _players = new HashMap<String, SwccgGameParticipant>();
+    private boolean _isPrivate;
 
     private int _capacity = 2;
 
-    public AwaitingTable(SwccgFormat swccgFormat, CollectionType collectionType, League league, LeagueSeriesData leagueSeries, String tableDesc) {
+    public AwaitingTable(SwccgFormat swccgFormat, CollectionType collectionType, League league, LeagueSeriesData leagueSeries, String tableDesc, boolean isPrivate) {
         _swccgFormat = swccgFormat;
         _collectionType = collectionType;
         _league = league;
         _leagueSeries = leagueSeries;
         _tableDesc = tableDesc;
+        _isPrivate = isPrivate;
+    }
+
+    public boolean isPrivate() {
+        return _isPrivate;
     }
 
     public boolean addPlayer(SwccgGameParticipant player) {

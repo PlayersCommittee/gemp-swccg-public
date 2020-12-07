@@ -14,6 +14,7 @@ public interface Title {
     String A_Dangerous_Time = "A Dangerous Time";
     String A_Gift = "A Gift";
     String A_Stunning_Move = "A Stunning Move";
+    String A_Useless_Gesture = "A Useless Gesture";
     String A_Valuable_Hostage = "A Valuable Hostage";
     String A_Weakness_Can_Be_Found = "A Weakness Can Be Found";
     String A280_Sharpshooter_Rifle = "A280 Sharpshooter Rifle";
@@ -95,6 +96,7 @@ public interface Title {
     String Bith_Shuffle = "The Bith Shuffle";
     String Black_4 = "Black 4";
     String Black_5 = "Black 5";
+    String Black_Sun_Blaster = "Black Sun Blaster";
     String Blast_The_Door_Kid = "Blast The Door, Kid!";
     String Blasted_Droid = "Blasted Droid";
     String Blaster_Deflection = "Blaster Deflection";
@@ -155,6 +157,7 @@ public interface Title {
     String Cease_Fire = "Cease Fire!";
     String Cell_2187 = "Cell 2187";
     String Chandrila = "Chandrila";
+    String Chasm_Walkway = "Cloud City: Chasm Walkway";
     String Chewbaccas_Bowcaster = "Chewbacca's Bowcaster";
     String Chief_Bast = "Chief Bast";
     String Chief_Chirpa = "Chief Chirpa";
@@ -190,6 +193,7 @@ public interface Title {
     String Concussion_Missiles = "Concussion Missiles";
     String Control = "Control";
     String Coolant_Shaft = "Death Star II: Coolant Shaft";
+    String Control_Station = "Executor: Control Station";
     String Corellia = "Corellia";
     String Corellian_Corvette = "Corellian Corvette";
     String Corellian_Engineering_Corporation = "Corellian Engineering Corporation";
@@ -205,6 +209,7 @@ public interface Title {
     String Covert_Landing = "Covert Landing";
     String Crash_Site_Memorial = "Crash Site Memorial";
     String Credits_Will_Do_Fine = "Credits Will Do Fine";
+    String Crimson_Dawn_Blaster = "Crimson Dawn Blaster";
     String Crossfire = "Crossfire";
     String Cyborg_Construct = "Cyborg Construct";
     String Dagobah = "Dagobah";
@@ -227,6 +232,8 @@ public interface Title {
     String Darth_Vader_Dark_Lord_of_the_Sith = "Darth Vader, Dark Lord Of The Sith";
     String DataVault = "Scarif: Data Vault";
     String Dathcha = "Dathcha";
+    String Dathomir = "Dathomir";
+    String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
     String Dead_Ewok = "Dead Ewok";
@@ -238,6 +245,7 @@ public interface Title {
     String Death_Star_Conference_Room = "Death Star: Conference Room";
     String Death_Star_II = "Death Star II";
     String Death_Star_II_Docking_Bay = "Death Star II: Docking Bay";
+    String Death_Star_II_Chasm_Walkway = "Death Star II: Chasm Walkway";
     String Death_Star_Plans = "Death Star Plans";
     String Death_Star_Sentry = "Death Star Sentry";
     String Death_Star_Tractor_Beam = "Death Star Tractor Beam";
@@ -287,6 +295,7 @@ public interface Title {
     String Droid_Shutdown = "Droid Shutdown";
     String Droid_Starfighter_Laser_Cannons = "Droid Starfighter Laser Cannons";
     String Droid_Workshop = "Jabba's Palace: Droid Workshop";
+    String Dyden_Vos_s_Kyuzo_Petars = "Dryden Vos’s Kyuzo Petars";
     String DS_181_3 = "DS-181-3";
     String DS_181_4 = "DS-181-4";
     String DS_61_5 = "DS-61-5";
@@ -299,6 +308,7 @@ public interface Title {
     String Echo_Base_Operations = "Echo Base Operations";
     String Echo_Docking_Bay = "Hoth: Echo Docking Bay";
     String Echo_Med_Lab = "Hoth: Echo Med Lab";
+    String Eee_Chu_Wawa = "Eee Chu Wawa!";
     String Effective_Repairs = "Effective Repairs";
     String Eject_Eject = "Eject! Eject!";
     String Egregious_Pilot_Error = "Egregious Pilot Error";
@@ -344,6 +354,7 @@ public interface Title {
     String Fearless_And_Inventive = "Fearless And Inventive";
     String Fel = "Baron Soontir Fel";
     String Feltipern_Trevagg = "Feltipern Trevagg";
+    String Field_Promotion = "Field Promotion";
     String Fighters_Coming_In = "Fighters Coming In";
     String Finalizer = "Finalizer";
     String Finn = "Finn";
@@ -414,6 +425,7 @@ public interface Title {
     String He_Will_Bring_Balance = "He Will Bring Balance";
     String Heart_Of_The_Chasm = "Heart Of The Chasm";
     String Hebsly = "Lieutenant Hebsly";
+    String Help_Me_Obi_Wan_Kenobi = "Help Me Obi-Wan Kenobi";
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
@@ -604,6 +616,7 @@ public interface Title {
     String Main_Corridor = "Executor: Main Corridor";
     String Main_Power_Generators = "Hoth: Main Power Generators (1st Marker)";
     String Major_Panno = "Major Panno";
+    String Malachor = "Malachor";
     String Malastare = "Malastare";
     String Mandalorian_Armor = "Mandalorian Armor";
     String Maneuvering_Flaps = "Maneuvering Flaps";
@@ -624,6 +637,7 @@ public interface Title {
     String Mazs_Castle = "Takodana: Maz's Castle";
     String Maz = "Maz Kanata";
     String Mechanical_Failure = "Mechanical Failure";
+    String Meditation = "Meditation";
     String Meditation_Chamber = "Executor: Meditation Chamber";
     String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
@@ -747,9 +761,11 @@ public interface Title {
     String Probe_Droid = "Probe Droid";
     String Probe_Telemetry = "Probe Telemetry";
     String Profundity = "Profundity";
+    String Projection_Of_A_Skywalker = "Projection Of A Skywalker";
     String Prophecy_Of_The_Force = "Prophecy Of The Force";
     String Program_Trap = "Program Trap";
     String Proton_Bombs = "Proton Bombs";
+    String Proxima = "Lady Proxima";
     String Puck = "Puck";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
@@ -849,6 +865,7 @@ public interface Title {
     String Secret_Plans = "Secret Plans";
     String Security_Precautions = "Security Precautions";
     String Security_Tower = "Cloud City: Security Tower";
+    String Seeking_An_Audience = "Seeking An Audience";
     String Sei_Taria = "Sei Taria";
     String Sense = "Sense";
     String Set_For_Stun = "Set For Stun";
@@ -857,6 +874,7 @@ public interface Title {
     String Sewer = "Xizor's Palace: Sewer";
     String S_foils = "S-foils";
     String SFS_Lx93_Laser_Cannons = "SFS L-s9.3 Laser Cannons";
+    String Shadow_Collective = "Shadow Collective";
     String Shield_Gate = "Shield Gate";
     String Shmi = "Shmi Skywalker";
     String Shocking_Information = "Shocking Information";
@@ -882,6 +900,7 @@ public interface Title {
     String Sonic_Bombardment = "Sonic Bombardment";
     String Sorry_About_The_Mess = "Sorry About The Mess";
     String Sound_The_Attack = "Sound The Attack";
+    String Spaceport_Speeders = "Spaceport Speeders";
     String Space_Slug = "Space Slug";
     String Space_Slug_Belly = "Space Slug Belly";
     String Spaceport_Speeders = "Spaceport Speeders";
@@ -916,6 +935,7 @@ public interface Title {
     String Tagge = "General Tagge";
     String Tallon_Roll = "Tallon Roll";
     String Take_Evasive_Action = "Take Evasive Action";
+    String Take_The_Initiative = "Take the Initiative";
     String Take_Them_Away = "Take Them Away";
     String Take_Your_Fathers_Place = "Take Your Father's Place";
     String Takeel = "Takeel";
@@ -1088,6 +1108,7 @@ public interface Title {
     String You_Can_Either_Profit_By_This = "You Can Either Profit By This...";
     String You_Cannot_Hide_Forever = "You Cannot Hide Forever";
     String You_Do_Have_Your_Moments = "You Do Have Your Moments";
+    String You_Know_Who_I_Answer_To = "You Know Who I Answer To";
     String You_May_Start_Your_Landing = "You May Start Your Landing";
     String You_Must_Confront_Vader = "You Must Confront Vader";
     String You_Overestimate_Their_Chances = "You Overestimate Their Chances";

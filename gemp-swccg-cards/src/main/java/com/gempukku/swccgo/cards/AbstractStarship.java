@@ -128,7 +128,7 @@ public abstract class AbstractStarship extends AbstractDeployable {
      */
     @Override
     public final boolean hasArmorAttribute() {
-        return true;
+        return _armor != null;
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class AbstractStarship extends AbstractDeployable {
      */
     @Override
     public final boolean hasManeuverAttribute() {
-        return true;
+        return _maneuver != null;
     }
 
     /**

@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,6 +33,7 @@ public class Card208_003 extends AbstractRepublic {
         setLore("Clone trooper commander.");
         setGameText("[Pilot] 2. Droid starfighters are power and forfeit -1 here. During battle, may add or subtract 1 from a just drawn even destiny.");
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_8);
+        addPersona(Persona.ODD_BALL);
         addKeywords(Keyword.CLONE_TROOPER, Keyword.COMMANDER);
     }
 

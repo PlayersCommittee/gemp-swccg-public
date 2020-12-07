@@ -48,9 +48,9 @@ public class Card1_110 extends AbstractLostInterrupt {
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Leia)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
             final Filter lukeFilter = Filters.and(Filters.Luke, Filters.participatingInBattle);
-            final Filter hanFilter = Filters.and(Filters.Leia, Filters.participatingInBattle);
+            final Filter leiaFilter = Filters.and(Filters.Leia, Filters.participatingInBattle);
             if (GameConditions.canTarget(game, self, lukeFilter)
-                    && GameConditions.canTarget(game, self, hanFilter)) {
+                    && GameConditions.canTarget(game, self, leiaFilter)) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Add two battle destiny");
@@ -65,7 +65,7 @@ public class Card1_110 extends AbstractLostInterrupt {
                             protected void cardTargeted(final int targetGroupId1, final PhysicalCard lukeTargeted) {
                                 // Choose target(s)
                                 action.appendTargeting(
-                                        new TargetCardOnTableEffect(action, playerId, "Choose Leia", hanFilter) {
+                                        new TargetCardOnTableEffect(action, playerId, "Choose Leia", leiaFilter) {
                                             @Override
                                             protected boolean getUseShortcut() {
                                                 return true;

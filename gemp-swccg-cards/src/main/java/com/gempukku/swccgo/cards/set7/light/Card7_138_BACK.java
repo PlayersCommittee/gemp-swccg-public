@@ -60,7 +60,7 @@ public class Card7_138_BACK extends AbstractObjective {
         // Check condition(s)
         final Filter lukeOrLeia = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE) ? Filters.Leia : Filters.Luke;
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.Dagobah_location)
-                || TriggerConditions.justPlacedOutOfPlay(game, effectResult, lukeOrLeia)) {
+                || TriggerConditions.justPlacedOutOfPlayFromTable(game, effectResult, lukeOrLeia)) {
             Collection<PhysicalCard> jediTests = Filters.filterAllOnTable(game, Filters.jediTestTargetingApprentice(lukeOrLeia));
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

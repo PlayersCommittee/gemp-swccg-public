@@ -83,13 +83,13 @@ public class HallCommunicationChannel implements LongPollableResource {
                     }
 
                     @Override
-                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, String tableDesc, List<SwccgGameParticipant> players, Map<String, String> deckArchetypeMap, boolean playing, String winner, boolean hidePlayerId, SwccgCardBlueprintLibrary library, boolean hideDescAndDecks) {
+                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, String tableDesc, List<SwccgGameParticipant> players, Map<String, String> deckArchetypeMap, boolean playing, String winner, boolean hidePlayerId, SwccgCardBlueprintLibrary library, boolean hideDesc, boolean hideDecks, boolean hideWinner) {
 
                         List<String> playerInfo = new LinkedList<String>();
 
                         for (SwccgGameParticipant player : players) {
                             String sideInfo = player.getDeck().getSide(library).toString();
-                            if (deckArchetypeMap != null && !hideDescAndDecks) {
+                            if (deckArchetypeMap != null && !hideDecks) {
                                 String deckType = deckArchetypeMap.get(player.getPlayerId());
                                 if (deckType != null) {
                                     sideInfo = sideInfo + ": " + deckType;
@@ -110,11 +110,11 @@ public class HallCommunicationChannel implements LongPollableResource {
                         props.put("status", String.valueOf(status));
                         props.put("statusDescription", statusDescription);
                         props.put("format", formatName);
-                        props.put("tournament", tournamentName + ((!hideDescAndDecks && tableDesc != null && !tableDesc.isEmpty()) ? (" - " + tableDesc) : ""));
+                        props.put("tournament", tournamentName + ((!hideDesc && tableDesc != null && !tableDesc.isEmpty()) ? (" - " + tableDesc) : ""));
                         props.put("players", StringUtils.join(playerInfo, ","));
                         props.put("playing", String.valueOf(playing));
                         if (winner != null)
-                            props.put("winner", winner);
+                            props.put("winner", hideWinner?"":winner);
 
                         tablesOnServer.put(tableId, props);
                     }

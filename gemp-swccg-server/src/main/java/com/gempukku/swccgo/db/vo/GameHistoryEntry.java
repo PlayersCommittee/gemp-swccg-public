@@ -75,13 +75,17 @@ public class GameHistoryEntry {
         return _winnerDeckName;
     }
 
-    public String getwinnerDeckArchetype() { return _winnerDeckArchetype; }
+    public String getwinnerDeckArchetype() {
+        return _winnerDeckArchetype;
+    }
 
     public String getLoserDeckName() {
         return _loserDeckName;
     }
 
-    public String getloserDeckArchetype() { return _loserDeckArchetype; }
+    public String getloserDeckArchetype() {
+        return _loserDeckArchetype;
+    }
 
     public Date getEndTime() {
         return _endTime;

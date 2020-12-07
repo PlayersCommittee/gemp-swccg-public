@@ -118,9 +118,11 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             }
         }
         addToLayouts(new DefaultPlanetLayout(Title.Mustafar, 7));
-        addToLayouts(new DefaultPlanetLayout(Title.Scarif, 17));
+        addToLayouts(new DefaultPlanetLayout(Title.Scarif, 7));
         addToLayouts(new DefaultPlanetLayout(Title.Ahch_To, 9));
         addToLayouts(new DefaultPlanetLayout(Title.Kamino, 7));
+        addToLayouts(new DefaultPlanetLayout(Title.Malachor, 6));
+        addToLayouts(new DefaultPlanetLayout(Title.Dathomir, 4));
     }
 
     /**

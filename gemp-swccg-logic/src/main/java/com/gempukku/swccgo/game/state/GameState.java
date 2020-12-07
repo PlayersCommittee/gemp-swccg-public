@@ -1448,6 +1448,7 @@ public class GameState implements Snapshotable<GameState> {
         toCard.setFrozen(fromCard.isFrozen());
         toCard.setProbeCard(fromCard.isProbeCard());
         toCard.setHatredCard(fromCard.isHatredCard());
+        toCard.setCoaxiumCard(fromCard.isCoaxiumCard());
         toCard.setLiberationCard(fromCard.isLiberationCard());
         toCard.setBluffCard(fromCard.isBluffCard());
         toCard.setCombatCard(fromCard.isCombatCard());

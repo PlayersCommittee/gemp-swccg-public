@@ -54,7 +54,7 @@ public class Card210_046 extends AbstractImperial {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         //  If a Jedi or Padawan just lost from same site as any Inquisitor, opponent loses 1 Force.
-        Filter jediOrPadawan = Filters.or(Filters.Jedi, Keyword.PADAWAN);
+        Filter jediOrPadawan = Filters.or(Filters.Jedi, Filters.padawan);
         Filter sameSiteAsYourInquisitor = Filters.sameSiteAs(self, Filters.and(Keyword.INQUISITOR));
 
         // Check condition(s)
@@ -78,7 +78,7 @@ public class Card210_046 extends AbstractImperial {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
 
         // If a Jedi or Padawan just moved from here, Inquisitors present may follow that character (using landspeed)
-        Filter jediOrPadawan = Filters.or(Filters.Jedi, Keyword.PADAWAN);
+        Filter jediOrPadawan = Filters.or(Filters.Jedi, Filters.padawan);
         Filter inquisitorsHere = Filters.and(Filters.present(self), Filters.or(Keyword.INQUISITOR));
 
         // Check condition(s)

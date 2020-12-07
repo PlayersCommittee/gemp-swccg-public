@@ -3,6 +3,7 @@ package com.gempukku.swccgo.packagedProduct;
 import com.gempukku.swccgo.cards.packs.RarityReader;
 import com.gempukku.swccgo.cards.packs.SetRarity;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
@@ -23,12 +24,23 @@ public class ReflectionsIIIBoosterPack extends BasePackagedCardProduct {
     private SetRarity _specialEditionSetRarity;
     private SetRarity _endorEditionSetRarity;
     private SetRarity _reflectionsIIISetRarity;
-
+    private boolean _includeNonEpisodeI;
+    private boolean _includeDefensiveShields;
     /**
      * Creates a Reflections III booster pack.
      * @param library the blueprint library
      */
     public ReflectionsIIIBoosterPack(SwccgCardBlueprintLibrary library) {
+        this(library, true, true);
+    }
+
+        /**
+         * Creates a Reflections III booster pack.
+         * @param library the blueprint library
+         * @param includeNonEpisodeI false if non-Episode I cards should be removed
+         * @param includeDefensiveShields false if defensive shields and starting effects should be removed
+         */
+    public ReflectionsIIIBoosterPack(SwccgCardBlueprintLibrary library, boolean includeNonEpisodeI, boolean includeDefensiveShields) {
         super(library);
         RarityReader rarityReader = new RarityReader();
         _premiereSetRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.PREMIERE.getSetNumber()));
@@ -40,6 +52,8 @@ public class ReflectionsIIIBoosterPack extends BasePackagedCardProduct {
         _specialEditionSetRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.SPECIAL_EDITION.getSetNumber()));
         _endorEditionSetRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.ENDOR.getSetNumber()));
         _reflectionsIIISetRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.REFLECTIONS_III.getSetNumber()));
+        _includeNonEpisodeI = includeNonEpisodeI;
+        _includeDefensiveShields = includeDefensiveShields;
     }
 
     /**
@@ -48,6 +62,8 @@ public class ReflectionsIIIBoosterPack extends BasePackagedCardProduct {
      */
     @Override
     public String getProductName() {
+        if(!_includeDefensiveShields&&!_includeNonEpisodeI)
+            return ProductName.REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS;
         return ProductName.REFLECTIONS_III_BOOSTER_PACK;
     }
 
@@ -89,6 +105,13 @@ public class ReflectionsIIIBoosterPack extends BasePackagedCardProduct {
         possibleCards.addAll(_specialEditionSetRarity.getAllCards());
         possibleCards.addAll(_endorEditionSetRarity.getAllCards());
         filterNonExistingCards(possibleCards);
+        if(!_includeNonEpisodeI)
+            filterIcon(possibleCards, Icon.EPISODE_I, true);
+        if(!_includeDefensiveShields) {
+            filterIcon(possibleCards, Icon.DEFENSIVE_SHIELD, false);
+            possibleCards.remove("13_69"); //Fear Is My Ally
+            possibleCards.remove("13_5"); //An Unusual Amount Of Fear
+        }
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }
@@ -102,6 +125,13 @@ public class ReflectionsIIIBoosterPack extends BasePackagedCardProduct {
         List<String> possibleCards = new ArrayList<String>();
         possibleCards.addAll(_reflectionsIIISetRarity.getCardsOfRarity(Rarity.PM));
         filterNonExistingCards(possibleCards);
+        if(!_includeNonEpisodeI)
+            filterIcon(possibleCards, Icon.EPISODE_I, true);
+        if(!_includeDefensiveShields) {
+            filterIcon(possibleCards, Icon.DEFENSIVE_SHIELD, false);
+            possibleCards.remove("13_69"); //Fear Is My Ally
+            possibleCards.remove("13_5"); //An Unusual Amount Of Fear
+        }
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }
@@ -227,6 +257,13 @@ public class ReflectionsIIIBoosterPack extends BasePackagedCardProduct {
         }
 
         filterNonExistingCards(possibleCards);
+        if(!_includeNonEpisodeI)
+            filterIcon(possibleCards, Icon.EPISODE_I, true);
+        if(!_includeDefensiveShields) {
+            filterIcon(possibleCards, Icon.DEFENSIVE_SHIELD, false);
+            possibleCards.remove("13_69"); //Fear Is My Ally
+            possibleCards.remove("13_5"); //An Unusual Amount Of Fear
+        }
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), true);
     }

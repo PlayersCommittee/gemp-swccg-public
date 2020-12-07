@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 11
+ * Set: Set 11
  * Type: Character
  * Subtype: Droid
  * Title: IG MagnaGuard
@@ -27,11 +27,11 @@ public class Card211_060 extends AbstractDroid {
     public Card211_060() {
         super(Side.DARK, 2, 3, 3, 4, "IG MagnaGuard", Uniqueness.RESTRICTED_3);
         setArmor(4);
-        setLore("Assassin.  Trade Federation.");
+        setLore("Assassin. Trade Federation.");
         setGameText("Grievous is defense value +2 here.  While aboard Invisible Hand, draws one battle destiny if unable to otherwise and characters here are immune to Clash Of Sabers.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I, Icon.PRESENCE, Icon.WARRIOR, Icon.SEPARATIST);
         addModelType(ModelType.BATTLE);
-        addKeyword(Keyword.ASSASSIN);
+        addKeywords(Keyword.ASSASSIN, Keyword.MAGNAGUARD);
     }
 
     @Override

@@ -88,6 +88,8 @@ public class Card13_071 extends AbstractAlien {
                                                             new RetrieveForceEffect(action, playerId, 1)
                                                     );
                                                 }
+                                            } else {
+                                                gameState.sendMessage("Result: 'Wager' ends in tie");
                                             }
                                         }
                                     }

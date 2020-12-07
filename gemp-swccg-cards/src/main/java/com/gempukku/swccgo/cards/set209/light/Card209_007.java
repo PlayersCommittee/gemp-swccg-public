@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card209_007 extends AbstractRebel {
     public Card209_007() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "General Walex Blissex", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "General Walex Blissex", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Engineer who worked with Jan Dodonna to design the A-wing starfighter. Given honorary rank due to his service to the Rebellion.");
         setGameText("While at a war room, at systems where you have two piloted snub fighters, opponent may draw no more than one battle destiny (you may not cancel those destiny draws) and opponent must use +1 Force to move an Imperial starship away.");

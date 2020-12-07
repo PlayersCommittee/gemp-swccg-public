@@ -126,6 +126,20 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
+    public boolean setPlayerAsCommentator(String playerName, boolean commentator) throws SQLException {
+        final boolean success = _delegate.setPlayerAsCommentator(playerName, commentator);
+        if (success) {
+            removePlayerFromCacheByName(playerName);
+        }
+        return success;
+    }
+
+    @Override
+    public List<Player> findCommentators() {
+        return _delegate.findCommentators();
+    }
+
+    @Override
     public boolean setPlayerAsDeactivated(String playerName, boolean deactivate) throws SQLException {
         final boolean success = _delegate.setPlayerAsDeactivated(playerName, deactivate);
         if (success) {

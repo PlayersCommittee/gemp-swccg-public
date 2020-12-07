@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * An effect to take stacked cards into hand.
  */
-class TakeStackedCardsIntoHandEffect extends AbstractSubActionEffect {
+public class TakeStackedCardsIntoHandEffect extends AbstractSubActionEffect {
     private String _playerId;
     private int _minimum;
     private int _maximum;
@@ -55,7 +55,7 @@ class TakeStackedCardsIntoHandEffect extends AbstractSubActionEffect {
      * @param stackedOn the card that the stacked cards are stacked on
      * @param filters the filter
      */
-    protected TakeStackedCardsIntoHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackedOn, Filterable filters) {
+    public TakeStackedCardsIntoHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackedOn, Filterable filters) {
         super(action);
         _playerId = playerId;
         _minimum = minimum;

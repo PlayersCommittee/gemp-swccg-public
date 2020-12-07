@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Set: Cloud City
- * Type: Interupt
+ * Type: Interrupt
  * Subtype: Used or Lost
  * Title: Computer Interface
  */

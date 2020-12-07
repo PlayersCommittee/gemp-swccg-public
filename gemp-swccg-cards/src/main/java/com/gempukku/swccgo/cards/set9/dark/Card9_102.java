@@ -37,7 +37,7 @@ public class Card9_102 extends AbstractImperial {
         setLore("Piett's nephew. Once granted audience with Emperor. On fast-track to promotion. Absolutely fearless spy.");
         setGameText("Adds 2 to power of anything he pilots. While he controls opponent's non-battleground location, opponent generates no Force here. While he occupies opponent's Subjugated system, Liberation is flipped and Local Uprising may not be flipped.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.SPY);
+        addKeywords(Keyword.SPY, Keyword.CAPTAIN);
     }
 
     @Override

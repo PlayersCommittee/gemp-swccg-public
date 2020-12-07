@@ -93,7 +93,7 @@ public class TakeCardsIntoHandFromUsedPileEffect extends TakeCardsIntoHandFromPi
      * @param cards the cards
      * @param hidden true if cards are not revealed, otherwise false
      */
-    protected TakeCardsIntoHandFromUsedPileEffect(Action action, String playerId, Collection<PhysicalCard> cards, boolean hidden) {
+    public TakeCardsIntoHandFromUsedPileEffect(Action action, String playerId, Collection<PhysicalCard> cards, boolean hidden) {
         super(action, playerId, Zone.USED_PILE, playerId, cards, hidden, false);
     }
 

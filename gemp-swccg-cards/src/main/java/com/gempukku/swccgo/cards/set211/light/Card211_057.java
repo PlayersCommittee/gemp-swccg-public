@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Set 11
+ * Set: Set 11
  * Type: Character
  * Subtype: Alien
  * Title: Maz Kanata
@@ -31,7 +31,7 @@ public class Card211_057 extends AbstractAlien {
         setLore("Female Information broker and leader");
         // Text was updated sometime around 7/5/2019
         setGameText("[Pilot] 1. Opponent's total battle destiny is -1 here. During your turn, may reveal the top three cards of your Reserve Deck, take one alien into hand (if possible), and shuffle your Reserve Deck.");
-        addPersona(Persona.Maz);
+        addPersona(Persona.MAZ);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_11);
         addKeywords(Keyword.FEMALE, Keyword.INFORMATION_BROKER, Keyword.LEADER);
     }
