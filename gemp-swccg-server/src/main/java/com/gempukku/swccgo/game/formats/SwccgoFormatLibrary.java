@@ -41,11 +41,10 @@ public class SwccgoFormatLibrary {
 
                     final DefaultSwccgFormat format = new DefaultSwccgFormat(library, name, downloadBattlegroundRule, jpSealedRule, playtesting);
 
-                    Boolean reducedDeckSize = (Boolean) formatDef.get("reducedDeckSize");
-                    if (reducedDeckSize == null)
-                        reducedDeckSize = false;
-                    if (reducedDeckSize)
-                        format.setRequiredDeckSize(40);
+                    Long deckSize = (Long) formatDef.get("deckSize");
+                    if (deckSize == null)
+                        deckSize = new Long(60);
+                    format.setRequiredDeckSize(deckSize.intValue());
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
                     for (Object set : sets)

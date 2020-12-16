@@ -5,10 +5,7 @@ import com.gempukku.swccgo.cards.packs.SetRarity;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.game.CardCollection;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class RandomFoilPack implements PackagedCardProduct {
     private List<String> _availableCards = new ArrayList<String>();
@@ -43,6 +40,19 @@ public class RandomFoilPack implements PackagedCardProduct {
     public List<CardCollection.Item> openPackage() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         final String cardBlueprintId = _availableCards.get(new Random().nextInt(_availableCards.size())) + "*";
+        result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
+        return result;
+    }
+
+    @Override
+    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<String> availableWithExclusions = new ArrayList<String>();
+        availableWithExclusions.addAll(_availableCards);
+        for(String s:exclusions) {
+            availableWithExclusions.remove(s);
+        }
+        final String cardBlueprintId = availableWithExclusions.get(new Random().nextInt(_availableCards.size())) + "*";
         result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
         return result;
     }

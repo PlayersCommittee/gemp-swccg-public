@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.league;
 
 import com.gempukku.swccgo.game.CardCollection;
+import com.gempukku.swccgo.game.CubeCardCollection;
 import com.gempukku.swccgo.game.DefaultCardCollection;
 import com.gempukku.swccgo.game.MutableCardCollection;
 import com.gempukku.swccgo.packagedProduct.ProductName;
@@ -24,6 +25,8 @@ public class SealedLeagueProduct {
         createJpSealed();
         createEndorDsIISealed();
         createEpisodeISealed();
+        createWattosCubeWithObjective();
+        createWattosCubeWithFixed();
     }
 
     /**
@@ -144,6 +147,39 @@ public class SealedLeagueProduct {
         episodeISealed.add(secondWeek);
 
         _collections.put(SealedLeagueType.EPISODE_I_SEALED.getSealedCode(), episodeISealed);
+    }
+
+    /**
+     * Creates the collection of products to use for Watto's Cube with Objective Packs
+     */
+    private void createWattosCubeWithObjective() {
+        List<CardCollection> cube = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new CubeCardCollection();
+//        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 2);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 5);
+//        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 2);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 5);
+        cube.add(firstWeek);
+
+
+        _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_OBJECTIVE_PACKS.getSealedCode(), cube);
+    }
+
+    /**
+     * Creates the collection of products to use for Watto's Cube with Objective Packs
+     */
+    private void createWattosCubeWithFixed() {
+        List<CardCollection> cube = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        firstWeek.addItem(ProductName.CUBE_FIXED_PACK_DARK, 1);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 6);
+        firstWeek.addItem(ProductName.CUBE_FIXED_PACK_LIGHT, 1);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 6);
+        cube.add(firstWeek);
+
+        _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_FIXED.getSealedCode(), cube);
     }
 
     /**

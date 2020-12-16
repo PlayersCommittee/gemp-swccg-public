@@ -8,6 +8,7 @@ import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Provides the base implementation for a booster pack of cards.
@@ -78,5 +79,10 @@ public abstract class BasePackagedCardProduct implements PackagedCardProduct {
      */
     protected void addProducts(List<CardCollection.Item> result, String product, int count) {
         result.add(CardCollection.Item.createItem(product, count));
+    }
+
+    @Override
+    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+        return openPackage();
     }
 }

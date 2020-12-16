@@ -186,6 +186,13 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct("(S)Enhanced Premiere Pack Choice -- Dark", new FixedPackBox("(S)Enhanced Premiere Pack Choice -- Dark"));
             packStorage.addPackagedProduct("(S)Enhanced Premiere Pack Choice -- Light", new FixedPackBox("(S)Enhanced Premiere Pack Choice -- Light"));
 
+            // Add Cube Packs
+            product = new WattosCubeDraftPack(library, "Dark");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeDraftPack(library, "Light");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+
+
             return packStorage;
         } catch (IOException exp) {
             _logger.error("Error while creating resource", exp);

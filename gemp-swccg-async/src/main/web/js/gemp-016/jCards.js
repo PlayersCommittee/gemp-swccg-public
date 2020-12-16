@@ -3432,6 +3432,13 @@ var packBlueprints = {
     "Premiere Intro Two-Player Game":"/gemp-swccg/images/packs/premiere_intro_two_player_game.png",
     "ESB Intro Two-Player Game":"/gemp-swccg/images/packs/esb_intro_two_player_game.png",
 
+    "Watto's Cube Objective Pack (Dark)":"/gemp-swccg/images/packs/wattos_cube_objective_pack_dark.png",
+    "Watto's Cube Objective Pack (Light)":"/gemp-swccg/images/packs/wattos_cube_objective_pack_light.png",
+    "Watto's Cube Draft Pack (Dark)":"/gemp-swccg/images/packs/wattos_cube_draft_pack_dark.png",
+    "Watto's Cube Draft Pack (Light)":"/gemp-swccg/images/packs/wattos_cube_draft_pack_light.png",
+    "Watto's Cube Fixed Pack (Dark)":"/gemp-swccg/images/packs/wattos_cube_fixed_pack_dark.png",
+    "Watto's Cube Fixed Pack (Light)":"/gemp-swccg/images/packs/wattos_cube_fixed_pack_light.png",
+
     "(S)Booster Choice -- Non-Reflections":"/gemp-swccg/images/packs/booster_selection.png",
     "(S)Booster Choice -- Reflections":"/gemp-swccg/images/packs/booster_selection.png",
     "(S)Enhanced Cloud City Pack Choice":"/gemp-swccg/images/packs/booster_selection.png",

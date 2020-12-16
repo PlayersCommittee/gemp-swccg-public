@@ -5,10 +5,7 @@ import com.gempukku.swccgo.game.CardCollection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FixedPackBox implements PackagedCardProduct {
     private Map<String, Integer> _contents = new LinkedHashMap<String, Integer>();
@@ -56,5 +53,10 @@ public class FixedPackBox implements PackagedCardProduct {
             result.add(CardCollection.Item.createItem(blueprintId, contentsEntry.getValue()));
         }
         return result;
+    }
+
+    @Override
+    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+        return null;
     }
 }
