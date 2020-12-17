@@ -63,6 +63,11 @@ public class SwccgoFormatLibrary {
                             format.addBannedCard((String) bannedCard);
                         }
 
+                    String bannedListLink = (String) formatDef.get("bannedListLink");
+                    if (bannedListLink != null) {
+                        format.addBannedListLink(bannedListLink);
+                    }
+
                     JSONArray bannedIcons = (JSONArray) formatDef.get("bannedIcons");
                     if (bannedIcons != null)
                         for (Object bannedIcon : bannedIcons) {
