@@ -374,6 +374,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     result.append(expansionSet.getHumanReadable() + ", ");
                 }
             }
+            result.setLength(result.length() - 2);
             result.append("</li>");
             if (!swccgFormat.getBannedIcons().isEmpty()) {
                 result.append("<li>Icons not allowed: ");
@@ -383,16 +384,25 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                         result.append("[" + icon.getHumanReadable() + "], ");
                     }
                 }
+                result.setLength(result.length() - 2);
                 result.append("</li>");
             }
             if (!swccgFormat.getBannedCards().isEmpty()) {
-                result.append("<li>X-listed: ");
-                for (String blueprintId : swccgFormat.getBannedCards()) {
-                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                    result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
+                if(swccgFormat.getBannedListLink()==null) {
+                    result.append("<li>X-listed: ");
+                    for (String blueprintId : swccgFormat.getBannedCards()) {
+                        SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                        SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
+                        result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
+                    }
+                    result.setLength(result.length() - 2);
+                    result.append("</li>");
+                } else {
+                    result.append("<li>List of X-listed cards: <a href='");
+                    result.append(swccgFormat.getBannedListLink()).append("'>");
+                    result.append(swccgFormat.getBannedListLink());
+                    result.append("</a></li>");
                 }
-                result.append("</li>");
             }
             if (!swccgFormat.getRestrictedCards().isEmpty()) {
                 result.append("<li>R-listed: ");
@@ -401,6 +411,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
                     result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
                 }
+                result.setLength(result.length() - 2);
                 result.append("</li>");
             }
             if (!swccgFormat.getValidCards().isEmpty()) {
@@ -465,13 +476,21 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                 result.append("</li>");
             }
             if (!swccgFormat.getBannedCards().isEmpty()) {
-                result.append("<li>X-listed: ");
-                for (String blueprintId : swccgFormat.getBannedCards()) {
-                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                    result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
+                if(swccgFormat.getBannedListLink()==null) {
+                    result.append("<li>X-listed: ");
+                    for (String blueprintId : swccgFormat.getBannedCards()) {
+                        SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                        SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
+                        result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
+                    }
+                    result.setLength(result.length() - 2);
+                    result.append("</li>");
+                } else {
+                    result.append("<li>List of X-listed cards: <a href='");
+                    result.append(swccgFormat.getBannedListLink()).append("'>");
+                    result.append(swccgFormat.getBannedListLink());
+                    result.append("</a></li>");
                 }
-                result.append("</li>");
             }
             if (!swccgFormat.getRestrictedCards().isEmpty()) {
                 result.append("<li>R-listed: ");
@@ -480,6 +499,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
                     result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
                 }
+                result.setLength(result.length()-2);
                 result.append("</li>");
             }
             if (!swccgFormat.getValidCards().isEmpty()) {
@@ -489,6 +509,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
                     result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
                 }
+                result.setLength(result.length()-2);
                 result.append("</li>");
             }
             if (swccgFormat.hasDownloadBattlegroundRule()) {

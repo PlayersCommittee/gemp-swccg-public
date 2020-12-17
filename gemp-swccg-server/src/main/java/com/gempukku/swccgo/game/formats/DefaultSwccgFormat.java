@@ -26,6 +26,7 @@ public class DefaultSwccgFormat implements SwccgFormat {
     private List<Integer> _validSets = new ArrayList<Integer>();
     private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
     private List<SwccgCardBlueprint> _allCardBlueprints;
+    private String _bannedListLink;
 
     public DefaultSwccgFormat(SwccgCardBlueprintLibrary library, String name, boolean downloadBattlegroundRule, boolean jpSealedRule, boolean playtesting) {
         _library = library;
@@ -110,6 +111,14 @@ public class DefaultSwccgFormat implements SwccgFormat {
                 _bannedCards.add(set + "_" + i);
         } else
             _bannedCards.add(baseBlueprintId);
+    }
+
+    public void addBannedListLink(String bannedListLink) {
+        _bannedListLink = bannedListLink;
+    }
+
+    public String getBannedListLink() {
+        return _bannedListLink;
     }
 
     protected void addRestrictedCard(String baseBlueprintId) {
