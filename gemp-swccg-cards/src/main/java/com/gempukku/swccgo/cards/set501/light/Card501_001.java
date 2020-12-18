@@ -16,15 +16,15 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromLostPileEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.*;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
 import java.util.Collection;
@@ -60,12 +60,8 @@ public class Card501_001 extends AbstractResistance {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-
-        System.out.println("huh");
         GameTextActionId gameTextActionId1 = GameTextActionId.REY_ALL_OF_THE_JEDI__CHOOSE_CARDS_IN_LOST_PILE;
-        System.out.println(game.getGameState().getCurrentPhase().getHumanReadable());
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId1, Phase.CONTROL)) {
-            System.out.println("what");
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
                 action.setText("Choose cards from Lost Pile");
                 // Update usage limit(s)
@@ -76,16 +72,28 @@ public class Card501_001 extends AbstractResistance {
                     @Override
                     protected void cardsSelected(SwccgGame g, final Collection<PhysicalCard> selectedCards) {
                         //probably need to make a new effect and use ArbitraryCardsSelectionDecision in it
-                        action.appendEffect(new ChooseCardEffect(action, game.getOpponent(playerId), "Choose a card to place out of play. The other will go to your opponent's hand.", selectedCards) {
-                            protected void cardSelected(PhysicalCard cardSelected) {
-                                action.appendEffect(new PlaceCardOutOfPlayFromLostPileEffect(action, game.getOpponent(playerId), playerId, cardSelected, false));
-                                for(PhysicalCard card: selectedCards) {
-                                    if(!card.equals(cardSelected)) {
-                                        action.appendEffect(new RetrieveCardIntoHandEffect(action, playerId, card));
+                        game.getUserFeedback().sendAwaitingDecision(game.getOpponent(_playerId),
+                                new ArbitraryCardsSelectionDecision("Choose a card to place out of play. Your opponent retrieves the other into hand.",
+                                        selectedCards, selectedCards, 1, 1) {
+                                    @Override
+                                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                                        List<PhysicalCard> cardsToPlaceOutOfPlay = getSelectedCardsByResponse(result);
+                                        if (!cardsToPlaceOutOfPlay.isEmpty()) {
+                                            PhysicalCard cardToPlaceOutOfPlay = cardsToPlaceOutOfPlay.iterator().next();
+                                            if (cardToPlaceOutOfPlay != null) {
+                                                action.appendEffect(
+                                                        new PlaceCardOutOfPlayFromOffTableEffect(action, cardToPlaceOutOfPlay));
+                                            }
+                                            for(PhysicalCard card: selectedCards) {
+                                                if(!card.equals(cardToPlaceOutOfPlay)) {
+                                                    action.appendEffect(
+                                                            new RetrieveCardIntoHandEffect(action, playerId, false, card)
+                                                    );
+                                                }
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                        });
+                                });
                     }
                 });
 
