@@ -83,6 +83,7 @@ public enum Persona implements Filterable {
     PEROSEI("Perosei"),
     PIETT("Piett"),
     PLO("Plo Koon"),
+    PRE_VIZSLA("Pre Vizsla"),
     PROXIMA("Proxima"),
     PRYDE("Pryde"),
     PUCK("Puck"),
