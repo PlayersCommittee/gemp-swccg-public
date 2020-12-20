@@ -156,10 +156,10 @@ public class SealedLeagueProduct {
         List<CardCollection> cube = new ArrayList<CardCollection>();
 
         MutableCardCollection firstWeek = new CubeCardCollection();
-//        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 2);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 5);
-//        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 2);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 5);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 3);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 8);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 3);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 8);
         cube.add(firstWeek);
 
 
@@ -174,9 +174,9 @@ public class SealedLeagueProduct {
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
         firstWeek.addItem(ProductName.CUBE_FIXED_PACK_DARK, 1);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 6);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 10);
         firstWeek.addItem(ProductName.CUBE_FIXED_PACK_LIGHT, 1);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 6);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 10);
         cube.add(firstWeek);
 
         _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_FIXED.getSealedCode(), cube);

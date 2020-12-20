@@ -191,6 +191,14 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new WattosCubeDraftPack(library, "Light");
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeFixedPack(library, "Dark");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeFixedPack(library, "Light");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeObjectivePack(library, "Dark");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeObjectivePack(library, "Light");
+            packStorage.addPackagedProduct(product.getProductName(), product);
 
 
             return packStorage;
