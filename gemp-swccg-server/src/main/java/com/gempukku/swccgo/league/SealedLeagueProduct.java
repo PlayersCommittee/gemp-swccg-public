@@ -156,12 +156,18 @@ public class SealedLeagueProduct {
         List<CardCollection> cube = new ArrayList<CardCollection>();
 
         MutableCardCollection firstWeek = new CubeCardCollection();
-        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 3);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 8);
-        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 3);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 8);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 2);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 7);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 2);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 7);
         cube.add(firstWeek);
 
+        MutableCardCollection secondWeek = new CubeCardCollection();
+        secondWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 1);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 2);
+        secondWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 1);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 2);
+        cube.add(secondWeek);
 
         _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_OBJECTIVE_PACKS.getSealedCode(), cube);
     }
@@ -174,10 +180,15 @@ public class SealedLeagueProduct {
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
         firstWeek.addItem(ProductName.CUBE_FIXED_PACK_DARK, 1);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 10);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 8);
         firstWeek.addItem(ProductName.CUBE_FIXED_PACK_LIGHT, 1);
-        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 10);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 8);
         cube.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 3);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 3);
+        cube.add(secondWeek);
 
         _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_FIXED.getSealedCode(), cube);
     }
