@@ -33,5 +33,5 @@ public interface PackagedCardProduct {
      * @param exclusions the set of items to be excluded
      * @return the card collection items contained in the packaged card product.
      */
-    List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions);
+    List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions);
 }

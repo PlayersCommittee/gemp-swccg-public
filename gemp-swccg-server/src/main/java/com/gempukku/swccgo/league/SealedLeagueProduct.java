@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.league;
 
 import com.gempukku.swccgo.game.CardCollection;
-import com.gempukku.swccgo.game.CubeCardCollection;
 import com.gempukku.swccgo.game.DefaultCardCollection;
 import com.gempukku.swccgo.game.MutableCardCollection;
 import com.gempukku.swccgo.packagedProduct.ProductName;
@@ -155,14 +154,14 @@ public class SealedLeagueProduct {
     private void createWattosCubeWithObjective() {
         List<CardCollection> cube = new ArrayList<CardCollection>();
 
-        MutableCardCollection firstWeek = new CubeCardCollection();
-        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 2);
+        MutableCardCollection firstWeek = new DefaultCardCollection(true);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 15);
         firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 7);
-        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 2);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 15);
         firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 7);
         cube.add(firstWeek);
 
-        MutableCardCollection secondWeek = new CubeCardCollection();
+        MutableCardCollection secondWeek = new DefaultCardCollection(true);
         secondWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 1);
         secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 2);
         secondWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 1);
@@ -178,14 +177,14 @@ public class SealedLeagueProduct {
     private void createWattosCubeWithFixed() {
         List<CardCollection> cube = new ArrayList<CardCollection>();
 
-        MutableCardCollection firstWeek = new DefaultCardCollection();
+        MutableCardCollection firstWeek = new DefaultCardCollection(true);
         firstWeek.addItem(ProductName.CUBE_FIXED_PACK_DARK, 1);
         firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 8);
         firstWeek.addItem(ProductName.CUBE_FIXED_PACK_LIGHT, 1);
         firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 8);
         cube.add(firstWeek);
 
-        MutableCardCollection secondWeek = new DefaultCardCollection();
+        MutableCardCollection secondWeek = new DefaultCardCollection(true);
         secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 3);
         secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 3);
         cube.add(secondWeek);

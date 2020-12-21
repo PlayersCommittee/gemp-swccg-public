@@ -82,7 +82,7 @@ public abstract class BasePackagedCardProduct implements PackagedCardProduct {
     }
 
     @Override
-    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
         return openPackage();
     }
 }

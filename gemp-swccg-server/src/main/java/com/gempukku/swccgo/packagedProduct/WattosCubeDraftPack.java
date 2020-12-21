@@ -2,6 +2,7 @@ package com.gempukku.swccgo.packagedProduct;
 
 import com.gempukku.swccgo.cards.packs.RarityReader;
 import com.gempukku.swccgo.cards.packs.SetRarity;
+import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.game.CardCollection;
@@ -51,16 +52,17 @@ public class WattosCubeDraftPack extends BasePackagedCardProduct {
      */
     @Override
     public List<CardCollection.Item> openPackage() {
-        return openPackageWithExclusions(Collections.<String>emptySet());
+        System.out.println("debug WattosCubeDraftPack: not using exclusions");
+        return openPackageWithExclusions(Collections.<String>emptyList());
     }
 
-    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         addRandomCardWithExclusions(result, DRAFT_PACK_CARD_COUNT, exclusions);
         return result;
     }
 
-    private void addRandomCardWithExclusions(List<CardCollection.Item> result, int count,Set<String> exclusions) {
+    private void addRandomCardWithExclusions(List<CardCollection.Item> result, int count,List<String> exclusions) {
         List<String> possibleCards = new ArrayList<String>();
         switch(_side) {
             case "Dark":
@@ -71,9 +73,22 @@ public class WattosCubeDraftPack extends BasePackagedCardProduct {
                 break;
         }
         filterNonExistingCards(possibleCards);
+
+
+        //the exclusions should not include the cards that were received in the objective packs
+        List<String> removeFromExclusionsForObjectivePacks = new LinkedList<String>();
+        WattosCubeObjectivePack objectivePack = new WattosCubeObjectivePack(_library, "Dark");
+
+        removeFromExclusionsForObjectivePacks.addAll(objectivePack.getRelatedCards(exclusions));
+System.out.println("debug draft pack: size of removeFromExclusions "+removeFromExclusionsForObjectivePacks.size());
+        for(String s:removeFromExclusionsForObjectivePacks) {
+            exclusions.remove(s);
+        }
+System.out.println("debug draft pack: cards in list pre-exclusions "+possibleCards.size());
         for(String s:exclusions) {
             possibleCards.remove(s);
         }
+        System.out.println("debug draft pack: cards in list post-exclusions "+possibleCards.size());
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }

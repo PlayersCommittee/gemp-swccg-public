@@ -45,7 +45,7 @@ public class RandomFoilPack implements PackagedCardProduct {
     }
 
     @Override
-    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         List<String> availableWithExclusions = new ArrayList<String>();
         availableWithExclusions.addAll(_availableCards);

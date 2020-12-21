@@ -8,6 +8,7 @@ public class SumCardCollection implements CardCollection {
     private List<CardCollection> _cardCollections;
 
     public SumCardCollection(List<CardCollection> cardCollections) {
+        System.out.println("debug: creating SumCardCollection");
         _cardCollections = cardCollections;
     }
 
@@ -45,5 +46,10 @@ public class SumCardCollection implements CardCollection {
             sum += cardCollection.getItemCount(blueprintId);
 
         return sum;
+    }
+
+    @Override
+    public boolean excludePackDuplicates() {
+        return false;
     }
 }

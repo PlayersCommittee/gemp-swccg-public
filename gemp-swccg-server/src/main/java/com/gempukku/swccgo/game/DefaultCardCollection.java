@@ -7,13 +7,27 @@ import java.util.*;
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Item> _counts = new LinkedHashMap<String, Item>();
     private int _currency;
+    private boolean _excludePackDuplicates;
 
     public DefaultCardCollection() {
+        this(false);
+    }
+
+    public DefaultCardCollection(boolean excludePackDuplicates) {
+        _excludePackDuplicates = excludePackDuplicates;
+        System.out.println("debug: creating DefaultCardCollection("+String.valueOf(_excludePackDuplicates)+")");
     }
 
     public DefaultCardCollection(CardCollection cardCollection) {
+        _excludePackDuplicates = cardCollection.excludePackDuplicates();
         _counts.putAll(cardCollection.getAll());
         _currency = cardCollection.getCurrency();
+        System.out.println("debug: creating DefaultCardCollection(cardCollection,"+String.valueOf(_excludePackDuplicates)+")");
+    }
+
+    @Override
+    public boolean excludePackDuplicates() {
+        return _excludePackDuplicates;
     }
 
     @Override
@@ -61,6 +75,9 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public synchronized CardCollection openPack(String packId, String selection, PackagedProductStorage packagedProductStorage) {
+        if(_excludePackDuplicates) {
+            System.out.println("debug: should be doing something different for Cube");
+        }
         Item count = _counts.get(packId);
         if (count == null)
             return null;
@@ -71,14 +88,18 @@ public class DefaultCardCollection implements MutableCardCollection {
                     packContents = new LinkedList<Item>();
                     packContents.add(Item.createItem(selection, 1));
                 }
+            } else if(_excludePackDuplicates) {
+                System.out.println("debug: got to the second part");
+                packContents = packagedProductStorage.openPackagedProductWithExclusions(packId, getExclusions());
             } else {
                 packContents = packagedProductStorage.openPackagedProduct(packId);
             }
 
+
             if (packContents == null)
                 return null;
 
-            DefaultCardCollection packCollection = new DefaultCardCollection();
+            DefaultCardCollection packCollection = new DefaultCardCollection(_excludePackDuplicates);
 
             for (Item itemFromPack : packContents) {
                 addItem(itemFromPack.getBlueprintId(), itemFromPack.getCount());
@@ -111,5 +132,20 @@ public class DefaultCardCollection implements MutableCardCollection {
                 return true;
         }
         return false;
+    }
+
+    private List<String> getExclusions() {
+        if(!_excludePackDuplicates)
+            return Collections.emptyList();
+
+        List<String> result = new LinkedList<String>();
+        for(String item: _counts.keySet()) {
+            int count = getItemCount(item);
+            for(int i=0;i<count;i++) {
+                result.add(item);
+            }
+        }
+
+        return result;
     }
 }

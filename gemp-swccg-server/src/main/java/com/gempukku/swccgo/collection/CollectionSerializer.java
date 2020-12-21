@@ -104,6 +104,70 @@ public class CollectionSerializer {
     }
 
     public void serializeCollection(CardCollection collection, OutputStream outputStream) throws IOException {
+        byte version = 2;
+        outputStream.write(version);
+
+        int currency = collection.getCurrency();
+        printInt(outputStream, currency, 3);
+
+        boolean excludePackDuplicates = collection.excludePackDuplicates();
+        printInt(outputStream, (excludePackDuplicates?1:0), 1);
+
+        int packTypes = _doubleByteCountItems.size();
+        printInt(outputStream, packTypes, 1);
+
+        final Map<String, CardCollection.Item> collectionCounts = collection.getAll();
+        for (String itemId : _doubleByteCountItems) {
+            final CardCollection.Item count = collectionCounts.get(itemId);
+            if (count == null) {
+                printInt(outputStream, 0, 2);
+            } else {
+                int itemCount = Math.min((int) Math.pow(255, 2), count.getCount());
+                printInt(outputStream, itemCount, 2);
+            }
+        }
+
+        Map<String,Integer> cardCountsNonFoil = new HashMap<String,Integer>();
+        Map<String,Integer> cardCountsFoil = new HashMap<String,Integer>();
+
+        for (String itemId : _singleByteCountItems) {
+            if(!itemId.endsWith("*")) {
+                final CardCollection.Item count = collectionCounts.get(itemId);
+                final CardCollection.Item countFoil = collectionCounts.get(itemId+"*");
+                if (count != null || countFoil != null) {
+                    // Apply the maximum of 255
+                    int nonFoilCount = Math.min(255, count == null? 0: count.getCount());
+                    int foilCount = Math.min(255, countFoil == null? 0: countFoil.getCount());
+
+                    cardCountsNonFoil.put(itemId, nonFoilCount);
+                    cardCountsFoil.put(itemId, foilCount);
+                }
+            }
+        }
+
+        //number of cards with non-zero counts since cards with zero in both aren't inserted into the map
+        printInt(outputStream, cardCountsNonFoil.size(), 2);
+
+        for(String itemId : cardCountsNonFoil.keySet()) {
+            try {
+                int setId = getSetId(itemId);
+                int cardId = getCardId(itemId);
+                int nonFoilCount = cardCountsNonFoil.get(itemId);
+                int foilCount = cardCountsFoil.get(itemId);
+
+                printInt(outputStream, setId, 2);
+                printInt(outputStream, cardId, 2);
+                printInt(outputStream, nonFoilCount, 1);
+                printInt(outputStream, foilCount, 1);
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public void serializeCollectionVer1(CardCollection collection, OutputStream outputStream) throws IOException {
         byte version = 1;
         outputStream.write(version);
 
@@ -206,9 +270,57 @@ public class CollectionSerializer {
             return deserializeCollectionVer0(new BufferedInputStream(inputStream));
         } else if (version == 1) {
             return deserializeCollectionVer1(new BufferedInputStream(inputStream));
+        } else if (version == 2) {
+            return deserializeCollectionVer2(new BufferedInputStream(inputStream));
         } else {
             throw new IllegalStateException("Unknown version of serialized collection: " + version);
         }
+    }
+
+    private MutableCardCollection deserializeCollectionVer2(BufferedInputStream inputStream) throws IOException {
+
+        int byte1 = inputStream.read();
+        int byte2 = inputStream.read();
+        int byte3 = inputStream.read();
+        int currency = convertToInt(byte1, byte2, byte3);
+
+        int excludePackDuplicatesInt = inputStream.read();
+        boolean excludePackDuplicates = (excludePackDuplicatesInt==1);
+
+        DefaultCardCollection collection = new DefaultCardCollection(excludePackDuplicates);
+        collection.addCurrency(currency);
+
+
+        int packTypes = convertToInt(inputStream.read());
+
+        byte[] packs = new byte[packTypes * 2];
+
+        int read = inputStream.read(packs);
+        if (read != packTypes * 2)
+            throw new IllegalStateException("Under-read the packagedProduct information");
+        for (int i = 0; i < packTypes; i++) {
+            int count = convertToInt(packs[i * 2], packs[i * 2 + 1]);
+            if (count > 0)
+                collection.addItem(_doubleByteCountItems.get(i), count);
+        }
+
+        int cardBytes = convertToInt(inputStream.read(), inputStream.read());
+
+        for(int i=0; i<cardBytes; i++) {
+            int setId = convertToInt(inputStream.read(), inputStream.read());
+            int cardId = convertToInt(inputStream.read(), inputStream.read());
+            int nonFoilCount = inputStream.read();
+            int foilCount = inputStream.read();
+
+            String blueprintId = setId + "_" + cardId;
+            if (nonFoilCount > 0)
+                collection.addItem(blueprintId, nonFoilCount);
+            if (foilCount > 0)
+                collection.addItem(blueprintId + "*", foilCount);
+
+        }
+
+        return collection;
     }
 
     private MutableCardCollection deserializeCollectionVer1(BufferedInputStream inputStream) throws IOException {

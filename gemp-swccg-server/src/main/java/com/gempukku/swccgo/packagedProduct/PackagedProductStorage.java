@@ -21,7 +21,7 @@ public class PackagedProductStorage {
         return packagedProduct.openPackage();
     }
 
-    public List<CardCollection.Item> openPackagedProductWithExclusions(String productName, Set<String> exclusions) {
+    public List<CardCollection.Item> openPackagedProductWithExclusions(String productName, List<String> exclusions) {
         PackagedCardProduct packagedProduct = _packagedProducts.get(productName);
         if (packagedProduct == null)
             return null;

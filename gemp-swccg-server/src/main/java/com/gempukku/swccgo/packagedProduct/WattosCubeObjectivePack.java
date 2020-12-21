@@ -46,16 +46,17 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
      */
     @Override
     public List<CardCollection.Item> openPackage() {
-        return openPackageWithExclusions(Collections.<String>emptySet());
+        System.out.println("debug WattosCubeObjectivePack: not using exclusions");
+        return openPackageWithExclusions(Collections.<String>emptyList());
     }
 
-    public List<CardCollection.Item> openPackageWithExclusions(Set<String> exclusions) {
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         addRandomObjectiveAndRelatedCardsWithExclusions(result, 1, exclusions);
         return result;
     }
 
-    private void addRandomObjectiveAndRelatedCardsWithExclusions(List<CardCollection.Item> result, int count,Set<String> exclusions) {
+    private void addRandomObjectiveAndRelatedCardsWithExclusions(List<CardCollection.Item> result, int count,List<String> exclusions) {
         List<String> possibleCards = new ArrayList<String>();
         switch(_side) {
             case "Dark":
@@ -66,6 +67,11 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                 break;
         }
         filterNonExistingCards(possibleCards);
+        if(exclusions.size()>0) {
+            System.out.println("debug: WattosCubeObjectivePack trying to exclude things");
+        } else {
+            System.out.println("debug: WattosCubeObjectivePack no exclusions");
+        }
         for(String s:exclusions) {
             possibleCards.remove(s);
         }
@@ -79,7 +85,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
         addCards(result, relatedCards, false);
     }
 
-    public List<String> addObjectives(String side, Set<String> exclusions) {
+    public List<String> addObjectives(String side, List<String> exclusions) {
         List<String> possibleCards = new ArrayList<String>();
         switch(side) {
             case "Dark":
