@@ -66,7 +66,6 @@ public class NewSealedLeagueData implements LeagueData {
      */
     @Override
     public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
-        System.out.println("NewSealedLeagueData: joining league");
         MutableCardCollection startingCollection = new DefaultCardCollection(excludePackDuplicates(_leagueType));
 
         for (int i = 0; i < _series.size(); ++i) {

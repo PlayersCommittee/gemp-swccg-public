@@ -60,21 +60,20 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
         List<String> possibleCards = new ArrayList<String>();
         switch(_side) {
             case "Dark":
-                possibleCards.addAll(addObjectives("Dark", exclusions));
+                possibleCards.addAll(getArchetypeDefiningCards("Dark", exclusions));
                 break;
             case "Light":
-                possibleCards.addAll(addObjectives("Light", exclusions));
+                possibleCards.addAll(getArchetypeDefiningCards("Light", exclusions));
                 break;
         }
-        filterNonExistingCards(possibleCards);
-        if(exclusions.size()>0) {
-            System.out.println("debug: WattosCubeObjectivePack trying to exclude things");
-        } else {
-            System.out.println("debug: WattosCubeObjectivePack no exclusions");
-        }
+
         for(String s:exclusions) {
-            possibleCards.remove(s);
+            if(getArchetypeDefiningCards(_side, Collections.<String>emptyList()).contains(s) && exclusions.containsAll(getRelatedCards(Collections.singletonList(s)))) {
+                possibleCards.remove(s);
+            }
         }
+
+        filterNonExistingCards(possibleCards);
 
         Collections.shuffle(possibleCards, _random);
         List<String> objectives = possibleCards.subList(0, Math.min(possibleCards.size(), count));
@@ -85,7 +84,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
         addCards(result, relatedCards, false);
     }
 
-    public List<String> addObjectives(String side, List<String> exclusions) {
+    public List<String> getArchetypeDefiningCards(String side, List<String> exclusions) {
         List<String> possibleCards = new ArrayList<String>();
         switch(side) {
             case "Dark":

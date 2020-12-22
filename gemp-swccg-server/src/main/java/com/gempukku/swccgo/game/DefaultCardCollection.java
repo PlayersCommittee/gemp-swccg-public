@@ -15,14 +15,12 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     public DefaultCardCollection(boolean excludePackDuplicates) {
         _excludePackDuplicates = excludePackDuplicates;
-        System.out.println("debug: creating DefaultCardCollection("+String.valueOf(_excludePackDuplicates)+")");
     }
 
     public DefaultCardCollection(CardCollection cardCollection) {
         _excludePackDuplicates = cardCollection.excludePackDuplicates();
         _counts.putAll(cardCollection.getAll());
         _currency = cardCollection.getCurrency();
-        System.out.println("debug: creating DefaultCardCollection(cardCollection,"+String.valueOf(_excludePackDuplicates)+")");
     }
 
     @Override
