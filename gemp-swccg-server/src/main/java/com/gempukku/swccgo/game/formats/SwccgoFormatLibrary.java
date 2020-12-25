@@ -43,7 +43,7 @@ public class SwccgoFormatLibrary {
 
                     Long deckSize = (Long) formatDef.get("deckSize");
                     if (deckSize == null)
-                        deckSize = new Long(60);
+                        deckSize = 60L;
                     format.setRequiredDeckSize(deckSize.intValue());
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
@@ -66,6 +66,12 @@ public class SwccgoFormatLibrary {
                     if (bannedIcons != null)
                         for (Object bannedIcon : bannedIcons) {
                             format.addBannedIcon((String) bannedIcon);
+                        }
+
+                    JSONArray bannedRarities = (JSONArray) formatDef.get("bannedRarities");
+                    if (bannedRarities != null)
+                        for (Object bannedRarity: bannedRarities) {
+                            format.addBannedRarity((String) bannedRarity);
                         }
 
                     JSONArray restrictedCards = (JSONArray) formatDef.get("restricted");

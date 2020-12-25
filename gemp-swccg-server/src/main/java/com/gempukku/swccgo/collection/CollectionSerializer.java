@@ -129,18 +129,22 @@ public class CollectionSerializer {
 
         Map<String,Integer> cardCountsNonFoil = new HashMap<String,Integer>();
         Map<String,Integer> cardCountsFoil = new HashMap<String,Integer>();
+        Map<String,Integer> cardCountsAlternateImage = new HashMap<String,Integer>();
 
         for (String itemId : _singleByteCountItems) {
-            if(!itemId.endsWith("*")) {
+            if(!itemId.endsWith("*") && !itemId.endsWith("^")) {
                 final CardCollection.Item count = collectionCounts.get(itemId);
                 final CardCollection.Item countFoil = collectionCounts.get(itemId+"*");
-                if (count != null || countFoil != null) {
+                final CardCollection.Item countAlternateImage = collectionCounts.get(itemId+"^");
+                if (count != null || countFoil != null || countAlternateImage != null) {
                     // Apply the maximum of 255
                     int nonFoilCount = Math.min(255, count == null? 0: count.getCount());
                     int foilCount = Math.min(255, countFoil == null? 0: countFoil.getCount());
+                    int alternateImageCount = Math.min(255, countAlternateImage == null? 0: countAlternateImage.getCount());
 
                     cardCountsNonFoil.put(itemId, nonFoilCount);
                     cardCountsFoil.put(itemId, foilCount);
+                    cardCountsAlternateImage.put(itemId, alternateImageCount);
                 }
             }
         }
@@ -192,7 +196,7 @@ public class CollectionSerializer {
         Map<String,Integer> cardCountsFoil = new HashMap<String,Integer>();
 
         for (String itemId : _singleByteCountItems) {
-            if(!itemId.endsWith("*")) {
+            if(!itemId.endsWith("*") && !itemId.endsWith("^")) {
                 final CardCollection.Item count = collectionCounts.get(itemId);
                 final CardCollection.Item countFoil = collectionCounts.get(itemId+"*");
                 if (count != null || countFoil != null) {
@@ -311,12 +315,15 @@ public class CollectionSerializer {
             int cardId = convertToInt(inputStream.read(), inputStream.read());
             int nonFoilCount = inputStream.read();
             int foilCount = inputStream.read();
+            int alternateImageCount = inputStream.read();
 
             String blueprintId = setId + "_" + cardId;
             if (nonFoilCount > 0)
                 collection.addItem(blueprintId, nonFoilCount);
             if (foilCount > 0)
                 collection.addItem(blueprintId + "*", foilCount);
+            if (alternateImageCount > 0)
+                collection.addItem(blueprintId + "^", alternateImageCount);
 
         }
 

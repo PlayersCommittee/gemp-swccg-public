@@ -47,7 +47,6 @@ public class WattosCubeDraftPack extends BasePackagedCardProduct {
      */
     @Override
     public List<CardCollection.Item> openPackage() {
-        System.out.println("debug WattosCubeDraftPack: not using exclusions");
         return openPackageWithExclusions(Collections.<String>emptyList());
     }
 
@@ -81,15 +80,15 @@ public class WattosCubeDraftPack extends BasePackagedCardProduct {
                 removeFromExclusionsForObjectivePacks.addAll(objectivePack.getRelatedCards(Collections.singletonList(archetype)));
             }
         }
-System.out.println("debug draft pack: size of removeFromExclusions "+removeFromExclusionsForObjectivePacks.size());
+
         for(String s:removeFromExclusionsForObjectivePacks) {
             exclusions.remove(s);
         }
-System.out.println("debug draft pack: cards in list pre-exclusions "+possibleCards.size());
+
         for(String s:exclusions) {
             possibleCards.remove(s);
         }
-        System.out.println("debug draft pack: cards in list post-exclusions "+possibleCards.size());
+
 
         filterNonExistingCards(possibleCards);
 

@@ -46,7 +46,6 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
      */
     @Override
     public List<CardCollection.Item> openPackage() {
-        System.out.println("debug WattosCubeObjectivePack: not using exclusions");
         return openPackageWithExclusions(Collections.<String>emptyList());
     }
 

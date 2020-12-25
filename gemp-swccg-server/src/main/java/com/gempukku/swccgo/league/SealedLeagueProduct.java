@@ -155,9 +155,9 @@ public class SealedLeagueProduct {
         List<CardCollection> cube = new ArrayList<CardCollection>();
 
         MutableCardCollection firstWeek = new DefaultCardCollection(true);
-        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 15);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 2);
         firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 7);
-        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 15);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 2);
         firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 7);
         cube.add(firstWeek);
 

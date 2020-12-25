@@ -8,7 +8,6 @@ public class SumCardCollection implements CardCollection {
     private List<CardCollection> _cardCollections;
 
     public SumCardCollection(List<CardCollection> cardCollections) {
-        System.out.println("debug: creating SumCardCollection");
         _cardCollections = cardCollections;
     }
 
