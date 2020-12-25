@@ -9,6 +9,7 @@ import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.draft.Draft;
 import com.gempukku.swccgo.draft.DraftChannelVisitor;
@@ -387,6 +388,17 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                 result.setLength(result.length() - 2);
                 result.append("</li>");
             }
+            if (!swccgFormat.getBannedRarities().isEmpty()) {
+                result.append("<li>Rarities not allowed: ");
+                for (String bannedRarity : swccgFormat.getBannedRarities()) {
+                    Rarity rarity = Rarity.getRarityFromString(bannedRarity);
+                    if (rarity != null) {
+                        result.append(rarity.getHumanReadable() + ", ");
+                    }
+                }
+                result.setLength(result.length()-2);
+                result.append("</li>");
+            }
             if (!swccgFormat.getBannedCards().isEmpty()) {
                 if(swccgFormat.getBannedListLink()==null) {
                     result.append("<li>X-listed: ");
@@ -478,6 +490,17 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     }
                 }
                 result.setLength(result.length() - 2);
+                result.append("</li>");
+            }
+            if (!swccgFormat.getBannedRarities().isEmpty()) {
+                result.append("<li>Rarities not allowed: ");
+                for (String bannedRarity : swccgFormat.getBannedRarities()) {
+                    Rarity rarity = Rarity.getRarityFromString(bannedRarity);
+                    if (rarity != null) {
+                        result.append(rarity.getHumanReadable() + ", ");
+                    }
+                }
+                result.setLength(result.length()-2);
                 result.append("</li>");
             }
             if (!swccgFormat.getBannedCards().isEmpty()) {
