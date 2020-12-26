@@ -24,6 +24,7 @@ public abstract class AbstractCharacter extends AbstractDeployable {
     private Float _maneuver;
     private Species _species;
     private boolean _onlyDeploysAsUndercoverSpy;
+    private boolean _onlyDeploysAsCapturedPrisoner;
     private boolean _mayDeployAsUndercoverSpy;
 
     /**
@@ -309,6 +310,14 @@ public abstract class AbstractCharacter extends AbstractDeployable {
     }
 
     /**
+     * Sets that the character deploys only as an captured prisoner.
+     * @param value true or false
+     */
+    protected final void setDeploysAsCapturedPrisoner(boolean value) {
+        _onlyDeploysAsCapturedPrisoner = value;
+    }
+
+    /**
      * Determines if the card only deploys as an undercover spy.
      * @param game the game
      * @param self the card
@@ -317,6 +326,17 @@ public abstract class AbstractCharacter extends AbstractDeployable {
     @Override
     public final boolean isOnlyDeploysAsUndercoverSpy(SwccgGame game, PhysicalCard self) {
         return _onlyDeploysAsUndercoverSpy;
+    }
+
+    /**
+     * Determines if the card only deploys as an captured prisoner.
+     * @param game the game
+     * @param self the card
+     * @return true or false
+     */
+    @Override
+    public final boolean isOnlyDeploysAsCapturedPrisoner(SwccgGame game, PhysicalCard self) {
+        return _onlyDeploysAsCapturedPrisoner;
     }
 
     /**
@@ -351,7 +371,7 @@ public abstract class AbstractCharacter extends AbstractDeployable {
      * @return the deploy to target filter based on the card type, subtype, etc.
      */
     @Override
-    protected final Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
+    protected Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
         // Card is being simultaneously deployed as pilot/driver, so skip normal filtering for where card can deploy, since
         // starship/vehicle is not yet in play and checking that card can deploy aboard that starship/vehicle is already
         // checked elsewhere.

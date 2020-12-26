@@ -378,7 +378,6 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard sourceCard = gameState.findCardByPermanentId(permSourceCardId);
-
                 return !sourceCard.getOwner().equals(physicalCard.getOwner());
             }
             @Override
@@ -9979,7 +9978,7 @@ public class Filters {
     /**
      * Filter that accepts weapons that are currently being fired by the specified card.
      *
-     * @param weaponUser the weapon user
+     * @param firedByFilter the weapon user
      * @return Filter
      */
     public static Filter weaponBeingFiredBy(final Filter firedByFilter) {
