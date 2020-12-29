@@ -43,17 +43,17 @@
 <body>
 	<div id="gameContainer">
 		<canvas id="unity-canvas" data-pixel-art=""></canvas>
-		<script src="Build/sharedweb.loader.js"></script>
+		<script src="Build/c4c07f153778d8abf1842ac44b3ff052.js"></script>
 		<script>
 			createUnityInstance(document.querySelector("#unity-canvas"), {
-				devicePixelRatio: 1.5,
-				dataUrl: "Build/sharedweb.data",
-				frameworkUrl: "Build/sharedweb.framework.js",
-				codeUrl: "Build/sharedweb.wasm",
+				devicePixelRatio: 1,
+				dataUrl: "Build/cfe6ebbb1e0b51f4b7ac36803f4e275e.data",
+				frameworkUrl: "Build/d2631117dcb70e5ba98f8a6afccb548b.js",
+				codeUrl: "Build/4ce912c9d0f53dbca216fcc9b6b9ce2f.wasm",
 				streamingAssetsUrl: "StreamingAssets",
 				companyName: "200 Monkeys",
 				productName: "GempArena",
-				productVersion: "1.3.8",
+				productVersion: "1.3.9",
 			}).then(function (instance) {
 				var canvas = instance.Module.canvas;
 				var container = canvas.parentElement;
@@ -96,4 +96,3 @@
 </body>
 
 </html>
-
