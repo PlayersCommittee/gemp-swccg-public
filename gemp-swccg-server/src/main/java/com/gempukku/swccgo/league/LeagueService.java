@@ -94,8 +94,14 @@ public class LeagueService {
         return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
-    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr, boolean skipCost) {
+    public boolean playerJoinsLeague(League league, Player player, String remoteAddr, boolean skipCost) {
+        return playerJoinsLeague(league, player, remoteAddr, skipCost, false);
+    }
+
+    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr, boolean skipCost, boolean addedByAdmin) {
         if (isPlayerInLeague(league, player))
+            return false;
+        if (league.getInvitationOnly()&&!addedByAdmin)
             return false;
         int cost = league.getCost();
         if (skipCost || _collectionsManager.removeCurrencyFromPlayerCollection("Joining "+league.getName()+" league", player, CollectionType.MY_CARDS, cost)) {

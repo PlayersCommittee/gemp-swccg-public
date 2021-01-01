@@ -19,9 +19,11 @@ public class League {
     private int _decisionTimeoutSeconds;
     private int _timePerPlayerMinutes;
     private LeagueData _leagueData;
+    private boolean _invitationOnly;
+    private String _registrationInfo;
 
 
-    public League(SwccgCardBlueprintLibrary library, int cost, String name, String type, String clazz, String parameters, int status, boolean allowSpectators, boolean allowTimeExtensions, boolean showPlayerNames, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
+    public League(SwccgCardBlueprintLibrary library, int cost, String name, String type, String clazz, String parameters, int status, boolean allowSpectators, boolean allowTimeExtensions, boolean showPlayerNames, boolean invitationOnly, String registrationInfo, int decisionTimeoutSeconds, int timePerPlayerMinutes) {
         _library = library;
         _cost = cost;
         _name = name;
@@ -34,6 +36,8 @@ public class League {
         _showPlayerNames = showPlayerNames;
         _decisionTimeoutSeconds = decisionTimeoutSeconds;
         _timePerPlayerMinutes = timePerPlayerMinutes;
+        _invitationOnly = invitationOnly;
+        _registrationInfo = registrationInfo;
     }
 
     public int getCost() {
@@ -53,6 +57,14 @@ public class League {
     public boolean getAllowTimeExtensions() { return _allowTimeExtensions; }
 
     public boolean getShowPlayerNames() { return _showPlayerNames; }
+
+    public boolean getInvitationOnly() { return _invitationOnly; }
+
+    public String getRegistrationInfo() {
+        if(_registrationInfo.toLowerCase().contains("starwarsccg.org") && !_registrationInfo.contains(" "))
+            return "<a href='"+_registrationInfo+"' target='_new'>"+_registrationInfo+"</a>";
+        return _registrationInfo;
+    }
 
     public int getDecisionTimeoutSeconds() { return _decisionTimeoutSeconds; }
 
