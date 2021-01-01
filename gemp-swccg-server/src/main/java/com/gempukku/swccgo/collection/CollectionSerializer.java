@@ -158,11 +158,13 @@ public class CollectionSerializer {
                 int cardId = getCardId(itemId);
                 int nonFoilCount = cardCountsNonFoil.get(itemId);
                 int foilCount = cardCountsFoil.get(itemId);
+                int alternateImageCount = cardCountsAlternateImage.get(itemId);
 
                 printInt(outputStream, setId, 2);
                 printInt(outputStream, cardId, 2);
                 printInt(outputStream, nonFoilCount, 1);
                 printInt(outputStream, foilCount, 1);
+                printInt(outputStream, alternateImageCount, 1);
 
             } catch (NumberFormatException e) {
                 e.printStackTrace();
