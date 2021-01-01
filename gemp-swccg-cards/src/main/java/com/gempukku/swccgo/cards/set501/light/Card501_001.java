@@ -35,7 +35,7 @@ public class Card501_001 extends AbstractResistance {
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_14);
         addKeywords(Keyword.FEMALE);
         addPersona(Persona.REY);
-        setTestingText("•Rey, All Of The Jedi");
+        setTestingText("Rey, All Of The Jedi");
     }
 
     @Override
