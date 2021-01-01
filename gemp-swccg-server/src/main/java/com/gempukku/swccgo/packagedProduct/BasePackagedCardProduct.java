@@ -8,7 +8,6 @@ import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Provides the base implementation for a booster pack of cards.

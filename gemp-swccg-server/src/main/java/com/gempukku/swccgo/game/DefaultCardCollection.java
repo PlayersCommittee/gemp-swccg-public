@@ -73,9 +73,6 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public synchronized CardCollection openPack(String packId, String selection, PackagedProductStorage packagedProductStorage) {
-        if(_excludePackDuplicates) {
-            System.out.println("debug: should be doing something different for Cube");
-        }
         Item count = _counts.get(packId);
         if (count == null)
             return null;
@@ -87,7 +84,6 @@ public class DefaultCardCollection implements MutableCardCollection {
                     packContents.add(Item.createItem(selection, 1));
                 }
             } else if(_excludePackDuplicates) {
-                System.out.println("debug: got to the second part");
                 packContents = packagedProductStorage.openPackagedProductWithExclusions(packId, getExclusions());
             } else {
                 packContents = packagedProductStorage.openPackagedProduct(packId);

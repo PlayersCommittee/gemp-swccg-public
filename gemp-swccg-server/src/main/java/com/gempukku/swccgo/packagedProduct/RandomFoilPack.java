@@ -5,7 +5,10 @@ import com.gempukku.swccgo.cards.packs.SetRarity;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.game.CardCollection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class RandomFoilPack implements PackagedCardProduct {
     private List<String> _availableCards = new ArrayList<String>();

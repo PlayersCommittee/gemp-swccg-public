@@ -149,7 +149,7 @@ public class CollectionSerializer {
             }
         }
 
-        //number of cards with non-zero counts since cards with zero in both aren't inserted into the map
+        //number of cards with non-zero counts since cards with all zero counts aren't inserted into the map
         printInt(outputStream, cardCountsNonFoil.size(), 2);
 
         for(String itemId : cardCountsNonFoil.keySet()) {

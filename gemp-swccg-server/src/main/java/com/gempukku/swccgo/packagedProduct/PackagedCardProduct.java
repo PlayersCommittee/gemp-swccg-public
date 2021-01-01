@@ -3,7 +3,6 @@ package com.gempukku.swccgo.packagedProduct;
 import com.gempukku.swccgo.game.CardCollection;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * An interface that defines the methods that a packaged card product (Booster Pack, Booster Box, etc.) must implement.
