@@ -35,7 +35,7 @@ public class Card14_015 extends AbstractRepublic {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new AddsDestinyToAttritionModifier(self, new PilotingAtCondition(self, Filters.Bravo_3,
-                Filters.at(Filters.sameSystemAs(self, Filters.battleship))), 1));
+                Filters.sameSystemAs(self, Filters.battleship)), 1));
         return modifiers;
     }
 }

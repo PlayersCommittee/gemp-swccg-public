@@ -1214,6 +1214,8 @@ public class SwccgGameMediator {
                     // Slip Sliding Away (v)
                     return startingLocation.getBlueprint().getTitle() + " SSAv";
                 }
+
+                return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
             }
 
             return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");

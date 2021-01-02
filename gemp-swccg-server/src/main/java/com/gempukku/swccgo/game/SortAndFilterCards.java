@@ -768,7 +768,7 @@ public class SortAndFilterCards {
         Float blueprintDestiny2 = blueprint.getAlternateDestiny();
 
         return (isAttributeValueAccepted(destinyCompare, destinyAsFloat, blueprintDestiny)
-                    || isAttributeValueAccepted(destinyCompare, destinyAsFloat, blueprintDestiny2));
+                || isAttributeValueAccepted(destinyCompare, destinyAsFloat, blueprintDestiny2));
     }
 
     /**

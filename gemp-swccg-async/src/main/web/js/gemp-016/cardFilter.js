@@ -168,6 +168,7 @@ var CardFilter = Class.extend({
             + "<option value='premiere_hoth'>Premiere - Hoth</option>"
             + "<option value='premiere_anh'>Premiere - A New Hope</option>"
             + "<option value='premiere'>Premiere</option>"
+            + "<option value='limited_resources'>Limited Resources</option>"
             + "</select>");
 
         this.setLabel = $("<label for='setSelect' class='filterLabel'>Set:</label>");

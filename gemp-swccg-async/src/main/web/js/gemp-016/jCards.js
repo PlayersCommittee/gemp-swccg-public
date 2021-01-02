@@ -3257,8 +3257,8 @@ var fixedImages = {
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
 //playtesting
-"501_1":"/gemp-swccg/images/cards/Hoth-Dark/admiralozzel.gif",
-"501_2":"/gemp-swccg/images/cards/SpecialEdition-Light/meditation.gif",
+"501_1":"/gemp-swccg/images/cards/Virtual4-Light/rey.gif",
+"501_2":"/gemp-swccg/images/cards/EnhancedJabbasPalace-Dark/marajadeslightsaber.gif",
 "501_3":"/gemp-swccg/images/cards/Virtual10-Dark/thegrandinquisitor.gif",
 "501_4":"/gemp-swccg/images/cards/Virtual0-Dark/ysanneisard.gif",
 "501_5":"/gemp-swccg/images/cards/Premiere-Dark/deathstartrooper.gif",

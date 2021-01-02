@@ -17595,6 +17595,7 @@ public class Filters {
     public static final Filter Get_Alongside_That_One = Filters.title(Title.Get_Alongside_That_One);
     public static final Filter Ghhhk = Filters.title(Title.Ghhhk);
     public static final Filter Ghost = Filters.title(Title.Ghost);
+    public static final Filter Gideon = Filters.persona(Persona.GIDEON);
     public static final Filter Gift_Of_The_Mentor = Filters.title(Title.Gift_Of_The_Mentor);
     public static final Filter Glancing_Blow = Filters.title(Title.Glancing_Blow);
     public static final Filter Gold_1 = Filters.persona(Persona.GOLD_1);
@@ -18107,6 +18108,7 @@ public class Filters {
     public static final Filter power_harpoon = Filters.title(Title.Power_Harpoon);
     public static final Filter Power_Pivot = Filters.title(Title.Power_Pivot);
     public static final Filter Pray_I_Dont_Alter_It_Any_Further = Filters.title(Title.Pray_I_Dont_Alter_It_Any_Further);
+    public static final Filter Pre_Vizsla = Filters.persona(Persona.PRE_VIZSLA);
     public static final Filter Precise_Attack = Filters.title(Title.Precise_Attack);
     public static final Filter Prepare_For_A_Surface_Attack = Filters.title(Title.Prepare_For_A_Surface_Attack);
     public static final Filter Prepare_The_Chamber = Filters.title(Title.Prepare_The_Chamber);
