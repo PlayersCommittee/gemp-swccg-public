@@ -556,6 +556,11 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
         boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+
         int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
         int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
 
@@ -573,7 +578,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds, timePerPlayerMinutes);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfoString, decisionTimeoutSeconds, timePerPlayerMinutes);
 
         _leagueService.clearCache();
 
@@ -604,6 +609,13 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             sb.append("," + formats.get(i) + "," + seriesDurations.get(i) + "," + maxMatches.get(i));
         }
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+        if(registrationInfoString.toLowerCase().contains("starwarsccg.org") && !registrationInfoString.contains(" "))
+            registrationInfoString = "<a href='"+registrationInfoString+"' target='_new'>"+registrationInfoString+"</a>";
+
         String parameters = sb.toString();
         LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, parameters);
 
@@ -620,6 +632,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         leagueElem.setAttribute("name", name);
         leagueElem.setAttribute("cost", String.valueOf(cost));
+        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+        leagueElem.setAttribute("registrationInfo", registrationInfoString);
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
         leagueElem.setAttribute("end", String.valueOf(end));
 
@@ -667,6 +681,11 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
         boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+
         int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
         int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
 
@@ -678,7 +697,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds, timePerPlayerMinutes);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfoString, decisionTimeoutSeconds, timePerPlayerMinutes);
 
         _leagueService.clearCache();
 
@@ -702,6 +721,13 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String name = getFormParameterSafely(postDecoder, "name");
         int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+        if(registrationInfoString.toLowerCase().contains("starwarsccg.org") && !registrationInfoString.contains(" "))
+            registrationInfoString = "<a href='"+registrationInfoString+"' target='_new'>"+registrationInfoString+"</a>";
+
         String code = String.valueOf(System.currentTimeMillis());
 
         String parameters = format + "," + start + "," + seriesDuration + "," + maxMatches + "," + code + "," + name;
@@ -720,6 +746,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         leagueElem.setAttribute("name", name);
         leagueElem.setAttribute("cost", String.valueOf(cost));
+        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+        leagueElem.setAttribute("registrationInfo", registrationInfoString);
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
         leagueElem.setAttribute("end", String.valueOf(end));
 
@@ -758,7 +786,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             Player player = _playerDao.getPlayer(playerName);
             if (player != null) {
                 if (!_leagueService.isPlayerInLeague(league, player)) {
-                    if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true)) {
+                    if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true, true)) {
                         throw new HttpProcessingException(409);
                     }
                 }
