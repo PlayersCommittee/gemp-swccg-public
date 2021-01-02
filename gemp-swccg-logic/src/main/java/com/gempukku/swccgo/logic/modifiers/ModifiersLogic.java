@@ -977,13 +977,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (card.getBlueprint().hasCharacterPersonaOnlyWhileOnTable() && !Filters.onTable.accepts(gameState, this, card)) {
             return Collections.emptySet();
         }
-        Set<Persona> personas = card.getBlueprint().getPersonas();
+        Set<Persona> personas = new HashSet<Persona>();
+        personas.addAll(card.getBlueprint().getPersonas());
         if (card.isCrossedOver()) {
             Set<Persona> crossedOverPersonas = new HashSet<Persona>();
             for (Persona persona : personas) {
                 crossedOverPersonas.add(persona.getCrossedOverPersona());
             }
             return crossedOverPersonas;
+        }
+        if (!card.isStolen()) {
+            List<SwccgBuiltInCardBlueprint> permanentsAboard = card.getBlueprint().getPermanentsAboard(card);
+            for (SwccgBuiltInCardBlueprint permanentAboard : permanentsAboard) {
+                Set<Persona> personasAboard = permanentAboard.getPersonas(gameState.getGame());
+                if (!permanentsAboard.isEmpty()) {
+                    personas.addAll(personasAboard);
+                }
+            }
         }
         return personas;
     }
