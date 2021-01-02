@@ -24,6 +24,7 @@ public class DefaultSwccgFormat implements SwccgFormat {
     private List<String> _restrictedCards = new ArrayList<String>();
     private List<String> _validCards = new ArrayList<String>();
     private List<Integer> _validSets = new ArrayList<Integer>();
+    private List<String> _bannedRarity = new ArrayList<String>();
     private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
     private List<SwccgCardBlueprint> _allCardBlueprints;
     private String _bannedListLink;
@@ -36,13 +37,16 @@ public class DefaultSwccgFormat implements SwccgFormat {
         _playtesting = playtesting;
 
         RarityReader rarityReader = new RarityReader();
-        for (int i = 1; i <= 14; i++) {
+        for (int i = 1; i < (1 + CardCounts.FULL_SETS_CARD_COUNTS.length); i++) {
             _rarity.put(i, rarityReader.getSetRarity(String.valueOf(i)));
         }
-        for (int i = 101; i <= 112; i++) {
+        for (int i = 101; i < (101 + CardCounts.PREMIUM_SETS_CARD_COUNTS.length); i++) {
             _rarity.put(i, rarityReader.getSetRarity(String.valueOf(i)));
         }
-        for (int i = 200; i <= 204; i++) {
+        for (int i = 200; i < (200 + CardCounts.VIRTUAL_SETS_CARD_COUNTS.length); i++) {
+            _rarity.put(i, rarityReader.getSetRarity(String.valueOf(i)));
+        }
+        for (int i = 301; i < (301 + CardCounts.VIRTUAL_PREMIUM_SETS_CARD_COUNTS.length); i++) {
             _rarity.put(i, rarityReader.getSetRarity(String.valueOf(i)));
         }
     }
@@ -80,6 +84,11 @@ public class DefaultSwccgFormat implements SwccgFormat {
     @Override
     public List<String> getBannedIcons() {
         return Collections.unmodifiableList(_bannedIcons);
+    }
+
+    @Override
+    public List<String> getBannedRarities() {
+        return Collections.unmodifiableList(_bannedRarity);
     }
 
     @Override
@@ -152,6 +161,14 @@ public class DefaultSwccgFormat implements SwccgFormat {
         }
     }
 
+    protected void addBannedRarity(String bannedRarity) {
+        Rarity rarity = Rarity.getRarityFromString(bannedRarity);
+        if (rarity != null) {
+            _bannedRarity.add(bannedRarity);
+        }
+
+    }
+
     protected void addValidSet(int setNo) {
         _validSets.add(setNo);
     }
@@ -183,6 +200,18 @@ public class DefaultSwccgFormat implements SwccgFormat {
             Icon icon = Icon.getIconFromName(iconName);
             if (icon != null && blueprint.hasIcon(icon))
                 throw new DeckInvalidException("Deck contains a copy of a card with an [" + icon.getHumanReadable() + "] icon: " + fullName);
+        }
+
+        // Banned rarity
+        for (String rarityName: _bannedRarity) {
+            Rarity rarity = Rarity.getRarityFromString(rarityName);
+            for (int validSet : _validSets)
+                if (blueprintId.startsWith(validSet + "_")
+                        || _library.hasAlternateInSet(blueprintId, validSet)) {
+                    SetRarity setRarity = _rarity.get(validSet);
+                    if (setRarity.getCardRarity(blueprintId).equals(rarity))
+                        throw new DeckInvalidException("Deck contains a card with a banned rarity: " + fullName);
+                }
         }
 
         // Banned cards

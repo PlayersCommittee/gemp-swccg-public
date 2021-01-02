@@ -33,6 +33,8 @@ public interface SwccgFormat {
 
     List<String> getBannedIcons();
 
+    List<String> getBannedRarities();
+
     List<String> getRestrictedCards();
 
     List<String> getValidCards();

@@ -117,6 +117,8 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`league` (
   `allowSpectators` BIT DEFAULT 1,
   `allowTimeExtensions` BIT DEFAULT 0,
   `showPlayerNames` BIT DEFAULT 0,
+  `invitationOnly` BIT DEFAULT 0,
+  `registrationInfo` TEXT,
   `decisionTimeoutSeconds` INT(11) DEFAULT 300 ,
   `timePerPlayerMinutes` INT(11) DEFAULT 50 ,
   PRIMARY KEY (`id`) )
