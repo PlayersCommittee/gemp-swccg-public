@@ -17,7 +17,7 @@
 
 <h1>Collections</h1>
 
-<h2>Add items</h2>
+<h2>Add items for specific players</h2>
 
 <form method="POST" action="/gemp-swccg-server/admin/addItems">
     Type: <input type="text" name="collectionType"><br/>
@@ -26,7 +26,7 @@
     <input type="submit" value="Add items">
 </form>
 
-<h2>Add items to collection</h2>
+<h2>Add items for all players</h2>
 
 <form method="POST" action="/gemp-swccg-server/admin/addItemsToCollection">
     Type: <input type="text" name="collectionType"><br/>
@@ -35,15 +35,13 @@
     <input type="submit" value="Add items to collection">
 </form>
 
-<h2>Add items to collection</h2>
+<h2>Add currency for specific players</h2>
 
-<form method="POST" action="/gemp-swccg-server/admin/addItemsToCollection">
-    Type: <input type="text" name="collectionType"><br/>
-    Reason: <input type="text" name="reason"><br/>
-    Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
-    <input type="submit" value="Add items to collection">
+<form method="POST" action="/gemp-swccg-server/admin/addCurrency">
+    Amount: <input type="text" name="currencyAmount"><br/>
+    Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+    <input type="submit" value="Add currency">
 </form>
-
 
 <h2>Reset user password</h2>
 
@@ -55,7 +53,7 @@
 <h2>Toggle private games</h2>
 
 <form method="POST" action="/gemp-swccg-server/admin/togglePrivateGames">
-<input type="submit" value="Toggle private games">
+    <input type="submit" value="Toggle private games">
 </form>
 
 </body>
