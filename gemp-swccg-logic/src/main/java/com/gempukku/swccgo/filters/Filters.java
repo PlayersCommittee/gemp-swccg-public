@@ -9979,7 +9979,7 @@ public class Filters {
     /**
      * Filter that accepts weapons that are currently being fired by the specified card.
      *
-     * @param weaponUser the weapon user
+     * @param firedByFilter the weapon user
      * @return Filter
      */
     public static Filter weaponBeingFiredBy(final Filter firedByFilter) {

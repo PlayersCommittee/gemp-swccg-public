@@ -1217,6 +1217,8 @@ public class SwccgGameMediator {
 
                 return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
             }
+
+            return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
         }
 
         // Based on Objective
