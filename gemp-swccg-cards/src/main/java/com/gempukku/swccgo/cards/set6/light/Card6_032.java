@@ -37,6 +37,12 @@ public class Card6_032 extends AbstractRebel {
         setDeploysAsCapturedPrisoner(true);
     }
     @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new DeploysFreeModifier(self));
+        return modifiers;
+    }
+    @Override
     protected Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
         Filter deployAsEscortedCaptiveOf = Filters.or(Filters.bounty_hunter,Filters.Jabba);
         if(game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEIA_JABBAS_PALACE__TARGET_WARRIOR_AT_AUDIENCE_CHAMBER_INSTEAD_OF_JABBA)) {
@@ -78,9 +84,6 @@ public class Card6_032 extends AbstractRebel {
         if(TriggerConditions.justDeployed(game, effectResult, self)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             PhysicalCard cardAttachedToAtLocation = self.getCardAttachedToAtLocation();
-            GameState gameState = game.getGameState();
-            gameState.seizeCharacter(game, self, cardAttachedToAtLocation);
-            game.getActionsEnvironment().emitEffectResult(new CaptureCharacterResult(self.getOwner(), self, cardAttachedToAtLocation, self, false, false, CaptureOption.SEIZE));
             PhysicalCard location = cardAttachedToAtLocation.getAtLocation();
             action.appendEffect(new AddUntilEndOfTurnModifierEffect(action,
                     new MayNotInitiateBattleAtLocationModifier(self, location, self.getOwner()),

@@ -335,7 +335,7 @@ public abstract class AbstractCharacter extends AbstractDeployable {
      * @return true or false
      */
     @Override
-    public final boolean isOnlyDeploysAsCapturedPrisoner(SwccgGame game, PhysicalCard self) {
+    public final boolean isOnlyDeploysAsEscortedCaptive(SwccgGame game, PhysicalCard self) {
         return _onlyDeploysAsCapturedPrisoner;
     }
 

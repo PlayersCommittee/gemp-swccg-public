@@ -2013,7 +2013,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @return the owner of the zone
      */
     @Override
-    public boolean isOnlyDeploysAsCapturedPrisoner(SwccgGame game, PhysicalCard self) {
+    public boolean isOnlyDeploysAsEscortedCaptive(SwccgGame game, PhysicalCard self) {
         return false;
     }
 

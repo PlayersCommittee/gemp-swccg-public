@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.results.CaptureCharacterResult;
 
 /**
  * The action to deploy a character.
@@ -64,8 +65,8 @@ public class PlayCharacterAction extends AbstractPlayCardAction {
         _changeInCost = changeInCost;
         _reactActionOption = reactActionOption;
         _text = reactActionOption != null ? "Deploy as 'react'" : "Deploy";
-        if (character.getBlueprint().isOnlyDeploysAsCapturedPrisoner(game, character)) {
-            _text = "Deploy as Captured Prisoner";
+        if (character.getBlueprint().isOnlyDeploysAsEscortedCaptive(game, character)) {
+            _text = "Deploy as escorted captive";
         }
 
         appendTargeting(
@@ -108,10 +109,13 @@ public class PlayCharacterAction extends AbstractPlayCardAction {
                         else if (!Filters.or(Filters.starship, Filters.vehicle).accepts(game, _target)) {
                             _chosenIfUndercover = true;
                             _capacitySlotChosen = true;
-                            if (character.getBlueprint().isOnlyDeploysAsCapturedPrisoner(game, character)) {
+                            if (character.getBlueprint().isOnlyDeploysAsEscortedCaptive(game, character)) {
                                 DeployAsCaptiveOption option = new DeployAsCaptiveOption();
                                 option.setCaptureOption(CaptureOption.SEIZE);
                                 _playCardEffect = new DeploySingleCardEffect(_that, _character, false, _target, option, _reactActionOption, PlayCardOptionId.PLAY_CARD_OPTION_1, _reshuffle);
+                                GameState gameState = game.getGameState();
+                                gameState.seizeCharacter(game, _character, _target);
+                                game.getActionsEnvironment().emitEffectResult(new CaptureCharacterResult(_character.getOwner(), _character, _target, _character, false, false, CaptureOption.SEIZE));
                             }
                             else {
                                 _playCardEffect = new DeploySingleCardEffect(_that, _character, false, _target, deployAsCaptiveOption, _reactActionOption, PlayCardOptionId.PLAY_CARD_OPTION_1, _reshuffle);
