@@ -8555,6 +8555,57 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Gets the value of a drawn tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param physicalCard the card drawn for tractor beam destiny
+     * @param playerId the player with the tractor beam destiny
+     * @return the tractor beam destiny draw value
+     */
+    @Override
+    public float getTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, PhysicalCard physicalCard, String playerId) {
+        Float result = physicalCard.getDestinyValueToUse();
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PRINTED_DESTINY, physicalCard)) {
+            result = modifier.getPrintedValueDefinedByGameText(gameState, this, physicalCard);
+        }
+        // If value if undefined, then return 0
+        if (result == null)
+            return 0;
+
+        // If card is a character and it is "doubled", then double the printed number
+        if (physicalCard.getBlueprint().getCardCategory()==CardCategory.CHARACTER
+                && isDoubled(gameState, physicalCard)) {
+            result *= 2;
+        }
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DESTINY, physicalCard)) {
+            if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                result += modifier.getDestinyModifier(gameState, this, physicalCard);
+            }
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DESTINY_WHEN_DRAWN_FOR_DESTINY, physicalCard)) {
+            if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                result += modifier.getDestinyWhenDrawnForDestinyModifier(gameState, this, physicalCard);
+            }
+        }
+        for (Modifier modifier : getModifiers(gameState, ModifierType.EACH_DESTINY_DRAW)) {
+            if (modifier.isForTopDrawDestinyEffect(gameState)) {
+                if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                    result += modifier.getValue(gameState, this, (PhysicalCard) null);
+                }
+            }
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.EACH_TRACTOR_BEAM_DESTINY, tractorBeam)) {
+            if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                result += modifier.getValue(gameState, this, physicalCard);
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Gets the value of a drawn training destiny.
      * @param gameState the game state
      * @param jediTest the Jedi Test
@@ -16080,6 +16131,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         return locations;
+    }
+
+    @Override
+    public Collection<PhysicalCard> getDestinationForCapturedStarships(GameState gameState, PhysicalCard tractorBeam) {
+        Collection<PhysicalCard> result = new LinkedList<PhysicalCard>();
+
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.TRACTOR_BEAM_DESTINATION, tractorBeam)) {
+            Filter destinationFilter = Filters.and(((ChangeTractorBeamDestinationModifier)m).getDestination());
+            result.addAll(Filters.filterAllOnTable(gameState.getGame(), destinationFilter));
+        }
+
+        if(result.isEmpty())
+            return Collections.singletonList(tractorBeam.getAttachedTo());
+
+        return result;
     }
 
     public boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card) {

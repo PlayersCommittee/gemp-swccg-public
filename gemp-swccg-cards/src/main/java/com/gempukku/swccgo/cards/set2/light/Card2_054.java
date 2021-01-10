@@ -2,23 +2,18 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
-import com.gempukku.swccgo.logic.effects.PlaceRandomCardOutOfPlayFromLostPileEffect;
-import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,9 +36,45 @@ public class Card2_054 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
-        // TODO: Add releasing of starship from Tractor Beam later.
-
         final String opponent = game.getOpponent(playerId);
+
+
+        if (GameConditions.isDuringYourPhase(game, playerId, Phase.CONTROL)
+            && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.captured_starship)) {
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, GameTextActionId.OTHER_CARD_ACTION_1);
+            action.setText("Release a starship held by any tractor beam");
+
+            Filter starshipHeldByTractorBeam = Filters.and(Filters.your(playerId), Filters.captured_starship);
+            if(GameConditions.canSpot(game, self, Filters.Death_Star_Central_Core)) {
+                starshipHeldByTractorBeam = Filters.and(Filters.your(playerId), Filters.captured_starship, Filters.not(Filters.at(Filters.Docking_Bay_327)));
+            }
+
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose starship held be a tractor beam", SpotOverride.INCLUDE_CAPTIVE, starshipHeldByTractorBeam) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, PhysicalCard starship) {
+                            action.addAnimationGroup(starship);
+                            action.appendCost(new UseForceEffect(action, playerId, 2));
+                            // Allow response(s)
+                            action.allowResponses("Release " + GameUtils.getCardLink(starship),
+                                    new RespondablePlayCardEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                            // This needs to be done in case the target(s) were changed during the responses.
+                                            PhysicalCard finalStarship = action.getPrimaryTargetCard(targetGroupId);
+
+                                            action.appendEffect(new ReleaseCapturedStarshipEffect(action, Collections.singletonList(finalStarship)));
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );
+            actions.add(action);
+        }
+
 
         // Check condition(s)
         if (GameConditions.hasLostPile(game, opponent)) {

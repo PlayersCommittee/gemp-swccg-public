@@ -1886,6 +1886,11 @@ public class TriggerConditions {
             return (captureCharacterResult.getOption()== CaptureOption.ESCAPE
                     && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), captureCharacterResult.getCapturedCard()));
         }
+        else if (effectResult.getType() == EffectResult.Type.CAPTURED_STARSHIP) {
+            CaptureStarshipResult captureStarshipResult = (CaptureStarshipResult) effectResult;
+            return (captureStarshipResult.getOption()== CaptureOption.ESCAPE
+                    && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), captureStarshipResult.getCapturedCard()));
+        }
         return false;
     }
 
@@ -3601,10 +3606,16 @@ public class TriggerConditions {
             AboutToDrawDestinyCardResult aboutToDrawDestinyCardResult = (AboutToDrawDestinyCardResult) effectResult;
 
             if (!aboutToDrawDestinyCardResult.isSubstituteDestiny()
-                    && aboutToDrawDestinyCardResult.getDestinyType() == DestinyType.TRACTOR_BEAM_DESTINY) {
-
-                // TODO: Add checking here.
-                return false;
+                    && aboutToDrawDestinyCardResult.getDestinyType() == DestinyType.TRACTOR_BEAM_DESTINY
+                    && game.getGameState().isDuringUsingTractorBeam()) {
+                UsingTractorBeamState usingTractorBeamState = game.getGameState().getUsingTractorBeamState();
+                if (usingTractorBeamState != null) {
+                    Collection<PhysicalCard> targets = usingTractorBeamState.getTargets();
+                    for (PhysicalCard card : targets) {
+                        if (Filters.and(targetFilter).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            return true;
+                    }
+                }
             }
         }
         return false;
@@ -4612,6 +4623,10 @@ public class TriggerConditions {
             CaptureCharacterResult result = (CaptureCharacterResult) effectResult;
             return Filters.and(captiveFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getCapturedCard());
         }
+        else if (effectResult.getType() == EffectResult.Type.CAPTURED_STARSHIP) {
+            CaptureStarshipResult result = (CaptureStarshipResult) effectResult;
+            return Filters.and(captiveFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getCapturedCard());
+        }
         return false;
     }
 
@@ -4626,6 +4641,11 @@ public class TriggerConditions {
     public static boolean captured(SwccgGame game, EffectResult effectResult, String playerId, Filterable captiveFilter) {
         if (effectResult.getType() == EffectResult.Type.CAPTURED) {
             CaptureCharacterResult result = (CaptureCharacterResult) effectResult;
+            return playerId.equals(result.getPerformingPlayerId())
+                    && Filters.and(captiveFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getCapturedCard());
+        }
+        if (effectResult.getType() == EffectResult.Type.CAPTURED_STARSHIP) {
+            CaptureStarshipResult result = (CaptureStarshipResult) effectResult;
             return playerId.equals(result.getPerformingPlayerId())
                     && Filters.and(captiveFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getCapturedCard());
         }
@@ -4669,6 +4689,20 @@ public class TriggerConditions {
                 if ((sourceCard != null && Filters.and(capturedByFilter).accepts(game.getGameState(), game.getModifiersQuerying(), sourceCard))
                         || (cardFiringWeapon != null && Filters.and(capturedByFilter).accepts(game.getGameState(), game.getModifiersQuerying(), cardFiringWeapon))
                         || (escort != null && Filters.and(capturedByFilter).accepts(game.getGameState(), game.getModifiersQuerying(), escort))) {
+                    return true;
+                }
+            }
+        }
+        else if (effectResult.getType() == EffectResult.Type.CAPTURED_STARSHIP) {
+            CaptureStarshipResult result = (CaptureStarshipResult) effectResult;
+            PhysicalCard capturedStarship = result.getCapturedCard();
+
+            if (Filters.and(captiveFilter).accepts(game.getGameState(), game.getModifiersQuerying(), capturedStarship)) {
+                PhysicalCard sourceCard = result.getSourceCard();
+                PhysicalCard capturedBy = result.getAttachedTo();
+
+                if ((sourceCard != null && Filters.and(capturedByFilter).accepts(game.getGameState(), game.getModifiersQuerying(), sourceCard))
+                        || (capturedBy != null && Filters.and(capturedByFilter).accepts(game.getGameState(), game.getModifiersQuerying(), capturedBy))) {
                     return true;
                 }
             }

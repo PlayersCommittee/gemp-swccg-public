@@ -14,7 +14,7 @@ import java.util.Collections;
 /**
  * An effect to steal the specified cards on table and relocate them to the new owner's side of the location.
  */
-public class StealCardsToLocationEffect extends AbstractSubActionEffect {
+public class StealCapturedStarshipEffect extends AbstractSubActionEffect {
     private String _playerId;
     private Collection<PhysicalCard> _remainingCards;
 
@@ -24,7 +24,7 @@ public class StealCardsToLocationEffect extends AbstractSubActionEffect {
      * @param playerId the player to steal the card
      * @param cardsToSteal the cards to steal
      */
-    public StealCardsToLocationEffect(Action action, String playerId, Collection<PhysicalCard> cardsToSteal) {
+    public StealCapturedStarshipEffect(Action action, String playerId, Collection<PhysicalCard> cardsToSteal) {
         super(action);
         _playerId = playerId;
         _remainingCards = Collections.unmodifiableCollection(cardsToSteal);
@@ -74,7 +74,7 @@ public class StealCardsToLocationEffect extends AbstractSubActionEffect {
         protected void cardSelected(final PhysicalCard selectedCard) {
             // Perform the StealOneCardIntoHandEffect on the selected card
             _subAction.appendEffect(
-                    new StealOneCardToLocationEffect(_subAction, selectedCard));
+                    new StealCapturedStarshipToLocationEffect(_subAction, selectedCard));
             _subAction.appendEffect(
                     new PassthruEffect(_subAction) {
                         @Override
@@ -83,7 +83,7 @@ public class StealCardsToLocationEffect extends AbstractSubActionEffect {
                             _remainingCards = Filters.filter(_remainingCards, game, Filters.onTable);
                             if (!_remainingCards.isEmpty()) {
                                 _subAction.appendEffect(
-                                        new StealCardsToLocationEffect.ChooseNextCardToSteal(_subAction, _remainingCards));
+                                        new StealCapturedStarshipEffect.ChooseNextCardToSteal(_subAction, _remainingCards));
                             }
                         }
                     }

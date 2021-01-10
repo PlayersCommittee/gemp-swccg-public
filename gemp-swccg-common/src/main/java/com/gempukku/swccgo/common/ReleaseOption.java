@@ -4,8 +4,9 @@ package com.gempukku.swccgo.common;
  * Represents the options for when a character is released.
  */
 public enum ReleaseOption implements Filterable {
-    ESCAPE("Escape"),
-    RALLY("Rally");
+    ESCAPE("Escape (to Used Pile)"),
+    RALLY("Rally (to same site)"),
+    LAUNCH("Launch (to same location)");
 
     private String _humanReadable;
 

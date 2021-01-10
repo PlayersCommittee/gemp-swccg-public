@@ -1121,6 +1121,9 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                             else if (_destinyType == DestinyType.SEARCH_PARTY_DESTINY) {
                                                 _drawnDestinyValue = game.getModifiersQuerying().getSearchPartyDestiny(game.getGameState(), _drawnDestinyCard, _performingPlayerId);
                                             }
+                                            else if (_destinyType == DestinyType.TRACTOR_BEAM_DESTINY) {
+                                                _drawnDestinyValue = game.getModifiersQuerying().getTractorBeamDestiny(game.getGameState(), game.getGameState().getUsingTractorBeamState().getTractorBeam(), _drawnDestinyCard, _performingPlayerId);
+                                            }
                                             else if (_destinyType == DestinyType.TRAINING_DESTINY) {
                                                 _drawnDestinyValue = game.getModifiersQuerying().getTrainingDestiny(game.getGameState(), _drawDestinyEffect.getAction().getActionSource(), _drawnDestinyCard, _performingPlayerId);
                                             }

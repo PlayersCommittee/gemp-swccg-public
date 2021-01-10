@@ -85,14 +85,14 @@ public class Card2_044 extends AbstractLostInterrupt {
         Filter starshipFilter = Filters.and(Filters.captured_starship, Filters.hasAboardExceptRelatedSites(self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.character, Filters.canBeRelocatedToLocation(Filters.docking_bay, true, 0))));
 
         // Check condition(s)
-        if (GameConditions.canSpot(game, self, starshipFilter)
+        if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, starshipFilter)
                 && GameConditions.canSpotLocation(game, Filters.docking_bay)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Relocate characters to docking bay");
             // Choose target(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose captured starship", starshipFilter) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose captured starship", SpotOverride.INCLUDE_CAPTIVE, starshipFilter) {
                         @Override
                         protected void cardSelected(final PhysicalCard starship) {
                             final Collection<PhysicalCard> characters = Filters.filterActive(game, self,
