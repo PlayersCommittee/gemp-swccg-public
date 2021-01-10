@@ -32,7 +32,7 @@ public class Card501_002 extends AbstractCharacterWeapon {
         setGameText("Deploy on Gideon, Maul, or Pre Vizsla. May be forfeited to Used Pile (forfeit = 3). May target a character or creature for free. Draw destiny. If destiny +2 > defense value, target hit, its forfeit = 0, and opponent loses 1 Force.");
         addIcons(Icon.VIRTUAL_SET_14);
         addKeywords(Keyword.LIGHTSABER);
-        setTestingText("•Darksaber");
+        setTestingText("Darksaber");
     }
 
     @Override

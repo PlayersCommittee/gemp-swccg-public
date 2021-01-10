@@ -66,7 +66,7 @@ public class NewSealedLeagueData implements LeagueData {
      */
     @Override
     public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
-        MutableCardCollection startingCollection = new DefaultCardCollection();
+        MutableCardCollection startingCollection = new DefaultCardCollection(excludePackDuplicates(_leagueType));
 
         for (int i = 0; i < _series.size(); ++i) {
             LeagueSeriesData series = _series.get(i);
@@ -79,6 +79,14 @@ public class NewSealedLeagueData implements LeagueData {
         }
         collectionsManager.addPlayerCollection(true, "Sealed league product", player, _collectionType, startingCollection);
         return startingCollection;
+    }
+
+    private boolean excludePackDuplicates(SealedLeagueType sealedLeagueType) {
+        //exclude duplicates from cube
+        if(sealedLeagueType.getFormatCode().equals("cube"))
+            return true;
+
+        return false;
     }
 
     /**

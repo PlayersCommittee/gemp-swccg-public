@@ -78,6 +78,22 @@
                         }
                     });
 
+            var checkboxInputs = $("input[type='checkbox'], option:selected", formElem).each(
+                    function () {
+                        var input = $(this);
+                        var name = null;
+                        var value = null;
+                        if(input.prop("checked") == true) {
+                            name = input.attr("name");
+                            value = "on";
+                        }
+                        if (name != null && value != null) {
+                            if (data[name] == null)
+                                data[name] = new Array();
+                            data[name].push(value);
+                        }
+                    });
+
             $.ajax({
                 type:"POST",
                 url:url,
@@ -108,11 +124,21 @@
 
                             var leagueName = league.getAttribute("name");
                             var cost = parseInt(league.getAttribute("cost"));
+                            var invitationOnly = league.getAttribute("invitationOnly");
+                            var registrationInfo = league.getAttribute("registrationInfo");
 
                             previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
 
-                            var costStr = formatPrice(cost);
-                            previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+                            if (invitationOnly == "true") {
+                                if (registrationInfo != "" && registrationInfo != "null")
+                                    previewDialog.append("<div>Registration info: "+registrationInfo);
+                                else
+                                    previewDialog.append("<div>Registration for this league by invitation only.</div>");
+
+                            } else {
+                                var costStr = formatPrice(cost);
+                                previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+                            };
 
                             var series = league.getElementsByTagName("serie");
                             for (var j = 0; j < series.length; j++) {
@@ -178,12 +204,16 @@
         <option value="jp_sealed">Jabba's Palace; 'Sealed'</option>
         <option value="endor_dsII_sealed">Endor - Death Star II; 'Sealed'</option>
         <option value="episode_i_sealed">Episode I; 'Sealed'</option>
+        <option value="wattos_cube_with_objective">Watto's Cube with objective packs; 'Cube'</option>
+        <option value="wattos_cube_with_fixed">Watto's Cube with fixed pack; 'Cube'</option>
     </select><br/>
     Series duration in days: <input type="text" name="seriesDuration" value="7"><br/>
     Maximum matches in series: <input type="text" name="maxMatches" value="10"><br/>
     Allow Time Extensions: <input type="checkbox" name="allowTimeExtensions"><br/>
     Allow Spectators <input type="checkbox" name="allowSpectators" checked><br/>
     Show Player Names in Hall <input type="checkbox" name="showPlayerNames"><br/>
+    Invite only: <input type="checkbox" name="invitationOnly" value="on"><br/>
+    Registration info link: <input type="text" name="registrationInfo"><br/>
     Decision Timeout (seconds) <input type="number" name="decisionTimeoutSeconds" min="1" value=300 style="min-width: 4em"><br/>
     Time Per Player (minutes) <input type="number" name="timePerPlayerMinutes" min="1" value=50 style="min-width: 4em"><br/>
     <input id="previewSealed" type="button" value="Preview sealed league">
@@ -223,6 +253,7 @@
                 <option value="open_no_shields">Open (no shields)</option>
                 <option value="open_no_virtual">Open (no v-cards)</option>
                 <option value="open40card">Open (40 cards)</option>
+                <option value="open_45_card">Open (45 cards)</option>
                 <option value="limited_resources">Limited Resources</option>
                 <option value="jawa">Jawa</option>
                 <option value="open">Open</option>
@@ -233,6 +264,8 @@
             Allow Time Extensions: <input type="checkbox" name="allowTimeExtensions"><br/>
             Allow Spectators <input type="checkbox" name="allowSpectators" checked><br/>
             Show Player Names in Hall <input type="checkbox" name="showPlayerNames"><br/>
+            Invite only: <input type="checkbox" name="invitationOnly"><br/>
+            Registration info link: <input type="text" name="registrationInfo"><br/>
             Decision Timeout (seconds) <input type="number" name="decisionTimeoutSeconds" min="1" value=300 style="min-width: 4em"><br/>
             Time Per Player (minutes) <input type="number" name="timePerPlayerMinutes" min="1" value=50 style="min-width: 4em"><br/>
         </div>
