@@ -4258,6 +4258,7 @@ public class GameState implements Snapshotable<GameState> {
 
     public void finishUsingTractorBeam() {
         if (_usingTractorBeamState != null) {
+            _game.getModifiersEnvironment().removeEndOfTractorBeam();
             _usingTractorBeamState = null;
         }
     }

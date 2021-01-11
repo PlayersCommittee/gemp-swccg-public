@@ -11,13 +11,19 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseTractorBeamEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.EachTractorBeamDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -48,19 +54,26 @@ public class Card7_254 extends AbstractUsedInterrupt {
             action.setText("Use tractor beam");
             // Allow response(s)
             Filter tractorBeamFilter = Filters.and(Filters.tractor_beam, Filters.attachedTo(Filters.and(Filters.participatingInBattle, Filters.your(playerId), Filters.Star_Destroyer)));
+            TargetingReason targetingReason = TargetingReason.OTHER;
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose tractor beam to use", tractorBeamFilter) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose tractor beam to use", targetingReason, tractorBeamFilter) {
                         @Override
-                        protected void cardSelected(final PhysicalCard tractorBeam) {
-                            action.addAnimationGroup(tractorBeam);
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
                             // Pay cost(s)
                             action.allowResponses("Use tractor beam",
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
+                                            PhysicalCard tractorBeam = action.getPrimaryTargetCard(targetGroupId);
+                                            EachTractorBeamDestinyModifier destinyModifier = new EachTractorBeamDestinyModifier(self, tractorBeam, 2);
+                                            List<Modifier> modifiers = new LinkedList<Modifier>();
+                                            modifiers.add(new PowerModifier(self, Filters.none, -3));
+                                            modifiers.add(new ManeuverModifier(self, Filters.none, -3));
+
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new UseTractorBeamEffect(action, tractorBeam, true));
+                                                    new UseTractorBeamEffect(action, tractorBeam, true, Filters.unique, destinyModifier, modifiers));
                                         }
                                     }
                             );

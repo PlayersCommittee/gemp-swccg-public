@@ -57,16 +57,18 @@ public class Card2_111 extends AbstractDevice {
 
     @Override
     public TractorBeamAction getTractorBeamAction(SwccgGame game, PhysicalCard self) {
-        Filter targetFilter = Filters.and(Filters.opponents(self), Filters.starship, Filters.presentAt(Filters.Death_Star_system), Filters.not(Filters.Star_Cruiser));
+        return new TractorBeamAction(self, self, getTargetFilter(self), 2, false, 2, Statistic.DEFENSE_VALUE);
+    }
 
-        return new TractorBeamAction(self, self, targetFilter, 2, false, 2, Statistic.DEFENSE_VALUE);
+    private Filter getTargetFilter(PhysicalCard self) {
+        return Filters.and(Filters.opponents(self), Filters.starship, Filters.presentAt(Filters.Death_Star_system), Filters.not(Filters.Star_Cruiser), Filters.not(Filters.captured_starship));
     }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleEndingAt(game, effectResult, Filters.Death_Star_system)
-            && GameConditions.canSpot(game, self, self.getBlueprint().getTractorBeamAction(game, self).getPossibleTargets())) {
+                && GameConditions.canSpot(game, self, getTargetFilter(self))) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Use tractor beam");

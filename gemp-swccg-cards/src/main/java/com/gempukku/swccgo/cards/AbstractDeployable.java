@@ -1369,6 +1369,11 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         if (!checkUnlimitedMoveRequirements(playerId, game, self, game.getGameState().isDuringMoveAsReact()))
             return null;
 
+        // Captured starships can't embark
+        if (self.isCapturedStarship())
+            return null;
+
+
         Filter completeTargetFilter = Filters.and(moveTargetFilter, getValidMoveTargetFilter(playerId, game, self, false), Filters.canEmbarkTo(playerId, self, forFree, 0));
 
         // Check that a valid card to embark on can be found
@@ -1392,6 +1397,10 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     @Override
     public Action getDisembarkAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asJumpOff, Filter moveTargetFilter) {
         if (!checkUnlimitedMoveRequirements(playerId, game, self, asJumpOff || game.getGameState().isDuringMoveAsReact()))
+            return null;
+
+        // Captured starships can't disembark
+        if (self.isCapturedStarship())
             return null;
 
         Filter completeTargetFilter = Filters.and(moveTargetFilter, getValidMoveTargetFilter(playerId, game, self, false), Filters.canDisembarkTo(playerId, self, forFree, 0));

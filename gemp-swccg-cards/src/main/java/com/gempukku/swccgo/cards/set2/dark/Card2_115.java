@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -56,16 +57,18 @@ public class Card2_115 extends AbstractDevice {
 
     @Override
     public TractorBeamAction getTractorBeamAction(SwccgGame game, PhysicalCard self) {
-        Filter targetFilter = Filters.and(Filters.opponents(self), Filters.starship, Filters.present(self), Filters.not(Filters.Star_Cruiser), Filters.not(Filters.captured_starship));
-
-        return new TractorBeamAction(self, self, targetFilter, 2, false, 1, Statistic.DEFENSE_VALUE);
+        return new TractorBeamAction(self, self, getTargetFilter(self), 2, false, 1, Statistic.DEFENSE_VALUE);
     }
 
+    private Filter getTargetFilter(PhysicalCard self) {
+        return Filters.and(Filters.opponents(self), Filters.starship, Filters.present(self), Filters.not(Filters.Star_Cruiser), Filters.not(Filters.captured_starship));
+    }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.battleEndingAt(game, effectResult, Filters.here(self))) {
+        if (TriggerConditions.battleEndingAt(game, effectResult, Filters.here(self))
+                && GameConditions.canSpot(game, self, getTargetFilter(self))) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Use tractor beam");

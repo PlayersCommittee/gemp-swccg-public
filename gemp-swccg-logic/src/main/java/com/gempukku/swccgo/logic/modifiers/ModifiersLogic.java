@@ -38,6 +38,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private Map<EffectResult, List<Modifier>> _untilEndOfEffectResultModifiers = new HashMap<EffectResult, List<Modifier>>();
     private Map<Integer, List<Modifier>> _untilEndOfGameTextActionModifiers = new HashMap<Integer, List<Modifier>>();
     private List<Modifier> _untilEndOfWeaponFiringModifiers = new LinkedList<Modifier>();
+    private List<Modifier> _untilEndOfTractorBeamModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilDamageSegmentOfBattleModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilEndOfBattleModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilEndOfAttackModifiers = new LinkedList<Modifier>();
@@ -176,6 +177,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             snapshot._untilEndOfGameTextActionModifiers.put(id, snapshotList);
         }
         snapshot._untilEndOfWeaponFiringModifiers.addAll(_untilEndOfWeaponFiringModifiers);
+        snapshot._untilEndOfTractorBeamModifiers.addAll(_untilEndOfTractorBeamModifiers);
         snapshot._untilDamageSegmentOfBattleModifiers.addAll(_untilDamageSegmentOfBattleModifiers);
         snapshot._untilEndOfBattleModifiers.addAll(_untilEndOfBattleModifiers);
         snapshot._untilEndOfAttackModifiers.addAll(_untilEndOfAttackModifiers);
@@ -15226,6 +15228,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         _untilEndOfWeaponFiringModifiers.clear();
     }
 
+    @Override
+    public void removeEndOfTractorBeam() {
+        removeModifiers(_untilEndOfTractorBeamModifiers);
+        _untilEndOfTractorBeamModifiers.clear();
+    }
+
     /**
      * Removes modifiers that expire when the current attack is finished.
      */
@@ -15520,6 +15528,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         modifier.setPersistent(true);
         addModifier(modifier);
         _untilEndOfWeaponFiringModifiers.add(modifier);
+    }
+
+    @Override
+    public void addUntilEndOfTractorBeamModifier(Modifier modifier) {
+        modifier.setPersistent(true);
+        addModifier(modifier);
+        _untilEndOfTractorBeamModifiers.add(modifier);
     }
 
     /**
