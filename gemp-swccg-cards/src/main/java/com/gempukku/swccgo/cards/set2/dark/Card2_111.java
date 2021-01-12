@@ -68,7 +68,9 @@ public class Card2_111 extends AbstractDevice {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleEndingAt(game, effectResult, Filters.Death_Star_system)
-                && GameConditions.canSpot(game, self, getTargetFilter(self))) {
+                && GameConditions.canSpot(game, self, getTargetFilter(self))
+                && GameConditions.canUseForce(game, playerId, 2)
+                && game.getDarkPlayer().equals(playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Use tractor beam");
