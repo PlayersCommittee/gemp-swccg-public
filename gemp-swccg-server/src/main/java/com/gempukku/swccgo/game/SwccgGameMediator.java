@@ -74,7 +74,7 @@ public class SwccgGameMediator {
         }
 
         _userFeedback = new DefaultUserFeedback();
-        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library);
+        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library, _playerClocks);
         _userFeedback.setGame(_swccgoGame);
     }
 
@@ -1402,5 +1402,18 @@ public class SwccgGameMediator {
         }
 
         return "Other";
+    }
+
+
+    public void addInGameStatisticsListener(GameStatisticsProcessor gameStatisticsProcessor) {
+        _swccgoGame.addInGameStatisticsListener(gameStatisticsProcessor);
+    }
+
+    public void removeInGameStatisticsListener(GameStatisticsProcessor gameStatisticsProcessor) {
+        _swccgoGame.removeInGameStatisticsListener(gameStatisticsProcessor);
+    }
+
+    public void removeAllInGameStatisticsListeners() {
+        _swccgoGame.removeAllInGameStatisticsListeners();
     }
 }

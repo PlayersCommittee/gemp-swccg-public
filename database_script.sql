@@ -16,7 +16,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-INSERT IGNORE INTO `gemp-swccg`.`gemp_settings` (settingName,settingValue) values ('privateGamesEnabled',0);
+INSERT IGNORE INTO `gemp-swccg`.`gemp_settings` (settingName,settingValue) values ('privateGamesEnabled',0),
+('inGameStatistics',1);
 
 -- -----------------------------------------------------
 -- Table `gemp-swccg`.`collection`
@@ -274,6 +275,40 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
+
+-- -----------------------------------------------------
+-- Table `gemp-swccg`.`pile_count_by_turn`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gemp-swccg`.`pile_count_by_turn` (
+  `id` INT(20) NOT NULL auto_increment,
+  `gameId` INT(11),
+  `activeGame` BOOLEAN,
+  `sequence` INT(11),
+  `turnNumber` INT(11),
+  `side` NVARCHAR(45),
+  `darkHand` INT(11),
+  `darkReserveDeck` INT(11),
+  `darkForcePile` INT(11),
+  `darkUsedPile` INT(11),
+  `darkLostPile` INT(11),
+  `darkOutOfPlay` INT(11),
+  `lightHand` INT(11),
+  `lightReserveDeck` INT(11),
+  `lightForcePile` INT(11),
+  `lightUsedPile` INT(11),
+  `lightLostPile` INT(11),
+  `lightOutOfPlay` INT(11),
+  `darkActivation` INT(11),
+  `lightActivation` INT(11),
+  `darkSecondsElapsed` INT(11),
+  `lightSecondsElapsed` INT(11),
+  `datetimeStored` DATETIME,
+  PRIMARY KEY (`id`),
+  INDEX `pilecount_gameId` (`gameId`),
+  INDEX `pilecount_gameIdAndSequence` (`gameId`,`sequence`),
+  INDEX `pilecount_activeGame` (`activeGame`)
+)
+
 
 
 -- -----------------------------------------------------

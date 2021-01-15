@@ -20,4 +20,15 @@ public interface GempSettingDAO {
      * toggles the privateGamesEnabled setting
      */
     void togglePrivateGamesEnabled();
+
+    /**
+     * Gets whether the inGameStatisticsEnabled setting is on or off
+     * @return true if on, false if off
+     */
+    boolean inGameStatisticsEnabled();
+
+    /**
+     * toggles the inGameStatisticsEnabled setting
+     */
+    void toggleInGameStatisticsEnabled();
 }
