@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -154,6 +155,22 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         return validPlays;
     }
 
+    private boolean isNoPersonaConflictBetweenChosenCards(PhysicalCard self, SwccgGame game, PhysicalCard lightsaber, PhysicalCard character) {
+        Set<Persona> lightsaberPersonas = game.getModifiersQuerying().getPersonas(game.getGameState(), lightsaber);
+        Set<Persona> characterPersonas = game.getModifiersQuerying().getPersonas(game.getGameState(), character);
+        if (Collections.disjoint(lightsaberPersonas, characterPersonas) == false) {
+            return false;
+        }
+        SwccgBuiltInCardBlueprint permanentWeapon = character.getBlueprint().getPermanentWeapon(character);
+        if (permanentWeapon != null) {
+            Set<Persona> permanentWeaponPersonas = permanentWeapon.getPersonas(game);
+            if (Collections.disjoint(lightsaberPersonas, permanentWeaponPersonas) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private LinkedHashMap<PhysicalCard, List<PhysicalCard>> getValidPlays(PhysicalCard self, SwccgGame game, List<PhysicalCard> cardPool) {
         LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays = new LinkedHashMap<>();
         Collection<PhysicalCard> lightsabersInPool = Filters.filter(cardPool, game, Filters.lightsaber);
@@ -168,7 +185,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             // Get all DJ/Sith this lightsaber is a matching weapon for, and also can deploy
             Filter validCharacters = Filters.and(Filters.or(Filters.Dark_Jedi, Filters.Sith), Filters.matchingCharacter(lightsaber), Filters.deployable(self, null, false, 0));
             for (PhysicalCard character : Filters.filter(cardPool, game, validCharacters)) {
-                if (cardPool.contains(character)) {
+                if (cardPool.contains(character) && isNoPersonaConflictBetweenChosenCards(self, game, lightsaber, character)) {
                     appendToValidPlays(validPlays, lightsaber, character);
                 }
             }
