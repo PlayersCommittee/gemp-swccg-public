@@ -117,6 +117,10 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             findMultipleAccounts(request, responseWriter);
         } else if (uri.equals("/togglePrivateGames") && request.getMethod() == HttpMethod.POST) {
             togglePrivateGames(request, responseWriter);
+        } else if (uri.equals("/toggleInGameStatistics") && request.getMethod() == HttpMethod.POST) {
+            toggleInGameStatistics(request, responseWriter);
+        } else if (uri.equals("/removeInGameStatisticsListeners") && request.getMethod() == HttpMethod.POST) {
+            removeInGameStatisticListeners(request, responseWriter);
         } else {
             responseWriter.writeError(404);
         }
@@ -847,6 +851,19 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_hallServer.privateGamesAllowed()));
     }
 
+    private void toggleInGameStatistics(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+        _hallServer.toggleInGameStatistics();
+
+        responseWriter.writeHtmlResponse("In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+    }
+
+    private void removeInGameStatisticListeners(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+        int count = _hallServer.removeInGameStatisticsListeners();
+
+        responseWriter.writeHtmlResponse("In game statistics tracking removed from "+count+" active games<br>In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+    }
 
     /**
      * Verifies the request is from an admin user.
