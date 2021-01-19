@@ -378,7 +378,6 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard sourceCard = gameState.findCardByPermanentId(permSourceCardId);
-
                 return !sourceCard.getOwner().equals(physicalCard.getOwner());
             }
             @Override

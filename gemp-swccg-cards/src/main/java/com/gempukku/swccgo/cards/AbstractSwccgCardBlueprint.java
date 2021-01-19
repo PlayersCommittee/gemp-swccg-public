@@ -2007,6 +2007,17 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     }
 
     /**
+     * Determines if the card deploys as a captured prisoner.
+     * @param game the game
+     * @param self the card
+     * @return the owner of the zone
+     */
+    @Override
+    public boolean isOnlyDeploysAsEscortedCaptive(SwccgGame game, PhysicalCard self) {
+        return false;
+    }
+
+    /**
      * Determines if the card may deploy as an undercover spy.
      * @param game the game
      * @param self the card
