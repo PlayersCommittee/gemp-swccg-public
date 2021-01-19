@@ -46,7 +46,7 @@ public class Card6_032 extends AbstractRebel {
     protected Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
         Filter deployAsEscortedCaptiveOf = Filters.or(Filters.bounty_hunter,Filters.Jabba);
         if(game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEIA_JABBAS_PALACE__TARGET_WARRIOR_AT_AUDIENCE_CHAMBER_INSTEAD_OF_JABBA)) {
-            deployAsEscortedCaptiveOf = Filters.or(Filters.bounty_hunter,Filters.Jabba,Filters.and(Filters.warrior,Filters.at(Title.Audience_Chamber)));
+            deployAsEscortedCaptiveOf = Filters.or(Filters.bounty_hunter,Filters.Jabba,Filters.and(Filters.warrior,Filters.at(Filters.Audience_Chamber)));
         }
         return deployAsEscortedCaptiveOf;
     }
