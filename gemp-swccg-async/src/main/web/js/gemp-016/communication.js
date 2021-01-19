@@ -389,6 +389,20 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    sellAll:function (blueprintId, price, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/merchant/sellAll",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId"),
+                blueprintId:blueprintId,
+                price:price},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
     tradeInFoil:function (blueprintId, callback, errorMap) {
         $.ajax({
             type:"POST",

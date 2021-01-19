@@ -305,6 +305,30 @@ public class CollectionsManager {
         }
     }
 
+    public boolean sellAllOfACardInPlayerCollection(Player player, CollectionType collectionType, String blueprintId, int currency) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+            if (playerCollection != null) {
+                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                int itemCount = mutableCardCollection.getItemCount(blueprintId);
+                if (!mutableCardCollection.removeItem(blueprintId, itemCount))
+                    return false;
+                mutableCardCollection.addCurrency(currency*itemCount);
+
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+
+                _transferDAO.addTransferFrom(player.getName(), "Selling items", collectionType.getFullName(), 0, cardCollectionFromBlueprintId(itemCount, blueprintId));
+                _transferDAO.addTransferTo(false, player.getName(), "Selling items", collectionType.getFullName(), currency*itemCount, new DefaultCardCollection());
+
+                return true;
+            }
+            return false;
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
     public void addCurrencyToPlayerCollection(boolean notifyPlayer, String reason, String player, CollectionType collectionType, int currency) {
         addCurrencyToPlayerCollection(notifyPlayer, reason, _playerDAO.getPlayer(player), collectionType, currency);
     }
