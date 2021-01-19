@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.GameEndReason;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.communication.GameStateListener;
+import com.gempukku.swccgo.communication.InGameStatisticsListener;
 import com.gempukku.swccgo.communication.UserFeedback;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
@@ -256,4 +257,36 @@ public interface SwccgGame {
     void takeSnapshot(String description);
 
     String getDeckString(Side side);
+
+
+    /**
+     * Adds a game statistics listener
+     * @param listener the game statistics listener
+     */
+    void addInGameStatisticsListener(InGameStatisticsListener listener);
+
+    /**
+     * Removes a game statistics listener
+     * @param listener the game statistics listener
+     */
+    void removeInGameStatisticsListener(InGameStatisticsListener listener);
+
+    /**
+     * Gets all game statistics listeners
+     */
+    Collection<InGameStatisticsListener> getAllInGameStatisticsListeners();
+
+    /**
+     * Removes all of the game statistics listeners
+     */
+
+    void removeAllInGameStatisticsListeners();
+
+
+    /**
+     *  Gets the number of seconds elapsed from this player's clock
+     * @param player
+     * @return number of seconds elapsed from this player's clock
+     */
+    Integer getSecondsElapsed(String player);
 }

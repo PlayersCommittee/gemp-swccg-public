@@ -378,7 +378,6 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard sourceCard = gameState.findCardByPermanentId(permSourceCardId);
-
                 return !sourceCard.getOwner().equals(physicalCard.getOwner());
             }
             @Override
@@ -761,7 +760,7 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 for (String cardTitle : physicalCard.getTitles()) {
-                    if (cardTitle.equalsIgnoreCase(title)) {
+                    if (cardTitle.equalsIgnoreCase(title) && !physicalCard.isBlownAway()) {
                         return true;
                     }
                 }

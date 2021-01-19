@@ -60,6 +60,8 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
             buy(request, responseWriter);
         } else if (uri.equals("/sell") && request.getMethod() == HttpMethod.POST) {
             sell(request, responseWriter);
+        } else if (uri.equals("/sellAll") && request.getMethod() == HttpMethod.POST) {
+            sellAll(request, responseWriter);
         } else if (uri.equals("/tradeFoil") && request.getMethod() == HttpMethod.POST) {
             tradeInFoil(request, responseWriter);
         } else {
@@ -90,6 +92,21 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         try {
             _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
+            responseWriter.writeXmlResponse(null);
+        } catch (MerchantException exp) {
+            responseWriter.writeXmlResponse(marshalException(exp));
+        }
+    }
+
+    private void sellAll(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
+        int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
+
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            _merchantService.merchantBuysAllOfACard(resourceOwner, blueprintId, price);
             responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
             responseWriter.writeXmlResponse(marshalException(exp));
@@ -170,7 +187,7 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
                 elem = doc.createElement("pack");
 
             elem.setAttribute("count", String.valueOf(collection.getItemCount(blueprintId)));
-            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && collection.getItemCount(blueprintId) >= 4 && currency >= 2500)
+            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && collection.getItemCount(blueprintId) >= 4 && currency >= 1500)
                 elem.setAttribute("tradeFoil", "true");
             elem.setAttribute("blueprintId", blueprintId);
             Integer buyPrice = buyPrices.get(blueprintId);

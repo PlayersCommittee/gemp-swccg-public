@@ -38,7 +38,6 @@ public class Card501_028 extends AbstractNormalEffect {
         modifiers.add(new ImmuneToTitleModifier(self, Filters.title(Title.Seeking_An_Audience), Title.Alter));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.your(self.getOwner()), Filters.alien), Title.Sniper));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.your(self.getOwner()), Filters.alien), Title.Dr_Evazan));
-        //Broken Link (JP leia still needs to be coded)
         modifiers.add(new ModifyGameTextModifier(self, Filters.and(Filters.Leia, Icon.JABBAS_PALACE), ModifyGameTextType.LEIA_JABBAS_PALACE__TARGET_WARRIOR_AT_AUDIENCE_CHAMBER_INSTEAD_OF_JABBA));
         return modifiers;
     }
