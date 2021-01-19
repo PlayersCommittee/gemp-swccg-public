@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `gemp-swccg`.`pile_count_by_turn` (
   INDEX `pilecount_gameId` (`gameId`),
   INDEX `pilecount_gameIdAndSequence` (`gameId`,`sequence`),
   INDEX `pilecount_activeGame` (`activeGame`)
-)
+);
 
 
 
