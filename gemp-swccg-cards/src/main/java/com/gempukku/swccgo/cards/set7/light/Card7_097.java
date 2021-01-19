@@ -2,6 +2,9 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
+import com.gempukku.swccgo.cards.evaluators.PerXwingEvaluator;
+import com.gempukku.swccgo.cards.evaluators.PerYwingEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -58,7 +61,7 @@ public class Card7_097 extends AbstractUsedOrLostInterrupt {
                                 // Perform result(s)
                                 action.appendEffect(
                                         new AddUntilEndOfTurnModifierEffect(action,
-                                                new PowerModifier(self, Filters.in(xWingsAndYwings), 1),
+                                                new PowerModifier(self, Filters.in(xWingsAndYwings), new AddEvaluator(new PerXwingEvaluator(1), new PerYwingEvaluator(1))),
                                                 "Makes " + GameUtils.getAppendedNames(xWingsAndYwings) + " power +1"));
                                 action.appendEffect(
                                         new AddUntilEndOfTurnModifierEffect(action,

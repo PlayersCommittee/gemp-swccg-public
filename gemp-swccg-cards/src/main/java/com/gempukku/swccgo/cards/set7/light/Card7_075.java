@@ -6,6 +6,9 @@ import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
+import com.gempukku.swccgo.cards.evaluators.PerBwingEvaluator;
+import com.gempukku.swccgo.cards.evaluators.PerXwingEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -69,7 +72,7 @@ public class Card7_075 extends AbstractNormalEffect {
         Condition condition = new InPlayDataSetCondition(self);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, yourXwingsAndBwings, condition, 2));
+        modifiers.add(new PowerModifier(self, yourXwingsAndBwings, condition, new AddEvaluator(new PerXwingEvaluator(2), new PerBwingEvaluator(2))));
         modifiers.add(new ResetHyperspeedModifier(self, yourXwingsAndBwings, condition, 0));
         modifiers.add(new EachWeaponDestinyModifier(self, Filters.any, condition, yourXwingsAndBwings, 1, Filters.any));
         return modifiers;
