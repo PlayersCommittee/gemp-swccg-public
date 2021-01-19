@@ -41,11 +41,10 @@ public class SwccgoFormatLibrary {
 
                     final DefaultSwccgFormat format = new DefaultSwccgFormat(library, name, downloadBattlegroundRule, jpSealedRule, playtesting);
 
-                    Boolean reducedDeckSize = (Boolean) formatDef.get("reducedDeckSize");
-                    if (reducedDeckSize == null)
-                        reducedDeckSize = false;
-                    if (reducedDeckSize)
-                        format.setRequiredDeckSize(40);
+                    Long deckSize = (Long) formatDef.get("deckSize");
+                    if (deckSize == null)
+                        deckSize = 60L;
+                    format.setRequiredDeckSize(deckSize.intValue());
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
                     for (Object set : sets)
@@ -63,10 +62,21 @@ public class SwccgoFormatLibrary {
                             format.addBannedCard((String) bannedCard);
                         }
 
+                    String bannedListLink = (String) formatDef.get("bannedListLink");
+                    if (bannedListLink != null) {
+                        format.addBannedListLink(bannedListLink);
+                    }
+
                     JSONArray bannedIcons = (JSONArray) formatDef.get("bannedIcons");
                     if (bannedIcons != null)
                         for (Object bannedIcon : bannedIcons) {
                             format.addBannedIcon((String) bannedIcon);
+                        }
+
+                    JSONArray bannedRarities = (JSONArray) formatDef.get("bannedRarities");
+                    if (bannedRarities != null)
+                        for (Object bannedRarity: bannedRarities) {
+                            format.addBannedRarity((String) bannedRarity);
                         }
 
                     JSONArray restrictedCards = (JSONArray) formatDef.get("restricted");
