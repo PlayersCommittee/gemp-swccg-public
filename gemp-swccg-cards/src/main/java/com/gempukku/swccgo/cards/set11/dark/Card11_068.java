@@ -79,7 +79,7 @@ public class Card11_068 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, playerId, Filters.and(Filters.unique, Filters.Star_Destroyer))
-                && GameConditions.isBlownAway(game, Filters.Alderaan_system)) {
+                && GameConditions.isBlownAway(game, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Alderaan, true)))) {
             final PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
