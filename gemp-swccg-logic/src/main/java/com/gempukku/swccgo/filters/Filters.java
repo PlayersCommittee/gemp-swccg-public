@@ -756,11 +756,23 @@ public class Filters {
      * @return Filter
      */
     public static Filter title(final String title) {
+        return title(title, false);
+    }
+
+    /**
+     * Filter that accepts cards that have the specified title
+     * For combo cards, each title is checked.
+     *
+     * @param title the title
+     * @param includeBlownAway true if title of blown away locations should be checked
+     * @return Filter
+     */
+    public static Filter title(final String title, final boolean includeBlownAway) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 for (String cardTitle : physicalCard.getTitles()) {
-                    if (cardTitle.equalsIgnoreCase(title) && !physicalCard.isBlownAway()) {
+                    if (cardTitle.equalsIgnoreCase(title) && (includeBlownAway || !physicalCard.isBlownAway())) {
                         return true;
                     }
                 }
@@ -772,6 +784,8 @@ public class Filters {
             }
         };
     }
+
+
 
     /**
      * Filter that accepts cards that have a title containing the specified word or phrase.

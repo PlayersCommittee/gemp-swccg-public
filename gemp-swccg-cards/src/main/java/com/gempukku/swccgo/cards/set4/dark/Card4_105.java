@@ -4,9 +4,7 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.BlownAwayCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +33,7 @@ public class Card4_105 extends AbstractImperial {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, new OrCondition(new AtCondition(self, Filters.Executor_site),
-                new AtSameSiteAsCondition(self, Filters.or(Filters.Tarkin, Filters.Chief_Bast)), new BlownAwayCondition(Filters.Death_Star_system)), 2));
+                new AtSameSiteAsCondition(self, Filters.or(Filters.Tarkin, Filters.Chief_Bast)), new BlownAwayCondition(Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)))), 2));
         modifiers.add(new DestinyModifier(self, Filters.Fear_Will_Keep_Them_In_Line, 2));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Fear_Will_Keep_Them_In_Line, ModifyGameTextType.FEAR_WILL_KEEP_THEM_IN_LINE__ADDS_1_TO_ATTRITION));
         return modifiers;

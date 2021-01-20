@@ -37,7 +37,7 @@ public class Card111_004_BACK extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
-        Condition deathStarBlownAway = new BlownAwayCondition(Filters.Death_Star_system);
+        Condition deathStarBlownAway = new BlownAwayCondition(Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ModifyGameTextModifier(self, Filters.and(Filters.your(self), Filters.Death_Star_system), ModifyGameTextType.DEATH_STAR__MAY_DEPLOY_WITHOUT_COMPLETING_DEATH_STAR_PLANS));
@@ -75,7 +75,7 @@ public class Card111_004_BACK extends AbstractObjective {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Death_Star_system)) {
+        if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)))) {
             int amountToAddToForceLoss = 3 * Filters.countTopLocationsOnTable(game, Filters.and(Filters.opponents(self), Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation));
             if (amountToAddToForceLoss > 0) {
 
