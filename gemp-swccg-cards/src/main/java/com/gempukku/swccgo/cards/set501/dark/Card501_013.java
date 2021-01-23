@@ -13,10 +13,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
-import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
@@ -132,15 +129,22 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         action.setActionMsg("Deploy a lightsaber from hand");
         final List<PhysicalCard> cardPool = game.getGameState().getHand(playerId);
         LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHand = getValidPlays(self, game, cardPool);
-        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHand, action)));
+        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHand, action, false)));
     }
 
     private void appendActionForReserveDeckAndHand(SwccgGame game, PhysicalCard self, String playerId, final PlayInterruptAction action) {
+        action.appendEffect(
+                new LookAtReserveDeckEffect(action, playerId, playerId));
         action.setActionMsg("Deploy a lightsaber from hand and/or Reserve Deck");
         List<PhysicalCard> cardPool = new ArrayList<>(game.getGameState().getHand(playerId));
         cardPool.addAll(game.getGameState().getReserveDeck(playerId));
         LinkedHashMap<PhysicalCard, List<PhysicalCard>> playsFromHandAndReserve = getValidPlays(self, game, cardPool);
-        action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHandAndReserve, action)));
+        if (!playsFromHandAndReserve.isEmpty()) {
+            action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForLightsaberPlay(playerId, playsFromHandAndReserve, action, true)));
+        } else {
+            // This deploy fails and opponent verifies, if there are no valid play combinations
+            action.appendEffect(new DeployCardFromReserveDeckEffect(action, Filters.lightsaber, true));
+        }
     }
 
     private LinkedHashMap<PhysicalCard, List<PhysicalCard>> appendToValidPlays(LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays, PhysicalCard lightsaber, PhysicalCard character) {
@@ -155,7 +159,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         return validPlays;
     }
 
-    private boolean isNoPersonaConflictBetweenChosenCards(PhysicalCard self, SwccgGame game, PhysicalCard lightsaber, PhysicalCard character) {
+    private boolean isNoPersonaConflictBetweenChosenCards(SwccgGame game, PhysicalCard lightsaber, PhysicalCard character) {
         Set<Persona> lightsaberPersonas = game.getModifiersQuerying().getPersonas(game.getGameState(), lightsaber);
         Set<Persona> characterPersonas = game.getModifiersQuerying().getPersonas(game.getGameState(), character);
         if (Collections.disjoint(lightsaberPersonas, characterPersonas) == false) {
@@ -185,7 +189,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             // Get all DJ/Sith this lightsaber is a matching weapon for, and also can deploy
             Filter validCharacters = Filters.and(Filters.or(Filters.Dark_Jedi, Filters.Sith), Filters.matchingCharacter(lightsaber), Filters.deployable(self, null, false, 0));
             for (PhysicalCard character : Filters.filter(cardPool, game, validCharacters)) {
-                if (cardPool.contains(character) && isNoPersonaConflictBetweenChosenCards(self, game, lightsaber, character)) {
+                if (cardPool.contains(character) && isNoPersonaConflictBetweenChosenCards(game, lightsaber, character)) {
                     appendToValidPlays(validPlays, lightsaber, character);
                 }
             }
@@ -193,7 +197,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         return validPlays;
     }
 
-    private MultipleChoiceAwaitingDecision getMultipleChoiceForLightsaberPlay(final String playerId, final LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays, final PlayInterruptAction action) {
+    private MultipleChoiceAwaitingDecision getMultipleChoiceForLightsaberPlay(final String playerId, final LinkedHashMap<PhysicalCard, List<PhysicalCard>> validPlays, final PlayInterruptAction action, final boolean reserveDeckSearched) {
         final List<String> choicesText = new LinkedList<>();
         final List<PhysicalCard> lightsaberList = new ArrayList<>();
         for (PhysicalCard lightsaber : validPlays.keySet()) {
@@ -204,18 +208,17 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         for (int i = 0; i < choicesText.size(); i++) {
             lightsaberChoices[i] = choicesText.get(i);
         }
-
         return new MultipleChoiceAwaitingDecision("Choose a lightsaber to deploy", lightsaberChoices) {
             @Override
             protected void validDecisionMade(int index, String result) {
                 PhysicalCard lightsaberChosen = lightsaberList.get(index);
                 List<PhysicalCard> characterList = validPlays.get(lightsaberChosen);
-                action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForCharacterPlay(action, playerId, lightsaberChosen, characterList)));
+                action.appendEffect(new PlayoutDecisionEffect(action, playerId, getMultipleChoiceForCharacterPlay(action, playerId, lightsaberChosen, characterList, reserveDeckSearched)));
             }
         };
     }
 
-    private MultipleChoiceAwaitingDecision getMultipleChoiceForCharacterPlay(final PlayInterruptAction action, final String playerId, final PhysicalCard lightsaber, final List<PhysicalCard> characterList) {
+    private MultipleChoiceAwaitingDecision getMultipleChoiceForCharacterPlay(final PlayInterruptAction action, final String playerId, final PhysicalCard lightsaber, final List<PhysicalCard> characterList, final boolean reserveDeckSearched) {
         final List<String> choicesText = new LinkedList<>();
         for (PhysicalCard character : characterList) {
             if (character == null) {
@@ -234,10 +237,12 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             protected void validDecisionMade(int index, String result) {
                 if (result == "None") {
                     appendDeployEffect(lightsaber, playerId, action);
+                    appendReshuffleEffect(playerId, lightsaber.getZone(), Zone.AT_LOCATION, action, reserveDeckSearched);
                 } else {
                     PhysicalCard characterToDeploy = characterList.get(index);
                     appendDeployEffect(characterToDeploy, playerId, action);
                     appendDeployEffect(lightsaber, playerId, action);
+                    appendReshuffleEffect(playerId, lightsaber.getZone(), characterToDeploy.getZone(), action, reserveDeckSearched);
                 }
             }
         };
@@ -248,6 +253,14 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             action.appendEffect(new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(cardToDeploy), true));
         } else if (cardToDeploy.getZone() == Zone.HAND) {
             action.appendEffect(new DeployCardFromHandEffect(action, playerId, Filters.sameCardId(cardToDeploy), false));
+        }
+    }
+
+    private void appendReshuffleEffect(String playerId, Zone lightsaberZone, Zone characterZone, PlayInterruptAction action, final boolean reserveDeckSearched) {
+        // Cases where reserve deck was viewed but not otherwise reshuffled.
+        if (lightsaberZone != Zone.RESERVE_DECK && characterZone != Zone.RESERVE_DECK && reserveDeckSearched == true) {
+            action.appendEffect(
+                    new ShuffleReserveDeckEffect(action, playerId));
         }
     }
 
