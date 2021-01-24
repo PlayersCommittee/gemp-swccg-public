@@ -566,6 +566,7 @@ public interface Title {
     String Ket_Maliss = "Ket Maliss";
     String Ketwol = "Ketwol";
     String Kian = "Kin Kian";
+    String Kijimi = "Kijimi";
     String Keir_Santage = "Keir Santage";
     String Kiffex = "Kiffex";
     String Kirdo_III = "Kirdo III";
