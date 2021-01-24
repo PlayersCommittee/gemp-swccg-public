@@ -38,7 +38,7 @@ import java.util.List;
  * Set: Set 14
  * Type: Character
  * SubType: Imperial
- * Title: Admiral Piett
+ * Title: Admiral Piett (V)
  */
 public class Card501_004 extends AbstractImperial {
     public Card501_004() {
