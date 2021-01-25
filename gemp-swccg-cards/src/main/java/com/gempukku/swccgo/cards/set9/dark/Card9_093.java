@@ -48,8 +48,7 @@ public class Card9_093 extends AbstractAdmiralsOrder {
 
             // We only apply this effect if it hasn't already happened for this ship this battle
             for (Modifier modifier: game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), cardFiringWeapon)) {
-                PhysicalCard thisCard = modifier.getSource(game.getGameState());
-                if (thisCard == self) {
+                if (modifier.getSource(game.getGameState()) == self) {
                     return null;
                 }
             }
