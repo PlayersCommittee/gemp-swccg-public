@@ -23,7 +23,6 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collections;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
