@@ -58,10 +58,10 @@ public class Card206_011 extends AbstractImperial {
     protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.VEERS__UPLOAD_HOTH_COMBAT_VEHICLE_OR_SIXTH_MARKER;
 
-        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Reveal to deploy 6th Marker or Blizzard 1");
             action.setActionMsg("Deploy 6th Marker or Blizzard 1");
             // Update usage limit(s)
