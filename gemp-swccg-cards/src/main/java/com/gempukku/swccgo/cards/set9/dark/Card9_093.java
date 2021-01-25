@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collections;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,6 +46,14 @@ public class Card9_093 extends AbstractAdmiralsOrder {
         // Check condition(s)
         if (TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.weapon, Filters.and(Filters.starfighter, Filters.participatingInBattle))) {
             final PhysicalCard cardFiringWeapon = ((FiredWeaponResult) effectResult).getCardFiringWeapon();
+
+            // We only apply this effect if it hasn't already happened for this ship this battle
+            for (Modifier modifier: game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), cardFiringWeapon)) {
+                PhysicalCard thisCard = modifier.getSource(game.getGameState());
+                if (thisCard == self) {
+                    return null;
+                }
+            }
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Add 3 to power of " + GameUtils.getFullName(cardFiringWeapon));

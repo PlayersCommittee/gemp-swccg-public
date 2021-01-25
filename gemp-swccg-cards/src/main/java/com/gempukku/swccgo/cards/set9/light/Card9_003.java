@@ -46,6 +46,14 @@ public class Card9_003 extends AbstractAdmiralsOrder {
         if (TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.weapon, Filters.and(Filters.starfighter, Filters.participatingInBattle))) {
             final PhysicalCard cardFiringWeapon = ((FiredWeaponResult) effectResult).getCardFiringWeapon();
 
+            // We only apply this effect if it hasn't already happened for this ship this battle
+            for (Modifier modifier: game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), cardFiringWeapon)) {
+                PhysicalCard thisCard = modifier.getSource(game.getGameState());
+                if (thisCard == self) {
+                    return null;
+                }
+            }
+
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Add 3 to power of " + GameUtils.getFullName(cardFiringWeapon));
             action.setActionMsg("Add 3 to power of " + GameUtils.getCardLink(cardFiringWeapon));
