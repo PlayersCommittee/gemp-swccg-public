@@ -33,9 +33,10 @@ import java.util.List;
  */
 public class Card501_007 extends AbstractResistance {
     public Card501_007() {
-        super(Side.LIGHT, 2, 1, 3, 2, 4, "Beaumont Kin", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, 2, 4, "Beaumont Kin", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Opponent's characters deploy cost may not be modified at same and related locations. If you have ten cards in your lost pile, Force drain + 1 here. During battle, may add Beaumont's power to another character present; Beaumont is 'hit'.");
+        setGameText("Deploy cost of opponent's characters may not be modified at same and related locations. If you have ten cards in your Lost Pile, Force drain +1 here. Once during battle, may add Beaumont's power to another character present; Beaumont is 'hit'.");
+        addPersona(Persona.BEAUMONT);
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_14, Icon.EPISODE_VII);
         setTestingText("Beaumont Kin");
     }
@@ -50,12 +51,11 @@ public class Card501_007 extends AbstractResistance {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.isPresentWith(game, self, Filters.character)) {
+                && GameConditions.canSpot(game, self, Filters.and(Filters.character, Filters.other(self), Filters.present(self), Filters.participatingInBattle))
+                && GameConditions.canSpot(game, self, Filters.Beaumont)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
             action.setText("Add power to another character");
@@ -63,17 +63,20 @@ public class Card501_007 extends AbstractResistance {
             action.appendUsage(
                     new OncePerBattleEffect(action));
             // Perform result(s)
-            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Add power to character", Filters.and(Filters.character, Filters.presentWith(self), Filters.participatingInBattle)) {
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Add power to character", Filters.and(Filters.character, Filters.other(self), Filters.present(self), Filters.participatingInBattle)) {
                                        @Override
                                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                                            action.allowResponses(new RespondableEffect(action) {
                                                @Override
                                                protected void performActionResults(Action targetingAction) {
                                                    PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-                                                   //if text says Beaumont this needs to specifically look for Beaumont to interact correctly with Bane Malar
-                                                   float toAdd = game.getModifiersQuerying().getPower(game.getGameState(), self);
-                                                   action.appendEffect(new ModifyPowerUntilEndOfBattleEffect(action, finalTarget, toAdd));
-                                                   action.appendEffect(new HitCardEffect(action, self, self));
+                                                   PhysicalCard beaumont = Filters.findFirstActive(game, self, Filters.Beaumont);
+
+                                                   if (beaumont != null) {
+                                                       float toAdd = game.getModifiersQuerying().getPower(game.getGameState(), beaumont);
+                                                       action.appendEffect(new ModifyPowerUntilEndOfBattleEffect(action, finalTarget, toAdd));
+                                                       action.appendEffect(new HitCardEffect(action, beaumont, self));
+                                                   }
                                                }
                                            });
 
