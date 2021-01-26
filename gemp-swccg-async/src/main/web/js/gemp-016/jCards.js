@@ -3329,6 +3329,7 @@ var fixedImages = {
 "601_69":"/gemp-swccg/images/legacycards/light/weaponsdisplay.gif",
 "601_70":"/gemp-swccg/images/legacycards/light/yavinsentry.gif",
 "601_71":"/gemp-swccg/images/legacycards/light/yourinsightservesyouwell.gif",
+"601_72":"/gemp-swccg/images/legacycards/dark/velkentezeri.gif",
 
 //playtesting
 "501_1":"/gemp-swccg/images/cards/Virtual4-Light/rey.gif",

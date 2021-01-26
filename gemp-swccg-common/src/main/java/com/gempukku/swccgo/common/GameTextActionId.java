@@ -711,7 +711,14 @@ public enum GameTextActionId {
     ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_CANCEL_AND_REDRAW_A_DESTINY),
 
     // Special action done for deploying cards (per game)
-    DEPLOY_CARD_ACTION(false, true);
+    DEPLOY_CARD_ACTION(false, true),
+
+
+
+    // Legacy
+    LEGACY_SLAVING_CAMP_HEADQUARTERS__DEPLOY_SITE_AND_OR_OTHER_CARD(true),
+
+    ;
 
     private boolean _searchCardPile;
     private boolean _perGame;

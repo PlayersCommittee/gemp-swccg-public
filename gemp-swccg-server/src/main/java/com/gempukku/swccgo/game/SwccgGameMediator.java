@@ -1361,6 +1361,10 @@ public class SwccgGameMediator {
                 // Senate
                 objectiveLabel = "Senate";
             }
+            if (Filters.or(Filters.title("Wookiee Slaving Operation"), Filters.title("Indentured To The Empire")).accepts(_swccgoGame, objective)) {
+                //Wookiee Slaving Operation
+                objectiveLabel = "Slavers";
+            }
             if (Filters.or(Filters.Shadow_Collective, Filters.You_Know_Who_I_Answer_To).accepts(_swccgoGame, objective)) {
                 // Shadow Collective
                 objectiveLabel = "Shadow Collective";

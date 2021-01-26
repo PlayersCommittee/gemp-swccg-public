@@ -17846,6 +17846,7 @@ public class Filters {
     public static final Filter Kamino_location = Filters.partOfSystem(Title.Kamino);
     public static final Filter Kanan = Filters.title(Title.Kanan);
     public static final Filter Karie_Neth = Filters.title(Title.Karie_Neth);
+    public static final Filter Kashyyyk_location = Filters.partOfSystem(Title.Kashyyyk);
     public static final Filter Kashyyyk_site = Filters.and(Filters.partOfSystem(Title.Kashyyyk), CardSubtype.SITE);
     public static final Filter Kashyyyk_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Kashyyyk));
     public static final Filter Kowakian = Filters.species(Species.KOWAKIAN);
@@ -18342,6 +18343,7 @@ public class Filters {
     public static final Filter Skywalkers = Filters.title(Title.Skywalkers);
     public static final Filter Slave_I = Filters.persona(Persona.SLAVE_I);
     public static final Filter Slave_Quarters = Filters.title(Title.Slave_Quarters);
+    public static final Filter slaver = Filters.keyword(Keyword.SLAVER);
     public static final Filter Slip_Sliding_Away = Filters.title(Title.Slip_Sliding_Away);
     public static final Filter Smoke_Screen = Filters.title(Title.Smoke_Screen);
     public static final Filter smuggler = Filters.keyword(Keyword.SMUGGLER);
