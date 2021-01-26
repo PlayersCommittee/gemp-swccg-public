@@ -38,6 +38,17 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_13("Set 13", true),
     VIRTUAL_SET_14("Set 14", true),
 
+    //Legacy expansions
+    BLOCK_1("Block 1", true),
+    BLOCK_2("Block 2", true),
+    BLOCK_3("Block 3", true),
+    BLOCK_4("Block 4", true),
+    BLOCK_5("Block 5", true),
+    BLOCK_6("Block 6", true),
+    BLOCK_7("Block 7", true),
+    BLOCK_8("Block 8", true),
+    BLOCK_9("Block 9", true),
+
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),
     ALIEN("Alien"),

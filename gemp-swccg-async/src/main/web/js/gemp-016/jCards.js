@@ -3256,6 +3256,80 @@ var fixedImages = {
 "301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
+//legacy
+"601_1":"/gemp-swccg/images/legacycards/dark/knowledgeanddefense.gif",
+"601_2":"/gemp-swccg/images/legacycards/dark/bobafettpreparedhunter.gif",
+"601_3":"/gemp-swccg/images/legacycards/dark/bossk.gif",
+"601_4":"/gemp-swccg/images/legacycards/dark/coldfeet.gif",
+"601_5":"/gemp-swccg/images/legacycards/dark/denofthieves&specialdelivery.gif",
+"601_6":"/gemp-swccg/images/legacycards/dark/dengarwithblastercarbine.gif",
+"601_7":"/gemp-swccg/images/legacycards/dark/huttbounty.gif",
+"601_8":"/gemp-swccg/images/legacycards/dark/ig88renegadedroid.gif",
+"601_9":"/gemp-swccg/images/legacycards/dark/jabbathehutt.gif",
+"601_10":"/gemp-swccg/images/legacycards/dark/jabbashaven.gif",
+"601_11":"/gemp-swccg/images/legacycards/dark/jabbassailbarge.gif",
+"601_12":"/gemp-swccg/images/legacycards/dark/jabbasspacecruiser.gif",
+"601_13":"/gemp-swccg/images/legacycards/dark/jangofetttheassassin.gif",
+"601_14":"/gemp-swccg/images/legacycards/dark/kashyyykskyhookplatform.gif",
+"601_15":"/gemp-swccg/images/legacycards/dark/kashyyykslavingcampheadquarters.gif",
+"601_16":"/gemp-swccg/images/legacycards/dark/kashyyykwookieeslavingcamp.gif",
+"601_17":"/gemp-swccg/images/legacycards/dark/ketmalissshadowkiller.gif",
+"601_18":"/gemp-swccg/images/legacycards/dark/lightsaberdeficiency.gif",
+"601_19":"/gemp-swccg/images/legacycards/dark/mercenarypilot.gif",
+"601_20":"/gemp-swccg/images/legacycards/dark/mercenaryslavers.gif",
+"601_21":"/gemp-swccg/images/legacycards/dark/oom9.gif",
+"601_22":"/gemp-swccg/images/legacycards/dark/pondababa.gif",
+"601_23":"/gemp-swccg/images/legacycards/dark/probot.gif",
+"601_24":"/gemp-swccg/images/legacycards/dark/slaveisymboloffear.gif",
+"601_25":"/gemp-swccg/images/legacycards/dark/sneakattack.gif",
+"601_26":"/gemp-swccg/images/legacycards/dark/somethingspecialplannedforthem.gif",
+"601_27":"/gemp-swccg/images/legacycards/dark/sonicbombardment.gif",
+"601_28":"/gemp-swccg/images/legacycards/dark/tarkinsbounty.gif",
+"601_29":"/gemp-swccg/images/legacycards/dark/wookieeslavingoperation.gif",
+"601_29_BACK":"/gemp-swccg/images/legacycards/dark/indenturedtotheempire.gif",
+"601_30":"/gemp-swccg/images/legacycards/dark/wookieesubjugation.gif",
+"601_31":"/gemp-swccg/images/legacycards/dark/auselessgesture.gif",
+"601_32":"/gemp-swccg/images/legacycards/dark/abyss.gif",
+"601_33":"/gemp-swccg/images/legacycards/dark/deathstarsentry.gif",
+"601_34":"/gemp-swccg/images/legacycards/dark/dotheyhaveacodeclearance.gif",
+"601_35":"/gemp-swccg/images/legacycards/dark/fanfare.gif",
+"601_36":"/gemp-swccg/images/legacycards/dark/firepower.gif",
+"601_37":"/gemp-swccg/images/legacycards/dark/ifindyourlackoffaithdisturbing.gif",
+"601_38":"/gemp-swccg/images/legacycards/dark/imperialdetention.gif",
+"601_39":"/gemp-swccg/images/legacycards/light/angerfearaggression.gif",
+"601_40":"/gemp-swccg/images/legacycards/light/anakinskywalkerpadawanlearner.gif",
+"601_41":"/gemp-swccg/images/legacycards/light/communing.gif",
+"601_42":"/gemp-swccg/images/legacycards/light/dashrendar.gif",
+"601_43":"/gemp-swccg/images/legacycards/light/escapepod.gif",
+"601_44":"/gemp-swccg/images/legacycards/light/flashofinsight.gif",
+"601_45":"/gemp-swccg/images/legacycards/light/hearmebabyholdtogether.gif",
+"601_46":"/gemp-swccg/images/legacycards/light/jainasolo.gif",
+"601_47":"/gemp-swccg/images/legacycards/light/jedilevitation.gif",
+"601_48":"/gemp-swccg/images/legacycards/light/klorslug.gif",
+"601_49":"/gemp-swccg/images/legacycards/light/ladyluck.gif",
+"601_50":"/gemp-swccg/images/legacycards/light/landocalrissianunlikelyhero.gif",
+"601_51":"/gemp-swccg/images/legacycards/light/letthewookieewin.gif",
+"601_52":"/gemp-swccg/images/legacycards/light/lukeskywalkerstrongintheforce.gif",
+"601_53":"/gemp-swccg/images/legacycards/light/lukesbionichand.gif",
+"601_54":"/gemp-swccg/images/legacycards/light/masterkenobi.gif",
+"601_55":"/gemp-swccg/images/legacycards/light/padmenaberrie.gif",
+"601_56":"/gemp-swccg/images/legacycards/light/quickdraw.gif",
+"601_57":"/gemp-swccg/images/legacycards/light/runlukerun.gif",
+"601_58":"/gemp-swccg/images/legacycards/light/saitorrkalfas.gif",
+"601_59":"/gemp-swccg/images/legacycards/light/seekinganaudience.gif",
+"601_60":"/gemp-swccg/images/legacycards/light/tatooineobiwanshut.gif",
+"601_61":"/gemp-swccg/images/legacycards/light/wokling.gif",
+"601_62":"/gemp-swccg/images/legacycards/light/yodagreatwarrior.gif",
+"601_63":"/gemp-swccg/images/legacycards/light/yubyubcommander.gif",
+"601_64":"/gemp-swccg/images/legacycards/light/affectmind.gif",
+"601_65":"/gemp-swccg/images/legacycards/light/chasm.gif",
+"601_66":"/gemp-swccg/images/legacycards/light/letskeepalittleoptimismhere.gif",
+"601_67":"/gemp-swccg/images/legacycards/light/simpletricksandnonsense.gif",
+"601_68":"/gemp-swccg/images/legacycards/light/theprofessor.gif",
+"601_69":"/gemp-swccg/images/legacycards/light/weaponsdisplay.gif",
+"601_70":"/gemp-swccg/images/legacycards/light/yavinsentry.gif",
+"601_71":"/gemp-swccg/images/legacycards/light/yourinsightservesyouwell.gif",
+
 //playtesting
 "501_1":"/gemp-swccg/images/cards/Virtual4-Light/rey.gif",
 "501_2":"/gemp-swccg/images/cards/EnhancedJabbasPalace-Dark/marajadeslightsaber.gif",
@@ -3766,6 +3840,12 @@ var Card = Class.extend({
                    (cardNo == 75) ||
                    (cardNo == 87);
         }
+        if (setNo == 601) {
+             return (cardNo == 14) ||
+                    (cardNo == 15) ||
+                    (cardNo == 16) ||
+                    (cardNo == 60);
+       }
 
         return false;
     },
@@ -3789,7 +3869,7 @@ var Card = Class.extend({
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
         
-        if (setNo >= 400) {
+        if (setNo >= 400 && setNo < 600) {
             return true;
         }
 

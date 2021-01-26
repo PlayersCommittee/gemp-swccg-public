@@ -1669,4 +1669,10 @@ public interface SwccgCardBlueprint {
      * @return the duel directions provided by this card, or null
      */
     DuelDirections getDuelDirections(SwccgGame game);
+
+    /**
+     * Returns if this is a legacy card
+     * @return true if this is a legacy card
+     */
+    boolean isLegacy();
 }
