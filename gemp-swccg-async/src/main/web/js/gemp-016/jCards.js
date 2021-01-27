@@ -3757,10 +3757,7 @@ var Card = Class.extend({
                            (cardNo == 56);
         }
         if (setNo == 501) {
-            return (cardNo == 14) ||
-                   (cardNo == 15) ||
-                   (cardNo == 16) ||
-                   (cardNo == 40) ||
+            return (cardNo == 40) ||
                    (cardNo == 55) ||
                    (cardNo == 56) ||
                    (cardNo == 57) ||
