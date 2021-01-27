@@ -9,12 +9,10 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.PlaceCardInLostPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.*;
 import com.gempukku.swccgo.logic.modifiers.*;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +35,7 @@ public class Card601_015 extends AbstractSite {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextDarkSideTopLevelActions(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.LEGACY_SLAVING_CAMP_HEADQUARTERS__DEPLOY_SITE_AND_OR_OTHER_CARD;
+        GameTextActionId gameTextActionId = GameTextActionId.LEGACY__SLAVING_CAMP_HEADQUARTERS__DEPLOY_SITE_AND_OR_OTHER_CARD;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId)
@@ -48,11 +46,12 @@ public class Card601_015 extends AbstractSite {
             action.appendUsage(new OncePerTurnEffect(action));
             action.appendCost(new UseForceEffect(action, playerOnDarkSideOfLocation, 1));
             // Perform result(s)
-            //TODO this should \/ instead of /\
+            //TODO this ignores cards with hunting in title right now because I didn't find a good effect to use for deploying A and/or B
             action.appendEffect(
-                    new TakeCardAndOrCardIntoHandFromReserveDeckEffect(action, playerOnDarkSideOfLocation, Filters.and(Filters.Kashyyyk_location, Filters.battleground_site), Filters.titleContains("Hunting"),true));
+                    new DeployCardToSystemFromReserveDeckEffect(action, Filters.location, Title.Kashyyyk, true));
             return Collections.singletonList(action);
         }
+
         return null;
     }
 

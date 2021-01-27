@@ -254,6 +254,7 @@ public interface Title {
     String Defensive_Fire = "Defensive Fire";
     String Defensive_Perimeter = "Hoth: Defensive Perimeter (3rd Marker)";
     String Demotion = "Demotion";
+    String Den_Of_Thieves = "Den Of Thieves";
     String Dengars_Blaster_Carbine =  "Dengar's Blaster Carbine";
     String Derlin = "Major Bren Derlin";
     String Desert_Heart = "Tatooine: Desert Heart";

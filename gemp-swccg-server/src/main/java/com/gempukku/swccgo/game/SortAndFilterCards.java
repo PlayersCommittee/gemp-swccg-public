@@ -85,7 +85,7 @@ public class SortAndFilterCards {
                         if (blueprint != null)
                             if (side == null || blueprint.getSide() == side)
                                 if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                                    if ((format == null && !isLegacy(blueprintId, library)) || isInFormat(blueprintId, format, formatLibrary))
+                                    if (format == null || (format.equals("all") && !isLegacy(blueprintId, library)) || isInFormat(blueprintId, format, formatLibrary))
                                         if (sets == null || isInSets(blueprintId, sets, library, formatLibrary))
                                             if (cardCategory == null || blueprint.getCardCategory() == cardCategory)
                                                 if (cardType == null || blueprint.isCardType(cardType))

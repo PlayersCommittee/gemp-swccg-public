@@ -150,7 +150,7 @@ var CardFilter = Class.extend({
 
         this.formatLabel = $("<label for='formatSelect' class='filterLabel'>Format:</label>");
         this.formatSelect = $("<select id='formatSelect' class='filterInput'>"
-            + "<option value='' selected='selected'>All</option>"
+            + "<option value='all' selected='selected'>All</option>"
             + "<option value='open'>Open</option>"
             + "<option value='jawa'>Jawa</option>"
             + "<option value='open_no_shields'>Open (no shields)</option>"

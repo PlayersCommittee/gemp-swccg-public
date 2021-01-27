@@ -9469,6 +9469,8 @@ public class Filters {
                     || physicalCard.getBlueprint().getCardSubtype() == CardSubtype.USED_OR_STARTING)) {
                 return (physicalCard.getBlueprint().getStartingInterruptAction(physicalCard.getOwner(), gameState.getGame(), physicalCard) != null);
             }
+            if (physicalCard.getBlueprint().getCardCategory() == CardCategory.EPIC_EVENT)
+                return (physicalCard.getBlueprint().getStartingInterruptAction(physicalCard.getOwner(), gameState.getGame(), physicalCard) != null);
             return false;
         }
     };
@@ -17554,7 +17556,7 @@ public class Filters {
     public static final Filter Fearless_And_Inventive = Filters.title(Title.Fearless_And_Inventive);
     public static final Filter Fel = Filters.title(Title.Fel);
     public static final Filter Feltipern_Trevagg = Filters.title(Title.Feltipern_Trevagg);
-    public static final Filter Fett = Filters.or(Filters.persona(Persona.BOBA_FETT), Filters.title(Title.Jango_Fett));
+    public static final Filter Fett = Filters.or(Filters.persona(Persona.BOBA_FETT), Filters.persona(Persona.JANGO_FETT));
     public static final Filter female = Filters.and(CardCategory.CHARACTER, Keyword.FEMALE);
     public static final Filter Free_Ride = Filters.title(Title.Free_Ride);
     public static final Filter Fifth_Marker = Filters.keyword(Keyword.MARKER_5);
@@ -17803,7 +17805,7 @@ public class Filters {
     public static final Filter Jakku_location = Filters.partOfSystem(Title.Jakku);
     public static final Filter Jakku_site = Filters.and(CardSubtype.SITE, Filters.partOfSystem(Title.Jakku));
     public static final Filter Jakku_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Jakku));
-    public static final Filter Jango_Fett = Filters.title(Title.Jango_Fett);
+    public static final Filter Jango_Fett = Filters.persona(Persona.JANGO_FETT);
     public static final Filter Jar_Jar = Filters.persona(Persona.JAR_JAR);
     public static final Filter Jawa = Filters.species(Species.JAWA);
     public static final Filter Jawa_Blaster = Filters.title(Title.Jawa_Blaster);
