@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card601_015 extends AbstractSite {
     public Card601_015() {
-        super(Side.DARK, "Kashyyyk: Slaving Camp Headquarters", Title.Kashyyyk);
+        super(Side.DARK, Title.Slaving_Camp_Headquarters, Title.Kashyyyk);
         setLocationDarkSideGameText("Once per turn, may use 1 Force to deploy a battleground site to Kashyyyk and/or a card with 'Hunting' in title.");
         setLocationLightSideGameText("Force drain +1 here. If you control with a Wookiee, Trandoshans are deploy +1 to Kashyyyk.");
         addIcon(Icon.DARK_FORCE, 2);

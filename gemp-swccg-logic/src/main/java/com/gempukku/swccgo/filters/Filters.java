@@ -17748,6 +17748,7 @@ public class Filters {
     public static final Filter In_Complete_Control = Filters.title(Title.In_Complete_Control);
     public static final Filter In_The_Hands_Of_The_Empire = Filters.title(Title.In_The_Hands_Of_The_Empire);
     public static final Filter Incinerator = Filters.title(Title.Incinerator);
+    public static final Filter Indentured_To_The_Empire = Filters.title(Title.Indentured_To_The_Empire);
     public static final Filter Independent_Operation = Filters.title(Title.Independent_Operation);
     public static final Filter infantry_battle_droid = Filters.keyword(Keyword.INFANTRY_BATTLE_DROID);
     public static final Filter Infantry_Mine = Filters.title(Title.Infantry_Mine);
@@ -18631,6 +18632,7 @@ public class Filters {
     public static final Filter Wittin = Filters.title(Title.Wittin);
     public static final Filter womp_rat = Filters.title(Title.Womp_Rat);
     public static final Filter Wookiee = Filters.species(Species.WOOKIEE);
+    public static final Filter Wookiee_Slaving_Operation = Filters.title(Title.Wookiee_Slaving_Operation);
     public static final Filter Wookiee_Roar = Filters.title(Title.Wookiee_Roar);
     public static final Filter Wookiee_Strangle = Filters.title(Title.Wookiee_Strangle);
     public static final Filter Wounded_Wookiee = Filters.title(Title.Wounded_Wookiee);

@@ -24,6 +24,7 @@ public class Card601_020 extends AbstractNormalEffect {
         setGameText("Unless your [Reflections II] objective on table, deploy on a site. Your smugglers and gangsters are slavers. Slavers are forfeit +2 and weapon destinies targeting them (or starships they pilot) are -1. 'Trandoshan' on your sites may be treated as 'slaver.' [Immune to Alter.]");
         addIcons(Icon.BLOCK_7, Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
+        setAsLegacy(true);
     }
 
     @Override

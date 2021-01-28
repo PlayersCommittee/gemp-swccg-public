@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card601_029 extends AbstractObjective {
     public Card601_029() {
-        super(Side.DARK, 0, "Wookiee Slaving Operation");
+        super(Side.DARK, 0, Title.Wookiee_Slaving_Operation);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Kashyyyk system, Slaving Camp Headquarters, and [Block 8] Special Delivery.\n" +
                 "For remainder of game, your Trandoshans are slavers. Scum And Villainy may deploy on Slaving Camp Headquarters and may not be canceled while you occupy that site. While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.\n" +
@@ -48,14 +48,14 @@ public class Card601_029 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.title("Kashyyyk: Slaving Camp Headquarters"), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Slaving_Camp_Headquarters), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose Slaving Camp Headquarters to deploy";
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.icon(Icon.BLOCK_8), Filters.Special_Delivery), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.BLOCK_8, Filters.Special_Delivery), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose [Block 8] Special Delivery to deploy";
@@ -76,7 +76,7 @@ public class Card601_029 extends AbstractObjective {
         //Scum And Villainy may deploy on Slaving Camp Headquarters and
         modifiers.add(new ModifyGameTextModifier(self, Filters.Scum_And_Villainy, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_SLAVING_CAMP_HEADQUARTERS));
         //may not be canceled while you occupy that site.
-        modifiers.add(new MayNotBeCanceledModifier(self, Filters.Scum_And_Villainy, new OccupiesCondition(self.getOwner(), Filters.title("Kashyyyk: Slaving Camp Headquarters"))));
+        modifiers.add(new MayNotBeCanceledModifier(self, Filters.Scum_And_Villainy, new OccupiesCondition(self.getOwner(), Filters.title(Title.Slaving_Camp_Headquarters))));
         //While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.
         modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.your(self), Filters.non_unique, Filters.slaver),
                 new CardsInHandFewerThanCondition(self.getOwner(), 13), Title.Grimtaash));

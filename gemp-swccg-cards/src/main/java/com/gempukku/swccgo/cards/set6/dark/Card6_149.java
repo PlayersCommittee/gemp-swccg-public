@@ -40,7 +40,7 @@ public class Card6_149 extends AbstractNormalEffect {
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         Filter filter = Filters.Audience_Chamber;
         if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_SLAVING_CAMP_HEADQUARTERS))
-            filter = Filters.or(filter, Filters.title("Kashyyyk: Slaving Camp Headquarters"));
+            filter = Filters.or(filter, Filters.title(Title.Slaving_Camp_Headquarters));
         //if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_JABBAS_SAIL_BARGE))
         //filter = Filters.or(filter, Filters.Jabbas_Sail_Barge);
         return filter;

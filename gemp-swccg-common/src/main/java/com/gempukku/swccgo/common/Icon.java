@@ -48,6 +48,7 @@ public enum Icon implements Filterable {
     BLOCK_7("Block 7", true),
     BLOCK_8("Block 8", true),
     BLOCK_9("Block 9", true),
+    BLOCK_D("Block D", true),
 
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),

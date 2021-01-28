@@ -43,12 +43,12 @@ public class Card601_016 extends AbstractSite {
             }
         };
 
-        Condition trandoshanPresent = new OrCondition(new PresentAtCondition(self, Filters.species(Species.TRANDOSHAN)),
-                new AndCondition(treatTrandoshanAsSlaver, new PresentAtCondition(self, Filters.slaver)));
+        Condition trandoshanPresent = new OrCondition(new PresentAtCondition(Filters.species(Species.TRANDOSHAN), self),
+                new AndCondition(treatTrandoshanAsSlaver, new PresentAtCondition(Filters.slaver, self)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         //modifiers.add(new JabbasSailBargeMayDeployHereModifier(self, self));
-        modifiers.add(new ForceDrainModifier(self, Filters.here(self), trandoshanPresent, 1, playerOnDarkSideOfLocation));
+        modifiers.add(new ForceDrainModifier(self, self, trandoshanPresent, 1, playerOnDarkSideOfLocation));
         return modifiers;
     }
 

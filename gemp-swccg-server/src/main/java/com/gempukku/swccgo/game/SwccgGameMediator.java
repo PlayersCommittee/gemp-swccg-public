@@ -1372,7 +1372,7 @@ public class SwccgGameMediator {
                 // Senate
                 objectiveLabel = "Senate";
             }
-            if (Filters.or(Filters.title("Wookiee Slaving Operation"), Filters.title("Indentured To The Empire")).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.Wookiee_Slaving_Operation, Filters.Indentured_To_The_Empire).accepts(_swccgoGame, objective)) {
                 //Wookiee Slaving Operation
                 objectiveLabel = "Slavers";
             }

@@ -501,6 +501,7 @@ public interface Title {
     String In_Complete_Control = "In Complete Control";
     String In_The_Hands_Of_The_Empire = "In The Hands Of The Empire";
     String Incinerator = "Cloud City: Incinerator";
+    String Indentured_To_The_Empire = "Indentured To The Empire";
     String Information_Exchange = "Information Exchange";
     String Inner_Strength = "Inner Strength";
     String Independent_Operation = "Independent Operation";
@@ -898,6 +899,7 @@ public interface Title {
     String Sith_Probe_Droid = "Sith Probe Droid";
     String Skywalkers = "Skywalkers";
     String Slave_Quarters = "Tatooine: Slave Quarters";
+    String Slaving_Camp_Headquarters = "Kashyyyk: Slaving Camp Headquarters";
     String Slip_Sliding_Away = "Slip Sliding Away";
     String Smoke_Screen = "Smoke Screen";
     String Sniper = "Sniper";
@@ -1091,6 +1093,7 @@ public interface Title {
     String Wise_Advice = "Wise Advice";
     String Wittin = "Wittin";
     String Womp_Rat = "Womp Rat";
+    String Wookiee_Slaving_Operation = "Wookiee Slaving Operation";
     String Wookiee_Roar = "Wookiee Roar";
     String Wookiee_Strangle = "Wookiee Strangle";
     String Wounded_Wookiee = "Wounded Wookiee";

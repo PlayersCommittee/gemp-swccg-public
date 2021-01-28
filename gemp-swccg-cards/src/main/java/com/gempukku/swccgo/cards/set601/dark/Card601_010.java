@@ -31,6 +31,7 @@ public class Card601_010 extends AbstractNormalEffect {
         setGameText("Deploy on table. May deploy Nal Hutta from Reserve Deck; reshuffle. Once per game, may retrieve an alien or [Independent] starship into hand. While Fearless And Inventive on table, once per battle, may lose 1 force; your battle destiny modifiers affect your total battle destiny instead. [Immune to Alter.]");
         addIcons(Icon.BLOCK_7, Icon.JABBAS_PALACE);
         addImmuneToCardTitle(Title.Alter);
+        setAsLegacy(true);
     }
 
     @Override
