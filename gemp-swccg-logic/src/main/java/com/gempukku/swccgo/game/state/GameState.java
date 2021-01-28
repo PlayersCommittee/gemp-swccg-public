@@ -2610,14 +2610,21 @@ public class GameState implements Snapshotable<GameState> {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
             }
-
-            // The player may use any stacked cards that may deploy "as if from hand"
+/*
+            // Visit stacked cards to check for any actions, either whileStacked actions or any stacked cards that may deploy "as if from hand"
             for (PhysicalCard physicalCard : _stacked.get(playerId)) {
-                if (physicalCard.getZone() == Zone.STACKED
-                        && _game.getModifiersQuerying().mayDeployAsIfFromHand(this, physicalCard)) {
+                if (physicalCard.getZone() == Zone.STACKED) {
                     if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                         return true;
                 }
+            }
+*/
+        }
+        // Visit stacked cards to check for any actions, either whileStacked actions or any stacked cards that may deploy "as if from hand"
+        for (PhysicalCard physicalCard : _stacked.get(playerId)) {
+            if (physicalCard.getZone() == Zone.STACKED) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
             }
         }
 

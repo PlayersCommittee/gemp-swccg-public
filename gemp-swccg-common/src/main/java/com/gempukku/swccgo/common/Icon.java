@@ -64,6 +64,7 @@ public enum Icon implements Filterable {
     INTERRUPT("Interrupt"),
     JEDI_MASTER("Jedi Master"),
     JEDI_TEST("Jedi Test"),
+    NEW_REPUBLIC("New Republic"),
     OBJECTIVE("Objective"),
     PODRACER("Podracer"),
     REBEL("Rebel"),

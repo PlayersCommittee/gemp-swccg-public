@@ -5,20 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.CardsInHandFewerThanCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -30,11 +24,11 @@ import java.util.List;
 /**
  * Set: Block 8
  * Type: Objective
- * Title: Wookiee Slaving Operations / Indentured To The Empire
+ * Title: Wookiee Slaving Operation / Indentured To The Empire
  */
 public class Card601_029 extends AbstractObjective {
     public Card601_029() {
-        super(Side.DARK, 0, "Wookiee Slaving Operations");
+        super(Side.DARK, 0, "Wookiee Slaving Operation");
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Kashyyyk system, Slaving Camp Headquarters, and [Block 8] Special Delivery.\n" +
                 "For remainder of game, your Trandoshans are slavers. Scum And Villainy may deploy on Slaving Camp Headquarters and may not be canceled while you occupy that site. While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.\n" +

@@ -4495,5 +4495,7 @@ public interface ModifiersQuerying {
 
     SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
 
-    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
+    boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
+
+    boolean isCommuning(GameState gameState, PhysicalCard card);
 }

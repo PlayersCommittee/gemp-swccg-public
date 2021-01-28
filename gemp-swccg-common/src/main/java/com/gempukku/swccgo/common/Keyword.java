@@ -146,6 +146,7 @@ public enum Keyword implements Filterable {
     SANDTROOPER("Sandtrooper", true),
     SCYTHE_SQUADRON("Scythe Squadron", true),
     SCIMITAR_SQUADRON("Scimitar Squadron", true),
+    SCOUNDREL("Scoundrel", true),
     SCOUT("Scout", true),
     SECURITY_BATTLE_DROID("Security Battle Droid", true),
     SEEKER("Seeker", true),

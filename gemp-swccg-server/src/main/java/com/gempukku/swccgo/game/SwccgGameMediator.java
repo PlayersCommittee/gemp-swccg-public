@@ -1214,6 +1214,17 @@ public class SwccgGameMediator {
                     // Slip Sliding Away (v)
                     return startingLocation.getBlueprint().getTitle() + " SSAv";
                 }
+                if (Filters.Communing.accepts(_swccgoGame, startingInterrupt)
+                        && startingInterrupt.getBlueprint().isLegacy()) {
+                    //Communing (ignore the location)
+                    return "Communing";
+                }
+                if (Filters.title("It Is The Future You See").accepts(_swccgoGame, startingInterrupt)
+                        && startingInterrupt.getBlueprint().hasVirtualSuffix()
+                        && startingInterrupt.getBlueprint().isLegacy()) {
+                    //Sonn v (ignore the location)
+                    return "Sonn v";
+                }
 
                 return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
             }

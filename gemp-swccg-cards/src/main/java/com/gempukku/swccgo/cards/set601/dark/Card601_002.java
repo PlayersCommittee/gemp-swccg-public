@@ -4,21 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataNotSetCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.cards.effects.usage.FourTimesPerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
@@ -65,8 +59,6 @@ public class Card601_002 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<>();
-
         GameTextActionId gameTextActionId = GameTextActionId.LEGACY__BOBA_FETT__UPLOAD_AND_DEPLOY_SLAVE_I;
 
         if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.SLAVE_I)) {
@@ -82,9 +74,13 @@ public class Card601_002 extends AbstractAlien {
                     new ShowCardOnScreenEffect(action, self));
             action.appendEffect(
                     new DeployCardFromReserveDeckSimultaneouslyWithCardEffect(action, self, Filters.Slave_I, true));
-            actions.add(action);
+            return Collections.singletonList(action);
         }
+        return null;
+    }
 
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId2 = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
@@ -103,10 +99,10 @@ public class Card601_002 extends AbstractAlien {
                     new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
             action.appendEffect(
                     new AddDestinyToTotalPowerEffect(action, 1, playerId));
-            actions.add(action);
+            Collections.singletonList(action);
         }
 
-        return actions;
+        return null;
     }
 
     @Override

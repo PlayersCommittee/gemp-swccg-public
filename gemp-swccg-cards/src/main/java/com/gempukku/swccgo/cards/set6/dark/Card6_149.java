@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -37,7 +38,12 @@ public class Card6_149 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Audience_Chamber;
+        Filter filter = Filters.Audience_Chamber;
+        if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_SLAVING_CAMP_HEADQUARTERS))
+            filter = Filters.or(filter, Filters.title("Kashyyyk: Slaving Camp Headquarters"));
+        //if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_JABBAS_SAIL_BARGE))
+        //filter = Filters.or(filter, Filters.Jabbas_Sail_Barge);
+        return filter;
     }
 
     @Override

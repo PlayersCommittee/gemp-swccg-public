@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.CardsInHandFewerThanCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.common.*;
@@ -12,7 +11,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -28,7 +26,7 @@ import java.util.List;
  */
 public class Card601_029_BACK extends AbstractObjective {
     public Card601_029_BACK() {
-        super(Side.LIGHT, 7, "Indentured To The Empire");
+        super(Side.DARK, 7, "Indentured To The Empire");
         setGameText("While this side up, whenever you 'enslave' a character, opponent must choose to use 2 Force or lose 1 Force. Once per turn, during battle may add or subtract up to X from your just drawn destiny, where X = the number of Kashyyyk locations you control with a slaver. Once per turn, if you just retrieved Force during battle, may take a slaver, starship, or vehicle retrieved into hand.\n" +
                 "Flip this card if opponent controls two Kashyyyk battlegrounds.");
         addIcons(Icon.CLOUD_CITY, Icon.BLOCK_8);

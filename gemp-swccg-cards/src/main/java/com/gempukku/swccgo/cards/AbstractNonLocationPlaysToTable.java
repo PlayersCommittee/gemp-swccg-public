@@ -695,7 +695,8 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
         // Play card
-        if (canPlayCardDuringCurrentPhase(playerId, game, self)) {
+        if (canPlayCardDuringCurrentPhase(playerId, game, self)
+                && (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
             boolean forFree = isCardTypeAlwaysPlayedForFree() || game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS;
             List<PlayCardAction> playCardActions = getPlayCardActions(playerId, game, self, self, forFree, 0, null, null, null, null, null, false, 0, Filters.any, null);
             if (playCardActions != null) {
@@ -731,6 +732,13 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         // Actions from game text when in hand
         if (self.getZone() == Zone.HAND) {
             List<TopLevelGameTextAction> gameTextActions = getGameTextTopLevelInHandActions(playerId, game, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
+        }
+
+        // Actions from game text when stacked
+        if (self.getZone() == Zone.STACKED) {
+            List<TopLevelGameTextAction> gameTextActions = getGameTextTopLevelWhileStackedActions(playerId, game, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
         }
@@ -1102,6 +1110,11 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                         actions.addAll(gameTextActions);
                 }
             }
+        }
+        if (self.getZone() == Zone.STACKED) {
+            List<OptionalGameTextTriggerAction> gameTextActions = getGameTextOptionalAfterTriggersWhenStacked(playerId, game, effectResult, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
         }
 
         return actions;
@@ -1743,6 +1756,20 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
     /**
      * This method is overridden by individual cards to specify optional "after" triggers to the specified effect result
+     * that can be performed by the specified player when the card is stacked (face up) on another card
+     * @param playerId the player
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions, or null
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggersWhenStacked(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "after" triggers to the specified effect result
      * that can be performed by the specified player when the opponent's card is active in play. This does not include
      * undercover cards.
      * @param playerId the player
@@ -1848,6 +1875,19 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @return the actions, or null
      */
     protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
+     * player when the card is stacked (face up) on another card.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the actions, or null
+     */
+    protected List<TopLevelGameTextAction> getGameTextTopLevelWhileStackedActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         return null;
     }
 

@@ -188,6 +188,7 @@ public interface Title {
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
     String Commence_Recharging = "Commence Recharging";
+    String Communing = "Communing";
     String Computer_Interface = "Computer Interface";
     String Concussion_Grenade = "Concussion Grenade";
     String Concussion_Missiles = "Concussion Missiles";
@@ -695,6 +696,7 @@ public interface Title {
     String NOOOOOOOOOOOO = "NOOOOOOOOOOOO!";
     String North_Ridge = "Hoth: North Ridge (4th Marker)";
     String Nute_Gunray = "Nute Gunray";
+    String ObiWans_Hut = "Tatooine: Obi-Wan's Hut";
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";

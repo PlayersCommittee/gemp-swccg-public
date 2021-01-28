@@ -77,6 +77,7 @@ public enum ModifyGameTextType {
 
     //Legacy
     LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_SLAVING_CAMP_HEADQUARTERS("May deploy on Slaving Camp Headquarters"),
+    LEGACY__YOUR_SITES__TREAT_TRANDOSHAN_AS_SLAVER("'Trandoshan' on this site may be treated as 'slaver'"),
 
     ;
 

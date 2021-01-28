@@ -2,8 +2,6 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.ControlsCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -12,13 +10,10 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.PlaceCardInLostPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.*;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotMoveToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -60,22 +55,6 @@ public class Card601_014 extends AbstractSite {
             // Perform result(s)
             action.appendEffect(
                     new DrawCardsIntoHandFromReserveDeckEffect(action, playerOnDarkSideOfLocation, 2));
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-
-
-        //TODO remove this. it is just here to make sure the DS text works
-        if (GameConditions.hasHand(game, playerOnLightSideOfLocation)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Stack a card");
-            action.appendEffect(new StackCardFromHandEffect(action, playerOnLightSideOfLocation, self));
             return Collections.singletonList(action);
         }
         return null;

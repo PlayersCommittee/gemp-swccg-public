@@ -17305,6 +17305,7 @@ public class Filters {
     public static final Filter Commence_Primary_Ignition = Filters.title(Title.Commence_Primary_Ignition);
     public static final Filter Commence_Recharging = Filters.title(Title.Commence_Recharging);
     public static final Filter communications_droid = Filters.modelType(ModelType.COMMUNICATIONS);
+    public static final Filter Communing = Filters.title(Title.Communing);
     public static final Filter Concussion_Grenade = Filters.title(Title.Concussion_Grenade);
     public static final Filter Concussion_Missiles = Filters.title(Title.Concussion_Missiles);
     public static final Filter cannon = Filters.or(Keyword.CANNON, Keyword.ION_CANNON, Keyword.LASER_CANNON);
@@ -18292,6 +18293,7 @@ public class Filters {
     public static final Filter Scimitar_1 = Filters.title(Title.Scimitar_1);
     public static final Filter Scimitar_2 = Filters.persona(Persona.SCIMITAR_2);
     public static final Filter Scomp_Link_Access = Filters.title(Title.Scomp_Link_Access);
+    public static final Filter scoundrel = Filters.keyword(Keyword.SCOUNDREL);
     public static final Filter scout = Filters.or(Keyword.SCOUT, Keyword.BIKER_SCOUT);
     public static final Filter scout_blaster = Filters.title(Title.Scout_Blaster);
     public static final Filter Scramble = Filters.title(Title.Scramble);
@@ -18355,6 +18357,7 @@ public class Filters {
     public static final Filter Snoke = Filters.persona(Persona.SNOKE);
     public static final Filter snowtrooper = Filters.keyword(Keyword.SNOWTROOPER);
     public static final Filter snub_fighter = Filters.and(CardSubtype.STARFIGHTER, Filters.or(ModelType.A_WING, ModelType.B_WING, ModelType.X_WING, ModelType.Y_WING, ModelType.Z_95_HEADHUNTER, ModelType.MODIFIED_Z_95_HEADHUNTER));
+    public static final Filter Solo = Filters.or(Persona.HAN, Persona.JAINA);
     public static final Filter Solo_Han = Filters.title(Title.Solo_Han);
     public static final Filter Sometimes_I_Amaze_Even_Myself = Filters.title(Title.Sometimes_I_Amaze_Even_Myself);
     public static final Filter Someone_Who_Loves_You = Filters.title(Title.Someone_Who_Loves_You);

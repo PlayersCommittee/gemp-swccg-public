@@ -16101,4 +16101,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         return true;
     }
+
+    public boolean isCommuning(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.COMMUNING, card).isEmpty();
+    }
 }

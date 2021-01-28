@@ -1,27 +1,16 @@
 package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
-import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckSimultaneouslyWithCardEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +37,7 @@ public class Card601_013 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition condition = new AndCondition(new UnlessCondition(new OnTableCondition(self, Filters.and(Filters.your(self), Filters.icon(Icon.BLOCK_4), Filters.Objective))),
+        Condition condition = new AndCondition(new UnlessCondition(new OnTableCondition(self, Filters.and(Filters.your(self), Icon.BLOCK_4, Filters.Objective))),
                 new Condition() {
                     @Override
                     public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -59,6 +48,7 @@ public class Card601_013 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, Filters.Slave_I, condition, 9));
+        modifiers.add(new AddsBattleDestinyModifier(self, 1));
         return modifiers;
     }
 
