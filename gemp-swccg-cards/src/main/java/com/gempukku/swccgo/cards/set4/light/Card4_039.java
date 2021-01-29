@@ -64,10 +64,12 @@ public class Card4_039 extends AbstractNormalEffect {
 
             // Check first if player is allowed to remove cards from opponent's hand
             if (canRemoveCardsFromOpponentsHand) {
-                action.appendEffect(new StackRandomCardsFromHandEffect(action, playerId, opponent, self, true, 2));
+                action.appendEffect(
+                        new StackRandomCardsFromHandEffect(action, playerId, opponent, self, true, 2));
             }
             else {
-                action.appendEffect(new SendMessageEffect(action,playerId + " is not allowed to remove cards from " + opponent + "'s hand" ));
+                action.appendEffect(
+                        new SendMessageEffect(action,playerId + " is not allowed to remove cards from " + opponent + "'s hand" ));
             }
             actions.add(action);
         }
