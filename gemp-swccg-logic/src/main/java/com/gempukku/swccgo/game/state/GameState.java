@@ -2716,6 +2716,7 @@ public class GameState implements Snapshotable<GameState> {
         List<PhysicalCard> outOfPlayCards = new LinkedList<PhysicalCard>();
         outOfPlayCards.addAll(_outOfPlayPiles.get(_darkSidePlayer));
         outOfPlayCards.addAll(_outOfPlayPiles.get(_lightSidePlayer));
+        outOfPlayCards.addAll(_game.getModifiersQuerying().getCardsConsideredOutOfPlay(this));
         return Collections.unmodifiableList(outOfPlayCards);
     }
 

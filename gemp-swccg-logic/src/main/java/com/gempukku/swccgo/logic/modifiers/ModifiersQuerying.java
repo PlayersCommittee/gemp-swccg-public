@@ -4498,4 +4498,6 @@ public interface ModifiersQuerying {
     boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
 
     boolean isCommuning(GameState gameState, PhysicalCard card);
+    Collection<PhysicalCard> getCardsConsideredOutOfPlay(GameState gameState);
+    Collection<PhysicalCard> getActiveCardsAffectedByModifier(GameState gameState, ModifierType modifierType);
 }

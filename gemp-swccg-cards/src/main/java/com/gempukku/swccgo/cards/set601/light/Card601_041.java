@@ -43,8 +43,7 @@ public class Card601_041 extends AbstractEpicEventDeployable {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new TotalForceGenerationModifier(self, new StackedEvaluator(self, self), self.getOwner()));
         modifiers.add(new CommuningModifier(self, Filters.and(Filters.stackedOn(self), Filters.Jedi)));
-
-        //TODO Jedi stacked here are considered out of play
+        modifiers.add(new ConsideredOutOfPlayModifier(self, Filters.stackedOn(self)));
         return modifiers;
     }
 
@@ -164,6 +163,7 @@ public class Card601_041 extends AbstractEpicEventDeployable {
                             action.appendEffect(new PassthruEffect(action) {
                                                     @Override
                                                     protected void doPlayEffect(SwccgGame game) {
+                                                        game.getGameState().removeCardFromZone(self);
                                                         game.getGameState().relocateCardToSideOfTable(self, playerId);
                                                         //TODO need to fix this part so it doesn't look like it breaks the game to the user
                                                         self.startAffectingGame(game);

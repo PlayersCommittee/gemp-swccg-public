@@ -801,7 +801,7 @@ public class SwccgGameMediator {
             }
 
             // Show affecting cards
-            if (cardZone.isInPlay() || cardZone == Zone.HAND) {
+            if (cardZone.isInPlay() || cardZone == Zone.HAND || cardZone == Zone.STACKED) {
                 for (Modifier modifier : modifiersQuerying.getModifiersAffecting(gameState, card)) {
                     modifierCollector.addModifier(modifier);
                 }

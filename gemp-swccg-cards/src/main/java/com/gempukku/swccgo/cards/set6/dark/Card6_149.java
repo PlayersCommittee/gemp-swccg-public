@@ -12,10 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -38,12 +35,8 @@ public class Card6_149 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        Filter filter = Filters.Audience_Chamber;
-        if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_SLAVING_CAMP_HEADQUARTERS))
-            filter = Filters.or(filter, Filters.title(Title.Slaving_Camp_Headquarters));
-        //if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_JABBAS_SAIL_BARGE))
-        //filter = Filters.or(filter, Filters.Jabbas_Sail_Barge);
-        return filter;
+        Collection<PhysicalCard> scumAndVillainyMayDeployAttached = game.getModifiersQuerying().getActiveCardsAffectedByModifier(game.getGameState(), ModifierType.SCUM_AND_VILLAINY_MAY_DEPLOY_HERE);
+        return Filters.or(Filters.Audience_Chamber, Filters.in(scumAndVillainyMayDeployAttached));
     }
 
     @Override

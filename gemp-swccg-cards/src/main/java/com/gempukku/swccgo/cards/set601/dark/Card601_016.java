@@ -47,7 +47,7 @@ public class Card601_016 extends AbstractSite {
                 new AndCondition(treatTrandoshanAsSlaver, new PresentAtCondition(Filters.slaver, self)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        //modifiers.add(new JabbasSailBargeMayDeployHereModifier(self, self));
+        modifiers.add(new JabbasSailBargeMayDeployHereModifier(self, self));
         modifiers.add(new ForceDrainModifier(self, self, trandoshanPresent, 1, playerOnDarkSideOfLocation));
         return modifiers;
     }

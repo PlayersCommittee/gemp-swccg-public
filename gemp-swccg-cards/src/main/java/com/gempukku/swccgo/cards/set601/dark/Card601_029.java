@@ -74,7 +74,7 @@ public class Card601_029 extends AbstractObjective {
         //your Trandoshans are slavers. TODO get rid of snowtrooper
         modifiers.add(new KeywordModifier(self, Filters.or(Filters.species(Species.TRANDOSHAN), Filters.snowtrooper), Keyword.SLAVER));
         //Scum And Villainy may deploy on Slaving Camp Headquarters and
-        modifiers.add(new ModifyGameTextModifier(self, Filters.Scum_And_Villainy, ModifyGameTextType.LEGACY__SCUM_AND_VILLAINY__MAY_DEPLOY_ON_SLAVING_CAMP_HEADQUARTERS));
+        modifiers.add(new ScumAndVillainyMayDeployAttachedModifier(self, Filters.title(Title.Slaving_Camp_Headquarters)));
         //may not be canceled while you occupy that site.
         modifiers.add(new MayNotBeCanceledModifier(self, Filters.Scum_And_Villainy, new OccupiesCondition(self.getOwner(), Filters.title(Title.Slaving_Camp_Headquarters))));
         //While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.
