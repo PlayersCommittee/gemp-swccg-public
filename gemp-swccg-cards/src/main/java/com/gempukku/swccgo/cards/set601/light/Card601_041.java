@@ -160,17 +160,7 @@ public class Card601_041 extends AbstractEpicEventDeployable {
                         protected void performActionResults(Action targetingAction) {
                             action.appendEffect(
                                     new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter), 1, 2, true, false));
-                            action.appendEffect(new PassthruEffect(action) {
-                                                    @Override
-                                                    protected void doPlayEffect(SwccgGame game) {
-                                                        game.getGameState().removeCardFromZone(self);
-                                                        game.getGameState().relocateCardToSideOfTable(self, playerId);
-                                                        //TODO need to fix this part so it doesn't look like it breaks the game to the user
-                                                        self.startAffectingGame(game);
-                                                    }
-                                                }
-                            );
-
+                            action.appendEffect(new DeploySingleCardEffect(action, self, Zone.SIDE_OF_TABLE, false, null, false));
                             action.appendEffect(
                                     new StackCardFromReserveDeckEffect(action, self, Filters.Jedi, true));
 
@@ -183,5 +173,4 @@ public class Card601_041 extends AbstractEpicEventDeployable {
 
         return null;
     }
-
 }

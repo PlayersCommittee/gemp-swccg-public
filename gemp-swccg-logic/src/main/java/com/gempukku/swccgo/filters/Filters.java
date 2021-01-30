@@ -10807,6 +10807,16 @@ public class Filters {
     };
 
     /**
+     * Filter that accepts cards that are 'enslaved' cards.
+     */
+    public static final Filter enslavedCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isEnslavedCard();
+        }
+    };
+
+    /**
      * Filter that accepts cards that are 'hatred' cards.
      */
     public static final Filter hatredCard = new Filter() {
@@ -18344,6 +18354,7 @@ public class Filters {
     public static final Filter Sixth_Marker = Filters.keyword(Keyword.MARKER_6);
     public static final Filter skiff = Filters.keyword(Keyword.SKIFF);
     public static final Filter Skrilling = Filters.species(Species.SKRILLING);
+    public static final Filter Skyhook_Platform = Filters.title(Title.Skyhook_Platform);
     public static final Filter Skywalker = Filters.or(Persona.ANAKIN, Persona.LUKE, Persona.LEIA, Persona.MARA_SKYWALKER, Filters.title(Title.Shmi));
     public static final Filter Skywalkers = Filters.title(Title.Skywalkers);
     public static final Filter Slave_I = Filters.persona(Persona.SLAVE_I);

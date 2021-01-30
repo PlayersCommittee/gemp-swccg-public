@@ -266,6 +266,9 @@ public class SwccgGameMediator {
             if (card.isHatredCard()) {
                 sb.append("<div>").append("'Hatred' card").append("</div>");
             }
+            if (card.isEnslavedCard()) {
+                sb.append("<div>").append("'Enslaved' card").append("</div>");
+            }
             if (card.isCoaxiumCard()) {
                 sb.append("<div>").append("'Coaxium' card").append("</div>");
             }

@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -11,10 +12,18 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackCardFromHandEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,8 +58,27 @@ public class Card601_005 extends AbstractNormalEffect {
 
 
 
-        //TODO optional after trigger action: if opp just forfeited a character may enslave
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        if (GameConditions.canSpot(game, self, Filters.Skyhook_Platform)
+                && TriggerConditions.justForfeitedToLostPileFromLocation(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character),
+                Filters.any)) {
+            //TODO need to check if they were present with a slaver
 
+            final PhysicalCard justForfeitedCard = ((LostFromTableResult) effectResult).getCard();
+            final PhysicalCard skyhookPlatform = Filters.findFirstFromTopLocationsOnTable(game, Filters.Skyhook_Platform);
+
+            if (justForfeitedCard != null && skyhookPlatform != null) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("'Enslave' character");
+                action.allowResponses(new RespondableEffect(action) {
+                    @Override
+                    protected void performActionResults(Action targetingAction) {
+                        action.appendEffect(new EnslavedEffect(action, justForfeitedCard, skyhookPlatform));
+                    }
+                });
+                actions.add(action);
+            }
+        }
 
         Filter nonuniqueSlaver = Filters.and(Filters.non_unique, Filters.slaver);
 
@@ -81,7 +109,47 @@ public class Card601_005 extends AbstractNormalEffect {
     }
 
 
-    //TODO top level action: May place an 'enslaved' character in owner's Lost Pile to activate up to 3 Force
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
 
+        if (GameConditions.canSpot(game, self, Filters.hasStacked(Filters.enslavedCard))
+                && GameConditions.canActivateForce(game, playerId)
+        ) {
+            Collection<PhysicalCard> enslavedCharacters = Filters.filterStacked(game, Filters.enslavedCard);
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
+            action.setText("Place 'enslaved' character in owner's Lost Pile");
+            action.appendTargeting(new ChooseCardEffect(action, playerId, "Choose an 'enslaved' character", enslavedCharacters) {
+                @Override
+                protected void cardSelected(PhysicalCard selectedCard) {
+                    action.appendCost(new PutStackedCardInLostPileEffect(action, playerId, selectedCard, false));
+
+                    int maxForce = Math.min(game.getGameState().getReserveDeckSize(playerId), 3);
+                    if (maxForce > 0) {
+                        action.setText("Activate up to " + maxForce + " Force");
+                        // Choose target(s)
+                        action.appendEffect(
+                                new PlayoutDecisionEffect(action, playerId,
+                                        new IntegerAwaitingDecision("Choose amount of Force to activate ", 1, maxForce, maxForce) {
+                                            @Override
+                                            public void decisionMade(final int result) throws DecisionResultInvalidException {
+                                                action.setActionMsg("Activate " + result + " Force");
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new ActivateForceEffect(action, playerId, result));
+                                            }
+                                        }
+                                )
+                        );
+                    }
+                }
+            });
+
+            actions.add(action);
+        }
+
+        return actions;
+    }
 
 }

@@ -35,12 +35,8 @@ public class Card601_030 extends AbstractUsedOrStartingInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        final String opponent = game.getOpponent(playerId);
-
         // Check condition(s)
-//TODO        if (TriggerConditions.justEnslaved(game, effectResult, Filters.character)) {
-        if (TriggerConditions.battleInitiated(game, effectResult)) {
-
+        if (TriggerConditions.characterEnslavedBy(game, effectResult, playerId)) {
             PhysicalCard startingEffect = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Starting_Effect));
             if (startingEffect != null) {
                 Filter filter = Filters.and(Filters.Defensive_Shield, Filters.playable(self));

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card601_014 extends AbstractSite {
     public Card601_014() {
-        super(Side.DARK, "Kashyyyk: Skyhook Platform", Title.Kashyyyk);
+        super(Side.DARK, Title.Skyhook_Platform, Title.Kashyyyk);
         setLocationDarkSideGameText("May place a card stacked here in owner's Lost Pile to draw two cards from Reserve Deck.");
         setLocationLightSideGameText("Opponent's Kashyyyk locations are immune to Revolution and Expand The Empire.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -897,6 +897,7 @@ public interface Title {
     String Silence_Is_Golden = "Silence Is Golden";
     String Sith_Fury = "Sith Fury";
     String Sith_Probe_Droid = "Sith Probe Droid";
+    String Skyhook_Platform = "Kashyyyk: Skyhook Platform";
     String Skywalkers = "Skywalkers";
     String Slave_Quarters = "Tatooine: Slave Quarters";
     String Slaving_Camp_Headquarters = "Kashyyyk: Slaving Camp Headquarters";
