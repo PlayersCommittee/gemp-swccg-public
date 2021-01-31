@@ -198,6 +198,9 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setCrashed(boolean crashed);
     boolean isCrashed();
 
+    void setIonized(boolean ionized);
+    boolean isIonized();
+
     void setGameTextCanceled(boolean canceled);
     boolean isGameTextCanceled();
     void setLocationGameTextCanceledForPlayer(boolean canceled, String playerId);

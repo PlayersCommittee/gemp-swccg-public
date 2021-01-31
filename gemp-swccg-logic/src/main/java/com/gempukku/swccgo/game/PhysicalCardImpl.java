@@ -58,6 +58,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isHit;
     private boolean _damaged;
     private boolean _disarmed;
+    private boolean _ionized;
     private boolean _gameTextCanceled;
     private boolean _suspended;
     private boolean _binaryOff;
@@ -175,6 +176,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         snapshot._isHit = _isHit;
         snapshot._damaged = _damaged;
         snapshot._disarmed = _disarmed;
+        snapshot._ionized = _ionized;
         snapshot._gameTextCanceled = _gameTextCanceled;
         snapshot._suspended = _suspended;
         snapshot._binaryOff = _binaryOff;
@@ -798,6 +800,16 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     @Override
     public boolean isCrashed() {
         return _isCrashed;
+    }
+
+    @Override
+    public boolean isIonized() {
+        return _ionized;
+    }
+
+    @Override
+    public void setIonized(boolean ionized) {
+        _ionized = ionized;
     }
 
 //    @Override

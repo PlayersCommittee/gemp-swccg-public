@@ -10896,6 +10896,22 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are 'ionized' (hit by an Ion Cannon).
+     */
+    public static final Filter ionized = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isIonized();
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter ionized() {
+        return ionized;
+    }
+
+    /**
      * Filter that accepts cards that are 'collapsed'.
      */
     public static final Filter collapsed = new Filter() {
@@ -17761,6 +17777,7 @@ public class Filters {
     public static final Filter Insignificant_Rebellion = Filters.title(Title.Insignificant_Rebellion);
     public static final Filter ion_cannon = Filters.keyword(Keyword.ION_CANNON);
     public static final Filter Ion_Cannon = Filters.title(Title.Ion_Cannon);
+    public static final Filter ionized_starship = Filters.and(CardCategory.STARSHIP, Filters.ionized());
     public static final Filter inquisitor = Filters.keyword(Keyword.INQUISITOR);
     public static final Filter Irol = Filters.title(Title.Irol);
     public static final Filter ISB_agent = Filters.keyword(Keyword.ISB_AGENT);
