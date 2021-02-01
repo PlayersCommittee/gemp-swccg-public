@@ -3270,7 +3270,7 @@ var fixedImages = {
 "501_11":"/gemp-swccg/images/cards/Virtual12-Dark/allegiantgeneralpryde.gif",
 "501_12":"/gemp-swccg/images/cards/CloudCity-Dark/epicduel.gif",
 "501_13":"/gemp-swccg/images/cards/Coruscant-Dark/maulstrikes.gif",
-"501_14":"/gemp-swccg/images/cards/Endor-Light/daughterofskywalker.gif",
+"501_14":"/gemp-swccg/images/cards/Virtual0-Light/daughterofskywalker.gif",
 "501_15":"/gemp-swccg/images/cards/DeathStarII-Light/ouronlyhope.gif",
 "501_16":"/gemp-swccg/images/cards/Virtual13-Dark/huntdownanddestroythejedi.gif",
 "501_16_BACK":"/gemp-swccg/images/cards/Virtual13-Dark/theirfirehasgoneoutoftheuniverse.gif",

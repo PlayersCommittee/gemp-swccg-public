@@ -26,7 +26,7 @@ public class Card501_026 extends AbstractNormalEffect {
     public Card501_026() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If Jakku on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character (except Leia) from hand on top of Used Pile to [upload] a Resistance character of lesser ability. [Immune to Alter.]");
+        setGameText("If Jakku on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character of lesser ability. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("A Brave Resistance (ERRATA)");
@@ -59,7 +59,7 @@ public class Card501_026 extends AbstractNormalEffect {
                 && GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)
                 && GameConditions.hasHand(game, playerId)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)
-                && GameConditions.hasInHand(game, playerId, Filters.and(Filters.Resistance_character, Filters.except(Filters.Leia), Filters.canBeTargetedBy(self)))) {
+                && GameConditions.hasInHand(game, playerId, Filters.and(Filters.Resistance_character, Filters.canBeTargetedBy(self)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Resistance character from hand on Used Pile");
@@ -68,9 +68,10 @@ public class Card501_026 extends AbstractNormalEffect {
             action.appendUsage(
                     new OncePerTurnEffect(action));
             action.appendTargeting(
-                    new ChooseCardFromHandEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.except(Filters.Leia))) {
+                    new ChooseCardFromHandEffect(action, playerId, Filters.Resistance_character) {
                         @Override
                         protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                            // Pay cost(s)
                             action.appendCost(
                                     new PutCardFromHandOnUsedPileEffect(action, playerId, selectedCard, false));
                             // Perform result(s)
@@ -79,8 +80,6 @@ public class Card501_026 extends AbstractNormalEffect {
                         }
                     }
             );
-            // Pay cost(s)
-
             actions.add(action);
         }
         return actions;

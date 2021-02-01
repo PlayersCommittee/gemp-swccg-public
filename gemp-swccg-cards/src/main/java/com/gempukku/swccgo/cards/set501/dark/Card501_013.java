@@ -14,7 +14,6 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -31,7 +30,6 @@ import java.util.*;
 public class Card501_013 extends AbstractUsedOrLostInterrupt {
     public Card501_013() {
         super(Side.DARK, 2, "A Sith Legend", Uniqueness.UNIQUE);
-        setVirtualSuffix(true);
         setLore("");
         setGameText("USED: Deploy a lightsaber (may simultaneously deploy a matching Dark Jedi or Sith character) from hand and/or Reserve Deck; reshuffle. [Immune to Sense.] LOST: Except during battle, relocate a Dark Jedi or Inquisitor to same battleground site as a Jedi.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
@@ -61,11 +59,11 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose Dark Jedi or Inquisitor", darkJediOrInquisitorWhoCanBeRelocated) {
                         @Override
-                        protected void cardTargeted(int targetGroupId, final PhysicalCard characterTargeted) {
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard characterTargeted) {
                             action.appendTargeting(
-                                    new ChooseCardOnTableEffect(action, self.getOwner(), "Choose site to relocate character", battlegroundSitesJediAreAt) {
+                                    new TargetCardOnTableEffect(action, self.getOwner(), "Choose site to relocate character", battlegroundSitesJediAreAt) {
                                         @Override
-                                        protected void cardSelected(final PhysicalCard siteSelected) {
+                                        protected void cardTargeted(final int siteTargetingGroupId, final PhysicalCard siteSelected) {
                                             action.addAnimationGroup(characterTargeted);
                                             action.addAnimationGroup(siteSelected);
                                             // Pay cost(s)
@@ -76,9 +74,14 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
                                                     new RespondablePlayCardEffect(action) {
                                                         @Override
                                                         protected void performActionResults(Action targetingAction) {
+                                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                                            // This needs to be done in case the target(s) were changed during the responses.
+                                                            Collection<PhysicalCard> finalCharacter = action.getPrimaryTargetCards(targetGroupId);
+                                                            PhysicalCard finalToSite = action.getPrimaryTargetCard(siteTargetingGroupId);
+
                                                             // Perform result(s)
                                                             action.appendEffect(
-                                                                    new RelocateBetweenLocationsEffect(action, characterTargeted, siteSelected));
+                                                                    new RelocateBetweenLocationsEffect(action, finalCharacter, finalToSite));
                                                         }
                                                     });
                                         }
@@ -90,7 +93,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
-        GameTextActionId downloadLightsaberActionId = GameTextActionId.A_SITH_FURY__DOWNLOAD_LIGHTSABER;
+        GameTextActionId downloadLightsaberActionId = GameTextActionId.A_SITH_LEGEND__DOWNLOAD_LIGHTSABER;
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)) {
