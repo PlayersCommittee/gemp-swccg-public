@@ -8,11 +8,13 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardsInHandEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -50,16 +52,25 @@ public class Card4_039 extends AbstractNormalEffect {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
-
+        GameState gameState = game.getGameState();
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)) {
 
+            boolean canRemoveCardsFromOpponentsHand = !game.getModifiersQuerying().mayNotRemoveCardsFromOpponentsHand(gameState, self, playerId);
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setPerformingPlayer(playerId);
             action.setText("Stack two random cards from opponent's hand");
             // Perform result(s)
-            action.appendEffect(
-                    new StackRandomCardsFromHandEffect(action, playerId, opponent, self, true, 2));
+
+            // Check first if player is allowed to remove cards from opponent's hand
+            if (canRemoveCardsFromOpponentsHand) {
+                action.appendEffect(
+                        new StackRandomCardsFromHandEffect(action, playerId, opponent, self, true, 2));
+            }
+            else {
+                action.appendEffect(
+                        new SendMessageEffect(action,playerId + " is not allowed to remove cards from " + opponent + "'s hand" ));
+            }
             actions.add(action);
         }
         // Check condition(s)
