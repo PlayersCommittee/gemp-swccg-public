@@ -17930,6 +17930,7 @@ public class Filters {
     public static final Filter Malachor_location = Filters.partOfSystem(Title.Malachor);
     public static final Filter Malastare = Filters.title(Title.Malastare);
     public static final Filter male = Filters.and(CardCategory.CHARACTER, Filters.or(Keyword.MALE, Filters.not(Filters.keyword(Keyword.FEMALE))));
+    public static final Filter Mandalorian = Filters.species(Species.MANDALORIAN);
     public static final Filter Mandalorian_Armor = Filters.title(Title.Mandalorian_Armor);
     public static final Filter Maneuvering_Flaps = Filters.title(Title.Maneuvering_Flaps);
     public static final Filter Mantellian_Savrip = Filters.title(Title.Mantellian_Savrip);
