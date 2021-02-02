@@ -1507,6 +1507,36 @@ public interface SwccgCardBlueprint {
     List<TriggerAction> getLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
 
     /**
+     * Gets the optional triggers from an opponent's card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    List<TriggerAction> getOpponentsCardLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
+
+    /**
+     * Gets the optional triggers from a card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    List<TriggerAction> getLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
+
+    /**
+     * Gets the optional triggers from an opponent's card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    List<TriggerAction> getOpponentsCardLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
+
+    /**
      * Gets displayable information about the card.
      * @param game the game
      * @param self the card
