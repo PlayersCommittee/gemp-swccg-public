@@ -566,6 +566,7 @@ public interface Title {
     String Ket_Maliss = "Ket Maliss";
     String Ketwol = "Ketwol";
     String Kian = "Kin Kian";
+    String Kijimi = "Kijimi";
     String Keir_Santage = "Keir Santage";
     String Kiffex = "Kiffex";
     String Kirdo_III = "Kirdo III";
@@ -720,6 +721,7 @@ public interface Title {
     String OS_72_10 = "OS-72-10";
     String Ounee_Ta = "Ounee Ta";
     String Our_First_Catch_Of_The_Day = "Our First Catch Of The Day";
+    String Our_Only_Hope = "Our Only Hope";
     String Out_Of_Commission = "Out Of Commission";
     String Out_Of_Nowhere = "Out Of Nowhere";
     String Out_Of_Somewhere = "Out Of Somewhere";

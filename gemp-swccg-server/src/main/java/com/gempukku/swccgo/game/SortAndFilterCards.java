@@ -56,6 +56,8 @@ public class SortAndFilterCards {
                 comparators.addComparator(new PacksFirstComparator(new SetComparator()));
             if ("cardType".equals(oneSort))
                 comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary)));
+            if ("cardCategory".equals(oneSort))
+                comparators.addComparator(new PacksFirstComparator(new CardCategoryComparator(cardLibrary)));
         }
 
         Collections.sort(result, comparators);
@@ -1188,7 +1190,7 @@ public class SortAndFilterCards {
     }
 
     /**
-     * Sorts cards by card category/type.
+     * Sorts cards by card type.
      */
     private static class CardTypeComparator implements Comparator<CardItem> {
         private SwccgCardBlueprintLibrary _library;
@@ -1222,6 +1224,30 @@ public class SortAndFilterCards {
             if (lowestCardType1 < lowestCardType2)
                 return -1;
             if (lowestCardType1 > lowestCardType2)
+                return 1;
+
+            return 0;
+        }
+    }
+
+    /**
+     * Sorts cards by card category.
+     */
+    private static class CardCategoryComparator implements Comparator<CardItem> {
+        private SwccgCardBlueprintLibrary _library;
+
+        private CardCategoryComparator(SwccgCardBlueprintLibrary library) {
+            _library = library;
+        }
+
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            CardCategory cardCategory1 = _library.getSwccgoCardBlueprint(o1.getBlueprintId()).getCardCategory();
+            CardCategory cardCategory2 = _library.getSwccgoCardBlueprint(o2.getBlueprintId()).getCardCategory();
+
+            if (cardCategory1.ordinal() < cardCategory2.ordinal())
+                return -1;
+            if (cardCategory1.ordinal() > cardCategory2.ordinal())
                 return 1;
 
             return 0;

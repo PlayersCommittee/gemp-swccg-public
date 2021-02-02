@@ -59,6 +59,7 @@ public class HallServer extends AbstractServer {
     private boolean _operational;
     private boolean _shutdown;
     private boolean _privateGamesEnabled;
+    private boolean _inGameStatisticsEnabled;
 
     private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
 
@@ -91,6 +92,7 @@ public class HallServer extends AbstractServer {
         _ipBanDAO = ipBanDAO;
         _gempSettingDAO = gempSettingDAO;
         _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
+        _inGameStatisticsEnabled = _gempSettingDAO.inGameStatisticsEnabled();
         _adminService = adminService;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
@@ -277,8 +279,28 @@ public class HallServer extends AbstractServer {
         _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
     }
 
+    public void toggleInGameStatistics() {
+        _gempSettingDAO.toggleInGameStatisticsEnabled();
+        _inGameStatisticsEnabled = _gempSettingDAO.inGameStatisticsEnabled();
+    }
+
     public boolean privateGamesAllowed() {
         return _privateGamesEnabled;
+    }
+
+    public boolean inGameStatisticsEnabled() {
+        return _inGameStatisticsEnabled;
+    }
+
+    public int removeInGameStatisticsListeners() {
+        int tableCount = 0;
+        for (RunningTable runningTable : _runningTables.values()) {
+                SwccgGameMediator game = runningTable.getSwccgoGameMediator();
+                game.removeAllInGameStatisticsListeners();
+                tableCount++;
+        }
+
+        return tableCount;
     }
 
     private void verifyNotPlayingLeagueGame(Player player, Side side, League league) throws HallException {
@@ -837,7 +859,7 @@ public class HallServer extends AbstractServer {
     }
 
     private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate) {
-        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes, isPrivate);
+        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes, isPrivate, _inGameStatisticsEnabled);
         if (listener != null) {
             swccgGameMediator.addGameResultListener(listener);
         }

@@ -78,7 +78,7 @@ public class Card501_065 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Exegol_Sith_Throne)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Sith Throne from Reserve Deck");

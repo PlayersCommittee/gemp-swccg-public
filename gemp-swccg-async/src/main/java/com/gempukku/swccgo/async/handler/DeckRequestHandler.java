@@ -181,9 +181,16 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
             deckCards.addItem(_library.getBaseBlueprintId(card), 1);
 
         result.append("<br/>");
-        result.append("<b>Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("sort:cardType,name", deckCards.getAll().values(), _library, _formatLibrary, null))
+        result.append("<b>Deck:</b>");
+        String category = "";
+        for (CardCollection.Item item : _sortAndFilterCards.process("sort:cardCategory,name", deckCards.getAll().values(), _library, _formatLibrary, null)) {
+            if (!_library.getSwccgoCardBlueprint(item.getBlueprintId()).getCardCategory().getHumanReadable().equals(category)) {
+                category = _library.getSwccgoCardBlueprint(item.getBlueprintId()).getCardCategory().getHumanReadable();
+                result.append("<br/>").append(category.toUpperCase()).append("<br/>");
+            }
+
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getSwccgoCardBlueprint(item.getBlueprintId())) + "<br/>");
+        }
 
         result.append("</body></html>");
 

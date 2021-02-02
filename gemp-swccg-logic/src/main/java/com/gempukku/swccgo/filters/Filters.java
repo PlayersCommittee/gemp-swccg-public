@@ -378,7 +378,6 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard sourceCard = gameState.findCardByPermanentId(permSourceCardId);
-
                 return !sourceCard.getOwner().equals(physicalCard.getOwner());
             }
             @Override
@@ -757,11 +756,23 @@ public class Filters {
      * @return Filter
      */
     public static Filter title(final String title) {
+        return title(title, false);
+    }
+
+    /**
+     * Filter that accepts cards that have the specified title
+     * For combo cards, each title is checked.
+     *
+     * @param title the title
+     * @param includeBlownAway true if title of blown away locations should be checked
+     * @return Filter
+     */
+    public static Filter title(final String title, final boolean includeBlownAway) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 for (String cardTitle : physicalCard.getTitles()) {
-                    if (cardTitle.equalsIgnoreCase(title)) {
+                    if (cardTitle.equalsIgnoreCase(title) && (includeBlownAway || !physicalCard.isBlownAway())) {
                         return true;
                     }
                 }
@@ -773,6 +784,8 @@ public class Filters {
             }
         };
     }
+
+
 
     /**
      * Filter that accepts cards that have a title containing the specified word or phrase.
@@ -17137,6 +17150,7 @@ public class Filters {
     public static final Filter Baze = Filters.title(Title.Baze);
     public static final Filter BB8 = Filters.persona(Persona.BB8);
     public static final Filter BB8_or_has_BB8_as_permanent_astromech = Filters.or(Filters.persona(Persona.BB8), Filters.hasPermanentAboard(Filters.persona(Persona.BB8)));
+    public static final Filter Beaumont = Filters.persona(Persona.BEAUMONT);
     public static final Filter Beckett = Filters.persona(Persona.BECKETT);
     public static final Filter Beggar = Filters.title(Title.Beggar);
     public static final Filter Beggars_Canyon = Filters.title(Title.Beggars_Canyon);
@@ -17916,6 +17930,7 @@ public class Filters {
     public static final Filter Malachor_location = Filters.partOfSystem(Title.Malachor);
     public static final Filter Malastare = Filters.title(Title.Malastare);
     public static final Filter male = Filters.and(CardCategory.CHARACTER, Filters.or(Keyword.MALE, Filters.not(Filters.keyword(Keyword.FEMALE))));
+    public static final Filter Mandalorian = Filters.species(Species.MANDALORIAN);
     public static final Filter Mandalorian_Armor = Filters.title(Title.Mandalorian_Armor);
     public static final Filter Maneuvering_Flaps = Filters.title(Title.Maneuvering_Flaps);
     public static final Filter Mantellian_Savrip = Filters.title(Title.Mantellian_Savrip);

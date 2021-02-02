@@ -4623,7 +4623,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         CardCategory cardCategory = card.getBlueprint().getCardCategory();
         if (cardCategory == CardCategory.CHARACTER || cardCategory==CardCategory.DEVICE || cardCategory == CardCategory.VEHICLE
                 || cardCategory == CardCategory.STARSHIP || cardCategory == CardCategory.WEAPON) {
-            return (!getModifiersAffectingCard(gameState, ModifierType.EXCLUDED_FROM_BATTLE, card).isEmpty());
+            return (getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_BE_EXCLUDED_FROM_BATTLE, card).isEmpty() && !getModifiersAffectingCard(gameState, ModifierType.EXCLUDED_FROM_BATTLE, card).isEmpty());
         }
         return false;
     }

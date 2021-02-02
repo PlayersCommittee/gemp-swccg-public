@@ -1621,6 +1621,14 @@ public interface SwccgCardBlueprint {
     boolean isOnlyDeploysAsUndercoverSpy(SwccgGame game, PhysicalCard self);
 
     /**
+     * Determines if the card only deploys as an captured prisoner.
+     * @param game the game
+     * @param self the card
+     * @return the owner of the zone
+     */
+    boolean isOnlyDeploysAsEscortedCaptive(SwccgGame game, PhysicalCard self);
+
+    /**
      * Determines if the card may deploy as an undercover spy.
      * @param game the game
      * @param self the card

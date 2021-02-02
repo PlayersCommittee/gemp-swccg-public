@@ -12,6 +12,11 @@ Vagrant.configure(2) do |config|
 
   # Name box "gemp"
   config.vm.define "gemp" do |gemp|
+    # Ensure vbguest is updated and running on host.
+    if Vagrant.has_plugin?("vagrant-vbguest")
+      config.vbguest.auto_update = false
+    end
+
     gemp.vm.box = "bento/centos-7"
 
     # Create a private network, which allows host-only access to the machine
