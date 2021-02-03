@@ -8677,6 +8677,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Gets the total training destiny value after applying modifiers to the base tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param baseTotalDestiny the base total tractor beam destiny
+     * @return the total battle destiny
+     */
+    @Override
+    public float getTotalTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, float baseTotalDestiny) {
+        float result = baseTotalDestiny;
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.TOTAL_TRACTOR_BEAM_DESTINY, tractorBeam)) {
+            result += modifier.getValue(gameState, this, tractorBeam);
+        }
+
+        return Math.max(0, result);
+    }
+
+    /**
      * Gets the total movement destiny value after applying modifiers to the base total movement destiny.
      * @param gameState the game state
      * @param playerId the player with the movement destiny

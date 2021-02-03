@@ -18,18 +18,30 @@ public class ReleaseWithLaunchEffect extends AbstractSuccessfulEffect {
     private String _performingPlayer;
     private PhysicalCard _captive;
     private PhysicalCard _launchPoint;
+    private boolean _inStarfighterCapacity;
+
+    /**
+     * Creates an effect that releases the specified starship and has the starship 'launch'.
+     * @param action the action performing this effect
+     * @param captive the captive to release
+     * @param launchPoint the launch point
+     */
+    public ReleaseWithLaunchEffect(Action action, PhysicalCard captive, PhysicalCard launchPoint) {
+        this(action, captive, launchPoint, false);
+    }
 
     /**
      * Creates an effect that releases the specified starship and has the character 'launch'.
      * @param action the action performing this effect
      * @param captive the captive to release
-     * @param rallyPoint the rally point
+     * @param launchPoint the launch point
      */
-    public ReleaseWithLaunchEffect(Action action, PhysicalCard captive, PhysicalCard rallyPoint) {
+    public ReleaseWithLaunchEffect(Action action, PhysicalCard captive, PhysicalCard launchPoint, boolean inStarfighterCapacity) {
         super(action);
         _performingPlayer = action.getPerformingPlayer();
         _captive = captive;
-        _launchPoint = rallyPoint;
+        _launchPoint = launchPoint;
+        _inStarfighterCapacity = inStarfighterCapacity;
     }
 
     @Override
@@ -49,8 +61,10 @@ public class ReleaseWithLaunchEffect extends AbstractSuccessfulEffect {
 
         if (rallyToLocation)
             gameState.moveCardToLocation(_captive, _launchPoint, true);
+        else if (_inStarfighterCapacity)
+            gameState.moveCardToAttachedInStarfighterOrTIECapacitySlot(_captive, _launchPoint);
         else
-            gameState.moveCardToAttachedInPassengerCapacitySlot(_captive, _launchPoint);
+            gameState.moveCardToAttachedInCapitalStarshipCapacitySlot(_captive, _launchPoint);
 
         // Emit effect result that captive was released
         game.getActionsEnvironment().emitEffectResult(new ReleaseCaptiveResult(_performingPlayer, _captive, ReleaseOption.LAUNCH));

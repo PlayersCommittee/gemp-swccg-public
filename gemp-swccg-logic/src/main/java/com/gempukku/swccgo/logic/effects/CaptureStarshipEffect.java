@@ -50,7 +50,7 @@ public class CaptureStarshipEffect extends AbstractSuccessfulEffect {
 
         Collection<PhysicalCard> _attachTo = game.getModifiersQuerying().getDestinationForCapturedStarships(game.getGameState(), _tractorBeam);
 
-        _action.appendEffect(new ChooseCardOnTableEffect(_action, performingPlayer, "Capture starship under which card", _attachTo) {
+        _action.appendEffect(new ChooseCardOnTableEffect(_action, game.getGameState().getCurrentPlayerId(), "Capture starship under which card", _attachTo) {
             @Override
             protected void cardSelected(PhysicalCard selectedCard) {
                 gameState.cardAffectsCard(performingPlayer, _tractorBeam, _starship);

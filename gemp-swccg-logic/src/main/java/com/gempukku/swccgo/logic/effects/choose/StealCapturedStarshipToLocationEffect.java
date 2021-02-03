@@ -77,6 +77,9 @@ class StealCapturedStarshipToLocationEffect extends AbstractSubActionEffect impl
 
                             PhysicalCard stolenFromLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _cardToBeStolen);
 
+                            //TODO have it go to the appropriate system/sector instead of staying at a site
+                            //TODO let it be stolen directly into a cargo bay
+
                             // Update owner and zone owner of each card, change it so it's not a captured starship, then attach card
                             for (PhysicalCard card : allCardsStolen) {
                                 card.setOwner(_playerId);

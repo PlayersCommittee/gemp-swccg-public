@@ -2230,6 +2230,15 @@ public interface ModifiersQuerying {
     float getTotalTrainingDestiny(GameState gameState, PhysicalCard jediTest, float baseTotalDestiny);
 
     /**
+     * Gets the total training destiny value after applying modifiers to the base tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param baseTotalDestiny the base total tractor beam destiny
+     * @return the total battle destiny
+     */
+    float getTotalTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, float baseTotalDestiny);
+
+    /**
      * Gets the total movement destiny value after applying modifiers to the base total movement destiny.
      * @param gameState the game state
      * @param playerId the player with the movement destiny

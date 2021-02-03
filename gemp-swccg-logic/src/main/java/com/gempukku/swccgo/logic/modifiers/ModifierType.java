@@ -308,6 +308,7 @@ public enum ModifierType {
 
     // Tractor beam destiny
     EACH_TRACTOR_BEAM_DESTINY,
+    TOTAL_TRACTOR_BEAM_DESTINY,
 
     // Capturing
     MAY_ESCORT_A_CAPTIVE,

@@ -2,25 +2,17 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseTractorBeamEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.EachTractorBeamDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -66,7 +58,7 @@ public class Card7_254 extends AbstractUsedInterrupt {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
                                             PhysicalCard tractorBeam = action.getPrimaryTargetCard(targetGroupId);
-                                            EachTractorBeamDestinyModifier destinyModifier = new EachTractorBeamDestinyModifier(self, tractorBeam, 2);
+                                            TotalTractorBeamDestinyModifier destinyModifier = new TotalTractorBeamDestinyModifier(self, tractorBeam, 2);
                                             List<Modifier> modifiers = new LinkedList<Modifier>();
                                             modifiers.add(new PowerModifier(self, Filters.none, -3));
                                             modifiers.add(new ManeuverModifier(self, Filters.none, -3));
