@@ -74,7 +74,7 @@ public class SwccgGameMediator {
         }
 
         _userFeedback = new DefaultUserFeedback();
-        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library);
+        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library, _playerClocks);
         _userFeedback.setGame(_swccgoGame);
     }
 
@@ -1195,10 +1195,6 @@ public class SwccgGameMediator {
                 // Throne Room Mains
                 return "TRM";
             }
-            if (Filters.Main_Power_Generators.accepts(_swccgoGame, startingLocation)) {
-                // Echo Base Operations
-                return "EBO";
-            }
             if (startingInterrupt != null) {
                 if (Filters.Careful_Planning.accepts(_swccgoGame, startingInterrupt)
                         && startingInterrupt.getBlueprint().hasVirtualSuffix()
@@ -1218,7 +1214,11 @@ public class SwccgGameMediator {
                     // Slip Sliding Away (v)
                     return startingLocation.getBlueprint().getTitle() + " SSAv";
                 }
+
+                return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
             }
+
+            return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
         }
 
         // Based on Objective
@@ -1256,9 +1256,13 @@ public class SwccgGameMediator {
                 // Dantooine Base Operations
                 objectiveLabel = "DBO";
             }
-            if (Filters.or(Filters.City_In_The_Clouds, Filters.You_Truly_Belong_Here_With_Us, Filters.Twin_Suns_Of_Tatooine, Filters.Well_Trained_In_The_Jedi_Arts).accepts(_swccgoGame, objective)) {
-                // Demo Deck
-                objectiveLabel = "Demo";
+            if (Filters.or(Filters.City_In_The_Clouds, Filters.You_Truly_Belong_Here_With_Us).accepts(_swccgoGame, objective)) {
+                // City In The Clouds
+                objectiveLabel = "City In The Clouds";
+            }
+            if (Filters.or(Filters.Twin_Suns_Of_Tatooine, Filters.Well_Trained_In_The_Jedi_Arts).accepts(_swccgoGame, objective)) {
+                // Twin Suns
+                objectiveLabel = "Twin Suns";
             }
             if (Filters.or(Filters.Diplomatic_Mission_To_Alderaan, Filters.A_Weakness_Can_Be_Found).accepts(_swccgoGame, objective)) {
                 // Diplomatic Mission To Alderaan
@@ -1398,5 +1402,18 @@ public class SwccgGameMediator {
         }
 
         return "Other";
+    }
+
+
+    public void addInGameStatisticsListener(GameStatisticsProcessor gameStatisticsProcessor) {
+        _swccgoGame.addInGameStatisticsListener(gameStatisticsProcessor);
+    }
+
+    public void removeInGameStatisticsListener(GameStatisticsProcessor gameStatisticsProcessor) {
+        _swccgoGame.removeInGameStatisticsListener(gameStatisticsProcessor);
+    }
+
+    public void removeAllInGameStatisticsListeners() {
+        _swccgoGame.removeAllInGameStatisticsListeners();
     }
 }

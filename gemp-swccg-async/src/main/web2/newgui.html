@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>GempEpicDuel</title>
+	<style>
+		html,
+		body {
+			background: #000;
+			width: 100%;
+			height: 100%;
+			overflow: visible;
+			padding: 0;
+			margin: 0;
+		}
+
+		div#gameContainer {
+			background: transparent !important;
+			position: absolute;
+		}
+
+		div#gameContainer canvas {
+			position: absolute;
+		}
+
+		div#gameContainer canvas[data-pixel-art="true"] {
+			position: absolute;
+			image-rendering: optimizeSpeed;
+			image-rendering: -webkit-crisp-edges;
+			image-rendering: -moz-crisp-edges;
+			image-rendering: -o-crisp-edges;
+			image-rendering: crisp-edges;
+			image-rendering: -webkit-optimize-contrast;
+			image-rendering: optimize-contrast;
+			image-rendering: pixelated;
+			-ms-interpolation-mode: nearest-neighbor;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="gameContainer">
+		<canvas id="unity-canvas" data-pixel-art="0"></canvas>
+		<script src="Build/8095c7e21f396e1e70e92ad504cfa88f.js"></script>
+		<script>
+			createUnityInstance(document.querySelector("#unity-canvas"), {
+				devicePixelRatio: 1,
+				dataUrl: "Build/8ea36f744d6da5b56b5581fc0d0b4d23.data.unityweb",
+				frameworkUrl: "Build/8cb81639326c6b27a4bc9b0f1768d846.js.unityweb",
+				codeUrl: "Build/d469519b285404d89593bd768f3b21ba.wasm.unityweb",
+				streamingAssetsUrl: "StreamingAssets",
+				companyName: "200 Monkeys",
+				productName: "GempEpicDuel",
+				productVersion: "1.5.8",
+			}).then(function (instance) {
+				var canvas = instance.Module.canvas;
+				var container = canvas.parentElement;
+				function onResize() {
+					var w;
+					var h;
+
+					if (scaleToFit) {
+						w = window.innerWidth;
+						h = window.innerHeight;
+
+						var r = 1080 / 1920;
+
+						if (w * r > window.innerHeight) {
+							w = Math.min(w, Math.ceil(h / r));
+						}
+						h = Math.floor(w * r);
+					} else {
+						w = 1920;
+						h = 1080;
+					}
+
+					container.style.width = canvas.style.width = w + "px";
+					container.style.height = canvas.style.height = h + "px";
+					container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+					container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+				}
+
+				var scaleToFit;
+				try {
+					scaleToFit = !!JSON.parse("1");
+				} catch (e) {
+					scaleToFit = true;
+				}
+				window.addEventListener('resize', onResize);
+				onResize();
+			});
+		</script>
+	</div>
+</body>
+
+</html>

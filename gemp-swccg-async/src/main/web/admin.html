@@ -50,10 +50,20 @@
     <input type="submit" value="Reset password">
 </form>
 
-<h2>Toggle private games</h2>
+<h2>Private games</h2>
 
 <form method="POST" action="/gemp-swccg-server/admin/togglePrivateGames">
-<input type="submit" value="Toggle private games">
+    <input type="submit" value="Toggle private games">
+</form>
+
+<h2>In game statistic tracking</h2>
+
+<form method="POST" action="/gemp-swccg-server/admin/toggleInGameStatistics">
+    <input type="submit" value="Toggle in game statistic tracking">
+</form>
+
+<form method="POST" action="/gemp-swccg-server/admin/removeInGameStatisticsListeners">
+    <input type="submit" value="Shut off in game statistic tracking in active games">
 </form>
 
 </body>

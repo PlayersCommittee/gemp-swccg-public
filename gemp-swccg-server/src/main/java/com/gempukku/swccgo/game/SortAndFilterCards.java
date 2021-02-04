@@ -23,7 +23,7 @@ public class SortAndFilterCards {
         CardType cardType = getCardTypeFilter(filterParams);
         CardSubtype cardSubtype = getCardSubtypeFilter(filterParams);
         String[] sets = getSetFilter(filterParams);
-        Rarity rarity = getRarityFilter(filterParams);
+        Set<Rarity> rarity = getRarityFilter(filterParams);
 
         List<String> titleWords = getTitleWords(filterParams);
         List<String> loreWords = getLoreWords(filterParams);
@@ -56,6 +56,8 @@ public class SortAndFilterCards {
                 comparators.addComparator(new PacksFirstComparator(new SetComparator()));
             if ("cardType".equals(oneSort))
                 comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary)));
+            if ("cardCategory".equals(oneSort))
+                comparators.addComparator(new PacksFirstComparator(new CardCategoryComparator(cardLibrary)));
         }
 
         Collections.sort(result, comparators);
@@ -64,7 +66,7 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            SwccgCardBlueprintLibrary library, SwccgoFormatLibrary formatLibrary, Map<String, SetRarity> rarities, String blueprintId, Side side, String product, Rarity rarity, String format,
+            SwccgCardBlueprintLibrary library, SwccgoFormatLibrary formatLibrary, Map<String, SetRarity> rarities, String blueprintId, Side side, String product, Set<Rarity> rarity, String format,
             String[] sets, CardCategory cardCategory, CardType cardType, CardSubtype cardSubtype, List<String> titleWords, List<String> loreWords, List<String> gametextWords, Set<Icon> icons,
             Set<Persona> personas, String[] filterParams) {
         if (isPack(blueprintId)) {
@@ -324,6 +326,9 @@ public class SortAndFilterCards {
                 if (filterValue.startsWith("INTERRUPT_USED_OR_STARTING")) {
                     return CardSubtype.USED_OR_STARTING;
                 }
+                if (filterValue.startsWith("INTERRUPT_STARTING")) {
+                    return CardSubtype.STARTING;
+                }
                 if (filterValue.startsWith("LOCATION_SECTOR")) {
                     return CardSubtype.SECTOR;
                 }
@@ -469,12 +474,37 @@ public class SortAndFilterCards {
      * @param filterParams the filter params
      * @return the rarity to filter, or null if no filtering based on rarity
      */
-    private Rarity getRarityFilter(String[] filterParams) {
+    private Set<Rarity> getRarityFilter(String[] filterParams) {
+        Set<Rarity> rarities = new HashSet<Rarity>();
         for (String filterParam : filterParams) {
-            if (filterParam.startsWith("rarity:"))
-                return Rarity.getRarityFromString(filterParam.substring("rarity:".length()));
+            if (filterParam.startsWith("rarity:")) {
+                String rarityParam = filterParam.substring("rarity:".length());
+                switch(rarityParam) {
+                    case "":
+                        return null;
+                    case "C_ALL":
+                        rarities.add(Rarity.getRarityFromString("C"));
+                        rarities.add(Rarity.getRarityFromString("C1"));
+                        rarities.add(Rarity.getRarityFromString("C2"));
+                        rarities.add(Rarity.getRarityFromString("C3"));
+                        break;
+                    case "U_ALL":
+                        rarities.add(Rarity.getRarityFromString("U"));
+                        rarities.add(Rarity.getRarityFromString("U1"));
+                        rarities.add(Rarity.getRarityFromString("U2"));
+                        break;
+                    case "R_ALL":
+                        rarities.add(Rarity.getRarityFromString("R"));
+                        rarities.add(Rarity.getRarityFromString("R1"));
+                        rarities.add(Rarity.getRarityFromString("R2"));
+                        break;
+                    default:
+                        rarities.add(Rarity.getRarityFromString(rarityParam));
+                        break;
+                }
+            }
         }
-        return null;
+        return rarities;
     }
 
     /**
@@ -485,11 +515,13 @@ public class SortAndFilterCards {
      * @param rarities the blueprint library
      * @return true or false
      */
-    private boolean isRarity(String blueprintId, Rarity rarity, SwccgCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
+    private boolean isRarity(String blueprintId, Set<Rarity> rarity, SwccgCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
+        if (rarity.isEmpty())
+            return true;
         if (blueprintId.contains("_")) {
             SetRarity setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
             try {
-                if (setRarity != null && rarity != null && rarity == setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId)))
+                if (setRarity != null && rarity != null && rarity.contains(setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId))))
                     return true;
             }
             catch (NullPointerException e) {
@@ -738,7 +770,7 @@ public class SortAndFilterCards {
         Float blueprintDestiny2 = blueprint.getAlternateDestiny();
 
         return (isAttributeValueAccepted(destinyCompare, destinyAsFloat, blueprintDestiny)
-                    || isAttributeValueAccepted(destinyCompare, destinyAsFloat, blueprintDestiny2));
+                || isAttributeValueAccepted(destinyCompare, destinyAsFloat, blueprintDestiny2));
     }
 
     /**
@@ -1158,7 +1190,7 @@ public class SortAndFilterCards {
     }
 
     /**
-     * Sorts cards by card category/type.
+     * Sorts cards by card type.
      */
     private static class CardTypeComparator implements Comparator<CardItem> {
         private SwccgCardBlueprintLibrary _library;
@@ -1192,6 +1224,30 @@ public class SortAndFilterCards {
             if (lowestCardType1 < lowestCardType2)
                 return -1;
             if (lowestCardType1 > lowestCardType2)
+                return 1;
+
+            return 0;
+        }
+    }
+
+    /**
+     * Sorts cards by card category.
+     */
+    private static class CardCategoryComparator implements Comparator<CardItem> {
+        private SwccgCardBlueprintLibrary _library;
+
+        private CardCategoryComparator(SwccgCardBlueprintLibrary library) {
+            _library = library;
+        }
+
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            CardCategory cardCategory1 = _library.getSwccgoCardBlueprint(o1.getBlueprintId()).getCardCategory();
+            CardCategory cardCategory2 = _library.getSwccgoCardBlueprint(o2.getBlueprintId()).getCardCategory();
+
+            if (cardCategory1.ordinal() < cardCategory2.ordinal())
+                return -1;
+            if (cardCategory1.ordinal() > cardCategory2.ordinal())
                 return 1;
 
             return 0;

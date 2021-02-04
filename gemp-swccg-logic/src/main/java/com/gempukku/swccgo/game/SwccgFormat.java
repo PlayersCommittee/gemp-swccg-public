@@ -27,7 +27,13 @@ public interface SwccgFormat {
 
     List<String> getBannedCards();
 
+    void addBannedListLink(String bannedListLink);
+
+    String getBannedListLink();
+
     List<String> getBannedIcons();
+
+    List<String> getBannedRarities();
 
     List<String> getRestrictedCards();
 

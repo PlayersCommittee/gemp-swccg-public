@@ -55,4 +55,41 @@ public class DbGempSettingDAO implements GempSettingDAO {
             throw new RuntimeException("Unable to edit privateGamesEnabled setting", exp);
         }
     }
+
+    @Override
+    public boolean inGameStatisticsEnabled() {
+        boolean toReturn = false;
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                ResultSet result = connection.createStatement().executeQuery("select settingValue from gemp_settings where settingName = 'inGameStatistics'");
+                try {
+                    while(result.next()) {
+                        toReturn = result.getBoolean(1);
+                    }
+                } finally {
+                    result.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get server setting", exp);
+        }
+        return toReturn;
+    }
+
+    @Override
+    public void toggleInGameStatisticsEnabled() {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                connection.createStatement().executeUpdate("update gemp_settings set settingValue = 1-settingValue where settingName = 'inGameStatistics'");
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to edit inGameStatistics setting", exp);
+        }
+    }
 }

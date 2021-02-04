@@ -46,7 +46,6 @@ public class Card5_055 extends AbstractUsedOrLostInterrupt {
             PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            action.setImmuneTo(Title.Sense);
             actions.add(action);
         }
         return actions;
@@ -62,7 +61,6 @@ public class Card5_055 extends AbstractUsedOrLostInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Sniper, Title.Sniper);
-            action.setImmuneTo(Title.Sense);
             actions.add(action);
         }
         // Check condition(s)
@@ -71,7 +69,6 @@ public class Card5_055 extends AbstractUsedOrLostInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Blasted_Droid, Title.Blasted_Droid);
-            action.setImmuneTo(Title.Sense);
             actions.add(action);
         }
         return actions;

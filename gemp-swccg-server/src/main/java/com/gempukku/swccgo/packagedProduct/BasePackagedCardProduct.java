@@ -79,4 +79,9 @@ public abstract class BasePackagedCardProduct implements PackagedCardProduct {
     protected void addProducts(List<CardCollection.Item> result, String product, int count) {
         result.add(CardCollection.Item.createItem(product, count));
     }
+
+    @Override
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
+        return openPackage();
+    }
 }

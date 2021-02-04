@@ -72,9 +72,9 @@ public class Card1_243 extends AbstractUsedInterrupt {
                                     }
                                 }
                                 action.appendTargeting(
-                                        new ChooseCardOnTableEffect(action, playerId, "Choose site to 'transport' to", Filters.in(validSites)) {
+                                        new TargetCardOnTableEffect(action, playerId, "Choose site to 'transport' to", Filters.in(validSites)) {
                                             @Override
-                                            protected void cardSelected(final PhysicalCard toSite) {
+                                            protected void cardTargeted(final int siteTargetingGroupId, final PhysicalCard toSite) {
                                                 Collection<PhysicalCard> validCharactersToRelocate = new LinkedList<PhysicalCard>();
                                                 // Figure out which characters can be relocated to the other site
                                                 for (PhysicalCard characterToRelocate : charactersToRelocate) {
@@ -142,10 +142,11 @@ public class Card1_243 extends AbstractUsedInterrupt {
                                                                                                                         // Get the targeted card(s) from the action using the targetGroupId.
                                                                                                                         // This needs to be done in case the target(s) were changed during the responses.
                                                                                                                         Collection<PhysicalCard> finalCharacters = action.getPrimaryTargetCards(targetGroupId);
+                                                                                                                        PhysicalCard finalToSite = action.getPrimaryTargetCard(siteTargetingGroupId);
 
                                                                                                                         // Perform result(s)
                                                                                                                         action.appendEffect(
-                                                                                                                                new RelocateBetweenLocationsEffect(action, finalCharacters, toSite));
+                                                                                                                                new RelocateBetweenLocationsEffect(action, finalCharacters, finalToSite));
                                                                                                                     }
                                                                                                                 }
                                                                                                         );

@@ -169,6 +169,9 @@ public class SwccgoHttpRequestHandler extends SimpleChannelUpstreamHandler {
         } else if (fileName.endsWith(".wav")) {
             cache = true;
             contentType = "audio/wav";
+        } else if (fileName.endsWith(".wasm")) {
+            cache = true;
+            contentType = "application/wasm";
         } else {
             contentType = "application/octet-stream";
         }

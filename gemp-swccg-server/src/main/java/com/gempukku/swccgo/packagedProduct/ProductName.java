@@ -83,4 +83,12 @@ public interface ProductName {
     // Introductory 2-Player Games
     String PREMIERE_INTRODUCTORY_TWO_PLAYER_GAME = "Premiere Intro Two-Player Game";
     String EMPIRE_STRIKES_BACK_INTRODUCTORY_TWO_PLAYER_GAME = "ESB Intro Two-Player Game";
+
+    // Cube Packs
+    String CUBE_OBJECTIVE_PACK_DARK = "Watto's Cube Objective Pack (Dark)";
+    String CUBE_OBJECTIVE_PACK_LIGHT = "Watto's Cube Objective Pack (Light)";
+    String CUBE_DRAFT_PACK_DARK = "Watto's Cube Draft Pack (Dark)";
+    String CUBE_DRAFT_PACK_LIGHT = "Watto's Cube Draft Pack (Light)";
+    String CUBE_FIXED_PACK_DARK = "Watto's Cube Fixed Pack (Dark)";
+    String CUBE_FIXED_PACK_LIGHT = "Watto's Cube Fixed Pack (Light)";
 }

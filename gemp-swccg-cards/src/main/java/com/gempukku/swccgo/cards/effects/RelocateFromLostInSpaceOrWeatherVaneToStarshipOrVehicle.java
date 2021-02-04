@@ -52,6 +52,11 @@ public class RelocateFromLostInSpaceOrWeatherVaneToStarshipOrVehicle extends Abs
                 gameState.sendMessage(GameUtils.getCardLink(_card) + " is relocated from " + GameUtils.getCardLink(stackedOn) + " to " + GameUtils.getCardLink(_starshipOrVehicle) + " as passenger");
                 gameState.moveCardToAttachedInPassengerCapacitySlot(_card, _starshipOrVehicle);
             }
+
+            //resets modifiers
+            _card.stopAffectingGame();
+            _card.startAffectingGame(game);
+
             game.getActionsEnvironment().emitEffectResult(new RelocateFromLostInSpaceOrWeatherVaneToLocationResult(_action.getPerformingPlayer(), _card, location));
         }
     }

@@ -110,6 +110,9 @@ public class CollectionSerializer {
         int currency = collection.getCurrency();
         printInt(outputStream, currency, 3);
 
+        boolean excludePackDuplicates = collection.excludePackDuplicates();
+        printInt(outputStream, (excludePackDuplicates?1:0), 1);
+
         int packTypes = _doubleByteCountItems.size();
         printInt(outputStream, packTypes, 1);
 
@@ -146,7 +149,7 @@ public class CollectionSerializer {
             }
         }
 
-        //number of cards with non-zero counts since cards with zero in both aren't inserted into the map
+        //number of cards with non-zero counts since cards with all zero counts aren't inserted into the map
         printInt(outputStream, cardCountsNonFoil.size(), 2);
 
         for(String itemId : cardCountsNonFoil.keySet()) {
@@ -155,11 +158,13 @@ public class CollectionSerializer {
                 int cardId = getCardId(itemId);
                 int nonFoilCount = cardCountsNonFoil.get(itemId);
                 int foilCount = cardCountsFoil.get(itemId);
+                int alternateImageCount = cardCountsAlternateImage.get(itemId);
 
                 printInt(outputStream, setId, 2);
                 printInt(outputStream, cardId, 2);
                 printInt(outputStream, nonFoilCount, 1);
                 printInt(outputStream, foilCount, 1);
+                printInt(outputStream, alternateImageCount, 1);
 
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -279,13 +284,18 @@ public class CollectionSerializer {
     }
 
     private MutableCardCollection deserializeCollectionVer2(BufferedInputStream inputStream) throws IOException {
-        DefaultCardCollection collection = new DefaultCardCollection();
 
         int byte1 = inputStream.read();
         int byte2 = inputStream.read();
         int byte3 = inputStream.read();
         int currency = convertToInt(byte1, byte2, byte3);
+
+        int excludePackDuplicatesInt = inputStream.read();
+        boolean excludePackDuplicates = (excludePackDuplicatesInt==1);
+
+        DefaultCardCollection collection = new DefaultCardCollection(excludePackDuplicates);
         collection.addCurrency(currency);
+
 
         int packTypes = convertToInt(inputStream.read());
 

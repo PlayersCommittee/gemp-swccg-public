@@ -38,4 +38,12 @@ public interface Merchant {
      * @param price the price
      */
     void cardBought(String blueprintId, Date currentTime, int price);
+
+    /**
+     * Called when cards were bought by merchant.
+     * @param blueprintId the card blueprint id
+     * @param currentTime the current time
+     * @param price the price
+     */
+    void cardsBought(String blueprintId, Date currentTime, int price, int quantity);
 }

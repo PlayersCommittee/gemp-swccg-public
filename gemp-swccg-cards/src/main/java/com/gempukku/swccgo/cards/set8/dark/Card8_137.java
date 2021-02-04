@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.MayNotUseWeaponsModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -41,7 +42,9 @@ public class Card8_137 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (GameConditions.isDuringBattle(game)
                 && TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.or(Filters.DH17_blaster, Filters.scout_blaster), Filters.and(Filters.your(self), Filters.warrior))) {
-            final Collection<PhysicalCard> targets = game.getGameState().getWeaponFiringState().getTargets();
+            FiredWeaponResult firedWeaponResult = (FiredWeaponResult) effectResult;
+
+            final Collection<PhysicalCard> targets = firedWeaponResult.getTargets();
             final Filter targetFilter = Filters.in(targets);
             if (GameConditions.canTarget(game, self, targetFilter)) {
 

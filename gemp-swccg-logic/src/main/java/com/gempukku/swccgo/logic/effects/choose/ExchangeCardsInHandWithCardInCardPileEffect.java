@@ -30,7 +30,8 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
     private int _maximum;
     private Filterable _cardsInHandFilter;
     private Filterable _cardInPileFilter;
-    private boolean _hidden;
+    private boolean _hiddenFromHand;
+    private boolean _hiddenFromPile;
     private boolean _reshuffle;
     private List<PhysicalCard> _cardsToPlaceInCardPile = new ArrayList<PhysicalCard>();
     private boolean _exchangeCompleted;
@@ -45,6 +46,20 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
      * @param reshuffle true if the card pile is reshuffled after the exchange, otherwise false
      */
     public ExchangeCardsInHandWithCardInCardPileEffect(Action action, String playerId, Zone cardPile, int minimum, int maximum, boolean reshuffle) {
+        this(action, playerId, cardPile, minimum, maximum, reshuffle, false);
+    }
+
+    /**
+     * Creates an effect to exchange cards from hand with a card from the specified card pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardPile the card pile to exchange cards with
+     * @param minimum the minimum number of cards from hand to exchange
+     * @param maximum the maximum number of cards from hand to exchange
+     * @param reshuffle true if the card pile is reshuffled after the exchange, otherwise false
+     * @param hiddenFromHand true if the card exchanged from hand should be hidden from opponent
+     */
+    public ExchangeCardsInHandWithCardInCardPileEffect(Action action, String playerId, Zone cardPile, int minimum, int maximum, boolean reshuffle, boolean hiddenFromHand) {
         super(action);
         _playerId = playerId;
         _cardPile = cardPile;
@@ -52,7 +67,8 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
         _maximum = maximum;
         _cardsInHandFilter = Filters.any;
         _cardInPileFilter = Filters.any;
-        _hidden = true;
+        _hiddenFromHand = hiddenFromHand;
+        _hiddenFromPile = true;
         _reshuffle = reshuffle;
     }
 
@@ -68,6 +84,22 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
      * @param reshuffle true if the card pile is reshuffled after the exchange, otherwise false
      */
     protected ExchangeCardsInHandWithCardInCardPileEffect(Action action, String playerId, Zone cardPile, int minimum, int maximum, Filterable cardsInHandFilter, Filterable cardInPileFilter, boolean reshuffle) {
+        this(action, playerId, cardPile, minimum, maximum, cardsInHandFilter, cardInPileFilter, reshuffle, false);
+    }
+
+    /**
+     * Creates an effect to exchange cards from hand with a card from the specified card pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardPile the card pile to exchange cards with
+     * @param minimum the minimum number of cards from hand to exchange
+     * @param maximum the maximum number of cards from hand to exchange
+     * @param cardsInHandFilter the cards in hand filter
+     * @param cardInPileFilter the cards in pile filter
+     * @param reshuffle true if the card pile is reshuffled after the exchange, otherwise false
+     * @param hiddenFromHand true if the card exchanged from hand should be hidden from opponent
+     */
+    protected ExchangeCardsInHandWithCardInCardPileEffect(Action action, String playerId, Zone cardPile, int minimum, int maximum, Filterable cardsInHandFilter, Filterable cardInPileFilter, boolean reshuffle, boolean hiddenFromHand) {
         super(action);
         _playerId = playerId;
         _cardPile = cardPile;
@@ -75,7 +107,8 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
         _maximum = maximum;
         _cardsInHandFilter = cardsInHandFilter;
         _cardInPileFilter = cardInPileFilter;
-        _hidden = false;
+        _hiddenFromHand = hiddenFromHand;
+        _hiddenFromPile = false;
         _reshuffle = reshuffle;
     }
 
@@ -90,8 +123,8 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
         final ActionsEnvironment actionsEnvironment = game.getActionsEnvironment();
 
         // If hidden is specified, then check if card pile is actually face up and update value of hidden
-        if (_hidden) {
-            _hidden = !gameState.isCardPileFaceUp(_playerId, _cardPile);
+        if (_hiddenFromPile) {
+            _hiddenFromPile = !gameState.isCardPileFaceUp(_playerId, _cardPile);
         }
 
         final SubAction subAction = new SubAction(_action);
@@ -108,8 +141,10 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
                                         @Override
                                         protected void doPlayEffect(SwccgGame game) {
                                             if (_cardsToPlaceInCardPile.size() >= _minimum) {
-                                                String toHandText = !_hidden ? GameUtils.getCardLink(cardFromPile) : "a card";
-                                                String toPileText = !_hidden ? GameUtils.getAppendedNames(_cardsToPlaceInCardPile) : GameUtils.numCards(_cardsToPlaceInCardPile);
+                                                String toHandText = !_hiddenFromPile ? GameUtils.getCardLink(cardFromPile) : "a card";
+                                                String toPileText = !_hiddenFromPile ? GameUtils.getAppendedNames(_cardsToPlaceInCardPile) : GameUtils.numCards(_cardsToPlaceInCardPile);
+                                                if(_hiddenFromHand)
+                                                    toPileText = GameUtils.numCards(_cardsToPlaceInCardPile);
                                                 gameState.sendMessage(_playerId + " exchanges " + toPileText + " from hand with " + toHandText + " in " + _cardPile.getHumanReadable());
 
                                                 gameState.removeCardsFromZone(_cardsToPlaceInCardPile);

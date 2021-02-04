@@ -68,7 +68,7 @@ public class Card11_022 extends AbstractNormalEffect {
         String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Bunker)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.title(Title.Bunker, true))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Retrieve 8 Force");

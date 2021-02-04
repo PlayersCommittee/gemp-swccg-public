@@ -15,8 +15,11 @@ import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfBattleEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +48,14 @@ public class Card213_049 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canSpot(game, self, Filters.I_Feel_The_Conflict)) {
             if (GameConditions.canSpot(game, self, Filters.Prophecy_Of_The_Force)) {
                 final PhysicalCard prophecyOfTheForce = Filters.findFirstActive(game, self, Filters.Prophecy_Of_The_Force);
-                if (GameConditions.canSpot(game, self, Filters.canRelocateEffectTo(playerId, prophecyOfTheForce))) {
+                boolean canRelocate = GameConditions.canSpot(game, self, Filters.canRelocateEffectTo(playerId, prophecyOfTheForce));
+                Collection<Modifier> modifiers = game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), prophecyOfTheForce);
+                for (Modifier m: modifiers) {
+                    if (m.getModifyGameTextType(game.getGameState(), game.getModifiersQuerying(), prophecyOfTheForce) == ModifyGameTextType.PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED)
+                        canRelocate = false;
+                }
+
+                if (canRelocate) {
                     final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
                     action.setText("Relocate " + GameUtils.getCardLink(prophecyOfTheForce) + " to a site");
                     action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose site", Filters.canRelocateEffectTo(playerId, prophecyOfTheForce)) {

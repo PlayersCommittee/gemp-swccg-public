@@ -49,12 +49,8 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
         // USED: /\ Han's Dice or non-[Maintenance] Han.
         GameTextActionId uploadCardGametextActionId = GameTextActionId.WHERES_HAN_UPLOAD_CARD;
 
-        // This filter SHOULD be just as easy as "han's dice OR Han-except-maintenance", but, there seems
-        // to be a bug in the Filters when personas are specified. So, I had to do the hasPermanentAboard
-        // thing so it would still get HCF non-Vs
         final Filter nonMaintHanOrHansDice = Filters.or(
-                Filters.and(Filters.character, Filters.Han, Filters.except(Icon.MAINTENANCE)),
-                Filters.and(Filters.starship, Filters.hasPermanentAboard(Filters.Han), Filters.except(Icon.MAINTENANCE)),
+                Filters.and(Filters.Han, Filters.except(Icon.MAINTENANCE)),
                 Filters.Hans_Dice
         );
 
