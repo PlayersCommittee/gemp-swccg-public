@@ -26,7 +26,7 @@ import java.util.List;
  * Set: Set 10
  * Type: Interrupt
  * Subtype: Used or Lost
- * Title: Quite A Mercenary (V)
+ * Title: Quite A Mercenary (V) Errata
  */
 public class Card501_030 extends AbstractUsedOrLostInterrupt {
     public Card501_030() {
@@ -35,6 +35,7 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         setGameText("USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.] OR Cancel a smuggler's game text for remainder of turn. OR [upload] [Reflections II] Chewie or Mercenary Armor. LOST: During your move phase, “break cover” of an Undercover spy.");
         addIcons(Icon.A_NEW_HOPE);
         setVirtualSuffix(true);
+        setTestingText("Quite A Mercenary (V) Errata");
     }
 
     @Override
