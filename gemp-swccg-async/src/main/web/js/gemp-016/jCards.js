@@ -3287,7 +3287,7 @@ var fixedImages = {
 "501_28":"/gemp-swccg/images/cards/JabbasPalace-Light/strangle.gif",
 "501_29":"/gemp-swccg/images/cards/DeathStarII-Light/twilightisuponme.gif",
 "501_30":"/gemp-swccg/images/cards/DeathStarII-Light/anakinskywalker.gif",
-"501_31":"/gemp-swccg/images/cards/Premiere-Light/hansdice.gif",
+"501_31":"/gemp-swccg/images/cards/CloudCity-Light/rescueintheclouds.gif",
 "501_32":"/gemp-swccg/images/cards/ANewHope-Light/corellia.gif",
 "501_33":"/gemp-swccg/images/cards/Dagobah-Light/dagobah.gif",
 "501_34":"/gemp-swccg/images/cards/OfficialTournamentSealedDeck-Light/goldsquadronywing.gif",
