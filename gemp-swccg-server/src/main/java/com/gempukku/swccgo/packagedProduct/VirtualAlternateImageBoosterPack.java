@@ -1,10 +1,5 @@
 package com.gempukku.swccgo.packagedProduct;
 
-import com.gempukku.swccgo.cards.packs.RarityReader;
-import com.gempukku.swccgo.cards.packs.SetRarity;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 
@@ -20,16 +15,6 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
      * @param library the blueprint library
      */
     public VirtualAlternateImageBoosterPack(SwccgCardBlueprintLibrary library) {
-        this(library, true, true);
-    }
-
-        /**
-         * Creates a Virtual Alternate Image booster pack.
-         * @param library the blueprint library
-         * @param includeNonEpisodeI false if non-Episode I cards should be removed
-         * @param includeDefensiveShields false if defensive shields and starting effects should be removed
-         */
-    public VirtualAlternateImageBoosterPack(SwccgCardBlueprintLibrary library, boolean includeNonEpisodeI, boolean includeDefensiveShields) {
         super(library);
     }
 
