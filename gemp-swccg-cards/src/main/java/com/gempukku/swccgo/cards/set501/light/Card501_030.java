@@ -70,6 +70,7 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canTargetToCancel(game, self, Filters.Elis_Helrot)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setImmuneTo(Title.Sense);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Elis_Helrot, Title.Elis_Helrot);
             actions.add(action);
@@ -78,6 +79,7 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canTargetToCancel(game, self, Filters.Stunning_Leader)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setImmuneTo(Title.Sense);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Stunning_Leader, Title.Stunning_Leader);
             actions.add(action);
