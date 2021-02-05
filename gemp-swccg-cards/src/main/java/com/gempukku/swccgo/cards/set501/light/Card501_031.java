@@ -72,7 +72,7 @@ public class Card501_031 extends AbstractUsedOrLostInterrupt {
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new AddUntilEndOfTurnModifierEffect(action,
-                                                            new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, Filters.at(location), 1), "")
+                                                            new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, Filters.at(location), 1), "Draws battle destiny if unable to otherwise")
                                             );
 
                                         }
