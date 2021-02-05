@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set501.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -55,12 +56,13 @@ public class Card501_014 extends AbstractRebel {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringOpponentsPhase(game, self, gameTextSourceCardId, Phase.DRAW)
+        if (GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)
                 && GameConditions.isOnSystem(game, self, Title.Endor)
                 && (GameConditions.isAlone(game, self) || GameConditions.isWith(game, self, Filters.or(Filters.Luke, Filters.Ewok)))
                 && GameConditions.hasLostPile(game, playerId)) {
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve 1 Force");
+            action.appendUsage(new OncePerPhaseEffect(action));
             action.appendEffect(new RetrieveForceEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
