@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card501_085 extends AbstractSith {
     public Card501_085() {
-        super(Side.DARK, 3, 4, 2, 4, 5, "Ochi", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 2, 4, 5, "Ochi", Uniqueness.UNIQUE);
         setLore("Assassin.");
         setGameText("Adds 2 to power of anything he pilots. While piloting Bestoon Legacy, it is immune to attrition < 5. " +
                 "While [Episode VII] Emperor on table, your total power here is +3. If opponent's character was just placed out of play, opponent loses 1 Force.");

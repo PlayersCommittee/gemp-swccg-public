@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>GempArena</title>
+	<title>GempEpicDuel</title>
 	<style>
 		html,
 		body {
@@ -43,17 +43,17 @@
 <body>
 	<div id="gameContainer">
 		<canvas id="unity-canvas" data-pixel-art="0"></canvas>
-		<script src="Build/c4c07f153778d8abf1842ac44b3ff052.js"></script>
+		<script src="Build/8095c7e21f396e1e70e92ad504cfa88f.js"></script>
 		<script>
 			createUnityInstance(document.querySelector("#unity-canvas"), {
-				devicePixelRatio: 2,
-				dataUrl: "Build/07643f46de6bc21520d14a764ef6ee95.data",
-				frameworkUrl: "Build/8be2cee766d03536c71ce8eeedc09bf4.js",
-				codeUrl: "Build/f270cc70355fe3526abd3c1f6d2e29c0.wasm",
+				devicePixelRatio: 1,
+				dataUrl: "Build/8ea36f744d6da5b56b5581fc0d0b4d23.data.unityweb",
+				frameworkUrl: "Build/8cb81639326c6b27a4bc9b0f1768d846.js.unityweb",
+				codeUrl: "Build/d469519b285404d89593bd768f3b21ba.wasm.unityweb",
 				streamingAssetsUrl: "StreamingAssets",
 				companyName: "200 Monkeys",
-				productName: "GempArena",
-				productVersion: "1.5.3",
+				productName: "GempEpicDuel",
+				productVersion: "1.5.8",
 			}).then(function (instance) {
 				var canvas = instance.Module.canvas;
 				var container = canvas.parentElement;
