@@ -2139,9 +2139,9 @@ public class TriggerConditions {
         if (effectResult.getType() == EffectResult.Type.LOST_FROM_TABLE
                 || effectResult.getType() == EffectResult.Type.CANCELED_ON_TABLE
                 || effectResult.getType() == EffectResult.Type.FORFEITED_TO_LOST_PILE_FROM_TABLE) {
-            if (playerId.equals(effectResult.getPerformingPlayerId())) {
-                PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
-
+            PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
+            if (playerId.equals(effectResult.getPerformingPlayerId())
+                || (effectResult.getPerformingPlayerId() == null && playerId.equals(cardLost.getOwner()))) {
                 return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
                         && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardLost);
             }
