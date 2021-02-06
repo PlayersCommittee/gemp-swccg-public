@@ -19,6 +19,7 @@ public class ReleaseWithLaunchEffect extends AbstractSuccessfulEffect {
     private PhysicalCard _captive;
     private PhysicalCard _launchPoint;
     private boolean _inStarfighterCapacity;
+    private boolean _inVehicleCapacity;
 
     /**
      * Creates an effect that releases the specified starship and has the starship 'launch'.
@@ -27,7 +28,7 @@ public class ReleaseWithLaunchEffect extends AbstractSuccessfulEffect {
      * @param launchPoint the launch point
      */
     public ReleaseWithLaunchEffect(Action action, PhysicalCard captive, PhysicalCard launchPoint) {
-        this(action, captive, launchPoint, false);
+        this(action, captive, launchPoint, false, false);
     }
 
     /**
@@ -36,12 +37,13 @@ public class ReleaseWithLaunchEffect extends AbstractSuccessfulEffect {
      * @param captive the captive to release
      * @param launchPoint the launch point
      */
-    public ReleaseWithLaunchEffect(Action action, PhysicalCard captive, PhysicalCard launchPoint, boolean inStarfighterCapacity) {
+    public ReleaseWithLaunchEffect(Action action, PhysicalCard captive, PhysicalCard launchPoint, boolean inStarfighterCapacity, boolean inVehicleCapacity) {
         super(action);
         _performingPlayer = action.getPerformingPlayer();
         _captive = captive;
         _launchPoint = launchPoint;
         _inStarfighterCapacity = inStarfighterCapacity;
+        _inVehicleCapacity = inVehicleCapacity;
     }
 
     @Override
@@ -63,6 +65,8 @@ public class ReleaseWithLaunchEffect extends AbstractSuccessfulEffect {
             gameState.moveCardToLocation(_captive, _launchPoint, true);
         else if (_inStarfighterCapacity)
             gameState.moveCardToAttachedInStarfighterOrTIECapacitySlot(_captive, _launchPoint);
+        else if (_inVehicleCapacity)
+            gameState.moveCardToAttachedInVehicleCapacitySlot(_captive, _launchPoint);
         else
             gameState.moveCardToAttachedInCapitalStarshipCapacitySlot(_captive, _launchPoint);
 

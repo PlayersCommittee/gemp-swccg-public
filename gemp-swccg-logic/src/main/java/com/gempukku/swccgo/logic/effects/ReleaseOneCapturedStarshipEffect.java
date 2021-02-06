@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -82,7 +83,9 @@ class ReleaseOneCapturedStarshipEffect extends AbstractSubActionEffect {
 
                             validLaunchPoints.addAll(Filters.filterActive(game, null, Filters.and(Filters.owner(_starshipToRelease.getOwner()),
                                     Filters.or(Filters.starship, Filters.vehicle), Filters.at(location),
-                                    Filters.or(Filters.hasAvailableStarfighterOrTIECapacity(_starshipToRelease), Filters.hasAvailableCapitalStarshipCapacity(_starshipToRelease)))));
+                                    Filters.or(Filters.hasAvailableStarfighterOrTIECapacity(_starshipToRelease),
+                                            Filters.hasAvailableCapitalStarshipCapacity(_starshipToRelease),
+                                            Filters.hasAvailableVehicleCapacity(_starshipToRelease)))));
                         }
 
                         if (validLaunchPoints.isEmpty()) {
@@ -108,27 +111,53 @@ class ReleaseOneCapturedStarshipEffect extends AbstractSubActionEffect {
                                                 // Need to determine capacity slot for starship
                                                 boolean canGoInStarfighterCapacity = Filters.hasAvailableStarfighterOrTIECapacity(_starshipToRelease).accepts(gameState, modifiersQuerying, launchPoint);
                                                 boolean canGoInCapitalCapacity = Filters.hasAvailableCapitalStarshipCapacity(_starshipToRelease).accepts(gameState, modifiersQuerying, launchPoint);
+                                                boolean canGoInVehicleCapacity = Filters.hasAvailableVehicleCapacity(_starshipToRelease).accepts(gameState, modifiersQuerying, launchPoint);
 
-                                                if (canGoInStarfighterCapacity && canGoInCapitalCapacity) {
-                                                    String[] seatChoices = new String[]{"Starfighter", "Capital"};
+                                                List<String> choices = new LinkedList<>();
+                                                if (canGoInCapitalCapacity)
+                                                    choices.add("Capital");
+                                                if (canGoInStarfighterCapacity)
+                                                    choices.add("Starfighter");
+                                                if (canGoInVehicleCapacity)
+                                                    choices.add("Vehicle");
 
-                                                    // Ask player to choose starfighter or capital capacity slot
+                                                final String[] capacityChoices = new String[choices.size()];
+                                                choices.toArray(capacityChoices);
+
+
+                                                // Ask player to choose capacity slot
+                                                if (capacityChoices.length <= 1) {
+                                                    //only one available slot
+                                                    switch (capacityChoices[0]) {
+                                                        case "Capital":
+                                                            subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, false));
+                                                            break;
+                                                        case "Starfighter":
+                                                            subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, true, false));
+                                                            break;
+                                                        case "Vehicle":
+                                                            subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, true));
+                                                            break;
+                                                    }
+                                                } else {
                                                     subAction.appendEffect(
                                                             new PlayoutDecisionEffect(subAction, _performingPlayerId,
-                                                                    new MultipleChoiceAwaitingDecision("Choose capacity slot for  " + GameUtils.getCardLink(_starshipToRelease) + " aboard " + GameUtils.getCardLink(launchPoint), seatChoices) {
+                                                                    new MultipleChoiceAwaitingDecision("Choose capacity slot for  " + GameUtils.getCardLink(_starshipToRelease) + " aboard " + GameUtils.getCardLink(launchPoint), capacityChoices) {
                                                                         @Override
                                                                         protected void validDecisionMade(int index, String result) {
-                                                                            boolean rallyAsStarfighter = (index == 0);
-
-                                                                            // Capacity slot chosen, release starship.
-                                                                            subAction.appendEffect(
-                                                                                    new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, rallyAsStarfighter));
+                                                                            switch (result) {
+                                                                                case "Capital":
+                                                                                    subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, false));
+                                                                                    break;
+                                                                                case "Starfighter":
+                                                                                    subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, true, false));
+                                                                                    break;
+                                                                                case "Vehicle":
+                                                                                    subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, true));
+                                                                                    break;
+                                                                            }
                                                                         }
                                                                     }));
-                                                } else {
-                                                    // If both capacity slots were not available, launch starship to available slot.
-                                                    subAction.appendEffect(
-                                                            new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint));
                                                 }
                                             }
                                         }
@@ -160,30 +189,55 @@ class ReleaseOneCapturedStarshipEffect extends AbstractSubActionEffect {
                                                                                     new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint));
                                                                         }
                                                                         else {
-                                                                            // Need to determine capacity slot for character
+                                                                            // Need to determine capacity slot for starship
                                                                             boolean canGoInStarfighterCapacity = Filters.hasAvailableStarfighterOrTIECapacity(_starshipToRelease).accepts(gameState, modifiersQuerying, launchPoint);
                                                                             boolean canGoInCapitalCapacity = Filters.hasAvailableCapitalStarshipCapacity(_starshipToRelease).accepts(gameState, modifiersQuerying, launchPoint);
+                                                                            boolean canGoInVehicleCapacity = Filters.hasAvailableVehicleCapacity(_starshipToRelease).accepts(gameState, modifiersQuerying, launchPoint);
 
-                                                                            if (canGoInStarfighterCapacity && canGoInCapitalCapacity) {
-                                                                                String[] seatChoices = new String[]{"Starfighter", "Capital"};
+                                                                            List<String> choices = new LinkedList<>();
+                                                                            if (canGoInCapitalCapacity)
+                                                                                choices.add("Capital");
+                                                                            if (canGoInStarfighterCapacity)
+                                                                                choices.add("Starfighter");
+                                                                            if (canGoInVehicleCapacity)
+                                                                                choices.add("Vehicle");
 
-                                                                                // Ask player to choose starfighter or capital capacity slot
+                                                                            final String[] capacityChoices = new String[choices.size()];
+                                                                            choices.toArray(capacityChoices);
+
+                                                                            // Ask player to choose capacity slot
+                                                                            if (capacityChoices.length <= 1) {
+                                                                                //only one available slot
+                                                                                switch (capacityChoices[0]) {
+                                                                                    case "Capital":
+                                                                                        subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, false));
+                                                                                        break;
+                                                                                    case "Starfighter":
+                                                                                        subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, true, false));
+                                                                                        break;
+                                                                                    case "Vehicle":
+                                                                                        subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, true));
+                                                                                        break;
+                                                                                }
+                                                                            } else {
                                                                                 subAction.appendEffect(
                                                                                         new PlayoutDecisionEffect(subAction, _performingPlayerId,
-                                                                                                new MultipleChoiceAwaitingDecision("Choose capacity slot for  " + GameUtils.getCardLink(_starshipToRelease) + " aboard " + GameUtils.getCardLink(launchPoint), seatChoices) {
+                                                                                                new MultipleChoiceAwaitingDecision("Choose capacity slot for  " + GameUtils.getCardLink(_starshipToRelease) + " aboard " + GameUtils.getCardLink(launchPoint), capacityChoices) {
                                                                                                     @Override
                                                                                                     protected void validDecisionMade(int index, String result) {
-                                                                                                        boolean rallyAsStarfighter = (index == 0);
-
-                                                                                                        // Capacity slot chosen, release starship.
-                                                                                                        subAction.appendEffect(
-                                                                                                                new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, rallyAsStarfighter));
+                                                                                                        switch (result) {
+                                                                                                            case "Capital":
+                                                                                                                subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, false));
+                                                                                                                break;
+                                                                                                            case "Starfighter":
+                                                                                                                subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, true, false));
+                                                                                                                break;
+                                                                                                            case "Vehicle":
+                                                                                                                subAction.appendEffect(new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint, false, true));
+                                                                                                                break;
+                                                                                                        }
                                                                                                     }
                                                                                                 }));
-                                                                            } else {
-                                                                                // If both capacity slots were not available, launch starship to available slot.
-                                                                                subAction.appendEffect(
-                                                                                        new ReleaseWithLaunchEffect(subAction, _starshipToRelease, launchPoint));
                                                                             }
                                                                         }
                                                                     }
