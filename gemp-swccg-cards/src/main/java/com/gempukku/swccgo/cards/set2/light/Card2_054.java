@@ -40,39 +40,41 @@ public class Card2_054 extends AbstractUsedInterrupt {
 
 
         if (GameConditions.isDuringYourPhase(game, playerId, Phase.CONTROL)
-            && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.captured_starship)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, GameTextActionId.OTHER_CARD_ACTION_1);
-            action.setText("Release a starship held by any tractor beam");
-
+            && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 2)) {
+            
             Filter starshipHeldByTractorBeam = Filters.and(Filters.your(playerId), Filters.captured_starship);
             if(GameConditions.canSpot(game, self, Filters.Death_Star_Central_Core)) {
                 starshipHeldByTractorBeam = Filters.and(Filters.your(playerId), Filters.captured_starship, Filters.not(Filters.at(Filters.Docking_Bay_327)));
             }
 
-            // Choose target(s)
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose starship held be a tractor beam", SpotOverride.INCLUDE_CAPTIVE, starshipHeldByTractorBeam) {
-                        @Override
-                        protected void cardTargeted(final int targetGroupId, PhysicalCard starship) {
-                            action.addAnimationGroup(starship);
-                            action.appendCost(new UseForceEffect(action, playerId, 2));
-                            // Allow response(s)
-                            action.allowResponses("Release " + GameUtils.getCardLink(starship),
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Get the targeted card(s) from the action using the targetGroupId.
-                                            // This needs to be done in case the target(s) were changed during the responses.
-                                            PhysicalCard finalStarship = action.getPrimaryTargetCard(targetGroupId);
+            if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, starshipHeldByTractorBeam)) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, GameTextActionId.OTHER_CARD_ACTION_1);
+                action.setText("Release a starship held by any tractor beam");
+                // Choose target(s)
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose starship held by a tractor beam", SpotOverride.INCLUDE_CAPTIVE, starshipHeldByTractorBeam) {
+                            @Override
+                            protected void cardTargeted(final int targetGroupId, PhysicalCard starship) {
+                                action.addAnimationGroup(starship);
+                                action.appendCost(new UseForceEffect(action, playerId, 2));
+                                // Allow response(s)
+                                action.allowResponses("Release " + GameUtils.getCardLink(starship),
+                                        new RespondablePlayCardEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                // Get the targeted card(s) from the action using the targetGroupId.
+                                                // This needs to be done in case the target(s) were changed during the responses.
+                                                PhysicalCard finalStarship = action.getPrimaryTargetCard(targetGroupId);
 
-                                            action.appendEffect(new ReleaseCapturedStarshipEffect(action, Collections.singletonList(finalStarship)));
+                                                action.appendEffect(new ReleaseCapturedStarshipEffect(action, Collections.singletonList(finalStarship)));
+                                            }
                                         }
-                                    }
-                            );
+                                );
+                            }
                         }
-                    }
-            );
-            actions.add(action);
+                );
+                actions.add(action);
+            }
         }
 
 
