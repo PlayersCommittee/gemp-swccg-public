@@ -71,6 +71,7 @@ public class Card501_006 extends AbstractImperial {
         // Check condition(s)
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
                 && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
 

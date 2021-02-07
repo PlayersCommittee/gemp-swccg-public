@@ -54,7 +54,7 @@ public class Card4_169 extends AbstractStarfighter {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployToTargetModifier(self, Filters.Ion_Cannon, self));
+        modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.your(self), Filters.Ion_Cannon), self));
         return modifiers;
     }
 }

@@ -53,7 +53,7 @@ public class Card200_059 extends AbstractCapitalStarship {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployToTargetModifier(self, Filters.Concussion_Missiles, self));
+        modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.your(self), Filters.Concussion_Missiles), self));
         return modifiers;
     }
 }
