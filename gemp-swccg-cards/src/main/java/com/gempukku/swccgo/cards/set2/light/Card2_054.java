@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.timing.Action;
 
+import java.lang.annotation.Target;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +42,7 @@ public class Card2_054 extends AbstractUsedInterrupt {
 
         if (GameConditions.isDuringYourPhase(game, playerId, Phase.CONTROL)
             && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 2)) {
-            
+
             Filter starshipHeldByTractorBeam = Filters.and(Filters.your(playerId), Filters.captured_starship);
             if(GameConditions.canSpot(game, self, Filters.Death_Star_Central_Core)) {
                 starshipHeldByTractorBeam = Filters.and(Filters.your(playerId), Filters.captured_starship, Filters.not(Filters.at(Filters.Docking_Bay_327)));
@@ -50,9 +51,11 @@ public class Card2_054 extends AbstractUsedInterrupt {
             if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, starshipHeldByTractorBeam)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, GameTextActionId.OTHER_CARD_ACTION_1);
                 action.setText("Release a starship held by any tractor beam");
+
+                TargetingReason targetingReason = TargetingReason.TO_BE_RELEASED;
                 // Choose target(s)
                 action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose starship held by a tractor beam", SpotOverride.INCLUDE_CAPTIVE, starshipHeldByTractorBeam) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose starship held by a tractor beam", SpotOverride.INCLUDE_CAPTIVE, targetingReason, starshipHeldByTractorBeam) {
                             @Override
                             protected void cardTargeted(final int targetGroupId, PhysicalCard starship) {
                                 action.addAnimationGroup(starship);

@@ -1687,6 +1687,9 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         if (attachedTo == null)
             return false;
 
+        if (attachedTo.isCapturedStarship())
+            return false;
+
         if (self.getBlueprint().isMovesLikeCharacter())
             return false;
 

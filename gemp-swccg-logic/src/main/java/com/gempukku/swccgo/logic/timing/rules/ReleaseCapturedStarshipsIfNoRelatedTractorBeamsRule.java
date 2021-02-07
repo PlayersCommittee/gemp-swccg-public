@@ -54,7 +54,7 @@ public class ReleaseCapturedStarshipsIfNoRelatedTractorBeamsRule implements Rule
                             Collection<PhysicalCard> starshipsToRelease = Filters.filterAllOnTable(game,
                                     Filters.and(Filters.opponents(darkSidePlayerId), Filters.captured_starship,
                                             Filters.not(Filters.or(Filters.attachedTo(Filters.hasAttached(Filters.tractor_beam)),
-                                                    Filters.attachedTo(Filters.relatedSiteTo(null, Filters.and(Filters.location, Filters.hasAttached(Filters.tractor_beam))))
+                                                    Filters.attachedTo(Filters.siteOfStarshipOrVehicle(Filters.hasAttached(Filters.tractor_beam)))
                                                     )
                                             )
                                     )

@@ -8,6 +8,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.actions.TractorBeamAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseTractorBeamEffect;
@@ -40,7 +41,7 @@ public class Card7_254 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game,
                 Filters.and(Filters.your(playerId), Filters.Star_Destroyer, Filters.hasAttached(Filters.tractor_beam)))
-                ) {
+        ) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Use tractor beam");
@@ -53,22 +54,38 @@ public class Card7_254 extends AbstractUsedInterrupt {
                         protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
                             // Pay cost(s)
-                            action.allowResponses("Use tractor beam",
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            PhysicalCard tractorBeam = action.getPrimaryTargetCard(targetGroupId);
-                                            TotalTractorBeamDestinyModifier destinyModifier = new TotalTractorBeamDestinyModifier(self, tractorBeam, 2);
-                                            List<Modifier> modifiers = new LinkedList<Modifier>();
-                                            modifiers.add(new PowerModifier(self, Filters.none, -3));
-                                            modifiers.add(new ManeuverModifier(self, Filters.none, -3));
 
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new UseTractorBeamEffect(action, tractorBeam, true, Filters.unique, destinyModifier, modifiers));
+                            TractorBeamAction tractorBeamAction = targetedCard.getBlueprint().getTractorBeamAction(game, targetedCard);
+                            Filter targetFilter = tractorBeamAction.getPossibleTargets();
+
+                            TargetingReason targetingReason2 = TargetingReason.TO_BE_CAPTURED;
+
+                            action.appendTargeting(
+                                    new TargetCardOnTableEffect(action, playerId, "Target with tractor beam", targetingReason2, targetFilter) {
+                                        @Override
+                                        protected void cardTargeted(final int starshipTargetGroupId, final PhysicalCard targetedCard) {
+                                            action.allowResponses("Use tractor beam",
+                                                    new RespondablePlayCardEffect(action) {
+                                                        @Override
+                                                        protected void performActionResults(Action targetingAction) {
+                                                            PhysicalCard tractorBeam = action.getPrimaryTargetCard(targetGroupId);
+                                                            PhysicalCard finalTractorBeam = action.getPrimaryTargetCard(targetGroupId);
+                                                            PhysicalCard finalTarget = action.getPrimaryTargetCard(starshipTargetGroupId);
+
+                                                            TotalTractorBeamDestinyModifier destinyModifier = new TotalTractorBeamDestinyModifier(self, finalTractorBeam, 2);
+                                                            List<Modifier> modifiers = new LinkedList<Modifier>();
+                                                            modifiers.add(new PowerModifier(self, Filters.none, -3));
+                                                            modifiers.add(new ManeuverModifier(self, Filters.none, -3));
+
+                                                            // Perform result(s)
+                                                            action.appendEffect(
+                                                                    new UseTractorBeamEffect(action, finalTractorBeam, true, Filters.unique, destinyModifier, modifiers, finalTarget));
+                                                        }
+                                                    });
                                         }
                                     }
                             );
+
                         }
                     }
             );

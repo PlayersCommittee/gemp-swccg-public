@@ -71,7 +71,7 @@ public class CaptureStarshipEffect extends AbstractSubActionEffect implements Pr
 
                                            Collection<PhysicalCard> _attachTo = game.getModifiersQuerying().getDestinationForCapturedStarships(game.getGameState(), _tractorBeam);
 
-                                           subAction.appendEffect(new ChooseCardOnTableEffect(subAction, game.getGameState().getCurrentPlayerId(), "Capture starship under which card", _attachTo) {
+                                           subAction.appendEffect(new ChooseCardOnTableEffect(subAction, performingPlayer, "Capture starship under which card", _attachTo) {
                                                @Override
                                                protected void cardSelected(PhysicalCard selectedCard) {
                                                    gameState.cardAffectsCard(performingPlayer, _tractorBeam, _starship);

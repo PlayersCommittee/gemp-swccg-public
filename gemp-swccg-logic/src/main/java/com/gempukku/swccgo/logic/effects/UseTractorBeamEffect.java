@@ -1,5 +1,7 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.CaptureOption;
+import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
@@ -14,6 +16,8 @@ import com.gempukku.swccgo.logic.actions.TractorBeamAction;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.timing.results.CaptureStarshipResult;
+import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +32,7 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
     private Filter _filterForModifierDuringEffect;
     private Modifier _modifierToApplyDuringEffect;
     private List<Modifier> _modifiersToApplyIfUnsuccessful;
+    private PhysicalCard _preSelectedTarget;
 
     /**
      * Creates an effect to use the specified tractor beam
@@ -45,16 +50,17 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
      * @param forFree true if free, otherwise false
      */
     public UseTractorBeamEffect(Action action, PhysicalCard tractorBeam, boolean forFree) {
-        this(action, tractorBeam, forFree, Filters.none, null, null);
+        this(action, tractorBeam, forFree, Filters.none, null, null, null);
     }
 
-    public UseTractorBeamEffect(Action action, PhysicalCard tractorBeam, boolean forFree, Filter filterForModifierDuringEffect, Modifier modifierToApplyDuringEffect, List<Modifier> modifiersToApplyIfUnsuccessful) {
+    public UseTractorBeamEffect(Action action, PhysicalCard tractorBeam, boolean forFree, Filter filterForModifierDuringEffect, Modifier modifierToApplyDuringEffect, List<Modifier> modifiersToApplyIfUnsuccessful, PhysicalCard preSelectedTarget) {
         super(action);
         _tractorBeam = tractorBeam;
         _forFree = forFree;
         _filterForModifierDuringEffect = filterForModifierDuringEffect;
         _modifierToApplyDuringEffect = modifierToApplyDuringEffect;
         _modifiersToApplyIfUnsuccessful = modifiersToApplyIfUnsuccessful;
+        _preSelectedTarget = preSelectedTarget;
     }
 
     @Override
@@ -71,10 +77,13 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
         final TractorBeamAction tractorBeamAction = _tractorBeam.getBlueprint().getTractorBeamAction(game, _tractorBeam);
 
         Filter targetFilter = tractorBeamAction.getPossibleTargets();
+        if (_preSelectedTarget != null && targetFilter.accepts(game, _preSelectedTarget)) {
+            targetFilter = Filters.and(targetFilter, _preSelectedTarget);
+        }
 
         TargetingReason targetingReason = TargetingReason.TO_BE_CAPTURED;
 
-        subAction.appendTargeting(new TargetCardOnTableEffect(subAction, playerId, "Target with tractor beam", targetingReason, targetFilter) {
+       subAction.appendTargeting(new TargetCardOnTableEffect(subAction, playerId, "Target with tractor beam", targetingReason, targetFilter) {
             @Override
             protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
                 int forceCost = tractorBeamAction.getForceCost();
@@ -109,7 +118,7 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
                         subAction.appendEffect(new DrawDestinyEffect(subAction, playerId, numDestinies, DestinyType.TRACTOR_BEAM_DESTINY) {
                             @Override
                             protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                return Collections.singletonList(targetedCard);
+                                return Collections.singletonList(target);
                             }
                             @Override
                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
