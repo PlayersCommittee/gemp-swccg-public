@@ -76,7 +76,7 @@ public class Card501_026 extends AbstractNormalEffect {
                                     new PutCardFromHandOnUsedPileEffect(action, playerId, selectedCard, false));
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.abilityLessThan(selectedCard.getBlueprint().getAbility())), true));
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.abilityLessThanOrEqualTo(selectedCard.getBlueprint().getAbility())), true));
                         }
                     }
             );
