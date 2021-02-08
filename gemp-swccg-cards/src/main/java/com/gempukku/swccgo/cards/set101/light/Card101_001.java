@@ -25,7 +25,7 @@ public class Card101_001 extends AbstractSite {
     public Card101_001() {
         super(Side.LIGHT, "Death Star: Level 6 Core Shaft Corridor", Title.Death_Star);
         setLocationDarkSideGameText("If you control, opponent needs 2 ability to control each Death Star site.");
-        setLocationLightSideGameText("If you control, Luke and Obi-Wan are power +2 on Death Star.");
+        setLocationLightSideGameText("If the Light Side controls this site, Luke and Obi-Wan are each power +2.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.INTERIOR_SITE, Icon.MOBILE);
@@ -42,8 +42,8 @@ public class Card101_001 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, Filters.and(Filters.or(Filters.Luke, Filters.ObiWan), Filters.on(Title.Death_Star)),
-                new ControlsCondition(playerOnLightSideOfLocation, self), 2));
+        modifiers.add(new PowerModifier(self, Filters.or(Filters.Luke, Filters.ObiWan),
+                new ControlsCondition(game.getLightPlayer(), self), 2));
         return modifiers;
     }
 }
