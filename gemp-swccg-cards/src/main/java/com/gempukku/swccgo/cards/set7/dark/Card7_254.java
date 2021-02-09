@@ -36,14 +36,12 @@ public class Card7_254 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        GameTextActionId gameTextActionId = GameTextActionId.I_CANT_SHAKE_HIM__DOWNLOAD_STARSHIP_WEAPON_OR_TRACTOR_BEAM;
-
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game,
                 Filters.and(Filters.your(playerId), Filters.Star_Destroyer, Filters.hasAttached(Filters.tractor_beam)))
         ) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Use tractor beam");
             // Allow response(s)
             Filter tractorBeamFilter = Filters.and(Filters.tractor_beam, Filters.attachedTo(Filters.and(Filters.participatingInBattle, Filters.your(playerId), Filters.Star_Destroyer)));
@@ -68,7 +66,6 @@ public class Card7_254 extends AbstractUsedInterrupt {
                                                     new RespondablePlayCardEffect(action) {
                                                         @Override
                                                         protected void performActionResults(Action targetingAction) {
-                                                            PhysicalCard tractorBeam = action.getPrimaryTargetCard(targetGroupId);
                                                             PhysicalCard finalTractorBeam = action.getPrimaryTargetCard(targetGroupId);
                                                             PhysicalCard finalTarget = action.getPrimaryTargetCard(starshipTargetGroupId);
 

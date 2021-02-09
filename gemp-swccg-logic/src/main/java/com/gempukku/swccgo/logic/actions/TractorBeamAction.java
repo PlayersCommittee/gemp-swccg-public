@@ -31,9 +31,9 @@ public class TractorBeamAction extends AbstractAction {
     /**
      * Creates an action for using a tractor beam.
      *
-     * @param source                      the card to initiate the firing
-     * @param tractorBeam the weapon (or card with a permanent weapon)
-     * @param targetFilter              the filter for where the card can be played
+     * @param source  the card to initiate the firing
+     * @param tractorBeam  the tractor beam
+     * @param targetFilter  the filter for which cards can be targeted
      * @param forceCost  amount of Force to use
      * @param forFree   use it for free
      */

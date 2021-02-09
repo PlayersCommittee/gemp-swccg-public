@@ -124,7 +124,7 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                 final PhysicalCard target = subAction.getPrimaryTargetCard(targetGroupId);
 
-                                //TODO have this use Statistic.DEFENSE_VALUE
+                                //TODO have this check which Statistic it should compare to (right now always Statistic.DEFENSE_VALUE)
                                 float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
 
                                 game.getGameState().sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));

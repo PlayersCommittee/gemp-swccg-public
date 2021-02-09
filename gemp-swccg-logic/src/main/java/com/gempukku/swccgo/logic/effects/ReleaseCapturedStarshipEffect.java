@@ -54,14 +54,14 @@ public class ReleaseCapturedStarshipEffect extends AbstractSubActionEffect {
     }
 
     /**
-     * A private effect for choosing the next character to be released.
+     * A private effect for choosing the next starship to be released.
      */
     private class ChooseNextStarshipToRelease extends ChooseCardOnTableEffect {
         private SubAction _subAction;
         private SwccgGame _game;
 
         /**
-         * Creates an effect for choosing the next character to be released.
+         * Creates an effect for choosing the next starship to be released.
          * @param subAction the action
          * @param remainingCards the remaining cards to choose from to be released
          */

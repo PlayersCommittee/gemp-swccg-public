@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.timing.GuiUtils;
  */
 public class ModifyDestinyEffect extends AbstractSuccessfulEffect {
     private float _modifierAmount;
+    private boolean _cumulative;
 
     /**
      * Creates an effect that modifies the just drawn destiny.
@@ -23,8 +24,19 @@ public class ModifyDestinyEffect extends AbstractSuccessfulEffect {
      * @param modifierAmount the amount to modify
      */
     public ModifyDestinyEffect(Action action, float modifierAmount) {
+        this(action, modifierAmount, false);
+    }
+
+    /**
+     * Creates an effect that modifies the just drawn destiny.
+     * @param action the action performing this effect.
+     * @param modifierAmount the amount to modify
+     * @param cumulative true if modifier is cumulative false if not
+     */
+    public ModifyDestinyEffect(Action action, float modifierAmount, boolean cumulative) {
         super(action);
         _modifierAmount = modifierAmount;
+        _cumulative = cumulative;
     }
 
     @Override
@@ -65,7 +77,14 @@ public class ModifyDestinyEffect extends AbstractSuccessfulEffect {
                     return;
                 }
 
-                drawDestinyEffect.modifyDestiny(_modifierAmount);
+                if (_action.getActionSource() == null) {
+                    System.out.println("_action.getActionSource() == null");
+                    drawDestinyEffect.modifyDestiny(null, _modifierAmount, _cumulative);
+                }
+                else {
+                    drawDestinyEffect.modifyDestiny(_action.getActionSource().getTitles(), _modifierAmount, _cumulative);
+                }
+
                 if (_modifierAmount > 0) {
                     gameState.sendMessage(playerId + " adds " + GuiUtils.formatAsString(_modifierAmount)
                             + " to make the " + drawDestinyEffect.getDestinyType().getHumanReadable() + " " + GuiUtils.formatAsString(drawDestinyEffect.getDestinyDrawValue()));

@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.game.state;
 
 import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 
@@ -23,7 +22,6 @@ public class UsingTractorBeamState {
         _game = game;
         _tractorBeam = tractorBeam;
     }
-
 
     public PhysicalCard getTractorBeam() {
         return _tractorBeam;
@@ -52,7 +50,7 @@ public class UsingTractorBeamState {
      * Sets the tractor beam effect.
      * @param tractorBeamEffect the tractor beam effect
      */
-    public void setWeaponFiringEffect(RespondableEffect tractorBeamEffect) {
+    public void setTractorBeamEffect(RespondableEffect tractorBeamEffect) {
         _tractorBeamEffect = tractorBeamEffect;
     }
 
@@ -60,7 +58,7 @@ public class UsingTractorBeamState {
      * Gets the tractor beam effect.
      * @return the tractor beam effect
      */
-    public RespondableEffect getWeaponFiringEffect() {
+    public RespondableEffect getTractorBeamEffect() {
         return _tractorBeamEffect;
     }
 }

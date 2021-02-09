@@ -42,7 +42,7 @@ public class Card2_111 extends AbstractDevice {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.Docking_Bay_327);
+        return Filters.Docking_Bay_327;
     }
 
     @Override

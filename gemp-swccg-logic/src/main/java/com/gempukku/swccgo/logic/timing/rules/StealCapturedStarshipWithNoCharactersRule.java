@@ -54,7 +54,6 @@ public class StealCapturedStarshipWithNoCharactersRule implements Rule {
                             // Check all the cards in play to see if there are any captured starships with no characters aboard
                             Collection<PhysicalCard> starshipsThatShouldBeStolen = Filters.filterAllOnTable(game,
                                     Filters.and(Filters.opponents(darkSidePlayerId), Filters.captured_starship,
-                                            //Filters.not(Filters.aboardOrAboardCargoOf(null, Filters.character))
                                             Filters.not(Filters.hasAboard(null, SpotOverride.INCLUDE_ALL, Filters.character))
                                     )
                             );
