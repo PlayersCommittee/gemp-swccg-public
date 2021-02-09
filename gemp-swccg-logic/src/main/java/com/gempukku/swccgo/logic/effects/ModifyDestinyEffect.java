@@ -78,11 +78,10 @@ public class ModifyDestinyEffect extends AbstractSuccessfulEffect {
                 }
 
                 if (_action.getActionSource() == null) {
-                    System.out.println("_action.getActionSource() == null");
-                    drawDestinyEffect.modifyDestiny(null, _modifierAmount, _cumulative);
+                    drawDestinyEffect.modifyDestiny(_modifierAmount);
                 }
                 else {
-                    drawDestinyEffect.modifyDestiny(_action.getActionSource().getTitles(), _modifierAmount, _cumulative);
+                    drawDestinyEffect.modifyDestiny(_action.getActionSource().getTitles(), _action.getGameTextActionId(), _modifierAmount, _cumulative);
                 }
 
                 if (_modifierAmount > 0) {

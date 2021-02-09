@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.effects;
 
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.ActionProxy;
 import com.gempukku.swccgo.game.ActionsEnvironment;
@@ -252,11 +253,19 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
     /**
      * Modifies the current destiny draw value by the specified amount.
+     * @param amount the amount to modify
+     */
+    public void modifyDestiny(float amount) {
+        modifyDestiny(null, null, amount, true);
+    }
+
+    /**
+     * Modifies the current destiny draw value by the specified amount.
      * @param sourceTitles list of titles attempting to modify the destiny (to account for combo cards)
      * @param amount the amount to modify
      * @param cumulative true if modifier is cumulative, false otherwise
      */
-    public void modifyDestiny(List<String> sourceTitles, float amount, boolean cumulative) {
+    public void modifyDestiny(List<String> sourceTitles, GameTextActionId gameTextActionId, float amount, boolean cumulative) {
         if (sourceTitles == null) {
             _drawnDestinyValueModification += amount;
             return;
@@ -264,9 +273,10 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
         float previousAmount = 0;
 
+        String gameTextActionIdString = (gameTextActionId==null?"":gameTextActionId.name());
         for (String title: sourceTitles) {
-            if (_modifierSourceTitleMap.containsKey(title)) {
-                float temp = _modifierSourceTitleMap.get(title);
+            if (_modifierSourceTitleMap.containsKey(title+gameTextActionIdString)) {
+                float temp = _modifierSourceTitleMap.get(title+gameTextActionIdString);
                 if (previousAmount == 0)
                     previousAmount = temp;
                 else if (temp < 0 && previousAmount < 0 && temp < previousAmount)
@@ -279,21 +289,21 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         if (cumulative) {
             _drawnDestinyValueModification += amount;
             for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title, previousAmount + amount);
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, previousAmount + amount);
         } else if (previousAmount == 0) {
             _drawnDestinyValueModification += amount;
             for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title, amount);
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
         } else if (amount < 0 && previousAmount < 0 && amount < previousAmount) {
             //subtract a larger amount
             _drawnDestinyValueModification += amount - previousAmount;
             for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title, amount);
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
         } else if (amount > 0 && previousAmount > 0 && amount > previousAmount) {
             //add a larger amount
             _drawnDestinyValueModification += amount - previousAmount;
             for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title, amount);
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
         }
         //this doesn't handle a +X and -Y from the same title
     }
