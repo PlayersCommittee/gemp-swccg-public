@@ -10,7 +10,9 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.*;
+import com.gempukku.swccgo.logic.effects.choose.StealOneCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.LostForceResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -73,5 +75,29 @@ public class Card501_002 extends AbstractCharacterWeapon {
         return null;
     }
 
-    //TODO If lost from table (or hand), opponent may ‘steal’ into hand.
+    @Override
+    public List<OptionalGameTextTriggerAction> getOpponentsCardGameTextLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.justLost(game, effectResult, self)
+            && GameConditions.canSteal(game, self)) {
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, game.getOpponent(self.getOwner()), gameTextSourceCardId);
+            action.setText("Steal into hand");
+            action.appendEffect(new StealOneCardIntoHandEffect(action, self));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (effectResult.getType() == EffectResult.Type.FORCE_LOST) {
+            LostForceResult result = (LostForceResult)effectResult;
+            if (result.getZone() == Zone.HAND && Filters.and(self).accepts(game, result.getCardLost())) {
+                OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, game.getOpponent(self.getOwner()), gameTextSourceCardId);
+                action.setText("Steal into hand");
+                action.appendEffect(new StealOneCardIntoHandEffect(action, self));
+                return Collections.singletonList(action);
+            }
+        }
+        return null;
+    }
 }

@@ -31,7 +31,7 @@ public class Card9_040 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
-        Filter yourNonuniqueStarCruisers = Filters.and(Filters.non_unique, Filters.Star_Cruiser);
+        Filter yourNonuniqueStarCruisers = Filters.and(Filters.your(self), Filters.non_unique, Filters.Star_Cruiser);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForceGenerationModifier(self, Filters.and(Filters.docking_bay, Filters.occupies(playerId), Filters.not(Filters.controls(playerId))), 1, playerId));
