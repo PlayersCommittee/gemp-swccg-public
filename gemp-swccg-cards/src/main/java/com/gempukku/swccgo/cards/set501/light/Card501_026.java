@@ -26,7 +26,7 @@ public class Card501_026 extends AbstractNormalEffect {
     public Card501_026() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If Jakku on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character of lesser ability. [Immune to Alter.]");
+        setGameText("If Jakku on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character of equal or lesser ability. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("A Brave Resistance (ERRATA)");
@@ -76,7 +76,7 @@ public class Card501_026 extends AbstractNormalEffect {
                                     new PutCardFromHandOnUsedPileEffect(action, playerId, selectedCard, false));
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.abilityLessThan(selectedCard.getBlueprint().getAbility())), true));
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.abilityLessThanOrEqualTo(selectedCard.getBlueprint().getAbility())), true));
                         }
                     }
             );

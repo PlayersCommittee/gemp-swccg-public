@@ -44,7 +44,9 @@ public class HitCardOutsideOfAttackOrBattleRule implements Rule {
                                 || TriggerConditions.battleEnded(game, effectResult)
                                 || TriggerConditions.justExcludedFromBattle(game, effectResult, Filters.any)
                                 || TriggerConditions.justHit(game, effectResult, Filters.any)
-                                || TriggerConditions.moved(game, effectResult, Filters.any)) {
+                                || TriggerConditions.moved(game, effectResult, Filters.any)
+                                || TriggerConditions.captured(game, effectResult, Filters.any)
+                                || TriggerConditions.isTableChanged(game, effectResult)) {
 
                             // Check if any cards outside the attack or battle are 'hit', if any, those are immediately lost.
                             Filter filter = Filters.and(Filters.hit, Filters.not(Filters.or(Filters.participatingInAttack, Filters.participatingInBattle)));

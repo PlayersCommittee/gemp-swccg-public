@@ -38,7 +38,7 @@ public class Card501_014 extends AbstractRebel {
         setGameText("If alone (or with Luke or an Ewok) on Endor during opponent's draw phase, may retrieve 1 Force. If you are about to lose Force, may place X cards stacked on I Feel The Conflict in owner's Lost Pile to reduce your Force loss by X. Immune to attrition (< 4 if not on Endor).");
         addPersona(Persona.LEIA);
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_0, Icon.WARRIOR);
-        addKeywords(Keyword.SCOUT, Keyword.LEADER);
+        addKeywords(Keyword.SCOUT, Keyword.LEADER, Keyword.FEMALE);
         setVirtualSuffix(true);
         setTestingText("Daughter Of Skywalker (V) (ERRATA)");
     }

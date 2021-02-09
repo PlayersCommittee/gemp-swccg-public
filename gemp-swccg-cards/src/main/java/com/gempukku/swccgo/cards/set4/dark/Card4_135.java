@@ -55,10 +55,13 @@ public class Card4_135 extends AbstractNormalEffect {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make each player lose 1 Force");
             // Perform result(s)
+
+            //instead of using ChooseEffectOrderEffect to have the active player choose the order, just default to the expected order
+            String currentPlayer = game.getGameState().getCurrentPlayerId();
             action.appendEffect(
-                    new LoseForceEffect(action, playerId, 1));
+                    new LoseForceEffect(action, game.getOpponent(currentPlayer), 1));
             action.appendEffect(
-                    new LoseForceEffect(action, game.getOpponent(playerId), 1));
+                    new LoseForceEffect(action, currentPlayer, 1));
             actions.add(action);
         }
 
