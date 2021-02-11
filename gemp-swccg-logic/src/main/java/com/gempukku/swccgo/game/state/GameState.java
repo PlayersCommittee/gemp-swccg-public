@@ -1656,7 +1656,8 @@ public class GameState implements Snapshotable<GameState> {
         _tableChangedSinceStatsSent = true;
         PhysicalCard card = _reserveDecks.get(playerId).get(0);
         if (card != null) {
-            _game.getGameState().reapplyAffectingForCard(_game, card);
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.cardTurnedOver(card, this);
         }
     }
 

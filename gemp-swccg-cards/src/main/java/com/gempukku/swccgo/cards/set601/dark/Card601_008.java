@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card601_008 extends AbstractDroid {
     public Card601_008() {
-        super(Side.DARK, 1, 4, 4, 5, "IG-88", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 5, "IG-88, Renegade Droid", Uniqueness.UNIQUE);
         setArmor(5);
         setLore("Bounty hunter droid equipped with proprietary stealth technology. Archived several of its enhancement subroutines in favor of sophisticated tracking and capture programming.");
         setGameText("Adds 2 to power of anything he pilots (3 if IG-2000).  Deploys -3 aboard IG-2000.  Adds one battle destiny if alone or with a smuggler.  During battle, if piloting a starship, may draw destiny.  Starship is immune to attrition < X, or its immunity is +X (limit +2), where X = destiny.");

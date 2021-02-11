@@ -35,11 +35,11 @@ import java.util.List;
 public class Card601_042 extends AbstractAlien {
     public Card601_042() {
         super(Side.LIGHT, 3, 3, 3, 3, 5, "Dash Rendar", Uniqueness.UNIQUE);
-        setLore("Adds 3 to power of anything he pilots. While piloting alone (or at same location as opponent's AT-AT or Imperial), draws one battle destiny if unable to otherwise and opponent draws no more than one battle destiny here. Dash is a matching pilot for any unique (•) Rogue speeder.");
-        setGameText("");
+        setLore("Emperor banished Rendar family from Coruscant. Became gambler and smuggler. Brought down AT-AT at the Battle of Hoth. Works for Rebel Alliance from time to time. Corellian.");
+        setGameText("Adds 3 to power of anything he pilots. While piloting alone (or at same location as opponent's AT-AT or Imperial), draws one battle destiny if unable to otherwise and opponent draws no more than one battle destiny here. Dash is a matching pilot for any unique (•) Rogue speeder.");
         addPersona(Persona.DASH);
         addIcons(Icon.BLOCK_4, Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.GAMBLER, Keyword.SMUGGLER);
+        addKeywords(Keyword.GAMBLER, Keyword.SMUGGLER, Keyword.ROGUE_SQUADRON);
         setSpecies(Species.CORELLIAN);
         setMatchingVehicleFilter(Filters.and(Filters.unique, Filters.speeder, Filters.Rogue_Squadron_vehicle));
         setVirtualSuffix(true);
@@ -49,8 +49,7 @@ public class Card601_042 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Condition condition = new AndCondition(new PilotingCondition(self),
-                new OrCondition(new AloneCondition(self)),
-                                new WithCondition(self, Filters.or(Filters.Imperial, Filters.AT_AT)));
+                new OrCondition(new AloneCondition(self),new WithCondition(self, Filters.or(Filters.Imperial, Filters.AT_AT))));
 
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));

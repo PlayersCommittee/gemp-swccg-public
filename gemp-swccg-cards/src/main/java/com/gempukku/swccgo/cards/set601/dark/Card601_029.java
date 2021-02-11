@@ -68,15 +68,13 @@ public class Card601_029 extends AbstractObjective {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        String opponent = game.getOpponent(self.getOwner());
-
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        //your Trandoshans are slavers. TODO get rid of snowtrooper
-        modifiers.add(new KeywordModifier(self, Filters.or(Filters.species(Species.TRANDOSHAN), Filters.snowtrooper), Keyword.SLAVER));
+        //your Trandoshans are slavers
+        modifiers.add(new KeywordModifier(self, Filters.species(Species.TRANDOSHAN), Keyword.SLAVER));
         //Scum And Villainy may deploy on Slaving Camp Headquarters and
-        modifiers.add(new ScumAndVillainyMayDeployAttachedModifier(self, Filters.title(Title.Slaving_Camp_Headquarters)));
+        modifiers.add(new ScumAndVillainyMayDeployAttachedModifier(self, Filters.Slaving_Camp_Headquarters));
         //may not be canceled while you occupy that site.
-        modifiers.add(new MayNotBeCanceledModifier(self, Filters.Scum_And_Villainy, new OccupiesCondition(self.getOwner(), Filters.title(Title.Slaving_Camp_Headquarters))));
+        modifiers.add(new MayNotBeCanceledModifier(self, Filters.Scum_And_Villainy, new OccupiesCondition(self.getOwner(), Filters.Slaving_Camp_Headquarters)));
         //While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.
         modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.your(self), Filters.non_unique, Filters.slaver),
                 new CardsInHandFewerThanCondition(self.getOwner(), 13), Title.Grimtaash));

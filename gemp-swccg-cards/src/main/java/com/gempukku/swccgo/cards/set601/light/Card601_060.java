@@ -32,6 +32,7 @@ public class Card601_060 extends AbstractSite {
         setLocationLightSideGameText("Once per turn, if Obi-Wan 'communing' may deploy from Reserve Deck an effect with 'Rebel' in title; reshuffle.");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.EXTERIOR_SITE, Icon.PLANET, Icon.BLOCK_7);
+        setVirtualSuffix(true);
         setAsLegacy(true);
     }
 

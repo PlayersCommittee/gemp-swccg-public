@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,6 +36,11 @@ public class Card601_062 extends AbstractJediMaster {
         addIcons(Icon.WARRIOR, Icon.BLOCK_5, Icon.SPECIAL_EDITION);
         addPersona(Persona.YODA);
         setAsLegacy(true);
+    }
+
+    @Override
+    protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        return Filters.battleground;
     }
 
     @Override

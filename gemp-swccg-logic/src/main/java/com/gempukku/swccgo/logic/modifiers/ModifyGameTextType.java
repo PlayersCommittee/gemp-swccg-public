@@ -77,6 +77,7 @@ public enum ModifyGameTextType {
 
     //Legacy
     LEGACY__YOUR_SITES__TREAT_TRANDOSHAN_AS_SLAVER("'Trandoshan' on this site may be treated as 'slaver'"),
+    LEGACY__REF_III_ANOTHER_PATHETIC_LIFEFORM__IGNORES_YOUR_NONUNIQUE_ALIENS("Ignores non-unique aliens"),
 
     ;
 

@@ -59,17 +59,20 @@ public class Card601_005 extends AbstractNormalEffect {
 
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        if (GameConditions.canSpot(game, self, Filters.Skyhook_Platform)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canSpot(game, self, Filters.Skyhook_Platform)
                 && TriggerConditions.justForfeitedToLostPileFromLocation(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character),
                 Filters.any)) {
-            //TODO need to check if they were present with a slaver
 
-            final PhysicalCard justForfeitedCard = ((LostFromTableResult) effectResult).getCard();
+            LostFromTableResult lostFromTableResult = (LostFromTableResult) effectResult;
+            final PhysicalCard justForfeitedCard = lostFromTableResult.getCard();
+            Collection<PhysicalCard> wasPresentWith = lostFromTableResult.getWasPresentWith();
             final PhysicalCard skyhookPlatform = Filters.findFirstFromTopLocationsOnTable(game, Filters.Skyhook_Platform);
 
-            if (justForfeitedCard != null && skyhookPlatform != null) {
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            if (justForfeitedCard != null && skyhookPlatform != null && !Filters.filter(wasPresentWith, game, Filters.slaver).isEmpty()) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("'Enslave' character");
+                action.appendUsage(new OncePerTurnEffect(action));
                 action.allowResponses(new RespondableEffect(action) {
                     @Override
                     protected void performActionResults(Action targetingAction) {
@@ -119,7 +122,7 @@ public class Card601_005 extends AbstractNormalEffect {
             Collection<PhysicalCard> enslavedCharacters = Filters.filterStacked(game, Filters.enslavedCard);
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
-            action.setText("Place 'enslaved' character in owner's Lost Pile");
+            action.setText("Activate up to 3 Force");
             action.appendTargeting(new ChooseCardEffect(action, playerId, "Choose an 'enslaved' character", enslavedCharacters) {
                 @Override
                 protected void cardSelected(PhysicalCard selectedCard) {
