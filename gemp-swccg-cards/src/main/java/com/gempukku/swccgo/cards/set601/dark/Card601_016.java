@@ -61,8 +61,8 @@ public class Card601_016 extends AbstractSite {
             }
         };
 
-        Condition trandoshanPresent = new OrCondition(new PresentAtCondition(self, Filters.species(Species.TRANDOSHAN)),
-                new AndCondition(treatTrandoshanAsSlaver, new PresentAtCondition(self, Filters.slaver)));
+        Condition trandoshanPresent = new OrCondition(new PresentAtCondition(Filters.species(Species.TRANDOSHAN), self),
+                new AndCondition(treatTrandoshanAsSlaver, new PresentAtCondition(Filters.slaver, self)));
 
         //While a Trandoshan present and you have no Wookiees on Kashyyyk, you may not modify or cancel opponent's force drains here.
         List<Modifier> modifiers = new LinkedList<Modifier>();

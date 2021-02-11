@@ -10,7 +10,9 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.*;
 import com.gempukku.swccgo.logic.modifiers.*;
@@ -69,8 +71,9 @@ public class Card601_015 extends AbstractSite {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForceDrainModifier(self, 1, playerOnLightSideOfLocation));
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.opponents(playerOnLightSideOfLocation), Filters.species(Species.TRANDOSHAN)),
-                new ControlsWithCondition(playerOnLightSideOfLocation, self, Filters.Wookiee), 1, Filters.Kashyyyk_location));
-        //TODO have this affect slavers instead of trandoshans too
+                new AndCondition(new ControlsWithCondition(playerOnLightSideOfLocation, self, Filters.Wookiee), new NotCondition(treatTrandoshanAsSlaver)), 1, Filters.Kashyyyk_location));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.opponents(playerOnLightSideOfLocation), Filters.or(Filters.species(Species.TRANDOSHAN), Filters.slaver)),
+                new AndCondition(new ControlsWithCondition(playerOnLightSideOfLocation, self, Filters.Wookiee), treatTrandoshanAsSlaver), 1, Filters.Kashyyyk_location));
         return modifiers;
     }
 }
