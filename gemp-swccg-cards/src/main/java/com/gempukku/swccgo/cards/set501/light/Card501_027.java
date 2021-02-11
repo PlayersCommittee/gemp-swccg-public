@@ -39,7 +39,7 @@ public class Card501_027 extends AbstractUsedInterrupt {
         addComboCardTitles(Title.Odin_Nesloor, Title.First_Aid);
         setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) for remainder of turn: it's forfeit may not be reduced, it may not be used to satisfy attrition, and is immune to Dr. Evazan OR Cancel Disarmed (Immune to Sense) OR Cancel a ‘react’. OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9, Icon.CORUSCANT);
-        setTestingText("Odin Nesloor & First Aid (Errata)");
+        setTestingText("Odin Nesloor & First Aid (ERRATA)");
     }
 
     @Override

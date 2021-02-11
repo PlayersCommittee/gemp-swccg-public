@@ -80,12 +80,12 @@ public class Card501_051 extends AbstractUsedOrLostInterrupt {
         if ((GameConditions.isDuringBattleInitiatedBy(game, opponent))
                 && GameConditions.isDuringBattleAt(game, Filters.site)) {
             PhysicalCard battleLocation = Filters.findFirstActive(game, self, Filters.battleLocation);
-            final float dsIcons = battleLocation.getBlueprint().getIconCount(Icon.DARK_FORCE);
+            final int dsIcons = game.getModifiersQuerying().getIconCount(game.getGameState(), battleLocation, Icon.DARK_FORCE);
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Add " + dsIcons + " to you total battle destiny");
+            action.setText("Add " + dsIcons + " to your total battle destiny");
             // Allow response(s)
-            action.allowResponses("Add " + dsIcons + " to you total battle destiny",
+            action.allowResponses("Add " + dsIcons + " to your total battle destiny",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
