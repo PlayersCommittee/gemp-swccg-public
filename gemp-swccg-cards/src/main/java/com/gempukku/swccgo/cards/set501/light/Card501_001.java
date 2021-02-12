@@ -76,7 +76,7 @@ public class Card501_001 extends AbstractResistance {
                                             for(PhysicalCard card: selectedCards) {
                                                 if(!card.equals(cardToPlaceOutOfPlay)) {
                                                     action.appendEffect(
-                                                            new RetrieveCardIntoHandEffect(action, playerId, false, card)
+                                                            new RetrieveCardEffect(action, playerId, false, card)
                                                     );
                                                 }
                                             }

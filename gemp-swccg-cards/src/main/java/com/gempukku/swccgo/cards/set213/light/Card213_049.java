@@ -80,7 +80,7 @@ public class Card213_049 extends AbstractUsedOrLostInterrupt {
                 }
             }
 
-            GameTextActionId gameTextActionId = GameTextActionId.ANAKIN_SKYWALKER_V__UPLOAD_DS_II_SITE;
+            GameTextActionId gameTextActionId = GameTextActionId.OUR_ONLY_HOPE_V__UPLOAD_SITE;
 
             // Check condition(s)
             if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
