@@ -46,7 +46,7 @@ public class Card501_006 extends AbstractImperial {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
-                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.bounty_hunter))) {
+                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.and(Filters.bounty_hunter, Filters.or(Filters.hasAbility, Icon.PRESENCE))))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Make opponent lose 1 Force");
@@ -74,7 +74,7 @@ public class Card501_006 extends AbstractImperial {
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
-                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.bounty_hunter))) {
+                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.and(Filters.bounty_hunter, Filters.or(Filters.hasAbility, Icon.PRESENCE))))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setPerformingPlayer(playerId);
