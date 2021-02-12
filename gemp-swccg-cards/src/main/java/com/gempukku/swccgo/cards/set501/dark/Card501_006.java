@@ -33,7 +33,7 @@ public class Card501_006 extends AbstractImperial {
     public Card501_006() {
         super(Side.DARK, 5, 1, 1, 3, 2, "The Client", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("During your control phase, if present at a site and your bounty hunter is at a battleground, opponent loses 1 Force. Once per game, if you just lost a bounty hunter anywhere, may [upload] a bounty hunter.");
+        setGameText("During your control phase, if present at a site and your bounty hunter occupies a battleground, opponent loses 1 Force. Once per game, you just lost a bounty hunter anywhere, may [upload] a bounty hunter.");
         addIcons(Icon.VIRTUAL_SET_14);
         setTestingText("The Client");
     }
@@ -46,7 +46,7 @@ public class Card501_006 extends AbstractImperial {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
-                && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
+                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.bounty_hunter))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Make opponent lose 1 Force");
@@ -74,7 +74,7 @@ public class Card501_006 extends AbstractImperial {
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
-                && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
+                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.bounty_hunter))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setPerformingPlayer(playerId);
