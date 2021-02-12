@@ -62,7 +62,7 @@ public class Card501_001 extends AbstractResistance {
                     protected void cardsSelected(SwccgGame g, final Collection<PhysicalCard> selectedCards) {
                         //probably need to make a new effect and use ArbitraryCardsSelectionDecision in it
                         game.getUserFeedback().sendAwaitingDecision(game.getOpponent(_playerId),
-                                new ArbitraryCardsSelectionDecision("Choose a card to place out of play. Your opponent retrieves the other into hand.",
+                                new ArbitraryCardsSelectionDecision("Choose a card to place out of play. Your opponent retrieves the other.",
                                         selectedCards, selectedCards, 1, 1) {
                                     @Override
                                     public void decisionMade(String result) throws DecisionResultInvalidException {
