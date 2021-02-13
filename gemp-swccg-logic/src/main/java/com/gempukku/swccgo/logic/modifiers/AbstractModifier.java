@@ -1440,4 +1440,8 @@ public abstract class AbstractModifier implements Modifier {
     public boolean mayNotCancelDestiny(String playerDrawing, String playerToModify) {
         return false;
     }
+
+    public void setAffectFilter(Filter affectFilter) {
+        _affectFilter = affectFilter;
+    }
 }

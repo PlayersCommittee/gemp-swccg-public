@@ -94,6 +94,12 @@ public interface ModifiersEnvironment {
     void addUntilEndOfWeaponFiringModifier(Modifier modifier);
 
     /**
+     * Adds a modifier that expires when the current tractor beam is finished.
+     * @param modifier the modifier
+     */
+    void addUntilEndOfTractorBeamModifier(Modifier modifier);
+
+    /**
      * Adds a modifier that expires when the damage segment of the current battle is reached.
      * @param modifier the modifier
      */
@@ -252,4 +258,9 @@ public interface ModifiersEnvironment {
      * Removes modifiers that expire when the current weapon firing is finished.
      */
     void removeEndOfWeaponFiring();
+
+    /**
+     * Removes modifiers that expire when the current tractor beam is finished.
+     */
+    void removeEndOfTractorBeam();
 }

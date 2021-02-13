@@ -6,7 +6,7 @@ package com.gempukku.swccgo.common;
 public enum ReleaseOption implements Filterable {
     ESCAPE("Escape (to Used Pile)"),
     RALLY("Rally (to same site)"),
-    LAUNCH("Launch (to same system or sector)");
+    LAUNCH("Launch (to appropriate system or sector)");
 
     private String _humanReadable;
 

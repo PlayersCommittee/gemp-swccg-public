@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.effects;
 
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.ActionProxy;
 import com.gempukku.swccgo.game.ActionsEnvironment;
@@ -56,6 +57,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     private List<Float> _drawXValuesToChooseFrom = new ArrayList<Float>();
     private int _chooseY;
     private boolean _takeOtherIntoHand;
+    private Map<String, Float> _modifierSourceTitleMap = new HashMap<>();
 
     /**
      * Creates an effect that causes the player to draw a destiny.
@@ -254,7 +256,56 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
      * @param amount the amount to modify
      */
     public void modifyDestiny(float amount) {
-        _drawnDestinyValueModification += amount;
+        modifyDestiny(null, null, amount, true);
+    }
+
+    /**
+     * Modifies the current destiny draw value by the specified amount.
+     * @param sourceTitles list of titles attempting to modify the destiny (to account for combo cards)
+     * @param amount the amount to modify
+     * @param cumulative true if modifier is cumulative, false otherwise
+     */
+    public void modifyDestiny(List<String> sourceTitles, GameTextActionId gameTextActionId, float amount, boolean cumulative) {
+        if (sourceTitles == null) {
+            _drawnDestinyValueModification += amount;
+            return;
+        }
+
+        float previousAmount = 0;
+
+        String gameTextActionIdString = (gameTextActionId==null?"":gameTextActionId.name());
+        for (String title: sourceTitles) {
+            if (_modifierSourceTitleMap.containsKey(title+gameTextActionIdString)) {
+                float temp = _modifierSourceTitleMap.get(title+gameTextActionIdString);
+                if (previousAmount == 0)
+                    previousAmount = temp;
+                else if (temp < 0 && previousAmount < 0 && temp < previousAmount)
+                    previousAmount = temp;
+                else if (temp > 0 && previousAmount > 0 && temp > previousAmount)
+                    previousAmount = temp;
+            }
+        }
+
+        if (cumulative) {
+            _drawnDestinyValueModification += amount;
+            for (String title:sourceTitles)
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, previousAmount + amount);
+        } else if (previousAmount == 0) {
+            _drawnDestinyValueModification += amount;
+            for (String title:sourceTitles)
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
+        } else if (amount < 0 && previousAmount < 0 && amount < previousAmount) {
+            //subtract a larger amount
+            _drawnDestinyValueModification += amount - previousAmount;
+            for (String title:sourceTitles)
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
+        } else if (amount > 0 && previousAmount > 0 && amount > previousAmount) {
+            //add a larger amount
+            _drawnDestinyValueModification += amount - previousAmount;
+            for (String title:sourceTitles)
+                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
+        }
+        //this doesn't handle a +X and -Y from the same title
     }
 
     /**
@@ -273,6 +324,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         _reset = true;
         _drawnDestinyValue = resetValue;
         _drawnDestinyValueModification = 0;
+        _modifierSourceTitleMap.clear();
     }
 
     /**
@@ -448,6 +500,9 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         }
         else if (_destinyType==DestinyType.TRAINING_DESTINY) {
             totalDestiny = game.getModifiersQuerying().getTotalTrainingDestiny(gameState, _action.getActionSource(), totalDestiny);
+        }
+        else if (_destinyType==DestinyType.TRACTOR_BEAM_DESTINY && gameState.getUsingTractorBeamState() != null) {
+            totalDestiny = game.getModifiersQuerying().getTotalTractorBeamDestiny(gameState, gameState.getUsingTractorBeamState().getTractorBeam(), totalDestiny);
         }
         else {
             totalDestiny = game.getModifiersQuerying().getTotalDestiny(gameState, _performingPlayerId, totalDestiny);
@@ -701,6 +756,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                             _drawnDestinyCard = null;
                             _drawnDestinyValue = null;
                             _drawnDestinyValueModification = 0;
+                            _modifierSourceTitleMap.clear();
                             _reset = false;
                             _canceled = false;
                             _redrawn = false;
@@ -762,6 +818,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                                 _substitutedDestinyInitially = true;
                                                 _drawnDestinyValue = _substitutedDestiny;
                                                 _drawnDestinyValueModification = 0;
+                                                _modifierSourceTitleMap.clear();
                                                 // Increment number drawn (but not against limit)
                                                 _numDrawnSoFar++;
                                                 if (isDrawAndChoose()) {
@@ -836,6 +893,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                             if (getSubstituteDestiny() != null && !_substitutedDestinyInitially) {
                                                 _drawnDestinyValue = _substitutedDestiny;
                                                 _drawnDestinyValueModification = 0;
+                                                _modifierSourceTitleMap.clear();
                                                 // Decrement number drawn so far against limit if substituted after drawn
                                                 _numDrawnSoFarAgainstLimit--;
                                             }
@@ -1120,6 +1178,9 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                             }
                                             else if (_destinyType == DestinyType.SEARCH_PARTY_DESTINY) {
                                                 _drawnDestinyValue = game.getModifiersQuerying().getSearchPartyDestiny(game.getGameState(), _drawnDestinyCard, _performingPlayerId);
+                                            }
+                                            else if (_destinyType == DestinyType.TRACTOR_BEAM_DESTINY) {
+                                                _drawnDestinyValue = game.getModifiersQuerying().getTractorBeamDestiny(game.getGameState(), game.getGameState().getUsingTractorBeamState().getTractorBeam(), _drawnDestinyCard, _performingPlayerId);
                                             }
                                             else if (_destinyType == DestinyType.TRAINING_DESTINY) {
                                                 _drawnDestinyValue = game.getModifiersQuerying().getTrainingDestiny(game.getGameState(), _drawDestinyEffect.getAction().getActionSource(), _drawnDestinyCard, _performingPlayerId);

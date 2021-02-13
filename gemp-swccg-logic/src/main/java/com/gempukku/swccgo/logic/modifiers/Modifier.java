@@ -748,4 +748,6 @@ public interface Modifier {
     boolean hasAgenda(Agenda agenda);
 
     boolean mayNotCancelDestiny(String playerDrawing, String playerToModify);
+
+    void setAffectFilter(Filter affectFilter);
 }

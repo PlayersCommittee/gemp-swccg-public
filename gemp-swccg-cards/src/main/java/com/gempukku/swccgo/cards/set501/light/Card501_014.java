@@ -88,7 +88,7 @@ public class Card501_014 extends AbstractRebel {
                 action.setActionMsg("Choose stacked cards to place in Lost Pile");
                 // Pay cost(s)
                 action.appendCost(
-                        new ChooseStackedCardsEffect(action, playerId, ifeeltheconflict, 1,  Filters.countStacked(game, Filters.stackedOn(ifeeltheconflict))) {
+                        new ChooseStackedCardsEffect(action, playerId, ifeeltheconflict, 1,  Filters.countStacked(game, Filters.stackedOn(ifeeltheconflict)), Filters.any, true) {
                             @Override
                             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                 final int numCards = selectedCards.size();

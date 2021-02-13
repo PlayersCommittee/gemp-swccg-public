@@ -26,7 +26,7 @@ import java.util.List;
 public class Card501_003 extends AbstractNormalEffect {
     public Card501_003() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The First Order Was Just The Beginning", Uniqueness.UNIQUE);
-        setGameText("Deploy on table. Your [Episode VII] troopers are forfeit +1 (+2 if non-unique). If [Episode VII] Emperor on table, once per turn may deploy Kijimi from Reserve Deck (reshuffle) or place any three cards out of play from your Lost Pile to deploy an [Episode VII] trooper from Lost Pile. [Immune to Alter.]");
+        setGameText("Deploy on table. Your [Episode VII] troopers are forfeit +1. If [Episode VII] Emperor on table, once per turn may deploy Kijimi from Reserve Deck (reshuffle) or place any three cards out of play from your Lost Pile to deploy an [Episode VII] trooper from Lost Pile. [Immune to Alter.]");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("The First Order Was Just The Beginning");
@@ -35,7 +35,7 @@ public class Card501_003 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new ForfeitModifier(self, Filters.and(Filters.your(self), Filters.icon(Icon.EPISODE_VII), Filters.trooper), new CardMatchesEvaluator(1, 2, Filters.non_unique)));
+        modifiers.add(new ForfeitModifier(self, Filters.and(Filters.your(self), Filters.icon(Icon.EPISODE_VII), Filters.trooper), 1));
         return modifiers;
     }
 

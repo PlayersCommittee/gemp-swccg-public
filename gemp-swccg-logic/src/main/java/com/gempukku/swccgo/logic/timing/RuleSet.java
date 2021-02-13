@@ -56,6 +56,8 @@ public class RuleSet {
         new OperativesRule(_actionsEnvironment, _modifiersEnvironment).applyRule();
         new PresenceIconRule(_modifiersEnvironment).applyRule();
         new ReleaseCaptivesWithLightSideEscortRule(_actionsEnvironment).applyRule();
+        new ReleaseCapturedStarshipsIfNoRelatedTractorBeamsRule(_actionsEnvironment).applyRule();
+        new StealCapturedStarshipWithNoCharactersRule(_actionsEnvironment).applyRule();
         new SuspendCardRule(_actionsEnvironment).applyRule();
         new TurnOverCardPilesRule(_actionsEnvironment).applyRule();
     }

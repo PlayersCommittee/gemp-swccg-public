@@ -55,6 +55,9 @@ public class Card200_055 extends AbstractUsedInterrupt {
         if (!GameConditions.isDuringBattle(game) && !GameConditions.isDamageSegmentOfBattle(game)) {
             return null;
         }
+        if (game.getGameState().getBattleState().isReachedPowerSegment()) {
+            return null;
+        }
 
         if (TriggerConditions.isAboutToBeLost(game, effectResult, yourCharacterOrStarship)) {
             final AboutToLoseCardFromTableResult result = (AboutToLoseCardFromTableResult) effectResult;

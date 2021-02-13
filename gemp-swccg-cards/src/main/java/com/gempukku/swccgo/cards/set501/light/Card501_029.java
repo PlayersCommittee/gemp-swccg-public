@@ -24,17 +24,17 @@ import java.util.List;
 /**
  * Set: Set 0
  * Type: Effect
- * Title: Evacuation Control (V)
+ * Title: Flash Of Insight (V)
  */
 public class Card501_029 extends AbstractNormalEffect {
     public Card501_029() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Evacuation Control");
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Flash Of Insight", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("'Give the evacuation code signal...and get to your transports!'");
-        setGameText("Deploy on table; shuffle your Reserve Deck, peek at top three cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than two battle destiny). [Immune to Alter]");
-        addIcons(Icon.HOTH, Icon.VIRTUAL_SET_0);
+        setLore("Occasionally Han was capable of such feats, even without Threepio there to tell him these things.");
+        setGameText("Deploy on table; shuffle your Reserve Deck, peek at top two cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter.]");
+        addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
-        setTestingText("Evacuation Control (V) (ERRATA)");
+        setTestingText("Flash Of Insight (V)");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Card501_029 extends AbstractNormalEffect {
             action.appendEffect(
                     new ShuffleReserveDeckEffect(action, playerId));
             action.appendEffect(
-                    new PeekAtTopCardsOfReserveDeckAndStackEffect(action, playerId, 3, self));
+                    new PeekAtTopCardsOfReserveDeckAndStackEffect(action, playerId, 2, self));
             return Collections.singletonList(action);
         }
         return null;
@@ -84,9 +84,9 @@ public class Card501_029 extends AbstractNormalEffect {
                     new AddUntilEndOfBattleModifierEffect(action,
                             new MayNotCancelBattleDestinyModifier(self), "Prevents all battle destiny draws from being canceled"));
             action.appendEffect(
-                    new DrawsNoMoreThanBattleDestinyEffect(action, playerId, 2));
+                    new DrawsNoMoreThanBattleDestinyEffect(action, playerId, 1));
             action.appendEffect(
-                    new DrawsNoMoreThanBattleDestinyEffect(action, opponent, 2));
+                    new DrawsNoMoreThanBattleDestinyEffect(action, opponent, 1));
             return Collections.singletonList(action);
         }
         return null;

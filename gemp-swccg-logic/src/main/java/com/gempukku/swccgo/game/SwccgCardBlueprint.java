@@ -3,10 +3,7 @@ package com.gempukku.swccgo.game;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.actions.AbstractAction;
-import com.gempukku.swccgo.logic.actions.FireWeaponAction;
-import com.gempukku.swccgo.logic.actions.PlayCardAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.actions.*;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.DuelDirections;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -1590,6 +1587,8 @@ public interface SwccgCardBlueprint {
                                    PhysicalCard cardFiringWeapon, List<PhysicalCard> destinyCardDraws, List<Integer> destinyDrawValues, Integer totalDestiny);
 
     void weaponFireWasSuccessful(SwccgGame game, AbstractAction action, PhysicalCard self, PhysicalCard target, PhysicalCard cardFiringWeapon);
+
+    TractorBeamAction getTractorBeamAction(SwccgGame game, PhysicalCard self);
 
     /**
      * Determines if a card is a device or weapon that deploys on characters.

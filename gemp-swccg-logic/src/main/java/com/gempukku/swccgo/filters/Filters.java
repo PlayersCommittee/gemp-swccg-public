@@ -7617,6 +7617,10 @@ public class Filters {
                 if (atLocation == null && attachedTo == null)
                     return false;
 
+                // No characters may embark on captured starships
+                if (physicalCard.isCapturedStarship())
+                    return false;
+
                 // 1) Check that destination is owner's card.
                 if (!cardToMove.getOwner().equals(physicalCard.getOwner()))
                     return false;
@@ -7737,6 +7741,11 @@ public class Filters {
                         if (!Filters.sameCardId(attachedToIsPresentAtLoc).accepts(gameState, modifiersQuerying, physicalCard)) {
                             return false;
                         }
+
+                        // Characters trapped on a captured starship may disembark at a site if the Dark Side does not occupy that site
+                        if (attachedTo.isCapturedStarship() && attachedToIsPresentAtLoc.getBlueprint().getCardSubtype() == CardSubtype.SITE
+                            && occupies(gameState.getOpponent(cardToMove.getOwner())).accepts(gameState, modifiersQuerying, attachedToIsPresentAtLoc))
+                            return false;
 
                         // Check if destination for character or "moves like a character" is a site
                         if ((cardToMove.getBlueprint().getCardCategory() == CardCategory.CHARACTER || cardToMove.getBlueprint().isMovesLikeCharacter())

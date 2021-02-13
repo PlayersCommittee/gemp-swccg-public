@@ -92,6 +92,7 @@ public class GameState implements Snapshotable<GameState> {
     private SabaccState _sabaccState;
     private SearchPartyState _searchPartyState;
     private WeaponFiringState _weaponFiringState;
+    private UsingTractorBeamState _usingTractorBeamState;
     private Stack<ForceLossState> _forceLossState = new Stack<ForceLossState>();
     private Stack<ForceRetrievalState> _forceRetrievalState = new Stack<ForceRetrievalState>();
     private Stack<PlayCardState> _playCardState = new Stack<PlayCardState>();
@@ -770,6 +771,19 @@ public class GameState implements Snapshotable<GameState> {
             card.setCaptive(true);
             card.setImprisoned(false);
             attachCard(card, escort);
+        }
+    }
+
+    /**
+     * Sets the card as a captured starship and attaches it to the specified card
+     * @param game the game
+     * @param starship the starship that is being captured
+     * @param attachTo the card the starship will be attached to
+     */
+    public void captureStarship(SwccgGame game, PhysicalCard starship, PhysicalCard attachTo) {
+        if (Filters.in_play.accepts(game.getGameState(), game.getModifiersQuerying(), starship)) {
+            starship.setCapturedStarship(true);
+            moveCardToAttached(starship, attachTo);
         }
     }
 
@@ -4224,6 +4238,28 @@ public class GameState implements Snapshotable<GameState> {
             _game.getModifiersEnvironment().removeEndOfWeaponFiring();
             _game.getActionsEnvironment().removeEndOfWeaponFiringActionProxies();
             _weaponFiringState = null;
+        }
+    }
+
+    //
+    // Tractor beam state info
+    //
+    public void beginUsingTractorBeam(PhysicalCard tractorBeam) {
+        _usingTractorBeamState = new UsingTractorBeamState(_game, tractorBeam);
+    }
+
+    public UsingTractorBeamState getUsingTractorBeamState() {
+        return _usingTractorBeamState;
+    }
+
+    public boolean isDuringUsingTractorBeam() {
+        return (_usingTractorBeamState != null);
+    }
+
+    public void finishUsingTractorBeam() {
+        if (_usingTractorBeamState != null) {
+            _game.getModifiersEnvironment().removeEndOfTractorBeam();
+            _usingTractorBeamState = null;
         }
     }
 
