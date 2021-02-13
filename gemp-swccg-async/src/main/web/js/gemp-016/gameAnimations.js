@@ -568,7 +568,7 @@ var GameAnimations = Class.extend({
                 var cardData = card.data("card");
 
                 // Update blueprintId and imageUrl of card
-                cardData.turnCardOver();
+                cardData.turnCardOver(blueprintId);
 
                 // Check if card is supposed to be sideways
                 if (sideways=="true")

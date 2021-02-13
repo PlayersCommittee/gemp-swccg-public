@@ -12,14 +12,18 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -62,17 +66,20 @@ public class Card601_051 extends AbstractUsedOrStartingInterrupt {
                                     new RevealTopCardsOfReserveDeckEffect(action, playerId, playerId, 3) {
                                         @Override
                                         protected void cardsRevealed(final List<PhysicalCard> cards) {
-                                            action.appendEffect(new ChooseCardEffect(action, playerId, "Take one into hand", cards) {
-                                                @Override
-                                                protected void cardSelected(PhysicalCard selectedCard) {
-                                                    Collection<PhysicalCard> toPlaceInUsed = new LinkedList<>();
-                                                    toPlaceInUsed.addAll(cards);
-                                                    toPlaceInUsed.remove(selectedCard);
-
-                                                    action.appendEffect(new TakeCardIntoHandFromReserveDeckEffect(action, playerId, selectedCard, true));
-                                                    action.appendEffect(new PutCardsFromReserveDeckOnBottomOfUsedPileEffect(action,  playerId, playerId, Filters.in(toPlaceInUsed)));
-                                                }
-                                            });
+                                            game.getUserFeedback().sendAwaitingDecision(playerId,
+                                                    new ArbitraryCardsSelectionDecision("Top card" + GameUtils.s(cards) + " of Reserve Deck. Choose card to take into hand", cards, cards, 1, 1) {
+                                                        @Override
+                                                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                                            PhysicalCard selectedCard = selectedCards.get(0);
+                                                            Collection<PhysicalCard> toPlaceInUsed = Filters.filter(cards, game, Filters.not(Filters.samePermanentCardId(selectedCard)));
+                                                            action.appendEffect(new TakeOneCardIntoHandFromOffTableEffect(action, playerId, selectedCard, "") {
+                                                                @Override
+                                                                protected void afterCardTakenIntoHand() {}
+                                                            });
+                                                            action.appendEffect(new PlaceCardsInUsedPileFromOffTableEffect(action, toPlaceInUsed, true));
+                                                        }
+                                                    });
                                         }
                                     }
                             );

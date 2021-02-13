@@ -13,12 +13,14 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromOffTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,9 +49,22 @@ public class Card601_052 extends AbstractRebel {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
-
-        //TODO When Luke leaves table, place all your cards on him in Used Pile.
         return modifiers;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextLeavesTableRequiredTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        //maybe not the best way to do this, but it works
+        Collection<PhysicalCard> attached = Filters.filter(self.getCardsPreviouslyAttached(), game, Filters.your(self));
+
+        if (!attached.isEmpty()) {
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Place your cards on Luke in Used Pile");
+            action.appendEffect(new PlaceCardsInUsedPileFromOffTableEffect(action, attached));
+            return Collections.singletonList(action);
+        }
+
+        return null;
     }
 
     @Override

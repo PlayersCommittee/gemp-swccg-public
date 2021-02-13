@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -51,7 +48,7 @@ public class Card601_057 extends AbstractUsedOrLostInterrupt {
                 && (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.ObiWan, Filters.not(Icon.EPISODE_I)))
                 || GameConditions.hasInHand(game, playerId, Filters.and(Filters.ObiWan, Filters.not(Icon.EPISODE_I))))) {
             final PhysicalCard battleLocation = game.getGameState().getBattleLocation();
-            PlayInterruptAction action = new PlayInterruptAction(game, self);
+            PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
             //choose Obi-Wan to place out of play
             
             //move other characters away for free [probably TargetCardsOnTableEffect and you choose the group to move away?]
@@ -65,10 +62,15 @@ public class Card601_057 extends AbstractUsedOrLostInterrupt {
         // Check condition(s)
         if (TriggerConditions.isTargetedByWeapon(game, effect, Filters.Rebel, Filters.weapon)
             && GameConditions.isOutOfPlay(game, Filters.ObiWan)) {
-            PlayInterruptAction action = new PlayInterruptAction(game, self);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Cancel weapon targeting");
-            action.appendEffect(
-                    new CancelWeaponTargetingEffect(action));
+            action.allowResponses(new RespondablePlayCardEffect(action) {
+                @Override
+                protected void performActionResults(Action targetingAction) {
+                    action.appendEffect(
+                            new CancelWeaponTargetingEffect(action));
+                }
+            });
             return Collections.singletonList(action);
         }
         return null;

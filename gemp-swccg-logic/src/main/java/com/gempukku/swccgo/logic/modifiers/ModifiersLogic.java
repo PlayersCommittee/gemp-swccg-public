@@ -11645,6 +11645,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
         }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_AT_COST, cardFiringWeapon)) {
+            if (modifier.isAffectedTarget(gameState, this, weapon)
+                && ((FireWeaponFiredAtCostModifier)modifier).isAffectedFiredAtTarget(gameState, this, target)) {
+                result += modifier.getValue(gameState, this, cardFiringWeapon);
+            }
+        }
 
         // Check if fires for double
         if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_DOUBLE, weapon).isEmpty()) {
@@ -11679,6 +11685,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_BY_COST, cardFiringWeapon)) {
             if (modifier.isAffectedTarget(gameState, this, permanentWeapon)) {
                 result += modifier.getValue(gameState, this, permanentWeapon);
+            }
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_AT_COST, cardFiringWeapon)) {
+            if (modifier.isAffectedTarget(gameState, this, permanentWeapon)
+                    && ((FireWeaponFiredAtCostModifier)modifier).isAffectedFiredAtTarget(gameState, this, target)) {
+                result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
         }
 

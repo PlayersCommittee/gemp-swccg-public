@@ -13,6 +13,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.LoseForceFromForcePileEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceFromLifeForceEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -68,7 +69,7 @@ public class Card601_062 extends AbstractJediMaster {
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             action.appendUsage(new OncePerGameEffect(action));
             //TODO need to make LoseForceFromForcePileEffect
-            action.appendCost(new LoseForceFromLifeForceEffect(action, playerId, 2));
+            action.appendCost(new LoseForceFromForcePileEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

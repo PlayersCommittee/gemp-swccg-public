@@ -11,8 +11,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByWeaponsModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,8 +40,9 @@ public class Card601_056 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        //TODO Your lightsabers may target vehicles using 1 Force (each destiny draw is -2).
-        modifiers.add(new MayBeTargetedByWeaponsModifier(self, Filters.lightsaber, Filters.and(Filters.opponents(self), Filters.vehicle)));
+        modifiers.add(new MayBeTargetedByWeaponsModifier(self, Filters.and(Filters.your(self), Filters.lightsaber), Filters.and(Filters.opponents(self), Filters.vehicle)));
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(self), Filters.lightsaber), Filters.any, -2, Filters.and(Filters.opponents(self), Filters.vehicle)));
+        modifiers.add(new FireWeaponFiredAtCostModifier(self, 1, Filters.and(Filters.your(self), Filters.lightsaber), Filters.and(Filters.opponents(self), Filters.vehicle)));
         return modifiers;
     }
 

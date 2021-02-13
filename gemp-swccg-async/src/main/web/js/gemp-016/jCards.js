@@ -3652,8 +3652,8 @@ var Card = Class.extend({
         $(".card:cardId(" + this.cardId + ") > img").attr('src', this.imageUrl);
     },
 
-    turnCardOver:function() {
-        this.bareBlueprint = this.getBackSideBlueprintId(this.bareBlueprint);
+    turnCardOver:function(tempBlueprintId) {
+        this.bareBlueprint = tempBlueprintId;
         this.horizontal = this.isHorizontal(this.bareBlueprint, this.zone);
         var tempText = this.testingText;
         this.testingText = this.backSideTestingText;
