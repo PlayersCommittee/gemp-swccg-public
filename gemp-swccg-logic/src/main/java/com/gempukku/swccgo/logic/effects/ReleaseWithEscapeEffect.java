@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -52,8 +53,13 @@ public class ReleaseWithEscapeEffect extends AbstractSubActionEffect {
                         game.getModifiersEnvironment().removeEndOfCaptivity(_captive);
                     }
                 });
-        subAction.appendEffect(
-                new PlaceCardsInCardPileFromTableSimultaneouslyEffect(subAction, Collections.singleton(_captive), Zone.USED_PILE, false, false, Zone.LOST_PILE, false, false, false, null, true));
+        //cards aboard a captured starship go to used when the starship escapes
+        if(_captive.getBlueprint().getCardTypes().contains(CardType.STARSHIP))
+            subAction.appendEffect(
+                    new PlaceCardsInCardPileFromTableSimultaneouslyEffect(subAction, Collections.singleton(_captive), Zone.USED_PILE, false, false, Zone.USED_PILE, false, false, false, null, true));
+        else
+            subAction.appendEffect(
+                    new PlaceCardsInCardPileFromTableSimultaneouslyEffect(subAction, Collections.singleton(_captive), Zone.USED_PILE, false, false, Zone.LOST_PILE, false, false, false, null, true));
 
         return subAction;
     }
