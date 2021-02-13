@@ -33,9 +33,9 @@ public class Card501_031 extends AbstractUsedOrLostInterrupt {
         super(Side.LIGHT, 5, "Rescue In The Clouds", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("'I know where Luke is.'");
-        setGameText("USED: At a system or Bespin location, choose: draw one battle destiny if unable to otherwise during battle this turn, OR Cancel a just drawn destiny targeting the ability or defense value of your non-Undercover character of ability < 5. LOST: Cancel Close Call.");
+        setGameText("USED: At a system or Bespin location, choose: Cancel a just drawn destiny targeting the ability or defense value of your non-Undercover character of ability < 5. OR During battle, draw one battle destiny if unable to otherwise. LOST: Cancel Close Call.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_9);
-        setTestingText("Rescue in the Clouds (V) (E)");
+        setTestingText("Rescue in the Clouds (V) (ERRATA)");
     }
 
     @Override
@@ -54,34 +54,30 @@ public class Card501_031 extends AbstractUsedOrLostInterrupt {
         Filter systemOrBespinLocation = Filters.or(Filters.system, Filters.Bespin_location);
 
         // Check condition(s)
-        if (GameConditions.canTarget(game, self, systemOrBespinLocation)) {
+        if (GameConditions.isDuringBattleAt(game, systemOrBespinLocation)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            action.setText("Target system or Bespin location");
-            // Choose target(s)
-            action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Target system or Bespin location", systemOrBespinLocation) {
-                        @Override
-                        protected void cardTargeted(final int targetGroupId, final PhysicalCard location) {
-                            action.addAnimationGroup(location);
-                            // Allow response(s)
-                            action.allowResponses(
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new AddUntilEndOfTurnModifierEffect(action,
-                                                            new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, Filters.at(location), 1), "Draws battle destiny if unable to otherwise")
-                                            );
+            final PhysicalCard battleLocation = game.getGameState().getBattleLocation();
+            if (battleLocation != null) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                action.setText("Draw battle destiny if unable to otherwise");
+                action.addAnimationGroup(battleLocation);
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, Filters.at(battleLocation), 1), "Draws battle destiny if unable to otherwise")
+                                );
 
-                                        }
-                                    }
-                            );
+                            }
                         }
-                    }
-            );
-            actions.add(action);
+                );
+
+                actions.add(action);
+            }
         }
 
         return actions;

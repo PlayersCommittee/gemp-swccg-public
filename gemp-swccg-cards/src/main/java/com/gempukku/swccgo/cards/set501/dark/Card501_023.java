@@ -43,7 +43,7 @@ public class Card501_023 extends AbstractUsedInterrupt {
         addComboCardTitles(Title.Lana_Dobreed, Title.Sacrifice);
         setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) to prevent its forfeit from being reduced for remainder of turn. OR Cancel Disarmed. [Immune to Sense.] OR Cancel a 'react.' OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9);
-        setTestingText("Lana Dobreed & Sacrifice (Errata)");
+        setTestingText("Lana Dobreed & Sacrifice (ERRATA)");
     }
 
     @Override

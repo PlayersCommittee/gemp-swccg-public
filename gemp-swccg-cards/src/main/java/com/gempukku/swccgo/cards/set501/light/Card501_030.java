@@ -33,9 +33,9 @@ public class Card501_030 extends AbstractUsedOrLostInterrupt {
         super(Side.LIGHT, 5, Title.Quite_A_Mercenary, Uniqueness.UNIQUE);
         setLore("Smugglers and other rogues frequent spaceports along trade routes. 'Your friend is quite a mercenary. I wonder if he really cares about anything, or anybody.'");
         setGameText("USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.] OR Cancel a smuggler's game text for remainder of turn. OR [upload] [Reflections II] Chewie or Mercenary Armor. LOST: During your move phase, “break cover” of an Undercover spy.");
-        addIcons(Icon.A_NEW_HOPE);
+        addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_10);
         setVirtualSuffix(true);
-        setTestingText("Quite A Mercenary (V) Errata");
+        setTestingText("Quite A Mercenary (V) (ERRATA)");
     }
 
     @Override

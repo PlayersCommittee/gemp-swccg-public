@@ -87,6 +87,7 @@ public class Card501_019 extends AbstractAlien {
                                                                     if (TriggerConditions.justLost(game, effectResult, targetedCard)) {
                                                                         final PhysicalCard justLostCard = ((LostFromTableResult) effectResult).getCard();
                                                                         final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());
+                                                                        action2.setSingletonTrigger(true);
                                                                         action2.appendEffect(
                                                                                 new PlayoutDecisionEffect(action, playerId,
                                                                                         new YesNoDecision("Place " + GameUtils.getCardLink(justLostCard) + " on Used Pile to retrieve 2 force (otherwise retrieve 1 force)?") {
