@@ -1433,7 +1433,7 @@ public class GameState implements Snapshotable<GameState> {
         toCard.setConcealed(fromCard.isConcealed());
         toCard.setCollapsed(fromCard.isCollapsed());
         toCard.setCrashed(fromCard.isCrashed());
-        toCard.setIonized(fromCard.isIonized());
+        toCard.setIonization(fromCard.getIonization());
         toCard.setLeavingTable(fromCard.isLeavingTable());
         toCard.setGameTextCanceled(fromCard.isGameTextCanceled());
         toCard.setLocationGameTextCanceledForPlayer(fromCard.isLocationGameTextCanceledForPlayer(_darkSidePlayer), _darkSidePlayer);
@@ -1476,7 +1476,7 @@ public class GameState implements Snapshotable<GameState> {
         card.setConcealed(false);
         card.setCollapsed(false);
         card.setCrashed(false);
-        card.setIonized(false);
+        card.resetIonization();
         card.setLeavingTable(false);
         card.setGameTextCanceled(false);
         card.setLocationGameTextCanceledForPlayer(false, _darkSidePlayer);

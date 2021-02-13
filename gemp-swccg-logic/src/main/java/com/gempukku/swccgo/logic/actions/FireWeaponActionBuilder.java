@@ -1876,7 +1876,7 @@ public class FireWeaponActionBuilder {
                                                         if ((totalDestiny + plusOrMinus) > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
-                                                                    new ResetArmorManeuverAndHyperspeedEffect(action, cardFiredAt, 0));
+                                                                    new IonizeStarshipEffect(action, cardFiredAt, action.getCardFiringWeapon(), false, true, true));
                                                             Collection<PhysicalCard> starshipWeapons = Filters.filterAllOnTable(game, Filters.and(Filters.starship_weapon, Filters.attachedTo(cardFiredAt)));
                                                             if (!starshipWeapons.isEmpty()) {
                                                                 action.appendEffect(
@@ -5446,7 +5446,7 @@ public class FireWeaponActionBuilder {
                                                         if ((totalDestiny + 3) > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
-                                                                    new ResetPowerAndHyperspeedEffect(action, cardFiredAt, 0));
+                                                                   new IonizeStarshipEffect(action, cardFiredAt, action._weaponToFire, true, false, true));
                                                             Collection<PhysicalCard> starshipWeapons = Filters.filterAllOnTable(game, Filters.and(Filters.starship_weapon, Filters.attachedTo(cardFiredAt)));
                                                             if (!starshipWeapons.isEmpty()) {
                                                                 action.appendEffect(

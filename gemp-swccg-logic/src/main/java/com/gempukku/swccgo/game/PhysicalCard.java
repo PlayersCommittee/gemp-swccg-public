@@ -10,6 +10,7 @@ import com.gempukku.swccgo.logic.timing.Snapshotable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 // This interface represents an individual physical card in the game.
 //
@@ -198,8 +199,11 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setCrashed(boolean crashed);
     boolean isCrashed();
 
-    void setIonized(boolean ionized);
-    boolean isIonized();
+    Set<IonizationType> getIonization();
+    boolean addIonization(IonizationType newIonization);
+    void setIonization(Set<IonizationType> newIonizationSet);
+    boolean removeIonization(IonizationType cleanIonization);
+    void resetIonization();
 
     void setGameTextCanceled(boolean canceled);
     boolean isGameTextCanceled();
