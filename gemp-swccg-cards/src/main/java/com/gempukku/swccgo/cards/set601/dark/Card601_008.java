@@ -74,15 +74,24 @@ public class Card601_008 extends AbstractDroid {
                         new DrawDestinyEffect(action, playerId, 1) {
                             @Override
                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                                if (totalDestiny != null) {
-                                    //TODO this part probably needs to be changed
-                                    action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
-                                            new ImmuneToAttritionLessThanModifier(self, Filters.and(starship, Filters.not(Filters.alreadyHasImmunityToAttrition(self))), totalDestiny),
-                                            "Adds immunity to attrition"));
-                                    float toAdd = Math.min(2, totalDestiny);
-                                    action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
-                                            new ImmunityToAttritionChangeModifier(self, Filters.and(starship, Filters.alreadyHasImmunityToAttrition(self)), toAdd),
-                                            "Adds to immunity to attrition"));
+                                if (totalDestiny != null && totalDestiny >= 0) {
+                                    if (!game.getModifiersQuerying().hasAnyImmunityToAttrition(game.getGameState(), starship)) {
+                                        action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                new ImmuneToAttritionLessThanModifier(self, starship, totalDestiny),
+                                                "Adds immunity to attrition"));
+                                    } else {
+                                        float currentImmunity = game.getModifiersQuerying().getImmunityToAttritionLessThan(game.getGameState(), starship);
+                                        float toAdd = Math.min(2, totalDestiny);
+                                        if (currentImmunity + toAdd > totalDestiny) {
+                                            action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                    new ImmunityToAttritionChangeModifier(self, starship, toAdd),
+                                                    "Adds to immunity to attrition"));
+                                        } else {
+                                            action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                    new ImmuneToAttritionLessThanModifier(self, starship, totalDestiny),
+                                                    "Adds immunity to attrition"));
+                                        }
+                                    }
                                 }
                             }
                         });
