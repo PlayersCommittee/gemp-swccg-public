@@ -49,7 +49,7 @@ public class Card210_043 extends AbstractNormalEffect {
         Filter limitedDevices = Filters.and(
                 Filters.device,
                 Filters.not(Filters.title(Title.Restraining_Bolt)),
-                Filters.not(Filters.tractor_beam));
+                Filters.not(Filters.title("Tractor Beam")));
 
 
         // Deploy device from Lost Pile

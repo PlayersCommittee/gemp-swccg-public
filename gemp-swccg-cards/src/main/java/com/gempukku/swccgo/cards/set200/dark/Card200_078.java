@@ -63,7 +63,7 @@ public class Card200_078 extends AbstractImperial {
                         new NumTimesPerBattleEffect(action, numTimes));
                 // Perform result(s)
                 action.appendEffect(
-                        new ModifyDestinyEffect(action, -2));
+                        new ModifyDestinyEffect(action, -2, true));
                 return Collections.singletonList(action);
             }
         }

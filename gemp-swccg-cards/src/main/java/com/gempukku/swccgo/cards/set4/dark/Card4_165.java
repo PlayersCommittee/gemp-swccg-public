@@ -46,6 +46,7 @@ public class Card4_165 extends AbstractNonuniqueStarshipSite {
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         // TODO: Game text (for captured starships and Besieged)
+        modifiers.add(new ChangeTractorBeamDestinationModifier(self, Filters.and(Filters.tractor_beam, Filters.attachedTo(Filters.relatedStarshipOrVehicle(self))), self));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Revolution));
         return modifiers;
     }

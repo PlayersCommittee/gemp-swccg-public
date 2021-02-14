@@ -38,6 +38,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private Map<EffectResult, List<Modifier>> _untilEndOfEffectResultModifiers = new HashMap<EffectResult, List<Modifier>>();
     private Map<Integer, List<Modifier>> _untilEndOfGameTextActionModifiers = new HashMap<Integer, List<Modifier>>();
     private List<Modifier> _untilEndOfWeaponFiringModifiers = new LinkedList<Modifier>();
+    private List<Modifier> _untilEndOfTractorBeamModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilDamageSegmentOfBattleModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilEndOfBattleModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilEndOfAttackModifiers = new LinkedList<Modifier>();
@@ -176,6 +177,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             snapshot._untilEndOfGameTextActionModifiers.put(id, snapshotList);
         }
         snapshot._untilEndOfWeaponFiringModifiers.addAll(_untilEndOfWeaponFiringModifiers);
+        snapshot._untilEndOfTractorBeamModifiers.addAll(_untilEndOfTractorBeamModifiers);
         snapshot._untilDamageSegmentOfBattleModifiers.addAll(_untilDamageSegmentOfBattleModifiers);
         snapshot._untilEndOfBattleModifiers.addAll(_untilEndOfBattleModifiers);
         snapshot._untilEndOfAttackModifiers.addAll(_untilEndOfAttackModifiers);
@@ -8555,6 +8557,57 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Gets the value of a drawn tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param physicalCard the card drawn for tractor beam destiny
+     * @param playerId the player with the tractor beam destiny
+     * @return the tractor beam destiny draw value
+     */
+    @Override
+    public float getTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, PhysicalCard physicalCard, String playerId) {
+        Float result = physicalCard.getDestinyValueToUse();
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PRINTED_DESTINY, physicalCard)) {
+            result = modifier.getPrintedValueDefinedByGameText(gameState, this, physicalCard);
+        }
+        // If value if undefined, then return 0
+        if (result == null)
+            return 0;
+
+        // If card is a character and it is "doubled", then double the printed number
+        if (physicalCard.getBlueprint().getCardCategory()==CardCategory.CHARACTER
+                && isDoubled(gameState, physicalCard)) {
+            result *= 2;
+        }
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DESTINY, physicalCard)) {
+            if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                result += modifier.getDestinyModifier(gameState, this, physicalCard);
+            }
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DESTINY_WHEN_DRAWN_FOR_DESTINY, physicalCard)) {
+            if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                result += modifier.getDestinyWhenDrawnForDestinyModifier(gameState, this, physicalCard);
+            }
+        }
+        for (Modifier modifier : getModifiers(gameState, ModifierType.EACH_DESTINY_DRAW)) {
+            if (modifier.isForTopDrawDestinyEffect(gameState)) {
+                if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                    result += modifier.getValue(gameState, this, (PhysicalCard) null);
+                }
+            }
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.EACH_TRACTOR_BEAM_DESTINY, tractorBeam)) {
+            if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
+                result += modifier.getValue(gameState, this, physicalCard);
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Gets the value of a drawn training destiny.
      * @param gameState the game state
      * @param jediTest the Jedi Test
@@ -8618,6 +8671,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.TOTAL_TRAINING_DESTINY, jediTest)) {
             result += modifier.getValue(gameState, this, jediTest);
+        }
+
+        return Math.max(0, result);
+    }
+
+    /**
+     * Gets the total training destiny value after applying modifiers to the base tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param baseTotalDestiny the base total tractor beam destiny
+     * @return the total battle destiny
+     */
+    @Override
+    public float getTotalTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, float baseTotalDestiny) {
+        float result = baseTotalDestiny;
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.TOTAL_TRACTOR_BEAM_DESTINY, tractorBeam)) {
+            result += modifier.getValue(gameState, this, tractorBeam);
         }
 
         return Math.max(0, result);
@@ -15187,6 +15258,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         _untilEndOfWeaponFiringModifiers.clear();
     }
 
+    @Override
+    public void removeEndOfTractorBeam() {
+        removeModifiers(_untilEndOfTractorBeamModifiers);
+        _untilEndOfTractorBeamModifiers.clear();
+    }
+
     /**
      * Removes modifiers that expire when the current attack is finished.
      */
@@ -15481,6 +15558,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         modifier.setPersistent(true);
         addModifier(modifier);
         _untilEndOfWeaponFiringModifiers.add(modifier);
+    }
+
+    @Override
+    public void addUntilEndOfTractorBeamModifier(Modifier modifier) {
+        modifier.setPersistent(true);
+        addModifier(modifier);
+        _untilEndOfTractorBeamModifiers.add(modifier);
     }
 
     /**
@@ -16092,6 +16176,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
 
         return locations;
+    }
+
+    @Override
+    public Collection<PhysicalCard> getDestinationForCapturedStarships(GameState gameState, PhysicalCard tractorBeam) {
+        Collection<PhysicalCard> result = new LinkedList<PhysicalCard>();
+
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.TRACTOR_BEAM_DESTINATION, tractorBeam)) {
+            Filter destinationFilter = Filters.and(((ChangeTractorBeamDestinationModifier)m).getDestination());
+            result.addAll(Filters.filterAllOnTable(gameState.getGame(), destinationFilter));
+        }
+
+        if(result.isEmpty())
+            return Collections.singletonList(tractorBeam.getAttachedTo());
+
+        return result;
     }
 
     public boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card) {

@@ -2,25 +2,23 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.AboutToForfeitCardFromTableResult;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -127,11 +125,47 @@ public class Card2_142 extends AbstractLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        // List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+        //Use X Force to capture all characters on board a captured starship, where X = twice the number of characters.
+        if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.captured_starship, Filters.hasAboardExceptRelatedSites(self, SpotOverride.INCLUDE_CAPTIVE, Filters.character)))) {
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-        // TODO: Capture characters aboard captured starship
+            action.setText("Capture characters on a captured starship");
+            action.setActionMsg("Capture all characters on board a captured starship");
 
-        // return actions;
+            Collection<PhysicalCard> possibleStarships = Filters.filterActive(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.captured_starship, Filters.hasAboardExceptRelatedSites(self, SpotOverride.INCLUDE_CAPTIVE, Filters.character)));
+            Collection<PhysicalCard> haveEnoughForce = new HashSet<PhysicalCard>();
+            for(PhysicalCard starship: possibleStarships) {
+                int charactersAboard = Filters.countAllOnTable(game, Filters.and(Filters.character, Filters.aboard(starship)));
+                if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 2*charactersAboard)) {
+                    haveEnoughForce.add(starship);
+                }
+            }
+
+            TargetingReason targetingReason = TargetingReason.TO_BE_CAPTURED;
+
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose a captured starship", SpotOverride.INCLUDE_CAPTIVE, targetingReason, Filters.in(haveEnoughForce)) {
+                @Override
+                protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                    int forceToUse = 2*Filters.countAllOnTable(game, Filters.and(Filters.character, Filters.aboard(targetedCard)));
+                    if (!game.getModifiersQuerying().isInterruptPlayForFree(game.getGameState(), self))
+                        action.appendCost(new UseForceEffect(action, playerId, forceToUse));
+
+                    action.allowResponses(new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            PhysicalCard starship = targetingAction.getPrimaryTargetCard(targetGroupId);
+                            Collection<PhysicalCard> charactersToCapture = Filters.filterAllOnTable(game, Filters.and(Filters.aboard(starship)));
+
+                            action.appendEffect(new CaptureCharactersOnTableEffect(action, charactersToCapture));
+                        }
+                    });
+                }
+            });
+
+            if (haveEnoughForce.size()>0)
+                return Collections.singletonList(action);
+        }
+
         return null;
     }
 }

@@ -1221,6 +1221,66 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
     }
 
     /**
+     * Gets the optional triggers from an opponent's card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public final List<TriggerAction> getOpponentsCardLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+
+        // Actions from game text
+        List<OptionalGameTextTriggerAction> gameTextActions = getOpponentsCardGameTextLeavesTableOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
+        if (gameTextActions != null)
+            actions.addAll(gameTextActions);
+
+        return actions;
+    }
+
+    /**
+     * Gets the optional triggers from a card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public final List<TriggerAction> getLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+
+        // Actions from game text
+        List<OptionalGameTextTriggerAction> gameTextActions = getGameTextLostFromLifeForceOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
+        if (gameTextActions != null)
+            actions.addAll(gameTextActions);
+
+        return actions;
+    }
+
+    /**
+     * Gets the optional triggers from an opponent's card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public final List<TriggerAction> getOpponentsCardLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+
+        // Actions from game text
+        List<OptionalGameTextTriggerAction> gameTextActions = getOpponentsCardGameTextLostFromLifeForceOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
+        if (gameTextActions != null)
+            actions.addAll(gameTextActions);
+
+        return actions;
+    }
+
+    /**
      * Gets modifiers from the card that are always in effect (even if game text is canceled).
      * @param game the game
      * @param self the card
@@ -1980,6 +2040,45 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @return the trigger actions
      */
     protected List<OptionalGameTextTriggerAction> getGameTextLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional triggers from the card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions
+     */
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional triggers from the card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional triggers from the card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions
+     */
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         return null;
     }
 

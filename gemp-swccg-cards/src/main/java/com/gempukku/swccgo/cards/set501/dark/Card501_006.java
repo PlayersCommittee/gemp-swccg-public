@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +33,7 @@ public class Card501_006 extends AbstractImperial {
     public Card501_006() {
         super(Side.DARK, 5, 1, 1, 3, 2, "The Client", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("During your control phase, if present at a site and your bounty hunter is at a battleground, opponent loses 1 Force. If you just lost a bounty hunter anywhere, may take a bounty hunter into hand from Reserve Deck; reshuffle. Lost if Gideon here.");
+        setGameText("During your control phase, if present at a site and your bounty hunter occupies a battleground, opponent loses 1 Force. Once per game, you just lost a bounty hunter anywhere, may [upload] a bounty hunter.");
         addIcons(Icon.VIRTUAL_SET_14);
         setTestingText("The Client");
     }
@@ -45,7 +46,7 @@ public class Card501_006 extends AbstractImperial {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
-                && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
+                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.and(Filters.bounty_hunter, Filters.or(Filters.hasAbility, Icon.PRESENCE))))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Make opponent lose 1 Force");
@@ -71,8 +72,9 @@ public class Card501_006 extends AbstractImperial {
         // Check condition(s)
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isPresentAt(game, self, Filters.site)
-                && (GameConditions.canSpot(game, self, Filters.and(Filters.your(playerId), Filters.at(Filters.battleground), Filters.bounty_hunter)))) {
+                && GameConditions.occupiesWith(game, self, playerId, Filters.battleground, Filters.and(Filters.your(self), Filters.and(Filters.bounty_hunter, Filters.or(Filters.hasAbility, Icon.PRESENCE))))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setPerformingPlayer(playerId);
@@ -85,19 +87,6 @@ public class Card501_006 extends AbstractImperial {
             actions.add(action);
         }
 
-        if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.isHere(game, self, Filters.persona(Persona.GIDEON))) {
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setSingletonTrigger(true);
-            action.setText("Make " + GameUtils.getCardLink(self) + " lost");
-            action.setActionMsg("Make " + GameUtils.getCardLink(self) + " lost");
-
-            // Perform result(s)
-            action.appendEffect(
-                    new LoseCardFromTableEffect(action, self));
-            actions.add(action);
-        }
-
         return actions;
     }
 
@@ -106,12 +95,14 @@ public class Card501_006 extends AbstractImperial {
         GameTextActionId gameTextActionId = GameTextActionId.THE_CLIENT__TAKE_BOUNTY_HUNTER_INTO_HAND;
 
         // Check condition(s)
-        if (TriggerConditions.justLost(game, effectResult, playerId, Filters.bounty_hunter)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && TriggerConditions.justLost(game, effectResult, playerId, Filters.bounty_hunter)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Take bounty hunter into hand");
             action.setActionMsg("Take a bounty hunter into hand from Reserve Deck");
+            action.appendUsage(new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.bounty_hunter, true));

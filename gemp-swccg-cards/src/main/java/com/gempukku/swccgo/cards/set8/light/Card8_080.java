@@ -47,7 +47,7 @@ public class Card8_080 extends AbstractStarfighter {
         Filter quadLaserCannonAndSurfaceDefenseCannon = Filters.or(Filters.Quad_Laser_Cannon, Filters.Surface_Defense_Cannon);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployToTargetModifier(self, quadLaserCannonAndSurfaceDefenseCannon, self));
+        modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.your(self), quadLaserCannonAndSurfaceDefenseCannon), self));
         modifiers.add(new DeploysFreeToTargetModifier(self, quadLaserCannonAndSurfaceDefenseCannon, self));
         return modifiers;
     }

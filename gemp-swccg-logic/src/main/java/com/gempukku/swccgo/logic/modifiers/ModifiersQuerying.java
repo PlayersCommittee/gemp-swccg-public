@@ -2201,6 +2201,16 @@ public interface ModifiersQuerying {
     float getTotalSearchPartyDestiny(GameState gameState, String playerId, float baseTotalDestiny);
 
     /**
+     * Gets the value of a drawn tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param physicalCard the card drawn for tractor beam destiny
+     * @param playerId the player with the tractor beam destiny
+     * @return the tractor beam destiny draw value
+     */
+    float getTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, PhysicalCard physicalCard, String playerId);
+
+    /**
      * Gets the value of a drawn training destiny.
      * @param gameState the game state
      * @param jediTest the Jedi Test
@@ -2218,6 +2228,15 @@ public interface ModifiersQuerying {
      * @return the total battle destiny
      */
     float getTotalTrainingDestiny(GameState gameState, PhysicalCard jediTest, float baseTotalDestiny);
+
+    /**
+     * Gets the total training destiny value after applying modifiers to the base tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param baseTotalDestiny the base total tractor beam destiny
+     * @return the total battle destiny
+     */
+    float getTotalTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, float baseTotalDestiny);
 
     /**
      * Gets the total movement destiny value after applying modifiers to the base total movement destiny.
@@ -4490,6 +4509,13 @@ public interface ModifiersQuerying {
      */
     Filter getValidDuelParticipant(GameState gameState, PhysicalCard card, Side side);
 
+    /**
+     * Gets the cards under which a captured starship can go when captured by the specified tractor beam
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam that captured the starship
+     * @return the collection of cards
+     */
+    Collection<PhysicalCard> getDestinationForCapturedStarships(GameState gameState, PhysicalCard tractorBeam);
 
     boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card);
 

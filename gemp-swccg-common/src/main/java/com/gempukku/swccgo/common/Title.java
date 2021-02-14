@@ -725,6 +725,7 @@ public interface Title {
     String OS_72_10 = "OS-72-10";
     String Ounee_Ta = "Ounee Ta";
     String Our_First_Catch_Of_The_Day = "Our First Catch Of The Day";
+    String Our_Only_Hope = "Our Only Hope";
     String Out_Of_Commission = "Out Of Commission";
     String Out_Of_Nowhere = "Out Of Nowhere";
     String Out_Of_Somewhere = "Out Of Somewhere";

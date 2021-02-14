@@ -67,24 +67,32 @@ public class Card13_023 extends AbstractRepublic {
                         @Override
                         protected void cardRevealed(final PhysicalCard revealedCard) {
                             if (Filters.inHand(opponent).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard)) {
-                                action.appendEffect(
-                                        new PlayoutDecisionEffect(action, opponent,
-                                                new MultipleChoiceAwaitingDecision("Choose effect", new String[]{"Place " + GameUtils.getFullName(revealedCard) + " in Used Pile", "Lose 1 Force"}) {
-                                                    @Override
-                                                    protected void validDecisionMade(int index, String result) {
-                                                        if (index == 0) {
-                                                            game.getGameState().sendMessage(opponent + " chooses to place " + GameUtils.getCardLink(revealedCard) + " in Used Pile");
-                                                            action.appendEffect(
-                                                                    new PutCardFromHandOnUsedPileEffect(action, opponent, revealedCard, false));
-                                                        } else {
-                                                            game.getGameState().sendMessage(opponent + " chooses to lose 1 Force");
-                                                            action.appendEffect(
-                                                                    new LoseForceEffect(action, opponent, 1, true));
+
+                                if (game.getModifiersQuerying().mayNotRemoveCardsFromOpponentsHand(game.getGameState(), self, playerId)) {
+                                    game.getGameState().sendMessage(opponent + " may not choose to place " + GameUtils.getCardLink(revealedCard) + " in Used Pile");
+                                    action.appendEffect(
+                                            new LoseForceEffect(action, opponent, 1, true));
+                                } else {
+
+                                    action.appendEffect(
+                                            new PlayoutDecisionEffect(action, opponent,
+                                                    new MultipleChoiceAwaitingDecision("Choose effect", new String[]{"Place " + GameUtils.getFullName(revealedCard) + " in Used Pile", "Lose 1 Force"}) {
+                                                        @Override
+                                                        protected void validDecisionMade(int index, String result) {
+                                                            if (index == 0) {
+                                                                game.getGameState().sendMessage(opponent + " chooses to place " + GameUtils.getCardLink(revealedCard) + " in Used Pile");
+                                                                action.appendEffect(
+                                                                        new PutCardFromHandOnUsedPileEffect(action, opponent, revealedCard, false));
+                                                            } else {
+                                                                game.getGameState().sendMessage(opponent + " chooses to lose 1 Force");
+                                                                action.appendEffect(
+                                                                        new LoseForceEffect(action, opponent, 1, true));
+                                                            }
                                                         }
                                                     }
-                                                }
-                                        )
-                                );
+                                            )
+                                    );
+                                }
                             }
                             else {
                                 game.getGameState().sendMessage("Losing 1 Force is the only available choice");
