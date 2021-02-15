@@ -6,7 +6,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 /**
- * An effect result that is emitted when a card is Disarmed.
+ * An effect result that is emitted when a card is Ionized.
  */
 public class IonizedResult extends EffectResult {
     private PhysicalCard _cardIonized;
