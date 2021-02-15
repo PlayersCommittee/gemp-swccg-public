@@ -35,13 +35,26 @@ public class Card1_059 extends AbstractUtinniEffect {
         setGameText("Deploy on a Death Star site where a stormtrooper was just lost. Target one of your characters not on Death Star. When target reaches Utinni Effect, relocate to target. Target is now 'disguised:' gains spy skill, power and forfeit +2, and armor = 5.");
     }
 
+    protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        if (!GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT))
+            return Filters.none;
+
+        return Filters.and(Filters.or(Filters.Rebel, Filters.alien), Filters.at(Filters.mobile_site), Filters.with(self, Filters.title("Elom")));
+    }
+
     @Override
     protected boolean canPlayCardDuringCurrentPhase(String playerId, SwccgGame game, PhysicalCard self) {
-        return false;
+        if (!GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT))
+            return false;
+
+        return super.canPlayCardDuringCurrentPhase(playerId, game, self);
     }
 
     @Override
     protected List<PlayCardAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT))
+            return null;
+
         // Check condition(s)
         if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.stormtrooper, Filters.Death_Star_site)) {
             PhysicalCard location = ((LostFromTableResult) effectResult).getFromLocation();
@@ -56,6 +69,9 @@ public class Card1_059 extends AbstractUtinniEffect {
 
     @Override
     protected Filter getGameTextValidUtinniEffectTargetFilter(String playerId, SwccgGame game, PhysicalCard self, PhysicalCard deployTarget, TargetId targetId) {
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT))
+            return Filters.none;
+
         return Filters.and(Filters.your(self), Filters.character, Filters.not(Filters.on(Title.Death_Star)));
     }
 
@@ -92,7 +108,9 @@ public class Card1_059 extends AbstractUtinniEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Filter targetAttachedTo = Filters.and(Filters.hasAttached(self), Filters.targetedByCardOnTableAsTargetId(self, TargetId.UTINNI_EFFECT_TARGET_1));
+        //TODO this part needs to account for being a normal effect instead of a target of a utinni effect
+        Filter targetAttachedTo = Filters.and(Filters.hasAttached(self), Filters.or(Filters.targetedByCardOnTableAsTargetId(self, TargetId.UTINNI_EFFECT_TARGET_1),
+                Filters.and(Filters.character, Filters.hasAttached(Filters.and(self, Filters.Effect)))));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new KeywordModifier(self, targetAttachedTo, Keyword.SPY));

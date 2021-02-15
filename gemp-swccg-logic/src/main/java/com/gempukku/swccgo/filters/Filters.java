@@ -559,6 +559,8 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (modifiersQuerying.getModifiedSubtype(gameState, physicalCard) != null)
+                    return (modifiersQuerying.getModifiedSubtype(gameState, physicalCard) == subtype);
                 return (physicalCard.getBlueprint().getCardSubtype() == subtype);
             }
             @Override
