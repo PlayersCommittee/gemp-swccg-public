@@ -9477,8 +9477,7 @@ public class Filters {
                     || physicalCard.getBlueprint().getCardSubtype() == CardSubtype.LOST_OR_STARTING
                     || physicalCard.getBlueprint().getCardSubtype() == CardSubtype.USED_OR_STARTING)) {
                 return (physicalCard.getBlueprint().getStartingInterruptAction(physicalCard.getOwner(), gameState.getGame(), physicalCard) != null);
-            }
-            if (physicalCard.getBlueprint().getCardCategory() == CardCategory.EPIC_EVENT)
+            } else if (physicalCard.getBlueprint().playableAsStartingInterrupt(gameState.getGame(), physicalCard))
                 return (physicalCard.getBlueprint().getStartingInterruptAction(physicalCard.getOwner(), gameState.getGame(), physicalCard) != null);
             return false;
         }

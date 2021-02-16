@@ -2803,4 +2803,10 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
         _isLegacy = value;
     }
 
+    public boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self) {
+        return (getCardCategory() == CardCategory.INTERRUPT
+                && (getCardSubtype() == CardSubtype.STARTING
+                    || getCardSubtype() == CardSubtype.USED_OR_STARTING
+                    || getCardSubtype() == CardSubtype.LOST_OR_STARTING));
+    }
 }

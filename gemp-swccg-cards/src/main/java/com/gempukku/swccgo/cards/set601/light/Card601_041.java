@@ -138,6 +138,10 @@ public class Card601_041 extends AbstractEpicEventDeployable {
     }
 
 
+    @Override
+    public boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self) {
+        return true;
+    }
 
     @Override
     public PlayCardAction getStartingInterruptAction(final String playerId, final SwccgGame game, final PhysicalCard self) {
