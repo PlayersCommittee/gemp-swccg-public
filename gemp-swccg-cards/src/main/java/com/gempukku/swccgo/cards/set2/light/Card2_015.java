@@ -13,7 +13,6 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.DeionizeStarshipEffect;
-import com.gempukku.swccgo.logic.effects.RestoreArmorManeuverHyperspeedToNormalEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.Collections;
