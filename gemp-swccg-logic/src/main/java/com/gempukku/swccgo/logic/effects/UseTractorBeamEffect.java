@@ -127,11 +127,11 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
                                 //TODO have this check which Statistic it should compare to (right now always Statistic.DEFENSE_VALUE)
                                 float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
 
-                                game.getGameState().sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
-                                game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
 
                                 if (totalDestiny != null && totalDestiny > defenseValue) {
                                     //success
+                                    game.getGameState().sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                    game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
                                     game.getGameState().sendMessage("Result: Succeeded");
                                     // Perform result(s)
                                     subAction.appendEffect(
@@ -139,7 +139,13 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
                                     );
                                 } else {
                                     //failed
-                                    game.getGameState().sendMessage("Result: Failed");
+                                    if (totalDestiny == null) {
+                                        game.getGameState().sendMessage("Result: Failed due to failed tractor beam destiny draw");
+                                    } else {
+                                        game.getGameState().sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                        game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
+                                        game.getGameState().sendMessage("Result: Failed");
+                                    }
 
                                     if (_modifiersToApplyIfUnsuccessful!=null) {
                                         for (Modifier m : _modifiersToApplyIfUnsuccessful) {

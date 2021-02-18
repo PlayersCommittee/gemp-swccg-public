@@ -26,6 +26,7 @@ public enum Persona implements Filterable {
     CRACKEN("Cracken"),
     DASH("Dash"),
     DENGAR("Dengar"),
+    DIN("Din"),
     DJ("DJ"),
     DOALLYN("Doallyn"),
     DOFINE("Dofine"),

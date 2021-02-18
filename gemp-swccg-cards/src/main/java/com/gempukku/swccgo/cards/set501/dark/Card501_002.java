@@ -28,7 +28,7 @@ public class Card501_002 extends AbstractCharacterWeapon {
     public Card501_002() {
         super(Side.DARK, 3, "Darksaber", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Deploy on Gideon, [Set 13] Maul, or a Mandalorian. May target a character or creature for free. Draw destiny. Target hit, and forfeit = 0, if destiny +2 > defense value. If lost from table (or hand), opponent may ‘steal’ into hand. If on a leader, may add 1 to Force drain where present.");
+        setGameText("Deploy on Gideon, [Set 13] Maul, or your Mandalorian. May add 1 to Force drain where present. May target a character. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. If just lost from table or hand, opponent may steal this weapon into hand.");
         addIcons(Icon.VIRTUAL_SET_14);
         addKeywords(Keyword.LIGHTSABER);
         setMatchingCharacterFilter(Filters.or(Filters.Gideon, Filters.Maul));
@@ -48,7 +48,7 @@ public class Card501_002 extends AbstractCharacterWeapon {
     @Override
     protected List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, final SwccgGame game, final PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
         FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                .targetForFree(Filters.or(Filters.character, targetedAsCharacter, Filters.creature), TargetingReason.TO_BE_HIT).finishBuildPrep();
+                .targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
 
             // Build action using common utility
@@ -62,8 +62,7 @@ public class Card501_002 extends AbstractCharacterWeapon {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
-                && GameConditions.canUseWeapon(game, self.getAttachedTo(), self)
-                && GameConditions.isAttachedTo(game, self, Filters.leader)) {
+                && GameConditions.canUseWeapon(game, self.getAttachedTo(), self)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Add 1 to Force drain");
