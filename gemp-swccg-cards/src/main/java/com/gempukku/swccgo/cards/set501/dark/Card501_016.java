@@ -44,7 +44,7 @@ public class Card501_016 extends AbstractObjective {
         super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi);
         setFrontOfDoubleSidedCard(true);
         setVirtualSuffix(true);
-        setGameText("Deploy Vader's Castle, [Set 13] Visage Of The Emperor, and a site with exactly one [DS] icon.\n" +
+        setGameText("Deploy Vader's Castle, [Set 13] Visage Of The Emperor, and a [Cloud City] site with exactly one [DS] icon.\n" +
                 "For remainder of game, you may not deploy characters except bounty hunters, droids, and Imperials. Where you have an Inquisitor, your total battle destiny is +1 (+2 if with a 'Hatred' card). Inquisitors are destiny +1.\n" +
                 "While this side up, once per turn, may [download] a [Cloud City] or Malachor battleground site.\n" +
                 "Flip this card if Vader is at a battleground site unless Luke, a Jedi, or a Padawan at a battleground site.");
@@ -70,10 +70,10 @@ public class Card501_016 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.site, Filters.iconCount(Icon.DARK_FORCE, 1)), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.CLOUD_CITY, Filters.site, Filters.iconCount(Icon.DARK_FORCE, 1)), true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose a location with one [Dark Side] icon to deploy";
+                        return "Choose a [Cloud City] site with one [Dark Side] icon to deploy";
                     }
                 }
         );
