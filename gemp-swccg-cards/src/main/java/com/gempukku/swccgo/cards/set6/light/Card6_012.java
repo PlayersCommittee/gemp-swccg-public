@@ -48,7 +48,7 @@ public class Card6_012 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.ELOM__MODIFY_PLASTOID_ARMOR_FOR_REMAINDER_OF_GAME;
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Modify Plastoid Armor for remainder of game");
+            action.setText(null);
             action.skipInitialMessageAndAnimation();
             action.appendUsage(new OncePerGameEffect(action));
             action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new ChangeCardSubtypeModifier(self, Filters.Plastoid_Armor, CardSubtype._), null));
