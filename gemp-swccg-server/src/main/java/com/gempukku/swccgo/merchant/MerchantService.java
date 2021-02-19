@@ -309,7 +309,7 @@ public class MerchantService {
      * @throws MerchantException
      */
     public void tradeForFoil(Player player, String blueprintId) throws MerchantException {
-        if (!blueprintId.contains("_") || blueprintId.endsWith("*"))
+        if (!blueprintId.contains("_") || blueprintId.endsWith("*") || blueprintId.endsWith("^"))
             throw new MerchantException("Unable to trade in this type of item");
         Lock lock = _lock.writeLock();
         lock.lock();
