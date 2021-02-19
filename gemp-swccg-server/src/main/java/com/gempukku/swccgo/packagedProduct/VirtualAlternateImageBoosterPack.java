@@ -54,32 +54,27 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
      */
     private void addRandomCard(List<CardCollection.Item> result, int count) {
         List<String> possibleCards = new ArrayList<String>();
-        possibleCards.add("200_2^"); //Anakin Skywalker, Padawan Learner
-        possibleCards.add("200_3^"); //Captain Rex, 501st Legion
-        possibleCards.add("201_18^"); //Green Leader In Green Squadron 1
-        possibleCards.add("201_25^"); //Jango Fett
-        possibleCards.add("201_40^"); //Slave I, Symbol Of Fear
-        possibleCards.add("202_7^"); //Azure Angel
-        possibleCards.add("203_2^"); //CT-5555 (Fives)
-        possibleCards.add("203_21^"); //Wild Karrde
+        possibleCards.add("200_1^"); //Aayla Secura
         possibleCards.add("203_22^"); //Agent Kallus
-        possibleCards.add("203_27^"); //General Grievous
-        possibleCards.add("203_6^"); //Kanan Jarrus
+        possibleCards.add("200_2^"); //Anakin Skywalker, Padawan Learner
+        possibleCards.add("202_7^"); //Azure Angel
         possibleCards.add("204_3^"); //Captain Hera Syndulla
-        possibleCards.add("204_54^"); //Finalizer
+        possibleCards.add("200_3^"); //Captain Rex, 501st Legion
+        possibleCards.add("200_57^"); //Coruscant: Night Club
+        possibleCards.add("200_80^"); //Droideka
+        possibleCards.add("200_77^"); //DS-61-5
+        possibleCards.add("203_27^"); //General Grievous
+        possibleCards.add("201_18^"); //Green Leader In Green Squadron 1
+        possibleCards.add("204_51^"); //Jakku
+        possibleCards.add("201_25^"); //Jango Fett
+        possibleCards.add("209_49^"); //Jedha: Jedha City
+        possibleCards.add("203_6^"); //Kanan Jarrus
+        possibleCards.add("200_58^"); //Nar Shaddaa
         possibleCards.add("204_9^"); //Rey
-        possibleCards.add("206_7^"); //Rogue One
-        possibleCards.add("207_18^"); //Profundity
-        possibleCards.add("207_2^"); //Chirrut Imwe
-        possibleCards.add("207_23^"); //Savage Opress
-        possibleCards.add("208_51^"); //Starkiller Base
-        possibleCards.add("209_10^"); //Rey With Lightsaber
-        possibleCards.add("209_35^"); //Dr. Chelli Lona Aphra
-        possibleCards.add("209_37^"); //Kylo Ren With Lightsaber
-        possibleCards.add("209_50^"); //Mustafar: Vader's Castle
-        possibleCards.add("210_1^"); //Ahch-To: Saddle
-        possibleCards.add("301_1^"); //Ahsoka Tano With Lightsabers
-        possibleCards.add("301_3^"); //Asajj Ventress With Lightsabers
+        possibleCards.add("209_26^"); //Scarif: Landing Pad Nine (Docking Bay)
+        possibleCards.add("201_40^"); //Slave I, Symbol Of Fear
+        possibleCards.add("203_14^"); //Stolen Data Tapes
+        possibleCards.add("203_21^"); //Wild Karrde
 
 
         Collections.shuffle(possibleCards, _random);
