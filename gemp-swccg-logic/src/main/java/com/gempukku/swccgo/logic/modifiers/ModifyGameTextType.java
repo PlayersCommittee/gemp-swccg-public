@@ -39,6 +39,7 @@ public enum ModifyGameTextType {
     MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
     MONNOK__PUT_TWO_CARDS_IN_USED("Place two cards in used pile first"),
     NABRUN_LEIDS_ELIS_HELROT__LIMIT_USAGE("Limited to owner's move phase and exterior sites"),
+    PLASTOID_ARMOR__CHANGE_DEPLOYMENT("Deploys on a Rebel or alien at same mobile site as Elom"),
     PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED("May not be relocated"),
     RADAR_SCANNER__JAWAS_TUSKEN_RAIDERS_AND_STORMTROOPERS_LOST("Jawas, Tusken Raiders, and stormtroopers lost"),
     REBEL_PLANNERS__APPLIES_TO_EVERY_SYSTEM("Applies to every system"),
