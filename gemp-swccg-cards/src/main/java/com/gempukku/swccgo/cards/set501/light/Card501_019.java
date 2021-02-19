@@ -36,8 +36,9 @@ public class Card501_019 extends AbstractAlien {
     public Card501_019() {
         super(Side.LIGHT, 1, 3, 4, 3, 6, "Din Djarin", Uniqueness.UNIQUE);
         setLore("Mandalorian");
-        setGameText("Adds 2 to power of anything he pilots. If with an alien, adds one battle destiny. Once per turn, may target opponent's non-'hit' character here. If target lost this turn, choose: retrieve 1 Force or place target in Used Pile to retrieve 2 Force.");
+        setGameText("Adds 2 to power of anything he pilots. While with an alien, adds one battle destiny. Once per turn, may target opponent’s non-'hit' character here. If Din on table when target lost this turn, choose: retrieve 1 Force or place target in Used Pile to retrieve 2 Force.");
         setArmor(5);
+        addPersona(Persona.DIN);
         setSpecies(Species.MANDALORIAN);
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_14);
         addIcon(Icon.WARRIOR, 2);
@@ -84,10 +85,14 @@ public class Card501_019 extends AbstractAlien {
                                                                 @Override
                                                                 public List<TriggerAction> getRequiredAfterTriggers(final SwccgGame game, final EffectResult effectResult) {
                                                                     List<TriggerAction> actions = new LinkedList<>();
-                                                                    if (TriggerConditions.justLost(game, effectResult, targetedCard)) {
+                                                                    if (TriggerConditions.justLost(game, effectResult, targetedCard)
+                                                                        && GameConditions.canSpot(game, self, Filters.Din)
+                                                                        && GameConditions.canSpot(game, self, self)
+                                                                        && GameConditions.isOncePerTurn(game, self, self.getCardId())) {
                                                                         final PhysicalCard justLostCard = ((LostFromTableResult) effectResult).getCard();
                                                                         final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());
                                                                         action2.setSingletonTrigger(true);
+                                                                        action2.appendUsage(new OncePerTurnEffect(action2));
                                                                         action2.appendEffect(
                                                                                 new PlayoutDecisionEffect(action, playerId,
                                                                                         new YesNoDecision("Place " + GameUtils.getCardLink(justLostCard) + " on Used Pile to retrieve 2 force (otherwise retrieve 1 force)?") {
