@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set501.light;
 
-import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
+import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,11 +24,11 @@ import java.util.List;
  * Subtype: Used
  * Title: Our Only Hope (V)
  */
-public class Card501_015 extends AbstractUsedOrLostInterrupt {
+public class Card501_015 extends AbstractUsedInterrupt {
     public Card501_015() {
         super(Side.LIGHT, 4, Title.Our_Only_Hope, Uniqueness.UNIQUE);
         setLore("'The Emperor knew, as I did, if Anakin were to have any offspring, they would be a threat to him.'");
-        setGameText("USED: If He Is The Chosen One or He Will Bring Balance on table, take Yoda's Hut or a Death Star II site into hand from Reserve Deck; reshuffle. LOST: Relocate Prophecy Of The Force to a site.");
+        setGameText("Relocate Prophecy Of The Force to a site. OR If He Is The Chosen One or He Will Bring Balance on table, [upload] Yoda's Hut or a Death Star II site.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_14);
         setVirtualSuffix(true);
         setTestingText("Our Only Hope (V)");
@@ -42,7 +42,7 @@ public class Card501_015 extends AbstractUsedOrLostInterrupt {
 
         if (GameConditions.canSpot(game, self, Filters.or(Filters.He_Is_The_Chosen_One, Filters.He_Will_Bring_Balance))
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Take site into hand from Reserve Deck");
             // Allow response(s)
             action.allowResponses("Take Yoda's Hut or a Death Star II site into hand from Reserve Deck",
@@ -67,7 +67,7 @@ public class Card501_015 extends AbstractUsedOrLostInterrupt {
                     canRelocate = false;
             }
             if (canRelocate) {
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Relocate " + GameUtils.getCardLink(prophecyOfTheForce) + " to a site");
                 action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose site", Filters.canRelocateEffectTo(playerId, prophecyOfTheForce)) {
                     @Override
