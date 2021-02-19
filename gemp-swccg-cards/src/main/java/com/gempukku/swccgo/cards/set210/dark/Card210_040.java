@@ -34,7 +34,7 @@ public class Card210_040 extends AbstractRepublic {
         setLore("Commanding Viceroy of the Trade Federation forces assigned to the blockade of Naboo. Takes for his own actions. Neimoidian leader.");
         setGameText("During battle, may cancel game text of a Republic character with ability < 4 present. If with your Republic character (or character with 'Trade Federation' in lore), may add one battle destiny. Immune to attrition < 3.");
         addPersona(Persona.GUNRAY);
-        addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
+        addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR);
         addKeywords(Keyword.LEADER);
         setSpecies(Species.NEIMOIDIAN);
         setVirtualSuffix(true);

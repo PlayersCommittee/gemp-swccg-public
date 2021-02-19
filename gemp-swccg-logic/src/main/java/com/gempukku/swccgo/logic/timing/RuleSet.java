@@ -50,11 +50,14 @@ public class RuleSet {
         new JediTestTargetRule(_actionsEnvironment).applyRule();
         new JumpOffVehicleRule(_actionsEnvironment).applyRule();
         new LeavesTableCardRule(_actionsEnvironment).applyRule();
+        new LostFromLifeForceRule(_actionsEnvironment).applyRule();
         new LostIfAboutToBeStolenRule(_actionsEnvironment).applyRule();
         new LukesBackpackRule(_actionsEnvironment).applyRule();
         new OperativesRule(_actionsEnvironment, _modifiersEnvironment).applyRule();
         new PresenceIconRule(_modifiersEnvironment).applyRule();
         new ReleaseCaptivesWithLightSideEscortRule(_actionsEnvironment).applyRule();
+        new ReleaseCapturedStarshipsIfNoRelatedTractorBeamsRule(_actionsEnvironment).applyRule();
+        new StealCapturedStarshipWithNoCharactersRule(_actionsEnvironment).applyRule();
         new SuspendCardRule(_actionsEnvironment).applyRule();
         new TurnOverCardPilesRule(_actionsEnvironment).applyRule();
     }

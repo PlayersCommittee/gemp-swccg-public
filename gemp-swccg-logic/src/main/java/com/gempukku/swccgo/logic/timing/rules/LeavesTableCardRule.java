@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -46,14 +47,14 @@ public class LeavesTableCardRule implements Rule {
                     @Override
                     public List<TriggerAction> getOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult) {
                         PhysicalCard cardThatLeftTable = getCardThatLeftTable(effectResult);
-
+                        List<TriggerAction> allTriggers = new LinkedList<>();
                         // If game text of card was not previously canceled, get card owner's optional triggers from card itself
                         if (cardThatLeftTable != null && !cardThatLeftTable.wasPreviouslyCanceledGameText()
                                 && cardThatLeftTable.getOwner().equals(playerId)) {
                             List<TriggerAction> triggers = cardThatLeftTable.getBlueprint().getLeavesTableOptionalTriggers(playerId, game, effectResult, cardThatLeftTable);
-                             if (triggers != null) {
-                                 // If card is in hand, stacked face up, or top of a card pile and card pile is face up,
-                                 // then do not show as "off table card action" since card is visible.
+                            if (triggers != null) {
+                                // If card is in hand, stacked face up, or top of a card pile and card pile is face up,
+                                // then do not show as "off table card action" since card is visible.
                                 Zone zone = cardThatLeftTable.getZone();
                                 if (zone != Zone.HAND && zone != Zone.STACKED
                                         && (!zone.isCardPile() || zone != GameUtils.getZoneTopFromZone(zone) || !game.getGameState().isCardPileFaceUp(playerId, zone))) {
@@ -61,11 +62,28 @@ public class LeavesTableCardRule implements Rule {
                                         trigger.setOptionalOffTableCardAction(true);
                                     }
                                 }
+                                allTriggers.addAll(triggers);
                             }
-                            return triggers;
                         }
 
-                        return null;
+                        if (cardThatLeftTable != null && !cardThatLeftTable.wasPreviouslyCanceledGameText()
+                                && cardThatLeftTable.getOwner().equals(game.getOpponent(playerId))) {
+                            List<TriggerAction> triggers = cardThatLeftTable.getBlueprint().getOpponentsCardLeavesTableOptionalTriggers(playerId, game, effectResult, cardThatLeftTable);
+                            if (triggers != null) {
+                                // If card is in hand, stacked face up, or top of a card pile and card pile is face up,
+                                // then do not show as "off table card action" since card is visible.
+                                Zone zone = cardThatLeftTable.getZone();
+                                if (zone != Zone.HAND && zone != Zone.STACKED
+                                        && (!zone.isCardPile() || zone != GameUtils.getZoneTopFromZone(zone) || !game.getGameState().isCardPileFaceUp(playerId, zone))) {
+                                    for (TriggerAction trigger : triggers) {
+                                        trigger.setOptionalOffTableCardAction(true);
+                                    }
+                                }
+                                allTriggers.addAll(triggers);
+                            }
+                        }
+
+                        return allTriggers;
                     }
                 });
     }

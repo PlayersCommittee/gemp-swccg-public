@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set501.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
@@ -37,7 +38,7 @@ public class Card501_014 extends AbstractRebel {
         setGameText("If alone (or with Luke or an Ewok) on Endor during opponent's draw phase, may retrieve 1 Force. If you are about to lose Force, may place X cards stacked on I Feel The Conflict in owner's Lost Pile to reduce your Force loss by X. Immune to attrition (< 4 if not on Endor).");
         addPersona(Persona.LEIA);
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_0, Icon.WARRIOR);
-        addKeywords(Keyword.SCOUT, Keyword.LEADER);
+        addKeywords(Keyword.SCOUT, Keyword.LEADER, Keyword.FEMALE);
         setVirtualSuffix(true);
         setTestingText("Daughter Of Skywalker (V) (ERRATA)");
     }
@@ -55,12 +56,13 @@ public class Card501_014 extends AbstractRebel {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringOpponentsPhase(game, self, gameTextSourceCardId, Phase.DRAW)
+        if (GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)
                 && GameConditions.isOnSystem(game, self, Title.Endor)
                 && (GameConditions.isAlone(game, self) || GameConditions.isWith(game, self, Filters.or(Filters.Luke, Filters.Ewok)))
                 && GameConditions.hasLostPile(game, playerId)) {
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve 1 Force");
+            action.appendUsage(new OncePerPhaseEffect(action));
             action.appendEffect(new RetrieveForceEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
@@ -86,7 +88,7 @@ public class Card501_014 extends AbstractRebel {
                 action.setActionMsg("Choose stacked cards to place in Lost Pile");
                 // Pay cost(s)
                 action.appendCost(
-                        new ChooseStackedCardsEffect(action, playerId, ifeeltheconflict, 1,  Filters.countStacked(game, Filters.stackedOn(ifeeltheconflict))) {
+                        new ChooseStackedCardsEffect(action, playerId, ifeeltheconflict, 1,  Filters.countStacked(game, Filters.stackedOn(ifeeltheconflict)), Filters.any, true) {
                             @Override
                             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                 final int numCards = selectedCards.size();
