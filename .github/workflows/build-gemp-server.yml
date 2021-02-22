@@ -1,0 +1,32 @@
+---
+
+name: Build GEMP Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-gemp:
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: apt-get install OpenJDK
+        run:  |
+          which java ; true
+          java -version ; true
+          sudo apt-get install -y openjdk-11-jdk-headless
+          java -version ; true
+
+      - name: mvn build
+        run: mvn clean install
+
+      - name: list jars
+        run: |
+          ls ./gemp-swccg-async/target/web.jar
+          md5sum ./gemp-swccg-async/target/web.jar
+
+
