@@ -26,7 +26,7 @@ jobs:
 
       - name: list jars
         run: |
-          ls ./gemp-swccg-async/target/web.jar
-          md5sum ./gemp-swccg-async/target/web.jar
+          ls ./gemp-swccg-async/target/web.jar ; true
+          md5sum ./gemp-swccg-async/target/web.jar ; true
 
 
