@@ -2019,9 +2019,18 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     && game.getGameState().isCardInPlayActive(self, false, true, isInAttack, false, false, isInAttack, isInAttack, false)
                     && (game.getGameState().isDuringAttack() || game.getGameState().isDuringBattle())
                     && isFiresDuringWeaponsSegment(game, self)) {
-                List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.any, false);
-                if (fireWeaponActions != null)
-                    actions.addAll(fireWeaponActions);
+                if (game.getGameState().isDuringAttack()
+                        && (isInAttack //permanent weapons
+                        || (self.getAttachedTo() != null && game.getGameState().isParticipatingInAttack(self.getAttachedTo()))) //weapon cards
+                ) {
+                    List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.participatingInAttack, false);
+                    if (fireWeaponActions != null)
+                        actions.addAll(fireWeaponActions);
+                } else if (game.getGameState().isDuringBattle()){
+                    List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.any, false);
+                    if (fireWeaponActions != null)
+                        actions.addAll(fireWeaponActions);
+                }
             }
         }
         else if (self.getZone() == Zone.HAND
