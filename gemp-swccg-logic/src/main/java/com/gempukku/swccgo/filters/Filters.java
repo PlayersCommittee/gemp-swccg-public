@@ -559,6 +559,8 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (modifiersQuerying.getModifiedSubtype(gameState, physicalCard) != null)
+                    return (modifiersQuerying.getModifiedSubtype(gameState, physicalCard) == subtype);
                 return (physicalCard.getBlueprint().getCardSubtype() == subtype);
             }
             @Override
@@ -17458,6 +17460,7 @@ public class Filters {
     public static final Filter DH17_blaster = Filters.keyword(Keyword.DH17_BLASTER);
     public static final Filter Dianoga = Filters.title(Title.Dianoga);
     public static final Filter Dice_Ibegon = Filters.title(Title.Dice_Ibegon);
+    public static final Filter Din = Filters.persona(Persona.DIN);
     public static final Filter Dining_Room = Filters.title(Title.Dining_Room);
     public static final Filter Diplomatic_Mission_To_Alderaan = Filters.title(Title.Diplomatic_Mission_To_Alderaan);
     public static final Filter disarmed_character = Filters.and(CardCategory.CHARACTER, Filters.Disarmed());

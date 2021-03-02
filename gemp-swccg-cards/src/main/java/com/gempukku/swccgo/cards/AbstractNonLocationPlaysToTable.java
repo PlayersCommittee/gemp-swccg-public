@@ -161,8 +161,13 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                     // Determine the spot override to use when playing the card using this play card option
                     Map<InactiveReason, Boolean> spotOverrides = self.getBlueprint().getDeployTargetSpotOverride(playCardOption.getId());
 
+                    //check if the subtype has been modified
+                    CardSubtype subtype = self.getBlueprint().getCardSubtype();
+                    if (game.getModifiersQuerying().getModifiedSubtype(game.getGameState(), self) != null)
+                        subtype = game.getModifiersQuerying().getModifiedSubtype(game.getGameState(), self);
+
                     // For Utinni Effects, need to also determine if valid targets can be found
-                    if (self.getBlueprint().getCardSubtype() == CardSubtype.UTINNI) {
+                    if (subtype == CardSubtype.UTINNI) {
                         List<PhysicalCard> validDeployOnTargets = new LinkedList<PhysicalCard>();
                         Collection<PhysicalCard> possibleDeployOnTargets = Filters.filterActive(game, self, spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, completeTargetFilter);
 

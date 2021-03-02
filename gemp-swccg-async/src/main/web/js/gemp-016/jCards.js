@@ -3438,6 +3438,30 @@ var fixedImages = {
 "501_98":"/gemp-swccg/images/cards/Virtual11-Light/viceadmiralholdo.gif",
 "501_95":"/gemp-swccg/images/cards/ReflectionsII-Light/alter&friendlyfire.gif",
 "501_99":"/gemp-swccg/images/cards/ReflectionsII-Dark/alter&collateraldamage.gif",
+
+"200_1ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/aaylasecura_ai.png",
+"203_22ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/agentkallus_ai.png",
+"200_2ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/anakinskywalkerpadawanlearner_ai.png",
+"202_7ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/azureangel_ai.png",
+"204_3ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/captainherasyndulla_ai.png",
+"200_3ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/captainrex501stlegion_ai.png",
+"200_57ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/coruscantnightclub_ai.png",
+"200_80ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/droideka_ai.png",
+"200_77ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/ds615_ai.png",
+"203_27ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/generalgrievous_ai.png",
+"201_18ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/greenleaderingreensquadron1_ai.png",
+"204_51ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/jakku_ai.png",
+"201_25ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/jangofett_ai.png",
+"209_49ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/jedhajedhacity_ai.png",
+"203_6ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/kananjarrus_ai.png",
+"200_58ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/narshaddaa_ai.png",
+"204_9ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/rey_ai.png",
+"209_26ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/scariflandingpadnine_ai.png",
+"201_40ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Dark/slaveisymboloffear_ai.png",
+"203_14ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/stolendatatapes_ai.png",
+"203_21ai":"/gemp-swccg/images/cards/VirtualAlternateImage-Light/wildkarrde_ai.png",
+
+
 };
 
 var packBlueprints = {
@@ -3502,6 +3526,7 @@ var packBlueprints = {
 
     "Jedi Pack":"/gemp-swccg/images/packs/jedi_pack.png",
     "Rebel Leader Pack":"/gemp-swccg/images/packs/rebel_leader_pack.png",
+    "Virtual Alternate Image Booster Pack":"/gemp-swccg/images/packs/virtual_alternate_image_booster_pack_series_1.png",
 
     "First Anthology Box":"/gemp-swccg/images/packs/first_anthology_box.png",
     "Second Anthology Box":"/gemp-swccg/images/packs/second_anthology_box.png",
@@ -3533,6 +3558,7 @@ var Card = Class.extend({
     blueprintId:null,
     bareBlueprint:null,
     foil:null,
+    alternateImage:null,
     horizontal:null,
     imageUrl:null,
     backSideImageUrl:null,
@@ -3564,6 +3590,14 @@ var Card = Class.extend({
         if (this.foil) {
             imageBlueprint = imageBlueprint.substring(0, len - 1);
         }
+
+        this.alternateImage = imageBlueprint.substring(len - 1, len) == "^";
+        if (this.alternateImage) {
+            imageBlueprint = imageBlueprint.substring(0, len - 1);
+             if (fixedImages[imageBlueprint+"ai"] != null)
+                imageBlueprint = imageBlueprint + "ai";
+        }
+
         this.bareBlueprint = imageBlueprint;
 
         this.testingText = null;

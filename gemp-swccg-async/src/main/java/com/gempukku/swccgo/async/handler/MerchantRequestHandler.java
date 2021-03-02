@@ -187,7 +187,7 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
                 elem = doc.createElement("pack");
 
             elem.setAttribute("count", String.valueOf(collection.getItemCount(blueprintId)));
-            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && collection.getItemCount(blueprintId) >= 4 && currency >= 1500)
+            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && !blueprintId.endsWith("^") && collection.getItemCount(blueprintId) >= 4 && currency >= 1500)
                 elem.setAttribute("tradeFoil", "true");
             elem.setAttribute("blueprintId", blueprintId);
             Integer buyPrice = buyPrices.get(blueprintId);

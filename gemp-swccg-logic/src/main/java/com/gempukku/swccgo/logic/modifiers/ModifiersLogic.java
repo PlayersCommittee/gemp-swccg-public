@@ -16241,4 +16241,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return subset;
     }
 
+    public CardSubtype getModifiedSubtype(GameState gameState, PhysicalCard card) {
+        for(Modifier m:getModifiersAffectingCard(gameState, ModifierType.MODIFY_CARD_SUBTYPE, card)) {
+            return ((ChangeCardSubtypeModifier)m).getSubtype();
+        }
+        return null;
+    }
 }

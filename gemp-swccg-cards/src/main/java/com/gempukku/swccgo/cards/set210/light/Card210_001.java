@@ -38,11 +38,10 @@ public class Card210_001 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId)
-                && !GameConditions.canSpot(game, self, Filters.Luke)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId, Persona.LUKE)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Episode 7 Luke from Reserve Deck");
-            action.setActionMsg("Deploy Episode 7 Luke from Reserve Deck");
+            action.setText("Deploy [Episode VII] Luke from Reserve Deck");
+            action.setActionMsg("Deploy [Episode VII] Luke from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
