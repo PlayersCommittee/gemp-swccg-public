@@ -54,7 +54,12 @@ public class Card601_041 extends AbstractEpicEventDeployable {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         if (GameConditions.hasStackedCards(game, self, 2)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canUseForce(game, playerId, 1)) {
+                && GameConditions.canUseForce(game, playerId, 1)
+
+                //TODO need to allow "or" for this part which would mean these two conditions are unnecessary
+                && GameConditions.hasReserveDeck(game, playerId)
+                && GameConditions.numCardsInForcePile(game, playerId) >= 2
+        ) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Look at top cards and replace");
             // Update usage limit(s)

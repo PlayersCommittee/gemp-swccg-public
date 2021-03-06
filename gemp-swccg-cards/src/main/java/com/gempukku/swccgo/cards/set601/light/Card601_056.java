@@ -42,7 +42,7 @@ public class Card601_056 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayBeTargetedByWeaponsModifier(self, Filters.and(Filters.your(self), Filters.lightsaber), Filters.and(Filters.opponents(self), Filters.vehicle)));
         modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.your(self), Filters.lightsaber), Filters.any, -2, Filters.and(Filters.opponents(self), Filters.vehicle)));
-        modifiers.add(new FireWeaponFiredAtCostModifier(self, 1, Filters.and(Filters.your(self), Filters.lightsaber), Filters.and(Filters.opponents(self), Filters.vehicle)));
+        modifiers.add(new FireWeaponFiredAtCostModifier(self, Filters.and(Filters.your(self), Filters.lightsaber), 1, Filters.and(Filters.your(self), Filters.lightsaber), Filters.and(Filters.opponents(self), Filters.vehicle)));
         return modifiers;
     }
 

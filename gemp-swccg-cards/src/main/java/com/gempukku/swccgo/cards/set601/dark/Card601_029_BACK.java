@@ -127,9 +127,9 @@ public class Card601_029_BACK extends AbstractObjective {
 
             //add
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Add up to "+amount+"to destiny");
+            action.setText("Add up to " + amount + " to destiny");
             action.appendUsage(new OncePerTurnEffect(action));
-            if (amount>0) {
+            if (amount > 0) {
                 action.appendEffect(new PlayoutDecisionEffect(action, playerId,
                         new IntegerAwaitingDecision("Add how much to destiny?", 1, amount, amount) {
                             @Override
@@ -145,9 +145,9 @@ public class Card601_029_BACK extends AbstractObjective {
 
             //subtract
             final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action2.setText("Subtract up to "+amount+" from destiny");
+            action2.setText("Subtract up to " + amount + " from destiny");
             action2.appendUsage(new OncePerTurnEffect(action2));
-            if (amount>0) {
+            if (amount > 0) {
                 action2.appendEffect(new PlayoutDecisionEffect(action2, playerId,
                         new IntegerAwaitingDecision("Subtract how much from destiny?", 1, amount, amount) {
                             @Override
@@ -160,7 +160,6 @@ public class Card601_029_BACK extends AbstractObjective {
                 action2.appendEffect(new ModifyDestinyEffect(action2, 0));
             }
             actions.add(action2);
-
         }
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_4;

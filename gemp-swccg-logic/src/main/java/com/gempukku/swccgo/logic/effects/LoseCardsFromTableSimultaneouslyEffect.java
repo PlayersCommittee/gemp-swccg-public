@@ -57,7 +57,7 @@ public class LoseCardsFromTableSimultaneouslyEffect extends AbstractSubActionEff
      * @param allCardsSituation true if this is an "all cards situation", otherwise false
      * @param releaseCaptives true if captives are released, otherwise false
      */
-    public  LoseCardsFromTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToLose, boolean toBottomOfPile, boolean allCardsSituation, boolean releaseCaptives) {
+    public LoseCardsFromTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToLose, boolean toBottomOfPile, boolean allCardsSituation, boolean releaseCaptives) {
         this(action, cardsToLose, toBottomOfPile, allCardsSituation, releaseCaptives, Zone.LOST_PILE);
     }
 

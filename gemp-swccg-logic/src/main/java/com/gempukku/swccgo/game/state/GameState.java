@@ -1509,6 +1509,7 @@ public class GameState implements Snapshotable<GameState> {
         card.setFrozen(false);
         card.setProbeCard(false);
         card.setHatredCard(false);
+        card.setEnslavedCard(false);
         card.setLiberationCard(false);
         card.setBluffCard(false);
         card.setCombatCard(false);

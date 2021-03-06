@@ -196,6 +196,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         snapshot._isObjectiveDeploymentComplete = _isObjectiveDeploymentComplete;
         snapshot._isProbeCard = _isProbeCard;
         snapshot._isHatredCard = _isHatredCard;
+        snapshot._isEnslavedCard = _isEnslavedCard;
         snapshot._isCoaxiumCard = _isCoaxiumCard;
         snapshot._isBluffCard = _isBluffCard;
         snapshot._isLiberationCard = _isLiberationCard;

@@ -39,9 +39,9 @@ public class FireWeaponFiredAtCostModifier extends AbstractModifier {
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         final float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
         if (value >= 0)
-            return "Firing cost +" + GuiUtils.formatAsString(value);
+            return "Firing cost +" + GuiUtils.formatAsString(value)+" at certain targets";
         else
-            return "Firing cost " + GuiUtils.formatAsString(value);
+            return "Firing cost " + GuiUtils.formatAsString(value)+" at certain targets";
     }
 
     @Override
