@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card601_001 extends AbstractStartingEffect {
     public Card601_001() {
-        super(Side.DARK, 0, "Knowledge And Defense");
+        super(Side.DARK, 4, "Knowledge And Defense");
         setVirtualSuffix(true);
         setLore("'A Jedi uses the Force for knowledge and defense, never for attack.'");
         setGameText("Deploy on table with up to 15 cards from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Recoil In Fear until the end of your first turn.");

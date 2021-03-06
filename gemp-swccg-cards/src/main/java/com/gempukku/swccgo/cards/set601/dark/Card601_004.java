@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.PreventEffectOnCardEffect;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -11,18 +10,17 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.SuspendCardUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlayStackedDefensiveShieldEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
-import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToRemoveJustLostCardFromLostPileResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -122,6 +120,27 @@ public class Card601_004 extends AbstractUsedInterrupt {
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Surprise_Assault, Title.Surprise_Assault);
             actions.add(action);
         }
+
+        if (GameConditions.canSpot(game, self, Filters.or(Filters.Bacta_Tank, Filters.Bo_Shuda, Filters.Goo_Nee_Tay, Filters.Mantellian_Savrip))) {
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setText("Suspend card");
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target card to suspend", Filters.or(Filters.Bacta_Tank, Filters.Bo_Shuda, Filters.Goo_Nee_Tay, Filters.Mantellian_Savrip)) {
+                @Override
+                protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                    action.allowResponses(new RespondablePlayCardEffect(action) {
+                                              @Override
+                                              protected void performActionResults(Action targetingAction) {
+                                                  PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                                  action.appendEffect(new SuspendCardUntilEndOfTurnEffect(action, finalTarget));
+                                              }
+                                          }
+                    );
+                }
+            });
+            actions.add(action);
+        }
+
+
         return actions;
     }
 

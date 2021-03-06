@@ -1082,7 +1082,7 @@ public class SortAndFilterCards {
             return false;
 
         Float landspeedAsFloat = Float.parseFloat(landspeed);
-        Float blueprintLandspeed = blueprint.getHyperspeed();
+        Float blueprintLandspeed = blueprint.getLandspeed();
 
         return isAttributeValueAccepted(landspeedCompare, landspeedAsFloat, blueprintLandspeed);
     }

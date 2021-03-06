@@ -26,7 +26,7 @@ public class Card601_056 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quick Draw");
         setVirtualSuffix(true);
         setLore("It's high noon on Dagobah, his droid's reined in and Luke's got a fistful of credits.");
-        setGameText("Unless Inner Strength on table, deploy on table.  Your lightsabers may target vehicles using 1 Force (each destiny draw is -2).  Once per turn, may lose 1 Force to deploy a character weapon (except a grenade) from Lost Pile.  Once per turn, may deploy [Virtual Block 1] Sai'torr Kal Fas from Reserve Deck; reshuffle. (Immune to Alter.)");
+        setGameText("Unless Inner Strength on table, deploy on table.  Your lightsabers may target vehicles using 1 Force (each destiny draw is -2).  Once per turn, may lose 1 Force to deploy a character weapon (except a grenade) from Lost Pile.  Once per turn, may deploy [Block 1] Sai'torr Kal Fas from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.BLOCK_4, Icon.DAGOBAH);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);

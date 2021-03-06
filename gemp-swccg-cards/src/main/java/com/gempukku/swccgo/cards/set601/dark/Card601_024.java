@@ -25,9 +25,9 @@ import java.util.List;
  */
 public class Card601_024 extends AbstractStarfighter {
     public Card601_024() {
-        super(Side.DARK, 2, 4, 3, null, 4, 4, 6, "Slave I, Symbol Of Fear", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, null, 4, 4, 6, "Slave I, Symbol Of Fear", Uniqueness.UNIQUE);
         setLore("Originally designed as a planetary defense craft. Uses restricted jamming technology, allowing it to appear out of nowhere. Contains many hidden armaments.");
-        setGameText("May reveal from hand to take a [Block 8] Fett from Reserve Deck; reshuffle; and deploy both simultaneously. May add 2 pilots and 2 passengers. Your [Block 8] Fetts deploy -2 aboard. Immune to attrition < 5.");
+        setGameText("May reveal from hand to take a [Block 8] Fett from Reserve Deck; reshuffle; and deploy both simultaneously. May add 2 pilots and 2 passengers. [Block 8] Fetts deploy -2 aboard. Immune to attrition < 5.");
         addPersona(Persona.SLAVE_I);
         addIcons(Icon.CLOUD_CITY, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.BLOCK_8);
         addModelType(ModelType.FIRESPRAY_CLASS_ATTACK_SHIP);

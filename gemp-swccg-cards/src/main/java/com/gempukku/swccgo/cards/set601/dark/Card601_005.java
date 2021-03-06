@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,8 +33,8 @@ import java.util.List;
  */
 public class Card601_005 extends AbstractNormalEffect {
     public Card601_005() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Den Of Thieves & Special Delivery", Uniqueness.UNIQUE);
-        addComboCardTitles("Den Of Thieves", Title.Special_Delivery);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Den Of Thieves & Special Delivery", Uniqueness.UNIQUE);
+        addComboCardTitles(Title.Den_Of_Thieves, Title.Special_Delivery);
         setGameText("Deploy on table. Once per turn, if Skyhook Platform on table and opponent just forfeited a character present with your slaver, may 'enslave' that character (stack character face down under Skyhook Platform). May place an 'enslaved' character in owner's Lost Pile to activate up to 3 Force. Once per turn, while Indentured To The Empire on table, may cancel a Force drain by placing here from hand any non-unique slaver. Slavers may deploy from here as if from hand. May not be canceled. (Immune to Alter.)");
         addIcons(Icon.JABBAS_PALACE, Icon.BLOCK_8);
         addImmuneToCardTitle(Title.Alter);
@@ -61,15 +60,15 @@ public class Card601_005 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canSpot(game, self, Filters.Skyhook_Platform)
-                && TriggerConditions.justForfeitedToLostPileFromLocation(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character),
-                Filters.any)) {
+                && TriggerConditions.justForfeited(game, effectResult, opponent, Filters.character)
+                && TriggerConditions.justForfeitedToLostPileFromLocation(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character),Filters.any)) {
 
             LostFromTableResult lostFromTableResult = (LostFromTableResult) effectResult;
             final PhysicalCard justForfeitedCard = lostFromTableResult.getCard();
             Collection<PhysicalCard> wasPresentWith = lostFromTableResult.getWasPresentWith();
             final PhysicalCard skyhookPlatform = Filters.findFirstFromTopLocationsOnTable(game, Filters.Skyhook_Platform);
 
-            if (justForfeitedCard != null && skyhookPlatform != null && !Filters.filter(wasPresentWith, game, Filters.slaver).isEmpty()) {
+            if (justForfeitedCard != null && skyhookPlatform != null && !Filters.filter(wasPresentWith, game, Filters.and(Filters.your(playerId), Filters.slaver)).isEmpty()) {
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("'Enslave' character");
                 action.appendUsage(new OncePerTurnEffect(action));
@@ -88,7 +87,7 @@ public class Card601_005 extends AbstractNormalEffect {
         //optional after trigger action: Once per turn, while Indentured To The Empire on table, may cancel a Force drain by placing here from hand any non-unique slaver.
         // Check condition(s)
         if (TriggerConditions.forceDrainInitiated(game, effectResult)
-                && GameConditions.canSpot(game, self, Filters.title("Indentured To The Empire"))
+                && GameConditions.canSpot(game, self, Filters.Indentured_To_The_Empire)
                 && GameConditions.canCancelForceDrain(game, self)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.hasInHand(game, playerId, nonuniqueSlaver)) {

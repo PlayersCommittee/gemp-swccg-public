@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * Set: Block 3
  * Type: Effect
- * Title: Hutt Bounty
+ * Title: Hutt Bounty (V)
  */
 public class Card601_007 extends AbstractNormalEffect {
     public Card601_007() {

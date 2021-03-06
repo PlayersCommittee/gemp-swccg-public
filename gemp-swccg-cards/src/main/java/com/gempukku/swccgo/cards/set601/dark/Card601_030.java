@@ -71,7 +71,7 @@ public class Card601_030 extends AbstractUsedOrStartingInterrupt {
     @Override
     protected PlayInterruptAction getGameTextStartingAction(final String playerId, SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
-        if (GameConditions.canSpotLocation(game, Filters.title("Kashyyyk: Slaving Camp Headquarters"))) {
+        if (GameConditions.canSpotLocation(game, Filters.Slaving_Camp_Headquarters)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
             action.setText("Deploy cards from Reserve Deck");
