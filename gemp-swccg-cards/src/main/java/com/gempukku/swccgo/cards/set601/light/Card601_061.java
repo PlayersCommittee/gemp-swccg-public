@@ -29,7 +29,7 @@ public class Card601_061 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("Every Ewok is taught to be protective of the younger members of their clan.");
         setGameText("Deploy on table. Your total Force generation is +1. Once per game, may use 3 Force to [upload] an Effect that has no deploy cost and deploys on another card. May place this Effect out of play to retrieve 1 Force. [Immune to Alter.]");
-        addIcons(Icon.ENDOR, Icon.BLOCK_4);
+        addIcons(Icon.ENDOR, Icon.LEGACY_BLOCK_4);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);
     }

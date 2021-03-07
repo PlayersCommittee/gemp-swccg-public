@@ -28,7 +28,7 @@ public class Card601_017 extends AbstractAlien {
         super(Side.DARK, 3, 3, 4, 2, 4, "Ket Maliss, Shadow Killer", Uniqueness.UNIQUE);
         setLore("Assassins are highly valued by Jabba the Hutt and other gangsters. Ket Maliss, Prince Xizor's 'shadow killer,' has unknown but undoubtedly lethal business in Mos Eisley. Assassin.");
         setGameText("Adds 2 to power of anything he pilots. While with opponent's character of ability > 2, Ket Maliss is power +1 and defense value + 2 and draws one battle destiny if unable to otherwise. Whenever opponent's character was lost from same site, opponent loses 1 Force.");
-        addIcons(Icon.A_NEW_HOPE, Icon.BLOCK_8, Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.A_NEW_HOPE, Icon.LEGACY_BLOCK_8, Icon.PILOT, Icon.WARRIOR);
         addKeyword(Keyword.ASSASSIN);
         setAsLegacy(true);
     }

@@ -36,7 +36,7 @@ public class Card601_035 extends AbstractDefensiveShield {
         setVirtualSuffix(true);
         setLore("The Boonta Eve crowds are always looking for new and exciting developments at every Podrace.");
         setGameText("Plays on table. Cancels Order To Engage and Scramble. Once per game, may [upload] an Immediate Effect. While opponent occupies no battleground systems, Staging Areas is suspended. 'Missing' on Lost In The Wilderness is treated as 'landspeed = 0 for remainder of turn'.");
-        addIcons(Icon.REFLECTIONS_III, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.LEGACY_BLOCK_D);
         setAsLegacy(true);
     }
 

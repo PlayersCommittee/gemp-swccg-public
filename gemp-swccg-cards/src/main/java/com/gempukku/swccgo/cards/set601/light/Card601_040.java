@@ -24,7 +24,7 @@ public class Card601_040 extends AbstractRepublic {
         super(Side.LIGHT, 1, 5, 5, 5, 8, "Anakin Skywalker, Padawan Learner", Uniqueness.UNIQUE);
         setGameText("[Pilot] 3. Deploys -2 aboard Azure Angel. Adds 2 to maneuver of anything he pilots. Players may initiate battles here for free. During battle, your battle destiny draws and Anakin's weapon destiny draws are +1. Immune to attrition < 4.");
         addPersona(Persona.ANAKIN);
-        addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.CLONE_ARMY, Icon.BLOCK_9);
+        addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.CLONE_ARMY, Icon.LEGACY_BLOCK_9);
         addKeywords(Keyword.PADAWAN);
         setMatchingStarshipFilter(Filters.Azure_Angel);
         setAsLegacy(true);

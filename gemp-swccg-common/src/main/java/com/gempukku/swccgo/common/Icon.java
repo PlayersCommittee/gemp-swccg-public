@@ -39,16 +39,16 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_14("Set 14", true),
 
     //Legacy expansions
-    BLOCK_1("Block 1", true),
-    BLOCK_2("Block 2", true),
-    BLOCK_3("Block 3", true),
-    BLOCK_4("Block 4", true),
-    BLOCK_5("Block 5", true),
-    BLOCK_6("Block 6", true),
-    BLOCK_7("Block 7", true),
-    BLOCK_8("Block 8", true),
-    BLOCK_9("Block 9", true),
-    BLOCK_D("Block D", true),
+    LEGACY_BLOCK_1("Block 1", true),
+    LEGACY_BLOCK_2("Block 2", true),
+    LEGACY_BLOCK_3("Block 3", true),
+    LEGACY_BLOCK_4("Block 4", true),
+    LEGACY_BLOCK_5("Block 5", true),
+    LEGACY_BLOCK_6("Block 6", true),
+    LEGACY_BLOCK_7("Block 7", true),
+    LEGACY_BLOCK_8("Block 8", true),
+    LEGACY_BLOCK_9("Block 9", true),
+    LEGACY_BLOCK_D("Block D", true),
 
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),

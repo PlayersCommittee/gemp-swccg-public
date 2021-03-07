@@ -32,7 +32,7 @@ public class Card601_026 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("The high command of the Emperor's fleet is selected as much for loyalty and obedience as for martial skills. A wise admiral knows better than to question Palpatine.");
         setGameText("Deploy on table. Once per game, if opponent just played an Interrupt, may stack it here. To play any new Interrupt of same name, players must first stack it here. May place this Effect in Lost Pile (place cards here in owners' Used Pile) to retrieve a starship. Immune to Alter.");
-        addIcons(Icon.DEATH_STAR_II, Icon.GRABBER, Icon.BLOCK_3);
+        addIcons(Icon.DEATH_STAR_II, Icon.GRABBER, Icon.LEGACY_BLOCK_3);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);
     }

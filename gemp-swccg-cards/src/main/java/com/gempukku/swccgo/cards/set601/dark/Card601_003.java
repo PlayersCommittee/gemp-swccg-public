@@ -26,7 +26,7 @@ public class Card601_003 extends AbstractAlien {
         setLore("Male Trandoshan bounty hunter. Strong but clumsy. Extremely proud and arrogant. Suffered a humiliating defeat at the hands of Chewbacca and his partner Han Solo.");
         setGameText("[Pilot] 2. While at same site as a smuggler, power +3. While with opponent's smuggler or Wookiee, opponent may not draw more than one battle destiny here. Immune to attrition < number of opponent's smugglers on table.");
         addPersona(Persona.BOSSK);
-        addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_2);
+        addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_2);
         setSpecies(Species.TRANDOSHAN);
         addKeywords(Keyword.BOUNTY_HUNTER);
         setAsLegacy(true);

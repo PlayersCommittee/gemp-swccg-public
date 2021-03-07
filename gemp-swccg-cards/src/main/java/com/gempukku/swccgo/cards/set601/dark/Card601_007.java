@@ -25,7 +25,7 @@ public class Card601_007 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Hutt_Bounty, Uniqueness.UNIQUE);
         setLore("'Chissaa, picha gawanki Chewbacca. Yupon cogorato kama walpa kyess kashung kawa Wookiee.'");
         setGameText("Deploy on Jabba. Your battle destiny draws are +1. At related sites you control, your Force generation is +1. During battle here, may make a non-Jedi character present with Jabba power = 0.");
-        addIcons(Icon.JABBAS_PALACE, Icon.BLOCK_3);
+        addIcons(Icon.JABBAS_PALACE, Icon.LEGACY_BLOCK_3);
         addKeywords(Keyword.BOUNTY);
         setVirtualSuffix(true);
         setAsLegacy(true);

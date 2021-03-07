@@ -35,7 +35,7 @@ public class Card601_047 extends AbstractUsedOrLostInterrupt {
         setVirtualSuffix(true);
         setLore("A Jedi can adjust the force within and around an object, causing it to move as the Jedi wills.");
         setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve a non-[Maintenance] character into hand.");
-        addIcons(Icon.DAGOBAH, Icon.BLOCK_2);
+        addIcons(Icon.DAGOBAH, Icon.LEGACY_BLOCK_2);
         setAsLegacy(true);
     }
 

@@ -32,7 +32,7 @@ public class Card601_070 extends AbstractDefensiveShield {
         setVirtualSuffix(true);
         setLore("Rebel sentries are stationed on raised sensor platforms. On watch for Imperial scouts and other hazards, they supplement data gathered by Yavin Base's main sensors.");
         setGameText("Plays on table. Colo Claw Fish is canceled. Opponent must first use X Force to deploy a non-unique card (except a Jawa or Tusken Raider) to a location, where X = the number of copies of that card at that location.");
-        addIcons(Icon.REFLECTIONS_III, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.LEGACY_BLOCK_D);
         setAsLegacy(true);
     }
 

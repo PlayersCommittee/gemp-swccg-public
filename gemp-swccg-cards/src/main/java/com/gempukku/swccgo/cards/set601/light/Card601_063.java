@@ -32,7 +32,7 @@ public class Card601_063 extends AbstractUsedOrLostInterrupt {
         setLore("");
         setGameText("USED: Deploy a Rogue Squadron pilot to a location you occupy with a Rogue Squadron pilot from Reserve Deck; reshuffle. \n" +
                 "LOST: Cancel an attempt by opponent to target a Rogue Squadron pilot to be captured or excluded from battle. OR If two Rogue Squadron pilots are in battle together, add one battle destiny.");
-        addIcons(Icon.BLOCK_7, Icon.ENDOR);
+        addIcons(Icon.LEGACY_BLOCK_7, Icon.ENDOR);
         setAsLegacy(true);
     }
 

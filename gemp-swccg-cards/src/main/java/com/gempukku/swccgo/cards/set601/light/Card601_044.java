@@ -31,7 +31,7 @@ public class Card601_044 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("Occasionally Han was capable of such feats, even without Threepio there to tell him these things.");
         setGameText("Deploy on table. Play with the top card of your Reserve Deck revealed (if possible). During your draw phase, place this Effect in Used Pile and you may retrieve 1 Force.");
-        addIcons(Icon.BLOCK_2, Icon.DAGOBAH);
+        addIcons(Icon.LEGACY_BLOCK_2, Icon.DAGOBAH);
         setAsLegacy(true);
     }
 

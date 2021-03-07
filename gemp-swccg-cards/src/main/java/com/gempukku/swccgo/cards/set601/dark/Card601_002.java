@@ -38,7 +38,7 @@ public class Card601_002 extends AbstractAlien {
         setArmor(5);
         setLore("Boba Fett's Mandalorian armor was so versatile that his opponents never knew what to expect. Bounty hunter. Assassin.");
         setGameText("Adds 3 to power of anything he pilots. May be revealed from hand to take Slave I from Reserve Deck; reshuffle;  and deploy both simultaneously. While piloting Slave 1, it is maneuver +3 and hyperspeed + 1. Draws one battle destiny if unable to otherwise (if present at a site may add a destiny to total power instead).");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_8, Icon.JABBAS_PALACE);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_8, Icon.JABBAS_PALACE);
         addKeywords(Keyword.BOUNTY_HUNTER, Keyword.ASSASSIN);
         addPersona(Persona.BOBA_FETT);
         setMatchingStarshipFilter(Filters.Slave_I);

@@ -35,7 +35,7 @@ public class Card601_072 extends AbstractAlien {
         setVirtualSuffix(true);
         setLore("Assigned by Jabba to work with Hermi Odle. Former technician for the Empire. Developed a method to remotely control seekers. Plotting to kill Jabba.");
         setGameText("[Pilot] 2. Smuggler. May not be attacked. Velken may not target Luke with weapons. Once per game, when deployed to a battleground, opponent must use or lose 2 Force. While present at a pit, may add 1 to Force drains here, and Sarlacc is ferocity +1.");
-        addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_7);
+        addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_7);
         addKeywords(Keyword.SMUGGLER);
         setAsLegacy(true);
     }

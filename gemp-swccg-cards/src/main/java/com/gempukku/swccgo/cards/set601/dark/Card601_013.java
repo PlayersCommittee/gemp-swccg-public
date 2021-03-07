@@ -28,7 +28,7 @@ public class Card601_013 extends AbstractAlien {
         setArmor(5);
         setLore("Trade Federation. Scout.");
         setGameText("Adds 3 to the power of anything he pilots. Adds one battle destiny. SD-17 Homing Missile may deploy on (and is a matching weapon for) him, fires for free, and when fired may go to Lost Pile instead. While piloted by two Fetts (unless your [Block 4] objective on table), Slave I is immune to attrition < 9.");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_8, Icon.DAGOBAH, Icon.EPISODE_I);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_8, Icon.DAGOBAH, Icon.EPISODE_I);
         addKeywords(Keyword.SCOUT, Keyword.ASSASSIN);
         addPersona(Persona.JANGO_FETT);
         setMatchingStarshipFilter(Filters.Slave_I);
@@ -37,7 +37,7 @@ public class Card601_013 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition condition = new AndCondition(new UnlessCondition(new OnTableCondition(self, Filters.and(Filters.your(self), Icon.BLOCK_4, Filters.Objective))),
+        Condition condition = new AndCondition(new UnlessCondition(new OnTableCondition(self, Filters.and(Filters.your(self), Icon.LEGACY_BLOCK_4, Filters.Objective))),
                 new Condition() {
                     @Override
                     public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

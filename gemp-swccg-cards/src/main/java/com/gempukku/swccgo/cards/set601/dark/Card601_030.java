@@ -29,7 +29,7 @@ public class Card601_030 extends AbstractUsedOrStartingInterrupt {
         super(Side.DARK, 4, "Wookiee Subjugation", Uniqueness.UNIQUE);
         setLore("'Rrraaaarrr!'");
         setGameText("USED: If you just 'enslaved' a character, play a Defensive Shield from under your Starting Effect. STARTING: If Slaving Camp Headquarters on table, deploy from Reserve Deck Mercenary Slavers and up to two Effects that deploy on table for free and are always [Immune to Alter.]. Place Interrupt in Reserve Deck.");
-        addIcons(Icon.BLOCK_8, Icon.DAGOBAH);
+        addIcons(Icon.LEGACY_BLOCK_8, Icon.DAGOBAH);
         setAsLegacy(true);
     }
 

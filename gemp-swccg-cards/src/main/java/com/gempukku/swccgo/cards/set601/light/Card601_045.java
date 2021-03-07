@@ -33,7 +33,7 @@ public class Card601_045 extends AbstractUsedInterrupt {
         setVirtualSuffix(true);
         setLore("Smuggler and Rebel starships use black market armor plating and deflector shields to withstand enemy fire. Expensive but life-saving modifications.");
         setGameText("Take a 'grabber' into hand from Reserve Deck; reshuffle. (Immune to Sense.)  OR  Play a Defensive Shield from under your Starting Effect.  OR  Cancel Counter Assault, [Virtual Block 2] Defensive Fire, Hidden Weapons, I'd Just As Soon Kiss A Wookiee, or Overload.  OR  Lose 1 Force to cancel Cease Fire (except during a battle at a [Reflections III] site).");
-        addIcons(Icon.BLOCK_4);
+        addIcons(Icon.LEGACY_BLOCK_4);
         setAsLegacy(true);
     }
 
@@ -95,7 +95,7 @@ public class Card601_045 extends AbstractUsedInterrupt {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Counter_Assault, Filters.and(Filters.Defensive_Fire, Icon.BLOCK_2), Filters.Hidden_Weapons, Filters.Id_Just_As_Soon_Kiss_A_Wookiee, Filters.Overload))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Counter_Assault, Filters.and(Filters.Defensive_Fire, Icon.LEGACY_BLOCK_2), Filters.Hidden_Weapons, Filters.Id_Just_As_Soon_Kiss_A_Wookiee, Filters.Overload))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self);

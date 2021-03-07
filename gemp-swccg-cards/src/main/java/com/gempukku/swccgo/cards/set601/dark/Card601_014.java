@@ -32,7 +32,7 @@ public class Card601_014 extends AbstractSite {
         setLocationLightSideGameText("Opponent's Kashyyyk locations are immune to Revolution and Expand The Empire.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.ENDOR, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK, Icon.BLOCK_8);
+        addIcons(Icon.ENDOR, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_8);
         setAsLegacy(true);
     }
 

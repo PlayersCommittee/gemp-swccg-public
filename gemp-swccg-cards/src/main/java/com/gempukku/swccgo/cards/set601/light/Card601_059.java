@@ -26,7 +26,7 @@ public class Card601_059 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("'With your wisdom, I'm sure that we can work out an arrangement which will be mutually beneficial and enable us to avoid any unpleasant confrontation.'");
         setGameText("Deploy on table.  Once per turn, while You Can Either Profit By This... or Or Be Destroyed on table, may use 2 Force to deploy one C-3PO, Chewie, Lando, Leia, or R2-D2 from Reserve Deck; reshuffle.  Once per game, may place this Effect out of play to take a character from Lost Pile into hand. (Immune to Alter.)");
-        addIcons(Icon.PREMIUM, Icon.BLOCK_3);
+        addIcons(Icon.PREMIUM, Icon.LEGACY_BLOCK_3);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);
     }

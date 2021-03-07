@@ -36,7 +36,7 @@ public class Card601_005 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Den Of Thieves & Special Delivery", Uniqueness.UNIQUE);
         addComboCardTitles(Title.Den_Of_Thieves, Title.Special_Delivery);
         setGameText("Deploy on table. Once per turn, if Skyhook Platform on table and opponent just forfeited a character present with your slaver, may 'enslave' that character (stack character face down under Skyhook Platform). May place an 'enslaved' character in owner's Lost Pile to activate up to 3 Force. Once per turn, while Indentured To The Empire on table, may cancel a Force drain by placing here from hand any non-unique slaver. Slavers may deploy from here as if from hand. May not be canceled. (Immune to Alter.)");
-        addIcons(Icon.JABBAS_PALACE, Icon.BLOCK_8);
+        addIcons(Icon.JABBAS_PALACE, Icon.LEGACY_BLOCK_8);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);
     }

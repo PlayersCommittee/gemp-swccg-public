@@ -34,7 +34,7 @@ public class Card601_048 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("Dejarik hologram of venomous swamp creature from Noe'ha'on. Keen senses of smell and vision. Dangerous hunter. Lays eggs - hundreds of ravenously hungry hatchlings.");
         setGameText("Deploy on table. If your character in battle is about to be lost before the damage segment, it is instead lost at end of battle (if forfeited, forfeit for 0). Non-Jedi, non-[Permanent Weapon] characters may not have their deploy cost modified by Bad Feeling Have I. [Immune to Alter.]");
-        addIcons(Icon.BLOCK_1);
+        addIcons(Icon.LEGACY_BLOCK_1);
         addKeywords(Keyword.DEJARIK, Keyword.HOLOGRAM);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);

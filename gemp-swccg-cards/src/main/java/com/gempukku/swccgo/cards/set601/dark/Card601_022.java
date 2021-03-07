@@ -36,7 +36,7 @@ public class Card601_022 extends AbstractAlien {
         setVirtualSuffix(true);
         setLore("A male Quara (or fingered Aqualish). Thug, smuggler and partner of Dr. Evazan. Has a poor quality cybernetic arm replacement.");
         setGameText("[Pilot] 2. Game text of non-Jedi Luke (or a lightsaber he is using) may not target aliens here. During battle, if with a smuggler, may add a destiny to attrition (+2 if with your smuggler) or make that smuggler forfeit = 0.");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_6);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_6);
         addKeywords(Keyword.SMUGGLER);
         setSpecies(Species.AQUALISH);
         setAsLegacy(true);

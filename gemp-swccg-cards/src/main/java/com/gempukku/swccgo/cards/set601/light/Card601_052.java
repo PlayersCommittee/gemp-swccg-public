@@ -37,7 +37,7 @@ public class Card601_052 extends AbstractRebel {
         super(Side.LIGHT, 1, 5, 5, 5, 8, "Luke Skywalker, Strong In The Force", Uniqueness.UNIQUE);
         setLore("Luke's experience on Dagobah gave him great skill in using the Force. Vader had to keep his focus on Luke at all times, or face the consequences.");
         setGameText("Adds 3 to power of anything he pilots.  While piloting Red 5 or Rogue 1 (or armed with Luke's Lightsaber), may add one destiny to total power or attrition, and I Have You Now is canceled.  When Luke leaves table, place all your cards on him in Used Pile.  Immune to attrition < 4.");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_6, Icon.TATOOINE);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_6, Icon.TATOOINE);
         addPersona(Persona.LUKE);
         addKeywords(Keyword.RED_SQUADRON, Keyword.ROGUE_SQUADRON);
         setMatchingStarshipFilter(Filters.or(Filters.Red_5, Filters.Rogue_1));

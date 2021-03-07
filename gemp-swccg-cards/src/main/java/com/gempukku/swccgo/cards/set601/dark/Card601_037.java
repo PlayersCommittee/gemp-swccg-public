@@ -25,7 +25,7 @@ public class Card601_037 extends AbstractDefensiveShield {
         setVirtualSuffix(true);
         setLore("Darth Vader ruthlessly used the Force to strike down enemies and soldiers who displeased him. He could choke victims from afar without touching them.");
         setGameText("Plays on table. Unless Deep Hatred on table, opponent may use only one combat card per turn. While opponent has two Jedi on Naboo, you lose no more than 2 Force to Force drains at opponent's Naboo sites. We'll Handle This may target only droids and spies.");
-        addIcons(Icon.REFLECTIONS_III, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.LEGACY_BLOCK_D);
         setAsLegacy(true);
     }
 

@@ -31,7 +31,7 @@ public class Card601_019 extends AbstractAlien {
         super(Side.DARK, 2, 2, 2, 1, 3, "Mercenary Pilot");
         setLore("Smugglers. Candidates who resent authority often abandon Imperial academies to sell their piloting skills to criminals. Will work for any high paying crime syndicate.");
         setGameText("[Pilot] 2. Adds 2 to power of anything he drives. When driving a transport vehicle, adds one battle destiny. Once per turn, while piloting at a cloud sector, adds one battle destiny during battle at a related exterior site. [Reflection III] Another Pathetic Lifeform ignores your non-unique aliens.");
-        addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_8);
+        addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_8);
         addKeywords(Keyword.SMUGGLER);
         setVirtualSuffix(true);
         setAsLegacy(true);

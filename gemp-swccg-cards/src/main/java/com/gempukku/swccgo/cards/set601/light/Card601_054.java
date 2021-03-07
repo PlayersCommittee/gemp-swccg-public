@@ -36,7 +36,7 @@ public class Card601_054 extends AbstractRebel {
         super(Side.LIGHT, 1, 5, 5, 6, 9, "Master Kenobi", Uniqueness.UNIQUE);
         setLore("A user of the Force can alter the environment to affect the minds of others. 'The Force can have a strong influence on the weak-minded.'");
         setGameText("While 'communing': you may not deploy [Maintenance] cards or [Episode I] Jedi; Rebels of ability < 5 draw one battle destiny if unable to otherwise and, once per turn, may lose 1 Force (or use 2 Force) to place one just forfeited in Used Pile; once per turn, may deploy from Reserve Deck a Tatooine battleground (or Obi-Wan's Hut); reshuffle.");
-        addIcons(Icon.WARRIOR, Icon.BLOCK_7);
+        addIcons(Icon.WARRIOR, Icon.LEGACY_BLOCK_7);
         addPersona(Persona.OBIWAN);
         setAsLegacy(true);
     }

@@ -38,7 +38,7 @@ public class Card601_018 extends AbstractUsedInterrupt {
         setVirtualSuffix(true);
         setLore("'Ah... Uh...'");
         setGameText("Take Ghhhk or Molator into hand from Reserve Deck; reshuffle. OR Cancel Corellian Retort, Gift Of The Mentor, or Jedi Presence. OR Retrieve Protocol Failure into hand. OR If a lightsaber was just 'swung' during battle, it may not target again this battle.");
-        addIcons(Icon.HOTH, Icon.BLOCK_6);
+        addIcons(Icon.HOTH, Icon.LEGACY_BLOCK_6);
         setAsLegacy(true);
     }
 

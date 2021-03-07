@@ -26,7 +26,7 @@ public class Card601_067 extends AbstractDefensiveShield {
         super(Side.LIGHT, "Simple Tricks And Nonsense");
         setLore("'Et tu taka bu Jabba now.'");
         setGameText("Plays on table. While you occupy a battleground and opponent occupies less than two battlegrounds, cancel opponent's Force drains at non-battleground locations and opponent's Force retrieval.");
-        addIcons(Icon.REFLECTIONS_III, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.LEGACY_BLOCK_D);
         setAsLegacy(true);
     }
 

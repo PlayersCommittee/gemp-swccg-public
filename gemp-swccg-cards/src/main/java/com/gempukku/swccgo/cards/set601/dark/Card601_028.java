@@ -34,7 +34,7 @@ public class Card601_028 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("'You don't know how hard I found it signing the order to terminate your life.'");
         setGameText("Deploy on table.  Each Amidala stacked on a Political Effect is a senator.  While you have < 13 cards in hand, opponent may not peek at or remove them (except with Grimtaash).  Once per turn, may take one [Virtual] Astromech Shortage into hand from Reserve Deck; reshuffle, or lose 2 Force to cancel a Political Effect. (Immune to Alter.)");
-        addIcons(Icon.SPECIAL_EDITION, Icon.BLOCK_6);
+        addIcons(Icon.SPECIAL_EDITION, Icon.LEGACY_BLOCK_6);
         addKeywords(Keyword.BOUNTY);
         setAsLegacy(true);
     }
@@ -67,7 +67,7 @@ public class Card601_028 extends AbstractNormalEffect {
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Choose target(s)
-            action.appendEffect(new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Icon.BLOCK_1, Filters.title(Title.Astromech_Shortage)), true));
+            action.appendEffect(new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Icon.LEGACY_BLOCK_1, Filters.title(Title.Astromech_Shortage)), true));
             actions.add(action);
         }
 

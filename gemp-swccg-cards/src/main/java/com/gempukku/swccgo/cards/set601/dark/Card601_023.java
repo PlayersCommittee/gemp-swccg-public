@@ -37,7 +37,7 @@ public class Card601_023 extends AbstractDroid {
         setArmor(3);
         setLore("Spy.");
         setGameText("Draws one battle destiny if not able to otherwise. Power +2 if with opponent's smuggler or Wookiee. During your move phase, may use 1 Force to 'break cover' of opponent's Undercover spy at same site. Immune to attrition < 3.");
-        addIcons(Icon.HOTH, Icon.PRESENCE, Icon.BLOCK_6);
+        addIcons(Icon.HOTH, Icon.PRESENCE, Icon.LEGACY_BLOCK_6);
         addKeywords(Keyword.SPY);
         addModelType(ModelType.PROBE);
         setAsLegacy(true);

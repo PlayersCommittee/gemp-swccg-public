@@ -33,7 +33,7 @@ public class Card601_015 extends AbstractSite {
         setLocationDarkSideGameText("Once per turn, may use 1 Force to deploy a battleground site to Kashyyyk and/or a card with 'Hunting' in title.");
         setLocationLightSideGameText("Force drain +1 here. If you control with a Wookiee, Trandoshans are deploy +1 to Kashyyyk.");
         addIcon(Icon.DARK_FORCE, 2);
-        addIcons(Icon.ENDOR, Icon.EXTERIOR_SITE, Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK, Icon.BLOCK_7);
+        addIcons(Icon.ENDOR, Icon.EXTERIOR_SITE, Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_7);
         setAsLegacy(true);
     }
 

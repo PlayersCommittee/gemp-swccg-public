@@ -39,7 +39,7 @@ public class Card601_043 extends AbstractUsedInterrupt {
         setVirtualSuffix(true);
         setLore("Capital starships have emergency escape pods. Equipped with food, water, flares, medpacs, hunting blaster and tracking beacon (R2-D2 deactivated this one's beacon).");
         setGameText("[Upload] a dejarik, hologram, or holosite. OR Cancel a Force drain at a holosite. OR If opponent is about to place your character out of play, place that character in your Lost Pile instead.");
-        addIcons(Icon.BLOCK_1);
+        addIcons(Icon.LEGACY_BLOCK_1);
         setAsLegacy(true);
     }
 

@@ -30,7 +30,7 @@ public class Card601_016 extends AbstractSite {
         setLocationLightSideGameText("While a Trandoshan present and you have no Wookiees on Kashyyyk, you may not modify or cancel opponent's force drains here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.ENDOR, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.BLOCK_6);
+        addIcons(Icon.ENDOR, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.LEGACY_BLOCK_6);
         setAsLegacy(true);
     }
 

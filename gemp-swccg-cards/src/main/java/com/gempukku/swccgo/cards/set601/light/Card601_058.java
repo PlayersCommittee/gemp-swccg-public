@@ -28,7 +28,7 @@ public class Card601_058 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("Saurin female from planet Durkteel. Bodyguard of Hrchek, a Saurin droid trader. Sai'torr will teach battle skills to those who prove themselves worthy.");
         setGameText("Deploy on table. During your deploy phase, if you just deployed a unique (•) character, may [download] a matching weapon on that character. (Immune to Alter.)");
-        addIcons(Icon.BLOCK_1);
+        addIcons(Icon.LEGACY_BLOCK_1);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);
     }

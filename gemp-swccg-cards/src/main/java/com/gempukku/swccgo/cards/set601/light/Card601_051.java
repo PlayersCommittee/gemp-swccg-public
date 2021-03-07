@@ -32,7 +32,7 @@ public class Card601_051 extends AbstractUsedOrStartingInterrupt {
         setLore("'It's not wise to upset a Wookiee.' 'But sir, nobody worries about upsetting a droid.' 'That's cause a droid don't pull people's arms out of their sockets when they lose.'");
         setGameText("USED: Reveal the top 3 cards of Reserve Deck; place one in hand, and the others on bottom of Used Pile (in any order).\n" +
                 "STARTING: If your starting location was a non-[Special Edition] location, deploy from Reserve Deck an always [Immune to Alter] Effect and any number of <> sites with < 3 total [Light Side Force]. Place this Interrupt in hand.");
-        addIcons(Icon.A_NEW_HOPE, Icon.BLOCK_6);
+        addIcons(Icon.A_NEW_HOPE, Icon.LEGACY_BLOCK_6);
         setVirtualSuffix(true);
         setAsLegacy(true);
     }

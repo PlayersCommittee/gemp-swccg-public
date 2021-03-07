@@ -33,7 +33,7 @@ public class Card601_062 extends AbstractJediMaster {
         super(Side.LIGHT, 1, 5, 3, 7, 7, "Yoda, Great Warrior", Uniqueness.UNIQUE);
         setLore("'You must feel the Force around you. Here, between you, me, the tree, the rock, everywhere! Yes, even between the land and the ship.'");
         setGameText("Deploys only to battlegrounds. Power +3 when defending a battle. You may not deploy [Episode I] Jedi. While with a Wookiee, adds one battle destiny. Once per game, may lose 2 Force from Force Pile to cancel a non-[Immune to Sense] Interrupt. Immune to attrition.");
-        addIcons(Icon.WARRIOR, Icon.BLOCK_5, Icon.SPECIAL_EDITION);
+        addIcons(Icon.WARRIOR, Icon.LEGACY_BLOCK_5, Icon.SPECIAL_EDITION);
         addPersona(Persona.YODA);
         setAsLegacy(true);
     }

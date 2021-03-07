@@ -29,7 +29,7 @@ public class Card601_010 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jabba's Haven", Uniqueness.UNIQUE);
         setLore("Jabba has won the service of many of his guards and other henchbeings through games of chance.");
         setGameText("Deploy on table. May deploy Nal Hutta from Reserve Deck; reshuffle. Once per game, may retrieve an alien or [Independent] starship into hand. While Fearless And Inventive on table, once per battle, may lose 1 force; your battle destiny modifiers affect your total battle destiny instead. [Immune to Alter.]");
-        addIcons(Icon.BLOCK_7, Icon.JABBAS_PALACE);
+        addIcons(Icon.LEGACY_BLOCK_7, Icon.JABBAS_PALACE);
         addImmuneToCardTitle(Title.Alter);
         setAsLegacy(true);
     }

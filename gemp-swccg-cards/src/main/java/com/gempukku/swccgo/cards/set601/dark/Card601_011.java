@@ -30,7 +30,7 @@ public class Card601_011 extends AbstractTransportVehicle {
         setVirtualSuffix(true);
         setLore("Ubrikkian sail barge. Custom built for Jabba with an armored hull and weaponry. Top speed of 100 kph. Used by the Hutt crimelord on his many trips to Mos Eisley.");
         setGameText("Deploys only on Tatooine. May add 1 driver and 8 passengers. Scum And Villainy may deploy aboard. During your deploy phase, may deploy one Jabba, Pote, or Passenger Deck aboard from Reserve Deck; reshuffle. Immune to attrition < 6.");
-        addIcons(Icon.JABBAS_PALACE, Icon.SCOMP_LINK, Icon.BLOCK_3);
+        addIcons(Icon.JABBAS_PALACE, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_3);
         addPersona(Persona.JABBAS_SAIL_BARGE);
         setDriverCapacity(1);
         setPassengerCapacity(8);

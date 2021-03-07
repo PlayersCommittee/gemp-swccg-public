@@ -36,7 +36,7 @@ public class Card601_034 extends AbstractDefensiveShield {
         super(Side.DARK, Title.Do_They_Have_A_Code_Clearance);
         setLore("Imperial officers are always on the lookout for Rebel espionage.");
         setGameText("Plays on table. Outrider does not place Utinni Effects out of play. If opponent just retrieved Force using an Interrupt or Utinni Effect, you may stack that card here. Opponent's Force retrieval is reduced by X, where X = number of cards here.");
-        addIcons(Icon.REFLECTIONS_III, Icon.GRABBER, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.GRABBER, Icon.LEGACY_BLOCK_D);
         setVirtualSuffix(true);
         setAsLegacy(true);
     }

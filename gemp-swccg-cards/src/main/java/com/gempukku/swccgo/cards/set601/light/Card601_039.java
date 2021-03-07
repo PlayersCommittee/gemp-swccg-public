@@ -40,7 +40,7 @@ public class Card601_039 extends AbstractStartingEffect {
         setVirtualSuffix(true);
         setLore("'The dark side of the Force are they. Easily they flow, quick to join you in a fight.'");
         setGameText("Deploy on table with up to 15 cards from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Recoil In Fear until the end of your first turn.");
-        addIcons(Icon.DAGOBAH, Icon.BLOCK_4);
+        addIcons(Icon.DAGOBAH, Icon.LEGACY_BLOCK_4);
         setAsLegacy(true);
     }
 

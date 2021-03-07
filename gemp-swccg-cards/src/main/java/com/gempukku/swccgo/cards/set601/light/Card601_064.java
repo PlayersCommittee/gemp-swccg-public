@@ -25,7 +25,7 @@ public class Card601_064 extends AbstractDefensiveShield {
         setVirtualSuffix(true);
         setLore("'What was that?' The Jedi power known as 'affect mind' is often used to create minor distractions, allowing Jedi to elude enemies rather than engage them in battle.");
         setGameText("Plays on table. Unless Inner Strength on table, opponent may use only one combat card per turn. While opponent has 2 Dark Jedi on Naboo, you lose no more than 2 Force to Force drains at opponent's Naboo sites. Let Them Make The First Move may target only droids and spies.");
-        addIcons(Icon.REFLECTIONS_III, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.LEGACY_BLOCK_D);
         setAsLegacy(true);
     }
 

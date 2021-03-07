@@ -28,7 +28,7 @@ public class Card601_046 extends AbstractNewRepublic {
         super(Side.LIGHT, 3, 4, 4, 4, 6, "Jaina Solo", Uniqueness.UNIQUE);
         setLore("Female Rogue Squadron pilot. Padawan.");
         setGameText("Adds 3 to power of anything she pilots. X-wings deploy -1 (and are immune to attrition < 5) here. During your control phase, may take one non-unique X-Wing (or Rogue Squadron pilot) into hand from Reserve Deck; reshuffle. Adds one battle destiny with a Skywalker or another Solo. Immune to attrition < 4 (< 6 if with Leia).");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.BLOCK_9, Icon.DEATH_STAR_II);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_9, Icon.DEATH_STAR_II);
         addKeywords(Keyword.FEMALE, Keyword.ROGUE_SQUADRON, Keyword.PADAWAN);
         addPersona(Persona.JAINA);
         setAsLegacy(true);

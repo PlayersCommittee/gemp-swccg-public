@@ -33,7 +33,7 @@ public class Card601_025 extends AbstractUsedOrLostInterrupt {
         setVirtualSuffix(true);
         setLore("Imperial training allows scouts to use speed and stealth to their advantage. On Endor, they were also backed up by Commander Igar's ATSTs.");
         setGameText("USED: If opponent just initiated a battle, place a card from hand on top of Reserve Deck. LOST: Add one battle destiny where you have an AT-ST, scout, or lone Imperial of ability < 4.");
-        addIcons(Icon.ENDOR, Icon.BLOCK_3);
+        addIcons(Icon.ENDOR, Icon.LEGACY_BLOCK_3);
         setAsLegacy(true);
     }
 

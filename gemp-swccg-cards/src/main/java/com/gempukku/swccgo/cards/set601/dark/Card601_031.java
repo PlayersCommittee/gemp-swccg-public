@@ -36,7 +36,7 @@ public class Card601_031 extends AbstractDefensiveShield {
         setVirtualSuffix(true);
         setLore("Imperial officers aboard the Death Star considered the Rebellion a minor threat.");
         setGameText("Plays on table. In order to play an Interrupt from Lost Pile, opponent must first stack it here (if possible) and use +1 Force for each card here, even if Interrupt is normally free. Revolution is canceled.");
-        addIcons(Icon.REFLECTIONS_III, Icon.GRABBER, Icon.BLOCK_D);
+        addIcons(Icon.REFLECTIONS_III, Icon.GRABBER, Icon.LEGACY_BLOCK_D);
         setAsLegacy(true);
     }
 

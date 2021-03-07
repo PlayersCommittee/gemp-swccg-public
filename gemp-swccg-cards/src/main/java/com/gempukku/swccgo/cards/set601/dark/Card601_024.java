@@ -29,7 +29,7 @@ public class Card601_024 extends AbstractStarfighter {
         setLore("Originally designed as a planetary defense craft. Uses restricted jamming technology, allowing it to appear out of nowhere. Contains many hidden armaments.");
         setGameText("May reveal from hand to take a [Block 8] Fett from Reserve Deck; reshuffle; and deploy both simultaneously. May add 2 pilots and 2 passengers. [Block 8] Fetts deploy -2 aboard. Immune to attrition < 5.");
         addPersona(Persona.SLAVE_I);
-        addIcons(Icon.CLOUD_CITY, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.BLOCK_8);
+        addIcons(Icon.CLOUD_CITY, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_8);
         addModelType(ModelType.FIRESPRAY_CLASS_ATTACK_SHIP);
         setPilotCapacity(2);
         setPassengerCapacity(2);
@@ -40,14 +40,14 @@ public class Card601_024 extends AbstractStarfighter {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.and(Filters.Fett, Icon.BLOCK_8), -2));
+        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.and(Filters.Fett, Icon.LEGACY_BLOCK_8), -2));
         return modifiers;
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToTargetModifier(self, Filters.and(Filters.Fett, Icon.BLOCK_8), -2, self));
+        modifiers.add(new DeployCostToTargetModifier(self, Filters.and(Filters.Fett, Icon.LEGACY_BLOCK_8), -2, self));
         return modifiers;
     }
     @Override
@@ -73,7 +73,7 @@ public class Card601_024 extends AbstractStarfighter {
             action.appendEffect(
                     new ShowCardOnScreenEffect(action, self));
             action.appendEffect(
-                    new DeployCardFromReserveDeckSimultaneouslyWithCardEffect(action, self, Filters.and(Filters.Fett, Icon.BLOCK_8), true));
+                    new DeployCardFromReserveDeckSimultaneouslyWithCardEffect(action, self, Filters.and(Filters.Fett, Icon.LEGACY_BLOCK_8), true));
             return Collections.singletonList(action);
         }
 

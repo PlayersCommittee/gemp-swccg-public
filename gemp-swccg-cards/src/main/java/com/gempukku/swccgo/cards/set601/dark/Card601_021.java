@@ -27,7 +27,7 @@ public class Card601_021 extends AbstractDroid {
         setArmor(4);
         setLore("Officer battle droid who acted as a unit leader in the attack against the Gungans. Required advice from the Droid Control Ship in order to defeat the Gungan energy shield.");
         setGameText("Adds 2 to power of anything he pilots. Draws one battle destiny if unable to otherwise. While at a battleground, you lose no force to Amidala and your force generation is +1 for each of opponent's non-battlegrounds on table (and cards stacked on their Epic Events).");
-        addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT, Icon.PRESENCE, Icon.BLOCK_8);
+        addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT, Icon.PRESENCE, Icon.LEGACY_BLOCK_8);
         addKeywords(Keyword.LEADER, Keyword.OFFICER_BATTLE_DROID);
         addModelType(ModelType.BATTLE);
         setVirtualSuffix(true);

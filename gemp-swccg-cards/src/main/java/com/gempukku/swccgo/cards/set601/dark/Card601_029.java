@@ -33,7 +33,7 @@ public class Card601_029 extends AbstractObjective {
         setGameText("Deploy Kashyyyk system, Slaving Camp Headquarters, and [Block 8] Special Delivery.\n" +
                 "For remainder of game, your Trandoshans are slavers. Scum And Villainy may deploy on Slaving Camp Headquarters and may not be canceled while you occupy that site. While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.\n" +
                 "Flip this card if your slavers control two Kashyyyk battlegrounds and opponent controls no Kashyyyk locations.");
-        addIcons(Icon.CLOUD_CITY, Icon.BLOCK_8);
+        addIcons(Icon.CLOUD_CITY, Icon.LEGACY_BLOCK_8);
         setAsLegacy(true);
     }
 
@@ -55,7 +55,7 @@ public class Card601_029 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.BLOCK_8, Filters.Special_Delivery), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.LEGACY_BLOCK_8, Filters.Special_Delivery), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose [Block 8] Special Delivery to deploy";
