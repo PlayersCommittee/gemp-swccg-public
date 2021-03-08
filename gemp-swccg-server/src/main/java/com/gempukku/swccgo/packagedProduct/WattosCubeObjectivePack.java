@@ -163,7 +163,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("1_285");
                     cards.add("208_48");
                     cards.add("208_50");
-                    cards.add("209_49");
+                    cards.add("209_49^");
                     cards.add("2_161");
                     break;
                 case "7_296": //CCT
@@ -256,24 +256,9 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     break;
                 case"7_275": //Coruscant CR (V)
                     cards.add("212_3");
-                    cards.add("200_93");
-                    cards.add("13_52");
-                    cards.add("13_61");
-                    cards.add("13_66");
-                    cards.add("213_13");
-                    cards.add("200_95");
-                    cards.add("200_97");
-                    cards.add("200_98");
-                    cards.add("13_81");
-                    cards.add("13_84");
-                    cards.add("13_86");
-                    cards.add("13_90");
-                    cards.add("200_99");
-                    cards.add("13_95");
-                    cards.add("200_100");
                     cards.add("12_129");
                     cards.add("109_9");
-                    cards.add("200_110");
+                    cards.add("12_128");
                     cards.add("200_117");
                     cards.add("12_152");
                     cards.add("203_32");
@@ -307,8 +292,8 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("210_31");
                     cards.add("213_16");
                     cards.add("213_18");
-                    cards.add("212_4");
-                    cards.add("7_273");
+                    cards.add("9_139");
+                    cards.add("5_168");
                     cards.add("213_29");
                     cards.add("213_28");
                     cards.add("209_50");
@@ -371,10 +356,10 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("200_70");
                     break;
                 case "208_25": //HITCO
-                    cards.add("213_44");
+                    cards.add("8_8");
                     cards.add("9_34");
                     cards.add("208_14");
-                    cards.add("213_48");
+//TODO get id for Our Only Hope (V)                    cards.add("");
                     cards.add("213_49");
                     cards.add("9_51");
                     cards.add("12_76");
@@ -389,7 +374,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("209_23");
                     cards.add("209_24");
                     cards.add("209_25");
-                    cards.add("209_26");
+                    cards.add("209_26^");
                     cards.add("208_24");
                     break;
                 case "301_2": //CITC
@@ -404,7 +389,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("7_115");
                     break;
                 case "204_32": //OA
-                    cards.add("204_9");
+                    cards.add("204_9^");
                     cards.add("209_16");
                     cards.add("9_51");
                     cards.add("204_26");
@@ -428,7 +413,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                 case "203_19": //Diplo
                     cards.add("203_11");
                     cards.add("204_10");
-                    cards.add("203_14");
+                    cards.add("203_14^");
                     cards.add("9_51");
                     cards.add("1_121");
                     cards.add("8_67");
@@ -437,25 +422,10 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("201_19");
                     break;
                 case "1_138": //TRM
-                    cards.add("200_16");
                     cards.add("108_3");
-                    cards.add("13_3");
-                    cards.add("200_25");
-                    cards.add("13_4");
-                    cards.add("213_45");
-                    cards.add("13_15");
-                    cards.add("200_26");
-                    cards.add("200_27");
-                    cards.add("13_35");
-                    cards.add("200_28");
-                    cards.add("200_29");
-                    cards.add("209_15");
-                    cards.add("13_44");
-                    cards.add("13_47");
-                    cards.add("200_32");
-                    cards.add("200_35");
+                    cards.add("12_37");
                     cards.add("200_51");
-                    cards.add("201_13");
+                    cards.add("11_13");
                     cards.add("12_69");
                     cards.add("12_69");
                     cards.add("12_76");
