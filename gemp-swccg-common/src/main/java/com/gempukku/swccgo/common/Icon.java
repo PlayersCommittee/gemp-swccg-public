@@ -37,6 +37,7 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_12("Set 12", true),
     VIRTUAL_SET_13("Set 13", true),
     VIRTUAL_SET_14("Set 14", true),
+    VIRTUAL_SET_15("Set 15", true),
 
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),
@@ -95,6 +96,7 @@ public enum Icon implements Filterable {
     SEPARATIST("Separatist"),
     SCOMP_LINK("Scomp Link"),
     TRADE_FEDERATION("Trade Federation");
+
 
     private String _humanReadable;
     private boolean _expansionIcon;
