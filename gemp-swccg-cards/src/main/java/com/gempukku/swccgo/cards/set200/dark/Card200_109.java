@@ -24,15 +24,15 @@ import java.util.List;
 /**
  * Set: Set 0
  * Type: Effect
- * Title: Imperial Justice (V)
+ * Title: Shot In The Dark (V)
  */
 public class Card200_109 extends AbstractNormalEffect {
     public Card200_109() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Justice");
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Shot_In_The_Dark, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("'There's nothing you could have done Luke, had you been there. You'd have been killed too.'");
-        setGameText("Deploy on table; shuffle your Reserve Deck, peek at top three cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter]");
-        addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_0);
+        setLore("To test his theory that he was not in a cave, Han blasted the floor. He was right.");
+        setGameText("Deploy on table; shuffle your Reserve Deck, peek at top two cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter.]");
+        addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
     }
 
@@ -50,7 +50,7 @@ public class Card200_109 extends AbstractNormalEffect {
             action.appendEffect(
                     new ShuffleReserveDeckEffect(action, playerId));
             action.appendEffect(
-                    new PeekAtTopCardsOfReserveDeckAndStackEffect(action, playerId, 3, self));
+                    new PeekAtTopCardsOfReserveDeckAndStackEffect(action, playerId, 2, self));
             return Collections.singletonList(action);
         }
         return null;
