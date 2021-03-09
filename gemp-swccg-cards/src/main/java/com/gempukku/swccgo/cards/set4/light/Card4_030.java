@@ -47,7 +47,7 @@ public class Card4_030 extends AbstractNormalEffect {
                 && GameConditions.canSpotLocation(game, Filters.and(Filters.battleNotOccurredAtLocation, Filters.occupies(playerId), Filters.occupies(opponent)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Make " + opponent + " lose 2 Force");
+            action.setText("Make " + opponent + " lose 3 Force");
             // Perform result(s)
             action.appendEffect(
                     new LoseForceEffect(action, opponent, 3));
