@@ -9,7 +9,7 @@ public interface CardCounts {
 
     int[] PREMIUM_SETS_CARD_COUNTS = {6, 11, 2, 7, 6, 18, 6, 6, 12, 12, 6, 20};
 
-    int[] VIRTUAL_SETS_CARD_COUNTS = {146, 42, 15, 36, 58, 23, 14, 29, 59, 56, 47, 61, 6, 59};
+    int[] VIRTUAL_SETS_CARD_COUNTS = {146, 42, 15, 36, 58, 23, 14, 29, 59, 56, 47, 61, 6, 59, 25};
 
     int[] VIRTUAL_PREMIUM_SETS_CARD_COUNTS = {8};
 
