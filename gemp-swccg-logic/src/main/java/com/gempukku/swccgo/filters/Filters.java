@@ -761,7 +761,7 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 for (String cardTitle : physicalCard.getTitles()) {
-                    if (cardTitle.equalsIgnoreCase(title)) {
+                    if (cardTitle.equalsIgnoreCase(title) && !physicalCard.isBlownAway()) {
                         return true;
                     }
                 }

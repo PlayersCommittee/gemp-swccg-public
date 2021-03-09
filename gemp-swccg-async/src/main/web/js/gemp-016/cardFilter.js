@@ -168,6 +168,7 @@ var CardFilter = Class.extend({
             + "<option value='premiere_hoth'>Premiere - Hoth</option>"
             + "<option value='premiere_anh'>Premiere - A New Hope</option>"
             + "<option value='premiere'>Premiere</option>"
+            + "<option value='limited_resources'>Limited Resources</option>"
             + "</select>");
 
         this.setLabel = $("<label for='setSelect' class='filterLabel'>Set:</label>");
@@ -248,6 +249,7 @@ var CardFilter = Class.extend({
             + "<option value='INTERRUPT'>Interrupt</option>"
             + "<option value='INTERRUPT_LOST'>Interrupt - Lost</option>"
             + "<option value='INTERRUPT_LOST_OR_STARTING'>Interrupt - Lost Or Starting</option>"
+            + "<option value='INTERRUPT_STARTING'>Interrupt - Starting</option>"
             + "<option value='INTERRUPT_USED'>Interrupt - Used</option>"
             + "<option value='INTERRUPT_USED_OR_LOST'>Interrupt - Used Or Lost</option>"
             + "<option value='INTERRUPT_USED_OR_STARTING'>Interrupt - Used Or Starting</option>"
@@ -296,6 +298,9 @@ var CardFilter = Class.extend({
             + "<option value='U2'>Uncommon (U2)</option>"
             + "<option value='UR'>Ultra Rare (UR)</option>"
             + "<option value='V'>Virtual</option>"
+            + "<option value='C_ALL'>Any Common (C, C1, C2, C3)</option>"
+            + "<option value='U_ALL'>Any Uncommon (U, U1, U2)</option>"
+            + "<option value='R_ALL'>Any Rare (R, R1, R2)</option>"
             + "</select>");
 
         this.productLabel = $("<label for='productSelect' class='filterLabel'>Product:</label>");
@@ -351,6 +356,7 @@ var CardFilter = Class.extend({
             + "<option value='REFLECTIONS_II'>Reflections II</option>"
             + "<option value='REFLECTIONS_III'>Reflections III</option>"
             + "<option value='REPUBLIC'>Republic</option>"
+            + "<option value='RESISTANCE'>Resistance</option>"
             + "<option value='SCOMP_LINK'>Scomp Link</option>"
             + "<option value='SELECTIVE_CREATURE'>Selective Creature</option>"
             + "<option value='SEPARATIST'>Separatist</option>"
