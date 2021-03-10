@@ -3267,9 +3267,8 @@ var fixedImages = {
 "214_021":"/gemp-swccg/images/cards/Virtual14-Light/larmadacy.gif"
 "214_022":"/gemp-swccg/images/cards/Virtual14-Light/oddballstorrentstarfighter.gif"
 "214_023":"/gemp-swccg/images/cards/Virtual14-Light/ouronlyhope.gif"
-"214_024":"/gemp-swccg/images/cards/Virtual14-Light/reyallofthejedi.gif"
-
-"215_001":"/gemp-swccg/images/cards/Virtual15-Light/plokoonsjedistarfighter.gif"
+"214_024":"/gemp-swccg/images/cards/Virtual14-Light/plokoonsjedistarfighter.gif"
+"214_025":"/gemp-swccg/images/cards/Virtual14-Light/reyallofthejedi.gif"
 
 "301_1":"/gemp-swccg/images/cards/VirtualPremium-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualPremium-Light/cityintheclouds.gif",
