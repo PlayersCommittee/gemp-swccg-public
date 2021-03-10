@@ -1,82 +1,113 @@
 package com.gempukku.swccgo.cards.set214.light;
 
-import com.gempukku.swccgo.cards.AbstractStarfighter;
+import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.cards.evaluators.AbilityOfPilotEvaluator;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
-import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextManeuverModifier;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
-import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Set: Set 14
- * Type: Starship
- * Subtype: Starfighter
- * Title: Plo Koon's Jedi Starfighter
+ * Type: Character
+ * Subtype: Resistance
+ * Title: Rey, All Of The Jedi
  */
-public class Card214_024 extends AbstractStarfighter {
+public class Card214_024 extends AbstractResistance {
     public Card214_024() {
-        super(Side.LIGHT, 2, 2, 2, null, 0, 6, 5, "Plo Koon's Jedi Starfighter", Uniqueness.UNIQUE);
-        setGameText("May add 1 Jedi pilot. *Maneuver = pilot's ability. While Plo piloting, power +2, immune to attrition < 3, and once per turn, may cancel and redraw your weapon or battle destiny just drawn here.");
-        addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_14);
-        addModelType(ModelType.JEDI_INTERCEPTOR);
-        setPilotCapacity(1);
-        setMatchingPilotFilter(Filters.persona(Persona.PLO));
+        super(Side.LIGHT, 1, 6, 6, 6, 8, "Rey, All Of The Jedi", Uniqueness.UNIQUE);
+        setLore("Female.");
+        setGameText("During your control phase, may search your Lost Pile and choose two cards; opponent places one out of play; retrieve the other into hand. Once per game, may deploy a lightsaber on Rey from Reserve Deck; reshuffle. Immune to attrition < 5.");
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_14);
+        addKeywords(Keyword.FEMALE);
+        addPersona(Persona.REY);
     }
 
     @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new ArrayList<>();
-        Condition ploPilotingCondition = new HasPilotingCondition(self, Persona.PLO);
-        modifiers.add(new PowerModifier(self, ploPilotingCondition, 2));
-        modifiers.add(new DefinedByGameTextManeuverModifier(self, new AbilityOfPilotEvaluator(self)));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, ploPilotingCondition, 3));
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 5));
         return modifiers;
     }
 
     @Override
-    protected Filter getGameTextValidPilotFilter(String playerId, SwccgGame game, PhysicalCard self) {
-        return Filters.Jedi;
-    }
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
-
-        // Check condition(s)
-        if ((TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId)
-                || TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, playerId))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isInBattle(game, self)
-                && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)
-                && GameConditions.hasPiloting(game, self, Persona.PLO)) {
-
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Cancel destiny and cause re-draw");
+        GameTextActionId gameTextActionId1 = GameTextActionId.REY_ALL_OF_THE_JEDI__CHOOSE_CARDS_IN_LOST_PILE;
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId1, Phase.CONTROL)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
+            action.setText("Choose cards from Lost Pile");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                    new OncePerPhaseEffect(action));
+            // Perform result(s)
+            action.appendEffect(new ChooseCardsFromLostPileEffect(action, playerId, 2, 2) {
+                @Override
+                protected void cardsSelected(SwccgGame g, final Collection<PhysicalCard> selectedCards) {
+                    //probably need to make a new effect and use ArbitraryCardsSelectionDecision in it
+                    game.getUserFeedback().sendAwaitingDecision(game.getOpponent(_playerId),
+                            new ArbitraryCardsSelectionDecision("Choose a card to place out of play. Your opponent retrieves the other.",
+                                    selectedCards, selectedCards, 1, 1) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    List<PhysicalCard> cardsToPlaceOutOfPlay = getSelectedCardsByResponse(result);
+                                    if (!cardsToPlaceOutOfPlay.isEmpty()) {
+                                        PhysicalCard cardToPlaceOutOfPlay = cardsToPlaceOutOfPlay.iterator().next();
+                                        if (cardToPlaceOutOfPlay != null) {
+                                            action.appendEffect(
+                                                    new PlaceCardOutOfPlayFromOffTableEffect(action, cardToPlaceOutOfPlay));
+                                        }
+                                        for (PhysicalCard card : selectedCards) {
+                                            if (!card.equals(cardToPlaceOutOfPlay)) {
+                                                action.appendEffect(
+                                                        new RetrieveCardEffect(action, playerId, false, card)
+                                                );
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                }
+            });
+
+            actions.add(action);
+        }
+
+        GameTextActionId gameTextActionId2 = GameTextActionId.REY_ALL_OF_THE_JEDI__DOWNLOAD_LIGHTSABER;
+
+        // Check condition(s)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId2)
+                && GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId2)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
+            action.setText("Deploy lightsaber from Reserve Deck");
+            action.setActionMsg("Deploy a lightsaber on " + GameUtils.getCardLink(self) + " from Reserve Deck");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new CancelDestinyAndCauseRedrawEffect(action));
-            return Collections.singletonList(action);
+                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.lightsaber, Filters.sameCardId(self), true, true));
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
 }
