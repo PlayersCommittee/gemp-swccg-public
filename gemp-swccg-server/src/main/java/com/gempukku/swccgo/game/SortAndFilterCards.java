@@ -1123,7 +1123,7 @@ public class SortAndFilterCards {
     }
 
     /**
-     * Determines if the blueprint id is for either a box or a pack.
+     * Determines if the blueprint id is for a legacy card
      * @param blueprintId the blueprint id
      * @return true or false
      */
