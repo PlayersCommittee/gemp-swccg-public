@@ -1,82 +1,96 @@
 package com.gempukku.swccgo.cards.set214.light;
 
-import com.gempukku.swccgo.cards.AbstractResistance;
+import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.ExcludeFromBattleEffect;
-import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Set: Set 14
- * Type: Character
- * Subtype: Resistance
- * Title: Jannah
+ * Type: Interrupt
+ * Subtype: Used
+ * Title: Our Only Hope (V)
  */
-public class Card214_020 extends AbstractResistance {
+public class Card214_020 extends AbstractUsedInterrupt {
     public Card214_020() {
-        super(Side.LIGHT, 2, 3, 3, 3, 5, "Jannah", Uniqueness.UNIQUE);
-        setLore("Female stormtrooper.");
-        setGameText("Other Resistance characters of destiny = 2 (and Finn) are power +1 at same and adjacent sites. During battle, if opponent has more than four characters here, may exclude one of opponent's characters of ability < 4 from battle.");
-        addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_14, Icon.EPISODE_VII);
-        addKeywords(Keyword.FEMALE, Keyword.STORMTROOPER);
+        super(Side.LIGHT, 4, Title.Our_Only_Hope, Uniqueness.UNIQUE);
+        setLore("'The Emperor knew, as I did, if Anakin were to have any offspring, they would be a threat to him.'");
+        setGameText("Relocate Prophecy Of The Force to a site. OR If He Is The Chosen One or He Will Bring Balance on table, [upload] Yoda's Hut or a Death Star II site.");
+        addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_14);
+        setVirtualSuffix(true);
     }
 
     @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new PowerModifier(self, Filters.and(Filters.atSameOrAdjacentSite(self), Filters.or(Filters.Finn, Filters.and(Filters.other(self), Filters.Resistance_character, Filters.destinyEqualTo(2)))), 1));
-        return modifiers;
-    }
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
+        List<PlayInterruptAction> actions = new LinkedList<>();
 
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter filter = Filters.and(Filters.opponents(self), Filters.character, Filters.here(self));
-        // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, self)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.canSpot(game, self, 5, filter)
-                && GameConditions.canSpot(game, self, Filters.and(filter, Filters.abilityLessThan(4), Filters.not(Filters.mayNotBeExcludedFromBattle)))) {
+        GameTextActionId gameTextActionId = GameTextActionId.OUR_ONLY_HOPE_V__UPLOAD_SITE;
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
-            action.setText("Exclude character");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Perform result(s)
-            TargetingReason targetingReason = TargetingReason.TO_BE_EXCLUDED_FROM_BATTLE;
-            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Exclude character", targetingReason, Filters.and(filter, Filters.abilityLessThan(4), Filters.not(Filters.mayNotBeExcludedFromBattle))) {
-                                       @Override
-                                       protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
-                                           action.allowResponses(new RespondableEffect(action) {
-                                               @Override
-                                               protected void performActionResults(Action targetingAction) {
-                                                   PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-
-                                                   if (finalTarget != null) {
-                                                       action.appendEffect(new ExcludeFromBattleEffect(action, finalTarget));
-                                                   }
-                                               }
-                                           });
-                                       }
-                                   }
+        if (GameConditions.canSpot(game, self, Filters.or(Filters.He_Is_The_Chosen_One, Filters.He_Will_Bring_Balance))
+                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
+            action.setText("Take site into hand from Reserve Deck");
+            // Allow response(s)
+            action.allowResponses("Take Yoda's Hut or a Death Star II site into hand from Reserve Deck",
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Yodas_Hut, Filters.Death_Star_II_site), true));
+                        }
+                    }
             );
-
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+
+        if (GameConditions.canSpot(game, self, Filters.Prophecy_Of_The_Force)) {
+            final PhysicalCard prophecyOfTheForce = Filters.findFirstActive(game, self, Filters.Prophecy_Of_The_Force);
+            boolean canRelocate = GameConditions.canSpot(game, self, Filters.canRelocateEffectTo(playerId, prophecyOfTheForce));
+            Collection<Modifier> modifiers = game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), prophecyOfTheForce);
+            for (Modifier m : modifiers) {
+                if (m.getModifyGameTextType(game.getGameState(), game.getModifiersQuerying(), prophecyOfTheForce) == ModifyGameTextType.PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED)
+                    canRelocate = false;
+            }
+            if (canRelocate) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Relocate " + GameUtils.getCardLink(prophecyOfTheForce) + " to a site");
+                action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose site", Filters.canRelocateEffectTo(playerId, prophecyOfTheForce)) {
+                    @Override
+                    protected void cardTargeted(int targetGroupId, PhysicalCard site) {
+
+                        final PhysicalCard finalSite = action.getPrimaryTargetCard(targetGroupId);
+                        action.addAnimationGroup(prophecyOfTheForce);
+                        action.addAnimationGroup(finalSite);
+                        action.allowResponses(new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                action.appendEffect(
+                                        new AttachCardFromTableEffect(action, prophecyOfTheForce, finalSite)
+                                );
+                            }
+                        });
+                    }
+                });
+
+                actions.add(action);
+            }
+        }
+        return actions;
     }
 }
