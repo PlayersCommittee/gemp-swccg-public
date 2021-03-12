@@ -73,10 +73,18 @@ public enum ModifyGameTextType {
     YAVIN_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     YOU_CAN_EITHER_PROFIT_BY_THIS__DO_NOT_DEPLOY_HAN_AT_START_OF_GAME("Do not deploy Han at start of game"),
     YOU_OVERESTIMATE_THEIR_CHANCES__TRIPLE_RESULT("Triple result"),
-    YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE("Draw top card of Reserve Deck when you place a card in Used Pile.");
+    YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE("Draw top card of Reserve Deck when you place a card in Used Pile."),
 
 
-    //
+    //Legacy
+    LEGACY__YOUR_SITES__TREAT_TRANDOSHAN_AS_SLAVER("'Trandoshan' on this site may be treated as 'slaver'"),
+    LEGACY__REF_III_ANOTHER_PATHETIC_LIFEFORM__IGNORES_YOUR_NONUNIQUE_ALIENS("Ignores non-unique aliens"),
+    LEGACY__OUTRIDER_DOES_NOT_PLACE_UTINNI_EFFECTS_OUT_OF_PLAY("Does not place Utinni Effects out of play"),
+    LEGACY__WELL_HANDLE_THIS__ONLY_TARGET_DROIDS_AND_SPIES("May target only droids and spies"),
+    LEGACY__LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_DROIDS_AND_SPIES("May target only droids and spies"),
+
+    ;
+
     private String _humanReadable;
 
     ModifyGameTextType(String humanReadable) {

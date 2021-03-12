@@ -34,6 +34,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
     private boolean _isFromInsertCard;
     private boolean _fromHandOnly;
     private boolean _fromReserveDeckOnly;
+    private boolean _fromForcePileOnly;
     private boolean _fromLifeForceOnly;
     private int _amountLostSoFar;
     private float _currentAmountLeft;
@@ -79,6 +80,10 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @param asLiberationCard the card lost as Force is stacked as a liberation card
      */
     protected LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, boolean isFromForceDrain, boolean isFromInsertCard, boolean fromHandOnly, boolean fromReserveDeckOnly, boolean fromLifeForceOnly, PhysicalCard stackFaceDownOn, boolean asLiberationCard) {
+        this(action, playerToLoseForce, amount, cannotBeReduced, isFromForceDrain, isFromInsertCard, fromHandOnly, fromReserveDeckOnly, fromLifeForceOnly, stackFaceDownOn, asLiberationCard, false);
+    }
+
+    protected LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, boolean isFromForceDrain, boolean isFromInsertCard, boolean fromHandOnly, boolean fromReserveDeckOnly, boolean fromLifeForceOnly, PhysicalCard stackFaceDownOn, boolean asLiberationCard, boolean fromForcePileOnly) {
         super(action);
         _playerToLoseForce = playerToLoseForce;
         _initialAmount = amount;
@@ -87,6 +92,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
         _isFromInsertCard = isFromInsertCard;
         _fromHandOnly = fromHandOnly;
         _fromReserveDeckOnly = fromReserveDeckOnly;
+        _fromForcePileOnly = fromForcePileOnly;
         _fromLifeForceOnly = fromLifeForceOnly;
         _stackFaceDownOn = stackFaceDownOn;
         _asLiberationCard = asLiberationCard;
@@ -375,12 +381,12 @@ public class LoseForceEffect extends AbstractSubActionEffect {
          */
         private ChooseAndLoseNextForceEffect(SubAction action) {
             super(action);
-            _fromHand = !_fromReserveDeckOnly && !_fromLifeForceOnly;
-            _fromSabaccHand = !_fromHandOnly && !_fromReserveDeckOnly;
-            _fromReserveDeck = !_fromHandOnly;
+            _fromHand = !_fromReserveDeckOnly && !_fromLifeForceOnly && !_fromForcePileOnly;
+            _fromSabaccHand = !_fromHandOnly && !_fromReserveDeckOnly && !_fromForcePileOnly;
+            _fromReserveDeck = !_fromHandOnly && !_fromForcePileOnly;
             _fromForcePile = !_fromHandOnly && !_fromReserveDeckOnly;
-            _fromUsedPile = !_fromHandOnly && !_fromReserveDeckOnly;
-            _fromDrawnDestiny = !_fromHandOnly && !_fromReserveDeckOnly;
+            _fromUsedPile = !_fromHandOnly && !_fromReserveDeckOnly && !_fromForcePileOnly;
+            _fromDrawnDestiny = !_fromHandOnly && !_fromReserveDeckOnly && !_fromForcePileOnly;
         }
 
         @Override

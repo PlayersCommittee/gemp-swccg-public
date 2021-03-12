@@ -32,6 +32,7 @@ public class Card201_025 extends AbstractAlien {
         setGameText("[Pilot] 2. Adds 1 to maneuver of anything he pilots. Adds one battle destiny with opponent's Jedi, [Maintenance] card, or [Permanent Weapon] card. May be targeted by Hidden Weapons. If about to be lost, may [upload] Boba Fett.");
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_1);
         addKeywords(Keyword.BOUNTY_HUNTER);
+        addPersona(Persona.JANGO_FETT);
     }
 
     @Override
