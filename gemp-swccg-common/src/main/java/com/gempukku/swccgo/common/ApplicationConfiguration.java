@@ -36,7 +36,7 @@ public class ApplicationConfiguration {
 
         String value = getProperties().getProperty(property);
 
-        if (null == value) { return null; }
+        if (!"db.connection.url".equals(property) && null == value) { return null; }
 
         //
         // \w  Match a "word" character 
@@ -47,7 +47,7 @@ public class ApplicationConfiguration {
 
         System.out.println("Property.....: " + property);
 
-        if (property == "db.connection.url") {
+        if ("db.connection.url".equals(property)) {
           String db_hostname = getProperty("db.connection.hostname");
           String db_dbname   = getProperty("db.connection.dbname");
           String db_url      = "jdbc:mysql://"+db_hostname+"/"+db_dbname;
