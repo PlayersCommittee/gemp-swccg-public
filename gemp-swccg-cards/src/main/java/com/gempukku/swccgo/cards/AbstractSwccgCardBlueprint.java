@@ -53,6 +53,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     private boolean _hasVirtualSuffix;
     private boolean _mayNotBePlacedInReserveDeck;
     private boolean _doesNotCountTowardDeckLimit;
+    private boolean _isLegacy;
 
     /**
      * Creates an SWCCG card blueprint.
@@ -2787,5 +2788,25 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     @Override
     public DuelDirections getDuelDirections(SwccgGame game) {
         throw new UnsupportedOperationException("This method, getDuelDirections(), should not be called on this card: " + _title);
+    }
+
+    @Override
+    public boolean isLegacy() {
+        return _isLegacy;
+    }
+
+    /**
+     * Sets the card as a legacy card
+     * @param value true if this is a legacy card, otherwise false
+     */
+    public void setAsLegacy(boolean value) {
+        _isLegacy = value;
+    }
+
+    public boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self) {
+        return (getCardCategory() == CardCategory.INTERRUPT
+                && (getCardSubtype() == CardSubtype.STARTING
+                    || getCardSubtype() == CardSubtype.USED_OR_STARTING
+                    || getCardSubtype() == CardSubtype.LOST_OR_STARTING));
     }
 }

@@ -72,8 +72,7 @@ public class SortAndFilterCards {
         if (isPack(blueprintId)) {
             if (product == null || "pack".equals(product))
                 return true;
-        }
-        else {
+        } else {
             if (product == null
                     || "card".equals(product)
                     || ("foil".equals(product) && isFoil(blueprintId))
@@ -86,7 +85,7 @@ public class SortAndFilterCards {
                         if (blueprint != null)
                             if (side == null || blueprint.getSide() == side)
                                 if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                                    if (format == null || isInFormat(blueprintId, format, formatLibrary))
+                                    if (format == null || (format.equals("all") && !isLegacy(blueprintId, library)) || isInFormat(blueprintId, format, formatLibrary))
                                         if (sets == null || isInSets(blueprintId, sets, library, formatLibrary))
                                             if (cardCategory == null || blueprint.getCardCategory() == cardCategory)
                                                 if (cardType == null || blueprint.isCardType(cardType))
@@ -1121,6 +1120,15 @@ public class SortAndFilterCards {
      */
     private static boolean isPack(String blueprintId) {
         return !blueprintId.contains("_");
+    }
+
+    /**
+     * Determines if the blueprint id is for a legacy card
+     * @param blueprintId the blueprint id
+     * @return true or false
+     */
+    private static boolean isLegacy(String blueprintId, SwccgCardBlueprintLibrary library) {
+        return library.getSwccgoCardBlueprint(blueprintId) != null && library.getSwccgoCardBlueprint(blueprintId).isLegacy();
     }
 
     /**

@@ -23,6 +23,8 @@ public interface GameStateListener {
 
     void cardFlipped(PhysicalCard card, GameState gameState);
 
+    void cardTurnedOver(PhysicalCard card, GameState gameState);
+
     void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards);
 
     void setPlayerOrder(List<String> playerIds);

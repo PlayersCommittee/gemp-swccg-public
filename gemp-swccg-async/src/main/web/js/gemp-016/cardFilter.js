@@ -150,7 +150,7 @@ var CardFilter = Class.extend({
 
         this.formatLabel = $("<label for='formatSelect' class='filterLabel'>Format:</label>");
         this.formatSelect = $("<select id='formatSelect' class='filterInput'>"
-            + "<option value='' selected='selected'>All</option>"
+            + "<option value='all' selected='selected'>All</option>"
             + "<option value='open'>Open</option>"
             + "<option value='jawa'>Jawa</option>"
             + "<option value='open_no_shields'>Open (no shields)</option>"
@@ -170,6 +170,7 @@ var CardFilter = Class.extend({
             + "<option value='premiere'>Premiere</option>"
             + "<option value='scavenger_premiere_ds2'>Scavenger</option>"
             + "<option value='limited_resources'>Limited Resources</option>"
+            + "<option value='legacy'>Legacy</option>"
             + "</select>");
 
         this.setLabel = $("<label for='setSelect' class='filterLabel'>Set:</label>");
@@ -216,6 +217,7 @@ var CardFilter = Class.extend({
             + "<option value='212'>Set 12</option>"
             + "<option value='213'>Set 13</option>"
             + "<option value='301'>Virtual Premium Set</option>"
+            + "<option value='601'>Legacy</option>"
             + "<option value='401'>Dream Cards</option>"
             + "<option value='501'>Playtesting</option>"
             + "</select>");

@@ -4522,6 +4522,8 @@ public interface ModifiersQuerying {
     SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
 
     boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
-
     CardSubtype getModifiedSubtype(GameState gameState, PhysicalCard card);
+    boolean isCommuning(GameState gameState, PhysicalCard card);
+    Collection<PhysicalCard> getCardsConsideredOutOfPlay(GameState gameState);
+    Collection<PhysicalCard> getActiveCardsAffectedByModifier(GameState gameState, ModifierType modifierType);
 }

@@ -11716,6 +11716,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
         }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_AT_COST, weapon)) {
+            if (modifier.isAffectedTarget(gameState, this, weapon)
+                && ((FireWeaponFiredAtCostModifier)modifier).isAffectedFiredAtTarget(gameState, this, target)) {
+                result += modifier.getValue(gameState, this, cardFiringWeapon);
+            }
+        }
 
         // Check if fires for double
         if (!getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_DOUBLE, weapon).isEmpty()) {
@@ -11750,6 +11756,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FIRE_WEAPON_FIRED_BY_COST, cardFiringWeapon)) {
             if (modifier.isAffectedTarget(gameState, this, permanentWeapon)) {
                 result += modifier.getValue(gameState, this, permanentWeapon);
+            }
+        }
+        for (Modifier modifier : getModifiers(gameState, ModifierType.FIRE_WEAPON_FIRED_AT_COST)) {
+            if (modifier.isAffectedTarget(gameState, this, permanentWeapon)
+                    && ((FireWeaponFiredAtCostModifier)modifier).isAffectedFiredAtTarget(gameState, this, target)) {
+                result += modifier.getValue(gameState, this, cardFiringWeapon);
             }
         }
 
@@ -16199,6 +16211,34 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return ((MindscannedCharacterModifier) m).wasGameTextCanceled();
         }
         return true;
+    }
+
+    public boolean isCommuning(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.COMMUNING, card).isEmpty();
+    }
+
+    public Collection<PhysicalCard> getCardsConsideredOutOfPlay(GameState gameState) {
+        Collection<PhysicalCard> cards = new HashSet<PhysicalCard>();
+        for(PhysicalCard card: Filters.filterStacked(gameState.getGame(), Filters.any)) {
+            if (!getModifiersAffectingCard(gameState, ModifierType.CONSIDERED_OUT_OF_PLAY, card).isEmpty())
+                cards.add(card);
+        }
+        for(PhysicalCard card: Filters.filterActive(gameState.getGame(), null, SpotOverride.INCLUDE_ALL, Filters.any)) {
+            if (!getModifiersAffectingCard(gameState, ModifierType.CONSIDERED_OUT_OF_PLAY, card).isEmpty())
+                cards.add(card);
+        }
+
+        return cards;
+    }
+
+    public Collection<PhysicalCard> getActiveCardsAffectedByModifier(GameState gameState, ModifierType modifierType) {
+        Collection<PhysicalCard> allCards = Filters.filterActive(gameState.getGame(), null, Filters.any);
+        Collection<PhysicalCard> subset = new HashSet<PhysicalCard>();
+        for(PhysicalCard card: allCards) {
+            if (!getModifiersAffectingCard(gameState, modifierType, card).isEmpty())
+                subset.add(card);
+        }
+        return subset;
     }
 
     public CardSubtype getModifiedSubtype(GameState gameState, PhysicalCard card) {

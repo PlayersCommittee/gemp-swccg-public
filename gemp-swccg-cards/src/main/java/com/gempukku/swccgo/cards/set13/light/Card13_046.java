@@ -89,6 +89,8 @@ public class Card13_046 extends AbstractObjective {
                 Filters.and(Filters.your(self), Filters.Jedi, Filters.at(Filters.interior_Theed_Palace_site))));
         if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.WELL_HANDLE_THIS__ONLY_TARGET_UNDERCOVER_SPIES_AND_5D6RA7)) {
             targetFilter = Filters.and(targetFilter, Filters.or(Filters.undercover_spy, Filters._5D6RA7));
+        } else if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LEGACY__WELL_HANDLE_THIS__ONLY_TARGET_DROIDS_AND_SPIES)) {
+            targetFilter = Filters.and(targetFilter, Filters.or(Filters.spy, Filters.droid));
         }
         TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
 

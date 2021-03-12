@@ -3254,6 +3254,82 @@ var fixedImages = {
 "301_6":"/gemp-swccg/images/cards/VirtualPremium-Dark/captainkhurgee.gif",
 "301_7":"/gemp-swccg/images/cards/VirtualPremium-Light/puck.gif",
 "301_8":"/gemp-swccg/images/cards/VirtualPremium-Light/red12.gif",
+
+//legacy
+"601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
+"601_2":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/bobafettpreparedhunter.gif",
+"601_3":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/bossk.gif",
+"601_4":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/coldfeet.gif",
+"601_5":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/denofthieves&specialdelivery.gif",
+"601_6":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/dengarwithblastercarbine.gif",
+"601_7":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/huttbounty.gif",
+"601_8":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/ig88renegadedroid.gif",
+"601_9":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/jabbathehutt.gif",
+"601_10":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/jabbashaven.gif",
+"601_11":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/jabbassailbarge.gif",
+"601_12":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/jabbasspacecruiser.gif",
+"601_13":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/jangofetttheassassin.gif",
+"601_14":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/kashyyykskyhookplatform.gif",
+"601_15":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/kashyyykslavingcampheadquarters.gif",
+"601_16":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/kashyyykwookieeslavingcamp.gif",
+"601_17":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/ketmalissshadowkiller.gif",
+"601_18":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/lightsaberdeficiency.gif",
+"601_19":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/mercenarypilot.gif",
+"601_20":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/mercenaryslavers.gif",
+"601_21":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/oom9.gif",
+"601_22":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/pondababa.gif",
+"601_23":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/probot.gif",
+"601_24":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/slaveisymboloffear.gif",
+"601_25":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/sneakattack.gif",
+"601_26":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/somethingspecialplannedforthem.gif",
+"601_27":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/sonicbombardment.gif",
+"601_28":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/tarkinsbounty.gif",
+"601_29":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/wookieeslavingoperation.gif",
+"601_29_BACK":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/indenturedtotheempire.gif",
+"601_30":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/wookieesubjugation.gif",
+"601_31":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/auselessgesture.gif",
+"601_32":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/abyss.gif",
+"601_33":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/deathstarsentry.gif",
+"601_34":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/dotheyhaveacodeclearance.gif",
+"601_35":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/fanfare.gif",
+"601_36":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/firepower.gif",
+"601_37":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/ifindyourlackoffaithdisturbing.gif",
+"601_38":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/imperialdetention.gif",
+"601_39":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/angerfearaggression.gif",
+"601_40":"https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Light/large/anakinskywalkerpadawanlearner.gif",
+"601_41":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Light/large/communing.gif",
+"601_42":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/dashrendar.gif",
+"601_43":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Light/large/escapepod.gif",
+"601_44":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Light/large/flashofinsight.gif",
+"601_45":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/hearmebabyholdtogether.gif",
+"601_46":"https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Light/large/jainasolo.gif",
+"601_47":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Light/large/jedilevitation.gif",
+"601_48":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Light/large/klorslug.gif",
+"601_49":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/ladyluck.gif",
+"601_50":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/landocalrissianunlikelyhero.gif",
+"601_51":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/letthewookieewin.gif",
+"601_52":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/lukeskywalkerstrongintheforce.gif",
+"601_53":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Light/large/lukesbionichand.gif",
+"601_54":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Light/large/masterkenobi.gif",
+"601_55":"https://res.starwarsccg.org/cards/legacy/VirtualBlock5-Light/large/padmenaberrie.gif",
+"601_56":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/quickdraw.gif",
+"601_57":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Light/large/runlukerun.gif",
+"601_58":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Light/large/saitorrkalfas.gif",
+"601_59":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Light/large/seekinganaudience.gif",
+"601_60":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Light/large/tatooineobiwanshut.gif",
+"601_61":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/wokling.gif",
+"601_62":"https://res.starwarsccg.org/cards/legacy/VirtualBlock5-Light/large/yodagreatwarrior.gif",
+"601_63":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Light/large/yubyubcommander.gif",
+"601_64":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/affectmind.gif",
+"601_65":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/chasm.gif",
+"601_66":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/letskeepalittleoptimismhere.gif",
+"601_67":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/simpletricksandnonsense.gif",
+"601_68":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/theprofessor.gif",
+"601_69":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/weaponsdisplay.gif",
+"601_70":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/yavinsentry.gif",
+"601_71":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/yourinsightservesyouwell.gif",
+"601_72":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/velkentezeri.gif",
+
 //playtesting
 "501_1":"/gemp-swccg/images/cards/Virtual4-Light/rey.gif",
 "501_2":"/gemp-swccg/images/cards/EnhancedJabbasPalace-Dark/marajadeslightsaber.gif",
@@ -3613,6 +3689,34 @@ var Card = Class.extend({
         $(".card:cardId(" + this.cardId + ") > img").attr('src', this.imageUrl);
     },
 
+    turnCardOver:function(tempBlueprintId) {
+        this.bareBlueprint = tempBlueprintId;
+        this.horizontal = this.isHorizontal(this.bareBlueprint, this.zone);
+        var tempText = this.testingText;
+        this.testingText = this.backSideTestingText;
+        this.backSideTestingText = tempText;
+
+        if (this.bareBlueprint != "-1_1" && this.bareBlueprint != "-1_2" && cardCache[this.bareBlueprint] != null) {
+            var cardFromCache = cardCache[this.bareBlueprint];
+            this.imageUrl = cardFromCache.imageUrl;
+            this.backSideImageUrl = cardFromCache.backSideImageUrl;
+            this.incomplete = cardFromCache.incomplete;
+        } else {
+            this.imageUrl = this.getUrlByBlueprintId(this.bareBlueprint);
+            this.backSideImageUrl = this.getBackSideUrlByBlueprintId(this.bareBlueprint);
+            this.incomplete = this.isIncomplete(this.bareBlueprint);
+
+            if (this.bareBlueprint != "-1_1" && this.bareBlueprint != "-1_2") {
+                cardCache[this.bareBlueprint] = {
+                    imageUrl:this.imageUrl,
+                    backSideImageUrl:this.backSideImageUrl,
+                    incomplete:this.incomplete
+                };
+            }
+        }
+        $(".card:cardId(" + this.cardId + ") > img").attr('src', this.imageUrl);
+    },
+
     isFoil:function () {
         return this.foil;
     },
@@ -3800,6 +3904,12 @@ var Card = Class.extend({
                    (cardNo == 75) ||
                    (cardNo == 87);
         }
+        if (setNo == 601) {
+             return (cardNo == 14) ||
+                    (cardNo == 15) ||
+                    (cardNo == 16) ||
+                    (cardNo == 60);
+       }
 
         return false;
     },
@@ -3823,7 +3933,7 @@ var Card = Class.extend({
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
         
-        if (setNo >= 400) {
+        if (setNo >= 400 && setNo < 600) {
             return true;
         }
 

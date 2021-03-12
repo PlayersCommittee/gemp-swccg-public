@@ -9,6 +9,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
  */
 public class RetrieveForceResult extends EffectResult {
     private PhysicalCard _source;
+    private PhysicalCard _mostRecentCardRetrieved;
     private int _amount;
 
     /**
@@ -16,11 +17,13 @@ public class RetrieveForceResult extends EffectResult {
      * @param source the source card
      * @param playerId the player
      * @param amount the amount of Force retrieved so far as part of this Force retrieval
+     * @param mostRecentCardRetrieved the most recent card retrieved
      */
-    public RetrieveForceResult(PhysicalCard source, String playerId, int amount) {
+    public RetrieveForceResult(PhysicalCard source, String playerId, int amount, PhysicalCard mostRecentCardRetrieved) {
         super(Type.RETRIEVED_FORCE, playerId);
         _source = source;
         _amount = amount;
+        _mostRecentCardRetrieved = mostRecentCardRetrieved;
     }
 
     /**
@@ -37,6 +40,14 @@ public class RetrieveForceResult extends EffectResult {
      */
     public int getAmountOfForceRetrieved() {
         return _amount;
+    }
+
+    /*
+     * Gets the most recently retrieved card
+     * @return the most recently retrieved card
+     */
+    public PhysicalCard getMostRecentCardRetrieved() {
+        return _mostRecentCardRetrieved;
     }
 
     /**
