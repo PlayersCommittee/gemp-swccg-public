@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyAboutToBeDrawnEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -45,30 +46,49 @@ public class Card7_250 extends AbstractUsedOrLostInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Add 2 to weapon destiny");
             // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new ModifyDestinyAboutToBeDrawnEffect(action, 2));
-                        }
-                    }
-            );
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "", Filters.and(targetFilter, Filters.in(game.getGameState().getWeaponFiringState().getTargets()))) {
+                @Override
+                protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
+                    action.allowResponses(
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new ModifyDestinyAboutToBeDrawnEffect(action, 2));
+                                }
+                            }
+                    );
+                }
+
+                @Override
+                protected boolean getUseShortcut() {
+                    return true;
+                }
+            });
             actions.add(action);
 
             final PlayInterruptAction action2 = new PlayInterruptAction(game, self, CardSubtype.LOST);
             action2.setText("Add 4 to weapon destiny");
             // Allow response(s)
-            action2.allowResponses(
-                    new RespondablePlayCardEffect(action2) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action2.appendEffect(
-                                    new ModifyDestinyAboutToBeDrawnEffect(action2, 4));
-                        }
+            action2.appendTargeting(new TargetCardOnTableEffect(action, playerId, "", Filters.and(targetFilter, Filters.in(game.getGameState().getWeaponFiringState().getTargets()))) {
+                    @Override
+                    protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
+                        action2.allowResponses(
+                                new RespondablePlayCardEffect(action2) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Perform result(s)
+                                        action2.appendEffect(
+                                                new ModifyDestinyAboutToBeDrawnEffect(action2, 4));
+                                    }
+                                });
                     }
+                    @Override
+                    protected boolean getUseShortcut() {
+                        return true;
+                    }
+                }
             );
             actions.add(action2);
         }
@@ -78,30 +98,49 @@ public class Card7_250 extends AbstractUsedOrLostInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Add 2 to tractor beam destiny");
             // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new ModifyDestinyAboutToBeDrawnEffect(action, 2));
-                        }
-                    }
-            );
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "", Filters.and(targetFilter, Filters.in(game.getGameState().getUsingTractorBeamState().getTargets()))) {
+                   @Override
+                   protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
+                       action.allowResponses(
+                               new RespondablePlayCardEffect(action) {
+                                   @Override
+                                   protected void performActionResults(Action targetingAction) {
+                                       // Perform result(s)
+                                       action.appendEffect(
+                                               new ModifyDestinyAboutToBeDrawnEffect(action, 2));
+                                   }
+                               }
+                       );
+                   }
+                   @Override
+                   protected boolean getUseShortcut() {
+                       return true;
+                   }
+               });
             actions.add(action);
 
             final PlayInterruptAction action2 = new PlayInterruptAction(game, self, CardSubtype.LOST);
             action2.setText("Add 4 to tractor beam destiny");
             // Allow response(s)
-            action2.allowResponses(
-                    new RespondablePlayCardEffect(action2) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action2.appendEffect(
-                                    new ModifyDestinyAboutToBeDrawnEffect(action2, 4));
-                        }
+            action2.appendTargeting(new TargetCardOnTableEffect(action, playerId, "", Filters.and(targetFilter, Filters.in(game.getGameState().getUsingTractorBeamState().getTargets()))) {
+                    @Override
+                    protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
+                        action2.allowResponses(
+                                new RespondablePlayCardEffect(action2) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Perform result(s)
+                                        action2.appendEffect(
+                                                new ModifyDestinyAboutToBeDrawnEffect(action2, 4));
+                                    }
+                                }
+                        );
                     }
+                    @Override
+                    protected boolean getUseShortcut() {
+                        return true;
+                    }
+                }
             );
             actions.add(action2);
         }
