@@ -76,7 +76,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (self.getZone() != Zone.STACKED && (checkPlayRequirements(playerId, game, self, null, null, null))) {
             List<PlayInterruptAction> actionList1 = getGameTextTopLevelActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -86,6 +86,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             List<PlayCardAction> actionList2 = getGrantedTopLevelActions(playerId, game, self);
             if (actionList2 != null) {
                 actions.addAll(actionList2);
+            }
+        }
+
+        if (self.getZone() == Zone.STACKED) {
+            List<PlayInterruptAction> actionList3 = getGameTextTopLevelWhileStackedActions(playerId, game, self);
+            if (actionList3 != null) {
+                actions.addAll(actionList3);
             }
         }
 
@@ -213,7 +220,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (self.getZone() != Zone.STACKED && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextOptionalAfterActions(playerId, game, effectResult, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -223,6 +230,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             List<PlayCardAction> actionList2 = getGrantedAfterActions(playerId, game, effectResult, self);
             if (actionList2 != null) {
                 actions.addAll(actionList2);
+            }
+        }
+
+        if (self.getZone() == Zone.STACKED) {
+            List<PlayInterruptAction> actionList3 = getGameTextOptionalAfterActionsWhenStacked(playerId, game, effectResult, self);
+            if (actionList3 != null) {
+                actions.addAll(actionList3);
             }
         }
 
@@ -581,6 +595,19 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     }
 
     /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
+     * player when the card is stacked (face up) on another card.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @return the actions, or null
+     */
+    protected List<PlayInterruptAction> getGameTextTopLevelWhileStackedActions(String playerId, SwccgGame game, PhysicalCard self) {
+        return null;
+    }
+
+
+    /**
      * This method is overridden by individual cards to specify top-level actions during an Attack Run.
      * @param playerId the player
      * @param game the game
@@ -614,6 +641,19 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
      * @return the play card actions, or null
      */
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "after" play card actions to the specified effect
+     * result that can be performed by the specified player when the card is stacked (face up) on another card.
+     * @param playerId the player
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the play card actions, or null
+     */
+    protected List<PlayInterruptAction> getGameTextOptionalAfterActionsWhenStacked(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 
