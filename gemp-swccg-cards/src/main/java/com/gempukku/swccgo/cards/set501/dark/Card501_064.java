@@ -35,7 +35,7 @@ public class Card501_064 extends AbstractDarkJediMasterFirstOrder {
     public Card501_064() {
         super(Side.DARK, 4, 4, 2, 7, 9, "Palpatine, Emperor Returned", Uniqueness.UNIQUE);
         setLore("Leader.");
-        setGameText("Never deploys or moves to a location with a [Light Side] icon. Once per turn, may draw bottom card of your Force Pile. Once per game, if about to be lost, may take him into hand. Immune to attrition.");
+        setGameText("Never deploys or moves (even if carried) to a location with a [Light Side] icon. Once per turn, may draw bottom card of your Force Pile. Once per game, if about to be lost, may take him into hand. Immune to attrition.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addPersona(Persona.EMPEROR);
         addKeywords(Keyword.LEADER);
@@ -51,10 +51,8 @@ public class Card501_064 extends AbstractDarkJediMasterFirstOrder {
 
     @Override
     protected List<Modifier> getGameTextWhileInPlayEvenIfGameTextCanceledModifiers(SwccgGame game, PhysicalCard self) {
-        Filter siteOpponentOccupies = Filters.and(Filters.site, Filters.occupies(game.getOpponent(self.getOwner())));
-
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotMoveToLocationModifier(self, Filters.icon(Icon.LIGHT_FORCE)));
+        modifiers.add(new MayNotMoveToLocationModifier(self, Filters.or(self, Filters.hasAttachedWithRecursiveChecking(self)), Filters.icon(Icon.LIGHT_FORCE)));
         return modifiers;
     }
 
