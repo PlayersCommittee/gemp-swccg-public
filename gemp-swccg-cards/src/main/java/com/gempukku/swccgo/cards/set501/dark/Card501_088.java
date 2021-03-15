@@ -30,10 +30,9 @@ public class Card501_088 extends AbstractStarfighter {
         setLore("");
         setGameText("May add 2 pilots and 3 passengers. During your control phase, may peek at the top card of your Reserve Deck; may place it on Used Pile (if card is an assassin, may take it into hand).");
         addPersona(Persona.BESTOON_LEGACY);
-        addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
+        addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14, Icon.INDEPENDENT);
         addModelType(ModelType.WTK_85A_INTERSTELLAR_TRANSPORT);
         addKeyword(Keyword.TRANSPORT_SHIP);
-        setMatchingPilotFilter(Filters.Ochi);
         setPilotCapacity(2);
         setPassengerCapacity(3);
         setTestingText("Bestoon Legacy");
@@ -50,7 +49,7 @@ public class Card501_088 extends AbstractStarfighter {
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Reveal the top card of your Reserve Deck.");
+            action.setText("Peek at top card of your Reserve Deck");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -63,11 +62,11 @@ public class Card501_088 extends AbstractStarfighter {
                             if (Filters.assassin.accepts(game, revealedCard)) {
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(action, playerId,
-                                                new YesNoDecision("Take " + GameUtils.getCardLink(revealedCard) + " into Hand?") {
+                                                new YesNoDecision("Take " + GameUtils.getCardLink(revealedCard) + " into hand?") {
                                                     @Override
                                                     protected void yes() {
                                                         action.appendEffect(
-                                                                new TakeCardIntoHandFromReserveDeckEffect(action, playerId, revealedCard, true)
+                                                                new TakeCardIntoHandFromReserveDeckEffect(action, playerId, revealedCard, false)
                                                         );
                                                     }
 

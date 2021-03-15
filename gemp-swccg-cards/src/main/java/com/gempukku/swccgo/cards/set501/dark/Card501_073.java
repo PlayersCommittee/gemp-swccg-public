@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +30,8 @@ public class Card501_073 extends AbstractCapitalStarship {
         addComboCardTitles("Intimidator", "Persecutor");
         setLore("");
         setGameText("Deploys -4 to Scarif or opponent's system. May add 4 pilots, 4 TIEs, and 2 vehicles. Permanent pilots provide total ability of 4. While at Scarif, subtracts 2 from attempts to 'blow away' Shield Gate.");
-        addIcons(Icon.PILOT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
+        addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
+        addIcon(Icon.PILOT, 2);
         addModelTypes(ModelType.IMPERIAL_CLASS_STAR_DESTROYER, ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
         setPilotCapacity(4);
         setVehicleCapacity(2);
@@ -39,8 +41,10 @@ public class Card501_073 extends AbstractCapitalStarship {
 
     @Override
     protected List<? extends AbstractPermanentAboard> getGameTextPermanentsAboard() {
-        return Collections.singletonList(new AbstractPermanentPilot(4) {
-        });
+        List<AbstractPermanentAboard> permanentsAboard = new ArrayList<AbstractPermanentAboard>();
+        permanentsAboard.add(new AbstractPermanentPilot(2) {});
+        permanentsAboard.add(new AbstractPermanentPilot(2) {});
+        return permanentsAboard;
     }
 
     @Override
