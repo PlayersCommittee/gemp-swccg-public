@@ -1,98 +1,127 @@
 <!DOCTYPE html>
 <html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>GEMPEpicDuel</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body class="dark">
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="logo.png"></div>
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div id="unity-fullscreen-button" style="display: none;"></div>
+    <script>
+      const hideFullScreenButton = "1";
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/1b2bedb96dfdc7fb030d26c4fc4b3398.js";
+      const config = {
+        dataUrl: buildUrl + "/1afc893138b0a358b8905ee13500e21f.data.unityweb",
+        frameworkUrl: buildUrl + "/b5b60995a5d41f6707f1b480c4053e16.js.unityweb",
+        codeUrl: buildUrl + "/629ae7407023cf24870763d6d72e9d46.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "200 Monkeys",
+        productName: "GEMPEpicDuel",
+        productVersion: "1.7.0",
+      };
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>GEMPEpicDuel</title>
-	<style>
-		html,
-		body {
-			background: #000;
-			width: 100%;
-			height: 100%;
-			overflow: visible;
-			padding: 0;
-			margin: 0;
-		}
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      const spinner = document.querySelector('.spinner');
 
-		div#gameContainer {
-			background: transparent !important;
-			position: absolute;
-		}
+      const canFullscreen = (function() {
+        for (const key of [
+            'exitFullscreen',
+            'webkitExitFullscreen',
+            'webkitCancelFullScreen',
+            'mozCancelFullScreen',
+            'msExitFullscreen',
+          ]) {
+          if (key in document) {
+            return true;
+          }
+        }
+        return false;
+      }());
 
-		div#gameContainer canvas {
-			position: absolute;
-		}
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 1;
+      }
+      loadingCover.style.display = "";
 
-		div#gameContainer canvas[data-pixel-art="true"] {
-			position: absolute;
-			image-rendering: optimizeSpeed;
-			image-rendering: -webkit-crisp-edges;
-			image-rendering: -moz-crisp-edges;
-			image-rendering: -o-crisp-edges;
-			image-rendering: crisp-edges;
-			image-rendering: -webkit-optimize-contrast;
-			image-rendering: optimize-contrast;
-			image-rendering: pixelated;
-			-ms-interpolation-mode: nearest-neighbor;
-		}
-	</style>
-</head>
+      const script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          spinner.style.display = "none";
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = `${100 * progress}%`;
+        }).then((unityInstance) => {
+			loadingCover.style.display = "none";
+			if (canFullscreen) {
+				if (!hideFullScreenButton) {
+			  	fullscreenButton.style.display = "";
+				}
+				fullscreenButton.onclick = () => {
+			  	unityInstance.SetFullscreen(1);
+				};
+			}
+          	var canvas = unityInstance.Module.canvas;
+			var container = canvas.parentElement;
+			function onResize() {
+				var w;
+				var h;
 
-<body>
-	<div id="gameContainer">
-		<canvas id="unity-canvas" data-pixel-art="0"></canvas>
-		<script src="Build/1b2bedb96dfdc7fb030d26c4fc4b3398.js"></script>
-		<script>
-			createUnityInstance(document.querySelector("#unity-canvas"), {
-				devicePixelRatio: 1,
-				dataUrl: "Build/bf7782588dc4cfb0a889cf030b4e993a.data.unityweb",
-				frameworkUrl: "Build/b55bf2366d46abf413546e92801b14f6.js.unityweb",
-				codeUrl: "Build/0ee8d93d22e47d261f26707e6a33cbf4.wasm.unityweb",
-				streamingAssetsUrl: "StreamingAssets",
-				companyName: "200 Monkeys",
-				productName: "GEMPEpicDuel",
-				productVersion: "1.6.8",
-			}).then(function (instance) {
-				var canvas = instance.Module.canvas;
-				var container = canvas.parentElement;
-				function onResize() {
-					var w;
-					var h;
+				if (scaleToFit) {
+					w = window.innerWidth;
+					h = window.innerHeight;
 
-					if (scaleToFit) {
-						w = window.innerWidth;
-						h = window.innerHeight;
+					var r = 1080 / 1920;
 
-						var r = 1080 / 1920;
-
-						if (w * r > window.innerHeight) {
-							w = Math.min(w, Math.ceil(h / r));
-						}
-						h = Math.floor(w * r);
-					} else {
-						w = 1920;
-						h = 1080;
+					if (w * r > window.innerHeight) {
+						w = Math.min(w, Math.ceil(h / r));
 					}
-
-					container.style.width = canvas.style.width = w + "px";
-					container.style.height = canvas.style.height = h + "px";
-					container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
-					container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+					h = Math.floor(w * r);
+				} else {
+					w = 1920;
+					h = 1080;
 				}
 
-				var scaleToFit;
-				try {
-					scaleToFit = !!JSON.parse("1");
-				} catch (e) {
-					scaleToFit = true;
-				}
-				window.addEventListener('resize', onResize);
-				onResize();
-			});
-		</script>
-	</div>
-</body>
+				container.style.width = canvas.style.width = w + "px";
+				container.style.height = canvas.style.height = h + "px";
+				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+			}
 
+			var scaleToFit;
+			try {
+				scaleToFit = !!JSON.parse("1");
+			} catch (e) {
+				scaleToFit = true;
+			}
+			window.addEventListener('resize', onResize);
+			onResize();
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
 </html>

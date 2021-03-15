@@ -563,6 +563,15 @@ public interface SwccgCardBlueprint {
      */
     List<Modifier> getWhileStackedModifiers(SwccgGame game, PhysicalCard self);
 
+
+    /**
+     * Checks if card is playable as a starting interrupt
+     * @param game the game
+     * @param self the card
+     * @return true if it can be played as a starting interrupt, otherwise false
+     */
+    boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self);
+
     /**
      * Gets the action playing this card as a starting interrupt.
      * @param playerId the player
@@ -1698,4 +1707,10 @@ public interface SwccgCardBlueprint {
      * @return the duel directions provided by this card, or null
      */
     DuelDirections getDuelDirections(SwccgGame game);
+
+    /**
+     * Returns if this is a legacy card
+     * @return true if this is a legacy card
+     */
+    boolean isLegacy();
 }
