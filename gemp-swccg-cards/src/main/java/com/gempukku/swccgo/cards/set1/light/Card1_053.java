@@ -29,9 +29,9 @@ import java.util.List;
 public class Card1_053 extends AbstractNormalEffect {
     public Card1_053() {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "K'lor'slug", Uniqueness.UNIQUE);
-        setLore("Dejarik hologram of venomous swamp creature from Noe'ha'on. Keen senses of smell and vision. Dangerous hunter. Lays eggs - hundreds of ravenously hungry hatchlings.");
+        setLore("Dejarik of venomous swamp creature from Noe'ha'on. Keen senses of smell and vision. Dangerous hunter. Lays eggs - hundreds of ravenously hungry hatchlings.");
         setGameText("Deploy on your side of table. For each unit of ability you have present during a battle, you may use 1 Force to raise your total power by 1. Ability used in this way cannot also be used to draw destiny.");
-        addKeywords(Keyword.DEJARIK, Keyword.HOLOGRAM);
+        addKeywords(Keyword.DEJARIK);
     }
 
     @Override
