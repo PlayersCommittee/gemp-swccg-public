@@ -555,6 +555,43 @@ var GameAnimations = Class.extend({
             });
     },
 
+    turnCardOver:function (element, animate) {
+        var that = this;
+        var cardId = element.getAttribute("cardId");
+        var sideways = element.getAttribute("sideways");
+        var isCollapsed = element.getAttribute("collapsed");
+
+        $("#main").queue(
+            function (next) {
+                var blueprintId = element.getAttribute("blueprintId");
+                var card = $(".card:cardId(" + cardId + ")");
+                var cardData = card.data("card");
+
+                // Update blueprintId and imageUrl of card
+                cardData.turnCardOver(blueprintId);
+
+                // Check if card is supposed to be sideways
+                if (sideways=="true")
+                    cardData.onSide = true;
+                else
+                    cardData.onSide = false;
+
+                // Check if card is supposed to be collapsed
+                if (isCollapsed=="true")
+                    cardData.collapsed = true;
+                else
+                    cardData.collapsed = false;
+
+                next();
+            });
+
+        $("#main").queue(
+            function (next) {
+                that.game.layoutGroupWithCard(cardId);
+                next();
+            });
+    },
+
     moveCardInPlay:function (element, animate) {
         var that = this;
         $("#main").queue(

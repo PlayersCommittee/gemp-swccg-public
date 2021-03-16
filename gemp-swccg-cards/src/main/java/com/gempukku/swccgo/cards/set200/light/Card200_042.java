@@ -32,10 +32,10 @@ public class Card200_042 extends AbstractNormalEffect {
     public Card200_042() {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "K'lor'slug", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("Dejarik hologram of venomous swamp creature from Noe'ha'on. Keen senses of smell and vision. Dangerous hunter. Lays eggs - hundreds of ravenously hungry hatchlings.");
+        setLore("Dejarik of venomous swamp creature from Noe'ha'on. Keen senses of smell and vision. Dangerous hunter. Lays eggs - hundreds of ravenously hungry hatchlings.");
         setGameText("Deploy on table. If your character, starship, or vehicle in battle is about to be lost before the damage segment, it is instead lost at end of battle (if forfeited, forfeit for 0). [Immune to Alter]");
         addIcons(Icon.VIRTUAL_SET_0);
-        addKeywords(Keyword.DEJARIK, Keyword.HOLOGRAM);
+        addKeywords(Keyword.DEJARIK);
         addImmuneToCardTitle(Title.Alter);
     }
 

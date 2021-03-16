@@ -39,6 +39,18 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_14("Set 14", true),
     VIRTUAL_SET_15("Set 15", true),
 
+    //Legacy expansions
+    LEGACY_BLOCK_1("Block 1", true),
+    LEGACY_BLOCK_2("Block 2", true),
+    LEGACY_BLOCK_3("Block 3", true),
+    LEGACY_BLOCK_4("Block 4", true),
+    LEGACY_BLOCK_5("Block 5", true),
+    LEGACY_BLOCK_6("Block 6", true),
+    LEGACY_BLOCK_7("Block 7", true),
+    LEGACY_BLOCK_8("Block 8", true),
+    LEGACY_BLOCK_9("Block 9", true),
+    LEGACY_BLOCK_D("Block D", true),
+
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),
     ALIEN("Alien"),
@@ -54,6 +66,7 @@ public enum Icon implements Filterable {
     INTERRUPT("Interrupt"),
     JEDI_MASTER("Jedi Master"),
     JEDI_TEST("Jedi Test"),
+    NEW_REPUBLIC("New Republic"),
     OBJECTIVE("Objective"),
     PODRACER("Podracer"),
     REBEL("Rebel"),

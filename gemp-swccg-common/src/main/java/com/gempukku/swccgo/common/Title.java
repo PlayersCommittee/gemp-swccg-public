@@ -188,6 +188,7 @@ public interface Title {
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
     String Commence_Recharging = "Commence Recharging";
+    String Communing = "Communing";
     String Computer_Interface = "Computer Interface";
     String Concussion_Grenade = "Concussion Grenade";
     String Concussion_Missiles = "Concussion Missiles";
@@ -254,6 +255,7 @@ public interface Title {
     String Defensive_Fire = "Defensive Fire";
     String Defensive_Perimeter = "Hoth: Defensive Perimeter (3rd Marker)";
     String Demotion = "Demotion";
+    String Den_Of_Thieves = "Den Of Thieves";
     String Dengars_Blaster_Carbine =  "Dengar's Blaster Carbine";
     String Derlin = "Major Bren Derlin";
     String Desert_Heart = "Tatooine: Desert Heart";
@@ -499,6 +501,7 @@ public interface Title {
     String In_Complete_Control = "In Complete Control";
     String In_The_Hands_Of_The_Empire = "In The Hands Of The Empire";
     String Incinerator = "Cloud City: Incinerator";
+    String Indentured_To_The_Empire = "Indentured To The Empire";
     String Information_Exchange = "Information Exchange";
     String Inner_Strength = "Inner Strength";
     String Independent_Operation = "Independent Operation";
@@ -694,6 +697,7 @@ public interface Title {
     String NOOOOOOOOOOOO = "NOOOOOOOOOOOO!";
     String North_Ridge = "Hoth: North Ridge (4th Marker)";
     String Nute_Gunray = "Nute Gunray";
+    String ObiWans_Hut = "Tatooine: Obi-Wan's Hut";
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";
@@ -894,8 +898,10 @@ public interface Title {
     String Silence_Is_Golden = "Silence Is Golden";
     String Sith_Fury = "Sith Fury";
     String Sith_Probe_Droid = "Sith Probe Droid";
+    String Skyhook_Platform = "Kashyyyk: Skyhook Platform";
     String Skywalkers = "Skywalkers";
     String Slave_Quarters = "Tatooine: Slave Quarters";
+    String Slaving_Camp_Headquarters = "Kashyyyk: Slaving Camp Headquarters";
     String Slip_Sliding_Away = "Slip Sliding Away";
     String Smoke_Screen = "Smoke Screen";
     String Sniper = "Sniper";
@@ -1089,6 +1095,7 @@ public interface Title {
     String Wise_Advice = "Wise Advice";
     String Wittin = "Wittin";
     String Womp_Rat = "Womp Rat";
+    String Wookiee_Slaving_Operation = "Wookiee Slaving Operation";
     String Wookiee_Roar = "Wookiee Roar";
     String Wookiee_Strangle = "Wookiee Strangle";
     String Wounded_Wookiee = "Wounded Wookiee";

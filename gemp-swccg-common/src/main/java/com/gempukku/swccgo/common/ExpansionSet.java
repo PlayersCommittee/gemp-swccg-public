@@ -54,7 +54,9 @@ public enum ExpansionSet {
 
     DREAM_CARDS("Dream Cards", 401),
 
-    PLAYTESTING("Playtesting", 501);
+    PLAYTESTING("Playtesting", 501),
+
+    LEGACY("Legacy", 601);
 
     private String _humanReadable;
     private int _setNumber;

@@ -78,6 +78,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isObjectiveDeploymentComplete;
     private boolean _isProbeCard;
     private boolean _isHatredCard;
+    private boolean _isEnslavedCard;
     private boolean _isCoaxiumCard;
     private boolean _isLiberationCard;
     private boolean _isBluffCard;
@@ -195,6 +196,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         snapshot._isObjectiveDeploymentComplete = _isObjectiveDeploymentComplete;
         snapshot._isProbeCard = _isProbeCard;
         snapshot._isHatredCard = _isHatredCard;
+        snapshot._isEnslavedCard = _isEnslavedCard;
         snapshot._isCoaxiumCard = _isCoaxiumCard;
         snapshot._isBluffCard = _isBluffCard;
         snapshot._isLiberationCard = _isLiberationCard;
@@ -302,6 +304,9 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
         if (isFlipped())
             return _backBlueprintId;
+
+        if (_zone == Zone.TOP_OF_RESERVE_DECK && gameState.isTopCardOfReserveDeckRevealed(this.getOwner()))
+            return _frontBlueprintId;
 
         if (_isBlownAway
                 || (_zone != null
@@ -1246,6 +1251,16 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     @Override
     public boolean isHatredCard() {
         return _isHatredCard;
+    }
+
+    @Override
+    public void setEnslavedCard(boolean enslavedCard) {
+        _isEnslavedCard = enslavedCard;
+    }
+
+    @Override
+    public boolean isEnslavedCard() {
+        return _isEnslavedCard;
     }
 
     @Override
