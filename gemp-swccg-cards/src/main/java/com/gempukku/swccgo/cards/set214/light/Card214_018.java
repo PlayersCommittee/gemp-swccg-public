@@ -88,7 +88,6 @@ public class Card214_018 extends AbstractAlien {
                                                                     List<TriggerAction> actions = new LinkedList<>();
                                                                     if (TriggerConditions.justLost(game, effectResult, targetedCard)
                                                                         && GameConditions.canSpot(game, self, Filters.Din)
-                                                                        && GameConditions.canSpot(game, self, self)
                                                                         && GameConditions.isOncePerTurn(game, self, self.getCardId())) {
                                                                         final PhysicalCard justLostCard = ((LostFromTableResult) effectResult).getCard();
                                                                         final RequiredGameTextTriggerAction action2 = new RequiredGameTextTriggerAction(self, self.getCardId());

@@ -55,7 +55,7 @@ public class Card214_004 extends AbstractSite {
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new MayNotForceDrainAtLocationModifier(self));
-        modifiers.add(new CancelForceIconModifier(self, self, self.getBlueprint().getIconCount(Icon.LIGHT_FORCE), Icon.LIGHT_FORCE, false));
+        modifiers.add(new CancelForceIconModifier(self, self, Integer.MAX_VALUE, Icon.LIGHT_FORCE, false));
         modifiers.add(new DeployCostToLocationModifier(self, 2, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.character)));
         return modifiers;
     }
