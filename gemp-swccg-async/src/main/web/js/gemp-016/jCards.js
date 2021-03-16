@@ -3329,6 +3329,70 @@ var fixedImages = {
 "601_70":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/yavinsentry.gif",
 "601_71":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/yourinsightservesyouwell.gif",
 "601_72":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/velkentezeri.gif",
+"601_73":"https://res.starwarsccg.org/cards/legacy/VirtualBlock5-Dark/large/asithsplans.gif",
+"601_74":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Dark/large/blasterrack.gif",
+"601_75":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/closecall.gif",
+"601_76":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/combatresponse.gif",
+"601_77":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/emperorspower.gif",
+"601_78":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Dark/large/endorshield.gif",
+"601_79":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/forcefield.gif",
+"601_80":"https://res.starwarsccg.org/cards/legacy/VirtualBlock5-Dark/large/forcepush.gif",
+"601_81":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/galenmarekstarkiller.gif",
+"601_82":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/galenslightsabervadersgift.gif",
+"601_83":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/garindan.gif",
+"601_84":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/generalnevar.gif",
+"601_85":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/giftofthemaster.gif",
+"601_86":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/grandmofftarkin.gif",
+"601_87":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/huntdownanddestroythejedi.gif",
+"601_87_BACK":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/theirfirehasgoneoutoftheuniverse.gif",
+"601_88":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/imperialpropaganda.gif",
+"601_89":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/junoeclipseblackleader.gif",
+"601_90":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/marajadewithlightsaber.gif",
+"601_91":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/nichubana.gif",
+"601_92":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/onebeautifulthing.gif",
+"601_93":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/prepareddefenses.gif",
+"601_94":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/revengeofthesith.gif",
+"601_95":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/rogueshadow.gif",
+"601_96":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/stopmotion.gif",
+"601_97":"https://res.starwarsccg.org/cards/legacy/VirtualBlock7-Dark/large/victory.gif",
+"601_98":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Dark/large/weaponlevitation&theempiresback.gif",
+"601_99":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Dark/large/youcannothideforever.gif",
+"601_100":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/infiltration.gif",
+"601_100_BACK":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/unlikelyallies.gif",
+"601_101":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/agoodblasteratyourside.gif",
+"601_102":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/antillesmaneuver&rebelreinforcements.gif",
+"601_103":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/boosterinpulsarskate.gif",
+"601_104":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Light/large/corellianretort.gif",
+"601_105":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/darkapproach.gif",
+"601_106":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/errantventure.gif",
+"601_107":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/Hansoloinnocentscoundrel.gif",
+"601_108":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/hansblastersouncivilized.gif",
+"601_109":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Light/large/icantbelievehesgone.gif",
+"601_110":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Light/large/imperialatrocity.gif",
+"601_111":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/imperialnavigationcharts.gif",
+"601_112":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/kylekatarn.gif",
+"601_113":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/kylekatarnsblasterrifle.gif",
+"601_114":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/landocalrissianscoundrel.gif",
+"601_115":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Light/large/leiassportingblaster.gif",
+"601_116":"https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Light/large/muchtolearnyoustillhave.gif",
+"601_117":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/narshaddaa.gif",
+"601_118":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/narshaddaascoundrelsrest.gif",
+"601_119":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/narshaddaaundercity.gif",
+"601_120":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/narshaddaaundercitystreet.gif",
+"601_121":"https://res.starwarsccg.org/cards/legacy/VirtualBlock5-Light/large/obiwaninradiantvii.gif",
+"601_122":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/redeemedapprentice.gif",
+"601_123":"https://res.starwarsccg.org/cards/legacy/VirtualBlock1-Light/large/sabotage.gif",
+"601_124":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/scoundrelsbravado.gif",
+"601_125":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/scoundrelscharm.gif",
+"601_126":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/scoundrelsingenuity.gif",
+"601_127":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Light/large/scoundrelsluck.gif",
+"601_128":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/spaceportscoundrelsguild.gif",
+"601_129":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Light/large/starshiplevitation.gif",
+"601_130":"https://res.starwarsccg.org/cards/legacy/VirtualBlock3-Light/large/tanusspijek.gif",
+"601_131":"https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Light/large/thisismorelikeit.gif",
+"601_132":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/jabbasprizefront.gif",
+"601_132_BACK":"https://res.starwarsccg.org/cards/legacy/VirtualBlock6-Light/large/jabbasprizeback.gif",
+"601_133":"https://res.starwarsccg.org/cards/legacy/VirtualBlockDS-Light/large/dontdothatagain.gif",
 
 //playtesting
 "501_1":"/gemp-swccg/images/cards/Virtual4-Light/rey.gif",
@@ -3908,7 +3972,11 @@ var Card = Class.extend({
              return (cardNo == 14) ||
                     (cardNo == 15) ||
                     (cardNo == 16) ||
-                    (cardNo == 60);
+                    (cardNo == 60) ||
+                    (cardNo == 118) ||
+                    (cardNo == 119) ||
+                    (cardNo == 120) ||
+                    (cardNo == 128);
        }
 
         return false;
