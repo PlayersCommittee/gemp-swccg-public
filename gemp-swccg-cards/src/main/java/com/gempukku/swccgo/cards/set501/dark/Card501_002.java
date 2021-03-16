@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card501_002 extends AbstractCharacterWeapon {
     public Card501_002() {
-        super(Side.DARK, 3, "Darksaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Darksaber", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on Gideon, [Set 13] Maul, or your Mandalorian. May add 1 to Force drain where present. May target a character. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. If just lost from table or hand, opponent may steal this weapon into hand.");
         addIcons(Icon.VIRTUAL_SET_14);

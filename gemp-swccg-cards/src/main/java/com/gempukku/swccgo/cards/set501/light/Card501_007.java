@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card501_007 extends AbstractResistance {
     public Card501_007() {
-        super(Side.LIGHT, 2, 2, 3, 2, 4, "Beaumont Kin", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, 2, 4, "Beaumont Kin", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy cost of opponent's characters may not be modified at same and related locations. If you have ten cards in your Lost Pile, Force drain +1 here. Once during battle, may add Beaumont's power to another character present; Beaumont is 'hit'.");
         addPersona(Persona.BEAUMONT);
