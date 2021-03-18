@@ -1,11 +1,5 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-//Card501_076
-//•Scarif (DS)
-//DS (2): If Shield Gate here, Force drain +1 here. If Death Star in orbit, Superlaser fires for free.
-//LS (1): If Shield Gate here, your shuttling and moving to or from (and deploying to) here requires +1 Force.
-//[planet][parsec 7]
-
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
 import com.gempukku.swccgo.cards.conditions.OrbitingCondition;

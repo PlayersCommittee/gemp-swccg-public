@@ -16,7 +16,6 @@ import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Set: Set 14
  * Type: Location

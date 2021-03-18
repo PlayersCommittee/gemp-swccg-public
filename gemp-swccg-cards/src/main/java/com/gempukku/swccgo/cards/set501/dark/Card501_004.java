@@ -1,62 +1,24 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-import com.gempukku.swccgo.cards.AbstractImperial;
-import com.gempukku.swccgo.cards.conditions.DidNotDeployObjectiveCondition;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.cards.evaluators.*;
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
-import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
-
-import java.util.LinkedList;
-import java.util.List;
-
+import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 
 /**
- * Set: Set 14
- * Type: Character
- * SubType: Imperial
- * Title: Admiral Piett (V)
+ * Set: Set 15
+ * Type: Interrupt
+ * Subtype: Used
+ * Title: Shocking Revelation (V)
  */
-public class Card501_004 extends AbstractImperial {
+public class Card501_004 extends AbstractUsedInterrupt {
     public Card501_004() {
-        super(Side.DARK, 1, 4, 4, 3, 6, "Admiral Piett", Uniqueness.UNIQUE);
-        setLore("Veteran of the Imperial military machine. Leader of the Imperial fleet at Endor. Skilled at political maneuvering and appeasing his powerful superiors.");
-        setGameText("While piloting Executor, adds 3 to power. Deploys -1 for each of your starship sites on table. If piloting Executor and you have no objective, Flagship Operations may deploy on Executor regardless of deployment restrictions.");
-        addPersona(Persona.PIETT);
-        addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_14);
-        addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
-        setMatchingStarshipFilter(Filters.Executor);
+        super(Side.DARK, 5, Title.Shocking_Revelation, Uniqueness.UNIQUE);
+        setLore("'Well, don't blame me. I'm an interpreter. I'm not supposed to know a power socket from a computer terminal.'");
+        setGameText("Each player reveals the top 2 cards from their reserve deck. For every destiny = 5 revealed, choose one action: peek at opponent’s hand OR take one of your revealed cards into hand OR activate 1 Force. Return revealed cards to owners’ Reserve deck; reshuffle.");
+        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
-        setTestingText("Admiral Piett (V)");
-    }
-
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        Filter yourStarshipSitesFilter = Filters.and(Filters.your(self.getOwner()), Filters.starship_site);
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostModifier(self, new OnTableCondition(self, yourStarshipSitesFilter),
-                new NegativeEvaluator(new OnTableEvaluator(self, yourStarshipSitesFilter))));
-        return modifiers;
-    }
-
-    @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3, Filters.Executor));
-
-        Condition condition = new AndCondition(new PilotingCondition(self, Filters.Executor),
-                                            new DidNotDeployObjectiveCondition(self.getOwner())
-        );
-
-        modifiers.add(new ModifyGameTextModifier(self, Filters.Flagship_Operations, condition, ModifyGameTextType.FLAGSHIP_OPERATIONS__MAY_DEPLOY_ON_EXECUTOR));
-        return modifiers;
+        setTestingText("Shocking Revelation (V)");
     }
 }
