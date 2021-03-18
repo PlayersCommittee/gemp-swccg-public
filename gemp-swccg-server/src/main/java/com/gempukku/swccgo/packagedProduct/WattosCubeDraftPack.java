@@ -510,7 +510,7 @@ public class WattosCubeDraftPack extends BasePackagedCardProduct {
         cards.add("207_5");
         cards.add("204_7");
         cards.add("204_8");
-        cards.add("204_9");
+        cards.add("204_9^");
         cards.add("209_10");
         cards.add("209_11");
         cards.add("208_11");
