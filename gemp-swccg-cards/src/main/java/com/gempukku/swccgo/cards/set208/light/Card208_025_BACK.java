@@ -35,7 +35,6 @@ public class Card208_025_BACK extends AbstractObjective {
         super(Side.LIGHT, 7, Title.He_Will_Bring_Balance);
         setGameText("While this side up, once during your control phase, may peek at up to X cards from the top of your Reserve Deck, where X = number of battlegrounds you occupy; take one into hand and shuffle your Reserve Deck. During your draw phase, may retrieve any one card; opponent may stack a card from hand on I Feel The Conflict to place that card out of play instead. Flip this card (unless Vader crossed over) if opponent's character of ability > 4 at a battleground site or you do not have Luke (or a Jedi) at a battleground site.");
         addIcons(Icon.VIRTUAL_SET_8);
-        setTestingText(Title.He_Will_Bring_Balance);
     }
 
     @Override

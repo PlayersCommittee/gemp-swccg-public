@@ -38,7 +38,6 @@ public class Card210_039 extends AbstractSystem {
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.VIRTUAL_SET_10, Icon.PLANET, Icon.EPISODE_I);
-        setTestingText("Mustafar (ERRATA)");
     }
 
     @Override

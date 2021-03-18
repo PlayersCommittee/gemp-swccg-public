@@ -36,7 +36,6 @@ public class Card213_049 extends AbstractUsedOrLostInterrupt {
         setGameText("USED: Unless Twilight Is Upon Me on table, [upload] [Cloud City] or [Endor] Leia or [Dagobah] Luke. LOST: During a battle at a site involving [Endor] Leia or [Dagobah] or [Death Star II] Luke, choose: Add one destiny to attrition. OR Cancel the game text of a character of ability < 4.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_13);
         setVirtualSuffix(true);
-        setTestingText("Anakin Skywalker (V) (ERRATA)");
     }
 
     @Override

@@ -40,7 +40,6 @@ public class Card201_039_BACK extends AbstractObjective {
         super(Side.DARK, 7, Title.No_One_To_Stop_Us_This_Time);
         setGameText("While this side up, once during your control phase, may peek at up to X cards from the top of your Reserve Deck, where X = number of Tatooine locations you occupy; take one into hand and shuffle your Reserve Deck. Once per turn, may [download] a Tatooine battleground site. Opponents characters require +1 Force to move from Tatooine sites using their landspeed. During your draw phase, you may retrieve one trooper. Flip this card if opponent controls more Tatooine sites than you.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_1);
-        setTestingText(Title.No_One_To_Stop_Us_This_Time);
     }
 
     @Override
