@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
@@ -28,6 +29,7 @@ import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.ForceDrainCompletedResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,10 +43,8 @@ import java.util.List;
 public class Card211_036_BACK extends AbstractObjective {
     public Card211_036_BACK() {
         super(Side.LIGHT, 7, Title.We_Need_Luke_Skywalker);
-        setGameText("Immediately place Luke out of play (ignore [Death Star II] objective restrictions, if any). For remainder of battle, opponent may not fire weapons." +
-                "While this side up, opponent's immunity to attrition is limited to < 5. Your Force drains are +1 where you have two unique (•) Resistance characters. " +
-                "Once during your turn, may peek at the top card of your Force Pile and Reserve Deck; place both cards (in any order) on top of one of those piles. " +
-                "Once per turn during battle involving two Resistance characters, may cancel an opponent's just drawn destiny to cause a re-draw.");
+        setGameText("Immediately place Luke out of play (ignore [Death Star II] objective restrictions, if any). For remainder of battle, opponent may not fire weapons. " +
+                "While this side up, opponent's immunity to attrition is limited to < 5. Once during your turn, may peek at the top card of your Force Pile and Reserve Deck; place both cards (in any order) on top of one of those piles. Where you have two unique (•) Resistance characters: once per turn during battle, may cancel an opponent's just drawn destiny to cause a re-draw, and once per turn, opponent loses 1 Force if you just Force drained.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);
     }
 
@@ -71,6 +71,25 @@ public class Card211_036_BACK extends AbstractObjective {
             );
             actions.add(action);
         }
+
+        GameTextActionId gameTextActionId3 = GameTextActionId.OTHER_CARD_ACTION_3;
+        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId3)
+                && TriggerConditions.forceDrainCompleted(game, effectResult, playerId)) {
+            PhysicalCard forceDrainLocation = ((ForceDrainCompletedResult) effectResult).getLocation();
+            if (GameConditions.canSpot(game, self, Filters.hasDifferentCardTitlesAtLocation(self, Filters.and(Filters.at(forceDrainLocation), Filters.your(playerId), Filters.unique, Filters.Resistance_character)))) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId3);
+                action.setText("Opponent loses 1 Force");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerTurnEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new LoseForceEffect(action, game.getOpponent(playerId), 1));
+                actions.add(action);
+            }
+        }
+
         return actions;
     }
 
@@ -132,20 +151,19 @@ public class Card211_036_BACK extends AbstractObjective {
 
         Filter cardsWithMoreThan5ITA = Filters.and(Filters.opponents(self.getOwner()), Filters.immunityToAttritionLessThan(5));
         modifiers.add(new ImmunityToAttritionLimitedToModifier(self, cardsWithMoreThan5ITA, 5));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.location,
-                Filters.hasDifferentCardTitlesAtLocation(self, Filters.and(Filters.your(self), Filters.unique, Filters.Resistance_character))), 1, self.getOwner()));
         return modifiers;
     }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if ((TriggerConditions.isDestinyJustDrawnBy(game, effectResult, game.getOpponent(playerId)))
                 && GameConditions.isOncePerTurn(game, self, playerId,gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattle(game)
-                && Filters.countActive(game, self, Filters.and(Filters.Resistance_character, Filters.participatingInBattle)) >= 2
+                && Filters.countActive(game, self, Filters.and(Filters.unique, Filters.Resistance_character, Filters.participatingInBattle)) >= 2
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
@@ -156,8 +174,9 @@ public class Card211_036_BACK extends AbstractObjective {
             // Perform result(s)
             action.appendEffect(
                     new CancelDestinyAndCauseRedrawEffect(action));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+
+        return actions;
     }
 }

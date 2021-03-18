@@ -2632,7 +2632,7 @@ var fixedImages = {
 "200_36":"/gemp-swccg/images/cards/Virtual0-Light/beldonseye.gif",
 "200_37":"/gemp-swccg/images/cards/Virtual0-Light/civildisorder.gif",
 "200_38":"/gemp-swccg/images/cards/Virtual0-Light/downwiththeemperor.gif",
-"200_39":"/gemp-swccg/images/cards/Virtual0-Light/evacuationcontrol.gif",
+"200_39":"/gemp-swccg/images/cards/Virtual0-Light/idontlikesand.gif",
 "200_40":"/gemp-swccg/images/cards/Virtual0-Light/forluck.gif",
 "200_41":"/gemp-swccg/images/cards/Virtual0-Light/imustbeallowedtospeak.gif",
 "200_42":"/gemp-swccg/images/cards/Virtual0-Light/klorslug.gif",
@@ -2701,7 +2701,7 @@ var fixedImages = {
 "200_106":"/gemp-swccg/images/cards/Virtual0-Dark/establishcontrol.gif",
 "200_107":"/gemp-swccg/images/cards/Virtual0-Dark/imageofthedarklord.gif",
 "200_108":"/gemp-swccg/images/cards/Virtual0-Dark/imperialdecree.gif",
-"200_109":"/gemp-swccg/images/cards/Virtual0-Dark/imperialjustice.gif",
+"200_109":"/gemp-swccg/images/cards/Virtual0-Dark/coarseandroughandirritating.gif",
 "200_110":"/gemp-swccg/images/cards/Virtual0-Dark/knowledgeanddefense.gif",
 "200_111":"/gemp-swccg/images/cards/Virtual0-Dark/kuatdriveyards.gif",
 "200_112":"/gemp-swccg/images/cards/Virtual0-Dark/somethingspecialplannedforthem.gif",
@@ -3232,7 +3232,6 @@ var fixedImages = {
 "213_45":"/gemp-swccg/images/cards/Virtual13-Light/clumsyandstupid.gif",
 "213_46":"/gemp-swccg/images/cards/Virtual13-Light/kesselrun.gif",
 "213_47":"/gemp-swccg/images/cards/Virtual13-Light/meditation.gif",
-"213_48":"/gemp-swccg/images/cards/Virtual13-Light/twilightisuponme.gif",
 "213_49":"/gemp-swccg/images/cards/Virtual13-Light/anakinskywalker.gif",
 "213_50":"/gemp-swccg/images/cards/Virtual13-Light/hansdice.gif",
 "213_51":"/gemp-swccg/images/cards/Virtual13-Light/hesthebestsmuggleraround.gif",
@@ -3244,6 +3243,31 @@ var fixedImages = {
 "213_57":"/gemp-swccg/images/cards/Virtual13-Light/kessel.gif",
 "213_58":"/gemp-swccg/images/cards/Virtual13-Light/leiasresistancetransport.gif",
 "213_59":"/gemp-swccg/images/cards/Virtual13-Light/rock.gif",
+"214_001":"/gemp-swccg/images/cards/Virtual14-Dark/altercollateraldamage.gif"
+"214_002":"/gemp-swccg/images/cards/Virtual14-Dark/bestoonlegacy.gif"
+"214_003":"/gemp-swccg/images/cards/Virtual14-Dark/darksaber.gif"
+"214_004":"/gemp-swccg/images/cards/Virtual14-Dark/exegolsiththrone.gif"
+"214_005":"/gemp-swccg/images/cards/Virtual14-Dark/intimidatorpersecutor.gif"
+"214_006":"/gemp-swccg/images/cards/Virtual14-Dark/kijimi.gif"
+"214_007":"/gemp-swccg/images/cards/Virtual14-Dark/ochi.gif"
+"214_008":"/gemp-swccg/images/cards/Virtual14-Dark/palpatineemperorreturned.gif"
+"214_009":"/gemp-swccg/images/cards/Virtual14-Dark/steadfast.gif"
+"214_010":"/gemp-swccg/images/cards/Virtual14-Dark/theclient.gif"
+"214_011":"/gemp-swccg/images/cards/Virtual14-Dark/thedeadspeak.gif"
+"214_012":"/gemp-swccg/images/cards/Virtual14-Dark/thefirstorderwasjustthebeginning.gif"
+"214_013":"/gemp-swccg/images/cards/Virtual14-Light/alterfriendlyfire.gif"
+"214_014":"/gemp-swccg/images/cards/Virtual14-Light/arc170starfighter.gif"
+"214_015":"/gemp-swccg/images/cards/Virtual14-Light/ahsokasshotolightsaber.gif"
+"214_016":"/gemp-swccg/images/cards/Virtual14-Light/beaumontkin.gif"
+"214_017":"/gemp-swccg/images/cards/Virtual14-Light/corporalpao.gif"
+"214_018":"/gemp-swccg/images/cards/Virtual14-Light/dindjarin.gif"
+"214_019":"/gemp-swccg/images/cards/Virtual14-Light/endorchiefchirpashut.gif"
+"214_020":"/gemp-swccg/images/cards/Virtual14-Light/ouronlyhope.gif"
+"214_021":"/gemp-swccg/images/cards/Virtual14-Light/plokoonsjedistarfighter.gif"
+"214_022":"/gemp-swccg/images/cards/Virtual14-Light/reyallofthejedi.gif"
+
+"215_001":"/gemp-swccg/images/cards/Virtual15-Light/oddballstorrentstarfighter.gif"
+
 "301_1":"/gemp-swccg/images/cards/VirtualPremium-Light/ahsokatanowithlightsabers.gif",
 "301_2":"/gemp-swccg/images/cards/VirtualPremium-Light/cityintheclouds.gif",
 "301_2_BACK":"/gemp-swccg/images/cards/VirtualPremium-Light/youtrulybelongherewithus.gif",
@@ -3954,8 +3978,12 @@ var Card = Class.extend({
                    (cardNo >= 44 && cardNo <= 47);
         }
         if (setNo == 213) {
-                    return (cardNo >= 23 && cardNo <= 29) ||
-                           (cardNo == 56);
+            return (cardNo >= 23 && cardNo <= 29) ||
+                    (cardNo == 56);
+        }
+        if(setNo == 214) {
+            return (cardNo == 4) ||
+                    (cardNo == 19);
         }
         if (setNo == 501) {
             return (cardNo == 40) ||

@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
@@ -40,7 +41,7 @@ public class Card211_036 extends AbstractObjective {
         super(Side.LIGHT, 0, Title.The_Galaxy_May_Need_A_Legend);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Ahch-To system and any [Episode VII] battleground.\n" +
-                "For remainder of game, you may not Force drain on Ahch-To. You may not deploy [Episode I] locations or non-[Episode VII] Luke. Once per game, may take any one card into hand from Force Pile; reshuffle. Luke deploys only to Ahch-To.\n" +
+                "For remainder of game, Luke deploys only to Ahch-To. You may not Force drain on Ahch-To. You may not deploy Jedi while a Jedi on table. You may not deploy [Episode I] locations or non-[Episode VII] Luke. Once per game, may take any one card into hand from Force Pile; reshuffle.\n" +
                 "While this side up, once per turn, may use 1 Force to [download] an Ahch-To location or [Episode VII] battleground.\n" +
                 "May flip this card if Luke on Ahch-To and a battle was just initiated involving a Resistance character.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);
@@ -75,6 +76,9 @@ public class Card211_036 extends AbstractObjective {
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployModifier(self, Filters.or(Filters.and(Filters.location, Icon.EPISODE_I), Filters.and(Filters.Luke, Filters.not(Icon.EPISODE_VII))), playerId), null));
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(action,
+                        new MayNotDeployModifier(self, Filters.Jedi, new OnTableCondition(self, Filters.Jedi), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployToLocationModifier(self, Filters.Luke, Filters.not(Filters.AhchTo_location)), null));
