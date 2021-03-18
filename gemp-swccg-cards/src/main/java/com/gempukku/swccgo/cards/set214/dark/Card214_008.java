@@ -38,7 +38,6 @@ public class Card214_008 extends AbstractDarkJediMasterFirstOrder {
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addPersona(Persona.EMPEROR);
         addKeywords(Keyword.LEADER);
-        setTestingText("Palpatine, Emperor Returned");
     }
 
     @Override
