@@ -359,7 +359,7 @@ public class WattosCubeObjectivePack extends BasePackagedCardProduct {
                     cards.add("8_8");
                     cards.add("9_34");
                     cards.add("208_14");
-//TODO get id for Our Only Hope (V)                    cards.add("");
+                    cards.add("214_20");
                     cards.add("213_49");
                     cards.add("9_51");
                     cards.add("12_76");
