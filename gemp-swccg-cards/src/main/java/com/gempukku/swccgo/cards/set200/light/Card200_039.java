@@ -32,7 +32,7 @@ public class Card200_039 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("");
         setGameText("Deploy on table; shuffle your Reserve Deck, peek at top two cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter.]");
-        addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.DAGOBAH, Icon.EPISODE_I, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
     }
 
