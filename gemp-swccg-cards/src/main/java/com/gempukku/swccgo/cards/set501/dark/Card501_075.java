@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 14
+ * Set: Set 15
  * Type: Location
  * Subtype: Site
  * Title: Scarif: Beach
@@ -29,7 +29,7 @@ public class Card501_075 extends AbstractSite {
         setLocationDarkSideGameText("Krennic and death troopers are power +1 here.");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcon(Icon.DARK_FORCE, 2);
-        addIcons(Icon.EXTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_14);
+        addIcons(Icon.EXTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_15);
         setTestingText("Scarif: Beach");
     }
 

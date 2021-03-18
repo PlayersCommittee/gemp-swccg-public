@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * Set: Set 14
+ * Set: Set 15
  * Type: Device
  * Title: Observation Holocam (V)
  */
@@ -30,7 +30,7 @@ public class Card501_009 extends AbstractDevice {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Observation Holocam");
         setLore("Remote surveillance viewers with droid controllers supplement security. Can activate alarms and automated weapons when needed, bringing help to endangered locations.");
         setGameText("Deploy on a site. Opponent may not 'react' to or from here. Characters here may not have their defense value or forfeit increased above their printed value. Device lost if opponent controls this site.");
-        addIcon(Icon.VIRTUAL_SET_14);
+        addIcon(Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Observation Holocam (V)");
     }

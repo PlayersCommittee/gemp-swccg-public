@@ -22,7 +22,7 @@ import java.util.*;
 
 
 /**
- * Set: Set 13
+ * Set: Set 15
  * Type: Interrupt
  * Subtype: Used Or Lost
  * Title: A Sith Legend
@@ -32,7 +32,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         super(Side.DARK, 2, "A Sith Legend", Uniqueness.UNIQUE);
         setLore("");
         setGameText("USED: Deploy a lightsaber (may simultaneously deploy a matching Dark Jedi or Sith character) from hand and/or Reserve Deck; reshuffle. [Immune to Sense.] LOST: Except during battle, relocate a Dark Jedi or Inquisitor to same battleground site as a Jedi.");
-        addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
+        addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_15);
         setTestingText("A Sith Legend");
     }
 
