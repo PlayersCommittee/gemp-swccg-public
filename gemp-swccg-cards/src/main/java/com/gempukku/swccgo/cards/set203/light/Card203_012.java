@@ -36,7 +36,7 @@ public class Card203_012 extends AbstractRebel {
         super(Side.LIGHT, 4, 2, 1, 2, 3, "Toryn Farr", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Chief Controller at Echo Command. Responsible for communicating orders to the troops. Personally gives firing orders to Ion Cannon Control.");
-        setGameText("[Pilot] 2. Your total battle destiny here is +1 (+2 if piloting a transport). Once per turn, if a battle just ended here, may 'rescue' (retrieve from Lost Pile) OR stack on [Set 0] Evacuation Control) a Rebel of ability < 3 forfeited from same location this turn.");
+        setGameText("[Pilot] 2. Your total battle destiny here is +1 (+2 if piloting a transport). Once per turn, if a battle just ended here, may 'rescue' (retrieve from Lost Pile) a Rebel of ability < 3 forfeited from same location this turn.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_3);
         addKeywords(Keyword.FEMALE);
     }
@@ -75,40 +75,6 @@ public class Card203_012 extends AbstractRebel {
             action1.appendEffect(
                     new RetrieveCardEffect(action1, playerId, forfeitedRebelFilter));
             actions.add(action1);
-
-            Filter evacuationControlFilter = Filters.and(Filters.Evacuation_Control, Icon.VIRTUAL_SET_0);
-
-            if (GameConditions.canSpot(game, self, evacuationControlFilter)) {
-
-                final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action2.setText("Stack forfeited Rebel on Evacuation Control");
-                // Update usage limit(s)
-                action2.appendUsage(
-                        new OncePerTurnEffect(action2));
-                // Choose target(s)
-                action2.appendTargeting(
-                        new ChooseCardOnTableEffect(action2, playerId, "Choose Evacuation Control", evacuationControlFilter) {
-                            @Override
-                            protected void cardSelected(final PhysicalCard evacuationControl) {
-                                // Perform result(s)
-                                action2.appendEffect(
-                                        new ChooseCardFromLostPileEffect(action2, playerId, forfeitedRebelFilter) {
-                                            @Override
-                                            protected void cardSelected(SwccgGame game, PhysicalCard rebel) {
-                                                action2.appendEffect(
-                                                        new StackOneCardFromLostPileEffect(action2, rebel, evacuationControl, false, false, false));
-                                            }
-                                        }
-                                );
-                            }
-                            @Override
-                            protected boolean getUseShortcut() {
-                                return true;
-                            }
-                        }
-                );
-                actions.add(action2);
-            }
         }
         return actions;
     }

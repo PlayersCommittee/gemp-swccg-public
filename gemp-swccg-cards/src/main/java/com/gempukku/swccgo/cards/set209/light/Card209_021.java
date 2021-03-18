@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeUsedToSatisfyAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
@@ -36,7 +37,7 @@ public class Card209_021 extends AbstractUsedInterrupt {
     public Card209_021() {
         super(Side.LIGHT, 4, "Odin Nesloor & First Aid", Uniqueness.UNIQUE);
         addComboCardTitles(Title.Odin_Nesloor, Title.First_Aid);
-        setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) to prevent its forfeit from being reduced (and character is immune to Dr. Evazan) for remainder of turn. OR Cancel Disarmed. [Immune to Sense.] OR Cancel a 'react.' OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
+        setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) for remainder of turn: it's forfeit may not be reduced, it may not be used to satisfy attrition, and is immune to Dr. Evazan OR Cancel Disarmed (Immune to Sense) OR Cancel a ‘react’. OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9, Icon.CORUSCANT);
     }
 
@@ -62,7 +63,7 @@ public class Card209_021 extends AbstractUsedInterrupt {
                         }
                     }
             );
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
         // Part 2: Cancel Disarmed as it's being played, before it resolves.
@@ -74,9 +75,9 @@ public class Card209_021 extends AbstractUsedInterrupt {
             action.setImmuneTo(Title.Sense);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
 
     @Override
@@ -264,7 +265,7 @@ public class Card209_021 extends AbstractUsedInterrupt {
             if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-                action.setText("Prevent Forfeit From Being Reduced And Make Immune To Dr. Evazan");
+                action.setText("Prevent Forfeit From Being Reduced, Being Used To Satisfy Attrition, And Grant Immunity To Dr. Evazan");
                 action.setImmuneTo(Title.Sense);
                 action.appendTargeting(
                         new TargetCardOnTableEffect(action, playerId, "Choose Target", cardAboutToBeHit) {
@@ -276,7 +277,7 @@ public class Card209_021 extends AbstractUsedInterrupt {
                                         new UseForceEffect(action, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1));
 
                                 // Allow response(s)
-                                action.allowResponses("Prevent forfeit from being reduced and make immune to Dr. Evazan",
+                                action.allowResponses("Prevent forfeit from being reduced, being used to satisfy attrition, and grant immunity to Dr. Evazan",
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
@@ -287,6 +288,10 @@ public class Card209_021 extends AbstractUsedInterrupt {
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
                                                                 "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                                action.appendEffect(
+                                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                                new MayNotBeUsedToSatisfyAttritionModifier(self, finalTarget),
+                                                                GameUtils.getCardLink(finalTarget) + " may not be used to satisfy attrition until end of turn"));
                                                 action.appendEffect(new ImmuneToUntilEndOfTurnEffect(action, finalTarget, Title.Dr_Evazan));
                                             }
                                         }

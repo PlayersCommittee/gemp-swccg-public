@@ -37,7 +37,7 @@ public class Card213_044 extends AbstractJediMaster {
     public Card213_044() {
         super(Side.LIGHT, 4, 4, 3, 7, 7, "Yoda, Master Of The Force", Uniqueness.UNIQUE);
         setLore("Jedi Council Member. 'More to say have you?'");
-        setGameText("Power +3 while defending a battle (or while exactly two Jedi on table). Once per game, during your move phase, may relocate to a battleground site as a regular move. Immune to attrition.");
+        setGameText("Power +3 while defending a battle (or while exactly two Jedi on table). Once per game, during your move phase, may relocate to an [Episode I] battleground site as a regular move. Immune to attrition.");
         addPersona(Persona.YODA);
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.JEDI_COUNCIL_MEMBER);
@@ -62,9 +62,9 @@ public class Card213_044 extends AbstractJediMaster {
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
                 && !GameConditions.mayNotMove(game, self)
-                && GameConditions.canSpot(game, self, Filters.and(Filters.battleground_site, Filters.otherLocation(self)))
+                && GameConditions.canSpot(game, self, Filters.and(Icon.EPISODE_I, Filters.battleground_site, Filters.otherLocation(self)))
                 && Filters.hasNotPerformedRegularMove.accepts(game, self)
-            ) {
+        ) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Relocate to a battleground site");
@@ -74,7 +74,7 @@ public class Card213_044 extends AbstractJediMaster {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate to", Filters.and(Filters.battleground_site, Filters.otherLocation(self))) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate to", Filters.and(Icon.EPISODE_I, Filters.battleground_site, Filters.otherLocation(self))) {
                         @Override
                         protected void cardSelected(final PhysicalCard siteSelected) {
                             action.addAnimationGroup(self);
