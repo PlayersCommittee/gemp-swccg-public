@@ -24,13 +24,13 @@ import java.util.List;
 /**
  * Set: Set 0
  * Type: Effect
- * Title: Shot In The Dark (V)
+ * Title: Coarse And Rough And Irritating (V)
  */
 public class Card200_109 extends AbstractNormalEffect {
     public Card200_109() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Shot_In_The_Dark, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Coarse And Rough And Irritating", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("To test his theory that he was not in a cave, Han blasted the floor. He was right.");
+        setLore("Tatooine's twin suns cause turbulent storms that strike with little or no warning. Strong winds whip rocks through the air with enormous force.");
         setGameText("Deploy on table; shuffle your Reserve Deck, peek at top two cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter.]");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);

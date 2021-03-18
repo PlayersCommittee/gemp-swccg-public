@@ -24,13 +24,13 @@ import java.util.List;
 /**
  * Set: Set 0
  * Type: Effect
- * Title: Flash Of Insight (V)
+ * Title: I Don't Like Sand (V)
  */
 public class Card200_039 extends AbstractNormalEffect {
     public Card200_039() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Flash Of Insight", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I Don't Like Sand", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("Occasionally Han was capable of such feats, even without Threepio there to tell him these things.");
+        setLore("");
         setGameText("Deploy on table; shuffle your Reserve Deck, peek at top two cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter.]");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
