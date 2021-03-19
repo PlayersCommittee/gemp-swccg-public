@@ -76,7 +76,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
-        if (self.getZone() != Zone.STACKED && (checkPlayRequirements(playerId, game, self, null, null, null))) {
+        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextTopLevelActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -220,7 +220,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (self.getZone() != Zone.STACKED && checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextOptionalAfterActions(playerId, game, effectResult, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
