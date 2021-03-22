@@ -2675,7 +2675,10 @@ public class GameState implements Snapshotable<GameState> {
         }
         // Visit stacked cards to check for any actions, either whileStacked actions or any stacked cards that may deploy "as if from hand"
         for (PhysicalCard physicalCard : _stacked.get(playerId)) {
-            if (physicalCard.getZone() == Zone.STACKED) {
+            if (physicalCard.getZone() == Zone.STACKED
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.INTERRUPT
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.LOCATION
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.EPIC_EVENT) {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
             }

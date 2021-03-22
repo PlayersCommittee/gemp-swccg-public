@@ -242,7 +242,7 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
         // Play card
-        if (self.getZone() != Zone.STACKED && canPlayCardDuringCurrentPhase(playerId, game, self)) {
+        if (canPlayCardDuringCurrentPhase(playerId, game, self)) {
             List<PlayCardAction> playCardActions = getPlayCardActions(playerId, game, self, self, true, 0, null, null, null, null, null, false, 0, Filters.any, null);
             if (playCardActions != null) {
                 actions.addAll(playCardActions);
