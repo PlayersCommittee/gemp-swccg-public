@@ -20,6 +20,6 @@ public class Card501_006 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 0);
         addIcons(Icon.EXTERIOR_SITE, Icon.INTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_15);
         setTestingText("Mustafar: Private Platform (Docking Bay)");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

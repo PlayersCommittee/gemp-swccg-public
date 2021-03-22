@@ -19,6 +19,6 @@ public class Card501_011 extends AbstractAlien {
         setArmor(4);
         addIcons(Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_15);
         setTestingText("Offworld Jawas");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

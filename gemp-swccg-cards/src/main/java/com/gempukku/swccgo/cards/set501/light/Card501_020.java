@@ -19,6 +19,6 @@ public class Card501_020 extends AbstractSite {
         addIcons(Icon.INTERIOR_SITE, Icon.MOBILE, Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Death Star: Trash Compactor (V)");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

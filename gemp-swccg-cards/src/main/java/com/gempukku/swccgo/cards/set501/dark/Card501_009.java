@@ -33,7 +33,7 @@ public class Card501_009 extends AbstractDevice {
         addIcon(Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Observation Holocam (V)");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 
     @Override

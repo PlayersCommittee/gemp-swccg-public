@@ -17,6 +17,6 @@ public class Card501_012 extends AbstractUsedInterrupt {
         setGameText("If a battle was just initiated at a site, each of your clones present is power +1 (power +2 with a Jedi) and immune to attrition for the remainder of turn. OR deploy Cloning Cylnders from hand or deck (for free); reshuffle.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_15);
         setTestingText("For the Republic!");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

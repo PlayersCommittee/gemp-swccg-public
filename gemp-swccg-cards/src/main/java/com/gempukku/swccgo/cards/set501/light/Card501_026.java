@@ -19,6 +19,6 @@ public class Card501_026 extends AbstractCharacterWeapon {
         addIcons(Icon.VIRTUAL_SET_15);
         addKeywords(Keyword.BLASTER_RIFLE);
         setTestingText("Stolen Stormtrooper Blaster Rifle");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

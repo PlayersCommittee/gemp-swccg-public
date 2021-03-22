@@ -19,6 +19,6 @@ public class Card501_023 extends AbstractRebel {
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_15);
         addKeywords(Keyword.SPY, Keyword.STORMTROOPER);
         setTestingText("TK-421");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

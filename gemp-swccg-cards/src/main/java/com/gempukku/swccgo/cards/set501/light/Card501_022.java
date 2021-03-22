@@ -20,6 +20,6 @@ public class Card501_022 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.MOBILE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_15);
         setTestingText("Death Star: Hangar 327");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

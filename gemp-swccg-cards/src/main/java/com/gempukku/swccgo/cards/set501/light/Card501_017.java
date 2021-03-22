@@ -20,6 +20,6 @@ public class Card501_017 extends AbstractCharacterWeapon {
         addKeywords(Keyword.LIGHTSABER);
         setMatchingCharacterFilter(Filters.or(Filters.Leia, Filters.Rey));
         setTestingText("Leia's Lightsaber");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

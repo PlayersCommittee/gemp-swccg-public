@@ -19,6 +19,6 @@ public class Card501_010 extends AbstractAlien {
         setArmor(4);
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_15);
         setTestingText("Heavy Infantry Mandalorian");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

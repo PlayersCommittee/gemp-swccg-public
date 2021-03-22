@@ -19,6 +19,6 @@ public class Card501_005 extends AbstractNormalEffect {
         addIcons(Icon.VIRTUAL_SET_15);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("Ubrikkian Industries");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

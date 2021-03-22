@@ -20,6 +20,6 @@ public class Card501_004 extends AbstractUsedInterrupt {
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Shocking Revelation (V)");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

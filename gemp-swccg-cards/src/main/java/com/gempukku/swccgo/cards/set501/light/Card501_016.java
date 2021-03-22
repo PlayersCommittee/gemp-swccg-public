@@ -19,6 +19,6 @@ public class Card501_016 extends AbstractCharacterWeapon {
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_15);
         addKeywords(Keyword.BLASTER);
         setTestingText("Uncivilized Blaster");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 }

@@ -45,7 +45,7 @@ public class Card501_014 extends AbstractRebel {
         addKeywords(Keyword.SCOUT, Keyword.LEADER, Keyword.FEMALE);
         setVirtualSuffix(true);
         setTestingText("Daughter Of Skywalker (V) (ERRATA)");
-        excludeFromDeckBuilder();
+        hideFromDeckBuilder();
     }
 
     @Override
