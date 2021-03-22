@@ -336,6 +336,7 @@ var CardFilter = Class.extend({
             + "<option value='' selected='selected'>(Not specified)</option>"
             + "<option value='A_NEW_HOPE'>A New Hope</option>"
             + "<option value='CLONE_ARMY'>Clone Army</option>"
+            + "<option value='CLOUD_CITY'>Cloud City</option>"
             + "<option value='CORUSCANT'>Coruscant</option>"
             + "<option value='CREATURE_SITE'>Creature Site</option>"
             + "<option value='DAGOBAH'>Dagobah</option>"

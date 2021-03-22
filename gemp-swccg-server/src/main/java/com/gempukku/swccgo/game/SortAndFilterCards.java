@@ -82,7 +82,7 @@ public class SortAndFilterCards {
 
                     while (blueprintIdToCheck != null) {
                         SwccgCardBlueprint blueprint = library.getSwccgoCardBlueprint(blueprintIdToCheck);
-                        if (blueprint != null)
+                        if (blueprint != null && !isAlwaysExcluded(blueprintId, library))
                             if (side == null || blueprint.getSide() == side)
                                 if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
                                     if (format == null || (format.equals("all") && !isLegacy(blueprintId, library)) || isInFormat(blueprintId, format, formatLibrary))
@@ -1129,6 +1129,15 @@ public class SortAndFilterCards {
      */
     private static boolean isLegacy(String blueprintId, SwccgCardBlueprintLibrary library) {
         return library.getSwccgoCardBlueprint(blueprintId) != null && library.getSwccgoCardBlueprint(blueprintId).isLegacy();
+    }
+
+    /**
+     * Determines if the blueprint id is for a card that is always hidden from the deck builder
+     * @param blueprintId the blueprint id
+     * @return true or false
+     */
+    private static boolean isAlwaysExcluded(String blueprintId, SwccgCardBlueprintLibrary library) {
+        return library.getSwccgoCardBlueprint(blueprintId) != null && library.getSwccgoCardBlueprint(blueprintId).excludeFromDeckBuilder();
     }
 
     /**

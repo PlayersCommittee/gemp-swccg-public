@@ -54,6 +54,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     private boolean _mayNotBePlacedInReserveDeck;
     private boolean _doesNotCountTowardDeckLimit;
     private boolean _isLegacy;
+    private boolean _excludeFromDeckBuilder;
 
     /**
      * Creates an SWCCG card blueprint.
@@ -2801,6 +2802,18 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      */
     public void setAsLegacy(boolean value) {
         _isLegacy = value;
+    }
+
+    @Override
+    public boolean excludeFromDeckBuilder() {
+        return _excludeFromDeckBuilder;
+    }
+
+    /**
+     * Hides the card from the deck builder
+     */
+    public void hideFromDeckBuilder() {
+        _excludeFromDeckBuilder = true;
     }
 
     public boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self) {

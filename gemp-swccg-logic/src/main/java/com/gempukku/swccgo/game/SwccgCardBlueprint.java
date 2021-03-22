@@ -1713,4 +1713,10 @@ public interface SwccgCardBlueprint {
      * @return true if this is a legacy card
      */
     boolean isLegacy();
+
+    /**
+     * Returns if this should be excluded from the deck builder
+     * @return true if this should be excluded from the deck buider
+     */
+    boolean excludeFromDeckBuilder();
 }
