@@ -16,5 +16,6 @@ public class Card501_019 extends AbstractNormalEffect {
         addIcons(Icon.VIRTUAL_SET_15);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("A Power Loss");
+        excludeFromDeckBuilder();
     }
 }

@@ -3916,15 +3916,12 @@ var Card = Class.extend({
                     (cardNo == 19);
         }
         if (setNo == 501) {
-            return (cardNo == 40) ||
-                   (cardNo == 55) ||
-                   (cardNo == 56) ||
-                   (cardNo == 57) ||
-                   (cardNo == 66) ||
-                   (cardNo == 68) ||
+            return (cardNo == 6) ||
+                   (cardNo == 15) ||
+                   (cardNo == 20) ||
+                   (cardNo == 21) ||
                    (cardNo == 74) ||
-                   (cardNo == 75) ||
-                   (cardNo == 87);
+                   (cardNo == 75);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||

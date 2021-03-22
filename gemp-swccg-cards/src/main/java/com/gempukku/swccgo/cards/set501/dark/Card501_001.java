@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 
 /**
  * Set: Set 15
@@ -16,5 +18,6 @@ public class Card501_001 extends AbstractAlien {
         setGameText("* Replaces any 3 of your aliens at same Jabba’s Palace site (aliens go to Used Pile) or deploys for 5 Force. When deployed, may retrieve your Rep OR place your Rep stacked on your objective in Used pile. This alien assumes your Rep's species (if any).");
         addIcons(Icon.WARRIOR, Icon.WARRIOR, Icon.WARRIOR, Icon.VIRTUAL_SET_15);
         setTestingText("Alien Mob");
+        excludeFromDeckBuilder();
     }
 }

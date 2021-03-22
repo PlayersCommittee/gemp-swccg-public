@@ -21,5 +21,6 @@ public class Card501_024 extends AbstractRebel {
         setSpecies(Species.CORELLIAN);
         setVirtualSuffix(true);
         setTestingText("TK-422 (V)");
+        excludeFromDeckBuilder();
     }
 }

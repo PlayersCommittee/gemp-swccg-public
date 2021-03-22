@@ -18,5 +18,6 @@ public class Card501_025 extends AbstractDroid {
         addModelType(ModelType.PROTOCOL);
         addIcon(Icon.VIRTUAL_SET_15);
         setTestingText("C-3PO (See-Threepio) (V)");
+        excludeFromDeckBuilder();
     }
 }

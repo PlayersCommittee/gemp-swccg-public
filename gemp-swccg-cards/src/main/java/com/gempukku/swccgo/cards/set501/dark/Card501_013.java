@@ -34,6 +34,7 @@ public class Card501_013 extends AbstractUsedOrLostInterrupt {
         setGameText("USED: Deploy a lightsaber (may simultaneously deploy a matching Dark Jedi or Sith character) from hand and/or Reserve Deck; reshuffle. [Immune to Sense.] LOST: Except during battle, relocate a Dark Jedi or Inquisitor to same battleground site as a Jedi.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_15);
         setTestingText("A Sith Legend");
+        excludeFromDeckBuilder();
     }
 
     @Override

@@ -19,5 +19,6 @@ public class Card501_003 extends AbstractUsedInterrupt {
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Projective Telepathy (V)");
+        excludeFromDeckBuilder();
     }
 }

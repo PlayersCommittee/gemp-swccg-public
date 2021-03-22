@@ -19,5 +19,6 @@ public class Card501_018_BACK extends AbstractObjective {
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Rescue The Princess / Sometimes I Amaze Even Myself (V)");
+        excludeFromDeckBuilder();
     }
 }

@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 
 /**
  * Set: Block 15
@@ -16,5 +19,6 @@ public class Card501_005 extends AbstractNormalEffect {
         addIcons(Icon.VIRTUAL_SET_15);
         addImmuneToCardTitle(Title.Alter);
         setTestingText("Ubrikkian Industries");
+        excludeFromDeckBuilder();
     }
 }

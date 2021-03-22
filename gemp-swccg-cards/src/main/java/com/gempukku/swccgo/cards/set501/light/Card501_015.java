@@ -19,5 +19,6 @@ public class Card501_015 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 3);
         addIcons(Icon.EPISODE_VII, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_15);
         setTestingText("Ajan Kloss: Jedi Training Ground");
+        excludeFromDeckBuilder();
     }
 }

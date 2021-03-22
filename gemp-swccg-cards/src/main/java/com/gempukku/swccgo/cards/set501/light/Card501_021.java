@@ -21,5 +21,6 @@ public class Card501_021 extends AbstractSite {
         addIcons(Icon.INTERIOR_SITE, Icon.MOBILE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_15);
         setVirtualSuffix(true);
         setTestingText("Death Star: Central Core (V)");
+        excludeFromDeckBuilder();
     }
 }
