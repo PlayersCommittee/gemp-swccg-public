@@ -82,7 +82,8 @@ public class ServerBuilder {
                         extract(objectMap, DeckDAO.class),
                         extract(objectMap, SwccgCardBlueprintLibrary.class),
                         extract(objectMap, ChatServer.class),
-                        extract(objectMap, GameRecorder.class)));
+                        extract(objectMap, GameRecorder.class),
+                        extract(objectMap, InGameStatisticsDAO.class)));
 
         objectMap.put(HallServer.class,
                 new HallServer(

@@ -30,6 +30,7 @@ public interface Title {
     String Ahsokas_Lightsabers = "Ahsoka's Lightsabers";
     String Aiiii_Aaa_Agggggggggg = "Aiiii! Aaa! Agggggggggg!";
     String Aim_High = "Aim High";
+    String Ajan_Kloss = "Ajan Kloss";
     String Alderaan = "Alderaan";
     String All_Too_Easy = "All Too Easy";
     String All_Wings_Report_In = "All Wings Report In";
@@ -188,6 +189,7 @@ public interface Title {
     String Comlink = "Comlink";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
     String Commence_Recharging = "Commence Recharging";
+    String Communing = "Communing";
     String Computer_Interface = "Computer Interface";
     String Concussion_Grenade = "Concussion Grenade";
     String Concussion_Missiles = "Concussion Missiles";
@@ -254,6 +256,7 @@ public interface Title {
     String Defensive_Fire = "Defensive Fire";
     String Defensive_Perimeter = "Hoth: Defensive Perimeter (3rd Marker)";
     String Demotion = "Demotion";
+    String Den_Of_Thieves = "Den Of Thieves";
     String Dengars_Blaster_Carbine =  "Dengar's Blaster Carbine";
     String Derlin = "Major Bren Derlin";
     String Desert_Heart = "Tatooine: Desert Heart";
@@ -343,6 +346,8 @@ public interface Title {
     String Ewok_Spearman = "Ewok Spearman";
     String Ewok_Village = "Endor: Ewok Village";
     String Executor = "Executor";
+    String Exegol = "Exegol";
+    String Exegol_Sith_Throne = "Exegol: Sith Throne";
     String Expand_The_Empire = "Expand The Empire";
     String Explosive_Charge = "Explosive Charge";
     String Exposure = "Exposure";
@@ -497,11 +502,13 @@ public interface Title {
     String In_Complete_Control = "In Complete Control";
     String In_The_Hands_Of_The_Empire = "In The Hands Of The Empire";
     String Incinerator = "Cloud City: Incinerator";
+    String Indentured_To_The_Empire = "Indentured To The Empire";
     String Information_Exchange = "Information Exchange";
     String Inner_Strength = "Inner Strength";
     String Independent_Operation = "Independent Operation";
     String Infantry_Mine = "Infantry Mine";
     String Innocent_Scoundrel = "Innocent Scoundrel";
+    String Inquisitor_Lightsaber = "Inquisitor Lightsaber";
     String Insidious_Prisoner = "Insidious Prisoner";
     String Insignificant_Rebellion = "Insignificant Rebellion";
     String Insurrection = "Insurrection";
@@ -563,6 +570,7 @@ public interface Title {
     String Ket_Maliss = "Ket Maliss";
     String Ketwol = "Ketwol";
     String Kian = "Kin Kian";
+    String Kijimi = "Kijimi";
     String Keir_Santage = "Keir Santage";
     String Kiffex = "Kiffex";
     String Kirdo_III = "Kirdo III";
@@ -690,6 +698,7 @@ public interface Title {
     String NOOOOOOOOOOOO = "NOOOOOOOOOOOO!";
     String North_Ridge = "Hoth: North Ridge (4th Marker)";
     String Nute_Gunray = "Nute Gunray";
+    String ObiWans_Hut = "Tatooine: Obi-Wan's Hut";
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
     String Obsidian_10 = "Obsidian 10";
@@ -717,6 +726,7 @@ public interface Title {
     String OS_72_10 = "OS-72-10";
     String Ounee_Ta = "Ounee Ta";
     String Our_First_Catch_Of_The_Day = "Our First Catch Of The Day";
+    String Our_Only_Hope = "Our Only Hope";
     String Out_Of_Commission = "Out Of Commission";
     String Out_Of_Nowhere = "Out Of Nowhere";
     String Out_Of_Somewhere = "Out Of Somewhere";
@@ -850,6 +860,7 @@ public interface Title {
     String Saw = "Saw Gerrera";
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
+    String Scarif_Citadel_Tower = "Scarif: Citadel Tower";
     String Scarif_Landing_Pad_Nine = "Scarif: Landing Pad Nine (Docking Bay)";
     String Scarif_Turbolift_Complex = "Scarif: Turbolift Complex";
     String Scimitar_1 = "Scimitar 1";
@@ -888,8 +899,10 @@ public interface Title {
     String Silence_Is_Golden = "Silence Is Golden";
     String Sith_Fury = "Sith Fury";
     String Sith_Probe_Droid = "Sith Probe Droid";
+    String Skyhook_Platform = "Kashyyyk: Skyhook Platform";
     String Skywalkers = "Skywalkers";
     String Slave_Quarters = "Tatooine: Slave Quarters";
+    String Slaving_Camp_Headquarters = "Kashyyyk: Slaving Camp Headquarters";
     String Slip_Sliding_Away = "Slip Sliding Away";
     String Smoke_Screen = "Smoke Screen";
     String Sniper = "Sniper";
@@ -1083,6 +1096,7 @@ public interface Title {
     String Wise_Advice = "Wise Advice";
     String Wittin = "Wittin";
     String Womp_Rat = "Womp Rat";
+    String Wookiee_Slaving_Operation = "Wookiee Slaving Operation";
     String Wookiee_Roar = "Wookiee Roar";
     String Wookiee_Strangle = "Wookiee Strangle";
     String Wounded_Wookiee = "Wounded Wookiee";

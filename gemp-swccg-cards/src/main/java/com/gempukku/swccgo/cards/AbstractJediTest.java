@@ -120,6 +120,7 @@ public abstract class AbstractJediTest extends AbstractDeployable {
                                                             new DeployCardToLocationFromHandEffect(action, playerId, apprenticeToDeployFilter, Filters.sameLocation(target), false, DeploymentRestrictionsOption.ignoreLocationDeploymentRestrictions()) {
                                                                 @Override
                                                                 protected void cardDeployed(final PhysicalCard deployedApprentice) {
+                                                                    action.setAllowAbort(false); //once an apprentice has been deployed, no longer allowed to cancel
                                                                     action.appendTargeting(
                                                                             new TargetCardOnTableEffect(action, playerId, "Choose apprentice", deployedApprentice) {
                                                                                 @Override

@@ -101,7 +101,7 @@ public class Card8_078 extends AbstractObjective {
         Filter yourRebelScout = Filters.and(Filters.your(self), Filters.Rebel_scout);
 
         // Check condition(s)
-        if ((TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Bunker)
+        if ((TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.title(Title.Bunker, true))
                 || (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
                 && GameConditions.controls(game, playerId, 3, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.exterior_Endor_site, Filters.sameSiteAs(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(yourRebelScout, Filters.with(self, yourRebelScout)))))))
@@ -118,7 +118,7 @@ public class Card8_078 extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Endor_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Endor, true)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");

@@ -75,7 +75,7 @@ public class Card8_078_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                && !GameConditions.isBlownAway(game, Filters.Bunker)
+                && !GameConditions.isBlownAway(game, Filters.title(Title.Bunker, true))
                 && GameConditions.isDuringYourPhase(game, opponent, Phase.MOVE)
                 && GameConditions.canBeFlipped(game, self)
                 && (GameConditions.controls(game, opponent, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Endor_system)
@@ -92,7 +92,7 @@ public class Card8_078_BACK extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Endor_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Endor, true)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");

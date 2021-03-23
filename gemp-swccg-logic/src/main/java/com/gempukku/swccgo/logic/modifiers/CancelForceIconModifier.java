@@ -48,7 +48,7 @@ public class CancelForceIconModifier extends AbstractModifier {
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         final float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
-        return GuiUtils.formatAsString(value) + " " + (_icon == Icon.DARK_FORCE ? ("Dark Side Force icon" + GameUtils.s(value) + " canceled") : ("Light Side Force icon" + GameUtils.s(value) + " canceled"));
+        return (value >= Integer.MAX_VALUE ? "All" : GuiUtils.formatAsString(value)) + " " + (_icon == Icon.DARK_FORCE ? ("Dark Side Force icon" + GameUtils.s(value) + " canceled") : ("Light Side Force icon" + GameUtils.s(value) + " canceled"));
     }
 
     @Override

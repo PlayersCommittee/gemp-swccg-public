@@ -2106,6 +2106,8 @@ var GempSwccgGameUI = Class.extend({
             this.animations.moveCardInPlay(gameEvent, animate);
         } else if (eventType == "ROCIP") {
             this.animations.rotateCardInPlay(gameEvent, animate);
+        } else if (eventType == "TCO") {
+            this.animations.turnCardOver(gameEvent, animate);
         } else if (eventType == "P") {
             this.participant(gameEvent);
         } else if (eventType == "RCFP") {

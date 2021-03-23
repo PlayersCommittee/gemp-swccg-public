@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set109.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.SpotOverride;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -76,7 +73,7 @@ public class Card109_012_BACK extends AbstractObjective {
         String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if ((TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Bespin_system)
+        if ((TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Bespin, true)))
                 || TriggerConditions.justCanceled(game, effectResult, Filters.Dark_Deal)
                 || (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.controls(game, opponent, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Bespin_system)))

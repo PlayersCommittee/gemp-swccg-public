@@ -82,17 +82,17 @@ public class Card2_044 extends AbstractLostInterrupt {
             actions.add(action);
         }
 
-        Filter starshipFilter = Filters.and(Filters.captured_starship, Filters.hasAboardExceptRelatedSites(self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.character, Filters.canBeRelocatedToLocation(Filters.docking_bay, true, 0))));
+        Filter starshipFilter = Filters.and(Filters.captured_starship, Filters.hasAboardExceptRelatedSites(self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.character, Filters.or(Filters.canBeRelocatedToLocation(Filters.docking_bay, true, 0), Filters.at(Filters.docking_bay)))));
 
         // Check condition(s)
-        if (GameConditions.canSpot(game, self, starshipFilter)
+        if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, starshipFilter)
                 && GameConditions.canSpotLocation(game, Filters.docking_bay)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Relocate characters to docking bay");
             // Choose target(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose captured starship", starshipFilter) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose captured starship", SpotOverride.INCLUDE_CAPTIVE, starshipFilter) {
                         @Override
                         protected void cardSelected(final PhysicalCard starship) {
                             final Collection<PhysicalCard> characters = Filters.filterActive(game, self,
@@ -104,13 +104,18 @@ public class Card2_044 extends AbstractLostInterrupt {
                                         validDockingBays.add(dockingBay);
                                         break;
                                     }
+                                    //account for the captured starship being at Death Star: Docking Bay 327 since "canBeRelocatedToLocation" requires different locations
+                                    if (Filters.at(dockingBay).accepts(game, character)) {
+                                        validDockingBays.add(dockingBay);
+                                        break;
+                                    }
                                 }
                             }
                             action.appendTargeting(
                                     new ChooseCardOnTableEffect(action, playerId, "Choose docking bay", Filters.in(validDockingBays)) {
                                         @Override
                                         protected void cardSelected(final PhysicalCard dockingBay) {
-                                            final Collection<PhysicalCard> charactersToRelocate = Filters.filter(characters, game, Filters.canBeRelocatedToLocation(dockingBay, true, 0));
+                                            final Collection<PhysicalCard> charactersToRelocate = Filters.filter(characters, game, Filters.or(Filters.canBeRelocatedToLocation(dockingBay, true, 0), Filters.at(dockingBay)));
                                             action.addAnimationGroup(charactersToRelocate);
                                             action.addAnimationGroup(dockingBay);
                                             // Allow response(s)

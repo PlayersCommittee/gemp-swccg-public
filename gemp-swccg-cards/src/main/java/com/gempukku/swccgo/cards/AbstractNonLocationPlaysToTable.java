@@ -161,8 +161,13 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                     // Determine the spot override to use when playing the card using this play card option
                     Map<InactiveReason, Boolean> spotOverrides = self.getBlueprint().getDeployTargetSpotOverride(playCardOption.getId());
 
+                    //check if the subtype has been modified
+                    CardSubtype subtype = self.getBlueprint().getCardSubtype();
+                    if (game.getModifiersQuerying().getModifiedSubtype(game.getGameState(), self) != null)
+                        subtype = game.getModifiersQuerying().getModifiedSubtype(game.getGameState(), self);
+
                     // For Utinni Effects, need to also determine if valid targets can be found
-                    if (self.getBlueprint().getCardSubtype() == CardSubtype.UTINNI) {
+                    if (subtype == CardSubtype.UTINNI) {
                         List<PhysicalCard> validDeployOnTargets = new LinkedList<PhysicalCard>();
                         Collection<PhysicalCard> possibleDeployOnTargets = Filters.filterActive(game, self, spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, completeTargetFilter);
 
@@ -695,7 +700,8 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
         // Play card
-        if (canPlayCardDuringCurrentPhase(playerId, game, self)) {
+        if (canPlayCardDuringCurrentPhase(playerId, game, self)
+                && (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
             boolean forFree = isCardTypeAlwaysPlayedForFree() || game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS;
             List<PlayCardAction> playCardActions = getPlayCardActions(playerId, game, self, self, forFree, 0, null, null, null, null, null, false, 0, Filters.any, null);
             if (playCardActions != null) {
@@ -731,6 +737,13 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         // Actions from game text when in hand
         if (self.getZone() == Zone.HAND) {
             List<TopLevelGameTextAction> gameTextActions = getGameTextTopLevelInHandActions(playerId, game, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
+        }
+
+        // Actions from game text when stacked
+        if (self.getZone() == Zone.STACKED) {
+            List<TopLevelGameTextAction> gameTextActions = getGameTextTopLevelWhileStackedActions(playerId, game, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
         }
@@ -1103,6 +1116,11 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                 }
             }
         }
+        if (self.getZone() == Zone.STACKED) {
+            List<OptionalGameTextTriggerAction> gameTextActions = getGameTextOptionalAfterTriggersWhenStacked(playerId, game, effectResult, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
+        }
 
         return actions;
     }
@@ -1201,6 +1219,66 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
         // Actions from game text
         List<OptionalGameTextTriggerAction> gameTextActions = getGameTextLeavesTableOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
+        if (gameTextActions != null)
+            actions.addAll(gameTextActions);
+
+        return actions;
+    }
+
+    /**
+     * Gets the optional triggers from an opponent's card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public final List<TriggerAction> getOpponentsCardLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+
+        // Actions from game text
+        List<OptionalGameTextTriggerAction> gameTextActions = getOpponentsCardGameTextLeavesTableOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
+        if (gameTextActions != null)
+            actions.addAll(gameTextActions);
+
+        return actions;
+    }
+
+    /**
+     * Gets the optional triggers from a card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public final List<TriggerAction> getLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+
+        // Actions from game text
+        List<OptionalGameTextTriggerAction> gameTextActions = getGameTextLostFromLifeForceOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
+        if (gameTextActions != null)
+            actions.addAll(gameTextActions);
+
+        return actions;
+    }
+
+    /**
+     * Gets the optional triggers from an opponent's card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public final List<TriggerAction> getOpponentsCardLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+
+        // Actions from game text
+        List<OptionalGameTextTriggerAction> gameTextActions = getOpponentsCardGameTextLostFromLifeForceOptionalTriggers(playerId, game, effectResult, self, self.getCardId());
         if (gameTextActions != null)
             actions.addAll(gameTextActions);
 
@@ -1743,6 +1821,20 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
     /**
      * This method is overridden by individual cards to specify optional "after" triggers to the specified effect result
+     * that can be performed by the specified player when the card is stacked (face up) on another card
+     * @param playerId the player
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions, or null
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggersWhenStacked(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "after" triggers to the specified effect result
      * that can be performed by the specified player when the opponent's card is active in play. This does not include
      * undercover cards.
      * @param playerId the player
@@ -1853,6 +1945,19 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
     /**
      * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
+     * player when the card is stacked (face up) on another card.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the actions, or null
+     */
+    protected List<TopLevelGameTextAction> getGameTextTopLevelWhileStackedActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
      * player when the opponent's card is active in play. This does not include undercover cards.
      * @param playerId the player
      * @param game the game
@@ -1940,6 +2045,45 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @return the trigger actions
      */
     protected List<OptionalGameTextTriggerAction> getGameTextLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional triggers from the card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions
+     */
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional triggers from the card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional triggers from the card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions
+     */
+    protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         return null;
     }
 

@@ -69,6 +69,7 @@ public interface ProductName {
     // Promotional Cards
     String JEDI_PACK = "Jedi Pack";
     String REBEL_LEADER_PACK = "Rebel Leader Pack";
+    String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK = "Virtual Alternate Image Booster Pack";
 
     // Anthology Boxes
     String FIRST_ANTHOLOGY_BOX = "First Anthology Box";
@@ -82,4 +83,12 @@ public interface ProductName {
     // Introductory 2-Player Games
     String PREMIERE_INTRODUCTORY_TWO_PLAYER_GAME = "Premiere Intro Two-Player Game";
     String EMPIRE_STRIKES_BACK_INTRODUCTORY_TWO_PLAYER_GAME = "ESB Intro Two-Player Game";
+
+    // Cube Packs
+    String CUBE_OBJECTIVE_PACK_DARK = "Watto's Cube Objective Pack (Dark)";
+    String CUBE_OBJECTIVE_PACK_LIGHT = "Watto's Cube Objective Pack (Light)";
+    String CUBE_DRAFT_PACK_DARK = "Watto's Cube Draft Pack (Dark)";
+    String CUBE_DRAFT_PACK_LIGHT = "Watto's Cube Draft Pack (Light)";
+    String CUBE_FIXED_PACK_DARK = "Watto's Cube Fixed Pack (Dark)";
+    String CUBE_FIXED_PACK_LIGHT = "Watto's Cube Fixed Pack (Light)";
 }

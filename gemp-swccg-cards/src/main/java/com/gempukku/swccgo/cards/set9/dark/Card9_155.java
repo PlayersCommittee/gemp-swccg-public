@@ -46,7 +46,7 @@ public class Card9_155 extends AbstractCapitalStarship {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
-        Filter laserCannonBattery = Filters.Laser_Cannon_Battery;
+        Filter laserCannonBattery = Filters.and(Filters.your(self), Filters.Laser_Cannon_Battery);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayDeployToTargetModifier(self, laserCannonBattery, self));

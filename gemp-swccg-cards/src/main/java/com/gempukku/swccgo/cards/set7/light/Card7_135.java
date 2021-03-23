@@ -61,7 +61,7 @@ public class Card7_135 extends AbstractObjective {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy card from Reserve Deck");
-            action.setActionMsg("Deploy a site or non-unique Rebel from Reserve Deck to Ralltiir");
+            action.setActionMsg("Deploy a site or non-unique Rebel from Reserve Deck to Dantooine");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
@@ -86,7 +86,7 @@ public class Card7_135 extends AbstractObjective {
         String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Dantooine_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Dantooine, true)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");

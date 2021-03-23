@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.actions;
 
 import com.gempukku.swccgo.cards.effects.PayDeployCostEffect;
+import com.gempukku.swccgo.common.CaptureOption;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -19,6 +20,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.results.CaptureCharacterResult;
 
 /**
  * The action to deploy a character.
@@ -63,6 +65,9 @@ public class PlayCharacterAction extends AbstractPlayCardAction {
         _changeInCost = changeInCost;
         _reactActionOption = reactActionOption;
         _text = reactActionOption != null ? "Deploy as 'react'" : "Deploy";
+        if (character.getBlueprint().isOnlyDeploysAsEscortedCaptive(game, character)) {
+            _text = "Deploy as escorted captive";
+        }
 
         appendTargeting(
                 new ChooseCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to deploy " + GameUtils.getCardLink(character), deployTargetFilter) {
@@ -104,7 +109,17 @@ public class PlayCharacterAction extends AbstractPlayCardAction {
                         else if (!Filters.or(Filters.starship, Filters.vehicle).accepts(game, _target)) {
                             _chosenIfUndercover = true;
                             _capacitySlotChosen = true;
-                            _playCardEffect = new DeploySingleCardEffect(_that, _character, false, _target, deployAsCaptiveOption, _reactActionOption, PlayCardOptionId.PLAY_CARD_OPTION_1, _reshuffle);
+                            if (character.getBlueprint().isOnlyDeploysAsEscortedCaptive(game, character)) {
+                                DeployAsCaptiveOption option = new DeployAsCaptiveOption();
+                                option.setCaptureOption(CaptureOption.SEIZE);
+                                _playCardEffect = new DeploySingleCardEffect(_that, _character, false, _target, option, _reactActionOption, PlayCardOptionId.PLAY_CARD_OPTION_1, _reshuffle);
+                                GameState gameState = game.getGameState();
+                                gameState.seizeCharacter(game, _character, _target);
+                                game.getActionsEnvironment().emitEffectResult(new CaptureCharacterResult(_character.getOwner(), _character, _target, _character, false, false, CaptureOption.SEIZE));
+                            }
+                            else {
+                                _playCardEffect = new DeploySingleCardEffect(_that, _character, false, _target, deployAsCaptiveOption, _reactActionOption, PlayCardOptionId.PLAY_CARD_OPTION_1, _reshuffle);
+                            }
                         }
                         // Otherwise, determine if character should deploy to pilot/driver or passenger capacity slot.
                         else {

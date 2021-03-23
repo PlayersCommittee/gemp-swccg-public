@@ -16,10 +16,7 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeStolenModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeCapturedModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeHitModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeLostModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
@@ -46,7 +43,7 @@ public class Card1_078 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self) {
         String opponent = game.getOpponent(playerId);
         Filter filter = Filters.and(Filters.your(self), Filters.droid, Filters.canBeTargetedBy(self));
-        Collection<TargetingReason> targetingReasons = Arrays.asList(TargetingReason.TO_BE_STOLEN, TargetingReason.TO_BE_HIT, TargetingReason.TO_BE_LOST, TargetingReason.TO_BE_CAPTURED);
+        Collection<TargetingReason> targetingReasons = Arrays.asList(TargetingReason.TO_BE_STOLEN, TargetingReason.TO_BE_HIT, TargetingReason.TO_BE_LOST, TargetingReason.TO_BE_CAPTURED, TargetingReason.TO_BE_CHOKED);
 
         // Check condition(s)
         if (TriggerConditions.isTargetedForReason(game, effect, opponent, filter, targetingReasons)) {
@@ -81,6 +78,9 @@ public class Card1_078 extends AbstractUsedInterrupt {
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotTargetToBeLostModifier(self, finalDroid), null));
+                                                action.appendEffect(
+                                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                                new MayNotBeChokedModifier(self, finalDroid), null));
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotTargetToBeCapturedModifier(self, finalDroid), null));

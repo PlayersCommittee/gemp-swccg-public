@@ -9,6 +9,8 @@ public interface CardCollection extends OwnershipCheck {
 
     int getItemCount(String blueprintId);
 
+    boolean excludePackDuplicates();
+
     class Item implements CardItem {
         public enum Type {
             PACK, CARD, SELECTION

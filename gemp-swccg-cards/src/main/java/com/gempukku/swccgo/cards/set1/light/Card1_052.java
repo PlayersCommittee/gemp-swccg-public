@@ -57,7 +57,7 @@ public class Card1_052 extends AbstractUtinniEffect {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
         final GameState gameState = game.getGameState();
-        PhysicalCard target = self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1);
+        final PhysicalCard target = self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1);
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)) {
@@ -149,7 +149,7 @@ public class Card1_052 extends AbstractUtinniEffect {
                                 new RetrieveForceEffect(action, playerId, forceToRetrieve) {
                                     @Override
                                     public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
-                                        return Collections.singletonList(self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1));
+                                        return Collections.singletonList(target);
                                     }
                                 });
                         action.appendEffect(

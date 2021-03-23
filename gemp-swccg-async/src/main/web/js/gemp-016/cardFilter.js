@@ -150,7 +150,7 @@ var CardFilter = Class.extend({
 
         this.formatLabel = $("<label for='formatSelect' class='filterLabel'>Format:</label>");
         this.formatSelect = $("<select id='formatSelect' class='filterInput'>"
-            + "<option value='' selected='selected'>All</option>"
+            + "<option value='all' selected='selected'>All</option>"
             + "<option value='open'>Open</option>"
             + "<option value='jawa'>Jawa</option>"
             + "<option value='open_no_shields'>Open (no shields)</option>"
@@ -170,6 +170,7 @@ var CardFilter = Class.extend({
             + "<option value='premiere'>Premiere</option>"
             + "<option value='scavenger_premiere_ds2'>Scavenger</option>"
             + "<option value='limited_resources'>Limited Resources</option>"
+            + "<option value='legacy'>Legacy</option>"
             + "</select>");
 
         this.setLabel = $("<label for='setSelect' class='filterLabel'>Set:</label>");
@@ -215,7 +216,10 @@ var CardFilter = Class.extend({
             + "<option value='211'>Set 11</option>"
             + "<option value='212'>Set 12</option>"
             + "<option value='213'>Set 13</option>"
+            + "<option value='214'>Set 14</option>"
+            + "<option value='215'>Set 15</option>"
             + "<option value='301'>Virtual Premium Set</option>"
+            + "<option value='601'>Legacy</option>"
             + "<option value='401'>Dream Cards</option>"
             + "<option value='501'>Playtesting</option>"
             + "</select>");
@@ -332,6 +336,7 @@ var CardFilter = Class.extend({
             + "<option value='' selected='selected'>(Not specified)</option>"
             + "<option value='A_NEW_HOPE'>A New Hope</option>"
             + "<option value='CLONE_ARMY'>Clone Army</option>"
+            + "<option value='CLOUD_CITY'>Cloud City</option>"
             + "<option value='CORUSCANT'>Coruscant</option>"
             + "<option value='CREATURE_SITE'>Creature Site</option>"
             + "<option value='DAGOBAH'>Dagobah</option>"
@@ -375,6 +380,8 @@ var CardFilter = Class.extend({
             + "<option value='VIRTUAL_SET_11'>Set 11</option>"
             + "<option value='VIRTUAL_SET_12'>Set 12</option>"
             + "<option value='VIRTUAL_SET_13'>Set 13</option>"
+            + "<option value='VIRTUAL_SET_14'>Set 14</option>"
+            + "<option value='VIRTUAL_SET_15'>Set 15</option>"
             + "<option value='VIRTUAL_SET_P'>Set P</option>"
             + "<option value='SPACE'>Space</option>"
             + "<option value='SPECIAL_EDITION'>Special Edition</option>"

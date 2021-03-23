@@ -1369,6 +1369,11 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         if (!checkUnlimitedMoveRequirements(playerId, game, self, game.getGameState().isDuringMoveAsReact()))
             return null;
 
+        // Captured starships can't embark
+        if (self.isCapturedStarship())
+            return null;
+
+
         Filter completeTargetFilter = Filters.and(moveTargetFilter, getValidMoveTargetFilter(playerId, game, self, false), Filters.canEmbarkTo(playerId, self, forFree, 0));
 
         // Check that a valid card to embark on can be found
@@ -1392,6 +1397,10 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     @Override
     public Action getDisembarkAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asJumpOff, Filter moveTargetFilter) {
         if (!checkUnlimitedMoveRequirements(playerId, game, self, asJumpOff || game.getGameState().isDuringMoveAsReact()))
+            return null;
+
+        // Captured starships can't disembark
+        if (self.isCapturedStarship())
             return null;
 
         Filter completeTargetFilter = Filters.and(moveTargetFilter, getValidMoveTargetFilter(playerId, game, self, false), Filters.canDisembarkTo(playerId, self, forFree, 0));
@@ -1676,6 +1685,9 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     private boolean checkMoveBetweenCapacitySlotsRequirements(SwccgGame game, PhysicalCard self) {
         PhysicalCard attachedTo = self.getAttachedTo();
         if (attachedTo == null)
+            return false;
+
+        if (attachedTo.isCapturedStarship())
             return false;
 
         if (self.getBlueprint().isMovesLikeCharacter())
@@ -2007,9 +2019,18 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     && game.getGameState().isCardInPlayActive(self, false, true, isInAttack, false, false, isInAttack, isInAttack, false)
                     && (game.getGameState().isDuringAttack() || game.getGameState().isDuringBattle())
                     && isFiresDuringWeaponsSegment(game, self)) {
-                List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.any, false);
-                if (fireWeaponActions != null)
-                    actions.addAll(fireWeaponActions);
+                if (game.getGameState().isDuringAttack()
+                        && (isInAttack //permanent weapons
+                        || (self.getAttachedTo() != null && game.getGameState().isParticipatingInAttack(self.getAttachedTo()))) //weapon cards
+                ) {
+                    List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.participatingInAttack, false);
+                    if (fireWeaponActions != null)
+                        actions.addAll(fireWeaponActions);
+                } else if (game.getGameState().isDuringBattle()){
+                    List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.any, false);
+                    if (fireWeaponActions != null)
+                        actions.addAll(fireWeaponActions);
+                }
             }
         }
         else if (self.getZone() == Zone.HAND

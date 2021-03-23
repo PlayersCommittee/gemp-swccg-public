@@ -57,4 +57,9 @@ public class FixedPackBox implements PackagedCardProduct {
         }
         return result;
     }
+
+    @Override
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
+        return null;
+    }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
-import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -26,10 +26,10 @@ import java.util.List;
 /**
  * Set: Cloud City
  * Type: Interrupt
- * Subtype: Used
+ * Subtype: Lost
  * Title: Brief Loss Of Control
  */
-public class Card5_133 extends AbstractUsedInterrupt {
+public class Card5_133 extends AbstractLostInterrupt {
     public Card5_133() {
         super(Side.DARK, 3, "Brief Loss Of Control", Uniqueness.UNIQUE);
         setLore("Eliciting fear from the opponent gives the dark side a powerful advantage.");

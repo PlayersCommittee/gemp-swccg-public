@@ -83,7 +83,7 @@ public class Card7_300_BACK extends AbstractObjective {
         String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Ralltiir_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ralltiir, true)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");

@@ -40,7 +40,7 @@ public class Card111_006_BACK extends AbstractObjective {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game,
             EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Yavin_4_system)) {
+        if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Yavin_4, true)))) {
             int amountToAddToForceLoss =
                 3 * Filters.countTopLocationsOnTable(game,
                         Filters.and(Filters.opponents(self), Filters.Yavin_4_site,
@@ -57,7 +57,7 @@ public class Card111_006_BACK extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Death_Star_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)))) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");
             action.setActionMsg("Place " + GameUtils.getCardLink(self) + " out of play");

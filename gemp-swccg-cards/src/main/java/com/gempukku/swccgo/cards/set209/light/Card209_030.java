@@ -42,9 +42,7 @@ public class Card209_030 extends AbstractCapitalStarship {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new CancelImmunityToAttritionModifier(self, Filters.and(Filters.opponents(self), Filters.atSameLocation(self))));
+        modifiers.add(new ModifyGameTextModifier(self, Filters.Shield_Gate, new AtCondition(self, Title.Scarif), ModifyGameTextType.ADD_TWO_TO_BLOW_AWAY_SHIELD_GATE));
         return modifiers;
     }
-    
-// Need to add modifier for adding 2 to attempts to blow away Shield Gate
-
 }

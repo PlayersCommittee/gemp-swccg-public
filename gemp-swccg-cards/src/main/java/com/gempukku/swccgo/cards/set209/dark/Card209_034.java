@@ -34,7 +34,7 @@ public class Card209_034 extends AbstractImperial {
         super(Side.DARK, 2, 2, 2, 2, 3, Title.Chief_Bast, Uniqueness.UNIQUE);
         setLore("Aide to Grand Moff Tarkin. Rarely underestimates enemies. Learned cunning and patience hunting big game as a youth.");
         setGameText("[Pilot]2.  While with Vader in a battle you lost, Imperials and Imperial starships may be forfeited directly from your hand (for printed forfeit value) to reduce attrition and/or battle damage.");
-        addIcons(Icon.VIRTUAL_SET_9, Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.VIRTUAL_SET_9, Icon.PILOT);
         setVirtualSuffix(true);
     }
     @Override
