@@ -1,11 +1,5 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-//Card501_076
-//•Scarif (DS)
-//DS (2): If Shield Gate here, Force drain +1 here. If Death Star in orbit, Superlaser fires for free.
-//LS (1): If Shield Gate here, your shuttling and moving to or from (and deploying to) here requires +1 Force.
-//[planet][parsec 7]
-
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
 import com.gempukku.swccgo.cards.conditions.OrbitingCondition;
@@ -22,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 14
+ * Set: Set 15
  * Type: Location
  * Subtype: System
  * Title: Scarif
@@ -34,7 +28,7 @@ public class Card501_076 extends AbstractSystem {
         setLocationDarkSideGameText("If Shield Gate here, Force drain +1 here. While Death Star orbiting Scarif, Superlaser fires for free.");
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcon(Icon.DARK_FORCE, 2);
-        addIcons(Icon.PLANET, Icon.VIRTUAL_SET_14);
+        addIcons(Icon.PLANET, Icon.VIRTUAL_SET_15);
         setTestingText("Scarif");
     }
 

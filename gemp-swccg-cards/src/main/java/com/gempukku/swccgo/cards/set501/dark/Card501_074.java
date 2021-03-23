@@ -1,6 +1,5 @@
 package com.gempukku.swccgo.cards.set501.dark;
 
-
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
@@ -28,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: Set 14
+ * Set: Set 15
  * Type: Location
  * Subtype: Site
  * Title: Scarif: Citadel Tower
@@ -40,7 +39,7 @@ public class Card501_074 extends AbstractSite {
         setLocationDarkSideGameText("Once per turn, if you occupy, may use 1 Force to deploy a Scarif site from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.PLANET, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14);
+        addIcons(Icon.PLANET, Icon.INTERIOR_SITE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_15);
         setTestingText("Scarif: Citadel Tower");
     }
 

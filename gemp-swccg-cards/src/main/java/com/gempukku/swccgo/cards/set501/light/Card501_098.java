@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Set 14
+ * Set: Set 15
  * Type: Character
  * Subtype: Resistance
  * Title: Larma D'Acy
@@ -35,7 +35,7 @@ public class Card501_098 extends AbstractResistance {
         super(Side.LIGHT, 2, 3, 3, 3, 5, "Larma D'Acy", Uniqueness.UNIQUE);
         setLore("Female commander. Leader.");
         setGameText("Finn and Poe are power +1 here. During your control phase, if with an opponent's spy, opponent loses 1 Force (2 Force if spy is Undercover). If Leia present at a battleground site, Their Fire Has Gone Out Of The Universe flips and may not flip back.");
-        addIcons(Icon.PILOT, Icon.VIRTUAL_SET_14, Icon.EPISODE_VII);
+        addIcons(Icon.PILOT, Icon.VIRTUAL_SET_15, Icon.EPISODE_VII);
         addKeywords(Keyword.FEMALE, Keyword.COMMANDER, Keyword.LEADER);
         setTestingText("Larma D'Acy");
     }

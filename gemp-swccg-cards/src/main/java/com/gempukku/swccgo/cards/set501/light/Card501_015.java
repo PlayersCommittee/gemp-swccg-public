@@ -1,95 +1,45 @@
 package com.gempukku.swccgo.cards.set501.light;
 
-import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
-import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Set: Set 14
- * Type: Interrupt
- * Subtype: Used
- * Title: Our Only Hope (V)
+ * Set: Set 15
+ * Type: Location
+ * Subtype: Site
+ * Title: Ajan Kloss: Jedi Training Ground
  */
-public class Card501_015 extends AbstractUsedInterrupt {
+public class Card501_015 extends AbstractSite {
     public Card501_015() {
-        super(Side.LIGHT, 4, Title.Our_Only_Hope, Uniqueness.UNIQUE);
-        setLore("'The Emperor knew, as I did, if Anakin were to have any offspring, they would be a threat to him.'");
-        setGameText("Relocate Prophecy Of The Force to a site. OR If He Is The Chosen One or He Will Bring Balance on table, [upload] Yoda's Hut or a Death Star II site.");
-        addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_14);
-        setVirtualSuffix(true);
-        setTestingText("Our Only Hope (V)");
+        super(Side.LIGHT, "Ajan Kloss: Jedi Training Ground", Title.Ajan_Kloss);
+        setLocationDarkSideGameText("Players may not deploy or move cards to this location.");
+        setLocationLightSideGameText("May only be deployed as a starting location.");
+        addIcon(Icon.LIGHT_FORCE, 3);
+        addIcons(Icon.EPISODE_VII, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_15);
+        setTestingText("Ajan Kloss: Jedi Training Ground");
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        List<PlayInterruptAction> actions = new LinkedList<>();
+    protected boolean checkPlayRequirements(String playerId, SwccgGame game, PhysicalCard self, DeploymentRestrictionsOption deploymentRestrictionsOption, PlayCardOption playCardOption, ReactActionOption reactActionOption) {
+        return GameConditions.isDuringStartOfGame(game);
+    }
 
-        GameTextActionId gameTextActionId = GameTextActionId.OUR_ONLY_HOPE_V__UPLOAD_SITE;
-
-        if (GameConditions.canSpot(game, self, Filters.or(Filters.He_Is_The_Chosen_One, Filters.He_Will_Bring_Balance))
-                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-            action.setText("Take site into hand from Reserve Deck");
-            // Allow response(s)
-            action.allowResponses("Take Yoda's Hut or a Death Star II site into hand from Reserve Deck",
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Yodas_Hut, Filters.Death_Star_II_site), true));
-                        }
-                    }
-            );
-            actions.add(action);
-        }
-
-        if (GameConditions.canSpot(game, self, Filters.Prophecy_Of_The_Force)) {
-            final PhysicalCard prophecyOfTheForce = Filters.findFirstActive(game, self, Filters.Prophecy_Of_The_Force);
-            boolean canRelocate = GameConditions.canSpot(game, self, Filters.canRelocateEffectTo(playerId, prophecyOfTheForce));
-            Collection<Modifier> modifiers = game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), prophecyOfTheForce);
-            for (Modifier m: modifiers) {
-                if (m.getModifyGameTextType(game.getGameState(), game.getModifiersQuerying(), prophecyOfTheForce) == ModifyGameTextType.PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED)
-                    canRelocate = false;
-            }
-            if (canRelocate) {
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Relocate " + GameUtils.getCardLink(prophecyOfTheForce) + " to a site");
-                action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose site", Filters.canRelocateEffectTo(playerId, prophecyOfTheForce)) {
-                    @Override
-                    protected void cardTargeted(int targetGroupId, PhysicalCard site) {
-
-                        final PhysicalCard finalSite = action.getPrimaryTargetCard(targetGroupId);
-                        action.addAnimationGroup(prophecyOfTheForce);
-                        action.addAnimationGroup(finalSite);
-                        action.allowResponses(new RespondablePlayCardEffect(action) {
-                            @Override
-                            protected void performActionResults(Action targetingAction) {
-                                action.appendEffect(
-                                        new AttachCardFromTableEffect(action, prophecyOfTheForce, finalSite)
-                                );
-                            }
-                        });
-                    }
-                });
-
-                actions.add(action);
-            }
-        }
-        return actions;
+    @Override
+    protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new ArrayList<>();
+        modifiers.add(new MayNotDeployToLocationModifier(self, Filters.any, self));
+        modifiers.add(new MayNotMoveToLocationModifier(self, Filters.any, self));
+        return modifiers;
     }
 }

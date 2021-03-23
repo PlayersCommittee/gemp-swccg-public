@@ -30,6 +30,7 @@ public interface Title {
     String Ahsokas_Lightsabers = "Ahsoka's Lightsabers";
     String Aiiii_Aaa_Agggggggggg = "Aiiii! Aaa! Agggggggggg!";
     String Aim_High = "Aim High";
+    String Ajan_Kloss = "Ajan Kloss";
     String Alderaan = "Alderaan";
     String All_Too_Easy = "All Too Easy";
     String All_Wings_Report_In = "All Wings Report In";
