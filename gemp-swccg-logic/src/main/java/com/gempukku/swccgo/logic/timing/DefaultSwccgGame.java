@@ -277,7 +277,7 @@ public class DefaultSwccgGame implements SwccgGame {
     @Override
     public int getGameTimerExtendedInMinutes() {
         if (_requestedExtendGameTimer.size() >= _allPlayers.size()) {
-            return _requestedExtendGameTimer.values().iterator().next();
+            return Collections.min(_requestedExtendGameTimer.values());
         }
         return 0;
     }
