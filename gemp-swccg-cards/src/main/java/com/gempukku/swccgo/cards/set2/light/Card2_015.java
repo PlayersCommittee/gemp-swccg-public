@@ -9,11 +9,15 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.DeionizeStarshipEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -46,19 +50,21 @@ public class Card2_015 extends AbstractDroid {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        String playerId = self.getOwner();
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
-                && GameConditions.isAboard(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized,Filters.starship_hyperspeed_ionized), Filters.your(self)))){
+        // Check if reached end of each control phase and action was not performed yet.
+        // Check if this card is aboard a ship that has been ionized
+        if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
+                && GameConditions.isAboard(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized,Filters.starship_hyperspeed_ionized), Filters.your(self))) ) {
 
             PhysicalCard starship = Filters.findFirstActive(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized,Filters.starship_hyperspeed_ionized), Filters.your(self), Filters.hasAboard(self)));
             if (starship != null) {
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Restore armor/maneuver and hyperspeed");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerPhaseEffect(action));
+                // Perform result(s)
                 action.appendEffect(
                         new DeionizeStarshipEffect(action, starship, false, true, true));
                 return Collections.singletonList(action);
