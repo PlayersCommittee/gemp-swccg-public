@@ -213,6 +213,9 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // Disarmed
         DISARMED,
 
+        // Ionized
+        IONIZED,
+
         // Excluded from battle
         ABOUT_TO_HIDE_FROM_BATTLE,
         ABOUT_TO_BE_EXCLUDED_FROM_BATTLE,
