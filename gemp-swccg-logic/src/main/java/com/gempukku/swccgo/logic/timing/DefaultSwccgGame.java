@@ -267,13 +267,17 @@ public class DefaultSwccgGame implements SwccgGame {
     @Override
     public void requestExtendGameTimer(String playerId, int minutes) {
         _gameState.sendMessage(playerId + " has requested the game timer to be extended by " + minutes + " minutes. The game timer will be extended if requested by all players");
-        _requestedExtendGameTimer.put(playerId, minutes);
+        Integer currentPlayerTimer = _requestedExtendGameTimer.get(playerId);
+        if (currentPlayerTimer == null) {
+            currentPlayerTimer = 0;
+        }
+        _requestedExtendGameTimer.put(playerId, currentPlayerTimer + minutes);
     }
 
     @Override
     public int getGameTimerExtendedInMinutes() {
         if (_requestedExtendGameTimer.size() >= _allPlayers.size()) {
-            return _requestedExtendGameTimer.values().iterator().next();
+            return Collections.min(_requestedExtendGameTimer.values());
         }
         return 0;
     }
