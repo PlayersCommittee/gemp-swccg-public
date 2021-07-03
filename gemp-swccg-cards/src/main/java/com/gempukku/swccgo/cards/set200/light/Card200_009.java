@@ -2,21 +2,25 @@ package com.gempukku.swccgo.cards.set200.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.effects.PutCardFromHandOnBottomOfReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,72 +33,96 @@ import java.util.List;
  */
 public class Card200_009 extends AbstractRebel {
     public Card200_009() {
-        super(Side.LIGHT, 1, 5, 4, 5, 8, "Daughter Of Skywalker", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 4, 5, 8, Title.Daughter_Of_Skywalker, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Scout. Leader. Made friends with Wicket. Negotiated an alliance with the Ewoks. Leia found out the truth about her father from Luke in the Ewok village.");
-        setGameText("If in hand, may place her under Reserve Deck. May be targeted instead of Luke by Mind What You Have Learned (that card then targets Leia instead of Luke for remainder of game). May [download] Reflection. Immune to attrition < 4.");
+        setGameText("While at an Endor site, adds one [Light Side] icon here. During battle, may target one opponent's character present. Draw destiny. If destiny > ability, target is power -2 and its game text is canceled. Your scouts here are immune to Sniper, You Are Beaten, and attrition < 4.");
         addPersona(Persona.LEIA);
-        addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
+        addIcons(Icon.ENDOR, Icon.WARRIOR);
         addKeywords(Keyword.SCOUT, Keyword.LEADER, Keyword.FEMALE);
-        setSpecies(Species.ALDERAANIAN);
-    }
-
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-
-        final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-        action.setText("Place under Reserve Deck");
-        action.setActionMsg("Place " + GameUtils.getCardLink(self) + " from hand under Reserve Deck");
-        // Perform result(s)
-        action.appendEffect(
-                new PutCardFromHandOnBottomOfReserveDeckEffect(action, playerId, self, false));
-        return Collections.singletonList(action);
-    }
-
-    @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
-
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-
-        // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.and(Filters.Mind_What_You_Have_Learned, Filters.not(Filters.hasGameTextModification(ModifyGameTextType.MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE))))) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Make Mind What You Have Learned target Leia");
-            action.setActionMsg("Make Mind What You Have Learned / Save You It Can target Leia instead of Luke for remainder of game");
-            // Perform result(s)
-            action.appendEffect(
-                    new AddUntilEndOfGameModifierEffect(action, new ModifyGameTextModifier(self,
-                            Filters.or(Filters.Mind_What_You_Have_Learned, Filters.Save_You_It_Can), ModifyGameTextType.MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE),
-                            "Makes Mind What You Have Learned / Save You It Can target Leia instead of Luke for remainder of game"));
-            actions.add(action);
-        }
-
-        gameTextActionId = GameTextActionId.DAUGHTER_OF_SKYWALKER__DOWNLOAD_REFLECTION;
-
-        // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Reflection)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Reflection from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerPhaseEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Reflection, true));
-            actions.add(action);
-        }
-        return actions;
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
+        List<Modifier> modifiers = new LinkedList<>();
+        Filter scoutsHere = Filters.and(Filters.your(self), Filters.scout, Filters.here(self));
+
+        modifiers.add(new IconModifier(self, Filters.sameSite(self), new AtCondition(self, Filters.Endor_site), Icon.LIGHT_FORCE, 1));
+        modifiers.add(new ImmuneToTitleModifier(self, scoutsHere, Title.Sniper));
+        modifiers.add(new ImmuneToTitleModifier(self, scoutsHere, Title.You_Are_Beaten));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, scoutsHere, 4));
+
         return modifiers;
+    }
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+
+        // once per battle
+        GameTextActionId gameTextActionId = GameTextActionId.DAUGHTER_OF_SKYWALKER_VIRTUAL_GAMETEXT_ONCE_PER_BATTLE;
+
+        // "target one opponent's character present"
+        Filter targetFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.presentWith(self));
+
+        if (GameConditions.isInBattle(game, self)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canTarget(game, self, targetFilter)) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Target opponent's character");
+
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose character", targetFilter) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            // Pay cost(s)
+                            // Once Per battle
+                            action.appendUsage(new OncePerBattleEffect(action));
+                            // Allow response(s)
+                            action.allowResponses("Targeting " + GameUtils.getCardLink(targetedCard),
+                                    new RespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                            // This needs to be done in case the target(s) were changed during the responses.
+                                            final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new DrawDestinyEffect(action, playerId) {
+                                                        @Override
+                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                            return Collections.singletonList(finalTarget);
+                                                        }
+
+                                                        @Override
+                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                            GameState gameState = game.getGameState();
+                                                            if (totalDestiny == null) {
+                                                                gameState.sendMessage("Result: Failed due to failed destiny draw");
+                                                                return;
+                                                            }
+
+                                                            float ability = game.getModifiersQuerying().getAbility(game.getGameState(), finalTarget);
+                                                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                            gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
+                                                            if (totalDestiny > ability) {
+                                                                gameState.sendMessage("Result: Succeeded");
+                                                                action.appendEffect(new CancelGameTextEffect(action, finalTarget));
+                                                                action.appendEffect(new ModifyPowerEffect(action, targetedCard, -2));
+                                                            } else {
+                                                                gameState.sendMessage("Result: Failed");
+                                                            }
+                                                        }
+                                                    }
+                                            );
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 }

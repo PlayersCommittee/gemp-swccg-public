@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set206.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,6 +25,7 @@ public class Card206_002 extends AbstractRebel {
         setVirtualSuffix(true);
         setLore("An expert Scout originally from Kai'Shebbol in the Kathol sector. Served with Bren Derlin for many years. Patrols the outer perimeter of Echo Base.");
         setGameText("May deploy as a 'react'. Deploys -1 to same site as a Rebel leader. Unless with Luke, opponent must first use 1 Force to fire a weapon at same site. Elis Helrot may not transport characters to or from here.");
+        addPersona(Persona.CAL);
         addIcons(Icon.HOTH, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
         addKeywords(Keyword.SCOUT);
     }

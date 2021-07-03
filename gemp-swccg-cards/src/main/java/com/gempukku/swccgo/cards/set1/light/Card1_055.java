@@ -29,9 +29,9 @@ import java.util.List;
 public class Card1_055 extends AbstractNormalEffect {
     public Card1_055() {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Mantellian_Savrip, Uniqueness.UNIQUE);
-        setLore("Dejarik game uses holograms of mythological and real creatures from across the galaxy. The hulking Mantellian savrip is a nasty predator from Ord Mantell.");
+        setLore("Dejarik game uses mythological and real creatures from across the galaxy. The hulking Mantellian savrip is a nasty predator from Ord Mantell.");
         setGameText("Use 3 Force to deploy on your side of table (free if C-3PO on table). After losing any battle: characters, starships and vehicles may be forfeited directly from your hand (for forfeit value) to reduce attrition or battle damage.");
-        addKeywords(Keyword.DEJARIK, Keyword.HOLOGRAM);
+        addKeywords(Keyword.DEJARIK);
     }
 
     @Override

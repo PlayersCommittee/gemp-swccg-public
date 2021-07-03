@@ -124,11 +124,15 @@ public class SwccgCardBlueprintLibrary {
     }
 
     public String stripBlueprintModifiers(String blueprintId) {
-        return blueprintId.replaceAll("\\*", "");
+        return blueprintId.replaceAll("\\*", "").replaceAll("\\^", "");
     }
 
     public boolean isFoil(String blueprintId) {
         return blueprintId.contains("*");
+    }
+
+    public boolean isAlternateImage(String blueprintId) {
+        return blueprintId.contains("^");
     }
 
     private SwccgCardBlueprint getBlueprint(String blueprintId) {

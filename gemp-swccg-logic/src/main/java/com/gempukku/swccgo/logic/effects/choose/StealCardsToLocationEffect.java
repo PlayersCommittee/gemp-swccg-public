@@ -19,7 +19,7 @@ public class StealCardsToLocationEffect extends AbstractSubActionEffect {
     private Collection<PhysicalCard> _remainingCards;
 
     /**
-     * Creates an effect to steal the specified cards on tableand relocate them to the new owner's side of the location.
+     * Creates an effect to steal the specified cards on table and relocate them to the new owner's side of the location.
      * @param action the action performing this effect
      * @param playerId the player to steal the card
      * @param cardsToSteal the cards to steal

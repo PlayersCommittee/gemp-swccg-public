@@ -28,6 +28,9 @@ import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -114,6 +117,10 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             findMultipleAccounts(request, responseWriter);
         } else if (uri.equals("/togglePrivateGames") && request.getMethod() == HttpMethod.POST) {
             togglePrivateGames(request, responseWriter);
+        } else if (uri.equals("/toggleInGameStatistics") && request.getMethod() == HttpMethod.POST) {
+            toggleInGameStatistics(request, responseWriter);
+        } else if (uri.equals("/removeInGameStatisticsListeners") && request.getMethod() == HttpMethod.POST) {
+            removeInGameStatisticListeners(request, responseWriter);
         } else {
             responseWriter.writeError(404);
         }
@@ -383,12 +390,18 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         Collection<CardCollection.Item> productItems = getProductItems(product);
 
-        Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
+        List<String> cannotAdd = validateItemsToAdd(productItems);
 
-        for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
-            _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
+        if(!cannotAdd.isEmpty()) {
+            responseWriter.writeHtmlResponse(listToString(cannotAdd));
+        } else {
+            Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
 
-        responseWriter.writeHtmlResponse("OK");
+            for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
+                _collectionManager.addItemsToPlayerCollection(true, reason + " (" + getResourceOwnerSafely(request,null).getName() + ")", playerCollection.getKey(), createCollectionType(collectionType), productItems);
+
+            responseWriter.writeHtmlResponse("OK");
+        }
     }
 
     private void addItems(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
@@ -401,15 +414,68 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         Collection<CardCollection.Item> productItems = getProductItems(product);
 
-        List<String> playerNames = getItems(players);
+        List<String> cannotAdd = validateItemsToAdd(productItems);
 
-        for (String playerName : playerNames) {
-            Player player = _playerDao.getPlayer(playerName);
+        if(!cannotAdd.isEmpty()) {
+            responseWriter.writeHtmlResponse(listToString(cannotAdd));
+        } else {
+            List<String> playerNames = getItems(players);
 
-            _collectionManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
+            for (String playerName : playerNames) {
+                Player player = _playerDao.getPlayer(playerName);
+
+                _collectionManager.addItemsToPlayerCollection(true, "Administrator action ("+getResourceOwnerSafely(request,null).getName()+")", player, createCollectionType(collectionType), productItems);
+            }
+
+            responseWriter.writeHtmlResponse("OK");
+        }
+    }
+
+    private String listToString(List<String> cannotAdd) {
+        StringBuilder stringBuilder = new StringBuilder("Did not add any items. Unable to add:");
+        for (String s : cannotAdd) {
+            stringBuilder.append("<br>" + s);
+        }
+        return stringBuilder.toString();
+    }
+
+    private List<String> validateItemsToAdd(Collection<CardCollection.Item> productItems) throws IOException {
+        //check if all of the items are formatted correctly (adding the wrong product to a collection can break it)
+        List<String> cannotAdd = new ArrayList<String>();
+
+        //pack list
+        Set<String> packList = new HashSet<String>();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AdminRequestHandler.class.getResourceAsStream("/packs.txt"), "UTF-8"));
+        try {
+            String line;
+            while ((line = bufferedReader.readLine()) != null)
+                packList.add(line);
+        } finally {
+            bufferedReader.close();
         }
 
-        responseWriter.writeHtmlResponse("OK");
+        SwccgCardBlueprintLibrary library = new SwccgCardBlueprintLibrary();
+
+        for(CardCollection.Item item: productItems) {
+            switch(item.getType()) {
+                case CARD:
+                    if(library.getSwccgoCardBlueprint(item.getBlueprintId())==null || item.getBlueprintId().startsWith("0") || item.getBlueprintId().contains("_0"))
+                        cannotAdd.add(item.getBlueprintId());
+                    break;
+                case PACK:
+                    if(!packList.contains(item.getBlueprintId()))
+                        cannotAdd.add(item.getBlueprintId());
+                    break;
+                case SELECTION:
+                    if(!packList.contains(item.getBlueprintId()))
+                        cannotAdd.add(item.getBlueprintId());
+                    break;
+                default:
+                    cannotAdd.add(item.getBlueprintId());
+            }
+        }
+
+        return cannotAdd;
     }
 
     private void addCurrency(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
@@ -419,14 +485,21 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String players = getFormParameterSafely(postDecoder, "players");
         int currencyAmount = Integer.parseInt(getFormParameterSafely(postDecoder, "currencyAmount"));
 
-        List<String> playerNames = getItems(players);
+        int currencyAddLimit = 10000;
 
-        for (String playerName : playerNames) {
-            Player player = _playerDao.getPlayer(playerName);
-            _collectionManager.addCurrencyToPlayerCollection(true,"Administrator action", player, createCollectionType("permanent"), currencyAmount);
+        if(currencyAmount>currencyAddLimit || currencyAmount<0) {
+            responseWriter.writeHtmlResponse("Cannot add "+currencyAmount);
+        } else {
+
+            List<String> playerNames = getItems(players);
+
+            for (String playerName : playerNames) {
+                Player player = _playerDao.getPlayer(playerName);
+                _collectionManager.addCurrencyToPlayerCollection(true, "Administrator action ("+getResourceOwnerSafely(request,null).getName()+")", player, createCollectionType("permanent"), currencyAmount);
+            }
+
+            responseWriter.writeHtmlResponse("OK");
         }
-
-        responseWriter.writeHtmlResponse("OK");
     }
 
     private List<String> getItems(String values) {
@@ -487,6 +560,11 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
         boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+
         int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
         int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
 
@@ -504,7 +582,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds, timePerPlayerMinutes);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfoString, decisionTimeoutSeconds, timePerPlayerMinutes);
 
         _leagueService.clearCache();
 
@@ -535,6 +613,13 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             sb.append("," + formats.get(i) + "," + seriesDurations.get(i) + "," + maxMatches.get(i));
         }
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+        if(registrationInfoString.toLowerCase().contains("starwarsccg.org") && !registrationInfoString.contains(" "))
+            registrationInfoString = "<a href='"+registrationInfoString+"' target='_new'>"+registrationInfoString+"</a>";
+
         String parameters = sb.toString();
         LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, parameters);
 
@@ -551,6 +636,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         leagueElem.setAttribute("name", name);
         leagueElem.setAttribute("cost", String.valueOf(cost));
+        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+        leagueElem.setAttribute("registrationInfo", registrationInfoString);
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
         leagueElem.setAttribute("end", String.valueOf(end));
 
@@ -598,6 +685,11 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
         boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+
         int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
         int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
 
@@ -609,7 +701,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, decisionTimeoutSeconds, timePerPlayerMinutes);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfoString, decisionTimeoutSeconds, timePerPlayerMinutes);
 
         _leagueService.clearCache();
 
@@ -633,6 +725,13 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         String name = getFormParameterSafely(postDecoder, "name");
         int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
+        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
+        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
+
+        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
+        if(registrationInfoString.toLowerCase().contains("starwarsccg.org") && !registrationInfoString.contains(" "))
+            registrationInfoString = "<a href='"+registrationInfoString+"' target='_new'>"+registrationInfoString+"</a>";
+
         String code = String.valueOf(System.currentTimeMillis());
 
         String parameters = format + "," + start + "," + seriesDuration + "," + maxMatches + "," + code + "," + name;
@@ -651,6 +750,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         leagueElem.setAttribute("name", name);
         leagueElem.setAttribute("cost", String.valueOf(cost));
+        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+        leagueElem.setAttribute("registrationInfo", registrationInfoString);
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
         leagueElem.setAttribute("end", String.valueOf(end));
 
@@ -689,7 +790,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             Player player = _playerDao.getPlayer(playerName);
             if (player != null) {
                 if (!_leagueService.isPlayerInLeague(league, player)) {
-                    if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true)) {
+                    if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true, true)) {
                         throw new HttpProcessingException(409);
                     }
                 }
@@ -750,6 +851,19 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_hallServer.privateGamesAllowed()));
     }
 
+    private void toggleInGameStatistics(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+        _hallServer.toggleInGameStatistics();
+
+        responseWriter.writeHtmlResponse("In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+    }
+
+    private void removeInGameStatisticListeners(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+        int count = _hallServer.removeInGameStatisticsListeners();
+
+        responseWriter.writeHtmlResponse("In game statistics tracking removed from "+count+" active games<br>In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+    }
 
     /**
      * Verifies the request is from an admin user.

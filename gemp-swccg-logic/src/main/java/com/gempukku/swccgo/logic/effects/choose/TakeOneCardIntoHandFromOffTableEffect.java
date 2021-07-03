@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * An effect to take the specified card into hand that is not "on table".
  */
-abstract class TakeOneCardIntoHandFromOffTableEffect extends AbstractStandardEffect {
+public abstract class TakeOneCardIntoHandFromOffTableEffect extends AbstractStandardEffect {
     private String _playerId;
     private PhysicalCard _card;
     private String _msgText;

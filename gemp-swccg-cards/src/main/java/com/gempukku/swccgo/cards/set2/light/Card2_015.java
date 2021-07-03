@@ -3,20 +3,18 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.DeionizeStarshipEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -58,9 +56,9 @@ public class Card2_015 extends AbstractDroid {
         // Check if this card is aboard a ship that has been ionized
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.isAboard(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized,Filters.starship_hyperspeed_ionized), Filters.your(self))) ) {
+                && GameConditions.isAboard(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized, Filters.starship_hyperspeed_ionized), Filters.your(self)))) {
 
-            PhysicalCard starship = Filters.findFirstActive(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized,Filters.starship_hyperspeed_ionized), Filters.your(self), Filters.hasAboard(self)));
+            PhysicalCard starship = Filters.findFirstActive(game, self, Filters.and(Filters.or(Filters.starship_defense_ionized, Filters.starship_hyperspeed_ionized), Filters.your(self), Filters.hasAboard(self)));
             if (starship != null) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Restore armor/maneuver and hyperspeed");

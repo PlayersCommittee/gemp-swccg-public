@@ -104,7 +104,7 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
                                     new UnrespondableEffect(subAction) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
-                                             subAction.appendEffect(
+                                            subAction.appendEffect(
                                                     new ChooseNextCardToLose(subAction, game, targetedCards));
                                         }
                                     }

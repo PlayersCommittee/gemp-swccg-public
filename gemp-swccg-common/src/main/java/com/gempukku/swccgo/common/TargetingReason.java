@@ -24,6 +24,7 @@ public enum TargetingReason {
     TO_BE_MISSING("to go missing"),
     TO_BE_PLACED_OUT_OF_PLAY("to be placed out of play"),
     TO_BE_PURCHASED("to be 'purchased'"),
+    TO_BE_RELEASED("to be released"),
     TO_BE_STOLEN("to be stolen"),
     TO_BE_STOLEN_EVEN_IF_CARDS_ABOARD("to be stolen"),
     TO_BE_TORTURED("to be tortured"),

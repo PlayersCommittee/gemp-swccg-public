@@ -2,39 +2,41 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
-Vagrant.configure(2) do |config|
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+require 'fileutils'
 
-  # Name box "gemp"
-  config.vm.define "gemp" do |gemp|
-    gemp.vm.box = "bento/centos-7"
+PROVISION_SCRIPT = File.join(File.dirname(__FILE__), "vagrant-build/bootstrap.sh")
+VAGRANTFILE_API_VERSION = "2"
+VAGRANT_INSTANCE_NAME   = "gemp"
 
-    # Create a private network, which allows host-only access to the machine
-    # using a specific IP.
-    gemp.vm.network "private_network", ip: "192.168.50.94"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    # Provider-specific configuration so you can fine-tune various
-    # backing providers for Vagrant. These expose provider-specific options.
-    # Example for VirtualBox:
-    #
+  config.vm.hostname = VAGRANT_INSTANCE_NAME
+
+  config.vm.define VAGRANT_INSTANCE_NAME do |d|
+    # Ensure vbguest is updated and running on host.
+    if Vagrant.has_plugin?("vagrant-vbguest")
+      config.vbguest.auto_update = false
+    end
+
+    # Ubuntu 20.04 LTS
+    d.vm.box = "ubuntu/focal64"
+
+    # Create a private network, which allows host-only 
+    # access to the machine using a specific IP.
+    d.vm.network "private_network", ip: "192.168.50.94"
+
     config.vm.provider "virtualbox" do |vb|
-      vb.name = 'gemp'
+      vb.name = VAGRANT_INSTANCE_NAME
 
       # Customize the amount of memory on the VM:
       vb.memory = "2048"
     end
 
-    # Enable provisioning with a shell script if not set up.
-    box_location = "#{File.dirname(__FILE__)}/.vagrant/machines/gemp-swccg/virtualbox"
-    if !Dir.exist?(box_location) or Dir.entries(box_location).length < 3 or ARGV[1] == '--provision'
 
-      config.vm.provision :shell, :path => "vagrant-build/bootstrap.sh", :privileged => false
-    end
+    if File.exist?(PROVISION_SCRIPT)
+      d.vm.provision :file,  :source => "#{PROVISION_SCRIPT}", :destination => "/tmp/provision.sh"
+      d.vm.provision :shell, :inline => "chmod 0755 /tmp/provision.sh ; /tmp/provision.sh", :privileged => true
+    end ### provision
 
   end
 end

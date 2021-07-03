@@ -3,10 +3,7 @@ package com.gempukku.swccgo.game;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.actions.AbstractAction;
-import com.gempukku.swccgo.logic.actions.FireWeaponAction;
-import com.gempukku.swccgo.logic.actions.PlayCardAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.actions.*;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.DuelDirections;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -559,12 +556,30 @@ public interface SwccgCardBlueprint {
     List<Modifier> getWhileInPlayModifiers(SwccgGame game, PhysicalCard self);
 
     /**
+     * Gets modifiers that are from this card that are in effect while the card is out of play.
+     *
+     * @param game the game
+     * @param self the card
+     * @return the modifiers
+     */
+    List<Modifier> getWhileOutOfPlayModifiers(SwccgGame game, PhysicalCard self);
+
+    /**
      * Gets modifiers that are from this card that are in effect while the card is stacked (face up) on another card.
      * @param game the game
      * @param self the card
      * @return the modifiers
      */
     List<Modifier> getWhileStackedModifiers(SwccgGame game, PhysicalCard self);
+
+
+    /**
+     * Checks if card is playable as a starting interrupt
+     * @param game the game
+     * @param self the card
+     * @return true if it can be played as a starting interrupt, otherwise false
+     */
+    boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self);
 
     /**
      * Gets the action playing this card as a starting interrupt.
@@ -1507,6 +1522,36 @@ public interface SwccgCardBlueprint {
     List<TriggerAction> getLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
 
     /**
+     * Gets the optional triggers from an opponent's card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    List<TriggerAction> getOpponentsCardLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
+
+    /**
+     * Gets the optional triggers from a card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    List<TriggerAction> getLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
+
+    /**
+     * Gets the optional triggers from an opponent's card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    List<TriggerAction> getOpponentsCardLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self);
+
+    /**
      * Gets displayable information about the card.
      * @param game the game
      * @param self the card
@@ -1560,6 +1605,8 @@ public interface SwccgCardBlueprint {
                                    PhysicalCard cardFiringWeapon, List<PhysicalCard> destinyCardDraws, List<Integer> destinyDrawValues, Integer totalDestiny);
 
     void weaponFireWasSuccessful(SwccgGame game, AbstractAction action, PhysicalCard self, PhysicalCard target, PhysicalCard cardFiringWeapon);
+
+    TractorBeamAction getTractorBeamAction(SwccgGame game, PhysicalCard self);
 
     /**
      * Determines if a card is a device or weapon that deploys on characters.
@@ -1622,6 +1669,14 @@ public interface SwccgCardBlueprint {
     boolean isOnlyDeploysAsUndercoverSpy(SwccgGame game, PhysicalCard self);
 
     /**
+     * Determines if the card only deploys as an captured prisoner.
+     * @param game the game
+     * @param self the card
+     * @return the owner of the zone
+     */
+    boolean isOnlyDeploysAsEscortedCaptive(SwccgGame game, PhysicalCard self);
+
+    /**
      * Determines if the card may deploy as an undercover spy.
      * @param game the game
      * @param self the card
@@ -1661,4 +1716,16 @@ public interface SwccgCardBlueprint {
      * @return the duel directions provided by this card, or null
      */
     DuelDirections getDuelDirections(SwccgGame game);
+
+    /**
+     * Returns if this is a legacy card
+     * @return true if this is a legacy card
+     */
+    boolean isLegacy();
+
+    /**
+     * Returns if this should be excluded from the deck builder
+     * @return true if this should be excluded from the deck buider
+     */
+    boolean excludeFromDeckBuilder();
 }

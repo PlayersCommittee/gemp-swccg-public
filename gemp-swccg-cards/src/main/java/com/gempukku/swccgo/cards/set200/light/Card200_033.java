@@ -14,7 +14,6 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.effects.RearmCharacterEffect;
 import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -89,21 +88,6 @@ public class Card200_033 extends AbstractCharacterDevice {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
-        // Check condition(s)
-        if (TriggerConditions.justDeployed(game, effectResult, self)) {
-            PhysicalCard character = self.getAttachedTo();
-            if (character.isDisarmed()) {
-
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setPerformingPlayer(self.getOwner());
-                action.setText("Re-arm " + GameUtils.getFullName(character));
-                action.setActionMsg("Re-arm " + GameUtils.getCardLink(character));
-                // Perform result(s)
-                action.appendEffect(
-                        new RearmCharacterEffect(action, character));
-                actions.add(action);
-            }
-        }
         // Check condition(s)
         if (TriggerConditions.justDisarmed(game, effectResult, Filters.hasAttached(self))) {
 

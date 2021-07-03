@@ -1,58 +1,57 @@
 #!/usr/bin/env bash
 
-# -----------------------------------------
-#   Install dependencies
-# -----------------------------------------
+export DEBIAN_FRONTEND=noninteractive
 
-sudo yum -y install unzip vim dos2unix git wget
-sudo yum -y install mysql mariadb-server
-sudo yum -y install java-1.8.0-openjdk-devel
+echo
+echo "Install dependencies"
+echo
+echo "  * apt-get update"
+apt-get update
+echo "  * apt-get install wget unzip vim-common dos2unix git htop"
+apt-get install -y wget unzip vim-common dos2unix git htop
+echo "  * apt-get install mariadb-client mariadb-server"
+apt-get install -y mariadb-client mariadb-server
+echo "  * apt-get install openjdk-11-jdk maven"
+apt-get install -y openjdk-11-jdk maven
 
-# Install maven
-cd /usr/local
-sudo wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-sudo tar xzf apache-maven-3.5.4-bin.tar.gz
-sudo ln -s apache-maven-3.5.4 maven
-sudo cp /vagrant/vagrant-build/maven.sh /etc/profile.d/maven.sh
-sudo dos2unix /etc/profile.d/maven.sh
-sudo rm -f /usr/local/apache-maven-3.5.4-bin.tar.gz
+echo
+echo "Set up GEMP directory structure"
+echo "  * mkdir -p /env/gemp-swccg/web"
+mkdir -p /env/gemp-swccg/web
+echo "  * chown /env/gemp-swccg"
+chown -R vagrant:vagrant /env/gemp-swccg
+echo "  * mkdir /logs"
+mkdir /logs/
+echo "  * chown /logs"
+chown vagrant:vagrant /logs
 
-# ------------------------------------------
-# Set up GEMP directory structure
-# ------------------------------------------
+echo
+echo "Setting CWD To /vagrant in bash_profile"
+echo
+echo "cd /vagrant" >> ~vagrant/.bash_profile
 
-sudo mkdir -p /env/gemp-swccg/web/
-sudo chown -R vagrant:vagrant /env/gemp-swccg
-sudo mkdir /logs/
-sudo chown vagrant:vagrant /logs
 
-# -----------------------------------------
-#   Configure login directory
-# -----------------------------------------
-sed -i 's@export PATH@export PATH\n\ncd /vagrant@' ~/.bash_profile
+echo
+echo "Fix windows line endings if necessary at login"
+echo
+echo 'dos2unix /vagrant/get-card-images.sh 1>/dev/null 2>&1' >> ~vagrant/.bash_profile
+echo 'dos2unix /vagrant/run-gemp.sh 1>/dev/null 2>&1' >> ~vagrant/.bash_profile
+echo
+source ~vagrant/.bash_profile
 
-# -----------------------------------------
-#   Fix windows line endings if necessary at login
-# -----------------------------------------
-echo 'dos2unix get-card-images.sh' >> ~/.bash_profile
-echo 'dos2unix run-gemp.sh' >> ~/.bash_profile
-source ~/.bash_profile
+echo
+echo "Configure MariaDB"
+echo "  * set listening host to 0.0.0.0"
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "  * enable MariaDB service"
+systemctl enable --now mariadb.service
 
-# -----------------------------------------
-#   Enable system services
-# -----------------------------------------
-sudo cp /vagrant/vagrant-build/gemp-mysql.cnf /etc/my.cnf.d/
-sudo dos2unix /etc/my.cnf.d/gemp-mysql.cnf
-sudo systemctl enable --now mariadb
-
-# -----------------------------------------
-#   Load seed database
-# -----------------------------------------
+echo "  * Load seed database"
 mysql -u root mysql <<< "CREATE USER 'gemp'@'localhost' IDENTIFIED BY 'gemp';"
 mysql -u root mysql <<< "GRANT ALL PRIVILEGES ON *.* TO 'gemp'@'localhost' WITH GRANT OPTION;"
 mysql -u root mysql < /vagrant/database_script.sql
 
-# Add test users
+echo "  * Add test users"
 mysql -u root gemp-swccg <<< "
 INSERT INTO player (name, password, type, last_login_reward, last_ip, create_ip)
 VALUES (
@@ -72,11 +71,12 @@ VALUES (
 	'192.168.50.1'
 );"
 
-# -----------------------------------------
-#   Download card images
-# -----------------------------------------
+echo
+echo "Download card images to /vagrant from holotable repo"
+echo
 cd /vagrant
-./get-card-images.sh
+bash ./get-card-images.sh
 
-# -----------------------------------------
+echo
 echo 'Done!'
+echo

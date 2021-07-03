@@ -8,6 +8,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredRuleTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.TurnOverLostPileEffect;
+import com.gempukku.swccgo.logic.effects.TurnOverTopOfReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.TurnOverUsedPilesEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -82,6 +83,31 @@ public class TurnOverCardPilesRule implements Rule {
                                 // Perform result(s)
                                 action.appendEffect(
                                         new TurnOverLostPileEffect(action, lightPlayer, lightLostPileShouldBeTurnedOver));
+                                triggerActions.add(action);
+                            }
+
+                            // Reserve Decks (check if top card should be revealed
+                            boolean darkTopOfReserveDeckShouldBeRevealed = modifiersQuerying.hasFlagActive(gameState, ModifierFlag.TOP_OF_RESERVE_DECK_REVEALED, darkPlayer);
+                            if (darkTopOfReserveDeckShouldBeRevealed != gameState.isTopCardOfReserveDeckRevealed(darkPlayer)) {
+
+                                RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that, null);
+                                action.setSingletonTrigger(true);
+                                action.setText("Turn over top card of " + darkPlayer + "'s Reserve Deck");
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new TurnOverTopOfReserveDeckEffect(action, darkPlayer, darkTopOfReserveDeckShouldBeRevealed));
+                                triggerActions.add(action);
+                            }
+
+                            boolean lightTopOfReserveDeckShouldBeRevealed = modifiersQuerying.hasFlagActive(gameState, ModifierFlag.TOP_OF_RESERVE_DECK_REVEALED, lightPlayer);
+                            if (lightTopOfReserveDeckShouldBeRevealed != gameState.isTopCardOfReserveDeckRevealed(lightPlayer)) {
+
+                                RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that, null);
+                                action.setSingletonTrigger(true);
+                                action.setText("Turn over top card of " + lightPlayer + "'s Reserve Deck");
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new TurnOverTopOfReserveDeckEffect(action, lightPlayer, lightTopOfReserveDeckShouldBeRevealed));
                                 triggerActions.add(action);
                             }
 

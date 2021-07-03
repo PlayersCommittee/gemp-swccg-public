@@ -121,7 +121,7 @@ public class Card201_039_BACK extends AbstractObjective {
         String playerId = self.getOwner();
 
         modifiers.add(new MoveCostFromLocationUsingLandspeedModifier(self, Filters.and(Filters.opponents(self), Filters.character), 1, Filters.Tatooine_site));
-        modifiers.add(new MayNotDeployModifier(self, Filters.Intensify_The_Forward_Batteries, new TrueCondition(), playerId));
+        modifiers.add(new MayNotDeployModifier(self, Filters.Admirals_Order, new TrueCondition(), playerId));
         return modifiers;
     }
 

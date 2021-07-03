@@ -169,7 +169,7 @@ class StackCardsFromTableSimultaneouslyEffect extends AbstractSubActionEffect im
 
                             // Stack cards.
                             for (PhysicalCard card : _stacked) {
-                                game.getGameState().stackCard(card, _stackOn, _faceDown, !_faceDown && (card.getPreviousCardState() == CardState.ACTIVE || card.getPreviousCardState() == CardState.INACTIVE), false);
+                                game.getGameState().stackCard(card, _stackOn, _faceDown, !_faceDown && (card.getPreviousCardState() == CardState.ACTIVE || card.getPreviousCardState() == CardState.INACTIVE) && !Filters.grabber.accepts(game, _stackOn), false);
                             }
                             for (PhysicalCard card : _attachedCardsToLeaveTable) {
                                 game.getGameState().addCardToTopOfZone(card, Zone.VOID, card.getOwner());

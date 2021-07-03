@@ -100,7 +100,7 @@ public class Card5_057 extends AbstractUsedInterrupt {
 
         // Check condition(s)
         if (TriggerConditions.battleInitiated(game, effectResult, opponent)) {
-            Filter liftTubeFilter = Filters.and(Filters.your(self), Filters.title(Title.Lift_Tube), Filters.presentInBattle, Filters.canMoveAsReactAsActionFromOtherCard(self, false, 0, true));
+            Filter liftTubeFilter = Filters.and(Filters.your(self), Filters.title(Title.Lift_Tube), Filters.presentInBattle, Filters.notPreventedFromParticipatingInReact, Filters.canMoveAsReactAsActionFromOtherCard(self, false, 0, true));
             if (GameConditions.canTarget(game, self, liftTubeFilter)) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);

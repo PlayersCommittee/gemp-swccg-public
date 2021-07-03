@@ -176,8 +176,12 @@ abstract class TakeCardsIntoHandFromPileEffect extends AbstractSubActionEffect i
                             if (_justLost && GameUtils.getZoneFromZoneTop(_zone) == Zone.LOST_PILE) {
                                 // Emit effect result that attempting to remove a just lost card from Lost Pile
                                 for (PhysicalCard cardToTakeIntoHand : _cardsToTakeIntoHand) {
-                                    actionsEnvironment.emitEffectResult(
-                                            new AboutToRemoveJustLostCardFromLostPileResult(subAction, _playerId, cardToTakeIntoHand, _that));
+                                    if (!game.getModifiersQuerying().mayNotRemoveJustLostCardFromLostPile(gameState, cardToTakeIntoHand)) {
+                                        actionsEnvironment.emitEffectResult(
+                                                new AboutToRemoveJustLostCardFromLostPileResult(subAction, _playerId, cardToTakeIntoHand, _that));
+                                    } else {
+                                        preventEffectOnCard(cardToTakeIntoHand);
+                                    }
                                 }
                             }
                         }

@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card111_005 extends AbstractRebel {
     public Card111_005() {
-        super(Side.LIGHT, 1, 0, 4, 3, 6, "Prisoner 2187", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 0, 4, 3, 6, Title.Prisoner_2187, Uniqueness.UNIQUE);
         setLore("Princess Leia Organa. Alderaanian senator. Targeted by Vader for capture and interrogation. The Dark Lord of the Sith wanted her alive.");
         setGameText("Deploys only if Rescue The Princess on table. May not be transferred while imprisoned. Adds 2 to your Force drains here. For remainder of game, your objective cannot be placed out of play and, if Leia not on table, flip Sometimes I Amaze Even Myself.");
         addPersona(Persona.LEIA);

@@ -132,7 +132,7 @@ public class ForfeitModifier extends AbstractModifier {
 
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
+        final float value = getForfeitModifier(gameState, modifiersQuerying, self);
         if (value >= 0)
             return "Forfeit +" + GuiUtils.formatAsString(value);
         else
@@ -141,6 +141,11 @@ public class ForfeitModifier extends AbstractModifier {
 
     @Override
     public float getForfeitModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+        float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+        float limit = modifiersQuerying.getForfeitModifierLimit(gameState, modifiersQuerying, physicalCard);
+        if (limit > 0 && value > limit) {
+            value = limit;
+        }
+        return value;
     }
 }

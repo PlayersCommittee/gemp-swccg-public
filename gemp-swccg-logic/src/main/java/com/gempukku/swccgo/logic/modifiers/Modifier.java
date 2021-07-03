@@ -266,11 +266,17 @@ public interface Modifier {
     Icon getIcon();
     int getIconCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Icon icon);
 
+    float getForfeitModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
     float getDestinyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
+    float getDestinyModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getDestinyDrawFromSourceCardModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard sourceOfDestinyDraw);
 
     float getPowerModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     int getPowerMultiplierModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
+    float getPowerModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     float getPoliticsModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getUnmodifiablePolitics(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);
@@ -540,6 +546,8 @@ public interface Modifier {
 
     boolean cantModifyForceLossFromForceDrain(GameState gameState, ModifiersQuerying modifiersQuerying, String playerModifying, String playerDraining);
 
+    int getUnmodifiableForceDrainAmount(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
+
     float getTotalForceGenerationModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
 
     float getAsteroidDestinyAtLocationModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
@@ -748,4 +756,6 @@ public interface Modifier {
     boolean hasAgenda(Agenda agenda);
 
     boolean mayNotCancelDestiny(String playerDrawing, String playerToModify);
+
+    void setAffectFilter(Filter affectFilter);
 }

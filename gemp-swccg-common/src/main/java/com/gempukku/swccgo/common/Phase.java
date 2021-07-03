@@ -11,6 +11,7 @@ public enum Phase {
     BATTLE("Battle"),
     MOVE("Move"),
     DRAW("Draw"),
+    END_OF_TURN("End of turn"),
     BETWEEN_TURNS("Between turns");
 
     private String _humanReadable;

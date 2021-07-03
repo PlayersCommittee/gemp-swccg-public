@@ -5,6 +5,7 @@ import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.db.DeckDAO;
+import com.gempukku.swccgo.db.InGameStatisticsDAO;
 import com.gempukku.swccgo.logic.timing.GameResultListener;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import org.apache.log4j.Logger;
@@ -29,17 +30,19 @@ public class SwccgoServer extends AbstractServer {
     private int _nextGameId = 1;
 
     private DeckDAO _deckDao;
+    private InGameStatisticsDAO _inGameStatisticsDAO;
 
     private ChatServer _chatServer;
     private GameRecorder _gameRecorder;
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
-    public SwccgoServer(DeckDAO deckDao, SwccgCardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder) {
+    public SwccgoServer(DeckDAO deckDao, SwccgCardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder, InGameStatisticsDAO inGameStatisticsDAO) {
         _deckDao = deckDao;
         _swccgCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _gameRecorder = gameRecorder;
+        _inGameStatisticsDAO = inGameStatisticsDAO;
     }
 
     protected void cleanup() {
@@ -83,7 +86,7 @@ public class SwccgoServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate) {
+    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate, boolean inGameStatisticsOn) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -119,6 +122,9 @@ public class SwccgoServer extends AbstractServer {
                         }
                     });
             swccgGameMediator.sendMessageToPlayers("You're starting a game of " + swccgFormat.getName());
+
+            if (inGameStatisticsOn && !isPrivate)
+                swccgGameMediator.addInGameStatisticsListener(new GameStatisticsProcessor(_inGameStatisticsDAO, gameId));
 
             StringBuilder players = new StringBuilder();
             Map<String, String> deckNames = new HashMap<String, String>();

@@ -37,7 +37,7 @@ public class Card7_117 extends AbstractMobileSystem {
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self) {
-        return (GameConditions.hasCompletedUtinniEffect(game, Filters.Death_Star_Plans)
+        return (GameConditions.hasCompletedUtinniEffect(game, playerId, Filters.Death_Star_Plans)
                 || GameConditions.hasGameTextModification(game, self, ModifyGameTextType.DEATH_STAR__MAY_DEPLOY_WITHOUT_COMPLETING_DEATH_STAR_PLANS))
                 && !GameConditions.canSpotLocation(game, Filters.Death_Star_system);
     }

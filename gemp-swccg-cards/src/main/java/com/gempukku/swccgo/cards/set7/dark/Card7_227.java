@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card7_227 extends AbstractNormalEffect {
     public Card7_227() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Dreaded Imperial Starfleet", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Dreaded_Imperial_Starfleet, Uniqueness.UNIQUE);
         setLore("The Empire uses short-range fighters and patrol craft to maintain a presence in every system within its scope of power.");
         setGameText("Deploy on your side of table. Once per turn, you may cancel a Force drain by placing here from hand any non-unique starfighter. Starfighters may deploy here as if from hand (if Effect canceled by opponent, any starfighters here may immediately deploy for free.)");
         addIcons(Icon.SPECIAL_EDITION);

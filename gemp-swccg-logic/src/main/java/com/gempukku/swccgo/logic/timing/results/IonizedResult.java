@@ -13,8 +13,9 @@ public class IonizedResult extends EffectResult {
 
     /**
      * Creates an effect result that is emitted when a card is Ionized.
+     *
      * @param performingPlayerId the player performing the action
-     * @param cardIonized the card that was Ionized
+     * @param cardIonized        the card that was Ionized
      */
     public IonizedResult(String performingPlayerId, PhysicalCard cardIonized) {
         super(Type.IONIZED, performingPlayerId);
@@ -23,6 +24,7 @@ public class IonizedResult extends EffectResult {
 
     /**
      * Gets the card that was Ionized.
+     *
      * @return the card
      */
     public PhysicalCard getCardIonized() {
@@ -32,6 +34,7 @@ public class IonizedResult extends EffectResult {
 
     /**
      * Gets the text to show to describe the effect result.
+     *
      * @param game the game
      * @return the text
      */

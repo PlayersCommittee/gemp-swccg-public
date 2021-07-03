@@ -14,6 +14,8 @@ import com.gempukku.swccgo.logic.modifiers.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.gempukku.swccgo.filters.Filters.Star_Destroyer;
+
 /**
  * Set: Second Anthology
  * Type: Effect
@@ -29,7 +31,7 @@ public class Card107_004 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Star_Destroyer;
+        return Star_Destroyer;
     }
 
     @Override
@@ -39,7 +41,8 @@ public class Card107_004 extends AbstractNormalEffect {
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return GameConditions.canSpotLocation(game, 5, Filters.Executor_site);
+        return (GameConditions.canSpotLocation(game, 5, Filters.Executor_site)
+                || game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.FLAGSHIP_OPERATIONS__MAY_IGNORE_DEPLOYMENT_RESTRICTIONS));
     }
 
     @Override

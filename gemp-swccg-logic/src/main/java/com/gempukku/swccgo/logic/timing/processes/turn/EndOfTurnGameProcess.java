@@ -16,6 +16,13 @@ public class EndOfTurnGameProcess implements GameProcess {
     @Override
     public void process(SwccgGame game) {
         SystemQueueAction action = new SystemQueueAction();
+        action.appendEffect(
+                new PassthruEffect(action) {
+                    @Override
+                    public void doPlayEffect(SwccgGame game) {
+                        game.getGameState().setCurrentPhase(Phase.END_OF_TURN);
+                    }
+                });
         // Both players recirculate
         action.appendEffect(
                 new RecirculateEffect(action, game.getGameState().getCurrentPlayerId()));

@@ -59,7 +59,7 @@ public class DestinyModifier extends AbstractModifier {
 
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
+        final float value = getDestinyModifier(gameState, modifiersQuerying, self);
         if (value >= 0)
             return "Destiny +" + GuiUtils.formatAsString(value);
         else
@@ -68,6 +68,11 @@ public class DestinyModifier extends AbstractModifier {
 
     @Override
     public float getDestinyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+        float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+        float limit = modifiersQuerying.getDestinyModifierLimit(gameState, modifiersQuerying, physicalCard);
+        if (limit > 0 && value > limit) {
+            value = limit;
+        }
+        return value;
     }
 }

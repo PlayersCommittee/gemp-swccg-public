@@ -89,6 +89,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             }
         }
 
+        if (self.getZone() == Zone.STACKED) {
+            List<PlayInterruptAction> actionList3 = getGameTextTopLevelWhileStackedActions(playerId, game, self);
+            if (actionList3 != null) {
+                actions.addAll(actionList3);
+            }
+        }
+
         return actions;
     }
 
@@ -226,6 +233,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             }
         }
 
+        if (self.getZone() == Zone.STACKED) {
+            List<PlayInterruptAction> actionList3 = getGameTextOptionalAfterActionsWhenStacked(playerId, game, effectResult, self);
+            if (actionList3 != null) {
+                actions.addAll(actionList3);
+            }
+        }
+
         return actions;
     }
 
@@ -246,20 +260,45 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             if (forceDrainLocation != null
                     && game.getModifiersQuerying().mayPlayInterruptToCancelForceDrain(game.getGameState(), self, forceDrainLocation)) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Cancel Force drain");
-                // Allow response(s)
-                action.allowResponses(
-                        new RespondablePlayCardEffect(action) {
-                            @Override
-                            protected void performActionResults(Action targetingAction) {
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new CancelForceDrainEffect(action));
+                CardSubtype subtype = game.getModifiersQuerying().getInterruptType(game.getGameState(), self);
+
+                // USED
+                if (subtype == CardSubtype.USED || subtype == CardSubtype.USED_OR_LOST || subtype == CardSubtype.USED_OR_STARTING) {
+
+                    final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                    action.setText("Cancel Force drain");
+                    // Allow response(s)
+                    action.allowResponses(
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new CancelForceDrainEffect(action));
+                                }
                             }
-                        }
-                );
-                actions.add(action);
+                    );
+                    actions.add(action);
+                }
+
+                // LOST
+                if (subtype == CardSubtype.LOST || subtype == CardSubtype.USED_OR_LOST || subtype == CardSubtype.LOST_OR_STARTING) {
+
+                    final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+                    action.setText("Cancel Force drain");
+                    // Allow response(s)
+                    action.allowResponses(
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new CancelForceDrainEffect(action));
+                                }
+                            }
+                    );
+                    actions.add(action);
+                }
             }
         }
 
@@ -556,6 +595,19 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     }
 
     /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
+     * player when the card is stacked (face up) on another card.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @return the actions, or null
+     */
+    protected List<PlayInterruptAction> getGameTextTopLevelWhileStackedActions(String playerId, SwccgGame game, PhysicalCard self) {
+        return null;
+    }
+
+
+    /**
      * This method is overridden by individual cards to specify top-level actions during an Attack Run.
      * @param playerId the player
      * @param game the game
@@ -589,6 +641,19 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
      * @return the play card actions, or null
      */
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "after" play card actions to the specified effect
+     * result that can be performed by the specified player when the card is stacked (face up) on another card.
+     * @param playerId the player
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the play card actions, or null
+     */
+    protected List<PlayInterruptAction> getGameTextOptionalAfterActionsWhenStacked(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 

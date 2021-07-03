@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card211_053 extends AbstractNormalEffect {
     public Card211_053() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Cloning Cylinders", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Cloning_Cylinders, Uniqueness.UNIQUE);
         setGameText("Use 4 Force to deploy on table. During your draw phase, may stack a non-unique clone from your Lost Pile here face down. At the start of your turn, turn all cards here face up. You may deploy any face up card stacked here (as if from hand). [Immune to Alter]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);

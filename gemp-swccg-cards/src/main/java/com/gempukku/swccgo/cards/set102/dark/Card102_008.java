@@ -68,60 +68,74 @@ public class Card102_008 extends AbstractLostInterrupt {
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose " + text, targetingReason, targetFilter) {
                         @Override
-                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
-                            // Allow response(s)
-                            action.allowResponses("Draw destiny while targeting " + GameUtils.getCardLink(targetedCard),
-                                    new RespondablePlayCardEffect(action) {
-                                        @Override
-                                        protected void performActionResults(Action targetingAction) {
-                                            // Get the targeted card(s) from the action using the targetGroupId.
-                                            // This needs to be done in case the target(s) were changed during the responses.
-                                            final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
 
-                                            // Perform result(s)
-                                            action.appendEffect(
-                                                    new DrawDestinyEffect(action, playerId) {
 
+                            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "", Filters.and(starship)) {
+                                @Override
+                                protected boolean getUseShortcut() {
+                                    return true;
+                                }
+
+                                @Override
+                                protected void cardTargeted(final int starshipTargetGroupId, PhysicalCard targetedStarship) {
+
+                                    // Allow response(s)
+                                    action.allowResponses("Draw destiny while targeting " + GameUtils.getCardLink(targetedCard),
+                                            new
+
+                                                    RespondablePlayCardEffect(action) {
                                                         @Override
-                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                            if (Filters.character.accepts(game, finalTarget)) {
-                                                                return Collections.singletonList(finalTarget);
-                                                            }
-                                                            return null;
-                                                        }
+                                                        protected void performActionResults(Action targetingAction) {
+                                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                                            // This needs to be done in case the target(s) were changed during the responses.
+                                                            final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
 
-                                                        @Override
-                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                                                            GameState gameState = game.getGameState();
-                                                            if (totalDestiny == null) {
-                                                                gameState.sendMessage("Result: Failed due to failed destiny draw");
-                                                                return;
-                                                            }
+                                                            // Perform result(s)
+                                                            action.appendEffect(
+                                                                    new DrawDestinyEffect(action, playerId) {
 
-                                                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-                                                            gameState.sendMessage("Ability: " + GuiUtils.formatAsString(highestAbilityPiloting));
+                                                                        @Override
+                                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                                            if (Filters.character.accepts(game, finalTarget)) {
+                                                                                return Collections.singletonList(finalTarget);
+                                                                            }
+                                                                            return null;
+                                                                        }
 
-                                                            if (totalDestiny > highestAbilityPiloting) {
-                                                                gameState.sendMessage("Result: Starship returns to original location");
-                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(starship);
-                                                                action.appendEffect(
-                                                                        new MayNotMoveUntilEndOfTurnEffect(action, starship));
-                                                            } else if (totalDestiny == highestAbilityPiloting) {
-                                                                gameState.sendMessage("Result: Starship is lost");
-                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(starship);
-                                                                action.appendEffect(
-                                                                        new LoseCardFromTableEffect(action, starship));
-                                                            } else {
-                                                                gameState.sendMessage("Result: No result");
-                                                            }
+                                                                        @Override
+                                                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                                            GameState gameState = game.getGameState();
+                                                                            if (totalDestiny == null) {
+                                                                                gameState.sendMessage("Result: Failed due to failed destiny draw");
+                                                                                return;
+                                                                            }
+
+                                                                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                                            gameState.sendMessage("Ability: " + GuiUtils.formatAsString(highestAbilityPiloting));
+
+                                                                            if (totalDestiny > highestAbilityPiloting) {
+                                                                                gameState.sendMessage("Result: Starship returns to original location");
+                                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(starship);
+                                                                                action.appendEffect(
+                                                                                        new MayNotMoveUntilEndOfTurnEffect(action, starship));
+                                                                            } else if (totalDestiny == highestAbilityPiloting) {
+                                                                                gameState.sendMessage("Result: Starship is lost");
+                                                                                movingResult.getPreventableCardEffect().preventEffectOnCard(starship);
+                                                                                action.appendEffect(
+                                                                                        new LoseCardFromTableEffect(action, starship));
+                                                                            } else {
+                                                                                gameState.sendMessage("Result: No result");
+                                                                            }
+                                                                        }
+                                                                    }
+                                                            );
                                                         }
                                                     }
-                                            );
-                                        }
-                                    }
-                            );
-
+                                    );
+                                }
+                            });
                         }
                     }
             );

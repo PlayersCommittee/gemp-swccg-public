@@ -44,9 +44,9 @@ public class Card213_031 extends AbstractObjective {
         super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi);
         setFrontOfDoubleSidedCard(true);
         setVirtualSuffix(true);
-        setGameText("Deploy Vader's Castle and [Set 13] Visage Of The Emperor. " +
-                "For remainder of game, you may not deploy characters except bounty hunters, droids, and Imperials. Where you have an Inquisitor, your total battle destiny is +1 (+2 if with a 'Hatred' card). Inquisitors are destiny +2. " +
-                "While this side up, once per turn, may deploy a [Cloud City] or Malachor battleground site from Reserve Deck; reshuffle. " +
+        setGameText("Deploy Vader's Castle, [Set 13] Visage Of The Emperor, and a [Cloud City] site with exactly one [DS] icon.\n" +
+                "For remainder of game, you may not deploy characters except bounty hunters, droids, and Imperials. Where you have an Inquisitor, your total battle destiny is +1 (+2 if with a 'Hatred' card). Inquisitors are destiny +1.\n" +
+                "While this side up, once per turn, may [download] a [Cloud City] or Malachor battleground site.\n" +
                 "Flip this card if Vader is at a battleground site unless Luke, a Jedi, or a Padawan at a battleground site.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
     }
@@ -68,6 +68,14 @@ public class Card213_031 extends AbstractObjective {
                         return "Choose Visage Of The Emperor to deploy";
                     }
                 });
+        action.appendRequiredEffect(
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.CLOUD_CITY, Filters.site, Filters.iconCount(Icon.DARK_FORCE, 1)), true, false) {
+                    @Override
+                    public String getChoiceText() {
+                        return "Choose a [Cloud City] site with one [Dark Side] icon to deploy";
+                    }
+                }
+        );
         return action;
     }
 
@@ -96,7 +104,7 @@ public class Card213_031 extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.character, Filters.not(Filters.or(Filters.droid, Filters.Imperial, Filters.bounty_hunter))), self.getOwner()));
-        modifiers.add(new DestinyModifier(self, Filters.inquisitor, 2));
+        modifiers.add(new DestinyModifier(self, Filters.inquisitor, 1));
         modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.inquisitor), new ConditionEvaluator(1, 2, new OrCondition(new DuringBattleAtCondition(Filters.hasStacked(Filters.hatredCard)), new DuringBattleWithParticipantCondition(Filters.hasStacked(Filters.hatredCard)))), self.getOwner()));
         return modifiers;
     }
@@ -108,8 +116,8 @@ public class Card213_031 extends AbstractObjective {
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.canSpot(game, self, Filters.and(Filters.site, Filters.controlsWith(playerId, self, Filters.Vader)))) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Take Vader into Hand");
-            action.setActionMsg("Take Vader into Hand");
+            action.setText("Take Vader into hand");
+            action.setActionMsg("Take Vader into hand");
             action.appendUsage(
                     new OncePerGameEffect(action)
             );

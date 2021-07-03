@@ -45,7 +45,7 @@ public class Card110_004_BACK extends AbstractObjective {
         final String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Tatooine_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Tatooine, true)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");

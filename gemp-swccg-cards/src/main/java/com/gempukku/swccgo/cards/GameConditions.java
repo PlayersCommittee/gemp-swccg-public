@@ -2516,6 +2516,16 @@ public class GameConditions {
     }
 
     /**
+     * Gets number of cards in player's lost pile.
+     * @param game the game
+     * @param playerId the player
+     * @return the number of cards
+     */
+    public static int numCardsInLostPile(SwccgGame game, String playerId) {
+        return game.getGameState().getLostPile(playerId).size();
+    }
+
+    /**
      * Gets number of cards in player's hand.
      * @param game the game
      * @param playerId the player
@@ -5399,5 +5409,9 @@ public class GameConditions {
     public static boolean hasDeployedAtLeastXCardsToLocationThisTurn(SwccgGame game, String playerId, int count, Filterable cardFilter, PhysicalCard location) {
         List<PhysicalCard> cardsDeployed = game.getModifiersQuerying().getCardsPlayedThisTurnToLocation(playerId, location);
         return Filters.filterCount(cardsDeployed, game, count, cardFilter).size() >= count;
+    }
+
+    public static boolean isDeathStarPowerShutDown(SwccgGame game) {
+        return game.getModifiersQuerying().isDeathStarPowerShutDown();
     }
 }

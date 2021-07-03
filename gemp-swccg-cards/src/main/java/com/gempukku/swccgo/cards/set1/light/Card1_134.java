@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_134 extends AbstractSite {
     public Card1_134() {
-        super(Side.LIGHT, "Tatooine: Obi-Wan's Hut", Title.Tatooine);
+        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("Obi-Wan is deploy -3 here.");
         addIcon(Icon.LIGHT_FORCE, 2);

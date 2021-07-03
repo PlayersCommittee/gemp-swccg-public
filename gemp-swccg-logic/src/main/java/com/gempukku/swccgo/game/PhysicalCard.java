@@ -200,9 +200,13 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     boolean isCrashed();
 
     Set<IonizationType> getIonization();
-    boolean addIonization(IonizationType newIonization);
+
     void setIonization(Set<IonizationType> newIonizationSet);
+
+    boolean addIonization(IonizationType newIonization);
+
     boolean removeIonization(IonizationType cleanIonization);
+
     void resetIonization();
 
     void setGameTextCanceled(boolean canceled);
@@ -348,6 +352,9 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
 
     void setHatredCard(boolean hatredCard);
     boolean isHatredCard();
+
+    void setEnslavedCard(boolean enslavedCard);
+    boolean isEnslavedCard();
 
     boolean isCoaxiumCard();
 

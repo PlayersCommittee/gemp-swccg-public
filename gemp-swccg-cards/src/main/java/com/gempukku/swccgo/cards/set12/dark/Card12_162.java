@@ -6,6 +6,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -44,7 +45,8 @@ public class Card12_162 extends AbstractUsedInterrupt {
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.CONTROL)
-                && GameConditions.canDrawDestiny(game, playerId)) {
+                && GameConditions.canDrawDestiny(game, playerId)
+                && GameConditions.canSpot(game, self, Filters.Galactic_Senate)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Draw destiny to draw cards");

@@ -44,7 +44,7 @@ public class Card12_157 extends AbstractLostInterrupt {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
         String opponent = game.getOpponent(playerId);
         final Filter characterFilter = Filters.and(Filters.your(self), Filters.character, Filters.notPreventedFromApplyingAbilityForSenseAlterDestiny);
-        Filter interruptFilter = Filters.Interrupt;
+        Filter interruptFilter = Filters.and(Filters.Interrupt, Filters.not(Filters.dejarikHologramAtHolosite));
         Filter alterFilter = Filters.Alter;
 
         // Check condition(s)

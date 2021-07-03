@@ -56,8 +56,12 @@ public class StackOneCardFromLostPileEffect extends AbstractSubActionEffect impl
                     protected void doPlayEffect(SwccgGame game) {
                         if (_justLost && GameUtils.getZoneFromZoneTop(_card.getZone()) == Zone.LOST_PILE) {
                             // Emit effect result that attempting to remove a just lost card from Lost Pile
-                            actionsEnvironment.emitEffectResult(
-                                    new AboutToRemoveJustLostCardFromLostPileResult(subAction, _action.getPerformingPlayer(), _card, _that));
+                            if (!game.getModifiersQuerying().mayNotRemoveJustLostCardFromLostPile(gameState, _card)) {
+                                actionsEnvironment.emitEffectResult(
+                                        new AboutToRemoveJustLostCardFromLostPileResult(subAction, _action.getPerformingPlayer(), _card, _that));
+                            } else {
+                                preventEffectOnCard(_card);
+                            }
                         }
                     }
                 }

@@ -26,14 +26,14 @@ public class Card209_016 extends AbstractNormalEffect {
     public Card209_016() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Brave Resistance", Uniqueness.UNIQUE);
         setLore("");
-        setGameText("If your [Episode VII] location on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character of equal or lesser ability. [Immune to Alter.]");
-        addIcons(Icon.VIRTUAL_SET_9);
+        setGameText("If Jakku on table, deploy on table. Your Force generation is +1 at Jakku battlegrounds you occupy. During your deploy phase, may place a Resistance character from hand on top of Used Pile to [upload] a Resistance character of equal or lesser ability. [Immune to Alter.]");
+        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return GameConditions.canSpotLocation(game, Filters.and(Filters.location, Icon.EPISODE_VII, Filters.your(self)));
+        return GameConditions.canSpotLocation(game, Filters.Jakku_system);
     }
 
     @Override
@@ -70,6 +70,7 @@ public class Card209_016 extends AbstractNormalEffect {
                     new ChooseCardFromHandEffect(action, playerId, Filters.Resistance_character) {
                         @Override
                         protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
+                            // Pay cost(s)
                             action.appendCost(
                                     new PutCardFromHandOnUsedPileEffect(action, playerId, selectedCard, false));
                             // Perform result(s)
@@ -78,8 +79,6 @@ public class Card209_016 extends AbstractNormalEffect {
                         }
                     }
             );
-            // Pay cost(s)
-
             actions.add(action);
         }
         return actions;

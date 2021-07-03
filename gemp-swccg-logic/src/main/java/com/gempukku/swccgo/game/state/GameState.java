@@ -54,6 +54,8 @@ public class GameState implements Snapshotable<GameState> {
     private boolean _darkSideLostPileTurnedOver;
     private boolean _lightSideLostPileTurnedOver;
     private boolean _usedPilesTurnedOver;
+    private boolean _darkSideTopOfReserveDeckTurnedOver;
+    private boolean _lightSideTopOfReserveDeckTurnedOver;
     private boolean _tableChangedSinceStatsSent;
     private boolean _skipListenerUpdateAllowed;
     private boolean _insertFound;
@@ -92,6 +94,7 @@ public class GameState implements Snapshotable<GameState> {
     private SabaccState _sabaccState;
     private SearchPartyState _searchPartyState;
     private WeaponFiringState _weaponFiringState;
+    private UsingTractorBeamState _usingTractorBeamState;
     private Stack<ForceLossState> _forceLossState = new Stack<ForceLossState>();
     private Stack<ForceRetrievalState> _forceRetrievalState = new Stack<ForceRetrievalState>();
     private Stack<PlayCardState> _playCardState = new Stack<PlayCardState>();
@@ -235,6 +238,8 @@ public class GameState implements Snapshotable<GameState> {
         snapshot._locationsLayout = snapshotData.getDataForSnapshot(_locationsLayout);
         snapshot._darkSideLostPileTurnedOver = _darkSideLostPileTurnedOver;
         snapshot._lightSideLostPileTurnedOver = _lightSideLostPileTurnedOver;
+        snapshot._darkSideTopOfReserveDeckTurnedOver = _darkSideTopOfReserveDeckTurnedOver;
+        snapshot._lightSideTopOfReserveDeckTurnedOver = _lightSideTopOfReserveDeckTurnedOver;
         snapshot._usedPilesTurnedOver = _usedPilesTurnedOver;
         snapshot._tableChangedSinceStatsSent = _tableChangedSinceStatsSent;
         snapshot._skipListenerUpdateAllowed = _skipListenerUpdateAllowed;
@@ -422,7 +427,7 @@ public class GameState implements Snapshotable<GameState> {
         String backBlueprintId = playerId.equals(_darkSidePlayer) ? "-1_2" : "-1_1";
         SwccgCardBlueprint cardBack = null;
         if (cardFront.isFrontOfDoubleSidedCard()) {
-            backBlueprintId = library.stripBlueprintModifiers(blueprintId) + "_BACK" + (library.isFoil(blueprintId) ? "*" : "");
+            backBlueprintId = library.stripBlueprintModifiers(blueprintId) + "_BACK" + (library.isFoil(blueprintId) ? "*" : "") + (library.isAlternateImage(blueprintId) ? "^" : "");
             cardBack = library.getSwccgoCardBlueprint(backBlueprintId);
         }
 
@@ -770,6 +775,19 @@ public class GameState implements Snapshotable<GameState> {
             card.setCaptive(true);
             card.setImprisoned(false);
             attachCard(card, escort);
+        }
+    }
+
+    /**
+     * Sets the card as a captured starship and attaches it to the specified card
+     * @param game the game
+     * @param starship the starship that is being captured
+     * @param attachTo the card the starship will be attached to
+     */
+    public void captureStarship(SwccgGame game, PhysicalCard starship, PhysicalCard attachTo) {
+        if (Filters.in_play.accepts(game.getGameState(), game.getModifiersQuerying(), starship)) {
+            starship.setCapturedStarship(true);
+            moveCardToAttached(starship, attachTo);
         }
     }
 
@@ -1449,6 +1467,7 @@ public class GameState implements Snapshotable<GameState> {
         toCard.setFrozen(fromCard.isFrozen());
         toCard.setProbeCard(fromCard.isProbeCard());
         toCard.setHatredCard(fromCard.isHatredCard());
+        toCard.setEnslavedCard(fromCard.isEnslavedCard());
         toCard.setCoaxiumCard(fromCard.isCoaxiumCard());
         toCard.setLiberationCard(fromCard.isLiberationCard());
         toCard.setBluffCard(fromCard.isBluffCard());
@@ -1492,6 +1511,7 @@ public class GameState implements Snapshotable<GameState> {
         card.setFrozen(false);
         card.setProbeCard(false);
         card.setHatredCard(false);
+        card.setEnslavedCard(false);
         card.setLiberationCard(false);
         card.setBluffCard(false);
         card.setCombatCard(false);
@@ -1629,12 +1649,45 @@ public class GameState implements Snapshotable<GameState> {
         }
     }
 
+    public boolean isTopCardOfReserveDeckRevealed(String playerId) {
+        if (playerId.equals(_darkSidePlayer))
+            return _darkSideTopOfReserveDeckTurnedOver;
+        else
+            return _lightSideTopOfReserveDeckTurnedOver;
+    }
+
+    public void turnOverTopCardOfReserveDeck(String playerId, boolean faceUp) {
+        if (playerId.equals(_darkSidePlayer)) {
+            if (_darkSideTopOfReserveDeckTurnedOver == faceUp)
+                return;
+            else
+                _darkSideTopOfReserveDeckTurnedOver = faceUp;
+        }
+        else {
+            if (_lightSideTopOfReserveDeckTurnedOver == faceUp)
+                return;
+            else
+                _lightSideTopOfReserveDeckTurnedOver = faceUp;
+        }
+
+        _tableChangedSinceStatsSent = true;
+        PhysicalCard card = _reserveDecks.get(playerId).get(0);
+        if (card != null) {
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.cardTurnedOver(card, this);
+        }
+    }
+
+
     public boolean isCardPileFaceUp(String playerId, Zone cardPile) {
         if (cardPile == Zone.USED_PILE) {
             return isUsedPilesTurnedOver();
         }
         else if (cardPile == Zone.LOST_PILE) {
             return !isLostPileTurnedOver(playerId);
+        }
+        else if (cardPile == Zone.TOP_OF_RESERVE_DECK) {
+            return isTopCardOfReserveDeckRevealed(playerId);
         }
         else {
             return false;
@@ -2127,8 +2180,8 @@ public class GameState implements Snapshotable<GameState> {
                 listener.cardCreated(card, this, false);
         }
 
-        // If the card is now "in play", "inserted", or "stacked" , then turn on its "while active in play" or "while stacked" modifiers.
-        if (zone.isInPlay() || card.isInserted() || card.getZone() == Zone.STACKED) {
+        // If the card is now "in play", "inserted", "stacked", or "out of play" then turn on its "while active in play", "while stacked" or "while out of play" modifiers.
+        if (zone.isInPlay() || card.isInserted() || card.getZone() == Zone.STACKED || card.getZone() == Zone.OUT_OF_PLAY) {
             startAffecting(_game, card);
         }
     }
@@ -2513,6 +2566,28 @@ public class GameState implements Snapshotable<GameState> {
                 return true;
         }
 
+
+        //need to visit stacked cards for Communing
+        for (PhysicalCard physicalCard : _stacked.get(_darkSidePlayer)) {
+            if (physicalCard.getZone() == Zone.STACKED
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.INTERRUPT
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.LOCATION
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.EPIC_EVENT) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+            }
+        }
+
+        for (PhysicalCard physicalCard : _stacked.get(_lightSidePlayer)) {
+            if (physicalCard.getZone() == Zone.STACKED
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.INTERRUPT
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.LOCATION
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.EPIC_EVENT) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+            }
+        }
+
         // Include "insert" cards on top of reserve decks
         for (PhysicalCard topOfReserveDeck : getTopCardsOfReserveDecks()) {
             if (topOfReserveDeck.isInserted())
@@ -2612,14 +2687,24 @@ public class GameState implements Snapshotable<GameState> {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
             }
-
-            // The player may use any stacked cards that may deploy "as if from hand"
+/*
+            // Visit stacked cards to check for any actions, either whileStacked actions or any stacked cards that may deploy "as if from hand"
             for (PhysicalCard physicalCard : _stacked.get(playerId)) {
-                if (physicalCard.getZone() == Zone.STACKED
-                        && _game.getModifiersQuerying().mayDeployAsIfFromHand(this, physicalCard)) {
+                if (physicalCard.getZone() == Zone.STACKED) {
                     if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                         return true;
                 }
+            }
+*/
+        }
+        // Visit stacked cards to check for any actions, either whileStacked actions or any stacked cards that may deploy "as if from hand"
+        for (PhysicalCard physicalCard : _stacked.get(playerId)) {
+            if (physicalCard.getZone() == Zone.STACKED
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.INTERRUPT
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.LOCATION
+                    && physicalCard.getBlueprint().getCardCategory() != CardCategory.EPIC_EVENT) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
             }
         }
 
@@ -2711,6 +2796,7 @@ public class GameState implements Snapshotable<GameState> {
         List<PhysicalCard> outOfPlayCards = new LinkedList<PhysicalCard>();
         outOfPlayCards.addAll(_outOfPlayPiles.get(_darkSidePlayer));
         outOfPlayCards.addAll(_outOfPlayPiles.get(_lightSidePlayer));
+        outOfPlayCards.addAll(_game.getModifiersQuerying().getCardsConsideredOutOfPlay(this));
         return Collections.unmodifiableList(outOfPlayCards);
     }
 
@@ -4226,6 +4312,28 @@ public class GameState implements Snapshotable<GameState> {
             _game.getModifiersEnvironment().removeEndOfWeaponFiring();
             _game.getActionsEnvironment().removeEndOfWeaponFiringActionProxies();
             _weaponFiringState = null;
+        }
+    }
+
+    //
+    // Tractor beam state info
+    //
+    public void beginUsingTractorBeam(PhysicalCard tractorBeam) {
+        _usingTractorBeamState = new UsingTractorBeamState(_game, tractorBeam);
+    }
+
+    public UsingTractorBeamState getUsingTractorBeamState() {
+        return _usingTractorBeamState;
+    }
+
+    public boolean isDuringUsingTractorBeam() {
+        return (_usingTractorBeamState != null);
+    }
+
+    public void finishUsingTractorBeam() {
+        if (_usingTractorBeamState != null) {
+            _game.getModifiersEnvironment().removeEndOfTractorBeam();
+            _usingTractorBeamState = null;
         }
     }
 

@@ -10,7 +10,10 @@ public enum SealedLeagueType {
     HOTH_DAGOBAH_CC_SEALED("hoth_dagobah_cc_sealed", "sealed"),
     JP_SEALED("jp_sealed", "jp_sealed"),
     ENDOR_DSII_SEALED("endor_dsII_sealed", "sealed"),
-    EPISODE_I_SEALED("episode_i_sealed", "sealed");
+    EPISODE_I_SEALED("episode_i_sealed", "sealed"),
+    WATTOS_CUBE_WITH_OBJECTIVE_PACKS("wattos_cube_with_objective", "cube"),
+    WATTOS_CUBE_WITH_FIXED("wattos_cube_with_fixed", "cube"),
+    ;
 
     public static SealedLeagueType getLeagueType(String sealedCode) {
         for (SealedLeagueType sealedLeagueType : SealedLeagueType.values()) {

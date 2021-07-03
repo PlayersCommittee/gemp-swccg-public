@@ -92,6 +92,10 @@ public class CaptureCharacterFromLostInSpaceOrWeatherVaneEffect extends Abstract
                                                                         gameState.sendMessage(msgText.toString());
                                                                         gameState.seizeCharacter(game, _characterToCapture, escort);
 
+                                                                        //resets modifiers
+                                                                        _characterToCapture.stopAffectingGame();
+                                                                        _characterToCapture.startAffectingGame(game);
+
                                                                         // Emit effect result that character was captured
                                                                         game.getActionsEnvironment().emitEffectResult(new CaptureCharacterResult(_performingPlayerId, subAction.getActionSource(), null, _characterToCapture, false, false, CaptureOption.SEIZE));
                                                                     }
@@ -104,6 +108,10 @@ public class CaptureCharacterFromLostInSpaceOrWeatherVaneEffect extends Abstract
                                                         gameState.sendMessage(msgText.toString());
                                                         gameState.imprisonCharacter(game, _characterToCapture, _location);
 
+                                                        //resets modifiers
+                                                        _characterToCapture.stopAffectingGame();
+                                                        _characterToCapture.startAffectingGame(game);
+
                                                         // Emit effect result that character was captured
                                                         game.getActionsEnvironment().emitEffectResult(new CaptureCharacterResult(_performingPlayerId, subAction.getActionSource(), null, _characterToCapture, false, false, CaptureOption.IMPRISONMENT));
                                                     }
@@ -111,6 +119,10 @@ public class CaptureCharacterFromLostInSpaceOrWeatherVaneEffect extends Abstract
                                                         // Capture with 'Escape'
                                                         subAction.appendEffect(
                                                                 new CaptureWithEscapeEffect(subAction, _characterToCapture, false, false, null));
+
+                                                        //resets modifiers
+                                                        _characterToCapture.stopAffectingGame();
+                                                        _characterToCapture.startAffectingGame(game);
                                                     }
                                                 }
                                             }));

@@ -37,7 +37,7 @@ public class Card213_011 extends AbstractImperial {
         String opponent = game.getOpponent(self.getOwner());
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DefenseValueModifier(self, new HereCondition(self, Filters.and(Filters.your(opponent), Filters.weapon)), -2));
+        modifiers.add(new DefenseValueModifier(self, new HereCondition(self, Filters.and(Filters.presentAt(Filters.here(self)), Filters.your(opponent), Filters.weapon_or_character_with_permanent_weapon)), -2));
         modifiers.add(new ResetTotalBattleDestinyModifier(self, Filters.sameSite(self), new AndCondition(new InBattleCondition(self),
                 new UnlessCondition(new HereCondition(self, Filters.and(Filters.opponents(self), Filters.character,
                         Filters.abilityMoreThan(3))))), 0, opponent));

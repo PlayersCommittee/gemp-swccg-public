@@ -24,15 +24,15 @@ import java.util.List;
 /**
  * Set: Set 0
  * Type: Effect
- * Title: Evacuation Control (V)
+ * Title: I Don't Like Sand (V)
  */
 public class Card200_039 extends AbstractNormalEffect {
     public Card200_039() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Evacuation Control");
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I Don't Like Sand", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("'Give the evacuation code signal...and get to your transports!'");
-        setGameText("Deploy on table; shuffle your Reserve Deck, peek at top three cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter]");
-        addIcons(Icon.HOTH, Icon.VIRTUAL_SET_0);
+        setLore("");
+        setGameText("Deploy on table; shuffle your Reserve Deck, peek at top two cards, and stack them face-up here. During battle, may take a card here into hand to prevent all battle destiny draws from being modified or canceled (each player may draw no more than one battle destiny). [Immune to Alter.]");
+        addIcons(Icon.DAGOBAH, Icon.EPISODE_I, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
     }
 
@@ -50,7 +50,7 @@ public class Card200_039 extends AbstractNormalEffect {
             action.appendEffect(
                     new ShuffleReserveDeckEffect(action, playerId));
             action.appendEffect(
-                    new PeekAtTopCardsOfReserveDeckAndStackEffect(action, playerId, 3, self));
+                    new PeekAtTopCardsOfReserveDeckAndStackEffect(action, playerId, 2, self));
             return Collections.singletonList(action);
         }
         return null;

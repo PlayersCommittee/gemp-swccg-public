@@ -16,7 +16,7 @@ import java.util.Collection;
 /**
  * An effect to stack cards from hand.
  */
-class StackCardsFromHandEffect extends AbstractSubActionEffect {
+public class StackCardsFromHandEffect extends AbstractSubActionEffect {
     private String _playerId;
     private int _minimum;
     private int _maximum;
@@ -36,9 +36,8 @@ class StackCardsFromHandEffect extends AbstractSubActionEffect {
      * @param stackOn the card to stack the cards on
      * @param faceDown true if cards are to be stacked face down, otherwise false
      */
-    protected StackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, boolean faceDown) {
+    public StackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, boolean faceDown) {
         this(action, playerId, minimum, maximum, stackOn, faceDown, Filters.any);
-        _hidden = !faceDown;
     }
 
     /**
@@ -52,7 +51,7 @@ class StackCardsFromHandEffect extends AbstractSubActionEffect {
      * @param faceDown true if cards are to be stacked face down, otherwise false
      * @param filters the filter
      */
-    protected StackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, boolean faceDown, Filterable filters) {
+    public StackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, boolean faceDown, Filterable filters) {
         super(action);
         _playerId = playerId;
         _minimum = minimum;
@@ -60,7 +59,7 @@ class StackCardsFromHandEffect extends AbstractSubActionEffect {
         _stackOn = stackOn;
         _faceDown = faceDown;
         _filters = filters;
-        _hidden = false;
+        _hidden = faceDown;
         _that = this;
     }
 
@@ -111,4 +110,5 @@ class StackCardsFromHandEffect extends AbstractSubActionEffect {
     protected boolean wasActionCarriedOut() {
         return _stackedSoFar >= _minimum;
     }
+
 }

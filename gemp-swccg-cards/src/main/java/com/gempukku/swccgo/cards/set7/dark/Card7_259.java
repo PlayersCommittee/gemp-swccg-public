@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card7_259 extends AbstractUsedOrLostInterrupt {
     public Card7_259() {
-        super(Side.DARK, 6, "Put All Sections On Alert", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, Title.Put_All_Sections_On_Alert, Uniqueness.UNIQUE);
         setLore("'We have an emergency alert in detention block AA-twenty three.'");
         setGameText("USED: Target a Rebel at a Death Star (or Executor) site. For remainder of turn, target may not use its game text and may not apply ability toward drawing battle destiny. (Immune to Sense.) LOST: Retrieve into hand up to two cards with 'Death Star' in title.");
         addIcons(Icon.SPECIAL_EDITION);

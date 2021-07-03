@@ -40,6 +40,7 @@ public class CollectionsManager {
         addCardsToDefaultCollection(library, CardCounts.VIRTUAL_SETS_CARD_COUNTS, 200, _defaultCollection);
         addCardsToDefaultCollection(library, CardCounts.VIRTUAL_PREMIUM_SETS_CARD_COUNTS, 301, _defaultCollection);
         addCardsToDefaultCollection(library, CardCounts.DREAM_CARD_SETS_CARD_COUNTS, 401, _defaultCollection);
+        addCardsToDefaultCollection(library, CardCounts.LEGACY_SETS_CARD_COUNTS, 601, _defaultCollection);
 
         // Add cards to default collection with playtesting
         addCardsToDefaultCollection(library, CardCounts.FULL_SETS_CARD_COUNTS, 1, _defaultCollectionWithPlaytesting);
@@ -48,6 +49,7 @@ public class CollectionsManager {
         addCardsToDefaultCollection(library, CardCounts.VIRTUAL_PREMIUM_SETS_CARD_COUNTS, 301, _defaultCollectionWithPlaytesting);
         addCardsToDefaultCollection(library, CardCounts.DREAM_CARD_SETS_CARD_COUNTS, 401, _defaultCollectionWithPlaytesting);
         addCardsToDefaultCollection(library, CardCounts.PLAYTESTING_SETS_CARD_COUNTS, 501, _defaultCollectionWithPlaytesting);
+        addCardsToDefaultCollection(library, CardCounts.LEGACY_SETS_CARD_COUNTS, 601, _defaultCollectionWithPlaytesting);
 
         _collectionReadyLatch.countDown();
     }
@@ -296,6 +298,30 @@ public class CollectionsManager {
 
                 _transferDAO.addTransferFrom(player.getName(), "Selling items", collectionType.getFullName(), 0, cardCollectionFromBlueprintId(1, blueprintId));
                 _transferDAO.addTransferTo(false, player.getName(), "Selling items", collectionType.getFullName(), currency, new DefaultCardCollection());
+
+                return true;
+            }
+            return false;
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
+    public boolean sellAllOfACardInPlayerCollection(Player player, CollectionType collectionType, String blueprintId, int currency) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+            if (playerCollection != null) {
+                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                int itemCount = mutableCardCollection.getItemCount(blueprintId);
+                if (!mutableCardCollection.removeItem(blueprintId, itemCount))
+                    return false;
+                mutableCardCollection.addCurrency(currency*itemCount);
+
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+
+                _transferDAO.addTransferFrom(player.getName(), "Selling items", collectionType.getFullName(), 0, cardCollectionFromBlueprintId(itemCount, blueprintId));
+                _transferDAO.addTransferTo(false, player.getName(), "Selling items", collectionType.getFullName(), currency*itemCount, new DefaultCardCollection());
 
                 return true;
             }

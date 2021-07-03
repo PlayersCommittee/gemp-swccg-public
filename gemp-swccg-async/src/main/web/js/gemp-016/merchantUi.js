@@ -241,6 +241,7 @@ var GempSwccgMerchantUI = Class.extend({
                 $(".buyPrice", cardElem).css({position:"absolute", left:40, top:height - 80, width:width - 45, height:25});
                 $(".sellPrice", cardElem).css({position:"absolute", left:40, top:height - 50, width:width - 45, height:25});
                 $(".tradeFoil", cardElem).css({position:"absolute", left:40, top:height - 20, width:width - 45, height:15});
+                $(".sellAll", cardElem).css({position:"absolute", left:40, top:height - 100, width:width - 45, height:15});
             }
         };
 
@@ -278,6 +279,22 @@ var GempSwccgMerchantUI = Class.extend({
                                         });
                             });
                     cardDiv.append(buyBut);
+
+                    if (count > 1) {
+                        var sellAllBut = $("<div class='sellAll'>Sell all</div>").button();
+                        sellAllBut.click(
+                                function() {
+                                    that.displayMerchantAction(card, "Do you want to sell all of your copies of this card?",
+                                            function () {
+                                                that.comm.sellAll(blueprintId, buyPrice, function () {
+                                                    that.cardFilter.getCollection();
+                                                })
+                                            }
+                                    )
+                                }
+                        );
+                        cardDiv.append(sellAllBut);
+                    }
                 }
                 if (sellPrice != null) {
                     var formattedSellPrice = formatPrice(sellPrice);

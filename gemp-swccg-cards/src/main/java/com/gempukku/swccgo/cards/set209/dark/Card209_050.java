@@ -62,7 +62,7 @@ public class Card209_050 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, playerOnDarkSideOfLocation, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerOnDarkSideOfLocation, self, gameTextActionId)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerOnDarkSideOfLocation, self, gameTextActionId, Persona.VADER)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Vader from Reserve Deck");
             action.setActionMsg("Deploy Vader from Reserve Deck");

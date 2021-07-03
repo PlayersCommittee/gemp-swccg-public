@@ -19,4 +19,11 @@ public class PackagedProductStorage {
             return null;
         return packagedProduct.openPackage();
     }
+
+    public List<CardCollection.Item> openPackagedProductWithExclusions(String productName, List<String> exclusions) {
+        PackagedCardProduct packagedProduct = _packagedProducts.get(productName);
+        if (packagedProduct == null)
+            return null;
+        return packagedProduct.openPackageWithExclusions(exclusions);
+    }
 }

@@ -5,7 +5,6 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.SubAction;
-
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -22,7 +21,8 @@ public class DeionizeStarshipEffect extends AbstractSubActionEffect {
 
     /**
      * Creates an effect to make a character no longer ionized.
-     * @param action the action performing this effect
+     *
+     * @param action        the action performing this effect
      * @param cardDeionized the card that is deionized
      */
     public DeionizeStarshipEffect(Action action, PhysicalCard cardDeionized, boolean deionizePower, boolean deionizeDefense, boolean deionizeHyperspeed) {

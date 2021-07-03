@@ -28,6 +28,7 @@ public class Card209_040 extends AbstractImperial {
         super(Side.DARK, 3, 4, 2, 4, 4, "Vanee", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploys -3 to a site with 'Vader' in game text. Once during your turn, may activate 1 Force. Once per game, may take a card with 'Vader' in title into hand from Reserve Deck; reshuffle.");
+        addPersona(Persona.VANEE);
         addIcons(Icon.VIRTUAL_SET_9);
     }
 

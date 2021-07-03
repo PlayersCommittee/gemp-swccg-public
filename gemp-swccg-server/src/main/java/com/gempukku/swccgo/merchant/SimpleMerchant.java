@@ -159,4 +159,21 @@ public class SimpleMerchant implements Merchant {
         blueprintId = _library.getBaseBlueprintId(blueprintId);
         _merchantDao.addTransaction(blueprintId, (price / _profitMargin), currentTime, MerchantDAO.TransactionType.BUY);
     }
+
+    /**
+     * Called when cards were bought by merchant.
+     * @param blueprintId the card blueprint id
+     * @param currentTime the current time
+     * @param price the price
+     * @param quantity the number of cards
+     */
+    @Override
+    public void cardsBought(String blueprintId, Date currentTime, int price, int quantity) {
+        boolean foil = blueprintId.endsWith("*");
+        if (foil) {
+            price = price / 2;
+        }
+        blueprintId = _library.getBaseBlueprintId(blueprintId);
+        _merchantDao.addTransaction(blueprintId, (price / _profitMargin)*quantity, currentTime, MerchantDAO.TransactionType.BUY);
+    }
 }

@@ -41,7 +41,7 @@ public class Card1_109 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(final String playerId, SwccgGame game, Effect effect, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
         final Filter characterFilter = Filters.and(Filters.your(self), Filters.highestAbilityCharacter(self, playerId), Filters.notPreventedFromApplyingAbilityForSenseAlterDestiny);
-        Filter interruptFilter = Filters.Interrupt;
+        Filter interruptFilter = Filters.and(Filters.Interrupt, Filters.not(Filters.dejarikHologramAtHolosite));
 
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, interruptFilter)
