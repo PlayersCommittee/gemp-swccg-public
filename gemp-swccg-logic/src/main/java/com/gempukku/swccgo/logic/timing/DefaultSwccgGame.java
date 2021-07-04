@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.GameEndReason;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.communication.GameStateListener;
+import com.gempukku.swccgo.communication.InGameStatisticsListener;
 import com.gempukku.swccgo.communication.UserFeedback;
 import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.game.layout.LocationsLayout;
@@ -42,10 +43,12 @@ public class DefaultSwccgGame implements SwccgGame {
     private Map<String, Integer> _requestedExtendGameTimer = new HashMap<String, Integer>();
     private Set<String> _requestedDisableActionTimer = new HashSet<String>();
     private boolean _finished;
+    private Map<String, Integer> _playerClocks;
 
     private Map<String, Set<Phase>> _autoPassConfiguration = new HashMap<String, Set<Phase>>();
     private Set<GameStateListener> _gameStateListeners = new HashSet<GameStateListener>();
     private Set<GameResultListener> _gameResultListeners = new HashSet<GameResultListener>();
+    private Set<InGameStatisticsListener> _inGameStatisticsListeners = new HashSet<InGameStatisticsListener>();
 
     private int _nextShapshotId;
     private GameSnapshot _snapshotToRestore;
@@ -59,10 +62,11 @@ public class DefaultSwccgGame implements SwccgGame {
      * @param userFeedback the user feedback
      * @param library the library of all cards
      */
-    public DefaultSwccgGame(SwccgFormat format, Map<String, SwccgDeck> decks, UserFeedback userFeedback, final SwccgCardBlueprintLibrary library) {
+    public DefaultSwccgGame(SwccgFormat format, Map<String, SwccgDeck> decks, UserFeedback userFeedback, final SwccgCardBlueprintLibrary library, Map<String, Integer> playerClocks) {
         _format = format;
         _library = library;
         _allPlayers = decks.keySet();
+        _playerClocks = playerClocks;
 
         // Sets the "cards in deck" and "cards outside of deck" for each player
         _cards = new HashMap<String, List<String>>();
@@ -195,6 +199,10 @@ public class DefaultSwccgGame implements SwccgGame {
             for (GameResultListener gameResultListener : _gameResultListeners)
                 gameResultListener.gameCancelled();
 
+            for(InGameStatisticsListener gameStatisticsListener: _inGameStatisticsListeners) {
+                gameStatisticsListener.writePileCounts(this,true);
+            }
+
             _finished = true;
         }
     }
@@ -218,6 +226,10 @@ public class DefaultSwccgGame implements SwccgGame {
             for (GameResultListener gameResultListener : _gameResultListeners)
                 gameResultListener.gameCancelled();
 
+            for(InGameStatisticsListener gameStatisticsListener: _inGameStatisticsListeners) {
+                gameStatisticsListener.writePileCounts(this,true);
+            }
+
             _finished = true;
         }
     }
@@ -238,6 +250,10 @@ public class DefaultSwccgGame implements SwccgGame {
 
         for (GameResultListener gameResultListener : _gameResultListeners)
             gameResultListener.gameFinished(_winnerPlayerId, reason, _losers, winnerSide, loserSide);
+
+        for(InGameStatisticsListener gameStatisticsListener: _inGameStatisticsListeners) {
+            gameStatisticsListener.writePileCounts(this, true);
+        }
 
         _finished = true;
     }
@@ -482,5 +498,29 @@ public class DefaultSwccgGame implements SwccgGame {
         }
 
         return "";
+    }
+
+    @Override
+    public void addInGameStatisticsListener(InGameStatisticsListener listener) {
+        _inGameStatisticsListeners.add(listener);
+    }
+
+    @Override
+    public void removeInGameStatisticsListener(InGameStatisticsListener listener) {
+        _inGameStatisticsListeners.remove(listener);
+    }
+
+    @Override
+    public Collection<InGameStatisticsListener> getAllInGameStatisticsListeners() {
+        return Collections.unmodifiableSet(_inGameStatisticsListeners);
+    }
+
+    @Override
+    public void removeAllInGameStatisticsListeners() {
+        _inGameStatisticsListeners.clear();
+    }
+
+    public Integer getSecondsElapsed(String player) {
+        return _playerClocks.get(player);
     }
 }

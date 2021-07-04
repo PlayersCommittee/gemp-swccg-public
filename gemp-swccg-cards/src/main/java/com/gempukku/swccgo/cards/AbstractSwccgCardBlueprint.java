@@ -53,6 +53,8 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     private boolean _hasVirtualSuffix;
     private boolean _mayNotBePlacedInReserveDeck;
     private boolean _doesNotCountTowardDeckLimit;
+    private boolean _isLegacy;
+    private boolean _excludeFromDeckBuilder;
 
     /**
      * Creates an SWCCG card blueprint.
@@ -1922,6 +1924,11 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
         return false;
     }
 
+    @Override
+    public TractorBeamAction getTractorBeamAction(SwccgGame game, PhysicalCard self) {
+        return null;
+    }
+
     /**
      * Determines if the card is inactive due to specific conditions even when the card would normally be active.
      * @param game the game
@@ -2003,6 +2010,17 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      */
     @Override
     public boolean isOnlyDeploysAsUndercoverSpy(SwccgGame game, PhysicalCard self) {
+        return false;
+    }
+
+    /**
+     * Determines if the card deploys as a captured prisoner.
+     * @param game the game
+     * @param self the card
+     * @return the owner of the zone
+     */
+    @Override
+    public boolean isOnlyDeploysAsEscortedCaptive(SwccgGame game, PhysicalCard self) {
         return false;
     }
 
@@ -2666,6 +2684,45 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     }
 
     /**
+     * Gets the optional triggers from an opponent's card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public List<TriggerAction> getOpponentsCardLeavesTableOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    /**
+     * Gets the optional triggers from an opponent's card when that card leaves table.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public List<TriggerAction> getLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    /**
+     * Gets the optional triggers from a card when that card is lost from life force.
+     * @param playerId the owner of the card
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @return the trigger actions
+     */
+    @Override
+    public List<TriggerAction> getOpponentsCardLostFromLifeForceOptionalTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    /**
      * Gets modifiers that are from this card that are in effect while the card is active in play.
      * @param game the game
      * @param self the card
@@ -2673,6 +2730,18 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      */
     @Override
     public List<Modifier> getWhileInPlayModifiers(SwccgGame game, PhysicalCard self) {
+        return Collections.emptyList();
+    }
+
+    /**
+     * Gets modifiers that are from this card that are in effect while the card is out of play.
+     *
+     * @param game the game
+     * @param self the card
+     * @return the modifiers
+     */
+    @Override
+    public List<Modifier> getWhileOutOfPlayModifiers(SwccgGame game, PhysicalCard self) {
         return Collections.emptyList();
     }
 
@@ -2732,5 +2801,37 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     @Override
     public DuelDirections getDuelDirections(SwccgGame game) {
         throw new UnsupportedOperationException("This method, getDuelDirections(), should not be called on this card: " + _title);
+    }
+
+    @Override
+    public boolean isLegacy() {
+        return _isLegacy;
+    }
+
+    /**
+     * Sets the card as a legacy card
+     * @param value true if this is a legacy card, otherwise false
+     */
+    public void setAsLegacy(boolean value) {
+        _isLegacy = value;
+    }
+
+    @Override
+    public boolean excludeFromDeckBuilder() {
+        return _excludeFromDeckBuilder;
+    }
+
+    /**
+     * Hides the card from the deck builder
+     */
+    public void hideFromDeckBuilder() {
+        _excludeFromDeckBuilder = true;
+    }
+
+    public boolean playableAsStartingInterrupt(SwccgGame game, PhysicalCard self) {
+        return (getCardCategory() == CardCategory.INTERRUPT
+                && (getCardSubtype() == CardSubtype.STARTING
+                    || getCardSubtype() == CardSubtype.USED_OR_STARTING
+                    || getCardSubtype() == CardSubtype.LOST_OR_STARTING));
     }
 }

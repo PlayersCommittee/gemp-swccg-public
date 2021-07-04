@@ -98,8 +98,8 @@ public class Card209_041 extends AbstractNormalEffect {
                 && GameConditions.canSpot(game, self, Filters.The_Ultimate_Power_In_The_Universe)) {
             PhysicalCard ultimatePower = Filters.findFirstActive(game, self, Filters.The_Ultimate_Power_In_The_Universe);
             if (ultimatePower != null && GameConditions.canBeFlipped(game, ultimatePower)) {
-                action.setText("Flip " + ultimatePower);
-                action.setActionMsg("Flip " + ultimatePower);
+                action.setText("Flip " + GameUtils.getCardLink(ultimatePower));
+                action.setActionMsg("Flip " + GameUtils.getCardLink(ultimatePower));
                 action.appendEffect(
                         new FlipCardEffect(action, ultimatePower));
                 return Collections.singletonList(action);

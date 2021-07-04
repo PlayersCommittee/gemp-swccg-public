@@ -79,14 +79,15 @@ public class Card11_068 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, playerId, Filters.and(Filters.unique, Filters.Star_Destroyer))
-                && GameConditions.isBlownAway(game, Filters.Alderaan_system)) {
+                && GameConditions.isBlownAway(game, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Alderaan, true)))) {
             final PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
+            int numToRetrieve = 3*Filters.Star_Destroyer.acceptsCount(game, playedCard);
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Retrieve 3 Force");
+            action.setText("Retrieve "+numToRetrieve+" Force");
             // Perform result(s)
             action.appendEffect(
-                    new RetrieveForceEffect(action, playerId, 3) {
+                    new RetrieveForceEffect(action, playerId, numToRetrieve) {
                         @Override
                         public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
                             return Collections.singletonList(playedCard);

@@ -14,7 +14,7 @@ public class RemovedFromStackedResult extends EffectResult {
      * @param action the action performing this effect result
      */
     public RemovedFromStackedResult(Action action) {
-        super(Type.REMOVE_FROM_STACKED, action.getPerformingPlayer());
+        super(Type.REMOVED_FROM_STACKED, action.getPerformingPlayer());
     }
 
     /**

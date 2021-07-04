@@ -226,7 +226,7 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                     playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" on ").append(GameUtils.getCardLink(destinationCard)).append(" as passenger");
                                                 }
                                                 else if (Filters.starship.accepts(gameState, modifiersQuerying, destinationCard)
-                                                        && !Filters.or(Filters.creature, Filters.Effect_of_any_Kind, Filters.starship_weapon, Filters.device).accepts(gameState, modifiersQuerying, _cardToPlay)) {
+                                                        && !Filters.or(Filters.creature, Filters.Epic_Event, Filters.Effect_of_any_Kind, Filters.starship_weapon, Filters.device).accepts(gameState, modifiersQuerying, _cardToPlay)) {
                                                     playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" into cargo hold of ").append(GameUtils.getCardLink(destinationCard));
                                                 }
                                                 else {
@@ -372,7 +372,7 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                                 playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" on ").append(GameUtils.getCardLink(attachTo)).append(" as passenger");
                                                             }
                                                             else if (Filters.starship.accepts(gameState, modifiersQuerying, attachTo)
-                                                                    && !Filters.or(Filters.creature, Filters.Effect_of_any_Kind, Filters.starship_weapon, Filters.device).accepts(gameState, modifiersQuerying, _cardToPlay)) {
+                                                                    && !Filters.or(Filters.creature, Filters.Epic_Event, Filters.Effect_of_any_Kind, Filters.starship_weapon, Filters.device).accepts(gameState, modifiersQuerying, _cardToPlay)) {
                                                                 if (_deployInVehicleSlot)
                                                                     gameState.attachCardInVehicleCapacitySlot(_cardToPlay, attachTo);
                                                                 else if (Filters.capital_starship.accepts(gameState, modifiersQuerying, _cardToPlay))

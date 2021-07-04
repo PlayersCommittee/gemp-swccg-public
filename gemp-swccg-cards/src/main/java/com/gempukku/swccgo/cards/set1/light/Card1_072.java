@@ -52,7 +52,7 @@ public class Card1_072 extends AbstractLostInterrupt {
             action.appendTargeting(
                     new PassthruEffect(action) {
                         @Override
-                        protected void doPlayEffect(SwccgGame game) {
+                        protected void doPlayEffect(final SwccgGame game) {
                             // Set secondary target filter(s)
                             action.addSecondaryTargetFilter(Filters.or(Filters.Beru, Filters.Owen, Filters.Hydroponics_Station));
                             // Allow response(s)
@@ -62,8 +62,12 @@ public class Card1_072 extends AbstractLostInterrupt {
                                         protected void performActionResults(Action targetingAction) {
                                             // Perform result(s)
                                             List<StandardEffect> effectsToOrder = new ArrayList<StandardEffect>();
-                                            effectsToOrder.add(new ActivateForceEffect(action, playerId, numberOnCard2));
-                                            effectsToOrder.add(new ActivateForceEffect(action, opponent, numberOnCard2));
+
+                                            int forceToActivateSelf = Math.min(numberOnCard2, game.getGameState().getReserveDeckSize(playerId));
+                                            int forceToActivateOpp = Math.min(numberOnCard2, game.getGameState().getReserveDeckSize(opponent));
+
+                                            effectsToOrder.add(new ActivateForceEffect(action, playerId, forceToActivateSelf));
+                                            effectsToOrder.add(new ActivateForceEffect(action, opponent, forceToActivateOpp));
                                             action.appendEffect(
                                                     new ChooseEffectOrderEffect(action, effectsToOrder));
                                             action.appendEffect(

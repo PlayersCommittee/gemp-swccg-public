@@ -21,11 +21,12 @@ public class IonizeStarshipEffect extends AbstractSubActionEffect {
 
     /**
      * Creates an effect to make a starship Ionized.
-     * @param action the action performing this effect
-     * @param cardIonized the card that is "Ionized"
-     * @param ionizedByCard the card the card was "Ionized" by
-     * @param ionizePower whether or not the Power of this card should be Ionized
-     * @param ionizeDefense whether or not the Armor/Maneuver of this card should be Ionized
+     *
+     * @param action           the action performing this effect
+     * @param cardIonized      the card that is "Ionized"
+     * @param ionizedByCard    the card the card was "Ionized" by
+     * @param ionizePower      whether or not the Power of this card should be Ionized
+     * @param ionizeDefense    whether or not the Armor/Maneuver of this card should be Ionized
      * @param ionizeHyperspeed whether or not the Hyperspeed of this card should be Ionized
      */
     public IonizeStarshipEffect(Action action, PhysicalCard cardIonized, PhysicalCard ionizedByCard, boolean ionizePower, boolean ionizeDefense, boolean ionizeHyperspeed) {
@@ -58,8 +59,7 @@ public class IonizeStarshipEffect extends AbstractSubActionEffect {
                             _cardIonized.addIonization(IonizationType.HYPERSPEED_IONIZED);
                         if (_ionizePower && _ionizeHyperspeed) { // Currently just from Planetary Ion Cannon
                             subAction.appendEffect(new ResetPowerAndHyperspeedEffect(subAction, _cardIonized, 0));
-                        }
-                        else if (_ionizeDefense && _ionizeHyperspeed) { // Other Ion Cannons
+                        } else if (_ionizeDefense && _ionizeHyperspeed) { // Other Ion Cannons
                             subAction.appendEffect(new ResetArmorManeuverAndHyperspeedEffect(subAction, _cardIonized, 0));
                         }
                         subAction.appendEffect(

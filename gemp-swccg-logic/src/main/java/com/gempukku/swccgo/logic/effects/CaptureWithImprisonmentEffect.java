@@ -17,6 +17,24 @@ public class CaptureWithImprisonmentEffect extends AbstractSuccessfulEffect {
     private boolean _wasUndercover;
     private boolean _wasMissing;
     private PhysicalCard _cardFiringWeapon;
+    private PhysicalCard _prison;
+
+    /**
+     * Creates an effect that captures the specified character and imprisons the character in the prison the character is at.
+     *
+     * @param action        the action performing this effect
+     * @param captive       the captive
+     * @param wasUndercover true if the character was 'undercover' when captured, otherwise false
+     * @param wasMissing    true if the character was 'missing' when captured, otherwise false
+     * @param prison        prison to imprison captive in
+     */
+    public CaptureWithImprisonmentEffect(Action action, PhysicalCard captive, PhysicalCard prison, boolean wasUndercover, boolean wasMissing) {
+        super(action);
+        _captive = captive;
+        _prison = prison;
+        _wasUndercover = wasUndercover;
+        _wasMissing = wasMissing;
+    }
 
     /**
      * Creates an effect that captures the specified character and imprisons the character in the prison the character is at.
@@ -39,7 +57,9 @@ public class CaptureWithImprisonmentEffect extends AbstractSuccessfulEffect {
         String performingPlayer = _action.getPerformingPlayer();
         PhysicalCard source = _action.getActionSource();
         GameState gameState = game.getGameState();
-        PhysicalCard prison = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _captive);
+        if (_prison == null) {
+            _prison = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _captive);
+        }
 
         StringBuilder msgText = new StringBuilder(performingPlayer);
         if (_wasUndercover) {
@@ -52,10 +72,10 @@ public class CaptureWithImprisonmentEffect extends AbstractSuccessfulEffect {
         else {
             msgText.append(" captured");
         }
-        msgText.append(" and 'imprisoned' in ").append(GameUtils.getCardLink(prison)).append(" using ").append(GameUtils.getCardLink(_action.getActionSource()));
+        msgText.append(" and 'imprisoned' in ").append(GameUtils.getCardLink(_prison)).append(" using ").append(GameUtils.getCardLink(_action.getActionSource()));
         gameState.sendMessage(msgText.toString());
         gameState.cardAffectsCard(performingPlayer, source, _captive);
-        gameState.imprisonCharacter(game, _captive, prison);
+        gameState.imprisonCharacter(game, _captive, _prison);
 
         // Emit effect result that character was captured
         game.getActionsEnvironment().emitEffectResult(new CaptureCharacterResult(performingPlayer, source, _cardFiringWeapon, _captive, _wasUndercover, _wasMissing, CaptureOption.IMPRISONMENT));

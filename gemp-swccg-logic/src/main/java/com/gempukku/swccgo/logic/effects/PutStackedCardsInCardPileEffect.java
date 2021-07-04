@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 import com.gempukku.swccgo.logic.timing.results.RemovedCoaxiumCardResult;
+import com.gempukku.swccgo.logic.timing.results.RemovedFromStackedResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -257,6 +258,8 @@ class PutStackedCardsInCardPileEffect extends AbstractSubActionEffect {
                 }
 
                 _remainingCards.remove(selectedCard);
+                game.getActionsEnvironment().emitEffectResult(
+                        new RemovedFromStackedResult(_subAction));
                 if (Filters.coaxiumCard.accepts(game, selectedCard)) {
                     game.getActionsEnvironment().emitEffectResult(
                             new RemovedCoaxiumCardResult(_playerId, selectedCard, _playerId, _cardPile));

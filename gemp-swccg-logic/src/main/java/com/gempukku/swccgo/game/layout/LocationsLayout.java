@@ -54,6 +54,8 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
         findSystemsAndStarshipsAndVehiclesForLayout(library, CardCounts.VIRTUAL_PREMIUM_SETS_CARD_COUNTS, 301, systems, starshipsAndVehicles);
         findSystemsAndStarshipsAndVehiclesForLayout(library, CardCounts.DREAM_CARD_SETS_CARD_COUNTS, 401, systems, starshipsAndVehicles);
         findSystemsAndStarshipsAndVehiclesForLayout(library, CardCounts.PLAYTESTING_SETS_CARD_COUNTS, 501, systems, starshipsAndVehicles);
+        findSystemsAndStarshipsAndVehiclesForLayout(library, CardCounts.LEGACY_SETS_CARD_COUNTS, 601, systems, starshipsAndVehicles);
+
 
         // Add a layout for holosites
         _holositeLayout = new DefaultHolositeLayout();
@@ -117,12 +119,10 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
                 addToLayouts(systemLayout);
             }
         }
-        addToLayouts(new DefaultPlanetLayout(Title.Mustafar, 7));
-        addToLayouts(new DefaultPlanetLayout(Title.Scarif, 7));
-        addToLayouts(new DefaultPlanetLayout(Title.Ahch_To, 9));
-        addToLayouts(new DefaultPlanetLayout(Title.Kamino, 7));
-        addToLayouts(new DefaultPlanetLayout(Title.Malachor, 6));
+        addToLayouts(new DefaultPlanetLayout(Title.Ajan_Kloss, 9));
         addToLayouts(new DefaultPlanetLayout(Title.Dathomir, 4));
+        addToLayouts(new DefaultPlanetLayout(Title.Exegol, 10));
+        addToLayouts(new DefaultPlanetLayout(Title.Malachor, 6));
     }
 
     /**

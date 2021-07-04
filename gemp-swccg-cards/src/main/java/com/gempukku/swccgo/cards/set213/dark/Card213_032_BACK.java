@@ -107,8 +107,8 @@ public class Card213_032_BACK extends AbstractObjective {
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Add 1 destiny to power.");
-            action.setActionMsg("Add 1 destiny to power.");
+            action.setText("Add 1 destiny to power");
+            action.setActionMsg("Add 1 destiny to power");
             action.appendUsage(
                     new OncePerBattleEffect(action)
             );

@@ -56,6 +56,8 @@ public class SortAndFilterCards {
                 comparators.addComparator(new PacksFirstComparator(new SetComparator()));
             if ("cardType".equals(oneSort))
                 comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary)));
+            if ("cardCategory".equals(oneSort))
+                comparators.addComparator(new PacksFirstComparator(new CardCategoryComparator(cardLibrary)));
         }
 
         Collections.sort(result, comparators);
@@ -70,8 +72,7 @@ public class SortAndFilterCards {
         if (isPack(blueprintId)) {
             if (product == null || "pack".equals(product))
                 return true;
-        }
-        else {
+        } else {
             if (product == null
                     || "card".equals(product)
                     || ("foil".equals(product) && isFoil(blueprintId))
@@ -81,10 +82,10 @@ public class SortAndFilterCards {
 
                     while (blueprintIdToCheck != null) {
                         SwccgCardBlueprint blueprint = library.getSwccgoCardBlueprint(blueprintIdToCheck);
-                        if (blueprint != null)
+                        if (blueprint != null && !isAlwaysExcluded(blueprintId, library))
                             if (side == null || blueprint.getSide() == side)
                                 if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                                    if (format == null || isInFormat(blueprintId, format, formatLibrary))
+                                    if (format == null || (format.equals("all") && !isLegacy(blueprintId, library)) || isInFormat(blueprintId, format, formatLibrary))
                                         if (sets == null || isInSets(blueprintId, sets, library, formatLibrary))
                                             if (cardCategory == null || blueprint.getCardCategory() == cardCategory)
                                                 if (cardType == null || blueprint.isCardType(cardType))
@@ -1081,7 +1082,7 @@ public class SortAndFilterCards {
             return false;
 
         Float landspeedAsFloat = Float.parseFloat(landspeed);
-        Float blueprintLandspeed = blueprint.getHyperspeed();
+        Float blueprintLandspeed = blueprint.getLandspeed();
 
         return isAttributeValueAccepted(landspeedCompare, landspeedAsFloat, blueprintLandspeed);
     }
@@ -1119,6 +1120,24 @@ public class SortAndFilterCards {
      */
     private static boolean isPack(String blueprintId) {
         return !blueprintId.contains("_");
+    }
+
+    /**
+     * Determines if the blueprint id is for a legacy card
+     * @param blueprintId the blueprint id
+     * @return true or false
+     */
+    private static boolean isLegacy(String blueprintId, SwccgCardBlueprintLibrary library) {
+        return library.getSwccgoCardBlueprint(blueprintId) != null && library.getSwccgoCardBlueprint(blueprintId).isLegacy();
+    }
+
+    /**
+     * Determines if the blueprint id is for a card that is always hidden from the deck builder
+     * @param blueprintId the blueprint id
+     * @return true or false
+     */
+    private static boolean isAlwaysExcluded(String blueprintId, SwccgCardBlueprintLibrary library) {
+        return library.getSwccgoCardBlueprint(blueprintId) != null && library.getSwccgoCardBlueprint(blueprintId).excludeFromDeckBuilder();
     }
 
     /**
@@ -1188,7 +1207,7 @@ public class SortAndFilterCards {
     }
 
     /**
-     * Sorts cards by card category/type.
+     * Sorts cards by card type.
      */
     private static class CardTypeComparator implements Comparator<CardItem> {
         private SwccgCardBlueprintLibrary _library;
@@ -1222,6 +1241,30 @@ public class SortAndFilterCards {
             if (lowestCardType1 < lowestCardType2)
                 return -1;
             if (lowestCardType1 > lowestCardType2)
+                return 1;
+
+            return 0;
+        }
+    }
+
+    /**
+     * Sorts cards by card category.
+     */
+    private static class CardCategoryComparator implements Comparator<CardItem> {
+        private SwccgCardBlueprintLibrary _library;
+
+        private CardCategoryComparator(SwccgCardBlueprintLibrary library) {
+            _library = library;
+        }
+
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            CardCategory cardCategory1 = _library.getSwccgoCardBlueprint(o1.getBlueprintId()).getCardCategory();
+            CardCategory cardCategory2 = _library.getSwccgoCardBlueprint(o2.getBlueprintId()).getCardCategory();
+
+            if (cardCategory1.ordinal() < cardCategory2.ordinal())
+                return -1;
+            if (cardCategory1.ordinal() > cardCategory2.ordinal())
                 return 1;
 
             return 0;

@@ -69,7 +69,7 @@ public abstract class ChooseStackedCardsEffect extends AbstractStandardEffect im
      * @param filters the filter
      * @param doNotShowCardFront true if the card fronts are not to be shown, otherwise false
      */
-    protected ChooseStackedCardsEffect(Action action, String playerId, PhysicalCard stackedOn, int minimum, int maximum, Filterable filters, boolean doNotShowCardFront) {
+    public ChooseStackedCardsEffect(Action action, String playerId, PhysicalCard stackedOn, int minimum, int maximum, Filterable filters, boolean doNotShowCardFront) {
         super(action);
         _playerId = playerId;
         _stackedOn = stackedOn;

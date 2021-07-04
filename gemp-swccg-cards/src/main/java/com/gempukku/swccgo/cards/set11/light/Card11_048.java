@@ -46,7 +46,6 @@ public class Card11_048 extends AbstractCreatureVehicle {
         modifiers.add(new MovesForFreeModifier(self));
         modifiers.add(new AddsBattleDestinyModifier(self, new AndCondition(new HasAboardCondition(self, Filters.Amidala),
                 new InBattleCondition(self)), 1));
-        modifiers.add(new ForceDrainModifier(self, Filters.here(self), new AtCondition(self, Filters.swamp), 1, self.getOwner()));
         return modifiers;
     }
 }

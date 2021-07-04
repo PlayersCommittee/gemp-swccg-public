@@ -521,6 +521,12 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public float getPowerModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
+    }
+
+
+    @Override
     public float getPoliticsModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
@@ -576,7 +582,17 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public float getForfeitModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
+    }
+
+    @Override
     public float getDestinyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
+    }
+
+    @Override
+    public float getDestinyModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
 
@@ -816,6 +832,11 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public float getForceDrainModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location) {
+        return 0;
+    }
+
+    @Override
+    public int getUnmodifiableForceDrainAmount(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location) {
         return 0;
     }
 
@@ -1439,5 +1460,9 @@ public abstract class AbstractModifier implements Modifier {
     @Override
     public boolean mayNotCancelDestiny(String playerDrawing, String playerToModify) {
         return false;
+    }
+
+    public void setAffectFilter(Filter affectFilter) {
+        _affectFilter = affectFilter;
     }
 }

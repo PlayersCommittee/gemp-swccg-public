@@ -219,6 +219,14 @@ public interface ModifiersQuerying {
     float getPower(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector);
 
     /**
+     * Gets a card's power modifier limit.
+     *
+     * @param gameState the game state
+     * @return the destiny value
+     */
+    float getPowerModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
+    /**
      * Determines if a card's power is less than a specified value.
      *
      * @param gameState the game state
@@ -470,6 +478,14 @@ public interface ModifiersQuerying {
     float getForfeit(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector);
 
     /**
+     * Gets a card's forfeit modifier limit.
+     *
+     * @param gameState the game state
+     * @return the destiny value
+     */
+    float getForfeitModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
+    /**
      * Determines if a card's forfeit value is equal to a specified value.
      *
      * @param gameState the game state
@@ -598,6 +614,14 @@ public interface ModifiersQuerying {
      * @return the destiny value
      */
     float getDestiny(GameState gameState, PhysicalCard card, ModifierCollector modifierCollector);
+
+    /**
+     * Gets a card's destiny modifier limit.
+     *
+     * @param gameState the game state
+     * @return the destiny value
+     */
+    float getDestinyModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     /**
      * Determines if a card's destiny value is less than a specified value.
@@ -1063,6 +1087,18 @@ public interface ModifiersQuerying {
      * @return true or false
      */
     boolean isBluffCardStackedThisTurn();
+
+    /**
+     * Records that the Death Star's power is 'shut down'.
+     */
+    void deathStarPowerIsShutDown();
+
+    /**
+     * Determines if the Death Star's power is 'shut down'.
+     *
+     * @return true or false
+     */
+    boolean isDeathStarPowerShutDown();
 
     /**
      * Records that the specified card being played (or being deployed).
@@ -2201,6 +2237,16 @@ public interface ModifiersQuerying {
     float getTotalSearchPartyDestiny(GameState gameState, String playerId, float baseTotalDestiny);
 
     /**
+     * Gets the value of a drawn tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param physicalCard the card drawn for tractor beam destiny
+     * @param playerId the player with the tractor beam destiny
+     * @return the tractor beam destiny draw value
+     */
+    float getTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, PhysicalCard physicalCard, String playerId);
+
+    /**
      * Gets the value of a drawn training destiny.
      * @param gameState the game state
      * @param jediTest the Jedi Test
@@ -2218,6 +2264,15 @@ public interface ModifiersQuerying {
      * @return the total battle destiny
      */
     float getTotalTrainingDestiny(GameState gameState, PhysicalCard jediTest, float baseTotalDestiny);
+
+    /**
+     * Gets the total training destiny value after applying modifiers to the base tractor beam destiny.
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam
+     * @param baseTotalDestiny the base total tractor beam destiny
+     * @return the total battle destiny
+     */
+    float getTotalTractorBeamDestiny(GameState gameState, PhysicalCard tractorBeam, float baseTotalDestiny);
 
     /**
      * Gets the total movement destiny value after applying modifiers to the base total movement destiny.
@@ -4100,6 +4155,14 @@ public interface ModifiersQuerying {
     boolean mayNotBePlacedOutOfPlay(GameState gameState, PhysicalCard card);
 
     /**
+     * Determines if the specified card may not be removed from lost pile if just lost
+     * @param gameState the game state
+     * @param card the card
+     * @return true if card may not be placed out of play, otherwise false
+     */
+    boolean mayNotRemoveJustLostCardFromLostPile(GameState gameState, PhysicalCard card);
+
+    /**
      * Determines if a card may not be targeted by weapons used by the specified card.
      * @param gameState the game state
      * @param cardTargeted the card targeted
@@ -4205,6 +4268,14 @@ public interface ModifiersQuerying {
      * @return the total
      */
     float getBlowAwayBlockadeFlagshipAttemptTotal(GameState gameState, float baseTotal);
+
+    /**
+     * Gets the 'blow away' Shield Gate attempt total.
+     * @param gameState the game state
+     * @param baseTotal the base total
+     * @return the total
+     */
+    float getBlowAwayShieldGateAttemptTotal(GameState gameState, float baseTotal);
 
     /**
      * Determines if the specified spy may not 'break cover' during deploy using normal Undercover rules.
@@ -4490,10 +4561,23 @@ public interface ModifiersQuerying {
      */
     Filter getValidDuelParticipant(GameState gameState, PhysicalCard card, Side side);
 
+    /**
+     * Gets the cards under which a captured starship can go when captured by the specified tractor beam
+     * @param gameState the game state
+     * @param tractorBeam the tractor beam that captured the starship
+     * @return the collection of cards
+     */
+    Collection<PhysicalCard> getDestinationForCapturedStarships(GameState gameState, PhysicalCard tractorBeam);
 
     boolean hasMindscannedCharacter(GameState gameState, PhysicalCard card);
 
     SwccgCardBlueprint getMindscannedCharacterBlueprint(GameState gameState, PhysicalCard card);
 
-    public boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
+    boolean mindscannedCharacterGameTextWasCanceled(GameState gameState, PhysicalCard card);
+    CardSubtype getModifiedSubtype(GameState gameState, PhysicalCard card);
+    boolean mayBeRevealedAsResistanceAgent(GameState gameState, PhysicalCard card);
+    boolean isCommuning(GameState gameState, PhysicalCard card);
+    Collection<PhysicalCard> getCardsConsideredOutOfPlay(GameState gameState);
+    Collection<PhysicalCard> getActiveCardsAffectedByModifier(GameState gameState, ModifierType modifierType);
+    boolean isShieldGateBlownAway(GameState gameState);
 }

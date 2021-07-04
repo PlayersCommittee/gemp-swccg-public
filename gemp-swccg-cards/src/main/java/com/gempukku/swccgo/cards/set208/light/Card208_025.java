@@ -34,7 +34,10 @@ public class Card208_025 extends AbstractObjective {
     public Card208_025() {
         super(Side.LIGHT, 0, Title.He_Is_The_Chosen_One);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Jedi Council Chamber (with Prophecy Of The Force there), Ewok Village, and I Feel The Conflict. For remainder of game, you may not deploy [Episode I] Jedi (except Yoda) or [Episode I] padawans. Luke may not be captured by Bring Him Before Me unless there are 2 or more cards stacked on Insignificant Rebellion during any move phase. While this side up, you may initiate battles for free. Flip this card if Luke (or a Jedi) at a battleground site and opponent has no characters of ability > 4 a battleground sites.");
+        setGameText("Deploy Jedi Council Chamber (with Prophecy Of The Force there), Ewok Village, and I Feel The Conflict.\n" +
+                "For remainder of game, you may not deploy [Episode I] or [Episode VII] characters (except Obi-Wan and Yoda) or locations. Luke may not be captured by Bring Him Before Me unless there are two cards stacked on Insignificant Rebellion during any move phase.\n" +
+                "While this side up, you may initiate battles for free.\n" +
+                "Flip this card if Luke (or a Jedi) at a battleground site and opponent has no characters of ability > 4 at battleground sites.");
         addIcons(Icon.VIRTUAL_SET_8);
     }
 
@@ -77,7 +80,7 @@ public class Card208_025 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.or(Filters.and(Filters.Jedi, Icon.EPISODE_I, Filters.except(Filters.Yoda)), Filters.and(Filters.padawan, Icon.EPISODE_I)), playerId), null));
+                        new MayNotDeployModifier(self, Filters.and(Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.or(Filters.and(Filters.character, Filters.except(Filters.or(Filters.ObiWan, Filters.Yoda))), Filters.location)), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new ModifyGameTextModifier(self, Filters.Bring_Him_Before_Me, new UnlessCondition(new AndCondition(new PhaseCondition(Phase.MOVE),

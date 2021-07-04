@@ -30,20 +30,20 @@ public class Card210_024 extends AbstractUsedOrLostInterrupt {
     public Card210_024() {
         super(Side.LIGHT, 5, Title.Quite_A_Mercenary, Uniqueness.UNIQUE);
         setLore("Smugglers and other rogues frequent spaceports along trade routes. 'Your friend is quite a mercenary. I wonder if he really cares about anything, or anybody.'");
-        setGameText("Cancel Elis Helrot. [Immune to Sense.] OR Cancel a smuggler's game text for remainder of turn. OR Take [Reflections II] Chewie or Mercenary Armor into hand from Reserve Deck; reshuffle. LOST: During your move phase, “break cover” of an Undercover spy.");
-        addIcons(Icon.A_NEW_HOPE);
+        setGameText("USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.] OR Cancel a smuggler's game text for remainder of turn. OR [upload] [Reflections II] Chewie or Mercenary Armor. LOST: During your move phase, “break cover” of an Undercover spy.");
+        addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_10);
         setVirtualSuffix(true);
     }
-
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
-        // USED: Cancel Elis Helrot. [Immune to Sense.]
+        // USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.]
 
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.Elis_Helrot)
+        if ((TriggerConditions.isPlayingCard(game, effect, Filters.Elis_Helrot)
+                || TriggerConditions.isPlayingCard(game, effect, Filters.Stunning_Leader))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
@@ -67,8 +67,18 @@ public class Card210_024 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canTargetToCancel(game, self, Filters.Elis_Helrot)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setImmuneTo(Title.Sense);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Elis_Helrot, Title.Elis_Helrot);
+            actions.add(action);
+        }
+
+        if (GameConditions.canTargetToCancel(game, self, Filters.Stunning_Leader)) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+            action.setImmuneTo(Title.Sense);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Stunning_Leader, Title.Stunning_Leader);
             actions.add(action);
         }
 
@@ -106,7 +116,6 @@ public class Card210_024 extends AbstractUsedOrLostInterrupt {
                     });
             actions.add(action);
         }
-
 
 
         // USED: Take [Reflections II] Chewie or Mercenary Armor into hand from Reserve Deck; reshuffle.
@@ -178,5 +187,4 @@ public class Card210_024 extends AbstractUsedOrLostInterrupt {
 
         return actions;
     }
-
 }

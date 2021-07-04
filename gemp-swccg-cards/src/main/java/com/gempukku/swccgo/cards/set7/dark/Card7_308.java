@@ -50,7 +50,7 @@ public class Card7_308 extends AbstractStarfighter {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.starship_cannon, Filters.starship_weapon_that_deploys_on_starfighters), self));
+        modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.your(self), Filters.starship_cannon, Filters.starship_weapon_that_deploys_on_starfighters), self));
         return modifiers;
     }
 

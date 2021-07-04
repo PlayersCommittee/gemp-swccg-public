@@ -3,17 +3,7 @@ package com.gempukku.swccgo.game;
 import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.SubscriptionConflictException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
-import com.gempukku.swccgo.common.CardCategory;
-import com.gempukku.swccgo.common.CardSubtype;
-import com.gempukku.swccgo.common.CardType;
-import com.gempukku.swccgo.common.GameEndReason;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.MovementDirection;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetId;
-import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
@@ -22,11 +12,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifierCollector;
-import com.gempukku.swccgo.logic.modifiers.ModifierCollectorImpl;
-import com.gempukku.swccgo.logic.modifiers.ModifierType;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.DefaultSwccgGame;
 import com.gempukku.swccgo.logic.timing.DefaultUserFeedback;
 import com.gempukku.swccgo.logic.timing.GameResultListener;
@@ -35,14 +21,7 @@ import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import com.google.common.base.Objects;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SwccgGameMediator {
@@ -95,7 +74,7 @@ public class SwccgGameMediator {
         }
 
         _userFeedback = new DefaultUserFeedback();
-        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library);
+        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library, _playerClocks);
         _userFeedback.setGame(_swccgoGame);
     }
 
@@ -286,6 +265,9 @@ public class SwccgGameMediator {
             }
             if (card.isHatredCard()) {
                 sb.append("<div>").append("'Hatred' card").append("</div>");
+            }
+            if (card.isEnslavedCard()) {
+                sb.append("<div>").append("'Enslaved' card").append("</div>");
             }
             if (card.isCoaxiumCard()) {
                 sb.append("<div>").append("'Coaxium' card").append("</div>");
@@ -822,7 +804,7 @@ public class SwccgGameMediator {
             }
 
             // Show affecting cards
-            if (cardZone.isInPlay() || cardZone == Zone.HAND) {
+            if (cardZone.isInPlay() || cardZone == Zone.HAND || cardZone == Zone.STACKED || cardZone == Zone.OUT_OF_PLAY) {
                 for (Modifier modifier : modifiersQuerying.getModifiersAffecting(gameState, card)) {
                     modifierCollector.addModifier(modifier);
                 }
@@ -1213,10 +1195,6 @@ public class SwccgGameMediator {
                 // Throne Room Mains
                 return "TRM";
             }
-            if (Filters.Main_Power_Generators.accepts(_swccgoGame, startingLocation)) {
-                // Echo Base Operations
-                return "EBO";
-            }
             if (startingInterrupt != null) {
                 if (Filters.Careful_Planning.accepts(_swccgoGame, startingInterrupt)
                         && startingInterrupt.getBlueprint().hasVirtualSuffix()
@@ -1236,7 +1214,27 @@ public class SwccgGameMediator {
                     // Slip Sliding Away (v)
                     return startingLocation.getBlueprint().getTitle() + " SSAv";
                 }
+                if(Filters.title("I Am Part Of The Living Force").accepts(_swccgoGame, startingInterrupt)
+                    && startingLocation.getBlueprint().getTitle() != null)  {
+                    // Communing
+                    return startingLocation.getBlueprint().getTitle() +  (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"") + " Communing";
+                }
+                if (Filters.Communing.accepts(_swccgoGame, startingInterrupt)
+                        && startingInterrupt.getBlueprint().isLegacy()) {
+                    //Communing (ignore the location)
+                    return "Communing";
+                }
+                if (Filters.title("It Is The Future You See").accepts(_swccgoGame, startingInterrupt)
+                        && startingInterrupt.getBlueprint().hasVirtualSuffix()
+                        && startingInterrupt.getBlueprint().isLegacy()) {
+                    //Sonn v (ignore the location)
+                    return "Sonn v";
+                }
+
+                return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
             }
+
+            return startingLocation.getBlueprint().getTitle() + (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"");
         }
 
         // Based on Objective
@@ -1274,9 +1272,13 @@ public class SwccgGameMediator {
                 // Dantooine Base Operations
                 objectiveLabel = "DBO";
             }
-            if (Filters.or(Filters.City_In_The_Clouds, Filters.You_Truly_Belong_Here_With_Us, Filters.Twin_Suns_Of_Tatooine, Filters.Well_Trained_In_The_Jedi_Arts).accepts(_swccgoGame, objective)) {
-                // Demo Deck
-                objectiveLabel = "Demo";
+            if (Filters.or(Filters.City_In_The_Clouds, Filters.You_Truly_Belong_Here_With_Us).accepts(_swccgoGame, objective)) {
+                // City In The Clouds
+                objectiveLabel = "City In The Clouds";
+            }
+            if (Filters.or(Filters.Twin_Suns_Of_Tatooine, Filters.Well_Trained_In_The_Jedi_Arts).accepts(_swccgoGame, objective)) {
+                // Twin Suns
+                objectiveLabel = "Twin Suns";
             }
             if (Filters.or(Filters.Diplomatic_Mission_To_Alderaan, Filters.A_Weakness_Can_Be_Found).accepts(_swccgoGame, objective)) {
                 // Diplomatic Mission To Alderaan
@@ -1347,6 +1349,10 @@ public class SwccgGameMediator {
                 // Old Allies
                 objectiveLabel = "Old Allies";
             }
+            if (Filters.or(Filters.On_The_Verge_Of_Greatness, Filters.Deploy_The_Garrison).accepts(_swccgoGame, objective)) {
+                // On The Verge Of Greatness
+                objectiveLabel = "On The Verge Of Greatness";
+            }
             if (Filters.or(Filters.Local_Uprising, Filters.Liberation, Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
                 // Operatives
                 objectiveLabel = "Operatives";
@@ -1374,6 +1380,10 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.Plead_My_Case_To_The_Senate, Filters.Sanity_And_Compassion, Filters.My_Lord_Is_That_Legal, Filters.I_Will_Make_It_Legal).accepts(_swccgoGame, objective)) {
                 // Senate
                 objectiveLabel = "Senate";
+            }
+            if (Filters.or(Filters.Wookiee_Slaving_Operation, Filters.Indentured_To_The_Empire).accepts(_swccgoGame, objective)) {
+                //Wookiee Slaving Operation
+                objectiveLabel = "Slavers";
             }
             if (Filters.or(Filters.Shadow_Collective, Filters.You_Know_Who_I_Answer_To).accepts(_swccgoGame, objective)) {
                 // Shadow Collective
@@ -1403,7 +1413,7 @@ public class SwccgGameMediator {
                 // Watch Your Step
                 objectiveLabel = "WYS";
             }
-            if (Filters.or(Filters.Yavin_4_Operations, Filters.The_Time_To_Fight_Is_Now).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.Yavin_4_Base_Operations, Filters.The_Time_To_Fight_Is_Now).accepts(_swccgoGame, objective)) {
                 // Yavin 4 Operations
                 objectiveLabel = "Y4O";
             }
@@ -1416,5 +1426,18 @@ public class SwccgGameMediator {
         }
 
         return "Other";
+    }
+
+
+    public void addInGameStatisticsListener(GameStatisticsProcessor gameStatisticsProcessor) {
+        _swccgoGame.addInGameStatisticsListener(gameStatisticsProcessor);
+    }
+
+    public void removeInGameStatisticsListener(GameStatisticsProcessor gameStatisticsProcessor) {
+        _swccgoGame.removeInGameStatisticsListener(gameStatisticsProcessor);
+    }
+
+    public void removeAllInGameStatisticsListeners() {
+        _swccgoGame.removeAllInGameStatisticsListeners();
     }
 }

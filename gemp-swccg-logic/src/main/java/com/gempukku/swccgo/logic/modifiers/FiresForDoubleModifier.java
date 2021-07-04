@@ -12,6 +12,7 @@ public class FiresForDoubleModifier extends AbstractModifier {
 
     /**
      * Creates a modifier that causes the source card to fire for free.
+     *
      * @param source the card that is the source of the modifier and fires for double
      */
     public FiresForDoubleModifier(PhysicalCard source) {
@@ -20,7 +21,8 @@ public class FiresForDoubleModifier extends AbstractModifier {
 
     /**
      * Creates a modifier that causes the source card to fire for double.
-     * @param source the card that is the source of the modifier and fires for double
+     *
+     * @param source    the card that is the source of the modifier and fires for double
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
     public FiresForDoubleModifier(PhysicalCard source, Condition condition) {
@@ -29,7 +31,8 @@ public class FiresForDoubleModifier extends AbstractModifier {
 
     /**
      * Creates a modifier that causes affected cards to fire for double.
-     * @param source the source of the modifier
+     *
+     * @param source       the source of the modifier
      * @param affectFilter the filter for cards that fires for double
      */
     public FiresForDoubleModifier(PhysicalCard source, Filterable affectFilter) {
@@ -38,9 +41,10 @@ public class FiresForDoubleModifier extends AbstractModifier {
 
     /**
      * Creates a modifier that causes affected cards to fire for free.
-     * @param source the source of the modifier
+     *
+     * @param source       the source of the modifier
      * @param affectFilter the filter for cards that fire for free
-     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param condition    the condition that must be fulfilled for the modifier to be in effect
      */
     public FiresForDoubleModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
         super(source, null, affectFilter, condition, ModifierType.FIRES_FOR_DOUBLE, true);

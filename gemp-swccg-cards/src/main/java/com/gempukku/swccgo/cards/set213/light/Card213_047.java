@@ -63,6 +63,8 @@ public class Card213_047 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.here(self.getAttachedTo()))
+                && GameConditions.isDuringBattleAt(game, Filters.site)
                 && (Filters.countActive(game, self, Filters.and(Filters.opponents(playerId), Filters.character, Filters.at(Filters.sameSite(self))))
                 > Filters.countActive(game, self, Filters.and(Filters.your(playerId), Filters.character, Filters.at(Filters.sameSite(self)))))
                 && GameConditions.canAddBattleDestinyDraws(game, self)

@@ -89,6 +89,7 @@ public class Card200_070 extends AbstractCharacterWeapon {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isWeaponDestinyJustDrawnTargeting(game, effectResult, Filters.any, Filters.Han)
+                && GameConditions.isAttachedTo(game, self, Filters.Han)
                 && GameConditions.canCancelDestiny(game, playerId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);

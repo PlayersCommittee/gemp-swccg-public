@@ -25,9 +25,9 @@ public class Card3_002 extends AbstractRebel {
         super(Side.LIGHT, 2, 2, 2, 1, 3, "Cal Alder", Uniqueness.UNIQUE);
         setLore("An expert Scout originally from Kai'Shebbol in the Kathol sector. Served with Bren Derlin for many years. Patrols the outer perimeter of Echo Base.");
         setGameText("Power +1 at Defensive Perimeter. Your vehicles move for free if moving toward same site as Cal.");
+        addPersona(Persona.CAL);
         addIcons(Icon.HOTH, Icon.WARRIOR);
         addKeywords(Keyword.SCOUT);
-        addPersona(Persona.CAL);
     }
 
     @Override

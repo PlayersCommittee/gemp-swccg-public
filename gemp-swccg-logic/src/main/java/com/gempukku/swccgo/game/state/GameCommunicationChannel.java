@@ -108,6 +108,11 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     }
 
     @Override
+    public void cardTurnedOver(PhysicalCard card, GameState gameState) {
+        appendEvent(new GameEvent(TCO).card(card, gameState, false));
+    }
+
+    @Override
     public void cardsRemoved(String zoneOwner, Collection<PhysicalCard> cards) {
         Set<PhysicalCard> removedCardsVisibleByPlayer = new HashSet<PhysicalCard>();
         for (PhysicalCard card : cards) {

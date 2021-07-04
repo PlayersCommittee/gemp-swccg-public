@@ -3,9 +3,11 @@ package com.gempukku.swccgo.cards.set111.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,15 +17,13 @@ import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.NoBattleDamageModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -148,7 +148,8 @@ public class Card111_006 extends AbstractObjective {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotForceDrainAtLocationModifier(self, Filters.Alderaan_system, playerId));
-        modifiers.add(new NoBattleDamageModifier(self, Filters.Death_Star_site, playerId));
+        modifiers.add(new NoBattleDamageModifier(self, Filters.Death_Star_site, new NotCondition(new GameTextModificationCondition(self, ModifyGameTextType.SET_YOUR_COURSE_FOR_ALDERAAN__ONLY_AFFECTS_DARK_SIDE_DEATH_STAR_SITES)), playerId));
+        modifiers.add(new NoBattleDamageModifier(self, Filters.and(Filters.your(playerId), Filters.Death_Star_site), new GameTextModificationCondition(self, ModifyGameTextType.SET_YOUR_COURSE_FOR_ALDERAAN__ONLY_AFFECTS_DARK_SIDE_DEATH_STAR_SITES), playerId));
         return modifiers;
     }
 
@@ -156,8 +157,14 @@ public class Card111_006 extends AbstractObjective {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
 
+        Filter deathStarSites = Filters.Death_Star_site;
+
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SET_YOUR_COURSE_FOR_ALDERAAN__ONLY_AFFECTS_DARK_SIDE_DEATH_STAR_SITES)) {
+            deathStarSites = Filters.and(Filters.your(playerId), deathStarSites);
+        }
+
         // Check condition(s)
-        if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.Death_Star_site)
+        if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, deathStarSites)
                 && GameConditions.canCancelForceDrain(game, self)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -169,7 +176,7 @@ public class Card111_006 extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.Alderaan_system)) {
+        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Alderaan, true)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Flip");

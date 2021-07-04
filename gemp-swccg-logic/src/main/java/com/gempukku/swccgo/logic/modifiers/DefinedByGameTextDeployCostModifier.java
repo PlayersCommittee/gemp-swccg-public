@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 
@@ -21,7 +22,18 @@ public class DefinedByGameTextDeployCostModifier extends AbstractModifier {
      * @param modifierAmount the amount of the modifier
      */
     public DefinedByGameTextDeployCostModifier(PhysicalCard source, int modifierAmount) {
-        this(source, new ConstantEvaluator(modifierAmount), null);
+        this(source, new ConstantEvaluator(modifierAmount), null, null);
+    }
+
+    /**
+     * Creates a modifier to define the initial printed deploy cost of a card.
+     *
+     * @param source         the source of the modifier
+     * @param modifierAmount the amount of the modifier
+     * @param condition      the condition that must be fulfilled for the modifier to be in effect
+     */
+    public DefinedByGameTextDeployCostModifier(PhysicalCard source, int modifierAmount, Condition condition) {
+        this(source, new ConstantEvaluator(modifierAmount), null, condition);
     }
 
     /**
@@ -31,7 +43,7 @@ public class DefinedByGameTextDeployCostModifier extends AbstractModifier {
      * @param playCardOptionId the identifier for which play card option the modifier applies
      */
     public DefinedByGameTextDeployCostModifier(PhysicalCard source, int modifierAmount, PlayCardOptionId playCardOptionId) {
-        this(source, new ConstantEvaluator(modifierAmount), playCardOptionId);
+        this(source, new ConstantEvaluator(modifierAmount), playCardOptionId, null);
     }
 
     /**
@@ -40,7 +52,7 @@ public class DefinedByGameTextDeployCostModifier extends AbstractModifier {
      * @param evaluator the evaluator that calculates the amount of the modifier
      */
     public DefinedByGameTextDeployCostModifier(PhysicalCard source, Evaluator evaluator) {
-        this(source, evaluator, null);
+        this(source, evaluator, null, null);
     }
 
     /**
@@ -49,8 +61,8 @@ public class DefinedByGameTextDeployCostModifier extends AbstractModifier {
      * @param evaluator the evaluator that calculates the amount of the modifier
      * @param playCardOptionId the identifier for which play card option the modifier applies
      */
-    private DefinedByGameTextDeployCostModifier(PhysicalCard source, Evaluator evaluator, PlayCardOptionId playCardOptionId) {
-        super(source, null, source, null, ModifierType.PRINTED_DEPLOY_COST, true);
+    private DefinedByGameTextDeployCostModifier(PhysicalCard source, Evaluator evaluator, PlayCardOptionId playCardOptionId, Condition condition) {
+        super(source, null, source, condition, ModifierType.PRINTED_DEPLOY_COST, true);
         _evaluator = evaluator;
         _playCardOptionId = playCardOptionId;
     }

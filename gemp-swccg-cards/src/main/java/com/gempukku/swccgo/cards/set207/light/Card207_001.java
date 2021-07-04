@@ -32,6 +32,7 @@ public class Card207_001 extends AbstractRebel {
         super(Side.LIGHT, 2, 4, 4, 3, 5, Title.Baze, Uniqueness.UNIQUE);
         setArmor(5);
         setGameText("If about to be lost, may fire Baze's Cannon. Permanent weapon is •Baze's Cannon (may target a character for free; draw destiny; add 1 if targeting a character of ability < 3; target hit, and its forfeit = 0, if destiny + 1 > defense value).");
+        addPersona(Persona.BAZE);
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_7);
     }
 

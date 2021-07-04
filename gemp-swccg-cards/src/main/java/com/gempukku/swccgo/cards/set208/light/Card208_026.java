@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card208_026 extends AbstractObjective {
     public Card208_026() {
-        super(Side.LIGHT, 0, Title.Yavin_4_Operations);
+        super(Side.LIGHT, 0, Title.Yavin_4_Base_Operations);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Yavin 4 system and Massassi War Room. May deploy Restore Freedom To The Galaxy. While this side up, once per turn, may use 1 Force to [download] a battleground system. Flip this card if Rebels control two battleground systems (or if four Rebels are on table).");
         addIcons(Icon.VIRTUAL_SET_8);

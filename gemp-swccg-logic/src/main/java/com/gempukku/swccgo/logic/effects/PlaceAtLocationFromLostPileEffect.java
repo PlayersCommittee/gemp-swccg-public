@@ -142,8 +142,12 @@ public class PlaceAtLocationFromLostPileEffect extends AbstractSubActionEffect i
                                                             // When responding to the trigger, the preventEffectOnCard method can be called to prevent specified cards from being removed from Lost Pile.
                                                             if (_justLost) {
                                                                 // Emit effect result that attempting to remove a just lost card from Lost Pile
-                                                                game.getActionsEnvironment().emitEffectResult(
-                                                                        new AboutToRemoveJustLostCardFromLostPileResult(subAction, _playerId, selectedCard, _that));
+                                                                if (!game.getModifiersQuerying().mayNotRemoveJustLostCardFromLostPile(gameState, selectedCard)) {
+                                                                    game.getActionsEnvironment().emitEffectResult(
+                                                                            new AboutToRemoveJustLostCardFromLostPileResult(subAction, _playerId, selectedCard, _that));
+                                                                } else {
+                                                                    preventEffectOnCard(selectedCard);
+                                                                }
                                                             }
 
                                                             subAction.appendEffect(

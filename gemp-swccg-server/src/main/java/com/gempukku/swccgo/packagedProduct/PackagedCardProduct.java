@@ -26,4 +26,11 @@ public interface PackagedCardProduct {
      * @return the card collection items contained in the packaged card product.
      */
     List<CardCollection.Item> openPackage();
+
+    /**
+     * Opens the packaged card product with exclusions.
+     * @param exclusions the set of items to be excluded
+     * @return the card collection items contained in the packaged card product.
+     */
+    List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions);
 }

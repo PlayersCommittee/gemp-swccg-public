@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -16,6 +17,7 @@ import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -31,7 +33,7 @@ import java.util.List;
 public class Card210_039 extends AbstractSystem {
     public Card210_039() {
         super(Side.DARK, Title.Mustafar, 7);
-        setLocationDarkSideGameText("Once per turn, may use 1 Force to deploy a Mustafar site from Reserve Deck; reshuffle.");
+        setLocationDarkSideGameText("While Anakin or Vader here, gains one [Dark Side] icon and one [Light Side] icon.");
         setLocationLightSideGameText("While Vader on table, unless Padme at a Mustafar location, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
@@ -39,29 +41,13 @@ public class Card210_039 extends AbstractSystem {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextDarkSideTopLevelActions(final String playerOnDarkSideOfLocation, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.MUSTAFAR__DOWNLOAD_MUSTAFAR_SITE;
-
-        // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerOnDarkSideOfLocation, self, gameTextActionId)
-                && GameConditions.canUseForce(game, playerOnDarkSideOfLocation, 1)) {
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Mustafar Site");
-            action.setActionMsg("Deploy a Mustafar site from Reserve Deck");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Pay cost(s)
-            action.appendCost(new UseForceEffect(action, playerOnDarkSideOfLocation, 1));
-            // Perform result(s)
-            action.appendEffect(
-                    new DeployCardToSystemFromReserveDeckEffect(action, Filters.and(Filters.Mustafar_site, Filters.unique), Title.Mustafar, true));
-            return Collections.singletonList(action);
-        }
-        return null;
+    protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new IconModifier(self, self, new HereCondition(self, Filters.or(Filters.Vader, Filters.Anakin)), Icon.DARK_FORCE, 1));
+        modifiers.add(new IconModifier(self, self, new HereCondition(self, Filters.or(Filters.Vader, Filters.Anakin)), Icon.LIGHT_FORCE, 1));
+        return modifiers;
     }
+
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {

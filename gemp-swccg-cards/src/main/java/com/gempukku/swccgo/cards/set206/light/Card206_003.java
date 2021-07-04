@@ -32,9 +32,10 @@ import java.util.List;
  */
 public class Card206_003 extends AbstractRebel {
     public Card206_003() {
-        super(Side.LIGHT, 2, 4, 4, 2, 5, Title.Cassian, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 2, 5, Title.Captain_Cassian_Andor, Uniqueness.UNIQUE);
         setLore("Information broker and spy.");
         setGameText("Deploys -1 if a Rebel leader on table. Once per game, may place a character in your Lost Pile out of play to cancel a just drawn weapon or battle destiny here. If just lost, may activate 1 Force. While at opponent's location, immune to attrition < 4.");
+        addPersona(Persona.CASSIAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
         addKeywords(Keyword.INFORMATION_BROKER, Keyword.SPY, Keyword.CAPTAIN);
     }

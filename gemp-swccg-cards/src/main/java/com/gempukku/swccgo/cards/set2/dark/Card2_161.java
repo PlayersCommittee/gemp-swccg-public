@@ -8,6 +8,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,9 @@ public class Card2_161 extends AbstractDeathStarWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.SUPERLASER_IGNORES_DEPLOYMENT_RESTRICTIONS))
+            return Filters.Death_Star_system;
+
         return Filters.and(Filters.Death_Star_system, Filters.systemAtParsec(0));
     }
 

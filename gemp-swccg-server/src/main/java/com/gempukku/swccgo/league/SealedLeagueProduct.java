@@ -24,6 +24,8 @@ public class SealedLeagueProduct {
         createJpSealed();
         createEndorDsIISealed();
         createEpisodeISealed();
+        createWattosCubeWithObjective();
+        createWattosCubeWithFixed();
     }
 
     /**
@@ -144,6 +146,50 @@ public class SealedLeagueProduct {
         episodeISealed.add(secondWeek);
 
         _collections.put(SealedLeagueType.EPISODE_I_SEALED.getSealedCode(), episodeISealed);
+    }
+
+    /**
+     * Creates the collection of products to use for Watto's Cube with Objective Packs
+     */
+    private void createWattosCubeWithObjective() {
+        List<CardCollection> cube = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection(true);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 2);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 7);
+        firstWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 2);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 7);
+        cube.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection(true);
+        secondWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_DARK, 1);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 2);
+        secondWeek.addItem(ProductName.CUBE_OBJECTIVE_PACK_LIGHT, 1);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 2);
+        cube.add(secondWeek);
+
+        _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_OBJECTIVE_PACKS.getSealedCode(), cube);
+    }
+
+    /**
+     * Creates the collection of products to use for Watto's Cube with Objective Packs
+     */
+    private void createWattosCubeWithFixed() {
+        List<CardCollection> cube = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection(true);
+        firstWeek.addItem(ProductName.CUBE_FIXED_PACK_DARK, 1);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 8);
+        firstWeek.addItem(ProductName.CUBE_FIXED_PACK_LIGHT, 1);
+        firstWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 8);
+        cube.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection(true);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_DARK, 3);
+        secondWeek.addItem(ProductName.CUBE_DRAFT_PACK_LIGHT, 3);
+        cube.add(secondWeek);
+
+        _collections.put(SealedLeagueType.WATTOS_CUBE_WITH_FIXED.getSealedCode(), cube);
     }
 
     /**

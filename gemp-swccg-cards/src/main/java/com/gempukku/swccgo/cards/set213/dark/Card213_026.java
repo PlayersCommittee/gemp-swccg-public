@@ -38,7 +38,7 @@ public class Card213_026 extends AbstractUniqueStarshipSite {
     protected List<TopLevelGameTextAction> getGameTextDarkSideTopLevelActions(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-        Filter otherSite = Filters.and(Filters.other(self), Filters.site, Filters.not(Filters.or(Filters.partOfSystem(Title.Dagobah), Filters.partOfSystem(Title.Ahch_To))));
+        Filter otherSite = Filters.and(Filters.other(self), Filters.site, Filters.not(Filters.or(Filters.underHothEnergyShield(), Filters.partOfSystem(Title.Dagobah), Filters.partOfSystem(Title.Ahch_To))));
         Filter crimsonDawnLeader = Filters.and(Filters.your(playerOnDarkSideOfLocation), Keyword.CRIMSON_DAWN, Keyword.LEADER);
         Filter crimsonDawnLeaderHere = Filters.and(Filters.here(self), crimsonDawnLeader);
         Filter crimsonDawnLeaderOtherLocation = Filters.and(Filters.not(Filters.here(self)), crimsonDawnLeader);

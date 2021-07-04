@@ -42,7 +42,7 @@ public class Card12_145 extends AbstractLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
-        final Filter effectFilter = Filters.or(Filters.Effect, Filters.Utinni_Effect, Filters.Political_Effect);
+        final Filter effectFilter = Filters.and(Filters.or(Filters.Effect, Filters.Political_Effect, Filters.Utinni_Effect), Filters.not(Filters.dejarikHologramAtHolosite));
         final Filter characterFilter = Filters.and(Filters.your(self), Filters.character, Filters.notPreventedFromApplyingAbilityForSenseAlterDestiny);
 
         // Check condition(s)

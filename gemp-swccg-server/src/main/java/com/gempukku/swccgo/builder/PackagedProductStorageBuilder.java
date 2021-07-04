@@ -115,6 +115,8 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new RebelLeaderPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new VirtualAlternateImageBoosterPack(library);
+            packStorage.addPackagedProduct(product.getProductName(), product);
 
             // Add Enhanced Packs
             product = new EnhancedPremierePack_BobaFett(library);
@@ -185,6 +187,21 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct("(S)Enhanced Jabba's Palace Pack Choice", new FixedPackBox("(S)Enhanced Jabba's Palace Pack Choice"));
             packStorage.addPackagedProduct("(S)Enhanced Premiere Pack Choice -- Dark", new FixedPackBox("(S)Enhanced Premiere Pack Choice -- Dark"));
             packStorage.addPackagedProduct("(S)Enhanced Premiere Pack Choice -- Light", new FixedPackBox("(S)Enhanced Premiere Pack Choice -- Light"));
+
+            // Add Cube Packs
+            product = new WattosCubeDraftPack(library, "Dark");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeDraftPack(library, "Light");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeFixedPack(library, "Dark");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeFixedPack(library, "Light");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeObjectivePack(library, "Dark");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new WattosCubeObjectivePack(library, "Light");
+            packStorage.addPackagedProduct(product.getProductName(), product);
+
 
             return packStorage;
         } catch (IOException exp) {

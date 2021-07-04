@@ -12,9 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -37,7 +35,8 @@ public class Card6_149 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Audience_Chamber;
+        Collection<PhysicalCard> scumAndVillainyMayDeployAttached = game.getModifiersQuerying().getActiveCardsAffectedByModifier(game.getGameState(), ModifierType.SCUM_AND_VILLAINY_MAY_DEPLOY_HERE);
+        return Filters.or(Filters.Audience_Chamber, Filters.in(scumAndVillainyMayDeployAttached));
     }
 
     @Override

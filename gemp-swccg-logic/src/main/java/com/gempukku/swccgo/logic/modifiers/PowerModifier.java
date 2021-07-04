@@ -131,15 +131,21 @@ public class PowerModifier extends AbstractModifier {
 
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
-        if (value >= 0)
+        final float value = getPowerModifier(gameState, modifiersQuerying, self);
+        if (value > 0)
             return "Power +" + GuiUtils.formatAsString(value);
-        else
+        if (value < 0)
             return "Power " + GuiUtils.formatAsString(value);
+        return null;
     }
 
     @Override
     public float getPowerModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+        float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+        float limit = modifiersQuerying.getPowerModifierLimit(gameState, modifiersQuerying, physicalCard);
+        if (limit > 0 && value > limit) {
+            value = limit;
+        }
+        return value;
     }
 }

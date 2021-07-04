@@ -13,7 +13,8 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardAboardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Card210_034 extends AbstractCapitalStarship {
     public Card210_034() {
         super(Side.DARK, 2, 4, 5, 5, null, 4, 6, Title.Jabbas_Space_Cruiser, Uniqueness.UNIQUE);
         setLore("Flying fortress of Jabba Desilijic Tiure. Reaches speeds of 800 kph in atmosphere. The crime lord installed hidden gunports as an unpleasant surprise for would-be pirates.");
-        setGameText("May add 1 alien pilot and 6 passengers. Permanent pilot provides ability of 2. When deployed, you may [download] an alien leader aboard for free. Immune to attrition < 5.");
+        setGameText("May add 1 alien pilot and 6 passengers. Permanent pilot provides ability of 2. When deployed, may [download] an alien leader aboard. Immune to attrition < 5.");
         addIcons(Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);
         addModelType(ModelType.UBRIKKIAN_LUXURY_SPACE_YACHT);
         addKeywords(Keyword.CRUISER);
@@ -85,7 +86,7 @@ public class Card210_034 extends AbstractCapitalStarship {
             action.setActionMsg("Deploy an alien leader aboard " + GameUtils.getCardLink(self) + " from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardAboardFromReserveDeckEffect(action, Filters.alien_leader, Filters.sameCardId(self), true, true));
+                    new DeployCardAboardFromReserveDeckEffect(action, Filters.alien_leader, Filters.sameCardId(self), false, true));
             return Collections.singletonList(action);
         }
         return null;

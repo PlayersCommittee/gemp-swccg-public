@@ -47,12 +47,16 @@ public enum ExpansionSet {
     SET_11("Set 11", 211),
     SET_12("Set 12", 212),
     SET_13("Set 13", 213),
+    SET_14("Set 14", 214),
+    SET_15("Set 15", 215),
 
     DEMO_DECK("Demonstration Deck", 301),
 
     DREAM_CARDS("Dream Cards", 401),
 
-    PLAYTESTING("Playtesting", 501);
+    PLAYTESTING("Playtesting", 501),
+
+    LEGACY("Legacy", 601);
 
     private String _humanReadable;
     private int _setNumber;

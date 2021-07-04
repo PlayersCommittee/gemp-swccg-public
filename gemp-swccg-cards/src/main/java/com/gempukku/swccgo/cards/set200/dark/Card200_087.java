@@ -11,12 +11,10 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.ResetForfeitEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -35,7 +33,7 @@ public class Card200_087 extends AbstractAlien {
         super(Side.DARK, 3, 2, 2, 2, 3, Title.Ponda_Baba, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("A male Quara (or fingered Aqualish). Thug, smuggler and partner of Dr. Evazan. Has a poor quality cybernetic arm replacement.");
-        setGameText("[Pilot] 2. Game text of non-Jedi Luke (or a lightsaber he is using) may not target aliens here. During battle, if with a smuggler, may add a destiny to attrition (+2 if with your smuggler) or make that smuggler forfeit = 0.");
+        setGameText("[Pilot] 2. Game text of non-Jedi Luke (or a lightsaber he is using) may not target aliens here. During battle, if with a smuggler, may add a destiny to attrition or make that smuggler forfeit = 0.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.SMUGGLER);
         setSpecies(Species.AQUALISH);
@@ -56,7 +54,6 @@ public class Card200_087 extends AbstractAlien {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
 
-        String opponent = game.getOpponent(playerId);
         Filter smugglerFilter = Filters.and(Filters.smuggler, Filters.with(self));
 
         // Check condition(s)
@@ -74,11 +71,6 @@ public class Card200_087 extends AbstractAlien {
                 // Perform result(s)
                 action1.appendEffect(
                         new AddDestinyToAttritionEffect(action1, 1));
-                if (GameConditions.isWith(game, self, Filters.and(Filters.your(self), Filters.smuggler))) {
-                    action1.appendEffect(
-                            new AddUntilEndOfBattleModifierEffect(action1,
-                                    new AttritionModifier(self, 2, opponent), ""));
-                }
                 actions.add(action1);
             }
 

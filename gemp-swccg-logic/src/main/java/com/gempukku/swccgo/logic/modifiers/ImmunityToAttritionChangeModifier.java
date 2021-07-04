@@ -16,11 +16,30 @@ public class ImmunityToAttritionChangeModifier extends AbstractModifier {
 
     /**
      * Creates a modifier that changes the amount of existing immunity to attrition of cards accepted by the filter.
+     *
+     * @param source the source of the modifier
+     */
+    public ImmunityToAttritionChangeModifier(PhysicalCard source, Filterable affectFilter, Evaluator evaluator) {
+        this(source, affectFilter, null, evaluator);
+    }
+
+    /**
+     * Creates a modifier that changes the amount of existing immunity to attrition of cards accepted by the filter.
      * @param source the source of the modifier
      * @param affectFilter the filter
      * @param modifierAmount the amount of the modifier
      */
     public ImmunityToAttritionChangeModifier(PhysicalCard source, Filterable affectFilter, int modifierAmount) {
+        this(source, affectFilter, null, modifierAmount);
+    }
+
+    /**
+     * Creates a modifier that changes the amount of existing immunity to attrition of cards accepted by the filter.
+     * @param source the source of the modifier
+     * @param affectFilter the filter
+     * @param modifierAmount the amount of the modifier
+     */
+    public ImmunityToAttritionChangeModifier(PhysicalCard source, Filterable affectFilter, float modifierAmount) {
         this(source, affectFilter, null, modifierAmount);
     }
 
@@ -40,6 +59,17 @@ public class ImmunityToAttritionChangeModifier extends AbstractModifier {
      * @param source the source of the modifier
      * @param affectFilter the filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param modifierAmount the amount of the modifier
+     */
+    public ImmunityToAttritionChangeModifier(PhysicalCard source, Filterable affectFilter, Condition condition, float modifierAmount) {
+        this(source, affectFilter, condition, new ConstantEvaluator(modifierAmount));
+    }
+
+    /**
+     * Creates a modifier that changes the amount of existing immunity to attrition of cards accepted by the filter.
+     * @param source the source of the modifier
+     * @param affectFilter the filter
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the amount of the modifier
      */
     public ImmunityToAttritionChangeModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
@@ -50,10 +80,11 @@ public class ImmunityToAttritionChangeModifier extends AbstractModifier {
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         final float value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
-        if (value >= 0)
+        if (value > 0)
             return "Immunity to attrition +" + GuiUtils.formatAsString(value);
-        else
+        if (value < 0)
             return "Immunity to attrition " + GuiUtils.formatAsString(value);
+        return null;
     }
 
     @Override

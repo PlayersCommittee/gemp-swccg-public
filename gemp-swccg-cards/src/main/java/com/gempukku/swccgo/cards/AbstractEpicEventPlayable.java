@@ -1,10 +1,7 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.PlayChoiceAction;
-import com.gempukku.swccgo.common.CardCategory;
-import com.gempukku.swccgo.common.CardType;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
@@ -72,7 +69,7 @@ public abstract class AbstractEpicEventPlayable extends AbstractSwccgCardBluepri
     public final List<Action> getTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (self.getZone() != Zone.STACKED && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayEpicEventAction> actionList1 = getGameTextTopLevelActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);

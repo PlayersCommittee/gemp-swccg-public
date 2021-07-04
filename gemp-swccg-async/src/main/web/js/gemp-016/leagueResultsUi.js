@@ -53,16 +53,26 @@ var LeagueResultsUI = Class.extend({
             var end = league.getAttribute("end");
             var member = league.getAttribute("member");
             var joinable = league.getAttribute("joinable");
+            var invitationOnly = league.getAttribute("invitationOnly");
+            var registrationInfo = league.getAttribute("registrationInfo");
 
             $("#leagueExtraInfo").append("<div class='leagueName'>" + leagueName + "</div>");
             $("#leagueExtraInfo").append("<div class='leagueID'>League ID: " + leagueType + "</div>");
 
-            var costStr = formatPrice(cost);
-            $("#leagueExtraInfo").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+            if (invitationOnly == "true") {
+                if (registrationInfo != "" && registrationInfo != "null")
+                    $("#leagueExtraInfo").append("<div>Registration info: "+registrationInfo);
+                else
+                    $("#leagueExtraInfo").append("<div>Registration for this league by invitation only.</div>");
+
+            } else {
+                var costStr = formatPrice(cost);
+                $("#leagueExtraInfo").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+            };
 
             if (member == "true")
                 $("#leagueExtraInfo").append("<div class='leagueMembership'>You are already a member of this league.</div>");
-            else if (joinable == "true") {
+            else if (joinable == "true" && invitationOnly != "true") {
                 var joinBut = $("<button>Join league</button>").button();
 
                 var joinFunc = (function (leagueCode, costString) {
@@ -83,6 +93,9 @@ var LeagueResultsUI = Class.extend({
                 joinBut.click(joinFunc);
                 var joinDiv = $("<div class='leagueMembership'>You're not a member of this league. </div>");
                 joinDiv.append(joinBut);
+                $("#leagueExtraInfo").append(joinDiv);
+            } else if (joinable == "true" && invitationOnly == "true") {
+                var joinDiv = $("<div class='leagueMembership'>You're not a member of this league. </div>");
                 $("#leagueExtraInfo").append(joinDiv);
             }
 

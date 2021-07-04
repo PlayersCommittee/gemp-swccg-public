@@ -5,7 +5,6 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.modifiers.KeywordAffectingModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -24,7 +23,8 @@ public class RestoreArmorManeuverHyperspeedToNormalEffect extends AbstractSucces
 
     /**
      * Creates an effect that restores a card's forfeit to normal.
-     * @param action the action performing this effect
+     *
+     * @param action        the action performing this effect
      * @param cardToRestore the card to restore
      */
     public RestoreArmorManeuverHyperspeedToNormalEffect(Action action, PhysicalCard cardToRestore) {

@@ -66,7 +66,7 @@ public class Card11_018 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.GREAT_SHOT_KID__DOWNLOAD_STARSHIP_FROM_HAND_OR_RESERVE_DECK;
 
         // Check condition(s)
-        if (GameConditions.isBlownAway(game, Filters.Death_Star_system)
+        if (GameConditions.isBlownAway(game, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)))
                 && GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)
                 && GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {

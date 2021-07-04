@@ -172,13 +172,14 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         FORFEITED_TO_LOST_PILE_FROM_OFF_TABLE,
         FORFEITED_TO_USED_PILE_FROM_OFF_TABLE,
         REMOVE_FROM_CARD_PILE,
-        REMOVE_FROM_STACKED,
+        REMOVED_FROM_STACKED,
         SHUFFLE_CARD_PILE,
         EXCHANGE_WITH_CARD_PILE,
         REORDER_CARD_PILE,
         STACKED_FROM_CARD_PILE,
         STACKED_FROM_HAND,
         LOOKED_AT_OWN_CARD_PILE,
+        RECIRCULATED,
 
         // Canceling/restoring game text
         CANCELED_GAME_TEXT,
@@ -305,6 +306,7 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         LEFT_FROZEN_CAPTIVE_UNATTENDED,
         TOOK_UNATTENDED_FROZEN_CAPTIVE_INTO_CUSTODY,
         TRANSFERRED_CAPTIVE_TO_NEW_ESCORT,
+        CAPTURED_STARSHIP,
 
         // Flip Double-Sided Card
         DOUBLE_SIDED_CARD_FLIPPED,
@@ -358,9 +360,10 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // Dark Hours
         DARK_HOURS_EFFECT,
 
+        // Enslave character
+        CHARACTER_ENSLAVED,
 
-        IMMUNITY_GRANTED,
-
+        IMMUNITY_GRANTED
     }
 
     private Type _type;

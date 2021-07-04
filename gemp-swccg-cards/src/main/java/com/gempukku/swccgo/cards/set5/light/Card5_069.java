@@ -53,7 +53,7 @@ public class Card5_069 extends AbstractLostInterrupt {
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose character", yourCharacterInBattle) {
                         @Override
-                        protected void cardTargeted(int targetGroupId, PhysicalCard character) {
+                        protected void cardTargeted(final int targetGroupId, PhysicalCard character) {
                             action.addAnimationGroup(character);
                             final float ability = game.getModifiersQuerying().getAbility(game.getGameState(), character);
                             // Allow response(s)
@@ -61,9 +61,10 @@ public class Card5_069 extends AbstractLostInterrupt {
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
+                                            float finalAbility = game.getModifiersQuerying().getAbility(game.getGameState(), action.getPrimaryTargetCard(targetGroupId));
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new SubstituteDestinyEffect(action, ability));
+                                                    new SubstituteDestinyEffect(action, finalAbility));
                                         }
                                     }
                             );

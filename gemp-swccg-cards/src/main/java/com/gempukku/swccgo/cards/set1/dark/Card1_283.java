@@ -26,7 +26,7 @@ import java.util.List;
  * Set: Premiere
  * Type: Location
  * Subtype: Site
- * Title: Death Star: Central Core
+ * Title: Death Star: Central Core (Dark)
  */
 public class Card1_283 extends AbstractSite {
     public Card1_283() {

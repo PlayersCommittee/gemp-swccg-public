@@ -46,4 +46,17 @@ public class RandomFoilPack implements PackagedCardProduct {
         result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
         return result;
     }
+
+    @Override
+    public List<CardCollection.Item> openPackageWithExclusions(List<String> exclusions) {
+        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<String> availableWithExclusions = new ArrayList<String>();
+        availableWithExclusions.addAll(_availableCards);
+        for(String s:exclusions) {
+            availableWithExclusions.remove(s);
+        }
+        final String cardBlueprintId = availableWithExclusions.get(new Random().nextInt(_availableCards.size())) + "*";
+        result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
+        return result;
+    }
 }

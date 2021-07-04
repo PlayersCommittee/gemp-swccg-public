@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCar
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -69,13 +70,19 @@ public class Card205_011 extends AbstractAlien {
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
+        Filter canForfeitFilter = Filters.and(Filters.your(self), Filters.or(Filters.Dathcha, Filters.and(Filters.droid, Filters.not(Icon.PERMANENT_WEAPON))), Filters.participatingInBattle);
         // Check condition(s)
         if (TriggerConditions.isResolvingBattleDamageAndAttrition(game, effectResult, playerId)
                 && GameConditions.isInBattle(game, self)
-                && (GameConditions.isBattleDamageRemaining(game, playerId) || GameConditions.isAttritionRemaining(game, playerId))
+                && (GameConditions.isBattleDamageRemaining(game, playerId) || GameConditions.isAttritionRemaining(game, playerId) || GameConditions.canSpot(game, self, Filters.and(Filters.hit, canForfeitFilter)))
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-            Collection<PhysicalCard> cardsToForfeit = Filters.filterActive(game, self,
-                    Filters.and(Filters.your(self), Filters.or(Filters.Dathcha, Filters.and(Filters.droid, Filters.not(Icon.PERMANENT_WEAPON))), Filters.participatingInBattle));
+
+            if (!GameConditions.isBattleDamageRemaining(game, playerId) && !GameConditions.isAttritionRemaining(game, playerId)) {
+                canForfeitFilter = Filters.and(Filters.hit, canForfeitFilter);
+            }
+
+            Collection<PhysicalCard> cardsToForfeit = Filters.filterActive(game, self, canForfeitFilter);
+
             if (!cardsToForfeit.isEmpty()) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

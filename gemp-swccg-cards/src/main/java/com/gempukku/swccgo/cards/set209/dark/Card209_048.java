@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeUsedToSatisfyAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
@@ -36,7 +37,6 @@ import java.util.List;
  * Subtype: Used
  * Title: Lana Dobreed & Sacrifice
  */
-
 public class Card209_048 extends AbstractUsedInterrupt {
     public Card209_048() {
         super(Side.DARK, 4, "Lana Dobreed & Sacrifice", Uniqueness.UNIQUE);
@@ -146,9 +146,9 @@ public class Card209_048 extends AbstractUsedInterrupt {
                                     }
                                 }
                                 action.appendTargeting(
-                                        new ChooseCardOnTableEffect(action, playerId, "Choose site to 'transport' to", Filters.in(validSites)) {
+                                        new TargetCardOnTableEffect(action, playerId, "Choose site to 'transport' to", Filters.in(validSites)) {
                                             @Override
-                                            protected void cardSelected(final PhysicalCard toSite) {
+                                            protected void cardTargeted(final int siteTargetingGroupId, final PhysicalCard toSite) {
                                                 Collection<PhysicalCard> validCharactersToRelocate = new LinkedList<PhysicalCard>();
                                                 // Figure out which characters can be relocated to the other site
                                                 for (PhysicalCard characterToRelocate : charactersToRelocate) {
@@ -222,10 +222,11 @@ public class Card209_048 extends AbstractUsedInterrupt {
                                                                                                                         // Get the targeted card(s) from the action using the targetGroupId.
                                                                                                                         // This needs to be done in case the target(s) were changed during the responses.
                                                                                                                         Collection<PhysicalCard> finalCharacters = action.getPrimaryTargetCards(targetGroupId);
+                                                                                                                        PhysicalCard finalToSite = action.getPrimaryTargetCard(siteTargetingGroupId);
 
                                                                                                                         // Perform result(s)
                                                                                                                         action.appendEffect(
-                                                                                                                                new RelocateBetweenLocationsEffect(action, finalCharacters, toSite));
+                                                                                                                                new RelocateBetweenLocationsEffect(action, finalCharacters, finalToSite));
                                                                                                                     }
                                                                                                                 }
                                                                                                         );
@@ -271,7 +272,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
             if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-                action.setText("Prevent Forfeit From Being Reduced");
+                action.setText("Prevent Forfeit From Being Reduced And Being Used To Satisfy Attrition");
                 action.setImmuneTo(Title.Sense);
                 action.appendTargeting(
                         new TargetCardOnTableEffect(action, playerId, "Choose Target", cardAboutToBeHit) {
@@ -283,7 +284,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
                                         new UseForceEffect(action, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1));
 
                                 // Allow response(s)
-                                action.allowResponses("Prevent forfeit from being reduced",
+                                action.allowResponses("Prevent forfeit from being reduced and being used to satisfy attrition",
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
@@ -294,6 +295,10 @@ public class Card209_048 extends AbstractUsedInterrupt {
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
                                                                 "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                                action.appendEffect(
+                                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                                new MayNotBeUsedToSatisfyAttritionModifier(self, finalTarget),
+                                                                GameUtils.getCardLink(finalTarget) + " may not be used to satisfy attrition until end of turn"));
                                             }
                                         }
                                 );

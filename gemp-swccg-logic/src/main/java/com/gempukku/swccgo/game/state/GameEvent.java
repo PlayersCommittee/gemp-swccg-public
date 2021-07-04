@@ -12,7 +12,7 @@ import java.util.List;
 public class GameEvent {
     public enum Type {
         P, GPC, TC,
-        PCIP, PCIPAR, MCIP, RCFP, RCIP, ROCIP, FCIP, RLFP,
+        PCIP, PCIPAR, MCIP, RCFP, RCIP, ROCIP, FCIP, RLFP, TCO,
         // Attack
         SA, EA,
         // Battle

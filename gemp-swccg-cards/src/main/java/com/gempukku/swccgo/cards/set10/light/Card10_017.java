@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.UtinniEffectCompletedResult;
 
@@ -51,7 +52,8 @@ public class Card10_017 extends AbstractStarfighter {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.utinniEffectCompleted(game, effectResult, Filters.Utinni_Effect_that_retrieves_Force)) {
+        if (TriggerConditions.utinniEffectCompleted(game, effectResult, Filters.Utinni_Effect_that_retrieves_Force)
+            && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LEGACY__OUTRIDER_DOES_NOT_PLACE_UTINNI_EFFECTS_OUT_OF_PLAY)) {
             PhysicalCard utinniEffect = ((UtinniEffectCompletedResult) effectResult).getUtinniEffect();
             if (GameConditions.canTarget(game, self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY, utinniEffect)) {
 
