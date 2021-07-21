@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set214.dark;
 
 import com.gempukku.swccgo.cards.AbstractDarkJediMasterFirstOrder;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.PreventEffectOnCardEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
@@ -19,6 +20,7 @@ import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -92,7 +94,10 @@ public class Card214_008 extends AbstractDarkJediMasterFirstOrder {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Return to hand");
             action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
-            action.appendUsage(new OncePerGameEffect(action));
+            action.appendUsage(
+                    new OncePerGameEffect(action));
+            action.appendEffect(
+                    new PreventEffectOnCardEffect(action, ((AboutToLeaveTableResult) effectResult).getPreventableCardEffect(), self, null));
             action.appendEffect(
                     new ReturnCardToHandFromTableEffect(action, self));
             return Collections.singletonList(action);
