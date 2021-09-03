@@ -56,12 +56,14 @@ public class Card215_024 extends AbstractAlien {
             // Prevent character removal from Lost Pile
             if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.here(self))) {
                 final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
-                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.appendEffect(
-                        new AddUntilEndOfTurnModifierEffect(action, new MayNotRemoveJustLostCardsFromLostPileModifier(self, Filters.sameCardId(lostCard))
-                                , "Prevents characters lost from here being removed from lost pile.")
-                );
-                actions.add(action);
+                if(lostCard != null){
+                    final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.appendEffect(
+                            new AddUntilEndOfTurnModifierEffect(action, new MayNotRemoveJustLostCardsFromLostPileModifier(self, Filters.sameCardId(lostCard)),
+                                    GameUtils.getCardLink(lostCard) + " may not be removed from Lost Pile until end of turn.")
+                    );
+                    actions.add(action);
+                }
             }
 
             // Cards 'hit' by Dannik are power/forfeit -2
