@@ -50,7 +50,7 @@ public class Card7_217 extends AbstractDevice {
 
     @Override
     protected Filter getGameTextValidToUseDeviceFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.starship;
+        return Filters.or(Filters.starship, self);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Card7_217 extends AbstractDevice {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
-                && GameConditions.canUseDevice(game, self)) {
+                && GameConditions.canUseDevice(game, self, self)) {
 
             TopLevelGameTextAction action = getCancelLandingClawAction(playerId, game, self, gameTextSourceCardId, Filters.and(Filters.Landing_Claw, Filters.attachedTo(Filters.hasAttached(self))));
             if (action != null) {
@@ -107,7 +107,7 @@ public class Card7_217 extends AbstractDevice {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
                 && GameConditions.isOnlyConcealed(game, self)
-                && GameConditions.canUseDevice(game, self)) {
+                && GameConditions.canUseDevice(game, self, self)) {
 
             TopLevelGameTextAction action = getCancelLandingClawAction(playerId, game, self, gameTextSourceCardId, Filters.and(Filters.Landing_Claw, Filters.attachedTo(Filters.hasAttached(self))));
             if (action != null) {

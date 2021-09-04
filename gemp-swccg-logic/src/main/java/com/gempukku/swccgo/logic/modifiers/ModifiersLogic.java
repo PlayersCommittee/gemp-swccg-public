@@ -769,10 +769,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public boolean hasLightAndDarkForceIcons(GameState gameState, PhysicalCard physicalCard, PhysicalCard ignoreForceIconsFromCard) {
-        if (physicalCard.isBlownAway() || physicalCard.isCollapsed()) {
-            return false;
-        }
-
         // This is used as part of checking if a location is a battleground.  We use this since
         // we want to skip checking if location is rotated since it does not affect whether it is a battleground
         // for not. Also, in case there is a card that affects whether a location is rotated, based on
@@ -783,6 +779,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         int numLightIcons = physicalCard.getBlueprint().getIconCount(Icon.LIGHT_FORCE);
         int numDarkIcons = physicalCard.getBlueprint().getIconCount(Icon.DARK_FORCE);
+
+        //if location is blown away or collapsed ignore the printed force icons but it can still have icons added
+        if (physicalCard.isBlownAway() || physicalCard.isCollapsed()) {
+            numLightIcons = 0;
+            numDarkIcons = 0;
+        }
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.CANCEL_FORCE_ICON, physicalCard)) {
             numLightIcons -= modifier.getIconCountModifier(gameState, this, physicalCard, Icon.LIGHT_FORCE);
@@ -827,10 +829,33 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private int getIconCount(GameState gameState, PhysicalCard physicalCard, Icon iconInput, boolean skipEqualizeCheck, ModifierCollector modifierCollector) {
         Icon icon = iconInput;
         if (physicalCard.isCrossedOver()) {
+            /* May 2021 rules update
+            -Rebel becomes Imperial (or vice versa)
+            -Clone Army becomes Separatist (or vice versa)
+            -Resistance becomes First Order (or vice versa)
+            -Jedi Master becomes Dark Jedi Master (or vice versa)
+            -Republic becomes Sith (or vice versa)
+             */
             if (icon == Icon.IMPERIAL)
                 icon = Icon.REBEL;
             else if (icon == Icon.REBEL)
                 icon = Icon.IMPERIAL;
+            else if (icon == Icon.SEPARATIST)
+                icon = Icon.CLONE_ARMY;
+            else if (icon == Icon.CLONE_ARMY)
+                icon = Icon.SEPARATIST;
+            else if (icon == Icon.FIRST_ORDER)
+                icon = Icon.RESISTANCE;
+            else if (icon == Icon.RESISTANCE)
+                icon = Icon.FIRST_ORDER;
+            else if (icon == Icon.DARK_JEDI_MASTER)
+                icon = Icon.JEDI_MASTER;
+            else if (icon == Icon.JEDI_MASTER)
+                icon = Icon.DARK_JEDI_MASTER;
+            else if (icon == Icon.SITH)
+                icon = Icon.REPUBLIC;
+            else if (icon == Icon.REPUBLIC)
+                icon = Icon.SITH;
         }
 
         // Special case for Big One: Asteroid Cave or Space Slug Belly (planet site or creature site)
@@ -889,10 +914,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 return 0;
             }
 
-            if (physicalCard.isBlownAway() || physicalCard.isCollapsed()) {
-                return 0;
-            }
-
             boolean iconsCanceled = false;
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.CANCEL_FORCE_ICONS, physicalCard)) {
                 if (modifier.isForPlayer(icon == Icon.LIGHT_FORCE ? gameState.getLightPlayer() : gameState.getDarkPlayer())) {
@@ -904,7 +925,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                 return 0;
             }
 
-            if (isRotatedLocation(gameState, physicalCard)) {
+            if (physicalCard.isBlownAway() || physicalCard.isCollapsed()) {
+                result = 0;
+            } else if (isRotatedLocation(gameState, physicalCard)) {
                 if (icon == Icon.LIGHT_FORCE)
                     result = physicalCard.getBlueprint().getIconCount(Icon.DARK_FORCE);
                 else
@@ -16311,8 +16334,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return !getModifiersAffectingCard(gameState, ModifierType.MAY_BE_REVEALED_AS_RESISTANCE_AGENT, card).isEmpty();
     }
 
-    public boolean isCommuning(GameState gameState, PhysicalCard card) {
-        return !getModifiersAffectingCard(gameState, ModifierType.COMMUNING, card).isEmpty();
+    public boolean isCommuning(GameState gameState, Filterable filter) {
+        Collection<PhysicalCard> stackedCards = Filters.filterStacked(gameState.getGame(), Filters.and(filter));
+        for (PhysicalCard card:stackedCards) {
+            if(!getModifiersAffectingCard(gameState, ModifierType.COMMUNING, card).isEmpty())
+                return true;
+        }
+        return false;
     }
 
     public Collection<PhysicalCard> getCardsConsideredOutOfPlay(GameState gameState) {

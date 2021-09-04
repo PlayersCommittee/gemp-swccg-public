@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card210_003 extends AbstractCharacterWeapon {
     public Card210_003() {
-        super(Side.LIGHT, 1, "Anakin's Lightsaber", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, Title.Anakins_Lightsaber, Uniqueness.UNIQUE);
         setLore("Constructed by Anakin Skywalker. Kept by Obi-Wan Kenobi until given to Luke.");
         setGameText("Deploy on Anakin, Luke, or Rey. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addPersona(Persona.ANAKINS_LIGHTSABER);

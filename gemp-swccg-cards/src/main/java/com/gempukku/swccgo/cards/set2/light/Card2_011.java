@@ -27,6 +27,7 @@ public class Card2_011 extends AbstractAlien {
         addIcons(Icon.A_NEW_HOPE);
         addKeywords(Keyword.MUSICIAN);
         setSpecies(Species.BITH);
+        addPersona(Persona.ICKABEL_GONT);
     }
 
     @Override

@@ -427,7 +427,7 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                             gameState.addCardToZone(_cardToPlay, _playedToZone, playedToZoneOwner);
                                                             gameState.cardAffectsCard(_performingPlayerId, _cardToPlay, gameState.getTopOfCardPile(playedToZoneOwner, _playedToZone));
                                                             gameState.shufflePile(playedToZoneOwner, _playedToZone);
-                                                            playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(" from ").append(fromText).append(" into ").append(playedToZoneOwner).append("'s ").append(_playedToZone.getHumanReadable());
+                                                            playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(" from ").append(fromText).append(" into ").append(playedToZoneOwner).append("'s ").append(_playedToZone.getHumanReadable()).append(" and shuffles ").append(playedToZoneOwner).append("'s ").append(_playedToZone.getHumanReadable());
                                                         }
                                                         // Played to other zone.
                                                         else {

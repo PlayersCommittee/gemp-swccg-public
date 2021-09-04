@@ -1724,6 +1724,19 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if Force loss was just initiated.
+     * @param game the game
+     * @param effectResult the effect result
+     * @return true or false
+     */
+    public static boolean forceLossInitiated(SwccgGame game, EffectResult effectResult) {
+        if (effectResult.getType() == EffectResult.Type.FORCE_LOSS_INITIATED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Determines if a Force drain was just initiated (and not canceled).
      * @param game the game
      * @param effectResult the effect result
@@ -4542,6 +4555,21 @@ public class TriggerConditions {
                 if (sourceCard != null
                         && Filters.and(cardFilter).accepts(game, sourceCard)) {
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean justLostForceFromForceDrainAt(SwccgGame game, EffectResult effectResult, String playerId, Filter locationFilter, boolean isFirstForceOnly) {
+        if (effectResult.getType() == EffectResult.Type.FORCE_LOST) {
+            LostForceResult lostForceResult = (LostForceResult) effectResult;
+            if (playerId.equals(lostForceResult.getPerformingPlayerId()) && lostForceResult.isFromForceDrain()) {
+                ForceDrainState forceDrainState = game.getGameState().getForceDrainState();
+                if (isFirstForceOnly) {
+                    return forceDrainState != null && locationFilter.accepts(game, forceDrainState.getLocation()) && lostForceResult.getAmountOfForceLost() == 1;
+                } else {
+                    return forceDrainState != null && locationFilter.accepts(game, forceDrainState.getLocation());
                 }
             }
         }

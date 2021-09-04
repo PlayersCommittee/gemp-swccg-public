@@ -29,7 +29,7 @@ public class Card7_110 extends AbstractSystem {
     public Card7_110() {
         super(Side.LIGHT, Title.Bothawui, 2);
         setLocationDarkSideGameText("Force drain -X here, where X = number of spies opponent has on table.");
-        setLocationLightSideGameText("Your spies deploy -1 here and at related sites. If you control, Undercover is immune to Hutt Smooch.");
+        setLocationLightSideGameText("Your spies deploy -1 here and at related sites. If you control, characters targeted by Undercover are immune to Hutt Smooch.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.SPECIAL_EDITION, Icon.PLANET);
@@ -48,7 +48,7 @@ public class Card7_110 extends AbstractSystem {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.spy),
                 -1, Filters.or(self, Filters.relatedSite(self))));
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Undercover, new ControlsCondition(playerOnLightSideOfLocation, self), Title.Hutt_Smooch));
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.character, Filters.hasAttached(Filters.Undercover)), new ControlsCondition(playerOnLightSideOfLocation, self), Title.Hutt_Smooch));
         return modifiers;
     }
 }

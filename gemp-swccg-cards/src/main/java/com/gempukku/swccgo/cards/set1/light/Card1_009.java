@@ -25,11 +25,12 @@ import java.util.List;
  */
 public class Card1_009 extends AbstractAlien {
     public Card1_009() {
-        super(Side.LIGHT, 2, 2, 1, 1, 4, "Figrin D'an", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 1, 4, Title.Figrin_Dan, Uniqueness.UNIQUE);
         setLore("A male Bith. Musician who leads the Mos Eisley Cantina band, Figrin D'an and the Modal Nodes. Expert gambler and card shark.");
         setGameText("Once each turn during your control phase, you may use 1 Force to make a 'wager.' Draw three destiny. Opponent draws two destiny. Player with highest total may randomly select one card to be retrieved from that player's Lost Pile.");
         addKeywords(Keyword.MUSICIAN, Keyword.GAMBLER);
         setSpecies(Species.BITH);
+        addPersona(Persona.FIGRIN_DAN);
     }
 
     @Override

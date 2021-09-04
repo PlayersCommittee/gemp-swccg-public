@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card11_092 extends AbstractSite {
     public Card11_092() {
-        super(Side.DARK, "Tatooine: Desert Landing Site", Title.Tatooine);
+        super(Side.DARK, Title.Desert_Landing_Site, Title.Tatooine);
         setLocationDarkSideGameText("Maul deploys free here. If Maul here and If The Trace Was Correct on table, Force drain +2 here.");
         setLocationLightSideGameText("If Amidala at a battleground site (or captive), opponent may not Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);

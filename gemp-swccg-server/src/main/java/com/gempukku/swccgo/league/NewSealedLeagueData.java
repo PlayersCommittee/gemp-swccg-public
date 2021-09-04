@@ -105,9 +105,9 @@ public class NewSealedLeagueData implements LeagueData {
         for (int i = status; i < _series.size(); ++i) {
             LeagueSeriesData series = _series.get(i);
             if (currentTime >= series.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSeries(_leagueType.getSealedCode(), i);
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
+                    CardCollection leagueProduct = _leagueProduct.getCollectionForSeries(_leagueType.getSealedCode(), i);
                     collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll().values());
                 }
                 status = i + 1;

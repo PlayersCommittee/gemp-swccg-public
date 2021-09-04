@@ -20,6 +20,7 @@ public enum DestinyType {
     MOVEMENT_DESTINY("movement destiny"),
     RACE_DESTINY("race destiny"),
     SEARCH_PARTY_DESTINY("search party destiny"),
+    THREATEN_DESTINY("threaten destiny"),
     TRACTOR_BEAM_DESTINY("tractor beam destiny"),
     TRAINING_DESTINY("training destiny"),
     WEAPON_DESTINY("weapon destiny");

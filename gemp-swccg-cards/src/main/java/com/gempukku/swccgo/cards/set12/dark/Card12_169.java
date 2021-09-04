@@ -19,7 +19,7 @@ import java.util.List;
  * Set: Coruscant
  * Type: Location
  * Subtype: System
- * Title: Naboo
+ * Title: Naboo (Dark)
  */
 public class Card12_169 extends AbstractSystem {
     public Card12_169() {

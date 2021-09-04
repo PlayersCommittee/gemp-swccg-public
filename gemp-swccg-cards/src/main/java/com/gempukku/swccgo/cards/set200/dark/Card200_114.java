@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card200_114 extends AbstractNormalEffect {
     public Card200_114() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You'll Be Dead!", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Youll_Be_Dead, Uniqueness.UNIQUE);
         setGameText("Deploy on table. Non-lightsaber weapons carried by your non-Dark Jedi characters may not be stolen. During your control phase, opponent loses 1 Force for each battleground site you control with a non-[Permanent Weapon] blaster present. Imperial Artillery is a Lost Interrupt. Immune to Alter.");
         addIcons(Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);

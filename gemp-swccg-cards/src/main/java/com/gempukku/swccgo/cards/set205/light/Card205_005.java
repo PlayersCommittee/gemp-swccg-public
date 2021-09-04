@@ -40,7 +40,7 @@ public class Card205_005 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.or(Persona.LEIA, Filters.and(Filters.female, Filters.abilityLessThan(4))));
+        return Filters.or(Persona.LEIA, Filters.and(Filters.your(self), Filters.female, Filters.abilityLessThan(4)));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Card205_005 extends AbstractNormalEffect {
         Condition isOnLeia = new AttachedCondition(self, Filters.Leia);
         Filter attachedTo = Filters.hasAttached(self);
 
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, sameBattleground, opponent, null));
         modifiers.add(new ForceDrainsMayNotBeReducedModifier(self, sameBattleground, opponent, null));
         modifiers.add(new PowerModifier(self, attachedTo, isOnLeia, 2));
@@ -64,7 +64,7 @@ public class Card205_005 extends AbstractNormalEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
@@ -76,7 +76,7 @@ public class Card205_005 extends AbstractNormalEffect {
                 && GameConditions.canTarget(game, self, leaderFilter)
                 && GameConditions.isAttachedTo(game, self, Filters.Leia)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Cancel a leader's game text");
             // Update usage limit(s)
             action.appendUsage(
@@ -85,16 +85,17 @@ public class Card205_005 extends AbstractNormalEffect {
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose leader", leaderFilter) {
                         @Override
-                        protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
                             // Allow response(s)
                             action.allowResponses("Cancel " + GameUtils.getCardLink(targetedCard) + "'s game text",
                                     new UnrespondableEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
+                                            PhysicalCard target = action.getPrimaryTargetCard(targetGroupId);
                                             // Perform result(s)
                                             action.appendEffect(
-                                                    new CancelGameTextUntilEndOfTurnEffect(action, targetedCard));
+                                                    new CancelGameTextUntilEndOfTurnEffect(action, target));
                                         }
                                     }
                             );

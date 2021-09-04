@@ -26,6 +26,7 @@ public class Card203_006 extends AbstractRebel {
         super(Side.LIGHT, 2, 4, 4, 5, 6, Title.Kanan, Uniqueness.UNIQUE);
         setLore("Padawan");
         setGameText("[Pilot] 1. While present with an Imperial (or two Rebels), all immunity to attrition here is canceled.");
+        addPersona(Persona.KANAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
         addKeywords(Keyword.PADAWAN);
     }

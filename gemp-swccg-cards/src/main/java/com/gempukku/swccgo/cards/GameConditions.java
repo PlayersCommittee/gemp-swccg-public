@@ -4522,6 +4522,10 @@ public class GameConditions {
         return game.getModifiersQuerying().mayNotMove(game.getGameState(), card);
     }
 
+    public static boolean hasPerformedRegularMoveThisTurn(SwccgGame game, PhysicalCard card) {
+        return game.getModifiersQuerying().hasPerformedRegularMoveThisTurn(card);
+    }
+
     /**
      * Determines if the player can use location's game text to perform a move.
      * @param playerId the player
@@ -5413,5 +5417,15 @@ public class GameConditions {
 
     public static boolean isDeathStarPowerShutDown(SwccgGame game) {
         return game.getModifiersQuerying().isDeathStarPowerShutDown();
+    }
+
+    public static int countSpeciesOnTable(SwccgGame game, String playerId) {
+        int numSpecies = 0;
+        for (Species species : Species.values()) {
+            if (GameConditions.canSpot(game, null, 1, false, Filters.and(Filters.species(species), Filters.alien, Filters.your(playerId)))) {
+                numSpecies++;
+            }
+        }
+        return numSpecies;
     }
 }

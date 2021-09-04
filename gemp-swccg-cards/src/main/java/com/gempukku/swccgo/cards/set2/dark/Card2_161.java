@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Set: A New Hope
  * Type: Weapon
- * Subtype: Starship
+ * Subtype: Death Star
  * Title: Superlaser
  */
 public class Card2_161 extends AbstractDeathStarWeapon {

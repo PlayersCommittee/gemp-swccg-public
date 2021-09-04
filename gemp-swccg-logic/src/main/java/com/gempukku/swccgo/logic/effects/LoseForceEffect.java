@@ -18,6 +18,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseForceNotFromBattleDamageResult;
+import com.gempukku.swccgo.logic.timing.results.ForceLossInitiatedResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -63,6 +64,19 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      */
     public LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced) {
         this(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, false, false, null, false);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to lose a specified amount of Force.
+     *
+     * @param action            the action performing this effect
+     * @param playerToLoseForce the player
+     * @param amount            the amount of Force to lose
+     * @param cannotBeReduced   true if Force loss cannot be reduced, otherwise false
+     * @param fromLifeForceOnly true if Force must be lost from Life Force, otherwise false
+     */
+    public LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, boolean fromLifeForceOnly) {
+        this(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, false, fromLifeForceOnly, null, false);
     }
 
     /**
@@ -231,6 +245,11 @@ public class LoseForceEffect extends AbstractSubActionEffect {
 
         SubAction subAction = new SubAction(_action);
         if (isPlayableInFull(game)) {
+
+            // 0) notify that force loss was initiated
+
+            subAction.appendEffect(
+                    new TriggeringResultEffect(subAction, new ForceLossInitiatedResult(subAction, _action.getActionSource(), _initialAmount)));
 
             // 1) Begin Force loss
             subAction.appendEffect(

@@ -48,7 +48,7 @@ public class Card7_120 extends AbstractSite {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.Hydroponics_Station, Filters.Vaporator), Filters.here(self), DeploymentRestrictionsOption.ignoreLocationDeploymentRestrictions(), true));
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.Hydroponics_Station, Filters.Vaporator), Filters.sameLocation(self), DeploymentRestrictionsOption.ignoreLocationDeploymentRestrictions(), true));
             return Collections.singletonList(action);
         }
         return null;

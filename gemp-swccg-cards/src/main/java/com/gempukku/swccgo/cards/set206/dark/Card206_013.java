@@ -34,6 +34,7 @@ public class Card206_013 extends AbstractUsedInterrupt {
         setLore("Darth Vader authorized the bounty hunters to use any means at their disposal to find and capture the Millennium Falcon - not that they need any encouragement.");
         setGameText("If Jodo Kast or your Fett was just targeted by a weapon, cancel the targeting and place weapon (unless a [Permanent Weapon]) in owner's Used Pile. OR [Upload] (or [download] as a 'react'): Binders, Jet Pack, Mandalorian Armor, or a blaster rifle.");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_6);
+        setVirtualSuffix(true);
     }
 
     @Override

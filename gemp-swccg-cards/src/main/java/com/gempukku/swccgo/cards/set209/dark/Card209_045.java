@@ -12,14 +12,18 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionV9State;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.actions.*;
+import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Set 9
@@ -43,7 +47,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
 
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ResetHyperspeedModifier(self, Filters.Death_Star_system, 2));
         modifiers.add(new MayNotBeTargetedByModifier(self, Filters.planet_system, Filters.or(Filters.Superlaser, Filters.Commence_Primary_Ignition)));
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.Commence_Primary_Ignition, Icon.VIRTUAL_SET_9), playerId));
@@ -97,7 +101,6 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                         protected void performActionResults(Action targetingAction) {
                                             final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
-
                                             // Begin weapon firing
                                             action.appendEffect(
                                                     new PassthruEffect(action) {
@@ -124,8 +127,19 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                             action.appendEffect(
                                                     new FireWeaponEffect(action, superlaser, false, Filters.sameCardId(targetedSite)));
                                             // 2) Fire!
+                                            int numDestinyDraws = 1;
+                                            if (modifiersQuerying.hasGameTextModification(gameState, self, ModifyGameTextType.COMMENCE_PRIMARY_IGNITION__ADDS_A_DESTINY_TO_TOTAL)
+                                                    && Filters.Scarif_site.accepts(game, targetedSite)) {
+                                                //add destiny for each modifier (could be > 1 from Expand The Empire)
+                                                for(Modifier m: modifiersQuerying.getModifiersAffecting(gameState, self)) {
+                                                    if (m.getModifierType() == ModifierType.MODIFY_GAME_TEXT
+                                                            && m.getModifyGameTextType(gameState, modifiersQuerying, self) == ModifyGameTextType.COMMENCE_PRIMARY_IGNITION__ADDS_A_DESTINY_TO_TOTAL) {
+                                                        numDestinyDraws++;
+                                                    }
+                                                }
+                                            }
                                             action.appendEffect(
-                                                    new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
+                                                    new DrawDestinyEffect(action, playerId, numDestinyDraws, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
                                                         @Override
                                                         protected void destinyDraws(final SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, final Float totalDestiny) {
                                                             // 3) It's Beautiful

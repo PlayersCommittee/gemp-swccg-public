@@ -115,7 +115,9 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new RebelLeaderPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
-            product = new VirtualAlternateImageBoosterPack(library);
+            product = new VirtualAlternateImageBoosterPack(library, 1);
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new VirtualAlternateImageBoosterPack(library, 2);
             packStorage.addPackagedProduct(product.getProductName(), product);
 
             // Add Enhanced Packs

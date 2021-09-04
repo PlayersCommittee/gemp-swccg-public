@@ -34,6 +34,7 @@ public class Card12_110 extends AbstractRepublic {
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
         addKeywords(Keyword.SENATOR);
         setSpecies(Species.NEIMOIDIAN);
+        addPersona(Persona.LOTT);
     }
 
     @Override

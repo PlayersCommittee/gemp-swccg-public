@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardsOutOfPlayFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
@@ -36,7 +37,7 @@ public class Card3_132 extends AbstractUsedInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         String opponent = game.getOpponent(playerId);
@@ -63,18 +64,13 @@ public class Card3_132 extends AbstractUsedInterrupt {
                                     action.appendCost(
                                             new UseForceEffect(action, playerId, 2));
                                     // Allow response(s)
-                                    action.allowResponses("Search " + cardPileOwner + "'s Lost Pile and place " + numProbeDroids + " non-unique cards out of play",
+                                    action.allowResponses("Search " + cardPileOwner + "'s Lost Pile and place " + numProbeDroids + " non-unique card" + GameUtils.s(numProbeDroids) + " out of play",
                                             new RespondablePlayCardEffect(action) {
                                                 @Override
                                                 protected void performActionResults(Action targetingAction) {
                                                     // Perform result(s)
                                                     action.appendEffect(
-                                                            new PlaceCardsOutOfPlayFromLostPileEffect(action, playerId, cardPileOwner, 3, 3, Filters.non_unique, false) {
-                                                                @Override
-                                                                public boolean isPerformedEvenIfMinimumNotReached() {
-                                                                    return true;
-                                                                }
-                                                            });
+                                                            new PlaceCardsOutOfPlayFromLostPileEffect(action, playerId, cardPileOwner, numProbeDroids, numProbeDroids, Filters.non_unique, false));
                                                 }
                                             }
                                     );
@@ -92,7 +88,8 @@ public class Card3_132 extends AbstractUsedInterrupt {
             PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), probeDroid);
             if (location != null && Filters.or(Filters.planet_site, Filters.cloud_sector).accepts(game, location)) {
                 String planetName = location.getPartOfSystem();
-                if (planetName != null && !Filters.canSpot(probeDroids, game, Filters.and(Filters.not(probeDroid), Filters.onSamePlanet(probeDroid)))) {
+                if (planetName != null && !Filters.canSpot(game, self, Filters.and(Filters.your(self), Filters.character, Filters.not(probeDroid), Filters.onSamePlanet(probeDroid)))
+                    && Filters.canSpot(game, self, Filters.relatedSite(location))) {
                     locations.add(location);
                 }
             }
@@ -101,20 +98,28 @@ public class Card3_132 extends AbstractUsedInterrupt {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Make cards deploy -1 to related sites");
-            action.addAnimationGroup(locations);
-            // Allow response(s)
-            action.allowResponses("Make " + playerId + "'s cards deploy -1 to sites related to " + GameUtils.getAppendedNames(locations),
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new AddUntilEndOfTurnModifierEffect(action,
-                                            new DeployCostToLocationModifier(self, Filters.owner(playerId), -1, Filters.relatedSiteTo(self, Filters.sameLocationIds(locations))),
-                                            "Makes " + playerId + "'s cards deploy -1 to sites related to " + GameUtils.getAppendedNames(locations)));
-                        }
-                    }
-            );
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose a probe droid", Filters.and(Filters.in(probeDroids), Filters.at(Filters.in(locations)))) {
+                @Override
+                protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                    // Allow response(s)
+                    PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), targetedCard);
+                    action.allowResponses("Make your cards deploy -1 to sites related to " + GameUtils.getCardLink(location),
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                    PhysicalCard finalLocation = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), finalTarget);
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new AddUntilEndOfTurnModifierEffect(action,
+                                                    new DeployCostToLocationModifier(self, Filters.owner(playerId), -1, Filters.relatedSiteTo(self, Filters.and(finalLocation))),
+                                                    "Makes " + playerId + "'s cards deploy -1 to sites related to " + GameUtils.getCardLink(finalLocation)));
+                                }
+                            }
+                    );
+                }
+            });
+
             actions.add(action);
         }
 

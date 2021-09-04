@@ -31,8 +31,11 @@ class DefaultSwccgGameTests {
         Map<String, SwccgDeck> playerDecks = new HashMap<>();
         playerDecks.put(lsPlayer, deck);
         playerDecks.put(dsPlayer, deck);
+        Map<String, Integer> playerClocks = new HashMap<String, Integer>();
+        playerClocks.put(lsPlayer, 0);
+        playerClocks.put(dsPlayer, 0);
 
-        game = new DefaultSwccgGame(format, playerDecks, mock(UserFeedback.class), mock(SwccgCardBlueprintLibrary.class));
+        game = new DefaultSwccgGame(format, playerDecks, mock(UserFeedback.class), mock(SwccgCardBlueprintLibrary.class), playerClocks);
     }
 
     @Test

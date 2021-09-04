@@ -27,6 +27,7 @@ public class Card208_002 extends AbstractDroid {
         super(Side.LIGHT, 3, 2, 2, 3, "C1-10P (Chopper)", Uniqueness.UNIQUE);
         setLore("Information broker and spy.");
         setGameText("While aboard a starship, it is power and defense value +2 and immune to Lateral Damage. May 'fly' (landspeed = 2). Permanent weapon is Electroshock Prod (may target a character of ability < 4; target may not use its game text for remainder of turn).");
+        addPersona(Persona.CHOPPER);
         addIcons(Icon.NAV_COMPUTER, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_8);
         addKeywords(Keyword.INFORMATION_BROKER, Keyword.SPY);
         addModelType(ModelType.ASTROMECH);

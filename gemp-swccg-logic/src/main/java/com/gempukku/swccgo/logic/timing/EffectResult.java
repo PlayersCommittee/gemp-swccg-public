@@ -76,6 +76,7 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // About to lose Force
         ABOUT_TO_LOSE_FORCE_NOT_FROM_BATTLE_DAMAGE,
         ABOUT_TO_LOSE_OR_FORFEIT_DURING_DAMAGE_SEGMENT,
+        FORCE_LOSS_INITIATED,
 
         // About to draw destiny card
         ABOUT_TO_DRAW_DESTINY_CARD,

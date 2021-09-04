@@ -11,6 +11,8 @@ public enum SealedLeagueType {
     JP_SEALED("jp_sealed", "jp_sealed"),
     ENDOR_DSII_SEALED("endor_dsII_sealed", "sealed"),
     EPISODE_I_SEALED("episode_i_sealed", "sealed"),
+    ALL_OF_THE_JEDI_SEALED("all_of_the_jedi_sealed", "sealed"),
+    NOVELTY_SEALED("novelty_sealed","sealed"),
     WATTOS_CUBE_WITH_OBJECTIVE_PACKS("wattos_cube_with_objective", "cube"),
     WATTOS_CUBE_WITH_FIXED("wattos_cube_with_fixed", "cube"),
     ;

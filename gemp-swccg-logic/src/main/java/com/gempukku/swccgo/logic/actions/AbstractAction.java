@@ -729,4 +729,6 @@ public abstract class AbstractAction implements Action {
         // Do not check "afterEffects", since they do not factor into whether this action was carried out.
         return true;
     }
+
+    public boolean isImmuneTo(String title) { return false;}
 }

@@ -36,7 +36,7 @@ public class Card301_003 extends AbstractSith {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new PowerModifier(self, new WithCondition(self, Filters.Anakin), 1));
+        modifiers.add(new PowerModifier(self, new WithCondition(self, Filters.Dooku), 1));
         return modifiers;
     }
 

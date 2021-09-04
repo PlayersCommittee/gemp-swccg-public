@@ -35,6 +35,7 @@ public class Card2_084 extends AbstractAlien {
         super(Side.DARK, 2, 4, null, 3, 2, "Dannik Jerriko", Uniqueness.UNIQUE);
         setLore("Anzati assassin. Cheek-folds hide proboscises which allow him to 'eat the soup' (consume the life Force) of his victims. Smokes t'bac. Currently working for Jabba.");
         setGameText("Once per battle, may use 1 Force to 'eat the soup' of (place out of play) one opposing non-droid character just lost or forfeited at same site. *Power = 1 + total ability of all victims whose soup was eaten.");
+        addPersona(Persona.DANNIK);
         addIcons(Icon.A_NEW_HOPE);
         setSpecies(Species.ANZATI);
         addKeyword(Keyword.ASSASSIN);

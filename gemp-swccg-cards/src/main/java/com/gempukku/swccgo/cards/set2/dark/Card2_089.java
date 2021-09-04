@@ -103,7 +103,7 @@ public class Card2_089 extends AbstractAlien {
                                                                 protected void no() {
                                                                     game.getGameState().sendMessage(opponent + " chooses to not cancel threat");
                                                                     action.appendEffect(
-                                                                            new DrawDestinyEffect(action, playerId) {
+                                                                            new DrawDestinyEffect(action, playerId, 1, DestinyType.THREATEN_DESTINY) {
                                                                                 @Override
                                                                                 protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                                                     return Collections.singletonList(self);

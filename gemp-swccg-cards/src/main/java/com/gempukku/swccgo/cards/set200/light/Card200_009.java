@@ -62,7 +62,7 @@ public class Card200_009 extends AbstractRebel {
         GameTextActionId gameTextActionId = GameTextActionId.DAUGHTER_OF_SKYWALKER_VIRTUAL_GAMETEXT_ONCE_PER_BATTLE;
 
         // "target one opponent's character present"
-        Filter targetFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.presentWith(self));
+        Filter targetFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.present(self));
 
         if (GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
@@ -107,8 +107,8 @@ public class Card200_009 extends AbstractRebel {
                                                             gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
                                                             if (totalDestiny > ability) {
                                                                 gameState.sendMessage("Result: Succeeded");
-                                                                action.appendEffect(new CancelGameTextEffect(action, finalTarget));
                                                                 action.appendEffect(new ModifyPowerEffect(action, targetedCard, -2));
+                                                                action.appendEffect(new CancelGameTextEffect(action, finalTarget));
                                                             } else {
                                                                 gameState.sendMessage("Result: Failed");
                                                             }

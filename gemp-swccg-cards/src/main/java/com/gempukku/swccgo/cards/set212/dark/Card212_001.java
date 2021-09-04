@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card212_001 extends AbstractNormalEffect {
     public Card212_001() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Evil Is Everywhere!", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Evil_Is_Everywhere, Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on table. Non-[EI] Dark Jedi are lost. Your gametext on Jedi Council Chamber is cancelled. Unless with Obi-Wan, Dooku is immune to attrition. May deploy a Hallway or [EI] lightsaber from Reserve Deck; reshuffle.[Immune to Alter]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
