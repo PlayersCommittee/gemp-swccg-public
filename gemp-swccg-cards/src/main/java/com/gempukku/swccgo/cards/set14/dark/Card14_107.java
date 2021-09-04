@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card14_107 extends AbstractUsedInterrupt {
     public Card14_107() {
-        super(Side.DARK, 5, "There They Are!", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.There_They_Are, Uniqueness.UNIQUE);
         setLore("When unexplained droid losses are detected, a Droid Control Ship can call in reinforcements in seconds.");
         setGameText("If a battle was just initiated, your non-unique battle droids are each power +1 for remainder of battle. (Immune to Sense if battle at a Naboo site.) OR Take a non-unique battle droid or non-unique droid starfighter into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

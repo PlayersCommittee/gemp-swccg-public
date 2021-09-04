@@ -1214,14 +1214,20 @@ public class SwccgGameMediator {
                     // Slip Sliding Away (v)
                     return startingLocation.getBlueprint().getTitle() + " SSAv";
                 }
+                if(Filters.Let_The_Wookiee_Win.accepts(_swccgoGame, startingInterrupt)
+                        && startingInterrupt.getBlueprint().hasVirtualSuffix()
+                        && startingLocation.getBlueprint().getTitle() != null){
+                    // Let The Wookiee Win (v)
+                    return startingLocation.getBlueprint().getTitle() + " LTWWv";
+                }
                 if(Filters.title("I Am Part Of The Living Force").accepts(_swccgoGame, startingInterrupt)
                     && startingLocation.getBlueprint().getTitle() != null)  {
-                    // Communing
-                    return startingLocation.getBlueprint().getTitle() +  (startingLocation.getBlueprint().hasVirtualSuffix()?" v":"") + " Communing";
+                    // Communing (ignore the location)
+                    return "Communing";
                 }
                 if (Filters.Communing.accepts(_swccgoGame, startingInterrupt)
                         && startingInterrupt.getBlueprint().isLegacy()) {
-                    //Communing (ignore the location)
+                    // Legacy Communing (ignore the location)
                     return "Communing";
                 }
                 if (Filters.title("It Is The Future You See").accepts(_swccgoGame, startingInterrupt)
@@ -1349,7 +1355,7 @@ public class SwccgGameMediator {
                 // Old Allies
                 objectiveLabel = "Old Allies";
             }
-            if (Filters.or(Filters.On_The_Verge_Of_Greatness, Filters.Deploy_The_Garrison).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.On_The_Verge_Of_Greatness, Filters.Taking_Control_Of_The_Weapon).accepts(_swccgoGame, objective)) {
                 // On The Verge Of Greatness
                 objectiveLabel = "On The Verge Of Greatness";
             }

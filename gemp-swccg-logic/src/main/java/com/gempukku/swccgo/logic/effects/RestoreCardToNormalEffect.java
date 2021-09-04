@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class RestoreCardToNormalEffect extends AbstractSuccessfulEffect {
     private PhysicalCard _cardToRestore;
+    private boolean _displayMessage;
 
     /**
      * Creates an effect that restores a card to normal (remove 'hit', etc.).
@@ -26,8 +27,18 @@ public class RestoreCardToNormalEffect extends AbstractSuccessfulEffect {
      * @param cardToRestore the card to restore
      */
     public RestoreCardToNormalEffect(Action action, PhysicalCard cardToRestore) {
+        this(action, cardToRestore, true);
+    }
+
+    /**
+     * Creates an effect that restores a card to normal (remove 'hit', etc.).
+     * @param action the action performing this effect
+     * @param cardToRestore the card to restore
+     */
+    public RestoreCardToNormalEffect(Action action, PhysicalCard cardToRestore, boolean displayMessage) {
         super(action);
         _cardToRestore = cardToRestore;
+        _displayMessage = displayMessage;
     }
 
     @Override
@@ -39,8 +50,10 @@ public class RestoreCardToNormalEffect extends AbstractSuccessfulEffect {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
-        gameState.sendMessage(GameUtils.getCardLink(_cardToRestore) + " is restored to normal by " + GameUtils.getCardLink(_action.getActionSource()));
-        gameState.cardAffectsCard(_action.getActionSource().getOwner(), _action.getActionSource(), _cardToRestore);
+        if (_displayMessage) {
+            gameState.sendMessage(GameUtils.getCardLink(_cardToRestore) + " is restored to normal by " + GameUtils.getCardLink(_action.getActionSource()));
+            gameState.cardAffectsCard(_action.getActionSource().getOwner(), _action.getActionSource(), _cardToRestore);
+        }
 
         // Set card as no longer 'hit' or 'crashed'
         _cardToRestore.setCrashed(false);

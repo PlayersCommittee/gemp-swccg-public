@@ -30,7 +30,7 @@ public class Card204_018 extends AbstractUsedInterrupt {
     public Card204_018() {
         super(Side.LIGHT, 5, "Escape Pod & We're Doomed");
         addComboCardTitles(Title.Escape_Pod, Title.Were_Doomed);
-        setGameText("Use 1 Force to [upload] a dejarik. OR For remainder of turn, you lose no Force to Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, or You May Start Your Landing.");
+        setGameText("Use 1 Force to [upload] a dejarik. OR For remainder of turn, you lose no Force to Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, You May Start Your Landing, or You'll Be Dead!");
         addIcons(Icon.VIRTUAL_SET_4);
     }
 
@@ -67,7 +67,7 @@ public class Card204_018 extends AbstractUsedInterrupt {
         final PlayInterruptAction action = new PlayInterruptAction(game, self);
         action.setText("Prevent Force loss until end of turn");
         // Allow response(s)
-        action.allowResponses("Prevent Force loss from Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, or You May Start Your Landing for remainder of turn",
+        action.allowResponses("Prevent Force loss from Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, You May Start Your Landing, or You'll Be Dead! for remainder of turn",
                 new RespondablePlayCardEffect(action) {
                     @Override
                     protected void performActionResults(Action targetingAction) {
@@ -75,8 +75,8 @@ public class Card204_018 extends AbstractUsedInterrupt {
                         action.appendEffect(
                                 new AddUntilEndOfTurnModifierEffect(action,
                                         new NoForceLossFromCardModifier(self, Filters.or(Filters.Cloud_City_Occupation, Filters.Rebel_Base_Occupation,
-                                                Filters.Tatooine_Occupation, Filters.That_Things_Operational, Filters.You_May_Start_Your_Landing), playerId),
-                                        "Prevents Force loss from Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, or You May Start Your Landing"));
+                                                Filters.Tatooine_Occupation, Filters.That_Things_Operational, Filters.You_May_Start_Your_Landing, Filters.Youll_Be_Dead), playerId),
+                                        "Prevents Force loss from Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, You May Start Your Landing, or You'll Be Dead!"));
                     }
                 }
         );

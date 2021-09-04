@@ -69,7 +69,8 @@ public interface ProductName {
     // Promotional Cards
     String JEDI_PACK = "Jedi Pack";
     String REBEL_LEADER_PACK = "Rebel Leader Pack";
-    String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK = "Virtual Alternate Image Booster Pack";
+    String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1 = "Virtual Alternate Image Booster Pack Series 1";
+    String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_2 = "Virtual Alternate Image Booster Pack Series 2";
 
     // Anthology Boxes
     String FIRST_ANTHOLOGY_BOX = "First Anthology Box";

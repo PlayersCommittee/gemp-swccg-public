@@ -35,6 +35,7 @@ public class Card601_055 extends AbstractRepublic {
         setGameText("Adds 1 to power of anything she pilots.  During your control phase, if present at a battleground site, opponent loses 1 Force for each Skywalker occupying a battleground (-1 Force if Vader on table) and you may use 2 Force to take one Leia or non-Jedi Luke into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_5, Icon.TATOOINE, Icon.EPISODE_I);
         addPersona(Persona.AMIDALA);
+        addKeyword(Keyword.FEMALE);
         setVirtualSuffix(true);
         setAsLegacy(true);
     }

@@ -27,7 +27,7 @@ public class Card1_042 extends AbstractNormalEffect {
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return GameConditions.canInsertOncePerGame(game, self);
+        return GameConditions.canInsertOncePerGame(game, self) && GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY);
     }
 
     @Override

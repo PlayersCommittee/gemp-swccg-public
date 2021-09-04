@@ -1,13 +1,16 @@
 package com.gempukku.swccgo.cards.set200.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.cards.conditions.DuringPlayersTurnNumberCondition;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToDeployCardForFreeExceptByOwnGametextModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class Card200_027 extends AbstractDefensiveShield {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ExtraForceCostToDeployCardForFreeExceptByOwnGametextModifier(self, Filters.and(Filters.opponents(self), Filters.or(Filters.character, Filters.starship, Filters.vehicle)), 2));
+        modifiers.add(new SuspendsCardModifier(self, Filters.title(Title.They_Must_Never_Again_Leave_This_City), new DuringPlayersTurnNumberCondition(game.getOpponent(self.getOwner()), 1)));
         return modifiers;
     }
 }

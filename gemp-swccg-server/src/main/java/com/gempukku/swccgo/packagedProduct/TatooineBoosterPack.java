@@ -101,8 +101,12 @@ public class TatooineBoosterPack extends BasePackagedCardProduct {
             possibleCards.remove("11_14"); // Threepio With His Parts Showing (AI)
         }
         filterNonExistingCards(possibleCards);
-        if(!_includeNonEpisodeI)
-            filterIcon(possibleCards,Icon.EPISODE_I,true);
+        if(!_includeNonEpisodeI) {
+            filterIcon(possibleCards, Icon.EPISODE_I, true);
+            filterIcon(possibleCards, Icon.PODRACER, false);
+            possibleCards.remove("11_24"); //Boonta Eve Podrace
+            possibleCards.remove("11_79"); //Boonta Eve Podrace
+        }
 
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
@@ -121,9 +125,12 @@ public class TatooineBoosterPack extends BasePackagedCardProduct {
         possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.C));
         possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.C));
         filterNonExistingCards(possibleCards);
-        if(!_includeNonEpisodeI)
-            filterIcon(possibleCards,Icon.EPISODE_I,true);
-
+        if(!_includeNonEpisodeI) {
+            filterIcon(possibleCards, Icon.EPISODE_I, true);
+            filterIcon(possibleCards, Icon.PODRACER, false);
+            possibleCards.remove("11_24"); //Boonta Eve Podrace
+            possibleCards.remove("11_79"); //Boonta Eve Podrace
+        }
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }

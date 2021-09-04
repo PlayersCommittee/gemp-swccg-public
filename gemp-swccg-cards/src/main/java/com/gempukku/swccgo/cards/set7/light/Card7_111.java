@@ -56,7 +56,7 @@ public class Card7_111 extends AbstractSite {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextLightSideRequiredAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.wonCloudCitySabacc(game, effectResult, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.gambler, Filters.here(self)))) {
+        if (TriggerConditions.wonCloudCitySabacc(game, effectResult, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.gambler, Filters.present(self)))) {
             final PhysicalCard winner = ((SabaccWinnerDeterminedResult) effectResult).getWinningCharacter();
             int amountToRetrieve = Filters.Lando.accepts(game, winner) ? 3 : 2;
 

@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
-import com.gempukku.swccgo.cards.AbstractLostInterrupt;
+import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
@@ -26,7 +26,7 @@ import java.util.List;
  * Subtype: Lost
  * Title: Eee Chu Wawa!
  */
-public class Card8_141 extends AbstractLostInterrupt {
+public class Card8_141 extends AbstractUsedOrLostInterrupt {
     public Card8_141() {
         super(Side.DARK, 4, Title.Eee_Chu_Wawa, Uniqueness.UNIQUE);
         setLore("Paploo's brave diversion provided more of a ride than the adventurous Ewok had bargained for.");

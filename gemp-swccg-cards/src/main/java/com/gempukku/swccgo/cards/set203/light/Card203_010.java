@@ -32,13 +32,13 @@ public class Card203_010 extends AbstractRepublic {
         setGameText("Cancels Vader's game text here. If with a Skywalker, may add one destiny to attrition. Immune to attrition < 3.");
         addPersona(Persona.AMIDALA);
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
-        addKeywords(Keyword.FEMALE, Keyword.HANDMAIDEN);
+        addKeywords(Keyword.FEMALE);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Vader, Filters.here(self))));
+        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Vader, Filters.here(self), Filters.not(Filters.immuneToCardTitle(self.getTitle())))));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 3));
         return modifiers;
     }

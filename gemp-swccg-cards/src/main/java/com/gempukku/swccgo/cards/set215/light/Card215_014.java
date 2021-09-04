@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card215_014 extends AbstractSite {
     public Card215_014() {
-        super(Side.LIGHT, "Kashyyyk: Kachirho", Title.Kashyyyk);
+        super(Side.LIGHT, Title.Kachirho, Title.Kashyyyk);
         setLocationDarkSideGameText("Total ability of 6 or more required for you to draw battle destiny here.");
         setLocationLightSideGameText("Once per turn, if you occupy with a Wookiee, may [download]▼ a Kashyyyk location.");
         addIcon(Icon.DARK_FORCE, 1);
@@ -48,6 +48,7 @@ public class Card215_014 extends AbstractSite {
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId)
                 && GameConditions.occupiesWith(game, self, playerOnLightSideOfLocation, Filters.and(self), Filters.Wookiee)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);

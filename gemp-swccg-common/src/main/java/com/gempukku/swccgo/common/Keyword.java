@@ -158,7 +158,7 @@ public enum Keyword implements Filterable {
     SNOWSPEEDER("Snowspeeder", false),
     SNOWTROOPER("Snowtrooper", true),
     SPACEPORT_SITE("Spaceport Site", false),
-    SPEEDER("Speeder",false),
+    SPEEDER("Speeder", false),
     SPY("Spy", true),
     STARSHIP_WEAPON_THAT_DEPLOYS_ON_CAPITALS("Starship weapon that deploys on capitals", false),
     STARSHIP_WEAPON_THAT_DEPLOYS_ON_STARFIGHTERS("Starship weapon that deploys on starfighters", false),

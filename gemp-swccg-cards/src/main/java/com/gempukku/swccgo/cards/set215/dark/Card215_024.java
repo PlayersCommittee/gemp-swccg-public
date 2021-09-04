@@ -35,6 +35,7 @@ public class Card215_024 extends AbstractAlien {
         setVirtualSuffix(true);
         setLore("Anzati assassin. Cheek-folds hide proboscises which allow him to 'eat the soup' (consume the life Force) of his victims. Smokes t'bac. Currently working for Jabba.");
         setGameText("Opponent's characters just lost from here may not be removed from Lost Pile (except to be placed out of play). While present at a site and armed with a blaster, adds one battle destiny. Cards hit by Dannik are power and forfeit -2.");
+        addPersona(Persona.DANNIK);
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR, Icon.VIRTUAL_SET_15);
         setSpecies(Species.ANZATI);
         addKeyword(Keyword.ASSASSIN);
@@ -56,7 +57,7 @@ public class Card215_024 extends AbstractAlien {
             // Prevent character removal from Lost Pile
             if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.here(self))) {
                 final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
-                if(lostCard != null){
+                if (lostCard != null) {
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                     action.appendEffect(
                             new AddUntilEndOfTurnModifierEffect(action, new MayNotRemoveJustLostCardsFromLostPileModifier(self, Filters.sameCardId(lostCard)),

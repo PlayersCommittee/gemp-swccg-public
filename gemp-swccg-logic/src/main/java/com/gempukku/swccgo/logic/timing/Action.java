@@ -348,4 +348,6 @@ public interface Action extends Snapshotable<Action> {
      * @param effect the effect
      */
     void appendAfterEffect(StandardEffect effect);
+
+    boolean isImmuneTo(String title);
 }

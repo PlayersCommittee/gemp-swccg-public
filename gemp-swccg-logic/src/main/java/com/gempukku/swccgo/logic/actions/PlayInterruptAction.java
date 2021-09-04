@@ -124,6 +124,16 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
     }
 
     /**
+     * Checks if the action is immune to the specified title while being played.
+     * @param title the card title to check
+     * @return true if the action is immune to the title
+     */
+    @Override
+    public boolean isImmuneTo(String title) {
+        return _immuneToTitle.contains(title);
+    }
+
+    /**
      * Determines if the card is to be placed out of play when played.
      * @return true or false
      */

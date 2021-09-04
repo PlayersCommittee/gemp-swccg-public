@@ -15,6 +15,7 @@ public class PutCardFromReserveDeckOnBottomOfCardPileEffect extends AbstractStan
     private PhysicalCard _card;
     private Zone _cardPile;
     private boolean _hidden;
+    private String _cardPileOwner;
 
     // TODO: Update these effects to be as generic as needed
 
@@ -23,6 +24,15 @@ public class PutCardFromReserveDeckOnBottomOfCardPileEffect extends AbstractStan
         _card = card;
         _cardPile = cardPile;
         _hidden = hidden;
+        _cardPileOwner = card.getOwner();
+    }
+
+    public PutCardFromReserveDeckOnBottomOfCardPileEffect(Action action, PhysicalCard card, String cardPileOwner, Zone cardPile, boolean hidden) {
+        super(action);
+        _card = card;
+        _cardPile = cardPile;
+        _hidden = hidden;
+        _cardPileOwner = cardPileOwner;
     }
 
     @Override
@@ -44,10 +54,10 @@ public class PutCardFromReserveDeckOnBottomOfCardPileEffect extends AbstractStan
         GameState gameState = game.getGameState();
         gameState.sendMessage(_action.getPerformingPlayer() + " puts " + cardInfo + " from Reserve Deck to the bottom of " + _cardPile.getHumanReadable());
         gameState.removeCardsFromZone(Collections.singleton(_card));
-        gameState.addCardToZone(_card, _cardPile, _card.getOwner());
+        gameState.addCardToZone(_card, _cardPile, _cardPileOwner);
 
         game.getActionsEnvironment().emitEffectResult(
-                new PutCardInCardPileFromOffTableResult(_action, _card, _card.getZoneOwner(), _cardPile, false));
+                new PutCardInCardPileFromOffTableResult(_action, _card, _cardPileOwner, _cardPile, false));
 
         return new FullEffectResult(true);
     }

@@ -28,6 +28,16 @@ public class ExtraForceCostToDeployCardForFreeExceptByOwnGametextModifier extend
      * Creates a modifier that requires extra Force cost to deploy cards accepted by the filter that deploy for free (except by own game text).
      * @param source the source of the modifier
      * @param affectFilter the filter
+     * @param evaluator the evaluator that calculates the amount of the modifier
+     */
+    public ExtraForceCostToDeployCardForFreeExceptByOwnGametextModifier(PhysicalCard source, Filterable affectFilter, Evaluator evaluator) {
+        this(source, affectFilter, null, evaluator);
+    }
+
+    /**
+     * Creates a modifier that requires extra Force cost to deploy cards accepted by the filter that deploy for free (except by own game text).
+     * @param source the source of the modifier
+     * @param affectFilter the filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the amount of the modifier
      */

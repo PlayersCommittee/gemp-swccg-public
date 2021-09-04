@@ -48,8 +48,8 @@ public class Card14_118 extends AbstractStarfighter {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, atSameSystemAsYourBattleship, 3));
-        modifiers.add(new DeployCostToTargetModifier(self, opponentsPilots, 2, Filters.and(Filters.starfighter, Filters.atSameSystem(self))));
-        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, opponentsPilots, 2, Filters.starfighter, Filters.here(self)));
+        modifiers.add(new DeployCostToTargetModifier(self, opponentsPilots, atSameSystemAsYourBattleship, 2, Filters.and(Filters.starfighter, Filters.atSameSystem(self))));
+        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, opponentsPilots, atSameSystemAsYourBattleship,2, Filters.starfighter, Filters.here(self)));
         return modifiers;
     }
 }

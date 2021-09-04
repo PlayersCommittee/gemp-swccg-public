@@ -5,10 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.RevealRandomCardInOpponentsHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -36,9 +33,10 @@ import java.util.List;
 public class Card6_009 extends AbstractAlien {
     public Card6_009() {
         super(Side.LIGHT, 4, 2, 1, 2, 2, "Chadra-Fan");
-        setLore("Short, intelligent and selfish. Their enhanced vision and smell make them outstanding Thieves. Communicate with pheromones and high-pitched squeaks.");
+        setLore("Short, intelligent and selfish. Their enhanced vision and smell make them outstanding thieves. Communicate with pheromones and high-pitched squeaks.");
         setGameText("Power and forfeit +2 while Kabe at Audience Chamber. During your control phase, may glance at one card randomly selected from opponent's hand; if that card is a character weapon, may 'steal' it into your hand.");
         addIcons(Icon.JABBAS_PALACE);
+        addKeyword(Keyword.THIEF);
         setSpecies(Species.CHADRAFAN);
     }
 

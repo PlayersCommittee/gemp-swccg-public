@@ -59,6 +59,20 @@ public class DeployCostForSimultaneouslyDeployingPilotModifier extends AbstractM
      * @param source the source of the modifier
      * @param pilotFilter the pilot filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param modifierAmount the amount of the modifier
+     * @param starshipOrVehicleFilter the starship/vehicle filter
+     * @param targetFilter the target filter
+     */
+    public DeployCostForSimultaneouslyDeployingPilotModifier(PhysicalCard source, Filterable pilotFilter, Condition condition, int modifierAmount, Filterable starshipOrVehicleFilter, Filterable targetFilter) {
+        this(source, pilotFilter, condition, new ConstantEvaluator(modifierAmount), starshipOrVehicleFilter, targetFilter);
+    }
+
+    /**
+     * Creates a modifier to the deploy cost of a pilot accepted by the pilot filter that is simultaneously deploying
+     * with a card accepted by the starshipOrVehicleFilter to a target accepted by the target filter.
+     * @param source the source of the modifier
+     * @param pilotFilter the pilot filter
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the amount of the modifier
      * @param starshipOrVehicleFilter the starship/vehicle filter
      * @param targetFilter the target filter

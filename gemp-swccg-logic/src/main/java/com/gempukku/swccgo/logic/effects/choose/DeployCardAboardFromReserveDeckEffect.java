@@ -48,6 +48,19 @@ public class DeployCardAboardFromReserveDeckEffect extends DeployCardToTargetFro
     }
 
     /**
+     * Creates an effect that causes the player performing the action to search Reserve Deck for a card and deploy it aboard
+     * a starship/vehicle accepted by starshipOrVehicleFilter.
+     * @param action the action performing this effect
+     * @param cardFilter the card filter
+     * @param starshipOrVehicleFilter the starship/vehicle filter
+     * @param changeInCost change in amount of Force (can be positive or negative) required
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     */
+    public DeployCardAboardFromReserveDeckEffect(Action action, Filter cardFilter, Filter starshipOrVehicleFilter, float changeInCost, boolean reshuffle) {
+        super(action, cardFilter, Filters.or(starshipOrVehicleFilter, Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(starshipOrVehicleFilter))), changeInCost, reshuffle);
+    }
+
+    /**
      * Creates an effect that causes the player performing the action to deploy a specific card from Reserve Deck aboard
      * a starship/vehicle accepted by starshipOrVehicleFilter.
      * @param action the action performing this effect

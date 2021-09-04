@@ -32,7 +32,7 @@ public class Card11_009 extends AbstractRepublic {
         setGameText("Twice per game may deploy Qui-Gon or Obi-Wan here from Reserve Deck; reshuffle. While present with your Jedi at a site, opponent may not target Amidala with weapons.");
         addPersona(Persona.AMIDALA);
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.WARRIOR);
-        addKeywords(Keyword.FEMALE, Keyword.HANDMAIDEN);
+        addKeywords(Keyword.FEMALE);
     }
 
     @Override

@@ -34,6 +34,7 @@ public class Card102_005 extends AbstractAlien {
         addIcons(Icon.PREMIUM);
         addKeywords(Keyword.MUSICIAN, Keyword.SCOUT);
         setSpecies(Species.BITH);
+        addPersona(Persona.TEDN_DAHAI);
     }
 
     @Override

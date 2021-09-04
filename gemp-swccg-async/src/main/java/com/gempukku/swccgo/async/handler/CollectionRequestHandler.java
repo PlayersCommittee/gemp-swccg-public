@@ -5,6 +5,7 @@ import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.cards.packs.RarityReader;
 import com.gempukku.swccgo.cards.packs.SetRarity;
 import com.gempukku.swccgo.collection.CollectionsManager;
+import com.gempukku.swccgo.common.CardCounts;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.db.vo.League;
@@ -44,16 +45,16 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
         _rarities = new HashMap<String, SetRarity>();
         RarityReader reader = new RarityReader();
 
-        for (int i = 1; i <= 14; i++) {
+        for (int i = 1; i < (1 + CardCounts.FULL_SETS_CARD_COUNTS.length); i++) {
             _rarities.put(String.valueOf(i), reader.getSetRarity(String.valueOf(i)));
         }
-        for (int i = 101; i <= 112; i++) {
+        for (int i = 101; i < (101 + CardCounts.PREMIUM_SETS_CARD_COUNTS.length); i++) {
             _rarities.put(String.valueOf(i), reader.getSetRarity(String.valueOf(i)));
         }
-        for (int i = 200; i <= 207; i++) {
+        for (int i = 200; i < (200 + CardCounts.VIRTUAL_SETS_CARD_COUNTS.length); i++) {
             _rarities.put(String.valueOf(i), reader.getSetRarity(String.valueOf(i)));
         }
-        for (int i = 301; i <= 301; i++) {
+        for (int i = 301; i < (301 + CardCounts.VIRTUAL_PREMIUM_SETS_CARD_COUNTS.length); i++) {
             _rarities.put(String.valueOf(i), reader.getSetRarity(String.valueOf(i)));
         }
 

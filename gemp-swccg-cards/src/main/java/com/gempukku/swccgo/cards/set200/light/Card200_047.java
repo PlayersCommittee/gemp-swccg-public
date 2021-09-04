@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card200_047 extends AbstractNormalEffect {
     public Card200_047() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Wokling", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Wokling, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Every Ewok is taught to be protective of the younger members of their clan.");
         setGameText("Unless Massassi Throne Room on table, deploy on table. Your total Force generation is +1. Once per game, may use 3 Force to [upload] an Effect that has no deploy cost and deploys on another card. May place this Effect out of play to retrieve 1 Force. [Immune to Alter.]");

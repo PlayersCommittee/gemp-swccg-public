@@ -44,7 +44,7 @@ public class Card215_027 extends AbstractNormalEffect {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         final Filter transportVehicle = Filters.transport_vehicle;
-        final Filter alienWithVehicleInGametext = Filters.and(Filters.alien, Filters.gameTextContains("vehicle"));
+        final Filter alienWithVehicleInGametext = Filters.and(Filters.alien, Filters.or(Filters.gameTextContains("vehicle"), Filters.gameTextContains("vehicles")));
         Filter filter = Filters.and(Filters.or(alienWithVehicleInGametext, transportVehicle), Filters.isUniquenessOnTableNotReached);
 
         GameTextActionId gameTextActionId = GameTextActionId.UBRIKKIAN_INDUSTRIES__DEPLOY_VEHICLE_OR_ALIEN;

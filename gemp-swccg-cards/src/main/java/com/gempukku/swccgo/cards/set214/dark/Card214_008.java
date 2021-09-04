@@ -97,9 +97,9 @@ public class Card214_008 extends AbstractDarkJediMasterFirstOrder {
             action.appendUsage(
                     new OncePerGameEffect(action));
             action.appendEffect(
-                    new PreventEffectOnCardEffect(action, ((AboutToLeaveTableResult) effectResult).getPreventableCardEffect(), self, null));
-            action.appendEffect(
                     new ReturnCardToHandFromTableEffect(action, self));
+            action.appendEffect(
+                    new PreventEffectOnCardEffect(action, ((AboutToLeaveTableResult) effectResult).getPreventableCardEffect(), self, null));
             return Collections.singletonList(action);
         }
         return null;

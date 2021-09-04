@@ -15,7 +15,8 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 public class StackedEvaluator extends BaseEvaluator {
     private Integer _permCardId;
     private Integer _permSourceCardId;
-    private Filter _filters;
+    private Filter _stackedOnFilter;
+    private Filter _stackedCardFilter;
 
     /**
      * Creates an evaluator that returns the number of cards stacked on the specified card.
@@ -28,11 +29,24 @@ public class StackedEvaluator extends BaseEvaluator {
     /**
      * Creates an evaluator that returns the number of cards stacked on cards accepted by the specified filter.
      * @param source the card that is creating this evaluator
-     * @param filters the filter
+     * @param stackedOnFilter the filter
      */
-    public StackedEvaluator(PhysicalCard source, Filterable filters) {
+    public StackedEvaluator(PhysicalCard source, Filterable stackedOnFilter) {
         _permSourceCardId = source.getPermanentCardId();
-        _filters = Filters.and(filters);
+        _stackedOnFilter = Filters.and(stackedOnFilter);
+        _stackedCardFilter = Filters.any;
+    }
+
+    /**
+     * Creates an evaluator that returns the number of cards accepted by stackedCardFilter are stacked on cards accepted by stackedOnFilter
+     * @param source the card that is creating this evaluator
+     * @param stackedOnFilter the filter
+     * @param stackedCardFilter filter for cards that are stacked
+     */
+    public StackedEvaluator(PhysicalCard source, Filterable stackedOnFilter, Filterable stackedCardFilter) {
+        _permSourceCardId = source.getPermanentCardId();
+        _stackedOnFilter = Filters.and(stackedOnFilter);
+        _stackedCardFilter = Filters.and(stackedCardFilter);
     }
 
     @Override
@@ -43,6 +57,6 @@ public class StackedEvaluator extends BaseEvaluator {
         if (card != null) {
             return gameState.getStackedCards(card).size();
         }
-        return Filters.countStacked(gameState.getGame(), Filters.stackedOn(source, _filters));
+        return Filters.countStacked(gameState.getGame(), Filters.and(Filters.stackedOn(source, _stackedOnFilter), _stackedCardFilter));
     }
 }

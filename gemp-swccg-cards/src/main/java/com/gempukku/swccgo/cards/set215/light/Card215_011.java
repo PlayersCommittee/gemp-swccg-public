@@ -1,13 +1,18 @@
 package com.gempukku.swccgo.cards.set215.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.modifiers.*;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,8 +44,25 @@ public class Card215_011 extends AbstractRebel {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Kylo, Filters.here(self))));
-        modifiers.add(new AddsDestinyToPowerModifier(self, new WithCondition(self, Filters.or(Filters.Chewie, Filters.and(Filters.icon(Icon.ENDOR), Filters.Leia))), 1));
-        modifiers.add(new DestinyModifier(self, Filters.and(Filters.your(self.getOwner()), Filters.icon(Icon.ENDOR), Filters.scout), 1));
+        modifiers.add(new DestinyModifier(self, Filters.and(Icon.ENDOR, Filters.scout), 1));
         return modifiers;
+    }
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        if (GameConditions.isDuringBattleWithParticipant(game, self)
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.or(Filters.Chewie, Filters.and(Icon.ENDOR, Filters.Leia)))) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Add one destiny to total power");
+            action.appendUsage(new OncePerBattleEffect(action));
+            action.appendEffect(new AddDestinyToTotalPowerEffect(action, 1, playerId));
+
+            return Collections.singletonList(action);
+        }
+
+        return null;
     }
 }

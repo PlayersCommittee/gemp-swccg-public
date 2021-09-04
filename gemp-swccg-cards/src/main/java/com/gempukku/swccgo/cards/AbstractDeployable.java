@@ -2179,6 +2179,10 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         if (!Filters.or(Filters.squadron, Filters.character).accepts(game, self)) {
             return null;
         }
+        if (game.getModifiersQuerying().isUniquenessOnTableLimitReached(game.getGameState(), self)) {
+            return null;
+        }
+
         Filter replacementFilter = self.getBlueprint().getReplacementFilterForSquadron();
         Integer replacementCount = self.getBlueprint().getReplacementCountForSquadron();
         if (replacementFilter == null || replacementCount == null) {

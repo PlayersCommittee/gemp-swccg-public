@@ -26,16 +26,6 @@ public class AtLeastNumberOfAlienSpeciesOnTableCondition implements Condition {
 
     @Override
     public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return getNumberOfSpecies() >= _compareValue;
-    }
-
-    private int getNumberOfSpecies() {
-        int numSpecies = 0;
-        for (Species species : Species.values()) {
-            if (GameConditions.canSpot(_game, _self, 1, false, Filters.and(Filters.species(species), Filters.alien, Filters.your(_self.getOwner())))) {
-                numSpecies++;
-            }
-        }
-        return numSpecies;
+        return GameConditions.countSpeciesOnTable(_game, _self.getOwner()) >= _compareValue;
     }
 }

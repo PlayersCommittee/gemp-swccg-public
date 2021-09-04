@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card14_105 extends AbstractUsedInterrupt {
     public Card14_105() {
-        super(Side.DARK, 5, "Rolling, Rolling, Rolling", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Rolling_Rolling_Rolling, Uniqueness.UNIQUE);
         setLore("The Colicoids from Colla IV modeled destroyer droids after themselves in that they can roll up into a ball and move swiftly into a conflict.");
         setGameText("Take any non-unique destroyer droid into hand from Reserve Deck; reshuffle. OR During your deploy phase, relocate your destroyer droid to an adjacent site.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

@@ -76,7 +76,8 @@ public class SortAndFilterCards {
             if (product == null
                     || "card".equals(product)
                     || ("foil".equals(product) && isFoil(blueprintId))
-                    || ("nonFoil".equals(product) && !isFoil(blueprintId))) {
+                    || ("nonFoil".equals(product) && !isFoil(blueprintId))
+                    || ("virtualAI".equals(product) && isVirtualAI(blueprintId))) {
                 try {
                     String blueprintIdToCheck = blueprintId;
 
@@ -1147,6 +1148,15 @@ public class SortAndFilterCards {
      */
     private static boolean isFoil(String blueprintId) {
         return blueprintId.endsWith("*");
+    }
+
+    /**
+     * Determines if the blueprint id is for a virtual alternate image.
+     * @param blueprintId the blueprint id
+     * @return true or false
+     */
+    private static boolean isVirtualAI(String blueprintId) {
+        return blueprintId.endsWith("^");
     }
 
     private static class PacksFirstComparator implements Comparator<CardItem> {

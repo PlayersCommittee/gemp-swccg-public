@@ -86,7 +86,7 @@ public class Card215_003 extends AbstractDroid {
 
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isWith(game, self, Filters.Rebel)
-                && GameConditions.isAtLocation(game, self, Filters.interior_mobile_site)) {
+                && GameConditions.isAtLocation(game, self, Filters.and(Filters.interior_mobile_site, Filters.battleground))) {
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Make opponent lose 1 force");
             action.setActionMsg("Make opponent lose 1 force");
@@ -112,7 +112,7 @@ public class Card215_003 extends AbstractDroid {
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
                 && GameConditions.isWith(game, self, Filters.Rebel)
-                && GameConditions.isAtLocation(game, self, Filters.interior_mobile_site)) {
+                && GameConditions.isAtLocation(game, self, Filters.and(Filters.interior_mobile_site, Filters.battleground))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setPerformingPlayer(playerId);

@@ -5,17 +5,14 @@ import com.gempukku.swccgo.game.DefaultCardCollection;
 import com.gempukku.swccgo.game.MutableCardCollection;
 import com.gempukku.swccgo.packagedProduct.ProductName;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Contains the sealed league product to use for sealed leagues.
  */
 public class SealedLeagueProduct {
     private Map<String, List<CardCollection>> _collections = new HashMap<String, List<CardCollection>>();
-
+    private Map<String, List<List<PoolIntPair>>> _fixedFromPool = new HashMap<>();
     /**
      * Creates the sealed league project to use for sealed leagues.
      */
@@ -24,6 +21,8 @@ public class SealedLeagueProduct {
         createJpSealed();
         createEndorDsIISealed();
         createEpisodeISealed();
+        createAllOfTheJediSealed();
+        createNoveltySealed();
         createWattosCubeWithObjective();
         createWattosCubeWithFixed();
     }
@@ -106,8 +105,6 @@ public class SealedLeagueProduct {
         firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK,5);
         firstWeek.addItem("13_74",1); //Lord Maul
         firstWeek.addItem("13_33",1); //Obi-Wan Kenobi, Jedi Knight
-        firstWeek.addItem("11_97",1); //Sebulba's Podracer
-        firstWeek.addItem("11_47",1); //Anakin's Podracer
         firstWeek.addItem("14_114",1); //Blockade Flagship
         firstWeek.addItem("12_184",2); //Trade Federation Battleship
         firstWeek.addItem("12_91",1); //Queen's Royal Starship
@@ -146,6 +143,293 @@ public class SealedLeagueProduct {
         episodeISealed.add(secondWeek);
 
         _collections.put(SealedLeagueType.EPISODE_I_SEALED.getSealedCode(), episodeISealed);
+    }
+
+    /**
+     * Creates the collection of products to use for All Of The Jedi sealed
+     */
+    private void createAllOfTheJediSealed() {
+
+        //  All Of The Jedi (2 series)
+        //  series 1 = 2x each Decipher booster pack, some locations pulled from fixed pools
+        //  series 2 = 1x each Decipher booster pack
+
+        List<CardCollection> noveltySealed = new ArrayList<CardCollection>();
+        List<List<PoolIntPair>> pools = new LinkedList<>();
+
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        //first week
+        firstWeek.addItem(ProductName.PREMIERE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.A_NEW_HOPE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.HOTH_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.DAGOBAH_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.CLOUD_CITY_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.JABBAS_PALACE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.SPECIAL_EDITION_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.ENDOR_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.DEATH_STAR_II_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.REFLECTIONS_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.REFLECTIONS_II_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK, 2);
+
+        firstWeek.addItem("6_160",1); //Twi'lek Advisor
+        firstWeek.addItem("6_77",1); //The Signal
+
+
+        noveltySealed.add(firstWeek);
+
+        List<String> darkSitePool = new LinkedList<>();
+        List<String> darkSystemPool = new LinkedList<>();
+        List<String> lightSitePool = new LinkedList<>();
+        List<String> lightSystemPool = new LinkedList<>();
+
+        darkSitePool.add("5_166"); //Cloud City: Carbonite Chamber
+        darkSitePool.add("7_269"); //Cloud City: Casino
+        darkSitePool.add("5_167"); //Cloud City: Chasm Walkway
+        darkSitePool.add("7_273"); //Cloud City: Upper Walkway
+        darkSitePool.add("7_274"); //Cloud City: West Gallery
+        darkSitePool.add("8_158"); //Endor: Ancient Forest
+        darkSitePool.add("8_161"); //Endor: Dark Forest
+        darkSitePool.add("8_162"); //Endor: Dense Forest
+        darkSitePool.add("112_12"); //Jabba's Palace: Lower Passages
+        darkSitePool.add("12_172"); //Naboo: Theed Palace Courtyard
+        darkSitePool.add("12_174"); //Naboo: Theed Palace Throne Room
+        darkSitePool.add("1_295"); //Tatooine: Mos Eisley
+        darkSitePool.add("11_93"); //Tatooine: Mos Espa
+        darkSitePool.add("12_178"); //Tatooine: Watto's Junkyard
+        darkSystemPool.add("4_154"); //Anoat
+        darkSystemPool.add("5_164"); //Bespin
+        darkSystemPool.add("8_156"); //Carida
+        darkSystemPool.add("106_12"); //Corulag
+        darkSystemPool.add("12_165"); //Coruscant
+        darkSystemPool.add("7_283"); //Fondor
+        darkSystemPool.add("3_143"); //Hoth
+        darkSystemPool.add("12_168"); //Malastare
+        darkSystemPool.add("9_149"); //Mon Calamari
+        darkSystemPool.add("6_168"); //Nal Hutta
+        darkSystemPool.add("4_164"); //Raithal
+        darkSystemPool.add("7_287"); //Rendili
+        darkSystemPool.add("1_289"); //Tatooine
+        darkSystemPool.add("12_175"); //Tatooine
+        darkSystemPool.add("1_296"); //Yavin 4
+        lightSitePool.add("7_111"); //Cloud City: Casino
+        lightSitePool.add("5_80"); //Cloud City: Guest Quarters
+        lightSitePool.add("7_114"); //Cloud City: North Corridor
+        lightSitePool.add("7_115"); //Cloud City: West Gallery
+        lightSitePool.add("8_72"); //Endor: Dense Forest
+        lightSitePool.add("8_75"); //Endor: Hidden Forest Trail
+        lightSitePool.add("8_77"); //Endor: Rebel Landing Site (Forest)
+        lightSitePool.add("112_2"); //Jabba's Palace: Antechamber
+        lightSitePool.add("6_81"); //Jabba's Palace: Audience Chamber
+        lightSitePool.add("12_81"); //Naboo: Theed Palace Courtyard
+        lightSitePool.add("12_83"); //Naboo: Theed Palace Throne Room
+        lightSitePool.add("112_9"); //Tatooine: Hutt Trade Route (Desert)
+        lightSitePool.add("7_131"); //Tatooine: Jabba's Palace
+        lightSitePool.add("1_132"); //Tatooine: Lars' Moisture Farm
+        lightSitePool.add("1_133"); //Tatooine: Mos Eisley
+        lightSitePool.add("11_43"); //Tatooine: Mos Espa
+        lightSystemPool.add("4_80"); //Anoat
+        lightSystemPool.add("5_76"); //Bespin
+        lightSystemPool.add("7_110"); //Bothawui
+        lightSystemPool.add("8_67"); //Chandrila
+        lightSystemPool.add("106_2"); //Corulag
+        lightSystemPool.add("12_73"); //Coruscant
+        lightSystemPool.add("8_68"); //Endor
+        lightSystemPool.add("3_55"); //Hoth
+        lightSystemPool.add("2_64"); //Kashyyyk
+        lightSystemPool.add("12_77"); //Malastare
+        lightSystemPool.add("9_59"); //Mon Calamari
+        lightSystemPool.add("4_90"); //Raithal
+        lightSystemPool.add("9_60"); //Sullust
+        lightSystemPool.add("1_127"); //Tatooine
+        lightSystemPool.add("12_84"); //Tatooine
+        lightSystemPool.add("1_135"); //Yavin 4
+
+
+        List<PoolIntPair> firstWeekPools = new LinkedList<>();
+        firstWeekPools.add(new PoolIntPair(darkSitePool, 1));
+        firstWeekPools.add(new PoolIntPair(darkSystemPool, 1));
+        firstWeekPools.add(new PoolIntPair(lightSitePool, 1));
+        firstWeekPools.add(new PoolIntPair(lightSystemPool, 1));
+
+        pools.add(firstWeekPools);
+
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        //second week
+        secondWeek.addItem(ProductName.PREMIERE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.A_NEW_HOPE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.HOTH_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.DAGOBAH_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.CLOUD_CITY_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.JABBAS_PALACE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.SPECIAL_EDITION_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.ENDOR_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.DEATH_STAR_II_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.REFLECTIONS_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.REFLECTIONS_II_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK, 1);
+
+        noveltySealed.add(secondWeek);
+
+        List<PoolIntPair> secondWeekPools = new LinkedList<>();
+        //nothing
+        pools.add(secondWeekPools);
+
+        _fixedFromPool.put(SealedLeagueType.ALL_OF_THE_JEDI_SEALED.getSealedCode(), pools);
+
+        _collections.put(SealedLeagueType.ALL_OF_THE_JEDI_SEALED.getSealedCode(), noveltySealed);
+    }
+
+    /**
+     * Creates the collection of products to use for novelty sealed
+     */
+    private void createNoveltySealed() {
+
+        //current novelty sealed:
+        //  All Of The Jedi (2 series)
+        //  series 1 = 2x each Decipher booster pack, some locations pulled from fixed pools
+        //  series 2 = 1x each Decipher booster pack
+
+        List<CardCollection> noveltySealed = new ArrayList<CardCollection>();
+        List<List<PoolIntPair>> pools = new LinkedList<>();
+
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        //first week
+        firstWeek.addItem(ProductName.PREMIERE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.A_NEW_HOPE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.HOTH_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.DAGOBAH_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.CLOUD_CITY_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.JABBAS_PALACE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.SPECIAL_EDITION_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.ENDOR_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.DEATH_STAR_II_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.REFLECTIONS_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.REFLECTIONS_II_BOOSTER_PACK, 2);
+        firstWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK, 2);
+
+        firstWeek.addItem("6_160",1); //Twi'lek Advisor
+        firstWeek.addItem("6_77",1); //The Signal
+
+
+        noveltySealed.add(firstWeek);
+
+        List<String> darkSitePool = new LinkedList<>();
+        List<String> darkSystemPool = new LinkedList<>();
+        List<String> lightSitePool = new LinkedList<>();
+        List<String> lightSystemPool = new LinkedList<>();
+
+        darkSitePool.add("5_166"); //Cloud City: Carbonite Chamber
+        darkSitePool.add("7_269"); //Cloud City: Casino
+        darkSitePool.add("5_167"); //Cloud City: Chasm Walkway
+        darkSitePool.add("7_273"); //Cloud City: Upper Walkway
+        darkSitePool.add("7_274"); //Cloud City: West Gallery
+        darkSitePool.add("8_158"); //Endor: Ancient Forest
+        darkSitePool.add("8_161"); //Endor: Dark Forest
+        darkSitePool.add("8_162"); //Endor: Dense Forest
+        darkSitePool.add("112_12"); //Jabba's Palace: Lower Passages
+        darkSitePool.add("12_172"); //Naboo: Theed Palace Courtyard
+        darkSitePool.add("12_174"); //Naboo: Theed Palace Throne Room
+        darkSitePool.add("1_295"); //Tatooine: Mos Eisley
+        darkSitePool.add("11_93"); //Tatooine: Mos Espa
+        darkSitePool.add("12_178"); //Tatooine: Watto's Junkyard
+        darkSystemPool.add("4_154"); //Anoat
+        darkSystemPool.add("5_164"); //Bespin
+        darkSystemPool.add("8_156"); //Carida
+        darkSystemPool.add("106_12"); //Corulag
+        darkSystemPool.add("12_165"); //Coruscant
+        darkSystemPool.add("7_283"); //Fondor
+        darkSystemPool.add("3_143"); //Hoth
+        darkSystemPool.add("12_168"); //Malastare
+        darkSystemPool.add("9_149"); //Mon Calamari
+        darkSystemPool.add("6_168"); //Nal Hutta
+        darkSystemPool.add("4_164"); //Raithal
+        darkSystemPool.add("7_287"); //Rendili
+        darkSystemPool.add("1_289"); //Tatooine
+        darkSystemPool.add("12_175"); //Tatooine
+        darkSystemPool.add("1_296"); //Yavin 4
+        lightSitePool.add("7_111"); //Cloud City: Casino
+        lightSitePool.add("5_80"); //Cloud City: Guest Quarters
+        lightSitePool.add("7_114"); //Cloud City: North Corridor
+        lightSitePool.add("7_115"); //Cloud City: West Gallery
+        lightSitePool.add("8_72"); //Endor: Dense Forest
+        lightSitePool.add("8_75"); //Endor: Hidden Forest Trail
+        lightSitePool.add("8_77"); //Endor: Rebel Landing Site (Forest)
+        lightSitePool.add("112_2"); //Jabba's Palace: Antechamber
+        lightSitePool.add("6_81"); //Jabba's Palace: Audience Chamber
+        lightSitePool.add("12_81"); //Naboo: Theed Palace Courtyard
+        lightSitePool.add("12_83"); //Naboo: Theed Palace Throne Room
+        lightSitePool.add("112_9"); //Tatooine: Hutt Trade Route (Desert)
+        lightSitePool.add("7_131"); //Tatooine: Jabba's Palace
+        lightSitePool.add("1_132"); //Tatooine: Lars' Moisture Farm
+        lightSitePool.add("1_133"); //Tatooine: Mos Eisley
+        lightSitePool.add("11_43"); //Tatooine: Mos Espa
+        lightSystemPool.add("4_80"); //Anoat
+        lightSystemPool.add("5_76"); //Bespin
+        lightSystemPool.add("7_110"); //Bothawui
+        lightSystemPool.add("8_67"); //Chandrila
+        lightSystemPool.add("106_2"); //Corulag
+        lightSystemPool.add("12_73"); //Coruscant
+        lightSystemPool.add("8_68"); //Endor
+        lightSystemPool.add("3_55"); //Hoth
+        lightSystemPool.add("2_64"); //Kashyyyk
+        lightSystemPool.add("12_77"); //Malastare
+        lightSystemPool.add("9_59"); //Mon Calamari
+        lightSystemPool.add("4_90"); //Raithal
+        lightSystemPool.add("9_60"); //Sullust
+        lightSystemPool.add("1_127"); //Tatooine
+        lightSystemPool.add("12_84"); //Tatooine
+        lightSystemPool.add("1_135"); //Yavin 4
+
+
+        List<PoolIntPair> firstWeekPools = new LinkedList<>();
+        firstWeekPools.add(new PoolIntPair(darkSitePool, 1));
+        firstWeekPools.add(new PoolIntPair(darkSystemPool, 1));
+        firstWeekPools.add(new PoolIntPair(lightSitePool, 1));
+        firstWeekPools.add(new PoolIntPair(lightSystemPool, 1));
+
+        pools.add(firstWeekPools);
+
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        //second week
+        secondWeek.addItem(ProductName.PREMIERE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.A_NEW_HOPE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.HOTH_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.DAGOBAH_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.CLOUD_CITY_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.JABBAS_PALACE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.SPECIAL_EDITION_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.ENDOR_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.DEATH_STAR_II_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.TATOOINE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.CORUSCANT_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.THEED_PALACE_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.REFLECTIONS_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.REFLECTIONS_II_BOOSTER_PACK, 1);
+        secondWeek.addItem(ProductName.REFLECTIONS_III_BOOSTER_PACK, 1);
+
+        noveltySealed.add(secondWeek);
+
+        List<PoolIntPair> secondWeekPools = new LinkedList<>();
+        //nothing
+        pools.add(secondWeekPools);
+
+        _fixedFromPool.put(SealedLeagueType.NOVELTY_SEALED.getSealedCode(), pools);
+
+        _collections.put(SealedLeagueType.NOVELTY_SEALED.getSealedCode(), noveltySealed);
     }
 
     /**
@@ -208,6 +492,40 @@ public class SealedLeagueProduct {
      * @return the collection
      */
     public CardCollection getCollectionForSeries(String leagueCode, int seriesIndex) {
-        return _collections.get(leagueCode).get(seriesIndex);
+        if (_fixedFromPool.get(leagueCode)==null) {
+            return _collections.get(leagueCode).get(seriesIndex);
+        } else {
+            MutableCardCollection collection = new DefaultCardCollection(_collections.get(leagueCode).get(seriesIndex));
+            if (_fixedFromPool.get(leagueCode).get(seriesIndex)!=null) {
+                for (PoolIntPair pair : _fixedFromPool.get(leagueCode).get(seriesIndex)) {
+                    List<String> pool = new LinkedList(pair.getPool());
+                    Collections.shuffle(pool);
+                    for (int i = 0; i < pair.getCount(); i++) {
+                        if (pool.get(i) != null) {
+                            collection.addItem(pool.get(i), 1);
+                        }
+                    }
+                }
+            }
+            return collection;
+        }
+    }
+
+    private class PoolIntPair {
+        private List<String> _cards;
+        private int _toAdd;
+        public PoolIntPair(List<String> cards, int toAdd) {
+            _cards = new LinkedList<>();
+            _cards.addAll(cards);
+            _toAdd = toAdd;
+        }
+
+        public List<String> getPool() {
+            return _cards;
+        }
+
+        public int getCount() {
+            return _toAdd;
+        }
     }
 }

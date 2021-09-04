@@ -75,6 +75,7 @@ public class Card6_064 extends AbstractUsedOrLostInterrupt {
 
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, opponent)
+                && GameConditions.canCancelDestiny(game, playerId)
                 && GameConditions.canTarget(game, self, filter)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
