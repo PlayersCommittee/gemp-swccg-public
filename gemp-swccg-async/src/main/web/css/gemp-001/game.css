@@ -463,3 +463,9 @@ body {
     vertical-align: top;
     font-size: 75%;
 }
+
+.previewImage {
+    position: absolute;
+    z-index: 1099;
+    pointer-events: none;
+}

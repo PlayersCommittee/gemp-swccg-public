@@ -1,134 +1,151 @@
+var is_touch_device = 'ontouchstart' in document.documentElement;
+
+if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function (searchString, position) {
+        var subjectString = this.toString();
+        if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+            position = subjectString.length;
+        }
+        position -= searchString.length;
+        var lastIndex = subjectString.indexOf(searchString, position);
+        return lastIndex !== -1 && lastIndex === position;
+    };
+}
+
 var GempSwccgGameUI = Class.extend({
-    padding:1,
+    padding: 1,
 
-    gameUiInitialized:false,
+    gameUiInitialized: false,
 
-    bottomPlayerId:null,
-    bottomPlayerIndex:null,
-    replayMode:null,
-    spectatorMode:null,
+    bottomPlayerId: null,
+    bottomPlayerIndex: null,
+    replayMode: null,
+    spectatorMode: null,
 
-    currentPlayerId:null,
-    allPlayerIds:[],
+    currentPlayerId: null,
+    allPlayerIds: [],
 
-    cardActionDialog:null,
-    smallDialog:null,
-    gameStateElem:null,
-    alertBox:null,
-    alertText:null,
-    alertTextMsg:null,
-    alertButtons:null,
-    mouseInAlertBox:false,
-    infoDialog:null,
+    cardActionDialog: null,
+    smallDialog: null,
+    gameStateElem: null,
+    alertBox: null,
+    alertText: null,
+    alertTextMsg: null,
+    alertButtons: null,
+    mouseInAlertBox: false,
+    infoDialog: null,
 
-    sideOfTableOpponent:null,
-    sideOfTablePlayer:null,
+    sideOfTableOpponent: null,
+    sideOfTablePlayer: null,
 
-    hand:null,
-    sabaccHand:null,
-    showSabaccHand:false,
-    revealedSabaccHandPlayer:null,
-    revealedSabaccHandOpponent:null,
-    showRevealedSabaccHands:false,
-    darkSabaccHandTotal:null,
-    lightSabaccHandTotal:null,
-    darkRevealedSabaccHandTotal:null,
-    lightRevealedSabaccHandTotal:null,
+    hand: null,
+    sabaccHand: null,
+    showSabaccHand: false,
+    revealedSabaccHandPlayer: null,
+    revealedSabaccHandOpponent: null,
+    showRevealedSabaccHands: false,
+    darkSabaccHandTotal: null,
+    lightSabaccHandTotal: null,
+    darkRevealedSabaccHandTotal: null,
+    lightRevealedSabaccHandTotal: null,
 
-    extraActionsGroup:null,
-    specialGroup:null,
-    topOfReserveDeckPlayer:null,
-    topOfForcePilePlayer:null,
-    topOfUsedPilePlayer:null,
-    topOfLostPilePlayer:null,
-    topOfDrawnDestinyPlayer:null,
-    topOfReserveDeckOpponent:null,
-    topOfForcePileOpponent:null,
-    topOfUsedPileOpponent:null,
-    topOfLostPileOpponent:null,
-    topOfDrawnDestinyOpponent:null,
-    extraActionsGroupOpponent:null,
+    extraActionsGroup: null,
+    specialGroup: null,
+    topOfReserveDeckPlayer: null,
+    topOfForcePilePlayer: null,
+    topOfUsedPilePlayer: null,
+    topOfLostPilePlayer: null,
+    topOfDrawnDestinyPlayer: null,
+    topOfReserveDeckOpponent: null,
+    topOfForcePileOpponent: null,
+    topOfUsedPileOpponent: null,
+    topOfLostPileOpponent: null,
+    topOfDrawnDestinyOpponent: null,
+    extraActionsGroupOpponent: null,
 
-    locationDivs:null,
-    locationCardGroups:null,
-    playerSideOfLocationGroups:null,
-    opponentSideOfLocationGroups:null,
-    darkPowerAtLocationDivs:null,
-    lightPowerAtLocationDivs:null,
-    outOfPlayPileDialogs:null,
-    outOfPlayPileGroups:null,
+    locationDivs: null,
+    locationCardGroups: null,
+    playerSideOfLocationGroups: null,
+    opponentSideOfLocationGroups: null,
+    darkPowerAtLocationDivs: null,
+    lightPowerAtLocationDivs: null,
+    outOfPlayPileDialogs: null,
+    outOfPlayPileGroups: null,
 
-    zoomedInLocationIndex:null,
-    clickToZoomLocationDisabled:false,
+    zoomedInLocationIndex: null,
+    clickToZoomLocationDisabled: false,
 
-    battleLocationIndex:null,
-    battleGroupDiv:null,
-    playerInBattleGroups:null,
-    opponentInBattleGroups:null,
-    darkBattlePowerDiv:null,
-    lightBattlePowerDiv:null,
-    darkBattleNumDestinyToPowerDiv:null,
-    lightBattleNumDestinyToPowerDiv:null,
-    darkBattleNumBattleDestinyDiv:null,
-    lightBattleNumBattleDestinyDiv:null,
-    darkBattleNumDestinyToAttritionDiv:null,
-    lightBattleNumDestinyToAttritionDiv:null,
-    darkBattleDamageRemainingDiv:null,
-    lightBattleDamageRemainingDiv:null,
-    darkBattleAttritionRemainingDiv:null,
-    lightBattleAttritionRemainingDiv:null,
+    battleLocationIndex: null,
+    battleGroupDiv: null,
+    playerInBattleGroups: null,
+    opponentInBattleGroups: null,
+    darkBattlePowerDiv: null,
+    lightBattlePowerDiv: null,
+    darkBattleNumDestinyToPowerDiv: null,
+    lightBattleNumDestinyToPowerDiv: null,
+    darkBattleNumBattleDestinyDiv: null,
+    lightBattleNumBattleDestinyDiv: null,
+    darkBattleNumDestinyToAttritionDiv: null,
+    lightBattleNumDestinyToAttritionDiv: null,
+    darkBattleDamageRemainingDiv: null,
+    lightBattleDamageRemainingDiv: null,
+    darkBattleAttritionRemainingDiv: null,
+    lightBattleAttritionRemainingDiv: null,
 
-    attackLocationIndex:null,
-    playerIdAttacking:null,
-    playerIdDefending:null,
-    attackGroupDiv:null,
-    attackingInAttackGroups:null,
-    defendingInAttackGroups:null,
-    attackingPowerOrFerocityInAttackDiv:null,
-    defendingPowerOrFerocityInAttackDiv:null,
-    attackingNumDestinyInAttackDiv:null,
-    defendingNumDestinyInAttackDiv:null,
+    attackLocationIndex: null,
+    playerIdAttacking: null,
+    playerIdDefending: null,
+    attackGroupDiv: null,
+    attackingInAttackGroups: null,
+    defendingInAttackGroups: null,
+    attackingPowerOrFerocityInAttackDiv: null,
+    defendingPowerOrFerocityInAttackDiv: null,
+    attackingNumDestinyInAttackDiv: null,
+    defendingNumDestinyInAttackDiv: null,
 
-    duelOrLightsaberCombatLocationIndex:null,
-    duelOrLightsaberCombatGroupDiv:null,
-    playerInDuelOrLightsaberCombatGroups:null,
-    opponentInDuelOrLightsaberCombatGroups:null,
-    darkDuelOrLightsaberCombatTotalDiv:null,
-    lightDuelOrLightsaberCombatTotalDiv:null,
-    darkDuelOrLightsaberCombatNumDestinyDiv:null,
-    lightDuelOrLightsaberCombatNumDestinyDiv:null,
+    duelOrLightsaberCombatLocationIndex: null,
+    duelOrLightsaberCombatGroupDiv: null,
+    playerInDuelOrLightsaberCombatGroups: null,
+    opponentInDuelOrLightsaberCombatGroups: null,
+    darkDuelOrLightsaberCombatTotalDiv: null,
+    lightDuelOrLightsaberCombatTotalDiv: null,
+    darkDuelOrLightsaberCombatNumDestinyDiv: null,
+    lightDuelOrLightsaberCombatNumDestinyDiv: null,
 
-    selectionFunction:null,
+    selectionFunction: null,
     decisionCountdownId: 0,
     decisionTimeoutFunction: null,
     isDecisionDuringYourTurn: false,
     decisionCountdownInProgress: false,
     decisionCountdownReadyToRestart: false,
 
-    chatBoxDiv:null,
-    chatBox:null,
-    communication:null,
-    channelNumber:null,
+    chatBoxDiv: null,
+    chatBox: null,
+    communication: null,
+    channelNumber: null,
 
-    settingsAutoAccept:false,
-    settingsAlwaysDropDown:false,
-    settingsAutoPassYourTurnEnabled:false,
-    settingsAutoPassYourTurnCountdown:5,
-    settingsAutoPassOpponentsTurnEnabled:true,
-    settingsAutoPassOpponentsTurnCountdown:2,
-    settingsMimicDecisionDelayEnabled:false,
-    settingsMimicDecisionDelayTime:1,
+    previewImageBlueprintId: "0",
+
+    settingsAutoAccept: false,
+    settingsAlwaysDropDown: false,
+    settingsAutoPassYourTurnEnabled: false,
+    settingsAutoPassYourTurnCountdown: 5,
+    settingsAutoPassOpponentsTurnEnabled: true,
+    settingsAutoPassOpponentsTurnCountdown: 2,
+    settingsMimicDecisionDelayEnabled: false,
+    settingsMimicDecisionDelayTime: 1,
     settingsCardActionsSilent: false,
+    settingsShowPreviewImage: true,
 
-    windowWidth:null,
-    windowHeight:null,
+    windowWidth: null,
+    windowHeight: null,
 
-    tabPane:null,
+    tabPane: null,
 
-    animations:null,
+    animations: null,
     replayPlay: false,
 
-    init:function (url, replayMode) {
+    init: function (url, replayMode) {
         this.replayMode = replayMode;
 
         log("ui initialized");
@@ -137,22 +154,22 @@ var GempSwccgGameUI = Class.extend({
         this.animations = new GameAnimations(this);
 
         this.communication = new GempSwccgCommunication(url,
-                function (xhr, ajaxOptions, thrownError) {
-                    if (!that.replayMode && thrownError != "abort") {
-                        if (xhr != null) {
-                            if (xhr.status == 401) {
-                                that.chatBox.appendMessage("Game problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
-                                return;
-                            } else {
-                                that.chatBox.appendMessage("There was a problem communicating with the server (" + xhr.status + "), if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
-                                that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
-                                return;
-                            }
+            function (xhr, ajaxOptions, thrownError) {
+                if (!that.replayMode && thrownError != "abort") {
+                    if (xhr != null) {
+                        if (xhr.status == 401) {
+                            that.chatBox.appendMessage("Game problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
+                            return;
+                        } else {
+                            that.chatBox.appendMessage("There was a problem communicating with the server (" + xhr.status + "), if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
+                            that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
+                            return;
                         }
-                        that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
-                        that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
                     }
-                });
+                    that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
+                    that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
+                }
+            });
 
         $.expr[':'].cardId = function (obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
@@ -160,28 +177,28 @@ var GempSwccgGameUI = Class.extend({
             return (cardData != null && ($.inArray(cardData.cardId, cardIds) > -1));
         };
 
-         if (this.replayMode) {
-             var replayDiv = $("<div class='replay' style='position:absolute'></div>");
-             var slowerBut = $("<button id='slowerButton'>Slower</button>").button({ icons: {primary:'ui-icon-triangle-1-w'}, text: false});
-             var fasterBut = $("<button id='fasterButton'>Faster</button>").button({ icons: {primary:'ui-icon-triangle-1-e'}, text: false});
-             slowerBut.click(
-                     function() {
-                         that.animations.replaySpeed = Math.min(2, that.animations.replaySpeed + 0.2);
-                     });
-             fasterBut.click(
-                     function() {
-                         that.animations.replaySpeed = Math.max(0.2, that.animations.replaySpeed - 0.2);
-                     });
-             replayDiv.append(slowerBut);
-             replayDiv.append(fasterBut);
-             replayDiv.append("<br/>");
+        if (this.replayMode) {
+            var replayDiv = $("<div class='replay' style='position:absolute'></div>");
+            var slowerBut = $("<button id='slowerButton'>Slower</button>").button({ icons: { primary: 'ui-icon-triangle-1-w' }, text: false });
+            var fasterBut = $("<button id='fasterButton'>Faster</button>").button({ icons: { primary: 'ui-icon-triangle-1-e' }, text: false });
+            slowerBut.click(
+                function () {
+                    that.animations.replaySpeed = Math.min(2, that.animations.replaySpeed + 0.2);
+                });
+            fasterBut.click(
+                function () {
+                    that.animations.replaySpeed = Math.max(0.2, that.animations.replaySpeed - 0.2);
+                });
+            replayDiv.append(slowerBut);
+            replayDiv.append(fasterBut);
+            replayDiv.append("<br/>");
 
-             var replayBut = $("<img id='replayButton' src='images/play.png' width='64' height='64'>").button();
-             replayDiv.append(replayBut);
+            var replayBut = $("<img id='replayButton' src='images/play.png' width='64' height='64'>").button();
+            replayDiv.append(replayBut);
 
-             $("#main").append(replayDiv);
-             replayDiv.css({"z-index":1000});
-         }
+            $("#main").append(replayDiv);
+            replayDiv.css({ "z-index": 1000 });
+        }
 
         this.locationDivs = new Array();
         this.locationCardGroups = new Array();
@@ -201,9 +218,9 @@ var GempSwccgGameUI = Class.extend({
         this.initializeDialogs();
 
         this.addBottomLeftTabPane();
-   },
+    },
 
-    initializeGameUI:function () {
+    initializeGameUI: function () {
 
         var that = this;
         $('div').not('#main,.replay').remove();
@@ -240,14 +257,14 @@ var GempSwccgGameUI = Class.extend({
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             var outOfPlayPileDialog = $("<div></div>").dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:true,
-                title:"Out of play - " + this.allPlayerIds[i],
-                minHeight:80,
-                minWidth:200,
-                width:600,
-                height:300
+                autoOpen: false,
+                closeOnEscape: true,
+                resizable: true,
+                title: "Out of play - " + this.allPlayerIds[i],
+                minHeight: 80,
+                minWidth: 200,
+                width: 600,
+                height: 300
             });
             this.outOfPlayPileDialogs[this.allPlayerIds[i]] = outOfPlayPileDialog;
             this.outOfPlayPileGroups[this.allPlayerIds[i]] = new NormalCardGroup(outOfPlayPileDialog, function (card) {
@@ -284,132 +301,112 @@ var GempSwccgGameUI = Class.extend({
         $("#main").append(this.lightRevealedSabaccHandTotal);
 
         this.topOfReserveDeckPlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_RESERVE_DECK" && card.owner == that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "ReserveDeck");
-                 return true;
+            if (card.zone == "TOP_OF_RESERVE_DECK" && card.owner == that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "ReserveDeck");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "ReserveDeck");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "ReserveDeck");
+                return false;
             }
         });
 
         this.topOfForcePilePlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner == that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "ForcePile");
-                 return true;
+            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner == that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "ForcePile");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "ForcePile");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "ForcePile");
+                return false;
             }
         });
 
         this.topOfUsedPilePlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_USED_PILE" && card.owner == that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "UsedPile");
-                 return true;
+            if (card.zone == "TOP_OF_USED_PILE" && card.owner == that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "UsedPile");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "UsedPile");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "UsedPile");
+                return false;
             }
         });
 
         this.topOfLostPilePlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_LOST_PILE" && card.owner == that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "LostPile");
-                 return true;
+            if (card.zone == "TOP_OF_LOST_PILE" && card.owner == that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "LostPile");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "LostPile");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "LostPile");
+                return false;
             }
         });
 
         this.topOfDrawnDestinyPlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_UNRESOLVED_DESTINY_DRAW" && card.owner == that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "DrawnDestiny");
-                 return true;
+            if (card.zone == "TOP_OF_UNRESOLVED_DESTINY_DRAW" && card.owner == that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "DrawnDestiny");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "DrawnDestiny");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "DrawnDestiny");
+                return false;
             }
         });
 
         this.topOfReserveDeckOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_RESERVE_DECK" && card.owner != that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "ReserveDeck");
-                 return true;
+            if (card.zone == "TOP_OF_RESERVE_DECK" && card.owner != that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "ReserveDeck");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "ReserveDeck");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "ReserveDeck");
+                return false;
             }
         });
 
         this.topOfForcePileOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner != that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "ForcePile");
-                 return true;
+            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner != that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "ForcePile");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "ForcePile");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "ForcePile");
+                return false;
             }
         });
 
         this.topOfUsedPileOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_USED_PILE" && card.owner != that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "UsedPile");
-                 return true;
+            if (card.zone == "TOP_OF_USED_PILE" && card.owner != that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "UsedPile");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "UsedPile");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "UsedPile");
+                return false;
             }
         });
 
         this.topOfLostPileOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_LOST_PILE" && card.owner != that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "LostPile");
-                 return true;
+            if (card.zone == "TOP_OF_LOST_PILE" && card.owner != that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "LostPile");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "LostPile");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "LostPile");
+                return false;
             }
         });
 
         this.topOfDrawnDestinyOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_UNRESOLVED_DESTINY_DRAW" && card.owner != that.bottomPlayerId)
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "DrawnDestiny");
-                 return true;
+            if (card.zone == "TOP_OF_UNRESOLVED_DESTINY_DRAW" && card.owner != that.bottomPlayerId) {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "DrawnDestiny");
+                return true;
             }
-            else
-            {
-                 $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "DrawnDestiny");
-                 return false;
+            else {
+                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "DrawnDestiny");
+                return false;
             }
         });
 
@@ -441,7 +438,7 @@ var GempSwccgGameUI = Class.extend({
         this.specialGroup.setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
 
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
-        this.gameStateElem.css({"border-radius":"0px"});
+        this.gameStateElem.css({ "border-radius": "0px" });
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             var handClass = null;
@@ -465,66 +462,66 @@ var GempSwccgGameUI = Class.extend({
             }
 
             this.gameStateElem.append("<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div><div class='phase'></div>"
-                    + "<div class='playerStats'><div id='hand" + i + "' class='" + handClass + "'></div><div id='sabaccHand" + i + "' class='" + sabaccHandClass + "'></div><div id='showStats" + i + "' class='showStats'></div><div id='outOfPlay" + i + "' class='" + outOfPlayClass + "'></div><div id='forceGeneration" + i + "' class='" + forceGenerationClass + "'></div><div id='raceTotal" + i + "' class='" + raceTotalClass + "'></div></div></div>");
+                + "<div class='playerStats'><div id='hand" + i + "' class='" + handClass + "'></div><div id='sabaccHand" + i + "' class='" + sabaccHandClass + "'></div><div id='showStats" + i + "' class='showStats'></div><div id='outOfPlay" + i + "' class='" + outOfPlayClass + "'></div><div id='forceGeneration" + i + "' class='" + forceGenerationClass + "'></div><div id='raceTotal" + i + "' class='" + raceTotalClass + "'></div></div></div>");
         }
 
         $("#main").append(this.gameStateElem);
 
-//        for (var i = 0; i < this.allPlayerIds.length; i++) {
-//            var showBut = $("<div class='slimButton'>+</div>").button().click(
-//                    (function (playerIndex) {
-//                        return function () {
-//                            $(".player").each(
-//                                    function (index) {
-//                                        if (index == playerIndex) {
-//                                            if ($(this).hasClass("opened")) {
-//                                                $(this).removeClass("opened");
-//                                                $("#outOfPlay" + playerIndex).css({display:"none"});
-//                                                $("#forceGeneration" + playerIndex).css({display:"none"});
-//                                            } else {
-//                                                $(this).addClass("opened");
-//                                                $("#outOfPlay" + playerIndex).css({display:"table-cell"});
-//                                                $("#forceGeneration" + playerIndex).css({display:"table-cell"});
-//                                            }
-//                                        }
-//                                    });
-//                        };
-//                    })(i));
-//
-//            $("#showStats" + i).append(showBut);
-//        }
+        //        for (var i = 0; i < this.allPlayerIds.length; i++) {
+        //            var showBut = $("<div class='slimButton'>+</div>").button().click(
+        //                    (function (playerIndex) {
+        //                        return function () {
+        //                            $(".player").each(
+        //                                    function (index) {
+        //                                        if (index == playerIndex) {
+        //                                            if ($(this).hasClass("opened")) {
+        //                                                $(this).removeClass("opened");
+        //                                                $("#outOfPlay" + playerIndex).css({display:"none"});
+        //                                                $("#forceGeneration" + playerIndex).css({display:"none"});
+        //                                            } else {
+        //                                                $(this).addClass("opened");
+        //                                                $("#outOfPlay" + playerIndex).css({display:"table-cell"});
+        //                                                $("#forceGeneration" + playerIndex).css({display:"table-cell"});
+        //                                            }
+        //                                        }
+        //                                    });
+        //                        };
+        //                    })(i));
+        //
+        //            $("#showStats" + i).append(showBut);
+        //        }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             $("#outOfPlay" + i).addClass("clickable").click(
-                    (function (index) {
-                        return function () {
-                            openSizeDialog(that.outOfPlayPileDialogs[that.allPlayerIds[index]]);
-                        };
-                    })(i));
+                (function (index) {
+                    return function () {
+                        openSizeDialog(that.outOfPlayPileDialogs[that.allPlayerIds[index]]);
+                    };
+                })(i));
         }
 
         if (!this.spectatorMode) {
             this.alertBox = $("<div class='ui-widget-content'></div>");
-            this.alertBox.css({"border-radius":"0px"});
+            this.alertBox.css({ "border-radius": "0px" });
             this.alertBox.mouseenter(
-                       function (event) {
-                            that.mouseInAlertBox = true;
-                            if (!that.decisionCountdownInProgress && that.decisionCountdownReadyToRestart) {
-                                that.startDecisionCountdown(that.isDecisionDuringYourTurn, that.decisionTimeoutFunction);
-                            }
-                       }).mouseleave(
-                       function () {
-                            that.mouseInAlertBox = false;
-                            if (that.decisionCountdownInProgress) {
-                                that.suspendDecisionCountdown();
-                            }
-                       });
+                function (event) {
+                    that.mouseInAlertBox = true;
+                    if (!that.decisionCountdownInProgress && that.decisionCountdownReadyToRestart) {
+                        that.startDecisionCountdown(that.isDecisionDuringYourTurn, that.decisionTimeoutFunction);
+                    }
+                }).mouseleave(
+                    function () {
+                        that.mouseInAlertBox = false;
+                        if (that.decisionCountdownInProgress) {
+                            that.suspendDecisionCountdown();
+                        }
+                    });
 
             this.alertText = $("<div></div>");
-            this.alertText.css({position:"absolute", left:"0px", top:"0px", width:"100%", height:"50px", scroll:"auto"});
+            this.alertText.css({ position: "absolute", left: "0px", top: "0px", width: "100%", height: "50px", scroll: "auto" });
 
             this.alertButtons = $("<div class='alertButtons'></div>");
-            this.alertButtons.css({position:"absolute", left:"0px", bottom:"20px", width:"100%", height:"30px", scroll:"auto"});
+            this.alertButtons.css({ position: "absolute", left: "0px", bottom: "20px", width: "100%", height: "30px", scroll: "auto" });
 
             this.alertBox.append(this.alertText);
             this.alertBox.append(this.alertButtons);
@@ -538,27 +535,72 @@ var GempSwccgGameUI = Class.extend({
 
         $('body').unbind('click');
         $("body").click(
-                function (event) {
-                    return that.clickCardFunction(event);
-                });
+            function (event) {
+                return that.clickCardFunction(event);
+            });
+
+        $('body').unbind('mouseover');
+        $("body").mouseover(
+            function (event) {
+                return that.mouseOverCardFunction(event);
+            });
+
+        $('body').unbind('keydown');
+        $("body").keydown(
+            function (event) {
+                const canShowPreviewImages = that.settingsShowPreviewImage && !is_touch_device;
+                if (canShowPreviewImages && event.which === 16 && that.previewImageBlueprintId != "0") {
+                    const reverseSideImage = fixedImages[that.previewImageBlueprintId + "_BACK"];
+                    if (reverseSideImage) {
+                        const previewImageImg = $(previewImage).find('img:first')[0];
+                        that.previewImageBlueprintId = that.previewImageBlueprintId + "_BACK";
+                        previewImageImg.src = reverseSideImage;
+                    } else {
+                        that.flipRotatePreviewImage(true)
+                    }
+                };
+                return true;
+            });
+
+        $('body').unbind('keyup');
+        $("body").keyup(
+            function (event) {
+                const canShowPreviewImages = that.settingsShowPreviewImage && !is_touch_device;
+                if (canShowPreviewImages && event.which === 16 && that.previewImageBlueprintId != "0") {
+                    const isBackImage = that.previewImageBlueprintId.endsWith('_BACK');
+                    if (isBackImage) {
+                        const previewImageImg = $(previewImage).find('img:first')[0];
+                        that.previewImageBlueprintId = that.previewImageBlueprintId.substring(0, that.previewImageBlueprintId.length - 5);
+                        previewImageImg.src = fixedImages[that.previewImageBlueprintId];
+                    } else {
+                        that.flipRotatePreviewImage(false)
+                    }
+                };
+                return true;
+            });
+
         $('body').unbind('mousedown');
         $("body").mousedown(
-                function (event) {
-                    $("body").bind("mousemove", dragFunc);
-                    return that.dragStartCardFunction(event);
-                });
+            function (event) {
+                if (that.previewImageBlueprintId !== 0) {
+                    that.hidePreviewImage();
+                }
+
+                $("body").bind("mousemove", dragFunc);
+                return that.dragStartCardFunction(event);
+            });
         $('body').unbind('mouseup');
         $("body").mouseup(
-                function (event) {
-                    $("body").unbind("mousemove", dragFunc);
-                    return that.dragStopCardFunction(event);
-                });
+            function (event) {
+                $("body").unbind("mousemove", dragFunc);
+                return that.dragStopCardFunction(event);
+            });
 
         if (!this.gameUiInitialized && !this.spectatorMode && !this.replayMode) {
             var soundPlay = $("<embed src='/gemp-swccg/coolsaber.wav' hidden='true' autostart='true' loop='false' height='0' width='0'>");
             this.gameStateElem.append(soundPlay);
             setTimeout(
-                function() {
+                function () {
                     soundPlay.remove();
                 }, 5000);
         }
@@ -568,49 +610,49 @@ var GempSwccgGameUI = Class.extend({
         this.gameUiInitialized = true;
     },
 
-    getReorganizableCardGroupForCardData:function (cardData) {
+    getReorganizableCardGroupForCardData: function (cardData) {
 
-        for (var i=0; i<this.locationCardGroups.length; i++) {
+        for (var i = 0; i < this.locationCardGroups.length; i++) {
             if (this.locationCardGroups[i].cardBelongs(cardData)) {
                 return this.locationCardGroups[i];
             }
         }
-        for (var i=0; i<this.playerSideOfLocationGroups.length; i++) {
+        for (var i = 0; i < this.playerSideOfLocationGroups.length; i++) {
             if (this.playerSideOfLocationGroups[i].cardBelongs(cardData)) {
                 return this.playerSideOfLocationGroups[i];
             }
         }
-        for (var i=0; i<this.opponentSideOfLocationGroups.length; i++) {
+        for (var i = 0; i < this.opponentSideOfLocationGroups.length; i++) {
             if (this.opponentSideOfLocationGroups[i].cardBelongs(cardData)) {
                 return this.opponentSideOfLocationGroups[i];
             }
         }
-        for (var i=0; i<this.playerInBattleGroups.length; i++) {
+        for (var i = 0; i < this.playerInBattleGroups.length; i++) {
             if (this.playerInBattleGroups[i].cardBelongs(cardData)) {
                 return this.playerInBattleGroups[i];
             }
         }
-        for (var i=0; i<this.opponentInBattleGroups.length; i++) {
+        for (var i = 0; i < this.opponentInBattleGroups.length; i++) {
             if (this.opponentInBattleGroups[i].cardBelongs(cardData)) {
                 return this.opponentInBattleGroups[i];
             }
         }
-        for (var i=0; i<this.attackingInAttackGroups.length; i++) {
+        for (var i = 0; i < this.attackingInAttackGroups.length; i++) {
             if (this.attackingInAttackGroups[i].cardBelongs(cardData)) {
                 return this.attackingInAttackGroups[i];
             }
         }
-        for (var i=0; i<this.defendingInAttackGroups.length; i++) {
+        for (var i = 0; i < this.defendingInAttackGroups.length; i++) {
             if (this.defendingInAttackGroups[i].cardBelongs(cardData)) {
                 return this.defendingInAttackGroups[i];
             }
         }
-        for (var i=0; i<this.playerInDuelOrLightsaberCombatGroups.length; i++) {
+        for (var i = 0; i < this.playerInDuelOrLightsaberCombatGroups.length; i++) {
             if (this.playerInDuelOrLightsaberCombatGroups[i].cardBelongs(cardData)) {
                 return this.playerInDuelOrLightsaberCombatGroups[i];
             }
         }
-        for (var i=0; i<this.opponentInDuelOrLightsaberCombatGroups.length; i++) {
+        for (var i = 0; i < this.opponentInDuelOrLightsaberCombatGroups.length; i++) {
             if (this.opponentInDuelOrLightsaberCombatGroups[i].cardBelongs(cardData)) {
                 return this.opponentInDuelOrLightsaberCombatGroups[i];
             }
@@ -671,58 +713,58 @@ var GempSwccgGameUI = Class.extend({
         return null;
     },
 
-    layoutGroupWithCard:function (cardId) {
+    layoutGroupWithCard: function (cardId) {
         var cardData = $(".card:cardId(" + cardId + ")").data("card");
 
-        for (var i=0; i<this.locationCardGroups.length; i++) {
+        for (var i = 0; i < this.locationCardGroups.length; i++) {
             if (this.locationCardGroups[i].cardBelongs(cardData)) {
                 this.locationCardGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.playerSideOfLocationGroups.length; i++) {
+        for (var i = 0; i < this.playerSideOfLocationGroups.length; i++) {
             if (this.playerSideOfLocationGroups[i].cardBelongs(cardData)) {
                 this.playerSideOfLocationGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.opponentSideOfLocationGroups.length; i++) {
+        for (var i = 0; i < this.opponentSideOfLocationGroups.length; i++) {
             if (this.opponentSideOfLocationGroups[i].cardBelongs(cardData)) {
                 this.opponentSideOfLocationGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.playerInBattleGroups.length; i++) {
+        for (var i = 0; i < this.playerInBattleGroups.length; i++) {
             if (this.playerInBattleGroups[i].cardBelongs(cardData)) {
                 this.playerInBattleGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.opponentInBattleGroups.length; i++) {
+        for (var i = 0; i < this.opponentInBattleGroups.length; i++) {
             if (this.opponentInBattleGroups[i].cardBelongs(cardData)) {
                 this.opponentInBattleGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.attackingInAttackGroups.length; i++) {
+        for (var i = 0; i < this.attackingInAttackGroups.length; i++) {
             if (this.attackingInAttackGroups[i].cardBelongs(cardData)) {
                 this.attackingInAttackGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.defendingInAttackGroups.length; i++) {
+        for (var i = 0; i < this.defendingInAttackGroups.length; i++) {
             if (this.defendingInAttackGroups[i].cardBelongs(cardData)) {
                 this.defendingInAttackGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.playerInDuelOrLightsaberCombatGroups.length; i++) {
+        for (var i = 0; i < this.playerInDuelOrLightsaberCombatGroups.length; i++) {
             if (this.playerInDuelOrLightsaberCombatGroups[i].cardBelongs(cardData)) {
                 this.playerInDuelOrLightsaberCombatGroups[i].layoutCards();
                 return;
             }
         }
-        for (var i=0; i<this.opponentInDuelOrLightsaberCombatGroups.length; i++) {
+        for (var i = 0; i < this.opponentInDuelOrLightsaberCombatGroups.length; i++) {
             if (this.opponentInDuelOrLightsaberCombatGroups[i].cardBelongs(cardData)) {
                 this.opponentInDuelOrLightsaberCombatGroups[i].layoutCards();
                 return;
@@ -800,7 +842,7 @@ var GempSwccgGameUI = Class.extend({
         this.layoutUI(false);
     },
 
-    addBottomLeftTabPane:function () {
+    addBottomLeftTabPane: function () {
         var that = this;
         var tabsLabels = "<li><a href='#chatBox' class='slimTab'>Chat</a></li>";
         var tabsBodies = "<div id='chatBox' class='slimPanel'></div>";
@@ -836,14 +878,14 @@ var GempSwccgGameUI = Class.extend({
                 $("#autoPassYourTurnEnabled").prop("checked", false);
                 this.settingsAutoPassYourTurnEnabled = false;
             }
-            $.cookie("autoPassYourTurnEnabled", "" + this.settingsAutoPassYourTurnEnabled, { expires:365 });
+            $.cookie("autoPassYourTurnEnabled", "" + this.settingsAutoPassYourTurnEnabled, { expires: 365 });
 
             $("#autoPassYourTurnEnabled").bind("change", function () {
                 var selected = $("#autoPassYourTurnEnabled").prop("checked");
                 that.settingsAutoPassYourTurnEnabled = selected;
                 $("#autoPassYourTurnCountdown").prop("hidden", !that.settingsAutoPassYourTurnEnabled);
                 $("#autoPassYourTurnCountdownLabel").prop("hidden", !that.settingsAutoPassYourTurnEnabled);
-                $.cookie("autoPassYourTurnEnabled", "" + selected, { expires:365 });
+                $.cookie("autoPassYourTurnEnabled", "" + selected, { expires: 365 });
             });
 
             $("#autoPassYourTurnCountdown").prop("hidden", !this.settingsAutoPassYourTurnEnabled);
@@ -863,7 +905,7 @@ var GempSwccgGameUI = Class.extend({
             else {
                 this.settingsAutoPassYourTurnCountdown = autoPassYourTurnCountdown;
             }
-            $.cookie("autoPassYourTurnCountdown", "" + this.settingsAutoPassYourTurnCountdown, { expires:365 });
+            $.cookie("autoPassYourTurnCountdown", "" + this.settingsAutoPassYourTurnCountdown, { expires: 365 });
 
             $("#autoPassYourTurnCountdown").bind("change", function () {
                 var autoPassYourTurnCountdown = $("#autoPassYourTurnCountdown").prop("value");
@@ -873,7 +915,7 @@ var GempSwccgGameUI = Class.extend({
                 else {
                     that.settingsAutoPassYourTurnCountdown = autoPassYourTurnCountdown;
                 }
-                $.cookie("autoPassYourTurnCountdown", "" + that.settingsAutoPassYourTurnCountdown, { expires:365 });
+                $.cookie("autoPassYourTurnCountdown", "" + that.settingsAutoPassYourTurnCountdown, { expires: 365 });
             });
 
             //
@@ -890,14 +932,14 @@ var GempSwccgGameUI = Class.extend({
                 $("#autoPassOpponentsTurnEnabled").prop("checked", false);
                 this.settingsAutoPassOpponentsTurnEnabled = false;
             }
-            $.cookie("autoPassOpponentsTurnEnabled", "" + this.settingsAutoPassOpponentsTurnEnabled, { expires:365 });
+            $.cookie("autoPassOpponentsTurnEnabled", "" + this.settingsAutoPassOpponentsTurnEnabled, { expires: 365 });
 
             $("#autoPassOpponentsTurnEnabled").bind("change", function () {
                 var selected = $("#autoPassOpponentsTurnEnabled").prop("checked");
                 that.settingsAutoPassOpponentsTurnEnabled = selected;
                 $("#autoPassOpponentsTurnCountdown").prop("hidden", !that.settingsAutoPassOpponentsTurnEnabled);
                 $("#autoPassOpponentsTurnCountdownLabel").prop("hidden", !that.settingsAutoPassOpponentsTurnEnabled);
-                $.cookie("autoPassOpponentsTurnEnabled", "" + selected, { expires:365 });
+                $.cookie("autoPassOpponentsTurnEnabled", "" + selected, { expires: 365 });
             });
 
             $("#autoPassOpponentsTurnCountdown").prop("hidden", !this.settingsAutoPassOpponentsTurnEnabled);
@@ -917,7 +959,7 @@ var GempSwccgGameUI = Class.extend({
             else {
                 this.settingsAutoPassOpponentsTurnCountdown = autoPassOpponentsTurnCountdown;
             }
-            $.cookie("autoPassOpponentsTurnCountdown", "" + this.settingsAutoPassOpponentsTurnCountdown, { expires:365 });
+            $.cookie("autoPassOpponentsTurnCountdown", "" + this.settingsAutoPassOpponentsTurnCountdown, { expires: 365 });
 
             $("#autoPassOpponentsTurnCountdown").bind("change", function () {
                 var autoPassOpponentsTurnCountdown = $("#autoPassOpponentsTurnCountdown").prop("value");
@@ -927,7 +969,7 @@ var GempSwccgGameUI = Class.extend({
                 else {
                     that.settingsAutoPassOpponentsTurnCountdown = autoPassOpponentsTurnCountdown;
                 }
-                $.cookie("autoPassOpponentsTurnCountdown", "" + that.settingsAutoPassOpponentsTurnCountdown, { expires:365 });
+                $.cookie("autoPassOpponentsTurnCountdown", "" + that.settingsAutoPassOpponentsTurnCountdown, { expires: 365 });
             });
 
             //
@@ -944,14 +986,14 @@ var GempSwccgGameUI = Class.extend({
                 $("#mimicDecisionDelayEnabled").prop("checked", true);
                 this.settingsMimicDecisionDelayEnabled = true;
             }
-            $.cookie("mimicDecisionDelayEnabled", "" + this.settingsMimicDecisionDelayEnabled, { expires:365 });
+            $.cookie("mimicDecisionDelayEnabled", "" + this.settingsMimicDecisionDelayEnabled, { expires: 365 });
 
             $("#mimicDecisionDelayEnabled").bind("change", function () {
                 var selected = $("#mimicDecisionDelayEnabled").prop("checked");
                 that.settingsMimicDecisionDelayEnabled = selected;
                 $("#mimicDecisionDelayTime").prop("hidden", !that.settingsMimicDecisionDelayEnabled);
                 $("#mimicDecisionDelayTimeLabel").prop("hidden", !that.settingsMimicDecisionDelayEnabled);
-                $.cookie("mimicDecisionDelayEnabled", "" + selected, { expires:365 });
+                $.cookie("mimicDecisionDelayEnabled", "" + selected, { expires: 365 });
             });
 
             $("#mimicDecisionDelayTime").prop("hidden", !this.settingsMimicDecisionDelayEnabled);
@@ -971,7 +1013,7 @@ var GempSwccgGameUI = Class.extend({
             else {
                 this.settingsMimicDecisionDelayTime = mimicDecisionDelayTime;
             }
-            $.cookie("mimicDecisionDelayTime", "" + this.settingsMimicDecisionDelayTime, { expires:365 });
+            $.cookie("mimicDecisionDelayTime", "" + this.settingsMimicDecisionDelayTime, { expires: 365 });
 
             $("#mimicDecisionDelayTime").bind("change", function () {
                 var mimicDecisionDelayTime = $("#mimicDecisionDelayTime").prop("value");
@@ -981,7 +1023,7 @@ var GempSwccgGameUI = Class.extend({
                 else {
                     that.mimicDecisionDelayTimeCookie = mimicDecisionDelayTime;
                 }
-                $.cookie("mimicDecisionDelayTime", "" + that.mimicDecisionDelayTimeCookie, { expires:365 });
+                $.cookie("mimicDecisionDelayTime", "" + that.mimicDecisionDelayTimeCookie, { expires: 365 });
             });
 
             //
@@ -998,7 +1040,7 @@ var GempSwccgGameUI = Class.extend({
             $("#autoAccept").bind("change", function () {
                 var selected = $("#autoAccept").prop("checked");
                 that.settingsAutoAccept = selected;
-                $.cookie("autoAccept", "" + selected, { expires:365 });
+                $.cookie("autoAccept", "" + selected, { expires: 365 });
             });
 
             //
@@ -1016,7 +1058,7 @@ var GempSwccgGameUI = Class.extend({
             $("#alwaysDropDown").bind("change", function () {
                 var selected = $("#alwaysDropDown").prop("checked");
                 that.settingsAlwaysDropDown = selected;
-                $.cookie("alwaysDropDown", "" + selected, { expires:365 });
+                $.cookie("alwaysDropDown", "" + selected, { expires: 365 });
             });
 
 
@@ -1034,7 +1076,24 @@ var GempSwccgGameUI = Class.extend({
             $("#cardActionsSilent").bind("change", function () {
                 var selected = $("#cardActionsSilent").prop("checked");
                 that.settingsCardActionsSilent = selected;
-                $.cookie("cardActionsSilent", "" + selected, { expires:365 });
+                $.cookie("cardActionsSilent", "" + selected, { expires: 365 });
+            });
+
+            //
+            // Show large image on hover
+            //
+            $("#settingsBox").append("<input id='previewImageOnHover' type='checkbox' value='selected' /><label for='previewImageOnHover'>Show large card image on hover</label><br />");
+
+            var previewImageOnHover = $.cookie("previewImageOnHover");
+            if (previewImageOnHover == "true") {
+                $("#previewImageOnHover").prop("checked", true);
+                this.settingsShowPreviewImage = true;
+            }
+
+            $("#previewImageOnHover").bind("change", function () {
+                var selected = $("#previewImageOnHover").prop("checked");
+                that.settingsShowPreviewImage = selected;
+                $.cookie("previewImageOnHover", "" + selected, { expires: 365 });
             });
 
             //$("#settingsBox").append("<br />Phases to auto-pass if no actions to perform<br />");
@@ -1092,42 +1151,42 @@ var GempSwccgGameUI = Class.extend({
         if (!this.spectatorMode && !this.replayMode) {
             $("#gameOptionsBox").append("<button id='concedeGame'>Concede game</button><br/>");
             $("#concedeGame").button().click(
-                    function () {
-                        that.communication.concede();
-                    });
+                function () {
+                    that.communication.concede();
+                });
             $("#gameOptionsBox").append("<button id='cancelGame'>Request game cancel</button><br/>");
             $("#gameOptionsBox").append("<br/>");
             $("#cancelGame").button().click(
-                    function () {
-                        that.communication.cancel();
-                    });
+                function () {
+                    that.communication.cancel();
+                });
             $("#gameOptionsBox").append("<button id='gameTimerExtend30Min'>Request game timer +30min</button><br/>");
             $("#gameTimerExtend30Min").button().click(
-                    function () {
-                        that.communication.extendGameTimer(30);
-                    });
+                function () {
+                    that.communication.extendGameTimer(30);
+                });
             $("#gameOptionsBox").append("<button id='disableActionTimer'>Request action timer disabled</button><br/>");
             $("#disableActionTimer").button().click(
-                    function () {
-                        that.communication.disableActionTimer();
-                    });
+                function () {
+                    that.communication.disableActionTimer();
+                });
 
             // Mute / Un-mute chat
             $("#gameOptionsBox").append("<br/>");
             $("#gameOptionsBox").append("<button id='muteObserversBtn'>Mute Observers</button>");
             $("#muteObserversBtn").button().click(
-                    function () {
-                        that.toggleMuteObservers(true);
-                    });
+                function () {
+                    that.toggleMuteObservers(true);
+                });
             $("#gameOptionsBox").append("<button id='unmuteObserversBtn'>Unmute Observers</button>");
             $("#unmuteObserversBtn").button().click(
-                    function () {
-                        that.toggleMuteObservers(false);
-                    });
+                function () {
+                    that.toggleMuteObservers(false);
+                });
         }
     },
 
-    toggleMuteObservers: function(muteObservers) {
+    toggleMuteObservers: function (muteObservers) {
 
         var mutedObserverGameString = this.getMutedObserverGameString();
 
@@ -1137,9 +1196,9 @@ var GempSwccgGameUI = Class.extend({
             $('#chatBox').addClass("muteObservers");
             $('#gameOptionsBox').addClass("muteObservers");
         } else {
-             $('#chatBox').removeClass("muteObservers");
-             $('#gameOptionsBox').removeClass("muteObservers");
-             mutedObserverGameString = "";
+            $('#chatBox').removeClass("muteObservers");
+            $('#gameOptionsBox').removeClass("muteObservers");
+            mutedObserverGameString = "";
         }
 
         // Store the fact that we muted (or unmuted) a game (if local-storage available on this browser)
@@ -1148,7 +1207,7 @@ var GempSwccgGameUI = Class.extend({
         }
     },
 
-    reloadMutedObserverState: function() {
+    reloadMutedObserverState: function () {
 
         // Load the last-muted-game from local storage
         var currentGameMutedState = this.getMutedObserverGameString();
@@ -1166,7 +1225,7 @@ var GempSwccgGameUI = Class.extend({
         }
     },
 
-    getMutedObserverGameString: function() {
+    getMutedObserverGameString: function () {
 
         // Build a string containing the Date and game ID:
         // ex: 2018-03-25_GameId=335
@@ -1180,7 +1239,7 @@ var GempSwccgGameUI = Class.extend({
         return dateAndGameString;
     },
 
-    clickCardFunction:function (event) {
+    clickCardFunction: function (event) {
         this.suspendDecisionCountdown();
 
         var tar = $(event.target);
@@ -1228,15 +1287,165 @@ var GempSwccgGameUI = Class.extend({
         return true;
     },
 
-    dragCardId:null,
-    dragCardIndex:null,
-    draggedCardIndex:null,
-    dragStartX:null,
-    dragStartY:null,
-    successfulDrag:null,
-    draggingHorizontaly:false,
+    // make the preview image shown be the reference image that's hovered on:
+    showPreviewImage: function (refImageDiv) {
+        const previewImage = this.previewImage;
+        const imgEl = $(previewImage).find("img")[0];
+        
+        imgEl.onload = function () {
+            previewImage.style.display = "block";
 
-    dragStartCardFunction:function (event) {
+            // get position and size of the reference image (actually the parent div):
+            var rect = refImageDiv.getBoundingClientRect();
+            var srcImageX = rect.left;
+            var srcImageY = rect.top;
+            var srcImageWidth = rect.right - rect.left;
+            var srcImageHeight = rect.bottom - rect.top;
+            // get the size of the browser window:
+            var windowWidth = window.innerWidth;
+            var windowHeight = window.innerHeight;
+            // get the elements to be altered:
+            var previewImageStyle = previewImage.style;
+            var previewImageImgStyle = imgEl.style;
+            var previewImageHeight = imgEl.naturalHeight;
+            var previewImageWidth = imgEl.naturalWidth;
+
+            var ratio = previewImageWidth / previewImageHeight;
+
+            if (previewImageHeight > windowHeight / 2) {
+                previewImageHeight = windowHeight / 2;
+                previewImageWidth = ratio * previewImageHeight;
+            } else if (previewImageWidth > windowWidth / 2) {
+                previewImageWidth = windowWidth / 2;
+                previewImageHeight = previewImageWidth / ratio;
+            }
+
+            // set the horizontal position of the preview image:
+            const rightEdge = srcImageX + srcImageWidth;
+            const leftEdge = srcImageX;
+            const goesPastRightBound = rightEdge + previewImageWidth > windowWidth;
+            const goesPastLeftBound = leftEdge - previewImageWidth < 0;
+            var previewImageLeft = rightEdge;
+            
+            if (goesPastRightBound && goesPastLeftBound) {
+                // if previewImage would extend past either left or right side
+                // of screen, display the previewImage in the biggest space 
+                // available and shrink to fit
+                const rightSpace = windowWidth - (leftEdge + srcImageWidth);
+                const leftSpace = leftEdge;
+                if (rightSpace > leftSpace) {
+                    previewImageWidth = rightSpace;
+                    previewImageLeft = rightEdge;
+                } else {
+                    previewImageWidth = leftSpace;
+                    previewImageLeft = leftEdge - previewImageWidth;
+                }
+                previewImageHeight = previewImageWidth / ratio;
+            } else {
+                if (goesPastRightBound) {
+                    previewImageLeft = leftEdge - previewImageWidth;
+                } else if (goesPastLeftBound) {
+                    previewImageLeft = rightEdge;
+                }
+            }
+
+            // set the vertical position of the preview image (and make sure it isn't extending over the edge of the window):
+            var previewImageTop = (srcImageY + (srcImageHeight / 2)) - (previewImageHeight / 2);
+            if ((previewImageTop + previewImageHeight) > windowHeight) {
+                previewImageTop = windowHeight - previewImageHeight;
+            } else if (previewImageTop < 0) {
+                previewImageTop = 0;
+            }
+
+            // assign the positions to the preview image element:
+            previewImageStyle.left = previewImageLeft + "px";
+            previewImageStyle.top = previewImageTop + "px";
+            previewImageImgStyle.width = previewImageWidth + 'px';
+            previewImageImgStyle.height = previewImageHeight + 'px';
+        }
+
+        if (fixedImages[this.previewImageBlueprintId] != null) {
+            imgEl.src = fixedImages[this.previewImageBlueprintId];
+        }
+    },
+
+    hidePreviewImage: function () {
+        if (this.previewImage) {
+            const previewImage = this.previewImage;
+            this.previewImageBlueprintId = "0";
+            const previewImageImg = $(previewImage).find('img:first')[0];
+            previewImageImg.src = "";
+            previewImage.style.display = "none";
+        }
+    },
+
+    flipRotatePreviewImage: function (shouldRotate) {
+        const previewImageImg = $(this.previewImage).find('img')[0];
+
+        var previewImageStyle = previewImageImg.style;
+        if (!shouldRotate) {
+            previewImageStyle.transform = "rotate(0deg)";
+        }
+        else {
+            previewImageStyle.transform = "rotate(180deg)";
+        }
+    },
+
+    mouseOverCardFunction: function (event) {
+        const tar = $(event.target);
+        const tarIsCard = tar.hasClass("actionArea");
+
+        // if mouse over target is a card on table, and client supports image previews, showImage
+        if (!is_touch_device && this.settingsShowPreviewImage && tarIsCard && !this.dragCardId && !this.infoDialog.dialog("isOpen")) {
+            const refCard = tar.closest(".card");
+            const refCardDiv = refCard[0];
+            const card = refCard.data("card");
+            
+            // don't show preview image if card is animating
+            if (this.showPreviewImage && !$(refCardDiv).hasClass('card-animating')) {
+                const startFlipped = event.shiftKey;
+                const blueprintId = card.blueprintId;
+                const reverseSideImage = fixedImages[blueprintId + "_BACK"];
+                const imageBlueprintId = startFlipped && reverseSideImage ? blueprintId + "_BACK" : blueprintId;
+
+                // don't show preview image if hovered card is the DS/LS card back art
+                if (imageBlueprintId !== "-1_1" && imageBlueprintId !== "-1_2") {
+                    this.previewImageBlueprintId = imageBlueprintId;
+                    this.showPreviewImage(refCardDiv);
+
+                    if (!reverseSideImage) {
+                        // set the starting rotation based on if shift key
+                        // is active when event was triggered, as long as the
+                        // card doesn't have a reverse side
+                        this.flipRotatePreviewImage(startFlipped);
+                    }
+                    
+                    event.stopPropagation();
+                    return false;
+                }
+            }
+        // if previewImage is active and either the event target isn't a card 
+        // on table OR the user shift+clicked to bring up the card detail 
+        // dialogue, we need to hide the current previewImage
+        } else if (this.previewImageBlueprintId !== "0" && !tarIsCard) {
+            if (this.hidePreviewImage) {
+                this.hidePreviewImage();
+                event.stopPropagation();
+                return false;
+            }
+        }
+        return true;
+    },
+
+    dragCardId: null,
+    dragCardIndex: null,
+    draggedCardIndex: null,
+    dragStartX: null,
+    dragStartY: null,
+    successfulDrag: null,
+    draggingHorizontaly: false,
+
+    dragStartCardFunction: function (event) {
         this.successfulDrag = false;
         var tar = $(event.target);
         if (tar.hasClass("actionArea")) {
@@ -1254,7 +1463,7 @@ var GempSwccgGameUI = Class.extend({
         return true;
     },
 
-    dragContinuesCardFunction:function (event) {
+    dragContinuesCardFunction: function (event) {
         if (this.dragCardId != null) {
             if (!this.draggingHorizontaly && Math.abs(this.dragStartX - event.clientX) >= 20) {
                 var cardElems = $(".card:cardId(" + this.dragCardId + ")");
@@ -1312,7 +1521,7 @@ var GempSwccgGameUI = Class.extend({
         }
     },
 
-    dragStopCardFunction:function (event) {
+    dragStopCardFunction: function (event) {
         if (this.dragCardId != null) {
             if (this.dragStartY - event.clientY >= 20 && !this.draggingHorizontaly) {
                 var cardElems = $(".card:cardId(" + this.dragCardId + ")");
@@ -1332,7 +1541,7 @@ var GempSwccgGameUI = Class.extend({
         return true;
     },
 
-    displayCard:function (card, extraSpace) {
+    displayCard: function (card, extraSpace) {
         var that = this;
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
@@ -1342,30 +1551,29 @@ var GempSwccgGameUI = Class.extend({
         // Check if card div needs to be inverted
         this.infoDialog.cardImageRotation = 0;
         this.infoDialog.cardImageFlipped = false;
-        if (card.inverted==true)
-        {
+        if (card.inverted == true) {
             that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
             $(cardDiv).rotate(this.infoDialog.cardImageRotation);
         }
         $(cardDiv).click(
-                function(event) {
-                    // Check if need to show other card image if the image has two sides
-                    if (card.backSideImageUrl != null && !card.backSideImageUrl.includes("CardBack")) {
-                        that.infoDialog.cardImageFlipped = !that.infoDialog.cardImageFlipped;
-                        if (that.infoDialog.cardImageFlipped) {
-                            $(cardDiv).find("div.fullcard img").attr('src', card.backSideImageUrl);
-                        }
-                        else {
-                            $(cardDiv).find("div.fullcard img").attr('src', card.imageUrl);
-                        }
+            function (event) {
+                // Check if need to show other card image if the image has two sides
+                if (card.backSideImageUrl != null && !card.backSideImageUrl.includes("CardBack")) {
+                    that.infoDialog.cardImageFlipped = !that.infoDialog.cardImageFlipped;
+                    if (that.infoDialog.cardImageFlipped) {
+                        $(cardDiv).find("div.fullcard img").attr('src', card.backSideImageUrl);
                     }
-                    // Otherwise rotate the image
                     else {
-                        that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
-                        $(cardDiv).rotate(that.infoDialog.cardImageRotation);
+                        $(cardDiv).find("div.fullcard img").attr('src', card.imageUrl);
                     }
-                    event.stopPropagation();
-                });
+                }
+                // Otherwise rotate the image
+                else {
+                    that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
+                    $(cardDiv).rotate(that.infoDialog.cardImageRotation);
+                }
+                event.stopPropagation();
+            });
         floatCardDiv.append(cardDiv);
 
         this.infoDialog.append(floatCardDiv);
@@ -1380,15 +1588,15 @@ var GempSwccgGameUI = Class.extend({
 
         if (showAsHorizontal) {
             // 500x360
-            this.infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
+            this.infoDialog.dialog({ width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight) });
         } else {
             // 360x500
-            this.infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
+            this.infoDialog.dialog({ width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight) });
         }
         this.infoDialog.dialog("open");
     },
 
-    displayCardInfo:function (card) {
+    displayCardInfo: function (card) {
         var showModifiers = false;
         var cardId = card.cardId;
         if (!this.replayMode && (cardId.length < 4 || cardId.substring(0, 4) != "temp"))
@@ -1400,28 +1608,28 @@ var GempSwccgGameUI = Class.extend({
             this.getCardModifiersFunction(cardId, this.setCardModifiers);
     },
 
-    setCardModifiers:function (html) {
+    setCardModifiers: function (html) {
         $("#cardEffects").replaceWith(html);
     },
 
-    initializeDialogs:function () {
+    initializeDialogs: function () {
         this.smallDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:false,
-            resizable:true,
-            width:425,
-            height:275
-        });
+            .dialog({
+                autoOpen: false,
+                closeOnEscape: false,
+                resizable: true,
+                width: 425,
+                height: 275
+            });
 
         this.cardActionDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:false,
-            resizable:true,
-            width:600,
-            height:400
-        });
+            .dialog({
+                autoOpen: false,
+                closeOnEscape: false,
+                resizable: true,
+                width: 600,
+                height: 400
+            });
 
         var that = this;
 
@@ -1431,38 +1639,45 @@ var GempSwccgGameUI = Class.extend({
 
         $(".ui-dialog-titlebar-close").hide();
 
-        var width = $(window).width();
-        var height = $(window).height();
+        if (!document.getElementById('previewImage')) {
+            var previewImage = $('<div>', {
+                id: 'previewImage',
+                class: 'previewImage',
+            }).appendTo('body');
+            previewImage.append("<img></img>")
+
+            this.previewImage = previewImage[0];
+        }
 
         this.infoDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            title:"Card information"
-        });
+            .dialog({
+                autoOpen: false,
+                closeOnEscape: true,
+                resizable: false,
+                title: "Card information"
+            });
 
         var swipeOptions = {
-            threshold:20,
-            swipeUp:function (event) {
-                that.infoDialog.prop({ scrollTop:that.infoDialog.prop("scrollHeight") });
+            threshold: 20,
+            swipeUp: function (event) {
+                that.infoDialog.prop({ scrollTop: that.infoDialog.prop("scrollHeight") });
                 return false;
             },
-            swipeDown:function (event) {
-                that.infoDialog.prop({ scrollTop:0 });
+            swipeDown: function (event) {
+                that.infoDialog.prop({ scrollTop: 0 });
                 return false;
             }
         };
         this.infoDialog.swipe(swipeOptions);
     },
 
-    windowResized:function () {
+    windowResized: function () {
         this.animations.windowResized();
     },
 
     // Performs the layout of the UI for the game.
     // sizeChanged is set to true if the size of the window was changed, otherwise false
-    layoutUI:function (sizeChanged) {
+    layoutUI: function (sizeChanged) {
         var width = $(window).width();
         var height = $(window).height();
 
@@ -1540,18 +1755,18 @@ var GempSwccgGameUI = Class.extend({
         var SIDE_OF_TABLE_WITH_SABACC_WIDTH = (width - SIDE_OF_TABLE_WITH_SABACC_LEFT) - BORDER_PADDING;
 
         if (!this.spectatorMode) {
-            $("#bottomLeftTabs").css({ position:"absolute", left:LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT, padding: 0});
-            this.tabPane.css({ position:"absolute", left:LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT});
+            $("#bottomLeftTabs").css({ position: "absolute", left: LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT, padding: 0 });
+            this.tabPane.css({ position: "absolute", left: LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT });
             this.chatBox.setBounds(BORDER_PADDING + TAB_PANE_WIDTH_PADDING, TAB_PANE_HEIGHT, CHAT_WIDTH - (2 * TAB_PANE_WIDTH_PADDING), CHAT_HEIGHT - TAB_PANE_HEIGHT);
         }
         else {
-            $("#bottomLeftTabs").css({ position:"absolute", left:LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT, padding: 0});
-            this.tabPane.css({ position:"absolute", left:LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT});
+            $("#bottomLeftTabs").css({ position: "absolute", left: LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT, padding: 0 });
+            this.tabPane.css({ position: "absolute", left: LEFT_SIDE, top: PLAYER_AREA_TOP, width: CHAT_WIDTH, height: CHAT_HEIGHT });
             this.chatBox.setBounds(BORDER_PADDING + TAB_PANE_WIDTH_PADDING, TAB_PANE_HEIGHT, CHAT_WIDTH - (2 * TAB_PANE_WIDTH_PADDING), CHAT_HEIGHT - TAB_PANE_HEIGHT);
         }
 
         if (this.replayMode) {
-            $(".replay").css({position:"absolute", left:width - 70 - 4 - BORDER_PADDING, top:height - 97 - 2 - BORDER_PADDING, width:70, height:97, "z-index":1000});
+            $(".replay").css({ position: "absolute", left: width - 70 - 4 - BORDER_PADDING, top: height - 97 - 2 - BORDER_PADDING, width: 70, height: 97, "z-index": 1000 });
         }
 
         if (!this.gameUiInitialized) {
@@ -1565,7 +1780,7 @@ var GempSwccgGameUI = Class.extend({
         if (this.gameStateElem != null) {
 
             // Layout the game state element
-            this.gameStateElem.css({ position:"absolute", left:LEFT_SIDE, top:OPPONENT_AREA_TOP, width: GAME_STATE_AND_CHAT_WIDTH, height: OPPONENT_AREA_HEIGHT});
+            this.gameStateElem.css({ position: "absolute", left: LEFT_SIDE, top: OPPONENT_AREA_TOP, width: GAME_STATE_AND_CHAT_WIDTH, height: OPPONENT_AREA_HEIGHT });
             this.topOfLostPileOpponent.setBounds(CARD_PILE_LEFT_1, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_1, OPPONENT_CARD_PILE_HEIGHT_1);
             this.topOfReserveDeckOpponent.setBounds(CARD_PILE_LEFT_2, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_2, OPPONENT_CARD_PILE_HEIGHT_1);
             this.topOfForcePileOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_1);
@@ -1577,12 +1792,12 @@ var GempSwccgGameUI = Class.extend({
                 this.revealedSabaccHandOpponent.setBounds(SABACC_HAND_LEFT, OPPONENT_AREA_TOP, SABACC_HAND_WIDTH, OPPONENT_AREA_HEIGHT);
                 this.revealedSabaccHandOpponent.layoutCards();
 
-                if (this.bottomPlayerIndex==0) {
-                    this.lightRevealedSabaccHandTotal.css({position:"absolute", left:SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top:OPPONENT_AREA_TOP + OPPONENT_AREA_HEIGHT - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                if (this.bottomPlayerIndex == 0) {
+                    this.lightRevealedSabaccHandTotal.css({ position: "absolute", left: SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top: OPPONENT_AREA_TOP + OPPONENT_AREA_HEIGHT - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                     this.lightRevealedSabaccHandTotal.show();
                 }
                 else {
-                    this.darkRevealedSabaccHandTotal.css({position:"absolute", left:SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top:OPPONENT_AREA_TOP + OPPONENT_AREA_HEIGHT - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                    this.darkRevealedSabaccHandTotal.css({ position: "absolute", left: SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top: OPPONENT_AREA_TOP + OPPONENT_AREA_HEIGHT - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                     this.darkRevealedSabaccHandTotal.show();
                 }
 
@@ -1634,239 +1849,239 @@ var GempSwccgGameUI = Class.extend({
                 else {
                     locationDivWidth = otherLocationDivWidth;
                 }
-                this.locationDivs[locationIndex].css({left:x, top:y, width:locationDivWidth, height:locationDivHeight, position:"absolute"});
+                this.locationDivs[locationIndex].css({ left: x, top: y, width: locationDivWidth, height: locationDivHeight, position: "absolute" });
 
                 var curSystemName = this.locationDivs[locationIndex].data("systemName");
                 if (locationIndex > 0) {
                     var prevSystemName = this.locationDivs[locationIndex - 1].data("systemName");
                     if (curSystemName == prevSystemName) {
-                        this.locationDivs[locationIndex].css({"border-left-color":"#111111"});
+                        this.locationDivs[locationIndex].css({ "border-left-color": "#111111" });
                     }
                     else {
-                        this.locationDivs[locationIndex].css({"border-left-color":"#666666"});
+                        this.locationDivs[locationIndex].css({ "border-left-color": "#666666" });
                     }
                 }
                 else {
-                    this.locationDivs[locationIndex].css({"border-left-color":"#666666"});
+                    this.locationDivs[locationIndex].css({ "border-left-color": "#666666" });
                 }
 
                 if (locationIndex < (locationsCount - 1)) {
                     var nextSystemName = this.locationDivs[locationIndex + 1].data("systemName");
                     if (curSystemName == nextSystemName) {
-                        this.locationDivs[locationIndex].css({"border-right-color":"#111111"});
+                        this.locationDivs[locationIndex].css({ "border-right-color": "#111111" });
                     }
                     else {
-                        this.locationDivs[locationIndex].css({"border-right-color":"#666666"});
+                        this.locationDivs[locationIndex].css({ "border-right-color": "#666666" });
                     }
                 }
                 else {
-                    this.locationDivs[locationIndex].css({"border-right-color":"#666666"});
+                    this.locationDivs[locationIndex].css({ "border-right-color": "#666666" });
                 }
 
                 // Battle and duel at this location
                 if (this.battleLocationIndex == locationIndex && this.duelOrLightsaberCombatLocationIndex == locationIndex) {
-                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight/10);
+                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight / 10);
                     this.opponentSideOfLocationGroups[locationIndex].layoutCards();
-                    this.opponentInBattleGroups[locationIndex].setBounds(x, y + locationDivHeight/10, locationDivWidth, locationDivHeight/10);
+                    this.opponentInBattleGroups[locationIndex].setBounds(x, y + locationDivHeight / 10, locationDivWidth, locationDivHeight / 10);
                     this.opponentInBattleGroups[locationIndex].layoutCards();
-                    this.opponentInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + locationDivHeight/5 + LARGE_STAT_BOX_SIZE, locationDivWidth, locationDivHeight/5 - LARGE_STAT_BOX_SIZE);
+                    this.opponentInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + locationDivHeight / 5 + LARGE_STAT_BOX_SIZE, locationDivWidth, locationDivHeight / 5 - LARGE_STAT_BOX_SIZE);
                     this.opponentInDuelOrLightsaberCombatGroups[locationIndex].layoutCards();
-                    this.locationCardGroups[locationIndex].setBounds(x, y + 2*locationDivHeight/5, locationDivWidth, locationDivHeight/5);
+                    this.locationCardGroups[locationIndex].setBounds(x, y + 2 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5);
                     this.locationCardGroups[locationIndex].layoutCards();
-                    this.playerInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, locationDivHeight/5 - LARGE_STAT_BOX_SIZE);
+                    this.playerInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5 - LARGE_STAT_BOX_SIZE);
                     this.playerInDuelOrLightsaberCombatGroups[locationIndex].layoutCards();
-                    this.playerInBattleGroups[locationIndex].setBounds(x, y + 4*locationDivHeight/5, locationDivWidth, locationDivHeight/10);
+                    this.playerInBattleGroups[locationIndex].setBounds(x, y + 4 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 10);
                     this.playerInBattleGroups[locationIndex].layoutCards();
-                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 9*locationDivHeight/10, locationDivWidth, locationDivHeight/10);
+                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 9 * locationDivHeight / 10, locationDivWidth, locationDivHeight / 10);
                     this.playerSideOfLocationGroups[locationIndex].layoutCards();
 
                     if (this.battleGroupDiv != null && this.duelOrLightsaberCombatGroupDiv != null) {
-                        this.battleGroupDiv.css({left:x, top:y + locationDivHeight/10, width:locationDivWidth, height:4*locationDivHeight/5, position:"absolute"});
+                        this.battleGroupDiv.css({ left: x, top: y + locationDivHeight / 10, width: locationDivWidth, height: 4 * locationDivHeight / 5, position: "absolute" });
 
-                        this.duelOrLightsaberCombatGroupDiv.css({left:x, top:y + locationDivHeight/5, width:locationDivWidth - 4, height:3*locationDivHeight/5, position:"absolute"});
-                        if (this.bottomPlayerIndex==0) {
-                            this.lightDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:3*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:3*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                        this.duelOrLightsaberCombatGroupDiv.css({ left: x, top: y + locationDivHeight / 5, width: locationDivWidth - 4, height: 3 * locationDivHeight / 5, position: "absolute" });
+                        if (this.bottomPlayerIndex == 0) {
+                            this.lightDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 3 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 3 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                         }
                         else {
-                            this.darkDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:3*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:3*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                            this.darkDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 3 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 3 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                         }
                     }
                 }
                 // Battle at this location
-                else if (this.battleLocationIndex==locationIndex) {
-                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight/10);
+                else if (this.battleLocationIndex == locationIndex) {
+                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight / 10);
                     this.opponentSideOfLocationGroups[locationIndex].layoutCards();
-                    this.opponentInBattleGroups[locationIndex].setBounds(x, y + locationDivHeight/10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                    this.opponentInBattleGroups[locationIndex].setBounds(x, y + locationDivHeight / 10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                     this.opponentInBattleGroups[locationIndex].layoutCards();
-                    this.locationCardGroups[locationIndex].setBounds(x, y + 2*locationDivHeight/5, locationDivWidth, locationDivHeight/5);
+                    this.locationCardGroups[locationIndex].setBounds(x, y + 2 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5);
                     this.locationCardGroups[locationIndex].layoutCards();
-                    this.playerInBattleGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                    this.playerInBattleGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                     this.playerInBattleGroups[locationIndex].layoutCards();
-                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 9*locationDivHeight/10, locationDivWidth, locationDivHeight/10);
+                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 9 * locationDivHeight / 10, locationDivWidth, locationDivHeight / 10);
                     this.playerSideOfLocationGroups[locationIndex].layoutCards();
 
-                    if (this.battleGroupDiv!=null) {
-                        this.battleGroupDiv.css({left:x, top:y + locationDivHeight/10, width:locationDivWidth, height:4*locationDivHeight/5, position:"absolute"});
-                        if (this.bottomPlayerIndex==0) {
-                            this.lightBattlePowerDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleNumDestinyToPowerDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleNumBattleDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleNumDestinyToAttritionDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleDamageRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleAttritionRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:2 + LARGE_STAT_BOX_SIZE + 1 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattlePowerDiv.css({position:"absolute", left:2 + "px", top:4*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleNumDestinyToPowerDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleNumBattleDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleNumDestinyToAttritionDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleDamageRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:4*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleAttritionRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:4*locationDivHeight/5 - 2*LARGE_STAT_BOX_SIZE - 3 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
+                    if (this.battleGroupDiv != null) {
+                        this.battleGroupDiv.css({ left: x, top: y + locationDivHeight / 10, width: locationDivWidth, height: 4 * locationDivHeight / 5, position: "absolute" });
+                        if (this.bottomPlayerIndex == 0) {
+                            this.lightBattlePowerDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleNumDestinyToPowerDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleNumBattleDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleNumDestinyToAttritionDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleDamageRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleAttritionRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattlePowerDiv.css({ position: "absolute", left: 2 + "px", top: 4 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleNumDestinyToPowerDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleNumBattleDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleNumDestinyToAttritionDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleDamageRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 4 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleAttritionRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 4 * locationDivHeight / 5 - 2 * LARGE_STAT_BOX_SIZE - 3 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
                         }
                         else {
-                            this.darkBattlePowerDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleNumDestinyToPowerDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleNumBattleDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleNumDestinyToAttritionDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleDamageRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkBattleAttritionRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:2 + LARGE_STAT_BOX_SIZE + 1 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattlePowerDiv.css({position:"absolute", left:2 + "px", top:4*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleNumDestinyToPowerDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleNumBattleDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleNumDestinyToAttritionDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleDamageRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:4*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightBattleAttritionRemainingDiv.css({position:"absolute", left:locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top:4*locationDivHeight/5 - 2*LARGE_STAT_BOX_SIZE - 3 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
+                            this.darkBattlePowerDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleNumDestinyToPowerDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleNumBattleDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleNumDestinyToAttritionDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleDamageRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkBattleAttritionRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattlePowerDiv.css({ position: "absolute", left: 2 + "px", top: 4 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleNumDestinyToPowerDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleNumBattleDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + SMALL_STAT_BOX_SIZE + 1 + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleNumDestinyToAttritionDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + (2 * (SMALL_STAT_BOX_SIZE + 1)) + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleDamageRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 4 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightBattleAttritionRemainingDiv.css({ position: "absolute", left: locationDivWidth - LARGE_STAT_BOX_SIZE - 2 + "px", top: 4 * locationDivHeight / 5 - 2 * LARGE_STAT_BOX_SIZE - 3 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
                         }
                     }
                 }
                 // Duel or lightsaber combat at this location
-                else if (this.duelOrLightsaberCombatLocationIndex==locationIndex) {
+                else if (this.duelOrLightsaberCombatLocationIndex == locationIndex) {
 
-                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight/5);
+                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight / 5);
                     this.opponentSideOfLocationGroups[locationIndex].layoutCards();
-                    this.opponentInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + locationDivHeight/5 + LARGE_STAT_BOX_SIZE, locationDivWidth, locationDivHeight/5 - LARGE_STAT_BOX_SIZE);
+                    this.opponentInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + locationDivHeight / 5 + LARGE_STAT_BOX_SIZE, locationDivWidth, locationDivHeight / 5 - LARGE_STAT_BOX_SIZE);
                     this.opponentInDuelOrLightsaberCombatGroups[locationIndex].layoutCards();
-                    this.locationCardGroups[locationIndex].setBounds(x, y + 2*locationDivHeight/5, locationDivWidth, locationDivHeight/5);
+                    this.locationCardGroups[locationIndex].setBounds(x, y + 2 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5);
                     this.locationCardGroups[locationIndex].layoutCards();
-                    this.playerInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, locationDivHeight/5 - LARGE_STAT_BOX_SIZE);
+                    this.playerInDuelOrLightsaberCombatGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5 - LARGE_STAT_BOX_SIZE);
                     this.playerInDuelOrLightsaberCombatGroups[locationIndex].layoutCards();
-                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 4*locationDivHeight/5, locationDivWidth, locationDivHeight/5);
+                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 4 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5);
                     this.playerSideOfLocationGroups[locationIndex].layoutCards();
 
                     if (this.duelOrLightsaberCombatGroupDiv != null) {
-                        this.duelOrLightsaberCombatGroupDiv.css({left:x, top:y + locationDivHeight/5, width:locationDivWidth - 4, height:3*locationDivHeight/5, position:"absolute"});
+                        this.duelOrLightsaberCombatGroupDiv.css({ left: x, top: y + locationDivHeight / 5, width: locationDivWidth - 4, height: 3 * locationDivHeight / 5, position: "absolute" });
 
-                        if (this.bottomPlayerIndex==0) {
-                            this.lightDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.darkDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:3*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:3*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                        if (this.bottomPlayerIndex == 0) {
+                            this.lightDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 3 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 3 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                         }
                         else {
-                            this.darkDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                            this.lightDuelOrLightsaberCombatTotalDiv.css({position:"absolute", left:2 + "px", top:3*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:3*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                            this.darkDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.darkDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightDuelOrLightsaberCombatTotalDiv.css({ position: "absolute", left: 2 + "px", top: 3 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                            this.lightDuelOrLightsaberCombatNumDestinyDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 3 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                         }
                     }
                 }
                 // Attack at this location
-                else if (this.attackLocationIndex==locationIndex) {
+                else if (this.attackLocationIndex == locationIndex) {
 
-                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight/10);
+                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, locationDivHeight / 10);
                     this.opponentSideOfLocationGroups[locationIndex].layoutCards();
                     if (this.playerIdAttacking == this.playerIdDefending) {
                         if (this.bottomPlayerId == this.playerIdAttacking) {
-                            this.locationCardGroups[locationIndex].setBounds(x, y + locationDivHeight/10, locationDivWidth, locationDivHeight/5);
+                            this.locationCardGroups[locationIndex].setBounds(x, y + locationDivHeight / 10, locationDivWidth, locationDivHeight / 5);
                             this.locationCardGroups[locationIndex].layoutCards();
-                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.defendingInAttackGroups[locationIndex].layoutCards();
-                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.attackingInAttackGroups[locationIndex].layoutCards();
 
                             if (this.attackGroupDiv != null) {
-                                this.attackGroupDiv.css({left:x, top:y + 3*locationDivHeight/10, width:locationDivWidth - 4, height:3*locationDivHeight/5, position:"absolute"});
-                                this.defendingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.defendingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                                this.attackingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:3*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.attackingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:3*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                                this.attackGroupDiv.css({ left: x, top: y + 3 * locationDivHeight / 10, width: locationDivWidth - 4, height: 3 * locationDivHeight / 5, position: "absolute" });
+                                this.defendingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.defendingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                                this.attackingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 3 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.attackingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 3 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                             }
                         }
                         else {
-                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + locationDivHeight/10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + locationDivHeight / 10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.attackingInAttackGroups[locationIndex].layoutCards();
-                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.defendingInAttackGroups[locationIndex].layoutCards();
-                            this.locationCardGroups[locationIndex].setBounds(x, y + 7*locationDivHeight/10, locationDivWidth, locationDivHeight/5);
+                            this.locationCardGroups[locationIndex].setBounds(x, y + 7 * locationDivHeight / 10, locationDivWidth, locationDivHeight / 5);
                             this.locationCardGroups[locationIndex].layoutCards();
 
                             if (this.attackGroupDiv != null) {
-                                this.attackGroupDiv.css({left:x, top:y + locationDivHeight/10, width:locationDivWidth - 4, height:3*locationDivHeight/5, position:"absolute"});
-                                this.attackingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.attackingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                                this.defendingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:3*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.defendingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:3*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                                this.attackGroupDiv.css({ left: x, top: y + locationDivHeight / 10, width: locationDivWidth - 4, height: 3 * locationDivHeight / 5, position: "absolute" });
+                                this.attackingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.attackingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                                this.defendingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 3 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.defendingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 3 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                             }
                         }
                     }
                     else {
-                        this.locationCardGroups[locationIndex].setBounds(x, y + 2*locationDivHeight/5, locationDivWidth, locationDivHeight/5);
+                        this.locationCardGroups[locationIndex].setBounds(x, y + 2 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5);
                         this.locationCardGroups[locationIndex].layoutCards();
                         if (this.bottomPlayerId == this.playerIdAttacking) {
-                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + locationDivHeight/10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + locationDivHeight / 10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.defendingInAttackGroups[locationIndex].layoutCards();
-                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.attackingInAttackGroups[locationIndex].layoutCards();
 
                             if (this.attackGroupDiv != null) {
-                                this.attackGroupDiv.css({left:x, top:y + locationDivHeight/10, width:locationDivWidth - 4, height:4*locationDivHeight/5, position:"absolute"});
-                                this.defendingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.defendingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                                this.attackingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:4*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.attackingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                                this.attackGroupDiv.css({ left: x, top: y + locationDivHeight / 10, width: locationDivWidth - 4, height: 4 * locationDivHeight / 5, position: "absolute" });
+                                this.defendingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.defendingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                                this.attackingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 4 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.attackingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                             }
                         }
                         else {
-                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + locationDivHeight/10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.attackingInAttackGroups[locationIndex].setBounds(x, y + locationDivHeight / 10 + LARGE_STAT_BOX_SIZE, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.attackingInAttackGroups[locationIndex].layoutCards();
-                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, 3*locationDivHeight/10 - LARGE_STAT_BOX_SIZE);
+                            this.defendingInAttackGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, 3 * locationDivHeight / 10 - LARGE_STAT_BOX_SIZE);
                             this.defendingInAttackGroups[locationIndex].layoutCards();
 
                             if (this.attackGroupDiv != null) {
-                                this.attackGroupDiv.css({left:x, top:y + locationDivHeight/10, width:locationDivWidth - 4, height:4*locationDivHeight/5, position:"absolute"});
-                                this.attackingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.attackingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                                this.defendingPowerOrFerocityInAttackDiv.css({position:"absolute", left:2 + "px", top:4*locationDivHeight/5 - LARGE_STAT_BOX_SIZE - 2 + "px", width:LARGE_STAT_BOX_SIZE, height:LARGE_STAT_BOX_SIZE, "z-index":50});
-                                this.defendingNumDestinyInAttackDiv.css({position:"absolute", left:2 + LARGE_STAT_BOX_SIZE + 1 + "px", top:4*locationDivHeight/5 - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                                this.attackGroupDiv.css({ left: x, top: y + locationDivHeight / 10, width: locationDivWidth - 4, height: 4 * locationDivHeight / 5, position: "absolute" });
+                                this.attackingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.attackingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                                this.defendingPowerOrFerocityInAttackDiv.css({ position: "absolute", left: 2 + "px", top: 4 * locationDivHeight / 5 - LARGE_STAT_BOX_SIZE - 2 + "px", width: LARGE_STAT_BOX_SIZE, height: LARGE_STAT_BOX_SIZE, "z-index": 50 });
+                                this.defendingNumDestinyInAttackDiv.css({ position: "absolute", left: 2 + LARGE_STAT_BOX_SIZE + 1 + "px", top: 4 * locationDivHeight / 5 - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                             }
                         }
                     }
-                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 9*locationDivHeight/10, locationDivWidth, locationDivHeight/10);
+                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 9 * locationDivHeight / 10, locationDivWidth, locationDivHeight / 10);
                     this.playerSideOfLocationGroups[locationIndex].layoutCards();
                 }
                 // Neither duel, lightsaber combat, battle, nor attack at this location
                 else {
-                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, 2*locationDivHeight/5);
+                    this.opponentSideOfLocationGroups[locationIndex].setBounds(x, y, locationDivWidth, 2 * locationDivHeight / 5);
                     this.opponentSideOfLocationGroups[locationIndex].layoutCards();
                     this.opponentInBattleGroups[locationIndex].hide();
-                    this.locationCardGroups[locationIndex].setBounds(x, y + 2*locationDivHeight/5, locationDivWidth, locationDivHeight/5);
+                    this.locationCardGroups[locationIndex].setBounds(x, y + 2 * locationDivHeight / 5, locationDivWidth, locationDivHeight / 5);
                     this.locationCardGroups[locationIndex].layoutCards();
-                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 3*locationDivHeight/5, locationDivWidth, 2*locationDivHeight/5);
+                    this.playerSideOfLocationGroups[locationIndex].setBounds(x, y + 3 * locationDivHeight / 5, locationDivWidth, 2 * locationDivHeight / 5);
                     this.playerSideOfLocationGroups[locationIndex].layoutCards();
                     this.playerInBattleGroups[locationIndex].hide();
                     this.attackingInAttackGroups[locationIndex].hide();
                     this.defendingInAttackGroups[locationIndex].hide();
-                    if (this.bottomPlayerIndex==0) {
-                        this.lightPowerAtLocationDivs[locationIndex].css({position:"absolute", left:2 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                        this.darkPowerAtLocationDivs[locationIndex].css({position:"absolute", left:2 + "px", top:locationDivHeight - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                    if (this.bottomPlayerIndex == 0) {
+                        this.lightPowerAtLocationDivs[locationIndex].css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                        this.darkPowerAtLocationDivs[locationIndex].css({ position: "absolute", left: 2 + "px", top: locationDivHeight - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                     }
                     else {
-                        this.darkPowerAtLocationDivs[locationIndex].css({position:"absolute", left:2 + "px", top:2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
-                        this.lightPowerAtLocationDivs[locationIndex].css({position:"absolute", left:2 + "px", top:locationDivHeight - SMALL_STAT_BOX_SIZE - 2 + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                        this.darkPowerAtLocationDivs[locationIndex].css({ position: "absolute", left: 2 + "px", top: 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
+                        this.lightPowerAtLocationDivs[locationIndex].css({ position: "absolute", left: 2 + "px", top: locationDivHeight - SMALL_STAT_BOX_SIZE - 2 + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                     }
                 }
 
@@ -1885,12 +2100,12 @@ var GempSwccgGameUI = Class.extend({
                 this.revealedSabaccHandPlayer.setBounds(SABACC_HAND_LEFT, PLAYER_AREA_TOP, SABACC_HAND_WIDTH, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
                 this.revealedSabaccHandPlayer.layoutCards();
 
-                if (this.bottomPlayerIndex==0) {
-                    this.darkRevealedSabaccHandTotal.css({position:"absolute", left:SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top:PLAYER_AREA_TOP + STAT_BOX_PADDING + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                if (this.bottomPlayerIndex == 0) {
+                    this.darkRevealedSabaccHandTotal.css({ position: "absolute", left: SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top: PLAYER_AREA_TOP + STAT_BOX_PADDING + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                     this.darkRevealedSabaccHandTotal.show();
                 }
                 else {
-                    this.lightRevealedSabaccHandTotal.css({position:"absolute", left:SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top:PLAYER_AREA_TOP + STAT_BOX_PADDING + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                    this.lightRevealedSabaccHandTotal.css({ position: "absolute", left: SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top: PLAYER_AREA_TOP + STAT_BOX_PADDING + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                     this.lightRevealedSabaccHandTotal.show();
                 }
 
@@ -1905,20 +2120,20 @@ var GempSwccgGameUI = Class.extend({
 
             if (!this.spectatorMode) {
 
-                this.alertBox.css({ position:"absolute", left:CARD_PILE_AND_ACTION_AREA_LEFT, top:PLAYER_ACTION_AREA_AND_HAND_TOP, width: CARD_PILE_AND_ACTION_AREA_WIDTH + 2, height: PLAYER_ACTION_AREA_AND_HAND_HEIGHT });
+                this.alertBox.css({ position: "absolute", left: CARD_PILE_AND_ACTION_AREA_LEFT, top: PLAYER_ACTION_AREA_AND_HAND_TOP, width: CARD_PILE_AND_ACTION_AREA_WIDTH + 2, height: PLAYER_ACTION_AREA_AND_HAND_HEIGHT });
 
                 if (this.showSabaccHand) {
                     this.sabaccHand.setBounds(SABACC_HAND_LEFT, PLAYER_ACTION_AREA_AND_HAND_TOP, SABACC_HAND_WIDTH, PLAYER_ACTION_AREA_AND_HAND_HEIGHT);
                     this.sabaccHand.layoutCards();
 
-                    if (this.bottomPlayerIndex==0) {
+                    if (this.bottomPlayerIndex == 0) {
                         this.lightSabaccHandTotal.hide();
-                        this.darkSabaccHandTotal.css({position:"absolute", left:SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top:PLAYER_ACTION_AREA_AND_HAND_TOP + STAT_BOX_PADDING + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                        this.darkSabaccHandTotal.css({ position: "absolute", left: SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top: PLAYER_ACTION_AREA_AND_HAND_TOP + STAT_BOX_PADDING + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                         this.darkSabaccHandTotal.show();
                     }
                     else {
                         this.darkSabaccHandTotal.hide();
-                        this.lightSabaccHandTotal.css({position:"absolute", left:SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top:PLAYER_ACTION_AREA_AND_HAND_TOP + STAT_BOX_PADDING + "px", width:SMALL_STAT_BOX_SIZE, height:SMALL_STAT_BOX_SIZE, "z-index":50});
+                        this.lightSabaccHandTotal.css({ position: "absolute", left: SABACC_HAND_LEFT + SABACC_HAND_WIDTH - SMALL_STAT_BOX_SIZE - STAT_BOX_PADDING + "px", top: PLAYER_ACTION_AREA_AND_HAND_TOP + STAT_BOX_PADDING + "px", width: SMALL_STAT_BOX_SIZE, height: SMALL_STAT_BOX_SIZE, "z-index": 50 });
                         this.lightSabaccHandTotal.show();
                     }
                     this.hand.setBounds(HAND_WITH_SABACC_LEFT, PLAYER_ACTION_AREA_AND_HAND_TOP, HAND_WITH_SABACC_LEFT, PLAYER_ACTION_AREA_AND_HAND_HEIGHT);
@@ -1939,81 +2154,81 @@ var GempSwccgGameUI = Class.extend({
                 this.outOfPlayPileGroups[playerId].layoutCards();
     },
 
-    startReplaySession:function (replayId) {
+    startReplaySession: function (replayId) {
         var that = this;
         this.communication.getReplay(replayId,
-                function (xml) {
-                    that.processXmlReplay(xml, true);
-                });
+            function (xml) {
+                that.processXmlReplay(xml, true);
+            });
     },
 
-    startGameSession:function () {
+    startGameSession: function () {
         var that = this;
         this.communication.startGameSession(
-                function (xml) {
-                    that.processXml(xml, false);
-                }, this.gameErrorMap());
+            function (xml) {
+                that.processXml(xml, false);
+            }, this.gameErrorMap());
     },
 
-    updateGameState:function () {
+    updateGameState: function () {
         var that = this;
         this.communication.updateGameState(
-                this.channelNumber,
-                function (xml) {
-                    that.processXml(xml, true);
-                }, this.gameErrorMap());
+            this.channelNumber,
+            function (xml) {
+                that.processXml(xml, true);
+            }, this.gameErrorMap());
     },
 
-    decisionFunction:function (decisionId, result) {
+    decisionFunction: function (decisionId, result) {
         var that = this;
         this.stopAnimatingTitle();
         this.communication.gameDecisionMade(decisionId, result,
-                this.channelNumber,
-                function (xml) {
-                    that.processXml(xml, true);
-                }, this.gameErrorMap());
+            this.channelNumber,
+            function (xml) {
+                that.processXml(xml, true);
+            }, this.gameErrorMap());
     },
 
-    gameErrorMap:function() {
+    gameErrorMap: function () {
         var that = this;
         return {
-            "0": function() {
+            "0": function () {
                 that.showErrorDialog("Server connection error", "Unable to connect to server. Either server is down or there is a problem with your internet connection.", true, false, false);
             },
-            "401":function() {
+            "401": function () {
                 that.showErrorDialog("Authentication error", "You are not logged in", false, true, false);
             },
-            "403":function() {
+            "403": function () {
                 that.showErrorDialog("Game access forbidden", "This game is private and does not allow spectators.", false, false, true);
             },
-            "409":function() {
+            "409": function () {
                 that.showErrorDialog("Concurrent access error", "You are observing this Game Hall from another browser or window. Close this window or if you wish to observe it here, click \"Refresh page\".", true, false, false);
             },
-            "410":function() {
+            "410": function () {
                 that.showErrorDialog("Inactivity error", "You were inactive for too long and have been removed from observing this game. If you wish to start again, click \"Refresh page\".", true, false, false);
             }
         };
     },
 
-    showErrorDialog:function(title, text, reloadButton, mainPageButton, gameHallButton) {
+    showErrorDialog: function (title, text, reloadButton, mainPageButton, gameHallButton) {
         var buttons = {};
         if (reloadButton) {
             buttons["Refresh page"] =
-            function () {
-                location.reload(true);
-            };
+                function () {
+                    location.reload(true);
+                };
         }
         if (mainPageButton) {
             buttons["Go to main page"] =
-            function() {
-                location.href = "/gemp-swccg/";
-            };
+                function () {
+                    location.href = "/gemp-swccg/";
+                };
         }
         if (gameHallButton) {
             buttons["Go to Game Hall"] =
-            function() {
-                location.href = "/gemp-swccg/hall.html";
-            };
+                function () {
+                    location.href = "/gemp-swccg/hall.html";
+                };
         }
 
         var dialog = $("<div></div>").dialog({
@@ -2025,25 +2240,25 @@ var GempSwccgGameUI = Class.extend({
         }).text(text);
     },
 
-    getCardModifiersFunction:function (cardId, func) {
+    getCardModifiersFunction: function (cardId, func) {
         var that = this;
         this.communication.getGameCardModifiers(cardId,
-                function (html) {
-                    that.setCardModifiers(html);
-                });
+            function (html) {
+                that.setCardModifiers(html);
+            });
     },
 
-    processXml:function (xml, animate) {
+    processXml: function (xml, animate) {
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == 'gameState' || root.tagName == 'update')
             this.processGameEventsXml(root, animate);
     },
 
-    replayGameEventNextIndex:0,
-    replayGameEvents:null,
+    replayGameEventNextIndex: 0,
+    replayGameEvents: null,
 
-    processXmlReplay:function (xml, animate) {
+    processXmlReplay: function (xml, animate) {
         var that = this;
         log(xml);
         var root = xml.documentElement;
@@ -2052,52 +2267,52 @@ var GempSwccgGameUI = Class.extend({
             this.replayGameEventNextIndex = 0;
 
             $("#replayButton").click(
-                    function() {
-                        if (that.replayPlay) {
-                            that.replayPlay = false;
-                            $("#replayButton").attr("src", "images/play.png");
-                        } else {
-                            that.replayPlay = true;
-                            $("#replayButton").attr("src", "images/pause.png");
-                            that.playNextReplayEvent();
-                        }
-                    });
+                function () {
+                    if (that.replayPlay) {
+                        that.replayPlay = false;
+                        $("#replayButton").attr("src", "images/play.png");
+                    } else {
+                        that.replayPlay = true;
+                        $("#replayButton").attr("src", "images/pause.png");
+                        that.playNextReplayEvent();
+                    }
+                });
 
             this.playNextReplayEvent();
         }
     },
 
-    shouldPlay:function () {
+    shouldPlay: function () {
         return this.replayPlay;
     },
 
-    playNextReplayEvent:function () {
+    playNextReplayEvent: function () {
         if (this.shouldPlay()) {
             var that = this;
             if (this.replayGameEventNextIndex < this.replayGameEvents.length) {
                 $("#main").queue(
-                        function (next) {
-                            that.cleanupDecision();
-                            next();
-                        });
+                    function (next) {
+                        that.cleanupDecision();
+                        next();
+                    });
                 var gameEvent = this.replayGameEvents[this.replayGameEventNextIndex];
                 this.processGameEvent(gameEvent, true);
 
                 this.replayGameEventNextIndex++;
 
                 $("#main").queue(
-                        function (next) {
-                            that.playNextReplayEvent();
-                            next();
-                        });
+                    function (next) {
+                        that.playNextReplayEvent();
+                        next();
+                    });
             }
         }
     },
 
-    processGameEvent:function (gameEvent, animate) {
+    processGameEvent: function (gameEvent, animate) {
         var eventType = gameEvent.getAttribute("type");
         if (eventType == "PCIP" || eventType == "RCIP") {
-            this.animations.putCardInPlay(gameEvent, animate);  
+            this.animations.putCardInPlay(gameEvent, animate);
         } else if (eventType == "PCIPAR") {
             this.animations.putCardInPlay(gameEvent, false);
         } else if (eventType == "FCIP") {
@@ -2157,7 +2372,7 @@ var GempSwccgGameUI = Class.extend({
         }
     },
 
-    processGameEventsXml:function (element, animate) {
+    processGameEventsXml: function (element, animate) {
         try {
             this.channelNumber = element.getAttribute("cn");
 
@@ -2207,47 +2422,47 @@ var GempSwccgGameUI = Class.extend({
 
     keepAnimating: false,
 
-    startAnimatingTitle: function() {
+    startAnimatingTitle: function () {
         var that = this;
         this.keepAnimating = true;
-        setTimeout(function() {
+        setTimeout(function () {
             that.setDecisionTitle();
         }, 500);
     },
 
-    stopAnimatingTitle: function() {
+    stopAnimatingTitle: function () {
         this.keepAnimating = false;
         window.document.title = "Game of Gemp-Swccg";
     },
 
-    setDecisionTitle: function() {
+    setDecisionTitle: function () {
         if (this.keepAnimating) {
             window.document.title = "Waiting for your decision";
             var that = this;
-            setTimeout(function() {
+            setTimeout(function () {
                 that.setNormalTitle();
             }, 500);
         }
     },
 
-    setNormalTitle: function() {
+    setNormalTitle: function () {
         if (this.keepAnimating) {
             window.document.title = "Game of Gemp-Swccg";
             var that = this;
-            setTimeout(function() {
+            setTimeout(function () {
                 that.setDecisionTitle();
             }, 500);
         }
     },
 
-    getPlayerIndex:function (playerId) {
+    getPlayerIndex: function (playerId) {
         for (var plId = 0; plId < this.allPlayerIds.length; plId++)
             if (this.allPlayerIds[plId] == playerId)
                 return plId;
         return -1;
     },
 
-    layoutZones:function () {
+    layoutZones: function () {
         this.sideOfTablePlayer.layoutCards();
         this.sideOfTableOpponent.layoutCards();
         this.topOfReserveDeckPlayer.layoutCards();
@@ -2269,7 +2484,7 @@ var GempSwccgGameUI = Class.extend({
         this.topOfUsedPilePlayer.layoutCards();
     },
 
-    participant:function (element) {
+    participant: function (element) {
         var participantId = element.getAttribute("participantId");
         this.allPlayerIds = element.getAttribute("allParticipantIds").split(",");
         this.bottomPlayerId = participantId;
@@ -2289,7 +2504,7 @@ var GempSwccgGameUI = Class.extend({
         this.layoutUI(true);
     },
 
-    getDecisionParameter:function (decision, name) {
+    getDecisionParameter: function (decision, name) {
         var parameters = decision.getElementsByTagName("parameter");
         for (var i = 0; i < parameters.length; i++)
             if (parameters[i].getAttribute("name") == name)
@@ -2298,7 +2513,7 @@ var GempSwccgGameUI = Class.extend({
         return null;
     },
 
-    getDecisionParameters:function (decision, name) {
+    getDecisionParameters: function (decision, name) {
         var result = new Array();
         var parameters = decision.getElementsByTagName("parameter");
         for (var i = 0; i < parameters.length; i++)
@@ -2308,7 +2523,7 @@ var GempSwccgGameUI = Class.extend({
         return result;
     },
 
-    cleanupDecision:function () {
+    cleanupDecision: function () {
         this.smallDialog.dialog("close");
         this.cardActionDialog.dialog("close");
         this.clearSelection();
@@ -2319,19 +2534,19 @@ var GempSwccgGameUI = Class.extend({
         if (this.alertButtons != null)
             this.alertButtons.html("");
         if (this.alertBox != null)
-            this.alertBox.css({"border-radius":"0px", "border-color":""});
+            this.alertBox.css({ "border-radius": "0px", "border-color": "" });
 
         $(".card").each(
-                function () {
-                    var card = $(this).data("card");
-                    if (card.zone == "EXTRA")
-                        $(this).remove();
-                });
+            function () {
+                var card = $(this).data("card");
+                if (card.zone == "EXTRA")
+                    $(this).remove();
+            });
         if (this.extraActionsGroup != null)
             this.extraActionsGroup.layoutCards();
     },
 
-    emptyDecision:function (decision) {
+    emptyDecision: function (decision) {
         var id = decision.getAttribute("id");
         var timeout = 1000;
         var timeoutValue = this.getDecisionParameter(decision, "timeoutValue");
@@ -2339,10 +2554,10 @@ var GempSwccgGameUI = Class.extend({
             timeout = parseInt(timeoutValue);
 
         var that = this;
-        setTimeout(function(){that.decisionFunction(id, 0)}, timeout);
+        setTimeout(function () { that.decisionFunction(id, 0) }, timeout);
     },
 
-    integerDecision:function (decision) {
+    integerDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
         var val = 0;
@@ -2360,35 +2575,36 @@ var GempSwccgGameUI = Class.extend({
 
         var that = this;
         this.smallDialog
-                .html(text + "<br /><input id='integerDecision' type='text' value='0'>");
+            .html(text + "<br /><input id='integerDecision' type='text' value='0'>");
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-            {
-                "OK":function () {
-                    $(this).dialog("close");
-                    that.decisionFunction(id, $("#integerDecision").val());
-                }
-            });
+                {
+                    "OK": function () {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                });
         }
 
-        $("#integerDecision").SpinnerControl({ type:'range',
-            typedata:{
-                min:parseInt(min),
-                max:parseInt(max),
-                interval:1,
-                decimalplaces:0
+        $("#integerDecision").SpinnerControl({
+            type: 'range',
+            typedata: {
+                min: parseInt(min),
+                max: parseInt(max),
+                interval: 1,
+                decimalplaces: 0
             },
-            defaultVal:val,
-            width:'50px',
-            backColor:"#000000"
+            defaultVal: val,
+            width: '50px',
+            backColor: "#000000"
         });
 
         this.smallDialog.dialog("open");
         $('.ui-dialog :button').blur();
     },
 
-    multipleChoiceDecision:function (decision) {
+    multipleChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
         var results = this.getDecisionParameters(decision, "results");
@@ -2396,7 +2612,7 @@ var GempSwccgGameUI = Class.extend({
 
         var that = this;
         this.smallDialog
-                .html(text);
+            .html(text);
 
         if (results.length > 2 || this.settingsAlwaysDropDown || defaultIndex >= 0) {
             var html = "<br /><select id='multipleChoiceDecision'>";
@@ -2408,12 +2624,12 @@ var GempSwccgGameUI = Class.extend({
 
             if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons",
-                {
-                    "OK":function () {
-                        that.smallDialog.dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                });
+                    {
+                        "OK": function () {
+                            that.smallDialog.dialog("close");
+                            that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                        }
+                    });
             }
         } else {
             this.smallDialog.append("<br />");
@@ -2424,12 +2640,12 @@ var GempSwccgGameUI = Class.extend({
                 var but = $("<button></button>").html(results[i]).button();
                 if (!this.replayMode) {
                     but.click(
-                            (function (ind) {
-                                return function () {
-                                    that.smallDialog.dialog("close");
-                                    that.decisionFunction(id, "" + ind);
-                                }
-                            })(i));
+                        (function (ind) {
+                            return function () {
+                                that.smallDialog.dialog("close");
+                                that.decisionFunction(id, "" + ind);
+                            }
+                        })(i));
                 }
                 this.smallDialog.append(but);
             }
@@ -2441,16 +2657,16 @@ var GempSwccgGameUI = Class.extend({
         $('.ui-dialog :button').blur();
     },
 
-    createCardDiv:function (card, text) {
+    createCardDiv: function (card, text) {
         var cardDiv = createCardDiv(card.imageUrl, card.testingText, text, card.isFoil(), false, false, card.incomplete);
 
         cardDiv.data("card", card);
 
         var that = this;
         var swipeOptions = {
-            threshold:20,
-            fallbackToMouseEvents:false,
-            swipeUp:function (event) {
+            threshold: 20,
+            fallbackToMouseEvents: false,
+            swipeUp: function (event) {
                 var tar = $(event.target);
                 if (tar.hasClass("actionArea")) {
                     var selectedCardElem = tar.closest(".card");
@@ -2458,7 +2674,7 @@ var GempSwccgGameUI = Class.extend({
                 }
                 return false;
             },
-            click:function (event) {
+            click: function (event) {
                 return that.clickCardFunction(event);
             }
         };
@@ -2467,7 +2683,7 @@ var GempSwccgGameUI = Class.extend({
         return cardDiv;
     },
 
-    attachSelectionFunctions:function (cardIds, selection, selected) {
+    attachSelectionFunctions: function (cardIds, selection, selected) {
         if (selected) {
             if (cardIds.length > 0) {
                 $(".card:cardId(" + cardIds + ")").addClass("selectedCard");
@@ -2491,7 +2707,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Choosing cards from a predefined selection (for example starting cards)
-    arbitraryCardsDecision:function (decision) {
+    arbitraryCardsDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -2513,23 +2729,23 @@ var GempSwccgGameUI = Class.extend({
         var selectableCardIds = new Array();
 
         this.cardActionDialog
-                .html("<div id='arbitraryChoice'></div>")
-                .dialog("option", "title", text);
+            .html("<div id='arbitraryChoice'></div>")
+            .dialog("option", "title", text);
 
         if (blueprintIds.length < 6) {
             this.cardActionDialog
-                    .dialog( "option", "height", 300 )
-                    .dialog( "option", "width", 600 );
+                .dialog("option", "height", 300)
+                .dialog("option", "width", 600);
         }
         else if (blueprintIds.length < 12) {
             this.cardActionDialog
-                    .dialog( "option", "height", 500 )
-                    .dialog( "option", "width", 600 );
+                .dialog("option", "height", 500)
+                .dialog("option", "width", 600);
         }
         else {
             this.cardActionDialog
-                    .dialog( "option", "height", 600 )
-                    .dialog( "option", "width", 800 );
+                .dialog("option", "height", 600)
+                .dialog("option", "width", 800);
         }
 
         // Create the action cards and fill the dialog with them
@@ -2634,7 +2850,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Starts a decision countdown.  If the countdown expires, then the decisionTimeout function is called.
-    startDecisionCountdown: function(isDecisionDuringYourTurn, decisionTimeout) {
+    startDecisionCountdown: function (isDecisionDuringYourTurn, decisionTimeout) {
         var that = this;
         this.isDecisionDuringYourTurn = isDecisionDuringYourTurn;
         this.decisionTimeoutFunction = decisionTimeout;
@@ -2649,7 +2865,7 @@ var GempSwccgGameUI = Class.extend({
             if (this.alertText != null) {
                 this.alertText.html(this.alertTextMsg + "<br/><br/>&nbsp;&nbsp;<strong>(Seconds remaining:&nbsp;" + (timeLeftInMs / 1000) + ")</strong>&nbsp;");
             }
-            setTimeout(function() {
+            setTimeout(function () {
                 that.decrementDecisionCountdown(newDecisionCountdownId, decisionTimeout, timeLeftInMs);
             }, 1000);
         }
@@ -2660,7 +2876,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Suspend the decision countdown (and can be restarted).
-    suspendDecisionCountdown: function() {
+    suspendDecisionCountdown: function () {
         if (this.decisionCountdownInProgress) {
             this.decisionCountdownReadyToRestart = true;
             this.decisionCountdownInProgress = false;
@@ -2671,7 +2887,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Stops the decision countdown.
-    stopDecisionCountdown: function() {
+    stopDecisionCountdown: function () {
         if (this.decisionCountdownInProgress || this.decisionCountdownReadyToRestart) {
             this.decisionCountdownReadyToRestart = false;
             this.decisionCountdownInProgress = false;
@@ -2682,7 +2898,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Decrements the decision countdown (by 1000ms), and if reached 0, then calls the decisionTimeout function.
-    decrementDecisionCountdown: function(decisionCountdownId, decisionTimeout, timeLeftInMs) {
+    decrementDecisionCountdown: function (decisionCountdownId, decisionTimeout, timeLeftInMs) {
         var that = this;
         if (this.decisionCountdownInProgress && decisionCountdownId == this.decisionCountdownId) {
             var newTimeLeftInMs = timeLeftInMs - 1000;
@@ -2694,7 +2910,7 @@ var GempSwccgGameUI = Class.extend({
                 if (this.alertText != null) {
                     this.alertText.html(this.alertTextMsg + "<br/><br/>&nbsp;&nbsp;<strong>(Seconds remaining:&nbsp;" + (newTimeLeftInMs / 1000) + ")</strong>&nbsp;");
                 }
-                setTimeout(function() {
+                setTimeout(function () {
                     that.decrementDecisionCountdown(decisionCountdownId, decisionTimeout, newTimeLeftInMs);
                 }, 1000);
             }
@@ -2702,7 +2918,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Choosing one action to resolve, for example phase actions
-    cardActionChoiceDecision:function (decision) {
+    cardActionChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -2726,7 +2942,7 @@ var GempSwccgGameUI = Class.extend({
                 // This is to simulate a user choosing to 'Pass' as if there were actions to choose from.
                 // Otherwise, the opponent will see the decision made so quickly that the opponent could infer that
                 // there were no valid actions to choose from.
-                setTimeout(function() {
+                setTimeout(function () {
                     that.decisionFunction(id, "");
                 }, this.settingsMimicDecisionDelayEnabled ? ((noLongDelay ? 1 : this.settingsMimicDecisionDelayTime) * 1000) : 250);
             }
@@ -2740,7 +2956,7 @@ var GempSwccgGameUI = Class.extend({
             this.alertText.html(this.alertTextMsg);
         }
         if (this.alertBox != null)
-            this.alertBox.css({"border-radius":"0px", "border-color":"#7f7fff", "border-width":"1px"});
+            this.alertBox.css({ "border-radius": "0px", "border-color": "#7f7fff", "border-width": "1px" });
 
         var processButtons = function () {
             if (that.alertButtons != null)
@@ -2782,23 +2998,23 @@ var GempSwccgGameUI = Class.extend({
                 that.alertText.html(that.alertTextMsg);
             }
             if (that.alertBox != null)
-                that.alertBox.css({"border-radius":"0px", "border-color":"", "border-width":"1px"});
+                that.alertBox.css({ "border-radius": "0px", "border-color": "", "border-width": "1px" });
             if (that.alertButtons != null)
                 that.alertButtons.html("");
             that.clearSelection();
             $(".card").each(
-                    function () {
-                        var card = $(this).data("card");
-                        if (card.zone == "EXTRA")
-                            $(this).remove();
-                    });
+                function () {
+                    var card = $(this).data("card");
+                    if (card.zone == "EXTRA")
+                        $(this).remove();
+                });
             that.extraActionsGroup.layoutCards();
             if (isRevert) {
                 that.decisionFunction(id, "revert");
             }
             else {
                 that.decisionFunction(id, "" + selectedCardIds);
-           }
+            }
         };
 
         var resetChoice = function () {
@@ -2832,14 +3048,14 @@ var GempSwccgGameUI = Class.extend({
                     }
 
                     var actions = cardIdElem.data("action");
-                    actions.push({ actionId:actionId, actionText:actionText });
+                    actions.push({ actionId: actionId, actionText: actionText });
                 } else {
                     hasVirtual = true;
                     cardIds[i] = "extra" + cardId;
                     var card = new Card(blueprintId, testingText, backSideTestingText, "EXTRA", "extra" + cardId, null);
 
                     var cardDiv = that.createCardDiv(card);
-                    $(cardDiv).css({opacity:"0.8"});
+                    $(cardDiv).css({ opacity: "0.8" });
 
                     $("#main").append(cardDiv);
 
@@ -2849,7 +3065,7 @@ var GempSwccgGameUI = Class.extend({
                     }
 
                     var actions = cardIdElem.data("action");
-                    actions.push({ actionId:actionId, actionText:actionText });
+                    actions.push({ actionId: actionId, actionText: actionText });
                 }
             }
 
@@ -2895,7 +3111,7 @@ var GempSwccgGameUI = Class.extend({
         $(':button').blur();
     },
 
-    createActionChoiceContextMenu:function (actions, event, selectActionFunction, card) {
+    createActionChoiceContextMenu: function (actions, event, selectActionFunction, card) {
         var that = this;
 
         // Remove context menus that may be showing
@@ -2922,15 +3138,15 @@ var GempSwccgGameUI = Class.extend({
         if ((x + contextMenuWidth) > this.windowWidth) {
             x = event.pageX - contextMenuWidth;
         }
-        $(div).css({left:x, top:y}).fadeIn(150);
+        $(div).css({ left: x, top: y }).fadeIn(150);
 
         $(div).find('A').mouseover(
-                function () {
-                    $(div).find('LI.hover').removeClass('hover');
-                    $(this).parent().addClass('hover');
-                }).mouseout(function () {
-            $(div).find('LI.hover').removeClass('hover');
-        });
+            function () {
+                $(div).find('LI.hover').removeClass('hover');
+                $(this).parent().addClass('hover');
+            }).mouseout(function () {
+                $(div).find('LI.hover').removeClass('hover');
+            });
 
         var getRidOfContextMenu = function () {
             $(div).remove();
@@ -2963,7 +3179,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Choosing one action to resolve, for example required triggered actions
-    actionChoiceDecision:function (decision) {
+    actionChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -2978,8 +3194,8 @@ var GempSwccgGameUI = Class.extend({
         var selectedActionIds = new Array();
 
         this.cardActionDialog
-                .html("<div id='arbitraryChoice'></div>")
-                .dialog("option", "title", text);
+            .html("<div id='arbitraryChoice'></div>")
+            .dialog("option", "title", text);
 
         var cardIds = new Array();
 
@@ -3058,7 +3274,7 @@ var GempSwccgGameUI = Class.extend({
     },
 
     // Choosing some number of cards, for example to target
-    cardSelectionDecision:function (decision) {
+    cardSelectionDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -3073,7 +3289,7 @@ var GempSwccgGameUI = Class.extend({
             this.alertText.html(this.alertTextMsg);
         }
         if (this.alertBox != null)
-            this.alertBox.css({"border-radius":"0px", "border-color":"#7faf7f", "border-width":"2px"});
+            this.alertBox.css({ "border-radius": "0px", "border-color": "#7faf7f", "border-width": "2px" });
 
         var selectedCardIds = new Array();
 
@@ -3083,7 +3299,7 @@ var GempSwccgGameUI = Class.extend({
                 that.alertText.html(that.alertTextMsg);
             }
             if (that.alertBox != null)
-                that.alertBox.css({"border-radius":"0px", "border-color":"", "border-width":"1px"});
+                that.alertBox.css({ "border-radius": "0px", "border-color": "", "border-width": "1px" });
             if (that.alertButtons != null)
                 that.alertButtons.html("");
             that.clearSelection();
@@ -3143,76 +3359,76 @@ var GempSwccgGameUI = Class.extend({
             processButtons();
     },
 
-    addLocationDiv:function (index, systemName) {
+    addLocationDiv: function (index, systemName) {
         var that = this;
 
         // Increment locationIndex for existing cards on the table to the right of the added location
         var locationBeforeCount = this.locationDivs.length;
-        for (var i=locationBeforeCount-1; i>=index; i--) {
-            this.locationDivs[i].data( "locationIndex", i+1)
+        for (var i = locationBeforeCount - 1; i >= index; i--) {
+            this.locationDivs[i].data("locationIndex", i + 1)
 
             var otherCards1 = this.opponentSideOfLocationGroups[i].getCardElems();
-            for (var j=0; j<otherCards1.length; j++) {
+            for (var j = 0; j < otherCards1.length; j++) {
                 var cardData = $(otherCards1[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.opponentSideOfLocationGroups[i].locationIndex = i+1;
+            this.opponentSideOfLocationGroups[i].locationIndex = i + 1;
 
             var otherCards2 = this.opponentInBattleGroups[i].getCardElems();
-            for (var j=0; j<otherCards2.length; j++) {
+            for (var j = 0; j < otherCards2.length; j++) {
                 var cardData = $(otherCards2[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.opponentInBattleGroups[i].locationIndex = i+1;
+            this.opponentInBattleGroups[i].locationIndex = i + 1;
 
             var otherCards3 = this.opponentInDuelOrLightsaberCombatGroups[i].getCardElems();
-            for (var j=0; j<otherCards3.length; j++) {
+            for (var j = 0; j < otherCards3.length; j++) {
                 var cardData = $(otherCards3[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.opponentInDuelOrLightsaberCombatGroups[i].locationIndex = i+1;
+            this.opponentInDuelOrLightsaberCombatGroups[i].locationIndex = i + 1;
 
             var otherCards4 = this.locationCardGroups[i].getCardElems();
-            for (var j=0; j<otherCards4.length; j++) {
+            for (var j = 0; j < otherCards4.length; j++) {
                 var cardData = $(otherCards4[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.locationCardGroups[i].locationIndex = i+1;
+            this.locationCardGroups[i].locationIndex = i + 1;
 
             var otherCards5 = this.playerInDuelOrLightsaberCombatGroups[i].getCardElems();
-            for (var j=0; j<otherCards5.length; j++) {
+            for (var j = 0; j < otherCards5.length; j++) {
                 var cardData = $(otherCards5[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.playerInDuelOrLightsaberCombatGroups[i].locationIndex = i+1;
+            this.playerInDuelOrLightsaberCombatGroups[i].locationIndex = i + 1;
 
             var otherCards6 = this.playerInBattleGroups[i].getCardElems();
-            for (var j=0; j<otherCards6.length; j++) {
+            for (var j = 0; j < otherCards6.length; j++) {
                 var cardData = $(otherCards6[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.playerInBattleGroups[i].locationIndex = i+1;
+            this.playerInBattleGroups[i].locationIndex = i + 1;
 
             var otherCards7 = this.playerSideOfLocationGroups[i].getCardElems();
-            for (var j=0; j<otherCards7.length; j++) {
+            for (var j = 0; j < otherCards7.length; j++) {
                 var cardData = $(otherCards7[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.playerSideOfLocationGroups[i].locationIndex = i+1;
+            this.playerSideOfLocationGroups[i].locationIndex = i + 1;
 
             var otherCards8 = this.attackingInAttackGroups[i].getCardElems();
-            for (var j=0; j<otherCards8.length; j++) {
+            for (var j = 0; j < otherCards8.length; j++) {
                 var cardData = $(otherCards8[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.attackingInAttackGroups[i].locationIndex = i+1;
+            this.attackingInAttackGroups[i].locationIndex = i + 1;
 
             var otherCards9 = this.defendingInAttackGroups[i].getCardElems();
-            for (var j=0; j<otherCards9.length; j++) {
+            for (var j = 0; j < otherCards9.length; j++) {
                 var cardData = $(otherCards9[j]).data("card");
-                cardData.locationIndex = i+1;
+                cardData.locationIndex = i + 1;
             }
-            this.defendingInAttackGroups[i].locationIndex = i+1;
+            this.defendingInAttackGroups[i].locationIndex = i + 1;
         }
 
         if (this.zoomedInLocationIndex != null && this.zoomedInLocationIndex >= index) {
@@ -3232,20 +3448,20 @@ var GempSwccgGameUI = Class.extend({
         }
 
         var newDiv = $("<div class='ui-widget-content locationDiv'></div>");
-        newDiv.css({"border-radius":"0px", "border-color":"#111111", "border-width":"2px"});
-        newDiv.data( "locationIndex", index);
-        newDiv.data( "systemName", systemName);
+        newDiv.css({ "border-radius": "0px", "border-color": "#111111", "border-width": "2px" });
+        newDiv.data("locationIndex", index);
+        newDiv.data("systemName", systemName);
         $("#main").append(newDiv);
 
         this.locationDivs.splice(index, 0, newDiv);
 
         var newLightPowerAtLocationDiv = $("<div class='powerAtLocationDiv'></div>");
-        newLightPowerAtLocationDiv.css({visibility:"hidden"});
+        newLightPowerAtLocationDiv.css({ visibility: "hidden" });
         newDiv.append(newLightPowerAtLocationDiv);
         this.lightPowerAtLocationDivs.splice(index, 0, newLightPowerAtLocationDiv);
 
         var newDarkPowerAtLocationDiv = $("<div class='powerAtLocationDiv'></div>");
-        newDarkPowerAtLocationDiv.css({visibility:"hidden"});
+        newDarkPowerAtLocationDiv.css({ visibility: "hidden" });
         newDiv.append(newDarkPowerAtLocationDiv);
         this.darkPowerAtLocationDivs.splice(index, 0, newDarkPowerAtLocationDiv);
 
@@ -3265,7 +3481,7 @@ var GempSwccgGameUI = Class.extend({
         this.opponentInDuelOrLightsaberCombatGroups.splice(index, 0, newGrp3);
 
         var newGrp4 = new TableCardGroup($("#main"), function (card) {
-            return (card.zone == "LOCATIONS" && card.locationIndex == this.locationIndex );
+            return (card.zone == "LOCATIONS" && card.locationIndex == this.locationIndex);
         }, false, index, this.bottomPlayerId);
         this.locationCardGroups.splice(index, 0, newGrp4);
 
@@ -3297,7 +3513,7 @@ var GempSwccgGameUI = Class.extend({
         this.layoutUI(false);
     },
 
-    removeLocationDiv:function (index) {
+    removeLocationDiv: function (index) {
         var that = this;
 
         // Remove the groups for this location index from the array (and the location div from the DOM)
@@ -3316,67 +3532,67 @@ var GempSwccgGameUI = Class.extend({
 
         // Decrement locationIndex for existing cards on the table to the right of the added location
         var locationAfterCount = this.locationDivs.length;
-        for (var i=index; i < locationAfterCount; i++) {
-            this.locationDivs[i].data( "locationIndex", i)
+        for (var i = index; i < locationAfterCount; i++) {
+            this.locationDivs[i].data("locationIndex", i)
 
             var otherCards1 = this.opponentSideOfLocationGroups[i].getCardElems();
-            for (var j=0; j<otherCards1.length; j++) {
+            for (var j = 0; j < otherCards1.length; j++) {
                 var cardData = $(otherCards1[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.opponentSideOfLocationGroups[i].locationIndex = i;
 
             var otherCards2 = this.opponentInBattleGroups[i].getCardElems();
-            for (var j=0; j<otherCards2.length; j++) {
+            for (var j = 0; j < otherCards2.length; j++) {
                 var cardData = $(otherCards2[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.opponentInBattleGroups[i].locationIndex = i;
 
             var otherCards3 = this.opponentInDuelOrLightsaberCombatGroups[i].getCardElems();
-            for (var j=0; j<otherCards3.length; j++) {
+            for (var j = 0; j < otherCards3.length; j++) {
                 var cardData = $(otherCards3[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.opponentInDuelOrLightsaberCombatGroups[i].locationIndex = i;
 
             var otherCards4 = this.locationCardGroups[i].getCardElems();
-            for (var j=0; j<otherCards4.length; j++) {
+            for (var j = 0; j < otherCards4.length; j++) {
                 var cardData = $(otherCards4[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.locationCardGroups[i].locationIndex = i;
 
             var otherCards5 = this.playerInDuelOrLightsaberCombatGroups[i].getCardElems();
-            for (var j=0; j<otherCards5.length; j++) {
+            for (var j = 0; j < otherCards5.length; j++) {
                 var cardData = $(otherCards5[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.playerInDuelOrLightsaberCombatGroups[i].locationIndex = i;
 
             var otherCards6 = this.playerInBattleGroups[i].getCardElems();
-            for (var j=0; j<otherCards6.length; j++) {
+            for (var j = 0; j < otherCards6.length; j++) {
                 var cardData = $(otherCards6[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.playerInBattleGroups[i].locationIndex = i;
 
             var otherCards7 = this.playerSideOfLocationGroups[i].getCardElems();
-            for (var j=0; j<otherCards7.length; j++) {
+            for (var j = 0; j < otherCards7.length; j++) {
                 var cardData = $(otherCards7[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.playerSideOfLocationGroups[i].locationIndex = i;
 
             var otherCards8 = this.attackingInAttackGroups[i].getCardElems();
-            for (var j=0; j<otherCards8.length; j++) {
+            for (var j = 0; j < otherCards8.length; j++) {
                 var cardData = $(otherCards8[j]).data("card");
                 cardData.locationIndex = i;
             }
             this.attackingInAttackGroups[i].locationIndex = i;
 
             var otherCards9 = this.defendingInAttackGroups[i].getCardElems();
-            for (var j=0; j<otherCards9.length; j++) {
+            for (var j = 0; j < otherCards9.length; j++) {
                 var cardData = $(otherCards9[j]).data("card");
                 cardData.locationIndex = i;
             }
@@ -3400,20 +3616,20 @@ var GempSwccgGameUI = Class.extend({
         }
     },
 
-    clearSelection:function () {
+    clearSelection: function () {
         $(".selectableCard").removeClass("selectableCard").data("action", null);
         $(".actionableCard").removeClass("actionableCard").removeClass("actionableCardSilent").data("action", null);
         $(".selectedCard").removeClass("selectedCard");
         this.selectionFunction = null;
     },
 
-    dialogResize:function (dialog, group) {
+    dialogResize: function (dialog, group) {
         var width = dialog.width() + 10;
         var height = dialog.height() + 10;
         group.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
     },
 
-    arbitraryDialogResize:function (texts) {
+    arbitraryDialogResize: function (texts) {
         if (texts) {
             var width = this.cardActionDialog.width() + 10;
             var height = this.cardActionDialog.height() - 10;
