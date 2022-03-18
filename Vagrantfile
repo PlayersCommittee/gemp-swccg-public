@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Create a private network, which allows host-only 
     # access to the machine using a specific IP.
-    d.vm.network "private_network", ip: "192.168.50.94"
+    d.vm.network "private_network", ip: "192.168.60.94"
 
     config.vm.provider "virtualbox" do |vb|
       vb.name = VAGRANT_INSTANCE_NAME
