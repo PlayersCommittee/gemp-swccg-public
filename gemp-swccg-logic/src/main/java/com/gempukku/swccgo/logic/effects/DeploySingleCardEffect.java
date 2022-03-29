@@ -180,6 +180,9 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                         gameState.removeCardsFromZone(Collections.singleton(_cardToPlay));
                         gameState.addCardToZone(_cardToPlay, Zone.VOID, _cardToPlay.getOwner());
 
+                        // If the card is being played as a Dejarik, mark it so now, so Sense & Alter are unable to cancel as being played.
+                        _cardToPlay.setDejarikHologramAtHolosite(_playCardOptionId == PlayCardOptionId.PLAY_AS_DEJARIK);
+
                         // Shuffle the card pile
                         if (_playedFromZone.isCardPile()) {
                             if (_reshuffle) {
@@ -390,7 +393,6 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                         // Played to location.
                                                         else if (_playedToLocation != null) {
                                                             destinationCard = _playedToLocation;
-                                                            _cardToPlay.setDejarikHologramAtHolosite(_playCardOptionId == PlayCardOptionId.PLAY_AS_DEJARIK);
 
                                                             if (_deployAsCaptiveOption != null && _deployAsCaptiveOption.getCaptureOption() == CaptureOption.IMPRISONMENT) {
                                                                 _cardToPlay.setCaptive(true);
