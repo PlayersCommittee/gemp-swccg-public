@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card8_038 extends AbstractNormalEffect {
     public Card8_038() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I Hope She's All Right", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Hope_Shes_All_Right, Uniqueness.UNIQUE);
         setLore("'I'm afraid that Artoo's sensors can find no trace of Princess Leia.'");
         setGameText("Deploy on table. Your non-unique scouts are forfeit +1. During every draw phase, unless opponent's character of destiny < 4 occupies a battleground site, opponent loses 1 Force. Effect canceled unless your characters of destiny < 4 occupy two battleground sites.");
         addIcons(Icon.ENDOR);

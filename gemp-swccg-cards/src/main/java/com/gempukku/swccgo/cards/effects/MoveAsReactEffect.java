@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
 public class MoveAsReactEffect extends AbstractSubActionEffect {
     private PhysicalCard _cardToMove;
     private boolean _forFree;
+    private int _changeInCost;
 
     /**
      * Creates an effect that performs a move as a 'react'.
@@ -27,6 +28,19 @@ public class MoveAsReactEffect extends AbstractSubActionEffect {
         super(action);
         _cardToMove = cardToMove;
         _forFree = forFree;
+        _changeInCost = 0;
+    }
+
+    /**
+     * Creates an effect that performs a move as a 'react'.
+     * @param action the action performing this effect
+     * @param cardToMove the card to move as a 'react'
+     * @param changeInCost change in amount of Force (can be positive or negative) required
+     */
+    public MoveAsReactEffect(Action action, PhysicalCard cardToMove, int changeInCost) {
+        super(action);
+        _cardToMove = cardToMove;
+        _changeInCost = changeInCost;
     }
 
     @Override
@@ -42,7 +56,7 @@ public class MoveAsReactEffect extends AbstractSubActionEffect {
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        ReactActionOption reactActionOption = new ReactActionOption(_action.getActionSource(), _forFree, 0, false, "Move as a 'react'", _cardToMove, Filters.any, null, false);
+                        ReactActionOption reactActionOption = new ReactActionOption(_action.getActionSource(), _forFree, _changeInCost, false, "Move as a 'react'", _cardToMove, Filters.any, null, false);
                         Action moveAsReactAction = _cardToMove.getBlueprint().getMoveAsReactAction(_cardToMove.getOwner(), game,
                                 _cardToMove, reactActionOption, reactActionOption.getTargetFilter());
                         if (moveAsReactAction != null) {

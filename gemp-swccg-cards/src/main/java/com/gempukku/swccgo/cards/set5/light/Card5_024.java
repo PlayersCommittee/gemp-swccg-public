@@ -32,6 +32,7 @@ public class Card5_024 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Haven, Uniqueness.UNIQUE);
         setLore("After pursuit, asteroids, a slug, Jedi training, capture, torture, escape, a duel, losing Han and losing a hand, Luke and Leia finally made it to the Alliance's rendezvous point.");
         setGameText("Deploy on Rendezvous Point, Hoth, Yavin 4, Alderaan or Sullust. Your starships deploy -2 and your pilots deploy -1 here. When battling here, you may add one battle destiny. Effect canceled if opponent controls this system. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.CLOUD_CITY);
         addImmuneToCardTitle(Title.Alter);
     }

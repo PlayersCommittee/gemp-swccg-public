@@ -39,10 +39,10 @@ public class Card8_118 extends AbstractNormalEffect {
         Condition battlePlanOnTable = new OnTableCondition(self, Filters.Battle_Plan);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, player));
-        modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new OrCondition(battlePlanOnTable,
+        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), player));
+        modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,
                 new AndCondition(new OccupiesCondition(player, Filters.battleground_site), new OccupiesCondition(player, Filters.battleground_system)))), 3, player));
-        modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new OrCondition(battlePlanOnTable,
+        modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,
                 new AndCondition(new OccupiesCondition(opponent, Filters.battleground_site), new OccupiesCondition(opponent, Filters.battleground_system)))), 3, opponent));
         return modifiers;
     }

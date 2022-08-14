@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class Card3_117 extends AbstractUsedInterrupt {
     public Card3_117() {
-        super(Side.DARK, 5, "Cold Feet");
+        super(Side.DARK, 5, Title.Cold_Feet);
         setLore("Wampas pack snow around the appendages of captured prey, making use of Hoth's cold environment to immobilize them.");
         setGameText("Target a character at any marker site. Draw destiny. If site under 'nighttime conditions,' add 2 to destiny draw. If total destiny > ability, character may not move for remainder of turn.");
         addIcons(Icon.HOTH);

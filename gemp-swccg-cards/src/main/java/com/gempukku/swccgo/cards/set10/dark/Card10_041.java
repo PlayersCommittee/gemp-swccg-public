@@ -1,12 +1,14 @@
 package com.gempukku.swccgo.cards.set10.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
@@ -35,7 +37,8 @@ public class Card10_041 extends AbstractDroid {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, Filters.Xizor, new PresentWithCondition(self, Filters.Xizor)));
+        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, Filters.Xizor, new AndCondition(new PresentWithCondition(self, Filters.Xizor), new NotCondition(new GameTextModificationCondition(self, ModifyGameTextType.LEGACY__TREAT_XIZOR_AS_SHADA)))));
+        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, Filters.title("Shada"), new AndCondition(new PresentWithCondition(self, Filters.title("Shada")), new GameTextModificationCondition(self, ModifyGameTextType.LEGACY__TREAT_XIZOR_AS_SHADA))));
         modifiers.add(new MayNotDrawMoreThanBattleDestinyModifier(self, Filters.here(self), new NotCondition(new HereCondition(self, Filters.Vader)),
                 1, game.getOpponent(self.getOwner())));
         modifiers.add(new MayNotBePurchasedModifier(self));

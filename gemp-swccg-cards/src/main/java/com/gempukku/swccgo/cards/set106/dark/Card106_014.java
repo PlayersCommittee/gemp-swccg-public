@@ -34,6 +34,7 @@ public class Card106_014 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Forced Servitude", Uniqueness.UNIQUE);
         setLore("The Empire often uses droids for nefarious purposes. Imperials compel droids to do jobs that are repugnant to humans. An automaton has no ethical conscience.");
         setGameText("Deploy on opponent's location. Whenever you lose a droid from hand or Life Force, it satisfies Force loss up to its forfeit value. Once per turn, you play Imperial Code Cylinder to cancel a Force drain where you have a droid. Effect canceled if opponent controls this location.");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.PREMIUM);
     }
 

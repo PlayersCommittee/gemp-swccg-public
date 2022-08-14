@@ -104,8 +104,8 @@ public class Card211_026_BACK extends AbstractObjective {
                 && GameConditions.hasForcePile(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Search your force pile and reveal a card");
-            action.setActionMsg("Search your force pile and reveal a card");
+            action.setText("Search your Force Pile and reveal a card");
+            action.setActionMsg("Search your Force Pile and reveal a card");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
@@ -118,7 +118,7 @@ public class Card211_026_BACK extends AbstractObjective {
                             action.addAnimationGroup(selectedCard);
                             action.appendEffect(
                                     new PlayoutDecisionEffect(action, opponent,
-                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getCardLink(selectedCard) + " from Force Pile. Choose result", new String[]{"Lose 2 force to place card on bottom of used pile", "Opponent takes card into hand"}) {
+                                            new MultipleChoiceAwaitingDecision("Opponent revealed " + GameUtils.getCardLink(selectedCard) + " from Force Pile. Choose result", new String[]{"Lose 2 Force to place card on bottom of Used Pile", "Opponent takes card into hand"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (index == 0) {

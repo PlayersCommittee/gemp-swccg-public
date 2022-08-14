@@ -30,7 +30,7 @@ public class Card7_208 extends AbstractAlien {
         setLore("Pa'lowick Musician. Manager of The Max Rebo Band. Reports on Jabba to Lady Valarian. Bib Fortuna uses her as a double agent, feeding her false information.");
         setGameText("During your deploy phase, where present, allows J'Quille or Bib Fortuna deploy from Reserve Deck, reshuffle. Once each turn when you have at least 3 musicians on table, may play Ommni Box to cancel opponent's Force drain at a related site.");
         addIcons(Icon.SPECIAL_EDITION);
-        addKeywords(Keyword.MUSICIAN);
+        addKeywords(Keyword.FEMALE, Keyword.MUSICIAN);
         setSpecies(Species.PALOWICK);
     }
 

@@ -59,6 +59,20 @@ public class TakeCardsIntoHandFromReserveDeckEffect extends TakeCardsIntoHandFro
      * @param playerId the player
      * @param minimum the minimum number of cards to choose
      * @param maximum the maximum number of cards to choose
+     * @param filters the filter
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     */
+    public TakeCardsIntoHandFromReserveDeckEffect(Action action, String playerId, int minimum, int maximum, Filter filters, boolean reshuffle, boolean doNotFilterPermanentsAboard) {
+        super(action, playerId, minimum, maximum, Zone.RESERVE_DECK, playerId, false, filters, reshuffle, false, doNotFilterPermanentsAboard);
+    }
+
+    /**
+     * Creates an effect that causes the player to search Reserve Deck for cards accepted by the specified filter and take
+     * them into hand.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param minimum the minimum number of cards to choose
+     * @param maximum the maximum number of cards to choose
      * @param cardPileOwner the card pile owner
      * @param filters the filter
      * @param reshuffle true if pile is reshuffled, otherwise false

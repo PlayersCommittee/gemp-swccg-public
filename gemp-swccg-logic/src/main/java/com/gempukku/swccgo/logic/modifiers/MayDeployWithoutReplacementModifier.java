@@ -31,7 +31,7 @@ public class MayDeployWithoutReplacementModifier extends AbstractModifier {
      * @param condition    the condition that must be fulfilled for the modifier to be in effect
      * @param resetValue   the reset value
      */
-    private MayDeployWithoutReplacementModifier(PhysicalCard source, Filterable affectFilter, Condition condition, float resetValue) {
+    public MayDeployWithoutReplacementModifier(PhysicalCard source, Filterable affectFilter, Condition condition, float resetValue) {
         super(source, null, affectFilter, condition, ModifierType.MAY_DEPLOY_WITHOUT_REPLACEMENT, true);
         _resetValue = resetValue;
     }

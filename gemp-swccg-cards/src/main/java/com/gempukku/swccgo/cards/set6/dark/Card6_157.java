@@ -44,7 +44,8 @@ public class Card6_157 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (TriggerConditions.justDeployedToLocation(game, effectResult, opponent, Filters.and(Filters.Rebel, Filters.canBeTargetedBy(self)), Filters.Jabbas_Palace_site)) {
             final PhysicalCard cardPlayed = ((PlayCardResult) effectResult).getPlayedCard();
-            if (!GameConditions.canSpot(game, self, Filters.and(Filters.your(self), Filters.Imperial, Filters.at(Filters.Jabbas_Palace_site)))) {
+            if (GameConditions.canTarget(game, self, cardPlayed)
+                && !GameConditions.canSpot(game, self, Filters.and(Filters.your(self), Filters.Imperial, Filters.at(Filters.Jabbas_Palace_site)))) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Return " + GameUtils.getFullName(cardPlayed) + " to hand");

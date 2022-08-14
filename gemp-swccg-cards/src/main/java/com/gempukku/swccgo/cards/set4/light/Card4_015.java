@@ -38,7 +38,7 @@ public class Card4_015 extends AbstractCharacterDevice {
         setLore("2 kilo lifting capacity and 85 meter reach. Better than 1 micrometer placement accuracy. Feisty Rebel droids can use this tool for sneaky purposes.");
         setGameText("Deploy on any R-unit droid to give that droid thief skill. Once during each of your control phases, you may use 1 Force to target a weapon or device present. Draw destiny. If destiny > 2, target is 'stolen.' Target may then be transferred for free. Droid may not be Disarmed.");
         addIcons(Icon.DAGOBAH);
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

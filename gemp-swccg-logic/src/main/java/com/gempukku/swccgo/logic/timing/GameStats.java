@@ -47,6 +47,8 @@ public class GameStats {
     private int _defendingNumDestinyInAttack;
     private float _lightRaceTotal = -1;
     private float _darkRaceTotal = -1;
+    private float _lightPoliticsTotal = -1;
+    private float _darkPoliticsTotal = -1;
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
     private Map<Integer, Float> _darkPowerAtLocations = new HashMap<Integer, Float>();
     private Map<Integer, Float> _lightPowerAtLocations = new HashMap<Integer, Float>();
@@ -233,6 +235,18 @@ public class GameStats {
             _darkRaceTotal = newDarkRaceTotal;
         }
 
+        float newLightPoliticsTotal = GuiUtils.getPoliticsTotal(game, lightPlayer);
+        if (newLightPoliticsTotal != _lightPoliticsTotal) {
+            changed = true;
+            _lightPoliticsTotal = newLightPoliticsTotal;
+        }
+
+        float newDarkPoliticsTotal = GuiUtils.getPoliticsTotal(game, darkPlayer);
+        if (newDarkPoliticsTotal != _darkPoliticsTotal) {
+            changed = true;
+            _darkPoliticsTotal = newDarkPoliticsTotal;
+        }
+
         Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<String, Map<Zone, Integer>>();
         PlayerOrder playerOrder = game.getGameState().getPlayerOrder();
         if (playerOrder != null) {
@@ -399,6 +413,14 @@ public class GameStats {
         return _darkRaceTotal;
     }
 
+    public Float getLightPoliticsTotal() {
+        return _lightPoliticsTotal;
+    }
+
+    public Float getDarkPoliticsTotal() {
+        return _darkPoliticsTotal;
+    }
+
     public Map<String, Map<Zone, Integer>> getZoneSizes() {
         return Collections.unmodifiableMap(_zoneSizes);
     }
@@ -443,6 +465,8 @@ public class GameStats {
         copy._defendingNumDestinyInAttack = _defendingNumDestinyInAttack;
         copy._lightRaceTotal = _lightRaceTotal;
         copy._darkRaceTotal = _darkRaceTotal;
+        copy._lightPoliticsTotal = _lightPoliticsTotal;
+        copy._darkPoliticsTotal = _darkPoliticsTotal;
 
         // Only copy sabacc total if sending to that player (or sabacc hands are revealed)
         if (_game != null && playerToSendTo != null) {

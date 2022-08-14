@@ -92,7 +92,7 @@ public class Card13_041 extends AbstractNormalEffect {
                                     List<TriggerAction> actions = new LinkedList<TriggerAction>();
 
                                     // Check condition(s)
-                                    if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
+                                    if (TriggerConditions.isDestinyDrawComplete(game, effectResult, drawDestinyState)
                                             && GameConditions.canStackDestinyCard(game)) {
 
                                         RequiredGameTextTriggerAction action1 = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

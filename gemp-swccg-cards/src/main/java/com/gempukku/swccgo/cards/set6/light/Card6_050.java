@@ -27,7 +27,7 @@ public class Card6_050 extends AbstractCharacterDevice {
         setLore("Standard astromech internal cargo area measures 20 centimeters by 8 centimeters. Some models have a custom compressed-air launcher for shooting flares.");
         setGameText("Deploy on any R-unit droid. At start of a battle, you may 'react' by deploying one character weapon (at normal use of the Force) from Reserve Deck on a warrior present; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

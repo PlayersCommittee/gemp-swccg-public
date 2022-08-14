@@ -85,6 +85,7 @@ public class Card5_037 extends AbstractUsedOrLostInterrupt {
                                                                         // Build action using common utility
                                                                         action2.appendEffect(
                                                                                 new ReleaseCaptiveEffect(action2, finalTarget));
+                                                                        actions.add(action2);
                                                                     }
                                                                     return actions;
                                                                 }

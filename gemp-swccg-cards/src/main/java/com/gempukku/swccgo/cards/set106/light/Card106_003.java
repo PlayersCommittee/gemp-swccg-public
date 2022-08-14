@@ -34,6 +34,7 @@ public class Card106_003 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Faithful Service", Uniqueness.UNIQUE);
         setLore("Unlike the Empire, the Alliance treats their droids with respect. Many droids volunteered to share the risk of battle and aid the Rebellion's assault on the Death Star.");
         setGameText("Deploy on opponent's location. Whenever you lose a droid from hand or Life Force, it satisfies Force loss up to its forfeit value. Once per turn, you play Scomp Link Access to cancel a Force drain where you have a droid. Effect canceled if opponent controls this location.");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.PREMIUM);
     }
 

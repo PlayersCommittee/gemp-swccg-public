@@ -25,6 +25,7 @@ public class Card8_041 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Thats_One, Uniqueness.UNIQUE);
         setLore("Considering the life debt he owed to Han and his personal commitment to the Rebel Alliance, Chewie quickly volunteered to fly the stolen shuttle to Endor.");
         setGameText("Deploy on Chewie. He is immune to attrition < 4 at exterior sites. Visored Vision is immune to Sense. While at same battleground site as Han, Chewie adds 1 to each of his weapon destiny draws and Life Debt is a Used Interrupt during a battle there.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.ENDOR);
     }
 

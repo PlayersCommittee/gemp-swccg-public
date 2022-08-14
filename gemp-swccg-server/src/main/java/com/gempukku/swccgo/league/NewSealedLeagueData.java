@@ -133,4 +133,12 @@ public class NewSealedLeagueData implements LeagueData {
 
         return status;
     }
+
+    public SealedLeagueType getSealedLeagueType() {
+        return _leagueType;
+    }
+
+    public boolean isSealed() {
+        return true;
+    }
 }

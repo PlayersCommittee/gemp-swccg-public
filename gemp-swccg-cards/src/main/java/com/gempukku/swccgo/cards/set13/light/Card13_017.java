@@ -31,6 +31,7 @@ public class Card13_017 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Echo Base Sensors", Uniqueness.UNIQUE);
         setLore("'The sensors are in place. You'll know if anything comes around.'");
         setGameText("Deploy on North Ridge if Main Power Generators on table. When opponent deploys a character or vehicle to a marker site, activate 1 Force and that card may not move that turn. Effect lost if opponent occupies an Echo site, or your Ice Storm on table. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.REFLECTIONS_III);
         addImmuneToCardTitle(Title.Alter);
     }

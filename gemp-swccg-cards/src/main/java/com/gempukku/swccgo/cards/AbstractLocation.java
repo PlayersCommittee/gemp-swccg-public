@@ -1,15 +1,19 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.*;
+import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.game.layout.LocationPlacement;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.*;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -648,6 +652,10 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 List<OptionalGameTextTriggerAction> extraDarkSideActions = getGameTextDarkSideOptionalAfterTriggers(playerOnDarkSideOfLocation, game, effectResult, self, self.getCardId());
                 if (extraDarkSideActions != null)
                     actions.addAll(extraDarkSideActions);
+            } else {
+                List<OptionalGameTextTriggerAction> extraDarkSideActions = getGameTextDarkSideOpponentsActionOptionalAfterTriggers(game.getOpponent(playerOnDarkSideOfLocation), game, effectResult, self, self.getCardId());
+                if (extraDarkSideActions != null)
+                    actions.addAll(extraDarkSideActions);
             }
         }
 
@@ -656,6 +664,11 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 List<OptionalGameTextTriggerAction> extraLightSideActions = getGameTextLightSideOptionalAfterTriggers(playerOnLightSideOfLocation, game, effectResult, self, self.getCardId());
                 if (extraLightSideActions != null)
                     actions.addAll(extraLightSideActions);
+            } else {
+                List<OptionalGameTextTriggerAction> extraLightSideActions = getGameTextLightSideOpponentsActionOptionalAfterTriggers(game.getOpponent(playerOnLightSideOfLocation), game, effectResult, self, self.getCardId());
+                if (extraLightSideActions != null)
+                    actions.addAll(extraLightSideActions);
+
             }
         }
 
@@ -900,15 +913,19 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
      * @param self this location
      * @return modifiers from 'bluff' cards
      */
-    private List<Modifier> getBluffRulesModifiers(SwccgGame game, PhysicalCard self) {
+    private List<Modifier> getBluffRulesModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
-        // If 'bluff rules' in effect, add cumulative Force drain modifier for each 'bluff card'
-        if (isSpecialRuleInEffectHere(SpecialRule.BLUFF_RULES, self)) {
-            Collection<PhysicalCard> bluffCards = Filters.filter(game.getGameState().getStackedCards(self), game, Filters.bluffCard);
-            for (PhysicalCard bluffCard : bluffCards) {
-                modifiers.add(new ForceDrainModifier(bluffCard, self, 1, bluffCard.getOwner(), true));
-            }
+        // This only ever applies to Tatooine: Bluffs
+        if (self.getBlueprint().getTitle().equals(Title.Bluffs)) {
+            Condition bluffRulesCondition = new Condition() {
+                @Override
+                public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                    return isSpecialRuleInEffectHere(SpecialRule.BLUFF_RULES, self);
+                }
+            };
+
+            modifiers.add(new ForceDrainModifier(self, bluffRulesCondition, new StackedEvaluator(self, Filters.Bluffs, Filters.bluffCard), game.getDarkPlayer()));
         }
 
         return modifiers;
@@ -1114,6 +1131,34 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
      * @return the trigger actions, or null
      */
     protected List<OptionalGameTextTriggerAction> getGameTextLightSideOptionalAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "after" triggers to the specified effect result
+     * on the Dark side of the location that can be performed by the opponent of the player on that side of the location.
+     * @param playerOnDarkSideOfLocation the player on Dark side of location
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions, or null
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOpponentsActionOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "after" triggers to the specified effect result
+     * on the Light side of the location that can be performed by the opponent of the player on that side of the location.
+     * @param playerOnLightSideOfLocation the player on Light side of location
+     * @param game the game
+     * @param effectResult the effect result
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions, or null
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextLightSideOpponentsActionOptionalAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         return null;
     }
 

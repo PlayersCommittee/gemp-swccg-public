@@ -92,6 +92,7 @@ public class HitCardAndMayNotBeUsedToSatisfyAttritionEffect extends AbstractSubA
 
                                             gameState.sendMessage(GameUtils.getCardLink(_cardHit) + " is 'hit' by " + GameUtils.getCardLink(_hitByCard) + " and may not be used to satisfy attrition");
                                             gameState.cardAffectsCard(_action.getPerformingPlayer(), source, _cardHit);
+                                            game.getModifiersQuerying().hitOrMadeLostByWeapon(_cardHit, _hitByCard);
 
                                             _cardHit.setHit(true);
                                             if (!_cardHit.isSideways()) {

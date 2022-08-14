@@ -46,7 +46,7 @@ public class Card4_057 extends AbstractLostInterrupt {
                 && GameConditions.canTarget(game, self, filter)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Target a starfigher");
+            action.setText("Target a starfighter");
             // Choose target(s)
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose starfighter", filter) {

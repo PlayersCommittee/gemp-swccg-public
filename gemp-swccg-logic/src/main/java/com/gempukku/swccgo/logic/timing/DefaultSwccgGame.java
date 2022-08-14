@@ -193,7 +193,7 @@ public class DefaultSwccgGame implements SwccgGame {
             _cancelled = true;
 
             if (_gameState != null) {
-                _gameState.sendMessage("Game was cancelled due to an error, the error was logged and will be fixed soon.");
+                _gameState.sendMessage("Game was canceled due to an error. Please report this error.");
             }
 
             for (GameResultListener gameResultListener : _gameResultListeners)

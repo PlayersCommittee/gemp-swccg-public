@@ -27,6 +27,7 @@ public class Card1_063 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Rycar_Ryjerd);
         setLore("A Bimm trader and smuggler of starship weapons. Trusts no one. Does business with anyone. Teaches smuggler apprentices. Has mastered Jawa language.");
         setGameText("Deploy on any non-smuggler to give that character smuggler skill. OR Deploy on any smuggler. That character is power +1. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

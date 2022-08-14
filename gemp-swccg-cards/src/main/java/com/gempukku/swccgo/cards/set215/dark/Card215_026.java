@@ -30,6 +30,7 @@ public class Card215_026 extends AbstractAlien {
         super(Side.DARK, 2, 3, 4, 2, 4, "Rukh", Uniqueness.UNIQUE);
         setLore("Noghri assassin and bodyguard.");
         setGameText("While armed with a blaster, your assassins and leaders here are immune to Blaster Proficiency and Clash Of Sabers and, if Shadow Collective just flipped, may peek at top two cards of your Reserve Deck and take one into hand.");
+        addPersona(Persona.RUKH);
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR, Icon.VIRTUAL_SET_15);
         setSpecies(Species.NOGHRI);
         addKeywords(Keyword.ASSASSIN, Keyword.BODYGUARD);

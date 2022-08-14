@@ -32,7 +32,7 @@ public class Card213_035 extends AbstractAlien {
     public Card213_035() {
         super(Side.LIGHT, 3, 2, 2, 3, 4, "Captain Lando Calrissian", Uniqueness.UNIQUE);
         setLore("Smuggler and gambler.");
-        setGameText("[Pilot] 2. If a battle was just initiated here, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve Deck; reshuffle. Once per game, if you have completed a Kessel Run, may return Lando to hand.");
+        setGameText("[Pilot] 2. If a battle was just initiated here, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve Deck; reshuffle. Once per game, if you have completed a Kessel Run, may return your Lando to hand.");
         addPersona(Persona.LANDO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
         addKeywords(Keyword.SMUGGLER, Keyword.GAMBLER, Keyword.CAPTAIN);
@@ -52,9 +52,9 @@ public class Card213_035 extends AbstractAlien {
         // Check condition(s)
         if (GameConditions.hasCompletedUtinniEffect(game, self.getOwner(), Filters.Kessel_Run)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSpot(game, self, Filters.Lando)) {
+                && GameConditions.canSpot(game, self, Filters.and(Filters.your(self), Filters.Lando))) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            PhysicalCard lando = Filters.findFirstActive(game, self, Filters.Lando);
+            PhysicalCard lando = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.Lando));
             action.setText("Return to hand");
             action.setActionMsg("Return " + GameUtils.getCardLink(lando) + " to hand");
             action.appendUsage(

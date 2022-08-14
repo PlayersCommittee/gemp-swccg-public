@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card216_046 extends AbstractNormalEffect {
     public Card216_046() {
-        super(Side.LIGHT, 0, PlayCardZoneOption.ATTACHED, "Wookiee Homestead", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, PlayCardZoneOption.ATTACHED, Title.Wookiee_Homestead, Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on Kachirho. Your Wookiees deploy -1. If you have two Wookiees in battle, draw one battle destiny if unable to otherwise. While your Wookiee alone here, [Dark Side] icons here are canceled. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_16);

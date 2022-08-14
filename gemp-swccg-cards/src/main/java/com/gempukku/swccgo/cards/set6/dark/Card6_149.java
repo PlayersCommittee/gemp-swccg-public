@@ -30,6 +30,7 @@ public class Card6_149 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Scum_And_Villainy, Uniqueness.UNIQUE);
         setLore("A relief in Nal Hutta sandstone. Hand-carved by slaves of the great Hutt artist Dreyba. Commissioned by Jabba to illustrate his vast influence. Titled 'Ne Ganna Dateel Jabba.'");
         setGameText("Deploy on Audience Chamber. While all your ability on table is provided by aliens and independent starship pilots, your aliens and starships deploy -1 and you retrieve 2 Force whenever you initiate battle. (Immune to Alter if you control at least three Jabba's Palace sites.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.JABBAS_PALACE);
     }
 

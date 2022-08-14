@@ -240,7 +240,7 @@ public class TotalWeaponDestinyModifier extends AbstractModifier {
      * @param evaluator the evaluator that calculates the amount of the modifier
      * @param targetFilter the target filter
      */
-    protected TotalWeaponDestinyModifier(PhysicalCard source, Filterable weaponFilter, Condition condition, Filterable weaponUserFilter, Evaluator evaluator, Filterable targetFilter) {
+    public TotalWeaponDestinyModifier(PhysicalCard source, Filterable weaponFilter, Condition condition, Filterable weaponUserFilter, Evaluator evaluator, Filterable targetFilter) {
         this(source, weaponFilter, condition, weaponUserFilter, evaluator, targetFilter, false);
     }
 

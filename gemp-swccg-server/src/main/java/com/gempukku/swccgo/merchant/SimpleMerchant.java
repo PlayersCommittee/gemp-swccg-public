@@ -16,6 +16,8 @@ import java.util.Map;
  * Defines a merchant the defines the product prices based on simple rules.
  */
 public class SimpleMerchant implements Merchant {
+    public static final int FOIL_PRICE_MULTIPLIER = 4;
+    public static final int FOIL_BASE_PRICE = 50;
     private final float _profitMargin = 0.10f;
     private Map<Integer, SetRarity> _rarities = new HashMap<Integer, SetRarity>();
     private SwccgCardBlueprintLibrary _library;
@@ -74,7 +76,8 @@ public class SimpleMerchant implements Merchant {
         float normalPrice = getNormalPrice(blueprintId);
         int price = Math.max(1, (int) Math.floor(_profitMargin * normalPrice));
         if (foil) {
-            price *= 2;
+            price *= FOIL_PRICE_MULTIPLIER;
+            price += FOIL_BASE_PRICE;
         }
 
         return price;
@@ -100,7 +103,7 @@ public class SimpleMerchant implements Merchant {
         Rarity cardRarity = rarity.getCardRarity(blueprintId);
         if (cardRarity == Rarity.UR) // Ultra Rare (UR)
             return BASE_PRICE * 10;
-        if (cardRarity == Rarity.XR) // Extra Rare (XR)
+        if (cardRarity == Rarity.XR) // Exclusive Rare (XR)
             return BASE_PRICE * 3;
         if (cardRarity == Rarity.PM) // Premium (P)
             return BASE_PRICE * 2;
@@ -154,7 +157,7 @@ public class SimpleMerchant implements Merchant {
     public void cardBought(String blueprintId, Date currentTime, int price) {
         boolean foil = blueprintId.endsWith("*");
         if (foil) {
-            price = price / 2;
+            price = (price / FOIL_PRICE_MULTIPLIER)-FOIL_BASE_PRICE;
         }
         blueprintId = _library.getBaseBlueprintId(blueprintId);
         _merchantDao.addTransaction(blueprintId, (price / _profitMargin), currentTime, MerchantDAO.TransactionType.BUY);
@@ -171,7 +174,7 @@ public class SimpleMerchant implements Merchant {
     public void cardsBought(String blueprintId, Date currentTime, int price, int quantity) {
         boolean foil = blueprintId.endsWith("*");
         if (foil) {
-            price = price / 2;
+            price = (price / FOIL_PRICE_MULTIPLIER)-FOIL_BASE_PRICE;
         }
         blueprintId = _library.getBaseBlueprintId(blueprintId);
         _merchantDao.addTransaction(blueprintId, (price / _profitMargin)*quantity, currentTime, MerchantDAO.TransactionType.BUY);

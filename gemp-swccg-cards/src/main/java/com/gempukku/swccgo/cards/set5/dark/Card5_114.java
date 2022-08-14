@@ -33,6 +33,7 @@ public class Card5_114 extends AbstractNormalEffect {
         setGameText("Deploy on Carbonite Chamber. During your control phase, may target one captive present. Draw destiny. If destiny < 5, captive lost. If destiny > 10, place on captive. Captive is 'frozen' and opponent loses 8 Force. If captive released, lose Effect. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);
         addImmuneToCardTitle(Title.Alter);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

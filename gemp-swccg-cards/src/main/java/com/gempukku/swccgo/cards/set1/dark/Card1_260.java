@@ -25,7 +25,7 @@ public class Card1_260 extends AbstractLostInterrupt {
     public Card1_260() {
         super(Side.DARK, 4, "Moment Of Triumph", Uniqueness.UNIQUE);
         setLore("A ruthless ruler of Outer Rim Territories. Grand Moff Tarkin used the Death Star to destroy Alderaan, creating the doctrine of rule by fear.");
-        setGameText("If Tarkin is defending a battle alone, add two battle destiny. OR If any alien is defending a battle alone, add one battle destiny.");
+        setGameText("If Tarkin is defending a battle alone, add two battle destiny. OR If your alien is defending a battle alone, add one battle destiny.");
     }
 
     @Override

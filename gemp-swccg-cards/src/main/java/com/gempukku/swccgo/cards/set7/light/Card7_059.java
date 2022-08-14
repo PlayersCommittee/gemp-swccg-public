@@ -34,6 +34,7 @@ public class Card7_059 extends AbstractNormalEffect {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Down With The Emperor!", Uniqueness.UNIQUE);
         setLore("News of Imperial defeat inspires the citizens of the galaxy. A major loss seriously undermines the Empire's ability to function.");
         setGameText("If no Dark Jedi is on table, deploy on Death Star system. If Death Star 'blown away,' relocate to opponent's side of table: each Imperial and Imperial starship is deploy +8 and loses immunity to attrition. Canceled if a Dark Jedi is deployed. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

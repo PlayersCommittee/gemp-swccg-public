@@ -61,6 +61,7 @@ public class RestoreCardToNormalEffect extends AbstractSuccessfulEffect {
         if (_cardToRestore.isSideways()) {
             gameState.turnCardSideways(game, _cardToRestore, true);
         }
+        modifiersQuerying.clearHitOrMadeLostByWeapon(_cardToRestore);
 
         // Get all the persistent modifiers that can affect the card and exclude this card from those modifiers.
         List<Modifier> modifiers = modifiersQuerying.getPersistentModifiersAffectingCard(gameState, _cardToRestore);

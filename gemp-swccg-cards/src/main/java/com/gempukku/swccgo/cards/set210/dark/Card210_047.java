@@ -63,7 +63,7 @@ public class Card210_047 extends AbstractNormalEffect {
                     new ChooseCardFromHandEffect(action, playerId) {
                         @Override
                         protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                            Set<CardType> cardTypes = selectedCard.getBlueprint().getCardTypes();
+                            Set<CardType> cardTypes = game.getModifiersQuerying().getCardTypes(game.getGameState(), selectedCard);
                             Filter filterForCardInLostPile = Filters.none;
                             for (CardType cardType : cardTypes) {
                                 filterForCardInLostPile = Filters.or(filterForCardInLostPile, Filters.type(cardType));

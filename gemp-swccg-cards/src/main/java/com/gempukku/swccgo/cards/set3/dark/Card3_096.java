@@ -40,7 +40,7 @@ public class Card3_096 extends AbstractCharacterDevice {
         setLore("Larger assault weapons require troops to carry their own power sources. Both light and efficient, these units produce ample power for most combat needs.");
         setGameText("Deploy on any warrior. When that warrior fires a blaster rifle or artillery weapon, adds 1 to each of that weapon's destiny draws. Also, may add 1 to power of one droid present.");
         addIcons(Icon.HOTH);
-        addKeywords(Keyword.FUSION_GENERATOR);
+        addKeywords(Keyword.FUSION_GENERATOR, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

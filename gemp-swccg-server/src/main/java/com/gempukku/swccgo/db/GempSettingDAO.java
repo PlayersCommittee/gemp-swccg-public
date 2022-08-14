@@ -31,4 +31,8 @@ public interface GempSettingDAO {
      * toggles the inGameStatisticsEnabled setting
      */
     void toggleInGameStatisticsEnabled();
+
+    boolean newAccountRegistrationEnabled();
+
+    void toggleNewAccountRegitrationEnabled();
 }

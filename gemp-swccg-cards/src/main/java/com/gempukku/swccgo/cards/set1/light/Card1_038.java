@@ -23,7 +23,7 @@ public class Card1_038 extends AbstractCharacterDevice {
         super(Side.LIGHT, 6, Title.Restraining_Bolt);
         setLore("Fits in a special socket on a droid's body. When installed, restricts actions of droids, forcing them to follow orders. Can be operated remotely by a 'caller.'");
         setGameText("Deploy on any droid at any site. Droid cannot move and cannot utilize its 'game text.' During your deploy phase, Restraining Bolt may be transferred (for free) to another droid at same site.");
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

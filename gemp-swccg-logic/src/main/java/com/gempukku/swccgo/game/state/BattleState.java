@@ -641,6 +641,10 @@ public class BattleState implements Snapshotable<BattleState> {
         }
     }
 
+    public boolean hasAttritionTotal(String player) {
+        return _totalBattleDestiny.get(player)!=null;
+    }
+
     public float getAttritionTotal(SwccgGame game, String player) {
         if (_reachedDamageSegment)
             return _totalAttrition.get(player);

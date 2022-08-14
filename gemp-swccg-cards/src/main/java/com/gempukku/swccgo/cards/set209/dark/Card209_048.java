@@ -272,10 +272,10 @@ public class Card209_048 extends AbstractUsedInterrupt {
             if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-                action.setText("Prevent Forfeit From Being Reduced And Being Used To Satisfy Attrition");
+                action.setText("Prevent forfeit from being reduced and being used to satisfy attrition");
                 action.setImmuneTo(Title.Sense);
                 action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose Target", cardAboutToBeHit) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose target", cardAboutToBeHit) {
                             @Override
                             protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                                 action.addAnimationGroup(targetedCard);
@@ -294,11 +294,11 @@ public class Card209_048 extends AbstractUsedInterrupt {
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
-                                                                "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                                                "Makes " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced"));
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotBeUsedToSatisfyAttritionModifier(self, finalTarget),
-                                                                GameUtils.getCardLink(finalTarget) + " may not be used to satisfy attrition until end of turn"));
+                                                                GameUtils.getCardLink(finalTarget) + " may not be used to satisfy attrition"));
                                             }
                                         }
                                 );

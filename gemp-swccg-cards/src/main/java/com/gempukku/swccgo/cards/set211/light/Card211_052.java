@@ -53,8 +53,8 @@ public class Card211_052 extends AbstractNormalEffect {
                 && GameConditions.canSearchReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Reveal pilot, ship, or vehicle from hand");
-            action.setActionMsg("Reveal a pilot or a red/rogue squadron vehicle or ship from hane");
+            action.setText("Reveal pilot, starship, or vehicle from hand");
+            action.setActionMsg("Reveal a pilot or a Red/Rogue squadron vehicle or starship from hand");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -67,7 +67,7 @@ public class Card211_052 extends AbstractNormalEffect {
                         protected void cardSelected(SwccgGame game, final PhysicalCard selectedCard) {
                             final Filter searchFilter;
                             if (Filters.character.accepts(game, selectedCard)) {
-                                action.setActionMsg("Take " + GameUtils.getCardLink(selectedCard) + "'s matching unpiloted red or rogue squadron starfighter or vehicle from Reserve Deck and deploy both simultaneously");
+                                action.setActionMsg("Take " + GameUtils.getCardLink(selectedCard) + "'s matching unpiloted Red or Rogue squadron starfighter or vehicle from Reserve Deck and deploy both simultaneously");
 
                                 Filter matchingStarshipOrVehicle = Filters.or(Filters.matchingVehicle(selectedCard),Filters.matchingStarship(selectedCard));
                                 searchFilter = Filters.and(unpilotedRedOrRogueSquadronThing, matchingStarshipOrVehicle);

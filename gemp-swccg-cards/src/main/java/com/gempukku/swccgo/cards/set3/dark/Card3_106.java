@@ -30,6 +30,7 @@ public class Card3_106 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Imperial Domination", Uniqueness.RESTRICTED_2);
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
         setGameText("Deploy on any location. Whenever you control this location during your control phase but do not Force drain here, opponent generates no Force here on opponent's next turn.");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.HOTH);
     }
 

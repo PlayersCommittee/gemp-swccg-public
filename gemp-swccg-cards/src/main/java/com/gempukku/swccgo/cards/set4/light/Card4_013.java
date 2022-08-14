@@ -40,7 +40,7 @@ public class Card4_013 extends AbstractCharacterDevice {
         setLore("Lardanis Survival Systems MFCR-200 Power Generator. Used by smugglers and Rebel agents. Highly portable. Powers and charges a wide range of equipment.");
         setGameText("Deploy on any warrior. When that warrior fires a blaster rifle or artillery weapon, adds 1 to each of that weapon's destiny draws. Also, may add 1 to power of one droid present.");
         addIcons(Icon.DAGOBAH);
-        addKeywords(Keyword.FUSION_GENERATOR);
+        addKeywords(Keyword.FUSION_GENERATOR, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

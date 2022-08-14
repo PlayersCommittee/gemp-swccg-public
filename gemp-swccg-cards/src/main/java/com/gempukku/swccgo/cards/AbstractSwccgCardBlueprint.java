@@ -1257,6 +1257,15 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     }
 
     /**
+     * Determines if this creature's habitat includes aboard a starship.
+     * @return true if has attribute, otherwise false
+     */
+    @Override
+    public boolean habitatIncludesAboardStarship() {
+        throw new UnsupportedOperationException("This method, habitatIncludesAboardStarship(), should not be called on this card: " + _title);
+    }
+
+    /**
      * Gets the only play card zone option for this card. This is only set by cards that are only played to one zone.
      * @return the play card zone option, or null
      */
@@ -1928,6 +1937,11 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     public TractorBeamAction getTractorBeamAction(SwccgGame game, PhysicalCard self) {
         return null;
     }
+
+    @Override
+    public MagneticSuctionTubeAction getMagneticSuctionTubeAction(SwccgGame game, PhysicalCard self){
+        return null;
+    };
 
     /**
      * Determines if the card is inactive due to specific conditions even when the card would normally be active.

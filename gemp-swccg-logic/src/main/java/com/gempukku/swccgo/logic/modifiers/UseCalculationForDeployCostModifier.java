@@ -29,7 +29,7 @@ public class UseCalculationForDeployCostModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator to use for deploy cost
      */
-    private UseCalculationForDeployCostModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
+    public UseCalculationForDeployCostModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
         super(source, "Deploy cost determined by calculation", affectFilter, condition, ModifierType.USE_CALCULATION_FOR_DEPLOY_COST, true);
         _evaluator = evaluator;
     }

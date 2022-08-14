@@ -30,22 +30,20 @@ import java.util.List;
 public class Card209_037 extends AbstractFirstOrder {
     public Card209_037() {
         super(Side.DARK, 1, 5, 6, 5, 7, "Kylo Ren With Lightsaber", Uniqueness.UNIQUE);
-        setLore("Leader");
-        addKeywords(Keyword.LEADER);
-        setGameText("[Pilot]2. Permanent weapon is •Kylo’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and opponent loses 1 Force, if total destiny > defense value; otherwise you lose 1 Force).");
+        setLore("Leader.");
+        setGameText("[Pilot] 2. Permanent weapon is •Kylo's Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and opponent loses 1 Force, if total destiny > defense value; otherwise you lose 1 Force).");
         addPersona(Persona.KYLO);
-        addPersona(Persona.KYLOS_LIGHTSABER);
+        addKeywords(Keyword.LEADER);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);
     }
 
-    // Add 2 to stuff he pilots.
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         return modifiers;
     }
 
-    // Define "Kylo's Lightsaber permanent weapon
+    // Define Kylo's Lightsaber permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
         AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.KYLOS_LIGHTSABER) {

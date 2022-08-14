@@ -277,6 +277,13 @@ public abstract class AbstractLocationLayout implements LocationLayout {
             }
         }
 
+        if (modifiersQuerying.onlyDeploysAdjacentToSpecificLocations(gameState, cardToDeploy)) {
+            if (specialLocationConditions == null)
+                specialLocationConditions = Filters.or(Filters.adjacentSiteTo(cardToDeploy, modifiersQuerying.getFilterForOnlyDeploysAdjacentToSpecificLocations(gameState, cardToDeploy)), Filters.adjacentSectorTo(cardToDeploy, modifiersQuerying.getFilterForOnlyDeploysAdjacentToSpecificLocations(gameState, cardToDeploy)));
+            else
+                specialLocationConditions = Filters.and(specialLocationConditions, Filters.or(Filters.adjacentSiteTo(cardToDeploy, modifiersQuerying.getFilterForOnlyDeploysAdjacentToSpecificLocations(gameState, cardToDeploy)), Filters.adjacentSectorTo(cardToDeploy, modifiersQuerying.getFilterForOnlyDeploysAdjacentToSpecificLocations(gameState, cardToDeploy))));
+        }
+
         // If there are special location conditions, then need to filter out any deployments that would cause the location
         // to not satisfy those conditions.
         if (specialLocationConditions != null) {

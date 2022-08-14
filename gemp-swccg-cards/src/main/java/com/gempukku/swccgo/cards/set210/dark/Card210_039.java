@@ -1,26 +1,20 @@
 package com.gempukku.swccgo.cards.set210.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +48,7 @@ public class Card210_039 extends AbstractSystem {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
         OnTableCondition VaderOnTable = new OnTableCondition(self, Filters.Vader);
-        NotCondition PadmeNotAtMustafarLocation = new NotCondition(new AtCondition(self, Filters.Amidala, Filters.Mustafar_Location));
+        NotCondition PadmeNotAtMustafarLocation = new NotCondition(new AtCondition(self, Filters.Amidala, Filters.Mustafar_location));
 
         modifiers.add(new ForceDrainModifier(self, new AndCondition(new ControlsCondition(playerOnLightSideOfLocation, self),
                 VaderOnTable, PadmeNotAtMustafarLocation), -1, playerOnLightSideOfLocation));

@@ -136,6 +136,7 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String filter = getQueryParameterSafely(queryDecoder, "filter");
+        String ownedCompareSelect = getQueryParameterSafely(queryDecoder, "ownedCompareSelect");
         int ownedMin = Integer.parseInt(getQueryParameterSafely(queryDecoder, "ownedMin"));
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
         int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
@@ -147,11 +148,14 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
         Set<CardItem> cardItems = new HashSet<CardItem>();
         final Collection<CardCollection.Item> allItems = collection.getAll().values();
         for (CardCollection.Item item : allItems) {
-            if (item.getCount() >= ownedMin)
+            if (("LESS_THAN_OR_EQUAL_TO".equals(ownedCompareSelect) && item.getCount() <= ownedMin)
+                    || ("EQUALS".equals(ownedCompareSelect) && item.getCount() == ownedMin)
+                    || ("GREATER_THAN_OR_EQUAL_TO".equals(ownedCompareSelect) && item.getCount() >= ownedMin)
+                    || (ownedCompareSelect == null && item.getCount() >= ownedMin))
                 cardItems.add(item);
         }
 
-        if (ownedMin <= 0) {
+        if (ownedMin <= 0 || "LESS_THAN_OR_EQUAL_TO".equals(ownedCompareSelect)) {
             Set<CardItem> items = _merchantService.getSellableItems();
             for (CardItem item : items) {
                 if (collection.getItemCount(item.getBlueprintId()) == 0)
@@ -191,7 +195,7 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
                 elem = doc.createElement("pack");
 
             elem.setAttribute("count", String.valueOf(collection.getItemCount(blueprintId)));
-            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && !blueprintId.endsWith("^") && collection.getItemCount(blueprintId) >= 4 && currency >= 1500)
+            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && !blueprintId.endsWith("^") && collection.getItemCount(blueprintId) >= 4 && currency >= MerchantService.TRADE_FOIL_COST)
                 elem.setAttribute("tradeFoil", "true");
             elem.setAttribute("blueprintId", blueprintId);
             Integer buyPrice = buyPrices.get(blueprintId);

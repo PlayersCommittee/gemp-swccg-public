@@ -28,6 +28,7 @@ public class Card8_128 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Perimeter_Patrol, Uniqueness.UNIQUE);
         setLore("Heavy Imperial patrols on Endor forced the Rebels to deploy covertly. The required stealth measures created many complications.");
         setGameText("Deploy on Bunker. While you control Bunker, each time opponent deploys a vehicle, starship or Rebel to an Endor site (except Rebel Landing Site), that card cannot move or battle for remainder of turn and opponent must lose 1 Force. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.ENDOR);
         addImmuneToCardTitle(Title.Alter);
     }

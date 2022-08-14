@@ -27,7 +27,7 @@ public class Card215_005 extends AbstractNormalEffect {
     public Card215_005() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Cell_2187, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("");
+        setLore("'Aren't you a little short for a stormtrooper?'");
         setGameText("If Leia imprisoned, deploy on table. [Set 8] Luke is a spy and stormtrooper. Han, Leia, and Luke are immune to Put All Sections On Alert! and Nevar Yalnal. Once per turn, may [download]▼ a Death Star site. Immune to This Is Some Rescue! [Immune to Alter.]");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_15);
         addImmuneToCardTitle(Title.Alter);

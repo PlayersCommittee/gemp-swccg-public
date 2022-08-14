@@ -37,4 +37,6 @@ public interface LeagueData {
      * @return the new status (number of series processed)
      */
     int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime);
+
+    boolean isSealed();
 }

@@ -27,6 +27,7 @@ public class Card1_221 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Ket_Maliss);
         setLore("Assassins are highly valued by Jabba the Hutt and other gangsters. Prince Xizor's 'shadow killer,' has unknown but undoubtably lethal business in Mos Eisley.");
         setGameText("Deploy on any non-warrior character (except droids) to give that character [Warrior] skill. OR Deploy on any warrior. That character is power +1. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

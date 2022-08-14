@@ -2023,7 +2023,8 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     && isFiresDuringWeaponsSegment(game, self)) {
                 if (game.getGameState().isDuringAttack()
                         && (isInAttack //permanent weapons
-                        || (self.getAttachedTo() != null && game.getGameState().isParticipatingInAttack(self.getAttachedTo()))) //weapon cards
+                        || (self.getAttachedTo() != null && game.getGameState().isParticipatingInAttack(self.getAttachedTo())) //weapon cards
+                )
                 ) {
                     List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, Filters.participatingInAttack, false);
                     if (fireWeaponActions != null)
@@ -2079,6 +2080,11 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
 
         // Check that game text allows character
         if (!checkGameTextDeployRequirements(playerId, game, self, null, false)) {
+            return null;
+        }
+
+        // Check if uniqueness limit reached in opponent's cards
+        if (Filters.canSpotForUniquenessChecking(game, Filters.and(Filters.sameTitle(self), Filters.opponents(self)))) {
             return null;
         }
 
@@ -2143,6 +2149,18 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         // If no (or multiple) cards found sharing the same persona then conversion cannot be done
         if (characterInPlay.size() != 1) {
             return null;
+        }
+        // Check that the player doesn't already have this persona on table
+        if (Filters.canSpotForUniquenessChecking(game, Filters.and(Filters.samePersonaAs(self), Filters.in(game.getModifiersQuerying().getCardsForPersonaChecking(self.getOwner()))))) {
+            return null;
+        }
+        // Check that the player doesn't already have this persona out of play (only if it's a character, vehicle, or starship)
+        List<PhysicalCard> outOfPlay = new LinkedList<>();
+        outOfPlay.addAll(gameState.getOutOfPlayPile(playerId));
+        outOfPlay.addAll(Filters.filter(modifiersQuerying.getCardsConsideredOutOfPlay(gameState), game, Filters.your(playerId)));
+        for (Persona persona : modifiersQuerying.getPersonas(gameState, self)) {
+            if (Filters.canSpot(outOfPlay, game, 1, Filters.and(Filters.your(playerId), persona, Filters.or(Filters.character, Filters.vehicle, Filters.starship))))
+                return null;
         }
         // Check that character does not have a permanent weapon that is already on table
         SwccgBuiltInCardBlueprint permanentWeapon = self.getBlueprint().getPermanentWeapon(self);
@@ -2224,7 +2242,14 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     && isFiresDuringAttackRun(game, self)
                     && game.getGameState().isCardInPlayActive(self, false, false, false, false, false, false, false, false)) {
                 AttackRunState attackRunState = (AttackRunState) game.getGameState().getEpicEventState();
-                Filter validTarget = !attackRunState.getWingmen().isEmpty() ? Filters.wingmen_in_Attack_Run : Filters.lead_starfighter_in_Attack_Run;
+
+                //check for wingmen that are still on table
+                List<PhysicalCard> wingmen = new LinkedList<>();
+                for(PhysicalCard wingman:attackRunState.getWingmen()) {
+                    if(wingman.getZone().isInPlay())
+                        wingmen.add(wingman);
+                }
+                Filter validTarget = !wingmen.isEmpty() ? Filters.wingmen_in_Attack_Run : Filters.lead_starfighter_in_Attack_Run;
 
                 List<FireWeaponAction> fireWeaponActions = getFireWeaponActions(playerId, game, self, false, 0, self, false, Filters.none, null, validTarget, false);
                 if (fireWeaponActions != null)

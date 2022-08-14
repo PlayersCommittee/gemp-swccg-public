@@ -28,6 +28,7 @@ public class Card8_132 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Security_Precautions, Uniqueness.UNIQUE);
         setLore("'I think I got it.'");
         setGameText("Deploy on a location. Your Force generation is +1 here. Also, if you 'probe' opponent's 'Hidden Base' system, opponent loses X Force, where X = 15 - number of systems on table. You take no battle damage where you have a 'probe' card. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.ENDOR);
         addImmuneToCardTitle(Title.Alter);
     }

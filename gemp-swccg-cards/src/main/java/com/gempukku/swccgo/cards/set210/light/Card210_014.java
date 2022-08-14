@@ -81,15 +81,15 @@ public class Card210_014 extends AbstractRebel {
             final int totalDarkIconsHere = totalDarkIconsAccumulator;
 
             // ex: "Tom's force generation - 2"
-            final String optionReduceGeneration = opponentId + "'s force generation - " + totalDarkIconsHere;
+            final String optionReduceGeneration = opponentId + "'s Force generation - " + totalDarkIconsHere;
 
             // ex: "John activates up to 2 force"
-            final String optionOpponentActivatesForce = playerId + " activates up to " + totalDarkIconsHere + " force";
+            final String optionOpponentActivatesForce = playerId + " activates up to " + totalDarkIconsHere + " Force";
 
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Opponent must choose force generation option");
-            action.setActionMsg("Opponent must choose force generation option.");
+            action.setText("Opponent must choose Force generation option");
+            action.setActionMsg("Opponent must choose Force generation option.");
 
             // Perform result(s)
             action.appendEffect(
@@ -121,7 +121,7 @@ public class Card210_014 extends AbstractRebel {
                                         if (!GameConditions.canActivateForce(game, playerId) ||
                                                 (game.getGameState().getReserveDeckSize(playerId) == 0)) {
 
-                                            gameState.sendMessage(playerId + " has no force to activate.");
+                                            gameState.sendMessage(playerId + " has no Force to activate.");
                                             return;
                                         }
 

@@ -10,10 +10,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotCancelDestinyDrawsModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -58,10 +55,12 @@ public class Card213_010 extends AbstractSith {
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
+        boolean mayNotModifyDestinies = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.MAUL__MAY_NOT_MODIFIY_DESTINIES);
         // Check condition(s)
         if ((TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult)
                 || TriggerConditions.isBattleDestinyJustDrawn(game, effectResult))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && !mayNotModifyDestinies) {
 
             OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action1.setText("Add 1 to destiny draw");
@@ -79,7 +78,8 @@ public class Card213_010 extends AbstractSith {
         // Check condition(s)
         if ((TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult)
                 || TriggerConditions.isBattleDestinyJustDrawn(game, effectResult))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && !mayNotModifyDestinies) {
 
             OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action2.setText("Subtract 1 from destiny draw");

@@ -129,6 +129,9 @@ public class EventSerializer {
             eventElem.setAttribute("defendingNumDestinyInAttack", String.valueOf(gameStats.getDefendingNumDestinyInAttack()));
             eventElem.setAttribute("darkRaceTotal", GuiUtils.formatAsString(gameStats.getDarkRaceTotal(), true));
             eventElem.setAttribute("lightRaceTotal", GuiUtils.formatAsString(gameStats.getLightRaceTotal(), true));
+            eventElem.setAttribute("darkPoliticsTotal", GuiUtils.formatAsString(gameStats.getDarkPoliticsTotal(), true));
+            eventElem.setAttribute("lightPoliticsTotal", GuiUtils.formatAsString(gameStats.getLightPoliticsTotal(), true));
+
 
             for (Map.Entry<String, Map<Zone, Integer>> playerZoneSizes : gameStats.getZoneSizes().entrySet()) {
                 final Element playerZonesElem = doc.createElement("playerZones");

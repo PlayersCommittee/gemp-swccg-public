@@ -31,6 +31,8 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
             case 2:
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_2;
+            case 3:
+                return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_3;
         }
 
         return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
@@ -108,6 +110,23 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("209_10^"); //Rey With Lightsaber
                 possibleCards.add("206_7^"); //Rogue One
                 possibleCards.add("209_39^"); //Supreme Leader Snoke
+                break;
+            case 3:
+                possibleCards.add("200_71^"); //4-LOM With Concussion Rifle (V)
+                possibleCards.add("212_5^"); //Admiral Trench
+                possibleCards.add("204_36^"); //B2 Battle Droid
+                possibleCards.add("200_133^"); //Conquest (V)
+                possibleCards.add("200_76^"); //Count Dooku
+                possibleCards.add("203_26^"); //Darth Maul, Lone Hunter
+                possibleCards.add("200_142^"); //Dooku's Lightsaber
+                possibleCards.add("211_28^"); //BB-8 In Black Squadron 1
+                possibleCards.add("204_4^"); //Chewie With Bowcaster
+                possibleCards.add("204_27^"); //Jakku: Niima Outpost Shipyard
+                possibleCards.add("204_8^"); //Poe Dameron
+                possibleCards.add("209_25^"); //Scarif: Data Vault
+                possibleCards.add("204_11^"); //Solo
+                possibleCards.add("201_19^"); //Tantive IV (V)
+                possibleCards.add("204_35^"); //The Falcon, Junkyard Garbage
                 break;
         }
 

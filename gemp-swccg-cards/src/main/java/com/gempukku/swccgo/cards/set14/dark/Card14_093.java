@@ -27,7 +27,7 @@ import java.util.List;
 public class Card14_093 extends AbstractNormalEffect {
     public Card14_093() {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Activate_The_Droids, Uniqueness.UNIQUE);
-        setLore("The activation of druids requires a transmission from a Droid Control Ship on a top-secret frequency. Only a Trade Federation captain has access to these frequencies.");
+        setLore("The activation of droids requires a transmission from a Droid Control Ship on a top-secret frequency. Only a Trade Federation captain has access to these frequencies.");
         setGameText("Deploy on your Blockade Flagship (may not deploy on a site). Whenever you initiate a battle at a related planet site where you have a battle droid, you may activate 2 Force or retrieve 1 Force.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }

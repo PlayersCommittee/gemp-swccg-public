@@ -59,13 +59,24 @@ public class RelocateBetweenLocationsEffect extends AbstractSubActionEffect {
      * @param toLocation the location to relocate to
      */
     public RelocateBetweenLocationsEffect(Action action, Collection<PhysicalCard> cardsToMove, PhysicalCard toLocation) {
+        this(action, cardsToMove, toLocation, false);
+    }
+
+    /**
+     * Creates an effect to relocate cards between locations.
+     * @param action the action performing this effect
+     * @param cardsToMove the cards to move
+     * @param toLocation the location to relocate to
+     * @param asRegularMove true if treated as a regular move, otherwise false
+     */
+    public RelocateBetweenLocationsEffect(Action action, Collection<PhysicalCard> cardsToMove, PhysicalCard toLocation, boolean asRegularMove) {
         super(action);
         _playerId = action.getPerformingPlayer();
         _relocatedCards = cardsToMove;
         PhysicalCard cardToMove = cardsToMove.iterator().next();
         _fromLocation = cardToMove.getAtLocation() != null ? cardToMove.getAtLocation() : cardToMove.getAttachedTo();
         _toLocation = toLocation;
-        _asRegularMove = false;
+        _asRegularMove = asRegularMove;
     }
 
     @Override

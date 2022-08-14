@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -102,7 +103,7 @@ public class Card111_006_BACK extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.Star_Destroyer, new CardMatchesEvaluator(-2, -1, Filters.Victory_class_Star_Destroyer), Filters.Death_Star_system));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.Star_Destroyer, new CardMatchesEvaluator(new PerStarDestroyerEvaluator(-2), new PerStarDestroyerEvaluator(-1), Filters.Victory_class_Star_Destroyer), Filters.Death_Star_system));
         modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Star_Destroyer)), new CardMatchesEvaluator(2, 1, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Victory_class_Star_Destroyer))),
                 playerId));
         return modifiers;

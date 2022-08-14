@@ -57,6 +57,7 @@ public class Card9_025 extends AbstractRebel {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.Lateral_Damage, Filters.and(Filters.starship, Filters.atSameSystem(self)))
+                && GameConditions.isPiloting(game, self, Filters.Star_Cruiser)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -72,7 +73,8 @@ public class Card9_025 extends AbstractRebel {
         Filter filter = Filters.and(Filters.Lateral_Damage, Filters.cardOnTableTargeting(Filters.and(Filters.starship, Filters.atSameSystem(self))));
 
         // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)
+        if (GameConditions.isPiloting(game, self, Filters.Star_Cruiser)
+                && TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canTargetToCancel(game, self, filter)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

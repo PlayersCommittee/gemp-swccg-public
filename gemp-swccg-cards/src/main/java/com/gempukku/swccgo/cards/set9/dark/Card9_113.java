@@ -26,6 +26,7 @@ public class Card9_113 extends AbstractImperial {
         addPersona(Persona.VADER);
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.LEADER);
+        setMatchingStarshipFilter(Filters.Executor);
     }
 
     @Override

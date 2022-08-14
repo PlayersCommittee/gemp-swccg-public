@@ -29,6 +29,7 @@ public class Card7_076 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Slayn & Korpil Facilities", Uniqueness.UNIQUE);
         setLore("Based in the Roche Asteroid Field. Worked with Admiral Ackbar to develop the B-wing fighter. Verpine owned, and that means quality.");
         setGameText("Deploy on Roche system. Once during each of your deploy phases, you may deploy a starship weapon from Reserve Deck on your B-wing; reshuffle. Also, retrieve 2 Force whenever your starfighter or vehicle 'hits' an opponent's starship or vehicle. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

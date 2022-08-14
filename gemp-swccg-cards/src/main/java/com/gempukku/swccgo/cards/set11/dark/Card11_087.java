@@ -67,7 +67,7 @@ public class Card11_087 extends AbstractLostOrStartingInterrupt {
         final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
         action.setText("Deploy cards from Reserve Deck");
         // Allow response(s)
-        action.allowResponses("Podrace Arena (with a Podracer, opponent may also deploy a Podracer there), Boonta Eve Podrace, and any Effect that deploys for free",
+        action.allowResponses("deploy Podrace Arena (with a Podracer, opponent may also deploy a Podracer there), Boonta Eve Podrace, and any Effect that deploys for free",
                 new RespondablePlayCardEffect(action) {
                     @Override
                     protected void performActionResults(Action targetingAction) {

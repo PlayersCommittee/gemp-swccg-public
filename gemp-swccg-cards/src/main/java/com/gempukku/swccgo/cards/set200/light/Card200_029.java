@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.CardsInHandEqualToOrFewerThanConditi
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +35,7 @@ import java.util.List;
 public class Card200_029 extends AbstractDefensiveShield {
     public Card200_029() {
         super(Side.LIGHT, "The Republic No Longer Functions");
-        setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Monnok). Once per turn (even at start of turn), target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
+        setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Monnok). Once per turn (even at start of turn), may target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
 
@@ -55,7 +56,7 @@ public class Card200_029 extends AbstractDefensiveShield {
         // Check condition(s)
         if (TriggerConditions.isStartOfEachTurn(game, effectResult)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.canTarget(game, self, filter)) {
+                && GameConditions.canTarget(game, self, TargetingReason.TO_BE_SUSPENDED, filter)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Suspend a Political Effect");
@@ -93,7 +94,7 @@ public class Card200_029 extends AbstractDefensiveShield {
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.canTarget(game, self, filter)) {
+                && GameConditions.canTarget(game, self, TargetingReason.TO_BE_SUSPENDED, filter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             action.setText("Suspend a Political Effect");

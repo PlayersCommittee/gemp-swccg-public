@@ -30,6 +30,7 @@ public class Card9_123 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Emperors_Power, Uniqueness.UNIQUE);
         setLore("From his throne room aboard the second Death Star, Emperor Palpatine monitors activity throughout the galaxy.");
         setGameText("Deploy on your Throne Room. You may not Force drain here. While Emperor here, opponent's characters are deploy +2 to Death Star II sites and, one per turn, you may lose Effect (or 1 Force from top of Reserve Deck) to add one battle destiny anywhere. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
     }

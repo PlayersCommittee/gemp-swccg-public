@@ -69,18 +69,19 @@ public class Card10_047 extends AbstractLostInterrupt {
                 action.setText("Fire a weapon");
                 // Choose target(s)
                 action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
                             @Override
-                            protected void cardSelected(final PhysicalCard weapon) {
+                            protected void cardTargeted(final int targetGroupId, final PhysicalCard weapon) {
                                 action.addAnimationGroup(weapon);
                                 // Allow response(s)
                                 action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
+                                                final PhysicalCard finalWeapon = action.getPrimaryTargetCard(targetGroupId);
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new FireWeaponEffect(action, weapon, false, Filters.canBeTargetedBy(self)));
+                                                        new FireWeaponEffect(action, finalWeapon, false, Filters.canBeTargetedBy(self)));
                                             }
                                         }
                                 );

@@ -17,7 +17,7 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 public class CardMatchesEvaluator extends BaseEvaluator {
     private Filter _filters;
     private Evaluator _matches;
-    private int _default;
+    private Evaluator _default;
 
     /**
      * Creates an evaluator that returns the specified matches value if the card used in the evaluation is accepted by the
@@ -27,7 +27,7 @@ public class CardMatchesEvaluator extends BaseEvaluator {
      * @param filters the filter
      */
     public CardMatchesEvaluator(int defaultValue, Evaluator matches, Filterable filters) {
-        _default = defaultValue;
+        _default = new ConstantEvaluator(defaultValue);
         _matches = matches;
         _filters = Filters.and(filters);
     }
@@ -40,13 +40,27 @@ public class CardMatchesEvaluator extends BaseEvaluator {
      * @param filters the filter
      */
     public CardMatchesEvaluator(int defaultValue, int matches, Filterable filters) {
-        _default = defaultValue;
+        _default = new ConstantEvaluator(defaultValue);
         _matches = new ConstantEvaluator(matches);
         _filters = Filters.and(filters);
     }
 
+    /**
+     * Creates an evaluator that returns the value from the specified evaluator if the card used in the evaluation is
+     * accepted by the specified filter, otherwise returns the specified default value.
+     * @param defaultValue the default value
+     * @param matches the value to return if the card is accepted by the specified filter
+     * @param filters the filter
+     */
+    public CardMatchesEvaluator(Evaluator defaultValue, Evaluator matches, Filterable filters) {
+        _default = defaultValue;
+        _matches = matches;
+        _filters = Filters.and(filters);
+    }
+
+
     @Override
     public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return Filters.and(_filters).accepts(gameState, modifiersQuerying, self) ? _matches.evaluateExpression(gameState, modifiersQuerying, self) : _default;
+        return Filters.and(_filters).accepts(gameState, modifiersQuerying, self) ? _matches.evaluateExpression(gameState, modifiersQuerying, self) : _default.evaluateExpression(gameState, modifiersQuerying, self);
     }
 }

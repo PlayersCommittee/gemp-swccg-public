@@ -17,8 +17,8 @@ public class GameHistoryService {
         _gameHistoryDAO = gameHistoryDAO;
     }
 
-    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winningSide, String darkDeckString, String lightDeckString, Date startDate, Date endDate) {
-        _gameHistoryDAO.addGameHistory(winner, loser, winReason, loseReason, winRecordingId, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, winnerDeckArchetype, loserDeckArchetype, winningSide, darkDeckString, lightDeckString, startDate, endDate);
+    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winningSide, String darkDeckString, String lightDeckString, String leagueType, String sealedLeagueType, Date startDate, Date endDate) {
+        _gameHistoryDAO.addGameHistory(winner, loser, winReason, loseReason, winRecordingId, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, winnerDeckArchetype, loserDeckArchetype, winningSide, darkDeckString, lightDeckString, leagueType, sealedLeagueType, startDate, endDate);
         Integer winnerCount = _playerGameCount.get(winner);
         Integer loserCount = _playerGameCount.get(loser);
         if (winnerCount != null)

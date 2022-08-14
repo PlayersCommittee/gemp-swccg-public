@@ -35,6 +35,7 @@ public class Card2_112 extends AbstractCharacterDevice {
         setLore("Truth drugs like Bavo Six decrease resistance to interrogation. The enormous needle adds psychological pressure, facilitating the interrogation process.");
         setGameText("Deploy on your IT-O. Once during each of your control phases, if present with a captive: You may ask one yes-or-no question about cards in opponent's hand. Opponent must answer truthfully or lose 1 Force. OR May add 1 to Force drain where present.");
         addIcons(Icon.A_NEW_HOPE);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

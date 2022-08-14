@@ -31,7 +31,7 @@ public class Card4_009 extends AbstractCharacterDevice {
         setLore("Full-spectrum transceiver for R-unit droids including electro-photo receptors, DERs and heat and motion detectors. Data is routed directly to droids Intellex IV internal computer.");
         setGameText("Deploy on one of your R-unit droids. During any control phase, you may use 1 Force to peek at the top card of opponent's Reserve Deck. Also, if on Dagobah, droid may move for free.");
         addIcons(Icon.DAGOBAH);
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

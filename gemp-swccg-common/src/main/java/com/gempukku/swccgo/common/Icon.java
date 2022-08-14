@@ -39,6 +39,10 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_14("Set 14", true),
     VIRTUAL_SET_15("Set 15", true),
     VIRTUAL_SET_16("Set 16", true),
+    VIRTUAL_SET_17("Set 17", true),
+    VIRTUAL_SET_18("Set 18", true),
+    VIRTUAL_SET_19("Set 19", true),
+    VIRTUAL_SET_20("Set 20", true),
 
     //Legacy expansions
     LEGACY_BLOCK_1("Block 1", true),
@@ -109,6 +113,9 @@ public enum Icon implements Filterable {
     MAINTENANCE("Maintenance"),
     SCOMP_LINK("Scomp Link"),
     SEPARATIST("Separatist"),
+    SETUP("Setup"),
+    SIDIOUS("Sidious"),
+    SKYWALKER("Skywalker"),
     TRADE_FEDERATION("Trade Federation"),
     ;
 

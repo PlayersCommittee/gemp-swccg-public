@@ -100,7 +100,7 @@ public class AttackPowerSegmentAction extends SystemQueueAction {
                                         });
                             }
                             else {
-                                final int numDraws = (modifiersQuerying.getAttackTotalAbility(gameState, _defender) >= 4) ? 1 : 0;
+                                final int numDraws = modifiersQuerying.getNumAttackDestinyDraws(gameState, performingPlayerId, false, false);
                                 if (numDraws > 0) {
                                     if (gameState.getReserveDeckSize(performingPlayerId) > 0) {
 

@@ -22,8 +22,9 @@ public class LoseOneForceEffect extends AbstractSuccessfulEffect {
     private int _amountLostSoFar;
     private boolean _isBattleDamage;
     private boolean _isFromForceDrain;
-    private PhysicalCard _stackFaceDownOn;
+    private PhysicalCard _stackOn;
     private boolean _asLiberationCard;
+    private boolean _stackFaceDown;
 
     /**
      * Creates an effect that causes the specified unit of Force to be lost.
@@ -33,17 +34,29 @@ public class LoseOneForceEffect extends AbstractSuccessfulEffect {
      *                        or 0 if this Force loss is from battle damage
      * @param isBattleDamage true if the Force is lost to battle damage, otherwise, false
      * @param isFromForceDrain true if the Force is lost from Force Drain, otherwise, false
-     * @param stackFaceDownOn card that lost Force is instead stacked face down on, otherwise null
+     * @param stackOn card that lost Force is instead stacked on, otherwise null
      * @param asLiberationCard the card lost as Force is stacked as a liberation card
      */
-    public LoseOneForceEffect(Action action, PhysicalCard card, int amountLostSoFar, boolean isBattleDamage, boolean isFromForceDrain, PhysicalCard stackFaceDownOn, boolean asLiberationCard) {
+    public LoseOneForceEffect(Action action, PhysicalCard card, int amountLostSoFar, boolean isBattleDamage, boolean isFromForceDrain, PhysicalCard stackOn, boolean asLiberationCard) {
         super(action);
         _card = card;
         _amountLostSoFar = amountLostSoFar;
         _isBattleDamage = isBattleDamage;
         _isFromForceDrain = isFromForceDrain;
-        _stackFaceDownOn = stackFaceDownOn;
+        _stackOn = stackOn;
         _asLiberationCard = asLiberationCard;
+        _stackFaceDown = true;
+    }
+
+    public LoseOneForceEffect(Action action, PhysicalCard card, int amountLostSoFar, boolean isBattleDamage, boolean isFromForceDrain, PhysicalCard stackOn, boolean stackFaceDown, boolean asLiberationCard) {
+        super(action);
+        _card = card;
+        _amountLostSoFar = amountLostSoFar;
+        _isBattleDamage = isBattleDamage;
+        _isFromForceDrain = isFromForceDrain;
+        _stackOn = stackOn;
+        _asLiberationCard = asLiberationCard;
+        _stackFaceDown = stackFaceDown;
     }
 
     /**
@@ -61,17 +74,23 @@ public class LoseOneForceEffect extends AbstractSuccessfulEffect {
         String playerId = _card.getOwner();
         PhysicalCard sourceCard = (_isBattleDamage || _isFromForceDrain) ? null : _action.getActionSource();
 
-        if (_stackFaceDownOn != null) {
-            // Stack the unit of Force face down on specified card
-            if (zone == Zone.HAND && isShownIfLostFromHand()) {
-                gameState.sendMessage(playerId + " loses a Force, " + GameUtils.getCardLink(_card) + ", from " + zone.getHumanReadable() + " and stacks it face down on " + GameUtils.getCardLink(_stackFaceDownOn));
+        if (_stackOn != null) {
+            // Stack the unit of Force on specified card
+            if(_stackFaceDown){
+                if (zone == Zone.HAND && isShownIfLostFromHand()) {
+                    gameState.sendMessage(playerId + " loses a Force, " + GameUtils.getCardLink(_card) + ", from " + zone.getHumanReadable() + " and stacks it face down on " + GameUtils.getCardLink(_stackOn));
+                }
+                else {
+                    gameState.sendMessage(playerId + " loses a Force from " + zone.getHumanReadable() + " and stacks it face down on " + GameUtils.getCardLink(_stackOn));
+                }
             }
-            else {
-                gameState.sendMessage(playerId + " loses a Force from " + zone.getHumanReadable() + " and stacks it face down on " + GameUtils.getCardLink(_stackFaceDownOn));
+            else{
+                gameState.sendMessage(playerId + " loses a Force, " + GameUtils.getCardLink(_card) + ", from " + zone.getHumanReadable() + " and stacks it on " + GameUtils.getCardLink(_stackOn));
             }
+
             gameState.removeCardsFromZone(Collections.singleton(_card));
             _card.setLiberationCard(_asLiberationCard);
-            gameState.stackCard(_card, _stackFaceDownOn, true, false, false);
+            gameState.stackCard(_card, _stackOn, _stackFaceDown, false, false);
         }
         else {
             // Places the unit of Force in the Lost Pile
@@ -98,6 +117,6 @@ public class LoseOneForceEffect extends AbstractSuccessfulEffect {
         }
 
         // Emits effect result that unit of Force was just lost
-        game.getActionsEnvironment().emitEffectResult(new LostForceResult(sourceCard, _card.getOwner(), _card, zone, _amountLostSoFar, _isFromForceDrain, _isBattleDamage, _stackFaceDownOn));
+        game.getActionsEnvironment().emitEffectResult(new LostForceResult(sourceCard, _card.getOwner(), _card, zone, _amountLostSoFar, _isFromForceDrain, _isBattleDamage, _stackOn));
     }
 }

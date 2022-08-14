@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -28,6 +29,7 @@ public class Card1_207 extends AbstractCharacterDevice {
         super(Side.DARK, 4, Title.Stormtrooper_Utility_Belt);
         setLore("Standard Imperial issue for stormtroopers. Contains grappling hook, rope, and other miscellaneous emergency tools. Rebels have been known to steal and use them.");
         setGameText("Use 1 Force to deploy on any Imperial or alien. Character's power and forfeit are +1. If on Death Star, power and forfeit are +2.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

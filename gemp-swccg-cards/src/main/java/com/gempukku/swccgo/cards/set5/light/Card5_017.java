@@ -29,6 +29,7 @@ public class Card5_017 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, "All My Urchins", Uniqueness.UNIQUE);
         setLore("One little, two little, three little Bespinites.");
         setGameText("Use 2 Force to deploy at any site where you have presence. Moves like a single character at normal use of the Force. Before initiating a battle where present, a player must first lose 2 Force. Effect lost if you initiate a battle where present.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.CLOUD_CITY);
     }
 

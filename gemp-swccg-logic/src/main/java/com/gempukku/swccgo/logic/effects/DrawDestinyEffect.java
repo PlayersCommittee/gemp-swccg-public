@@ -1287,8 +1287,10 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                                                                                     new PassthruEffect(subAction) {
                                                                                                         @Override
                                                                                                         protected void doPlayEffect(SwccgGame game) {
-                                                                                                            if (GameUtils.getZoneFromZoneTop(_drawnDestinyCard.getZone()) == Zone.UNRESOLVED_DESTINY_DRAW) {
+                                                                                                            if (GameUtils.getZoneFromZoneTop(selectedCard.getZone()) == Zone.UNRESOLVED_DESTINY_DRAW) {
+                                                                                                                float destinyValueToUse = selectedCard.getDestinyValueToUse();
                                                                                                                 gameState.removeCardFromZone(selectedCard);
+                                                                                                                selectedCard.setDestinyValueToUse(destinyValueToUse);
                                                                                                                 selectedCard.setRaceDestinyForPlayer(_performingPlayerId);
                                                                                                                 gameState.stackCard(selectedCard, stackRaceDestinyOn, false, false, false);
                                                                                                                 game.getActionsEnvironment().emitEffectResult(

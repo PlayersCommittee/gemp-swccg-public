@@ -27,6 +27,7 @@ public class Card203_001 extends AbstractRebel {
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.VIRTUAL_SET_3);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
         setSpecies(Species.MON_CALAMARI);
+        addPersona(Persona.ACKBAR);
         setMatchingStarshipFilter(Filters.Home_One);
     }
 

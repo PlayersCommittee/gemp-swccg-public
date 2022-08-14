@@ -30,6 +30,7 @@ public class Card4_041 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Wars Not Make One Great", Uniqueness.UNIQUE);
         setLore("A Jedi seeks nonviolent solutions to problems, but may fight to preserve the existence of life. An apprentice must learn which battles to fight and which to avoid.");
         setGameText("Deploy on any location. For either player to initiate a battle or Force drain anywhere, that player must use +1 Force. Effect canceled if opponent controls this location.");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.DAGOBAH);
     }
 

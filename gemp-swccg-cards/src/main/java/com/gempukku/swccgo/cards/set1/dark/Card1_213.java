@@ -30,6 +30,7 @@ public class Card1_213 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Star_Sentry, Uniqueness.UNIQUE);
         setLore("Death Star troopers on sentry duty observe and direct incoming starships and monitor other critical sites. They perform sensor scans for life forms and weapons.");
         setGameText("Use 2 Force to deploy on any Death Star site. Declare one of the following to affect that site and adjacent sites while 'sentry' present: Opponent's deploy +1. OR Opponent's ability required for battle destiny +1. OR Your total power +1.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

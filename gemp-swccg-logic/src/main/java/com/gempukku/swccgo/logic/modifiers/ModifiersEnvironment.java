@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.GameTextAction;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -11,6 +12,8 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 public interface ModifiersEnvironment {
 
     ModifierHook addAlwaysOnModifier(Modifier modifier);
+
+    void addCardSpecificAlwaysOnModifiers(SwccgGame game, PhysicalCard card);
 
     /**
      * Adds a modifier that expires when the current turn is finished.

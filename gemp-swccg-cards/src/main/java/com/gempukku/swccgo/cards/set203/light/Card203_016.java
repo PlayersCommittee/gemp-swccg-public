@@ -32,7 +32,7 @@ public class Card203_016 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Thrown Back", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Being sent to dispose of two Jedi is the battle droid equivalent of a really bad day at the office.");
-        setGameText("Deploy on table. While no card stacked here, may stack opponent's just-played Interrupt here. Opponent may use 3 Force to place an Interrupt here in Used Pile. Once per turn, may place a card from hand on bottom of Used Pile. [Immune to Alter]");
+        setGameText("Deploy on table. While no card stacked here, may stack opponent's just-played Interrupt here. Opponent may use 3 Force to place an Interrupt here in Used Pile. Once per turn, unless your protocol droid on table, may place a card from hand on bottom of Used Pile. [Immune to Alter.]");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.GRABBER, Icon.VIRTUAL_SET_3);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -100,6 +100,7 @@ public class Card203_016 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && !GameConditions.canTarget(game, self, Filters.and(Filters.your(self), Filters.protocol_droid))
                 && GameConditions.hasHand(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);

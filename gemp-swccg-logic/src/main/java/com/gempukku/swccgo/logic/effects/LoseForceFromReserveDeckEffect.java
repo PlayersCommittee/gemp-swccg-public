@@ -28,17 +28,23 @@ public class LoseForceFromReserveDeckEffect extends LoseForceEffect {
      * @param cannotBeReduced true if Force loss cannot be reduced, otherwise false
      */
     public LoseForceFromReserveDeckEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced) {
-        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, true, false, null, false);
+        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, true, false, null, false, false);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to lose a specified amount of Force from Reserve Deck.
+     * @param action the action performing this effect
+     * @param playerToLoseForce the player to lose Force
+     * @param amount the amount of Force to lose
+     * @param cannotBeReducedBelow the amount below which the force loss cannot be reduced (if the initial amount is less than that then it will +)
+     */
+    public LoseForceFromReserveDeckEffect(Action action, String playerToLoseForce, float amount, float cannotBeReducedBelow) {
+        super(action, playerToLoseForce, amount, false, false, false, false, true, false, null, false, false, false, cannotBeReducedBelow);
     }
 
     @Override
     public String getText(SwccgGame game) {
         return "Lose " + GuiUtils.formatAsString(_initialAmount) + " Force from Reserve Deck";
-    }
-
-    @Override
-    public boolean isPlayableInFull(SwccgGame game) {
-        return super.isPlayableInFull(game) && game.getGameState().getReserveDeckSize(_playerToLoseForce) >= _initialAmount;
     }
 }
 

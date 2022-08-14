@@ -555,8 +555,9 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         // Filter cards that this card is not prohibited from being at
         Filter filter = Filters.and(Filters.notProhibitedFromTarget(self), Filters.notProhibitedFromCarrying(self), Filters.canBeTargetedBy(self));
 
-        // Filter cards that a this type of card is allowed by deploy to based on its game text
-        filter = Filters.and(filter, getValidDeployTargetFilterByCheckingGameText(game, self, null, null));
+        // Filter cards that a this type of card is allowed by deploy to based on its game text or that this card is allowed to remain attached to based on its game text
+        filter = Filters.and(filter, Filters.or(getValidDeployTargetFilterByCheckingGameText(game, self, null, null),
+                getGameTextValidTargetFilterToRemainAttachedTo(game, self)));
 
         return filter;
     }

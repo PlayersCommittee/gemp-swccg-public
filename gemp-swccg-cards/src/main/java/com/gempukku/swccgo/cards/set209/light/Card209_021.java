@@ -89,9 +89,9 @@ public class Card209_021 extends AbstractUsedInterrupt {
         // Part 2 of the disarmed canceler: Cancel Disarmed While it is already on table, as a top level action.
         if (GameConditions.canTarget(game, self, charactersWhoAreDisarmed)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Cancel Disarmed On This Character");
+            action.setText("Cancel Disarmed on this character");
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose Disarmed Character", charactersWhoAreDisarmed) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose Disarmed character", charactersWhoAreDisarmed) {
 
                         @Override
                         protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
@@ -265,10 +265,10 @@ public class Card209_021 extends AbstractUsedInterrupt {
             if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-                action.setText("Prevent Forfeit From Being Reduced, Being Used To Satisfy Attrition, And Grant Immunity To Dr. Evazan");
+                action.setText("Prevent forfeit from being reduced, being used to satisfy attrition, and grant immunity to Dr. Evazan");
                 action.setImmuneTo(Title.Sense);
                 action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose Target", cardAboutToBeHit) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose target", cardAboutToBeHit) {
                             @Override
                             protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                                 action.addAnimationGroup(targetedCard);
@@ -287,11 +287,11 @@ public class Card209_021 extends AbstractUsedInterrupt {
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotHaveForfeitValueReducedModifier(self, finalTarget),
-                                                                "Make " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced until end of turn"));
+                                                                "Makes " + GameUtils.getCardLink(finalTarget) + "'s forfeit not be able to be reduced"));
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
                                                                 new MayNotBeUsedToSatisfyAttritionModifier(self, finalTarget),
-                                                                GameUtils.getCardLink(finalTarget) + " may not be used to satisfy attrition until end of turn"));
+                                                                GameUtils.getCardLink(finalTarget) + " may not be used to satisfy attrition"));
                                                 action.appendEffect(new ImmuneToUntilEndOfTurnEffect(action, finalTarget, Title.Dr_Evazan));
                                             }
                                         }

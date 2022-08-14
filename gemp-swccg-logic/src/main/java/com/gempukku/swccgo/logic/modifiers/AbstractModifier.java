@@ -1419,6 +1419,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public int getNumLightsaberCombatDestinyDrawsModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
+        return 0;
+    }
+
+    @Override
     public String getPlayerToSelectCardTargetAtLocation(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard location) {
         return null;
     }

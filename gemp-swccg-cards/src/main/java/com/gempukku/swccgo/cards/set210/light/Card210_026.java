@@ -48,13 +48,6 @@ public class Card210_026 extends AbstractCombatVehicle {
     }
 
     @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiersEvenIfUnpiloted(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new CharactersAboardMayJumpOffModifier(self));
-        return modifiers;
-    }
-
-    @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, final SwccgGame game, final Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
 
         List<OptionalGameTextTriggerAction> actions = new LinkedList<>();

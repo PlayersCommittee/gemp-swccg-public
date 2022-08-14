@@ -27,6 +27,7 @@ public class Card2_083 extends AbstractImperial {
         setGameText("Once during each of your control phases, you may use 2 Force to take one Scanning Crew into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);
         addKeywords(Keyword.LEADER, Keyword.CAPTAIN);
+        addPersona(Persona.KHURGEE);
     }
 
     @Override

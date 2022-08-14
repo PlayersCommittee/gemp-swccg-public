@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.actions.PlayEpicEventAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -70,7 +71,7 @@ public class Card3_115 extends AbstractEpicEventPlayable {
                                                     epicEventState.setAtat(atat);
                                                     epicEventState.setAtatCannon(weapon);
                                                     epicEventState.setAtatPilot(pilot);
-                                                    String actionText = "Have " + (Filters.character.accepts(game, pilot) ? "Permanent pilot" : GameUtils.getCardLink(pilot))
+                                                    String actionText = "Have " + (Filters.character.accepts(game, pilot) ? GameUtils.getCardLink(pilot) : "Permanent pilot")
                                                             + " aboard " + GameUtils.getCardLink(atat) + " fire " + GameUtils.getCardLink(weapon) + " at " + GameUtils.getCardLink(mainPowerGenerators);
                                                     // Allow response(s)
                                                     action.allowResponses(actionText,
@@ -84,7 +85,7 @@ public class Card3_115 extends AbstractEpicEventPlayable {
                                                                             new PassthruEffect(action) {
                                                                                 @Override
                                                                                 protected void doPlayEffect(SwccgGame game) {
-                                                                                    gameState.sendMessage((Filters.character.accepts(game, pilot) ? "Permanent pilot" : GameUtils.getCardLink(pilot))
+                                                                                    gameState.sendMessage((Filters.character.accepts(game, pilot) ? GameUtils.getCardLink(pilot) : "Permanent pilot")
                                                                                             + " aboard " + GameUtils.getCardLink(atat) + " fires " + GameUtils.getCardLink(weapon) + " at " + GameUtils.getCardLink(mainPowerGenerators));
                                                                                     gameState.activatedCard(playerId, weapon);
                                                                                     gameState.cardAffectsCard(playerId, weapon, mainPowerGenerators);
@@ -117,6 +118,35 @@ public class Card3_115 extends AbstractEpicEventPlayable {
                                                                                     else
                                                                                         valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getHighestAbilityPiloting(gameState, pilot, true, false));
 
+                                                                                    boolean modifyX = modifiersQuerying.hasGameTextModification(gameState, self, ModifyGameTextType.TARGET_THE_MAIN_GENERATOR__MODIFY_X);
+
+                                                                                    if (modifyX) {
+                                                                                        PhysicalCard location = modifiersQuerying.getLocationThatCardIsAt(gameState, weapon);
+                                                                                        int markerNumber = 0;
+                                                                                        if (Filters.First_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 1;
+                                                                                        } else if (Filters.Second_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 2;
+                                                                                        } else if (Filters.Third_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 3;
+                                                                                        } else if (Filters.Fourth_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 4;
+                                                                                        } else if (Filters.Fifth_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 5;
+                                                                                        } else if (Filters.Sixth_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 6;
+                                                                                        } else if (Filters.Seventh_Marker.accepts(gameState, modifiersQuerying, location)) {
+                                                                                            markerNumber = 7;
+                                                                                        }
+
+                                                                                        if (markerNumber > 3) {
+                                                                                            valueForX = valueForX - 2;
+                                                                                        }
+
+                                                                                        if (valueForX > 3) {
+                                                                                            valueForX = 3;
+                                                                                        }
+                                                                                    }
                                                                                     float valueForY = modifiersQuerying.getVariableValue(gameState, self, Variable.Y, Filters.countTopLocationsOnTable(game,
                                                                                             Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation, Filters.controls(playerId))));
 

@@ -32,6 +32,7 @@ public class Card5_123 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Special_Delivery, Uniqueness.UNIQUE);
         setLore("Because bounty hunters are untrustworthy, the Empire relies on its troopers for efficient prisoner delivery.");
         setGameText("Deploy on a prison. When one of your troopers 'delivers' (imprisons) a captive here, you may search your Lost Pile, take any one card into hand and then lose effect. (Each captive may be 'delivered' only once until they are released or leave table)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.CLOUD_CITY);
     }
 

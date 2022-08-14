@@ -30,6 +30,7 @@ public class Card7_244 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Tatooine_Occupation, Uniqueness.UNIQUE);
         setLore("Sandtroopers commanded by Governor Aryon do not enjoy their assignment. They find a means of venting their frustrations by harassing the local inhibitors.");
         setGameText("Deploy on Tatooine system if you occupy at least two Tatooine battleground sites. During each of your control phases, opponent loses 1 Force for each Tatooine battleground site you occupy. Canceled if opponent controls this system. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

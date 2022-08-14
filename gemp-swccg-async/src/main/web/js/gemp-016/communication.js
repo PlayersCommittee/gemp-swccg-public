@@ -96,6 +96,19 @@ var GempSwccgCommunication = Class.extend({
         });
     },
 
+    getCollectionStats:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/playerCollectionStats",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId") },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+
     getLiveTournaments:function (callback, errorMap) {
         $.ajax({
             type:"GET",
@@ -345,7 +358,7 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    getMerchant:function (filter, ownedMin, start, count, callback, errorMap) {
+    getMerchant:function (filter, ownedCompareSelect, ownedMin, start, count, callback, errorMap) {
         $.ajax({
             type:"GET",
             url:this.url + "/merchant",
@@ -353,6 +366,7 @@ var GempSwccgCommunication = Class.extend({
             data:{
                 participantId:getUrlParam("participantId"),
                 filter:filter,
+                ownedCompareSelect:ownedCompareSelect,
                 ownedMin:ownedMin,
                 start:start,
                 count:count},

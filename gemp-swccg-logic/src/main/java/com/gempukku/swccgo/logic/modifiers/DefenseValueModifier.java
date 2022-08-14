@@ -72,7 +72,19 @@ public class DefenseValueModifier extends AbstractModifier {
      * @param evaluator the evaluator that calculates the amount of the modifier
      */
     public DefenseValueModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
-        super(source, null, affectFilter, condition, ModifierType.DEFENSE_VALUE, false);
+        this(source, affectFilter, condition, evaluator, false);
+    }
+
+    /**
+     * Creates a defense value modifier.
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards whose defense value is modified
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param evaluator the evaluator that calculates the amount of the modifier
+     * @param cumulative true if the modifier is cumulative, otherwise false
+     */
+    public DefenseValueModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator, boolean cumulative) {
+        super(source, null, affectFilter, condition, ModifierType.DEFENSE_VALUE, cumulative);
         _evaluator = evaluator;
     }
 

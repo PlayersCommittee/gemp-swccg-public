@@ -17,7 +17,7 @@ import com.gempukku.swccgo.logic.effects.MayNotMoveUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.ShufflePileEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -72,36 +72,43 @@ public class Card10_025 extends AbstractUsedInterrupt {
             actions.add(action);
         }
         // Check condition(s)
-        if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)) {
-            final PhysicalCard character = Filters.findFirstFromStacked(game,
-                    Filters.and(Filters.your(self), Filters.character, Filters.not(Filters.disarmed_character), Filters.stackedOn(self, Filters.Weather_Vane)));
+        Filter nonDisarmedCharacterStackedOnWeatherVane = Filters.and(Filters.your(self), Filters.character, Filters.not(Filters.disarmed_character), Filters.stackedOn(self, Filters.Weather_Vane));
+
+        // Check condition(s)
+        if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
+                && GameConditions.canSpot(game, self, Filters.and(Filters.Weather_Vane, Filters.hasStacked(nonDisarmedCharacterStackedOnWeatherVane)))) {
+
+            game.getGameState().sendMessage("Weather Vane with Character Stacked Found");
+            final PhysicalCard weatherVane = Filters.findFirstActive(game, self, Filters.Weather_Vane);
+            final PhysicalCard character = Filters.findFirstFromStacked(game, nonDisarmedCharacterStackedOnWeatherVane);
+
             if (character != null) {
+                game.getGameState().sendMessage("Character stacked: " + GameUtils.getCardLink(character));
                 final Filter locationFilter = Filters.and(Filters.Cloud_City_site, Filters.locationCanBeRelocatedTo(character, false, false, true, 0, false));
                 if (GameConditions.canSpotLocation(game, locationFilter)) {
-
                     final PlayInterruptAction action = new PlayInterruptAction(game, self);
                     action.setText("Relocate character from Weather Vane");
                     // Choose target(s)
                     action.appendTargeting(
-                            new TargetCardOnTableEffect(action, playerId, "Choose character", character) {
+                            new ChooseStackedCardEffect(action, playerId, weatherVane, character) {
                                 @Override
-                                protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCharacter) {
-                                    action.addAnimationGroup(targetedCharacter);
+                                protected void cardSelected(final PhysicalCard selectedCard) {
+                                    action.addAnimationGroup(selectedCard);
                                     action.appendTargeting(
-                                            new ChooseCardOnTableEffect(action, playerId, "Choose site", locationFilter) {
+                                            new TargetCardOnTableEffect(action, playerId, "Choose site", locationFilter) {
                                                 @Override
-                                                protected void cardSelected(final PhysicalCard selectedSite) {
+                                                protected void cardTargeted(int targetGroupId, final PhysicalCard selectedSite) {
                                                     action.addAnimationGroup(selectedSite);
                                                     // Allow response(s)
-                                                    action.allowResponses("Relocate " + GameUtils.getCardLink(targetedCharacter) + " from Weather Vane to " + GameUtils.getCardLink(selectedSite),
+                                                    action.allowResponses("Relocate " + GameUtils.getCardLink(selectedCard) + " from Weather Vane to " + GameUtils.getCardLink(selectedSite),
                                                             new RespondablePlayCardEffect(action) {
                                                                 @Override
                                                                 protected void performActionResults(Action targetingAction) {
                                                                     // Perform result(s)
                                                                     action.appendEffect(
-                                                                            new RelocateFromWeatherVaneToLocation(action, targetedCharacter, selectedSite));
+                                                                            new RelocateFromWeatherVaneToLocation(action, selectedCard, selectedSite));
                                                                     action.appendEffect(
-                                                                            new MayNotMoveUntilEndOfTurnEffect(action, targetedCharacter));
+                                                                            new MayNotMoveUntilEndOfTurnEffect(action, selectedCard));
                                                                 }
                                                             }
                                                     );

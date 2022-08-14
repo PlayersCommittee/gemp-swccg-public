@@ -54,7 +54,7 @@ public class Card211_057 extends AbstractAlien {
                 && GameConditions.hasReserveDeck(game, self.getOwner()))
         {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Reveal the top three cards of your reserve deck");
+            action.setText("Reveal the top three cards of your Reserve Deck");
             action.appendUsage(
                     new OncePerTurnEffect(action));
             action.appendEffect(

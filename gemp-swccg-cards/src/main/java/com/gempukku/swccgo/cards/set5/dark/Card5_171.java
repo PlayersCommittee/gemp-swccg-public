@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card5_171 extends AbstractSite {
     public Card5_171() {
-        super(Side.DARK, "Cloud City: Lower Corridor", Title.Bespin);
+        super(Side.DARK, Title.Lower_Corridor, Title.Bespin);
         setLocationDarkSideGameText("Your characters with lightsabers are each power +2 here.");
         setLocationLightSideGameText("If you control, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -28,6 +28,7 @@ public class Card2_121 extends AbstractNormalEffect {
         super(Side.DARK, 3, null, "Imperial Justice");
         setLore("'There's nothing you could have done Luke, had you been there. You'd have been killed too.'");
         setGameText("If opponent is generating at least 4 more Force than you, deploy on a location to cancel all Force generation at that location. OR Deploy on a location. It is now immune to Revolution.");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.A_NEW_HOPE);
     }
 

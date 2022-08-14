@@ -5,7 +5,7 @@ package com.gempukku.swccgo.common;
  */
 public enum Rarity {
     UR("Ultra Rare"),
-    XR("Extra Rare"),
+    XR("Exclusive Rare"),
     PM("Premium"),
     PV("Preview"),
     R1("Rare (R1)"),

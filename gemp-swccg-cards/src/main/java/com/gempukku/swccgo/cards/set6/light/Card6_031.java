@@ -2,16 +2,17 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Species;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.*;
 
@@ -35,7 +36,9 @@ public class Card6_031 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition atAudienceChamber = new AtCondition(self, Filters.Audience_Chamber);
+        Condition wysvModifyGameText = new GameTextModificationCondition(self, ModifyGameTextType.LEGACY__PALEJO_RESHAD__TREAT_AUDIENCE_CHAMBER_AS_CORELLIA);
+        Condition atAudienceChamber = new OrCondition(new AndCondition(new NotCondition(wysvModifyGameText), new AtCondition(self, Filters.Audience_Chamber))
+                , new AndCondition(wysvModifyGameText, new AtCondition(self, Filters.Corellia_location)));
         Filter yourCorellians = Filters.and(Filters.your(self), Filters.Corellian);
         Evaluator evaluator = new CardMatchesEvaluator(1, 2, Filters.non_unique);
 

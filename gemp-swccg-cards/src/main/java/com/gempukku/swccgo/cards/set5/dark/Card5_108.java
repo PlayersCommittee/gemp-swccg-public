@@ -31,6 +31,7 @@ public class Card5_108 extends AbstractDevice {
         setLore("Torture rack so visually frightening it sometimes yields the desired results without even being switched on.");
         setGameText("Deploy on a prison. During your control phase, opponent loses 1 Force for each captive of ability > 2 here. Also, during your control phase, may use 1 Force to search your Reserve Deck, take one Torture or Aiiii! Aaa! Agggggggggg! into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

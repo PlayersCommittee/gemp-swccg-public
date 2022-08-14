@@ -47,7 +47,7 @@ public class Card200_045 extends AbstractNormalEffect {
             final Collection<PhysicalCard> matchingWeapons = new LinkedList<>();
             final Collection<PhysicalCard> matchingCharacters = new LinkedList<>();
             for (PhysicalCard character : characters) {
-                Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.matchingWeaponForCharacter(character));
+                Collection<PhysicalCard> matchingWeaponsForCharacter = Filters.filter(game.getGameState().getReserveDeck(playerId), game, Filters.and(Filters.matchingWeaponForCharacter(character), Filters.deployable(self, null, false, 0)));
                 if(!matchingWeaponsForCharacter.isEmpty()){
                     matchingCharacters.add(character);
                     for(PhysicalCard weapon: matchingWeaponsForCharacter){

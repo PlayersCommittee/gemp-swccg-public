@@ -25,6 +25,9 @@ public class RegisterRequestHandler extends SwccgoServerRequestHandler implement
             String login = getFormParameterSafely(postDecoder, "login");
             String password = getFormParameterSafely(postDecoder, "password");
             try {
+                if (!_gempSettingDAO.newAccountRegistrationEnabled()) {
+                    throw new RegisterNotAllowedException();
+                }
                 if (_playerDao.registerPlayer(login, password, ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress())) {
                     responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
                 } else {

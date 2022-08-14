@@ -61,7 +61,7 @@ public class Card215_024 extends AbstractAlien {
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                     action.appendEffect(
                             new AddUntilEndOfTurnModifierEffect(action, new MayNotRemoveJustLostCardsFromLostPileModifier(self, Filters.sameCardId(lostCard)),
-                                    GameUtils.getCardLink(lostCard) + " may not be removed from Lost Pile until end of turn.")
+                                    GameUtils.getCardLink(lostCard) + " may not be removed from Lost Pile")
                     );
                     actions.add(action);
                 }

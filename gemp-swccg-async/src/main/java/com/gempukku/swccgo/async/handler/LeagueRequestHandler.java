@@ -163,6 +163,11 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
             int end = series.get(series.size() - 1).getEnd();
 
             Element leagueElem = doc.createElement("league");
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+            String participantId = getQueryParameterSafely(queryDecoder, "participantId");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            boolean inLeague = _leagueService.isPlayerInLeague(league, resourceOwner);
+            leagueElem.setAttribute("member", String.valueOf(inLeague));
 
             leagueElem.setAttribute("type", league.getType());
             leagueElem.setAttribute("name", league.getName());

@@ -33,6 +33,7 @@ public class Card112_010 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Underworld_Contacts, Uniqueness.UNIQUE);
         setLore("Influence, like any commodity, has a price in the Outer Rim territories.");
         setGameText("Deploy on a Tatooine site. Your Force generation here is +1. Opponent may not cancel or modify Force drains at each Tatooine battleground site where you have two aliens with different card titles. At any time, you may use 2 Force to raise your converted Tatooine site to top.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.PREMIUM);
     }
 

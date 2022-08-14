@@ -32,6 +32,7 @@ public class Card8_120 extends AbstractNormalEffect {
         setGameText("Deploy on Back Door. Opponent may not deploy or move to Bunker. Effect canceled if opponent controls Back Door or Landing Platform or if you initiate at Force drain at Bunker. (Immune to Alter.)");
         addIcons(Icon.ENDOR);
         addImmuneToCardTitle(Title.Alter);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

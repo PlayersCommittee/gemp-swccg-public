@@ -6,6 +6,7 @@ package com.gempukku.swccgo.common;
 public enum Persona implements Filterable {
     // Characters
     _4_LOM("4-LOM"),
+    ACKBAR("Ackbar"),
     AHSOKA("Ahsoka"),
     AMIDALA("Amidala"),
     ANAKIN("Anakin"),
@@ -15,8 +16,11 @@ public enum Persona implements Filterable {
     BEAUMONT("Beaumont"),
     BECKETT("Beckett"),
     BEEDO("Beedo"),
+    BEN_SOLO("Ben Solo"),
+    BIB("Bib Fortuna"),
     BLIZZARD_1("Blizzard 1"),
     BOBA_FETT("Boba Fett"),
+    BO_KATAN("Bo-Katan"),
     BOOSTER("Booster"),
     BOSSK("Bossk"),
     C3PO("C-3PO"),
@@ -42,8 +46,9 @@ public enum Persona implements Filterable {
     DS_61_3("DS-61-3"),
     DUTCH("Dutch"),
     ELIS("Elis"),
-    EMPEROR("Emperor"),
     EZRA("Ezra"),
+    GALEN("Galen"),
+    FENNEC_SHAND("Fennec Shand"),
     FIGRIN_DAN("Figrin D'an"),
     GIDEON("Gideon"),
     GREEN_LEADER("Green Leader"),
@@ -65,8 +70,10 @@ public enum Persona implements Filterable {
     JERUS("Jerus"),
     JONUS("Jonus"),
     JUNKIN("Junkin"),
+    JUNO("Juno Eclipse"),
     KANAN("Kanan"),
     KETWOL("Ketwol"),
+    KHURGEE("Khurgee"),
     KRENNIC("Krennic"),
     KYLO("Kylo"),
     L3_37("L3-37"),
@@ -77,6 +84,7 @@ public enum Persona implements Filterable {
     LOBOT("Lobot"),
     LOTT("Lott"),
     LUKE("Luke"),
+    MAAREK_STELE("Maarek Stele"),
     MARA_JADE("Mara Jade"),
     MARA_SKYWALKER("Mara Skywalker"),
     MARGO("Margo"),
@@ -96,13 +104,13 @@ public enum Persona implements Filterable {
     OS_72_1("OS-72-1"),
     OS_72_2("OS-72-2"),
     OZZEL("Ozzel"),
-    PALPATINE("Palpatine"),
     PANAKA("Panaka"),
     PAPLOO("Paploo"),
     PEROSEI("Perosei"),
     PIETT("Piett"),
     PLO("Plo Koon"),
     PRE_VIZSLA("Pre Vizsla"),
+    PROFUNDITY("Profundity"),
     PROXIMA("Proxima"),
     PRYDE("Pryde"),
     PUCK("Puck"),
@@ -150,6 +158,7 @@ public enum Persona implements Filterable {
     BLOCKADE_FLAGSHIP("Blockade Flagship"),
     BLUE_11("Blue 11"),
     BLUE_SQUADRON_1("Blue Squadron 1"),
+    CHIMAERA("Chimaera"),
     EXECUTOR("Executor"),
     FALCON("Falcon"),
     FIRST_LIGHT("First Light"),
@@ -170,6 +179,7 @@ public enum Persona implements Filterable {
     RED_2("Red 2"),
     RED_5("Red 5"),
     RIO("Rio"),
+    RUKH("Rukh"),
     SCIMITAR_2("Scimitar 2"),
     SLAVE_I("Slave I"),
     STEADFAST("Steadfast"),
@@ -184,6 +194,8 @@ public enum Persona implements Filterable {
     AHSOKAS_SHOTO_LIGHTSABER("Ahsoka's Shoto Lightsaber"),
     ANAKINS_LIGHTSABER("Anakin's Lightsaber"),
     AURRAS_BLASTER_RIFLE("Aurra Sing's Blaster Rifle"),
+    EZRAS_BLADER_LIGHTSABER("Ezra's Blaster Lightsaber"),
+    GALENS_LIGHTSABER("Galen's Lightsaber"),
     KYLOS_LIGHTSABER("Kylo's Lightsaber"),
     LADY_VADERS_BLASTER_RIFLE("Lady Vader's Blaster Rifle"),
     LEIAS_BLASTER_RIFLE("Leia's Blaster Rifle"),
@@ -217,6 +229,8 @@ public enum Persona implements Filterable {
         if (equals(MARA_SKYWALKER)) return MARA_JADE;
         if (equals(SON_OF_VADER)) return LUKE;
         if (equals(VADER)) return ANAKIN;
+        if (equals(BEN_SOLO)) return KYLO;
+        if (equals(KYLO)) return BEN_SOLO;
         if (equals(ANAKINS_LIGHTSABER)) return VADERS_LIGHTSABER;
         if (equals(LADY_VADERS_BLASTER_RIFLE)) return LEIAS_BLASTER_RIFLE;
         if (equals(LEIAS_BLASTER_RIFLE)) return LADY_VADERS_BLASTER_RIFLE;

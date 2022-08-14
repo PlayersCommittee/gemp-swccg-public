@@ -69,12 +69,12 @@ public class Card209_019 extends AbstractUsedOrLostInterrupt {
                 && GameConditions.canTakeCardsIntoHandFromLostPile(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
-            action.setText("Retrieve Effect or non-[M] starship");
+            action.setText("Retrieve Effect or starship");
             // Pay cost(s)
             action.appendCost(
                     new UseForceEffect(action, playerId, 3));
             // Allow response(s)
-            action.allowResponses(
+            action.allowResponses("Retrieve an Effect of any kind or a non-[Maintenance] starship into hand",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {

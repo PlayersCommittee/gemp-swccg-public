@@ -51,10 +51,44 @@ class PutCardsInCardPileEffect extends AbstractSubActionEffect {
      * @param game the game
      * @param cards the cards
      * @param cardPile the card pile
+     * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
+     */
+    public PutCardsInCardPileEffect(Action action, SwccgGame game, Collection<PhysicalCard> cards, Zone cardPile, boolean toBottomOfPile, boolean lostCardsShouldNotCountAsJustLost) {
+        this(action, game, cards, cardPile, null, toBottomOfPile, lostCardsShouldNotCountAsJustLost);
+    }
+
+    /**
+     * Creates an effect that has the players choose the order in which cards are placed in the specified card pile.
+     * @param action the action performing this effect
+     * @param game the game
+     * @param cards the cards
+     * @param cardPile the card pile
      * @param playerToChooseOrder the player to choose order for all cards placed in Lost Pile, null if owner's choose order
      * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
      */
     public PutCardsInCardPileEffect(Action action, SwccgGame game, Collection<PhysicalCard> cards, Zone cardPile, String playerToChooseOrder, boolean toBottomOfPile) {
+        super(action);
+        for (PhysicalCard card : cards) {
+            if (card.getOwner().equals(game.getDarkPlayer()))
+                _remainingDarkCards.add(card);
+            else
+                _remainingLightCards.add(card);
+        }
+        _cardPile = cardPile;
+        _playerToChooseOrder = playerToChooseOrder;
+        _toBottomOfPile = toBottomOfPile;
+    }
+
+    /**
+     * Creates an effect that has the players choose the order in which cards are placed in the specified card pile.
+     * @param action the action performing this effect
+     * @param game the game
+     * @param cards the cards
+     * @param cardPile the card pile
+     * @param playerToChooseOrder the player to choose order for all cards placed in Lost Pile, null if owner's choose order
+     * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
+     */
+    public PutCardsInCardPileEffect(Action action, SwccgGame game, Collection<PhysicalCard> cards, Zone cardPile, String playerToChooseOrder, boolean toBottomOfPile, boolean lostCardsDoNotCountAsJustLost) {
         super(action);
         for (PhysicalCard card : cards) {
             if (card.getOwner().equals(game.getDarkPlayer()))

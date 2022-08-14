@@ -43,6 +43,18 @@ public abstract class ChooseCardsFromLostPileEffect extends ChooseCardsFromPileE
      * @param playerId the player
      * @param minimum the minimum number of cards to choose
      * @param maximum the maximum number of cards to choose
+     * @param filters the filter
+     */
+    public ChooseCardsFromLostPileEffect(Action action, String playerId, String zoneOwner, int minimum, int maximum, Filterable filters) {
+        super(action, playerId, Zone.LOST_PILE, zoneOwner, minimum, maximum, maximum, false, false, filters);
+    }
+
+    /**
+     * Creates an effect that causes the player to choose cards accepted by the specified filter from Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param minimum the minimum number of cards to choose
+     * @param maximum the maximum number of cards to choose
      * @param topmost true if only the topmost cards should be chosen from, otherwise false
      * @param filters the filter
      */

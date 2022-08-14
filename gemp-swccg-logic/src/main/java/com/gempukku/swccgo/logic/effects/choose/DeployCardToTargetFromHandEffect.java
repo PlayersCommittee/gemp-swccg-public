@@ -50,6 +50,35 @@ public class DeployCardToTargetFromHandEffect extends DeployCardFromHandEffect {
     }
 
     /**
+     * Creates an effect that causes the player performing the action to choose and deploy a card accepted by the card filter
+     * to the specified target from hand.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @param targetFilter the target filter
+     * @param forFree true if deploying for free, otherwise false
+     * @param asReact true if deploying as a react, otherwise false
+     */
+    public DeployCardToTargetFromHandEffect(Action action, String playerId, Filter cardFilter, Filter targetFilter, boolean forFree, boolean asReact) {
+        super(action, playerId, cardFilter, targetFilter, null, null, asReact, forFree, 0, null, null);
+    }
+
+    /**
+     * Creates an effect that causes the player performing the action to choose and deploy a card accepted by the card filter
+     * to the specified target from hand.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @param targetFilter the target filter
+     * @param forFree true if deploying for free, otherwise false
+     * @param asReact true if deploying as a react, otherwise false
+     * @param changeInCost change in cost
+     */
+    public DeployCardToTargetFromHandEffect(Action action, String playerId, Filter cardFilter, Filter targetFilter, boolean forFree, boolean asReact, int changeInCost) {
+        super(action, playerId, cardFilter, targetFilter, null, null, asReact, forFree, changeInCost, null, null);
+    }
+
+    /**
      * Creates an effect that causes the card owner to deploy the specified card from hand to the specified target.
      * @param action the action performing this effect
      * @param cardToDeploy the card to deploy

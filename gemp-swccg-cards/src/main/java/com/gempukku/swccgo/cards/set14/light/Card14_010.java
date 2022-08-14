@@ -111,7 +111,18 @@ public class Card14_010 extends AbstractAlien {
                                                                             gameState.sendMessage(playerId + "'s destiny: " + (playersTotalDestiny != null ? GuiUtils.formatAsString(playersTotalDestiny) : "Failed destiny draw"));
                                                                             gameState.sendMessage(opponent + "'s destiny: " + (opponentsTotalDestiny != null ? GuiUtils.formatAsString(opponentsTotalDestiny) : "Failed destiny draw"));
 
-                                                                            if (((playersTotalDestiny != null ? playersTotalDestiny : 0) + 1) > (opponentsTotalDestiny != null ? opponentsTotalDestiny : 0)) {
+                                                                            if (playersTotalDestiny == null && opponentsTotalDestiny == null) {
+                                                                                gameState.sendMessage("Both players failed due to failed destiny draws");
+                                                                                gameState.sendMessage("Result: No result");
+                                                                            } else if (playersTotalDestiny == null) {
+                                                                                gameState.sendMessage(playerId + "'s total failed due to failed destiny draw");
+                                                                                gameState.sendMessage("Result: No result");
+                                                                            } else if (opponentsTotalDestiny == null) {
+                                                                                gameState.sendMessage(opponent + "'s total failed due to failed destiny draw");
+                                                                                gameState.sendMessage("Result: Succeeded");
+                                                                                action.appendEffect(
+                                                                                        new LoseCardFromTableEffect(action, droid));
+                                                                            } else if (((playersTotalDestiny != null ? playersTotalDestiny : 0) + 1) > (opponentsTotalDestiny != null ? opponentsTotalDestiny : 0)) {
                                                                                 gameState.sendMessage("Result: Succeeded");
                                                                                 action.appendEffect(
                                                                                         new LoseCardFromTableEffect(action, droid));

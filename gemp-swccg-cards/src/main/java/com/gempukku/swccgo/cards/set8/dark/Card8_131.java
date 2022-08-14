@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card8_131 extends AbstractNormalEffect {
     public Card8_131() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Search And Destroy", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Search_And_Destroy, Uniqueness.UNIQUE);
         setLore("Imperial troops searched the forests of Endor to flush the Rebels out.");
         setGameText("Deploy on table. Biker scouts are forfeit +1. During every draw phase, unless opponent's character of destiny < 4 occupies a battleground site, opponent loses 1 Force. Effect canceled unless your characters of destiny < 4 occupy two battleground sites.");
         addIcons(Icon.ENDOR);

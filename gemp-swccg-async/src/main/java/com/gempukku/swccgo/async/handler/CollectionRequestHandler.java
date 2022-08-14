@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.packs.RarityReader;
 import com.gempukku.swccgo.cards.packs.SetRarity;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.CardCounts;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.db.vo.League;
@@ -72,6 +73,8 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
                 getCollectionTypes(request, responseWriter);
             } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
                 openPack(request, uri.substring(1), responseWriter);
+            } else if (uri.startsWith("playerCollectionStats") && request.getMethod() == HttpMethod.GET) {
+                playerCollectionStats(request, uri.substring(21), responseWriter);
             } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
                 getCollection(request, uri.substring(1), responseWriter);
             } else {
@@ -259,5 +262,56 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
                 card.setAttribute("backSideTestingText", GameUtils.convertTestingText(testingText));
             }
         }
+    }
+
+    public void playerCollectionStats(HttpRequest request, String playerId, ResponseWriter responseWriter) throws Exception {
+        Player resourceOwner = getResourceOwnerSafely(request, null);
+        CardCollection collection = constructCollection(resourceOwner, "permanent");
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document doc = documentBuilder.newDocument();
+
+        Element allCards = doc.createElement("all");
+
+        for(ExpansionSet set: ExpansionSet.values()) {
+            if (set.getSetNumber() < 400) { //excludes Dream Cards, Playtesting, Legacy, etc.
+                int available = 0;
+                int allCollected = 0;
+                int foilsCollected = 0;
+
+                for(String blueprintId: _rarities.get(String.valueOf(set.getSetNumber())).getAllCards()) {
+                    String nonfoilId = _library.stripBlueprintModifiers(blueprintId);
+                    if (_library.getSwccgoCardBlueprint(nonfoilId) != null) { //card exists
+                        int nonfoil = collection.getItemCount(nonfoilId);
+                        int foil = collection.getItemCount(nonfoilId + "*");
+                        int ai = collection.getItemCount(nonfoilId + "^");
+
+                        available++;
+                        if(nonfoil+foil+ai>0)
+                            allCollected++;
+                        if(foil>0)
+                            foilsCollected++;
+                    }
+                }
+
+                Element allEntry = doc.createElement("entry");
+                allEntry.setAttribute("set", set.getHumanReadable());
+                allEntry.setAttribute("available", String.valueOf(available));
+                allEntry.setAttribute("collected", String.valueOf(allCollected));
+                allEntry.setAttribute("missing", String.valueOf(available-allCollected));
+                allEntry.setAttribute("foil", String.valueOf(foilsCollected));
+                allCards.appendChild(allEntry);
+            }
+        }
+
+        Element stats = doc.createElement("playerCollectionStats");
+
+        stats.appendChild(allCards);
+
+        doc.appendChild(stats);
+
+        responseWriter.writeXmlResponse(doc);
+
     }
 }

@@ -13,6 +13,8 @@ public enum DestinyType {
     DESTINY("destiny"),
     DESTINY_TO_ATTRITION("destiny to attrition"),
     DESTINY_TO_TOTAL_POWER("destiny to total power"),
+    DESTINY_TO_REDUCE_ATTRITION("destiny to reduce total attrition"),
+    DESTINY_TO_REDUCE_ATTRITION_POWER("destiny to reduce total attrition and power"),
     DUEL_DESTINY("duel destiny"),
     EPIC_EVENT_DESTINY("epic event destiny"),
     EPIC_EVENT_AND_WEAPON_DESTINY("epic event and weapon destiny"),

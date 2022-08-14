@@ -44,8 +44,15 @@ public class Card1_195 extends AbstractAlien {
         if (GameConditions.isPhaseForPlayer(game, Phase.CONTROL, playerId)) {
             final int numberOnCard = game.getModifiersQuerying().isDoubled(game.getGameState(), self) ? 4 : 2;
 
+            // Check if any devices or weapons can be stolen
+            final Filter deviceToDestroyFilter = Filters.and(Filters.device, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_LOST));
+            final Filter deviceToStealFilter = Filters.and(Filters.device, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_STOLEN));
+            final Filter weaponToDestroyFilter = Filters.and(Filters.weapon, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_LOST));
+            final Filter weaponToStealFilter = Filters.and(Filters.weapon, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_STOLEN));
+
             if (GameConditions.isNumTimesDuringYourPhase(game, self, playerId, numberOnCard, gameTextSourceCardId, Phase.CONTROL)
-                    && GameConditions.canUseForce(game, playerId, numberOnCard)) {
+                    && GameConditions.canUseForce(game, playerId, numberOnCard)
+                    && GameConditions.canTarget(game, self, Filters.or(deviceToDestroyFilter, deviceToStealFilter, weaponToDestroyFilter, weaponToStealFilter))) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
                 action.setText("Steal/destroy weapons or devices");
@@ -77,12 +84,6 @@ public class Card1_195 extends AbstractAlien {
                                     gameState.sendMessage("Result: No destiny draws matched " + numberOnCard);
                                     return;
                                 }
-
-                                // Check if any devices or weapons can be stolen
-                                final Filter deviceToDestroyFilter = Filters.and(Filters.device, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_LOST));
-                                final Filter deviceToStealFilter = Filters.and(Filters.device, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_STOLEN));
-                                final Filter weaponToDestroyFilter = Filters.and(Filters.weapon, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_LOST));
-                                final Filter weaponToStealFilter = Filters.and(Filters.weapon, Filters.present(self), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_STOLEN));
 
                                 List<String> choicesText = new LinkedList<String>();
                                 boolean devicesOptionValid = false;

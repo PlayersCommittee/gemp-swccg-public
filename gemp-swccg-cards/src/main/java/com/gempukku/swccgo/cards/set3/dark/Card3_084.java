@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card3_084 extends AbstractImperial {
     public Card3_084() {
-        super(Side.DARK, 2, 3, 2, 2, 5, "Captain Lennox", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 2, 5, Title.Captain_Lennox, Uniqueness.UNIQUE);
         setLore("Captain of the Imperial Star Destroyer Tyrant. An able leader. Unlike most Imperial officers, he is dedicated to his ship and crew. Finds political maneuvering distasteful.");
         setGameText("Adds 2 to power of anything he pilots (3 if starship is Tyrant). When on a Star Destroyer, may use its tractor beam once during each of your control phases.");
         addKeywords(Keyword.CAPTAIN, Keyword.LEADER);

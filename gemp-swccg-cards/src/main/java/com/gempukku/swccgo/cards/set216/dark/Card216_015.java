@@ -44,17 +44,52 @@ public class Card216_015 extends AbstractSite {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        Filter scarifSite = Filters.and(Filters.Scarif_site, Filters.or(Filters.canBeConvertedByRaisingLocationToTop(playerOnDarkSideOfLocation), Filters.canBeConvertedByRaisingLocationToTop(game.getOpponent(playerOnDarkSideOfLocation))));
+        Filter scarifLocation = Filters.and(Filters.Scarif_location, Filters.or(Filters.canBeConvertedByRaisingLocationToTop(playerOnDarkSideOfLocation), Filters.canBeConvertedByRaisingLocationToTop(game.getOpponent(playerOnDarkSideOfLocation))));
 
         // Check condition(s)
-        if (TriggerConditions.forceDrainInitiatedAt(game, effectResult, self)
-                && GameConditions.canTarget(game, self, scarifSite)) {
+        if (TriggerConditions.forceDrainCompleted(game, effectResult, playerOnDarkSideOfLocation, self)
+                && GameConditions.canTarget(game, self, scarifLocation)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId);
-            action.setText("Raise a converted Scarif site");
+            action.setText("Raise a converted Scarif location");
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerOnDarkSideOfLocation, "Target site to convert", scarifSite) {
+                    new TargetCardOnTableEffect(action, playerOnDarkSideOfLocation, "Target site to convert", scarifLocation) {
+                        @Override
+                        protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            // Allow response(s)
+                            action.allowResponses("Convert " + GameUtils.getCardLink(targetedCard),
+                                    new UnrespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new ConvertLocationByRaisingToTopEffect(action, targetedCard, false));
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOpponentsActionOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        Filter scarifLocation = Filters.and(Filters.Scarif_location, Filters.or(Filters.canBeConvertedByRaisingLocationToTop(playerOnDarkSideOfLocation), Filters.canBeConvertedByRaisingLocationToTop(game.getOpponent(playerOnDarkSideOfLocation))));
+
+        // Check condition(s)
+        if (TriggerConditions.forceDrainCompleted(game, effectResult, playerOnDarkSideOfLocation, self)
+                && GameConditions.canTarget(game, self, scarifLocation)) {
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId);
+            action.setText("Raise a converted Scarif location");
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerOnDarkSideOfLocation, "Target site to convert", scarifLocation) {
                         @Override
                         protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);

@@ -32,6 +32,7 @@ public class Card7_223 extends AbstractNormalEffect {
         setGameText("Deploy on Bespin system if you occupy at least two Cloud City battleground sites. During each of your control phases, opponent loses 1 Force for each Cloud City battleground site you occupy. Canceled if opponent controls this system. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }
 
     @Override

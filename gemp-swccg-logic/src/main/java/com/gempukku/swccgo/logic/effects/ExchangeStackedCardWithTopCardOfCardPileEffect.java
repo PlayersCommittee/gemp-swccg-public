@@ -26,6 +26,7 @@ public class ExchangeStackedCardWithTopCardOfCardPileEffect extends AbstractSubA
     private Filterable _stackedOnFilter;
     private Filterable _stackedCardFilter;
     private final Zone _cardPile;
+    private boolean _isRaceDestiny;
     private ExchangeStackedCardWithTopCardOfCardPileEffect _that;
 
     /**
@@ -37,11 +38,25 @@ public class ExchangeStackedCardWithTopCardOfCardPileEffect extends AbstractSubA
      * @param cardPile the card pile
      */
     protected ExchangeStackedCardWithTopCardOfCardPileEffect(Action action, Filterable stackedOnFilter, Filterable stackedCardFilter, Zone cardPile) {
+        this(action, stackedOnFilter, stackedCardFilter, cardPile, false);
+    }
+
+    /**
+     * Creates an effect that causes the player to exchange a stacked card filter that is stacked on a card accepted by
+     * the stacked on filter with the top card of the specified card pile.
+     * @param action the action performing this effect
+     * @param stackedOnFilter the stacked on filter
+     * @param stackedCardFilter the stacked card filter
+     * @param cardPile the card pile
+     * @param isRaceDestiny true if the stacked card is a race destiny, false if not
+     */
+    protected ExchangeStackedCardWithTopCardOfCardPileEffect(Action action, Filterable stackedOnFilter, Filterable stackedCardFilter, Zone cardPile, boolean isRaceDestiny) {
         super(action);
         _playerId = action.getPerformingPlayer();
         _stackedOnFilter = Filters.and(stackedOnFilter);
         _stackedCardFilter = Filters.and(stackedCardFilter);
         _cardPile = cardPile;
+        _isRaceDestiny = isRaceDestiny;
         _that = this;
     }
 
@@ -83,6 +98,10 @@ public class ExchangeStackedCardWithTopCardOfCardPileEffect extends AbstractSubA
                             gameState.removeCardsFromZone(cardsToRemove);
                             gameState.addCardToTopOfZone(stackedCard, _cardPile, _playerId);
                             gameState.stackCard(topCardOfCardPile, stackedOn, false, stackedAsInactive, false);
+
+                            if(_isRaceDestiny) {
+                                topCardOfCardPile.setRaceDestinyForPlayer(_playerId);
+                            }
 
                             actionsEnvironment.emitEffectResult(
                                     new ExchangedCardsInCardPileResult(subAction));

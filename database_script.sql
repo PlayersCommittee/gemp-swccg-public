@@ -72,6 +72,8 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`game_history` (
   `loser_deck_archetype` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `winner_side` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `tournament` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `league_type` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
+  `sealed_league_type` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   `dark_deck_string` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' ,
   `light_deck_string` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' ,
   PRIMARY KEY (`id`) )
@@ -94,11 +96,14 @@ AS SELECT id
 ,end_date
 ,format_name
 ,tournament
+,sealed_league_type
 ,winner_deck_archetype
 ,loser_deck_archetype
 ,winner_side
+,from_unixtime(floor(`game_history`.`start_date` / 1000)) AS `startdatetime`
+,from_unixtime(floor(`game_history`.`end_date` / 1000)) AS `enddatetime`
 FROM `gemp-swccg`.`game_history`
-WHERE LOWER(format_name) NOT LIKE '%playtest%';
+WHERE LOWER(format_name) NOT LIKE '%playtest%' and tournament <>  'Casual (Private)';
 
 
 
@@ -324,6 +329,12 @@ CREATE TABLE IF NOT EXISTS `gemp-swccg`.`ip_ban` (
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_bin;
+
+
+
+
+
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

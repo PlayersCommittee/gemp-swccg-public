@@ -29,7 +29,7 @@ public class Card1_111 extends AbstractLostInterrupt {
     public Card1_111() {
         super(Side.LIGHT, 4, Title.Solo_Han, Uniqueness.UNIQUE);
         setLore("As a smuggler, Solo must always be alert for trouble, even when appearing relaxed. Bounty hunters are eager to claim the price on the Corellian pirate's head.");
-        setGameText("If Han is defending a battle alone at a site, add two battle destiny. OR If any alien is defending a battle alone at a site, add one battle destiny.");
+        setGameText("If Han is defending a battle alone at a site, add two battle destiny. OR If your alien is defending a battle alone at a site, add one battle destiny.");
     }
 
     @Override

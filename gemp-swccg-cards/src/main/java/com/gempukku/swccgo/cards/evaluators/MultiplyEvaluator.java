@@ -11,14 +11,14 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
  */
 public class MultiplyEvaluator extends BaseEvaluator {
     private Evaluator _evaluator;
-    private int _amount;
+    private float _amount;
 
     /**
      * Creates an evaluator that returns the result of the specified evaluator multiplied by the specified amount.
      * @param amount the multiplier
      * @param evaluator the evaluator
      */
-    public MultiplyEvaluator(int amount, Evaluator evaluator) {
+    public MultiplyEvaluator(float amount, Evaluator evaluator) {
         _amount = amount;
         _evaluator = evaluator;
     }

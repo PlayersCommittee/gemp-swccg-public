@@ -96,6 +96,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             else if (system.getTitle().equals(Title.Jakku)) {
                 systemLayout = new JakkuLayout(system.getTitle(), system.getParsec());
             }
+            else if (system.getTitle().equals(Title.Lothal)) {
+                systemLayout = new LothalLayout(system.getTitle(), system.getParsec());
+            }
             else if (system.getTitle().equals(Title.Naboo)) {
                 systemLayout = new NabooLayout(system.getTitle(), system.getParsec());
             }
@@ -123,6 +126,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
         addToLayouts(new DefaultPlanetLayout(Title.Dathomir, 4));
         addToLayouts(new DefaultPlanetLayout(Title.Exegol, 10));
         addToLayouts(new DefaultPlanetLayout(Title.Malachor, 6));
+        addToLayouts(new DefaultPlanetLayout(Title.Kef_Bir, 8));
     }
 
     /**

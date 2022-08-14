@@ -62,7 +62,7 @@ public class Card209_016 extends AbstractNormalEffect {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Resistance character from hand on Used Pile");
-            action.setActionMsg("[upload] a Resistance character");
+            action.setActionMsg("Take a Resistance character of equal or lesser ability into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
@@ -73,9 +73,11 @@ public class Card209_016 extends AbstractNormalEffect {
                             // Pay cost(s)
                             action.appendCost(
                                     new PutCardFromHandOnUsedPileEffect(action, playerId, selectedCard, false));
+
+                            float ability = game.getModifiersQuerying().getAbility(game.getGameState(), selectedCard);
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.abilityLessThanOrEqualTo(selectedCard.getBlueprint().getAbility())), true));
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.Resistance_character, Filters.abilityLessThanOrEqualTo(ability)), true));
                         }
                     }
             );

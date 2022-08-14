@@ -27,6 +27,7 @@ public class Card4_044 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Yodas_Hope, Uniqueness.UNIQUE);
         setLore("'You must feel the Force around you. Here, between you, me, the tree, the rock, everywhere! Yes, even between the land and the ship.'");
         setGameText("Deploy on a character. When on the mentor, adds 1 to training destiny draws. If on Yoda, you may lose Effect to search your Reserve Deck and take into hand one card with 'levitation' in the title. Shuffle, cut and replace.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DAGOBAH);
     }
 

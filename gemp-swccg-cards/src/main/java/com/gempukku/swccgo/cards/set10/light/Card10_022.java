@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.DisableScompLinkModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -36,7 +37,7 @@ public class Card10_022 extends AbstractUsedOrLostInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
         final String opponent = game.getOpponent(playerId);
 
@@ -106,6 +107,11 @@ public class Card10_022 extends AbstractUsedOrLostInterrupt {
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
+                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.GRIMTAASH__PUT_TWO_CARDS_IN_USED)) {
+                                action.appendEffect(
+                                        new PutCardsFromHandOnUsedPileEffect(action, opponent, 0, 2)
+                                );
+                            }
                             // Perform result(s)
                             action.appendEffect(
                                     new RevealOpponentsHandEffect(action, playerId) {

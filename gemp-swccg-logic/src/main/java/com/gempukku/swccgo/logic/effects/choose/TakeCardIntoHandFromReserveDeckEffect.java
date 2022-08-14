@@ -36,6 +36,18 @@ public class TakeCardIntoHandFromReserveDeckEffect extends TakeCardsIntoHandFrom
     }
 
     /**
+     * Creates an effect that causes the player to search Reserve Deck for a card accepted by the specified filter and
+     * take it into hand.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param filters the filter
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     */
+    public TakeCardIntoHandFromReserveDeckEffect(Action action, String playerId, Filter filters, boolean reshuffle, boolean doNotFilterPermanentsAboard) {
+        super(action, playerId, 1, 1, filters, reshuffle, doNotFilterPermanentsAboard);
+    }
+
+    /**
      * Creates an effect that causes the player to take a specific card into hand from Reserve Deck.
      * @param action the action performing this effect
      * @param playerId the player

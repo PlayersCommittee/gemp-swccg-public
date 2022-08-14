@@ -30,7 +30,7 @@ import java.util.List;
 public class Card14_124 extends AbstractCombatVehicle {
     public Card14_124() {
         super(Side.DARK, 4, 2, 2, 4, null, 3, 4, "TT-6", Uniqueness.UNIQUE);
-        setLore("Primary command liaison transport. Contains the majority of officer battle druids. Has priority to unload as soon as the area is secured. Enclosed.");
+        setLore("Primary command liaison transport. Contains the majority of officer battle droids. Has priority to unload as soon as the area is secured. Enclosed.");
         setGameText("May add 7 passengers. Once per turn, may deploy a battle droid leader to same site from Reserve Deck; reshuffle. Immune to attrition < 3 (< 5 if your AAT or STAP present).");
         addModelType(ModelType.MTT);
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT, Icon.PRESENCE);

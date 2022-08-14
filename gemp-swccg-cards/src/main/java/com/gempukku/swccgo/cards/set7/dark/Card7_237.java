@@ -31,6 +31,7 @@ public class Card7_237 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Rebel_Base_Occupation, Uniqueness.UNIQUE);
         setLore("'General, prepare your troops for a surface attack.'");
         setGameText("Deploy on a Rebel Base system if you occupy at least two related battleground sites. During each of your control phases, opponent loses 1 Force for each related battleground site you occupy. Canceled if opponent controls this system. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

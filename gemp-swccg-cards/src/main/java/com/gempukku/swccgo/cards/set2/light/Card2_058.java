@@ -30,7 +30,7 @@ public class Card2_058 extends AbstractLostInterrupt {
     public Card2_058() {
         super(Side.LIGHT, 3, Title.Wookiee_Roar, Uniqueness.UNIQUE);
         setLore("'GHRRRRAARRRRHG!'");
-        setGameText("If Chewbacca is defending a battle alone at a site, add two battle destiny.  OR  Use 3 Force to take Chewie into hand from Reserve Deck; reshuffle.  OR  Scare off (lose) one 'mouse' droid on table.");
+        setGameText("If Chewie is defending a battle alone at a site, add two battle destiny. OR Use 3 Force to take Chewie into hand from Reserve Deck; reshuffle. OR Scare off (lose) one 'mouse' droid on table.");
         addIcons(Icon.A_NEW_HOPE);
     }
 

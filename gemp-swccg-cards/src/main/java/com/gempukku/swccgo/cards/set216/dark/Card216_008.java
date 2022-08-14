@@ -48,7 +48,6 @@ public class Card216_008 extends AbstractCapitalStarship {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new DeployCostToTargetModifier(self, Filters.Vader, -2, self));
-        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.Vader, -2, self));
         return modifiers;
     }
 
@@ -57,6 +56,7 @@ public class Card216_008 extends AbstractCapitalStarship {
         Filter locationFilter = Filters.or(Filters.Scarif_system, Filters.sameLocationAs(self, Filters.Tantive_IV));
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new MayDeployAsReactToLocationModifier(self, locationFilter, -4));
+        modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.Vader, -2));
         return modifiers;
     }
 }

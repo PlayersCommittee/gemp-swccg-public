@@ -35,6 +35,7 @@ public class Card13_055 extends AbstractAlien {
         super(Side.DARK, 3, 2, 3, 1, 3, Title.Bib, Uniqueness.UNIQUE);
         setLore("Twi'lek who serves as Jabba's major-domo. First to discover the profitability of ryll spice found on Ryloth.");
         setGameText("While with Jabba, power +3 and, during your draw phase, may use 1 Force to count the number of cards in your Force Pile, place your Force Pile in your Used Pile, and then activate Force up to the counted number.");
+        addPersona(Persona.BIB);
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
         setSpecies(Species.TWILEK);
     }

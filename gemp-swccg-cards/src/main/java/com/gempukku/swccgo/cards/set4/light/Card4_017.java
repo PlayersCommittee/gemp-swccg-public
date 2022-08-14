@@ -31,6 +31,7 @@ public class Card4_017 extends AbstractNormalEffect {
         setLore("Smugglers and other criminals sometimes hide in asteroids to avoid capture. The larger the asteroid field, the more resources have to be devoted to the pursuit.");
         setGameText("Deploy on any asteroid sector you control. During each of your control phases, opponent loses X Force, where X = total number of asteroid sectors at same system that are not occupied by opponent. Effect canceled if opponent controls this location.");
         addIcons(Icon.DAGOBAH);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

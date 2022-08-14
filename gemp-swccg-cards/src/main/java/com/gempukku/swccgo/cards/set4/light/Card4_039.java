@@ -32,6 +32,7 @@ public class Card4_039 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Stone_Pile, Uniqueness.RESTRICTED_2);
         setLore("'Use the Force. Yes... Now, the stone. Feel it.");
         setGameText("Use 2 Force to deploy on any Dagobah site. Randomly select two cards from opponent's hand and place them, unseen, face down beneath Stone Pile. Cards return to opponent's hand if Effect leaves table. Canceled if opponent occupies this site.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.DAGOBAH);
     }
 

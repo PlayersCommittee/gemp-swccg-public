@@ -24,6 +24,7 @@ public class Card4_029 extends AbstractNormalEffect {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Obi-Wan's Apparition", Uniqueness.UNIQUE);
         setLore("'Luminous beings are we, not this crude matter.' The inner consciousness of a Jedi can transcend even death.");
         setGameText("Use 4 Force to deploy at any site if opponent is generating at least 3 Force more than you. At that site, adjacent sites and same site as Obi-Wan, players activate Force only if they have presence.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.DAGOBAH);
     }
 

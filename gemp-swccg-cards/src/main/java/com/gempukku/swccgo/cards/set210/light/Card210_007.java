@@ -26,7 +26,7 @@ public class Card210_007 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Ancient Watering Hole", Uniqueness.UNIQUE);
         setLore("");
         setGameText("Deploy on table. Maz and your Rep are immune to attrition. While you have alien characters of five different species on table: your Force drains are +1, your total battle destiny is +1 (+2 if Maz or your Rep in battle), and your aliens are forfeit +1. [Immune to Alter]");
-        addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_10, Icon.EPISODE_VII);
+        addIcons(Icon.VIRTUAL_SET_10, Icon.EPISODE_VII);
         addImmuneToCardTitle(Title.Alter);
     }
 

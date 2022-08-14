@@ -44,10 +44,11 @@ public class Card8_145 extends AbstractUsedInterrupt {
 
         final String opponent = game.getOpponent(playerId);
         Filter opponentsVehicleFilter = Filters.and(Filters.opponents(self), Filters.non_creature_vehicle, Filters.hasManeuverDefined, Filters.presentAt(Filters.site), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_LOST));
-        final Filter yourVehicleFilter = Filters.and(Filters.your(self), Filters.piloted, Filters.non_creature_vehicle, Filters.hasManeuverDefined, Filters.presentWith(self, opponentsVehicleFilter));
+        final Filter yourVehicleFilter = Filters.and(Filters.your(self), Filters.or(Filters.piloted, Filters.driven), Filters.non_creature_vehicle, Filters.hasManeuverDefined, Filters.presentWith(self, opponentsVehicleFilter));
 
         // Check condition(s)
-        if (GameConditions.canTarget(game, self, opponentsVehicleFilter)) {
+        if (GameConditions.canTarget(game, self, opponentsVehicleFilter)
+                && GameConditions.canTarget(game, self, yourVehicleFilter)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Target two non-creature vehicles");
@@ -96,7 +97,22 @@ public class Card8_145 extends AbstractUsedInterrupt {
                                                                                             gameState.sendMessage(playerId + "'s total: " + GuiUtils.formatAsString(playersTotal));
                                                                                             float opponentsTotal = (opponentsTotalDestiny != null ? opponentsTotalDestiny : 0);
                                                                                             gameState.sendMessage(opponent + "'s total: " + GuiUtils.formatAsString(opponentsTotal));
-                                                                                            if (playersTotal > opponentsTotal) {
+
+
+                                                                                            if (playersTotalDestiny == null && opponentsTotalDestiny == null) {
+                                                                                                gameState.sendMessage("Both players failed due to failed destiny draws");
+                                                                                                gameState.sendMessage("Result: No result");
+                                                                                            } else if (playersTotalDestiny == null) {
+                                                                                                gameState.sendMessage(playerId + "'s total failed due to failed destiny draw");
+                                                                                                gameState.sendMessage("Result: " + GameUtils.getCardLink(yourFinalTarget) + " to be lost");
+                                                                                                action.appendEffect(
+                                                                                                        new LoseCardFromTableEffect(action, yourFinalTarget));
+                                                                                            } else if (opponentsTotalDestiny == null) {
+                                                                                                gameState.sendMessage(opponent + "'s total failed due to failed destiny draw");
+                                                                                                gameState.sendMessage("Result: " + GameUtils.getCardLink(opponentsFinalTarget) + " to be lost");
+                                                                                                action.appendEffect(
+                                                                                                        new LoseCardFromTableEffect(action, opponentsFinalTarget));
+                                                                                            } else if (playersTotal > opponentsTotal) {
                                                                                                 gameState.sendMessage("Result: " + GameUtils.getCardLink(opponentsFinalTarget) + " to be lost");
                                                                                                 action.appendEffect(
                                                                                                         new LoseCardFromTableEffect(action, opponentsFinalTarget));

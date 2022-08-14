@@ -31,6 +31,7 @@ public class Card5_029 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Uncontrollable_Fury, Uniqueness.UNIQUE);
         setLore("The rage of the Dark Lord.");
         setGameText("Deploy on Vader. He is power +2, but neither adds 1 to battle destiny nor allows Tarkin to cancel destiny. Opponent loses 2 Force at end of each of opponent's turns in which Vader did not battle and you had a character of ability > 3 on table. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY);
         addImmuneToCardTitle(Title.Alter);
     }

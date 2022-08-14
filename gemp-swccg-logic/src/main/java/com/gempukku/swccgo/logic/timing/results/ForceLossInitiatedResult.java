@@ -48,6 +48,8 @@ public class ForceLossInitiatedResult extends EffectResult {
      */
     @Override
     public String getText(SwccgGame game) {
+        if (_source == null)
+            return "Force loss initiated";
         return "Force loss initiated by " + GameUtils.getCardLink(_source);
     }
 }

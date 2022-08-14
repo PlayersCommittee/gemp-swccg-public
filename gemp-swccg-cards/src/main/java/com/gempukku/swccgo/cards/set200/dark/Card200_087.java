@@ -14,9 +14,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ResetForfeitEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -33,7 +31,7 @@ public class Card200_087 extends AbstractAlien {
         super(Side.DARK, 3, 2, 2, 2, 3, Title.Ponda_Baba, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("A male Quara (or fingered Aqualish). Thug, smuggler and partner of Dr. Evazan. Has a poor quality cybernetic arm replacement.");
-        setGameText("[Pilot] 2. Game text of non-Jedi Luke (or a lightsaber he is using) may not target aliens here. During battle, if with a smuggler, may add a destiny to attrition or make that smuggler forfeit = 0.");
+        setGameText("[Pilot] 2. At same site, non-Jedi Luke may not swing a lightsaber at aliens (or return aliens to hand using his game text). During battle, if with a smuggler, may add one destiny to attrition or make that smuggler forfeit = 0.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.SMUGGLER);
         setSpecies(Species.AQUALISH);
@@ -42,11 +40,12 @@ public class Card200_087 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Filter nonJediLuke = Filters.and(Filters.Luke, Filters.not(Filters.Jedi));
-        Filter filter = Filters.or(nonJediLuke, Filters.and(Filters.lightsaber, Filters.or(Filters.attachedTo(nonJediLuke), Filters.permanentWeaponOf(nonJediLuke))));
+        Filter filter = Filters.and(Filters.lightsaber, Filters.or(Filters.attachedTo(nonJediLuke), Filters.permanentWeaponOf(nonJediLuke)));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.alien, Filters.here(self)), filter));
+        modifiers.add(new ModifyGameTextModifier(self, Filters.and(Filters.atSameSite(self), nonJediLuke), ModifyGameTextType.MASTER_LUKE__MAY_NOT_RETURN_ALIENS_TO_HAND));
         return modifiers;
     }
 

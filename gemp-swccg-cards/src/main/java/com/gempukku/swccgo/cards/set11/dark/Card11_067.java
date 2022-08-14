@@ -33,6 +33,7 @@ public class Card11_067 extends AbstractCharacterDevice {
         setLore("Advanced optics used by Darth Maul to help track Queen Amidala. Image enhancement features allow for better sensor readings.");
         setGameText("Use 2 Force to deploy on Maul. At any time you may use 1 Force to peek at the top card of your Force Pile. You may move that card to the top of your Reserve Deck.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

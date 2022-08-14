@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -11,6 +12,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.MoveCostToLocationModifier;
 
@@ -35,8 +37,7 @@ public class Card7_286 extends AbstractSystem {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        // TODO: Fix this modifiers.add(new MayMoveAsReactToBattleForFreeModifier(self, Filters.and(Filters.your(playerOnDarkSideOfLocation),
-                // Filters.starship), new DuringBattleAtCondition(self)));
+        modifiers.add(new MayMoveOtherCardsAsReactToLocationForFreeModifier(self, "Move starship as a react", playerOnDarkSideOfLocation, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.starship), Filters.and(self, Filters.battleLocation)));
         return modifiers;
     }
 
@@ -44,7 +45,7 @@ public class Card7_286 extends AbstractSystem {
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostModifier(self, Filters.Star_Destroyer, new OccupiesCondition(playerOnLightSideOfLocation, self),
-                new ConditionEvaluator(1, 3, new ControlsCondition(playerOnLightSideOfLocation, self))));
+                new ConditionEvaluator(new PerStarDestroyerEvaluator(1), new PerStarDestroyerEvaluator(3), new ControlsCondition(playerOnLightSideOfLocation, self))));
         modifiers.add(new MoveCostToLocationModifier(self, Filters.your(playerOnLightSideOfLocation), 1, self));
         return modifiers;
     }

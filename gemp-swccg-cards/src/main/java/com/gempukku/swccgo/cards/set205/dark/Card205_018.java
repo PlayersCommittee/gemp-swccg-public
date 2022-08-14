@@ -25,10 +25,11 @@ import java.util.List;
  */
 public class Card205_018 extends AbstractNormalEffect {
     public Card205_018() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Overseeing It Personally", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Overseeing_It_Personally, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Though reluctant to leave Coruscant. Emperor Palpatine occasionally finds it necessary to personally put lagging Imperial operations back on schedule.");
-        setGameText("Deploy on a your leader. Opponent may not cancel or reduce Force drains at same battleground. If on Emperor, may place Effect in Lost Pile to retrieve an Imperial Leader.");
+        setGameText("Deploy on your leader. Opponent may not cancel or reduce Force drains at same battleground. If on Emperor, may place Effect in Lost Pile to retrieve an Imperial Leader.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_5);
     }
 

@@ -25,7 +25,7 @@ public class Card1_248 extends AbstractLostInterrupt {
     public Card1_248() {
         super(Side.DARK, 5, Title.I_Have_You_Now);
         setLore("'Several fighters have broken off from the main group. Come with me.' Darth Vader targets his TIE fighter's fire-linked blaster cannons at the Rebel pilots in the trench.");
-        setGameText("If a Dark Jedi and a Rebel with ability > 2 are involved in the same battle, you may add one battle destiny (add two destiny if Rebel is Luke)");
+        setGameText("If a Dark Jedi and a Rebel with ability > 2 are involved in the same battle, you may add one battle destiny (add two destiny if Rebel is Luke).");
     }
 
     @Override

@@ -110,14 +110,32 @@ abstract class TakeCardsIntoHandFromPileEffect extends AbstractSubActionEffect i
      * @param hidden        true if cards are not revealed, otherwise false
      */
     protected TakeCardsIntoHandFromPileEffect(Action action, String playerId, int minimum, int maximum, Zone zone, String cardPileOwner, boolean topmost, Filter filters, boolean reshuffle, boolean hidden) {
-        super(action);
+        this(action, playerId, minimum, maximum, zone, cardPileOwner, topmost, filters, reshuffle, hidden, false);
+    }
+        /**
+         * Creates an effect that causes the player to search the specified card pile and take cards accepted by the specified
+         * filter into hand.
+         *
+         * @param action        the action performing this effect
+         * @param playerId      the player
+         * @param minimum       the minimum number of cards to take into hand
+         * @param maximum       the maximum number of cards to take into hand
+         * @param zone          the card pile to take cards from
+         * @param cardPileOwner the card pile owner
+         * @param topmost       true if only the topmost cards should be chosen from, otherwise false
+         * @param filters       the filter
+         * @param reshuffle     true if pile is reshuffled, otherwise false
+         * @param hidden        true if cards are not revealed, otherwise false
+         */
+    protected TakeCardsIntoHandFromPileEffect(Action action, String playerId, int minimum, int maximum, Zone zone, String cardPileOwner, boolean topmost, Filter filters, boolean reshuffle, boolean hidden, boolean doNoFilterPermanentsAboard) {
+            super(action);
         _playerId = playerId;
         _minimum = minimum;
         _maximum = maximum;
         _zone = zone;
         _cardPileOwner = cardPileOwner;
         _topmost = topmost;
-        _filters = Filters.or(filters, Filters.hasPermanentAboard(filters));
+        _filters = (doNoFilterPermanentsAboard?filters:Filters.or(filters, Filters.hasPermanentAboard(filters)));
         _reshuffle = reshuffle;
         _hidden = hidden;
         _that = this;

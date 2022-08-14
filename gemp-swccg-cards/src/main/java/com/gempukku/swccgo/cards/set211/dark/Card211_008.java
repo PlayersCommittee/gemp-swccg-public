@@ -27,6 +27,7 @@ public class Card211_008 extends AbstractDevice {
         setLore("Most often used to freeze Tibanna gas for transport. Modified by Ugloste to work on humans. Intended to capture Luke Skywalker, the Emperor's prize.");
         setGameText("Deploy on Carbonite Chamber. Once during opponent's turn, if a frozen captive on table, may activate 1 Force. Once per turn, may use 1 Force to [upload] He's All Yours, Bounty Hunter.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_11);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         setVirtualSuffix(true);
     }
 

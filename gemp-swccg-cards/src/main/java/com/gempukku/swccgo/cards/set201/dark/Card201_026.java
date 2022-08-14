@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -86,7 +87,22 @@ public class Card201_026 extends AbstractImperial {
         // Check condition(s)
         if (GameConditions.hasReserveDeck(game, playerId) || GameConditions.hasUsedPile(game, playerId)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId) {
+                @Override
+                public String getTriggerIdentifier(boolean useBlueprintId) {
+                    // need to use the permanentCardId() instead of getCardId() just in case he is put into used pile from table and then draws himself
+                    // which gives him a different cardId so he triggers again
+                    // include "treidum" so that it doesn't conflict with anything with a cardId() matching this permanentCardId()
+                    return useBlueprintId ?
+                            "treidum"+self.getPermanentCardId()+"|"+self.getOwner()+"|"+self.getPermanentCardId()+"|"+ GameTextActionId.OTHER_CARD_ACTION_DEFAULT :
+                            "treidum"+self.getBlueprintId(true)+"|"+self.getOwner()+"|"+self.getPermanentCardId()+"|"+ GameTextActionId.OTHER_CARD_ACTION_DEFAULT;
+                }
+
+                @Override
+                public boolean isSingletonTrigger() {
+                    return true;
+                }
+            };
             action.setText("Draw top card from Reserve Deck or Used Pile");
             // Choose target(s)
             action.appendTargeting(

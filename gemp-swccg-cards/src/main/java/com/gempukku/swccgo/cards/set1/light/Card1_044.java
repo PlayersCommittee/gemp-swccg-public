@@ -38,6 +38,7 @@ public class Card1_044 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Beggar, Uniqueness.UNIQUE);
         setLore("Many Mos Eisley citizens, once swindled and robbed, become destitute. Unable to afford off-planet passage, they live in the streets and do odd jobs or beg.");
         setGameText("Use 3 Force to deploy on any exterior Tatooine site (free at Beggar's Canyon). You may use any amount of Force in the opponent's Force Pile during your turns. However, if you use more than 1 of the opponent's Force in a turn, Beggar is lost.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

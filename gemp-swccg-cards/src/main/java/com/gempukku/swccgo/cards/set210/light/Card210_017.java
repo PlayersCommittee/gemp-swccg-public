@@ -57,8 +57,8 @@ public class Card210_017 extends AbstractNormalEffect {
             Filter ep1Lightsaber = Filters.and(Icon.EPISODE_I, Filters.lightsaber);
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy EP1 lightsaber from Reserve Deck");
-            action.setActionMsg("Deploy an EP1 lightsaber from Reserve Deck");
+            action.setText("Deploy a lightsaber from Reserve Deck");
+            action.setActionMsg("Deploy an [Episode I] lightsaber from Reserve Deck");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -81,8 +81,8 @@ public class Card210_017 extends AbstractNormalEffect {
             Filter validLocations = Filters.or(Filters.Malastare, Filters.Mos_Espa, Filters.Nightclub);
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Location from Reserve Deck");
-            action.setActionMsg("Deploy Malastare, Mos Espa, or Nightclub from Reserve Deck");
+            action.setText("Deploy location from Reserve Deck");
+            action.setActionMsg("Deploy Malastare, Mos Espa, or Night Club from Reserve Deck");
 
             // Update usage limit(s)
             // Note:  This case is a little unique because this action counts

@@ -33,6 +33,6 @@ public class MayNotBeSuspendedModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
     public MayNotBeSuspendedModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
-        super(source, "May not be suspended", affectFilter, condition, ModifierType.MAY_NOT_HAVE_GAME_TEXT_CANCELED, true);
+        super(source, "May not be suspended", affectFilter, condition, ModifierType.MAY_NOT_BE_SUSPENDED, true);
     }
 }

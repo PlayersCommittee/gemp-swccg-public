@@ -27,6 +27,7 @@ public class Card105_006 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Jabbas_Influence, Uniqueness.UNIQUE);
         setLore("Jabba makes offers one cannot refuse. Smugglers, thieves and competitors who do not acquiesce have been rumored to wake up with a bantha's head in their bed.");
         setGameText("Deploy on one of your gangsters or bounty hunters. Once during each of your control phases, if present with an opponent's smuggler or character of ability = 1, may use 3 Force. Opponent must use 5 Force or that character returns to opponent's hand.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.SPECIAL_EDITION);
     }
 

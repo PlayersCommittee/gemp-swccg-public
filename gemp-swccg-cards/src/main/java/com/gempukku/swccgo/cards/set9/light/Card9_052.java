@@ -47,7 +47,7 @@ public class Card9_052 extends AbstractUsedInterrupt {
         if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.scout))
                 && GameConditions.isDuringBattleAt(game, Filters.exterior_planet_site)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Subtract 3 from opponent's total battle destiny");
             // Allow response(s)
             action.allowResponses(

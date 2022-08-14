@@ -52,7 +52,7 @@ public class Card101_006 extends AbstractLostInterrupt {
             if (TriggerConditions.movedFromLocationToLocation(game, effectResult, darkSideFilter, Filters.adjacentSiteTo(self, lightSideFilter), Filters.sameSiteAs(self, lightSideFilter))) {
                 MovedResult movedResult = (MovedResult) effectResult;
                 final Collection<PhysicalCard> movedCards = Filters.filter(movedResult.getMovedCards(), game, darkSideFilter);
-                Filter lightSideToTargetFilter = Filters.and(lightSideFilter, Filters.presentAt(Filters.site), Filters.presentWith(self, Filters.in(movedCards)));
+                Filter lightSideToTargetFilter = Filters.and(lightSideFilter, Filters.at(Filters.site), Filters.with(self, Filters.in(movedCards)));
                 if (movedResult.isMoveComplete()
                         && GameConditions.canTarget(game, self, TargetingReason.TO_BE_DUELED, lightSideToTargetFilter)) {
 

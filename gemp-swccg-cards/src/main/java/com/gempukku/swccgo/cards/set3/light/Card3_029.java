@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,6 +28,7 @@ public class Card3_029 extends AbstractCharacterDevice {
         setLore("Rebels carry a variety of equipment to be fully prepared for enemies and the elements. Weather-resistant backpacks keep gear protected and operational.");
         setGameText("Deploy on your trooper. May use any number of weapons and devices. Trooper is immune to attrition < 3 when at a planet site.");
         addIcons(Icon.HOTH);
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

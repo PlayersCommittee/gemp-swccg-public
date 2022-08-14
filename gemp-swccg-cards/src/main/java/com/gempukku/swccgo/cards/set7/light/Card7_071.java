@@ -36,6 +36,7 @@ public class Card7_071 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Meditation, Uniqueness.UNIQUE);
         setLore("To prepare for the inevitable conflict with Jabba's minions, Luke entered a calm state of mental preparation.");
         setGameText("Deploy on your character of ability > 3 (Effect lost if that character battles this turn). On a subsequent turn, if in a battle at a site, character's total weapon destiny is +3 and character adds one battle destiny. Effect lost at the end of that battle.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.SPECIAL_EDITION);
     }
 

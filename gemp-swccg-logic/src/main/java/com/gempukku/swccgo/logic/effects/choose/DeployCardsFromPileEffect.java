@@ -97,10 +97,29 @@ class DeployCardsFromPileEffect extends AbstractSubActionEffect {
      * @param reshuffle true if pile is reshuffled, otherwise false
      */
     protected DeployCardsFromPileEffect(Action action, String playerId, Zone zone, Filter cardFilter, int minimum, int maximum, Filter targetFilter, String targetSystem, Filter specialLocationConditions, boolean forFree, float changeInCost, boolean reshuffle) {
+        this(action, playerId, zone, cardFilter, minimum, maximum, targetFilter, targetSystem, specialLocationConditions, forFree, changeInCost, reshuffle, true);
+    }
+        /**
+         * Creates an effect that causes the player performing the action to choose and deploy cards accepted by the card filter
+         * from the specified card pile to the specified system.
+         * @param action the action performing this effect
+         * @param playerId the player to deploy cards
+         * @param zone the card pile
+         * @param cardFilter the card filter
+         * @param minimum the minimum number of cards to deploy
+         * @param maximum the maximum number of cards to deploy
+         * @param targetFilter the target filter, or null
+         * @param targetSystem the system name, or null
+         * @param specialLocationConditions a filter for special conditions that deployed location must satisfy, or null
+         * @param forFree true if deploying for free, otherwise false
+         * @param changeInCost change in amount of Force (can be positive or negative) required
+         * @param reshuffle true if pile is reshuffled, otherwise false
+         */
+    protected DeployCardsFromPileEffect(Action action, String playerId, Zone zone, Filter cardFilter, int minimum, int maximum, Filter targetFilter, String targetSystem, Filter specialLocationConditions, boolean forFree, float changeInCost, boolean reshuffle, boolean doNoFilterPermanentsAboard) {
         super(action);
         _playerId = playerId;
         _cardPile = zone;
-        _cardFilter = Filters.or(cardFilter, Filters.hasPermanentAboard(cardFilter));
+        _cardFilter = (doNoFilterPermanentsAboard?cardFilter:Filters.or(cardFilter, Filters.hasPermanentAboard(cardFilter)));
         _minimum = minimum;
         _maximum = maximum;
         _targetFilter = targetFilter;

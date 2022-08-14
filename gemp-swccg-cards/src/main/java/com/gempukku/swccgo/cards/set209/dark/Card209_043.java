@@ -26,7 +26,7 @@ public class Card209_043 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Shadows Of The Empire", Uniqueness.UNIQUE);
         setLore("");
         setGameText ("If Agents Of Black Sun on table, deploy on table. Once per turn, may use 1 Force to [download] Imperial Square. Once per turn, if Emperor on Coruscant, may draw top card of Force Pile (if during your turn and you occupy three battlegrounds, opponent also loses 1 Force). [Immune to Alter.]");
-        addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_9);
+        addIcons(Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
 
@@ -44,8 +44,7 @@ public class Card209_043 extends AbstractNormalEffect {
         gameTextActionId = GameTextActionId.SHADOWS_OF_THE_EMPIRE__DOWNLOAD_IMPERIAL_SQUARE;
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canUseForce(game, playerId, 1)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)
-                && !GameConditions.canSpot(game, self, Filters.Coruscant_Imperial_Square)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Coruscant_Imperial_Square)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Coruscant: Imperial Square from Reserve Deck");

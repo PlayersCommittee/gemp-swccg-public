@@ -27,6 +27,7 @@ public class Card1_060 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Rebel_Planners, Uniqueness.UNIQUE);
         setLore("Rebel strategists worked under master tactician General Dodonna. They devised an unorthodox battle plan to destroy the Death Star at the Battle of Yavin.");
         setGameText("Use 1 Force to deploy at Massassi War Room or any docking bay. Adds X to total power of your starships at the related system and related sectors, where X = the number of your starships present.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

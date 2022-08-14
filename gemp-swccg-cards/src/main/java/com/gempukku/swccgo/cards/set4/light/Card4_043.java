@@ -28,6 +28,7 @@ public class Card4_043 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Yoda's Gimer Stick", Uniqueness.UNIQUE);
         setLore("A symbol of the Jedi Master and his ancient wisdom. Speak softly you may but a big stick you must carry, yes.");
         setGameText("Deploy on Yoda. You may initiate battles and attacks where present. OR Use 2 Force to deploy on one of your characters of ability > 3. Immune to attrition. Where present, no battles or attacks may be initiated unless an opponent's character of ability > 3 present.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DAGOBAH);
     }
 

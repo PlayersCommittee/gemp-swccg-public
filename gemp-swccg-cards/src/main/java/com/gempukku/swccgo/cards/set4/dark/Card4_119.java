@@ -28,6 +28,7 @@ public class Card4_119 extends AbstractNormalEffect {
         setLore("The interior or a space slug's maw is mildly acidic. Long-term exposure to this corrosive environment can cause considerable damage.");
         setGameText("Deploy on Space Slug Belly. At the end of each player's turn, for every character and starship that player has present, that player must lose 1 Force. Effect canceled if Space Slug lost.");
         addIcons(Icon.DAGOBAH);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

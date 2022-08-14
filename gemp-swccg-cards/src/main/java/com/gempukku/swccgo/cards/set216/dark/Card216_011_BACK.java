@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -15,13 +16,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
-import com.gempukku.swccgo.logic.modifiers.CommencePrimaryIgnitionTotalModifier;
-import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.ForceLossInitiatedResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
@@ -49,7 +49,8 @@ public class Card216_011_BACK extends AbstractObjective {
         String playerId = self.getOwner();
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceGenerationModifier(self, new MultiplyEvaluator(2, new OnTableEvaluator(self, Filters.and(Filters.partOfSystem(Title.Scarif), Filters.blown_away))), playerId));
+        modifiers.add(new TotalForceGenerationModifier(self, new MultiplyEvaluator(2,
+                new OnTableEvaluator(self, Filters.and(Filters.partOfSystem(Title.Scarif), Filters.blown_away))), playerId));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Tarkin_Doctrine, Title.Alter));
         modifiers.add(new CommencePrimaryIgnitionTotalModifier(self, new OnTableCondition(self, Filters.Tarkin),3));
         return modifiers;
@@ -79,10 +80,10 @@ public class Card216_011_BACK extends AbstractObjective {
             }
         }
 
-        // Once per turn, may place opponent's character just lost from your location out of play unless opponent loses 1 Force.
+        // Once per turn, may place opponent's character just lost from your site out of play unless opponent loses 1 Force.
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
         // Check condition(s)
-        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.your(self))
+        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.and(Filters.your(self), Filters.site))
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             final GameState gameState = game.getGameState();
             final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();

@@ -25,6 +25,7 @@ public class Card6_098 extends AbstractAlien {
         super(Side.DARK, 1, 3, 3, 1, 4, Title.Bib, Uniqueness.UNIQUE);
         setLore("Twi'lek leader and majordomo of Jabba's palace. Succeeded Jabba's last majordomo, Naroon Cuthus. Plotting to kill Jabba.");
         setGameText("Deploys only on Tatooine. Opponent's characters of ability < 4 may not move from same site as Bib to a Jabba's Palace site. When at a Jabba's Palace site, each of you Gamorreans and Niktos may deploy as a 'react' to any Jabba's Palace site.");
+        addPersona(Persona.BIB);
         addIcons(Icon.JABBAS_PALACE);
         setSpecies(Species.TWILEK);
         addKeywords(Keyword.LEADER);

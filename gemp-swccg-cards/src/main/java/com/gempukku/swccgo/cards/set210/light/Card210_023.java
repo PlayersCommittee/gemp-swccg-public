@@ -70,8 +70,8 @@ public class Card210_023 extends AbstractJediMaster {
                 && GameConditions.hasForcePile(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Lose top card of force pile");
-            action.setActionMsg("Make a character (or ep-1 starfighter) forfeit + 2 and immune to attrition for remainder of turn ");
+            action.setText("Lose top card of Force Pile");
+            action.setActionMsg("Make a character (or piloted [Episode I] starfighter) forfeit +2 and immune to attrition for remainder of turn");
 
             // Update usage limit(s)
             action.appendUsage(

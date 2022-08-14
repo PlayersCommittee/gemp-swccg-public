@@ -5,6 +5,7 @@ import com.gempukku.swccgo.SubscriptionConflictException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.communication.GameStateListener;
+import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import com.gempukku.swccgo.game.state.GameEvent;
@@ -44,6 +45,7 @@ public class SwccgGameMediator {
     private boolean _disablePlayerDecisionTimer;
     private int _secondsGameTimerExtended;
     private boolean _isPrivate;
+    private League _league;
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -51,7 +53,7 @@ public class SwccgGameMediator {
     private int _channelNextIndex;
     private volatile boolean _destroyed;
 
-    public SwccgGameMediator(String gameId, SwccgFormat swccgFormat, SwccgGameParticipant[] participants, SwccgCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
+    public SwccgGameMediator(String gameId, SwccgFormat swccgFormat, League league, SwccgGameParticipant[] participants, SwccgCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
                              boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds, boolean isPrivate) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
@@ -60,6 +62,7 @@ public class SwccgGameMediator {
         _cancellable = cancellable;
         _allowExtendGameTimer = allowExtendGameTimer;
         _playerDecisionTimeoutPeriod = decisionTimeoutSeconds * 1000;
+        _league = league;
         _isPrivate = isPrivate;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
@@ -98,6 +101,10 @@ public class SwccgGameMediator {
 
     public SwccgFormat getFormat() {
         return _swccgoGame.getFormat();
+    }
+
+    public League getLeague() {
+        return _league;
     }
 
     public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
@@ -862,6 +869,49 @@ public class SwccgGameMediator {
                         sb.append(lightLocationGametext);
                         sb.append("</div>");
                     }
+
+                    // location icons
+
+                    sb.append("<br>");
+                    sb.append("Icons: ");
+                    if (blueprint.hasIcon(Icon.PLANET))
+                        sb.append("Planet, ");
+                    if (blueprint.hasIcon(Icon.MOBILE))
+                        sb.append("Mobile, ");
+                    if (blueprint.hasIcon(Icon.SPACE))
+                        sb.append("Space, ");
+                    if (blueprint.hasIcon(Icon.STARSHIP_SITE))
+                        sb.append("Starship site, ");
+                    if (blueprint.hasIcon(Icon.VEHICLE_SITE))
+                        sb.append("Vehicle site, ");
+                    if (blueprint.hasIcon(Icon.EXTERIOR_SITE))
+                        sb.append("Exterior, ");
+                    if (blueprint.hasIcon(Icon.INTERIOR_SITE))
+                        sb.append("Interior, ");
+                    if (blueprint.hasIcon(Icon.SCOMP_LINK))
+                        sb.append("Scomp link, ");
+
+
+                    if (blueprint.getCardSubtype().equals(CardSubtype.SYSTEM)) {
+                        int parsec = blueprint.getParsec();
+                        sb.append("<br>");
+                        sb.append("Parsec: ");
+                        sb.append(parsec);
+                    }
+
+                }
+
+                if (blueprint.isCardTypeDeployed()
+                        && Filters.or(Filters.character, Filters.creature, Filters.starship, Filters.vehicle).accepts(_swccgoGame, card)) {
+
+                    Float deployCost = blueprint.getDeployCost();
+                    if (deployCost != null) {
+                        sb.append("<br>");
+                        sb.append("Deploy cost: ");
+                        sb.append("<div>");
+                        sb.append(deployCost);
+                        sb.append("</div>");
+                    }
                 }
 
             }
@@ -1107,7 +1157,7 @@ public class SwccgGameMediator {
                 || player.hasType(Player.Type.PLAY_TESTER))) {
             throw new PrivateInformationException();
         }
-        
+
         _readLock.lock();
         try {
             int number = _channelNextIndex;
@@ -1223,7 +1273,29 @@ public class SwccgGameMediator {
                 if(Filters.title("I Am Part Of The Living Force").accepts(_swccgoGame, startingInterrupt)
                     && startingLocation.getBlueprint().getTitle() != null)  {
                     // Communing (ignore the location)
-                    return "Communing";
+                    String communer = _swccgoGame.getModifiersQuerying().getExtraInformationForArchetypeLabel(playerId);
+                    if (communer==null)
+                        return "Communing";
+                    else
+                        return "Communing - "+communer;
+                }
+                if(Filters.title(Title.The_Rise_Of_Skywalker).accepts(_swccgoGame, startingInterrupt)
+                    && startingLocation.getBlueprint().getTitle() != null) {
+                    // The Force Is Strong In My Family
+                    String hero = _swccgoGame.getModifiersQuerying().getExtraInformationForArchetypeLabel(playerId);
+                    if (hero==null)
+                        return "Skywalker Saga";
+                    else
+                        return "Skywalker Saga - "+hero;
+                }
+                if(Filters.title(Title.Rise_Of_The_Sith).accepts(_swccgoGame, startingInterrupt)
+                        && startingLocation.getBlueprint().getTitle() != null) {
+                    // Revenge Of The Sith
+                    String apprentice = _swccgoGame.getModifiersQuerying().getExtraInformationForArchetypeLabel(playerId);
+                    if (apprentice==null)
+                        return "ROTS";
+                    else
+                        return "ROTS - "+apprentice;
                 }
                 if (Filters.Communing.accepts(_swccgoGame, startingInterrupt)
                         && startingInterrupt.getBlueprint().isLegacy()) {
@@ -1246,6 +1318,10 @@ public class SwccgGameMediator {
         // Based on Objective
         if (objective != null) {
             String objectiveLabel = null;
+            if (Filters.or(Filters.title(Title.A_Great_Tactician_Creates_Plans), Filters.title(Title.The_Result_Is_Often_Resentment)).accepts(_swccgoGame, objective)) {
+                // A Great Tactician Creates Plans
+                objectiveLabel = "Thrawn";
+            }
             if (Filters.or(Filters.Agents_In_The_Court, Filters.No_Love_For_The_Empire).accepts(_swccgoGame, objective)) {
                 // Agents In The Court
                 objectiveLabel = "AITC";
@@ -1361,15 +1437,27 @@ public class SwccgGameMediator {
             }
             if (Filters.or(Filters.Local_Uprising, Filters.Liberation, Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
                 // Operatives
-                objectiveLabel = "Operatives";
+                if (!objective.getBlueprint().hasVirtualSuffix()) {
+                    objectiveLabel = "Operatives";
+                }
+                // Imperial Occupation v
+                else if(Filters.or(Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
+                    objectiveLabel = "Imperial Occupation";
+                } else if(Filters.or(Filters.Local_Uprising, Filters.Liberation).accepts(_swccgoGame, objective)) {
+                    objectiveLabel = "Local Uprising";
+                }
             }
             if (Filters.or(Filters.You_Can_Either_Profit_By_This, Filters.Or_Be_Destroyed).accepts(_swccgoGame, objective)) {
-                // Your Can Either Profit By This...
+                // You Can Either Profit By This...
                 objectiveLabel = "Profit";
             }
             if (Filters.or(Filters.Quiet_Mining_Colony, Filters.Independent_Operation).accepts(_swccgoGame, objective)) {
                 // Quiet Mining Colony
                 objectiveLabel = "QMC";
+            }
+            if (Filters.or(Filters.At_Last_The_Jedi_Are_No_More, Filters.Revenge_Of_The_Sith).accepts(_swccgoGame, objective)) {
+                // Revenge Of The Sith
+                objectiveLabel = "Revenge Of The Sith";
             }
             if (Filters.or(Filters.Ralltiir_Operations, Filters.In_The_Hands_Of_The_Empire).accepts(_swccgoGame, objective)) {
                 // Ralltiir Operations
@@ -1386,6 +1474,10 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.Plead_My_Case_To_The_Senate, Filters.Sanity_And_Compassion, Filters.My_Lord_Is_That_Legal, Filters.I_Will_Make_It_Legal).accepts(_swccgoGame, objective)) {
                 // Senate
                 objectiveLabel = "Senate";
+            }
+            if (Filters.or(Filters.The_Force_Is_Strong_In_My_Family, Filters.Rise_Of_Skywalker).accepts(_swccgoGame, objective)) {
+                // The Force Is Strong In My Family
+                return "Skywalker Saga";
             }
             if (Filters.or(Filters.Wookiee_Slaving_Operation, Filters.Indentured_To_The_Empire).accepts(_swccgoGame, objective)) {
                 //Wookiee Slaving Operation
@@ -1407,6 +1499,10 @@ public class SwccgGameMediator {
                 // There Is Good In Him
                 objectiveLabel = "TIGIH";
             }
+            if (Filters.or(Filters.The_Shield_Will_Be_Down_In_Moments, Filters.Imperial_Troops_Have_Entered_The_Base).accepts(_swccgoGame, objective)) {
+                // Walkers
+                objectiveLabel = "Walkers";
+            }
             if (Filters.or(Filters.No_Money_No_Parts_No_Deal, Filters.Youre_A_Slave).accepts(_swccgoGame, objective)) {
                 // Watto
                 objectiveLabel = "Watto";
@@ -1422,6 +1518,10 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.Yavin_4_Base_Operations, Filters.The_Time_To_Fight_Is_Now).accepts(_swccgoGame, objective)) {
                 // Yavin 4 Operations
                 objectiveLabel = "Y4O";
+            }
+            if (Filters.or(Filters.title("Zero Hour"), Filters.title("Liberation Of Lothal")).accepts(_swccgoGame, objective)) {
+                // Zero Hour
+                objectiveLabel = "Zero Hour";
             }
             if (objectiveLabel != null) {
                 if (objective.getBlueprint().hasVirtualSuffix()) {

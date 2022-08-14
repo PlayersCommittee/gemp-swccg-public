@@ -47,7 +47,8 @@ public interface AboutToLoseForceResult {
 
     /**
      * Determines if the Force loss may not be reduced.
+     * @param game the game
      * @return true or false
      */
-    boolean isCannotBeReduced();
+    boolean isCannotBeReduced(SwccgGame game);
 }

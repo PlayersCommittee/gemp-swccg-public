@@ -31,7 +31,7 @@ public class Card6_144 extends AbstractNormalEffect {
         setLore("'Chissaa, picha gawanki Chewbacca. Yupon cogorato kama walpa kyess kashung kawa Wookiee.'");
         setGameText("Deploy on an opponent's smuggler, gambler, or thief. If subsequently captured by a bounty hunter and then transferred to Jabba's Palace Dungeon, retrieve Force equal to character's forfeit (+6 if Han) and lose effect. (Immune to Alter.)");
         addIcons(Icon.JABBAS_PALACE);
-        addKeywords(Keyword.BOUNTY);
+        addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

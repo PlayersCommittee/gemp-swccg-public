@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card216_037 extends AbstractJediMaster {
     public Card216_037() {
-        super(Side.LIGHT, 1, 7, 6, 7, 8, "Master Qui-Gon Jinn, An Old Friend", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 7, 6, 7, 8, Title.Master_QuiGon_Jinn_An_Old_Friend, Uniqueness.UNIQUE);
         setLore("");
         setGameText("While 'communing': You may not deploy Rebels; Jedi Council members are destiny +1; your total power in battles is +1 for each Jedi 'communing'; once per turn, may place a card from hand on Used Pile to draw top card of Force Pile.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_16, Icon.EPISODE_I);
@@ -49,7 +49,9 @@ public class Card216_037 extends AbstractJediMaster {
 
         if (game.getModifiersQuerying().isCommuning(game.getGameState(), self)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.numCardsInForcePile(game, playerId) >= 1) {
+                && GameConditions.numCardsInForcePile(game, playerId) >= 1
+                && GameConditions.hasHand(game, playerId)) {
+
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
 
             action.setText("Place card from hand on Used Pile");

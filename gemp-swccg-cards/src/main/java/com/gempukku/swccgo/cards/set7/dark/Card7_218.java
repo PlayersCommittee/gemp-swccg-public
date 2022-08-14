@@ -34,6 +34,7 @@ public class Card7_218 extends AbstractNormalEffect {
         setLore("The intimidating power of the Empire was focused in the core systems, allowing the Emperor to ignore minor activities occurring on the Outer Rim.");
         setGameText("Deploy on Death Star system or Coruscant system. Target another system. At locations related to target system, opponent's Force drain modifiers are canceled. Effect canceled if opponent controls this system. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addImmuneToCardTitle(Title.Alter);
     }
 

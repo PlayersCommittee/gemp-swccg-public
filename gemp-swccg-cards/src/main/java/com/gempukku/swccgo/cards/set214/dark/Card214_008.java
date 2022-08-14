@@ -38,7 +38,7 @@ public class Card214_008 extends AbstractDarkJediMasterFirstOrder {
         setLore("Leader.");
         setGameText("Never deploys or moves (even if carried) to a location with a [Light Side] icon. Once per turn, may draw bottom card of your Force Pile. Once per game, if about to be lost, may take him into hand. Immune to attrition.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
-        addPersona(Persona.EMPEROR);
+        addPersona(Persona.SIDIOUS);
         addKeywords(Keyword.LEADER);
     }
 

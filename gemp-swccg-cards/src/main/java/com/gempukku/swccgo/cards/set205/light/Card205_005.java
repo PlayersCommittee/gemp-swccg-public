@@ -35,6 +35,7 @@ public class Card205_005 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("The face that launched a thousand starships.");
         setGameText("Deploy on Leia (or your female of ability < 4). Opponent may not cancel or reduce Force drains at same battleground. If on Leia, she is power +2 and, once per battle, may cancel the game text of an opponent's leader of ability < 4 here.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_5);
     }
 

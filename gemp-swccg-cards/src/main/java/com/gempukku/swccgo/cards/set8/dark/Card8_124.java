@@ -31,6 +31,7 @@ public class Card8_124 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Establish_Secret_Base, Uniqueness.UNIQUE);
         setLore("The Empire's remote bases develop new technology and hide sensitive projects from potential Rebel saboteurs.");
         setGameText("Deploy on Endor system if your biker scouts and/or AT-STs control three Endor sites. Your Force drain here is +1 for each Endor site your biker scout or AT-ST controls (limit +3). Place Effect in Used Pile if opponent controls this system. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.ENDOR);
         addImmuneToCardTitle(Title.Alter);
     }

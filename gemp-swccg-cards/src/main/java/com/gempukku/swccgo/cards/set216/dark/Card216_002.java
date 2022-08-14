@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set216.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -42,11 +43,8 @@ public class Card216_002 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        PhysicalCard rep = game.getGameState().getRep(self.getOwner());
         List<Modifier> modifiers = new LinkedList<>();
-        if (rep != null) {
-            modifiers.add(new SpeciesModifier(self, rep.getBlueprint().getSpecies()));
-        }
+        modifiers.add(new SpeciesModifier(self, true));
         return modifiers;
     }
 
@@ -89,13 +87,16 @@ public class Card216_002 extends AbstractAlien {
         }
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-        if (GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canSpot(game, self, Filters.Fearless_And_Inventive)
                 && GameConditions.hasUsedPile(game, playerId)
                 && TriggerConditions.justRetrievedForce(game, effectResult, playerId)) {
-            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Place top card of Used Pile on Force Pile");
             action.setActionMsg("Place top card of Used Pile on Force Pile");
+            action.appendUsage(
+                    new OncePerTurnEffect(action)
+            );
             // Perform result(s)
             action.appendEffect(
                     new PlaceTopCardOfUsedPileOnTopOfForcePileEffect(action, playerId));

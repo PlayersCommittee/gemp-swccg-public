@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -51,8 +52,8 @@ public class Card10_029 extends AbstractObjective {
     }
 
     @Override
-    protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
+    protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        final ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
                 new DeployCardFromReserveDeckEffect(action, Filters.Imperial_City, true, false) {
                     @Override
@@ -60,13 +61,40 @@ public class Card10_029 extends AbstractObjective {
                         return "Choose Imperial City to deploy";
                     }
                 });
-        action.appendRequiredEffect(
-                new DeployCardToLocationFromReserveDeckEffect(action, Filters.Xizor, Filters.Imperial_City, true, false) {
-                    @Override
-                    public String getChoiceText() {
-                        return "Choose Xizor to deploy";
+
+        List<PhysicalCard> reserveDeck = game.getGameState().getReserveDeck(playerId);
+        if (!Filters.filter(reserveDeck, game, Filters.and(Icon.LEGACY_BLOCK_4, Filters.No_Bargain)).isEmpty()
+                && !Filters.filter(reserveDeck, game, Filters.and(Icon.LEGACY_BLOCK_4, Filters.title("Shada"))).isEmpty()) {
+            // Legacy Shada + No Bargain (V)
+            action.appendRequiredEffect(new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.Xizor, Filters.and(Icon.LEGACY_BLOCK_4, Filters.title("Shada"))), Filters.Imperial_City, true, false) {
+                @Override
+                public String getChoiceText() {
+                    return "Choose Xizor or Shada to deploy";
+                }
+
+                @Override
+                protected void cardDeployed(PhysicalCard card) {
+                    if (Filters.and(Icon.LEGACY_BLOCK_4, Filters.title("Shada")).accepts(game, card)) {
+                        action.insertEffect(
+                                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.LEGACY_BLOCK_4, Filters.No_Bargain), true, false) {
+                                    @Override
+                                    public String getChoiceText() {
+                                        return "Choose No Bargain (V) to deploy";
+                                    }
+                                });
                     }
-                });
+                }
+            });
+
+        } else {
+            action.appendRequiredEffect(
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.Xizor, Filters.Imperial_City, true, false) {
+                        @Override
+                        public String getChoiceText() {
+                            return "Choose Xizor to deploy";
+                        }
+                    });
+        }
         action.appendRequiredEffect(
                 new DeployCardFromReserveDeckEffect(action, Filters.Coruscant_system, true, false) {
                     @Override
@@ -119,10 +147,12 @@ public class Card10_029 extends AbstractObjective {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         Filter atBattlegroundSite = Filters.at(Filters.battleground_site);
 
+        Filter xizorFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LEGACY__TREAT_XIZOR_AS_SHADA) ? Filters.title("Shada") : Filters.Xizor;
+
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeFlipped(game, self)
-                && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Xizor, atBattlegroundSite))) {
+                && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(xizorFilter, atBattlegroundSite))) {
             Filter lukeFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE) ? Filters.Rey : Filters.Luke;
             if (!GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(lukeFilter, atBattlegroundSite))) {
 

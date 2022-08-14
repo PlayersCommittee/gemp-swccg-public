@@ -42,7 +42,7 @@ public class Card1_072 extends AbstractLostInterrupt {
 
         // Check condition(s)
         if (GameConditions.canActivateForce(game, playerId)
-                || GameConditions.canActivateForce(game, opponent)) {
+                && GameConditions.canActivateForce(game, opponent)) {
             final int numberOnCard1 = game.getModifiersQuerying().isDoubled(game.getGameState(), self) ? 2 : 1;
             final int numberOnCard2 = game.getModifiersQuerying().isDoubled(game.getGameState(), self) ? 4 : 2;
 

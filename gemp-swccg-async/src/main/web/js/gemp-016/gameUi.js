@@ -176,7 +176,7 @@ var GempSwccgGameUI = Class.extend({
              replayDiv.append(fasterBut);
              replayDiv.append("<br/>");
 
-             var replayBut = $("<img id='replayButton' src='images/play.png' width='64' height='64'>").button();
+             var replayBut = $("<img id='replayButton' src='https://res.starwarsccg.org/gemp/play.png' width='64' height='64'>").button();
              replayDiv.append(replayBut);
 
              $("#main").append(replayDiv);
@@ -449,12 +449,14 @@ var GempSwccgGameUI = Class.extend({
             var outOfPlayClass = null;
             var forceGenerationClass = null;
             var raceTotalClass = null;
+            var politicsTotalClass = null;
             if (i == 0) {
                 handClass = "darkHandsize";
                 sabaccHandClass = "darkSabaccHandsize";
                 outOfPlayClass = "darkOutOfPlayPileSize";
                 forceGenerationClass = "darkForceGeneration";
                 raceTotalClass = "darkRaceTotal";
+                politicsTotalClass = "darkPoliticsTotal"
             }
             else {
                 handClass = "lightHandsize";
@@ -462,10 +464,11 @@ var GempSwccgGameUI = Class.extend({
                 outOfPlayClass = "lightOutOfPlayPileSize";
                 forceGenerationClass = "lightForceGeneration";
                 raceTotalClass = "lightRaceTotal";
+                politicsTotalClass = "lightPoliticsTotal"
             }
 
             this.gameStateElem.append("<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div><div class='phase'></div>"
-                    + "<div class='playerStats'><div id='hand" + i + "' class='" + handClass + "'></div><div id='sabaccHand" + i + "' class='" + sabaccHandClass + "'></div><div id='showStats" + i + "' class='showStats'></div><div id='outOfPlay" + i + "' class='" + outOfPlayClass + "'></div><div id='forceGeneration" + i + "' class='" + forceGenerationClass + "'></div><div id='raceTotal" + i + "' class='" + raceTotalClass + "'></div></div></div>");
+                    + "<div class='playerStats'><div id='hand" + i + "' class='" + handClass + "'></div><div id='sabaccHand" + i + "' class='" + sabaccHandClass + "'></div><div id='showStats" + i + "' class='showStats'></div><div id='outOfPlay" + i + "' class='" + outOfPlayClass + "'></div><div id='forceGeneration" + i + "' class='" + forceGenerationClass + "'></div><div id='politicsTotal" + i + "' class='" + politicsTotalClass + "'></div><div id='raceTotal" + i + "' class='" + raceTotalClass + "'></div></div></div>");
         }
 
         $("#main").append(this.gameStateElem);
@@ -555,7 +558,7 @@ var GempSwccgGameUI = Class.extend({
                 });
 
         if (!this.gameUiInitialized && !this.spectatorMode && !this.replayMode) {
-            var soundPlay = $("<embed src='/gemp-swccg/coolsaber.wav' hidden='true' autostart='true' loop='false' height='0' width='0'>");
+            var soundPlay = $("<embed src='https://res.starwarsccg.org/gemp/coolsaber.wav' hidden='true' autostart='true' loop='false' height='0' width='0'>");
             this.gameStateElem.append(soundPlay);
             setTimeout(
                 function() {
@@ -804,10 +807,11 @@ var GempSwccgGameUI = Class.extend({
         var that = this;
         var tabsLabels = "<li><a href='#chatBox' class='slimTab'>Chat</a></li>";
         var tabsBodies = "<div id='chatBox' class='slimPanel'></div>";
-        if (!this.spectatorMode && !this.replayMode) {
+
+        //if (!this.spectatorMode && !this.replayMode) {
             tabsLabels += "<li><a href='#settingsBox' class='slimTab'>Settings</a></li><li><a href='#gameOptionsBox' class='slimTab'>Options</a></li>";
             tabsBodies += "<div id='settingsBox' class='slimPanel'></div><div id='gameOptionsBox' class='slimPanel'></div>";
-        }
+        //}
         if (!this.replayMode) {
             tabsLabels += "<li><a href='#playersInRoomBox' class='slimTab'>Players</a></li>";
             tabsBodies += "<div id='playersInRoomBox' class='slimPanel'></div>";
@@ -819,6 +823,51 @@ var GempSwccgGameUI = Class.extend({
         $("#main").append(this.tabPane);
 
         this.chatBoxDiv = $("#chatBox");
+
+        /*
+         * Set the game background.
+         * Try to load the game background from the cookie so the background choice persists across games.
+         */
+        var gameBackgroundSettingCookie = $.cookie("gameBackgroundSetting");
+        console.log("Previous background set in cookie: "+gameBackgroundSettingCookie);
+
+        var darkHiveSelected="";
+        var darkHyperspeedSelected="";
+        var hyperRouteSelected="";
+        var blackSelected="";
+        var darkGraySelected="";
+        var GraySelected="";
+        var lightGraySelected="";
+
+        /*
+         * If the game background cookie was not previously set, use the default darkHive.
+         * If the cookie WAS set previously, then set that value to "selected" in the select list.
+         * When a new option is selected, the gameBackgroundSettingChange function will 
+         * unload the previously set CSS and load the new CSS by name.
+         * To add a new background theme, set the name in the list below,
+         * then create a CSS file in the css/game directory that matches that name.
+         */
+        if ((gameBackgroundSettingCookie == "darkHive") || (gameBackgroundSettingCookie == "") || (gameBackgroundSettingCookie == null)) { darkHiveSelected="selected"; }
+        if (gameBackgroundSettingCookie == "darkHyperspeed") { darkHyperspeedSelected="selected"; }
+        if (gameBackgroundSettingCookie == "hyperRoute")     { hyperRouteSelected="selected"; }
+        if (gameBackgroundSettingCookie == "black")          { blackSelected="selected"; }
+        if (gameBackgroundSettingCookie == "darkGray")       { darkGraySelected="selected"; }
+        if (gameBackgroundSettingCookie == "gray")           { GraySelected="selected"; }
+        if (gameBackgroundSettingCookie == "lightGray")      { lightGraySelected="selected"; }
+
+        var backgroundSettingsToAppend = "";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<br /><label for='gameBackgroundSetting'>Background: </label><select name='gameBackgroundSetting' id='gameBackgroundSetting' onchange='gameBackgroundSettingChange();'>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='darkHive' "+darkHiveSelected+">Dark Hive</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='darkHyperspeed' "+darkHyperspeedSelected+">Dark Hyperspeed</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='hyperRoute' "+hyperRouteSelected+">Hyper Route</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='black' "+blackSelected+">Black</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='darkGray' "+darkGraySelected+">Dark Gray</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='Gray' "+GraySelected+">Gray</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='lightGray' "+lightGraySelected+">Light Gray</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "</select><br /><br />";
+        $("#settingsBox").append(backgroundSettingsToAppend);
+        gameBackgroundSettingChange();
+
 
         if (!this.spectatorMode && !this.replayMode) {
 
@@ -2055,10 +2104,10 @@ var GempSwccgGameUI = Class.extend({
                     function() {
                         if (that.replayPlay) {
                             that.replayPlay = false;
-                            $("#replayButton").attr("src", "images/play.png");
+                            $("#replayButton").attr("src", "https://res.starwarsccg.org/gemp/play.png");
                         } else {
                             that.replayPlay = true;
-                            $("#replayButton").attr("src", "images/pause.png");
+                            $("#replayButton").attr("src", "https://res.starwarsccg.org/gemp/pause.png");
                             that.playNextReplayEvent();
                         }
                     });
@@ -3424,3 +3473,26 @@ var GempSwccgGameUI = Class.extend({
             this.dialogResize(this.cardActionDialog, this.specialGroup);
     }
 });
+
+
+
+function gameBackgroundSettingChange () {
+
+    var gameBackgroundSettingOriginal = $.cookie("gameBackgroundSetting");
+    if (gameBackgroundSettingOriginal == null) { gameBackgroundSettingOriginal="darkHive"; }
+
+    var gameBackgroundSettingSelected = $("select#gameBackgroundSetting option:checked" ).val();
+    console.log("Original background: "+gameBackgroundSettingOriginal);
+    console.log("Changing background to: "+gameBackgroundSettingSelected);
+    $.cookie("gameBackgroundSetting", "" + gameBackgroundSettingSelected, { expires:365 });
+
+    $("link[href='css/gemp-001/game/"+gameBackgroundSettingOriginal+".css']").remove();
+    $("<link/>", {
+       rel: "stylesheet",
+       type: "text/css",
+       href: "css/gemp-001/game/"+gameBackgroundSettingSelected+".css"
+    }).appendTo("head");
+
+}
+
+

@@ -57,7 +57,7 @@ public class Card4_136 extends AbstractUsedOrLostInterrupt {
         GameTextActionId gameTextActionId = GameTextActionId.A_DANGEROUS_TIME__UPLOAD_DARK_FORCES;
 
         // Check condition(s)
-        if (GameConditions.canTakeCardsIntoHandFromUsedPile(game, playerId, self, gameTextActionId)) {
+        if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
             action.setText("Take Dark Forces into hand from Reserve Deck");

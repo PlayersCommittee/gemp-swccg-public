@@ -30,7 +30,7 @@ public class Card214_020 extends AbstractUsedInterrupt {
     public Card214_020() {
         super(Side.LIGHT, 4, Title.Our_Only_Hope, Uniqueness.UNIQUE);
         setLore("'The Emperor knew, as I did, if Anakin were to have any offspring, they would be a threat to him.'");
-        setGameText("Relocate Prophecy Of The Force to a site. OR If He Is The Chosen One or He Will Bring Balance on table, [upload] Yoda's Hut or a Death Star II site.");
+        setGameText("Relocate Prophecy Of The Force to a site. OR If Like My Father Before Me on table, [upload] Yoda's Hut or a Death Star II site.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_14);
         setVirtualSuffix(true);
     }
@@ -41,8 +41,9 @@ public class Card214_020 extends AbstractUsedInterrupt {
 
         GameTextActionId gameTextActionId = GameTextActionId.OUR_ONLY_HOPE_V__UPLOAD_SITE;
 
-        if (GameConditions.canSpot(game, self, Filters.or(Filters.He_Is_The_Chosen_One, Filters.He_Will_Bring_Balance))
+        if (GameConditions.canSpot(game, self, Filters.title(Title.Like_My_Father_Before_Me))
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
+
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Take site into hand from Reserve Deck");
             // Allow response(s)
@@ -67,7 +68,9 @@ public class Card214_020 extends AbstractUsedInterrupt {
                 if (m.getModifyGameTextType(game.getGameState(), game.getModifiersQuerying(), prophecyOfTheForce) == ModifyGameTextType.PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED)
                     canRelocate = false;
             }
+
             if (canRelocate) {
+
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Relocate " + GameUtils.getCardLink(prophecyOfTheForce) + " to a site");
                 action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose site", Filters.canRelocateEffectTo(playerId, prophecyOfTheForce)) {

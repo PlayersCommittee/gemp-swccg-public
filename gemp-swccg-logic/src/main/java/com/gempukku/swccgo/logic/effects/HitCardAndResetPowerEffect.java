@@ -102,6 +102,7 @@ public class HitCardAndResetPowerEffect extends AbstractSubActionEffect implemen
                                             PhysicalCard source = _action.getActionSource();
 
                                             gameState.cardAffectsCard(_action.getPerformingPlayer(), source, _cardHitAndReset);
+                                            game.getModifiersQuerying().hitOrMadeLostByWeapon(_cardHitAndReset, _hitByCard);
 
                                             _cardHitAndReset.setHit(true);
                                             if (!_cardHitAndReset.isSideways()) {

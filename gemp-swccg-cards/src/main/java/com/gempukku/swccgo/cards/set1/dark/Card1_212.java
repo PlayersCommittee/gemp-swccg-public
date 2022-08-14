@@ -35,6 +35,7 @@ public class Card1_212 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Dark Hours", Uniqueness.RESTRICTED_3);
         setLore("After surviving Tarkin's extortion, kidnapping, threats of execution and the assault of the Interceptor droid, Princess Leia was asleep when her rescuers came.");
         setGameText("Deploy on a site under 'nighttime conditions.' One at a time, target each non-droid character here and draw destiny. If destiny > ability, character 'sleeps' (power, forfeit and ability = 0, 'game text' is canceled, and may not pilot, drive, or move). At the end of your next turn, lose effect and restore targets (if on table) to normal.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

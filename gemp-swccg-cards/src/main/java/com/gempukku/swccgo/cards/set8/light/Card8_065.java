@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsAttritionEffect;
+import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -84,8 +85,7 @@ public class Card8_065 extends AbstractUsedInterrupt {
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.Han)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.or(Filters.Leia, Filters.Chewie))) {
             final BattleState battleState = game.getGameState().getBattleState();
-            final float currentAttrition = battleState.getAttritionTotal(game, playerId);
-            if (currentAttrition > 0) {
+            if (battleState.hasAttritionTotal(game.getOpponent(playerId))) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Reduce opponent's attrition");
@@ -96,7 +96,7 @@ public class Card8_065 extends AbstractUsedInterrupt {
                             protected void performActionResults(Action targetingAction) {
                                 // Perform result(s)
                                 action.appendEffect(
-                                        new DrawDestinyEffect(action, playerId, 1) {
+                                        new DrawDestinyEffect(action, playerId, 1, DestinyType.DESTINY_TO_REDUCE_ATTRITION) {
                                             @Override
                                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                                 if (totalDestiny != null && totalDestiny > 0) {

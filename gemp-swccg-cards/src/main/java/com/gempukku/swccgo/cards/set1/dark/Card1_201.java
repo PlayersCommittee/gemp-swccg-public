@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -25,6 +26,7 @@ public class Card1_201 extends AbstractCharacterDevice {
         super(Side.DARK, 3, Title.Comlink);
         setLore("Hand-held communication device. Military comlinks have scrambling and variable frequency programming for secure communication during battles or emergencies.");
         setGameText("Use 1 Force to deploy on any character. If opponent has just initiated a battle or Force drain at Comlink's location or an adjacent site, you may 'react' by deploying cards (at normal use of the Force) to that battle or Force drain location.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

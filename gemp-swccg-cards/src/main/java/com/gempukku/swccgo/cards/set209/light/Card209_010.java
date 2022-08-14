@@ -30,25 +30,23 @@ import java.util.List;
 public class Card209_010 extends AbstractResistance {
     public Card209_010() {
         super(Side.LIGHT, 1, 5, 5, 5, 7, "Rey With Lightsaber", Uniqueness.UNIQUE);
-        setLore("Female");
-        addKeywords(Keyword.FEMALE);
-        setGameText("[Pilot]2. Permanent weapon is •Anakin’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and you may retrieve 1 Force, if total destiny > defense value).");
+        setLore("Female.");
+        setGameText("[Pilot] 2. Permanent weapon is •Anakin’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and you may retrieve 1 Force, if total destiny > defense value).");
         addPersona(Persona.REY);
-        addPersona(Persona.ANAKINS_LIGHTSABER);
+        addKeywords(Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);
     }
 
-    // Add 2 to stuff he pilots.
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         return modifiers;
     }
 
-    // Define "Kylo's Lightsaber permanent weapon
+    // Define Anakin's Lightsaber permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("Anakin's Lightsaber") {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.ANAKINS_LIGHTSABER) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit)
             {

@@ -33,6 +33,7 @@ public class Card5_115 extends AbstractNormalEffect {
         setGameText("Deploy on Bespin: Cloud City if you control that sector and at least three related sites. At each Cloud City site, your total power is +4 and your Force drains are +2. Effect canceled if opponent occupies four Bespin locations. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);
         addImmuneToCardTitle(Title.Alter);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }
 
     @Override

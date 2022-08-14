@@ -29,6 +29,7 @@ public class Card2_028 extends AbstractDevice {
         setLore("Tshhhh. Tshhhh. Zap! 'Look...good against remotes is one thing. Good against the living, that's something else.'");
         setGameText("Use 1 Force to deploy at any site. Moves like a character at normal use of the Force. Once during each of your control phases, may: Select one character present to be power or forfeit +1 for remainder of turn. OR Use 2 Force to cancel any seeker present.");
         addIcons(Icon.A_NEW_HOPE);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

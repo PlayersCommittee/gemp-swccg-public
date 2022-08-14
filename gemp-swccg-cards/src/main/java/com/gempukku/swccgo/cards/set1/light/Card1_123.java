@@ -48,14 +48,14 @@ public class Card1_123 extends AbstractSite {
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)) {
             Collection<PhysicalCard> imprisonedCharacters = Filters.filterActive(game,
-                    self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.imprisioned_character, Filters.on(Title.Death_Star)));
+                    self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.imprisoned_character, Filters.on(Title.Death_Star)));
             if (!imprisonedCharacters.isEmpty()
                     && GameConditions.controls(game, playerOnLightSideOfLocation, self)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
-                action.setText("Release imprisioned characters");
-                action.setActionMsg("Release all imprisioned characters on Death Star");
+                action.setText("Release imprisoned characters");
+                action.setActionMsg("Release all imprisoned characters on Death Star");
                 // Perform result(s)
                 action.appendEffect(
                         new ReleaseCaptivesEffect(action, imprisonedCharacters));

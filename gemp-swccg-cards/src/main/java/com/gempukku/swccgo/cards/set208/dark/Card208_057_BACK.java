@@ -43,7 +43,7 @@ public class Card208_057_BACK extends AbstractObjective {
     public Card208_057_BACK() {
         super(Side.DARK, 7, Title.And_Now_Youll_Give_It_To_Me);
         setGameText("While this side up, where you have a First Order leader, opponent must first use or lose 1 Force to draw a card for battle destiny. Unless BB-8 on table, opponent's Force retrieval is canceled. If Kylo on table: During your turn, may stack an Interrupt from your Lost Pile face up on I Will Finish What You Started; and once per turn, may play an Interrupt stacked there as if from hand (then place that card out of play). Flip this card if you do not occupy two battlegrounds or if a Resistance Agent is present at a battleground site.");
-        addIcons(Icon.VIRTUAL_SET_8);
+        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);
     }
 
     @Override

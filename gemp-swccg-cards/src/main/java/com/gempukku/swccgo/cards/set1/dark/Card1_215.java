@@ -22,6 +22,7 @@ public class Card1_215 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Expand_The_Empire, Uniqueness.UNIQUE);
         setLore("The Emperor disbanded the Imperial Senate 'for the duration of the emergency,' seizing absolute power. He planned to extend rule by terrorizing planets into submission.");
         setGameText("Deploy on any site. 'Expands' your 'game text' for that site to add to your 'game text' at the adjacent sites.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

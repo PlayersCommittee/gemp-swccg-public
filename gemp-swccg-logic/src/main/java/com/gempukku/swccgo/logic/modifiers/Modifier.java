@@ -731,6 +731,7 @@ public interface Modifier {
     float getSabaccTotalModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
 
     int getNumDuelDestinyDrawsModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
+    int getNumLightsaberCombatDestinyDrawsModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
 
     float getEpicEventCalculationTotalModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 

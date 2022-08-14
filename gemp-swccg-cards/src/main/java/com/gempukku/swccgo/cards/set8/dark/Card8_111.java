@@ -52,9 +52,7 @@ public class Card8_111 extends AbstractImperial {
         if (TriggerConditions.isInitialAttritionJustCalculated(game, effectResult)
                 && GameConditions.isInBattleWith(game, self, Filters.and(Filters.your(self), Filters.other(self), Filters.biker_scout))) {
             final BattleState battleState = game.getGameState().getBattleState();
-            final float currentAttrition = battleState.getAttritionTotal(game, playerId);
-            final float currentPower = battleState.getTotalPower(game, game.getOpponent(playerId));
-            if (currentAttrition > 0 && currentPower > 0) {
+            if (battleState.hasAttritionTotal(game.getOpponent(playerId))) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Reduce opponent's attrition and total power");

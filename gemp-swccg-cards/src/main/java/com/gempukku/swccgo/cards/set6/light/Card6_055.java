@@ -35,6 +35,7 @@ public class Card6_055 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "I Must Be Allowed To Speak", Uniqueness.UNIQUE);
         setLore("'Jedi mod spienko eek.'");
         setGameText("Deploy on a Jabba's Palace site. Luke may deploy at this site regardless of presence or location deployment restrictions. When he is deployed here, relocate Effect to Luke, he is immune to attrition while on Tatooine. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.JABBAS_PALACE);
         addImmuneToCardTitle(Title.Alter);
     }

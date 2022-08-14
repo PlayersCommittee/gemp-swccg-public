@@ -27,7 +27,7 @@ public class Card6_109 extends AbstractAlien {
     public Card6_109() {
         super(Side.DARK, 1, 6, 3, 4, 7, "Jabba The Hutt", Uniqueness.UNIQUE);
         setLore("Jabba Desilijic Tiure. Male heir to Zorba the Hutt. Gangster. Leader of one of the largest criminal organizations in the galaxy. Over six hundred years old.");
-        setGameText("Deploy -2 at Tatooine or Nal Hutta. To move requires +2 Force. May escort a captive. While at Audience Chamber, adds 1 to forfeit of all your other aliens and allows you to activate 1 Force for whenever you Force drain with an alien. Immune to attrition < 4.");
+        setGameText("Deploy -2 at Tatooine or Nal Hutta. To use his landspeed requires +2 Force. May escort a captive. While at Audience Chamber, adds 1 to forfeit of all your other aliens and allows you to activate 1 Force whenever you Force drain with an alien. Immune to attrition <4.");
         addIcons(Icon.JABBAS_PALACE);
         addPersona(Persona.JABBA);
         setSpecies(Species.HUTT);
@@ -44,7 +44,7 @@ public class Card6_109 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MoveCostModifier(self, 2));
+        modifiers.add(new MoveCostUsingLandspeedModifier(self, 2));
         modifiers.add(new MayEscortCaptivesModifier(self));
         modifiers.add(new ForfeitModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.alien), new AtCondition(self, Filters.Audience_Chamber), 1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));

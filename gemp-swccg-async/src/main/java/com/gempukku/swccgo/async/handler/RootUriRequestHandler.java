@@ -74,6 +74,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _serverStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"playerStats")) {
             _playerStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+11), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath+"playerCollectionStats")) {
+            _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"admin")) {
             _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "chat")) {

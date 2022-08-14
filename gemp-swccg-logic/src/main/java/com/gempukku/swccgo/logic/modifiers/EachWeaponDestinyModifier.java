@@ -66,6 +66,17 @@ public class EachWeaponDestinyModifier extends AbstractModifier {
      * accepted by the target filter.
      * @param source the source of the modifier
      * @param weaponFilter the weapon filter
+     * @param targetFilter the target filter
+     */
+    public EachWeaponDestinyModifier(PhysicalCard source, Filterable weaponFilter, float modifierAmount, Filterable targetFilter) {
+        this(source, weaponFilter, null, Filters.any, new ConstantEvaluator(modifierAmount), targetFilter);
+    }
+
+    /**
+     * Creates a modifier that affects each weapon destiny for weapons accepted by the weapon filter when fired at a target
+     * accepted by the target filter.
+     * @param source the source of the modifier
+     * @param weaponFilter the weapon filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the amount of the modifier
      * @param targetFilter the target filter

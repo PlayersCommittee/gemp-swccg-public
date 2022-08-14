@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,6 +26,7 @@ public class Card1_206 extends AbstractCharacterDevice {
         super(Side.DARK, 5, "Stormtrooper Backpack");
         setLore("Standard-issue Imperial equipment with full survival and encampment gear, plus ammunition and food for an extended deployment. Makes each trooper self-sufficient.");
         setGameText("Deploy on your trooper. May use any number of weapons and devices. Trooper is immune to attrition < 3 when at a planet site.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

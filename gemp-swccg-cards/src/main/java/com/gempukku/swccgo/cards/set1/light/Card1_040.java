@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -26,6 +27,7 @@ public class Card1_040 extends AbstractCharacterDevice {
         super(Side.LIGHT, 4, "Tatooine Utility Belt");
         setLore("Survival gear, food and tools are stored in small compartments. Made from bantha hide. Used by Luke and other Tatooine inhabitants.");
         setGameText("Use 1 Force to deploy on any Rebel or alien. While on Tatooine, that character's power and forfeit are +2.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

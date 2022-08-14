@@ -34,7 +34,7 @@ public class Card208_041 extends AbstractNormalEffect {
         setLore("'You don't know how hard I found it signing the order to terminate your life.'");
         setGameText("Deploy on an Imperial leader (may immediately take any one card into hand from Force Pile; reshuffle). Leia may not cancel Force drains where you have an Imperial. If on Tarkin, once per turn may peek at top card of any Reserve Deck.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_8);
-        addKeywords(Keyword.BOUNTY);
+        addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
     }
     
     @Override

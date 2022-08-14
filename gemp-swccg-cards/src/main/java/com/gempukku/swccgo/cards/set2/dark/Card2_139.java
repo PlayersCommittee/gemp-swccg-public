@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -52,18 +53,19 @@ public class Card2_139 extends AbstractLostInterrupt {
                 action.setText("Fire a weapon");
                 // Choose target(s)
                 action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
                             @Override
-                            protected void cardSelected(final PhysicalCard weapon) {
+                            protected void cardTargeted(final int targetGroupId, final PhysicalCard weapon) {
                                 action.addAnimationGroup(weapon);
                                 // Allow response(s)
                                 action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
+                                                final PhysicalCard finalWeapon = action.getPrimaryTargetCard(targetGroupId);
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new FireWeaponEffect(action, weapon, false, Filters.seeker, 4, Filters.canBeTargetedBy(self)) {
+                                                        new FireWeaponEffect(action, finalWeapon, false, Filters.seeker, 4, Filters.canBeTargetedBy(self)) {
                                                             @Override
                                                             protected List<ActionProxy> getWeaponFiringActionProxies(String playerId2, SwccgGame game, final PhysicalCard weapon) {
                                                                 ActionProxy actionProxy = new AbstractActionProxy() {

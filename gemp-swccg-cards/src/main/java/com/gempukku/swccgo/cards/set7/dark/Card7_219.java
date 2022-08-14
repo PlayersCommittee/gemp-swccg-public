@@ -35,6 +35,7 @@ public class Card7_219 extends AbstractNormalEffect {
         setLore("'It has seen the end of Kenobi and will soon see the end of the Rebellion.'");
         setGameText("If Obi-Wan not on table, deploy on Yavin 4 or Hoth system. If system 'Blown away,' relocate to opponent's side of table. Rebels and Rebel starships are deploy +8 and lost immunity to attrition. Canceled if Obi-Wan is deployed. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addImmuneToCardTitle(Title.Alter);
     }
 

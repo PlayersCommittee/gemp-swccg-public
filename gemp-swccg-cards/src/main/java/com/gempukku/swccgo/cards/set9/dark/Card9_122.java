@@ -30,6 +30,7 @@ public class Card9_122 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Desperate Counter", Uniqueness.UNIQUE);
         setLore("The Empire relied on the skill of its pilot corps to defend the Death Star reactor core from attack.");
         setGameText("Deploy on Death Star II system. When opponent moves from a related sector, for each TIE armed with a weapon there, movement destiny is -3 (limit -9). Also, you may deploy either Combat Response or Imperial Arrest Order from Reserve Deck; reshuffle. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
     }

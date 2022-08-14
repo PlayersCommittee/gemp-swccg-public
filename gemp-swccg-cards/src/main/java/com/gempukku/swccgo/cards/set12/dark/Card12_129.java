@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleInitiatedByCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
@@ -41,12 +42,12 @@ public class Card12_129 extends AbstractNormalEffect {
         Condition battlePlanOnTable = new OnTableCondition(self, Filters.Battle_Plan);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, player));
+        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), player));
         modifiers.add(new ExtraForceCostToPlayInterruptModifier(self, Filters.and(Filters.opponents(self), Filters.Interrupt),
-                new DuringBattleInitiatedByCondition(player), 1));
-        modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new OrCondition(battlePlanOnTable,
+                new AndCondition(new DuringBattleInitiatedByCondition(player), new DuringBattleAtCondition(Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)))), 1));
+        modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,
                 new AndCondition(new OccupiesCondition(player, Filters.battleground_site), new OccupiesCondition(player, Filters.battleground_system)))), 3, player));
-        modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new OrCondition(battlePlanOnTable,
+        modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,
                 new AndCondition(new OccupiesCondition(opponent, Filters.battleground_site), new OccupiesCondition(opponent, Filters.battleground_system)))), 3, opponent));
         return modifiers;
     }

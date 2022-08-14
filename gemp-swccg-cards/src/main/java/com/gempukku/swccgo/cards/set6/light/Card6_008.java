@@ -48,7 +48,7 @@ public class Card6_008 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForceIconsEqualizedModifier(self, Filters.sameSite(self)));
         modifiers.add(new CancelsGameTextOnSideOfLocationModifier(self, Filters.wherePresent(self),
-                new PresentAtCondition(self, Filters.Jabbas_Palace_site), game.getOpponent(self.getOwner())));
+                new PresentAtCondition(self, Filters.Jabbas_Palace), game.getOpponent(self.getOwner())));
         modifiers.add(new MayNotUseWeaponsModifier(self));
         modifiers.add(new MayNotUseDevicesModifier(self));
         modifiers.add(new MayNotParticipateInBattleInitiatedByOwnerModifier(self));

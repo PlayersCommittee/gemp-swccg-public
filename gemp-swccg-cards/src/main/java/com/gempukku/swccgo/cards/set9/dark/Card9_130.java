@@ -23,6 +23,7 @@ public class Card9_130 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Overseeing It Personally", Uniqueness.UNIQUE);
         setLore("Though reluctant to leave Coruscant. Emperor Palpatine occasionally finds it necessary to personally put lagging Imperial operations back on schedule.");
         setGameText("Deploy on Emperor. While at a battleground planet site you control, at each related site where an Imperial is present, your Force drains are +1.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DEATH_STAR_II);
     }
 

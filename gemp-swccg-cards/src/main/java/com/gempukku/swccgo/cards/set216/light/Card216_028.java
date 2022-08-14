@@ -114,6 +114,7 @@ public class Card216_028 extends AbstractUsedInterrupt {
 
         if (TriggerConditions.isReact(game, effect)
                 && (TriggerConditions.isMovingAsReact(game, effect, Filters.combat_vehicle)
+                || TriggerConditions.isDeployingAsReact(game, effect, Filters.combat_vehicle)
                 || (GameConditions.isDuringBattleAt(game, Filters.site) && GameConditions.isDuringBattleWithParticipant(game, Filters.or(Filters.Luke, Filters.Leia)))
                 || TriggerConditions.isMovingAsReact(game, effect, Filters.at(Filters.sameSiteAs(self, Filters.or(Filters.Luke, Filters.Leia)))))) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card5_082 extends AbstractSite {
     public Card5_082() {
-        super(Side.LIGHT, "Cloud City: Lower Corridor", Title.Bespin);
+        super(Side.LIGHT, Title.Lower_Corridor, Title.Bespin);
         setLocationLightSideGameText("Your characters with lightsabers are each power +2 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);

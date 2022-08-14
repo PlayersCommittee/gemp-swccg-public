@@ -37,10 +37,10 @@ class RecordAttackInitiatedEffect extends AbstractSuccessfulEffect {
 
         // Begin attack
         if (_creatureAttacking == null) {
-            gameState.sendMessage(_performingPlayerId + " initiates attack on " + GameUtils.getCardLink(_cardBeingAttacked) + ", chosen randomly, at " + GameUtils.getCardLink(location));
+            gameState.sendMessage(_performingPlayerId + " initiates attack on " + GameUtils.getCardLink(_cardBeingAttacked) + " at " + GameUtils.getCardLink(location));
         }
         else if (!Filters.creature.accepts(game, _cardBeingAttacked)) {
-            gameState.sendMessage(GameUtils.getCardLink(_creatureAttacking) + " attacks " + GameUtils.getCardLink(_cardBeingAttacked) + ", chosen randomly");
+            gameState.sendMessage(GameUtils.getCardLink(_creatureAttacking) + " attacks " + GameUtils.getCardLink(_cardBeingAttacked));
             gameState.cardAffectsCard(_performingPlayerId, _creatureAttacking, _cardBeingAttacked);
         }
         else {

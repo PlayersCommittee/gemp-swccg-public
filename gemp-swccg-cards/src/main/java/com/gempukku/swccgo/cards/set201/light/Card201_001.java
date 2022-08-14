@@ -60,7 +60,7 @@ public class Card201_001 extends AbstractAlien {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take a card into hand from Reserve Deck");
-            action.setActionMsg("Take a character with 'Cloud City' into hand from Reserve Deck");
+            action.setActionMsg("Take a character with 'Cloud City' in lore into hand from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.character, Filters.loreContains("Cloud City")), true));

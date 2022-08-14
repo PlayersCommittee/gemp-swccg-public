@@ -28,7 +28,7 @@ public class Card9_109 extends AbstractDarkJediMasterImperial {
         super(Side.DARK, 6, 5, 4, 7, 9, "Emperor Palpatine", Uniqueness.UNIQUE);
         setLore("Sith Master and leader of Galactic Empire. Dark side mentor to Darth Vader. Controls the Empire by instilling fear in its subjects and greed in its governors.");
         setGameText("Never deploys or moves (even aboard a starship or vehicle) to a site opponent occupies. Where present, subtracts 3 from attempts to cross Vader over. Once per turn, you may take Force Lightning into hand from Reserve Deck; reshuffle. Immune to attrition.");
-        addPersona(Persona.EMPEROR);
+        addPersona(Persona.SIDIOUS);
         addIcons(Icon.DEATH_STAR_II);
         addKeywords(Keyword.LEADER);
     }

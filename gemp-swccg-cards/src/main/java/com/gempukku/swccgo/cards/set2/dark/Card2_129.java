@@ -26,6 +26,7 @@ public class Card2_129 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Undercover);
         setLore("The Empire maintains a network of spies attempting to infiltrate the Rebel Alliance or misinform their operatives.");
         setGameText("Deploy on your spy at a site and cross spy to opponent's side. Spy is now Undercover. During your deploy phase, may voluntarily 'break cover' (lose Effect) if at a site. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.A_NEW_HOPE);
         addImmuneToCardTitle(Title.Alter);
     }

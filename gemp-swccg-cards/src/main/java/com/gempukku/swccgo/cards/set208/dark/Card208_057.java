@@ -40,7 +40,7 @@ public class Card208_057 extends AbstractObjective {
     public Card208_057() {
         super(Side.DARK, 0, Title.I_Want_That_Map);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Tuanul Village, any other [Episode VII] location, and I Will Finish What You Started. Opponent may reveal a unique (•) Resistance character from Reserve Deck; that card is a Resistance Agent. Otherwise, Luke is a Resistance Agent and loses immunity to attrition. For remainder of game, non-[Episode VII] Dark Jedi are lost and Resistance Agents are immune to Set For Stun. Flip this card if your First Order characters control two battlegrounds are a Resistance Agent is not present at a battleground site.");
+        setGameText("Deploy Tuanul Village, any other [Episode VII] location, and I Will Finish What You Started. Opponent may reveal a unique (•) character with ability (except Luke or a Jedi) from Reserve Deck; that card is a Resistance Agent. Otherwise, Luke is a Resistance Agent and loses immunity to attrition. For remainder of game, non-[Episode VII] Dark Jedi are lost and Resistance Agents are immune to Set For Stun. Flip this card if your First Order characters control two battlegrounds and a Resistance Agent is not present at a battleground site.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);
     }
 
@@ -71,7 +71,8 @@ public class Card208_057 extends AbstractObjective {
                     }
                 });
         action.appendOptionalEffect(
-                new ChooseCardsFromReserveDeckEffect(action, opponent, 0, 1, Filters.and(Filters.unique, Filters.or(Filters.Resistance_character, Filters.mayBeRevealedAsResistanceAgent))) {
+                new ChooseCardsFromReserveDeckEffect(action, opponent, 0, 1,
+                        Filters.or(Filters.and(Filters.unique, Filters.hasAbility, Filters.character, Filters.except(Filters.or(Filters.Luke, Filters.Jedi))), Filters.mayBeRevealedAsResistanceAgent)) {
                     @Override
                     protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                         GameState gameState = game.getGameState();

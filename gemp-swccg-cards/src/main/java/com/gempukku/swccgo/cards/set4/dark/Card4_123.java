@@ -37,6 +37,7 @@ public class Card4_123 extends AbstractNormalEffect {
         super(Side.DARK, 4, null, "He Is Not Ready");
         setLore("'All his live has he looked away. To the future, to the horizon. Never his mind on where he was! Hmm? What he was doing! Hm.'");
         setGameText("Deploy on any character. Subtracts 2 from that character's training destiny draws. OR Deploy on an opponent's pilot at a site. During each of opponent's move phases, opponent must choose to move that character, lose that character or lose 1 Force.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DAGOBAH);
     }
 

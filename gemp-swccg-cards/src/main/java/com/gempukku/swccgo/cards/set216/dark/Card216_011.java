@@ -123,7 +123,7 @@ public class Card216_011 extends AbstractObjective {
 
                                 // Vader... (or a Star Destroyer he is piloting) may make a regular move to a battle just initiated.
                                 Filter vaderOrStarDestroyerHePilots = Filters.and(Filters.or(Filters.Vader, Filters.and(Filters.Star_Destroyer, Filters.hasPiloting(self, Filters.Vader)))
-                                        , Filters.movableAsRegularMove(playerId, false, 0, false, Filters.battleLocation));
+                                        , Filters.movableAsRegularMove(playerId, false, 0, false, Filters.locationAndCardsAtLocation(Filters.battleLocation)));
 
                                 if (TriggerConditions.battleInitiated(game, effectResult)
                                         && GameConditions.canTarget(game, self, vaderOrStarDestroyerHePilots)) {
@@ -150,7 +150,7 @@ public class Card216_011 extends AbstractObjective {
 
                                                                     // Perform result(s)
                                                                     action.appendEffect(
-                                                                            new MoveCardAsRegularMoveEffect(action, playerId, finalTarget, false, false, Filters.battleLocation));
+                                                                            new MoveCardAsRegularMoveEffect(action, playerId, finalTarget, false, false, Filters.locationAndCardsAtLocation(Filters.battleLocation)));
                                                                 }
                                                             }
                                                     );

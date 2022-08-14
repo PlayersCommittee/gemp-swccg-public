@@ -39,7 +39,7 @@ public class Card1_090 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (TriggerConditions.isAboutToLoseForce(game, effectResult, playerId)) {
             AboutToLoseForceResult result = (AboutToLoseForceResult) effectResult;
-            if (!result.isCannotBeReduced()) {
+            if (!result.isCannotBeReduced(game)) {
                 final int maxForceToUse = GameConditions.forceAvailableToUseToPlayInterrupt(game, playerId, self);
                 if (maxForceToUse > 0) {
                     final int defaultForceToUse = Math.min(maxForceToUse, (int) Math.ceil(result.getForceLossAmount(game)));

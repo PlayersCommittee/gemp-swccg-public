@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -14,10 +15,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -73,6 +71,9 @@ public class Card110_006 extends AbstractObjective {
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
+            Filter deployFilter = (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.COURT_OF_THE_VILE_GANGSTER__MAY_NOT_DEPLOY_STARSHIPS) ?
+                            Filters.docking_bay : Filters.or(Filters.docking_bay, Filters.and(Icon.INDEPENDENT, Filters.starship)));
+
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy card from Reserve Deck");
             action.setActionMsg("Deploy a docking bay or [Independent] starship from Reserve Deck");
@@ -81,7 +82,7 @@ public class Card110_006 extends AbstractObjective {
                     new OncePerPhaseEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.docking_bay, Filters.and(Icon.INDEPENDENT, Filters.starship)), true));
+                    new DeployCardFromReserveDeckEffect(action, deployFilter, true));
             return Collections.singletonList(action);
         }
         return null;

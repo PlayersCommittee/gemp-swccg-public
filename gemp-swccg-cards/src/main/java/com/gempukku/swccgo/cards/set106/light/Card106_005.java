@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card106_005 extends AbstractUsedOrLostInterrupt {
     public Card106_005() {
-        super(Side.LIGHT, 3, "It's A Hit!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Its_A_Hit, Uniqueness.UNIQUE);
         setLore("Red Leader fired the first shot in the Death Star trench, causing massive internal damage. The spectacular near-miss inspired Red Squadron to double their efforts.");
         setGameText("USED: Cancel a Force drain at a site related to a system you control. LOST: Cancel Counter Assault, It's Worse, Elis Helrot, Tallon Roll, Limited Resources or Scanning Crew. OR Use 3 Force to search your Lost Pile and take one non-unique starfighter into hand.");
         addIcons(Icon.PREMIUM);

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card216_038 extends AbstractJediMaster {
     public Card216_038() {
-        super(Side.LIGHT, 1, 5, 2, 7, 9, "Master Yoda", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 2, 7, 9, Title.Master_Yoda, Uniqueness.UNIQUE);
         setLore("");
         setGameText("While 'communing': You may not deploy Jedi Knights or [Maintenance] cards; [Dagobah] Luke is deploy -1 and power and defense value +1; once per turn, may [download] a battleground with two [Dark Side]; once per game, may retrieve 1 Force.");
         addIcons(Icon.VIRTUAL_SET_16);

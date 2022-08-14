@@ -29,6 +29,7 @@ public class Card1_037 extends AbstractDevice {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Hydroponics_Station);
         setLore("Grows fruits and vegetables. Very efficient water use. Often underground. Feeds moisture farm families, but excess vegetables are often sold at markets.");
         setGameText("Use 1 Force to deploy on any exterior Tatooine site. Cannot be moved. The first Force you activate during your activate phase may be drawn into hand instead. If a Vaporator on table, the second Force you activate may also be drawn into hand.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

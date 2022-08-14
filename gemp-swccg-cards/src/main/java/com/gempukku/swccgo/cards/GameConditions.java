@@ -641,6 +641,21 @@ public class GameConditions {
     }
 
     /**
+     * Checks when action can be performed "Once per attack".
+     *
+     * @param game                 the game
+     * @param self                 the source card of the action
+     * @param playerId             the player to perform the action
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @param gameTextActionId     the identifier for the card's specific action to check the limit of
+     * @return true if condition is satisfied, otherwise false
+     */
+    public static boolean isOncePerAttack(SwccgGame game, PhysicalCard self, String playerId, int gameTextSourceCardId, GameTextActionId gameTextActionId) {
+        return isDuringAttack(game)
+                && game.getModifiersQuerying().getUntilEndOfAttackLimitCounter(self, playerId, gameTextSourceCardId, gameTextActionId).getUsedLimit() < 1;
+    }
+
+    /**
      * Checks when action can be performed "Once per duel".
      *
      * @param game                 the game
@@ -1473,6 +1488,22 @@ public class GameConditions {
 
         Filter filterToUse = Filters.or(participantFilter, Filters.hasPermanentAboard(Filters.and(participantFilter)), Filters.hasPermanentWeapon(Filters.and(participantFilter)));
         return Filters.canSpot(battleState.getAllCardsParticipating(), game, 1, filterToUse);
+    }
+
+    /**
+     * Determines if an attack is in progress that has a participant accepted by the participant filter.
+     *
+     * @param game              the game
+     * @param participantFilter the participant filter
+     * @return true or false
+     */
+    public static boolean isDuringAttackWithParticipant(SwccgGame game, Filterable participantFilter) {
+        AttackState attackState = game.getGameState().getAttackState();
+        if (attackState == null)
+            return false;
+
+        Filter filterToUse = Filters.or(participantFilter, Filters.hasPermanentAboard(Filters.and(participantFilter)), Filters.hasPermanentWeapon(Filters.and(participantFilter)));
+        return Filters.canSpot(attackState.getAllCardsParticipating(), game, 1, filterToUse);
     }
 
     /**
@@ -3007,18 +3038,26 @@ public class GameConditions {
         // Check for limit reached for any personas/titles to deploy
         if (!personas.isEmpty() || !titles.isEmpty()) {
 
-            List<PhysicalCard> outOfPlay = gameState.getAllOutOfPlayCards();
+            List<PhysicalCard> outOfPlay = new LinkedList<>();
+
+            outOfPlay.addAll(gameState.getOutOfPlayPile(playerId));
+            outOfPlay.addAll(Filters.filter(modifiersQuerying.getCardsConsideredOutOfPlay(gameState), game, Filters.your(playerId)));
 
             for (Persona persona : personas) {
                 // Check if persona is out of play (only if it's a character, vehicle, or starship)
                 //AR: Any unique character, vehicle, or starship that is out of
                 //play prevents any additional copies of that card (or
                 //other versions of its persona) from being played.
-                if (Filters.canSpot(outOfPlay, game, 1, Filters.and(persona, Filters.or(Filters.character, Filters.vehicle, Filters.starship))))
+                if (Filters.canSpot(outOfPlay, game, 1, Filters.and(Filters.your(playerId), persona, Filters.or(Filters.character, Filters.vehicle, Filters.starship))))
                     continue;
 
                 // Check if persona is in play (and cannot be converted by player)
-                if (Filters.canSpotForUniquenessChecking(game, Filters.and(persona, Filters.not(Filters.canBeConvertedByDeployment(playerId)))))
+                if (Filters.canSpotForUniquenessChecking(game, Filters.and(Filters.your(playerId), persona, Filters.not(Filters.canBeConvertedByDeployment(playerId)))))
+                    continue;
+                if (Filters.canSpotForUniquenessChecking(game, Filters.and(Filters.opponents(playerId), Filters.stolen, persona, Filters.not(Filters.canBeConvertedByDeployment(playerId)))))
+                    continue;
+                if (game.getLightPlayer().equals(playerId)
+                        && Filters.canSpotForUniquenessChecking(game, Filters.and(Filters.captive, persona, Filters.not(Filters.canBeConvertedByDeployment(playerId)))))
                     continue;
 
                 return true;
@@ -3027,7 +3066,7 @@ public class GameConditions {
             for (String title : titles) {
 
                 // Check if card title is out of play (only if unique character, starship, or vehicle)
-                if (Filters.canSpot(outOfPlay, game, 1, Filters.and(Filters.unique, Filters.title(title),
+                if (Filters.canSpot(outOfPlay, game, 1, Filters.and(Filters.unique, Filters.your(playerId), Filters.title(title),
                         Filters.or(Filters.character, Filters.starship, Filters.vehicle))))
                     continue;
 
@@ -3339,7 +3378,7 @@ public class GameConditions {
     }
 
     /**
-     * Determines if the a card accepted by the filter is "here" (from perspective of the specified card).
+     * Determines if a card accepted by the filter is "here" (from perspective of the specified card).
      * @param game the game
      * @param card the card
      * @param filter the filter
@@ -4029,7 +4068,7 @@ public class GameConditions {
     public static boolean canReduceForceLoss(SwccgGame game) {
         ForceLossState forceLossState = game.getGameState().getTopForceLossState();
         if (forceLossState != null) {
-            return !forceLossState.getLoseForceEffect().isCannotBeReduced();
+            return !forceLossState.getLoseForceEffect().isCannotBeReduced(game);
         }
         BattleState battleState = game.getGameState().getBattleState();
         if (battleState != null) {
@@ -4636,6 +4675,18 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location) {
+        return canInitiateBattleAtLocation(player, game, location, false);
+    }
+
+    /**
+     * Determines if the specified player can initiate battle at the location.
+     * @param player the player
+     * @param game the game
+     * @param location the location
+     * @param forFree if the battle would be initiated for free
+     * @return true or false
+     */
+    public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
@@ -4648,10 +4699,12 @@ public class GameConditions {
             return false;
 
         // Check if player can use force to initiate battle
-        float battleCost = modifiersQuerying.getInitiateBattleCost(gameState, location, player);
-        int forceAvailableToUse = forceAvailableToUse(gameState.getGame(), player);
-        if (forceAvailableToUse < battleCost)
-            return false;
+        if (!forFree) {
+            float battleCost = modifiersQuerying.getInitiateBattleCost(gameState, location, player);
+            int forceAvailableToUse = forceAvailableToUse(gameState.getGame(), player);
+            if (forceAvailableToUse < battleCost)
+                return false;
+        }
 
         // Check that a battle has not already happened at this location this turn
         if (modifiersQuerying.isBattleOccurredAtLocationThisTurn(location))
@@ -5417,6 +5470,10 @@ public class GameConditions {
 
     public static boolean isDeathStarPowerShutDown(SwccgGame game) {
         return game.getModifiersQuerying().isDeathStarPowerShutDown();
+    }
+
+    public static boolean isSenateInSession(SwccgGame game) {
+        return game.getModifiersQuerying().isSenateInSession();
     }
 
     public static int countSpeciesOnTable(SwccgGame game, String playerId) {

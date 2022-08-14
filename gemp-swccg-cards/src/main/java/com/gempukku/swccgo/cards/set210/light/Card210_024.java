@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card210_024 extends AbstractUsedOrLostInterrupt {
     public Card210_024() {
-        super(Side.LIGHT, 5, Title.Quite_A_Mercenary, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Quite_A_Mercenary);
         setLore("Smugglers and other rogues frequent spaceports along trade routes. 'Your friend is quite a mercenary. I wonder if he really cares about anything, or anybody.'");
         setGameText("USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.] OR Cancel a smuggler's game text for remainder of turn. OR [upload] [Reflections II] Chewie or Mercenary Armor. LOST: During your move phase, “break cover” of an Undercover spy.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_10);

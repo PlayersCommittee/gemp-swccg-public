@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
@@ -30,6 +31,7 @@ public class Card5_012 extends AbstractCharacterDevice {
         setLore("Uses state-of-the-art digital processors. Although Luke had lost his hand, the Alliance could rebuild it. They had the technology. They could make it better, stronger, faster.");
         setGameText("Use 2 Force to deploy on a Disarmed character. Cancels the disarming card. Character is power +1 and adds 1 to weapon destiny when firing character weapons. Device lost if character Disarmed again (otherwise, may not be removed).");
         addIcons(Icon.CLOUD_CITY);
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

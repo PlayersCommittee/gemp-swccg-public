@@ -12,13 +12,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsLandedToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -108,15 +106,22 @@ public class Card110_004_BACK extends AbstractObjective {
                     Filters.occupiesWith(playerId, self, Filters.or(Filters.Han, Filters.Luke, Filters.Leia, Filters.Chewie, Filters.Lando))));
             if (numForce > 0) {
 
+
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setPerformingPlayer(playerId);
                 action.setText("Make opponent lose " + numForce + " Force");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerPhaseEffect(action));
+
                 // Perform result(s)
-                action.appendEffect(
-                        new LoseForceEffect(action, opponent, numForce));
+                if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__OR_BE_DESTROYED__FORCE_LOSS)) {
+                    // Force loss from ...Or Be Destroyed must come from Reserve Deck (if possible) and may not be reduced below 2
+                    action.appendEffect(new LoseForceFromReserveDeckEffect(action, opponent, numForce, 2));
+                } else {
+                    action.appendEffect(
+                            new LoseForceEffect(action, opponent, numForce));
+                }
                 return Collections.singletonList(action);
             }
         }
@@ -150,8 +155,13 @@ public class Card110_004_BACK extends AbstractObjective {
                 action.appendUsage(
                         new OncePerPhaseEffect(action));
                 // Perform result(s)
-                action.appendEffect(
-                        new LoseForceEffect(action, opponent, numForce));
+                if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__OR_BE_DESTROYED__FORCE_LOSS)) {
+                    // Force loss from ...Or Be Destroyed must come from Reserve Deck (if possible) and may not be reduced below 2
+                    action.appendEffect(new LoseForceFromReserveDeckEffect(action, opponent, numForce, 2));
+                } else {
+                    action.appendEffect(
+                            new LoseForceEffect(action, opponent, numForce));
+                }
                 return Collections.singletonList(action);
             }
         }

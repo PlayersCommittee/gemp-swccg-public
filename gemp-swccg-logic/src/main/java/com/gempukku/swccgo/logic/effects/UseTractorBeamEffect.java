@@ -1,23 +1,19 @@
 package com.gempukku.swccgo.logic.effects;
 
-import com.gempukku.swccgo.common.CaptureOption;
-import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.ActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.actions.TractorBeamAction;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.*;
-import com.gempukku.swccgo.logic.timing.results.CaptureStarshipResult;
-import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
+import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -91,27 +87,24 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
                     subAction.appendCost(new UseForceEffect(subAction, playerId, forceCost));
 
                 subAction.addAnimationGroup(targetedCard);
+                game.getGameState().beginUsingTractorBeam(_tractorBeam);
+                game.getGameState().getUsingTractorBeamState().setTarget(targetedCard);
 
-
-
-                subAction.allowResponses("Targeting "+GameUtils.getCardLink(targetedCard)+" with "+GameUtils.getCardLink(_tractorBeam),
-                        new RespondableEffect(subAction) {
+                RespondableUsingTractorBeamEffect respondableUsingTractorBeamEffect = new RespondableUsingTractorBeamEffect(subAction) {
                     @Override
                     protected void performActionResults(Action targetingAction) {
                         int numDestinies = tractorBeamAction.getNumDestinies();
 
                         final PhysicalCard target = subAction.getPrimaryTargetCard(targetGroupId);
+                        game.getGameState().getUsingTractorBeamState().setTarget(target);
 
                         subAction.appendEffect(new PassthruEffect(subAction) {
                             @Override
                             protected void doPlayEffect(SwccgGame game) {
 
-                                game.getGameState().beginUsingTractorBeam(_tractorBeam);
-                                game.getGameState().getUsingTractorBeamState().setTarget(target);
-
                                 if (_filterForModifierDuringEffect != null && _modifierToApplyDuringEffect != null
-                                    &&_filterForModifierDuringEffect.accepts(game.getGameState(), game.getModifiersQuerying(), target)) {
-                                        game.getModifiersEnvironment().addUntilEndOfTractorBeamModifier(_modifierToApplyDuringEffect);
+                                        &&_filterForModifierDuringEffect.accepts(game.getGameState(), game.getModifiersQuerying(), target)) {
+                                    game.getModifiersEnvironment().addUntilEndOfTractorBeamModifier(_modifierToApplyDuringEffect);
                                 }
                             }
                         });
@@ -162,15 +155,15 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
                                 game.getGameState().finishUsingTractorBeam();
                             }
                         });
-
                     }
-                });
+                };
 
+                game.getGameState().getUsingTractorBeamState().setTractorBeamEffect(respondableUsingTractorBeamEffect);
 
+                subAction.allowResponses("Targeting "+GameUtils.getCardLink(targetedCard)+" with "+GameUtils.getCardLink(_tractorBeam),
+                        respondableUsingTractorBeamEffect);
             }
         });
-
-
 
         return subAction;
     }

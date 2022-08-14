@@ -46,36 +46,16 @@ sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "  * enable MariaDB service"
 systemctl enable --now mariadb.service
 
-echo "  * Load seed database"
+echo "  * Create Database user"
 mysql -u root mysql <<< "CREATE USER 'gemp'@'localhost' IDENTIFIED BY 'gemp';"
 mysql -u root mysql <<< "GRANT ALL PRIVILEGES ON *.* TO 'gemp'@'localhost' WITH GRANT OPTION;"
+echo "  * Load seed database"
 mysql -u root mysql < /vagrant/database_script.sql
+echo "  * Create test users"
+mysql -u root gemp-swccg < /vagrant/initial_users.sql
+echo "  * Load sample decks"
+mysql -u root gemp-swccg < /vagrant/sample_decks.sql
 
-echo "  * Add test users"
-mysql -u root gemp-swccg <<< "
-INSERT INTO player (name, password, type, last_login_reward, last_ip, create_ip)
-VALUES (
-	'test1',
-	'9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
-	'aut',
-	'20170101',
-	'192.168.50.1',
-	'192.168.50.1'
-),
-(
-	'test2',
-	'9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
-	'aut',
-	'20170101',
-	'192.168.50.1',
-	'192.168.50.1'
-);"
-
-echo
-echo "Download card images to /vagrant from holotable repo"
-echo
-cd /vagrant
-bash ./get-card-images.sh
 
 echo
 echo 'Done!'

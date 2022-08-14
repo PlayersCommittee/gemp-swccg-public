@@ -46,6 +46,12 @@ public class SwccgoFormatLibrary {
                         deckSize = 60L;
                     format.setRequiredDeckSize(deckSize.intValue());
 
+                    Long defaultGameTimerMinutes = (Long) formatDef.get("defaultGameTimerMinutes");
+                    if (defaultGameTimerMinutes == null)
+                        defaultGameTimerMinutes = 60L;
+                    format.setDefaultGameTimerMinutes(defaultGameTimerMinutes.intValue());
+
+
                     JSONArray sets = (JSONArray) formatDef.get("set");
                     for (Object set : sets)
                         format.addValidSet(((Number) set).intValue());
@@ -62,9 +68,9 @@ public class SwccgoFormatLibrary {
                             format.addBannedCard((String) bannedCard);
                         }
 
-                    String bannedListLink = (String) formatDef.get("bannedListLink");
-                    if (bannedListLink != null) {
-                        format.addBannedListLink(bannedListLink);
+                    String tenetsLink = (String) formatDef.get("tenetsLink");
+                    if (tenetsLink != null) {
+                        format.addTenetsLink(tenetsLink);
                     }
 
                     JSONArray bannedIcons = (JSONArray) formatDef.get("bannedIcons");

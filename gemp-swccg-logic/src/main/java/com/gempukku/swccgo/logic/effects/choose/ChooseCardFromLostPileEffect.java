@@ -45,6 +45,17 @@ public abstract class ChooseCardFromLostPileEffect extends ChooseCardsFromLostPi
         super(action, playerId, 1, 1, topmost, filters);
     }
 
+    /**
+     * Creates an effect that causes the player to choose a card accepted by the specified filter from Lost Pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param zoneOwner the owner of the Lost Pile
+     * @param filters the filter
+     */
+    public ChooseCardFromLostPileEffect(Action action, String playerId, String zoneOwner, Filterable filters) {
+        super(action, playerId, zoneOwner, 1, 1, filters);
+    }
+
     @Override
     protected final void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
         if (selectedCards.size() == 1)

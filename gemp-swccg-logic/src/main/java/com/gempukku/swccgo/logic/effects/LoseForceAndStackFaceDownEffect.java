@@ -32,6 +32,6 @@ public class LoseForceAndStackFaceDownEffect extends LoseForceEffect {
      * @param asLiberationCard the card lost as Force is stacked as a liberation card
      */
     public LoseForceAndStackFaceDownEffect(Action action, String playerToLoseForce, float amount, PhysicalCard stackFaceDownOn, boolean asLiberationCard) {
-        super(action, playerToLoseForce, amount, true, false, false, false, false, false, stackFaceDownOn, asLiberationCard);
+        super(action, playerToLoseForce, amount, true, false, false, false, false, false, stackFaceDownOn, true, asLiberationCard);
     }
 }

@@ -25,6 +25,7 @@ public class Card5_126 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Vader's Cape", Uniqueness.UNIQUE);
         setLore("A symbol of the Dark Lord of the Sith, and of the seductive power of the dark side.");
         setGameText("Use 3 Force to deploy on one of your Imperials or aliens. Immune to attrition < 5. When in battle, adds 1 to each of your battle destiny draws.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY);
     }
 

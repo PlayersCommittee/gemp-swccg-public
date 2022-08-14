@@ -49,7 +49,7 @@ public class Card11_045 extends AbstractSite {
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new ExchangeStackedCardWithTopCardOfLostPileEffect(action, Filters.topRaceDestinyForPlayer(playerOnDarkSideOfLocation)) {
+                    new ExchangeStackedCardWithTopCardOfLostPileEffect(action, Filters.topRaceDestinyForPlayer(playerOnDarkSideOfLocation), true) {
                         @Override
                         protected boolean getUseShortcut() {
                             return true;
@@ -77,7 +77,7 @@ public class Card11_045 extends AbstractSite {
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new ExchangeStackedCardWithTopCardOfLostPileEffect(action, Filters.topRaceDestinyForPlayer(playerOnLightSideOfLocation)) {
+                    new ExchangeStackedCardWithTopCardOfLostPileEffect(action, Filters.topRaceDestinyForPlayer(playerOnLightSideOfLocation), true) {
                         @Override
                         protected boolean getUseShortcut() {
                             return true;

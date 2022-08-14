@@ -15,13 +15,13 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.results.CanceledGameTextResult;
 
 /**
- * An effect to cancel the game text of a card until the end of the turn.
+ * An effect to cancel the game text of a card until the end of the battle.
  */
 public class CancelGameTextUntilEndOfBattleEffect extends AbstractSuccessfulEffect {
     private PhysicalCard _targetCard;
 
     /**
-     * Creates an effect that cancels the game text of a card until end of the turn.
+     * Creates an effect that cancels the game text of a card until end of the battle.
      * @param action the action performing this effect
      * @param targetCard the card whose game text is canceled
      */
@@ -37,7 +37,7 @@ public class CancelGameTextUntilEndOfBattleEffect extends AbstractSuccessfulEffe
 
         // Check if card's game text may not be canceled
         if (modifiersQuerying.isProhibitedFromHavingGameTextCanceled(gameState, _targetCard)) {
-            gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is not allowed to being canceled");
+            gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is not allowed to be canceled");
             return;
         }
 
@@ -45,7 +45,7 @@ public class CancelGameTextUntilEndOfBattleEffect extends AbstractSuccessfulEffe
         ModifiersEnvironment modifiersEnvironment = game.getModifiersEnvironment();
         PhysicalCard source = _action.getActionSource();
 
-        gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is canceled until end of the turn");
+        gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is canceled until end of battle");
         gameState.cardAffectsCard(_action.getPerformingPlayer(), source, _targetCard);
 
         // Filter for same card while it is in play

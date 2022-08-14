@@ -46,7 +46,7 @@ public class Card13_026 extends AbstractLostInterrupt {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)) {
             PhysicalCard obiWan = Filters.findFirstActive(game, self,
-                    Filters.and(Icon.EPISODE_I, Filters.ObiWan, Filters.canBeTargetedBy(self), Filters.at(Filters.interior_Naboo_site)));
+                    Filters.and(Icon.EPISODE_I, Filters.ObiWan, Filters.canBeTargetedBy(self)));
             if (obiWan != null
                     && Filters.canBeRelocatedToLocation(Filters.and(Filters.Naboo_site, Filters.adjacentSite(obiWan)), true, 0).accepts(game, obiWan)) {
 

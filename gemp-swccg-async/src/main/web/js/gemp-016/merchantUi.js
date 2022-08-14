@@ -15,6 +15,7 @@ var GempSwccgMerchantUI = Class.extend({
     questionDialog:null,
 
     currencyCount:null,
+    ownedCompareSelect:'GREATER_THAN_OR_EQUAL_TO',
     ownedMin:0,
     hideMerchant:false,
 
@@ -25,7 +26,7 @@ var GempSwccgMerchantUI = Class.extend({
 
         this.cardFilter = new CardFilter(cardFilterElem, cardFilterElem,
                 function (filter, start, count, callback) {
-                    that.comm.getMerchant(filter, that.ownedMin, start, count, callback);
+                    that.comm.getMerchant(filter, that.ownedCompareSelect, that.ownedMin, start, count, callback);
                 },
                 function (rootElem) {
                     that.clearList(rootElem);
@@ -48,7 +49,7 @@ var GempSwccgMerchantUI = Class.extend({
 
         this.hideMerchantDiv = $("<div class='hideMerchant'><label for='hideMerchantCheck'>Hide merchant</label><input type='checkbox' id='hideMerchantCheck' value='hideMerchant'/></div>");
 
-        this.countDiv = $("<div class='countDiv'>Owned >= <select id='ownedMin'><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select></div>");
+        this.countDiv = $("<div class='countDiv'>Owned <select id='ownedCompareSelect'><option value='LESS_THAN_OR_EQUAL_TO'><=</option><option value='EQUALS'>=</option><option value='GREATER_THAN_OR_EQUAL_TO' selected>>=</option></select> <select id='ownedMin'><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select></div>");
 
         this.filterDiv.append(this.pocketDiv);
         this.filterDiv.append(this.hideMerchantDiv);
@@ -57,6 +58,12 @@ var GempSwccgMerchantUI = Class.extend({
         $("#ownedMin").change(
                 function () {
                     that.ownedMin = $("#ownedMin option:selected").prop("value");
+                    that.cardFilter.getCollection();
+                });
+
+        $("#ownedCompareSelect").change(
+                function () {
+                    that.ownedCompareSelect = $("#ownedCompareSelect option:selected").prop("value");
                     that.cardFilter.getCollection();
                 });
 
@@ -318,7 +325,7 @@ var GempSwccgMerchantUI = Class.extend({
                     var tradeFoilBut = $("<div class='tradeFoil'>Trade 4 for foil</div>").button();
                     tradeFoilBut.click(
                             function () {
-                                that.displayMerchantAction(card, "Do you want to trade 4 of this card and 15<img src='images/gold.png'/> in currency for a foil version of the card?",
+                                that.displayMerchantAction(card, "Do you want to trade 4 of this card and 5<img src='https://res.starwarsccg.org/gemp/gold.png'/> in currency for a foil version of the card?",
                                         function () {
                                             that.comm.tradeInFoil(blueprintId, function () {
                                                 that.cardFilter.getCollection();
@@ -382,7 +389,7 @@ var GempSwccgMerchantUI = Class.extend({
 
         this.pocketDiv.css({position:"absolute", left:filterWidth - 60, top:35, width:60, height:18});
         this.hideMerchantDiv.css({position:"absolute", left:filterWidth - 100, top:62, width:100, height:18});
-        this.countDiv.css({position:"absolute", left:filterWidth - 125, top:80, width:125, height:20});
+        this.countDiv.css({position:"absolute", left:filterWidth - 175, top:80, width:175, height:20});
     },
 
     processError:function (xhr, ajaxOptions, thrownError) {

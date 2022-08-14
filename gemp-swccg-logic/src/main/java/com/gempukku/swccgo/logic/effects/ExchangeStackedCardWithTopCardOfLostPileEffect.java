@@ -19,4 +19,15 @@ public class ExchangeStackedCardWithTopCardOfLostPileEffect extends ExchangeStac
     public ExchangeStackedCardWithTopCardOfLostPileEffect(Action action, Filterable stackedCardFilter) {
         super(action, Filters.any, stackedCardFilter, Zone.LOST_PILE);
     }
+
+    /**
+     * Creates an effect that causes the player to exchange a stacked accepted by the stacked card filter with the top card
+     * of Lost Pile.
+     * @param action the action performing this effect
+     * @param stackedCardFilter the stacked card filter
+     * @param isRaceDestiny true if the stacked card is a race destiny, false if not
+     */
+    public ExchangeStackedCardWithTopCardOfLostPileEffect(Action action, Filterable stackedCardFilter, boolean isRaceDestiny) {
+        super(action, Filters.any, stackedCardFilter, Zone.LOST_PILE, isRaceDestiny);
+    }
 }

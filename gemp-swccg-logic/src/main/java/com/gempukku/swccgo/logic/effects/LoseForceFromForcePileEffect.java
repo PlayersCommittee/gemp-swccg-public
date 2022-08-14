@@ -26,6 +26,6 @@ public class LoseForceFromForcePileEffect extends LoseForceEffect {
      * @param cannotBeReduced true if Force loss cannot be reduced, otherwise false
      */
     public LoseForceFromForcePileEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced) {
-        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, false, false, null, false, true);
+        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, false, false, null, false, false, true, Float.MIN_VALUE);
     }
 }

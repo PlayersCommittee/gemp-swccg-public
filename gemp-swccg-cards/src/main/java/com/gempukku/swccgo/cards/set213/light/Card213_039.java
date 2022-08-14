@@ -36,9 +36,17 @@ public class Card213_039 extends AbstractAlien {
         setSpecies(Species.CORELLIAN);
         addKeywords(Keyword.FEMALE, Keyword.THIEF, Keyword.SMUGGLER);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);
-        setArmor(5);
     }
 
+    @Override
+    public final boolean hasSpecialDefenseValueAttribute() {
+        return true;
+    }
+
+    @Override
+    public final float getSpecialDefenseValue() {
+        return 5;
+    }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {

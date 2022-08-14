@@ -90,7 +90,7 @@ public class Card215_018 extends AbstractUsedInterrupt {
 
         // Check condition(s)
         if (GameConditions.isDuringBattle(game)
-                && TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.and(Filters.your(self), Filters.weapon, Filters.except(Filters.lightsaber)), Filters.stormtrooper)
+                && TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.and(Filters.weapon_or_character_with_permanent_weapon, Filters.except(Filters.lightsaber)), Filters.stormtrooper)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);

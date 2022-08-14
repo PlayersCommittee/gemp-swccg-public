@@ -25,7 +25,7 @@ public class Card3_105 extends AbstractNormalEffect {
         setLore("Vader's hologram exacts loyalty from his legions.");
         setGameText("Use 4 Force to deploy at any site if opponent is generating at least 3 Force more than you. At that site, adjacent sites and same site as Vader, players activate Force only if they have presence.");
         addIcons(Icon.HOTH);
-        addKeywords(Keyword.HOLOGRAM);
+        addKeywords(Keyword.HOLOGRAM, Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

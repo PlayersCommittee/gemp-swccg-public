@@ -29,7 +29,7 @@ public class Card1_119 extends AbstractLostInterrupt {
     public Card1_119() {
         super(Side.LIGHT, 4, Title.Warriors_Courage, Uniqueness.UNIQUE);
         setLore("Each Rebel soldier is driven by bravery and a belief in the Rebel Alliance's ideal of freedom. Courageous and quick-thinking Rebels often defeat Imperial legions.");
-        setGameText("If any warrior is defending a battle alone at a site, add one battle destiny. OR If Leia is defending a battle alone at a site, add two battle destiny.");
+        setGameText("If your warrior is defending a battle alone at a site, add one battle destiny. OR If Leia is defending a battle alone at a site, add two battle destiny.");
     }
 
     @Override

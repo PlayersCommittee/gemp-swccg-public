@@ -27,6 +27,7 @@ public class Card5_026 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Hindsight", Uniqueness.UNIQUE);
         setLore("'I'm backwards! You fleabitten furball...only an overgrown mophead like you would be stupid enough--'");
         setGameText("Deploy on C-3PO. Eyes In The Dark, The Professor, Mantellian Savrip and Hopping Mad are immune to Alter. Once during each draw phase, unless C-3PO is present with a Wookiee, you may examine the cards in your Used Pile. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY);
         addImmuneToCardTitle(Title.Alter);
     }

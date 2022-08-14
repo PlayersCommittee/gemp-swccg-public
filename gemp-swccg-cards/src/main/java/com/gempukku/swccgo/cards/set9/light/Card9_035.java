@@ -30,6 +30,7 @@ public class Card9_035 extends AbstractNormalEffect {
         super(Side.LIGHT, 7, PlayCardZoneOption.ATTACHED, Title.Im_With_You_Too, Uniqueness.UNIQUE);
         setLore("Luke completes the legendary foursome.");
         setGameText("Deploy on Luke if That's One and Count Me In are on table. When Han, Chewie, Leia and Luke are involved in the same battle, you may double your total battle destiny and Han, Chewie, Leia, and Luke are immune to attrition. Don't Get Cocky is a Used Interrupt.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DEATH_STAR_II);
     }
 

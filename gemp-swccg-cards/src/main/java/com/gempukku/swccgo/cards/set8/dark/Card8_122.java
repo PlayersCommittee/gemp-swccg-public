@@ -26,6 +26,7 @@ public class Card8_122 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Early_Warning_Network, Uniqueness.DIAMOND_1);
         setLore("Listening posts are often constructed as part of a standard Imperial installation. On Endor, such a post was incorporated into the control bunker.");
         setGameText("Deploy on an interior site that has a Scomp link. While you occupy this site, once per battle you may deploy a non-unique Imperial starship as a 'react' (for free if starfighter) to the related system from Reserve Deck; reshuffle. (Immune to alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.ENDOR);
         addImmuneToCardTitle(Title.Alter);
     }

@@ -29,6 +29,7 @@ public class Card4_162 extends AbstractUniqueStarshipSite {
         setLocationLightSideGameText("If you control, opponent's Main Corridor game text is canceled.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcons(Icon.DAGOBAH, Icon.INTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.SCOMP_LINK);
+        addKeyword(Keyword.EXECUTOR_SITE);
     }
 
     @Override

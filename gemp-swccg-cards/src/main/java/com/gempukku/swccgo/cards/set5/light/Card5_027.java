@@ -25,6 +25,7 @@ public class Card5_027 extends AbstractNormalEffect {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Hopping_Mad, Uniqueness.UNIQUE);
         setLore("'I'm standing here in pieces and you're having delusions of grandeur!'");
         setGameText("Deploy on one of your droids. During your control phase, may use 1 Force to search your Reserve Deck, take one Droid Shutdown, The Professor, We're Doomed, Scomp Link Access, This Is All Your Fault or Shocking Information into hand and reshuffle.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY);
     }
 

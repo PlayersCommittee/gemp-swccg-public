@@ -59,7 +59,7 @@ public class Card214_022 extends AbstractResistance {
             action.appendUsage(
                     new OncePerPhaseEffect(action));
             // Perform result(s)
-            action.appendEffect(new ChooseCardsFromLostPileEffect(action, playerId, 2, 2) {
+            action.appendEffect(new ChooseCardsFromLostPileEffect(action, playerId, 2, 2, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY)) {
                 @Override
                 protected void cardsSelected(SwccgGame g, final Collection<PhysicalCard> selectedCards) {
                     //probably need to make a new effect and use ArbitraryCardsSelectionDecision in it

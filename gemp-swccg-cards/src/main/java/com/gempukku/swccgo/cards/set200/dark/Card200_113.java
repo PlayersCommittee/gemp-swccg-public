@@ -46,7 +46,7 @@ public class Card200_113 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int numForce = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_system, Filters.not(Filters.Death_Star_system), Filters.withinParsecsOf(self, 2), Filters.controlsWith(playerId, self, Filters.Star_Destroyer)));
+            int numForce = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_system, Filters.not(Filters.hasAttached(self)), Filters.withinParsecsOf(self, 2), Filters.controlsWith(playerId, self, Filters.Star_Destroyer)));
             if (numForce > 0) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -75,7 +75,7 @@ public class Card200_113 extends AbstractNormalEffect {
         // Check condition(s)
         if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int numForce = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_system, Filters.withinParsecsOf(self, 2), Filters.controlsWith(playerId, self, Filters.Star_Destroyer)));
+            int numForce = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_system, Filters.not(Filters.hasAttached(self)), Filters.withinParsecsOf(self, 2), Filters.controlsWith(playerId, self, Filters.Star_Destroyer)));
             if (numForce > 0) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

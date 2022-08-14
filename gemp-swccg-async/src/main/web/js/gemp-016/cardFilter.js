@@ -152,13 +152,16 @@ var CardFilter = Class.extend({
         this.formatSelect = $("<select id='formatSelect' class='filterInput'>"
             + "<option value='all' selected='selected'>All</option>"
             + "<option value='open'>Open</option>"
-            + "<option value='jawa'>Jawa</option>"
             + "<option value='open_no_shields'>Open (no shields)</option>"
             + "<option value='open_no_virtual'>Decipher Cards Only</option>"
             + "<option value='open_no_shields_no_virtual'>Open (no shields / no v-cards)</option>"
             + "<option value='classic'>Classic</option>"
             + "<option value='classic_no_virtual'>Classic (no virtual cards)</option>"
+            + "<option value='jawa'>Jawa</option>"
+            + "<option value='legacy'>Legacy</option>"
+            //+ "<option value='limited_resources'>Limited Resources</option>"
             + "<option value='premiere_ref2'>Premiere - Reflections II</option>"
+            + "<option value='premiere_jpsd'>Premiere - JPSD</option>"
             + "<option value='premiere_ds2'>Premiere - Death Star II</option>"
             + "<option value='premiere_endor'>Premiere - Endor</option>"
             + "<option value='premiere_se'>Premiere - Special Edition</option>"
@@ -169,8 +172,7 @@ var CardFilter = Class.extend({
             + "<option value='premiere_anh'>Premiere - A New Hope</option>"
             + "<option value='premiere'>Premiere</option>"
             + "<option value='scavenger_premiere_ds2'>Scavenger</option>"
-            + "<option value='limited_resources'>Limited Resources</option>"
-            + "<option value='legacy'>Legacy</option>"
+            + "<option value='utinni'>Utinni! (Jawas Only)</option>"
             + "</select>");
 
         this.setLabel = $("<label for='setSelect' class='filterLabel'>Set:</label>");
@@ -219,9 +221,11 @@ var CardFilter = Class.extend({
             + "<option value='214'>Set 14</option>"
             + "<option value='215'>Set 15</option>"
             + "<option value='216'>Set 16</option>"
+            + "<option value='217'>Set 17</option>"
+            + "<option value='218'>Set 18</option>"
             + "<option value='301'>Virtual Premium Set</option>"
             + "<option value='601'>Legacy</option>"
-            + "<option value='401'>Dream Cards</option>"
+            //+ "<option value='401'>Dream Cards</option>"
             + "<option value='501'>Playtesting</option>"
             + "</select>");
 
@@ -292,7 +296,7 @@ var CardFilter = Class.extend({
             + "<option value='C1'>Common (C1)</option>"
             + "<option value='C2'>Common (C2)</option>"
             + "<option value='C3'>Common (C3)</option>"
-            + "<option value='XR'>Extra Rare (XR)</option>"
+            + "<option value='XR'>Exclusive Rare (XR)</option>"
             + "<option value='F'>Fixed (F)</option>"
             + "<option value='PM'>Premium (PM)</option>"
             + "<option value='PV'>Preview (PV)</option>"
@@ -321,6 +325,7 @@ var CardFilter = Class.extend({
         this.sortLabel = $("<label for='sortSelect' class='filterLabel'>Sort&nbsp;by:</label>");
         this.sortSelect = $("<select id='sortSelect' class='filterInput'>"
             + "<option value='name,set,cardType' selected='selected'>Title</option>"
+            + "<option value='cardCategory,name,set'>Card category</option>"
             + "<option value='cardType,name,set'>Card type</option>"
             + "</select>");
 
@@ -368,6 +373,7 @@ var CardFilter = Class.extend({
             + "<option value='SCOMP_LINK'>Scomp Link</option>"
             + "<option value='SELECTIVE_CREATURE'>Selective Creature</option>"
             + "<option value='SEPARATIST'>Separatist</option>"
+            + "<option value='SKYWALKER'>Skywalker</option>"
             + "<option value='VIRTUAL_SET_0'>Set 0</option>"
             + "<option value='VIRTUAL_SET_1'>Set 1</option>"
             + "<option value='VIRTUAL_SET_2'>Set 2</option>"
@@ -385,6 +391,8 @@ var CardFilter = Class.extend({
             + "<option value='VIRTUAL_SET_14'>Set 14</option>"
             + "<option value='VIRTUAL_SET_15'>Set 15</option>"
             + "<option value='VIRTUAL_SET_16'>Set 16</option>"
+            + "<option value='VIRTUAL_SET_17'>Set 17</option>"
+            + "<option value='VIRTUAL_SET_18'>Set 18</option>"
             + "<option value='VIRTUAL_SET_P'>Set P</option>"
             + "<option value='SPACE'>Space</option>"
             + "<option value='SPECIAL_EDITION'>Special Edition</option>"
@@ -468,6 +476,7 @@ var CardFilter = Class.extend({
             + "<option value='SIDIOUS'>Sidious</option>"
             + "<option value='SLAVE_I'>Slave I</option>"
             + "<option value='TARKIN'>Tarkin</option>"
+            + "<option value='THRAWN'>Thrawn</option>"
             + "<option value='TYCHO'>Tycho</option>"
             + "<option value='VADER'>Vader</option>"
             + "<option value='VADERS_CUSTOM_TIE'>Vader's Custom TIE</option>"

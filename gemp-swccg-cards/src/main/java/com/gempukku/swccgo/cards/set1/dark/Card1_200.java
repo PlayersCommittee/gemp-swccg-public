@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,6 +32,7 @@ public class Card1_200 extends AbstractCharacterDevice {
         super(Side.DARK, 6, "Caller");
         setLore("Hand-held device that commands restraining bolt. Each caller can be keyed to a specific bolt. Used throughout the galaxy. Also called 'owners.'");
         setGameText("Deploy on Imperial or Jawa. During your control phase, may steal one droid at same site if it is controlled by a Restraining Bolt. After droid is stolen, Restraining Bolt returns to owner's hand.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

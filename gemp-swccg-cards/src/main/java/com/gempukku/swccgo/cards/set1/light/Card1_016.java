@@ -58,7 +58,7 @@ public class Card1_016 extends AbstractAlien {
                                             new RevealRandomCardInOpponentsHandEffect(action, playerId) {
                                                 @Override
                                                 protected void cardRevealed(PhysicalCard revealedCard) {
-                                                    if (revealedCard.getBlueprint().isCardType(cardType)) {
+                                                    if (game.getModifiersQuerying().getCardTypes(game.getGameState(), revealedCard).contains(cardType)) {
                                                         action.appendEffect(
                                                                 new LoseCardFromHandEffect(action, revealedCard));
                                                     }

@@ -60,7 +60,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
         final GameState gameState = game.getGameState();
         Filter systemFilter = Filters.and(Filters.system, Filters.isOrbitedBy(Filters.Death_Star_system), Filters.or(Filters.title(Title.Jedha), Filters.title(Title.Scarif)));
 
-        final Filter yourSiteEvenIfConverted = Filters.and(Filters.your(self), Filters.unique, Filters.battleground_site,
+        final Filter yourSiteEvenIfConverted = Filters.and(Filters.or(Filters.your(self), Filters.convertedLocationOnTopOfLocation(Filters.your(self))), Filters.unique, Filters.battleground_site,
                 Filters.relatedSiteTo(self, Filters.and(Filters.system, Filters.isOrbitedBy(Filters.Death_Star_system))));
 
         // Check condition(s)

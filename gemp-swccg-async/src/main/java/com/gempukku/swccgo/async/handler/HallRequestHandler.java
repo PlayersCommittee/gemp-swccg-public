@@ -39,6 +39,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HallRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
     private CollectionsManager _collectionManager;
@@ -348,6 +350,178 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
         return doc;
     }
 
+
+    /*
+     * Build the format HTML used by the getFormat and getFormats functions.
+     */
+    private StringBuilder buildFormatHtml(SwccgFormat swccgFormat) {
+
+        StringBuilder result = new StringBuilder();
+
+        List<Integer> knownSets = new ArrayList();
+        List<Integer> validSets = new ArrayList();
+        validSets = swccgFormat.getValidSets();
+
+        for(ExpansionSet set: ExpansionSet.values()) {
+            if (set.getSetNumber() < 400) { //excludes Dream Cards, Playtesting, Legacy, etc.
+                //result.append("<p />Known Set:"+set.getSetNumber()+set.getHumanReadable());
+                knownSets.add(set.getSetNumber());
+            } // if
+        } // for
+        //for(Integer setId : swccgFormat.getValidSets()) {
+        //}
+
+        /*
+         * The CSS ID can not have special characters like ! in it or else the selector will not work.
+         */
+        String formatCssId = swccgFormat.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "").replace("!", "").replace(",", "");
+
+        //result.append("<p /><strong>.knownSets</strong>:"+knownSets.getClass().getName()+"<pre style=\"border:2px red solid;padding:5px; margin:5px;\">");
+        //result.append(knownSets);
+        //result.append("</pre><p /><strong>validSets1</strong>:"+swccgFormat.getValidSets().getClass().getName());
+        //result.append("<p /><strong>validSets2</strong>:"+validSets.getClass().getName()+"<pre style=\"border:2px red solid;padding:5px; margin:5px;\">");
+        //result.append(validSets);
+        //result.append("</pre>");
+
+
+        result.append("<div id=\""+formatCssId+"\" class=\"format-name\"onclick=\"showFormat(this);\"><span class=\"format-name-label\" onclick=\"toggleLabelArrow(this);\">" + swccgFormat.getName() + "</span></div>");
+        result.append("<div id=\""+formatCssId+"-content\" class=\"format-details\" style=\"display:none;\">");
+        result.append("<ul id=\""+formatCssId+"-details\" class=\"format-details\">");
+
+        Integer deckSize = swccgFormat.getRequiredDeckSize();
+        result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-deck-size\">Deck size:</span> <span id=\""+formatCssId+"-format-deck-size-content\" class=\"format-deck-size\">" + deckSize +"</span></li>");
+
+        Integer defaultGameTimerMinutes = swccgFormat.getDefaultGameTimerMinutes();
+        result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-default-game-timer-minutes\">Default Game Timer Minutes:</span> <span id=\""+formatCssId+"-format-default-game-timer-minutes-content\" class=\"format-default-game-timer-minutes\">" + defaultGameTimerMinutes +"</span></li>");
+
+        result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-valid-sets\" class=\"format-valid-sets-label\" onclick=\"showFormat(this);\">Valid sets:</span> ");
+
+        if (validSets.equals(knownSets)) {
+            result.append("<span class=\"all-sets-valid\">All sets valid.</span>");
+        } else {
+            result.append("<span style=\"color:yellow;\">SETS ARE LIMITED</span>");
+        }
+
+        result.append("<span id=\""+formatCssId+"-format-valid-sets-icons\" class=\"format-set-icons\">");
+
+        StringBuilder setIcons   = new StringBuilder();
+        StringBuilder setIconsLi = new StringBuilder();
+
+        for (Integer setId : swccgFormat.getValidSets()) {
+            ExpansionSet expansionSet = ExpansionSet.getSetFromNumber(setId);
+            if (expansionSet != null) {
+                String setName = expansionSet.getHumanReadable();
+                setIconsLi.append("<li>"+setName+"</li>");
+                if      (setId ==  2) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/anewhope.gif\" />"); }
+                else if (setId ==  3) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/hoth.gif\" />"); }
+                else if (setId ==  4) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/dagobah.gif\" />"); }
+                else if (setId ==  5) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/cloudcity.gif\" />"); }
+                else if (setId ==  6) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/jabbaspalace.gif\" />"); }
+                else if (setId ==  8) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/endor.gif\" />"); }
+                else if (setId ==  9) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/deathstarii.gif\" />"); }
+                else if (setId == 10) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/reflectionsii.gif\" />"); }
+                else if (setId == 11) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/tatooine.gif\" />"); }
+                else if (setId == 12) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/coruscant.gif\" />"); }
+                else if (setId == 13) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/reflectionsiii.gif\" />"); }
+                else if (setId == 14) { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/theedpalace.gif\" />"); }
+                else                  { setIcons.append("<img alt=\""+setName+"\" name=\""+setName+"\" src=\"https://res.starwarsccg.org/rules/premium.gif\" />"); }
+            }
+        }
+        result.append(setIcons.toString());
+        if (validSets.equals(knownSets)) {
+            result.append("</span> <ul id=\""+formatCssId+"-format-valid-sets-content\" style=\"display:none;\">");
+        } else {
+            result.append("</span> <ul id=\""+formatCssId+"-format-valid-sets-content\">");
+        }
+        result.append(setIconsLi.toString());
+        result.append("</ul></li>"); /* valid sets */
+
+        if (!swccgFormat.getBannedIcons().isEmpty()) {
+            /* icons not allowed are displayed by default. To hide them by default, add display:none to the ul */
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-icons-not-allowed\" class=\"format-icons-not-allowed-label\" onclick=\"showFormat(this);\">Icons not allowed:</span> <ul id=\""+formatCssId+"-format-icons-not-allowed-content\">");
+            for (String iconName : swccgFormat.getBannedIcons()) {
+                Icon icon = Icon.getIconFromName(iconName);
+                if (icon != null) {
+                    result.append("<li class=\"format-details-set-icon\">" + icon.getHumanReadable() + "</li>");
+                }
+            }
+            result.append("</ul></li>"); /* icons not allowed */
+        }
+
+        if (!swccgFormat.getBannedRarities().isEmpty()) {
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-rarities-not-allowed\" class=\"format-rarities-not-allowed-label\" onclick=\"showFormat(this);\">Rarities not allowed:</span> <ul id=\""+formatCssId+"-format-rarities-not-allowed-content\">");
+            for (String bannedRarity : swccgFormat.getBannedRarities()) {
+                Rarity rarity = Rarity.getRarityFromString(bannedRarity);
+                if (rarity != null) {
+                    result.append("<li>"+rarity.getHumanReadable() + "</li>");
+                }
+            }
+            result.append("</ul></li>"); /* rarities */
+        }
+
+        /* Provide a link to the tenets for this format. */
+        if (swccgFormat.getTenetsLink() != null) {
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-x-listed\" class=\"format-x-listed-label\" >Get the Tenets for this format from:</span> <a target='_new' href='");
+            result.append(swccgFormat.getTenetsLink()).append("'>");
+            result.append(swccgFormat.getTenetsLink());
+            result.append("</a></li>");
+        }
+
+
+        if (!swccgFormat.getBannedCards().isEmpty()) {
+            /*
+             * List all the banned cards.
+             */
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-x-listed\" class=\"format-x-listed-label\" onclick=\"showFormat(this);\">Banned cards:</span> <ul id=\""+formatCssId+"-format-x-listed-content\">");
+            /*
+             * blueprintId is a gemp_id, such as 7_299.
+             */
+            for (String blueprintId : swccgFormat.getBannedCards()) {
+                SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                if(blueprint != null) {
+                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
+                    result.append("<li name=\""+blueprintId+"\">"+GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)+"</li>");
+                }
+            }
+            result.append("</ul></li>");
+        }
+        if (!swccgFormat.getRestrictedCards().isEmpty()) {
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-r-listed\" class=\"format-r-listed-label\" onclick=\"showFormat(this);\">Restricted:</span> <ul id=\""+formatCssId+"-format-r-listed-content\" style=\"display:none;\">");
+            for (String blueprintId : swccgFormat.getRestrictedCards()) {
+                SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
+                result.append("<li>"+GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)+"</li>");
+            }
+            result.append("</ul></li>"); /* restricted cards */
+        }
+        if (!swccgFormat.getValidCards().isEmpty()) {
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-additional-valid\" class=\"format-additional-valid-label\"  onclick=\"showFormat(this);\">Aditional valid:</span> <ul id=\""+formatCssId+"-format-additional-valid-content\" style=\"display:none;\">");
+            for (String blueprintId : swccgFormat.getValidCards()) {
+                SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
+                result.append("<li>"+GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)+"</li>");
+            }
+            result.append("</ul></li>"); /* additional valid cards */
+        }
+        if (swccgFormat.hasDownloadBattlegroundRule()) {
+            result.append("<li class=\"format-detail\">Once per game, may ▼ a unique battleground not already on table</li>");
+        }
+        if (swccgFormat.hasJpSealedRule()) {
+            result.append("<li class=\"format-detail\">Any character of ability 1 who has a printed deploy number of 3 or greater is considered, for all purposes, to be ability 2</li>");
+        }
+        result.append("</ul><!-- "+formatCssId+"-content -->");
+        result.append("</div><!-- "+formatCssId+"-details -->");
+
+        return result;
+
+    } /* buildFormatHtml */
+
+
+    /*
+     * Displays a single format rule.
+     * Content-wise, is VERY similar to getFormats.
+     * But only displays a SINGLE format instead of ALL the formats.
+     */
     private void getFormat(HttpRequest request, String format, ResponseWriter responseWriter) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
@@ -361,103 +535,29 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                 || resourceOwner.hasType(Player.Type.ADMIN)
                 || resourceOwner.hasType(Player.Type.PLAY_TESTER)) {
 
-            result.append("<b>" + swccgFormat.getName() + "</b>");
-            result.append("<ul>");
-            Integer deckSize = swccgFormat.getRequiredDeckSize();
-            if (deckSize != 60) {
-                result.append("<li>Deck size: " + deckSize);
-                result.append("</li>");
-            }
-            result.append("<li>Valid sets: ");
-            for (Integer integer : swccgFormat.getValidSets()) {
-                ExpansionSet expansionSet = ExpansionSet.getSetFromNumber(integer);
-                if (expansionSet != null) {
-                    result.append(expansionSet.getHumanReadable() + ", ");
-                }
-            }
-            result.setLength(result.length() - 2);
-            result.append("</li>");
-            if (!swccgFormat.getBannedIcons().isEmpty()) {
-                result.append("<li>Icons not allowed: ");
-                for (String iconName : swccgFormat.getBannedIcons()) {
-                    Icon icon = Icon.getIconFromName(iconName);
-                    if (icon != null) {
-                        result.append("[" + icon.getHumanReadable() + "], ");
-                    }
-                }
-                result.setLength(result.length() - 2);
-                result.append("</li>");
-            }
-            if (!swccgFormat.getBannedRarities().isEmpty()) {
-                result.append("<li>Rarities not allowed: ");
-                for (String bannedRarity : swccgFormat.getBannedRarities()) {
-                    Rarity rarity = Rarity.getRarityFromString(bannedRarity);
-                    if (rarity != null) {
-                        result.append(rarity.getHumanReadable() + ", ");
-                    }
-                }
-                result.setLength(result.length()-2);
-                result.append("</li>");
-            }
-            if (!swccgFormat.getBannedCards().isEmpty()) {
-                if(swccgFormat.getBannedListLink()==null) {
-                    result.append("<li>X-listed: ");
-                    for (String blueprintId : swccgFormat.getBannedCards()) {
-                        SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                        if(blueprint != null) {
-                            SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                            result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
-                        }
-                    }
-                    result.setLength(result.length() - 2);
-                    result.append("</li>");
-                } else {
-                    result.append("<li>List of X-listed cards: <a href='");
-                    result.append(swccgFormat.getBannedListLink()).append("'>");
-                    result.append(swccgFormat.getBannedListLink());
-                    result.append("</a></li>");
-                }
-            }
-            if (!swccgFormat.getRestrictedCards().isEmpty()) {
-                result.append("<li>R-listed: ");
-                for (String blueprintId : swccgFormat.getRestrictedCards()) {
-                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                    result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
-                }
-                result.setLength(result.length() - 2);
-                result.append("</li>");
-            }
-            if (!swccgFormat.getValidCards().isEmpty()) {
-                result.append("<li>Additional valid: ");
-                for (String blueprintId : swccgFormat.getValidCards()) {
-                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                    result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
-                }
-                result.setLength(result.length() - 2);
-                result.append("</li>");
-            }
-            if (swccgFormat.hasDownloadBattlegroundRule()) {
-                result.append("<li>Once per game, may ▼ a unique battleground not already on table");
-                result.append("</li>");
-            }
-            if (swccgFormat.hasJpSealedRule()) {
-                result.append("<li>Any character of ability 1 who has a printed deploy number of 3 or greater is considered, for all purposes, to be ability 2");
-                result.append("</li>");
-            }
-            result.append("</ul>");
-        }
+            /*
+             * Only one format is displayed, so just set result to that value.
+             */
+            result = buildFormatHtml(swccgFormat);
+
+        } /* if not playtesting format */
 
         responseWriter.writeHtmlResponse(result.toString());
     }
 
+    /*
+     * Builds the content on the "Format Rules" page.
+     */
     private void getFormats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         StringBuilder result = new StringBuilder();
+        /*
+         * Loop through all the formats.
+         * Build a page that lists ALL the formats on it.
+         */
         for (SwccgFormat swccgFormat : _formatLibrary.getHallFormats().values()) {
             // Only show playtesting formats if player is a playtester or admin
             if (swccgFormat.isPlaytesting()
@@ -465,92 +565,11 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     || resourceOwner.hasType(Player.Type.PLAY_TESTER))) {
                 continue;
             }
-            result.append("<b>" + swccgFormat.getName() + "</b>");
-            result.append("<ul>");
-            Integer deckSize = swccgFormat.getRequiredDeckSize();
-            if (deckSize!=60) {
-                result.append("<li>Deck size: " + deckSize);
-                result.append("</li>");
-            }
-            result.append("<li>Valid sets: ");
-            for (Integer integer : swccgFormat.getValidSets()) {
-                ExpansionSet expansionSet = ExpansionSet.getSetFromNumber(integer);
-                if (expansionSet != null) {
-                    result.append(expansionSet.getHumanReadable() + ", ");
-                }
-            }
-            result.setLength(result.length() - 2);
-            result.append("</li>");
-            if (!swccgFormat.getBannedIcons().isEmpty()) {
-                result.append("<li>Icons not allowed: ");
-                for (String iconName : swccgFormat.getBannedIcons()) {
-                    Icon icon = Icon.getIconFromName(iconName);
-                    if (icon != null) {
-                        result.append("[" + icon.getHumanReadable() + "], ");
-                    }
-                }
-                result.setLength(result.length() - 2);
-                result.append("</li>");
-            }
-            if (!swccgFormat.getBannedRarities().isEmpty()) {
-                result.append("<li>Rarities not allowed: ");
-                for (String bannedRarity : swccgFormat.getBannedRarities()) {
-                    Rarity rarity = Rarity.getRarityFromString(bannedRarity);
-                    if (rarity != null) {
-                        result.append(rarity.getHumanReadable() + ", ");
-                    }
-                }
-                result.setLength(result.length()-2);
-                result.append("</li>");
-            }
-            if (!swccgFormat.getBannedCards().isEmpty()) {
-                if(swccgFormat.getBannedListLink()==null) {
-                    result.append("<li>X-listed: ");
-                    for (String blueprintId : swccgFormat.getBannedCards()) {
-                        SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                        if(blueprint != null) {
-                            SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                            result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
-                        }
-                    }
-                    result.setLength(result.length() - 2);
-                    result.append("</li>");
-                } else {
-                    result.append("<li>List of X-listed cards: <a href='");
-                    result.append(swccgFormat.getBannedListLink()).append("'>");
-                    result.append(swccgFormat.getBannedListLink());
-                    result.append("</a></li>");
-                }
-            }
-            if (!swccgFormat.getRestrictedCards().isEmpty()) {
-                result.append("<li>R-listed: ");
-                for (String blueprintId : swccgFormat.getRestrictedCards()) {
-                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                    result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
-                }
-                result.setLength(result.length()-2);
-                result.append("</li>");
-            }
-            if (!swccgFormat.getValidCards().isEmpty()) {
-                result.append("<li>Additional valid: ");
-                for (String blueprintId : swccgFormat.getValidCards()) {
-                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                    SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
-                    result.append(GameUtils.getCardLink(blueprintId, blueprint, backSideBlueprint)).append(", ");
-                }
-                result.setLength(result.length()-2);
-                result.append("</li>");
-            }
-            if (swccgFormat.hasDownloadBattlegroundRule()) {
-                result.append("<li>Once per game, may ▼ a unique battleground not already on table");
-                result.append("</li>");
-            }
-            if (swccgFormat.hasJpSealedRule()) {
-                result.append("<li>Any character of ability 1 who has a printed deploy number of 3 or greater is considered, for all purposes, to be ability 2");
-                result.append("</li>");
-            }
-            result.append("</ul>");
+            /*
+             * There will be multiple formats displayed.
+             * Ensure that the formats are additive so that ALL the formats are listed.
+             */
+            result.append(buildFormatHtml(swccgFormat).toString());
         }
 
         responseWriter.writeHtmlResponse(result.toString());

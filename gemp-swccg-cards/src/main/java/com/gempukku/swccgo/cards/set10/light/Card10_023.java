@@ -70,23 +70,24 @@ public class Card10_023 extends AbstractUsedOrLostInterrupt {
                 action.setText("Fire a weapon");
                 // Choose target(s)
                 action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
+                        new TargetCardOnTableEffect(action, playerId, "Choose weapon to fire", weaponFilter) {
                             @Override
-                            protected void cardSelected(final PhysicalCard weapon) {
+                            protected void cardTargeted(final int targetGroupId, final PhysicalCard weapon) {
                                 action.addAnimationGroup(weapon);
                                 // Allow response(s)
                                 action.allowResponses("Fire " + GameUtils.getCardLink(weapon),
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
+                                                final PhysicalCard finalWeapon = action.getPrimaryTargetCard(targetGroupId);
                                                 Filter targetFilter = Filters.canBeTargetedBy(self);
                                                 if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.SORRY_ABOUT_THE_MESS__WEAPONS_FIRED_MUST_TARGET_GREEDO_IF_POSSIBLE)
-                                                        && Filters.canBeFiredAt(self, Filters.and(targetFilter, Filters.Greedo), 0).accepts(game, weapon)) {
+                                                        && Filters.canBeFiredAt(self, Filters.and(targetFilter, Filters.Greedo), 0).accepts(game, finalWeapon)) {
                                                     targetFilter = Filters.and(targetFilter, Filters.Greedo);
                                                 }
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new FireWeaponEffect(action, weapon, false, targetFilter));
+                                                        new FireWeaponEffect(action, finalWeapon, false, targetFilter));
                                             }
                                         }
                                 );

@@ -78,7 +78,7 @@ public class AboutToLoseOrForfeitDuringDamageSegmentResult extends EffectResult 
      * Determines if the Force loss may not be reduced.
      * @return true or false
      */
-    public boolean isCannotBeReduced() {
+    public boolean isCannotBeReduced(SwccgGame game) {
         return false;
     }
 

@@ -106,6 +106,7 @@ public class HitCardAndResetForfeitEffect extends AbstractSubActionEffect implem
                                             PhysicalCard source = _action.getActionSource();
 
                                             gameState.cardAffectsCard(_action.getPerformingPlayer(), source, _cardHitAndReset);
+                                            game.getModifiersQuerying().hitOrMadeLostByWeapon(_cardHitAndReset, _hitByCard);
 
                                             _cardHitAndReset.setHit(true);
                                             if (!_cardHitAndReset.isSideways()) {

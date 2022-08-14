@@ -32,6 +32,7 @@ public class Card9_006 extends AbstractRebel {
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
         setSpecies(Species.MON_CALAMARI);
+        addPersona(Persona.ACKBAR);
         setMatchingStarshipFilter(Filters.Home_One);
     }
 

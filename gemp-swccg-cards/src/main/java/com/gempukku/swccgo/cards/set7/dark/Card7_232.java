@@ -29,6 +29,7 @@ public class Card7_232 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Kuat_Drive_Yards, Uniqueness.UNIQUE);
         setLore("Company that produces current generation of Star Destroyers, as well as Nebulon-B Frigates. Ship yards are extremely well defended.");
         setGameText("Deploy on Kuat system. All your Imperial-class Star Destroyers are immune to attrition < 4. Once during each of your deploy phases, may deploy one Imperial-class Star Destroyer here from Reserve Deck; reshuffle. (Immune to Alter while you occupy Kuat.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
     }
 

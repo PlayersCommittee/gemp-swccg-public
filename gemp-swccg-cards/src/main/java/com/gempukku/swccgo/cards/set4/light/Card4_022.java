@@ -23,6 +23,7 @@ public class Card4_022 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Encampment", Uniqueness.DIAMOND_1);
         setLore("Pirates, smugglers and Rebels operate from tiny camps which can be set up quickly and relocated at a moment's notice. A surprise visitor made Luke an unhappy camper.");
         setGameText("Use 2 Force to deploy on any exterior planet site where you have a Rebel or alien. You may deploy characters at this site, even without presence, regardless of location deployment restrictions.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.DAGOBAH);
     }
 

@@ -66,9 +66,10 @@ public class Card601_062 extends AbstractJediMaster {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                         // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            action.appendUsage(new OncePerGameEffect(action));
-            //TODO need to make LoseForceFromForcePileEffect
-            action.appendCost(new LoseForceFromForcePileEffect(action, playerId, 2));
+            action.appendUsage(
+                    new OncePerGameEffect(action));
+            action.appendCost(
+                    new LoseForceFromForcePileEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

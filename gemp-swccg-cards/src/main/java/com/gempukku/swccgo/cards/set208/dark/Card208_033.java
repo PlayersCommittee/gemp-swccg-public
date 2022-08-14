@@ -35,7 +35,7 @@ import java.util.List;
 public class Card208_033 extends AbstractFirstOrder {
     public Card208_033() {
         super(Side.DARK, 6, 0, 2, 2, 3, "Lieutenant Dopheld Mitaka", Uniqueness.UNIQUE);
-        setGameText("[Pilot] 2. When drawn for destiny, use 1 Force or this card is lost. During your deploy phase, may use 3 Force to relocate Kylo from here to same site as a Resistance character.");
+        setGameText("[Pilot] 2. When drawn for destiny, use 1 Force or this card is lost. During your deploy phase, may use 3 Force to relocate Kylo from here to same site as a Resistance Agent.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.VIRTUAL_SET_8);
     }
 
@@ -74,8 +74,8 @@ public class Card208_033 extends AbstractFirstOrder {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)) {
-            final Filter sameSiteAsResistanceCharacter = Filters.sameSiteAs(self, Filters.Resistance_character);
-            Filter kyloFilter = Filters.and(Filters.Kylo, Filters.here(self), Filters.canBeRelocatedToLocation(sameSiteAsResistanceCharacter, 3));
+            final Filter sameSiteAsResistanceAgent = Filters.sameSiteAs(self, Filters.Resistance_Agent);
+            Filter kyloFilter = Filters.and(Filters.Kylo, Filters.here(self), Filters.canBeRelocatedToLocation(sameSiteAsResistanceAgent, 3));
             if (GameConditions.canSpot(game, self, kyloFilter)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -88,7 +88,7 @@ public class Card208_033 extends AbstractFirstOrder {
                         new TargetCardOnTableEffect(action, playerId, "Choose Kylo", kyloFilter) {
                             @Override
                             protected void cardTargeted(int targetGroupId, final PhysicalCard kyloTargeted) {
-                                Filter siteToRelocateKylo = Filters.and(sameSiteAsResistanceCharacter, Filters.locationCanBeRelocatedTo(kyloTargeted, 3));
+                                Filter siteToRelocateKylo = Filters.and(sameSiteAsResistanceAgent, Filters.locationCanBeRelocatedTo(kyloTargeted, 3));
                                 action.appendTargeting(
                                         new ChooseCardOnTableEffect(action, playerId, "Choose site to relocate " + GameUtils.getCardLink(kyloTargeted) + " to", siteToRelocateKylo) {
                                             @Override

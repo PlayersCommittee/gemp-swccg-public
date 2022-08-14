@@ -31,7 +31,7 @@ public class Card5_125 extends AbstractNormalEffect {
         setLore("'We would be honored if you would join us.'");
         setGameText("Deploy on a Rebel of ability > 2. If subsequently captured by a bounty hunter and then transferred to a prison where Vader is present, retrieve Force equal to character's forfeit (+4 if Luke) and lose Effect. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);
-        addKeywords(Keyword.BOUNTY);
+        addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

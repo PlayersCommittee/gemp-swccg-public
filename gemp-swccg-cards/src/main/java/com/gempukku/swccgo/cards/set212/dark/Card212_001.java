@@ -26,13 +26,13 @@ import java.util.List;
 /**
  * Set: Set 12
  * Type: Effect
- * Title: Evil Is Everywhere!
+ * Title: Evil Is Everywhere
  */
 public class Card212_001 extends AbstractNormalEffect {
     public Card212_001() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Evil_Is_Everywhere, Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Deploy on table. Non-[EI] Dark Jedi are lost. Your gametext on Jedi Council Chamber is cancelled. Unless with Obi-Wan, Dooku is immune to attrition. May deploy a Hallway or [EI] lightsaber from Reserve Deck; reshuffle.[Immune to Alter]");
+        setGameText("Deploy on table. Non-[Episode I] Dark Jedi are lost. Unless with Obi-Wan, Dooku is immune to attrition. Your game text on Jedi Council Chamber is canceled. Once per turn, may [download] a mobile hallway or [Episode I] lightsaber. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -52,7 +52,7 @@ public class Card212_001 extends AbstractNormalEffect {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy card from Reserve Deck");
-            action.setActionMsg("Deploy card from Reserve Deck");
+            action.setActionMsg("Deploy a mobile hallway or [Episode I] lightsaber from Reserve Deck");
 
             // Update usage limit(s)
             action.appendUsage(

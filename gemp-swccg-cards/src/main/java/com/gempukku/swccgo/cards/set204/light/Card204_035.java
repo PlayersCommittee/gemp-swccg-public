@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class Card204_035 extends AbstractStarfighter {
     public Card204_035() {
-        super(Side.LIGHT, 0, 0, 3, null, 4, 6, 7, "The Falcon, Junkyard Garbage", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, 0, 3, null, 4, 6, 7, Title.The_Falcon_Junkyard_Garbage, Uniqueness.UNIQUE);
         setFrontOfDoubleSidedCard(true);
         setLore("The Millennium Falcon's well-known reputation is favorable not only for its captain and first mate, but for the Alliance as well.");
         setGameText("May not be placed in Reserve Deck. If Falcon about to leave table, place it out of play. May add 2 pilots and 2 passengers. Has ship-docking capability. While [Episode VII] Han or Rey piloting, maneuver +2 and immune to attrition < 4 (< 6 if both). Once during your move phase, if at a site, may flip this card (even if unpiloted).");

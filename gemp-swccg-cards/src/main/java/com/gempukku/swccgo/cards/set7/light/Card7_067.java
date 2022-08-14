@@ -27,6 +27,7 @@ public class Card7_067 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Koensayr Manufacturing", Uniqueness.UNIQUE);
         setLore("Company responsible for design of the rugged Y-wing snub fighter. Maintains sales offices on many planets. Koensayr parts often find their way into a variety of ships.");
         setGameText("Deploy on Ralltiir system. Once during each of your control phases, you may retrieve one Y-wing. Also Special Modifications is not unique (•) and makes its target immune to attrition < 4. Suspended while opponent controls Ralltiir. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

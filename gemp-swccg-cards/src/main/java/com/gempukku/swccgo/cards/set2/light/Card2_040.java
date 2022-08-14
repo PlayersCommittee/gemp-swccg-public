@@ -26,6 +26,7 @@ public class Card2_040 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Undercover);
         setLore("Alliance Intelligence expends considerable resources to infiltrate the Imperial military bureaucracy, but the ISB's security sweeps make these shadowy operations dangerous.");
         setGameText("Deploy on your spy at a site and cross spy to opponent's side.  Spy is now Undercover.  During your deploy phase, may voluntarily 'break cover' (lose Effect) if at a site. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.A_NEW_HOPE);
         addImmuneToCardTitle(Title.Alter);
     }

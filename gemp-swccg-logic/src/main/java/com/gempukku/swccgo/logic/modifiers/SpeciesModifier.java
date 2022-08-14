@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.evaluators.Evaluator;
 public class SpeciesModifier extends AbstractModifier{
     private Species _species;
     private Evaluator _evaluator;
+    private boolean _matchRepSpecies;
 
     public SpeciesModifier(PhysicalCard source, Species species) {
         this(source, source, species, 1);
@@ -36,23 +37,41 @@ public class SpeciesModifier extends AbstractModifier{
         this(source, affectFilter, condition, species, new ConstantEvaluator(count));
     }
 
+    public SpeciesModifier(PhysicalCard source, boolean matchRepSpecies) {
+        this(source, source, null, null, null, matchRepSpecies);
+    }
+
     public SpeciesModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Species species, Evaluator evaluator) {
+        this(source, affectFilter, condition, species, evaluator, false);
+    }
+
+    public SpeciesModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Species species, Evaluator evaluator, boolean matchRepSpecies) {
         super(source, null, affectFilter, condition, ModifierType.GIVE_SPECIES, true);
         _species = species;
         _evaluator = evaluator;
+        _matchRepSpecies = matchRepSpecies;
     }
 
     public Species getSpecies() {
         return _species;
     }
 
+    public boolean matchRepSpecies() {
+        return _matchRepSpecies;
+    }
+
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        if (_species == null)
+            return null;
         return _species.getHumanReadable();
     }
 
     @Override
     public boolean hasSpecies(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Species species) {
+        if (_matchRepSpecies) {
+            return gameState.getRep(physicalCard.getOwner())!=null && gameState.getRep(physicalCard.getOwner()).getBlueprint().getSpecies() == species;
+        }
         return (species == _species && _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard) > 0);
     }
 }

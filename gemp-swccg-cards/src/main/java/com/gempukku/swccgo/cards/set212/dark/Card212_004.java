@@ -9,7 +9,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.PutCardFromVoidInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -26,10 +25,10 @@ import java.util.List;
 public class Card212_004 extends AbstractStartingInterrupt {
     public Card212_004() {
         super(Side.DARK, 3, Title.Slip_Sliding_Away, Uniqueness.UNIQUE);
-        setLore("Luke got the shaft.");
-        setGameText("If you have deployed a site with exactly two [Dark Side Force] (and no other locations), deploy a battleground site. Then, unless you have deployed Imperial Square or a site with 'Palace' in title, deploy up to three Effects that are always immune to Alter. Place Interrupt in Lost Pile.");
-        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_12);
         setVirtualSuffix(true);
+        setLore("Luke got the shaft.");
+        setGameText("If you have deployed a site (except Imperial Square) with exactly two [Dark Side] (and no other locations), deploy a related (or mobile) battleground site and up to three Effects that deploy for free and are always immune to Alter. Place Interrupt in Lost Pile.");
+        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_12);
     }
 
     @Override
@@ -44,9 +43,12 @@ public class Card212_004 extends AbstractStartingInterrupt {
         }
 
         final Filter validStartingLocationFilter = Filters.and(Filters.owner(playerId),
-                Filters.and(Filters.iconCount(Icon.DARK_FORCE, 2), Filters.site));
+                Filters.and(Filters.iconCount(Icon.DARK_FORCE, 2), Filters.site),
+                Filters.except(Filters.Coruscant_Imperial_Square));
 
         if (startingLocations.size() == 1 && validStartingLocationFilter.accepts(game, startingLocations.get(0))) {
+            final PhysicalCard location = startingLocations.get(0);
+
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
             action.setText("Deploy a battleground site and Effects from Reserve Deck");
             // Allow response(s)
@@ -54,23 +56,12 @@ public class Card212_004 extends AbstractStartingInterrupt {
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
-                            action.appendTargeting(
-                                    new ChooseCardFromReserveDeckEffect(action, playerId, Filters.battleground_site) {
-                                        @Override
-                                        protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
-                                            action.appendEffect(
-                                                    new DeployCardFromReserveDeckEffect(action, Filters.sameCardId(selectedCard), false)
-                                            );
-                                            Filter filter = Filters.or(Filters.titleContains("Palace"), Filters.Coruscant_Imperial_Square);
-                                            if (!filter.accepts(game, startingLocations.get(0)) && !filter.accepts(game, selectedCard)) {
-                                                action.appendEffect(
-                                                        new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter), 1, 3, true, false));
-                                            }
-                                            action.appendEffect(
-                                                    new PutCardFromVoidInLostPileEffect(action, playerId, self));
-                                        }
-                                    }
-                            );
+                            action.appendEffect(
+                                    new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.or(Filters.relatedLocationEvenWhenNotInPlay(location), Filters.mobile_site), Filters.battleground_site), true, false));
+                            action.appendEffect(
+                                    new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.deploysForFree, Filters.always_immune_to_Alter), 1, 3, true, false));
+                            action.appendEffect(
+                                    new PutCardFromVoidInLostPileEffect(action, playerId, self));
                         }
                     }
             );

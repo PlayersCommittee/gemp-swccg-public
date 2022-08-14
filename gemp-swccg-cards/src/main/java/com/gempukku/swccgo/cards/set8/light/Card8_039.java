@@ -27,6 +27,7 @@ public class Card8_039 extends AbstractNormalEffect {
         super(Side.LIGHT, 1, PlayCardZoneOption.ATTACHED, "I Wonder Who They Found", Uniqueness.UNIQUE);
         setLore("'General Solo, is your strike team assembled?'");
         setGameText("Deploy on Han or your war room. Once during each of your deploy phases, may take one That's One, Count Me In or I'm With You Too into hand from Reserve Deck; reshuffle. While Han is at an exterior battleground site, he is immune to attrition < 4.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS, Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.ENDOR);
     }
 

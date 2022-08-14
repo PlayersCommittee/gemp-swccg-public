@@ -22,6 +22,7 @@ public class Card7_238 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Rendili StarDrive", Uniqueness.UNIQUE);
         setLore("Responsible for early Imperial space supremacy. Rendili designs provide extremely stable weapons platforms for capital ship weapons.");
         setGameText("Deploy on Rendili system. Your Victory-class Star Destroyers are deploy -2 here. Each of your Turbolaser Batteries deploys free, fires for free and adds 1 to each of its weapon destiny draws. (Immune to Alter while you occupy Rendili.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
     }
 

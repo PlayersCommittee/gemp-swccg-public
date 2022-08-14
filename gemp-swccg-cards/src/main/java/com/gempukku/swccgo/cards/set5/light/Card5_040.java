@@ -31,7 +31,7 @@ import java.util.List;
 public class Card5_040 extends AbstractUsedOrLostInterrupt {
     public Card5_040() {
         super(Side.LIGHT, 3, Title.Computer_Interface);
-        setLore("");
+        setLore("Lobot's direct link with the Cloud City central computer allowed him to efficiently manipulate the floating city's resources.");
         setGameText("USED: Cancel Limited Resources. LOST: Use 2 Force (free if Lobot on table) to examine the top card of your Reserve Deck, Force Pile and Used Pile. Return one of those three cards to the top of each deck or pile.");
         addIcons(Icon.CLOUD_CITY);
     }

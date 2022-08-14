@@ -24,6 +24,7 @@ public class Card4_121 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Field_Promotion);
         setLore("Imperial officers are fiercely competitive, especially on the Executor. Lord Vader's flagship is a place where devious political calculation prospers. The naive are doomed to failure.");
         setGameText("Deploy on an Imperial of ability < 5 present with Vader, Emperor or one of your admirals, generals, or moffs. Imperial gains leader skill, is power +1, and is immune to Demotion, Report to Lord Vader, and What is Thy Bidding, My Master? (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DAGOBAH);
         addImmuneToCardTitle(Title.Alter);
     }

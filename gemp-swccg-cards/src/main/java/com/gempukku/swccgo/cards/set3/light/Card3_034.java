@@ -28,6 +28,7 @@ public class Card3_034 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Echo_Base_Operations, Uniqueness.UNIQUE);
         setLore("Following the Battle of Yavin, the Alliance garnered the support of systems ready to oppose the Empire. Echo Base provides a command center for focusing that support.");
         setGameText("Deploy on Main Power Generators if you occupy at least three Echo sites. At every system location, you deploy is -1, your Force drains are +2 and your total power is +3 in battles. Effect canceled if opponent occupies five Hoth sites. (Immune to Alter.).");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.HOTH);
         addImmuneToCardTitle(Title.Alter);
     }

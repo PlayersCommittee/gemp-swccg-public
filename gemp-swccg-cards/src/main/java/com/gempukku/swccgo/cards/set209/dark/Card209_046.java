@@ -26,9 +26,9 @@ import java.util.List;
  */
 public class Card209_046 extends AbstractLostInterrupt {
     public Card209_046() {
-        super(Side.DARK, 6, "Apology Accepted", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, Title.Apology_Accepted, Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("\"I shall assume full responsibility for losing them and apologize to Lord Vader.\" Needa discovered that Vader was only slightly more forgiving than the Emperor.");
+        setLore("'I shall assume full responsibility for losing them and apologize to Lord Vader.' Needa discovered that Vader was only slightly more forgiving than the Emperor.");
         setGameText("During battle, lose an Imperial leader piloting your Star Destroyer. For remainder of turn, that Star Destroyer draws two battle destiny if unable to otherwise, is immune to attrition, and its power may not be increased by Imperial pilots aboard (except Vader).");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_9);
     }

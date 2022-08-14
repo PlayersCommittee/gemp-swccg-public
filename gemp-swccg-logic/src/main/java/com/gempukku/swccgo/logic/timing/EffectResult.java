@@ -109,6 +109,7 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         RETRIEVED_FORCE,
 
         // Attack
+        ATTACK_TARGET_SELECTED,
         ATTACK_INITIATED,
         ATTACK_ENDED,
         ATTACK_CANCELED,
@@ -332,6 +333,9 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // 'Insert' card revealed
         INSERT_CARD_REVEALED,
 
+        // 'Artwork' card revealed
+        ARTWORK_CARD_REVEALED,
+
         // Utinni Effect completed
         UTINNI_EFFECT_COMPLETED,
 
@@ -364,7 +368,9 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // Enslave character
         CHARACTER_ENSLAVED,
 
-        IMMUNITY_GRANTED
+        IMMUNITY_GRANTED,
+
+        CHOICE_MADE,
     }
 
     private Type _type;

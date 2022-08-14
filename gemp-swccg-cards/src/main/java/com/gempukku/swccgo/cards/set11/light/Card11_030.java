@@ -40,11 +40,11 @@ public class Card11_030 extends AbstractLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new ArrayList<>();
 
-        final Filter topRaceDestiniesFilter = Filters.and(Filters.topRaceDestiny, Filters.stackedOn(self, Filters.and(Filters.Podracer, Filters.canBeTargetedBy(self))));
+        final Filter podracerWithRaceDestinyFilter = Filters.and(Filters.Podracer, Filters.canBeTargetedBy(self), Filters.hasStacked(Filters.topRaceDestiny));
 
         // Check condition(s)
         if (GameConditions.isDuringPodrace(game)
-                && GameConditions.canTarget(game, self, topRaceDestiniesFilter)) {
+                && GameConditions.canTarget(game, self, podracerWithRaceDestinyFilter)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Place top race destinies in Used Pile");
@@ -54,7 +54,7 @@ public class Card11_030 extends AbstractLostInterrupt {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
-                            Collection<PhysicalCard> topRaceDestinies = Filters.filterStacked(game, topRaceDestiniesFilter);
+                            Collection<PhysicalCard> topRaceDestinies = Filters.filterStacked(game, Filters.and(Filters.stackedOn(self, podracerWithRaceDestinyFilter), Filters.topRaceDestiny));
                             if (!topRaceDestinies.isEmpty()) {
                                 action.appendEffect(
                                         new PutStackedCardsInUsedPileEffect(action, playerId, topRaceDestinies, false));

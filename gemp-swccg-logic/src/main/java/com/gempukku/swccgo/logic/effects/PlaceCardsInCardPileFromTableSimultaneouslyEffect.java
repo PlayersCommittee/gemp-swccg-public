@@ -35,6 +35,7 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
     private boolean _captiveWasUndercover;
     private boolean _captiveWasMissing;
     private boolean _allCardsSituation;
+    private boolean _lostCardsDoNotCountAsJustLost;
     private PhysicalCard _cardFiringWeaponToCapture;
     private Set<PhysicalCard> _preventedCards = new HashSet<PhysicalCard>();
     private PlaceCardsInCardPileFromTableSimultaneouslyEffect _that;
@@ -73,18 +74,7 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
      * @param asReleaseEscape true if this is due to Escape option of releasing, otherwise false
      */
     public PlaceCardsInCardPileFromTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToPlaceInCardPile, Zone cardPile, boolean toBottomOfPile, boolean releaseCaptives, Zone attachedCardsGoToZone, boolean asCaptureEscape, boolean captiveWasUndercover, boolean captiveWasMissing, PhysicalCard cardFiringWeaponToCapture, boolean asReleaseEscape) {
-        super(action);
-        _originalCardsToPlaceInCardPile = Collections.unmodifiableCollection(cardsToPlaceInCardPile);
-        _cardPile = cardPile;
-        _toBottomOfPile = toBottomOfPile;
-        _releaseCaptives = releaseCaptives;
-        _attachedCardsGoToZone = attachedCardsGoToZone;
-        _asCaptureEscape = asCaptureEscape;
-        _captiveWasUndercover = captiveWasUndercover;
-        _captiveWasMissing = captiveWasMissing;
-        _cardFiringWeaponToCapture = cardFiringWeaponToCapture;
-        _asReleaseEscape = asReleaseEscape;
-        _that = this;
+       this(action, cardsToPlaceInCardPile, cardPile, toBottomOfPile, releaseCaptives, attachedCardsGoToZone, asCaptureEscape, captiveWasUndercover, captiveWasMissing, cardFiringWeaponToCapture, asReleaseEscape, false, false);
     }
 
     /**
@@ -103,6 +93,26 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
      * @param allCardsSituation
      */
     public PlaceCardsInCardPileFromTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToPlaceInCardPile, Zone cardPile, boolean toBottomOfPile, boolean releaseCaptives, Zone attachedCardsGoToZone, boolean asCaptureEscape, boolean captiveWasUndercover, boolean captiveWasMissing, PhysicalCard cardFiringWeaponToCapture, boolean asReleaseEscape, boolean allCardsSituation) {
+        this(action, cardsToPlaceInCardPile, cardPile, toBottomOfPile, releaseCaptives, attachedCardsGoToZone, asCaptureEscape, captiveWasUndercover, captiveWasMissing, cardFiringWeaponToCapture, asReleaseEscape, allCardsSituation, false);
+    }
+
+    /**
+     * Creates an effect that causes one more cards on table to be placed in a card pile simultaneously.
+     * @param action the action performing this effect
+     * @param cardsToPlaceInCardPile the cards to place in card pile
+     * @param cardPile the card pile
+     * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
+     * @param releaseCaptives true if captives are released, otherwise false
+     * @param attachedCardsGoToZone the zone that any attached cards go to (instead of Lost Pile)
+     * @param asCaptureEscape true if this is due to Escape option of capturing, otherwise false
+     * @param captiveWasUndercover true if the captured character was undercover, otherwise false
+     * @param captiveWasMissing true if the captured character was missing, otherwise false
+     * @param cardFiringWeaponToCapture the card that fired weapon that caused capture, or null
+     * @param asReleaseEscape true if this is due to Escape option of releasing, otherwise false
+     * @param allCardsSituation true if this should be treated as an all cards situation
+     * @param lostCardsDoNotCountAsJustLost true if lost cards should not count as "just lost"
+     */
+    public PlaceCardsInCardPileFromTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToPlaceInCardPile, Zone cardPile, boolean toBottomOfPile, boolean releaseCaptives, Zone attachedCardsGoToZone, boolean asCaptureEscape, boolean captiveWasUndercover, boolean captiveWasMissing, PhysicalCard cardFiringWeaponToCapture, boolean asReleaseEscape, boolean allCardsSituation, boolean lostCardsDoNotCountAsJustLost) {
         super(action);
         _originalCardsToPlaceInCardPile = Collections.unmodifiableCollection(cardsToPlaceInCardPile);
         _cardPile = cardPile;
@@ -115,6 +125,7 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
         _cardFiringWeaponToCapture = cardFiringWeaponToCapture;
         _asReleaseEscape = asReleaseEscape;
         _allCardsSituation = allCardsSituation;
+        _lostCardsDoNotCountAsJustLost = lostCardsDoNotCountAsJustLost;
         _that = this;
     }
 
@@ -277,7 +288,7 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
                             SubAction putInCardPileSubAction = new SubAction(subAction);
                             if (!_placedInCardPile.isEmpty()) {
                                 putInCardPileSubAction.appendEffect(
-                                        new PutCardsInCardPileEffect(subAction, game, _placedInCardPile, _cardPile, _toBottomOfPile));
+                                        new PutCardsInCardPileEffect(subAction, game, _placedInCardPile, _cardPile, _toBottomOfPile, _lostCardsDoNotCountAsJustLost));
                             }
                             if (!_attachedCardsToLeaveTable.isEmpty()) {
                                 putInCardPileSubAction.appendEffect(
@@ -320,7 +331,7 @@ class PlaceCardsInCardPileFromTableSimultaneouslyEffect extends AbstractSubActio
                                                 new PutCardInUsedPileFromTableResult(subAction, putToPileCard));
                                     }
                                 }
-                                else if (_cardPile == Zone.LOST_PILE) {
+                                else if (_cardPile == Zone.LOST_PILE && !_lostCardsDoNotCountAsJustLost) {
                                     game.getActionsEnvironment().emitEffectResult(
                                             new LostCardFromTableResult(subAction, putToPileCard, _wasAttachedToWhenLostOrForfeited.get(putToPileCard), _locationLostOrForfeitedFrom.get(putToPileCard), _wasPresentWithWhenLostOrForfeited.get(putToPileCard)));
                                 }

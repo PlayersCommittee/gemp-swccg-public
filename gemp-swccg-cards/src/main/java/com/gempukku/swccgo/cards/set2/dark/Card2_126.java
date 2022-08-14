@@ -39,6 +39,7 @@ public class Card2_126 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Swilla Corey");
         setLore("Petty criminals throughout the galaxy often earn extra money by teaching their trade to initiates. Thievery has become more popular as the Empire tightens its grip.");
         setGameText("Deploy on your non-thief to give that character thief skill. Once during each of your control phases, may target one device at same site. Draw destiny. If destiny < target's destiny number, it is stolen. OR Deploy on a weapon to prevent theft. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.A_NEW_HOPE);
         addImmuneToCardTitle(Title.Alter);
     }

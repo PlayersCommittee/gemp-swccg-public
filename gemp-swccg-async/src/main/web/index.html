@@ -4,22 +4,7 @@
 <head>
     <title>Gemp-Swccg</title>
 
-    <style type="text/css">
-        body {
-            font-size: 12px;
-            background-color:#000000;
-        }
-
-        .ui-button-text-only .ui-button-text {
-            font-size: 70%;
-            padding: .2em .5em;
-        }
-
-        a {
-            color: gray;
-        }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/index.css">
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
     <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
@@ -170,6 +155,7 @@
 
             $(".interaction").append(loginButton);
             $(".interaction").append("<br/><br/>Watch a <a href='https://www.youtube.com/watch?v=3fccev8G7vU'>video tutorial</a> to get started.");
+            $(".interaction").append("<br/><br/>Play LotR-TCG on GEMP at <a href='https://play.lotrtcgpc.net/gemp-lotr/'>play.lotrtcgpc.net/gemp-lotr/</a>");
         }
 
         $(document).keydown(function (e) {
@@ -189,32 +175,41 @@
                 });
     </script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F898Z2M18G"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-F898Z2M18G');
+    </script>
+
 </head>
 <body>
-<div style="float: top; text-align: center;"><a href="http://www.starwarsccg.org/"><img src="https://res.starwarsccg.org/swccg_gold64.png" style="width:216px;height:147px;" /></div></a>
-<div style="color: #FFFFFF; text-align: center;"><h1>Welcome to GEMP-SWCCG!</h1></div>
+<div id="signin-page-logo"><a href="http://www.starwarsccg.org/"><img src="https://res.starwarsccg.org/swccg_gold64.png" style="width:216px;height:147px;" /></div></a>
+<div id="signin-page-welcome-message"><h1>Welcome to GEMP-SWCCG!</h1></div>
 <div class="centerContainer">
-    <div class="status" style="color:#ffffff;"></div>
-    <div class="error" style="color: #ff0000;"></div>
-    <div class="interaction" style="color: #ffffff; a { color: inherit; }"></div>
+    <div class="status"></div>
+    <div class="error"></div>
+    <div class="interaction"></div>
 </div>
-<div style="position:absolute; bottom:0; width:100%">
-<div style="text-align: center;">
-    <a href='https://res.starwarsccg.org/cardlists/PremiereType.html'><img src="images/premiere.jpg" border="0" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/ANewHopeType.html'><img src="images/anewhope.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/HothType.html'><img src="images/hoth.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/DagobahType.html'><img src="images/dagobah.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/CloudCityType.html'><img src="images/cloudcity.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/JabbasPalaceType.html'><img src="images/jabbaspalace.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/SpecialEditionType.html'><img src="images/specialedition.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/EndorType.html'><img src="images/endor.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/DeathStar2Type.html'><img src="images/deathstar2.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/ReflectionsType.html'><img src="images/ref2.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/TatooineType.html'><img src="images/tatooine.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/CoruscantType.html'><img src="images/coruscant.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/ReflectionsType.html'><img src="images/ref3.jpg" vspace="25" hspace="1"/></a>
-    <a href='https://res.starwarsccg.org/cardlists/TheedType.html'><img src="images/theedpalace.jpg" vspace="25" hspace="1"/></a>
-</div>
-</div>
+<div id="signin-page-packs">
+    <div style="text-align: center;">
+        <a href="https://res.starwarsccg.org/cardlists/PremiereType.html"><img src="https://res.starwarsccg.org/packs/premiere.jpg" border="0" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/ANewHopeType.html"><img src="https://res.starwarsccg.org/packs/anewhope.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/HothType.html"><img src="https://res.starwarsccg.org/packs/hoth.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/DagobahType.html"><img src="https://res.starwarsccg.org/packs/dagobah.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/CloudCityType.html"><img src="https://res.starwarsccg.org/packs/cloudcity.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/JabbasPalaceType.html"><img src="https://res.starwarsccg.org/packs/jabbaspalace.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/SpecialEditionType.html"><img src="https://res.starwarsccg.org/packs/specialedition.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/EndorType.html"><img src="https://res.starwarsccg.org/packs/endor.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/DeathStar2Type.html"><img src="https://res.starwarsccg.org/packs/deathstar2.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/ReflectionsType.html"><img src="https://res.starwarsccg.org/packs/ref2.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/TatooineType.html"><img src="https://res.starwarsccg.org/packs/tatooine.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/CoruscantType.html"><img src="https://res.starwarsccg.org/packs/coruscant.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/ReflectionsType.html"><img src="https://res.starwarsccg.org/packs/ref3.jpg" vspace="25" hspace="1"/></a>
+        <a href="https://res.starwarsccg.org/cardlists/TheedType.html"><img src="https://res.starwarsccg.org/packs/theedpalace.jpg" vspace="25" hspace="1"/></a>
+    </div>
+</div><!-- signin-page-packs -->
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
@@ -112,7 +113,27 @@ public class Card1_271 extends AbstractLostInterrupt {
                                                                                     }
 
                                                                                     @Override
-                                                                                    public void performDuelDirections(Action action, SwccgGame game, DuelState duelState) {
+                                                                                    public void performDuelDirections(final Action duelAction, SwccgGame game, final DuelState duelState) {
+                                                                                        duelAction.appendEffect(
+                                                                                                new DrawDestinyEffect(duelAction, game.getDarkPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getDarkPlayer()), DestinyType.DUEL_DESTINY) {
+                                                                                                    @Override
+                                                                                                    protected void destinyDraws(SwccgGame game, final List<PhysicalCard> darkDestinyCardDraws, List<Float> darkDestinyDrawValues, final Float darkTotalDestiny) {
+                                                                                                        if (darkTotalDestiny != null) {
+                                                                                                            duelState.increaseTotalDuelDestinyFromDraws(game.getDarkPlayer(), darkTotalDestiny, darkDestinyCardDraws.size());
+                                                                                                        }
+                                                                                                        duelAction.appendEffect(
+                                                                                                                new DrawDestinyEffect(duelAction, game.getLightPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getLightPlayer()), DestinyType.DUEL_DESTINY) {
+                                                                                                                    @Override
+                                                                                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> lightDestinyCardDraws, List<Float> lightDestinyDrawValues, Float lightTotalDestiny) {
+                                                                                                                        if (lightTotalDestiny != null) {
+                                                                                                                            duelState.increaseTotalDuelDestinyFromDraws(game.getLightPlayer(), lightTotalDestiny, lightDestinyCardDraws.size());
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                        );
+                                                                                                    }
+                                                                                                }
+                                                                                        );
                                                                                     }
 
                                                                                     @Override

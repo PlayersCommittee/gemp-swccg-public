@@ -13,7 +13,7 @@ function formatDate(date) {
 
 function formatPrice(price) {
     var silver = (price % 100);
-    return Math.floor(price / 100) + "<img src='images/gold.png'/> " + ((silver < 10) ? ("0" + silver) : silver) + "<img src='images/silver.png'/>";
+    return Math.floor(price / 100) + "<img src='https://res.starwarsccg.org/gemp/gold.png'/> " + ((silver < 10) ? ("0" + silver) : silver) + "<img src='https://res.starwarsccg.org/gemp/silver.png'/>";
 }
 
 function getDateString(date) {

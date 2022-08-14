@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.DuringEpicDuelWithParticipantCondition;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
 import com.gempukku.swccgo.common.*;
@@ -19,6 +20,7 @@ import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.modifiers.CrossOverAttemptTotalModifier;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -73,11 +75,13 @@ public class Card9_127 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Condition targetLeiaInsteadOfLuke = new OnTableCondition(self, Filters.There_Is_Another);
-        Condition targetLuke = new NotCondition(targetLeiaInsteadOfLuke);
+        Condition targetLeiaInsteadOfLuke = new GameTextModificationCondition(self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+        Condition targetKananInsteadOfLuke = new GameTextModificationCondition(self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        Condition targetLuke = new AndCondition(new NotCondition(targetLeiaInsteadOfLuke), new NotCondition(targetKananInsteadOfLuke));
 
         modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, new AndCondition(targetLeiaInsteadOfLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Leia))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
         modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Luke, new AndCondition(targetLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Luke))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
+        modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Kanan, new AndCondition(targetKananInsteadOfLuke, new NotCondition(new DuringEpicDuelWithParticipantCondition(Filters.Kanan))), new MultiplyEvaluator(3, new StackedEvaluator(self))));
         return modifiers;
     }
 }

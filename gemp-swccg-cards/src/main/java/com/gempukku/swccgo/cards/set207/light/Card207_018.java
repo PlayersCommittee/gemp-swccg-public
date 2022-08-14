@@ -36,6 +36,7 @@ public class Card207_018 extends AbstractCapitalStarship {
         setStarfighterCapacity(3);
         setVehicleCapacity(3);
         setCapitalStarshipCapacity(1, Filters.corvette);
+        addPersona(Persona.PROFUNDITY);
     }
 
     @Override

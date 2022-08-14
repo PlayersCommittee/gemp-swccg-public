@@ -25,6 +25,7 @@ public class Card5_018 extends AbstractNormalEffect {
         setLore("Symbol for the Cloud City Miner's Guild (not affiliated with the Galactic Miner's Guild). Named after the beldons, giant creatures who generate Tibanna gas.");
         setGameText("Deploy on Cloud City. Your Tibanna Gas Miners deploy free to Cloud City sites and double the Force they activate.");
         addIcons(Icon.CLOUD_CITY);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }
 
     @Override

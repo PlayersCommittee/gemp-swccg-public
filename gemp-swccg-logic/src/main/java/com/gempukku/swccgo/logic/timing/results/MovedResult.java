@@ -22,8 +22,8 @@ public interface MovedResult {
     PhysicalCard getMovedFrom();
 
     /**
-     * Gets the location the card moved from.
-     * @return the location the card moved from, or null if mobile system moved or if card did not move between locations
+     * Gets the location the card moved to.
+     * @return the location the card moved to, or null if mobile system moved or if card did not move between locations
      */
     PhysicalCard getMovedTo();
 

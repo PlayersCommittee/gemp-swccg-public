@@ -28,6 +28,7 @@ public class Card210_021 extends AbstractNormalEffect {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Part Of The Tribe", Uniqueness.UNIQUE);
         setLore("Wookiees are known to be creatures of great emotion and are very protective of family and friends. Chewbacca has come to treat Luke as a member of his own family.");
         setGameText("Deploy on your non-alien, non-Jedi character. When deployed, choose a species of an alien here. Character gains that species. Aliens of that species may deploy (for -1Force if non-unique) or move here as a 'react'. While on Endor, adds one [Light Side Force] icon.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_10);
     }
 

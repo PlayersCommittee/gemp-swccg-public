@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Side;
@@ -34,6 +35,7 @@ public class Card1_202 extends AbstractDevice {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Droid Detector");
         setLore("To keep out the mechanicals he so detested, Wuher installed an automatic droid detector at the entrance to the Mos Eisley Cantina.");
         setGameText("Deploy at any interior site. Cannot be moved. Droids may not deploy to same site. Following the turn this device is deployed, all droids present are lost at end of any turn.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

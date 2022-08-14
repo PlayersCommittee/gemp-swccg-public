@@ -79,7 +79,7 @@ public class Card12_135 extends AbstractNormalEffect {
         if (TriggerConditions.isAboutToRetrieveForce(game, effectResult, opponent)) {
             AboutToRetrieveForceResult result = (AboutToRetrieveForceResult) effectResult;
             if (result.getSourceCard() == null || !game.getModifiersQuerying().isForceRetrievalImmuneToSecretPlans(game.getGameState(), result.getSourceCard())) {
-                final float amountOfForce = result.getAmountOfForceToRetrieve();
+                final float amountOfForce = game.getModifiersQuerying().getVariableValue(game.getGameState(), self, Variable.X, result.getAmountOfForceToRetrieve());
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Use Force or cancel retrieval");

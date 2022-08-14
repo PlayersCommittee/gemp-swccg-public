@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -46,8 +47,8 @@ public class Card200_073 extends AbstractImperial {
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new ForceDrainsMayNotBeModifiedByModifier(self, Filters.Chiraneau, playerId));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Kuat_Drive_Yards, Title.Alter));
-        modifiers.add(new PowerModifier(self, uniqueStarDestroyers, condition, 2));
-        modifiers.add(new ImmunityToAttritionChangeModifier(self, uniqueStarDestroyers, condition, 1));
+        modifiers.add(new PowerModifier(self, uniqueStarDestroyers, condition, new PerStarDestroyerEvaluator(2)));
+        modifiers.add(new ImmunityToAttritionChangeModifier(self, uniqueStarDestroyers, condition, new PerStarDestroyerEvaluator(1)));
         return modifiers;
     }
 

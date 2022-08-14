@@ -31,6 +31,7 @@ public class Card8_042 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, Title.Wokling, Uniqueness.UNIQUE);
         setLore("Every Ewok is taught to be protective of the younger members of their clan.");
         setGameText("Use 2 Force to deploy on an Endor site where you have an Ewok.  Moves like a character.  Adds one [Light Side Force] icon while your Ewok is present.  Effect lost if you initiate a battle here or opponent controls this location.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.ENDOR);
     }
 

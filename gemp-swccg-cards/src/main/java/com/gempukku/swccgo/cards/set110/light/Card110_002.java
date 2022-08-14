@@ -65,7 +65,8 @@ public class Card110_002 extends AbstractRebel {
 
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.isInBattle(game, self)
-                && GameConditions.canTarget(game, self, targetFilter)) {
+                && GameConditions.canTarget(game, self, targetFilter)
+                && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.MASTER_LUKE__MAY_NOT_RETURN_ALIENS_TO_HAND)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             action.setText("Return opponent's alien to hand");

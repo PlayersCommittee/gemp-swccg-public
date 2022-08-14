@@ -28,6 +28,7 @@ public class Card9_124 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Endor_Shield, Uniqueness.UNIQUE);
         setLore("Planetary scale shield projected from surface of Endor moon. Protected second Death Star during construction. Only another superlaser could penetrate it while operational.");
         setGameText("Deploy on Bunker. Imperials deploy -1 here. While Death Star II system orbits Endor and you control Bunker, at Death Star II system and each Death Star site opponent may not deploy and must use +3 Force to move there.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
     }

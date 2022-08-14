@@ -71,7 +71,7 @@ public class Card200_017 extends AbstractAlien {
                                             new RevealTopCardOfReserveDeckEffect(action, playerId, opponent) {
                                                 @Override
                                                 protected void cardRevealed(final PhysicalCard revealedCard) {
-                                                    if (revealedCard.getBlueprint().isCardType(cardType)) {
+                                                    if (game.getModifiersQuerying().getCardTypes(gameState, revealedCard).contains(cardType)) {
                                                         action.appendEffect(
                                                                 new LoseCardFromTopOfReserveDeckEffect(action, opponent, revealedCard));
                                                     }

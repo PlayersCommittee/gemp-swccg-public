@@ -45,7 +45,7 @@ public class Card200_060 extends AbstractStarfighter {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActionsEvenIfUnpiloted(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.BOOSTER_IN_PULSAR_SKATE__DOWNLOAD_MIRAX;
 
         // Check condition(s)

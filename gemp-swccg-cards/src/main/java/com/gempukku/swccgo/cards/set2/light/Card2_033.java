@@ -34,7 +34,7 @@ public class Card2_033 extends AbstractImmediateEffect {
     public Card2_033() {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Grappling Hook");
         setLore("Stormtrooper utility belts contain basic tools such as a grappling hook to grab onto protrusions. The hook can also be used to ensnare escaping targets.");
-        setGameText("If opponent just played an Interrupt, use 1 Force to deploy on table. That Interrupt is played out but is then 'grappled' (placed here but is out of play). Any new Interrupts of the same name are now unique (•). (Immune to Control.)");
+        setGameText("If opponent just played an Interrupt, use 1 Force to deploy on table and stack that Interrupt here. All Interrupts of that title are unique (•). (Immune to Control.)");
         addIcons(Icon.A_NEW_HOPE, Icon.GRABBER);
         addImmuneToCardTitle(Title.Control);
     }

@@ -44,33 +44,74 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         _swccgoServer = extractObject(context, SwccgoServer.class);
     }
 
+    /*
+     * These are all calls to /gemp-swccg-server/deck/{} where {} is the uri below
+     */
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+        /*
+         * GET /gemp-swccg-server/deck/list
+         */
         if (uri.equals("/list") && request.getMethod() == HttpMethod.GET) {
             listDecks(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/libraryList
+         */
         } else if (uri.equals("/libraryList") && request.getMethod() == HttpMethod.GET) {
             listLibraryDecks(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck
+         * returns an XML format deck list.
+         */
         } else if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getDeck(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/library
+         */
         } else if (uri.equals("/library") && request.getMethod() == HttpMethod.GET) {
             getLibraryDeck(request, responseWriter);
+        /*
+         * POST /gemp-swccg-server/deck
+         */
         } else if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
             saveDeck(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/html
+         * returns an HTML format deck list.
+         */
         } else if (uri.equals("/html") && request.getMethod() == HttpMethod.GET) {
             getDeckInHtml(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/libraryHtml
+         */
         } else if (uri.equals("/libraryHtml") && request.getMethod() == HttpMethod.GET) {
             getLibraryDeckInHtml(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/rename
+         */
         } else if (uri.equals("/rename") && request.getMethod() == HttpMethod.POST) {
             renameDeck(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/delete
+         */
         } else if (uri.equals("/delete") && request.getMethod() == HttpMethod.POST) {
             deleteDeck(request, responseWriter);
+        /*
+         * GET /gemp-swccg-server/deck/stats
+         */
         } else if (uri.equals("/stats") && request.getMethod() == HttpMethod.POST) {
             getDeckStats(request, responseWriter);
+        /*
+         * The requested URL and METHOD are unknown, return access denied.
+         */
         } else {
             responseWriter.writeError(404);
         }
     }
 
+    /*
+     * Returns data used on the Deck Validation in the Deck Builder.
+     */
     private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String participantId = getFormParameterSafely(postDecoder, "participantId");
@@ -92,17 +133,28 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
                 lightCount++;
         }
 
+        String lightDarkCountBonusCss = "";
+        if ((lightCount > 0) && (darkCount > 0)) {
+            lightDarkCountBonusCss = "deckstats-card-count-light-and-dark-set";
+        }
+
         StringBuilder sb = new StringBuilder();
-        sb.append("<b>Light</b>: " + lightCount + ", <b>Dark</b>: " + darkCount + "<br/>");
+        sb.append("<div id=\"deckstats-card-count-container\">");
+        sb.append("<div id=\"deckstats-light-container\" class=\""+lightDarkCountBonusCss+"\"><span id=\"deckstats-light\">Light Cards:</span> <span id=\"deckstats-light-content\">" + lightCount + "</span></div>");
+        sb.append("<div id=\"deckstats-dark-container\"  class=\""+lightDarkCountBonusCss+"\"><span id=\"deckstats-dark\">Dark Cards:</span> <span id=\"deckstats-dark-content\">" + darkCount + "</span></div>");
+        sb.append("</div>");
+        /* Clear out the floats. Render all elements after inline */
+        sb.append("<div style=\"clear:both; margin-bottom:1em;\"></div>");
 
         StringBuilder valid = new StringBuilder();
         StringBuilder invalid = new StringBuilder();
         for (SwccgFormat format : _formatLibrary.getAllFormats().values()) {
+            String formatCssId = format.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "");
             try {
                 format.validateDeck(deck);
-                valid.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
+                valid.append("<div id=\"deckstats-format-"+formatCssId+"-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-"+formatCssId+"\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-"+formatCssId+"-content\" class=\"deckstats-format-valid\">valid</span></div>");
             } catch (DeckInvalidException exp) {
-                invalid.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
+                invalid.append("<div id=\"deckstats-format-"+formatCssId+"-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-"+formatCssId+"\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-"+formatCssId+"-content\" class=\"deckstats-format-invalid\">" + exp.getMessage() + "</span></div>");
             }
         }
         sb.append(valid);
@@ -246,8 +298,10 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         } else {
 
             Document serializedDeck = serializeDeck(deck);
-
-            // Allow for "pretty" output for deck downloads
+            /*
+             * "pretty" output is used by deck downloads in the deck builder.
+             * /gemp-swccg-server/deck?deckName=X&cacheBreaker=968804&pretty=true
+             */
             String pretty = getQueryParameterSafely(queryDecoder, "pretty");
             if (pretty != null) {
                 String documentAsString = documentToString(serializedDeck);
@@ -392,7 +446,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
 
         result.append("<br/>");
         result.append("<b>Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("sort:cardType,name", deckCards.getAll().values(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("sort:cardCategory,name", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getSwccgoCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("</body></html>");
@@ -429,7 +483,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         Element deckElem = doc.createElement("deck");
         doc.appendChild(deckElem);
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,name", createCardItems(deck.getCards()), _library, _formatLibrary, null)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardCategory,name", createCardItems(deck.getCards()), _library, _formatLibrary, null)) {
             Element card = doc.createElement("card");
             card.setAttribute("blueprintId", cardItem.getBlueprintId());
             SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(cardItem.getBlueprintId());
@@ -449,7 +503,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
             }
             deckElem.appendChild(card);
         }
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,name", createCardItems(deck.getCardsOutsideDeck()), _library, _formatLibrary, null)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardCategory,name", createCardItems(deck.getCardsOutsideDeck()), _library, _formatLibrary, null)) {
             Element cardOutsideDeck = doc.createElement("cardOutsideDeck");
             cardOutsideDeck.setAttribute("blueprintId", cardItem.getBlueprintId());
             SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(cardItem.getBlueprintId());

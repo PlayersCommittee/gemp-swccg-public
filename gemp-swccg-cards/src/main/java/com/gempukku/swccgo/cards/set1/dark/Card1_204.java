@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Side;
@@ -34,6 +35,7 @@ public class Card1_204 extends AbstractDevice {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Observation Holocam");
         setLore("Remote surveillance viewers with droid controllers supplement security. Can activate alarms and automated weapons when needed, bringing help to endangered locations.");
         setGameText("Deploy on a site. Adds 1 to the total weapon destiny of each of your automated weapons at same and adjacent sites. During battle, may add the power of one of your characters at an adjacent site you control to your total.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.collection.TransferDAO;
 import com.gempukku.swccgo.db.DeckDAO;
+import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.game.CardCollection;
@@ -28,11 +29,13 @@ import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 
 public class SwccgoServerRequestHandler {
+    public static final int WEEKLY_GOLD = 1500;
     protected PlayerDAO _playerDao;
     protected LoggedUserHolder _loggedUserHolder;
     private TransferDAO _transferDAO;
     private CollectionsManager _collectionManager;
     protected DeckDAO _deckDao;
+    protected GempSettingDAO _gempSettingDAO;
 
     public SwccgoServerRequestHandler(Map<Type, Object> context) {
         _playerDao = extractObject(context, PlayerDAO.class);
@@ -40,6 +43,7 @@ public class SwccgoServerRequestHandler {
         _transferDAO = extractObject(context, TransferDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _deckDao = extractObject(context, DeckDAO.class);
+        _gempSettingDAO = extractObject(context, GempSettingDAO.class);
     }
 
     private boolean isTest() {
@@ -66,7 +70,7 @@ public class SwccgoServerRequestHandler {
                 else {
                     if (latestMonday != lastReward) {
                         if (_playerDao.updateLastReward(player, lastReward, latestMonday)) {
-                            _collectionManager.addCurrencyToPlayerCollection(true, "Weekly reward", player, CollectionType.MY_CARDS, 500);
+                            _collectionManager.addCurrencyToPlayerCollection(true, "Weekly reward", player, CollectionType.MY_CARDS, WEEKLY_GOLD);
                         }
                     }
                 }

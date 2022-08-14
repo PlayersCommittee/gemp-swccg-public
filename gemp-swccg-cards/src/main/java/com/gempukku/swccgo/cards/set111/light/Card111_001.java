@@ -35,6 +35,7 @@ public class Card111_001 extends AbstractNormalEffect {
         setLore("Due to constant Imperial pursuit, Alliance engineers became adept at constructing new facilities quickly.");
         setGameText("Deploy on 1st marker. Yavin 4 locations do not count for Imperial Decree. S-foils and your 'insert' cards are canceled. Once during each of your turns, may take up to two sites (or one site and one Effect) with 'Echo' in title or one planet system with two [Light Side Force] icons into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.PREMIUM);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addImmuneToCardTitle(Title.Alter);
     }
 

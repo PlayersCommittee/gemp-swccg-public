@@ -25,7 +25,7 @@ public class DrawsBattleDestinyIfUnableToOtherwiseModifier extends AbstractModif
 
     /**
      * Creates a modifier that specifies "Draws X battle destiny if unable to otherwise".
-     * @param source the card that is the source of the modifier and that can draw battle destiny
+     * @param source the card that is the source of the modifier
      * @param affectedFilter the filter for cards that can draw battle destiny
      * @param modifierAmount the number of destiny
      */

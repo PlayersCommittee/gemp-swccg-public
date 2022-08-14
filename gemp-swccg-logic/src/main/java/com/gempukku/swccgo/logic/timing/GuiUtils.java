@@ -262,7 +262,7 @@ public class GuiUtils {
             if (attackState.getAttackDestinyTotal(attackState.getAttackerOwner()) != null) {
                 return 0;
             }
-            return (modifiersQuerying.getAttackTotalAbility(gameState, false) >= 4) ? 1 : 0;
+            return modifiersQuerying.getNumAttackDestinyDraws(gameState, attackState.getAttackerOwner(), false, true);
         }
     }
 
@@ -292,7 +292,7 @@ public class GuiUtils {
             if (attackState.getAttackDestinyTotal(attackState.getDefenderOwner()) != null) {
                 return 0;
             }
-            return (modifiersQuerying.getAttackTotalAbility(gameState, true) >= 4) ? 1 : 0;
+            return modifiersQuerying.getNumAttackDestinyDraws(gameState, attackState.getDefenderOwner(), false, true);
         }
     }
 
@@ -309,6 +309,21 @@ public class GuiUtils {
         }
         return game.getModifiersQuerying().getHighestRaceTotal(gameState, playerId);
     }
+
+    /**
+     * Gets the politics total for the specified player.
+     * @param game the game
+     * @param playerId the player
+     * @return the politics total, or -1 if galactic senate not on table
+     */
+    public static float getPoliticsTotal(SwccgGame game, String playerId) {
+        GameState gameState = game.getGameState();
+        if(!game.getModifiersQuerying().isSenateInSession()){
+            return -1;
+        }
+        return game.getModifiersQuerying().getTotalPoliticsAtGalacticSenate(gameState, playerId);
+    }
+
 
     /**
      * Format a float value as a String for display.

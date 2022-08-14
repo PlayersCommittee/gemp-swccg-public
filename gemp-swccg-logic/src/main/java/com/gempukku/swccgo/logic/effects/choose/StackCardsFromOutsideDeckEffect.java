@@ -54,12 +54,25 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
      * @param cardFilter the filter for cards to be stacked
      */
     public StackCardsFromOutsideDeckEffect(Action action, String playerId, int min, int max, PhysicalCard stackOn, Filterable cardFilter) {
+        this(action, playerId, min, max, stackOn, true, cardFilter);
+    }
+
+    /**
+     * Creates an effect that stacks cards from outside of deck accepted by the filter on a specified card.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param min the minimum cards to stack
+     * @param max the maximum cards to stack
+     * @param stackOn the card to stack on
+     * @param cardFilter the filter for cards to be stacked
+     */
+    public StackCardsFromOutsideDeckEffect(Action action, String playerId, int min, int max, PhysicalCard stackOn, boolean faceDown, Filterable cardFilter) {
         super(action);
         _playerId = playerId;
         _min = min;
         _max = max;
         _stackOn = stackOn;
-        _faceDown = true;
+        _faceDown = faceDown;
         _cardFilter = cardFilter;
         _stackAsManyAsPossible = true;
         _that = this;

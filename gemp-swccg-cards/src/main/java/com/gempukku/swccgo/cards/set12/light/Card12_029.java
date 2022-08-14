@@ -36,6 +36,7 @@ public class Card12_029 extends AbstractRepublic {
         setLore("Senator for the Naboo. Advised Amidala on actions required to highlight their conflict with the Trade Federation. Watches young Skywalker's future with great interest.");
         setGameText("Agendas: ambition, peace, order. While in a senate majority, once per turn, if opponent just drew battle destiny, use 1 Force to add its destiny number to your total power in that battle (you may not cancel that draw). Amidala is politics +1 here.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
+        addPersona(Persona.SIDIOUS);
         addKeywords(Keyword.SENATOR);
     }
 

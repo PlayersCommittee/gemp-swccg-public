@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AllCharactersAtLocationsAreCondition;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentWhereAffectedCardIsAtEvaluator;
 import com.gempukku.swccgo.common.*;
@@ -9,7 +10,9 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.modifiers.*;
 
 import java.util.LinkedList;
@@ -34,7 +37,12 @@ public class Card208_042 extends AbstractNormalEffect {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
         Filter nonUniqueDestroyerDroids = Filters.and(Filters.non_unique, Filters.destroyer_droid);
-        Condition condition = new AllCharactersAtLocationsAreCondition(self, playerId, Filters.site, Filters.or(Filters.destroyer_droid, Filters.Neimoidian));
+        Condition condition =
+                new OrCondition(
+                        new AllCharactersAtLocationsAreCondition(self, playerId, Filters.site, Filters.or(Filters.destroyer_droid, Filters.Neimoidian)),
+                        new AndCondition(new GameTextModificationCondition(self, ModifyGameTextType.WAT_TAMBOR__IGNORED_BY_WHERE_ARE_THOSE_DROIDEKAS),
+                                new AllCharactersAtLocationsAreCondition(self, playerId, Filters.site, Filters.or(Filters.destroyer_droid, Filters.Neimoidian, Filters.title("Wat Tambor")))
+                        ));
 
         Filter opponentsCharactersDV3Plus = Filters.and(Filters.opponents(self), Filters.character, Filters.defenseValueMoreThanOrEqualTo(3), Filters.at(Filters.wherePresent(self, Filters.destroyer_droid)));
         Filter opponentsCharactersAll = Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.wherePresent(self, Filters.destroyer_droid)));

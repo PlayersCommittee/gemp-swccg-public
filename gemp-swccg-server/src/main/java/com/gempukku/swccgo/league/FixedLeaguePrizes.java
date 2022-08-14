@@ -34,6 +34,12 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         for (int i = 101; i < (101 + CardCounts.PREMIUM_SETS_CARD_COUNTS.length); i++) {
             addCardsToPrizePools(rarityReader.getSetRarity(String.valueOf(i)));
         }
+        for (int i = 200; i < (200 + CardCounts.VIRTUAL_SETS_CARD_COUNTS.length); i++) {
+            addCardsToPrizePools(rarityReader.getSetRarity(String.valueOf(i)));
+        }
+        for (int i = 301; i < (301 + CardCounts.VIRTUAL_PREMIUM_SETS_CARD_COUNTS.length); i++) {
+            addCardsToPrizePools(rarityReader.getSetRarity(String.valueOf(i)));
+        }
     }
 
     /**
@@ -56,6 +62,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         _raresAndPremiums.addAll(filterNonExistingCards(setRarity.getCardsOfRarity(Rarity.R2)));
         _raresAndPremiums.addAll(filterNonExistingCards(setRarity.getCardsOfRarity(Rarity.XR)));
         _raresAndPremiums.addAll(filterNonExistingCards(setRarity.getCardsOfRarity(Rarity.UR)));
+        _raresAndPremiums.addAll(filterNonExistingCards(setRarity.getCardsOfRarity(Rarity.V)));
     }
 
     /**

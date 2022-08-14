@@ -25,6 +25,7 @@ public class Card3_101 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Frostbite, Uniqueness.UNIQUE);
         setLore("'Luke! Luke! Don't do this. C'mon, gimme a sign here.'");
         setGameText("Deploy on Hoth system. At the end of each player's turn, for every character that player has present at a marker site under 'nighttime conditions,' that player must lose 1 Force (2 if character is missing).");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.HOTH);
     }
 

@@ -30,7 +30,7 @@ public class Card3_001 extends AbstractDroid {
     public Card3_001() {
         super(Side.LIGHT, 1, 2, 0, 5, Title._21B, Uniqueness.UNIQUE);
         setLore("Made by Genetech. Unusually independent for a droid. Forced to serve a Moff on Firro, but was liberated by Tiree. Now dedicated to serving the Alliance.");
-        setGameText("Once per turn, one of your non-droid characters lost from same site may go to your Used Pile rather than your Lost Pile. Subtracts 2 from X on you Bacta Tank.");
+        setGameText("Once per turn, one of your non-droid characters lost from same site may go to your Used Pile rather than your Lost Pile. Subtracts 2 from X on your Bacta Tank.");
         addIcons(Icon.HOTH);
         addModelType(ModelType.MEDICAL);
     }

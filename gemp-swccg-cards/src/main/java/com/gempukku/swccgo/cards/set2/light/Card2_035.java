@@ -26,6 +26,7 @@ public class Card2_035 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Luke's Cape", Uniqueness.UNIQUE);
         setLore("A symbol of the adventurous pilot and the awakening of his destiny. 'You've taken your first step into a larger world.'");
         setGameText("Use 2 Force to deploy on a Rebel or alien. If Luke's Cape is not at a Tatooine location, your total Force generation is +1. That character is immune to attrition < 3.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.A_NEW_HOPE);
     }
 

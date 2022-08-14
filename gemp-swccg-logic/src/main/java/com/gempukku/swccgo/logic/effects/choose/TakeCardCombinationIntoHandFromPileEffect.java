@@ -37,6 +37,7 @@ abstract class TakeCardCombinationIntoHandFromPileEffect extends AbstractSubActi
     private List<PhysicalCard> _cardsToTakeIntoHand = new LinkedList<PhysicalCard>();
     private List<PhysicalCard> _cardsTakenIntoHand = new LinkedList<PhysicalCard>();
     private TakeCardCombinationIntoHandFromPileEffect _that;
+    private String _lastResult;
 
     /**
      * Creates an effect that causes the player to search the specified card pile and take a combination of cards into hand.
@@ -54,6 +55,7 @@ abstract class TakeCardCombinationIntoHandFromPileEffect extends AbstractSubActi
         _reshuffle = reshuffle;
         _hidden = false;
         _that = this;
+        _lastResult = null;
     }
 
     @Override
@@ -242,9 +244,18 @@ abstract class TakeCardCombinationIntoHandFromPileEffect extends AbstractSubActi
                                     _cardsToTakeIntoHand = getSelectedCardsByResponse(result);
                                     boolean isCurrentCombinationValid = isSelectionValid(game, _cardsToTakeIntoHand);
                                     Filter selectionFilter = getValidToSelectFilter(game, _cardsToTakeIntoHand);
-                                    if (!isCurrentCombinationValid || !Filters.filterCount(cardsInPile, game, 1, Filters.and(selectionFilter, Filters.not(Filters.in(_cardsToTakeIntoHand)))).isEmpty()) {
-                                        subAction.appendEffect(
-                                                getSelectCardEffect(subAction, cardsInPile));
+
+                                    if (_lastResult != null && _lastResult.equals(result) && isCurrentCombinationValid) {
+                                        // user clicked Done
+                                        // valid selection even though there is at least one additional card you could take
+                                        // don't do anything here
+                                    } else {
+                                        _lastResult = result;
+
+                                        if (!isCurrentCombinationValid || !Filters.filterCount(cardsInPile, game, 1, Filters.and(selectionFilter, Filters.not(Filters.in(_cardsToTakeIntoHand)))).isEmpty()) {
+                                            subAction.appendEffect(
+                                                    getSelectCardEffect(subAction, cardsInPile));
+                                        }
                                     }
                                 }
                             });

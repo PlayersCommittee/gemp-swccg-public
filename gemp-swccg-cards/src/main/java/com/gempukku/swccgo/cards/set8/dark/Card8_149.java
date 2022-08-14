@@ -79,9 +79,7 @@ public class Card8_149 extends AbstractUsedOrLostInterrupt {
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.opponents(self), Filters.Rebel))
                 && !GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.opponents(self), Filters.protocol_droid))) {
             final BattleState battleState = game.getGameState().getBattleState();
-            final float currentAttrition = battleState.getAttritionTotal(game, playerId);
-            final float currentPower = battleState.getTotalPower(game, game.getOpponent(playerId));
-            if (currentAttrition > 0 && currentPower > 0) {
+            if (battleState.hasAttritionTotal(game.getOpponent(playerId))) {
 
                 final PlayInterruptAction action1 = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action1.setText("Draw one destiny to reduce attrition and power");

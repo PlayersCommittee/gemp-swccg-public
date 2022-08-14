@@ -25,6 +25,7 @@ public class Card10_050 extends AbstractNormalEffect {
         super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, "Sunsdown & Too Cold For Speeders");
         addComboCardTitles(Title.Sunsdown, Title.Too_Cold_For_Speeders);
         setGameText("Deploy on any planet system. At related sites: nighttime conditions are in effect; non-creature vehicles are power = 0, maneuver = 0, and landspeed = 0; spies deploy -1; and in battles there both sides add one destiny to power only.");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.REFLECTIONS_II);
     }
 

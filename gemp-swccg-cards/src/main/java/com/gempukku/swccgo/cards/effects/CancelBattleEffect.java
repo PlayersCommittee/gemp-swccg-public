@@ -17,14 +17,22 @@ public class CancelBattleEffect extends PassthruEffect {
     protected void doPlayEffect(SwccgGame game) {
         BattleState battleState = game.getGameState().getBattleState();
         if (battleState != null && battleState.canContinue(game)) {
-            battleState.cancel();
-            
-            if (_action.getPerformingPlayer() != null)
-                game.getGameState().sendMessage(_action.getPerformingPlayer() + " cancels battle at " + GameUtils.getCardLink(battleState.getBattleLocation()) + " using " + GameUtils.getCardLink(_action.getActionSource()));
-            else
-                game.getGameState().sendMessage(GameUtils.getCardLink(_action.getActionSource()) + " cancels battle at " + GameUtils.getCardLink(battleState.getBattleLocation()));
 
-            game.getActionsEnvironment().emitEffectResult(new CancelBattleResult(_action.getPerformingPlayer(), battleState.getBattleLocation()));
+            if ((_action.getPerformingPlayer() != null
+                    && game.getModifiersQuerying().mayNotCancelBattle(game.getGameState(), _action.getPerformingPlayer()))) {
+
+                game.getGameState().sendMessage(_action.getPerformingPlayer() + " may not cancel battle");
+
+            } else {
+                battleState.cancel();
+
+                if (_action.getPerformingPlayer() != null)
+                    game.getGameState().sendMessage(_action.getPerformingPlayer() + " cancels battle at " + GameUtils.getCardLink(battleState.getBattleLocation()) + " using " + GameUtils.getCardLink(_action.getActionSource()));
+                else
+                    game.getGameState().sendMessage(GameUtils.getCardLink(_action.getActionSource()) + " cancels battle at " + GameUtils.getCardLink(battleState.getBattleLocation()));
+
+                game.getActionsEnvironment().emitEffectResult(new CancelBattleResult(_action.getPerformingPlayer(), _action.getActionSource(), battleState.getBattleLocation()));
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ public class Card3_100 extends AbstractNormalEffect {
         setLore("'Make ready to land our troops beyond their energy field and deploy the fleet so that nothing gets off the system.'");
         setGameText("Deploy on any system. Adds X to total power of your starships at that system, where X = number of your starships present. Your troopers and combat vehicles may shuttle to related sites for free.");
         addIcons(Icon.HOTH);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.logic.effects.choose;
 
+import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -19,6 +21,17 @@ public class PlayInterruptFromLostPileEffect extends PlayInterruptFromPileEffect
      */
     public PlayInterruptFromLostPileEffect(Action action, boolean reshuffle, boolean placeOutOfPlay) {
         super(action, Zone.LOST_PILE, Filters.any, null, null, reshuffle, placeOutOfPlay);
+    }
+
+    /**
+     * Creates an effect that causes the player performing the action to choose and play an Interrupt from Lost Pile.
+     * @param action the action performing this effect
+     * @param interruptFilter the interrupt filter
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     * @param placeOutOfPlay true if Interrupt is placed out of play, otherwise false
+     */
+    public PlayInterruptFromLostPileEffect(Action action, Filter interruptFilter, boolean reshuffle, boolean placeOutOfPlay) {
+        super(action, Zone.LOST_PILE, interruptFilter, null, null, reshuffle, placeOutOfPlay);
     }
 
     /**

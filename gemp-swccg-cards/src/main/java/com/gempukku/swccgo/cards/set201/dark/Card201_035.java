@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card201_035 extends AbstractUsedInterrupt {
     public Card201_035() {
-        super(Side.DARK, 5, "Cold Feet");
+        super(Side.DARK, 5, Title.Cold_Feet);
         setVirtualSuffix(true);
         setLore("Wampas pack snow around the appendages of captured prey, making use of Hoth's cold environment to immobilize them.");
         setGameText("Play a Defensive Shield from under your Starting Effect. [Immune to Sense] OR Cancel Mantellian Savrip or Surprise Assault. OR Cancel an attempt to remove a just-lost character from opponent's Lost Pile.");

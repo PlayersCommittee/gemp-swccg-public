@@ -33,6 +33,7 @@ public class Card7_078 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.The_Planet_That_Its_Farthest_From, Uniqueness.UNIQUE);
         setLore("The Rebellion operates freely in many Outer Rim territories, allowing them to ignore Imperial activities in the core systems.");
         setGameText("Deploy on Tatooine system or Dagobah system. Target another system. At locations related to target system, opponent's Force drain modifiers are canceled. Effect canceled if opponent controls this system. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

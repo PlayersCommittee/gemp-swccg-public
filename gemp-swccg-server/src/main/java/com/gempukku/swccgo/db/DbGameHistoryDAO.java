@@ -16,11 +16,11 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winnerSide, String darkDeckString, String lightDeckString, Date startDate, Date endDate) {
+    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, String winnerDeckArchetype, String loserDeckArchetype, String winnerSide, String darkDeckString, String lightDeckString, String leagueType, String sealedLeagueType, Date startDate, Date endDate) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, winner_deck_archetype, loser_deck_archetype, winner_side, dark_deck_string, light_deck_string, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, winner_deck_archetype, loser_deck_archetype, winner_side, dark_deck_string, light_deck_string, league_type, sealed_league_type, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 try {
                     statement.setString(1, winner);
                     statement.setString(2, loser);
@@ -37,8 +37,10 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                     statement.setString(13, winnerSide);
                     statement.setString(14, darkDeckString);
                     statement.setString(15, lightDeckString);
-                    statement.setLong(16, startDate.getTime());
-                    statement.setLong(17, endDate.getTime());
+                    statement.setString(16, leagueType);
+                    statement.setString(17, sealedLeagueType);
+                    statement.setLong(18, startDate.getTime());
+                    statement.setLong(19, endDate.getTime());
 
                     statement.execute();
                 } finally {
@@ -48,7 +50,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                 connection.close();
             }
         } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get count of player games", exp);
+            throw new RuntimeException("Unable to store game history", exp);
         }
     }
 
@@ -95,7 +97,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                 connection.close();
             }
         } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get count of player games", exp);
+            throw new RuntimeException("Unable to get game history", exp);
         }
     }
 

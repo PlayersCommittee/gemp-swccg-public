@@ -65,7 +65,7 @@ public class Card210_031 extends AbstractNormalEffect {
             final SwccgGame thisGame = game;
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Stack top cards from lost pile on sites");
+            action.setText("Stack top cards from Lost Pile on sites");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));

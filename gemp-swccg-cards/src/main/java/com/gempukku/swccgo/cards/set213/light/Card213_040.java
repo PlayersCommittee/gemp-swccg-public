@@ -69,7 +69,7 @@ public class Card213_040 extends AbstractJediMaster {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
 
         // Check condition(s)
-        if (TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult)
+        if (TriggerConditions.isWeaponDestinyDrawComplete(game, effectResult)
                 && GameConditions.isDuringBattleWithParticipant(game, self)
                 && GameConditions.isAlone(game, self)) {
             if (GameConditions.cardHasWhileInPlayDataSet(self)) {

@@ -18,6 +18,7 @@ import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -73,6 +74,7 @@ public class Card208_035 extends AbstractDarkJediMaster {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.here(self))
                 && (GameConditions.isAlone(game, self)
+                || GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TRAGEDY_OF_PLAGUEIS__LORD_SIDIOUS_MAY_USE_GAME_TEXT_AS_IF_ALONE)
                 || GameConditions.canSpot(game, self, Filters.and(Filters.Objective, Icon.THEED_PALACE)))
                 && GameConditions.canTarget(game, self, targetingReason, targetFilter)) {
 

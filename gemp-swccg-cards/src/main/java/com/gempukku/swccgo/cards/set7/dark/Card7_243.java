@@ -29,7 +29,7 @@ public class Card7_243 extends AbstractNormalEffect {
         setLore("'You don't know how hard I found it signing the order to terminate your life.'");
         setGameText("Deploy on opponent's spy or Rebel leader. If subsequently captured by a bounty hunter or Imperial and then transferred to Detention Block Corridor, retrieve Force equal to character's forfeit (+4 if Leia) and lose Effect. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
-        addKeywords(Keyword.BOUNTY);
+        addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

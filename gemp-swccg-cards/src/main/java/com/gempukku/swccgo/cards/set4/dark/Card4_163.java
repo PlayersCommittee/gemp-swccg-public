@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Persona;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,6 +31,7 @@ public class Card4_163 extends AbstractUniqueStarshipSite {
         setLocationLightSideGameText("If you occupy, opponent's Meditation Chamber game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.DAGOBAH, Icon.INTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.SCOMP_LINK);
+        addKeyword(Keyword.EXECUTOR_SITE);
     }
 
     @Override

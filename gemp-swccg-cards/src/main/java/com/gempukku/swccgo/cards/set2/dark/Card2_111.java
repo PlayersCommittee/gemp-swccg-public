@@ -29,7 +29,7 @@ public class Card2_111 extends AbstractDevice {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Star_Tractor_Beam);
         setLore("'Why are we moving towards it?'");
         setGameText("Use 2 Force to deploy on Docking Bay 327. At the end of a battle at Death Star system, may target an opponent's starship present (except a Mon Calamari star cruiser) using 2 Force. Draw two destiny. Target captured if total destiny > defense value.");
-        addKeyword(Keyword.TRACTOR_BEAM);
+        addKeywords(Keyword.TRACTOR_BEAM, Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.A_NEW_HOPE);
     }
 

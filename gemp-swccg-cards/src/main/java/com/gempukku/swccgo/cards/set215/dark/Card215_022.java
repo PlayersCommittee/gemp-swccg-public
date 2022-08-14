@@ -32,7 +32,7 @@ public class Card215_022 extends AbstractImperial {
         super(Side.DARK, 1, 4, 3, 3, 6, "Admiral Piett", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Veteran of the Imperial military machine. Leader of the Imperial fleet at Endor. Skilled at political maneuvering and appeasing his powerful superiors.");
-        setGameText("[Pilot] 3: Executor. Deploys -1 for each of your starship sites on table. Landing Claw may not attach here. Once per game, if piloting Executor, may [upload] Emperor's Orders.");
+        setGameText("[Pilot] 3: Executor. Deploys -1 for each of your starship sites on table. Starfighters here may not 'attach.' Once per game, if piloting Executor, may [upload] Emperor's Orders.");
         addPersona(Persona.PIETT);
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_15);
         addKeywords(Keyword.ADMIRAL, Keyword.LEADER);
@@ -50,7 +50,7 @@ public class Card215_022 extends AbstractImperial {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3, Filters.Executor));
-        modifiers.add(new MayNotAttachModifier(self, Filters.and(Filters.Landing_Claw, Filters.here(self))));
+        modifiers.add(new MayNotAttachModifier(self, Filters.and(Filters.starfighter, Filters.here(self))));
         return modifiers;
     }
 

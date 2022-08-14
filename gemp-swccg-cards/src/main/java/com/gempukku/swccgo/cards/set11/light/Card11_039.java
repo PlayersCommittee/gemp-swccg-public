@@ -12,10 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.PutCardFromVoidInReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
-import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.SubstituteDestinyEffect;
+import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
@@ -51,50 +48,83 @@ public class Card11_039 extends AbstractLostOrStartingInterrupt {
                 && GameConditions.hasInHand(game, playerId, Filters.not(self))) {
             final AboutToDrawDestinyCardResult aboutToDrawDestinyCardResult = (AboutToDrawDestinyCardResult) effectResult;
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Use card from hand for race destiny");
-            // Allow response(s)
-            action.allowResponses("Use a card from hand for race destiny",
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new ChooseCardFromHandEffect(action, playerId, Filters.not(self)) {
-                                        @Override
-                                        protected void cardSelected(final SwccgGame game, final PhysicalCard selectedCard) {
-                                            action.appendEffect(
-                                                    new RefreshPrintedDestinyValuesEffect(action, Collections.singletonList(selectedCard)) {
-                                                        @Override
-                                                        protected void refreshedPrintedDestinyValues() {
-                                                            final GameState gameState = game.getGameState();
-                                                            final PhysicalCard stackRaceDestinyOn = aboutToDrawDestinyCardResult.getStackRaceDestinyOn();
-                                                            final float destinyValue = game.getModifiersQuerying().getDestiny(gameState, selectedCard);
-                                                            action.appendEffect(
-                                                                    new SubstituteDestinyEffect(action, destinyValue));
-                                                            action.appendEffect(
-                                                                    new PassthruEffect(action) {
-                                                                        @Override
-                                                                        protected void doPlayEffect(SwccgGame game) {
-                                                                            float destiny = selectedCard.getDestinyValueToUse();
-                                                                            gameState.removeCardFromZone(selectedCard);
-                                                                            selectedCard.setDestinyValueToUse(destiny);
-                                                                            selectedCard.setRaceDestinyForPlayer(playerId);
-                                                                            gameState.stackCard(selectedCard, stackRaceDestinyOn, false, false, false);
-                                                                            game.getActionsEnvironment().emitEffectResult(
-                                                                                    new RaceDestinyStackedResult(action, selectedCard, stackRaceDestinyOn));
-                                                                        }
-                                                                    });
+            // treat it differently if replacing a single race destiny
+            if (!aboutToDrawDestinyCardResult.isDrawAndChoose()) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+                action.setText("Use card from hand for race destiny");
+                // Allow response(s)
+                action.allowResponses("Use a card from hand for race destiny",
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new ChooseCardFromHandEffect(action, playerId, Filters.not(self)) {
+                                            @Override
+                                            protected void cardSelected(final SwccgGame game, final PhysicalCard selectedCard) {
+                                                action.appendEffect(
+                                                        new RefreshPrintedDestinyValuesEffect(action, Collections.singletonList(selectedCard)) {
+                                                            @Override
+                                                            protected void refreshedPrintedDestinyValues() {
+                                                                final GameState gameState = game.getGameState();
+                                                                final PhysicalCard stackRaceDestinyOn = aboutToDrawDestinyCardResult.getStackRaceDestinyOn();
+                                                                final float destinyValue = game.getModifiersQuerying().getDestiny(gameState, selectedCard);
+                                                                action.appendEffect(
+                                                                        new SubstituteDestinyEffect(action, destinyValue));
+                                                                action.appendEffect(
+                                                                        new PassthruEffect(action) {
+                                                                            @Override
+                                                                            protected void doPlayEffect(SwccgGame game) {
+                                                                                float destiny = selectedCard.getDestinyValueToUse();
+                                                                                gameState.removeCardFromZone(selectedCard);
+                                                                                selectedCard.setDestinyValueToUse(destiny);
+                                                                                selectedCard.setRaceDestinyForPlayer(playerId);
+                                                                                gameState.stackCard(selectedCard, stackRaceDestinyOn, false, false, false);
+                                                                                game.getActionsEnvironment().emitEffectResult(
+                                                                                        new RaceDestinyStackedResult(action, selectedCard, stackRaceDestinyOn));
+                                                                            }
+                                                                        });
+                                                            }
                                                         }
-                                                    }
-                                            );
+                                                );
+                                            }
                                         }
-                                    }
-                            );
+                                );
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            } else {
+                // if draw X and choose Y
+                /* https://forum.starwarsccg.org/viewtopic.php?p=1334789#p1334789
+                    As you are drawing the 3 destinies, you can interrupt any 1 destiny you are about to draw with Podrace Prep and place a card from hand down instead. The card from hand becomes an unresolved destiny draw (not a substituted destiny). It cannot be targeted as "just drawn", since you never drew it.
+                    LS then chooses any 2 of the 3 destinies. The destiny not chosen goes to Used pile, even if it's the card that came from your hand.
+                 */
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+                action.setText("Use card from hand for race destiny");
+                // Allow response(s)
+                action.allowResponses("Use a card from hand for race destiny",
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new ChooseCardFromHandEffect(action, playerId, Filters.not(self)) {
+                                            @Override
+                                            protected void cardSelected(final SwccgGame game, final PhysicalCard selectedCard) {
+                                                //TODO fix this
+                                                // for now just put the card from hand on reserve so you draw it next
+                                                // this is reasonably close to the same functionality and doesn't crash the game
+                                                action.appendEffect(
+                                                        new PutCardFromHandOnReserveDeckEffect(action, playerId, selectedCard, false));
+                                            }
+                                        }
+                                );
+                            }
+                        }
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
@@ -107,7 +137,7 @@ public class Card11_039 extends AbstractLostOrStartingInterrupt {
         final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
         action.setText("Deploy cards from Reserve Deck");
         // Allow response(s)
-        action.allowResponses("Podrace Arena (with a Podracer, opponent may also deploy a Podracer there), Boonta Eve Podrace, and any Effect that deploys for free",
+        action.allowResponses("deploy Podrace Arena (with a Podracer, opponent may also deploy a Podracer there), Boonta Eve Podrace, and any Effect that deploys for free",
                 new RespondablePlayCardEffect(action) {
                     @Override
                     protected void performActionResults(Action targetingAction) {

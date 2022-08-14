@@ -50,9 +50,11 @@ public class Card215_010 extends AbstractUsedOrLostInterrupt {
             final int modifierAmount = (GameConditions.isDuringBattleWithParticipant(game, Filters.Jedi) ? 2 : 1);
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Add power and immunity to your clones");
+            action.setText("Add power to your clones");
+
+            final String text = (GameConditions.isDuringBattleWithParticipant(game, Filters.Jedi) ? "Make clones present power +2 and immune to attrition" : "Make clones present power +1");
             // Allow response(s)
-            action.allowResponses("Make clones present power +" + modifierAmount + " and immune to attrition",
+            action.allowResponses(text,
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
@@ -64,10 +66,12 @@ public class Card215_010 extends AbstractUsedOrLostInterrupt {
                                         new AddUntilEndOfTurnModifierEffect(action,
                                                 new PowerModifier(self, Filters.in(clones), modifierAmount),
                                                 "Makes " + GameUtils.getAppendedNames(clones) + " power +" + modifierAmount));
-                                action.appendEffect(
-                                        new AddUntilEndOfTurnModifierEffect(action,
-                                                new ImmuneToAttritionModifier(self, Filters.in(clones)),
-                                                "Makes " + GameUtils.getAppendedNames(clones) + " immune to attrition"));
+                                if (GameConditions.isDuringBattleWithParticipant(game, Filters.Jedi)) {
+                                    action.appendEffect(
+                                            new AddUntilEndOfTurnModifierEffect(action,
+                                                    new ImmuneToAttritionModifier(self, Filters.in(clones)),
+                                                    "Makes " + GameUtils.getAppendedNames(clones) + " immune to attrition"));
+                                }
                             }
                         }
                     }

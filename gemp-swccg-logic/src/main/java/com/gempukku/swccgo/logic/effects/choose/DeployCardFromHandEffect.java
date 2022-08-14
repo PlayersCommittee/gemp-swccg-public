@@ -121,6 +121,35 @@ public class DeployCardFromHandEffect extends AbstractSubActionEffect {
     }
 
     /**
+     * Creates an effect that causes the specified player to choose and deploy a card accepted by the card filter from hand
+     * to the specified system.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @param targetFilter the target filter, or null
+     * @param targetSystem the system name, or null
+     * @param specialLocationConditions a filter for special conditions that deployed location must satisfy, or null
+     * @param forFree true if deploying for free, otherwise false
+     * @param deploymentOption specifies special deployment options, or null
+     * @param deploymentRestrictionsOption specifies which deployment restrictions are to be ignored, or null
+     */
+    protected DeployCardFromHandEffect(Action action, String playerId, Filter cardFilter, Filter targetFilter, String targetSystem, Filter specialLocationConditions, boolean asReact, boolean forFree, float changeInCost, DeploymentOption deploymentOption, DeploymentRestrictionsOption deploymentRestrictionsOption) {
+        super(action);
+        _playerId = playerId;
+        _cardFilter = cardFilter;
+        _targetFilter = targetFilter;
+        _targetSystem = targetSystem;
+        _specialLocationConditions = specialLocationConditions;
+        _forFree = forFree;
+        _changeInCost = changeInCost;
+        _changeInCostCardFilter = null;
+        _asReact = asReact;
+        _deploymentOption = deploymentOption;
+        _deploymentRestrictionsOption = deploymentRestrictionsOption;
+        _that = this;
+    }
+
+    /**
      * Creates an effect that causes the card owner to deploy the specified card from hand.
      * @param action the action performing this effect
      * @param cardToDeploy the card to deploy

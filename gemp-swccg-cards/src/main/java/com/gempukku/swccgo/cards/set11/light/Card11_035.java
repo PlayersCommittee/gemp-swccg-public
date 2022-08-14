@@ -66,24 +66,6 @@ public class Card11_035 extends AbstractUsedOrLostInterrupt {
         final String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (GameConditions.numCardsInHand(game, opponent) >= 13) {
-
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            action.setText("Place random cards in Used Pile");
-            // Allow response(s)
-            action.allowResponses("Place random cards from opponent's hand in Used Pile",
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new PutRandomCardsFromHandOnUsedPileEffect(action, playerId, opponent, 8));
-                        }
-                    }
-            );
-            actions.add(action);
-        }
-        // Check condition(s)
         if (GameConditions.hasHand(game, opponent)
                 && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 3)) {
 

@@ -67,7 +67,7 @@ public class Card216_047 extends AbstractUsedInterrupt {
                             PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
                             action.appendEffect(new AddUntilEndOfTurnModifierEffect(action,
                                     new PowerModifier(self, finalTarget, 1)
-                                    , GameUtils.getCardLink(finalTarget) + " is power +1 for remainder of turn"));
+                                    , "Makes " + GameUtils.getCardLink(finalTarget) + " power +1 for remainder of turn"));
                         }
                     });
                 }

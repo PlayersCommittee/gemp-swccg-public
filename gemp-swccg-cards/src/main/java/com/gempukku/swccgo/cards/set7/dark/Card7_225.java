@@ -34,6 +34,7 @@ public class Card7_225 extends AbstractNormalEffect {
         setLore("Jabba the Hutt's clan requires all members to carry ritual scarring identifying them forever as heirs to the Nal Hutta legacy. These tattoos are considered marks of power.");
         setGameText("Deploy on your Hutt. Once during each of your deploy phases, may deploy one Jabba's Influence or Death Mark from Reserve Deck; reshuffle. While at Audience Chamber, no battles or Force drains may take place here unless a Rebel present. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

@@ -21,9 +21,9 @@ public interface ProductPrice {
     int TATOOINE_BOOSTER_PACK = 329;
     int CORUSCANT_BOOSTER_PACK = 329;
     int THEED_PALACE_BOOSTER_PACK = 329;
-    int REFLECTIONS_BOOSTER_PACK = 495;
-    int REFLECTIONS_II_BOOSTER_PACK = 495;
-    int REFLECTIONS_III_BOOSTER_PACK = 495;
+    int REFLECTIONS_BOOSTER_PACK = 750;
+    int REFLECTIONS_II_BOOSTER_PACK = 750;
+    int REFLECTIONS_III_BOOSTER_PACK = 825;
 
     // Booster box prices
     int PREMIERE_BOOSTER_BOX = 9000;
@@ -38,9 +38,9 @@ public interface ProductPrice {
     int TATOOINE_BOOSTER_BOX = 8000;
     int CORUSCANT_BOOSTER_BOX = 8000;
     int THEED_PALACE_BOOSTER_BOX = 8000;
-    int REFLECTIONS_BOOSTER_BOX = 13000;
-    int REFLECTIONS_II_BOOSTER_BOX = 13000;
-    int REFLECTIONS_III_BOOSTER_BOX = 13000;
+    int REFLECTIONS_BOOSTER_BOX = 20000;
+    int REFLECTIONS_II_BOOSTER_BOX = 20000;
+    int REFLECTIONS_III_BOOSTER_BOX = 22000;
 
     // Starter set/deck prices
     int PREMIERE_STARTER_SET = 995;
@@ -53,8 +53,8 @@ public interface ProductPrice {
     int ENHANCED_JABBAS_PALACE_PACK = 1495;
 
     // Promotional Cards
-    int JEDI_PACK = 0;
-    int REBEL_LEADER_PACK = 0;
+    int JEDI_PACK = 1100;
+    int REBEL_LEADER_PACK = 200;
     int VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK = 5000;
 
     // Anthology Boxes

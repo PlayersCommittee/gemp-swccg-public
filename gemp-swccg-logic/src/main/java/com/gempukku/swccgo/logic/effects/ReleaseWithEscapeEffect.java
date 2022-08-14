@@ -54,7 +54,7 @@ public class ReleaseWithEscapeEffect extends AbstractSubActionEffect {
                     }
                 });
         //cards aboard a captured starship go to used when the starship escapes
-        if(_captive.getBlueprint().getCardTypes().contains(CardType.STARSHIP))
+        if(game.getModifiersQuerying().getCardTypes(game.getGameState(), _captive).contains(CardType.STARSHIP))
             subAction.appendEffect(
                     new PlaceCardsInCardPileFromTableSimultaneouslyEffect(subAction, Collections.singleton(_captive), Zone.USED_PILE, false, false, Zone.USED_PILE, false, false, false, null, true));
         else

@@ -38,31 +38,27 @@ public class Card4_141 extends AbstractLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         final String opponent = game.getOpponent(playerId);
 
-        // Check condition(s)
-        if (GameConditions.numCardsInHand(game, opponent) >= 2
-                || GameConditions.hasReserveDeck(game, opponent)) {
+        // talked to Gergall 12/11/2011, you don't have to have 2 cards in hand to choose the lose 2 from hand option or 1 card in Reserve to choose the lose from Reserve option
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Make opponent lose Force");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            List<StandardEffect> possibleEffects = new LinkedList<StandardEffect>();
-                            possibleEffects.add(
-                                    new LoseForceFromHandEffect(action, opponent, 2));
-                            possibleEffects.add(
-                                    new LoseForceFromReserveDeckEffect(action, opponent, 1));
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new ChooseEffectEffect(action, opponent, possibleEffects));
-                        }
+        final PlayInterruptAction action = new PlayInterruptAction(game, self);
+        action.setText("Make opponent lose Force");
+        // Allow response(s)
+        action.allowResponses(
+                new RespondablePlayCardEffect(action) {
+                    @Override
+                    protected void performActionResults(Action targetingAction) {
+                        // Perform result(s)
+                        List<StandardEffect> possibleEffects = new LinkedList<StandardEffect>();
+                        possibleEffects.add(
+                                new LoseForceFromHandEffect(action, opponent, 2));
+                        possibleEffects.add(
+                                new LoseForceFromReserveDeckEffect(action, opponent, 1));
+                        // Perform result(s)
+                        action.appendEffect(
+                                new ChooseEffectEffect(action, opponent, possibleEffects));
                     }
-            );
-            return Collections.singletonList(action);
-        }
-        return null;
+                }
+        );
+        return Collections.singletonList(action);
     }
 }

@@ -24,6 +24,7 @@ public class Card4_128 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Much Anger In Him", Uniqueness.UNIQUE);
         setLore("'Adventure, heh. Excitement, heh. A Jedi craves not these things. You are reckless.'");
         setGameText("Deploy on a Rebel. At the end of each opponent's battle phases, if you have presence at the location where that Rebel has presence and a battle did not take place there, opponent loses 4 Force.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DAGOBAH);
     }
 

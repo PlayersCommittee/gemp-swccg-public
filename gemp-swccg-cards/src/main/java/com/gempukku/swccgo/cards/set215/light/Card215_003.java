@@ -52,7 +52,7 @@ public class Card215_003 extends AbstractDroid {
             if (GameConditions.canActivateForce(game, playerId)) {
                 TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Activate 1 force");
-                action.setActionMsg("Put card on Used Pile to activate 1 force");
+                action.setActionMsg("Put card on Used Pile to activate 1 Force");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerTurnEffect(action));

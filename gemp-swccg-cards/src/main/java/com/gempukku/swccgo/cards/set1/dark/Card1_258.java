@@ -25,7 +25,7 @@ public class Card1_258 extends AbstractLostInterrupt {
     public Card1_258() {
         super(Side.DARK, 4, "Lone Warrior", Uniqueness.UNIQUE);
         setLore("Though generally deployed in squads, all Imperial warriors are trained in the close combat techniques and have a reputation for ferocity when cornered.");
-        setGameText("If any warrior is defending a battle alone at a site, add one battle destiny. OR If Tagge is defending a battle alone at a site, add two battle destiny.");
+        setGameText("If your warrior is defending a battle alone at a site, add one battle destiny. OR If Tagge is defending a battle alone at a site, add two battle destiny.");
     }
 
     @Override

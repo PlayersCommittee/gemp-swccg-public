@@ -52,7 +52,7 @@ public class Card216_049 extends AbstractRepublic {
             action.setActionMsg("Your Wookiees are power +1 for remainder of turn");
             action.appendEffect(new AddUntilEndOfTurnModifierEffect(action,
                     new PowerModifier(self, Filters.and(Filters.your(self), Filters.Wookiee), 1)
-                    , "Your Wookiees are power +1 for remainder of turn"));
+                    , "Makes each of your Wookiees power +1 for remainder of turn"));
 
             return Collections.singletonList(action);
         }

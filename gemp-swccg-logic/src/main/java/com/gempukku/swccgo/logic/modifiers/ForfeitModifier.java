@@ -133,10 +133,11 @@ public class ForfeitModifier extends AbstractModifier {
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         final float value = getForfeitModifier(gameState, modifiersQuerying, self);
-        if (value >= 0)
+        if (value > 0)
             return "Forfeit +" + GuiUtils.formatAsString(value);
-        else
+        if (value < 0)
             return "Forfeit " + GuiUtils.formatAsString(value);
+        return null;
     }
 
     @Override

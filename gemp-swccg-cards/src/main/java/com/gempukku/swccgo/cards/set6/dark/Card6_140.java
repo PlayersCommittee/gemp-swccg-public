@@ -33,6 +33,7 @@ public class Card6_140 extends AbstractCharacterDevice {
         setLore("Mitrinomon Z-6 jet pack. Exhaust vents are used to maneuver in mid-flight. Gyro-stabilizer automatically applies counterthrust when landing.");
         setGameText("Use 3 Force to deploy on any alien (except Boba Fett or Jabba). May 'fly' (landspeed = 3). May use 2 Force to move as a 'react'.");
         addIcons(Icon.JABBAS_PALACE);
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

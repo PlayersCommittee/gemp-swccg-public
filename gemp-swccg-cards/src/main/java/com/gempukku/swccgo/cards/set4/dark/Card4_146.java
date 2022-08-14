@@ -28,7 +28,7 @@ public class Card4_146 extends AbstractLostInterrupt {
     public Card4_146() {
         super(Side.DARK, 4, Title.Res_Luk_Raauf, Uniqueness.UNIQUE);
         setLore("Rek guza kias n'ek kriesuk zief. Rek res fesruk T'doshok kulesuk luk g'razzurg koref selukra fes k'nel. Kren'ef, T'doshok res luk rek grien forek res fel luraken.");
-        setGameText("If any bounty hunter is defending a battle alone, add one battle destiny. OR If Bossk, Greedo or Boba Fett is defending a battle alone, add two battle destiny.");
+        setGameText("If your bounty hunter is defending a battle alone, add one battle destiny. OR If Bossk, Greedo or Boba Fett is defending a battle alone, add two battle destiny.");
         addIcons(Icon.DAGOBAH);
     }
 
@@ -55,7 +55,7 @@ public class Card4_146 extends AbstractLostInterrupt {
                 );
                 actions.add(action);
             }
-            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.or(Filters.Bossk, Filters.Greedo, Filters.Boba_Fett), Filters.defendingBattle, Filters.alone))) {
+            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.or(Filters.Bossk, Filters.Greedo, Filters.Boba_Fett), Filters.defendingBattle, Filters.alone))) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Add two battle destiny");

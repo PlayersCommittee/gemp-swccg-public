@@ -118,7 +118,7 @@ public class TournamentRequestHandler extends SwccgoServerRequestHandler impleme
 
         result.append("<br/>");
         result.append("<b>Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("sort:cardType,name", deckCards.getAll().values(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("sort:cardCategory,name", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getSwccgoCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("</body></html>");

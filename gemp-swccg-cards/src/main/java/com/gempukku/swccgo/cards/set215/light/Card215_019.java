@@ -45,9 +45,7 @@ public class Card215_019 extends AbstractCharacterWeapon {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new PowerModifier(self, Filters.hasAttached(self), new HereCondition(self, Filters.stormtrooper), 1));
-        modifiers.add(new TotalWeaponDestinyModifier(self, 1, Filters.character));
-        modifiers.add(new TotalWeaponDestinyModifier(self, 2, Filters.vehicle));
+        modifiers.add(new TotalWeaponDestinyModifier(self, 1, Filters.vehicle));
         return modifiers;
     }
 
@@ -58,7 +56,7 @@ public class Card215_019 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildStolenStormtrooperBlasterRifleAction(0);
+            FireWeaponAction action = actionBuilder.buildStolenStormtrooperBlasterRifleAction(1);
             return Collections.singletonList(action);
         }
         return null;

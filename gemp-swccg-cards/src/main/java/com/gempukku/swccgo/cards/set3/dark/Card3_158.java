@@ -29,7 +29,7 @@ public class Card3_158 extends AbstractVehicleWeapon {
         setLore("Laser cannons mounted on the head of an Imperial walker provide devastating coordinated firepower. Effective against a wide variety of targets.");
         setGameText("Use 2 Force to deploy on your AT-AT. May target a starfighter (use 3 as defense value), character, creature or vehicle at same or adjacent site using 2 Force. Draw destiny. Add 1 if targeting a character or creature, 2 if a vehicle. Target hit if total destiny > defense value.");
         addIcons(Icon.HOTH);
-        addKeywords(Keyword.CANNON);
+        addKeywords(Keyword.AT_AT_CANNON);
     }
 
     @Override

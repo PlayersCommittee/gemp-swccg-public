@@ -33,6 +33,7 @@ public class Card11_074 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Quietly Observing", Uniqueness.UNIQUE);
         setLore("On her assignment to kill Sharad Hett, Aurra used her patience and cunning to help track down the Jedi Master.");
         setGameText("Deploy on Aurra Sing. While Aurra is alone at a site, your total ability here = 0. During your move phase, may lose Effect to target an opponent's lightsaber present. Draw destiny. If destiny > 3, Aurra may 'steal' that lightsaber.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);
     }
 

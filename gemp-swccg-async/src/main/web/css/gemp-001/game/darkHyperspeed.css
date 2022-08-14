@@ -1,0 +1,11 @@
+
+.ui-widget-content {
+    border: 1px solid #555555;
+    background: none;
+}
+
+div#main {
+    background: #000000 url(https://res.starwarsccg.org/wp/wp-content/uploads/2019/04/bg.jpg) 100% center;
+}
+
+div#bottomLeftTabs, div.ui-draggable { background: #000000; }

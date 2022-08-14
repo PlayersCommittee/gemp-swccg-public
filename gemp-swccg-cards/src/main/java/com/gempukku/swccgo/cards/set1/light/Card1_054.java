@@ -30,6 +30,7 @@ public class Card1_054 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Lightsaber_Proficiency, Uniqueness.UNIQUE);
         setLore("A Jedi learns not only to wield a lightsaber, but how to channel the Force to increase skill and control the lightsaber's damage.");
         setGameText("Deploy on any character with ability > 2 and a lightsaber. That character is power +3 in battles or may add 1 to Force drain where present. Effect is lost if character loses lightsaber.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

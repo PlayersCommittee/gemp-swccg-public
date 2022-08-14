@@ -14,15 +14,13 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTransferredModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBePlacedOutOfPlayModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -72,7 +70,11 @@ public class Card9_151 extends AbstractObjective {
     @Override
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
         boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
         final Condition targetsLeiaInsteadOfLukeCondition = new GameTextModificationCondition(self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+        final Condition targetsKananInsteadOfLukeCondition = new GameTextModificationCondition(self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        final Condition targetsLukeCondition = new AndCondition(new NotCondition(targetsLeiaInsteadOfLukeCondition), new NotCondition(targetsKananInsteadOfLukeCondition));
+
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
 
         action.appendEffect(
@@ -90,6 +92,7 @@ public class Card9_151 extends AbstractObjective {
                                 List<TriggerAction> actions = new LinkedList<TriggerAction>();
                                 PhysicalCard self = game.findCardByPermanentId(permCardId);
                                 boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+                                boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
 
                                 GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
@@ -113,6 +116,31 @@ public class Card9_151 extends AbstractObjective {
                                                 }
                                                 action.appendEffect(
                                                         new CaptureWithSeizureEffect(action, leia, vader));
+                                                actions.add(action);
+                                            }
+                                        }
+                                    }
+                                    return actions;
+                                }
+                                else if (targetsKananInsteadOfLuke) {
+                                    if (TriggerConditions.isTableChanged(game, effectResult)) {
+                                        final PhysicalCard kanan = Filters.findFirstActive(game, self, Filters.and(Filters.Kanan, Filters.not(Filters.captive)));
+                                        if (kanan != null) {
+                                            PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(kanan), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
+                                            if (vader != null) {
+
+                                                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                                                action.setSingletonTrigger(true);
+                                                action.setText("Capture Kanan");
+                                                action.setActionMsg("Have " + GameUtils.getCardLink(vader) + " capture and seize " + GameUtils.getCardLink(kanan));
+                                                // Perform result(s)
+                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(kanan))).accepts(game, vader)) {
+                                                    // Disembark first if no capacity available
+                                                    action.appendEffect(
+                                                            new DisembarkEffect(action, vader, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), vader), false, false));
+                                                }
+                                                action.appendEffect(
+                                                        new CaptureWithSeizureEffect(action, kanan, vader));
                                                 actions.add(action);
                                             }
                                         }
@@ -151,10 +179,13 @@ public class Card9_151 extends AbstractObjective {
         );
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Luke, Filters.escortedBy(self, Filters.Vader)), new NotCondition(targetsLeiaInsteadOfLukeCondition)), null));
+                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Luke, Filters.escortedBy(self, Filters.Vader)), targetsLukeCondition), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotBeTransferredModifier(self, Filters.and(Filters.Leia, Filters.escortedBy(self, Filters.Vader)), targetsLeiaInsteadOfLukeCondition), null));
+        action.appendEffect(
+                new AddUntilEndOfGameModifierEffect(action,
+                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Kanan, Filters.escortedBy(self, Filters.Vader)), targetsKananInsteadOfLukeCondition), null));
         return action;
     }
 
@@ -163,7 +194,7 @@ public class Card9_151 extends AbstractObjective {
         GameTextActionId gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_EMPEROR;
 
         // Check condition(s)
-        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.EMPEROR)) {
+        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.SIDIOUS)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy Emperor from Reserve Deck");
@@ -176,9 +207,10 @@ public class Card9_151 extends AbstractObjective {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(final String playerId, final SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
         boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
 
         GameTextActionId gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE;
 
@@ -208,6 +240,32 @@ public class Card9_151 extends AbstractObjective {
             }
 
             return actions;
+        } else if (targetsKananInsteadOfLuke) {
+            // Check condition(s)
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.KANAN)) {
+
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+                action.setText("Deploy Kanan from Reserve Deck");
+                // Perform result(s)
+                action.appendEffect(
+                        new DeployCardFromReserveDeckEffect(action, Filters.Kanan, -2, true));
+                actions.add(action);
+            }
+
+            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+
+            // Check condition(s)
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.KANAN)) {
+
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+                action.setText("Deploy Kanan from Lost Pile");
+                // Perform result(s)
+                action.appendEffect(
+                        new DeployCardFromLostPileEffect(action, Filters.Kanan, false));
+                actions.add(action);
+            }
+
+            return actions;
         } else {
             // Check condition(s)
             if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LUKE)) {
@@ -216,7 +274,15 @@ public class Card9_151 extends AbstractObjective {
                 action.setText("Deploy Luke from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Luke, -2, true));
+                        new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Luke, Filters.grantedMayBeTargetedBy(self)), -2, true) {
+                            @Override
+                            protected void cardDeployed(PhysicalCard card) {
+                                if (Filters.title("Kanan, Rebel Infiltrator").accepts(game, card)) {
+                                    game.getGameState().sendMessage(playerId + " Make Insignificant Rebellion, Your Destiny, and opponent's [Death Star II] objective target Kanan instead of Luke for remainder of game using " + GameUtils.getCardLink(card));
+                                    game.getModifiersEnvironment().addUntilEndOfGameModifier(new ModifyGameTextModifier(card, Filters.or(Filters.and(Filters.opponents(card), Icon.DEATH_STAR_II, Filters.Objective), Filters.Insignificant_Rebellion, Filters.Your_Destiny), ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE));
+                                }
+                            }
+                        });
                 actions.add(action);
             }
 
@@ -229,7 +295,15 @@ public class Card9_151 extends AbstractObjective {
                 action.setText("Deploy Luke from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Luke, false));
+                        new DeployCardFromLostPileEffect(action, Filters.or(Filters.Luke, Filters.grantedMayBeTargetedBy(self)), false) {
+                            @Override
+                            protected void cardDeployed(PhysicalCard card) {
+                                if (Filters.title("Kanan, Rebel Infiltrator").accepts(game, card)) {
+                                    game.getGameState().sendMessage(playerId + " Make Insignificant Rebellion, Your Destiny, and opponent's [Death Star II] objective target Kanan instead of Luke for remainder of game using " + GameUtils.getCardLink(card));
+                                    game.getModifiersEnvironment().addUntilEndOfGameModifier(new ModifyGameTextModifier(card, Filters.or(Filters.and(Filters.opponents(card), Icon.DEATH_STAR_II, Filters.Objective), Filters.Insignificant_Rebellion, Filters.Your_Destiny), ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE));
+                                }
+                            }
+                        });
                 actions.add(action);
             }
 
@@ -240,12 +314,29 @@ public class Card9_151 extends AbstractObjective {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
+        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
 
         if (targetsLeiaInsteadOfLuke) {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
                     && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Leia, Filters.captive))) {
+
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setSingletonTrigger(true);
+                action.setText("Flip");
+                action.setActionMsg(null);
+                // Perform result(s)
+                action.appendEffect(
+                        new FlipCardEffect(action, self));
+                return Collections.singletonList(action);
+            }
+            return null;
+        } else if (targetsKananInsteadOfLuke) {
+            // Check condition(s)
+            if (TriggerConditions.isTableChanged(game, effectResult)
+                    && GameConditions.canBeFlipped(game, self)
+                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Kanan, Filters.captive))) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);

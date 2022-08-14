@@ -61,7 +61,7 @@ public class AttackEffect extends AbstractSubActionEffect {
 
         // 2) Attack just initiated
         subAction.appendEffect(
-                new TriggeringResultEffect(subAction, new AttackInitiatedResult(subAction)));
+                new TriggeringResultEffect(subAction, new AttackInitiatedResult(subAction, (_creatureAttacking!=null))));
 
         // 3) Weapons segment
         subAction.appendEffect(

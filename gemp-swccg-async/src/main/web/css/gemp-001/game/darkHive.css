@@ -1,0 +1,7 @@
+
+.ui-widget-content {
+    border: 1px solid #555555;
+    background: #000000 url(/gemp-swccg/css/dark-hive/images/ui-bg_loop_25_000000_21x21.png) 50% repeat;
+}
+
+div#bottomLeftTabs, div.ui-draggable { background: #000000; }

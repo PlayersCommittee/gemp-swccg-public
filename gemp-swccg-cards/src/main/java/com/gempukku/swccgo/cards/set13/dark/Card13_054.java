@@ -39,9 +39,9 @@ public class Card13_054 extends AbstractDefensiveShield {
         Condition battlePlanOnTable = new OnTableCondition(self, Filters.Battle_Plan);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new OrCondition(battlePlanOnTable,
+        modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,
                 new AndCondition(new OccupiesCondition(player, Filters.battleground_site), new OccupiesCondition(player, Filters.battleground_system)))), 3, player));
-        modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new OrCondition(battlePlanOnTable,
+        modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,
                 new AndCondition(new OccupiesCondition(opponent, Filters.battleground_site), new OccupiesCondition(opponent, Filters.battleground_system)))), 3, opponent));
         return modifiers;
     }

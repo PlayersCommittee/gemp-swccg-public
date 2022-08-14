@@ -7,10 +7,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.effects.AttackEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChoosePlayerBySideEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.SnapshotData;
+import com.gempukku.swccgo.logic.timing.results.AttackTargetSelectedResult;
+import com.gempukku.swccgo.logic.timing.results.ForceLossInitiatedResult;
 import com.gempukku.swccgo.logic.timing.rules.CreatureAttacksNonCreatureRule;
 
 import java.util.Collection;
@@ -23,6 +26,7 @@ public class InitiateAttackNonCreatureAction extends RequiredRuleTriggerAction {
     private boolean _ownerChosen;
     private String _owner;
     private boolean _targetChosen;
+    private boolean _targetChanged;
     private PhysicalCard _target;
     private boolean _attackInitiated;
 
@@ -53,6 +57,25 @@ public class InitiateAttackNonCreatureAction extends RequiredRuleTriggerAction {
     public InitiateAttackNonCreatureAction(final PhysicalCard creature) {
         super(new CreatureAttacksNonCreatureRule(), creature);
         _creature = creature;
+    }
+
+    public void resetTargetSelection() {
+        _targetChosen = false;
+        _targetChanged = true;
+    }
+
+    public void setTarget(PhysicalCard card) {
+        _target = card;
+        _targetChosen = true;
+        _targetChanged = true;
+    }
+
+    public boolean isTargetChosen() {
+        return _targetChosen;
+    }
+
+    public boolean isTargetChanged() {
+        return _targetChanged;
     }
 
     @Override
@@ -107,9 +130,13 @@ public class InitiateAttackNonCreatureAction extends RequiredRuleTriggerAction {
 
             if (!_targetChosen) {
                 _targetChosen = true;
+                _targetChanged = false;
 
                 Collection<PhysicalCard> possibleNonCreaturesToAttack = Filters.filterActive(game, _creature, SpotOverride.INCLUDE_ALL, Filters.nonCreatureCanBeAttackedByCreature(_creature, false));
                 _target = GameUtils.getRandomCards(Filters.filter(possibleNonCreaturesToAttack, game, Filters.owner(_owner)), 1).get(0);
+                gameState.sendMessage(GameUtils.getCardLink(_target) + " randomly chosen to be attacked");
+                gameState.cardAffectsCard(_creature.getOwner(), _creature, _target);
+                return new TriggeringResultEffect(this, new AttackTargetSelectedResult(this, _creature, _target));
             }
 
             if (!_attackInitiated) {

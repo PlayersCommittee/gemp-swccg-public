@@ -29,7 +29,7 @@ public class Card1_098 extends AbstractUsedInterrupt {
     public Card1_098() {
         super(Side.LIGHT, 5, Title.Narrow_Escape);
         setLore("Blast doors seal off compartments during battles, hull ruptures or as security measures. Thick doors repel blaster rifle shots.");
-        setGameText("If opponent just initiated battle at a site where you have a Rebel of ability > 2 present, move all of your cards with ability there away (using their landspeed at normal use of Force) and cancel battle.");
+        setGameText("If opponent just initiated battle at a site where you have a Rebel of ability > 2 present, move all of your cards with ability there away (using their landspeed).");
     }
 
     @Override

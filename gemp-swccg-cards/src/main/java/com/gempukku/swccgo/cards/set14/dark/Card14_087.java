@@ -29,7 +29,7 @@ public class Card14_087 extends AbstractRepublic {
         super(Side.DARK, 2, 3, 2, 3, 4, "Rune Haako, Legal Counsel", Uniqueness.UNIQUE);
         setAlternateImageSuffix(true);
         setLore("The Trade Federation's only Neimoidian leader to have ever encountered a Jedi Knight. Assumed Daultay Dofine's responsibilities after Dofine questioned their Sith Lord's plans.");
-        setGameText("While at Theed Palace Throne Room, your attrition against opponent in battles at same and related Naboo sites is +X, where X = number of battle druids present at that site. While with a battle droid, Haako is power and defense value +2.");
+        setGameText("While at Theed Palace Throne Room, your attrition against opponent in battles at same and related Naboo sites is +X, where X = number of battle droids present at that site. While with a battle droid, Haako is power and defense value +2.");
         addPersona(Persona.HAAKO);
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
         addKeywords(Keyword.LEADER);

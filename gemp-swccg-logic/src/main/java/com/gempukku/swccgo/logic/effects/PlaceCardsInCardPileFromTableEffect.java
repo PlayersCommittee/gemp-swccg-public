@@ -23,6 +23,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
     private boolean _toBottomOfPile;
     private Zone _attachedCardsGoToZone;
     private boolean _allCardsSituation;
+    private boolean _lostCardsShouldNotCountAsJustLost;
 
     /**
      * Creates an effect that causes the specified cards on table to be placed in the specified card pile.
@@ -67,12 +68,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
      * @param attachedCardsGoToZone the zone that any attached cards go to (instead of Lost Pile)
      */
     protected PlaceCardsInCardPileFromTableEffect(Action action, String playerId, Collection<PhysicalCard> cards, Zone cardPile, boolean toBottomOfPile, Zone attachedCardsGoToZone) {
-        super(action);
-        _playerId = playerId;
-        _cards.addAll(cards);
-        _cardPile = cardPile;
-        _toBottomOfPile = toBottomOfPile;
-        _attachedCardsGoToZone = attachedCardsGoToZone;
+        this(action, playerId, cards, cardPile, toBottomOfPile, attachedCardsGoToZone, false);
     }
 
     /**
@@ -86,6 +82,20 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
      * @param allCardsSituation if is an all-cards situation
      */
     protected PlaceCardsInCardPileFromTableEffect(Action action, String playerId, Collection<PhysicalCard> cards, Zone cardPile, boolean toBottomOfPile, Zone attachedCardsGoToZone, boolean allCardsSituation) {
+        this(action, playerId, cards, cardPile, toBottomOfPile, attachedCardsGoToZone, allCardsSituation, false);
+    }
+
+    /**
+     * Creates an effect that causes the specified cards on table to be placed in the specified card pile.
+     * @param action the action performing this effect
+     * @param playerId the player performing this action
+     * @param cards the cards
+     * @param cardPile the card pile
+     * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
+     * @param attachedCardsGoToZone the zone that any attached cards go to (instead of Lost Pile)
+     * @param allCardsSituation if is an all-cards situation
+     */
+    protected PlaceCardsInCardPileFromTableEffect(Action action, String playerId, Collection<PhysicalCard> cards, Zone cardPile, boolean toBottomOfPile, Zone attachedCardsGoToZone, boolean allCardsSituation, boolean lostCardsShouldNotCountAsJustLost) {
         super(action);
         _playerId = playerId;
         _cards.addAll(cards);
@@ -93,6 +103,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
         _toBottomOfPile = toBottomOfPile;
         _attachedCardsGoToZone = attachedCardsGoToZone;
         _allCardsSituation = allCardsSituation;
+        _lostCardsShouldNotCountAsJustLost = lostCardsShouldNotCountAsJustLost;
     }
 
     @Override
@@ -147,7 +158,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
                 // SubAction to carry out placing card in card pile from table
                 SubAction placeCardsSubAction = new SubAction(_subAction);
                 placeCardsSubAction.appendEffect(
-                        new PlaceCardsInCardPileFromTableSimultaneouslyEffect(placeCardsSubAction, selectedCards, _cardPile, _toBottomOfPile, true, _attachedCardsGoToZone, false, false, false, null, false, _allCardsSituation));
+                        new PlaceCardsInCardPileFromTableSimultaneouslyEffect(placeCardsSubAction, selectedCards, _cardPile, _toBottomOfPile, true, _attachedCardsGoToZone, false, false, false, null, false, _allCardsSituation, _lostCardsShouldNotCountAsJustLost));
                 // Stack sub-action
                 _subAction.stackSubAction(placeCardsSubAction);
 

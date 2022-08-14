@@ -34,6 +34,7 @@ public class Card1_057 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Obi-Wan's Cape", Uniqueness.UNIQUE);
         setLore("A symbol of the noble Jedi and his mysterious powers.");
         setGameText("Use 2 Force to deploy on your Rebel or alien. Character is immune to attrition < 5. Also, When a battle was just initiated where present, may use 1 Force to choose one opponent's character of ability = 1 present to move away (for free), or that character is lost.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

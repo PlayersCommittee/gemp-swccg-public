@@ -50,4 +50,15 @@ public class PlaceCardsInLostPileFromTableEffect extends PlaceCardsInCardPileFro
     public PlaceCardsInLostPileFromTableEffect(Action action, Collection<PhysicalCard> cards, boolean toBottomOfPile, Zone attachedCardsGoToZone) {
         super(action, action.getPerformingPlayer(), cards, Zone.LOST_PILE, toBottomOfPile, attachedCardsGoToZone);
     }
+
+    /**
+     * Creates an effect that causes the specified cards on table to be placed in Lost Pile.
+     * @param action the action performing this effect
+     * @param cards the cards
+     * @param toBottomOfPile true if cards are placed on the bottom of the card pile, otherwise false
+     * @param attachedCardsGoToZone the zone that any attached cards go to (instead of Lost Pile)
+     */
+    public PlaceCardsInLostPileFromTableEffect(Action action, Collection<PhysicalCard> cards, boolean toBottomOfPile, Zone attachedCardsGoToZone, boolean allCardsSituation, boolean lostCardsShouldNotCountAsJustLost) {
+        super(action, action.getPerformingPlayer(), cards, Zone.LOST_PILE, toBottomOfPile, attachedCardsGoToZone, allCardsSituation, lostCardsShouldNotCountAsJustLost);
+    }
 }

@@ -27,8 +27,8 @@ import java.util.List;
 public class Card14_104 extends AbstractUsedOrLostInterrupt {
     public Card14_104() {
         super(Side.DARK, 5, "Master, Destroyers!", Uniqueness.UNIQUE);
-        setLore("Shields protect destroyer druids from incoming or deflected blaster fire. Starfighter cannons, on the other hand, can cause some problems.");
-        setGameText("USED: Target a character at same site as two of your destroyer druids. For remainder or turn, target may not fire weapons and is power -2. LOST: Lose 1 Force to take up to three non-unique destroyer druids into hand from Reserve Deck; reshuffle.");
+        setLore("Shields protect destroyer droids from incoming or deflected blaster fire. Starfighter cannons, on the other hand, can cause some problems.");
+        setGameText("USED: Target a character at same site as two of your destroyer droids. For remainder or turn, target may not fire weapons and is power -2. LOST: Lose 1 Force to take up to three non-unique destroyer droids into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }
 

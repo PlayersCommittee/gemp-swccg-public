@@ -35,6 +35,7 @@ public class Card9_154 extends AbstractCapitalStarship {
         setVehicleCapacity(2);
         setTIECapacity(4);
         setMatchingPilotFilter(Filters.Thrawn);
+        addPersona(Persona.CHIMAERA);
     }
 
     @Override

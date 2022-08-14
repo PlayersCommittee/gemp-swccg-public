@@ -176,3 +176,127 @@ table.tables td, table.tables th {
 tr.played {
     background-color: #990000;
 }
+
+
+
+
+
+
+div.format-detail {
+}
+
+li.format-detail {
+
+}
+li.format-detail span {
+
+}
+
+span.format-valid-sets-label,
+span.format-icons-not-allowed-label,
+span.format-deck-size-label,
+span.format-rarities-not-allowed-label,
+span.format-x-listed-label,
+span.format-r-listed-label,
+span.format-additional-valid-label {
+
+}
+
+li.format-details-set-icon {
+}
+
+span.format-set-icons { display:none; }
+
+span.format-deck-size, span.format-default-game-timer-minutes {
+    color:#ffffff;
+}
+
+div.format-name {
+    border-bottom:0.0125px #666666 solid;
+    margin-top:1em;
+}
+
+span.format-name-label {
+    font-family:sans-serif;
+    font-weight:bold;
+    font-size:18pt;
+    cursor: pointer;
+}
+
+li.format-detail {
+    color:#ffffff;
+    border-bottom:0.5px #ffe81f solid;
+    color:#ffa84a;
+    font-weight:bold;
+    font-size:12pt;
+    font-family:sans-serif;
+    cursor: pointer;
+    margin-top:1em;
+}
+
+li.format-detail ul {
+    color:#ffffff;
+    font-weight:bold;
+    font-size:10pt;
+}
+
+span.format-name-label::before { content: "▶ "; color:#ffa84a; font-size:8pt; }
+span.format-name-label-downarrow::before { content: "▼ "; color:#ffa84a; font-size:10pt; }
+
+span.all-sets-valid {
+    color:#66d766;
+}
+
+/* Social Links */
+li.social-link {
+    background:none !important;
+    border:none !important;
+}
+
+
+/* Leagues information page */
+.leagueSeeDetails {
+    margin-top:3px;
+    margin-bottom:3px;
+}
+.leagueExtraInfo {
+    border:0.5px #ffa74a solid;
+    padding:5px;
+    margin:5px;
+}
+.leagueHr {
+    color:#555555;
+    border:1px #555555 solid;
+    margin-top:5px;
+    margin-bottom:5px;
+    padding:none;
+}
+.leagueDurationStart {
+    color:green;
+}
+.leagueDurationStop {
+    color:red;
+}
+
+/* League Results */
+
+#myLeagueResults {
+    border:0.5px #00a3ff solid;
+    padding:5px;
+    margin:5px;
+}
+
+#my-leagues-header {
+    color:#00a3ff;
+}
+
+#leagueResults {
+    border:0.5px #79da71 solid;
+    padding:5px;
+    margin:5px;
+}
+
+#all-leagues-header {
+    color:#79da71;
+}
+

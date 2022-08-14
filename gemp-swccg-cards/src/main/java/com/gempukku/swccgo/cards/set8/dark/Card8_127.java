@@ -32,6 +32,7 @@ public class Card8_127 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Ominous_Rumors, Uniqueness.UNIQUE);
         setLore("Rumors of a new 'technological terror' filled the galaxy with dread.");
         setGameText("Use 2 Force to deploy on Endor system if opponent controls no Endor sites. Your Force drains are +2 at up to X other battleground systems, where X = number of Endor sites you occupy. Effect canceled if opponent controls three Endor sites. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.ENDOR);
         addImmuneToCardTitle(Title.Alter);
     }

@@ -36,7 +36,7 @@ public class SuspendCardUntilEndOfTurnEffect extends AbstractSuccessfulEffect {
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
         // Check if card may not be suspended
-        if (modifiersQuerying.isProhibitedFromHavingGameTextCanceled(gameState, _targetCard)) {
+        if (modifiersQuerying.isProhibitedFromBeingSuspended(gameState, _targetCard)) {
             gameState.sendMessage(GameUtils.getCardLink(_targetCard) + " is not allowed to be suspended");
             return;
         }

@@ -25,7 +25,7 @@ public class MayNotBeForfeitedInBattleModifier extends KeywordModifier {
      * @param affectFilter the filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
-    private MayNotBeForfeitedInBattleModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
+    public MayNotBeForfeitedInBattleModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
         super(source, affectFilter, condition, Keyword.MAY_NOT_BE_FORFEITED_IN_BATTLE);
     }
 }

@@ -201,6 +201,9 @@ public class BlowAwayEffect extends AbstractSubActionEffect {
                         String performingPlayerId = subAction.getPerformingPlayer();
                         String opponent = game.getOpponent(performingPlayerId);
 
+
+                        boolean forceLossMayNotBeReduced = modifiersQuerying.blownAwayForceLossMayNotBeReduced(gameState);
+
                         // Force loss for each player due to blown away
                         SubAction loseForceAction = new SubAction(subAction);
                         // Determine opponent's Force loss
@@ -208,14 +211,14 @@ public class BlowAwayEffect extends AbstractSubActionEffect {
                         if (opponentsForceLoss > 0) {
                             // Perform result(s)
                             loseForceAction.appendEffect(
-                                    new LoseForceEffect(loseForceAction, opponent, opponentsForceLoss));
+                                    new LoseForceEffect(loseForceAction, opponent, opponentsForceLoss, forceLossMayNotBeReduced));
                         }
                         // Determine players's Force loss
                         float playersForceLoss = modifiersQuerying.getBlownAwayForceLoss(gameState, performingPlayerId);
                         if (playersForceLoss > 0) {
                             // Perform result(s)
                             loseForceAction.appendEffect(
-                                    new LoseForceEffect(loseForceAction, performingPlayerId, playersForceLoss));
+                                    new LoseForceEffect(loseForceAction, performingPlayerId, playersForceLoss, forceLossMayNotBeReduced));
                         }
                         // Stack sub-action
                         subAction.stackSubAction(loseForceAction);

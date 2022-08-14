@@ -48,7 +48,8 @@ public class ExchangeCardInHandWithCardInLostPileEffect extends ExchangeCardsInH
             }
             @Override
             protected void cardSelected(SwccgGame game, final PhysicalCard cardInHandSelected) {
-                Set<CardType> cardInLostPile = cardInHandSelected.getBlueprint().getCardTypes();
+                Set<CardType> cardInLostPile = game.getModifiersQuerying().getCardTypes(game.getGameState(), cardInHandSelected);
+
                 Filter filterForCardInLostPile = Filters.none;
                 for (CardType cardType : cardInLostPile) {
                     filterForCardInLostPile = Filters.or(filterForCardInLostPile, Filters.type(cardType));

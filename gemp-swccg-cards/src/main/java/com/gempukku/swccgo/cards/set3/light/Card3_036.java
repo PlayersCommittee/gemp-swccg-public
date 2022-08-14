@@ -25,6 +25,7 @@ public class Card3_036 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Frostbite, Uniqueness.UNIQUE);
         setLore("'Then I'll see you in hell!'");
         setGameText("Deploy on Hoth system. At the end of each player's turn, for every character that player has present at a marker site under 'nighttime conditions,' that player must lose 1 Force (2 if character is missing).");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.HOTH);
     }
 

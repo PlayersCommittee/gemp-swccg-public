@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.evaluators.Evaluator;
 public class BlownAwayForceLossModifier extends AbstractModifier {
     private int _blowAwayStateId;
     private Evaluator _evaluator;
+    private boolean _forceLossMayNotBeReduced;
 
     /**
      * Creates a modifier to blown away Force loss.
@@ -22,7 +23,18 @@ public class BlownAwayForceLossModifier extends AbstractModifier {
      * @param playerId the player whose blown away Force loss is modified
      */
     public BlownAwayForceLossModifier(PhysicalCard source, int blowAwayStateId, float modifierAmount, String playerId) {
-        this(source, blowAwayStateId, null, modifierAmount, playerId);
+        this(source, blowAwayStateId, null, modifierAmount, playerId, false);
+    }
+
+    /**
+     * Creates a modifier to blown away Force loss.
+     * @param source the source of the modifier
+     * @param blowAwayStateId the id of the blow away state for the blow away to affect
+     * @param modifierAmount the amount of the modifier
+     * @param playerId the player whose blown away Force loss is modified
+     */
+    public BlownAwayForceLossModifier(PhysicalCard source, int blowAwayStateId, float modifierAmount, String playerId, boolean mayNotBeReduced) {
+        this(source, blowAwayStateId, null, modifierAmount, playerId, mayNotBeReduced);
     }
 
     /**
@@ -33,8 +45,8 @@ public class BlownAwayForceLossModifier extends AbstractModifier {
      * @param modifierAmount the amount of the modifier
      * @param playerId the player whose blown away Force loss is modified
      */
-    private BlownAwayForceLossModifier(PhysicalCard source, int blowAwayStateId, Condition condition, float modifierAmount, String playerId) {
-        this(source, blowAwayStateId, condition, new ConstantEvaluator(modifierAmount), playerId);
+    private BlownAwayForceLossModifier(PhysicalCard source, int blowAwayStateId, Condition condition, float modifierAmount, String playerId, boolean mayNotBeReduced) {
+        this(source, blowAwayStateId, condition, new ConstantEvaluator(modifierAmount), playerId, mayNotBeReduced);
     }
 
     /**
@@ -45,11 +57,12 @@ public class BlownAwayForceLossModifier extends AbstractModifier {
      * @param evaluator the evaluator that calculates the amount of the modifier
      * @param playerId the player whose blown away Force loss is modified
      */
-    private BlownAwayForceLossModifier(PhysicalCard source, int blowAwayStateId, Condition condition, Evaluator evaluator, String playerId) {
+    private BlownAwayForceLossModifier(PhysicalCard source, int blowAwayStateId, Condition condition, Evaluator evaluator, String playerId, boolean mayNotBeReduced) {
         super(source, null, null, condition, ModifierType.BLOWN_AWAY_FORCE_LOSS, false);
         _blowAwayStateId = blowAwayStateId;
         _evaluator = evaluator;
         _playerId = playerId;
+        _forceLossMayNotBeReduced = mayNotBeReduced;
     }
 
     /**
@@ -66,5 +79,9 @@ public class BlownAwayForceLossModifier extends AbstractModifier {
     @Override
     public float getValue(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
+    }
+
+    public boolean forceLossMayNotBeReduced() {
+        return _forceLossMayNotBeReduced;
     }
 }

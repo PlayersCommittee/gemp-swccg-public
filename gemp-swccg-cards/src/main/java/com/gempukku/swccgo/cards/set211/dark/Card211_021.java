@@ -44,11 +44,11 @@ public class Card211_021 extends AbstractUniqueStarshipSite {
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
-        Condition yourPalpatinePresent = new PresentCondition(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.Palpatine));
+        Condition palpatinePresent = new PresentCondition(self, Filters.Palpatine);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DockingBayTransitFromCostModifier(self, new NotCondition(yourPalpatinePresent), 3, playerOnLightSideOfLocation));
-        modifiers.add(new DockingBayTransitFromForFreeModifier(self, yourPalpatinePresent, playerOnLightSideOfLocation));
+        modifiers.add(new DockingBayTransitFromCostModifier(self, new NotCondition(palpatinePresent), 3, playerOnLightSideOfLocation));
+        modifiers.add(new DockingBayTransitFromForFreeModifier(self, palpatinePresent, playerOnLightSideOfLocation));
         return modifiers;
     }
 }

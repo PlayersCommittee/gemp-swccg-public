@@ -31,7 +31,7 @@ public class Card6_049 extends AbstractCharacterDevice {
         setLore("Used primarily for sealing bulkheads and performing other repair functions. Especially innovative droids use it for other, less conventional purposes.");
         setGameText("Deploy on any R-unit droid. During your control phase, may use 2 Force to release an escorted captive present. Also, when present at start of a battle, may cause one opponent's character of ability = 1 present to be excluded from that battle.");
         addIcons(Icon.JABBAS_PALACE);
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

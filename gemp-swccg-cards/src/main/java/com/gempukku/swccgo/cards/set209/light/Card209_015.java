@@ -35,7 +35,7 @@ public class Card209_015 extends AbstractDefensiveShield {
     public Card209_015() {
         super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.There_Is_Another);
         setLore("Princess Leia Organa. Alderaanian senator. Targeted by Vader for capture and interrogation. The Dark Lord of the Sith wanted her alive.");
-        setGameText("Plays on Your Destiny unless Leia or Luke has been deployed this game (even as a captive). [Death Star II] Luke and We’re The Bait are lost. Opponent’s Objective and [Death Star II] Effects target Leia instead of Luke. Force loss from Take Your Father’s Place is -1.");
+        setGameText("Plays on Your Destiny unless Leia or Luke has been deployed this game (even as a captive). [Death Star II] Luke and We're The Bait are lost. Opponent's Objective and [Death Star II] Effects target Leia instead of Luke. Force loss from Take Your Father's Place is -1.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_SET_9);
     }
 
@@ -51,17 +51,19 @@ public class Card209_015 extends AbstractDefensiveShield {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, final int gameTextSourceCardId) {
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
         //final GameState gameState = game.getGameState();
 
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         // Check condition(s)
         // reduce light side force loss from Take Your Father's Place by 1
         if (TriggerConditions.isAboutToLoseForceFromCard(game, effectResult, playerId, Filters.Take_Your_Fathers_Place)
                 && GameConditions.canReduceForceLoss(game)
-                && GameConditions.isOncePerForceLoss(game, self, gameTextSourceCardId)) {
+                && GameConditions.isOncePerForceLoss(game, self, gameTextSourceCardId, gameTextActionId)) {
 
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Reduce Force loss by 1");
             // Update usage limit(s)
             action.appendUsage(
@@ -69,14 +71,16 @@ public class Card209_015 extends AbstractDefensiveShield {
             // Perform result(s)
             action.appendEffect(
                     new ReduceForceLossEffect(action, playerId, 1));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        // reduce dark side force loss from Take Your Father's Place by 1
-        else if (TriggerConditions.isAboutToLoseForceFromCard(game, effectResult, opponent, Filters.Take_Your_Fathers_Place)
-                && GameConditions.canReduceForceLoss(game)
-                && GameConditions.isOncePerForceLoss(game, self, gameTextSourceCardId)) {
 
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+        // reduce dark side force loss from Take Your Father's Place by 1
+        if (TriggerConditions.isAboutToLoseForceFromCard(game, effectResult, opponent, Filters.Take_Your_Fathers_Place)
+                && GameConditions.canReduceForceLoss(game)
+                && GameConditions.isOncePerForceLoss(game, self, gameTextSourceCardId, gameTextActionId)) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Reduce Force loss by 1");
             // Update usage limit(s)
             action.appendUsage(
@@ -84,55 +88,35 @@ public class Card209_015 extends AbstractDefensiveShield {
             // Perform result(s)
             action.appendEffect(
                     new ReduceForceLossEffect(action, opponent, 1));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        else if (self.getWhileInPlayData() == null) {
-            GameTextActionId gameTextActionId = GameTextActionId.THERE_IS_ANOTHER__FOR_REMAINDER_OF_GAME_CHANGES;
-            self.setWhileInPlayData(new WhileInPlayData());
 
-            if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
-                final int permCardId = self.getPermanentCardId();
 
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText(null);
-                action.skipInitialMessageAndAnimation();
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_3;
+        // [Death Star II] Luke and We're The Bait are lost.
+        Filter toBeLost = Filters.or(Filters.Were_The_Bait, Filters.and(Filters.Luke, Icon.DEATH_STAR_II));
+        if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.THERE_IS_ANOTHER__DOES_NOT_MAKE_REFII_LUKE_LOST))
+            toBeLost = Filters.and(toBeLost, Filters.not(Filters.and(Icon.REFLECTIONS_II, Filters.Luke)));
+        if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.THERE_IS_ANOTHER__DOES_NOT_MAKE_LUKE_LOST))
+            toBeLost = Filters.and(toBeLost, Filters.not(Filters.Luke));
 
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerGameEffect(action));
+        if (TriggerConditions.isTableChanged(game, effectResult)) {
+            Collection<PhysicalCard> lostCards = Filters.filterActive(game, self, toBeLost);
 
+            if (!lostCards.isEmpty()) {
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setSingletonTrigger(true);
+                action.setText("Make [Death Star II] Luke and We're The Bait lost");
+                action.setActionMsg("Make " + GameUtils.getAppendedNames(lostCards) + " lost");
+
+                // Perform result(s)
                 action.appendEffect(
-                        new AddUntilEndOfGameActionProxyEffect(action,
-                                new AbstractActionProxy() {
-                                    @Override
-                                    public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-                                        List<TriggerAction> actions = new LinkedList<TriggerAction>();
-                                        PhysicalCard self = game.findCardByPermanentId(permCardId);
-
-                                        // Check condition(s)
-                                        if (TriggerConditions.isTableChanged(game, effectResult)) {
-                                            Collection<PhysicalCard> lostCards = Filters.filterActive(game, self, SpotOverride.INCLUDE_ALL, Filters.or(Filters.Were_The_Bait, Filters.and(Filters.Luke, Icon.DEATH_STAR_II)));
-
-                                            if (!lostCards.isEmpty()) {
-                                                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                                                action.setSingletonTrigger(true);
-                                                action.setText("Make [Death Star II] Luke and We're The Bait lost");
-                                                action.setActionMsg("Make " + GameUtils.getAppendedNames(lostCards) + " lost");
-
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new LoseCardsFromTableEffect(action, lostCards));
-                                                actions.add(action);
-                                            }
-                                        }
-                                        return actions;
-                                    }
-                                }
-                        ));
-                return Collections.singletonList(action);
+                        new LoseCardsFromTableEffect(action, lostCards));
+                actions.add(action);
             }
         }
-        return null;
+
+        return actions;
     }
 
     @Override

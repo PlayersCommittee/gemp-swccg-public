@@ -31,6 +31,7 @@ public class Card3_035 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Evacuation Control");
         setLore("'Give the evacuation code signal...and get to your transports!'");
         setGameText("Deploy on your war room. Once during each of your move phases, your Planet Defender Ion Cannon at same planet may fire. Also, each of your medium transports at same planet is hyperspeed +2, is immune to attrition < 3 and may move for free.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.HOTH);
     }
 

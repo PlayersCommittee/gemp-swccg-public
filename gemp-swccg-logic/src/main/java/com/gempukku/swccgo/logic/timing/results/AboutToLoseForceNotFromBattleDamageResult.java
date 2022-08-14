@@ -81,8 +81,8 @@ public class AboutToLoseForceNotFromBattleDamageResult extends EffectResult impl
      * Determines if the Force loss may not be reduced.
      * @return true or false
      */
-    public boolean isCannotBeReduced() {
-        return _effect.isCannotBeReduced();
+    public boolean isCannotBeReduced(SwccgGame game) {
+        return _effect.isCannotBeReduced(game);
     }
 
     /**

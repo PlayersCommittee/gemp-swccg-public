@@ -54,7 +54,7 @@ public class Card209_029 extends AbstractObjective {
                 new DeployCardFromReserveDeckEffect(action, Filters.DataVault, true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose Scarif Data Vault to deploy";
+                        return "Choose Data Vault to deploy";
                     }
                 });
         action.appendRequiredEffect(
@@ -127,7 +127,7 @@ public class Card209_029 extends AbstractObjective {
 
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy starship or location from Reserve Deck");
-            action.setActionMsg("Deploy rebel starship or Scarif location from Reserve Deck");
+            action.setActionMsg("Deploy Rebel starship or Scarif location from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));

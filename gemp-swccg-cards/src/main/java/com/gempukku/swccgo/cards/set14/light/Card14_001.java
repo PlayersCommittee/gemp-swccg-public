@@ -116,7 +116,21 @@ public class Card14_001 extends AbstractAdmiralsOrder {
                                                                                                 gameState.sendMessage(playerId + "'s total: " + GuiUtils.formatAsString(playersTotal));
                                                                                                 float opponentsTotal = (opponentsTotalDestiny != null ? opponentsTotalDestiny : 0) + opponentsPower;
                                                                                                 gameState.sendMessage(opponent + "'s total: " + GuiUtils.formatAsString(opponentsTotal));
-                                                                                                if (playersTotal > opponentsTotal) {
+
+                                                                                                if (playersTotalDestiny == null && opponentsTotalDestiny == null) {
+                                                                                                    gameState.sendMessage("Both players failed due to failed destiny draws");
+                                                                                                    gameState.sendMessage("Result: No result");
+                                                                                                } else if (playersTotalDestiny == null) {
+                                                                                                    gameState.sendMessage(playerId + "'s total failed due to failed destiny draw");
+                                                                                                    gameState.sendMessage("Result: " + GameUtils.getCardLink(yourFinalTarget) + " to be lost");
+                                                                                                    action.appendEffect(
+                                                                                                            new LoseCardFromTableEffect(action, yourFinalTarget));
+                                                                                                } else if (opponentsTotalDestiny == null) {
+                                                                                                    gameState.sendMessage(opponent + "'s total failed due to failed destiny draw");
+                                                                                                    gameState.sendMessage("Result: " + GameUtils.getCardLink(opponentsFinalTarget) + " to be lost");
+                                                                                                    action.appendEffect(
+                                                                                                            new LoseCardFromTableEffect(action, opponentsFinalTarget));
+                                                                                                } else if (playersTotal > opponentsTotal) {
                                                                                                     gameState.sendMessage("Result: " + GameUtils.getCardLink(opponentsFinalTarget) + " to be lost");
                                                                                                     action.appendEffect(
                                                                                                             new LoseCardFromTableEffect(action, opponentsFinalTarget));

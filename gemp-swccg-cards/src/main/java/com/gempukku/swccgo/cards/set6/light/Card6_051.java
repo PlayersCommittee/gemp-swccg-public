@@ -27,7 +27,7 @@ public class Card6_051 extends AbstractCharacterDevice {
         setLore("Common feature on astromechs. Displays technical information. Sometimes used by princesses to send distress calls to old Jedi Knights, but not often.");
         setGameText("Deploy on any R-unit droid. During your control phase, may use 1 Force to search your Reserve Deck, take one hologram or dejarik card into hand and reshuffle.");
         addIcons(Icon.JABBAS_PALACE);
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

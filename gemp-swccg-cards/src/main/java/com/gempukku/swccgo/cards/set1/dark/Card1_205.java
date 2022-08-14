@@ -23,7 +23,7 @@ public class Card1_205 extends AbstractCharacterDevice {
         super(Side.DARK, 6, Title.Restraining_Bolt);
         setLore("Affixed to droid's special recessed socket by using a fusion welder. Bolts can override a droid's circuits, freezing it in place if the droid tries to disobey orders.");
         setGameText("Deploy on any droid at any site. Droid cannot move and cannot utilize its 'game text.' During your deploy phase, Restraining Bolt may be transferred (for free) to another droid at same site.");
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

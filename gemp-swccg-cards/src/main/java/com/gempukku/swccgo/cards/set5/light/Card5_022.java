@@ -30,6 +30,7 @@ public class Card5_022 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Dismantle On Sight", Uniqueness.UNIQUE);
         setLore("After losing control of several extremely powerful and deadly assassin droids, the Empire issued a decree ordering their immediate destruction.");
         setGameText("Use 4 Force to deploy on a droid with armor (free on IG-88). At end of any opponent's turn, droid is immediately lost if present with an Imperial (or with a bounty hunter if droid is IG-88).");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY);
     }
 

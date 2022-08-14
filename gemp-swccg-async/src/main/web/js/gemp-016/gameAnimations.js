@@ -1140,6 +1140,8 @@ var GameAnimations = Class.extend({
                 var lightForceGeneration = element.getAttribute("lightForceGeneration");
                 var darkRaceTotal = element.getAttribute("darkRaceTotal");
                 var lightRaceTotal = element.getAttribute("lightRaceTotal");
+                var darkPoliticsTotal = element.getAttribute("darkPoliticsTotal");
+                var lightPoliticsTotal = element.getAttribute("lightPoliticsTotal");
 
                 var playerZones = element.getElementsByTagName("playerZones");
                 for (var i = 0; i < playerZones.length; i++) {
@@ -1173,6 +1175,13 @@ var GameAnimations = Class.extend({
                             $("#raceTotal" + that.game.getPlayerIndex(playerId)).text(darkRaceTotal);
                             $("#raceTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
+                        if (darkPoliticsTotal == null || darkPoliticsTotal == -1) {
+                            $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"none"});
+                        }
+                        else {
+                            $("#politicsTotal" + that.game.getPlayerIndex(playerId)).text(darkPoliticsTotal);
+                            $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
+                        }
                         $(".topDarkReserveDeck").text(reserve);
                         $(".topDarkForcePile").text(force);
                         $(".topDarkUsedPile").text(used);
@@ -1186,6 +1195,13 @@ var GameAnimations = Class.extend({
                         else {
                             $("#raceTotal" + that.game.getPlayerIndex(playerId)).text(lightRaceTotal);
                             $("#raceTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
+                        }
+                        if (lightPoliticsTotal == null || lightPoliticsTotal == -1) {
+                            $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"none"});
+                        }
+                        else {
+                            $("#politicsTotal" + that.game.getPlayerIndex(playerId)).text(lightPoliticsTotal);
+                            $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topLightReserveDeck").text(reserve);
                         $(".topLightForcePile").text(force);

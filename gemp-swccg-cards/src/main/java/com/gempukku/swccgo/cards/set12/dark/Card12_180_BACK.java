@@ -186,7 +186,7 @@ public class Card12_180_BACK extends AbstractObjective {
                 && GameConditions.hasReserveDeck(game, playerId)) {
             action.appendEffect(
                     new PlayoutDecisionEffect(action, playerId,
-                            new YesNoDecision("Draw a Card From Reserve Deck?") {
+                            new YesNoDecision("Draw a card From Reserve Deck?") {
                                 @Override
                                 protected void yes() {
                                     action.appendEffect(

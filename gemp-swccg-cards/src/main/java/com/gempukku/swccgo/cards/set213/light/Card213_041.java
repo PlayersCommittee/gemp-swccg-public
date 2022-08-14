@@ -55,8 +55,8 @@ public class Card213_041 extends AbstractAlien {
                 && GameConditions.hasReserveDeck(game, playerId)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
             OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Activate 2 force");
-            action.setActionMsg("Place a card from hand on used pile to activate 2 force");
+            action.setText("Activate 2 Force");
+            action.setActionMsg("Place a card from hand on used pile to activate 2 Force");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );

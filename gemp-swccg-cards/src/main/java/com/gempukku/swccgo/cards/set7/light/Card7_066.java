@@ -30,6 +30,7 @@ public class Card7_066 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Incom Corporation", Uniqueness.UNIQUE);
         setLore("Incom's core design team defected to the Alliance with the plans for the famed X-wing fighter. Once with the Alliance, many former Incom test pilots flew for the Rebellion.");
         setGameText("Deploy on a Rebel Base interior site. Your ability-1 permanent pilots aboard T-16s, T-47s, Z-95s and X-wings (except squadrons) are replaced by ability-2 permanent pilots who add 1 to power. Canceled if opponent controls this site. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
     }

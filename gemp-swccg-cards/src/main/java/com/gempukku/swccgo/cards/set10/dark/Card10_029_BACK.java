@@ -128,11 +128,12 @@ public class Card10_029_BACK extends AbstractObjective {
             }
         }
 
+        Filter xizorFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LEGACY__TREAT_XIZOR_AS_SHADA) ? Filters.title("Shada") : Filters.Xizor;
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_4;
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int amountToLose = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.or(Filters.Xizor, Filters.Emperor))));
+            int amountToLose = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.or(xizorFilter, Filters.Emperor))));
             if (amountToLose > 0) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -169,12 +170,14 @@ public class Card10_029_BACK extends AbstractObjective {
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
 
+        Filter xizorFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LEGACY__TREAT_XIZOR_AS_SHADA) ? Filters.title("Shada") : Filters.Xizor;
+
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_4;
 
         // Check condition(s)
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int amountToLose = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.or(Filters.Xizor, Filters.Emperor))));
+            int amountToLose = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.or(xizorFilter, Filters.Emperor))));
             if (amountToLose > 0) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
@@ -194,7 +197,7 @@ public class Card10_029_BACK extends AbstractObjective {
                 && GameConditions.canBeFlipped(game, self)) {
             Filter lukeFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE) ? Filters.Rey : Filters.Luke;
             if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(lukeFilter, Filters.at(Filters.battleground_site)))
-                    || !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Xizor)) {
+                    || !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, xizorFilter)) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);

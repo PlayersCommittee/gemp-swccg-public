@@ -99,4 +99,8 @@ public class NewConstructedLeagueData implements LeagueData {
 
         return status;
     }
+
+    public boolean isSealed() {
+        return false;
+    }
 }

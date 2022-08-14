@@ -19,6 +19,18 @@ public class LimitForceLossFromCardModifier extends AbstractModifier {
      * by the modifier.
      * @param source the source card of this modifier
      * @param affectFilter the filter
+     * @param modifierAmount the maximum Force loss limit
+     * @param playerId the player whose maximum Force loss is limited
+     */
+    public LimitForceLossFromCardModifier(PhysicalCard source, Filterable affectFilter, int modifierAmount, String playerId) {
+        this(source, affectFilter, null, new ConstantEvaluator(modifierAmount), playerId);
+    }
+
+    /**
+     * Creates a modifier that sets the maximum amount of Force that the specified player can lose from a card affected
+     * by the modifier.
+     * @param source the source card of this modifier
+     * @param affectFilter the filter
      * @param condition the condition under which this modifier is in effect
      * @param modifierAmount the maximum Force loss limit
      * @param playerId the player whose maximum Force loss is limited

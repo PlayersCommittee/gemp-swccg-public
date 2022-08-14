@@ -109,7 +109,21 @@ public class Card11_004 extends AbstractAlien {
                                                                                 float ability = game.getModifiersQuerying().getAbility(gameState, character);
                                                                                 gameState.sendMessage(GameUtils.getCardLink(character) + "'s ability: " + GuiUtils.formatAsString(ability));
 
-                                                                                if ((((playersTotalDestiny != null ? playersTotalDestiny : 0) + 2) > ((opponentsTotalDestiny != null ? opponentsTotalDestiny : 0) + ability))) {
+                                                                                if (playersTotalDestiny == null && opponentsTotalDestiny == null) {
+                                                                                    gameState.sendMessage("Both players failed due to failed destiny draws");
+                                                                                    gameState.sendMessage("Result: No result");
+                                                                                } else if (playersTotalDestiny == null) {
+                                                                                    gameState.sendMessage(playerId + "'s total failed due to failed destiny draw");
+                                                                                    gameState.sendMessage("Result: No result");
+                                                                                } else if (opponentsTotalDestiny == null) {
+                                                                                    gameState.sendMessage(opponent + "'s total failed due to failed destiny draw");
+                                                                                    gameState.sendMessage("Result: Succeeded");
+                                                                                    List<StandardEffect> effectsToOrder = new ArrayList<StandardEffect>();
+                                                                                    effectsToOrder.add(new LoseCardFromTableEffect(action, jarjar));
+                                                                                    effectsToOrder.add(new LoseCardFromTableEffect(action, character));
+                                                                                    action.appendEffect(
+                                                                                            new ChooseEffectOrderEffect(action, effectsToOrder));
+                                                                                } else if ((((playersTotalDestiny != null ? playersTotalDestiny : 0) + 2) > ((opponentsTotalDestiny != null ? opponentsTotalDestiny : 0) + ability))) {
                                                                                     gameState.sendMessage("Result: Succeeded");
                                                                                     List<StandardEffect> effectsToOrder = new ArrayList<StandardEffect>();
                                                                                     effectsToOrder.add(new LoseCardFromTableEffect(action, jarjar));

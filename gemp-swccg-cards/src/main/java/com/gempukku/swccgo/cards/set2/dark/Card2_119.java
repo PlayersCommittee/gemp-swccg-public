@@ -25,6 +25,7 @@ public class Card2_119 extends AbstractNormalEffect {
         setLore("Swamp predators require damp and cluttered environments to enhance their camouflage and stealth. 'Something just moved past my leg.'");
         setGameText("Deploy on any exterior planet site (except Hoth) or any interior vehicle site. Opponent's Force drains are -1 here. (Immune to Alter when a swamp creature is present.)");
         addIcons(Icon.A_NEW_HOPE);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

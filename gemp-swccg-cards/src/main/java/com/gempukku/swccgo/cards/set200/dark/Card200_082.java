@@ -40,7 +40,7 @@ public class Card200_082 extends AbstractImperial {
         setLore("Leader. Governor of Outer Rim Territories. Commanded Death Star. Helped disband Imperial Senate. Defined doctrine of rule by fear. Plotted to use Death Star against Emperor.");
         setGameText("[Pilot] 2. Destiny +2 when drawn for destiny. Draws one battle destiny if unable to otherwise (if with Vader or an Imperial leader, may add one instead). During battle, if you just drew a destiny < number of Imperials here, may cancel and redraw that destiny.");
         addPersona(Persona.TARKIN);
-        addIcons(Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_0);
         addKeywords(Keyword.LEADER, Keyword.MOFF);
     }
 

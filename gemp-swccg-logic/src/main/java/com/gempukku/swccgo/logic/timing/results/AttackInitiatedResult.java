@@ -9,13 +9,19 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
  * This effect result is triggered during an attack when the attack is initiated.
  */
 public class AttackInitiatedResult extends EffectResult {
+    private boolean _initiatedByCreature;
 
     /**
      * Creates an effect result that is triggered during an attack when the attack is initiated.
      * @param action the action performing this effect result
      */
-    public AttackInitiatedResult(Action action) {
+    public AttackInitiatedResult(Action action, boolean initiatedByCreature) {
         super(Type.ATTACK_INITIATED, action.getPerformingPlayer());
+        _initiatedByCreature = initiatedByCreature;
+    }
+
+    public boolean initiatedByCreature() {
+        return _initiatedByCreature;
     }
 
     /**

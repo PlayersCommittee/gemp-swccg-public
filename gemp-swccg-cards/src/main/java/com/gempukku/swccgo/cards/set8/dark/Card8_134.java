@@ -40,7 +40,7 @@ public class Card8_134 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
-        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.speeder_bike, Filters.hasPiloting(self, Filters.biker_scout)), Filters.and(Filters.swoop, Filters.piloted)));
+        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.speeder_bike, Filters.hasPiloting(self, Filters.biker_scout)), Filters.and(Filters.swoop, Filters.driven)));
 
         // Check condition(s)
         if (GameConditions.canTarget(game, self, filter)) {

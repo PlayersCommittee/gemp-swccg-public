@@ -27,6 +27,7 @@ public class Card1_209 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Baniss Keeg");
         setLore("Duros are famous spacers and starship engineers. Many are forced to work for the Empire. Some, like Baniss Keeg, train pilots for deep space missions.");
         setGameText("Deploy on your non-pilot character (except droids) to give that character [Pilot] skill.  Adds 2 to power of anything that character pilots. OR Deploy on your pilot. Adds 1 to power of anything that character pilots. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }
 

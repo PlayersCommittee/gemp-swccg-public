@@ -57,7 +57,7 @@ public class Card4_025 extends AbstractNormalEffect {
                                             new UseOneForceEffect(action, playerId, true) {
                                                 @Override
                                                 protected void forceUsed(PhysicalCard card) {
-                                                    if (card.getBlueprint().isCardType(cardType)) {
+                                                    if (game.getModifiersQuerying().getCardTypes(game.getGameState(), card).contains(cardType)) {
                                                         action.appendEffect(
                                                                 new TakeCardIntoHandFromUsedPileEffect(action, playerId, card, false));
                                                     }

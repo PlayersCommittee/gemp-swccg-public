@@ -34,6 +34,7 @@ public class Card2_123 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Maneuver Check", Uniqueness.UNIQUE);
         setLore("'Luke, at that speed will you be able to pull out in time?'");
         setGameText("Deploy on Death Star:Trench. Opponent must make maneuver check for starfighters leaving the trench. For each starfighter, owner draws destiny. If destiny + maneuver < 5, starfighter is lost.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.A_NEW_HOPE);
     }
 

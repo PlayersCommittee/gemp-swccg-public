@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -41,7 +42,7 @@ public class Card13_086 extends AbstractDefensiveShield {
         if (TriggerConditions.isAboutToRetrieveForce(game, effectResult, opponent)) {
             AboutToRetrieveForceResult result = (AboutToRetrieveForceResult) effectResult;
             if (result.getSourceCard() == null || !game.getModifiersQuerying().isForceRetrievalImmuneToSecretPlans(game.getGameState(), result.getSourceCard())) {
-                final float amountOfForce = result.getAmountOfForceToRetrieve();
+                final float amountOfForce = game.getModifiersQuerying().getVariableValue(game.getGameState(), self, Variable.X, result.getAmountOfForceToRetrieve());
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Use Force or cancel retrieval");

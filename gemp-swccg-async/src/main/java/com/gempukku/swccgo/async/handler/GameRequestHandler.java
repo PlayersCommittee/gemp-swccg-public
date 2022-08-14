@@ -218,7 +218,7 @@ public class GameRequestHandler extends SwccgoServerRequestHandler implements Ur
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String cardIdStr = getQueryParameterSafely(queryDecoder, "cardId");
-        if (cardIdStr.startsWith("extra")) {
+        if (cardIdStr.startsWith("extra") || cardIdStr.equals("anim")) {
             responseWriter.writeHtmlResponse("");
         } else {
             int cardId = Integer.parseInt(cardIdStr);

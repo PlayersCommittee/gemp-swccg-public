@@ -386,12 +386,14 @@ public class GameState implements Snapshotable<GameState> {
             physicalCard.setZone(Zone.OUTSIDE_OF_DECK);
             physicalCard.setZoneOwner(playerId);
             _outsideOfDecks.get(playerId).add(physicalCard);
+            _game.getModifiersEnvironment().addCardSpecificAlwaysOnModifiers(_game, physicalCard);
         }
         for (String blueprintId : cards) {
             PhysicalCard physicalCard = createPhysicalCard(playerId, library, blueprintId);
             physicalCard.setZone(Zone.RESERVE_DECK);
             physicalCard.setZoneOwner(playerId);
             _reserveDecks.get(playerId).add(physicalCard);
+            _game.getModifiersEnvironment().addCardSpecificAlwaysOnModifiers(_game, physicalCard);
         }
 
         // Shuffle the Reserve Deck and then make sure that top card is not a double-sided card

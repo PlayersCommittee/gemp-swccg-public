@@ -45,7 +45,6 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private LeagueDAO _leagueDao;
     private CollectionsManager _collectionManager;
     private PlayerDAO _playerDAO;
-    private GempSettingDAO _gempSettingDAO;
     private AdminService _adminService;
 
     public AdminRequestHandler(Map<Type, Object> context) {
@@ -60,7 +59,6 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _adminService = extractObject(context, AdminService.class);
-        _gempSettingDAO = extractObject(context, GempSettingDAO.class);
     }
 
     @Override
@@ -119,6 +117,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             togglePrivateGames(request, responseWriter);
         } else if (uri.equals("/toggleInGameStatistics") && request.getMethod() == HttpMethod.POST) {
             toggleInGameStatistics(request, responseWriter);
+        } else if (uri.equals("/toggleNewAccountRegistration") && request.getMethod() == HttpMethod.POST) {
+            toggleNewAccountRegistration(request, responseWriter);
         } else if (uri.equals("/removeInGameStatisticsListeners") && request.getMethod() == HttpMethod.POST) {
             removeInGameStatisticListeners(request, responseWriter);
         } else {
@@ -849,6 +849,14 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         _hallServer.togglePrivateGames();
 
         responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_hallServer.privateGamesAllowed()));
+    }
+
+    private void toggleNewAccountRegistration(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+        _gempSettingDAO.toggleNewAccountRegitrationEnabled();
+
+        responseWriter.writeHtmlResponse("New account registration enabled: "+String.valueOf(_gempSettingDAO.newAccountRegistrationEnabled())
+            + (_gempSettingDAO.newAccountRegistrationEnabled()?"":" (remember to turn this back on)"));
     }
 
     private void toggleInGameStatistics(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {

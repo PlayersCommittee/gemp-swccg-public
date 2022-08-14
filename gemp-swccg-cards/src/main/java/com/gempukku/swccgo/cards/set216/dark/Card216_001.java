@@ -12,6 +12,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.CancelGameTextEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
@@ -89,7 +90,7 @@ public class Card216_001 extends AbstractLostInterrupt {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
             action.setText("Cancel game text of a character");
-            action.setActionMsg("Cancel the game text of a non-Jedi character present with your Dark Jedi or Inquisitor");
+            action.setActionMsg("Cancel the game text of a non-Jedi character present with your Dark Jedi or Inquisitor for remainder of turn");
 
             action.appendUsage(new OncePerGameEffect(action));
             // Choose target(s)
@@ -106,13 +107,10 @@ public class Card216_001 extends AbstractLostInterrupt {
                                         protected void performActionResults(Action targetingAction) {
                                             // Get the targeted card(s) from the action using the targetGroupId.
                                             // This needs to be done in case the target(s) were changed during the responses.
-                                            Collection<PhysicalCard> finalCharacter = action.getPrimaryTargetCards(targetGroupId);
+                                            PhysicalCard finalCharacter = action.getPrimaryTargetCard(targetGroupId);
 
-                                            for(PhysicalCard card:finalCharacter) {
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new CancelGameTextEffect(action, card));
-                                            }
+                                            action.appendEffect(
+                                                    new CancelGameTextUntilEndOfTurnEffect(action, finalCharacter));
                                         }
                                     });
                         }

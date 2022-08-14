@@ -10,6 +10,7 @@ import java.sql.SQLException;
  */
 public class DbGempSettingDAO implements GempSettingDAO {
     private DbAccess _dbAccess;
+    private boolean _newAccountRegistrationEnabled = true;
 
     /**
      * Creates a gemp_setting data access object that access the database.
@@ -91,5 +92,15 @@ public class DbGempSettingDAO implements GempSettingDAO {
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to edit inGameStatistics setting", exp);
         }
+    }
+
+    @Override
+    public boolean newAccountRegistrationEnabled() {
+        return _newAccountRegistrationEnabled;
+    }
+
+    @Override
+    public void toggleNewAccountRegitrationEnabled() {
+        _newAccountRegistrationEnabled = !_newAccountRegistrationEnabled;
     }
 }

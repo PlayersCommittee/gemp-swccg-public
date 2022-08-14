@@ -38,7 +38,8 @@ public class Card14_040 extends AbstractLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
-                && GameConditions.canSpotLocation(game, Filters.Theed_Palace_Hallway)) {
+                && GameConditions.canSpotLocation(game, Filters.Theed_Palace_Hallway)
+                && GameConditions.hasReserveDeck(game, playerId)) {
             final Collection<PhysicalCard> charactersToRelocate = Filters.filterActive(game, self, Filters.and(Filters.your(self), Filters.character, Filters.at(Filters.Theed_Palace_Hallway)));
             Collection<PhysicalCard> otherSites = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.interior_Naboo_site, Filters.not(Filters.Theed_Palace_Hallway)));
             Collection<PhysicalCard> validSites = new LinkedList<PhysicalCard>();

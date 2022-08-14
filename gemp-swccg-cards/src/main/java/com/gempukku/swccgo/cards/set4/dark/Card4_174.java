@@ -30,7 +30,6 @@ public class Card4_174 extends AbstractCharacterWeapon {
         setLore("BlasTech LJ-90. Not as accurate as the E-11 Blaster Rifle, but uses the same scope mount and has much better range. Acquired by 4-LOM after teaming up with Zuckuss.");
         setGameText("Use 4 Force to deploy on your warrior, free on 4-LOM. May target a character or creature for free at same site or exterior site up to 2 sites away. Draw destiny. Add 1 if Blaster Scope attached. If total destiny - distance to target > defense value, target hit.");
         addIcons(Icon.DAGOBAH);
-        addKeywords(Keyword.BLASTER_RIFLE);
         setMatchingCharacterFilter(Filters._4_LOM);
     }
 

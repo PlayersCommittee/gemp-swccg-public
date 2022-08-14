@@ -143,7 +143,7 @@ public class Card213_032_BACK extends AbstractObjective {
             action.appendEffect(
                     new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")), true)
             );
-
+            actions.add(action);
         }
         return actions;
     }

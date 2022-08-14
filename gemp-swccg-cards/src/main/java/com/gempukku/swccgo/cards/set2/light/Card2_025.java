@@ -35,7 +35,7 @@ public class Card2_025 extends AbstractCharacterDevice {
         setLore("Among the various special devices on droids like R2 units are gas-based fire extinguishers. Effective against electrical fires and can cause confusion during battle.");
         setGameText("Deploy on your astromech droid. Cancels an 'exploding' Program Trap here. Any starship it is aboard is immune to Lateral Damage and ion cannons. If deployed on R2-D2, may lose Fire Extinguisher to cancel a battle just initiated where present at a site.");
         addIcons(Icon.A_NEW_HOPE);
-        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS);
+        addKeywords(Keyword.DEVICE_THAT_DEPLOYS_ON_DROIDS, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

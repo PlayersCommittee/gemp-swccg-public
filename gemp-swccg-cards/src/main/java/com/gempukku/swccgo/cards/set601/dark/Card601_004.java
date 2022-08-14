@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card601_004 extends AbstractUsedInterrupt {
     public Card601_004() {
-        super(Side.DARK, 5, "Cold Feet");
+        super(Side.DARK, 5, Title.Cold_Feet);
         setVirtualSuffix(true);
         setLore("Wampas pack snow around the appendages of captured prey, making use of Hoth's cold environment to immobilize them.");
         setGameText("Take a 'grabber' into hand from Reserve Deck; reshuffle. (Immune to Sense.)  OR  Play a Defensive Shield from under your Starting Effect.  OR  Cancel Don't Forget The Droids, It Can Wait, or Surprise Assault.  OR  Suspend Bacta Tank ('patient' remains on Effect), Bo Shuda, Goo Nee Tay, or Mantellian Savrip for remainder of turn.");

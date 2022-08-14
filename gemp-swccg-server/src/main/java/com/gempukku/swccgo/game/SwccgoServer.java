@@ -6,8 +6,11 @@ import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.db.DeckDAO;
 import com.gempukku.swccgo.db.InGameStatisticsDAO;
+import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.logic.timing.GameResultListener;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
+import com.gempukku.util.SwccgUuid;
+
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -26,8 +29,6 @@ public class SwccgoServer extends AbstractServer {
     private final Map<String, Date> _finishedGamesTime = Collections.synchronizedMap(new LinkedHashMap<String, Date>());
     private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
     private final long _timeToGameDeathWarning = 1000 * 60 * 4; // 4 minutes
-
-    private int _nextGameId = 1;
 
     private DeckDAO _deckDao;
     private InGameStatisticsDAO _inGameStatisticsDAO;
@@ -86,12 +87,18 @@ public class SwccgoServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate, boolean inGameStatisticsOn) {
+    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, League league, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate, boolean inGameStatisticsOn) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
                 throw new IllegalArgumentException("There has to be at least two players");
-            final String gameId = String.valueOf(_nextGameId);
+            /*
+             * Generate a new table ID based on a UUID.
+             * Generating the table ID from a UUID means that the previous method of auto-incrememting the tableId
+             * is removed from the internal memory of the gemp server.
+             */
+            final String gameId = new SwccgUuid().generateNewTableId();
+
 
             Set<String> allowedUsers = new HashSet<String>();
             for (SwccgGameParticipant participant : participants) {
@@ -104,8 +111,12 @@ public class SwccgoServer extends AbstractServer {
                 _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, allowedUsers, allowSpectatorsToChat, swccgFormat.isPlaytesting());
             }
 
-            int maxPlayerTime = timePerPlayerMinutes * 60;
-            SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, participants, _swccgCardBlueprintLibrary,
+            /*
+             * This is the game timer.
+             * A standard game is 60 minutes, or: timePerPlayerMinutes * 60;
+             */
+            int maxPlayerTime = timePerPlayerMinutes * swccgFormat.getDefaultGameTimerMinutes();
+            SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, league, participants, _swccgCardBlueprintLibrary,
                         maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds, isPrivate);
 
 
@@ -155,7 +166,6 @@ public class SwccgoServer extends AbstractServer {
             );
 
             _runningGames.put(gameId, swccgGameMediator);
-            _nextGameId++;
             return swccgGameMediator;
         } finally {
             _lock.writeLock().unlock();

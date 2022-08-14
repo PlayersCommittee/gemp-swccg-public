@@ -25,7 +25,7 @@ import java.util.List;
 public class Card14_122 extends AbstractCombatVehicle {
     public Card14_122() {
         super(Side.DARK, 3, 1, 2, 4, null, 2, 3, "Multi Troop Transport");
-        setLore("Vehicle utilized by the Trade Federation droid army. 31 meters tall. Capable of holding, transporting, and deploying up to 112 battle druids. Enclosed.");
+        setLore("Vehicle utilized by the Trade Federation droid army. 31 meters tall. Capable of holding, transporting, and deploying up to 112 battle droids. Enclosed.");
         setGameText("May add 1 pilot and 7 passengers. Your battle droids may move from this site for free. Immune to attrition < 3.");
         addModelType(ModelType.MTT);
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

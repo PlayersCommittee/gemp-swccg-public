@@ -24,6 +24,7 @@ public class Card7_056 extends AbstractNormalEffect {
         setGameText("Deploy on Corellia system. All your freighters are deploy -1 and hyperspeed +1. Also, all your Quad Laser Cannons deploy free and add 2 to each of their weapon destiny draws. Suspended while opponent controls Corellia. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }
 
     @Override

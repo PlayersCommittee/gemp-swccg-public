@@ -27,7 +27,7 @@ import java.util.*;
 public class Card204_047 extends AbstractNormalEffect {
     public Card204_047() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Bow_To_The_First_Order, Uniqueness.UNIQUE);
-        setGameText("Deploy on table. Once per game, may [upload] Finalizer. Once per character, when you deploy Hux, Kylo, Phasma, or Snoke to a battleground, may take any one card from Used Pile into hand, reshuffle. Immune to Alter.");
+        setGameText("Deploy on table. Once per game, may [upload] Finalizer. Once per character, when you deploy Hux, Kylo, Phasma, or Snoke to an [Episode VII] battleground, may take any one card from Used Pile into hand, reshuffle. Immune to Alter.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -58,7 +58,7 @@ public class Card204_047 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.BOW_TO_THE_FIRST_ORDER__UPLOAD_CARD_FROM_USED_PILE;
 
         // Check condition(s)
-        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Hux, Filters.Kylo, Filters.Phasma, Filters.Snoke)), Filters.battleground)
+        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Hux, Filters.Kylo, Filters.Phasma, Filters.Snoke)), Filters.and(Icon.EPISODE_VII, Filters.battleground))
                 && GameConditions.canTakeCardsIntoHandFromUsedPile(game, playerId, self, gameTextActionId)) {
             Set<String> characterNamesAlreadyUsed = self.getWhileInPlayData() != null ? self.getWhileInPlayData().getTextValues() : null;
             if (characterNamesAlreadyUsed == null) {

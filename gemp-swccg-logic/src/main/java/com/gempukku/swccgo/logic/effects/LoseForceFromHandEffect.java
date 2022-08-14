@@ -28,16 +28,11 @@ public class LoseForceFromHandEffect extends LoseForceEffect {
      * @param cannotBeReduced true if Force loss cannot be reduced, otherwise false
      */
     public LoseForceFromHandEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced) {
-        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, true, false, false, null, false);
+        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, true, false, false, null, false, false);
     }
 
     @Override
     public String getText(SwccgGame game) {
         return "Lose " + GuiUtils.formatAsString(_initialAmount) + " Force from hand";
-    }
-
-    @Override
-    public boolean isPlayableInFull(SwccgGame game) {
-        return super.isPlayableInFull(game) && game.getGameState().getHand(_playerToLoseForce).size() >= _initialAmount;
     }
 }

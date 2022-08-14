@@ -32,6 +32,7 @@ public class Card9_036 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Launching The Assault", Uniqueness.UNIQUE);
         setLore("By recruiting the Mon Calamari, a race of master shipwrights, the Rebel starfleet gained capital starships rivaling the dreaded Imperial Star Destroyers.");
         setGameText("Deploy on any system. Once per game, may take Home One into from Reserve Deck; reshuffle. Your Force drains are +1 at battleground systems where you have a Star Cruiser piloted by a character. Effect canceled when Rendezvous Point on table. (Immune to Alter.)");
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
     }

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card216_036 extends AbstractRebel {
     public Card216_036() {
-        super(Side.LIGHT, 1, 5, 5, 6, 9, "Master Kenobi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 5, 6, 9, Title.Master_Kenobi, Uniqueness.UNIQUE);
         setLore("'Luminous beings are we, not this crude matter.' The inner consciousness of a Jedi can transcend even death.");
         setGameText("While 'communing': You may not deploy Jedi (except Yoda) or [Permanent Weapon] cards; if a Rebel in battle, may use 1 Force to add 3 to your total power (5 if Luke); once per turn, may [download] a battleground that is related to a location on table.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_16);
@@ -80,7 +80,6 @@ public class Card216_036 extends AbstractRebel {
             action.setText("Add " + toAdd + " to total power");
             action.appendCost(new UseForceEffect(action, playerId, 1));
             action.appendEffect(new ModifyTotalPowerUntilEndOfBattleEffect(action, toAdd, playerId, "Add " + toAdd + " to total power"));
-
             actions.add(action);
         }
 

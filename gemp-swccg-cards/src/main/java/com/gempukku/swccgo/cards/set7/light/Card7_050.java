@@ -37,7 +37,7 @@ public class Card7_050 extends AbstractAlien {
         modifiers.add(new PowerModifier(self, new AtCondition(self, Filters.or(Filters.jungle, Filters.forest, Filters.Kashyyyk_site)), 1, true));
         modifiers.add(new PowerModifier(self, new AtSameSiteAsCondition(self, Filters.Imperial), 1, true));
         modifiers.add(new UsedInterruptModifier(self, Filters.Wookiee_Strangle));
-        modifiers.add(new DefinedByGameTextDeployCostToTargetModifier(self, Filters.Bowcaster, 1, self));
+        modifiers.add(new DefinedByGameTextDeployCostToTargetModifier(self, Filters.and(Filters.Bowcaster, Filters.not(Icon.VIRTUAL_SET_16)), 1, self));
         modifiers.add(new ResetCalculationVariableModifier(self, Filters.and(Filters.Bowcaster, Filters.attachedTo(self)), 1, Variable.X));
         modifiers.add(new DestinyModifier(self, Filters.and(Filters.your(self), Filters.bowcaster), 3));
         return modifiers;

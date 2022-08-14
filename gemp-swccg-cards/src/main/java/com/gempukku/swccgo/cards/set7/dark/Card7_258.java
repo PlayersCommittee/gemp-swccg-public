@@ -40,7 +40,7 @@ public class Card7_258 extends AbstractLostInterrupt {
             final GameState gameState = game.getGameState();
             final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
             Collection<PhysicalCard> systems = Filters.filterTopLocationsOnTable(game,
-                    Filters.and(Filters.sameSystemAs(self, Filters.and(Filters.opponents(self), Filters.starship)),
+                    Filters.and(Filters.sameSystemAs(self, Filters.and(Filters.opponents(self), Filters.starship, Filters.canBeTargetedBy(self))),
                             Filters.not(Filters.sameSystemAs(self, Filters.and(Filters.opponents(self), Filters.or(Filters.Jedi, Filters.starship_weapon))))));
 
             List<PhysicalCard> validSystems = new LinkedList<PhysicalCard>();

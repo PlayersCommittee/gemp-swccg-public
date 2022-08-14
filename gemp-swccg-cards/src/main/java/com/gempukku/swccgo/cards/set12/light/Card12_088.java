@@ -3,15 +3,14 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.SpotOverride;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
@@ -22,10 +21,7 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.MayDeployAsIfFromHandModifier;
-import com.gempukku.swccgo.logic.modifiers.PoliticsModifier;
+import com.gempukku.swccgo.logic.modifiers.*;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -131,9 +127,23 @@ public class Card12_088 extends AbstractObjective {
                             }
                         }
                 ));
+
+        final Filter active = new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getCardState(gameState, physicalCard, false, false, false,
+                        false, false, false, false, false) == CardState.ACTIVE;
+            }
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, SwccgBuiltInCardBlueprint builtInCardBlueprint) {
+                return modifiersQuerying.getCardState(gameState, builtInCardBlueprint.getPhysicalCard(gameState.getGame()), false, false, false,
+                        false, false, false, false, false) == CardState.ACTIVE;
+            }
+        };
+
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new CancelsGameTextModifier(self, Filters.and(Filters.character, Filters.not(Filters.Republic_character), atGalacticSenate)), null));
+                        new CancelsGameTextModifier(self, Filters.and(active, Filters.character, Filters.not(Filters.Republic_character), atGalacticSenate)), null));
         return action;
     }
 

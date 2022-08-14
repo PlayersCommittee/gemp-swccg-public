@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.effects.choose;
 
 import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -19,7 +20,10 @@ import java.util.Collection;
 public class MoveCardsAwayEffect extends AbstractSubActionEffect {
     private String _performingPlayerId;
     private Filterable _cardFilter;
+    private Filter _locationFilter;
     private boolean _asManyAsPossible;
+    private boolean _mustMoveAtLeastOne;
+    private boolean _forFree;
 
     /**
      * Creates an effect that causes the specified player to move cards away.
@@ -39,10 +43,35 @@ public class MoveCardsAwayEffect extends AbstractSubActionEffect {
      * @param asManyAsPossible true if as many as possible must be moved, otherwise false
      */
     public MoveCardsAwayEffect(Action action, String playerId, Filterable cardFilter, boolean asManyAsPossible) {
+        this(action, playerId, cardFilter, Filters.any, asManyAsPossible, false);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to move cards away.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @param asManyAsPossible true if as many as possible must be moved, otherwise false
+     */
+    public MoveCardsAwayEffect(Action action, String playerId, Filterable cardFilter, Filterable moveToFilter, boolean asManyAsPossible, boolean forFree) {
+        this(action, playerId, cardFilter, moveToFilter, asManyAsPossible, forFree, true);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to move cards away.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @param asManyAsPossible true if as many as possible must be moved, otherwise false
+     */
+    public MoveCardsAwayEffect(Action action, String playerId, Filterable cardFilter, Filterable moveToFilter, boolean asManyAsPossible, boolean forFree,  boolean mustMoveAtLeastOne) {
         super(action);
         _performingPlayerId = playerId;
         _cardFilter = cardFilter;
         _asManyAsPossible = asManyAsPossible;
+        _locationFilter = Filters.and(Filters.location, moveToFilter);
+        _forFree = forFree;
+        _mustMoveAtLeastOne = mustMoveAtLeastOne;
     }
 
     @Override
@@ -58,10 +87,10 @@ public class MoveCardsAwayEffect extends AbstractSubActionEffect {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         Collection<PhysicalCard> cardsToMoveAway = Filters.filterActive(game,
-                                _action.getActionSource(), Filters.and(_cardFilter, Filters.movableAsMoveAway(_performingPlayerId, false, 0, Filters.any)));
+                                _action.getActionSource(), Filters.and(_cardFilter, Filters.movableAsMoveAway(_performingPlayerId, _forFree, 0, _locationFilter)));
                         if (!cardsToMoveAway.isEmpty()) {
                             subAction.appendEffect(
-                                new ChooseNextCardToMoveAway(subAction, game, cardsToMoveAway, true));
+                                    new ChooseNextCardToMoveAway(subAction, game, cardsToMoveAway, _mustMoveAtLeastOne));
                         }
                     }
                 }
@@ -102,7 +131,7 @@ public class MoveCardsAwayEffect extends AbstractSubActionEffect {
                 _game.getGameState().cardAffectsCard(_performingPlayerId, _action.getActionSource(), selectedCard);
 
                 // Check if there is a valid move away action
-                final Action moveAwayAction = selectedCard.getBlueprint().getMoveAwayAction(selectedCard.getOwner(), _game, selectedCard, false, 0, false, Filters.any);
+                final Action moveAwayAction = selectedCard.getBlueprint().getMoveAwayAction(selectedCard.getOwner(), _game, selectedCard, _forFree, 0, false, _locationFilter);
 
                 // SubAction to carry out moving the card away
                 SubAction moveAwaySubAction = new SubAction(_subAction);
@@ -119,11 +148,11 @@ public class MoveCardsAwayEffect extends AbstractSubActionEffect {
                                 protected void doPlayEffect(SwccgGame game) {
                                     // Filter for cards that are still on the table
                                     _remainingCards = Filters.filterActive(game,
-                                            _action.getActionSource(), Filters.and(_cardFilter, Filters.movableAsMoveAway(_performingPlayerId, false, 0, Filters.any)));
+                                            _action.getActionSource(), Filters.and(_cardFilter, Filters.movableAsMoveAway(_performingPlayerId, _forFree, 0, _locationFilter)));
 
                                     if (!_remainingCards.isEmpty()) {
                                         _subAction.appendEffect(
-                                                new ChooseNextCardToMoveAway(_subAction, _game, _remainingCards, !_asManyAsPossible));
+                                                new ChooseNextCardToMoveAway(_subAction, _game, _remainingCards, _asManyAsPossible));
                                     }
                                 }
                             }

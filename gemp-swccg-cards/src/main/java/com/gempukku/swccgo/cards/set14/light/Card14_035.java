@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasSenateMajorityCondition;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
-import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,6 +31,7 @@ public class Card14_035 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Senate Hovercam");
         setLore("Senate hovercams report back to Chancellor Valorum at the conclusion of a Senate session. Mysteriously, the droid monitoring Amidala in the Senate never reported back.");
         setGameText("Deploy on Galactic Senate. Amidala is politics +1 here. While you have a senate majority, your Force generation here is +3. Place Effect in Lost Pile if opponent controls this location.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }
 

@@ -86,7 +86,7 @@ public class Card211_012 extends AbstractLostInterrupt {
         if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(self), Filters.Dark_Jedi))
                 && numDarkJedisOnTable == 1) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Take a Dark Jedi into hand from reserve");
+            action.setText("Take a Dark Jedi into hand from Reserve Deck");
             // no append usage here because this is not once per game.
             action.allowResponses(new RespondablePlayCardEffect(action) {
                 @Override

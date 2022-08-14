@@ -25,6 +25,7 @@ public class Card5_028 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Leia_Of_Alderaan, Uniqueness.UNIQUE);
         setLore("The face that launched a thousand starships.");
         setGameText("Deploy on Leia. While at any Rebel Base site, your Rebels, except unique (•) Rebels, are deploy -2 and power +2 at same and adjacent sites. While at any system, your starfighters, except unique (•) starfighters, are deploy -2 there.");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.CLOUD_CITY);
     }
 

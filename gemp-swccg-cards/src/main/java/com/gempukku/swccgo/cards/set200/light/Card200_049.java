@@ -30,7 +30,7 @@ public class Card200_049 extends AbstractUsedInterrupt {
         setVirtualSuffix(true);
         setLore("As their war with the Empire continued, Rebel pilots learned ways to counter standard Imperial tactics such as the Tallon Roll.");
         setGameText("For remainder of turn, opponent must first use 1 Force to fire a weapon and opponent's starship weapon destiny draws are -1. OR During opponent's deploy phase, [download] a Rebel of ability < 3 (except an admiral) aboard your starship.");
-        addIcons(Icon.SPECIAL_EDITION);
+        addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_0);
     }
 
     @Override

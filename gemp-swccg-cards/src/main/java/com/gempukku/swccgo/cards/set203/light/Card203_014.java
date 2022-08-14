@@ -33,6 +33,7 @@ public class Card203_014 extends AbstractNormalEffect {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Stolen_Data_Tapes, Uniqueness.UNIQUE);
         setLore("'What's so important? What's he carrying?' 'The technical readouts of that battle station. I only hope that when the data is analyzed, a weakness can be found.'");
         setGameText("Deploy on R2-D2. If about to leave table (even from Overwhelmed), relocate to Dune Sea (if possible). If at Dune Sea, may relocate to your character there. If at Alderaan (or a 'blown way' system), tapes 'delivered'; relocate this Effect to table and may [upload] any card. [Immune to Alter]");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.VIRTUAL_SET_3);
         addImmuneToCardTitle(Title.Alter);
     }

@@ -34,7 +34,7 @@ public class Card2_127 extends AbstractImmediateEffect {
     public Card2_127() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Tentacle");
         setLore("Dianogas use their seven tentacles for both locomotion and catching food. The few survivors of such attacks claim that a dianoga tentacle has the strength of a hydro-clamp.");
-        setGameText("If opponent just played an Interrupt, use 1 Force to deploy on table. That Interrupt is played out but is then 'grabbed' (played here but is out of play). Any new Interrupts of the same name are unique (•). (Immune to Control.)");
+        setGameText("If opponent just played an Interrupt, use 1 Force to deploy on table and stack that Interrupt here. All Interrupts of that title are unique (•). (Immune to Control.)");
         addIcons(Icon.A_NEW_HOPE, Icon.GRABBER);
         addImmuneToCardTitle(Title.Control);
     }

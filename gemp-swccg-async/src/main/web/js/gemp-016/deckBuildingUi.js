@@ -99,12 +99,13 @@ var GempSwccgDeckBuildingUI = Class.extend({
         var importDeckBut = $("<button title='Import Deck'><span class='ui-icon ui-icon-script'></span></button>").button();
         this.manageDecksDiv.append(importDeckBut);
 
+        var validateDeckBut = $("<button title='Validate Deck'><span class='ui-icon ui-icon-check'></span></button>").button();
+        this.manageDecksDiv.append(validateDeckBut);
+
         // Hidden file-input field for browsing for decks on the user's computer
         var browseInputDeckInput = $("<input type=file id='browseInputDeckInput' style='display:none'>");
         this.manageDecksDiv.append(browseInputDeckInput);
-
         this.manageDecksDiv.append("<span id='editingDeck'>New deck</span>");
-
         this.deckDiv.append(this.manageDecksDiv);
 
         newDeckBut.click(
@@ -190,6 +191,10 @@ var GempSwccgDeckBuildingUI = Class.extend({
                     that.importDeck();
                 });
 
+        validateDeckBut.click(
+                function () {
+                    that.validateDeck();
+                });
 
         this.collectionDiv = $("#collectionDiv");
 
@@ -199,7 +204,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                     that.cardFilter.getCollection();
                 });
 
-        this.normalCollectionDiv = $("<div></div>");
+        this.normalCollectionDiv = $("<div id=\"normal-collection\"></div>");
         this.normalCollectionGroup = new NormalCardGroup(this.normalCollectionDiv, function (card) {
             return true;
         });
@@ -207,7 +212,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
         this.collectionDiv.append(this.normalCollectionDiv);
 
         this.drawDeckLabelDiv = $("<div id='deckZoneLabel'>Cards in deck</div>");
-        this.drawDeckDiv = $("<div></div>");
+        this.drawDeckDiv = $("<div id=\"cards-in-deck\"></div>");
         this.drawDeckDiv.click(
                 function () {
                     that.selectionFunc = that.addCardToDeckAndLayout;
@@ -218,7 +223,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
         this.deckGroup.maxCardHeight = 250;
 
         this.outsideDeckLabelDiv = $("<div id='outsideDeckZoneLabel'> Cards outside of deck (e.g. Defensive Shields, 'Hidden' Base, etc.)</div>");
-        this.outsideDeckDiv = $("<div></div>");
+        this.outsideDeckDiv = $("<div id=\"cards-outside-deck\"></div>");
         this.outsideDeckDiv.click(
                 function () {
                     that.selectionFunc = that.addCardToOutsideDeckAndLayout;
@@ -228,7 +233,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
         });
         this.outsideDeckGroup.maxCardHeight = 100;
 
-        this.bottomBarDiv = $("<div></div>");
+        this.bottomBarDiv = $("<div id=\"bottom-bar-container\"></div>");
         this.bottomBarDiv.css({overflow:"auto"});
         this.bottomBarDiv.append("<div id='deckStats'></div>");
         this.deckDiv.append(this.bottomBarDiv);
@@ -365,6 +370,56 @@ var GempSwccgDeckBuildingUI = Class.extend({
         });
     },
 
+    /*
+     * Popup box that is displayed when the user clicks on the "validate deck" button.
+     */
+    validateDeck:function () {
+        var that = this;
+        /* Create the validatedeck dialog box if it does not already exist */
+        if (that.validateDeckDialog == null) {
+            that.validateDeckDialog = $("<div id=\"validate-deck-dialog\"></div>").dialog({
+                title:"Validate Deck",
+                autoOpen:false,
+                closeOnEscape:true,
+                resizable:true,
+                width:800,
+                height:600,
+                modal:true
+            });
+        } // if
+        that.validateDeckDialog.html("");
+        that.validateDeckDialog.dialog("open");
+
+        var deckContents = this.getDeckContents();
+        console.log("deckContents: [",deckContents,"] (",typeof deckContents,")");
+        if ((deckContents != null) && (deckContents != "|")) {
+            this.comm.getDeckStats(deckContents,
+                    function (html) {
+                        $("#validate-deck-dialog").html(html);
+                        setTimeout(
+                                function () {
+                                    that.checkDeckStatsDirty();
+                                }, that.checkDirtyInterval);
+                    }, {
+                "400":function () {
+                    $("#validate-deck-dialog").html("<span id=\"deckstats-invalid-deck\">Invalid deck for getting stats.</span>");
+                }
+            });
+        } else {
+            $("#validate-deck-dialog").html("<span id=\"deckstats-deck-has-no-cards\">Deck has no cards</span>");
+            setTimeout(
+                    function () {
+                        that.checkDeckStatsDirty();
+                    }, that.checkDirtyInterval);
+        }
+
+
+
+
+
+    }, // validateDeck function
+
+
     generateDeckRow:function (decks, prefix, sampleDeck) {
         var that = this;
         for (var i = 0; i < decks.length; i++) {
@@ -428,6 +483,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
             exportDeckBut.click(
                     (function (hiddenDeckDownloadLink) {
                         return function() {
+                            /* Call to the DeckRequestHandler getDeck */
                             hiddenDeckDownloadLink[0].click();
                         };
                     })(hiddenDeckDownloadLink));
@@ -779,11 +835,11 @@ var GempSwccgDeckBuildingUI = Class.extend({
                                 }, that.checkDirtyInterval);
                     }, {
                 "400":function () {
-                    alert("Invalid deck for getting stats.");
+                    $("#deckStats").html("<span id=\"deckstats-invalid-deck\">Invalid deck for getting stats.</span>");
                 }
             });
         } else {
-            $("#deckStats").html("Deck has no cards");
+            $("#deckStats").html("<span id=\"deckstats-deck-has-no-cards\">Deck has no cards</span>");
             setTimeout(
                     function () {
                         that.checkDeckStatsDirty();
@@ -927,9 +983,10 @@ var GempSwccgDeckBuildingUI = Class.extend({
             this.bottomBarDiv.css({ position:"absolute", left:padding * 2, top:manageHeight + padding + deckHeight - 50, width:deckWidth - 2 * padding, height:50 });
 
             this.cardFilter.layoutUi(padding, 0, collectionWidth - padding, 335);
-            this.normalCollectionDiv.css({ position:"absolute", left:padding, top:375, width:collectionWidth - padding, height:collectionHeight - 375 });
 
+            this.normalCollectionDiv.css({ position:"absolute", left:padding, top:375, width:collectionWidth - padding, height:collectionHeight - 375 });
             this.normalCollectionGroup.setBounds(padding, 0, collectionWidth, collectionHeight - 375);
+
         } else {
             this.layoutDeck();
             this.normalCollectionGroup.layoutCards();

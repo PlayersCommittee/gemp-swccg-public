@@ -24,14 +24,14 @@ import java.util.List;
 /**
  * Set: Set 11
  * Type: Interrupt
- * Subtype: Lost
+ * Subtype: Lost or Starting
  * Title: Rendezvous Point On Tatooine (V)
  */
 public class Card211_030 extends AbstractLostOrStartingInterrupt {
     public Card211_030() {
         super(Side.LIGHT, 4, "Rendezvous Point On Tatooine");
         setLore("'When we find Jabba the Hutt and that bounty hunter, we'll contact you.'");
-        setGameText("LOST: [download] a Tatooine battleground.\n" +
+        setGameText("LOST: [download] a Tatooine battleground." +
                 "STARTING: If your Jabba's Palace site on table, deploy Seeking An Audience and up to 2 Effects that deploy on table and are always immune to Alter. Place Interrupt in hand.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_11);
         setVirtualSuffix(true);

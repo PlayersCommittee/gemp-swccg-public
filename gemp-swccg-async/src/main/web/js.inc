@@ -26,6 +26,7 @@
 <script type="text/javascript" src="js/gemp-016/tournamentResultsUi.js"></script>
 <script type="text/javascript" src="js/gemp-016/statsUi.js"></script>
 <script type="text/javascript" src="js/gemp-016/playerStatsUi.js"></script>
+<script type="text/javascript" src="js/gemp-016/collectionStatsUi.js"></script>
 <script type="text/javascript" src="js/gemp-016/gameHistoryUi.js"></script>
 <script type="text/javascript" src="js/gemp-016/deckBuildingUi.js"></script>
 <script type="text/javascript" src="js/gemp-016/gameUi.js"></script>

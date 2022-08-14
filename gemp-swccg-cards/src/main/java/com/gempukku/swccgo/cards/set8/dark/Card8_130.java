@@ -28,6 +28,7 @@ public class Card8_130 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Relentless Tracking", Uniqueness.UNIQUE);
         setLore("Biker scouts commonly work as a team to track enemies of the Empire. A pair of scouts on speeder bike is difficult to elude.");
         setGameText("Deploy on opponent's non-droid character at same or adjacent site as your scout. During each of your control phases, if your scout is at this site (and not Undercover), opponent loses 2 Force (or 3 Force if that scout is also a biker scout).");
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.ENDOR);
     }
 

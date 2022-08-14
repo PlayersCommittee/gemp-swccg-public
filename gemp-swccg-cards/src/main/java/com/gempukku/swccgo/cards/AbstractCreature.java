@@ -109,7 +109,10 @@ public abstract class AbstractCreature extends AbstractDeployable {
      */
     @Override
     protected final Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
-        return Filters.and(Filters.location, getGameTextHabitatFilter(playerId, game, self));
+        if (habitatIncludesAboardStarship())
+            return Filters.and(Filters.or(Filters.location, Filters.starship), getGameTextHabitatFilter(playerId, game, self));
+        else
+            return Filters.and(Filters.location, getGameTextHabitatFilter(playerId, game, self));
     }
 
     /**
@@ -271,6 +274,15 @@ public abstract class AbstractCreature extends AbstractDeployable {
     @Override
     public Filter getHabitatFilter(final SwccgGame game, final PhysicalCard self) {
         return getGameTextHabitatFilter(self.getOwner(), game, self);
+    }
+
+    /**
+     * Determines if this creature's habitat includes aboard a starship.
+     * @return true if has attribute, otherwise false
+     */
+    @Override
+    public boolean habitatIncludesAboardStarship() {
+        return false;
     }
 
     /**

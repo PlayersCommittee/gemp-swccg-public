@@ -7,6 +7,7 @@ import com.gempukku.swccgo.chat.ChatRoomMediator;
 import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.ApplicationConfiguration;
 import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.IpBanDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
@@ -24,6 +25,7 @@ import com.gempukku.swccgo.logic.timing.GameResultListener;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import com.gempukku.swccgo.service.AdminService;
 import com.gempukku.swccgo.tournament.*;
+import com.gempukku.util.SwccgUuid;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -51,8 +53,6 @@ public class HallServer extends AbstractServer {
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
     private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
-
-    private int _nextTableId = 1;
 
     private String _motd;
 
@@ -205,6 +205,8 @@ public class HallServer extends AbstractServer {
             tournamentQueue.leaveAllPlayers(_collectionsManager);
     }
 
+
+
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
@@ -263,7 +265,12 @@ public class HallServer extends AbstractServer {
             boolean isPrivateGame = isPrivate&&privateGamesAllowed();
 
 
-            String tableId = String.valueOf(_nextTableId++);
+            /*
+             * Generate a new table ID based on a UUID.
+             * Generating the table ID from a UUID means that the previous method of auto-incrememting the tableId
+             * is removed from the internal memory of the gemp server.
+             */
+            String tableId = new SwccgUuid().generateNewTableId();
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc, isPrivateGame);
             _awaitingTables.put(tableId, table);
 
@@ -608,7 +615,7 @@ public class HallServer extends AbstractServer {
                 visitor.motd(_motd);
             }
             else {
-                visitor.motd("Public beta of new interface <a href=\"https://gemp.starwarsccg.org/gemp-swccg/newgui.html\">https://gemp.starwarsccg.org/gemp-swccg/newgui.html</a>");
+                visitor.motd("Follow the PC on Twitter @swccg to stay informed of Star Wars CCG news and events.");
             }
 
             // Only show playtesting table details if player is a playtester or admin
@@ -682,7 +689,10 @@ public class HallServer extends AbstractServer {
     }
 
     private SwccgDeck validateUserAndDeck(SwccgFormat format, Player player, String deckName, CollectionType collectionType, boolean sampleDeck, Player librarian) throws HallException {
-        // Only show playtesting formats if player is a playtester or admin
+
+        /*
+         * Only show playtesting formats if player is a playtester or admin.
+         */
         if (format.isPlaytesting()
                 && !(player.hasType(Player.Type.ADMIN)
                 || player.hasType(Player.Type.PLAY_TESTER))) {
@@ -691,18 +701,47 @@ public class HallServer extends AbstractServer {
 
         SwccgDeck swccgDeck;
         if (sampleDeck)
+            /*
+             * Sample decks come from the Librarian user.
+             */
             swccgDeck = _swccgoServer.getParticipantDeck(librarian, deckName);
         else
+            /*
+             * All other decks come from the logged in user.
+             */
             swccgDeck = _swccgoServer.getParticipantDeck(player, deckName);
 
         if (swccgDeck == null)
             throw new HallException("You don't have a deck registered yet");
 
-        try {
-            swccgDeck = validateUserAndDeck(format, player, collectionType, swccgDeck);
-        } catch (DeckInvalidException e) {
-            throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
+        /*
+         * Pull playtestingNoLimitDeckLength from properties file.
+         * The properties file will pull the value from the environment variable: playtesting_no_limit_deck_length
+         * Or it will use the default value set in the file for parameter: playtesting.noLimitDeckLength
+         */
+        Boolean playtestingNoLimitDeckLength = Boolean.parseBoolean(ApplicationConfiguration.getProperty("playtesting.noLimitDeckLength"));
+        if (playtestingNoLimitDeckLength) {
+            System.out.println("Playtesting has no Deck Length Limit");
+        } else {
+            System.out.println("Playtesting deck length is restricted to the format limit");
         }
+
+        /*
+         * If playtestingNoLimitDeckLength is true:
+         *   Allow playtesters and admins to have decks with no limit.
+         *   This feature allows Playtesters, and developers, to create decks composed exclusively of the cards they are testing.
+         * If the playtestingNoLimitDeckLength is false:
+         *   Then the deck length limit is respected.
+         */
+        if (! (playtestingNoLimitDeckLength && (player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAY_TESTER))) ) {
+
+            try {
+                swccgDeck = validateUserAndDeck(format, player, collectionType, swccgDeck);
+            } catch (DeckInvalidException e) {
+                throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
+            }
+
+        } // validate deck
 
         return swccgDeck;
     }
@@ -859,7 +898,7 @@ public class HallServer extends AbstractServer {
     }
 
     private void createGame(League league, LeagueSeriesData leagueSerie, String tableId, SwccgGameParticipant[] participants, GameResultListener listener, SwccgFormat swccgFormat, String tournamentName, String tableDesc, boolean allowSpectators, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate) {
-        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes, isPrivate, _inGameStatisticsEnabled);
+        SwccgGameMediator swccgGameMediator = _swccgoServer.createNewGame(swccgFormat, league, tournamentName, participants, allowSpectators, league == null, allowCancelling, allowSpectatorsToViewChat, allowSpectatorsToChat, allowExtendGameTimer, decisionTimeoutSeconds, timePerPlayerMinutes, isPrivate, _inGameStatisticsEnabled);
         if (listener != null) {
             swccgGameMediator.addGameResultListener(listener);
         }
@@ -1019,7 +1058,7 @@ public class HallServer extends AbstractServer {
             _hallDataAccessLock.writeLock().lock();
             try {
                 if (_operational && !_shutdown) {
-                    HallServer.this.createGame(null, null, String.valueOf(_nextTableId++), participants,
+                    HallServer.this.createGame(null, null, new SwccgUuid().generateNewTableId(), participants,
                             new GameResultListener() {
                                 @Override
                                 public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons, String winnerSide, String loserSide) {

@@ -10,6 +10,7 @@ public class DeploymentRestrictionsOption {
     private boolean _ignoreGameTextRestrictions;
     private boolean _ignoreObjectiveRestrictions;
     private boolean _allowDeployLandedToExteriorSites;
+    private boolean _allowDeployUnpilotedToSystemOrSector;
     private boolean _allowTrench;
 
     /**
@@ -93,6 +94,22 @@ public class DeploymentRestrictionsOption {
     }
 
     /**
+     * Sets whether to allow deployment as landed to a system or sector.
+     * @param allowDeployUnpilotedToSystemOrSector true or false
+     */
+    public void setAllowDeployUnpilotedToSystemOrSector(boolean allowDeployUnpilotedToSystemOrSector) {
+        _allowDeployUnpilotedToSystemOrSector = allowDeployUnpilotedToSystemOrSector;
+    }
+
+    /**
+     * Determines whether to allow deployment as unpiloted to a system or sector.
+     * @return true or false
+     */
+    public boolean isAllowDeployUnpilotedToSystemOrSector() {
+        return _allowDeployUnpilotedToSystemOrSector;
+    }
+
+    /**
      * Sets whether to allow deployment via Trench Rules.
      * @param allowTrench true or false
      */
@@ -145,6 +162,16 @@ public class DeploymentRestrictionsOption {
     public static DeploymentRestrictionsOption allowToDeployLandedToExteriorSites() {
         DeploymentRestrictionsOption option = new DeploymentRestrictionsOption();
         option.setAllowDeployLandedToExteriorSites(true);
+        return option;
+    }
+
+    /**
+     * Gets an IgnoreDeploymentRestrictionsOption object that is set to allow deployment as unpiloted to systems or sectors.
+     * @return the IgnoreDeploymentRestrictionsOption object
+     */
+    public static DeploymentRestrictionsOption allowToDeployUnpilotedToSystemOrSector() {
+        DeploymentRestrictionsOption option = new DeploymentRestrictionsOption();
+        option.setAllowDeployUnpilotedToSystemOrSector(true);
         return option;
     }
 

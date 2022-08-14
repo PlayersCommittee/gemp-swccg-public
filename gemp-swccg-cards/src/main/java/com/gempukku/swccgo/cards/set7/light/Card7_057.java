@@ -32,6 +32,7 @@ public class Card7_057 extends AbstractNormalEffect {
         setGameText("Deploy on Coruscant system if you occupy at least two Coruscant battleground sites. During each of your control phases, retrieve 1 Force for each Coruscant battleground site you occupy. Canceled if opponent controls this system. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
         addImmuneToCardTitle(Title.Alter);
+        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }
 
     @Override

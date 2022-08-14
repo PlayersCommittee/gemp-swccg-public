@@ -32,6 +32,7 @@ public class Card4_010 extends AbstractDevice {
         setLore("Experienced pilots keep a well equipped toolkit. Horizontal boosters, alluvial dampers and hydrospanners aid in performing high-tech repairs aboard starships.");
         setGameText("Use 1 Force to deploy on one of you characters, vehicles or starships (free on Falcon or Han). While aboard a vehicle or starship, you may use 1 Force to cancel any Interrupt or Effect of any kind which targets that vehicle or starship.");
         addIcons(Icon.DAGOBAH);
+        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

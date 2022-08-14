@@ -92,6 +92,7 @@ public class HitCardAndMayActivateForceEffect extends AbstractSubActionEffect im
                                         if (!isEffectOnCardPrevented(_cardHit) && Filters.or(Filters.onTable, Filters.canBeTargetedByWeaponAsIfPresent).accepts(game, _cardHit)) {
                                             gameState.sendMessage(GameUtils.getCardLink(_cardHit) + " is 'hit' by " + GameUtils.getCardLink(_hitByCard));
                                             game.getGameState().cardAffectsCard(_hitByCard.getOwner(), _hitByCard, _cardHit);
+                                            game.getModifiersQuerying().hitOrMadeLostByWeapon(_cardHit, _hitByCard);
 
                                             _cardHit.setHit(true);
                                             if (!_cardHit.isSideways()) {

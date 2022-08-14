@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
-import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,6 +31,7 @@ public class Card12_046 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Secure Route");
         setLore("Maintaining unimpeded control of vital transportation channels can strengthen and secure surrounding areas.");
         setGameText("Deploy on a docking bay you control. No Force drains here. Trample may not target a character at this site. Your Force drains are +2 at adjacent non-docking bay battleground sites. Place Effect in Used Pile if opponent controls this location.");
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
     }
 

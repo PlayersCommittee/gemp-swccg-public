@@ -101,9 +101,103 @@ body {
     padding-left: 3px;
 }
 
+
+/*
+ * Deck Stats displayed in the validation dialog box in the Deck builder
+ */
 #deckStats {
     color: #ffffff;
 }
+
+div#bottom-bar-container div#deckStats div.deckstats-format-container {
+    display:none;
+}
+
+span#deckstats-deck-has-no-cards, span#deckstats-invalid-deck, span.deckstats-format-name {
+    font-size:12pt;
+    font-weight:bold;
+    color:#ffffff;
+}
+
+span.deckstats-format-valid { color:#66d766; font-size:12pt; }
+span.deckstats-format-invalid { color:#ff4949; font-size:12pt; }
+
+div#deckstats-light-container,
+div#deckstats-dark-container {
+    font-size:12pt;
+}
+
+div.deckstats-format-container {
+    margin-bottom:0.5em;
+    font-size:12pt;
+}
+
+div#deckZoneLabel,
+div#outsideDeckZoneLabel {
+    font-family:sans-serif;
+    font-weight:bold;
+}
+
+div#deckstats-light-container,
+div#deckstats-dark-container {
+    width:25%;
+    float:left;
+    padding:0px;
+    margin-right:25px;
+}
+
+div#deckstats-light-container { border:0.5px #7b98ff solid; }
+div#deckstats-dark-container  { border:0.5px #ff4949 solid; }
+
+span#deckstats-light { background-color:#7b98ff; }
+span#deckstats-dark  { background-color:#ff4949; }
+
+span#deckstats-light, span#deckstats-dark {
+    font-weight:bold;
+    color:#000000;
+    padding:2px;
+}
+span#deckstats-light-content, span#deckstats-dark-content {
+    font-weight:bold;
+    color:#ffffff;
+    font-family:monospace;
+    padding:2px;
+}
+
+span.validate-invalid-card,
+span.validate-invalid-card-type,
+span.validate-invalid-card-set,
+span.validate-invalid-icon,
+span.validate-invalid-rarity,
+span.validate-invalid-card,
+span.validate-deck-size,
+span.validate-required-deck-size {
+    font-weight:bold;
+    color:#ffa84a;
+    /*color:#ffe81f;*/
+    font-style: oblique;
+}
+
+span.validate-invalid-icon-cardname {
+    font-weight:bold;
+    color:#ffa84a;
+    font-style: oblique;
+}
+
+.deckstats-card-count-light-and-dark-set {
+    background-color:#f6ff76 !important;
+    color:#000000 !important;
+}
+
+div.deckstats-card-count-light-and-dark-set span#deckstats-light-content,
+div.deckstats-card-count-light-and-dark-set span#deckstats-dark-content  {
+    color:#000000 !important;
+}
+
+
+/*
+ * Common interface elements
+ */
 
 .ui-button-text-only .ui-button-text {
     font-size: 70%;

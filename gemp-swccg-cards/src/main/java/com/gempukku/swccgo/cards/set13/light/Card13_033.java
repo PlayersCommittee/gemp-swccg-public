@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Set: Reflections III
  * Type: Character
- * Subtype: Rebel
+ * Subtype: Republic
  * Title: Obi-Wan Kenobi, Jedi Knight
  */
 public class Card13_033 extends AbstractRepublic {

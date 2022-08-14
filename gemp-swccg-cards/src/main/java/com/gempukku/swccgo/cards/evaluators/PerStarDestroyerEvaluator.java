@@ -1,13 +1,10 @@
 package com.gempukku.swccgo.cards.evaluators;
 
-import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
-
-import java.util.List;
 
 /**
  * An evaluator that returns the result of the specified evaluator multiplied by the number of Star Destroyers within the evaluated card.
