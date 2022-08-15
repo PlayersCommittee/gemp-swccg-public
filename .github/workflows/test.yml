@@ -1,0 +1,43 @@
+name: test-on-push
+on:
+  push:
+    branches:
+      - master
+      - main
+
+  pull_request:
+    types:
+    - opened
+    - edited
+    - synchronize
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: apt-get install OpenJDK
+        run:  |
+          which java ; true
+          java -version ; true
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk-headless
+          java -version ; true
+      - name: mvn build
+        run: mvn clean install
+
+      - name: mvn test
+        run: mvn test
+
+      - name: Build the stack
+        run: |
+          docker-compose build
+          docker-compose up -d
+      - name: Test
+        run: |
+          docker exec gemp curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
+          echo "Python3: $(which python3)"
+          echo "pip3...: $(which pip3)"
+          pip3 install -r requirements.txt
+          python3 gemp_client_test.py
