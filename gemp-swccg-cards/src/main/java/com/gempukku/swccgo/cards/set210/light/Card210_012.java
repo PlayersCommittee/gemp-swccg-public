@@ -56,9 +56,7 @@ public class Card210_012 extends AbstractAlien {
                 && (GameConditions.isInBattleWith(game, self, Filters.Leebo) || GameConditions.isInBattleWith(game, self, Filters.and(Filters.opponents(self), Filters.or(Filters.gangster, Icon.MAINTENANCE, Icon.PERMANENT_WEAPON))))
                 && GameConditions.canDrawDestiny(game, playerId)) {
             final BattleState battleState = game.getGameState().getBattleState();
-            final float currentAttrition = battleState.getAttritionTotal(game, playerId);
-            final float currentPower = battleState.getTotalPower(game, game.getOpponent(playerId));
-            if (currentAttrition > 0 && currentPower > 0) {
+            if (battleState.hasAttritionTotal(game.getOpponent(playerId))) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Reduce opponent's attrition and total power");

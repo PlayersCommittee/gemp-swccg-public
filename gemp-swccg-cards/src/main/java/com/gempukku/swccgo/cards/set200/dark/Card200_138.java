@@ -28,7 +28,7 @@ public class Card200_138 extends AbstractStarfighter {
     public Card200_138() {
         super(Side.DARK, 3, 2, 2, null, 3, 5, 4, "Vader's Personal Shuttle", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
-        setLore("Shuttle Customized transport of Lord Vader. Employs advanced sensor jamming gear. Modified with enhanced tactical displays constructed to the Dark Lord's specifications.");
+        setLore("Customized transport of Lord Vader. Employs advanced sensor jamming gear. Modified with enhanced tactical displays constructed to the Dark Lord's specifications.");
         setGameText("May add 2 pilots and 4 passengers. Vader deploys -3 aboard. While Vader piloting at a battleground, maneuver +2 and you lose no Force to Uncontrollable Fury or You Must Confront Vader.");
         addIcons(Icon.SPECIAL_EDITION, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_0);
         addModelTypes(ModelType.LAMBDA_CLASS_SHUTTLE);

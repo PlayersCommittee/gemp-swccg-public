@@ -33,6 +33,8 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_2;
             case 3:
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_3;
+            case 4:
+                return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_4;
         }
 
         return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
@@ -127,6 +129,26 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("204_11^"); //Solo
                 possibleCards.add("201_19^"); //Tantive IV (V)
                 possibleCards.add("204_35^"); //The Falcon, Junkyard Garbage
+                break;
+            case 4:
+                possibleCards.add("213_17^"); //A Lawless Time
+                possibleCards.add("215_2^"); //A Power Loss
+                possibleCards.add("208_30^"); //Darth Vader, Emperor's Enforcer
+                possibleCards.add("207_20^"); //Director Orson Krennic
+                possibleCards.add("204_6^"); //Finn
+                possibleCards.add("204_41^"); //General Hux
+                possibleCards.add("207_5^"); //General Leia Organa
+                possibleCards.add("208_49^"); //Hoth: Ice Plains (V)
+                possibleCards.add("213_20^"); //I've Been Searching For You For Some Time
+                possibleCards.add("204_29^"); //Jakku: Rey's Encampment
+                possibleCards.add("204_31^"); //Jakku: Tuanul Village (LS)
+                possibleCards.add("206_4^"); //Jyn Erso
+                possibleCards.add("213_58^"); //Leia's Resistance Transport
+                possibleCards.add("213_10^"); //Maul (Hologram)
+                possibleCards.add("213_39^"); //Qi'ra (Hologram)
+                possibleCards.add("201_6^"); //R2-D2 (V)
+                possibleCards.add("210_46^"); //The Grand Inquisitor
+                possibleCards.add("209_40^"); //Vanee
                 break;
         }
 

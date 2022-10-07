@@ -47,7 +47,7 @@ public class Card2_130 extends AbstractEpicEventPlayable {
             if (planetSystem != null) {
                 final GameState gameState = game.getGameState();
                 final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-                final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.site, Filters.notIgnoredDuringEpicEventCalculation, Filters.partOfSystem(planetSystem.getTitle()))));
+                final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.site, Filters.notIgnoredDuringEpicEventCalculation(true), Filters.partOfSystem(planetSystem.getTitle()))));
                 if (GameConditions.canUseForce(game, playerId, valueForX)) {
                     final PhysicalCard superlaser = Filters.findFirstActive(game, self, Filters.and(Filters.your(self), Filters.superlaserThatCanFireAtPlanetSystem(planetSystem)));
                     if (superlaser != null) {
@@ -119,13 +119,13 @@ public class Card2_130 extends AbstractEpicEventPlayable {
                                                                                         gameState.sendMessage("Destiny: " + (totalDestiny != null ? GuiUtils.formatAsString(totalDestiny) : "Failed destiny draw"));
 
                                                                                         final float valueForY = modifiersQuerying.getVariableValue(gameState, self, Variable.Y, Filters.countTopLocationsOnTable(game,
-                                                                                                Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation, Filters.not(Filters.occupies(opponent)))));
+                                                                                                Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation(true), Filters.not(Filters.occupies(opponent)))));
 
                                                                                         gameState.sendMessage("X: " + GuiUtils.formatAsString(valueForX));
                                                                                         gameState.sendMessage("Y: " + GuiUtils.formatAsString(valueForY));
 
-                                                                                        final int totalHothSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation));
-                                                                                        final int totalYavin4Sites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Yavin_4_site, Filters.notIgnoredDuringEpicEventCalculation));
+                                                                                        final int totalHothSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
+                                                                                        final int totalYavin4Sites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Yavin_4_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
                                                                                         if (valueForX == totalHothSites && valueForX == totalYavin4Sites) {
                                                                                             gameState.sendMessage(GuiUtils.formatAsString(valueForX) + " is the only choice as value for Z");
                                                                                             float valueForZ = modifiersQuerying.getVariableValue(gameState, self, Variable.Z, valueForX);

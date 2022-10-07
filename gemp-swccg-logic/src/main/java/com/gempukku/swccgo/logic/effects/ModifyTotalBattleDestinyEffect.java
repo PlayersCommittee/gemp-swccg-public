@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.timing.GuiUtils;
 public class ModifyTotalBattleDestinyEffect extends AbstractSuccessfulEffect {
     private String _playerAffected;
     private float _modifierAmount;
+    private boolean _skipInBattleCheck;
 
     /**
      * Creates an effect that modifies total battle destiny for the specified player until the end of battle.
@@ -22,9 +23,20 @@ public class ModifyTotalBattleDestinyEffect extends AbstractSuccessfulEffect {
      * @param modifierAmount the amount of total battle destiny to modify
      */
     public ModifyTotalBattleDestinyEffect(Action action, String playerId, float modifierAmount) {
+        this(action, playerId, modifierAmount, false);
+    }
+
+    /**
+     * Creates an effect that modifies total battle destiny for the specified player until the end of battle.
+     * @param action the action
+     * @param playerId the player whose total battle destiny is modified
+     * @param modifierAmount the amount of total battle destiny to modify
+     */
+    public ModifyTotalBattleDestinyEffect(Action action, String playerId, float modifierAmount, boolean skipInBattleCheck) {
         super(action);
         _playerAffected = playerId;
         _modifierAmount = modifierAmount;
+        _skipInBattleCheck = skipInBattleCheck;
     }
 
     @Override
@@ -39,7 +51,7 @@ public class ModifyTotalBattleDestinyEffect extends AbstractSuccessfulEffect {
         }
 
         game.getModifiersEnvironment().addUntilEndOfBattleModifier(
-                new TotalBattleDestinyModifier(_action.getActionSource(), _modifierAmount, _playerAffected));
+                new TotalBattleDestinyModifier(_action.getActionSource(), _modifierAmount, _playerAffected, _skipInBattleCheck));
         if (_modifierAmount > 0) {
             gameState.sendMessage(performingPlayerId + " adds " + GuiUtils.formatAsString(_modifierAmount) + " to total battle destiny");
         } else if (_modifierAmount < 0) {

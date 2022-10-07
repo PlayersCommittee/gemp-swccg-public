@@ -48,10 +48,26 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @param uniqueness the uniqueness
      */
     protected AbstractNonLocationPlaysToTable(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, Float deployCost, String title, Uniqueness uniqueness) {
-        super(side, destiny, title, uniqueness);
+        this(side, destiny, playCardZoneOption, deployCost, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a non-location card that plays to the table.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
+     * @param deployCost the deploy cost
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractNonLocationPlaysToTable(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, Float deployCost, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, title, uniqueness, expansionSet, rarity);
         _deployCost = deployCost;
         _playCardZoneOption = playCardZoneOption;
     }
+
 
     /**
      * Gets the deploy cost.

@@ -31,6 +31,7 @@ public class Card301_003 extends AbstractSith {
         addIcons(Icon.PREMIUM, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.SEPARATIST, Icon.VIRTUAL_SET_P);
         addKeywords(Keyword.FEMALE, Keyword.ASSASSIN);
         setSpecies(Species.DATHOMIRIAN);
+        addPersona(Persona.VENTRESS);
     }
 
     @Override

@@ -15,7 +15,18 @@ public abstract class AbstractAdmiralsOrder extends AbstractNonLocationPlaysToTa
      * @param title the card title
      */
     protected AbstractAdmiralsOrder(Side side, String title) {
-        super(side, 6f, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, 0f, title, Uniqueness.UNIQUE);
+        this(side, title, null, null);
+    }
+
+    /**
+     * Creates a blueprint for an Admiral's Order card.
+     * @param side the side of the Force
+     * @param title the card title
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractAdmiralsOrder(Side side, String title, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, 6f, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, 0f, title, Uniqueness.UNIQUE, expansionSet, rarity);
         setCardCategory(CardCategory.ADMIRALS_ORDER);
         addCardType(CardType.ADMIRALS_ORDER);
         addIcon(Icon.ADMIRALS_ORDER);

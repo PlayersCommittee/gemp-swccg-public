@@ -35,12 +35,23 @@ public abstract class AbstractObjective extends AbstractNonLocationPlaysToTable 
      * @param destiny the destiny value
      */
     protected AbstractObjective(Side side, float destiny, String title) {
-        super(side, destiny, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, null, title, null);
+        this(side, destiny,  title, null, null);
+    }
+
+    /**
+     * Creates a blueprint for an Objective.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractObjective(Side side, float destiny, String title, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, null, title, null, expansionSet, rarity);
         setCardCategory(CardCategory.OBJECTIVE);
         addCardType(CardType.OBJECTIVE);
         addIcon(Icon.OBJECTIVE);
     }
-    
+
     /**
      * Determines if the card can be played.
      * @param playerId the player

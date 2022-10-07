@@ -52,14 +52,15 @@ public class Card213_046 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
         if (GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
-                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
+                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))
+                && GameConditions.hasStackedCards(game, self, Filters.coaxiumCard)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Place 'coaxium' card in Used Pile");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
             // Perform result(s)
-            action.appendEffect(
+            action.appendTargeting(
                     new ChooseStackedCardEffect(action, playerId, self, Filters.coaxiumCard) {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
@@ -82,8 +83,7 @@ public class Card213_046 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.justDeployed(game, effectResult, self)
-                && GameConditions.hasReserveDeck(game, playerId)) {
+        if (TriggerConditions.justDeployed(game, effectResult, self)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Draw 'coaxium' destiny");
             action.setActionMsg("Draw 'coaxium' destiny");
@@ -98,14 +98,15 @@ public class Card213_046 extends AbstractNormalEffect {
 
         if (TriggerConditions.isEndOfEachPhase(game, effectResult, Phase.MOVE)
                 && GameConditions.isOnceDuringEitherPlayersPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.MOVE)
-                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))) {
+                && GameConditions.isHere(game, self, Filters.and(Filters.your(playerId), Filters.smuggler))
+                && GameConditions.hasStackedCards(game, self, Filters.coaxiumCard)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId2);
             action.setText("Place 'coaxium' card in Used Pile");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
             // Perform result(s)
-            action.appendEffect(
+            action.appendTargeting(
                     new ChooseStackedCardEffect(action, playerId, self, Filters.coaxiumCard) {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
@@ -121,7 +122,7 @@ public class Card213_046 extends AbstractNormalEffect {
 
         if (self.getWhileInPlayData() != null
                 && TriggerConditions.isTableChanged(game, effectResult)
-                && !GameConditions.hasStackedCards(game, self)) {
+                && !GameConditions.hasStackedCards(game, self, Filters.coaxiumCard)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Complete Kessel Run");
             action.setActionMsg("Complete Kessel Run");
@@ -197,11 +198,11 @@ public class Card213_046 extends AbstractNormalEffect {
 
                     @Override
                     protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                        if (self.getWhileInPlayData().getFloatValue() <= 12) {
+                        if (self.getWhileInPlayData() == null || self.getWhileInPlayData().getFloatValue() <= 12) {
                             if (GameConditions.hasReserveDeck(game, playerId)) {
                                 drawCoaxiumDestiny(action, self, playerId, gameTextSourceCardId);
                             } else {
-                                game.getGameState().sendMessage("Result: Failed. (No cards left in Reserve Deck to draw for coaxium destiny.");
+                                game.getGameState().sendMessage("Result: Failed. No cards in Reserve Deck to draw for coaxium destiny.");
                                 action.appendEffect(
                                         new ReturnCardToHandFromTableEffect(action, self, Zone.RESERVE_DECK)
                                 );

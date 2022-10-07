@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -37,7 +39,22 @@ public abstract class AbstractArtilleryWeapon extends AbstractWeapon {
      * @param uniqueness the uniqueness
      */
     protected AbstractArtilleryWeapon(Side side, float destiny, float deployCost, float forfeit, String title, Uniqueness uniqueness) {
-        super(side, destiny, PlayCardZoneOption.ATTACHED, deployCost, title, uniqueness);
+        this(side, destiny, deployCost, forfeit, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for an artillery weapon.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the ExpansionSet
+     * @param rarity the Rarity
+     */
+    protected AbstractArtilleryWeapon(Side side, float destiny, float deployCost, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, PlayCardZoneOption.ATTACHED, deployCost, title, uniqueness, expansionSet, rarity);
         setCardSubtype(CardSubtype.ARTILLERY);
         _forfeit = forfeit;
     }

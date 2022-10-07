@@ -31,7 +31,6 @@ public class Card205_009 extends AbstractStarfighter {
         setGameText("May add 1 pilot and 5 passengers. Permanent pilot is •Ric, who provides ability of 3. R2-D2 deploys -2 aboard. While We'll Need A New One on table, adds one battle destiny. Immune to attrition < 5.");
         addPersona(Persona.QUEENS_ROYAL_STARSHIP);
         addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.PILOT, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_5);
-        addKeywords(Keyword.TRANSPORT_SHIP);
         addModelType(ModelType.J_TYPE_327_NUBIAN);
         setPilotCapacity(1);
         setPassengerCapacity(5);

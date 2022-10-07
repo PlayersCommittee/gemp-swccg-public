@@ -58,7 +58,20 @@ public abstract class AbstractJediTest extends AbstractDeployable {
      * @param title the card title
      */
     protected AbstractJediTest(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title) {
-        super(side, destiny, playCardZoneOption, 0f, title);
+        this(side, destiny, playCardZoneOption, title, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a Jedi Test.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
+     * @param title the card title
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractJediTest(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, playCardZoneOption, 0f, title, null, expansionSet, rarity);
         setCardCategory(CardCategory.JEDI_TEST);
         addCardType(CardType.JEDI_TEST);
         addIcon(Icon.JEDI_TEST);

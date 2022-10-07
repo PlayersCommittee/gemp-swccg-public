@@ -51,7 +51,8 @@ public class Card2_114 extends AbstractDevice {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
-                && GameConditions.canTarget(game, self, getTargetFilter(self))) {
+                && GameConditions.canTarget(game, self, getTargetFilter(self))
+                && GameConditions.canUseDevice(game, self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
             action.setText("'Suck up' character");

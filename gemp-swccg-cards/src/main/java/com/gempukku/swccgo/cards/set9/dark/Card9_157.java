@@ -25,6 +25,7 @@ import java.util.List;
 public class Card9_157 extends AbstractCapitalStarship {
     public Card9_157() {
         super(Side.DARK, 4, 12, 12, 12, null, 2, 15, "Flagship Executor", Uniqueness.UNIQUE);
+        setAsHorizontal(true);
         setLore("Command ship of the Imperial Fleet at the Battle of Endor. Originally constructed at the Fondor shipyards. Admiral Piett stationed aboard.");
         setGameText("May add unlimited pilots, passengers and starfighters. Has ship-docking capability. Permanent pilot provides ability of 3. Immune to attrition if target of Flagship Operations.");
         addPersona(Persona.EXECUTOR);

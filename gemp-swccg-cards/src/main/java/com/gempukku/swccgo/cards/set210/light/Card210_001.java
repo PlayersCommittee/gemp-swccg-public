@@ -19,7 +19,7 @@ import java.util.List;
  * Set: Set 10
  * Type: Location
  * Subtype: Site
- * Title: Ahch To: Saddle
+ * Title: Ahch-To: Saddle
  */
 public class Card210_001 extends AbstractSite {
     public Card210_001() {

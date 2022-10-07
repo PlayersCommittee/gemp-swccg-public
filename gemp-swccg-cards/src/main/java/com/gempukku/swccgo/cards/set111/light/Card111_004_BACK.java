@@ -76,7 +76,7 @@ public class Card111_004_BACK extends AbstractObjective {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)))) {
-            int amountToAddToForceLoss = 3 * Filters.countTopLocationsOnTable(game, Filters.and(Filters.opponents(self), Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation));
+            int amountToAddToForceLoss = 3 * Filters.countTopLocationsOnTable(game, Filters.and(Filters.opponents(self), Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
             if (amountToAddToForceLoss > 0) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

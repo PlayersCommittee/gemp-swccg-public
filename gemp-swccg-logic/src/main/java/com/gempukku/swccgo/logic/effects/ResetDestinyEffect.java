@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.timing.GuiUtils;
  */
 public class ResetDestinyEffect extends AbstractSuccessfulEffect {
     private float _resetValue;
+    private DrawDestinyState _otherDrawDestinyState;
 
     /**
      * Creates an effect that resets the just drawn destiny.
@@ -23,11 +24,24 @@ public class ResetDestinyEffect extends AbstractSuccessfulEffect {
     public ResetDestinyEffect(Action action, float resetValue) {
         super(action);
         _resetValue = resetValue;
+        _otherDrawDestinyState = null;
+    }
+
+    /**
+     * Creates an effect that resets the just drawn destiny.
+     * @param action the action performing this effect.
+     * @param resetValue the reset value
+     * @param otherDrawDestinyState another destiny state (other than the top destiny draw state) to reset
+     */
+    public ResetDestinyEffect(Action action, float resetValue, DrawDestinyState otherDrawDestinyState) {
+        super(action);
+        _resetValue = resetValue;
+        _otherDrawDestinyState = otherDrawDestinyState;
     }
 
     @Override
     public String getText(SwccgGame game) {
-        DrawDestinyState drawDestinyState = game.getGameState().getTopDrawDestinyState();
+        DrawDestinyState drawDestinyState = _otherDrawDestinyState != null ? _otherDrawDestinyState : game.getGameState().getTopDrawDestinyState();
         if (drawDestinyState != null) {
             DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
             return "Reset " + drawDestinyEffect.getDestinyType().getHumanReadable() + " to " + GuiUtils.formatAsString(_resetValue);
@@ -41,7 +55,8 @@ public class ResetDestinyEffect extends AbstractSuccessfulEffect {
 
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        DrawDestinyState drawDestinyState = gameState.getTopDrawDestinyState();
+
+        DrawDestinyState drawDestinyState = _otherDrawDestinyState != null ? _otherDrawDestinyState : game.getGameState().getTopDrawDestinyState();
         if (drawDestinyState != null) {
             DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
             if (!drawDestinyEffect.isDestinyCanceled()

@@ -30,7 +30,6 @@ public class Card9_076 extends AbstractCapitalStarship {
         setLore("Winged star cruiser. Military transport for technical units. Afforded special care by the Alliance's top engineers.");
         setGameText("May add 5 pilots, 6 passengers, 1 vehicle, and 3 starfighters. Has ship-docking capability. Permanent pilot provides ability of 2. May go to Used Pile instead of Lost Pile when forfeited (unless 'hit').");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
-        addKeywords(Keyword.TRANSPORT_SHIP);
         addModelType(ModelType.MON_CALAMARI_STAR_CRUISER);
         setPilotCapacity(5);
         setPassengerCapacity(6);

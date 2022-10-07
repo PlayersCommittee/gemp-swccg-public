@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,20 @@ public abstract class AbstractSystem extends AbstractLocation {
      * @param systemOrbiting the system this must deploy orbiting
      */
     protected AbstractSystem(Side side, String title, int parsec, String systemOrbiting) {
-        super(side, title, Uniqueness.UNIQUE);
+        this(side, title, parsec, systemOrbiting, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a system.
+     * @param side the side of the Force
+     * @param title the card title
+     * @param parsec the parsec number
+     * @param systemOrbiting the system this must deploy orbiting
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractSystem(Side side, String title, int parsec, String systemOrbiting, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, title, Uniqueness.UNIQUE, expansionSet, rarity);
         _parsec = parsec;
         _systemOrbiting = systemOrbiting;
         setCardSubtype(CardSubtype.SYSTEM);

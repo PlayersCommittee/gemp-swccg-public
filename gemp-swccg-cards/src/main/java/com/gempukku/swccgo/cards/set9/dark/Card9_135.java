@@ -32,16 +32,20 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * Set: Endor
+ * Set: Death Star II
  * Type: Epic Event
  * Title: That Thing's Operational
  */
 public class Card9_135 extends AbstractEpicEventDeployable {
     public Card9_135() {
         super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.That_Things_Operational, Uniqueness.UNIQUE);
-        setGameText("Deploy on Reactor Core. Death Star II may move (hyperspeed = 3). While Death Star II orbits a system you occupy (except Endor), once during each of your control phases, opponent loses X Force, where X = 2 plus number of related battleground sites you occupy. Once during each of opponent's control phases, opponent's piloted starfighter here may attempt to 'blow away' Death Star II. Draw destiny. Add 3 if armed with torpedoes or missiles. Add pilot's ability. If total destiny > 8, starships here may attempt to 'escape' and Death Star II is 'blown away' (lose double Force).");
+        setGameText("Deploy on Reactor Core. Death Star II may move (hyperspeed = 3). " +
+                "While Death Star II orbits a system you occupy (except Endor), once during each of your control phases, " +
+                "opponent loses X Force, where X = 2 plus number of related battleground sites you occupy. " +
+                "Once during each of opponent's control phases, opponent's piloted starfighter here may attempt to 'blow away' Death Star II. " +
+                "Draw destiny. Add 3 if armed with torpedoes or missiles. Add pilot's ability. If total destiny > 8, " +
+                "starships here may attempt to 'escape' and Death Star II is 'blown away' (lose double Force).");
         addIcons(Icon.DEATH_STAR_II);
     }
 
@@ -68,7 +72,7 @@ public class Card9_135 extends AbstractEpicEventDeployable {
                 && GameConditions.canSpotLocation(game, systemFilter)) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-            int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_site, Filters.occupies(playerId), Filters.relatedSiteTo(self, systemFilter)));
+            int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_site, Filters.notIgnoredDuringEpicEventCalculation(false), Filters.occupies(playerId), Filters.relatedSiteTo(self, systemFilter)));
             float numForce = modifiersQuerying.getVariableValue(gameState, self, Variable.X, 2 + numSites);
             if (numForce > 0) {
 
@@ -210,7 +214,7 @@ public class Card9_135 extends AbstractEpicEventDeployable {
                 && GameConditions.canSpotLocation(game, systemFilter)) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-            int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_site, Filters.notIgnoredDuringEpicEventCalculation, Filters.occupies(playerId), Filters.relatedSiteTo(self, systemFilter)));
+            int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.battleground_site, Filters.notIgnoredDuringEpicEventCalculation(false), Filters.occupies(playerId), Filters.relatedSiteTo(self, systemFilter)));
             float numForce = modifiersQuerying.getVariableValue(gameState, self, Variable.X, 2 + numSites);
             if (numForce > 0) {
 

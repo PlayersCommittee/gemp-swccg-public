@@ -439,6 +439,14 @@ public interface ModifiersQuerying {
     boolean mayBeForfeitedInBattle(GameState gameState, PhysicalCard physicalCard);
 
     /**
+     * Determines if the specified card may not be forfeited in battle.
+     * @param gameState the game state
+     * @param physicalCard a card
+     * @return true if card may be forfeited, otherwise false
+     */
+    boolean mayNotBeForfeitedInBattle(GameState gameState, PhysicalCard physicalCard);
+
+    /**
      * Determines if a card satisfies all battle damage when forfeited.
      * @param gameState the game state
      * @param physicalCard a card
@@ -4268,7 +4276,7 @@ public interface ModifiersQuerying {
     // Card variables
     float getVariableValue(GameState gameState, PhysicalCard physicalCard, Variable variable, float baseValue);
 
-    boolean ignoreDuringEpicEventCalculation(GameState gameState, PhysicalCard card);
+    boolean ignoreDuringEpicEventCalculation(GameState gameState, PhysicalCard card, boolean isForBlownAway);
 
     float getEpicEventCalculationTotal(GameState gameState, PhysicalCard physicalCard, float baseTotal);
 
@@ -4620,4 +4628,6 @@ public interface ModifiersQuerying {
 
     void setExtraInformationForArchetypeLabel(String playerId, String text);
     String getExtraInformationForArchetypeLabel(String playerId);
+    boolean landsAsUnlimitedMove(GameState gameState, PhysicalCard card);
+    boolean takesOffAsUnlimitedMove(GameState gameState, PhysicalCard card);
 }

@@ -39,6 +39,7 @@ public enum ModifyGameTextType {
     JAWA_SIESTA__DOUBLED_BY_KALIT("Doubled And May Deploy For Free"),
     JAWA_PACK__DOUBLED_BY_WITTIN("Doubled And May Deploy For Free"),
     KETWOL__MAY_EXCHANGE_DOCKING_BAY_ONCE_PER_GAME("May exchange docking bay only once per game"),
+    MASTER_KENOBI__SUBTRACT_FROM_BATTLE_DESTINY_IF_POWER_MODIFIED("Opponent's total battle destiny is -1"),
     MASTER_LUKE__MAY_NOT_RETURN_ALIENS_TO_HAND("May not return aliens to hand using his game text"),
     MAUL__MAY_NOT_MODIFIY_DESTINIES("May not modify destinies"),
     MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),

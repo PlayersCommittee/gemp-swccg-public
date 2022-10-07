@@ -113,45 +113,6 @@ public class Card200_089 extends AbstractAlien {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
-        String playerId = self.getOwner();
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-
-        // Check condition(s)
-        if (TriggerConditions.isUsingForce(game, effect, playerId)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isPresentAt(game, self, Filters.and(Filters.Tatooine_location, Filters.battleground)))  {
-            final UseForceEffect useForceEffect = (UseForceEffect) effect;
-            int minOpponentForceToUse = Math.max(0, useForceEffect.getTotalAmountOfForceToUse() - game.getGameState().getForcePile(playerId).size());
-            if (minOpponentForceToUse > 0) {
-                final int maxForceToUseViaCard = game.getModifiersQuerying().getMaxOpponentsForceToUseViaCard(game.getGameState(), playerId, self, useForceEffect.getAmountForOpponentToUse(), minOpponentForceToUse);
-                if (maxForceToUseViaCard > 0) {
-
-                    final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                    action.setRepeatableTrigger(true);
-                    action.setPerformingPlayer(playerId);
-                    action.setText("Use 1 Force in opponent's Force Pile");
-                    // Update usage limit(s)
-                    action.appendUsage(
-                            new OncePerTurnEffect(action));
-                    // Perform result(s)
-                    action.appendEffect(
-                            new PassthruEffect(action) {
-                                @Override
-                                protected void doPlayEffect(SwccgGame game) {
-                                    useForceEffect.setAmountForOpponentToUse(useForceEffect.getAmountForOpponentToUse() + 1);
-                                    self.setWhileInPlayData(new WhileInPlayData(1f));
-                                }
-                            }
-                    );
-                    return Collections.singletonList(action);
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isStartOfEachTurn(game, effectResult)) {

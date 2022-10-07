@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +31,6 @@ public class Card4_159 extends AbstractUniqueStarshipSite {
         setLocationLightSideGameText("If you control, your starships may 'react' from same system as Executor.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcons(Icon.DAGOBAH, Icon.INTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.SCOMP_LINK);
-        addKeyword(Keyword.EXECUTOR_SITE);
     }
 
     @Override

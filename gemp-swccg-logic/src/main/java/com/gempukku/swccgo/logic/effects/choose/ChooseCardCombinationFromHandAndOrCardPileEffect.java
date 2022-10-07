@@ -27,6 +27,7 @@ import java.util.List;
 abstract class ChooseCardCombinationFromHandAndOrCardPileEffect extends AbstractSubActionEffect {
     private String _playerId;
     private Zone _cardPile;
+    private boolean _includeDeployableAsIfFromHand;
     private List<PhysicalCard> _cardsChosen = new LinkedList<PhysicalCard>();
     private ChooseCardCombinationFromHandAndOrCardPileEffect _that;
 
@@ -35,11 +36,13 @@ abstract class ChooseCardCombinationFromHandAndOrCardPileEffect extends Abstract
      * @param action the action performing this effect
      * @param playerId the player
      * @param cardPile the card pile to take cards from
+     * @param includeDeployableAsIfFromHand include cards that are deployable as if from hand
      */
-    protected ChooseCardCombinationFromHandAndOrCardPileEffect(Action action, String playerId, Zone cardPile) {
+    protected ChooseCardCombinationFromHandAndOrCardPileEffect(Action action, String playerId, Zone cardPile, boolean includeDeployableAsIfFromHand) {
         super(action);
         _playerId = playerId;
         _cardPile = cardPile;
+        _includeDeployableAsIfFromHand = includeDeployableAsIfFromHand;
         _that = this;
     }
 
@@ -111,6 +114,10 @@ abstract class ChooseCardCombinationFromHandAndOrCardPileEffect extends Abstract
             GameState gameState = game.getGameState();
             Collection<PhysicalCard> cardsToChooseFrom = new LinkedList<PhysicalCard>(gameState.getHand(_playerId));
             cardsToChooseFrom.addAll(gameState.getCardPile(_playerId, _cardPile));
+
+            if(_includeDeployableAsIfFromHand){
+                cardsToChooseFrom.addAll(Filters.filter(gameState.getAllStackedCards(), game, Filters.and(Filters.your(_playerId), Filters.canDeployAsIfFromHand)));
+            }
 
             final SubAction subAction = new SubAction(_action);
 

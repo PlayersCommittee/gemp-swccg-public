@@ -33,7 +33,7 @@ public abstract class PutOneCardFromCardPileInCardPileEffect extends PutOneCardI
 
     @Override
     protected void doPlayEffect(SwccgGame game) {
-        if (GameUtils.getZoneFromZoneTop(_card.getZone()) == _fromCardPile && _card.getZoneOwner().equals(_cardPileOwner)) {
+        if (GameUtils.getZoneFromZoneTop(_card.getZone()) == GameUtils.getZoneFromZoneTop(_fromCardPile) && _card.getZoneOwner().equals(_cardPileOwner)) {
             GameState gameState = game.getGameState();
             gameState.removeCardsFromZone(Collections.singleton(_card));
             _card.setOwner(_cardPileOwner);

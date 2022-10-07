@@ -801,6 +801,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
 
+        for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierType.REMOVE_KEYWORD, keyword, physicalCard)) {
+            if (modifier.hasKeyword(gameState, this, physicalCard, keyword)) {
+                retVal = false;
+                modifierCollector.addModifier(modifier);
+            }
+        }
+
         return retVal;
     }
 
@@ -1921,6 +1928,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return (physicalCard.getBlueprint().hasForfeitAttribute() || physicalCard.isDejarikHologramAtHolosite())
                 && !hasKeyword(gameState, physicalCard, Keyword.MAY_NOT_BE_FORFEITED_IN_BATTLE);
     }
+
+    @Override
+    public boolean mayNotBeForfeitedInBattle(GameState gameState, PhysicalCard physicalCard) {
+        return hasKeyword(gameState, physicalCard, Keyword.MAY_NOT_BE_FORFEITED_IN_BATTLE);
+    }
+
 
     /**
      * Gets a card's current forfeit value to use when forfeiting card.
@@ -5306,18 +5319,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             Integer curMinLimit = null;
             Integer curMaxLimit = null;
 
-            boolean destiniesMayNotBeLimitedByOpponent = false;
+            boolean destiniesMayBeLimited = true;
 
-            // check if the number of battle destiny draws for a player can't be limited by the opponent
-            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.BATTLE_DESTINY_DRAWS_MAY_NOT_BE_LIMITED_BY_OPPONENT, battleState.getBattleLocation())) {
-                if (modifier.isForPlayer(player)) {
-                    destiniesMayNotBeLimitedByOpponent = true;
+            // check if the number of battle destiny draws for either player can't be limited
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.BATTLE_DESTINY_DRAWS_MAY_NOT_BE_LIMITED_FOR_EITHER_PLAYER, battleState.getBattleLocation())) {
+                if (modifier != null) {
+                    destiniesMayBeLimited = false;
                 }
             }
 
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAX_BATTLE_DESTINY_DRAWS, battleState.getBattleLocation())) {
-                if (modifier.isForPlayer(player)
-                        && (!destiniesMayNotBeLimitedByOpponent || modifier.getSource(gameState) == null || player.equals(modifier.getSource(gameState).getOwner()))) {
+                if (destiniesMayBeLimited && modifier.isForPlayer(player)) {
                     int limit = modifier.getMaximumBattleDestinyDrawsModifier(player, gameState, this);
                     if (curMaxLimit == null || limit < curMaxLimit) {
                         curMaxLimit = limit;
@@ -5349,18 +5361,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             // Do not check MAX_BATTLE_DESTINY_DRAWS if not checking drawing limit or not for showing on user interface
 
             if (isForGui) {
-                boolean destiniesMayNotBeLimitedByOpponent = false;
+                boolean destiniesMayBeLimited = true;
 
                 // check if the number of battle destiny draws for a player can't be limited by the opponent
-                for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.BATTLE_DESTINY_DRAWS_MAY_NOT_BE_LIMITED_BY_OPPONENT, battleState.getBattleLocation())) {
-                    if (modifier.isForPlayer(player)) {
-                        destiniesMayNotBeLimitedByOpponent = true;
+                for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.BATTLE_DESTINY_DRAWS_MAY_NOT_BE_LIMITED_FOR_EITHER_PLAYER, battleState.getBattleLocation())) {
+                    if (modifier != null) {
+                        destiniesMayBeLimited = false;
                     }
                 }
 
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAX_BATTLE_DESTINY_DRAWS, battleState.getBattleLocation())) {
-                    if (modifier.isForPlayer(player)
-                            && (!destiniesMayNotBeLimitedByOpponent || modifier.getSource(gameState) == null || player.equals(modifier.getSource(gameState).getOwner()))) {
+                    if (destiniesMayBeLimited && modifier.isForPlayer(player)) {
                         result = Math.min(result, modifier.getMaximumBattleDestinyDrawsModifier(player, gameState, this));
                     }
                 }
@@ -6214,8 +6225,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     @Override
-    public boolean ignoreDuringEpicEventCalculation(GameState gameState, PhysicalCard card) {
-        if (Filters.and(Filters.generic, Filters.location).accepts(gameState, this, card)) {
+    public boolean ignoreDuringEpicEventCalculation(GameState gameState, PhysicalCard card, boolean isForBlownAway) {
+        if (isForBlownAway && Filters.and(Filters.generic, Filters.location).accepts(gameState, this, card)) {
             return true;
         }
         return (!getModifiersAffectingCard(gameState, ModifierType.IGNORE_DURING_EPIC_EVENT_CALCULATION, card).isEmpty());
@@ -12514,7 +12525,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return false;
 
         Uniqueness uniqueness = getUniqueness(gameState, card);
-        if (uniqueness==null || uniqueness.isPerSystem())
+        if (uniqueness==null || uniqueness == Uniqueness.UNRESTRICTED || uniqueness.isPerSystem())
             return false;
 
         for (String title : card.getTitles()) {
@@ -16777,5 +16788,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return _extraInformationForArchetypeLabel.get(playerId);
 
         return null;
+    }
+
+    @Override
+    public boolean landsAsUnlimitedMove(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.LANDS_AS_UNLIMITED_MOVE, card).isEmpty();
+    }
+
+    @Override
+    public boolean takesOffAsUnlimitedMove(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.TAKES_OFF_AS_UNLIMITED_MOVE, card).isEmpty();
     }
 }

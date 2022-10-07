@@ -32,11 +32,25 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
      * @param uniqueness the uniqueness
      */
     protected AbstractInterrupt(Side side, Float destiny, String title, Uniqueness uniqueness) {
-        super(side, destiny, title, uniqueness);
+        this(side, destiny, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for an Interrupt.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractInterrupt(Side side, Float destiny, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, title, uniqueness, expansionSet, rarity);
         setCardCategory(CardCategory.INTERRUPT);
         addCardType(CardType.INTERRUPT);
         addIcon(Icon.INTERRUPT);
     }
+
 
     /**
      * Determines if the card can be played.

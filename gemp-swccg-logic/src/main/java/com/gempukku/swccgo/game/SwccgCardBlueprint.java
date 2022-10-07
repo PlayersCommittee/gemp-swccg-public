@@ -118,7 +118,7 @@ public interface SwccgCardBlueprint {
      * @param name the system name
      * @return true if generic location may be part of system, otherwise false
      */
-    boolean mayNotBePartOfSystem(String name);
+    boolean mayNotBePartOfSystem(SwccgGame game, String name);
 
     /**
      * Determines if a special rule is in effect at this location.
@@ -1634,6 +1634,16 @@ public interface SwccgCardBlueprint {
     Filter getValidPilotFilter(String playerId, SwccgGame game, PhysicalCard self, boolean forDeployment);
 
     /**
+     * Gets a filter for the cards that are valid to be passengers of the specified card.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @param forDeployment true if checking for deployment, otherwise false
+     * @return the filter
+     */
+    Filter getValidPassengerFilter(String playerId, SwccgGame game, PhysicalCard self, boolean forDeployment);
+
+    /**
      * Gets a filter for the cards that are matching characters for this.
      * @return the filter
      */
@@ -1737,4 +1747,22 @@ public interface SwccgCardBlueprint {
      * @return true if this should be excluded from the deck buider
      */
     boolean excludeFromDeckBuilder();
+
+    /**
+     * Returns if card has a horizontal orientation
+     * @return true if this is a legacy card
+     */
+    boolean isHorizontal();
+
+    /**
+     * Returns the Expansion Set card belongs to
+     * @return true if this is a legacy card
+     */
+    ExpansionSet getExpansionSet();
+
+    /**
+     * Returns the Rarity card has
+     * @return true if this is a legacy card
+     */
+    Rarity getRarity();
 }

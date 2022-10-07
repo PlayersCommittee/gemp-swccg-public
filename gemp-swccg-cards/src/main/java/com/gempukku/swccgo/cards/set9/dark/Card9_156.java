@@ -28,7 +28,6 @@ public class Card9_156 extends AbstractStarfighter {
         setLore("Transport used extensively by Emperor Palpatine. Extremely well guarded. Pilots ordered to maintain constant contact with all nearby Imperial strike forces.");
         setGameText("May add 1 pilot and 4 passengers. Permanent pilot provides ability 2. Emperor deploys for free aboard. While Emperor aboard, immune to attrition and adds one battle destiny.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
-        addKeywords(Keyword.TRANSPORT_SHIP);
         addModelType(ModelType.LAMBDA_CLASS_SHUTTLE);
         setPilotCapacity(1);
         setPassengerCapacity(4);

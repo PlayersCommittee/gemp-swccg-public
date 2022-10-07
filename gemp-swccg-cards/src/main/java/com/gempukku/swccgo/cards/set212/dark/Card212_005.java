@@ -34,9 +34,9 @@ public class Card212_005 extends AbstractRepublic {
     public Card212_005() {
         super(Side.DARK, 2, 3, 3, 3, 5, "Admiral Trench", Uniqueness.UNIQUE);
         setLore("Harch Commander. Leader. Trade Federation.");
-        setGameText("Adds 2 to power of anything he pilots. Unless alone, may place Trench in Used Pile to make an [E1] starship here immune to attrition for remainder of turn. While at opponent's system, their starships deploy +1 here.");
+        setGameText("Adds 2 to power of anything he pilots. Unless alone, may place Trench in Used Pile to make an [Episode I] starship here immune to attrition for remainder of turn. While at opponent's system, their starships deploy +1 here.");
         addKeywords(Keyword.ADMIRAL, Keyword.COMMANDER, Keyword.LEADER);
-        addIcons(Icon.VIRTUAL_SET_12, Icon.SEPARATIST, Icon.PILOT);
+        addIcons(Icon.VIRTUAL_SET_12, Icon.SEPARATIST, Icon.PILOT, Icon.EPISODE_I);
         setSpecies(Species.HARCH);
     }
 

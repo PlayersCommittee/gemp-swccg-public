@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.BattleEndedResult;
+import com.gempukku.swccgo.logic.timing.results.BattleEndingResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class Card5_046 extends AbstractLostInterrupt {
                 && GameConditions.isDuringBattleWonBy(game, playerId)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.character, Filters.abilityMoreThan(3), Filters.presentInBattle))) {
             Filter characterFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.presentInBattle);
-            final Filter locationFilter = Filters.adjacentSite(((BattleEndedResult) effectResult).getLocation());
+            final Filter locationFilter = Filters.adjacentSite(((BattleEndingResult) effectResult).getLocation());
             if (GameConditions.canSpotLocation(game, locationFilter)) {
                 Collection<PhysicalCard> characters = Filters.filter(game.getGameState().getBattleState().getAllCardsParticipating(), game, Filters.and(characterFilter, Filters.canBeTargetedBy(self)));
                 if (!characters.isEmpty()) {

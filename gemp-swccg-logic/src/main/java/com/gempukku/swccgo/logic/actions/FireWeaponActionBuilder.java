@@ -6102,11 +6102,6 @@ public class FireWeaponActionBuilder {
 
                                                         if (totalDestiny + 3 > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
-                                                            if(game.getModifiersQuerying().getAbility(game.getGameState(), cardFiredAt) > 4){
-                                                                action.appendEffect(
-                                                                        new ModifyPowerUntilEndOfTurnEffect(action, gameState.getWeaponFiringState().getCardFiringWeapon(), 2)
-                                                                );
-                                                            }
                                                             action.appendEffect(
                                                                     new HitCardAndResetForfeitEffect(action, cardFiredAt, 0,  _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon())
                                                             );

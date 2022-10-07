@@ -32,7 +32,6 @@ public class Card214_002 extends AbstractStarfighter {
         addPersona(Persona.BESTOON_LEGACY);
         addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_14, Icon.INDEPENDENT);
         addModelType(ModelType.WTK_85A_INTERSTELLAR_TRANSPORT);
-        addKeyword(Keyword.TRANSPORT_SHIP);
         setMatchingPilotFilter(Filters.Ochi);
         setPilotCapacity(2);
         setPassengerCapacity(3);

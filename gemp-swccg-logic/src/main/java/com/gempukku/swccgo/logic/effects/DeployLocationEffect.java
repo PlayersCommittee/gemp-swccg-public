@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.ConvertLocationResult;
 import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
 
 import java.util.Collections;
@@ -106,11 +107,14 @@ public class DeployLocationEffect extends AbstractSubActionEffect implements Pla
                             relatedText = " as related asteroid sector to " + GameUtils.getCardLink(system);
                         }
 
+                        boolean converted = false;
                         if (_placement.getDirection() == LocationPlacementDirection.REPLACE) {
                             if (isRebuildSite)
                                 gameState.sendMessage(_performingPlayerId + " deploys " + GameUtils.getCardLink(_cardToPlay) + " from " + fromText + " to rebuild collapsed " + GameUtils.getCardLink(_placement.getOtherCard()));
-                            else
+                            else {
                                 gameState.sendMessage(_performingPlayerId + " deploys " + GameUtils.getCardLink(_cardToPlay) + " from " + fromText + " to convert " + GameUtils.getCardLink(_placement.getOtherCard()));
+                                converted = true;
+                            }
                         }
                         else {
                             gameState.sendMessage(_performingPlayerId + " deploys " + GameUtils.getCardLink(_cardToPlay) + " from " + fromText + relatedText);
@@ -124,6 +128,11 @@ public class DeployLocationEffect extends AbstractSubActionEffect implements Pla
                         // Emit the effect result
                         EffectResult playCardResult = new PlayCardResult(_performingPlayerId, _cardToPlay, _playedFromZone, null, null, null, true, false);
                         actionsEnvironment.emitEffectResult(playCardResult);
+
+                        if (converted) {
+                            EffectResult convertedCardResult = new ConvertLocationResult(_performingPlayerId, _placement.getOtherCard(), _cardToPlay);
+                            actionsEnvironment.emitEffectResult(convertedCardResult);
+                        }
                     }
                 }
         );

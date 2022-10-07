@@ -84,7 +84,24 @@ public abstract class AbstractCreature extends AbstractDeployable {
      * @param uniqueness the uniqueness
      */
     protected AbstractCreature(Side side, float destiny, float deployCost, Float ferocity, float defenseValue, float forfeit, String title, Uniqueness uniqueness) {
-        super(side, destiny, null, deployCost, title, uniqueness);
+        this(side, destiny, deployCost, ferocity, defenseValue, forfeit, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a creature.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param ferocity the ferocity
+     * @param defenseValue the defense value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractCreature(Side side, float destiny, float deployCost, Float ferocity, float defenseValue, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, null, deployCost, title, uniqueness, expansionSet, rarity);
         _ferocity = ferocity;
         _defenseValue = defenseValue;
         _landspeed = 1;

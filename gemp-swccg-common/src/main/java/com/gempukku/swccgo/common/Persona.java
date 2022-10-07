@@ -143,6 +143,7 @@ public enum Persona implements Filterable {
     VAL("Val"),
     VANEE("Vanee"),
     VEERS("Veers"),
+    VENTRESS("Ventress"),
     VOS("Vos"),
     VUL("Vul"),
     WEDGE("Wedge"),

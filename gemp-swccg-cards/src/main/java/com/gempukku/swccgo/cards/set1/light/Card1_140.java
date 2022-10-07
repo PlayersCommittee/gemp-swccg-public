@@ -21,7 +21,6 @@ public class Card1_140 extends AbstractCapitalStarship {
         setLore("Multi-purpose Rebel Blockade Runner. Modular interior designed for troop or cargo transport. 150 meters long. Used by Rebels, pirates, corporations and the Empire.");
         setGameText("May add 3 pilots, 4 passengers and 1 vehicle. Has ship-docking capability. Permanent pilot aboard provides ability of 1.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
-        addKeywords(Keyword.TRANSPORT_SHIP);
         addModelType(ModelType.CORELLIAN_CORVETTE);
         setPilotCapacity(3);
         setPassengerCapacity(4);

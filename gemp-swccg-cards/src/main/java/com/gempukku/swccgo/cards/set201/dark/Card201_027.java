@@ -23,7 +23,7 @@ public class Card201_027 extends AbstractAlien {
         super(Side.DARK, 3, 2, 2, 2, 4, "Wooof", Uniqueness.UNIQUE);
         setVirtualSuffix(true);
         setLore("Kadas'sa'Nikto. One of Jabba's best pilots. Often pilots Jabba's space yacht. Smuggler. Prefers to be flying combat starfighters.");
-        setGameText("[Pilot] 3. May deploy with any cruiser using Combat Response. While aboard an [Independent] starship, opponent's battle and weapon destiny draws here are -1.");
+        setGameText("[Pilot] 3. May deploy with any cruiser using Combat Response. While aboard a piloted [Independent] starship, opponent's battle and weapon destiny draws here are -1.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.VIRTUAL_SET_1);
         addKeywords(Keyword.SMUGGLER);
         setSpecies(Species.NIKTO);
@@ -32,12 +32,12 @@ public class Card201_027 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String opponent = game.getOpponent(self.getOwner());
-        Condition aboardIndependentStarship = new AboardCondition(self, Filters.and(Filters.starship, Icon.INDEPENDENT));
+        Condition aboardPilotedIndependentStarship = new AboardCondition(self, Filters.and(Filters.starship, Filters.piloted, Icon.INDEPENDENT));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
-        modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), aboardIndependentStarship, -1, opponent));
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.opponents(self), Filters.here(self)), aboardIndependentStarship, -1));
+        modifiers.add(new EachBattleDestinyModifier(self, Filters.here(self), aboardPilotedIndependentStarship, -1, opponent));
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.and(Filters.opponents(self), Filters.here(self)), aboardPilotedIndependentStarship, -1));
         return modifiers;
     }
 

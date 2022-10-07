@@ -25,7 +25,7 @@ import java.util.List;
  * Set: Set 11
  * Type: Location
  * Subtype: Site
- * Title: Ahch To: Jedi Temple
+ * Title: Ahch-To: Jedi Temple
  */
 
 public class Card211_046 extends AbstractSite {
@@ -35,7 +35,7 @@ public class Card211_046 extends AbstractSite {
         setLocationLightSideGameText("Once during your turn, if Luke alone here, may draw top card of Force Pile. ");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcon(Icon.DARK_FORCE, 1);
-        addIcons(Icon.PLANET, Icon.EXTERIOR_SITE, Icon.EPISODE_VII, Icon.VIRTUAL_SET_11);
+        addIcons(Icon.PLANET, Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.EPISODE_VII, Icon.VIRTUAL_SET_11);
     }
 
 

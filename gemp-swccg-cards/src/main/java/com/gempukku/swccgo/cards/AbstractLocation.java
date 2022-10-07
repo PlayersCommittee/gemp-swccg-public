@@ -36,7 +36,19 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
      * @param uniqueness the uniqueness
      */
     protected AbstractLocation(Side side, String title, Uniqueness uniqueness) {
-        super(side, 0f, title, uniqueness);
+        this(side, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a location card.
+     * @param side the side of the Force
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractLocation(Side side, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, 0f, title, uniqueness, expansionSet, rarity);
         setCardCategory(CardCategory.LOCATION);
         addCardType(CardType.LOCATION);
     }
@@ -73,7 +85,7 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
     }
 
     @Override
-    public boolean mayNotBePartOfSystem(String system) {
+    public boolean mayNotBePartOfSystem(SwccgGame game, String system) {
         return _mayNotBePartOfSystem.contains(system);
     }
 

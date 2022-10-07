@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.MoveMobileSystemUsingHyperspeedAction;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,9 +26,7 @@ public abstract class AbstractMobileSystem extends AbstractSystem {
      * @param systemOrbiting the system this must deploy orbiting
      */
     protected AbstractMobileSystem(Side side, String title, int parsec, String systemOrbiting) {
-        super(side, title, parsec, systemOrbiting);
-        _hyperspeed = 0f;
-        addIcons(Icon.MOBILE);
+        this(side, title, 0f, parsec, null, null);
     }
 
     /**
@@ -36,7 +36,19 @@ public abstract class AbstractMobileSystem extends AbstractSystem {
      * @param parsec the parsec number
      */
     protected AbstractMobileSystem(Side side, String title, float hyperspeed, int parsec) {
-        super(side, title, parsec, null);
+        this(side, title, hyperspeed, parsec, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a mobile system.
+     * @param side the side of the Force
+     * @param title the card title
+     * @param parsec the parsec number
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractMobileSystem(Side side, String title, float hyperspeed, int parsec, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, title, parsec, null, expansionSet, rarity);
         _hyperspeed = hyperspeed;
         addIcons(Icon.MOBILE);
     }

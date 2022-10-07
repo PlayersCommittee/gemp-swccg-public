@@ -26,7 +26,6 @@ public class Card12_091 extends AbstractStarfighter {
         setGameText("May add 2 pilots and 5 passengers. Weapons may not deploy on this starship. While Ric piloting, draws one battle destiny if unable to otherwise, and immune to Lateral Damage and attrition < 4.");
         addPersona(Persona.QUEENS_ROYAL_STARSHIP);
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER);
-        addKeywords(Keyword.TRANSPORT_SHIP);
         addModelType(ModelType.J_TYPE_327_NUBIAN);
         setPilotCapacity(2);
         setPassengerCapacity(5);

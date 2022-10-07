@@ -4,8 +4,13 @@ package com.gempukku.swccgo.common;
  * Represents the uniqueness of a particular SWCCG card.
  */
 public enum Uniqueness implements Filterable {
-    UNIQUE(1, false, "•"), RESTRICTED_2(2, false, "••"), RESTRICTED_3(3, false, "•••"),
-    DIAMOND_1(1, true, "◇"), DIAMOND_2(2, true, "◇◇"), DIAMOND_3(3, true, "◇◇◇");
+    UNRESTRICTED(Integer.MAX_VALUE, false, ""),
+    UNIQUE(1, false, "•"),
+    RESTRICTED_2(2, false, "••"),
+    RESTRICTED_3(3, false, "•••"),
+    DIAMOND_1(1, true, "◇"),
+    DIAMOND_2(2, true, "◇◇"),
+    DIAMOND_3(3, true, "◇◇◇");
 
     private int _value;
     private boolean _isPerSystem;

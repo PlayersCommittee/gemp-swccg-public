@@ -148,7 +148,7 @@ public class Card3_115 extends AbstractEpicEventPlayable {
                                                                                         }
                                                                                     }
                                                                                     float valueForY = modifiersQuerying.getVariableValue(gameState, self, Variable.Y, Filters.countTopLocationsOnTable(game,
-                                                                                            Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation, Filters.controls(playerId))));
+                                                                                            Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation(true), Filters.controls(playerId))));
 
                                                                                     gameState.sendMessage("X: " + GuiUtils.formatAsString(valueForX));
                                                                                     gameState.sendMessage("Y: " + GuiUtils.formatAsString(valueForY));

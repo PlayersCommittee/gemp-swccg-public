@@ -23,6 +23,7 @@ import java.util.List;
 public class Card4_167 extends AbstractCapitalStarship {
     public Card4_167() {
         super(Side.DARK, 1, 15, 12, 12, null, 2, 15, Title.Executor, Uniqueness.UNIQUE);
+        setAsHorizontal(true);
         setLore("Flagship of Death Squadron. Over eight kilometers long. Carries 38,000 troops, Can conquer entire star systems by sheer intimidation and terror. Lord Vader's personal command ship.");
         setGameText("May add unlimited pilots, passengers, vehicles and starfighters. Has ship-docking capability. Permanent pilots aboard provide total ability of 3. Immune to attrition < 12.");
         addPersona(Persona.EXECUTOR);

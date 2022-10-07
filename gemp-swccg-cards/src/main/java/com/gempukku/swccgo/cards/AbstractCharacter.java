@@ -39,7 +39,25 @@ public abstract class AbstractCharacter extends AbstractDeployable {
      * @param uniqueness the uniqueness
      */
     protected AbstractCharacter(Side side, Float destiny, Float deployCost, Float power, float ability, Float forfeit, String title, Uniqueness uniqueness) {
-        super(side, destiny, null, deployCost, title, uniqueness);
+        this(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, null, null);
+    }
+
+
+    /**
+     * Creates a blueprint for a character.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param power the power value
+     * @param ability the ability value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractCharacter(Side side, Float destiny, Float deployCost, Float power, float ability, Float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, null, deployCost, title, uniqueness, expansionSet, rarity);
         _power = power;
         _ability = ability;
         _landspeed = 1;

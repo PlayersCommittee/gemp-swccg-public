@@ -1139,6 +1139,9 @@ public class GameConditions {
         if (cardToGrab == null) {
             return false;
         }
+        if (cardToGrab.isDejarikHologramAtHolosite()){
+            return false;
+        }
         if (game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS) {
             return false;
         }
@@ -1148,10 +1151,7 @@ public class GameConditions {
         if (cardToGrab.getStackedOn() != null && Filters.grabber.accepts(game, cardToGrab.getStackedOn())) {
             return false;
         }
-        if (game.getModifiersQuerying().mayNotBeGrabbed(game.getGameState(), cardToGrab)) {
-            return false;
-        }
-        return true;
+        return !game.getModifiersQuerying().mayNotBeGrabbed(game.getGameState(), cardToGrab);
     }
 
     /**

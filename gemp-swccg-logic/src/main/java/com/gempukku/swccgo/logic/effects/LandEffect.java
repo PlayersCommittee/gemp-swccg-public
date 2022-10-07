@@ -87,15 +87,17 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
         if (_cardMoved.getAtLocation() != null
                 && (!isAsReact() || gameState.getMoveAsReactState().canContinue())) {
 
-            subAction.appendEffect(
-                    new PassthruEffect(subAction) {
-                        @Override
-                        protected void doPlayEffect(SwccgGame game) {
-                            // Record that regular move was performed
-                            game.getModifiersQuerying().regularMovePerformed(_cardMoved);
+            if (!modifiersQuerying.landsAsUnlimitedMove(gameState, _cardMoved)){
+                subAction.appendEffect(
+                        new PassthruEffect(subAction) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                // Record that regular move was performed
+                                game.getModifiersQuerying().regularMovePerformed(_cardMoved);
+                            }
                         }
-                    }
-            );
+                );
+            }
 
             // Emit effect result that card is beginning to move
             subAction.appendEffect(

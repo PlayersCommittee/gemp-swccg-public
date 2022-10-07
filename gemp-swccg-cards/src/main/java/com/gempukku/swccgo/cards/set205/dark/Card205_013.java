@@ -30,7 +30,8 @@ public class Card205_013 extends AbstractAlien {
     public Card205_013() {
         super(Side.DARK, 2, 3, 4, 3, 5, "Hondo Ohnaka", Uniqueness.UNIQUE);
         setLore("Weequay gangster, leader, and pirate.");
-        setGameText("Draws one battle destiny if not able to otherwise. While at Audience Chamber (or stacked on your Objective), your other Weequays are deploy -1, power +1, and forfeit +2. Once per game, may [download] Aurra Sing, Slave I, or a Kowakian.");
+        setGameText("Draws one battle destiny if not able to otherwise. While at Audience Chamber (or stacked on your Objective), " +
+                    "your other Weequays are deploy -1, power +1, and forfeit +2. Once per game, may [download] Aurra, Slave I, or a Kowakian.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_5);
         addKeywords(Keyword.GANGSTER, Keyword.LEADER, Keyword.PIRATE);
         setSpecies(Species.WEEQUAY);

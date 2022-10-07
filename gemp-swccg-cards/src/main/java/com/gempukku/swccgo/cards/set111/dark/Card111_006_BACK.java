@@ -45,7 +45,7 @@ public class Card111_006_BACK extends AbstractObjective {
             int amountToAddToForceLoss =
                 3 * Filters.countTopLocationsOnTable(game,
                         Filters.and(Filters.opponents(self), Filters.Yavin_4_site,
-                            Filters.notIgnoredDuringEpicEventCalculation));
+                            Filters.notIgnoredDuringEpicEventCalculation(true)));
             if (amountToAddToForceLoss > 0) {
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.skipInitialMessageAndAnimation();

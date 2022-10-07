@@ -160,7 +160,7 @@ public class Card209_045 extends AbstractEpicEventDeployable {
                                                                             final float initialEpicEventTotal = modifiersQuerying.getEpicEventCalculationTotal(gameState, self, totalDestiny);
                                                                             gameState.sendMessage("Total Destiny: " + GuiUtils.formatAsString(initialEpicEventTotal));
 
-                                                                            final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation)));
+                                                                            final float valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, Filters.countTopLocationsOnTable(game, Filters.and(Filters.Death_Star_site, Filters.notIgnoredDuringEpicEventCalculation(true))));
                                                                             gameState.sendMessage("X: " + GuiUtils.formatAsString(valueForX));
 
                                                                             //compute total

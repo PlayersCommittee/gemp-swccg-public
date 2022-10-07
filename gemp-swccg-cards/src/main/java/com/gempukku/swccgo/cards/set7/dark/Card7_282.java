@@ -28,7 +28,7 @@ public class Card7_282 extends AbstractUniqueStarshipSite {
         setLocationLightSideGameText("Your docking bay transit from here requires 7 Force. Your transit to here requires +9 Force.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcons(Icon.SPECIAL_EDITION, Icon.INTERIOR_SITE, Icon.EXTERIOR_SITE, Icon.STARSHIP_SITE, Icon.MOBILE, Icon.SCOMP_LINK);
-        addKeywords(Keyword.DOCKING_BAY, Keyword.EXECUTOR_SITE);
+        addKeyword(Keyword.DOCKING_BAY);
     }
 
     @Override

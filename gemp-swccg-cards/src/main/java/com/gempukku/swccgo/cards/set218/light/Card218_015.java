@@ -14,7 +14,7 @@ import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.DeployCardsSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardCombinationFromHandAndOrReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandOrDeployableAsIfFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
@@ -57,7 +57,6 @@ public class Card218_015 extends AbstractNormalEffect {
             actions.add(action);
         }
 
-
         gameTextActionId = GameTextActionId.BEST_STARPILOT_IN_THE_GALAXY__DEPLOY_STARSHIP_AND_PILOT;
 
         // Check condition(s)
@@ -67,24 +66,20 @@ public class Card218_015 extends AbstractNormalEffect {
                     || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.FALCON)
                     || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.RED_5);
 
-            final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
+            final List<PhysicalCard> cardsToChooseFrom = new ArrayList<>();
+            cardsToChooseFrom.addAll(game.getGameState().getHand(playerId));
 
+            Filter cardsThatCanDeployAsIfFromHand = Filters.and(Filters.your(playerId), Filters.canDeployAsIfFromHand);
 
-
-            final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
-            Collection<PhysicalCard> starfighters = Filters.filter(cardsInHand, game, Filters.and(Filters.unpiloted, Filters.or(Filters.Azure_Angel, Filters.Falcon, Filters.Red_5)));
-
-            if(GameConditions.canSpot(game, self, Filters.title(Title.My_Parents_Were_Strong))){
-                final List<PhysicalCard> cardsStacked = game.getGameState().getStackedCards(Filters.findFirstActive(game, self, Filters.title(Title.My_Parents_Were_Strong)));
-                for(PhysicalCard stackedCard : cardsStacked){
-                    if (Filters.Falcon.accepts(game.getGameState(), game.getModifiersQuerying(), stackedCard)){
-                        starfighters.add(stackedCard);
-                    }
-                }
+            if(GameConditions.canSpot(game, self, Filters.hasStacked(cardsThatCanDeployAsIfFromHand))){
+                cardsToChooseFrom.addAll(Filters.filterStacked(game, Filters.canDeployAsIfFromHand));
             }
 
+            final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
+            Collection<PhysicalCard> starfighters = Filters.filter(cardsToChooseFrom, game, Filters.and(Filters.unpiloted, Filters.or(Filters.Azure_Angel, Filters.Falcon, Filters.Red_5)));
+
             for (PhysicalCard starfighter : starfighters) {
-                if (Filters.canSpot(cardsInHand, game, Filters.and(Filters.matchingPilot(starfighter), Filters.deployableSimultaneouslyWith(self, starfighter, false, 0, false, 0)))) {
+                if (Filters.canSpot(cardsToChooseFrom, game, Filters.and(Filters.matchingPilot(starfighter), Filters.deployableSimultaneouslyWith(self, starfighter, false, 0, false, 0)))) {
                     validStarfighters.add(starfighter);
                 }
             }
@@ -104,23 +99,23 @@ public class Card218_015 extends AbstractNormalEffect {
                                         protected void yes() {
                                             action.setActionMsg("Deploy Azure Angel, Falcon, or Red 5 and a matching pilot from (or as if from) hand and/or Reserve Deck");
                                             // Perform result(s)
-                                            action.appendEffect(getChooseCardsEffect(action));
+                                            action.appendEffect(getChooseCardsEffect(action, self));
                                         }
                                         @Override
                                         protected void no() {
                                             action.setActionMsg("Deploy Azure Angel, Falcon, or Red 5 and a matching pilot from (or as if from) hand");
                                             action.appendTargeting(
-                                                    new ChooseCardFromHandEffect(action, playerId, Filters.in(validStarfighters)) {
+                                                    new ChooseCardFromHandOrDeployableAsIfFromHandEffect(action, playerId, Filters.in(validStarfighters)) {
                                                         @Override
                                                         public String getChoiceText(int numCardsToChoose) {
                                                             return "Choose Azure Angel, Falcon, or Red 5";
                                                         }
                                                         @Override
                                                         protected void cardSelected(SwccgGame game, final PhysicalCard starfighter) {
-                                                            Collection<PhysicalCard> pilots = Filters.filter(cardsInHand, game, Filters.and(Filters.matchingPilot(starfighter), Filters.not(Icon.MAINTENANCE),
+                                                            Collection<PhysicalCard> pilots = Filters.filter(cardsToChooseFrom, game, Filters.and(Filters.matchingPilot(starfighter), Filters.not(Icon.MAINTENANCE),
                                                                     Filters.deployableSimultaneouslyWith(self, starfighter, false, 0, false, 0)));
                                                             action.appendTargeting(
-                                                                    new ChooseCardFromHandEffect(action, playerId, Filters.in(pilots)) {
+                                                                    new ChooseCardFromHandOrDeployableAsIfFromHandEffect(action, playerId, Filters.in(pilots)) {
                                                                         @Override
                                                                         public String getChoiceText(int numCardsToChoose) {
                                                                             return "Choose matching pilot";
@@ -144,7 +139,7 @@ public class Card218_015 extends AbstractNormalEffect {
                 else {
                     action.setActionMsg("Deploy Azure Angel, Falcon, or Red 5 and a matching pilot from hand and/or Reserve Deck");
                     // Perform result(s)
-                    action.appendEffect(getChooseCardsEffect(action));
+                    action.appendEffect(getChooseCardsEffect(action, self));
                 }
                 actions.add(action);
             }
@@ -154,7 +149,7 @@ public class Card218_015 extends AbstractNormalEffect {
     }
 
 
-    private StandardEffect getChooseCardsEffect(final TopLevelGameTextAction action) {
+    private StandardEffect getChooseCardsEffect(final TopLevelGameTextAction action, final PhysicalCard self) {
         return new ChooseCardCombinationFromHandAndOrReserveDeckEffect(action) {
             @Override
             public String getChoiceText(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
@@ -165,7 +160,16 @@ public class Card218_015 extends AbstractNormalEffect {
             public Filter getValidToSelectFilter(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
                 String playerId = action.getPerformingPlayer();
                 GameState gameState = game.getGameState();
-                Collection<PhysicalCard> cardsToChooseFrom = new LinkedList<PhysicalCard>(gameState.getHand(playerId));
+
+                final List<PhysicalCard> cardsToChooseFrom = new ArrayList<>();
+                cardsToChooseFrom.addAll(game.getGameState().getHand(playerId));
+
+                Filter cardsThatCanDeployAsIfFromHand = Filters.and(Filters.your(playerId), Filters.canDeployAsIfFromHand);
+
+                if(GameConditions.canSpot(game, self, Filters.hasStacked(cardsThatCanDeployAsIfFromHand))){
+                    cardsToChooseFrom.addAll(Filters.filterStacked(game, Filters.canDeployAsIfFromHand));
+                }
+
                 cardsToChooseFrom.addAll(gameState.getCardPile(playerId, Zone.RESERVE_DECK));
 
                 if (cardsSelected.isEmpty()) {

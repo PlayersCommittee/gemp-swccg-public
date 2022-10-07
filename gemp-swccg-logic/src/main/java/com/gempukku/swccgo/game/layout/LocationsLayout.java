@@ -213,7 +213,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             if (cardToDeploy.getPartOfSystem() == null) {
                 if (!cardToDeploy.getBlueprint().getUniqueness().isPerSystem())
                     return Collections.emptyList();
-                else if (cardToDeploy.getBlueprint().mayNotBePartOfSystem(targetSystem))
+                else if (cardToDeploy.getBlueprint().mayNotBePartOfSystem(game, targetSystem))
                     return Collections.emptyList();
             }
             else if (!cardToDeploy.getPartOfSystem().equals(targetSystem)) {
@@ -264,7 +264,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             // Try to find places to deploy using each system to be a part of
             for (String systemName : systemNames) {
                 // Check if location is not allowed to be part of system
-                if (!cardToDeploy.getBlueprint().mayNotBePartOfSystem(systemName)) {
+                if (!cardToDeploy.getBlueprint().mayNotBePartOfSystem(game, systemName)) {
                     // Set "part of system" or "is orbiting system" while looking for valid places to deploy, then set it back to null
                     if (Filters.or(Filters.asteroid_sector, Filters.Big_One_Asteroid_Cave_Or_Space_Slug_Belly).accepts(game, cardToDeploy))
                         cardToDeploy.setSystemOrbited(systemName);

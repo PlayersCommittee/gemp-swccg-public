@@ -57,7 +57,22 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      * @param uniqueness the uniqueness
      */
     protected AbstractDeployable(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, Float deployCost, String title, Uniqueness uniqueness) {
-        super(side, destiny, playCardZoneOption, deployCost, title, uniqueness);
+        this(side, destiny, playCardZoneOption, deployCost, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a deployable card.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
+     * @param deployCost the deploy cost
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractDeployable(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, Float deployCost, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, playCardZoneOption, deployCost, title, uniqueness, expansionSet, rarity);
     }
 
     /**
@@ -849,8 +864,12 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      */
     @Override
     public Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
-        if (!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove))
+        if (game.getModifiersQuerying().landsAsUnlimitedMove(game.getGameState(), self)) {
+            if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
+                return null;
+        } else if(!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
             return null;
+        }
 
         if (!asReact && !skipPhaseCheck
                 && !GameConditions.isPhaseForPlayer(game, Phase.MOVE, game.getModifiersQuerying().isDeploysAndMovesLikeUndercoverSpy(game.getGameState(), self) ? game.getOpponent(self.getOwner()) : self.getOwner())) {
@@ -899,8 +918,12 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      */
     @Override
     public Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
-        if (!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove))
+        if (game.getModifiersQuerying().takesOffAsUnlimitedMove(game.getGameState(), self)) {
+            if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
+                return null;
+        } else if(!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
             return null;
+        } 
 
         if (!asReact && !skipPhaseCheck
                 && !GameConditions.isPhaseForPlayer(game, Phase.MOVE, game.getModifiersQuerying().isDeploysAndMovesLikeUndercoverSpy(game.getGameState(), self) ? game.getOpponent(self.getOwner()) : self.getOwner())) {

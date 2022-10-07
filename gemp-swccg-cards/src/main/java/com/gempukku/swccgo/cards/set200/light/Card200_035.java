@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card200_035 extends AbstractStartingEffect {
     public Card200_035() {
-        super(Side.LIGHT, 0, Title.Anger_Fear_Aggression);
+        super(Side.LIGHT, 4, Title.Anger_Fear_Aggression);
         setVirtualSuffix(true);
         setLore("'The dark side of the Force are they. Easily they flow, quick to join you in a fight.'");
         setGameText("Deploy on table with any number of Defensive Shields from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Uncertain Is The Future until end of your first turn.");

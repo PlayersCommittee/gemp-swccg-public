@@ -41,7 +41,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
     public Card209_048() {
         super(Side.DARK, 4, "Lana Dobreed & Sacrifice", Uniqueness.UNIQUE);
         addComboCardTitles(Title.Lana_Dobreed, Title.Sacrifice);
-        setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon) to prevent its forfeit from being reduced for remainder of turn. OR Cancel Disarmed. [Immune to Sense.] OR Cancel a 'react.' OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
+        setGameText("If your character is about to be hit, use 1 Force (free if by a [Permanent Weapon] weapon); for remainder of turn, its forfeit may not be reduced and it may not be used to satisfy attrition. OR Cancel Disarmed. [Immune to Sense.] OR Cancel a 'react.' OR During your move phase, target any or all of your characters at one site to 'transport' (relocate) to an exterior or battleground site. Draw destiny. Use that much Force to 'transport,' or place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9);
     }
 
@@ -266,7 +266,7 @@ public class Card209_048 extends AbstractUsedInterrupt {
 
         //check conditions
         if (TriggerConditions.isAboutToBeHit(game, effectResult, yourCharacter)
-                && GameConditions.canUseForce(game, playerId, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1))
+                && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, TriggerConditions.isAboutToBeHitBy(game, effectResult, yourCharacter, Filters.character_with_permanent_character_weapon) ? 0 : 1))
         {
             final PhysicalCard cardAboutToBeHit = ((AboutToBeHitResult) effectResult).getCardToBeHit();
             if (GameConditions.canTarget(game, self, cardAboutToBeHit)) {

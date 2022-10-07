@@ -17,7 +17,7 @@ import java.util.List;
  * Set: Set 11
  * Type: Location
  * Subtype: Site
- * Title: Ahch To: Cliffs
+ * Title: Ahch-To: Cliffs
  */
 
 public class Card211_047 extends AbstractSite {

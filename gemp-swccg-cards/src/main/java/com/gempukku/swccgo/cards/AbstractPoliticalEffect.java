@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 
@@ -18,7 +20,20 @@ public abstract class AbstractPoliticalEffect extends AbstractEffect {
      * @param uniqueness the uniqueness
      */
     protected AbstractPoliticalEffect(Side side, float destiny, String title, Uniqueness uniqueness) {
-        super(side, destiny, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, title, uniqueness);
+        this(side, destiny, title, uniqueness, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a Political Effect.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractPoliticalEffect(Side side, float destiny, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, title, uniqueness, expansionSet, rarity);
         setCardSubtype(CardSubtype.POLITICAL);
     }
 }

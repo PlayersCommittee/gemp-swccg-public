@@ -54,7 +54,7 @@ public class CardsLeavePlayUtils {
         // If card is a starship or vehicle also, check for any related non-unique starship/vehicle sites
         if (card.getBlueprint().getCardCategory() == CardCategory.STARSHIP || card.getBlueprint().getCardCategory() == CardCategory.VEHICLE) {
             Collection<PhysicalCard> nonuniqueStarshipVehicleSites = Filters.filterTopLocationsOnTable(game,
-                    Filters.and(Filters.non_unique, Filters.or(Filters.starship_site, Filters.vehicle_site), Filters.relatedSite(card)));
+                    Filters.and(Filters.non_unique, Filters.or(Filters.starship_site, Filters.vehicle_site), Filters.siteOfStarshipOrVehicle(card)));
 
             for (PhysicalCard nonuniqueStarshipVehicleSite : nonuniqueStarshipVehicleSites) {
 

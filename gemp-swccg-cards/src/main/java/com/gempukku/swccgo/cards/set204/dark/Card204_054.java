@@ -26,6 +26,7 @@ import java.util.List;
 public class Card204_054 extends AbstractCapitalStarship {
     public Card204_054() {
         super(Side.DARK, 1, 13, 10, 8, null, 3, 13, Title.Finalizer, Uniqueness.UNIQUE);
+        setAsHorizontal(true);
         setGameText("May add 6 pilots, 8 passengers, and 4 [First Order] starfighters. Permanent pilot provides ability of 2. Deploys -4 to [Episode VII] systems and adds 1 to your Force drains there. Immune to attrition < 5.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.NAV_COMPUTER, Icon.FIRST_ORDER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_4);
         addModelType(ModelType.RESURGENT_CLASS_STAR_DESTROYER);

@@ -2764,6 +2764,8 @@ public class GameState implements Snapshotable<GameState> {
             return getLostPile(playerId);
         if (zone == Zone.UNRESOLVED_DESTINY_DRAW)
             return getUnresolvedDestinyDraw(playerId);
+        if (zone == Zone.OUTSIDE_OF_DECK)
+            return getOutsideOfDeck(playerId);
         return null;
     }
 

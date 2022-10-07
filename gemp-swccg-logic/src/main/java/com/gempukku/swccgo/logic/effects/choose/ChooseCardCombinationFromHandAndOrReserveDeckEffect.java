@@ -14,6 +14,6 @@ public abstract class ChooseCardCombinationFromHandAndOrReserveDeckEffect extend
      * @param action the action performing this effect
      */
     public ChooseCardCombinationFromHandAndOrReserveDeckEffect(Action action) {
-        super(action, action.getPerformingPlayer(), Zone.RESERVE_DECK);
+        super(action, action.getPerformingPlayer(), Zone.RESERVE_DECK, true);
     }
 }

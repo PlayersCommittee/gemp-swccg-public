@@ -15,7 +15,19 @@ public abstract class AbstractStartingEffect extends AbstractEffect {
      * @param title the card title
      */
     protected AbstractStartingEffect(Side side, float destiny, String title) {
-        super(side, destiny, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, title, Uniqueness.UNIQUE);
+        this(side, destiny, title, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a Starting Effect.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param title the card title
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractStartingEffect(Side side, float destiny, String title, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, title, Uniqueness.UNIQUE, expansionSet, rarity);
         setCardSubtype(CardSubtype.STARTING);
     }
 

@@ -58,7 +58,8 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, uploadCardGametextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, uploadCardGametextActionId, CardSubtype.USED);
-            action.setText("Upload Card");
+            action.setText("Upload Han's Dice or Han");
+            action.setActionMsg("Upload Han's Dice or non-[Maintenance] Han");
 
             // Allow response(s)
             action.allowResponses(
@@ -83,7 +84,7 @@ public class Card211_050 extends AbstractUsedOrLostInterrupt {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, exchangeCardActionId, CardSubtype.LOST);
             action.setText("Exchange card in hand");
-            action.setActionMsg("Exchange card in hand with Ep7 Skywalker or Resistance Agent in lost pile.");
+            action.setActionMsg("Exchange a card in hand with a Resistance Agent or [Episode VII] Skywalker in Lost Pile");
 
             // Update usage limit(s)
             action.appendUsage(

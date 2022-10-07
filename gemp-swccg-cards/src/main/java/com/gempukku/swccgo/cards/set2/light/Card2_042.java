@@ -109,8 +109,8 @@ public class Card2_042 extends AbstractEpicEventDeployable {
                                                                                         else
                                                                                             valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getHighestAbilityPiloting(gameState, leadStarfighter, false, false));
 
-                                                                                        int hothSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation));
-                                                                                        int yavin4Sites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Yavin_4_site, Filters.notIgnoredDuringEpicEventCalculation));
+                                                                                        int hothSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
+                                                                                        int yavin4Sites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Yavin_4_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
                                                                                         final float valueForY = modifiersQuerying.getVariableValue(gameState, self, Variable.Y, Math.max(hothSites, yavin4Sites));
 
                                                                                         float highestAbility = 0;

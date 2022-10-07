@@ -52,7 +52,8 @@ public class Card2_026 extends AbstractDevice {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
-                && GameConditions.canTarget(game, self, getTargetFilter(self))) {
+                && GameConditions.canTarget(game, self, getTargetFilter(self))
+                && GameConditions.canUseDevice(game, self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
             action.setText("'Suck up' character");

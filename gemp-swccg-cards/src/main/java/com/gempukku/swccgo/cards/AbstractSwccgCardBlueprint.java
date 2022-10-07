@@ -55,6 +55,9 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     private boolean _doesNotCountTowardDeckLimit;
     private boolean _isLegacy;
     private boolean _excludeFromDeckBuilder;
+    private boolean _isHorizontal;
+    private ExpansionSet _expansionSet;
+    private Rarity _rarity;
 
     /**
      * Creates an SWCCG card blueprint.
@@ -62,13 +65,17 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @param destiny the destiny value
      * @param title the title
      * @param uniqueness the uniqueness
+     * @param expansionSet the expansion set
+     * @param rarity the rarity
      */
-    protected AbstractSwccgCardBlueprint(Side side, Float destiny, String title, Uniqueness uniqueness) {
+    protected AbstractSwccgCardBlueprint(Side side, Float destiny, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
         _side = side;
         _destiny = destiny;
         _alternateDestiny = destiny;
         _title = title;
         _uniqueness = uniqueness;
+        _expansionSet = expansionSet;
+        _rarity = rarity;
     }
 
     @Override
@@ -828,7 +835,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @return true if generic location may be part of system, otherwise false
      */
     @Override
-    public boolean mayNotBePartOfSystem(String system) {
+    public boolean mayNotBePartOfSystem(SwccgGame game, String system) {
         throw new UnsupportedOperationException("This method, mayNotBePartOfSystem(), should not be called on this card: " + _title);
     }
 
@@ -874,6 +881,20 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     public Filter getValidPilotFilter(String playerId, SwccgGame game, PhysicalCard self, boolean forDeployment) {
         throw new UnsupportedOperationException("This method, getValidPilotFilter(), should not be called on this card: " + _title);
     }
+
+    /**
+     * Gets a filter for the cards that are valid to be passengers of the specified card.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @param forDeployment true if checking for deployment, otherwise false
+     * @return the filter
+     */
+    @Override
+    public Filter getValidPassengerFilter(String playerId, SwccgGame game, PhysicalCard self, boolean forDeployment) {
+        throw new UnsupportedOperationException("This method, getValidPassengerFilter(), should not be called on this card: " + _title);
+    }
+
 
     /**
      * Gets the pilot capacity.
@@ -2833,6 +2854,25 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     @Override
     public boolean excludeFromDeckBuilder() {
         return _excludeFromDeckBuilder;
+    }
+
+    @Override
+    public boolean isHorizontal() {
+        return _isHorizontal;
+    }
+
+    public void setAsHorizontal(boolean isHorizontal) {
+        _isHorizontal = isHorizontal;
+    }
+
+    @Override
+    public ExpansionSet getExpansionSet() {
+        return _expansionSet;
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return _rarity;
     }
 
     /**
