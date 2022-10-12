@@ -82,7 +82,7 @@ public class Card5_038 extends AbstractLostInterrupt {
         GameTextActionId gameTextActionId = GameTextActionId.CLASH_OF_SABERS__UPLOAD_UNCONTROLLABLE_FURY;
 
         // Check condition(s)
-        if (GameConditions.canUseForce(game, playerId, 1)
+        if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);

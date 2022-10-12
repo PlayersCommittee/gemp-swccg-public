@@ -82,7 +82,7 @@ public class Card5_163 extends AbstractLostInterrupt {
         GameTextActionId gameTextActionId = GameTextActionId.YOU_ARE_BEATEN__UPLOAD_I_AM_YOUR_FATHER;
 
         // Check condition(s)
-        if (GameConditions.canUseForce(game, playerId, 1)
+        if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
