@@ -33,7 +33,7 @@ public class Card209_018 extends AbstractNormalEffect {
     public Card209_018() {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Stardust, Uniqueness.UNIQUE);
         setLore("");
-        setGameText("Deploy on Data Vault. At any time, may relocate Stardust to your spy present. During your control phase, if on your spy at a battleground you occupy, opponent loses 1 Force. If about to leave table, relocate to Data Vault (if possible). [Immune to Alter.]");
+        setGameText("Deploy on Data Vault. At any time, may relocate Stardust to your spy present. During your control phase, if on your spy at a battleground you occupy, opponent loses 1 Force. If about to leave table (for any reason, even if inactive), relocate to Data Vault. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -124,7 +124,41 @@ public class Card209_018 extends AbstractNormalEffect {
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_3;
 
         // Check condition(s)
-        if (TriggerConditions.isAboutToLeaveTableExceptFromSourceCard(game, effectResult, self, Filters.Overwhelmed)) {
+        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
+            PhysicalCard dataVault = Filters.findFirstFromTopLocationsOnTable(game, Filters.DataVault);
+            if (dataVault != null) {
+                final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Relocate to Data Vault");
+                action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(dataVault));
+                action.addAnimationGroup(dataVault);
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                result.getPreventableCardEffect().preventEffectOnCard(self);
+                                for (PhysicalCard attachedCards : game.getGameState().getAllAttachedRecursively(self)) {
+                                    result.getPreventableCardEffect().preventEffectOnCard(attachedCards);
+                                }
+                            }
+                        });
+                action.appendEffect(
+                        new AttachCardFromTableEffect(action, self, dataVault));
+                actions.add(action);
+            }
+        }
+        return actions;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggersWhenInactiveInPlay(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
+
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_3;
+
+        // Check condition(s)
+        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
             PhysicalCard dataVault = Filters.findFirstFromTopLocationsOnTable(game, Filters.DataVault);
             if (dataVault != null) {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;

@@ -163,6 +163,7 @@ class PlaceCardsInCardPileFromTableEffect extends AbstractSubActionEffect {
                 _subAction.stackSubAction(placeCardsSubAction);
 
                 _remainingCards.remove(selectedCard);
+                _remainingCards.removeAll(selectedCard.getCardsAttached());
                 if (!_remainingCards.isEmpty()) {
 
                     _subAction.appendEffect(

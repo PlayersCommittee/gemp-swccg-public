@@ -32,7 +32,7 @@ public class Card203_014 extends AbstractNormalEffect {
     public Card203_014() {
         super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Stolen_Data_Tapes, Uniqueness.UNIQUE);
         setLore("'What's so important? What's he carrying?' 'The technical readouts of that battle station. I only hope that when the data is analyzed, a weakness can be found.'");
-        setGameText("Deploy on R2-D2. If about to leave table (even from Overwhelmed), relocate to Dune Sea (if possible). If at Dune Sea, may relocate to your character there. If at Alderaan (or a 'blown way' system), tapes 'delivered'; relocate this Effect to table and may [upload] any card. [Immune to Alter]");
+        setGameText("Deploy on R2-D2. If about to leave table (for any reason, even if inactive), relocate to Dune Sea. If at Dune Sea, may relocate to your character there. If at Alderaan (or a 'blown away' system), tapes 'delivered;' relocate this Effect to table and may [upload] any card. [Immune to Alter.]");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.VIRTUAL_SET_3);
         addImmuneToCardTitle(Title.Alter);
@@ -44,7 +44,7 @@ public class Card203_014 extends AbstractNormalEffect {
     }
 
     @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggersWhenInactiveInPlay(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
@@ -53,7 +53,7 @@ public class Card203_014 extends AbstractNormalEffect {
             if (duneSea != null) {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Relocate to Dune Sea");
                 action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(duneSea));
                 action.addAnimationGroup(duneSea);
@@ -147,6 +147,35 @@ public class Card203_014 extends AbstractNormalEffect {
                 );
             }
             return Collections.singletonList(action);
+        }
+
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
+            PhysicalCard duneSea = Filters.findFirstFromTopLocationsOnTable(game, Filters.Dune_Sea);
+            if (duneSea != null) {
+                final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Relocate to Dune Sea");
+                action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(duneSea));
+                action.addAnimationGroup(duneSea);
+                // Perform result(s)
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                result.getPreventableCardEffect().preventEffectOnCard(self);
+                                for (PhysicalCard attachedCards : game.getGameState().getAllAttachedRecursively(self)) {
+                                    result.getPreventableCardEffect().preventEffectOnCard(attachedCards);
+                                }
+                            }
+                        });
+                action.appendEffect(
+                        new AttachCardFromTableEffect(action, self, duneSea));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
