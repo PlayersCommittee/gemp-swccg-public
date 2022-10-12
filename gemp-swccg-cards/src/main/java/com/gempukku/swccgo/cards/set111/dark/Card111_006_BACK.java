@@ -33,7 +33,7 @@ import java.util.List;
 public class Card111_006_BACK extends AbstractObjective {
     public Card111_006_BACK() {
         super(Side.DARK, 7, Title.The_Ultimate_Power_In_The_Universe);
-        setGameText("While this side up, once during each of your deploy phases, may deploy one battleground system from Reserve Deck; reshuffle. Your Star Destroyers deploy -2 (or -1 if Victory class) to Death Star system. Your Force drains at battleground systems where you have a Star Destroyer are each +2 (or +1 if Victory class). If Yavin 4 system is 'blown away,' adds 3 to Force lost for each opponent's Yavin 4 site. Place out of play if Death Star is 'blown away.'");
+        setGameText("While this side up, once during each of your deploy phases, may deploy one battleground system from Reserve Deck; reshuffle. Your Star Destroyers deploy -2 (or -1 if Victory class) to Death Star system. Your Force drains at battleground systems where you have a Star Destroyer are each +1 (or +2 if that Star Destroyer is Imperial- or Super-class). If Yavin 4 system is 'blown away,' adds 3 to Force lost for each opponent's Yavin 4 site. Place out of play if Death Star is 'blown away.'");
         addIcons(Icon.PREMIUM);
     }
 
@@ -104,7 +104,7 @@ public class Card111_006_BACK extends AbstractObjective {
         String playerId = self.getOwner();
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.Star_Destroyer, new CardMatchesEvaluator(new PerStarDestroyerEvaluator(-2), new PerStarDestroyerEvaluator(-1), Filters.Victory_class_Star_Destroyer), Filters.Death_Star_system));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Star_Destroyer)), new CardMatchesEvaluator(2, 1, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Victory_class_Star_Destroyer))),
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.Star_Destroyer)), new CardMatchesEvaluator(1, 2, Filters.and(Filters.battleground_system, Filters.sameSystemAs(self, Filters.or(Filters.Imperial_class_Star_Destroyer, Filters.Super_class_Star_Destroyer)))),
                 playerId));
         return modifiers;
     }
