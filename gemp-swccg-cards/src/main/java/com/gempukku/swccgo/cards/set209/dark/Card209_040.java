@@ -74,7 +74,7 @@ public class Card209_040 extends AbstractImperial {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, uploadVaderTitleActionId);
             action.setText("Take a card with 'Vader' in title into hand");
-            action.setActionMsg("Take a card with 'Vader' in title into hand");
+            action.setActionMsg("Take a card with 'Vader' in title into hand from Reserve Deck");
 
             // Update usage limit(s)
             action.appendUsage(

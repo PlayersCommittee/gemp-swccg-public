@@ -43,7 +43,7 @@ public class Card209_051 extends AbstractSite {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Exchange card in hand for card in Lost Pile");
-            action.setActionMsg("Exchange card in hand for card in Lost Pile");
+            action.setActionMsg("Exchange an alien in hand for a non-spy Black Sun Agent in Lost Pile");
             // Update usage limit(s)
             action.appendUsage(new OncePerGameEffect(action));
             action.appendEffect(

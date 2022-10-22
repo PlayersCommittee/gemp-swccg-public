@@ -26,7 +26,7 @@ public class Card209_042 extends AbstractNormalEffect {
     public Card209_042() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Prepare For A Surface Attack", Uniqueness.UNIQUE);
         setLore("Ruthless and well-equipped for both air and ground assault, Vader's feared Death Squadron came to the icy Rebel Base with total domination in mind.");
-        setGameText("Deploy on table. AT-AT Cannons deploy -1, fire for free, and add 1 to armor. During your control phase, may take a non-[Jabba's Palace] vehicle weapon (without \"lost\" in game text), [Hoth] device, or [Hoth] Epic Event into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
+        setGameText("Deploy on table. AT-AT Cannons deploy -1, fire for free, and add 1 to armor. During your control phase, may take a non-[Jabba's Palace] vehicle weapon (without 'lost' in game text), [Hoth] device, or [Hoth] Epic Event into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.VIRTUAL_SET_9, Icon.VIRTUAL_SET_9);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
@@ -74,7 +74,7 @@ public class Card209_042 extends AbstractNormalEffect {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take card into hand from Reserve Deck");
+            action.setActionMsg("Take a non-[Jabba's Palace] vehicle weapon (without 'lost' in game text), [Hoth] device, or [Hoth] Epic Event into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));

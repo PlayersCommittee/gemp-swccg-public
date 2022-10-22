@@ -127,7 +127,7 @@ public class Card209_029 extends AbstractObjective {
 
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy starship or location from Reserve Deck");
-            action.setActionMsg("Deploy Rebel starship or Scarif location from Reserve Deck");
+            action.setActionMsg("Deploy a Rebel starship (except Home One or [Reflections III] Falcon) or Scarif location from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));

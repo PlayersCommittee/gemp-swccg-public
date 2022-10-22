@@ -61,7 +61,7 @@ public class Card209_032 extends AbstractCombatVehicle {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy non-pilot Rebel of ability < 5");
-            action.setActionMsg("Deploy non-pilot Rebel of ability < 5 from Reserve Deck");
+            action.setActionMsg("Deploy non-pilot Rebel of ability < 5 aboard from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));

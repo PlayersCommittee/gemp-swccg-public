@@ -47,8 +47,8 @@ public class Card209_041 extends AbstractNormalEffect {
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId1)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
-            action.setText("Take A [Set 9] Epic Event Into Hand");
-            action.setActionMsg("Take A [Set 9] Epic Event Into Hand");
+            action.setText("Take a [Set 9] Epic Event into hand");
+            action.setActionMsg("Take a [Set 9] Epic Event into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));

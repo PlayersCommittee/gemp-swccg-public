@@ -31,7 +31,7 @@ public class Card209_010 extends AbstractResistance {
     public Card209_010() {
         super(Side.LIGHT, 1, 5, 5, 5, 7, "Rey With Lightsaber", Uniqueness.UNIQUE);
         setLore("Female.");
-        setGameText("[Pilot] 2. Permanent weapon is •Anakin’s Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and you may retrieve 1 Force, if total destiny > defense value).");
+        setGameText("[Pilot] 2. Permanent weapon is •Anakin's Lightsaber (may target a character for free; draw two destiny; target hit, its forfeit = 0, and you may retrieve 1 Force, if total destiny > defense value).");
         addPersona(Persona.REY);
         addKeywords(Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);

@@ -47,8 +47,8 @@ public class Card209_043 extends AbstractNormalEffect {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Coruscant_Imperial_Square)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Coruscant: Imperial Square from Reserve Deck");
-            action.setActionMsg("Deploy Coruscant: Imperial Square from Reserve Deck");
+            action.setText("Deploy Imperial Square from Reserve Deck");
+            action.setActionMsg("Deploy Imperial Square from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));

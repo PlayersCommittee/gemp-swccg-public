@@ -68,8 +68,8 @@ public class Card209_009 extends AbstractResistance {
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Take an Evac Control or Resistance Bomber or Resistance Transport into hand from Reserve Deck");
-            action.setActionMsg("Take an Evac Control or Resistance Bomber or Resistance Transport into hand from Reserve Deck");
+            action.setText("Take a card into hand from Reserve Deck");
+            action.setActionMsg("Take Evacuation Control, a [Resistance] bomber, or a [Resistance] Transport into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));

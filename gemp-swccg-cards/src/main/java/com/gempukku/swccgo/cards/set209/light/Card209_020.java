@@ -28,7 +28,7 @@ public class Card209_020 extends AbstractUsedOrLostInterrupt {
     public Card209_020() {
         super(Side.LIGHT, 5, Title.Knights_Of_The_Old_Republic, Uniqueness.UNIQUE);
         setLore("A Jedi seeks nonviolent solutions to problems, but may fight to preserve the existence of life. An apprentice must learn which battles to fight and which to avoid.");
-        setGameText("USED: If present with a Dark Jedi or [Episode I] Jedi, your Padawan is power +2 for remainder of turn. OR Deploy one [Episode I] lightsaber from Reserve Deck; reshuffle.LOST: Once per game, retrieve a Padawan or [Episode I] lightsaber.");
+        setGameText("USED: If present with a Dark Jedi or [Episode I] Jedi, your Padawan is power +2 for remainder of turn. OR Deploy one [Episode I] lightsaber from Reserve Deck; reshuffle. LOST: Once per game, retrieve a Padawan or [Episode I] lightsaber.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9);
     }
 
@@ -49,18 +49,17 @@ public class Card209_020 extends AbstractUsedOrLostInterrupt {
         // Check condition(s) - If present with a Dark Jedi or [Episode I] Jedi, your Padawan is power +2 for remainder of turn.
         if (GameConditions.canTarget(game, self, padawanWithDarkJediOrEp1Jedi)) {
 
-            final Integer powerModifier = 2;
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            action.setText("Make Padawan power + 2");
+            action.setText("Make Padawan power +2");
 
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Target your padawan", padawanWithDarkJediOrEp1Jedi) {
+                    new TargetCardOnTableEffect(action, playerId, "Target your Padawan", padawanWithDarkJediOrEp1Jedi) {
                         @Override
                         protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
                             // Allow response(s)
-                            action.allowResponses("Make " + GameUtils.getCardLink(targetedCard) + " power + 2'",
+                            action.allowResponses("Make " + GameUtils.getCardLink(targetedCard) + " power +2'",
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
@@ -73,7 +72,7 @@ public class Card209_020 extends AbstractUsedOrLostInterrupt {
                                             action.appendEffect(
                                                     new AddUntilEndOfTurnModifierEffect(action,
                                                             new PowerModifier(self, finalTarget, 2),
-                                                            "Makes " + GameUtils.getCardLink(finalTarget) + " power + 2"));
+                                                            "Makes " + GameUtils.getCardLink(finalTarget) + " power +2"));
                                         }
                                     }
                             );
@@ -91,10 +90,10 @@ public class Card209_020 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, deployLightsaberActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-            action.setText("Deploy [EP1] lightsaber from Reserve Deck");
+            action.setText("Deploy [Episode I] lightsaber from Reserve Deck");
 
             // Allow response(s)
-            action.allowResponses("Deploy [EP1] lightsaber from Reserve Deck",
+            action.allowResponses("Deploy an [Episode I] lightsaber from Reserve Deck",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
@@ -116,14 +115,14 @@ public class Card209_020 extends AbstractUsedOrLostInterrupt {
                 && GameConditions.canSearchLostPile(game, playerId, self, retrieveActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, retrieveActionId, CardSubtype.LOST);
-            action.setText("Retrieve Padawan or EP1 lightsaber");
+            action.setText("Retrieve a Padawan or [Episode I] lightsaber");
 
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
 
             // Allow response(s)
-            action.allowResponses("Retrieve Padawan or EP1 lightsaber",
+            action.allowResponses("Retrieve a Padawan or [Episode I] lightsaber",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {

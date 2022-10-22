@@ -26,7 +26,7 @@ public class Card209_047 extends AbstractUsedOrLostInterrupt {
     public Card209_047() {
         super(Side.DARK, 4, "Death Squadron Assignment", Uniqueness.UNIQUE);
         setLore("Make ready to land our troops beyond their energy field and deploy the fleet so that nothing gets off the system.");
-        setGameText("USED: [upload] a card with “Death Squadron” in lore. LOST: [download] an Imperial to a [Hoth] location.");
+        setGameText("USED: [upload] a card with 'Death Squadron' in lore. LOST: [download] an Imperial to a [Hoth] location.");
         addIcons(Icon.VIRTUAL_SET_9);
     }
 
@@ -39,9 +39,9 @@ public class Card209_047 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
-            action.setText("Take card into hand from Reserve Deck.");
+            action.setText("Take card into hand from Reserve Deck");
             // Allow response(s)
-            action.allowResponses("Take card into hand from Reserve Deck with “Death Squadron” in lore." ,
+            action.allowResponses("Take a card with 'Death Squadron' in lore into hand from Reserve Deck" ,
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
@@ -59,9 +59,9 @@ public class Card209_047 extends AbstractUsedOrLostInterrupt {
         if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
-            action.setText("Deploy Imperial from Reserve Deck");
+            action.setText("Deploy an Imperial from Reserve Deck");
             // Allow response(s)
-            action.allowResponses("Deploy Imperial from Reserve Deck to Hoth location" ,
+            action.allowResponses("Deploy an Imperial from Reserve Deck to a [Hoth] location" ,
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {

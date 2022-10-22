@@ -66,7 +66,7 @@ public class Card209_044 extends AbstractNormalEffect {
         if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId2, Persona.MAULS_DOUBLE_BLADED_LIGHTSABER)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Place OOP to deploy Maul's Lightsaber from Lost Pile");
+            action.setText("Place out of play to deploy Maul's Lightsaber from Lost Pile");
             action.setActionMsg("Deploy Maul's Lightsaber from Lost Pile");
             // Pay cost(s)
             action.appendCost(

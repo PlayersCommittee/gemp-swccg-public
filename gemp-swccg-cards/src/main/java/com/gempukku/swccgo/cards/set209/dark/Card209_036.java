@@ -58,14 +58,12 @@ public class Card209_036 extends AbstractImperial {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
 
-            action.setText("Take a non-unique Star Destroyer into hand from reserve deck");
-            action.setActionMsg("Take a non-unique Star Destroyer into hand from reserve deck");
+            action.setText("Take a non-unique Star Destroyer into hand from Reserve Deck");
+            action.setActionMsg("Take a non-unique Star Destroyer into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 0));
+
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.non_unique, Filters.Star_Destroyer), true));
@@ -76,24 +74,19 @@ public class Card209_036 extends AbstractImperial {
         GameTextActionId gameTextActionId2 = GameTextActionId.KRENNIC__PEEK_AT_TOP_OF_FORCE_PILE;
         Filter systemFilter = Filters.and(Filters.isOrbitedBy(Filters.Death_Star_system), Filters.battleground_system);
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
-                && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 2)) {
+                && GameConditions.canSpotLocation(game, systemFilter)
+                && GameConditions.hasForcePile(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
-            action.setText("Peek at top two cards of Force Pile, take one into hand.");
+            action.setText("Peek at top two cards of Force Pile");
+            action.setActionMsg("Peek at top two cards of Force Pile and take one into hand");
             // Update usage limit(s)
-            action.appendUsage(new OncePerTurnEffect(action));
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
             // Perform result(s)
             // peek at the top two cards of force pile, take a min of 1 and max of 1 into hand.
-            action.appendEffect(new PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect(action, playerId, 2, 1, 1));
-            actions.add(action);
-
-        }
-        else if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId2)
-                && GameConditions.canSpotLocation(game, systemFilter) && GameConditions.canUseForce(game, playerId, 1)) {
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
-            action.setText("Peek at top card of Force Pile");
-            action.appendUsage(new OncePerTurnEffect(action));
-            action.appendEffect(new PeekAtTopCardOfForcePileEffect(action, playerId));
+            action.appendEffect(
+                    new PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect(action, playerId, 2, 1, 1));
             actions.add(action);
         }
 

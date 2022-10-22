@@ -55,10 +55,9 @@ public class Card209_027 extends AbstractSite {
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerOnDarkSideOfLocation, Filters.Scarif_Turbolift_Complex)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
 
-            action.setText("Rotate this site.");
-//            action.appendUsage(new OncePerTurnEffect(action));
+            action.setText("Rotate this site");
             action.appendUsage(new OncePerPhaseEffect(action));
-            action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new RotateLocationModifier(self, self, new TrueCondition()), "Rotate Location"));
+            action.appendEffect(new AddUntilEndOfGameModifierEffect(action, new RotateLocationModifier(self, self, new TrueCondition()), "Rotate location"));
 
             return Collections.singletonList(action);
         }

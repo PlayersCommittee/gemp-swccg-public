@@ -79,7 +79,7 @@ public class Card209_046 extends AbstractLostInterrupt {
                                                         "Makes " + GameUtils.getCardLink(starDestroyer) + " immune to attrition"));
                                         action.appendEffect(
                                                 new AddUntilEndOfTurnModifierEffect(action,
-                                                        new MayNotHavePowerIncreasedByCardModifier(self, starDestroyer, Filters.and(Filters.Imperial, Filters.pilot, Filters.not(Filters.Vader))),
+                                                        new MayNotHavePowerIncreasedByCardModifier(self, starDestroyer, Filters.and(Filters.Imperial, Filters.pilot, Filters.aboard(starDestroyer), Filters.not(Filters.Vader))),
                                                         "Prevents the power of " + GameUtils.getCardLink(starDestroyer) + " from being increased by Imperial pilots aboard (except Vader)"));
 
 

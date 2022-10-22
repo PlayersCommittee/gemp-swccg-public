@@ -48,7 +48,7 @@ public class Card209_004 extends AbstractRebel {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place Effect in Used Pile");
-            action.setActionMsg("Place a non-[Immune to Alter] Effect in owner’s Used Pile");
+            action.setActionMsg("Place a non-[Immune to Alter] Effect in owner's Used Pile");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
