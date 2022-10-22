@@ -149,14 +149,12 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         StringBuilder valid = new StringBuilder();
         StringBuilder invalid = new StringBuilder();
         for (SwccgFormat format : _formatLibrary.getAllFormats().values()) {
-            if (!format.isPlaytesting() || resourceOwner.hasType(Player.Type.ADMIN) || resourceOwner.hasType(Player.Type.PLAY_TESTER)) {
-                String formatCssId = format.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "");
-                try {
-                    format.validateDeck(deck);
-                    valid.append("<div id=\"deckstats-format-" + formatCssId + "-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-" + formatCssId + "\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-" + formatCssId + "-content\" class=\"deckstats-format-valid\">valid</span></div>");
-                } catch (DeckInvalidException exp) {
-                    invalid.append("<div id=\"deckstats-format-" + formatCssId + "-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-" + formatCssId + "\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-" + formatCssId + "-content\" class=\"deckstats-format-invalid\">" + exp.getMessage() + "</span></div>");
-                }
+            String formatCssId = format.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "");
+            try {
+                format.validateDeck(deck);
+                valid.append("<div id=\"deckstats-format-"+formatCssId+"-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-"+formatCssId+"\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-"+formatCssId+"-content\" class=\"deckstats-format-valid\">valid</span></div>");
+            } catch (DeckInvalidException exp) {
+                invalid.append("<div id=\"deckstats-format-"+formatCssId+"-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-"+formatCssId+"\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-"+formatCssId+"-content\" class=\"deckstats-format-invalid\">" + exp.getMessage() + "</span></div>");
             }
         }
         sb.append(valid);
