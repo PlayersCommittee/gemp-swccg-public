@@ -38,7 +38,7 @@ public abstract class AbstractAlienRebel extends AbstractCharacter {
      * @param uniqueness the uniqueness
      */
     protected AbstractAlienRebel(Side side, float destiny, float deployCost, float power, float ability, float forfeit, String title, Uniqueness uniqueness) {
-        super(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, null, null);
+        this(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, null, null);
     }
 
     /**
