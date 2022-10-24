@@ -4630,4 +4630,5 @@ public interface ModifiersQuerying {
     String getExtraInformationForArchetypeLabel(String playerId);
     boolean landsAsUnlimitedMove(GameState gameState, PhysicalCard card);
     boolean takesOffAsUnlimitedMove(GameState gameState, PhysicalCard card);
+    boolean isPlacedOutOfPlayWhenPlayedAsSubtype(GameState gameState, PhysicalCard card, CardSubtype subtype);
 }

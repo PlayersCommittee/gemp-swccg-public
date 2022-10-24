@@ -1071,6 +1071,7 @@ public interface Title {
     String This_Is_All_Your_Fault = "This Is All Your Fault";
     String This_Is_Just_Wrong = "This Is Just Wrong";
     String This_Is_More_Like_It = "This Is More Like It";
+    String This_Is_My_Ship = "This Is MY Ship!";
     String This_Is_Outrageous = "This Is Outrageous!";
     String This_Is_Some_Rescue = "This Is Some Rescue!";
     String This_Is_Still_Wrong = "This Is Still Wrong";

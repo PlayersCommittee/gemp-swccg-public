@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class Card207_015 extends AbstractUsedOrLostInterrupt {
     public Card207_015() {
-        super(Side.LIGHT, 4, "This Is MY Ship!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.This_Is_My_Ship, Uniqueness.UNIQUE);
         setGameText("USED: Deploy Ghost and Hera simultaneously from your hand and/or Reserve Deck (for -1 Force each). LOST: If Chopper, Ezra, Hera, Kanan, Sabine, or Zeb in a battle, they each add 1 to your total battle destiny.");
         addIcons(Icon.VIRTUAL_SET_7);
     }

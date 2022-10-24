@@ -345,7 +345,7 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
                 if (_playedAsSubtype == CardSubtype.STARTING)
                     throw new UnsupportedOperationException("Starting interrupt " + GameUtils.getFullName(_cardToPlay) + " still in the void");
 
-                if (isToBePlacedOutOfPlay()) {
+                if (isToBePlacedOutOfPlay() || game.getModifiersQuerying().isPlacedOutOfPlayWhenPlayedAsSubtype(gameState, _cardToPlay, _playedAsSubtype)) {
                     return new PlaceCardFromVoidOutOfPlayEffect(this, _cardToPlay);
                 }
                 else if (_playedAsSubtype == CardSubtype.USED) {

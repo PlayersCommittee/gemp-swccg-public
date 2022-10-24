@@ -16799,4 +16799,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public boolean takesOffAsUnlimitedMove(GameState gameState, PhysicalCard card) {
         return !getModifiersAffectingCard(gameState, ModifierType.TAKES_OFF_AS_UNLIMITED_MOVE, card).isEmpty();
     }
+
+    @Override
+    public boolean isPlacedOutOfPlayWhenPlayedAsSubtype(GameState gameState, PhysicalCard card, CardSubtype subtype) {
+        for (Modifier m:getModifiersAffectingCard(gameState, ModifierType.PLACED_OUT_OF_PLAY_WHEN_COMPLETED, card)) {
+            if (((InterruptPlacedOutOfPlayWhenCompletedModifier)m).affectsSubtype(subtype))
+                return true;
+        }
+        return false;
+    }
 }
