@@ -4,8 +4,11 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card13_016 extends AbstractDefensiveShield {
     public Card13_016() {
-        super(Side.LIGHT, "Don't Do That Again");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Don't Do That Again", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The Jedi won't tolerate silly behavior for very long.");
         setGameText("Plays on table. Once per game may take any Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Mobilization Points is suspended.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

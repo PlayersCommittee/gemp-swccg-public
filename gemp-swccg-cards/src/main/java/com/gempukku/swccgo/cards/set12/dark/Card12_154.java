@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card12_154 extends AbstractUsedOrStartingInterrupt {
     public Card12_154() {
-        super(Side.DARK, 5, "Neimoidian Advisor", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Neimoidian Advisor", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'We must move quickly to disrupt all communication down there.'");
         setGameText("USED: Use 2 Force to deploy a unique (•) battleground not on table, from Reserve Deck; reshuffle. STARTING: Deploy from your Reserve Deck one Effect which deploys on table (or your side of table) and has no deploy cost; reshuffle. Place Interrupt in Lost Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set203.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card203_013 extends AbstractDefensiveShield {
     public Card203_013() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "Planetary Defenses");
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "Planetary Defenses", ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("Key installations are protected from bombardment by a complex network of early-warning sensors, emergency shields and fast-response fighters.");
         setGameText("Plays on any site. This location may not be targeted by Proton Bombs. Cancels Program Trap here.  Unless Death Star: Docking Bay 327 on table, Commence Primary Ignition is canceled.");

@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_030 extends AbstractDefensiveShield {
     public Card13_030() {
-        super(Side.LIGHT, Title.Lets_Keep_A_Little_Optimism_Here);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Lets_Keep_A_Little_Optimism_Here, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The heroes of the Rebellion know that where there is life, there is hope.");
         setGameText("Plays on table. While you occupy a Renegade planet location, operatives are forfeit = 0, operatives do not add to Force drains and your Force drains may not be reduced. (Renegade planet is defined on the Objective card Imperial Occupation.)");
         addIcons(Icon.REFLECTIONS_III);

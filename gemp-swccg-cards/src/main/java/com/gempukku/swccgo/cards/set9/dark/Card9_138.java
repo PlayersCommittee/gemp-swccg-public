@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card9_138 extends AbstractUsedOrStartingInterrupt {
     public Card9_138() {
-        super(Side.DARK, 5, Title.Operational_As_Planned, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Operational_As_Planned, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("'We shall double our efforts.'");
         setGameText("USED: Place one card from hand on top of Force Pile. STARTING: If Endor system on table, take Death Star II system, Jerjerrod and any Effect into hand from Reserve Deck. When you draw your starting hand, draw only six more cards. Place Interrupt in Lost Pile.");
         addIcons(Icon.DEATH_STAR_II);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card1_223 extends AbstractUtinniEffect {
     public Card1_223() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Luke? Luuuuke!", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Luke? Luuuuke!", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("'All right. I'll be right there, Aunt Beru.'");
         setGameText("Deploy on any Tatooine site. Target any Rebel. Target is power and forfeit -1 (-3 if target is Luke). If Rebel's forfeit reaches zero, Rebel is lost. Utinni Effect canceled when reached by target.");
     }

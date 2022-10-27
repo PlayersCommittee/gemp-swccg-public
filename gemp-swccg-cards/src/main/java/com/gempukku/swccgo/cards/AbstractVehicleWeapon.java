@@ -21,27 +21,6 @@ public abstract class AbstractVehicleWeapon extends AbstractWeapon {
      * @param side the side of the Force
      * @param destiny the destiny value
      * @param title the card title
-     */
-    protected AbstractVehicleWeapon(Side side, float destiny, String title) {
-        this(side, destiny, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a vehicle weapon.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractVehicleWeapon(Side side, float destiny, String title, Uniqueness uniqueness) {
-        this(side, destiny, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a vehicle weapon.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the ExpansionSet
      * @param rarity the rarity

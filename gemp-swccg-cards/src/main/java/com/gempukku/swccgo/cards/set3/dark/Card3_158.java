@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card3_158 extends AbstractVehicleWeapon {
     public Card3_158() {
-        super(Side.DARK, 3, Title.AT_AT_Cannon);
+        super(Side.DARK, 3, Title.AT_AT_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("Laser cannons mounted on the head of an Imperial walker provide devastating coordinated firepower. Effective against a wide variety of targets.");
         setGameText("Use 2 Force to deploy on your AT-AT. May target a starfighter (use 3 as defense value), character, creature or vehicle at same or adjacent site using 2 Force. Draw destiny. Add 1 if targeting a character or creature, 2 if a vehicle. Target hit if total destiny > defense value.");
         addIcons(Icon.HOTH);

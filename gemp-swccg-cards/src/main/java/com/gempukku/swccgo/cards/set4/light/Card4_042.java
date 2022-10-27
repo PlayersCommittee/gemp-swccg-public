@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card4_042 extends AbstractUtinniEffect {
     public Card4_042() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.What_Is_Thy_Bidding_My_Master, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.What_Is_Thy_Bidding_My_Master, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Reaching across the galaxy, the Emperor uses his vast powers to require immediate submission and obedience. His minions frequently find this inconvenient.");
         setGameText("Deploy on Emperor or any system. Target one character whose lore uses the word 'Emperor.' Target cannot use ability to draw battle destiny and is excluded from being the 'highest-ability character.' Utinni Effect canceled when reached by target.");
         addIcons(Icon.DAGOBAH);

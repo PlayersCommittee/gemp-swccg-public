@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.evaluators.AbilityEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,7 +18,14 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.DuelState;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CrossOverCharacterEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.DuelDirections;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.EachDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.MayPlayToInitiateEpicDuelModifier;
@@ -18,7 +33,12 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,7 +48,7 @@ import java.util.*;
  */
 public class Card5_129 extends AbstractEpicEventDeployable {
     public Card5_129() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Epic_Duel);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Epic_Duel, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.R);
         setGameText("Deploy on your side of table. The Circle Is Now Complete or Vader's Obsession may be played to initiate an epic duel as follows: If Vader is present with specified target, each player draws two destiny (add 1 to each destiny draw if using a lightsaber). Add character's ability. If Vader loses, place him out of play. You lose 6 Force (9 if dueling Luke). If Obi-Wan loses, place him out of play. Opponent loses 9 Force. If Luke loses, opponent must choose: Cross Luke to the Dark Side and lose X Force, Where X = Luke's ability. OR Lose Luke and lose triple X Force.");
         addIcons(Icon.CLOUD_CITY);
     }

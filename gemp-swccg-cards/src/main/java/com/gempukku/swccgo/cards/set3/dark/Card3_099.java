@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +39,7 @@ import java.util.List;
  */
 public class Card3_099 extends AbstractUtinniEffect {
     public Card3_099() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Death_Mark, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Death_Mark, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("'A death mark's not an easy thing to live with. You're a good fighter, Solo. I hate to lose you.'");
         setGameText("Use 3 Force to deploy on any exterior planet site. Target an opponent's smuggler. Each turn opponent must lose 1 Force at beginning of opponent's control phase. Utinni Effect canceled when reached by target (target goes to Used Pile).");
         addIcons(Icon.HOTH);

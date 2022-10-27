@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card13_022 extends AbstractDefensiveShield {
     public Card13_022() {
-        super(Side.LIGHT, "He Can Go About His Business");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"He Can Go About His Business", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'You can go about your business.'");
         setGameText("Plays on table. Cancels Responsibility Of Command and You Overestimate Their Chances. While Brangus Glee on table, once per turn you may search opponent's Lost Pile and place all docking bays found there out of play.");
         addIcons(Icon.REFLECTIONS_III);

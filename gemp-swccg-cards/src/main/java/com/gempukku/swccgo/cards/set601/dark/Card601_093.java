@@ -3,12 +3,20 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card601_093 extends AbstractUsedOrStartingInterrupt {
     public Card601_093() {
-        super(Side.DARK, 3, "Prepared Defenses", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Prepared Defenses", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Since the debacle at Yavin, the Emperor places a premium on the security of his costly war machine.");
         setGameText("USED: Take one Death Squadron Star Destroyer, a Dreadnaught, or a Victory-class Star Destroyer into hand from Reserve Deck; reshuffle. STARTING: Deploy from Reserve Deck up to three cards that have the [Setup] icon or are Effects that deploy for free, are always [Immune to Alter], and deploy on table.  Place Interrupt in Lost Pile.");
         addIcons(Icon.DEATH_STAR_II, Icon.LEGACY_BLOCK_7);

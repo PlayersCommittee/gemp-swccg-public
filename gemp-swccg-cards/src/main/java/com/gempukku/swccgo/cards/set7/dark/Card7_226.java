@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +42,7 @@ import java.util.List;
  */
 public class Card7_226 extends AbstractUtinniEffect {
     public Card7_226() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Destroyed Homestead", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Destroyed Homestead", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'Uncle Owen? Aunt Beru?'");
         setGameText("Deploy on Lars' Moisture Farm. Target Obi-Wan or Luke. Target may not apply ability toward drawing destiny for Sense, Alter or battle destiny. Opponent loses 1 Force during each of your control phases. Utinni Effect canceled when reached by target.");
         addIcons(Icon.SPECIAL_EDITION);

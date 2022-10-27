@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -41,7 +49,7 @@ import java.util.List;
  */
 public class Card13_065 extends AbstractEpicEventDeployable {
     public Card13_065() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Deep_Hatred, Uniqueness.UNIQUE);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Deep_Hatred, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setGameText("Deploy on table. You may not play Sniper or You Are Beaten. During any deploy phase, you may place one card face-down under one of your Dark Jedi. (These are that character's combat cards.) No character may have more than two combat cards at once. Instead of drawing lightsaber combat destiny or duel destiny, your participating character may use one of his combat cards. Place character's combat cards in owner's Used Pile when used (or if that character leaves the table).");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
     }

@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card6_176 extends AbstractVehicleWeapon {
     public Card6_176() {
-        super(Side.DARK, 7, Title.Double_Laser_Cannon);
+        super(Side.DARK, 7, Title.Double_Laser_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Similar power output to the Atgar P-tower. Equipped with a hydraulic coolant system. Effective in dealing with raiding swoop gangs.");
         setGameText("Use 4 Force to deploy on Jabba's Sail Barge or your sandcrawler; it is power +3 and immune to attrition < 5. Your warrior present, if aboard, may target a vehicle using 2 Force. Draw destiny. Target hit if destiny +2 > defense value.");
         addIcons(Icon.JABBAS_PALACE);

@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +41,7 @@ import java.util.List;
  */
 public class Card1_226 extends AbstractUtinniEffect {
     public Card1_226() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Organa's Ceremonial Necklace", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Organa's Ceremonial Necklace", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Necklace worn by Princess Leia during the awards ceremony after the Battle of Yavin. A powerful artifact in the Alderaanian royal family for dozens of generations.");
         setGameText("Deploy on any Yavin 4 site. Target one Imperial. When Imperial reaches target site, 'steal' necklace. Whenever necklace is present during Force drain: add 1 to Force drain and may then pass (for free) to an adjacent site you control (if any), and so on.");
         addKeywords(Keyword.FORCE_DRAIN_MULTI_PARTICIPANT);

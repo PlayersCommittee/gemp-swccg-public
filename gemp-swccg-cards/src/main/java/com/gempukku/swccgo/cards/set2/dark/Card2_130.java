@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractEpicEventPlayable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +21,14 @@ import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayEpicEventAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -25,13 +41,13 @@ import java.util.List;
 
 
 /**
- * Set: Hoth
+ * Set: A New Hope
  * Type: Epic Event
  * Title: Commence Primary Ignition
  */
 public class Card2_130 extends AbstractEpicEventPlayable {
     public Card2_130() {
-        super(Side.DARK, Title.Commence_Primary_Ignition);
+        super(Side.DARK, Title.Commence_Primary_Ignition, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setGameText("During your control phase, fire superlaser as follows: Name the System: Use X Force to target a planet system Death Star is orbiting. You May Fire When Ready: Draw destiny. Stand By: If (destiny + Y - Z) > 8, target system is 'blown away' and this card is lost. Otherwise, this card is used and one Death Star Gunner on table is lost (your choice). X = total sites at target. Y = total Death Star sites where opponent has no presence. Z = opponent's choice of X or total sites at one Rebel Base (Yavin 4 or Hoth).");
         addIcons(Icon.A_NEW_HOPE);
     }

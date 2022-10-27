@@ -5,7 +5,10 @@ import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OccupiesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_100 extends AbstractDefensiveShield {
     public Card13_100() {
-        super(Side.DARK, "You've Never Won A Race?");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"You've Never Won A Race?", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'Not even finished?'");
         setGameText("Plays on table. Unless opponent occupies three battlegrounds, I Did It! is suspended. If Sebulba's Podracer on table, your Force loss from Boonta Eve Podrace is reduced by X, where X = number of battlegrounds you occupy.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

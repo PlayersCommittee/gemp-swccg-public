@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card3_114 extends AbstractUtinniEffect {
     public Card3_114() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Weapon Malfunction", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Weapon Malfunction", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("'Luke, we've got a malfunction in fire control. I'll have to cut in the auxiliary.'");
         setGameText("Deploy on any docking bay. Target a weapon deployed on a starfighter or vehicle. That weapon cannot be fired. Utinni Effect canceled when reached by target.");
         addIcons(Icon.HOTH);

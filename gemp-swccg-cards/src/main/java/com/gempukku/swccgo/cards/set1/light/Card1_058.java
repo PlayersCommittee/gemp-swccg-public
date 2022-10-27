@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card1_058 extends AbstractUtinniEffect {
     public Card1_058() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Our Most Desperate Hour", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Our Most Desperate Hour", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Following her father Bail Organa's instructions, Leia placed the Death Star plans into R2-D2, hoping that they could be delivered safely to Alderaan by Obi-Wan Kenobi.");
         setGameText("Deploy on Alderaan. Target one Rebel at Tatooine. When Target reaches Utinni Effect, retrieve one lost Force for each Force-Attuned character you have on table, two for each Force-Sensitive or Jedi. Lose Utinni Effect.");
         addKeywords(Keyword.UTINNI_EFFECT_THAT_RETRIEVES_FORCE);

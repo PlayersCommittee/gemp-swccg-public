@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card6_160 extends AbstractUsedOrStartingInterrupt {
     public Card6_160() {
-        super(Side.DARK, 5, "Twi'lek Advisor", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Twi'lek Advisor", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("'He's no Jedi.'");
         setGameText("USED: Use 3 Force to search your Reserve Deck and take one Effect of any kind into hand; reshuffle. STARTING: Deploy from your Reserve Deck one Effect which has no deploy cost; reshuffle. Place Interrupt in the Lost Pile.");
         addIcons(Icon.JABBAS_PALACE);

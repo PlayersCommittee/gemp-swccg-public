@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card208_044 extends AbstractUsedOrStartingInterrupt {
     public Card208_044() {
-        super(Side.DARK, 5, Title.Operational_As_Planned, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Operational_As_Planned, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("'We shall double our efforts.'");
         setGameText("USED: Use 1 Force to [download] Krennic or a Jedha location. STARTING: If Death Star on table, deploy Superlaser and up to two Effects that deploy on table and are always immune to Alter. Place this Interrupt in hand.");

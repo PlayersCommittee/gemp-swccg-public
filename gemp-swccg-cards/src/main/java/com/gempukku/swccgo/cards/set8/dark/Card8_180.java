@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card8_180 extends AbstractVehicleWeapon {
     public Card8_180() {
-        super(Side.DARK, 4, "Speeder Bike Cannon");
+        super(Side.DARK, 4, "Speeder Bike Cannon", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.U);
         setLore("Used for strafing runs during hit and fade tactics. Often difficult to target for an inexperienced pilot.");
         setGameText("Use 1 Force to deploy on your speeder bike, 2 on your swoop. Vehicle is power +2. May target a character, creature or vehicle for free. Draw destiny. Target hit if destiny + 1 > defense value.");
         addIcons(Icon.ENDOR);

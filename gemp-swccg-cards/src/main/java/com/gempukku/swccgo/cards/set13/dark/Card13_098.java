@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class Card13_098 extends AbstractDefensiveShield {
     public Card13_098() {
-        super(Side.DARK, "Wipe Them Out, All Of Them");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Wipe Them Out, All Of Them", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Darth Sidious' command was merciless and direct. He left no room for misinterpretation.");
         setGameText("Plays on table. While opponent has a non-unique alien or non-unique starfighter in battle, opponent may not draw more than two battle destiny.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

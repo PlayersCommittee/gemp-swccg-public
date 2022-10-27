@@ -3,7 +3,19 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +44,7 @@ import java.util.Map;
  */
 public class Card5_128 extends AbstractUtinniEffect {
     public Card5_128() {
-        super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Were_The_Bait, Uniqueness.UNIQUE);
+        super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Were_The_Bait, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'He doesn't want you at all, he's after somebody called, uh...Skywalker.' 'Luke?' 'Lord Vader has set a trap for him.' 'And we're that bait!' 'Yeah, well, he's on his way.'");
         setGameText("Deploy on Han, Leia or Chewie if captured or 'frozen.' Target Luke. Luke may not attempt Jedi Tests. Also, during each of opponent's draw phases, opponent loses 2 Force (3 if captive is 'frozen'). Utinni Effect canceled when reached by target. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);

@@ -4,7 +4,10 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card13_061 extends AbstractDefensiveShield {
     public Card13_061() {
-        super(Side.DARK, Title.Come_Here_You_Big_Coward);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Come_Here_You_Big_Coward, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'Chewie! Come here!'");
         setGameText("Plays on table. While you occupy a battleground and opponent occupies less than two battlegrounds, cancel: Asteroid Sanctuary, opponent's Force drains at non-battleground locations, and opponent's Force retrieval.");
         addIcons(Icon.REFLECTIONS_III);

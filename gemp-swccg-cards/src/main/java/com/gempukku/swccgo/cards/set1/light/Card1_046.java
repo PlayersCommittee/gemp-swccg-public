@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +20,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RecordUtinniEffectCompletedEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -28,7 +41,7 @@ import java.util.List;
  */
 public class Card1_046 extends AbstractUtinniEffect {
     public Card1_046() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Death_Star_Plans, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Death_Star_Plans, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("'What's so important? What's he carrying?' 'The technical readouts of that battle station. I only hope that when the data is analyzed, a weakness can be found.'");
         setGameText("Deploy on any Death Star site (except docking bay). Target one of your droids (not on Death Star). When target reaches Utinni Effect, 'steal' plans. If target then moves to any Yavin 4 site, draw 3 destiny. Retrieve that much lost Force. Lose Utinni Effect.");
         addKeywords(Keyword.UTINNI_EFFECT_THAT_RETRIEVES_FORCE);

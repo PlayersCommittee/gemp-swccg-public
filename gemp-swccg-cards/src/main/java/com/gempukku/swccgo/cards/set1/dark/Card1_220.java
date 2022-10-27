@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card1_220 extends AbstractUtinniEffect {
     public Card1_220() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Juri_Juice, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Juri_Juice, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Popular beverage served in many cantinas and tapcafes. Has intoxicating effect on many species. Favorite drink of Kabe, Chadra-Fan thief of Mos Eisley.");
         setGameText("Deploy on any alien if Cantina, Mos Eisley or Jabba's Sail Barge on table. That alien may not use ability in battles (if Kabe, she also cannot 'steal'). Utinni Effect canceled by moving that alien to one of those sites without 'driving' a vehicle.");
     }

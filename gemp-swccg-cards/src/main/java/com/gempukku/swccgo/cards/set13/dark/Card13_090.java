@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_090 extends AbstractDefensiveShield {
     public Card13_090() {
-        super(Side.DARK, Title.There_Is_No_Try);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.There_Is_No_Try, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'Always with you what cannot be done.'");
         setGameText("Plays on table. Sense and Alter are now Lost Interrupts. When any player makes a destiny draw for Sense or Alter, and that destiny draw is successful, that player loses 2 Force.");
         addIcons(Icon.REFLECTIONS_III);

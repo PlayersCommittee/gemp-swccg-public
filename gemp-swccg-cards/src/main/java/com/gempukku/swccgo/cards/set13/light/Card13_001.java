@@ -6,7 +6,10 @@ import com.gempukku.swccgo.cards.evaluators.DivideEvaluator;
 import com.gempukku.swccgo.cards.evaluators.LosingRaceTotalEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SubtractEvaluator;
 import com.gempukku.swccgo.cards.evaluators.WinningRaceTotalEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_001 extends AbstractDefensiveShield {
     public Card13_001() {
-        super(Side.LIGHT, "A Close Race");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"A Close Race", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'Poodoo!'");
         setGameText("Plays on table. If you just lost a Podrace, your Force loss is limited to half the difference between the winning race total and your highest race total (round up). While you occupy three battlegrounds, Watto's Box is suspended.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

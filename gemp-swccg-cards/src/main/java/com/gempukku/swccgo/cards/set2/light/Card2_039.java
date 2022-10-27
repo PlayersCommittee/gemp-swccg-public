@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card2_039 extends AbstractUtinniEffect {
     public Card2_039() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Theyre_On_Dantooine);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Theyre_On_Dantooine, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("'You would prefer another target? A military target? Then name the system!'");
         setGameText("Once per game, use 2 Force to deploy on Dantooine. Target Death Star. Opponent may not play Commence Primary Ignition until target reaches Dantooine, canceling Utinni Effect.");
         addIcons(Icon.A_NEW_HOPE);

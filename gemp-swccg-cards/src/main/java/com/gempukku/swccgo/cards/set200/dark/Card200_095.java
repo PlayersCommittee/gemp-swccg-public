@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card200_095 extends AbstractDefensiveShield {
     public Card200_095() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fanfare");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fanfare", ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("The Boonta Eve crowds are always looking for new and exciting developments at every Podrace.");
         setGameText("Plays on table. Ice Storm, Lost In The Wilderness, Order To Engage, Sandwhirl and Scramble are canceled. Once per game, may take an Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Staging Areas is suspended.");

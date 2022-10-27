@@ -1,9 +1,22 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.PlayChoiceAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.PlayEpicEventAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
@@ -24,20 +37,11 @@ public abstract class AbstractEpicEventPlayable extends AbstractSwccgCardBluepri
      * Creates a blueprint for an Epic Event that is played.
      * @param side the side of the Force
      * @param title the card title
-     */
-    protected AbstractEpicEventPlayable(Side side, String title) {
-        this(side, title,  null, null);
-    }
-
-    /**
-     * Creates a blueprint for an Epic Event that is played.
-     * @param side the side of the Force
-     * @param title the card title
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */
     protected AbstractEpicEventPlayable(Side side, String title, ExpansionSet expansionSet, Rarity rarity) {
-        super(side, 0f, title, null, expansionSet, rarity);
+        super(side, 0f, title, Uniqueness.UNRESTRICTED, expansionSet, rarity);
         setCardCategory(CardCategory.EPIC_EVENT);
         addCardType(CardType.EPIC_EVENT);
         addIcon(Icon.EPIC_EVENT);

@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_049 extends AbstractDefensiveShield {
     public Card13_049() {
-        super(Side.LIGHT, Title.Your_Insight_Serves_You_Well);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Your_Insight_Serves_You_Well, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Luke knew that while the dark side was quicker and more seductive, eventually evil would turn on itself.");
         setGameText("Plays on table. Scanning Crew is canceled. If an 'insert' card was just inserted or revealed, it is canceled.");
         addIcons(Icon.REFLECTIONS_III);

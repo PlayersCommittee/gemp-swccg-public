@@ -6,7 +6,17 @@ import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfCardPileAndChooseCardsT
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -18,7 +28,11 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
 import com.gempukku.swccgo.logic.effects.StackCardFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CommuningModifier;
+import com.gempukku.swccgo.logic.modifiers.ConsideredOutOfPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
@@ -36,7 +50,7 @@ import java.util.List;
  */
 public class Card216_024 extends AbstractEpicEventDeployable {
     public Card216_024() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Communing, Uniqueness.UNIQUE);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Communing, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setGameText("Deploy on table (only at start of game). You may not deploy Jedi with 'communing' in game text. " +
                 "One With The Force: If a Jedi is about to be lost (or placed out of play) from table, may stack that card here. " +
                 "The Living Force: Jedi stacked here are 'communing' and are considered out of play. Your total Force generation is +1 for each Jedi 'communing.' " +

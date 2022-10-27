@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardPlayedThisTurnByPlayerCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card13_096 extends AbstractDefensiveShield {
     public Card13_096() {
-        super(Side.DARK, "We'll Let Fate-a Decide, Huh?");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"We'll Let Fate-a Decide, Huh?", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Qui-Gon was not one to leave the success of an elaborate plan to chance.");
         setGameText("Plays on table. Cancels Frozen Assets and Beggar. Each player may play only one card with 'sabacc' in title each turn. You may cancel an opponent's card with 'sabacc' in title by losing 1 Force from hand.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

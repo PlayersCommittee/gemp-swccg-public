@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card9_139 extends AbstractUsedOrStartingInterrupt {
     public Card9_139() {
-        super(Side.DARK, 3, "Prepared Defenses", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Prepared Defenses", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Since the debacle at Yavin, the Emperor places a premium on the security of his costly war machine.");
         setGameText("USED: Add 1 to your battle destiny just drawn. STARTING: Deploy up to three Effects if each of them deploys for free, is always immune to Alter and has 'deploy on table' (or 'deploy on your side of table') in its game text. Place Interrupt in Lost Pile.");
         addIcons(Icon.DEATH_STAR_II);

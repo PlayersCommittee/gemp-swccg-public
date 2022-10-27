@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card14_128 extends AbstractVehicleWeapon {
     public Card14_128() {
-        super(Side.DARK, 2, Title.Energy_Shell_Launchers);
+        super(Side.DARK, 2, Title.Energy_Shell_Launchers, Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("AAT weapon designed for wide-spread destruction. Can devastate opposing infantry.");
         setGameText("Deploy on your AAT. May target a character or vehicle using 1 Force. Draw destiny. May subtract 1. If destiny = target's destiny number, target is hit.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

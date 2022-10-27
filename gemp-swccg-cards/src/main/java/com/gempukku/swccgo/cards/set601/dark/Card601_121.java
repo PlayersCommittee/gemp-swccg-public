@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,12 +17,17 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.*;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardsIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +40,7 @@ import java.util.List;
  */
 public class Card601_121 extends AbstractUsedOrStartingInterrupt {
     public Card601_121() {
-        super(Side.DARK, 5, "Twi'lek Advisor", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Twi'lek Advisor", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'He's no Jedi.'");
         setGameText("USED: Use 3 Force to deploy a unique (•) alien (for free) from hand or Used Pile; reshuffle. STARTING: Take into hand and/or deploy from Reserve Deck up to three Effects of any kind with 'Jabba' in lore or game text on table from Reserve Deck; reshuffle. Place this Interrupt in Reserve Deck.");

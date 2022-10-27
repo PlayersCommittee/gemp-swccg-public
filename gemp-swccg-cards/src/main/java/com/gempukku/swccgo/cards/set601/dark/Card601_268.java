@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card601_268 extends AbstractUsedOrStartingInterrupt {
     public Card601_268() {
-        super(Side.DARK, 4, Title.You_Overestimate_Their_Chances);
+        super(Side.DARK, 4, Title.You_Overestimate_Their_Chances, Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Evacuate? In our moment of triumph?'");
         setGameText("USED: Initiate a battle for free. " +

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card4_034 extends AbstractUtinniEffect {
     public Card4_034() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Report_To_Lord_Vader, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Report_To_Lord_Vader, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("An evil Lord of the Sith, Darth Vader used fear as a powerful motivational factor. The Emperor demanded results. Vader settled for no less.");
         setGameText("If you just won a battle, deploy on Vader. Target an Imperial involved in that battle. Vader and target are power and forfeit -4. When target reaches Vader, lose Utinni Effect and draw destiny. If destiny > 2, target lost.");
         addIcons(Icon.DAGOBAH);

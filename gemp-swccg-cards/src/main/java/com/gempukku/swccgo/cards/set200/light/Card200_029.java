@@ -4,7 +4,10 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardsInHandEqualToOrFewerThanCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card200_029 extends AbstractDefensiveShield {
     public Card200_029() {
-        super(Side.LIGHT, "The Republic No Longer Functions");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Republic No Longer Functions", ExpansionSet.SET_0, Rarity.V);
         setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Monnok). Once per turn (even at start of turn), may target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }

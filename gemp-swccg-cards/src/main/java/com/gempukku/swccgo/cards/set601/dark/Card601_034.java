@@ -5,7 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.StackCardFromVoidEffect;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card601_034 extends AbstractDefensiveShield {
     public Card601_034() {
-        super(Side.DARK, Title.Do_They_Have_A_Code_Clearance);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Do_They_Have_A_Code_Clearance, ExpansionSet.LEGACY, Rarity.V);
         setLore("Imperial officers are always on the lookout for Rebel espionage.");
         setGameText("Plays on table. Outrider does not place Utinni Effects out of play. If opponent just retrieved Force using an Interrupt or Utinni Effect, you may stack that card here. Opponent's Force retrieval is reduced by X, where X = number of cards here.");
         addIcons(Icon.REFLECTIONS_III, Icon.GRABBER, Icon.LEGACY_BLOCK_D);

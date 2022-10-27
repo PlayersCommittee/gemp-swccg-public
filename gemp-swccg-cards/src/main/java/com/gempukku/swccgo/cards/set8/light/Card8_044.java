@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +17,11 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -29,7 +39,7 @@ import java.util.List;
  */
 public class Card8_044 extends AbstractUsedOrStartingInterrupt {
     public Card8_044() {
-        super(Side.LIGHT, 5, Title.Careful_Planning, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Careful_Planning, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Alliance troops on planet must plan ahead to achieve success in military operations.");
         setGameText("USED: If a battle was just initiated, draw destiny and activate up to that much Force. STARTING: If you have not deployed an Objective, deploy from Reserve Deck one battleground site (or two ◇ sites) related to your starting location. Place Interrupt in Reserve Deck.");
         addIcons(Icon.ENDOR);

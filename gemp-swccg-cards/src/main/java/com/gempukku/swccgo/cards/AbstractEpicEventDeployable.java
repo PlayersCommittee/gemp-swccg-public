@@ -1,6 +1,13 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
@@ -13,27 +20,6 @@ import java.util.List;
  * The abstract class providing the common implementation for Epic Events that are deployed.
  */
 public abstract class AbstractEpicEventDeployable extends AbstractDeployable {
-
-    /**
-     * Creates a blueprint for an Epic Event that is deployed.
-     * @param side the side of the Force
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     */
-    protected AbstractEpicEventDeployable(Side side, PlayCardZoneOption playCardZoneOption, String title) {
-        this(side, playCardZoneOption, title, null);
-    }
-
-    /**
-     * Creates a blueprint for an Epic Event that is deployed.
-     * @param side the side of the Force
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractEpicEventDeployable(Side side, PlayCardZoneOption playCardZoneOption, String title, Uniqueness uniqueness) {
-        this(side, playCardZoneOption, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for an Epic Event that is deployed.

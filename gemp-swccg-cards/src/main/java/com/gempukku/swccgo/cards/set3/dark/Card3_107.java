@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card3_107 extends AbstractUtinniEffect {
     public Card3_107() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Meteor Impact?", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Meteor Impact?", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("'There's a meteorite that hit the ground near here. I wanna check it out. Won't take long.'");
         setGameText("Use 2 Force to deploy on an exterior planet site. Target a character on same planet. Character may not leave planet or move away from Utinni Effect. Utinni Effect canceled when reached by target.");
         addIcons(Icon.HOTH);

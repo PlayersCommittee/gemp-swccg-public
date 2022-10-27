@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +22,14 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ChooseEffectEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PlaceBottomCardOfLostPileOnTopOfForcePileEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceForcePileOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
@@ -30,7 +47,7 @@ import java.util.List;
  */
 public class Card11_025 extends AbstractEpicEventDeployable {
     public Card11_025() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Did_It);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Did_It, Uniqueness.UNRESTRICTED, ExpansionSet.TATOOINE, Rarity.R);
         setGameText("Deploy on table if you've won a Podrace. Once per game, may place Boonta Eve Podrace out of play to retrieve 4 Force. If you occupy a battleground site and a battleground system, once during each of your control phases may reveal the bottom card of your Lost Pile and place it on top of your Force Pile. At the end of opponent's turn opponent must lose 2 Force or place their Force Pile onto their Used Pile.");
         addIcons(Icon.EPISODE_I, Icon.TATOOINE);
     }

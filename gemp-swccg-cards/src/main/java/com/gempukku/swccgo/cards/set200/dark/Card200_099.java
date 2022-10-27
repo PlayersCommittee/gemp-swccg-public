@@ -4,7 +4,10 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardsInHandEqualToOrFewerThanCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card200_099 extends AbstractDefensiveShield {
     public Card200_099() {
-        super(Side.DARK, "Vote Of No Confidence");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Vote Of No Confidence", ExpansionSet.SET_0, Rarity.V);
         setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Grimtaash). Once per turn (even at start of turn), may target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }

@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set213.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card213_013 extends AbstractDefensiveShield {
     public Card213_013() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Failure At The Cave");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Failure At The Cave", ExpansionSet.SET_13, Rarity.V);
         setLore("'Lord Vader, the fleet has moved out of lightspeed and we're preparing to aah...ukh...uh...uuuuukkk!'");
         setGameText("Plays on table. Opponent's Undercover spies are immune to Double Agent. While a Jedi Test on table, Projection Of A Skywalker is canceled. If Grimtaash just revealed your hand, you may place up to two cards in your Used Pile.");
         addIcons(Icon.VIRTUAL_SET_13);

@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_044 extends AbstractDefensiveShield {
     public Card13_044() {
-        super(Side.LIGHT, Title.Ultimatum);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Ultimatum, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'Jabba! This is your last chance. Free us or die.'");
         setGameText("Plays on table. While you occupy at least 3 battlegrounds or opponent occupies no battlegrounds, you lose no more than 2 Force from each Force drain or 'insert' card.");
         addIcons(Icon.REFLECTIONS_III);

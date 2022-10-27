@@ -2,7 +2,20 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +46,7 @@ import java.util.Map;
  */
 public class Card2_125 extends AbstractUtinniEffect {
     public Card2_125() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Spice_Mines_Of_Kessel, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Spice_Mines_Of_Kessel, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("Captives sent to the Kessel spice mines spend the rest of their lives digging for glitterstim, a spice sold throughout the galaxy by smugglers and crime lords.");
         setGameText("Deploy on Kessel (may not be moved). Target one captive and one trooper to escort captive. When targets reach Utinni Effect, retrieve Force equal to captive's forfeit (captive and Utinni Effect lost).");
         addIcons(Icon.A_NEW_HOPE);

@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set200.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.DuringPlayersTurnNumberCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card200_027 extends AbstractDefensiveShield {
     public Card200_027() {
-        super(Side.LIGHT, "Goldenrod");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Goldenrod", ExpansionSet.SET_0, Rarity.V);
         setGameText("Plays on table. For opponent to deploy a character, starship, or vehicle for free (except by that card's own game text), opponent must first use 2 Force.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }

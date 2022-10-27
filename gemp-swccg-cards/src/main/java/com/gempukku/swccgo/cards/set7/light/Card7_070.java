@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +45,7 @@ import java.util.List;
  */
 public class Card7_070 extends AbstractUtinniEffect {
     public Card7_070() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Mechanical_Failure, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Mechanical_Failure, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("The massive war machines of the Empire require tremendous effort to maintain combat readiness.");
         setGameText("Deploy on an exterior site. Target an opponent's combat vehicle at a related site. Target's power and forfeit = 0. When target reaches Utinni Effect, target draws one destiny. Utinni Effect canceled if destiny > 2. Otherwise, draw again next move phase, etc.");
         addIcons(Icon.SPECIAL_EDITION);

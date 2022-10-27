@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card13_047 extends AbstractDefensiveShield {
     public Card13_047() {
-        super(Side.LIGHT, Title.Wise_Advice);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Wise_Advice, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The guidance of experienced Jedi allowed Luke to confront Vader.");
         setGameText("Plays on table. Your Immediate Effects may play for free. Whenever opponent cancels your card with Sense or Alter, place that canceled card in Used Pile.");
         addIcons(Icon.REFLECTIONS_III);

@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set301.light;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardPlayedThisTurnByPlayerCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card301_005 extends AbstractDefensiveShield {
     public Card301_005() {
-        super(Side.LIGHT, "Your Ship?");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Your Ship?", ExpansionSet.DEMO_DECK, Rarity.V);
         setVirtualSuffix(true);
         setLore("Han was not sure if Lando had forgiven him for winning the Millennium Falcon. As the old gamblers' saying about sabacc goes: 'Win the game, lose a friend.'");
         setGameText("Plays on table. Cancels A Dangerous Time and Imperial Supply. Each player may play only one card with 'sabacc' in title each turn. You may cancel an opponent's card with 'sabacc' in title by losing 1 Force from hand.");

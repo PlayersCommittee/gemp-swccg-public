@@ -5,7 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.StackCardFromVoidEffect;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card601_031 extends AbstractDefensiveShield {
     public Card601_031() {
-        super(Side.DARK, Title.A_Useless_Gesture);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.A_Useless_Gesture, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Imperial officers aboard the Death Star considered the Rebellion a minor threat.");
         setGameText("Plays on table. In order to play an Interrupt from Lost Pile, opponent must first stack it here (if possible) and use +1 Force for each card here, even if Interrupt is normally free. Revolution is canceled.");

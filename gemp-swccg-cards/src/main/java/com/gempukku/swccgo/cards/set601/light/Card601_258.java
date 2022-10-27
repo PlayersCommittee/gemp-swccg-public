@@ -2,12 +2,22 @@ package com.gempukku.swccgo.cards.set601.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.InitiateBattlesForFreeModifier;
@@ -26,7 +36,7 @@ import java.util.List;
  */
 public class Card601_258 extends AbstractUsedOrStartingInterrupt {
     public Card601_258() {
-        super(Side.LIGHT, 4, Title.Dont_Underestimate_Our_Chances);
+        super(Side.LIGHT, 4, Title.Dont_Underestimate_Our_Chances, Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Stand-by alert. Death Star approaching. Estimated time to firing range, fifteen minutes.'");
         setGameText("USED: Initiate a battle for free. " +

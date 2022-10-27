@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card13_008 extends AbstractDefensiveShield {
     public Card13_008() {
-        super(Side.LIGHT, Title.Battle_Plan);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Battle_Plan, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Even though the landing of the stolen shuttle was successful, the Rebel strike team on Endor was forced to rethink their plans when Leia disappeared.");
         setGameText("Plays on table. For either player to initiate a Force drain, that player must first use 3 Force unless that player occupies a battleground site and a battleground system.");
         addIcons(Icon.REFLECTIONS_III);

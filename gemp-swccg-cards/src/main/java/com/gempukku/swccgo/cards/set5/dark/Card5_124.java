@@ -2,7 +2,19 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -18,7 +30,11 @@ import com.gempukku.swccgo.logic.effects.LoseForceFromLifeForceEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Set: Cloud City
@@ -28,7 +44,7 @@ import java.util.*;
  */
 public class Card5_124 extends AbstractUtinniEffect {
     public Card5_124() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "The Emperor's Prize", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "The Emperor's Prize", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Vader thought that by capturing Luke, he would crush the Alliance's last hope. But, there was another...");
         setGameText("If Luke was just 'frozen,' deploy on Emperor or Detention Block Corridor. Target Luke and Vader. When reached by targets, place Utinni Effect on Luke and opponent must lose half of Life Force (round down). If Luke released, lose Utinni Effect. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);

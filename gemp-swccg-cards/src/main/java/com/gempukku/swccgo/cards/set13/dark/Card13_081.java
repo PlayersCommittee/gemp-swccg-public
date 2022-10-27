@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card13_081 extends AbstractDefensiveShield {
     public Card13_081() {
-        super(Side.DARK, Title.Oppressive_Enforcement);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Oppressive_Enforcement, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The Imperial fleet keeps a tight grip on the systems under its control. Abuses and excesses by local citizens are not tolerated.");
         setGameText("Plays on table. Your Immediate Effects may play for free. Whenever opponent cancels your card with Sense or Alter, place that canceled card in Used Pile.");
         addIcons(Icon.REFLECTIONS_III);

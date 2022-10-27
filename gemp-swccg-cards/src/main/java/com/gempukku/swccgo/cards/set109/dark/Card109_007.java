@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set109.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card109_007 extends AbstractUsedOrStartingInterrupt {
     public Card109_007() {
-        super(Side.DARK, 4, Title.Any_Methods_Necessary, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Any_Methods_Necessary, Uniqueness.UNIQUE, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setLore("Darth Vader authorized the bounty hunters to use any means at their disposal to find and capture the Millennium Falcon - not that they need any encouragement.");
         setGameText("USED: Activate 1 Force. STARTING: Take into hand from Reserve Deck one prison and one bounty hunter (may also take a matching weapon and/or starship). When you draw your starting hand, draw six more cards instead of eight. Place Interrupt in Reserve Deck.");
         addIcons(Icon.PREMIUM);

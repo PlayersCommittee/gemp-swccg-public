@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card8_178 extends AbstractVehicleWeapon {
     public Card8_178() {
-        super(Side.DARK, 4, Title.AT_ST_Dual_Cannon);
+        super(Side.DARK, 4, Title.AT_ST_Dual_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.R);
         setLore("High rate of fire used for anti-personnel operations. Enhanced design from prototype used in the Battle of Hoth.");
         setGameText("Use 1 Force to deploy on your AT-ST. May target a character, creature or vehicle for 1 Force. Draw destiny. Add 1 if targeting a character or creature. Target hit if total destiny > defense value. May fire repeatedly for 2 Force each time.");
         addIcons(Icon.ENDOR);

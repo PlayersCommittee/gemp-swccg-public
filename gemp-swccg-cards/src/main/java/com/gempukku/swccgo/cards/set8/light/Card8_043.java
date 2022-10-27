@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -22,14 +31,28 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
+import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.StandardEffect;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -39,7 +62,7 @@ import java.util.*;
  */
 public class Card8_043 extends AbstractEpicEventDeployable {
     public Card8_043() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Deactivate_The_Shield_Generator);
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Deactivate_The_Shield_Generator, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.R);
         setGameText("Deploy on Bunker. During your control phase, if you control Bunker with a Rebel, attempt to 'blow away' Bunker as follows: Charges! Come On, Come On!: Draw two destiny. Add 3 to total for each Explosive Charge on Bunker. Move! Move! Move!: If total destiny > 12, your characters here may relocate to Back Door for free, Bunker and Landing Platform (if on table) are 'blown away,' opponent loses 8 Force and this card is lost.");
         addIcons(Icon.ENDOR);
     }

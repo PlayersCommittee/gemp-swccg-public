@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card6_174 extends AbstractVehicleWeapon {
     public Card6_174() {
-        super(Side.DARK, 4, "Antipersonnel Laser Cannon");
+        super(Side.DARK, 4, "Antipersonnel Laser Cannon", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Rapid-fire weapon. Requires three power cells to operate. Has no stun setting. Lightweight enough to be stored and then quickly mounted when the need arises.");
         setGameText("Use 3 Force to deploy on your transport vehicle. Your warrior present, if aboard, may target a character or creature using 3 Force. Draw destiny. Target hit if destiny +2 > defense value. May fire repeatedly for 2 Force each time.");
         addIcons(Icon.JABBAS_PALACE);

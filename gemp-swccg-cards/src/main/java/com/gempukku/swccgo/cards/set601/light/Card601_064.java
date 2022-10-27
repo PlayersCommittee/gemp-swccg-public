@@ -2,14 +2,22 @@ package com.gempukku.swccgo.cards.set601.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +29,7 @@ import java.util.List;
  */
 public class Card601_064 extends AbstractDefensiveShield {
     public Card601_064() {
-        super(Side.LIGHT, "Affect Mind");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Affect Mind", ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'What was that?' The Jedi power known as 'affect mind' is often used to create minor distractions, allowing Jedi to elude enemies rather than engage them in battle.");
         setGameText("Plays on table. Unless Inner Strength on table, opponent may use only one combat card per turn. While opponent has 2 Dark Jedi on Naboo, you lose no more than 2 Force to Force drains at opponent's Naboo sites. Let Them Make The First Move may target only droids and spies.");

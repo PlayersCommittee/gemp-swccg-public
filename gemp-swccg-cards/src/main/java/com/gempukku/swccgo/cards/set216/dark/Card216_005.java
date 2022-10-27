@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set216.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card216_005 extends AbstractDefensiveShield {
     public Card216_005() {
-        super(Side.DARK, Title.Crossfire);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Crossfire, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("Scout walker pilots are trained to set up a deadly heavy fire zone. This tactic can be disrupted by enemy weapons fire.");
         setGameText("Plays on table. S-foils and Maneuvering Flaps are suspended where you have either a weapon present or a starship (or vehicle) with maneuver > 3 present. Your Force generation at opponent's Endor system may not be canceled unless opponent's [Endor] objective on table.");

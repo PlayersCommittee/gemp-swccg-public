@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card4_018 extends AbstractUtinniEffect {
     public Card4_018() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Asteroids_Do_Not_Concern_Me, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Asteroids_Do_Not_Concern_Me, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("The personal fears of Vader's minions do not affect his priorities.");
         setGameText("Deploy on any asteroid sector. Target one opponent's capital starship. Pilots aboard target may not use ability to draw battle destiny. Subtract 4 from asteroid destiny when targeting that starship. Utinni Effect canceled when reached by target.");
         addIcons(Icon.DAGOBAH);

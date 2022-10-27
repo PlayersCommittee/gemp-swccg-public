@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +21,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.AttackRunState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.EnterTrenchDuringAttackRunEffect;
+import com.gempukku.swccgo.logic.effects.ProvideCoverDuringAttackRunEffect;
+import com.gempukku.swccgo.logic.effects.PullUpDuringAttackRunEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -32,7 +47,7 @@ import java.util.List;
  */
 public class Card2_042 extends AbstractEpicEventDeployable {
     public Card2_042() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Attack_Run, Uniqueness.UNIQUE);
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Attack_Run, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setGameText("Deploy on Death Star: Trench. During your move phase, you may make an Attack Run as follows: Enter Trench: Move up to 3 of your starfighters into trench (for free). Dark Side may immediately follow with up to 3 TIEs (for free). Provide Cover: Identify your lead starfighter (Proton Torpedoes* required) and wingmen (if any). Turbolaser Batteries and TIEs with weapons may now target your starfighters (wingmen first, then lead if no wingmen remaining). Hit starfighters are immediately lost. It's Away!: Draw two destiny. Pull Up!: All starfighters now move to Death Star system (for free). If (total destiny + X + Y - Z) > 15, Death Star is 'blown away.' X = ability of lead pilot or 3 if Targeting Computer is present. Y = total sites at largest Rebel Base (Yavin 4 or Hoth). Z = highest ability of TIE pilots in trench. *Your Proton Torpedoes are immune to Overload.");
         addIcons(Icon.A_NEW_HOPE);
     }

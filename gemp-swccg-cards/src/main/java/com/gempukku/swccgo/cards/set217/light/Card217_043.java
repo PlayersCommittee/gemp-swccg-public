@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card217_043 extends AbstractDefensiveShield {
     public Card217_043() {
-        super(Side.LIGHT, Title.Ounee_Ta);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Ounee_Ta, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jabba's decadent behavior makes him susceptible to deception. Leia and Lando exploited this weakness, posing as Jabba's kind of scum.");
         setGameText("Plays on table. At each opponent's <> site, your Rebels are each deploy -2 and your Force generation is +1. May lose 3 Force to cancel an attempt by [Theed Palace] Sidious to place your Jedi out of play.");

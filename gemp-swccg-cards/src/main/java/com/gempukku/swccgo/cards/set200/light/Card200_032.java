@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set200.light;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card200_032 extends AbstractDefensiveShield {
     public Card200_032() {
-        super(Side.LIGHT, Title.Your_Insight_Serves_You_Well);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Your_Insight_Serves_You_Well, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Luke knew that while the dark side was quicker and more seductive, eventually evil would turn on itself.");
         setGameText("Plays on table. Scanning Crew is canceled. If an 'insert' card was just inserted or revealed, it is canceled. You lose no Force to Boonta Eve Podrace. While you occupy three battlegrounds, Watto's Box is suspended.");

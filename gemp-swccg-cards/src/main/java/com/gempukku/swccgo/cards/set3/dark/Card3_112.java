@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card3_112 extends AbstractUtinniEffect {
     public Card3_112() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.This_Is_Just_Wrong, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.This_Is_Just_Wrong, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("'Why, I guess you don't know everything about women yet.'");
         setGameText("Deploy on any male character. Target a female character on table. Target is power -2. Utinni Effect canceled when present with target.");
         addIcons(Icon.HOTH);

@@ -1,9 +1,11 @@
 package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card13_038 extends AbstractDefensiveShield {
     public Card13_038() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "Planetary Defenses");
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "Planetary Defenses", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Key installations are protected from bombardment by a complex network of early-warning sensors, emergency shields and fast-response fighters.");
         setGameText("Plays on any interior site. This location may not be targeted by Proton Bombs.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

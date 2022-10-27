@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,12 +33,12 @@ import java.util.List;
 
 /**
  * Set: Block D
- * Type: Effect
+ * Type: Defensive Shield
  * Title: Fanfare (V)
  */
 public class Card601_035 extends AbstractDefensiveShield {
     public Card601_035() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fanfare");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fanfare", ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("The Boonta Eve crowds are always looking for new and exciting developments at every Podrace.");
         setGameText("Plays on table. Cancels Order To Engage and Scramble. Once per game, may [upload] an Immediate Effect. While opponent occupies no battleground systems, Staging Areas is suspended. 'Missing' on Lost In The Wilderness is treated as 'landspeed = 0 for remainder of turn'.");

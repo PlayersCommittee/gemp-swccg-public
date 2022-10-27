@@ -4,8 +4,11 @@ import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card217_049 extends AbstractUsedOrStartingInterrupt {
     public Card217_049() {
-        super(Side.LIGHT, 3, "The Destiny Of A Jedi");
+        super(Side.LIGHT, 3, "The Destiny Of A Jedi", Uniqueness.UNRESTRICTED, ExpansionSet.SET_17, Rarity.V);
         setGameText("USED: Move your [Episode VII] Jedi as a 'react.' STARTING: If The Galaxy May Need A Legend on table, deploy Be With Me and up to two Effects that deploy on table, deploy for free, and are always immune to Alter. Place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_17);
     }

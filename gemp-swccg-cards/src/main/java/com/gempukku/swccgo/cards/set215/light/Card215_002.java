@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.takeandputcards.StackCardsFromHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +20,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
+import com.gempukku.swccgo.logic.effects.ShutDownDeathStarPowerEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedByModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -31,7 +43,7 @@ import java.util.List;
  */
 public class Card215_002 extends AbstractEpicEventDeployable {
     public Card215_002() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.A_Power_Loss, Uniqueness.UNIQUE);
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.A_Power_Loss, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("");
         setGameText("Deploy on Central Core. Leia may not modify Force drains. Once per game, opponent may stack up to two cards from hand face-down here." +
                 "Allow The Ship To Leave: If you just won a battle on Death Star (or initiated a Force drain here), place a card stacked here in owner’s Lost Pile." +

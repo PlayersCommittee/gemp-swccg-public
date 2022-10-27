@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card9_051 extends AbstractUsedOrStartingInterrupt {
     public Card9_051() {
-        super(Side.LIGHT, 3, "Heading For The Medical Frigate", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Heading For The Medical Frigate", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("At the Battle of Endor, Rebel starships fought to defend key capital starships, such as the Redemption.");
         setGameText("USED: Add 1 to your battle destiny just drawn. STARTING: Deploy up to three Effects if each of them deploys for free, is always immune to Alter and has 'deploy on table' (or 'deploy on your side of table') in its game text. Place Interrupt in Lost Pile.");
         addIcons(Icon.DEATH_STAR_II);

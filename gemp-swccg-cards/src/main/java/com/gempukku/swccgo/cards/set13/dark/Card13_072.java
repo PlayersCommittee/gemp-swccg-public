@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card13_072 extends AbstractDefensiveShield {
     public Card13_072() {
-        super(Side.DARK, Title.Leave_Them_To_Me);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Leave_Them_To_Me, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'I will deal with them myself.'");
         setGameText("Plays on table. While you occupy a Subjugated planet location, operatives are forfeit = 0, operatives do not add to Force drains, and your Force drains may not be reduced. (Subjugated planet is defined on the Objective card Local Uprising.)");
         addIcons(Icon.REFLECTIONS_III);

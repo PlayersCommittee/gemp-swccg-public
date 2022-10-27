@@ -6,7 +6,18 @@ import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,9 +31,17 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelEpicEventGameTextAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.EscapeDeathStarIIEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.BlownAwayForceLossMultiplierModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ResetHyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -39,7 +58,7 @@ import java.util.List;
  */
 public class Card9_135 extends AbstractEpicEventDeployable {
     public Card9_135() {
-        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.That_Things_Operational, Uniqueness.UNIQUE);
+        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.That_Things_Operational, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setGameText("Deploy on Reactor Core. Death Star II may move (hyperspeed = 3). " +
                 "While Death Star II orbits a system you occupy (except Endor), once during each of your control phases, " +
                 "opponent loses X Force, where X = 2 plus number of related battleground sites you occupy. " +

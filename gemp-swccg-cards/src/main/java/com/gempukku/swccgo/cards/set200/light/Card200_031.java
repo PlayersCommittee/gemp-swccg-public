@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set200.light;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.NumCopiesOfCardAtLocationEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card200_031 extends AbstractDefensiveShield {
     public Card200_031() {
-        super(Side.LIGHT, Title.Yavin_Sentry);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Yavin_Sentry, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Rebel sentries are stationed on raised sensor platforms. On watch for Imperial scouts and other hazards, they supplement data gathered by Yavin Base's main sensors.");
         setGameText("Plays on table. Colo Claw Fish is canceled. Opponent must first use X Force to deploy a non-unique card (except a Jawa or Tusken Raider) to a location, where X = the number of copies of that card at that location.");

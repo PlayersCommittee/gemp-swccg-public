@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
 
 public class Card208_046 extends AbstractUsedOrStartingInterrupt {
     public Card208_046() {
-        super(Side.DARK, 4, "You Know What I've Come For", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "You Know What I've Come For", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setGameText("USED: Use 1 Force to [upload] a [First Order] shuttle. STARTING: Deploy Jakku: Landing Site, Bow To The First Order, and one Effect that deploys on table and is always immune to Alter. Place this Interrupt in hand.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);
     }

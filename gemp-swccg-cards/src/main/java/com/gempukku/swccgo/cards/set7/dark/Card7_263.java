@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card7_263 extends AbstractUsedOrStartingInterrupt {
     public Card7_263() {
-        super(Side.DARK, 5, "Surface Defense");
+        super(Side.DARK, 5, "Surface Defense", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'The battle station is heavily shielded and carries a firepower greater than half the starfleet.'");
         setGameText("USED: Add 1 to your just-drawn weapon destiny. STARTING: If you have deployed a battleground, deploy Resistance, Secret Plans and/or There Is No Try from Reserve Deck. Place Interrupt in Reserve Deck.");
         addIcons(Icon.SPECIAL_EDITION);

@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set601.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card601_069 extends AbstractDefensiveShield {
     public Card601_069() {
-        super(Side.LIGHT, "Weapons Display");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Weapons Display", ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("The X-wing's display panel allows for different firing patterns for different weapons. This gives the pilot the ability to switch weapon types with minimum time and energy loss.");
         setGameText("Plays on table. Whenever opponent excludes any character(s) from battle, they lose 2 Force. At end of opponent's turn, if you control two battlegrounds (a site and a system) and opponent deployed a card with ability and did not initiate a battle, may retrieve 1 Force.");

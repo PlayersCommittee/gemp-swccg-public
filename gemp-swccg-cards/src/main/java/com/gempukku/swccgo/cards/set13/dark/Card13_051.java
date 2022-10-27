@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card13_051 extends AbstractDefensiveShield {
     public Card13_051() {
-        super(Side.DARK, Title.A_Useless_Gesture);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.A_Useless_Gesture, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Imperial officers aboard the Death Star considered the Rebellion a minor threat.");
         setGameText("Plays on table. Cancels Don't Underestimate Our Chances. When opponent plays an Interrupt and has 3 smugglers on table, if that Interrupt is place in Lost Pile, place it out of play. Ketwol may exchange a docking bay only once per game.");
         addIcons(Icon.REFLECTIONS_III);

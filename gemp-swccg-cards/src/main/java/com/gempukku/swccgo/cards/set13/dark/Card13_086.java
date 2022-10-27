@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Variable;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card13_086 extends AbstractDefensiveShield {
     public Card13_086() {
-        super(Side.DARK, Title.Secret_Plans);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Secret_Plans, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Imperial computer systems are equipped with complex algorithms designed to prevent access by unauthorized users.");
         setGameText("Plays on table. If opponent is about to retrieve X Force, opponent must first use X Force or that retrieval is canceled. (X is equal to the full amount of Force allowed to be retrieved, regardless of the number of cards in opponent's Lost Pile.)");
         addIcons(Icon.REFLECTIONS_III);

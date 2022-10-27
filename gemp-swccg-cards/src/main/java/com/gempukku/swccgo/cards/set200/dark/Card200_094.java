@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.NumCopiesOfCardAtLocationEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card200_094 extends AbstractDefensiveShield {
     public Card200_094() {
-        super(Side.DARK, Title.Death_Star_Sentry);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Death_Star_Sentry, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Death Star troopers on sentry duty observe and direct incoming starships and monitor other critical sites. They perform sensor scans for life forms and weapons.");
         setGameText("Plays on table. Colo Claw Fish is canceled. Opponent must first use X Force to deploy a non-unique card (except a Jawa) to a location, where X = the number of copies of that card at that location.");

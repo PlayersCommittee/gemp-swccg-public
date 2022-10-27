@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card13_035 extends AbstractDefensiveShield {
     public Card13_035() {
-        super(Side.LIGHT, "Only Jedi Carry That Weapon");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Only Jedi Carry That Weapon", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("An elegant weapon for a more civilized age.");
         setGameText("Plays on table. For opponent to steal a weapon from target character using a non-[Episode I] card, must first draw destiny. If destiny +1 > target's ability, weapon stolen. Otherwise, attempt fails and stealing card is placed out of play.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

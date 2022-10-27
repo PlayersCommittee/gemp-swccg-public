@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card5_117 extends AbstractUtinniEffect {
     public Card5_117() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Forced Landing", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Forced Landing", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'You will not deviate from your present course. . . Permission granted to land on platform three-two-seven.'");
         setGameText("Deploy on a docking bay. Target an opponent's starfighter at the related system or a related cloud sector. Target may not move away from Utinni Effect. Utinni Effect canceled when reached by target.");
         addIcons(Icon.CLOUD_CITY);

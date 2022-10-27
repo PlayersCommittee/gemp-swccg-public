@@ -2,15 +2,24 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.*;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.PlayStackedDefensiveShieldEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card601_030 extends AbstractUsedOrStartingInterrupt {
     public Card601_030() {
-        super(Side.DARK, 4, "Wookiee Subjugation", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Wookiee Subjugation", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("'Rrraaaarrr!'");
         setGameText("USED: If you just 'enslaved' a character, play a Defensive Shield from under your Starting Effect. STARTING: If Slaving Camp Headquarters on table, deploy from Reserve Deck Mercenary Slavers and up to two Effects that deploy on table for free and are always [Immune to Alter.]. Place Interrupt in Reserve Deck.");
         addIcons(Icon.LEGACY_BLOCK_8, Icon.DAGOBAH);

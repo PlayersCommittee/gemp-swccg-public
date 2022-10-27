@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +23,12 @@ import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionOfExactlyModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
@@ -32,7 +44,7 @@ import java.util.List;
  */
 public class Card1_067 extends AbstractUtinniEffect {
     public Card1_067() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Tusken_Breath_Mask, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Tusken_Breath_Mask, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Sand People use a special mask to reclaim exhaled moisture in the hot, harsh environment of Tatooine. Protects by filtering blowing sand and dispersing excess heat.");
         setGameText("Deploy on any Tatooine site where you have just won a battle. Target one of your characters not at Tatooine. Upon reaching, target takes mask. While on Tatooine, target's power and forfeit are +2 and has immunity to attrition of exactly 3.");
     }

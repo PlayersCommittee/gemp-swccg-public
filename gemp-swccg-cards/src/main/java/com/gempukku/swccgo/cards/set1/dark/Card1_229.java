@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card1_229 extends AbstractUtinniEffect {
     public Card1_229() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Send A Detachment Down", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Send A Detachment Down", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Vader sent Imperial stormtroopers to the surface of Tatooine in search of the stolen Death Star plans. 'There'll be no one to stop us this time.'");
         setGameText("Use 2 Force to deploy on any Tatooine site (except docking bay). Target any trooper on Death Star. When target reaches Utinni Effect, attrition +1 against opponent in all Tatooine battles as long as target remains at same site as Utinni Effect.");
     }

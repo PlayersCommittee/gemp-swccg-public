@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card213_045 extends AbstractDefensiveShield {
     public Card213_045() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Clumsy And Stupid");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Clumsy And Stupid", ExpansionSet.SET_13, Rarity.V);
         setLore("'Lord Vader, the fleet has moved out of lightspeed and we're preparing to aah...ukh...uh...uuuuukkk!'");
         setGameText("Plays on table. Opponent's Undercover spies are immune to Nevar Yalnal. Field Promotion is canceled if on Ozzel or opponent's [Maintenance] card. If Monnok just revealed your hand, you may place up to two cards in your Used Pile.");
         addIcons(Icon.VIRTUAL_SET_13);

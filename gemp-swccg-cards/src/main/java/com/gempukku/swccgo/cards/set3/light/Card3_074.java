@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card3_074 extends AbstractVehicleWeapon {
     public Card3_074() {
-        super(Side.LIGHT, 3, Title.Dual_Laser_Cannon);
+        super(Side.LIGHT, 3, Title.Dual_Laser_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("Sund x2-100 laser cannon. Popular among outlaw organizations because it is both cheap and powerful. Frequently mounted on T-47 airspeeders.");
         setGameText("Use 2 Force to deploy on your T-47. May target a character, creature or vehicle using 1 Force. Draw destiny. Subtract 1 if targeting a character or creature. Add 2 if targeting a vehicle. Target hit if total destiny > defense value.");
         addIcons(Icon.HOTH);

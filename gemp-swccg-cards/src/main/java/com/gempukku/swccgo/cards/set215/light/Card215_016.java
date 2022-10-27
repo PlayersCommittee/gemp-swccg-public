@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set215.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card215_016 extends AbstractUsedOrStartingInterrupt {
     public Card215_016() {
-        super(Side.LIGHT, 5, Title.Let_The_Wookiee_Win, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Let_The_Wookiee_Win, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLore("'It's not wise to upset a Wookiee.' 'But sir, nobody worries about upsetting a droid.' 'That's cause a droid don't pull people's arms out of their sockets when they lose.'");
         setGameText("USED: Subtract 2 from a just drawn destiny targeting your Wookiee's ability or defense value. " +

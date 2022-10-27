@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card3_079 extends AbstractVehicleWeapon {
     public Card3_079() {
-        super(Side.LIGHT, 5, Title.Power_Harpoon);
+        super(Side.LIGHT, 5, Title.Power_Harpoon, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("High-powered harpoon attached to a retractable flexi-steel tow cable and fusion-head disk designed by Beryl Chiffonage as a reserve defense against Imperial AT-ATs.");
         setGameText("Use 2 Force to deploy on your combat or shuttle vehicle. May target an AT-AT or AT-ST for 1 Force. Draw destiny. Target crashes if destiny + your vehicle's maneuver > 8. Your vehicle crashes if destiny = 0.");
         addIcons(Icon.HOTH);

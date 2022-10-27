@@ -7,7 +7,17 @@ import com.gempukku.swccgo.cards.conditions.PlayersTurnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.InPlayDataAsFloatEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SubtractEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +32,13 @@ import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
+import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
@@ -45,7 +61,7 @@ import java.util.List;
  */
 public class Card11_080 extends AbstractEpicEventDeployable {
     public Card11_080() {
-        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.If_The_Trace_Was_Correct, Uniqueness.UNIQUE);
+        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.If_The_Trace_Was_Correct, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setGameText("Deploy on I Will Find Them Quickly, Master. Once during each of your deploy phases may deploy a Sith Probe Droid from Reserve Deck; reshuffle. If Amidala forfeited at same site as Maul, she is captured instead of lost. While Maul escorting Amidala, opponent's battle destiny draws are -1 and during your turn you may use up to 3 Force in opponent's Force Pile. While Maul escorting Amidala at a non-Tatooine battleground site, opponent's Force drains at Tatooine sites are -1 and at the end of every turn, may reshuffle opponent's Reserve Deck.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);
     }

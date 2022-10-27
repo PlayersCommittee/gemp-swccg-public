@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +25,13 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddCardTypeModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.FailCostEffect;
 
@@ -31,7 +46,7 @@ import java.util.List;
  */
 public class Card217_020 extends AbstractEpicEventDeployable {
     public Card217_020() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Revenge_Of_The_Sith);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Revenge_Of_The_Sith, Uniqueness.UNRESTRICTED, ExpansionSet.SET_17, Rarity.V);
         setGameText("Deploy on table (only at start of game) and choose an apprentice: " +
                 "Maul: Deploy Desert Landing Site. " +
                 "Dooku: Deploy Invisible Hand: Bridge. " +

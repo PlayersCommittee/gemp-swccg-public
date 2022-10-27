@@ -4,8 +4,11 @@ import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card13_068 extends AbstractDefensiveShield {
     public Card13_068() {
-        super(Side.DARK, "Fanfare");
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Fanfare", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The Boonta Eve crowds are always looking for new and exciting developments at every Podrace.");
         setGameText("Plays on table. Cancels Order To Engage and Scramble. Once per game you may take any Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Staging Areas is suspended.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

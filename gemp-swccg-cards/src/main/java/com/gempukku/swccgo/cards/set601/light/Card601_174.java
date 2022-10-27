@@ -2,12 +2,21 @@ package com.gempukku.swccgo.cards.set601.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TakeCardFromVoidIntoHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card601_174 extends AbstractUsedOrStartingInterrupt {
     public Card601_174() {
-        super(Side.LIGHT, 3, Title.Scomp_Link_Access);
+        super(Side.LIGHT, 3, Title.Scomp_Link_Access, Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("A computer connection access port used mainly by droids to plug into database networks and locate information, evaluate threats, execute diagnostics or perform maintenance.");
         setGameText("USED: Take a non-[Episode I] droid (except IL-19) into hand from Reserve Deck; reshuffle. OR Place a card from hand on Used Pile. " +

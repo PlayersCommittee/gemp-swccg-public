@@ -3,7 +3,18 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +45,7 @@ import java.util.List;
  */
 public class Card4_036 extends AbstractUtinniEffect {
     public Card4_036() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Rycars_Run, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Rycars_Run, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("The infamous smuggler Rycar Ryjerd does this all the time. He's an idiot.");
         setGameText("Deploy on a Big One. X = twice the number of asteroid sectors at that system. Target a starfighter at related planet system. When reached by target, relocate Utinni Effect to planet system. When target returns to system, lose Utinni Effect. Retrieve X Force.");
         addIcons(Icon.DAGOBAH);

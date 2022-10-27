@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card14_129 extends AbstractVehicleWeapon {
     public Card14_129() {
-        super(Side.DARK, 2, "STAP Blaster Cannons");
+        super(Side.DARK, 2, "STAP Blaster Cannons", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Standard weapon equipped on a Single Trooper Aerial Platform. STAP laser cannons can be devastating due to the high speed of the STAP itself.");
         setGameText("Deploy on your STAP. Vehicle is power +3. May target a character, creature or vehicle for free. Draw two destiny and choose one. Target hit if destiny +2 > defense value.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

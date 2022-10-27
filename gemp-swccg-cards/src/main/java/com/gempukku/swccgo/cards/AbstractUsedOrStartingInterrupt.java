@@ -16,27 +16,6 @@ public abstract class AbstractUsedOrStartingInterrupt extends AbstractInterrupt 
      * @param side the side of the Force
      * @param destiny the destiny value
      * @param title the card title
-     */
-    protected AbstractUsedOrStartingInterrupt(Side side, float destiny, String title) {
-        this(side, destiny, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a Used Or Starting Interrupt.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractUsedOrStartingInterrupt(Side side, float destiny, String title, Uniqueness uniqueness) {
-        this(side, destiny, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a Used Or Starting Interrupt.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
      * @param rarity the rarity

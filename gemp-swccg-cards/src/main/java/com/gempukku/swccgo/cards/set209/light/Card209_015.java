@@ -3,26 +3,30 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceLossEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.ReduceForceLossEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.SuspendModifierEffectsModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +37,7 @@ import java.util.List;
  */
 public class Card209_015 extends AbstractDefensiveShield {
     public Card209_015() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.There_Is_Another);
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.There_Is_Another, ExpansionSet.SET_9, Rarity.V);
         setLore("Princess Leia Organa. Alderaanian senator. Targeted by Vader for capture and interrogation. The Dark Lord of the Sith wanted her alive.");
         setGameText("Plays on Your Destiny unless Leia or Luke has been deployed this game (even as a captive). [Death Star II] Luke and We're The Bait are lost. Opponent's Objective and [Death Star II] Effects target Leia instead of Luke. Force loss from Take Your Father's Place is -1.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_SET_9);

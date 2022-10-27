@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card13_004 extends AbstractDefensiveShield {
     public Card13_004() {
-        super(Side.LIGHT, Title.Aim_High);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Aim_High, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The destruction of a command vehicle negatively impacts Imperial battle efficiency.");
         setGameText("Plays on table. Whenever opponent retrieves X cards, opponent must first use X Force or that retrieval is canceled. (X is equal to the full amount of Force allowed to be retrieved, regardless of the number of cards in opponent's Lost Pile.)");
         addIcons(Icon.REFLECTIONS_III);

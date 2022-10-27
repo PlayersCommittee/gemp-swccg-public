@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractVehicleWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +30,7 @@ import java.util.List;
  */
 public class Card14_126 extends AbstractVehicleWeapon {
     public Card14_126() {
-        super(Side.DARK, 4, Title.AAT_Laser_Cannon);
+        super(Side.DARK, 4, Title.AAT_Laser_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("High caliber primary tank weapon. Just as effective against massed ground troops as vehicles. Cannot penetrate energy shields.");
         setGameText("Deploy on your AAT. May target a character (use 1 Force) or vehicle (for free) at same or adjacent site. Draw destiny. Character lost if destiny +1 > defense value. Vehicle lost if destiny +3 > defense value. May target a creature for free. Creature is lost.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

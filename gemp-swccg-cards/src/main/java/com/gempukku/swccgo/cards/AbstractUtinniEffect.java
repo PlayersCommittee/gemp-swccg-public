@@ -1,9 +1,20 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -30,29 +41,6 @@ import java.util.Map;
  * The abstract class providing the common implementation for Utinni Effects.
  */
 public abstract class AbstractUtinniEffect extends AbstractEffect {
-
-    /**
-     * Creates a blueprint for an Utinni Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     */
-    protected AbstractUtinniEffect(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title) {
-        this(side, destiny, playCardZoneOption, title, null);
-    }
-
-    /**
-     * Creates a blueprint for an Utinni Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractUtinniEffect(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title, Uniqueness uniqueness) {
-        this(side, destiny, playCardZoneOption, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for an Utinni Effect.

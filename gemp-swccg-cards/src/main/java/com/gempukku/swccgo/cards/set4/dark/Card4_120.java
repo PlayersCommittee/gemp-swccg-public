@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +44,7 @@ import java.util.List;
  */
 public class Card4_120 extends AbstractUtinniEffect {
     public Card4_120() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Failure At The Cave", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Failure At The Cave", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'That place is strong with the dark side of the Force. A domain of evil it is. In you must go.'");
         setGameText("Deploy on Dagobah: Cave. Target an apprentice on Dagobah. All Jedi Test game text is suspended. If target present during any battle phase, opponent draws destiny. If destiny < 4, you retrieve 2 Force (also, if destiny = 0, target is lost). Otherwise, Utinni Effect canceled.");
         addIcons(Icon.DAGOBAH);

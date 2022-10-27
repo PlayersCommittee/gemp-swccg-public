@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +22,13 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.ResetDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -29,7 +42,7 @@ import java.util.List;
  */
 public class Card215_025 extends AbstractEpicEventDeployable {
     public Card215_025() {
-        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.Emperors_Orders);
+        super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.Emperors_Orders, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setGameText("If you did not deploy an Objective, deploy on Executor." +
                 "We're Not Going To Attack?: Your squadrons are destiny = 0. You may not deploy squadrons or non-Imperial starships. Unless you occupy a battleground site, Dreaded Imperial Starfleet is suspended." +
                 "The Alliance Will Die...: Flagship Operations does not require any Executor sites on table to deploy." +

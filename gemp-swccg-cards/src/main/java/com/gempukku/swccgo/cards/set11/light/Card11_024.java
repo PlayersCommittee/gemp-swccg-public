@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +43,7 @@ import java.util.List;
  */
 public class Card11_024 extends AbstractEpicEventDeployable {
     public Card11_024() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Boonta_Eve_Podrace);
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Boonta_Eve_Podrace, Uniqueness.UNRESTRICTED, ExpansionSet.TATOOINE, Rarity.R);
         setGameText("Deploy on Podrace Arena. Once per game, either player may initiate a Podrace: During opponent's control phase, each player may draw one race destiny. Each player may place any drawn race destiny on their Podracer (or on Podrace Arena if they have none) or in their Used Pile. During any move phase, winner is any player with a race total > 24 and greater than opponent's highest race total. Winner retrieves 6 Force and loser loses 6 Force. Place all race destiny cards in owner's Used Piles and all Podracers are lost.");
         addIcons(Icon.EPISODE_I, Icon.TATOOINE);
     }

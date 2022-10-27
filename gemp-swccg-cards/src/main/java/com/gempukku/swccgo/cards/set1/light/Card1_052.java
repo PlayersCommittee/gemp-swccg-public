@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +45,7 @@ import java.util.List;
  */
 public class Card1_052 extends AbstractUtinniEffect {
     public Card1_052() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Kessel_Run, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Planet Kessel has infamous glitterstim spice mines attracting smugglers and pirates. A 'Kessel run' is a long, dangerous hyper-route they must travel quickly.");
         setGameText("Deploy on Kessel. Target one of your smugglers at another system. X=parsec distance between the two systems. When target reaches Kessel, opponent draws destiny. If = 0, starship lost. Otherwise, by returning to first system, 'retrieve' X Lost Force.");
         addKeywords(Keyword.UTINNI_EFFECT_THAT_RETRIEVES_FORCE);

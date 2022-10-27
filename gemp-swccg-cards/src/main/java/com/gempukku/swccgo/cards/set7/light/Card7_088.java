@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card7_088 extends AbstractUsedOrStartingInterrupt {
     public Card7_088() {
-        super(Side.LIGHT, 5, "Don't Tread On Me");
+        super(Side.LIGHT, 5, "Don't Tread On Me", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Han did not take kindly to Jabba's posturing.");
         setGameText("USED: Add 1 to your just-drawn weapon destiny. STARTING: If you have deployed a battleground, deploy Ultimatum, Scrambled Transmission and/or Do, Or Do Not from Reserve Deck. Place Interrupt in Reserve Deck.");
         addIcons(Icon.SPECIAL_EDITION);

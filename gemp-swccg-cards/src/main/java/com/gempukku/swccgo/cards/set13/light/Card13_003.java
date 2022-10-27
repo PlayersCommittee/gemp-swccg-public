@@ -6,8 +6,11 @@ import com.gempukku.swccgo.cards.effects.StackCardFromVoidEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card13_003 extends AbstractDefensiveShield {
     public Card13_003() {
-        super(Side.LIGHT, "A Tragedy Has Occurred");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"A Tragedy Has Occurred", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Senator Palpatine was quick to point out the aggressions of the Trade Federation in front of the Galactic Senate.");
         setGameText("Plays on table. Once per game, may use 1 Force to stack one Interrupt just played here. To play any new Interrupt of the same name, player must first stack it here and use +1 Force for each Interrupt in stack, even if Interrupt is normally free.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.GRABBER);

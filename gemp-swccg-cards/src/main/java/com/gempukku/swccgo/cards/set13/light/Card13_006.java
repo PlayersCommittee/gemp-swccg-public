@@ -2,12 +2,19 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.conditions.*;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.InBattleCondition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.modifiers.MayNotDrawMoreThanBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card13_006 extends AbstractDefensiveShield {
     public Card13_006() {
-        super(Side.LIGHT, "Another Pathetic Lifeform");
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Another Pathetic Lifeform", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Young Obi-Wan has much to learn about the living Force. Patience with others is also high on that list.");
         setGameText("Plays on table. While opponent has a non-unique alien or non-unique starfighter in battle, opponent may not draw more than two battle destiny.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

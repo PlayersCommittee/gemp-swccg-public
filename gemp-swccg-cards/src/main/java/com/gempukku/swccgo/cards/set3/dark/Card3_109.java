@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card3_109 extends AbstractUtinniEffect {
     public Card3_109() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Responsibility_Of_Command, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Responsibility_Of_Command, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("'Headquarters personnel, report to command center.'");
         setGameText("Use 2 Force to deploy on any war room at a Rebel Base. Target a Rebel with forfeit > 4 or an opponent's leader. Opponent may not initiate a battle or a Force drain at same location as target. Utinni Effect canceled when reached by target.");
         addIcons(Icon.HOTH);
