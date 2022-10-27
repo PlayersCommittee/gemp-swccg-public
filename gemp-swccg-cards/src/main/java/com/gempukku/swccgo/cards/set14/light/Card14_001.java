@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractAdmiralsOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card14_001 extends AbstractAdmiralsOrder {
     public Card14_001() {
-        super(Side.LIGHT, "I'll Try Spinning");
+        super(Side.LIGHT, "I'll Try Spinning", ExpansionSet.THEED_PALACE, Rarity.R);
         setGameText("Landed starfighters and vehicles aboard starships are forfeit = 0. Once during your control phase may target your N-1 starfighter and opponent's starfighter present at same system. Both players draw destiny. You add your starfighter's power and maneuver. Opponent adds starfighter's power. Starship with lowest total is lost.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }

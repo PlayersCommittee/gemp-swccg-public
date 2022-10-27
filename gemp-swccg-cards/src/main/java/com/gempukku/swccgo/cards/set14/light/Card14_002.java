@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractAdmiralsOrder;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card14_002 extends AbstractAdmiralsOrder {
     public Card14_002() {
-        super(Side.LIGHT, "Let's Go Left");
+        super(Side.LIGHT, "Let's Go Left", ExpansionSet.THEED_PALACE, Rarity.R);
         setGameText("Non-pilot characters aboard starships are forfeit -4. Whenever a player's starship is 'hit', that player loses 1 Force (2 if starship was hit by Proton Torpedoes). At systems where you have only [Republic] starships, all of those starships are immune to attrition < 4. At sites related to a system you occupy, your battle destinies may not be canceled by opponent.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }

@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class Card10_032 extends AbstractAdmiralsOrder {
     public Card10_032() {
-        super(Side.DARK, "Black Sun Fleet");
+        super(Side.DARK, "Black Sun Fleet", ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setGameText("Any [Independent] starship with an alien pilot character aboard is immune to attrition < 4. At any site related to a system you occupy, your Black Sun agents are also information brokers. Information Exchange is immune to Alter. You may not retrieve Force for initiating a battle. During your control phase, one of your [Independent] starships may make a regular move.");
         addIcons(Icon.REFLECTIONS_II);
     }

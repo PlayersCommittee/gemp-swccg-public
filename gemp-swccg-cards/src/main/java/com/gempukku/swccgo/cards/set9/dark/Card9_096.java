@@ -4,10 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAdmiralsOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card9_096 extends AbstractAdmiralsOrder {
     public Card9_096() {
-        super(Side.DARK, Title.Were_In_Attack_Position_Now);
+        super(Side.DARK, Title.Were_In_Attack_Position_Now, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setGameText("Each pilot deploys -1 (or -2 if an admiral) aboard a capital starship. Each capital starship with a pilot character aboard is immune to attrition < 4 (or adds 2 to immunity if starship already has immunity). During each of your control phases, opponent loses 1 Force for each battleground site your general or commander controls that is related to a system you occupy.");
         addIcons(Icon.DEATH_STAR_II);
     }

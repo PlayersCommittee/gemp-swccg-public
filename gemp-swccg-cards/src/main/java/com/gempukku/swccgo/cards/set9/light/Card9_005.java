@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractAdmiralsOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card9_005 extends AbstractAdmiralsOrder {
     public Card9_005() {
-        super(Side.LIGHT, "Taking Them With Us");
+        super(Side.LIGHT, "Taking Them With Us", ExpansionSet.DEATH_STAR_II, Rarity.R);
         setGameText("Each player, if that player has a capital starship armed with a starship weapon in battle, draws one battle destiny if not able to otherwise and once per battle, may reduce the defense value of one opponent's capital starship present by 4 for remainder of the battle. At sites related to systems you occupy, your non-pilot warriors are deploy - 1, defense value +2 and forfeit +1.");
         addIcons(Icon.DEATH_STAR_II);
     }

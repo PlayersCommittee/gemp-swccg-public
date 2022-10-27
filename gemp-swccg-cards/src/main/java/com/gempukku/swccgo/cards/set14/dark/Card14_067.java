@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractAdmiralsOrder;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card14_067 extends AbstractAdmiralsOrder {
     public Card14_067() {
-        super(Side.DARK, "Nothing Can Get Through Our Shield");
+        super(Side.DARK, "Nothing Can Get Through Our Shield", ExpansionSet.THEED_PALACE, Rarity.R);
         setGameText("Non-pilot characters aboard starships are forfeit -4. Whenever a player's starship is 'hit', that player loses 1 Force (2 if starship was hit by Droid Starfighter Laser Cannons). At systems where you have only [Trade Federation] starships, all of those starships are immune to attrition < 4. At sites related to a system you occupy, your battle destinies may not be canceled by opponent.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }

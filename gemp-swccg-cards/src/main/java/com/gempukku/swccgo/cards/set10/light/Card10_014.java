@@ -3,10 +3,7 @@ package com.gempukku.swccgo.cards.set10.light;
 import com.gempukku.swccgo.cards.AbstractAdmiralsOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.GameTextActionId;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card10_014 extends AbstractAdmiralsOrder {
     public Card10_014() {
-        super(Side.LIGHT, "No Questions Asked");
+        super(Side.LIGHT, "No Questions Asked", ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setGameText("Force generation at sectors a player occupies is +1 for that player. Any [independent] starship with an alien pilot character aboard is immune to attrition <4 (or adds 2 to immunity). During your control phase, one of your smugglers at a site related to a system occupied by your freighter or [independent] starship may either fire a blaster or make a regular move using personal landspeed.");
         addIcons(Icon.REFLECTIONS_II);
     }

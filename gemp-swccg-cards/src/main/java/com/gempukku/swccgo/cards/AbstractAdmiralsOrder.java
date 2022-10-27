@@ -13,15 +13,6 @@ public abstract class AbstractAdmiralsOrder extends AbstractNonLocationPlaysToTa
      * Creates a blueprint for an Admiral's Order card.
      * @param side the side of the Force
      * @param title the card title
-     */
-    protected AbstractAdmiralsOrder(Side side, String title) {
-        this(side, title, null, null);
-    }
-
-    /**
-     * Creates a blueprint for an Admiral's Order card.
-     * @param side the side of the Force
-     * @param title the card title
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */
