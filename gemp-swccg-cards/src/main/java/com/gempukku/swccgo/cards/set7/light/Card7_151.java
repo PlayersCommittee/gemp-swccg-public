@@ -5,9 +5,12 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DrivenCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.AbilityOfDriverEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card7_151 extends AbstractTransportVehicle {
     public Card7_151() {
-        super(Side.LIGHT, 5, 2, 0, null, 5, null, 2, "Air-2 Racing Swoop");
+        super(Side.LIGHT, 5, 2, 0, null, 5, null, 2, "Air-2 Racing Swoop", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Features maneuvering flaps and repulsorlift engines. High speed and sensitive controls make swoops hard to drive. Outracing slavers on Bonadan, Han escaped on an Air-2.");
         setGameText("May add 1 driver and 1 passenger. *Landspeed = Driver's ability, and once per turn, may follow an opponent's vehicle or character that just moved from same site (if within range).");
         addIcons(Icon.SPECIAL_EDITION);

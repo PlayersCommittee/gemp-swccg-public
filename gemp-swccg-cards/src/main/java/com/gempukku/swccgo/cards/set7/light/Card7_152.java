@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card7_152 extends AbstractTransportVehicle {
     public Card7_152() {
-        super(Side.LIGHT, 2, 3, 3, 3, null, 2, 5, "Kalit's Sandcrawler", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 3, null, 2, 5, "Kalit's Sandcrawler", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Provides enclosed shelter from harsh Tatooine climate, Tusken Raiders and krayt dragons. Kalit offers sanctuary to others when traveling (even members of enemy Jawa tribes).");
         setGameText("Deploys only on Tatooine. May add 1 driver and 7 passengers. While your Jawa is aboard, this vehicle and your Jawas at same site are immune to attrition < 3 (< 5 if Kalit at same site).");
         addIcons(Icon.SPECIAL_EDITION);

@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_308 extends AbstractTransportVehicle {
     public Card1_308() {
-        super(Side.DARK, 6, 1, 0, null, 1, 3, 1, Title.Lift_Tube);
+        super(Side.DARK, 6, 1, 0, null, 1, 3, 1, Title.Lift_Tube, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("System of enclosed high-speed vertical and horizontal transport cylinders. Used in space stations, large starships, Death Stars, etc.");
         setGameText("May carry 4 passengers. Deploy and move only at interior mobile sites. May move without presence aboard. Also, may move as a 'react' only to a battle or Force drain (if within range).");
         addKeywords(Keyword.ENCLOSED);

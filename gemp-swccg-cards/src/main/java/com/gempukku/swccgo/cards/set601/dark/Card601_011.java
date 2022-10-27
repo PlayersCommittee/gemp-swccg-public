@@ -3,14 +3,25 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardAboardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierType;
+import com.gempukku.swccgo.logic.modifiers.ScumAndVillainyMayDeployAttachedModifier;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,14 +30,14 @@ import java.util.List;
 
 
 /**
- * Set: Set 4
+ * Set: Block 3
  * Type: Vehicle
  * Subtype: Transport
  * Title: Jabba's Sail Barge (V)
  */
 public class Card601_011 extends AbstractTransportVehicle {
     public Card601_011() {
-        super(Side.DARK, 3, 3, 4, 5, null, 2, 5, "Jabba's Sail Barge", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 4, 5, null, 2, 5, "Jabba's Sail Barge", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Ubrikkian sail barge. Custom built for Jabba with an armored hull and weaponry. Top speed of 100 kph. Used by the Hutt crimelord on his many trips to Mos Eisley.");
         setGameText("Deploys only on Tatooine. May add 1 driver and 8 passengers. Scum And Villainy may deploy aboard. During your deploy phase, may deploy one Jabba, Pote, or Passenger Deck aboard from Reserve Deck; reshuffle. Immune to attrition < 6.");

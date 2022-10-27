@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.conditions.DrivenCondition;
 import com.gempukku.swccgo.cards.evaluators.AbilityOfDriverEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card7_314 extends AbstractTransportVehicle {
     public Card7_314() {
-        super(Side.DARK, 5, 2, 0, null, 5, null, 2, "Flare-S Racing Swoop");
+        super(Side.DARK, 5, 2, 0, null, 5, null, 2, "Flare-S Racing Swoop", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Attain speeds of up to 600 kph. 3 meters long. Extremely difficult to control at high speeds. Dengar rode a similar swoop when injured in a race with Han at Agrilat.");
         setGameText("May add 1 driver and 1 passenger. Landspeed = driver's ability, and may be used at any time to follow an opponent's vehicle or character that just moved from same site (if within range).");
         addIcons(Icon.SPECIAL_EDITION);

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card6_172 extends AbstractTransportVehicle {
     public Card6_172() {
-        super(Side.DARK, 3, 5, 5, 5, null, 2, 7, "Jabba's Sail Barge", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 5, 5, 5, null, 2, 7, "Jabba's Sail Barge", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Ubrikkian sail barge. Custom built for Jabba with an armored hull and weaponry. Top speed of 100 kph. Used by the Hutt crimelord on his many trips to Mos Eisley.");
         setGameText("Deploys only on Tatooine; you may immediately deploy Passenger Deck from your Reserve Deck and reshuffle. May add 1 driver and 7 passengers. Your aliens deploy -1 aboard.");
         addIcons(Icon.JABBAS_PALACE, Icon.SCOMP_LINK);

@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card2_157 extends AbstractTransportVehicle {
     public Card2_157() {
-        super(Side.DARK, 4, 2, 2, null, 5, 3, 5, "Mobquet A-1 Deluxe Floater");
+        super(Side.DARK, 4, 2, 2, null, 5, 3, 5, "Mobquet A-1 Deluxe Floater", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Enclosed landspeeder often used by nefarious characters due to its luxury and evasive capabilities. Features include automated steering and fine Corellian leather.");
         setGameText("May add 1 driver and 1 passenger. Moves free if Jabba or any bounty hunter aboard. May move for free as a 'react' to a battle where your thief, smuggler or bounty hunter is participating.");
         addIcons(Icon.A_NEW_HOPE, Icon.SCOMP_LINK);

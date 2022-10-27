@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.evaluators.MaxLimitEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card14_060 extends AbstractTransportVehicle {
     public Card14_060() {
-        super(Side.LIGHT, 2, 2, 2, null, 4, 3, 3, "Gian Speeder");
+        super(Side.LIGHT, 2, 2, 2, null, 4, 3, 3, "Gian Speeder", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Military repulsorlift armed with three light repeating blasters. With a top speed of 160 kilometers per hour, they have the ability to out-flank an opponent in battle.");
         setGameText("May add 1 driver and 3 passengers. May move as a 'react' to Naboo sites. Your battle destiny draws are +1 for each of your Royal Naboo Security present. (Limit +3.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

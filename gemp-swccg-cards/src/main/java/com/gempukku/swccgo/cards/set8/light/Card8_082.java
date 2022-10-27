@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card8_082 extends AbstractTransportVehicle {
     public Card8_082() {
-        super(Side.LIGHT, 5, 1, 1, null, 2, 2, 2, Title.Ewok_Glider);
+        super(Side.LIGHT, 5, 1, 1, null, 2, 2, 2, Title.Ewok_Glider, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Primitive flying vehicle used by Ewoks. Used to drop rocks on Imperial troops during the Battle of Endor.");
         setGameText("May add 1 driver (must be an Ewok). Once per turn, when in battle, may target a character or creature present. Draw destiny. Target hit if destiny -1 > defense value.");
         addIcons(Icon.ENDOR);

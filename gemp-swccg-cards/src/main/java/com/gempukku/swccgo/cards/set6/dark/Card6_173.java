@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card6_173 extends AbstractTransportVehicle {
     public Card6_173() {
-        super(Side.DARK, 2, 3, 3, null, 3, 3, 3, "Skiff");
+        super(Side.DARK, 2, 3, 3, null, 3, 3, 3, "Skiff", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Repulsorlift engine. 9.2 meters long. controlled by two directional steering vanes. Jabba's fleet of skiffs is maintained by Barada.");
         setGameText("Deploy -1 to a Tatooine site. May add 1 driver and 5 passengers. May move as a 'react.' If lost, any characters aboard may 'jump off' (disembark).");
         addIcons(Icon.JABBAS_PALACE);

@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set112.light;
 
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,11 +23,11 @@ import java.util.List;
  * Set: Premium (Jabba's Palace Sealed Deck)
  * Type: Vehicle
  * Subtype: Transport
- * Title: Skiff
+ * Title: Racing Skiff
  */
 public class Card112_006 extends AbstractTransportVehicle {
     public Card112_006() {
-        super(Side.LIGHT, 4, 2, 1, null, 4, 3, 3, "Racing Skiff");
+        super(Side.LIGHT, 4, 2, 1, null, 4, 3, 3, "Racing Skiff", Uniqueness.UNRESTRICTED, ExpansionSet.JPSD, Rarity.PM);
         setLore("Repulsor lift skiffs are used by traders and merchants to safely cross the deserts of Tatooine. Young thrill seekers sometimes upgrade them with high-powered engines.");
         setGameText("May deploy with a non-unique alien driver as a 'react'. May add 1 driver and 3 passengers. May move as a 'react'. If lost, any characters aboard may 'jump off' (disembark).");
         addIcons(Icon.PREMIUM);

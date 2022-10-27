@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_309 extends AbstractTransportVehicle {
     public Card1_309() {
-        super(Side.DARK, 2, 3, 3, 3, null, 2, 5, "Sandcrawler");
+        super(Side.DARK, 2, 3, 3, 3, null, 2, 5, "Sandcrawler", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Warren-like enclosed homes for Jawa tribes. Protect against Tusken Raiders, krayt dragons, etc. 36 meters longs, 17 meters tall. Originally mining vehicles. No two look alike.");
         setGameText("Deploys only to a Tatooine site. May add 1 driver and 7 passengers. Cannot move to mobile sites. Adds 1 to forfeit of each Jawa at same exterior site.");
         addKeywords(Keyword.ENCLOSED, Keyword.SANDCRAWLER);

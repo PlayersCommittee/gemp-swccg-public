@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card204_056 extends AbstractTransportVehicle {
     public Card204_056() {
-        super(Side.DARK, 3, 4, 4, 5, null, 2, 6, "Jabba's Sail Barge", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 4, 5, null, 2, 6, "Jabba's Sail Barge", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Ubrikkian sail barge. Custom built for Jabba with an armored hull and weaponry. Top speed of 100 kph. Used by the Hutt crimelord on his many trips to Mos Eisley.");
         setGameText("May add 1 alien driver and 8 passengers. Your vehicle weapons deploy free aboard. Once per turn, may [download] Passenger Deck or a skiff here. While on Tatooine with a skiff, Force drain +1 here.");

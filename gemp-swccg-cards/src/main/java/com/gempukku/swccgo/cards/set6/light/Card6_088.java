@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractTransportVehicle;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card6_088 extends AbstractTransportVehicle {
     public Card6_088() {
-        super(Side.LIGHT, 2, 3, 3, null, 3, 3, 3, "Skiff");
+        super(Side.LIGHT, 2, 3, 3, null, 3, 3, 3, "Skiff", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Top speed of 250 kph. Repulsorlift engine. Equipped with two electromagnetic load lifters. Frequently used by shipping companies to transfer cargo between freighters.");
         setGameText("Deploy -1 to a Tatooine site. May add 1 driver and 5 passengers. May move as a 'react.' If lost, any characters aboard may 'jump off' (disembark).");
         addIcons(Icon.JABBAS_PALACE);
