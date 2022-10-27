@@ -3598,6 +3598,16 @@ var fixedImages = {
 "501_94":"https://res.starwarsccg.org/cards/Premiere-Light/large/millenniumfalcon.gif",
 "501_95":"https://res.starwarsccg.org/cards/Virtual19-Light/hires/lothal.png",
 "501_96":"https://res.starwarsccg.org/cards/Virtual17-Light/hires/kananjarrusjediknight.png",
+"501_97":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/rosetico.png",
+"501_98":"https://res.starwarsccg.org/cards/Virtual13-Light/large/quigonjinnserenejedi.gif",
+"501_99":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/dagobahyodashut.png",
+"501_100":"https://res.starwarsccg.org/cards/Virtual14-Dark/hires/palpatineemperorreturned.png",
+"501_101":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/agreattacticiancreatesplans.png",
+"501_101_BACK":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/theresultisoftenresentment.png",
+"501_102":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothalcapitalcity.png",
+"501_103":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothalimperialstripmines.png",
+"501_104":"https://res.starwarsccg.org/cards/Hoth-Dark/large/silenceisgolden.gif",
+"501_105":"https://res.starwarsccg.org/cards/Virtual17-Dark/large/bb9e.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
@@ -4459,7 +4469,10 @@ var Card = Class.extend({
                    (cardNo == 74) ||
                    (cardNo == 89) ||
                    (cardNo == 90) ||
-                   (cardNo == 93)
+                   (cardNo == 93) ||
+                   (cardNo == 99) ||
+                   (cardNo == 102) ||
+                   (cardNo == 103)
                    ;
         }
         if (setNo == 601) {
