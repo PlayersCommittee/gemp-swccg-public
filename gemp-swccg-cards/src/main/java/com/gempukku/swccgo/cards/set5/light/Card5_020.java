@@ -57,8 +57,8 @@ public class Card5_020 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)) {
-            if (Filters.countActive(game, self, Filters.and(Filters.opponents(self), Filters.hasAbilityOrHasPermanentPilotWithAbility))
-                    > Filters.countActive(game, self, Filters.and(Filters.your(self), Filters.hasAbilityOrHasPermanentPilotWithAbility))) {
+            if (Filters.countActive(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.opponents(self), Filters.hasAbilityOrHasPermanentPilotWithAbility))
+                    > Filters.countActive(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.your(self), Filters.hasAbilityOrHasPermanentPilotWithAbility))) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
