@@ -28,7 +28,7 @@ public class Card219_014 extends AbstractSite {
         setLocationLightSideGameText("If you control, your Force generation is +1 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
-        addIcons(Icon.EXTERIOR_SITE, Icon.UNDERGROUND, Icon.PLANET, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_19);
+        addIcons(Icon.EXTERIOR_SITE, Icon.UNDERGROUND, Icon.PLANET, Icon.VIRTUAL_SET_19);
     }
 
     @Override
