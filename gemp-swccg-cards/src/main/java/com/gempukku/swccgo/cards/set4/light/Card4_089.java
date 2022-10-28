@@ -53,7 +53,7 @@ public class Card4_089 extends AbstractSite {
                 && GameConditions.isOncePerTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId)
                 && GameConditions.isHere(game, self, Filters.Yoda)) {
             final BattleState battleState = game.getGameState().getBattleState();
-            if (battleState.getAttritionTotal(game, playerOnLightSideOfLocation) > 0) {
+            if (battleState.hasAttritionTotal(game.getOpponent(playerOnLightSideOfLocation))) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId);
                 action.setText("Reduce attrition");

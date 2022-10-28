@@ -37,6 +37,16 @@ public class CrossOverAttemptTotalModifier extends AbstractModifier {
      * Creates a modifier to attempt to cross over a specified character total.
      * @param source the card that is the source of the modifier and whose attempt to be crossed over total is modified
      * @param affectFilter the filter for cards whose attempt to be crossed over total is modified
+     * @param modifierAmount the amount of the modifier
+     */
+    public CrossOverAttemptTotalModifier(PhysicalCard source, Filterable affectFilter, int modifierAmount) {
+        this(source, affectFilter, null, modifierAmount);
+    }
+
+    /**
+     * Creates a modifier to attempt to cross over a specified character total.
+     * @param source the card that is the source of the modifier and whose attempt to be crossed over total is modified
+     * @param affectFilter the filter for cards whose attempt to be crossed over total is modified
      * @param evaluator the evaluator that calculates the amount of the modifier
      */
     public CrossOverAttemptTotalModifier(PhysicalCard source, Filterable affectFilter, Evaluator evaluator) {

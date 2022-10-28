@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_054 extends AbstractUsedOrLostInterrupt {
     public Card4_054() {
-        super(Side.LIGHT, 6, "Levitation");
+        super(Side.LIGHT, 6, Title.Levitation);
         setLore("Telekinesis is one of the powers awakened during a Jedi's apprenticeship. Using this ability, a student of the Force can learn to levitate objects.");
         setGameText("USED: Cancel Silence Is Golden or Shut Him Up Or Shut Him Down. LOST: Search your Used Pile and take any one droid, device or Stone Pile you find there into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH);

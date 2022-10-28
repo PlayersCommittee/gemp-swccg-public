@@ -197,6 +197,7 @@ public interface Title {
     String Combat_Readiness = "Combat Readiness";
     String Combat_Response = "Combat Response";
     String Combined_Attack = "Combined Attack";
+    String Combined_Fleet_Action = "Combined Fleet Action";
     String Come_Here_You_Big_Coward = "Come Here You Big Coward";
     String Come_With_Me = "Come With Me";
     String Comlink = "Comlink";
@@ -624,6 +625,7 @@ public interface Title {
     String Let_The_Wookiee_Win = "Let The Wookiee Win";
     String Let_Them_Make_The_First_Move = "Let Them Make The First Move";
     String Lets_Keep_A_Little_Optimism_Here = "Let's Keep A Little Optimism Here";
+    String Levitation = "Levitation";
     String Levitation_Attack = "Levitation Attack";
     String Liberation = "Liberation";
     String Lieutenant_Blount = "Lieutenant Blount";

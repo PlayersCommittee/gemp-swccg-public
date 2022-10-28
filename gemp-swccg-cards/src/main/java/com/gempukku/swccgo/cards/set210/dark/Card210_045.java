@@ -34,7 +34,7 @@ public class Card210_045 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Silence Is Golden");
         setLore("'Excuse me, sir, might I in--'");
         setGameText("Deploy on table. Your droids are destiny +1. Once per turn, if you just drew a non-[Presence] droid for destiny, may take that droid into hand. Once per turn, may deploy Droid Workshop, Forced Servitude, Incinerator, or Wuher from Reserve Deck; reshuffle. [Immune to Alter.]");
-        addIcons(Icon.HOTH);
+        addIcons(Icon.HOTH, Icon.VIRTUAL_SET_10);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
     }

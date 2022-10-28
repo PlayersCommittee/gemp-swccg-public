@@ -76,7 +76,7 @@ public class Card216_026 extends AbstractSite {
                 && (GameConditions.isHere(game, self, Filters.Yoda)
                 || game.getModifiersQuerying().isCommuning(game.getGameState(), Filters.and(Icon.VIRTUAL_SET_16, Filters.Yoda)))) {
             final BattleState battleState = game.getGameState().getBattleState();
-            if (battleState.getAttritionTotal(game, playerOnLightSideOfLocation) > 0) {
+            if (battleState.hasAttritionTotal(game.getOpponent(playerOnLightSideOfLocation))) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnLightSideOfLocation, gameTextSourceCardId);
                 action.setText("Reduce attrition");
