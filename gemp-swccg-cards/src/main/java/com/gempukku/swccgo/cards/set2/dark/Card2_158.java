@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card2_158 extends AbstractStarshipWeapon {
     public Card2_158() {
-        super(Side.DARK, 5, "Enhanced TIE Laser Cannon");
+        super(Side.DARK, 5, "Enhanced TIE Laser Cannon", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Sienar Fleet Systems' latest laser cannon prototype increases the firepower most Imperial TIEs - but many Moffs consider the weapon too expensive for widespread use.");
         setGameText("Use 1 Force to deploy on your TIE. May target a starship using 1 Force. Draw destiny. Subtract 2 if targeting a capital starship. Target hit if destiny > defense value.");
         addIcons(Icon.A_NEW_HOPE);

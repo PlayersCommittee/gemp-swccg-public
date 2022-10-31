@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card1_159 extends AbstractStarshipWeapon {
     public Card1_159() {
-        super(Side.LIGHT, 4, Title.Quad_Laser_Cannon);
+        super(Side.LIGHT, 4, Title.Quad_Laser_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Starship blaster, often slung in turret mounts to take advantage of light weight and quick targeting motions. Installed on many starships including the Millennium Falcon.");
         setGameText("Use 2 Force to deploy on your Corellian Corvette or Falcon. May target a starship using 1 Force. Draw destiny. Add 1 if targeting a starfighter. Target hit if total destiny > defense value.");
         addKeywords(Keyword.LASER_CANNON, Keyword.STARSHIP_WEAPON_THAT_DEPLOYS_ON_CAPITALS, Keyword.STARSHIP_WEAPON_THAT_DEPLOYS_ON_STARFIGHTERS);

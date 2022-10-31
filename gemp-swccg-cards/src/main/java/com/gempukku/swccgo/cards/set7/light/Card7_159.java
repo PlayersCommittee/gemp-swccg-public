@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card7_159 extends AbstractStarshipWeapon {
     public Card7_159() {
-        super(Side.LIGHT, 7, "Intruder Missile");
+        super(Side.LIGHT, 7, "Intruder Missile", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Prototype missile developed by Slayn & Korpil. Ionizing warhead disrupts onboard systems. Capable of destroying capital starships by overloading shield generators.");
         setGameText("Deploy on your B-wing, Z-95, YT-1300 Transport, or Falcon. May target a capital starship for free. Draw destiny. Add 3 if that capital starship was targeted by another weapon this turn. Target hit if total destiny > defense value. After firing, place Missile in Used Pile.");
         addIcons(Icon.SPECIAL_EDITION);

@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +28,7 @@ import java.util.List;
  */
 public class Card7_162 extends AbstractStarshipWeapon {
     public Card7_162() {
-        super(Side.LIGHT, 5, Title.X_wing_Laser_Cannon);
+        super(Side.LIGHT, 5, Title.X_wing_Laser_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Quad Taim & Bak KX9 laser cannon. Fires singly or linked in groups of two or four. Smart pilots conserve energy and select only the cannons needed to score a hit.");
         setGameText("Deploy on your X-wing. May target a starfighter using X Force, where X=0 to 3. Draw destiny. If destiny + X > defense value, target hit (lost instead if X = 3).");
         addIcons(Icon.SPECIAL_EDITION);

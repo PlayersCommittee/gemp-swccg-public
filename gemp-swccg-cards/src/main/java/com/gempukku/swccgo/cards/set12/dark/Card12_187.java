@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card12_187 extends AbstractStarshipWeapon {
     public Card12_187() {
-        super(Side.DARK, 4, Title.Laser_Cannon_Battery);
+        super(Side.DARK, 4, Title.Laser_Cannon_Battery, Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.F);
         setLore("Trade Federation battleships use concealed quad laser emplacements. Though their coverage is limited, the surprise factor and ferocious firing rate is often overwhelming.");
         setGameText("Deploy on your capital starship. May deploy as a 'react'. May target a starship using X Force, where X = 0 to 3. Draw destiny. Subtract 2 if targeting a starship with maneuver. If destiny +X > defense value, target hit and opponent loses 1 Force.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

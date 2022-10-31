@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card14_066 extends AbstractStarshipWeapon {
     public Card14_066() {
-        super(Side.LIGHT, 4, "Proton Torpedoes");
+        super(Side.LIGHT, 4, "Proton Torpedoes", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Mainstay weapon of Naboo Defense Fighters. Anakin Skywalker used them to surprising effect, as soon as he found the trigger.");
         setGameText("Use 1 Force to deploy on your N-1 starfighter. May target a starship using 1 Force. Draw Destiny. Target hit if destiny > defense value. While on Bravo Fighter and you are attempting to 'blow away' Blockade Flagship, adds 2 to your total.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

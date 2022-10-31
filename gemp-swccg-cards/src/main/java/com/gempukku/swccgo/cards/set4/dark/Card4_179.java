@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card4_179 extends AbstractStarshipWeapon {
     public Card4_179() {
-        super(Side.DARK, 1, Title.Proton_Bombs);
+        super(Side.DARK, 1, Title.Proton_Bombs, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Proton-scattering energy warheads. Especially effective against ray- and energy-shielded targets. Ineffective against particle deflector.");
         setGameText("Deploy on a bomber: When present during a Force drain, may target a related interior site. Draw destiny. Site 'collapsed' if destiny > 4. OR May fire in a Bombing Run battle. Draw destiny. All characters, starships and vehicles with that destiny number at same site are lost.");
         addIcons(Icon.DAGOBAH);

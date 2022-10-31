@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card1_323 extends AbstractStarshipWeapon {
     public Card1_323() {
-        super(Side.DARK, 2, Title.Turbolaser_Battery);
+        super(Side.DARK, 2, Title.Turbolaser_Battery, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("High-powered blasters. Require power generators, cryogenic cooling units and large crews. More effective against capital starships than starfighters.");
         setGameText("Use 3 Force to deploy on your Star Destroyer or any mobile system. May target a starship using 2 Force. Draw two destiny. Subtract 2 if targeting a capital starship. Otherwise, subtract 5. Target hit if total destiny > defense value.");
         addKeywords(Keyword.TURBOLASER_BATTERY, Keyword.STARSHIP_WEAPON_THAT_DEPLOYS_ON_CAPITALS);

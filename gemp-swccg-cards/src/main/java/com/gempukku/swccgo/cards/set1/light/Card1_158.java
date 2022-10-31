@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card1_158 extends AbstractStarshipWeapon {
     public Card1_158() {
-        super(Side.LIGHT, 4, "Proton Torpedoes");
+        super(Side.LIGHT, 4, "Proton Torpedoes", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Powerful ballistic projectiles. Carries proton-scattering energy warheads. Short range. Pierces energy shields, but blocked by particle shields.");
         setGameText("Use 1 Force to deploy on your X-wing, Y-wing or B-wing. May target a starship using 1 Force. Draw destiny. Target hit if destiny > defense value.");
         addKeywords(Keyword.PROTON_TORPEDOES, Keyword.STARSHIP_WEAPON_THAT_DEPLOYS_ON_STARFIGHTERS);

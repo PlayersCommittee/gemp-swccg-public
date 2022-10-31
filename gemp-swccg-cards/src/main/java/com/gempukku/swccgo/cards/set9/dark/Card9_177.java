@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card9_177 extends AbstractStarshipWeapon {
     public Card9_177() {
-        super(Side.DARK, 4, Title.Concussion_Missiles);
+        super(Side.DARK, 4, Title.Concussion_Missiles, Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Originally developed by smugglers and pirates as defense against starfighters. Adapted by the Empire to serve as onboard defense for slow moving bombers.");
         setGameText("Use 1 Force to deploy on your bomber, TIE Defender, freighter or transport. May target a starship for free. Draw destiny. Add 1 when targeting a starfighter or squadron. Target hit if total destiny > defense value.");
         addIcons(Icon.DEATH_STAR_II);

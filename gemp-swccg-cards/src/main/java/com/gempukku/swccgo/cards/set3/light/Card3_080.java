@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card3_080 extends AbstractStarshipWeapon {
     public Card3_080() {
-        super(Side.LIGHT, 5, Title.Surface_Defense_Cannon);
+        super(Side.LIGHT, 5, Title.Surface_Defense_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
         setLore("BlasTech Ax-108 'Ground Buzzer' blaster cannon. Designed to drop from a concealed gun pod on a starship. Targets using proximity motion sensors. Has 360-degree firing arc.");
         setGameText("Use 1 Force to deploy on your starfighter, free on Falcon. May target a character or creature at same site using 1 Force. Draw destiny. Target hit if destiny +1 > defense value.");
         addIcons(Icon.HOTH);

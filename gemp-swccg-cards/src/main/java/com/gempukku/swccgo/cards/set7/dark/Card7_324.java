@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +28,7 @@ import java.util.List;
  */
 public class Card7_324 extends AbstractStarshipWeapon {
     public Card7_324() {
-        super(Side.DARK, 5, Title.SFS_Lx93_Laser_Cannons);
+        super(Side.DARK, 5, Title.SFS_Lx93_Laser_Cannons, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Developed by Sienar Fleet Systems weapons division to provide added firepower against shielded Rebel fighters. Also provides added coverage to increase accuracy.");
         setGameText("Deploy on your TIE Avenger, TIE Interceptor or TIE Defender. May target a starfighter using X Force, where X = 0 to 3. Draw destiny. If destiny + X > defense value, target hit (lost instead if X = 3).");
         addIcons(Icon.SPECIAL_EDITION);

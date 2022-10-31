@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +28,7 @@ import java.util.List;
  */
 public class Card14_127 extends AbstractStarshipWeapon {
     public Card14_127() {
-        super(Side.DARK, 6, Title.Droid_Starfighter_Laser_Cannons);
+        super(Side.DARK, 6, Title.Droid_Starfighter_Laser_Cannons, Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Standard weapon aboard all droid starfighters. Used to eliminate fast-moving starfighters which battleship laser batteries have difficulty targeting.");
         setGameText("Deploy on your droid starfighter. May target a starship using 2 Force. Draw destiny. Target hit if destiny > defense value. If destiny +1 = defense value, target is power = 0 until end of turn.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

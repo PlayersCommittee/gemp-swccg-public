@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card1_318 extends AbstractStarshipWeapon {
     public Card1_318() {
-        super(Side.DARK, 5, Title.Ion_Cannon);
+        super(Side.DARK, 5, Title.Ion_Cannon, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Fires blasts of ionized energy. Causes massive disruptions in weapon, engine and computer systems aboard a target. Disables starship defenses against tractor beams.");
         setGameText("Use 2 Force to deploy on your Star Destroyer. May target a starship using 1 Force. Draw destiny. If destiny +2 > defense value, all starship weapons deployed on target are lost, armor or maneuver = 0 and hyperspeed = 0.");
         addKeywords(Keyword.ION_CANNON, Keyword.STARSHIP_WEAPON_THAT_DEPLOYS_ON_CAPITALS);

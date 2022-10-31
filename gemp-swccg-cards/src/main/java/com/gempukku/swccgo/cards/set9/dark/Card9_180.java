@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card9_180 extends AbstractStarshipWeapon {
     public Card9_180() {
-        super(Side.DARK, 3, "Heavy Turbolaser Battery");
+        super(Side.DARK, 3, "Heavy Turbolaser Battery", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("The ultimate in armor penetration. Relies in dense capacitor banks for massive firing charge. Capacitors regularly malfunction. Hitting maneuverable targets nearly impossible.");
         setGameText("Use 4 Force to deploy in your Star Destroyer (adds 2 to power) or any mobile system. May target a starship using 2 Force. Draw two destiny. Subtract 1 when targeting a capital starship. Otherwise, subtract 6. Target hit if total destiny > defense value.");
         addIcons(Icon.DEATH_STAR_II);

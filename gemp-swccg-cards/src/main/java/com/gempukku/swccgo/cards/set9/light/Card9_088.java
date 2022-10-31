@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractStarshipWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card9_088 extends AbstractStarshipWeapon {
     public Card9_088() {
-        super(Side.LIGHT, 3, "Enhanced Proton Torpedoes");
+        super(Side.LIGHT, 3, "Enhanced Proton Torpedoes", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Often modified by Rebel technicians. Heavy warhead provides increased armor penetration. Decreased maneuverability and effectiveness against starfighters.");
         setGameText("Deploy on your X-wing, Y-wing or B-wing. May target a starship for 1 Force. Add 1 if targeting a capital starship. Otherwise, subtract 1. Target hit if total destiny > defense value.");
         addIcons(Icon.DEATH_STAR_II);
