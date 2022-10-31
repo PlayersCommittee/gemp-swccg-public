@@ -16,15 +16,6 @@ public abstract class AbstractHolosite extends AbstractLocation {
      * Creates a blueprint for a holosite.
      * @param side the side of the Force
      * @param title the card title
-     */
-    protected AbstractHolosite(Side side, String title) {
-        this(side, title, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a holosite.
-     * @param side the side of the Force
-     * @param title the card title
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

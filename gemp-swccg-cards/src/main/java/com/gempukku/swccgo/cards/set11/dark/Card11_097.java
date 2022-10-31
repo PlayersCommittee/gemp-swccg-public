@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractPodracer;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerRaceTotalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card11_097 extends AbstractPodracer {
     public Card11_097() {
-        super(Side.DARK, 3, Title.Sebulbas_Podracer);
+        super(Side.DARK, 3, Title.Sebulbas_Podracer, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Some hidden modifications mean Sebulba's Podracer doesn't conform to race specifications. The duplicitous Dug has equipped it with a flame emitter that can fry other Podracers.");
         setGameText("Deploy on Podrace Arena. Adds 3 to each of your race destinies here. If you and your opponent have the same race total, may use 2 Force. Opponent draws no race destiny for remainder of turn (may only be used once for any race total).");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

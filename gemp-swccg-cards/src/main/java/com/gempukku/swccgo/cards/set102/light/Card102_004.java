@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set102.light;
 import com.gempukku.swccgo.cards.AbstractShuttleVehicle;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card102_004 extends AbstractShuttleVehicle {
     public Card102_004() {
-        super(Side.LIGHT, 4, 2, 2, 5, null, 4, Title.Lukes_T16_Skyhopper, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 2, 5, null, 4, Title.Lukes_T16_Skyhopper, Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLore("Enclosed vehicle used by Luke Skywalker for his early pilot training. Often raced with Biggs Darklighter through Beggar's Canyon.");
         setGameText("Requires 1 pilot to use. May carry 1 passenger. May move as a 'react.' May 'bullseye' one Womp Rat per turn. *Landspeed = 4, OR 1 character may shuttle to or from same site for free.");
         addIcons(Icon.PREMIUM);

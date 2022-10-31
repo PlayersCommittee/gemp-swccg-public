@@ -1,21 +1,18 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 
 /**
  * The abstract class providing the common implementation for Podracers.
  */
 public abstract class AbstractPodracer extends AbstractDeployable {
-
-    /**
-     * Creates a blueprint for an Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
-     */
-    protected AbstractPodracer(Side side, float destiny, String title) {
-        this(side, destiny, title, null, null);
-    }
 
     /**
      * Creates a blueprint for an Effect.

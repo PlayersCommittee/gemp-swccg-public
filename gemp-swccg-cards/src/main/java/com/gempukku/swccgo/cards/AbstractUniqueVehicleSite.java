@@ -18,16 +18,6 @@ public abstract class AbstractUniqueVehicleSite extends AbstractSite {
      * @param side the side of the Force
      * @param title the card title
      * @param vehicle the persona of the vehicle
-     */
-    protected AbstractUniqueVehicleSite(Side side, String title, Persona vehicle) {
-        this(side, title, vehicle, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a unique vehicle site.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param vehicle the persona of the vehicle
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

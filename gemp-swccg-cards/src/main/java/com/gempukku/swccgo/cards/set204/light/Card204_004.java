@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractAlienResistance;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.HitCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +37,7 @@ import java.util.List;
  */
 public class Card204_004 extends AbstractAlienResistance {
     public Card204_004() {
-        super(Side.LIGHT, 1, 5, 6, 2, 6, "Chewie With Bowcaster", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 6, 2, 6, "Chewie With Bowcaster", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Wookiee smuggler.");
         setGameText("Deploys -1 to Falcon. While 'hit', draws one battle destiny if unable to otherwise. Permanent weapon is •Chewbacca's Bowcaster (may target a character or vehicle for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addPersona(Persona.CHEWIE);

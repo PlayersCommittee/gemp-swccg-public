@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractMobileSystem;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card2_143 extends AbstractMobileSystem {
     public Card2_143() {
-        super(Side.DARK, Title.Death_Star, 1, 0);
+        super(Side.DARK, Title.Death_Star, 1, 0, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLocationDarkSideGameText("X = parsec of current position. Deploys only at parsec 0. Hyperspeed = 1. Immune to Revolution. If this is your starting location, Light Side goes first in game.");
         addIcon(Icon.DARK_FORCE, 3);
         addIcons(Icon.A_NEW_HOPE);

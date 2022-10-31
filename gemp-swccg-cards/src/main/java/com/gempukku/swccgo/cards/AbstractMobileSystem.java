@@ -25,18 +25,8 @@ public abstract class AbstractMobileSystem extends AbstractSystem {
      * @param parsec the parsec number
      * @param systemOrbiting the system this must deploy orbiting
      */
-    protected AbstractMobileSystem(Side side, String title, int parsec, String systemOrbiting) {
-        this(side, title, 0f, parsec, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a mobile system.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param parsec the parsec number
-     */
-    protected AbstractMobileSystem(Side side, String title, float hyperspeed, int parsec) {
-        this(side, title, hyperspeed, parsec, null, null);
+    protected AbstractMobileSystem(Side side, String title, int parsec, String systemOrbiting, ExpansionSet expansionSet, Rarity rarity) {
+        this(side, title, 0, parsec, expansionSet, rarity);
     }
 
     /**

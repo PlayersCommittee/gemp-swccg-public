@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractNonuniqueVehicleSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card2_066 extends AbstractNonuniqueVehicleSite {
     public Card2_066() {
-        super(Side.LIGHT, "Sandcrawler: Loading Bay", Filters.sandcrawler, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, "Sandcrawler: Loading Bay", Filters.sandcrawler, Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLocationDarkSideGameText("Your characters may enter/exit here for 1 Force each. 'Nighttime conditions' here.");
         setLocationLightSideGameText("Deploy on your sandcrawler. Each Jawa is forfeit +2 here. 'Nighttime conditions' here.");
         addIcons(Icon.A_NEW_HOPE, Icon.INTERIOR_SITE);

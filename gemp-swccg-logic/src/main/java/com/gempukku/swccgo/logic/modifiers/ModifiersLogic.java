@@ -4355,14 +4355,25 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      */
     @Override
     public boolean isForceDrainModifierCanceled(GameState gameState, PhysicalCard location, PhysicalCard source, String playerModifying, String playerDraining, float amount) {
-        // Check if Force drain modifier may not be canceled
-        if (!getModifiersAffectingCard(gameState, ModifierType.FORCE_DRAIN_MODIFIERS_MAY_NOT_BE_CANCELED, source).isEmpty()) {
-            return false;
-        }
-
         // Check if Force drains at location may not be modified
         if (cantModifyForceDrainAtLocation(gameState, location, source, playerModifying, playerDraining)) {
             return true;
+        }
+
+        // Check if Force drain modifier may not be canceled
+        for (Modifier modifier:getModifiersAffectingCard(gameState, ModifierType.FORCE_DRAIN_MODIFIERS_MAY_NOT_BE_CANCELED, source)) {
+            if (((ForceDrainModifiersMayNotBeCanceledModifier)modifier).isForceDrainAtLocationFilter(gameState.getGame(), location)) {
+                return false;
+            }
+        }
+
+        if (amount > 0) {
+            // Check if Force drain bonus may not be canceled
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FORCE_DRAIN_BONUSES_MAY_NOT_BE_CANCELED, source)) {
+                if (((ForceDrainBonusesMayNotBeCanceledModifier) modifier).isForceDrainAtLocationFilter(gameState.getGame(), location)) {
+                    return false;
+                }
+            }
         }
 
         // Check if opponent's Force drain modifiers are canceled

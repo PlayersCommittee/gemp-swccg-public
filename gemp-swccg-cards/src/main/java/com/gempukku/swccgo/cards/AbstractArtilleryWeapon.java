@@ -24,31 +24,6 @@ public abstract class AbstractArtilleryWeapon extends AbstractWeapon {
      * @param deployCost the deploy cost
      * @param forfeit the forfeit value
      * @param title the card title
-     */
-    protected AbstractArtilleryWeapon(Side side, float destiny, float deployCost, float forfeit, String title) {
-        this(side, destiny, deployCost, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for an artillery weapon.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractArtilleryWeapon(Side side, float destiny, float deployCost, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, forfeit, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for an artillery weapon.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param forfeit the forfeit value
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the ExpansionSet
      * @param rarity the Rarity

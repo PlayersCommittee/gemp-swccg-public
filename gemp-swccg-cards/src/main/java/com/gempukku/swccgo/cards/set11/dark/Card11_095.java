@@ -3,9 +3,11 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractPodracer;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card11_095 extends AbstractPodracer {
     public Card11_095() {
-        super(Side.DARK, 2, "Ben Quadinaros' Podracer");
+        super(Side.DARK, 2, "Ben Quadinaros' Podracer", ExpansionSet.TATOOINE, Rarity.C);
         setLore("Balta-Trabaat BT310 Podracer that utilizes four engines instead of two. Has the potential to be the fastest Podracer on the track, despite its inconsistent performance.");
         setGameText("Deploy on Podrace Arena. Adds 1 to each of your race destinies here. Once during each of your control phases may lose 2 Force to exchange the topmost race destiny here with topmost race destiny of another Podracer.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

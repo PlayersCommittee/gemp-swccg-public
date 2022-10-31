@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractMobileSystem;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card7_117 extends AbstractMobileSystem {
     public Card7_117() {
-        super(Side.LIGHT, Title.Death_Star, 1, 0);
+        super(Side.LIGHT, Title.Death_Star, 1, 0, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("X = parsec of current position (starts at 0). Immune to Revolution. You may move Death Star (hyperspeed = 1).");
         setLocationLightSideGameText("Deploy if Death Star Plans completed and Death Star system not on table. If 'blown away,' Dark Side loses +8 Force.");
         addIcon(Icon.DARK_FORCE, 2);

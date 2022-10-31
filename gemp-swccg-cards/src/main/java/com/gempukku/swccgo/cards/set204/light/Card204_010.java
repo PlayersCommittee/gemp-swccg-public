@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractRebelRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +43,7 @@ import java.util.List;
  */
 public class Card204_010 extends AbstractRebelRepublic {
     public Card204_010() {
-        super(Side.LIGHT, 1, 3, 2, 3, 5, "Senator Mon Mothma", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 2, 3, 5, "Senator Mon Mothma", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setPolitics(1);
         setLore("Native of Chandrila. Leader of the Alliance. A former member of the Imperial Senate where she was a formidable opponent of then-Senator Palpatine. Friend of Bail Organa.");
         setGameText("Agenda: rebellion. Deploys -1 aboard your capital starship. Once per turn, while in a senate majority (or Stolen Data Tapes on table), may take your just drawn battle destiny into hand. Once per game, may [download] Chandrila.");

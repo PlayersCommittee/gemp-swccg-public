@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractRebelRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card215_004 extends AbstractRebelRepublic {
     public Card215_004() {
-        super(Side.LIGHT, 2, 4, 4, 4, 5, "Cal Kestis", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 4, 5, "Cal Kestis", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("Padawan.");
         setGameText("Once per game, if you are about to draw a card for battle destiny here, may instead use Cal Kestis's ability number. During opponent's draw phase, may place one card from your hand under Reserve Deck; reshuffle and draw top card of Reserve Deck.");
         addPersona(Persona.CAL_KESTIS);

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractArtilleryWeapon;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card8_088 extends AbstractArtilleryWeapon {
     public Card8_088() {
-        super(Side.LIGHT, 7, 2, 4, "Ewok Catapult");
+        super(Side.LIGHT, 7, 2, 4, "Ewok Catapult", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.U);
         setLore("Crowning achievement of Chirpa's engineers. Heavy stones from these weapons distracted Imperial AT-ST walkers.");
         setGameText("Deploy on an exterior Endor site. Does not require a power source. Your Ewok present may target a vehicle with armor at same or adjacent site for free. Draw destiny. Add 1 for each Ewok present. Target crashes if total destiny > defense value.");
         addIcons(Icon.ENDOR);

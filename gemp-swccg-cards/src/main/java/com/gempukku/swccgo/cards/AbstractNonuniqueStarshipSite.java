@@ -18,16 +18,6 @@ public abstract class AbstractNonuniqueStarshipSite extends AbstractSite {
      * @param side the side of the Force
      * @param title the card title
      * @param starshipFilter the filter for a starship this site can be related to
-     */
-    protected AbstractNonuniqueStarshipSite(Side side, String title, Filter starshipFilter, Uniqueness uniqueness) {
-        this(side, title, starshipFilter, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a non-unique starship site.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param starshipFilter the filter for a starship this site can be related to
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

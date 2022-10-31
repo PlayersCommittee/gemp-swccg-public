@@ -4,14 +4,27 @@ import com.gempukku.swccgo.cards.AbstractAlienResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.PlayInterruptFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -28,7 +41,7 @@ import java.util.List;
  */
 public class Card204_011 extends AbstractAlienResistance {
     public Card204_011() {
-        super(Side.LIGHT, 1, 4, 4, 3, 7, "Solo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 4, 3, 7, "Solo", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Smuggler.");
         setGameText("[Pilot] 3. Deploys -1 to Falcon. Draws one battle destiny if unable to otherwise. Adds one battle destiny if with Chewie or Rey. Once per game, may play an Interrupt from Lost Pile as if from hand (then place that card out of play).");
         addPersona(Persona.HAN);

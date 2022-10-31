@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractNonuniqueStarshipSite;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card4_165 extends AbstractNonuniqueStarshipSite {
     public Card4_165() {
-        super(Side.DARK, Title.Launch_Bay, Filters.Star_Destroyer, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, Title.Launch_Bay, Filters.Star_Destroyer, Uniqueness.RESTRICTED_3, ExpansionSet.DAGOBAH, Rarity.C);
         setLocationDarkSideGameText("Your TIEs deploy -2 here. You may shuttle, transfer, embark and disembark here for free.");
         setLocationLightSideGameText("Starships captured by Star Destroyer go here and may be Besieged. Immune to Revolution.");
         addIcon(Icon.DARK_FORCE, 1);

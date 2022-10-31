@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractDarkJediMasterImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopThreeCardsOfReserveDeckAndChooseCardToPlaceInUsedPileLostPileAndHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card205_012 extends AbstractDarkJediMasterImperial {
     public Card205_012() {
-        super(Side.DARK, 1, 5, 4, 7, 9, "Emperor Palpatine, Foreseer", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 4, 7, 9, "Emperor Palpatine, Foreseer", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setLore("From his throne room aboard the second Death Star, Emperor Palpatine monitors activity throughout the galaxy. Leader.");
         setGameText("Never deploys or moves (even if carried) to a site opponent occupies. Once during your turn, may peek at the top three cards of your Reserve Deck; place one in Used Pile, one in Lost Pile, and take one into hand. Immune to attrition.");
         addPersona(Persona.SIDIOUS);

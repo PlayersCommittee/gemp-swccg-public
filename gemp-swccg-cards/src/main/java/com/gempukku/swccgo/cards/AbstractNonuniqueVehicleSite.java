@@ -18,16 +18,6 @@ public abstract class AbstractNonuniqueVehicleSite extends AbstractSite {
      * @param side the side of the Force
      * @param title the card title
      * @param vehicleFilter the filter for a vehicle this site can be related to
-     */
-    protected AbstractNonuniqueVehicleSite(Side side, String title, Filter vehicleFilter, Uniqueness uniqueness) {
-        this(side, title, vehicleFilter, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a non-unique vehicle site.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param vehicleFilter the filter for a vehicle this site can be related to
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

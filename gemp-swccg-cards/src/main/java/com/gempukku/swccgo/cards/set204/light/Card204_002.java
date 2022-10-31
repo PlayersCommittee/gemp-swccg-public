@@ -4,13 +4,24 @@ import com.gempukku.swccgo.cards.AbstractRebelRepublic;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.InSenateMajorityCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AgendaModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +35,7 @@ import java.util.List;
  */
 public class Card204_002 extends AbstractRebelRepublic {
     public Card204_002() {
-        super(Side.LIGHT, 3, 2, 3, 3, 5, "Bail Organa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, 3, 5, "Bail Organa", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setPolitics(1);
         setLore("Alderaanian senator and leader.");
         setGameText("Agenda: rebellion. While in a senate majority (or Stolen Data Tapes on table), your Force drains at battlegrounds with your Alderaanian of ability < 4 are +1. While aboard a corvette, adds one battle destiny and it may not be targeted by weapons.");

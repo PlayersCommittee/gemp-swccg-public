@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractUniqueVehicleSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card6_167 extends AbstractUniqueVehicleSite {
     public Card6_167() {
-        super(Side.DARK, Title.Passenger_Deck, Persona.JABBAS_SAIL_BARGE);
+        super(Side.DARK, Title.Passenger_Deck, Persona.JABBAS_SAIL_BARGE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLocationDarkSideGameText("Deploy on Jabba's Sail Barge. If you occupy, Sail Barge is immune to attrition.");
         setLocationLightSideGameText("Your characters may enter/exit here for 4 Force each.");
         addIcon(Icon.DARK_FORCE, 2);

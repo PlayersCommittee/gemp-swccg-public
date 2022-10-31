@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractPodracer;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card11_096 extends AbstractPodracer {
     public Card11_096() {
-        super(Side.DARK, 3, "Dud Bolt's Podracer");
+        super(Side.DARK, 3, "Dud Bolt's Podracer", ExpansionSet.TATOOINE, Rarity.C);
         setLore("RS 557 Podracer. Secretly hired by Sebulba to protect him during Podraces.");
         setGameText("Deploy on Podrace Arena. Adds 1 to each of your race destinies here. If Sebulba's Podracer on table, may lose this Podracer to cancel Losing Track or Neck And Neck; place all race destinies here in owner's Used Pile.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

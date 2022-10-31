@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractMobileSystem;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card9_142 extends AbstractMobileSystem {
     public Card9_142() {
-        super(Side.DARK, Title.Death_Star_II, 8, Title.Endor);
+        super(Side.DARK, Title.Death_Star_II, 8, Title.Endor, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLocationDarkSideGameText("X = parsec of current position. Must deploy orbiting Endor. Death Star II locations are immune to revolution. Opponent's Force Drains +3 here unless That Thing's Operational on table.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.DEATH_STAR_II);

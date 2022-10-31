@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +42,7 @@ import java.util.List;
  */
 public class Card11_047 extends AbstractPodracer {
     public Card11_047() {
-        super(Side.LIGHT, 3, Title.Anakins_Podracer);
+        super(Side.LIGHT, 3, Title.Anakins_Podracer, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Built from Radon-Ulzer racing engines that Watto regarded as too burned-out to be of any use. New fuel injection subsystem created by Anakin radically increases thrust.");
         setGameText("Deploy on Podrace Arena. Draws 2 race destiny instead of 1. During your draw phase, if opponent has a higher race total than Anakin's Podracer, draw 3 race destiny next turn and choose 2. Once per game may take I Did It! into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

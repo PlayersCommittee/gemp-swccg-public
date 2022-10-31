@@ -25,37 +25,6 @@ public abstract class AbstractShuttleVehicle extends AbstractVehicle {
      * @param landspeed the landspeed value
      * @param forfeit the forfeit value
      * @param title the card title
-     */
-    protected AbstractShuttleVehicle(Side side, float destiny, float deployCost, float power, float maneuver, Float landspeed, float forfeit, String title) {
-        this(side, destiny, deployCost, power, maneuver, landspeed, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a shuttle vehicle.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param maneuver the maneuver value
-     * @param landspeed the landspeed value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractShuttleVehicle(Side side, float destiny, float deployCost, float power, float maneuver, Float landspeed, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, power, maneuver, landspeed, forfeit, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a shuttle vehicle.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param maneuver the maneuver value
-     * @param landspeed the landspeed value
-     * @param forfeit the forfeit value
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
 ￼    * @param rarity the rarity

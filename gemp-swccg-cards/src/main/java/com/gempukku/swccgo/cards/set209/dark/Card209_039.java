@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractDarkJediMasterFirstOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card209_039 extends AbstractDarkJediMasterFirstOrder {
     public Card209_039() {
-        super(Side.DARK, 1, 5, 3, 7, 8, "Supreme Leader Snoke", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 3, 7, 8, "Supreme Leader Snoke", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Leader.");
         setGameText("If you just initiated a battle where all your ability is provided by First Order characters and/or [First Order] starships, opponent loses 1 Force. If just lost, Kylo is power +3 until end of your next turn. Immune to attrition < 8 (< 4 if with Kylo).");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_9);

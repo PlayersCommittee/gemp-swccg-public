@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractPodracer;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card11_098 extends AbstractPodracer {
     public Card11_098() {
-        super(Side.DARK, 5, "Teemto Pagalies' Podracer");
+        super(Side.DARK, 5, "Teemto Pagalies' Podracer", ExpansionSet.TATOOINE, Rarity.C);
         setLore("IPG-X1131 Longtail Podracer. Unusual circular shape is designed around an internal metal cycling ring which stabilizes the non-aerodynamic vehicle.");
         setGameText("Deploy on Podrace Arena. Adds 2 to each of your race destinies here. Once during each of your turns, may use 1 Force to place a race destiny here (random selection) in owner's Used Pile, draw one race destiny and place it here.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

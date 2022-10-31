@@ -18,17 +18,6 @@ public abstract class AbstractDeathStarIIWeapon extends AbstractWeapon {
      * @param destiny the destiny value
      * @param title the card title
      * @param uniqueness the uniqueness
-     */
-    protected AbstractDeathStarIIWeapon(Side side, float destiny, String title, Uniqueness uniqueness) {
-        this(side, destiny, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a Death Star II weapon.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
-     * @param uniqueness the uniqueness
      * @param expansionSet the ExpansionSet
      * @param rarity the rarity
      */

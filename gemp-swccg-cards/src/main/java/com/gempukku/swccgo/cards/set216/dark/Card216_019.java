@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set216.dark;
 
 import com.gempukku.swccgo.cards.AbstractDeathStarWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card216_019 extends AbstractDeathStarWeapon {
     public Card216_019() {
-        super(Side.DARK, 3, Title.Superlaser, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Superlaser, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("The Death Star has more firepower than the combined might the entire Imperial fleet. Enormous generators power the devastating planetdestroying weapon.");
         setGameText("Deploy on Death Star. May not target planet systems (except Alderaan). Commence Primary Ignition may not be canceled. May target a capital starship at Death Star system, or at a system it orbits, for free. Draw destiny. Target hit if destiny +2 > defense value.");
