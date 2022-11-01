@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards;
 
 
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,9 +29,12 @@ public abstract class AbstractSeeker extends AbstractAutomatedWeapon {
      * @param side the side of the Force
      * @param destiny the destiny value
      * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
      */
-    protected AbstractSeeker(Side side, float destiny, String title) {
-        super(side, destiny, PlayCardZoneOption.OPPONENTS_SIDE_OF_LOCATION, title);
+    protected AbstractSeeker(Side side, float destiny, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, PlayCardZoneOption.OPPONENTS_SIDE_OF_LOCATION, title, uniqueness, expansionSet, rarity);
         addKeyword(Keyword.SEEKER);
     }
 
