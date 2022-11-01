@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractDarkJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card14_078 extends AbstractDarkJediMaster {
     public Card14_078() {
-        super(Side.DARK, 1, 6, 5, 7, 8, "Darth Sidious", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 5, 7, 8, "Darth Sidious", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Mysterious Sith Master who is manipulating the Trade Federation for his own nefarious ends. Shrouded in mystery, his identity and agenda remain unclear.");
         setGameText("While no other characters present, if opponent just lost a Jedi from table, may lose 1 Force to place that Jedi out of play. While on Coruscant, may use 1 Force to add one battle destiny in a battle your Neimoidian is in. Immune to attrition.");
         addPersona(Persona.SIDIOUS);
