@@ -33,6 +33,7 @@ public class WhileInPlayData implements Snapshotable<WhileInPlayData> {
         // Set each field
         snapshot._booleanValue = _booleanValue;
         snapshot._floatValue = _floatValue;
+        snapshot._intValue = _intValue;
         snapshot._textValue = _textValue;
         snapshot._textValues.addAll(_textValues);
         snapshot._physicalCard = snapshotData.getDataForSnapshot(_physicalCard);

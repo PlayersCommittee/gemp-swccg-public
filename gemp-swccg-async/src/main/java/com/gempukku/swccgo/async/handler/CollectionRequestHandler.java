@@ -275,7 +275,8 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
         Element allCards = doc.createElement("all");
 
         for(ExpansionSet set: ExpansionSet.values()) {
-            if (set.getSetNumber() < 400) { //excludes Dream Cards, Playtesting, Legacy, etc.
+            if (set.getSetNumber() < 400  //excludes Dream Cards, Playtesting, Legacy, etc.
+                    && _rarities.get(String.valueOf(set.getSetNumber())) != null) {
                 int available = 0;
                 int allCollected = 0;
                 int foilsCollected = 0;
