@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractJediTest;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.JediTestCompletedCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -44,7 +53,7 @@ import java.util.List;
  */
 public class Card4_079 extends AbstractJediTest {
     public Card4_079() {
-        super(Side.LIGHT, 4, "Size Matters Not");
+        super(Side.LIGHT, 4, "Size Matters Not", ExpansionSet.DAGOBAH, Rarity.R);
         setGameText("Deploy on Dagobah: Swamp or Dagobah: Bog Clearing. Target a mentor on Dagobah and an apprentice who has completed Jedi Test #3. Attempt when apprentice is present at the beginning of your control phase. Draw training destiny. If destiny + apprentice's ability > 15, test completed: Place on apprentice. Immune to attrition < 3. Once during each of your control phases, you may use 2 Force to search your Reserve Deck and take any one card you find there into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH);
         addKeyword(Keyword.JEDI_TEST_4);

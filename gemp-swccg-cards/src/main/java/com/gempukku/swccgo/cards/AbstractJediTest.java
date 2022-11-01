@@ -1,6 +1,17 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.JediTestStatus;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
@@ -45,20 +56,11 @@ public abstract class AbstractJediTest extends AbstractDeployable {
      * @param side the side of the Force
      * @param destiny the destiny value
      * @param title the card title
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
      */
-    protected AbstractJediTest(Side side, float destiny, String title) {
-        this(side, destiny, PlayCardZoneOption.ATTACHED, title);
-    }
-
-    /**
-     * Creates a blueprint for a Jedi Test.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     */
-    protected AbstractJediTest(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title) {
-        this(side, destiny, playCardZoneOption, title, null, null);
+    protected AbstractJediTest(Side side, float destiny, String title, ExpansionSet expansionSet, Rarity rarity) {
+        this(side, destiny, PlayCardZoneOption.ATTACHED, title, expansionSet, rarity);
     }
 
     /**
@@ -71,7 +73,7 @@ public abstract class AbstractJediTest extends AbstractDeployable {
      * @param rarity the rarity
      */
     protected AbstractJediTest(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title, ExpansionSet expansionSet, Rarity rarity) {
-        super(side, destiny, playCardZoneOption, 0f, title, null, expansionSet, rarity);
+        super(side, destiny, playCardZoneOption, 0f, title, Uniqueness.UNRESTRICTED, expansionSet, rarity);
         setCardCategory(CardCategory.JEDI_TEST);
         addCardType(CardType.JEDI_TEST);
         addIcon(Icon.JEDI_TEST);
