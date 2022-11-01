@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card211_020 extends AbstractUniqueStarshipSite{
     public Card211_020() {
-        super(Side.DARK, Title.Invisible_Hand_Bridge, Persona.INVISIBLE_HAND);
+        super(Side.DARK, Title.Invisible_Hand_Bridge, Persona.INVISIBLE_HAND, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("Once per game, if you control, may take Invisible Hand into hand from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Unless your [Clone Army] character here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card4_163 extends AbstractUniqueStarshipSite {
     public Card4_163() {
-        super(Side.DARK, Title.Meditation_Chamber, Persona.EXECUTOR);
+        super(Side.DARK, Title.Meditation_Chamber, Persona.EXECUTOR, ExpansionSet.DAGOBAH, Rarity.R);
         setLocationDarkSideGameText("If Vader alone here, once per turn, may apply his ability to draw battle destiny at any system.");
         setLocationLightSideGameText("If you occupy, opponent's Meditation Chamber game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

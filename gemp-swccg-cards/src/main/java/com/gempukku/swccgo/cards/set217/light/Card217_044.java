@@ -2,14 +2,20 @@ package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitToCostModifier;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card217_044 extends AbstractUniqueStarshipSite {
     public Card217_044() {
-        super(Side.LIGHT, "Profundity: Docking Bay", Persona.PROFUNDITY);
+        super(Side.LIGHT, "Profundity: Docking Bay", Persona.PROFUNDITY, ExpansionSet.SET_17, Rarity.V);
         setLocationDarkSideGameText("Your docking bay transit to or from here requires +5 Force. While Vader present, gains one [Dark Side] icon.");
         setLocationLightSideGameText("Your docking bay transit from here is free.");
         addIcon(Icon.LIGHT_FORCE, 1);

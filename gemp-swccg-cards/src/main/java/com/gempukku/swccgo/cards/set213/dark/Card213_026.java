@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card213_026 extends AbstractUniqueStarshipSite {
     public Card213_026() {
-        super(Side.DARK, "First Light: Dryden's Study", Persona.FIRST_LIGHT);
+        super(Side.DARK, "First Light: Dryden's Study", Persona.FIRST_LIGHT, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("Once during your move phase, your Crimson Dawn leader may move between here and any site.");
         setLocationLightSideGameText("Add 1 to your blaster weapon destiny draws here. Unless Vos on table, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

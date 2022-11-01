@@ -18,16 +18,6 @@ public abstract class AbstractUniqueStarshipSite extends AbstractSite {
      * @param side the side of the Force
      * @param title the card title
      * @param starship the persona of the starship
-     */
-    protected AbstractUniqueStarshipSite(Side side, String title, Persona starship) {
-        this(side, title, starship, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a unique starship site.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param starship the persona of the starship
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

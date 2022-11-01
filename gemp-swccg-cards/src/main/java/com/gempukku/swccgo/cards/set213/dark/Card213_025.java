@@ -5,9 +5,11 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card213_025 extends AbstractUniqueStarshipSite {
     public Card213_025() {
-        super(Side.DARK, "First Light: Bar", Persona.FIRST_LIGHT);
+        super(Side.DARK, "First Light: Bar", Persona.FIRST_LIGHT, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("Once per game, may deploy Margo, Wuher, or a musician here from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Force drain -1 here (if your musician here, Force drain +1 instead).");
         addIcon(Icon.DARK_FORCE, 2);

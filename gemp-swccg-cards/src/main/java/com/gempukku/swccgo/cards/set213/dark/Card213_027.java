@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card213_027 extends AbstractUniqueStarshipSite {
     public Card213_027() {
-        super(Side.DARK, "First Light: Reception Area", Persona.FIRST_LIGHT);
+        super(Side.DARK, "First Light: Reception Area", Persona.FIRST_LIGHT, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("While your unique (•) alien here, your Force generation is +1 here (+2 if Margo).");
         setLocationLightSideGameText("Force drain -1 here (if your smuggler here, Force drain +1 instead).");
         addIcon(Icon.DARK_FORCE, 2);

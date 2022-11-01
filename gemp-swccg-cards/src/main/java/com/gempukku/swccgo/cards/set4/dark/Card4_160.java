@@ -4,9 +4,11 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card4_160 extends AbstractUniqueStarshipSite {
     public Card4_160() {
-        super(Side.DARK, "Executor: Control Station", Persona.EXECUTOR);
+        super(Side.DARK, "Executor: Control Station", Persona.EXECUTOR, ExpansionSet.DAGOBAH, Rarity.U);
         setLocationDarkSideGameText("If an Imperial leader here, Executor is power +1 for each Executor site on table.");
         setLocationLightSideGameText("If you control, only you may move Executor during opponent's move phase.");
         addIcon(Icon.DARK_FORCE, 1);

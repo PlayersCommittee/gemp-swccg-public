@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card4_161 extends AbstractUniqueStarshipSite {
     public Card4_161() {
-        super(Side.DARK, Title.Holotheatre, Persona.EXECUTOR);
+        super(Side.DARK, Title.Holotheatre, Persona.EXECUTOR, ExpansionSet.DAGOBAH, Rarity.R);
         setLocationDarkSideGameText("If Vader or Emperor on table, your Force generation is +1 here (+2 if both).");
         setLocationLightSideGameText("If you control, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

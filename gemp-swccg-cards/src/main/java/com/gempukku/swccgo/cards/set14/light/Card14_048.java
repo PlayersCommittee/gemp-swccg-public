@@ -1,9 +1,11 @@
 package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card14_048 extends AbstractUniqueStarshipSite {
     public Card14_048() {
-        super(Side.LIGHT, "Blockade Flagship: Docking Bay", Persona.BLOCKADE_FLAGSHIP);
+        super(Side.LIGHT, "Blockade Flagship: Docking Bay", Persona.BLOCKADE_FLAGSHIP, ExpansionSet.THEED_PALACE, Rarity.U);
         setLocationDarkSideGameText("Your Docking Bay transit from here requires 1 Force. If just 'blown away', lose 4 Force.");
         setLocationLightSideGameText("This site may not be converted.");
         addIcon(Icon.DARK_FORCE, 1);

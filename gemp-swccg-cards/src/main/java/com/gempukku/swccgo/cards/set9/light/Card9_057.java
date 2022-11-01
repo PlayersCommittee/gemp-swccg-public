@@ -2,14 +2,20 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitToCostModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card9_057 extends AbstractUniqueStarshipSite {
     public Card9_057() {
-        super(Side.LIGHT, "Home One: Docking Bay", Persona.HOME_ONE);
+        super(Side.LIGHT, "Home One: Docking Bay", Persona.HOME_ONE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("Your docking bay transit from here requires 7 Force. Your transit to here requires +9 Force.");
         setLocationLightSideGameText("Your docking bay transit from here is free. If you occupy, opponent may not move to this site.");
         addIcon(Icon.LIGHT_FORCE, 1);

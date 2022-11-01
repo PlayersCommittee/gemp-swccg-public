@@ -1,9 +1,11 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card14_111 extends AbstractUniqueStarshipSite {
     public Card14_111() {
-        super(Side.DARK, "Blockade Flagship: Docking Bay", Persona.BLOCKADE_FLAGSHIP);
+        super(Side.DARK, "Blockade Flagship: Docking Bay", Persona.BLOCKADE_FLAGSHIP, ExpansionSet.THEED_PALACE, Rarity.U);
         setLocationDarkSideGameText("Your Docking Bay transit from here is free.");
         setLocationLightSideGameText("Your Docking Bay transit to and from here requires +8 Force.");
         addIcon(Icon.DARK_FORCE, 1);

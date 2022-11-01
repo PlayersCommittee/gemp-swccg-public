@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card12_164 extends AbstractUniqueStarshipSite {
     public Card12_164() {
-        super(Side.DARK, Title.BlockadeFlagshipBridge, Persona.BLOCKADE_FLAGSHIP);
+        super(Side.DARK, Title.BlockadeFlagshipBridge, Persona.BLOCKADE_FLAGSHIP, ExpansionSet.CORUSCANT, Rarity.R);
         setLocationDarkSideGameText("While you control with Haako, Gunray, or Dofine, your [Presence] droids are power +1.");
         setLocationLightSideGameText("Unless your Jedi here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

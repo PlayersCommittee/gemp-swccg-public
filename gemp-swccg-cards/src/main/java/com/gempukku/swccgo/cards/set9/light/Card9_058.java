@@ -4,9 +4,11 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card9_058 extends AbstractUniqueStarshipSite {
     public Card9_058() {
-        super(Side.LIGHT, "Home One: War Room", Persona.HOME_ONE);
+        super(Side.LIGHT, "Home One: War Room", Persona.HOME_ONE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLocationDarkSideGameText("Force drain -1 here. When you initiate a battle here, add one battle destiny.");
         setLocationLightSideGameText("While you control with a Rebel here, Home One is deploy -5 and power +3.");
         addIcon(Icon.LIGHT_FORCE, 2);

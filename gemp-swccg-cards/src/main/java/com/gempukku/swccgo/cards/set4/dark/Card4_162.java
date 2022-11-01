@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractUniqueStarshipSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card4_162 extends AbstractUniqueStarshipSite {
     public Card4_162() {
-        super(Side.DARK, Title.Main_Corridor, Persona.EXECUTOR);
+        super(Side.DARK, Title.Main_Corridor, Persona.EXECUTOR, ExpansionSet.DAGOBAH, Rarity.C);
         setLocationDarkSideGameText("During your move phase, you may move free between here and Executor or any Executor site.");
         setLocationLightSideGameText("If you control, opponent's Main Corridor game text is canceled.");
         addIcon(Icon.DARK_FORCE, 1);
