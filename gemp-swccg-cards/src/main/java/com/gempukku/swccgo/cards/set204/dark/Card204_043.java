@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractFirstOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card204_043 extends AbstractFirstOrder {
     public Card204_043() {
-        super(Side.DARK, 1, 5, 5, 5, 7, "Kylo Ren", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 5, 5, 7, "Kylo Ren", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Leader.");
         setGameText("Adds one destiny to total power when with a [First Order] shuttle. While present at a battleground, Honor Of The Jedi is suspended. Whenever a player loses a battle here, that player loses 2 Force. Immune to attrition < 4.");
         addPersona(Persona.KYLO);

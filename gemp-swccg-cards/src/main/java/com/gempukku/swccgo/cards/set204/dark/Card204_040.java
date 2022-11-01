@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractFirstOrder;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MinLimitEvaluator;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card204_040 extends AbstractFirstOrder {
     public Card204_040() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "First Order Stormtrooper");
+        super(Side.DARK, 3, 2, 2, 1, 3, "First Order Stormtrooper", Uniqueness.UNRESTRICTED, ExpansionSet.SET_4, Rarity.V);
         setGameText("Deploys free to same site as a First Order leader. Opponent's characters here are cumulatively defense value -1 (limit -3).");
         addIcons(Icon.EPISODE_VII, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.STORMTROOPER);

@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set211.dark;
 import com.gempukku.swccgo.cards.AbstractFirstOrder;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card211_004 extends AbstractFirstOrder {
     public Card211_004() {
-        super(Side.DARK, 2, 2, 2, 2, 4, "Lt. Poldin Lehuse", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 4, "Lt. Poldin Lehuse", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("");
         setGameText("[Pilot] 2. During battle, if piloting a [First Order] TIE, may target an opponent's capital starship at same system. Draw destiny. If destiny > 2, choose one pilot character aboard target to be forfeit = 0 for remainder of battle.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.PILOT, Icon.EPISODE_VII);

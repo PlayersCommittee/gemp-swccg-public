@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractFirstOrder;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card208_031 extends AbstractFirstOrder {
     public Card208_031() {
-        super(Side.DARK, 2, 2, 3, 2, 3, "FN-2199 (Nines)", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 3, 2, 3, "FN-2199 (Nines)", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setArmor(3);
         setLore("Stormtrooper.");
         setGameText("During battle with a stormtrooper, may cancel one opponent's just drawn automated or lightsaber weapon destiny. Permanent weapon is Z6 Riot Control Baton (may target a character for free; draw destiny; target hit if destiny > defense value).");
