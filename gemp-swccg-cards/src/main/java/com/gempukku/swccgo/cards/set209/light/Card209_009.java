@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +18,14 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.LandsFreeFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.LandsFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ShuttlesFreeFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ShuttlesFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.TakesOffFreeFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.TakesOffFreeToLocationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +38,7 @@ import java.util.List;
  */
 public class Card209_009 extends AbstractResistance {
     public Card209_009() {
-        super(Side.LIGHT, 2, 2, 1, 2, 4, "Lieutenant Kaydel Connix", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 2, 4, "Lieutenant Kaydel Connix", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Female");
         addKeywords(Keyword.FEMALE);
         // Currently no keywords defined for Lieutenant.  Thought about creating one and marking Connix as one, but would be too much work to find all lieutenants

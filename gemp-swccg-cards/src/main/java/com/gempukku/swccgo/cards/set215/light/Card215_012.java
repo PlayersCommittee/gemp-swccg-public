@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set215.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card215_012 extends AbstractResistance {
     public Card215_012() {
-        super(Side.LIGHT, 2, 3, 3, 3, 5, "Jannah", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 3, 5, "Jannah", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("Female stormtrooper.");
         setGameText("Other Resistance characters of destiny = 2 (and Finn) are power +1 at same and adjacent sites. During battle, if opponent has more than four characters here, may exclude one opponent's character of ability < 4 from battle.");
         addPersona(Persona.JANNAH);

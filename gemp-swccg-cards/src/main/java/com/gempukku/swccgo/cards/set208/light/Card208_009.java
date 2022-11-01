@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractResistance;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card208_009 extends AbstractResistance {
     public Card208_009() {
-        super(Side.LIGHT, 3, 3, 1, 2, 4, "Major Harter Kalonia", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 2, 4, "Major Harter Kalonia", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Female.");
         setGameText("Resistance characters here may not have their forfeit reduced. If you just forfeited a 'hit' non-droid character from same or related site, may lose 1 Force to place that character in Used Pile.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);

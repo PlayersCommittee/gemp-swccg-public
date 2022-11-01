@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card204_007 extends AbstractResistance {
     public Card204_007() {
-        super(Side.LIGHT, 3, 3, 1, 4, 5, Title.Lor_San_Tekka, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 4, 5, Title.Lor_San_Tekka, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Information broker. Leader.");
         setGameText("If you just deployed BB-8 or a Resistance leader to same or related location, may draw top card of Reserve Deck. During your control phase, one of your other Resistance characters present may make a regular move.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);

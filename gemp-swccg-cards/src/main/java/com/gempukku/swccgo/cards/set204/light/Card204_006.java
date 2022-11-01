@@ -3,14 +3,25 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToLocationForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -25,7 +36,7 @@ import java.util.List;
  */
 public class Card204_006 extends AbstractResistance {
     public Card204_006() {
-        super(Side.LIGHT, 1, 3, 4, 3, 6, Title.Finn, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 4, 3, 6, Title.Finn, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Gunner. Stormtrooper.");
         setGameText("Adds 3 to power of any starship or enclosed vehicle he is aboard as a passenger. May deploy as a 'react' to same location as your pilot (free if Poe or Rey). Once per game, may [upload] Blaster Proficiency. Immune to attrition < 4.");
         addIcons(Icon.EPISODE_VII, Icon.WARRIOR, Icon.VIRTUAL_SET_4);

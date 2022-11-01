@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card207_005 extends AbstractResistance {
     public Card207_005() {
-        super(Side.LIGHT, 1, 4, 4, 5, 8, "General Leia Organa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 4, 5, 8, "General Leia Organa", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Leader.");
         setGameText("While at a war room or battleground, " +
                     "game text of Admiral's Orders is canceled and whenever you initiate a battle with a Resistance character, " +

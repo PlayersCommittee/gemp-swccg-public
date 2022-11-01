@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set207.light;
 
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card207_007 extends AbstractResistance {
     public Card207_007() {
-        super(Side.LIGHT, 2, 4, 4, 3, 5, "Major Caluan Ematt", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 3, 5, "Major Caluan Ematt", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setGameText("May deploy -2 as a react to an [Episode VII] site. At the end of each turn, you must use 2 Force, lose 2 Force, or return Ematt to your hand.");
         addIcons(Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_7);
     }

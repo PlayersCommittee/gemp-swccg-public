@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card208_007 extends AbstractResistance {
     public Card208_007() {
-        super(Side.LIGHT, 3, 3, 3, 3, 4, "Ilco Munica", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 3, 4, "Ilco Munica", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Abednedo scavenger.");
         setGameText("When deployed, may [upload] a non-unique Resistance character. While present on Jakku, if opponent just Force drained at an adjacent site, they retrieve no Force with Graveyard Of Giants.");
         addIcons(Icon.EPISODE_VII, Icon.WARRIOR, Icon.VIRTUAL_SET_8);

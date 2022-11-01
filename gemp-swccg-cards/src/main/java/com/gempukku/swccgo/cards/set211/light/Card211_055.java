@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card211_055 extends AbstractResistance {
     public Card211_055(){
-        super(Side.LIGHT, 2, 3, 1, 3, 5, "Vice Admiral Holdo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 1, 3, 5, "Vice Admiral Holdo", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Female leader.");
         setGameText("[Pilot] 2: any capital starship. During battle, if piloting a capital starship, may place it and Holdo out of play to add X to your total battle destiny, where X is that starship's armor + hyperspeed.");
         setPolitics(1);

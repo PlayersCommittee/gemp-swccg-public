@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card208_001 extends AbstractResistance {
     public Card208_001() {
-        super(Side.LIGHT, 3, 3, 2, 2, 5, "Admiral U.O. Statura", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, 2, 5, "Admiral U.O. Statura", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Leader.");
         setGameText("At same location, Resistance characters and [Resistance] starships are each defence value and forfeit +1. While at an [Episode VII] location with a Resistance leader, adds one battle destiny.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);

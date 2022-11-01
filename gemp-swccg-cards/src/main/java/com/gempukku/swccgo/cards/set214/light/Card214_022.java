@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card214_022 extends AbstractResistance {
     public Card214_022() {
-        super(Side.LIGHT, 1, 6, 6, 6, 8, "Rey, All Of The Jedi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 6, 8, "Rey, All Of The Jedi", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("Female.");
         setGameText("During your control phase, may search your Lost Pile and choose two cards; opponent places one out of play; retrieve the other into hand. Once per game, may deploy a lightsaber on Rey from Reserve Deck; reshuffle. Immune to attrition < 5.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);

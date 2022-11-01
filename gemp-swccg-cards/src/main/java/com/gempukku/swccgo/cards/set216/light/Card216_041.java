@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractResistance;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card216_041 extends AbstractResistance {
     public Card216_041() {
-        super(Side.LIGHT, 3, 2, 2, 2, 5, Title.Paige, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 5, Title.Paige, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("Female gunner.");
         setGameText("Adds 1 to weapon destiny draws and defense value of anything she is aboard as a passenger. While out of play, adds 1 to your total power where you have a Resistance character of ability = 2. If just lost, may place her out of play.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_16);
