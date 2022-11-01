@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +30,7 @@ import java.util.List;
  */
 public class Card2_026 extends AbstractDevice {
     public Card2_026() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Magnetic_Suction_Tube);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Magnetic_Suction_Tube, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("Retractable tube originally designed to collect mined materials for transport to refining facilities. Jawas now use it to suck up droids (and anything else that's not nailed down).");
         setGameText("Deploy on your sandcrawler. Once during each of your control phases, may target one character present. Draw destiny. If destiny > character's ability, 'suck up' character (relocate to related interior Sandcrawler site or owner's Used Pile).");
         addIcons(Icon.A_NEW_HOPE);

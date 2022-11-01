@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card5_107 extends AbstractDevice {
     public Card5_107() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Carbonite_Chamber_Console, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Carbonite_Chamber_Console, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Most often used to freeze Tibanna gas for transport. Modified by Ugloste to work on humans. Intended to capture Luke Skywalker, the Emperor's prize.");
         setGameText("Deploy on Carbonite Chamber. Adds 3 to Carbon-Freezing destiny. Also, once during each of your turns, you may use 1 Force to take one Ugnaught, Prepare The Chamber or Carbon-Freezing into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.CLOUD_CITY);

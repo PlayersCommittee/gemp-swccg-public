@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set203.dark;
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +17,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ArmorModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAttachModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card203_029 extends AbstractDevice {
     public Card203_029() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Deflector Shield Generators");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Deflector Shield Generators", Uniqueness.UNRESTRICTED, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("Located atop the superstructure of a Star Destroyer, the generator towers create an energy shield which repels solid objects and weapons fire.");
         setGameText("Deploy on a capital starship. Starship is power and armor +2 and immune to attrition < 5. May cancel Combined Attack or Power Pivot targeting this starship. Starfighters here may not 'attach'.");

@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,7 +26,7 @@ import java.util.List;
  */
 public class Card1_199 extends AbstractDevice {
     public Card1_199() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Blaster_Scope);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Blaster_Scope, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("The effectiveness of a blaster can sometimes be enhanced through an electronic targeting scope mounted on top, especially for long range targets.");
         setGameText("Deploy on [Dagobah] 4-LOM's Concussion Rifle or on your blaster weapon card. Allows that weapon to target at an adjacent site.");
     }

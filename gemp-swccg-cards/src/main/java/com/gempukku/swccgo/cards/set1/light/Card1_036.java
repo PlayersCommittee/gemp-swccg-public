@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_036 extends AbstractDevice {
     public Card1_036() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Fusion_Generator_Supply_Tanks);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Fusion_Generator_Supply_Tanks, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Uses standard fusion technology. Provides starships with energy for hyperspace travel. Installed at docking bays and throughout the Outer Rim Territories.");
         setGameText("Deploy on your starship at a system or sector where a related docking bay is on table. Adds 1 to hyperspeed, power and maneuver.");
     }

@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set211.dark;
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +33,7 @@ import java.util.List;
  */
 public class Card211_008 extends AbstractDevice {
     public Card211_008() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Carbonite_Chamber_Console, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Carbonite_Chamber_Console, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Most often used to freeze Tibanna gas for transport. Modified by Ugloste to work on humans. Intended to capture Luke Skywalker, the Emperor's prize.");
         setGameText("Deploy on Carbonite Chamber. Once during opponent's turn, if a frozen captive on table, may activate 1 Force. Once per turn, may use 1 Force to [upload] He's All Yours, Bounty Hunter.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_11);

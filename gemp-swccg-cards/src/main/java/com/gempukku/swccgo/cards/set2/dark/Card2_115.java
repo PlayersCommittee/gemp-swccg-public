@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card2_115 extends AbstractDevice {
     public Card2_115() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Tractor Beam");
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Tractor Beam", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Captures enemy vessels for boarding. When used in conjunction with an ion cannon, tractor beams can ensnare even the most maneuverable starships.");
         setGameText("Use 2 Force to deploy on your Star Destroyer. At the end of a battle at same system or sector, may target an opponent's starship present (except Mon Calamari Star Cruiser) using 2 Force. Draw destiny. Target captured if destiny > defense value.");
         addKeyword(Keyword.TRACTOR_BEAM);

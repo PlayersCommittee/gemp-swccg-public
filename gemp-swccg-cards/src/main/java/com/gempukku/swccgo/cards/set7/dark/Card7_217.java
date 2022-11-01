@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedToConcealedOnlyCondition;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +42,7 @@ import java.util.Map;
  */
 public class Card7_217 extends AbstractDevice {
     public Card7_217() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Homing Beacon", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Homing Beacon", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'You're sure the homing beacon is secure aboard their ship? I'm taking an awful risk, Vader. This had better work.'");
         setGameText("Deploy on opponent's starship (even if 'concealed') if your bounty hunter or Imperial leader is on table. Your starships may move for free (and may move as a 'react') to this location. During your move phase, may cancel Landing Claw on this starship.");
         addIcons(Icon.SPECIAL_EDITION);

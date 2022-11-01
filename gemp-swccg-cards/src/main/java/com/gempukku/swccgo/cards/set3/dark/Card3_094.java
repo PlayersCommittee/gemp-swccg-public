@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card3_094 extends AbstractDevice {
     public Card3_094() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Deflector Shield Generators");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Deflector Shield Generators", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U2);
         setLore("Located atop the superstructure of a Star Destroyer, the generator towers create an energy shield which repels solid objects and weapons fire.");
         setGameText("Use 3 Force to deploy on any Star Destroyer. Adds 2 to armor. If starship has immunity to attrition, also adds 2 to immunity.");
         addIcons(Icon.HOTH);

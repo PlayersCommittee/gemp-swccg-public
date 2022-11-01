@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card1_202 extends AbstractDevice {
     public Card1_202() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Droid Detector");
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Droid Detector", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("To keep out the mechanicals he so detested, Wuher installed an automatic droid detector at the entrance to the Mos Eisley Cantina.");
         setGameText("Deploy at any interior site. Cannot be moved. Droids may not deploy to same site. Following the turn this device is deployed, all droids present are lost at end of any turn.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);
