@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractStartingEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.ThreeTimesPerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card13_005 extends AbstractStartingEffect {
     public Card13_005() {
-        super(Side.LIGHT, 0, "An Unusual Amount Of Fear");
+        super(Side.LIGHT, 0, "An Unusual Amount Of Fear", ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("The peacekeepers of the galaxy are not to be taken lightly.");
         setGameText("Before any starting cards are revealed, deploy on table with up to 10 cards from outside your deck face-down under here. Cards under here do not count toward your deck limit. Three times per game, may play a Defensive Shield from here, as if from hand.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

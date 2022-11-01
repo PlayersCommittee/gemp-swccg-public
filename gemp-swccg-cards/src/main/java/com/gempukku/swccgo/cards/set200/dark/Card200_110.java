@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractStartingEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AfterPlayersTurnNumberCondition;
 import com.gempukku.swccgo.cards.effects.usage.FourTimesPerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card200_110 extends AbstractStartingEffect {
     public Card200_110() {
-        super(Side.DARK, 4, "Knowledge And Defense");
+        super(Side.DARK, 4, "Knowledge And Defense", ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("'A Jedi uses the Force for knowledge and defense, never for attack.'");
         setGameText("Deploy on table with any number of Defensive Shields from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Recoil In Fear until end of your first turn.");

@@ -13,16 +13,6 @@ public abstract class AbstractStartingEffect extends AbstractEffect {
      * @param side the side of the Force
      * @param destiny the destiny value
      * @param title the card title
-     */
-    protected AbstractStartingEffect(Side side, float destiny, String title) {
-        this(side, destiny, title, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a Starting Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param title the card title
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

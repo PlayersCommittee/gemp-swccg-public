@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractStartingEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AfterPlayersTurnNumberCondition;
 import com.gempukku.swccgo.cards.effects.usage.FourTimesPerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card601_039 extends AbstractStartingEffect {
     public Card601_039() {
-        super(Side.LIGHT, 4, Title.Anger_Fear_Aggression);
+        super(Side.LIGHT, 4, Title.Anger_Fear_Aggression, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'The dark side of the Force are they. Easily they flow, quick to join you in a fight.'");
         setGameText("Deploy on table with up to 15 cards from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Recoil In Fear until the end of your first turn.");

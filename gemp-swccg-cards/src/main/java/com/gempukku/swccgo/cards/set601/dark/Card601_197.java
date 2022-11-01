@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractStartingInterrupt;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import com.gempukku.swccgo.logic.timing.Action;
  */
 public class Card601_197 extends AbstractStartingInterrupt {
     public Card601_197() {
-        super(Side.DARK, 5, Title.Combat_Readiness, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Combat_Readiness, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Imperial troops prepared for quick deployment to seize valuable terrain.");
         setGameText("If your starting location was a system, [download] a related site (must be a battleground if the system is a non-battleground or Endor) with < 3 [Dark Side Force] icons and up to three Effects that are always immune to Alter. Place this Interrupt in Lost Pile.");

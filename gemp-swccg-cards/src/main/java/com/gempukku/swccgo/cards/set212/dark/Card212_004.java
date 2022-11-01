@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set212.dark;
 
 import com.gempukku.swccgo.cards.AbstractStartingInterrupt;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card212_004 extends AbstractStartingInterrupt {
     public Card212_004() {
-        super(Side.DARK, 3, Title.Slip_Sliding_Away, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Slip_Sliding_Away, Uniqueness.UNIQUE, ExpansionSet.SET_12, Rarity.V);
         setVirtualSuffix(true);
         setLore("Luke got the shaft.");
         setGameText("If you have deployed a site (except Imperial Square) with exactly two [Dark Side] (and no other locations), deploy a related (or mobile) battleground site and up to three Effects that deploy for free and are always immune to Alter. Place Interrupt in Lost Pile.");

@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractStartingInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,7 +27,7 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
  */
 public class Card216_039 extends AbstractStartingInterrupt {
     public Card216_039() {
-        super(Side.LIGHT, 5, "I Am Part Of The Living Force", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "I Am Part Of The Living Force", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("If your starting location had 'communing' in game text, deploy Communing and stack a Jedi with 'communing' in game text on it. Deploy up to three Effects that deploy on table and are always immune to Alter. Place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_16);

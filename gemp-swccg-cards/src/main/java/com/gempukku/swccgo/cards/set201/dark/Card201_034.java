@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set201.dark;
 
 import com.gempukku.swccgo.cards.AbstractStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import com.gempukku.swccgo.logic.timing.Action;
  */
 public class Card201_034 extends AbstractStartingInterrupt {
     public Card201_034() {
-        super(Side.DARK, 4, "According To My Design", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "According To My Design", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("'Your fleet is lost. And your friends on the Endor moon will not survive. There is no escape, my young apprentice.'");
         setGameText("Unless your starship site or Death Star on table, [download] Emperor to your site (even if converted) and up to three Effects that deploy for free, are [Immune to Alter], and have 'deploy on table' (or 'deploy on your side of table') in game text. Light Side goes first. Place this Interrupt in Lost Pile.");
         addIcons(Icon.VIRTUAL_SET_1);
