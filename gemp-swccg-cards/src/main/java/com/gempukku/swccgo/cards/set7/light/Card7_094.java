@@ -30,7 +30,7 @@ public class Card7_094 extends AbstractUsedInterrupt {
     public Card7_094() {
         super(Side.LIGHT, 4, "Local Defense", Uniqueness.UNIQUE);
         setLore("Even seasoned smugglers respect a well-planned, well-armed defense.");
-        setGameText("Take one cloud car or [Independent] starship into hand from Reserve Deck; reshuffle. OR If opponent just initiated a battle at a sector where none of your ability comes from Rebels or Rebel starships, add one battle destiny.");
+        setGameText("Take one cloud car or starship into hand from Reserve Deck; reshuffle. OR If opponent just initiated a battle at a sector where non of your ability comes from Rebels or Rebel starships, add one battle destiny.");
         addIcons(Icon.SPECIAL_EDITION);
     }
 

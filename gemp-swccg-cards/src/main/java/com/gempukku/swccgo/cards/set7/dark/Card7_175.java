@@ -70,7 +70,7 @@ public class Card7_175 extends AbstractImperial {
                             protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                                 action.addAnimationGroup(targetedCard);
                                 // Allow response(s)
-                                action.allowResponses("'choke' " + GameUtils.getCardLink(targetedCard),
+                                action.allowResponses(playerId + " targets to 'choke' " + GameUtils.getCardLink(targetedCard),
                                         new RespondableEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {

@@ -37,7 +37,7 @@ public class CancelGameTextUntilEndOfTurnEffect extends AbstractSuccessfulEffect
 
         // Check if card's game text may not be canceled
         if (modifiersQuerying.isProhibitedFromHavingGameTextCanceled(gameState, _targetCard)) {
-            gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is not allowed to be canceled");
+            gameState.sendMessage(GameUtils.getCardLink(_targetCard) + "'s game text is not allowed to being canceled");
             return;
         }
 

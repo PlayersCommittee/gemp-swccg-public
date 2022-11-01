@@ -93,12 +93,7 @@ public class Card208_017 extends AbstractEpicEventDeployable {
                             if (totalDestiny > 5) {
                                 gameState.sendMessage("Result: Succeeded");
                                 action.appendEffect(
-                                        new LoseForceAndStackFaceDownEffect(action, opponent, 1, system, true) {
-                                            @Override
-                                            public boolean isShownIfLostFromHand() {
-                                                return true;
-                                            }
-                                        });
+                                        new LoseForceAndStackFaceDownEffect(action, opponent, 1, system, true));
                             }
                             else {
                                 gameState.sendMessage("Result: Failed");

@@ -10,13 +10,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.MayNotUseAbilityTowardDrawingBattleDestinyUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.ModifyForfeitEffect;
 import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PermanentPilotsMayNotApplyAbilityForBattleDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
@@ -75,10 +73,6 @@ public class Card210_038 extends AbstractCombatVehicle {
                     new ModifyForfeitEffect(action, cardHit, -2));
             action.appendEffect(
                     new MayNotUseAbilityTowardDrawingBattleDestinyUntilEndOfTurnEffect(action, cardHit));
-            if (Filters.or(Filters.starship, Filters.vehicle).accepts(game, cardHit)) {
-                action.appendEffect(
-                        new AddUntilEndOfTurnModifierEffect(action, new PermanentPilotsMayNotApplyAbilityForBattleDestinyModifier(self, cardHit), null));
-            }
             return Collections.singletonList(action);
         }
         return null;
