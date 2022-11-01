@@ -1429,7 +1429,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier) {
+    public boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardToDeploy, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier) {
         return false;
     }
 

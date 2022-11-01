@@ -360,7 +360,7 @@ public interface Modifier {
      */
     boolean isDeployFreeToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target);
 
-    boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier);
+    boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardToDeploy, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier);
 
     /**
      * Determines if the affected cards is prohibited from existing at (deploying or moving to) the specified targeted.

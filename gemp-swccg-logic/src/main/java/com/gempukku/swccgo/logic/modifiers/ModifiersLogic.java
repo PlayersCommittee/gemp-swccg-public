@@ -9903,7 +9903,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     @Override
     public boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, PhysicalCard cardToDeploy, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier) {
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNE_TO_DEPLOY_COST_MODIFIERS_TO_TARGET, cardToDeploy)) {
-            if (modifier.isImmuneToDeployCostToTargetModifierFromCard(gameState, this, deployToTarget, sourceOfModifier)) {
+            if (modifier.isImmuneToDeployCostToTargetModifierFromCard(gameState, this, cardToDeploy, deployToTarget, sourceOfModifier)) {
                 return true;
             }
         }

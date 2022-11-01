@@ -111,7 +111,7 @@ public class Card208_025_BACK extends AbstractObjective {
 
                                                         @Override
                                                         protected void no() {
-                                                            gameState.sendMessage(playerId + " chooses to not stack a card from hand on " + GameUtils.getCardLink(iFeelTheConflict));
+                                                            gameState.sendMessage(opponent + " chooses to not stack a card from hand on " + GameUtils.getCardLink(iFeelTheConflict));
                                                         }
                                                     }
                                             )

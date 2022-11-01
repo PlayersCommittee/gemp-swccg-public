@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 public class ImmuneToDeployCostModifiersToLocationModifier extends AbstractModifier {
     private Filter _immuneToFilters;
     private Filter _targetFilters;
+    private boolean _allowModifierFromSelf;
 
     /**
      * Creates a modifier that causes affected cards accepted by the affectFilter to be immune to deploy cost modifiers from cards
@@ -24,7 +25,19 @@ public class ImmuneToDeployCostModifiersToLocationModifier extends AbstractModif
      * @param locationFilters the location filter
      */
     public ImmuneToDeployCostModifiersToLocationModifier(PhysicalCard source, Filterable affectFilter, Filterable immuneToFilter, Filterable locationFilters) {
-        this(source, affectFilter, null, immuneToFilter, locationFilters);
+        this(source, affectFilter, immuneToFilter, locationFilters, false);
+    }
+
+    /**
+     * Creates a modifier that causes affected cards accepted by the affectFilter to be immune to deploy cost modifiers from cards
+     * accepted by immuneToFilter when deploying to locations accepted by locationFilter.
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards affected by this modifier
+     * @param immuneToFilter the filter for cards that affected cards are immune to their deploy cost modifiers
+     * @param locationFilters the location filter
+     */
+    public ImmuneToDeployCostModifiersToLocationModifier(PhysicalCard source, Filterable affectFilter, Filterable immuneToFilter, Filterable locationFilters, boolean allowModifierFromSelf) {
+        this(source, affectFilter, null, immuneToFilter, locationFilters, allowModifierFromSelf);
     }
 
     /**
@@ -37,9 +50,23 @@ public class ImmuneToDeployCostModifiersToLocationModifier extends AbstractModif
      * @param locationFilters the location filter
      */
     public ImmuneToDeployCostModifiersToLocationModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable immuneToFilter, Filterable locationFilters) {
+        this(source, affectFilter, condition, immuneToFilter, locationFilters, false);
+    }
+
+    /**
+     * Creates a modifier that causes affected cards accepted by the affectFilter to be immune to deploy cost modifiers from cards
+     * accepted by immuneToFilter when deploying to locations accepted by locationFilter.
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards affected by this modifier
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param immuneToFilter the filter for cards that affected cards are immune to their deploy cost modifiers
+     * @param locationFilters the location filter
+     */
+    public ImmuneToDeployCostModifiersToLocationModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable immuneToFilter, Filterable locationFilters, boolean allowModifierFromSelf) {
         super(source, null, Filters.and(Filters.not(Filters.in_play), affectFilter), condition, ModifierType.IMMUNE_TO_DEPLOY_COST_MODIFIERS_TO_TARGET, true);
         _immuneToFilters = Filters.and(immuneToFilter);
         _targetFilters = Filters.locationAndCardsAtLocation(Filters.and(locationFilters));
+        _allowModifierFromSelf = allowModifierFromSelf;
     }
 
     @Override
@@ -48,7 +75,9 @@ public class ImmuneToDeployCostModifiersToLocationModifier extends AbstractModif
     }
 
     @Override
-    public boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier) {
+    public boolean isImmuneToDeployCostToTargetModifierFromCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardToDeploy, PhysicalCard deployToTarget, PhysicalCard sourceOfModifier) {
+        if (_allowModifierFromSelf && Filters.samePermanentCardId(sourceOfModifier).accepts(gameState, modifiersQuerying, cardToDeploy))
+            return false;
         return Filters.and(_immuneToFilters).accepts(gameState, modifiersQuerying, sourceOfModifier) && Filters.and(_targetFilters).accepts(gameState, modifiersQuerying, deployToTarget);
     }
 }
