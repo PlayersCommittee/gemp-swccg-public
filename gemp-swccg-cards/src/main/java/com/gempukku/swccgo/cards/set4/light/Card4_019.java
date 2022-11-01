@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card4_019 extends AbstractImmediateEffect {
     public Card4_019() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "At Peace", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "At Peace", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("To recover from the strenuous Jedi training routine and revitalize the mind and body, an apprentice must rest to be calm and at peace.");
         setGameText("Deploy on an apprentice at the beginning of your turn. Apprentice 'rests' (may not attempt Jedi Tests) until end of your next turn; then relocate Immediate Effect to Jedi Test. When attempting this test, that apprentice adds 3 to training destiny. (Immune to Control.)");
         addIcons(Icon.DAGOBAH);

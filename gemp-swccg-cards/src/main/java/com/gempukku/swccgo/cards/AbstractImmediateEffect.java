@@ -20,29 +20,6 @@ public abstract class AbstractImmediateEffect extends AbstractEffect {
      * @param destiny the destiny value
      * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
      * @param title the card title
-     */
-    protected AbstractImmediateEffect(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title) {
-        this(side, destiny, playCardZoneOption, title, null);
-    }
-
-    /**
-     * Creates a blueprint for an Immediate Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractImmediateEffect(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title, Uniqueness uniqueness) {
-        this(side, destiny, playCardZoneOption, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for an Immediate Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
      * @param rarity the rarity

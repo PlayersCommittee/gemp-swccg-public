@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card12_038 extends AbstractImmediateEffect {
     public Card12_038() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "A Vergence In The Force", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "A Vergence In The Force", Uniqueness.RESTRICTED_3, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'A vergence, you say?'");
         setGameText("If you just lost more than 2 Force to a Force drain, deploy on opponent's location. You lose no more than 1 Force from Force drains here. At any time, you may place Immediate Effect in Used Pile to draw two cards from top of Reserve Deck.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

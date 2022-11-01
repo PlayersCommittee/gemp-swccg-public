@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ClearTargetedCardsEffect;
 import com.gempukku.swccgo.cards.effects.SetTargetedCardEffect;
 import com.gempukku.swccgo.cards.effects.StackCardFromVoidEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card2_033 extends AbstractImmediateEffect {
     public Card2_033() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Grappling Hook");
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Grappling Hook", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Stormtrooper utility belts contain basic tools such as a grappling hook to grab onto protrusions. The hook can also be used to ensnare escaping targets.");
         setGameText("If opponent just played an Interrupt, use 1 Force to deploy on table and stack that Interrupt here. All Interrupts of that title are unique (•). (Immune to Control.)");
         addIcons(Icon.A_NEW_HOPE, Icon.GRABBER);

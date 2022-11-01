@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card11_019 extends AbstractImmediateEffect {
     public Card11_019() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Cant_Believe_Hes_Gone, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Cant_Believe_Hes_Gone, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Even though Luke felt the pain of losing his mentor, Obi-Wan continued to give him strength and guidance through the Force.");
         setGameText("If Obi-Wan was just placed out of play, use 1 Force to deploy Immediate Effect on table. If a battle was just initiated at a site, may use 1 Force to increase your total power by 5. (Immune to Control.)");
         addIcons(Icon.TATOOINE);

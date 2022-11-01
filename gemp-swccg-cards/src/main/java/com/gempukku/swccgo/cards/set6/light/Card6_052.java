@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +44,7 @@ import java.util.List;
  */
 public class Card6_052 extends AbstractImmediateEffect {
     public Card6_052() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.A_Gift, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.A_Gift, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("'As a token of my good will, I present to you a gift: these two droids. Both are hardworking and will serve you well.'");
         setGameText("If you just moved a droid to Audience Chamber, deploy on the droid. Droid is an Undercover spy. Wherever opponent has an alien, opponent's battle destiny draws are -2 and Force drains are -1. Immediate Effect canceled if droid leaves Tatooine. (Immune to Control.)");
         addIcons(Icon.JABBAS_PALACE);

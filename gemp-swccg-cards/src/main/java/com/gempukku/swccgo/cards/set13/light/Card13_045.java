@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +42,7 @@ import java.util.List;
  */
 public class Card13_045 extends AbstractImmediateEffect {
     public Card13_045() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Weapon Of A Fallen Mentor", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Weapon Of A Fallen Mentor", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Darth Maul's complacency in what seemed like imminent victory over the Padawan was his downfall. That, and the lightsaber of Obi-Wan's fallen teacher.");
         setGameText("If your non-[Permanent Weapon] lightsaber was just lost (or stolen) from a site, deploy on your character of ability > 4 at same site. Relocate that lightsaber to this character, who may use that lightsaber, and it may not be stolen. (Immune to Control.)");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

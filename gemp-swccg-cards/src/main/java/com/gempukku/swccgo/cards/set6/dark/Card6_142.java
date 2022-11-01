@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -19,14 +22,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Coruscant
+ * Set: Jabba's Palace
  * Type: Effect
  * Subtype: Immediate
  * Title: Cane Adiss
  */
 public class Card6_142 extends AbstractImmediateEffect {
     public Card6_142() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Cane Adiss");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Cane Adiss", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Adventurous pilot. Boasts to Jabba that he has traveled to every uncharted planet in the galaxy. Has been hired by the Empire to keep an eye out for Rebel activity.");
         setGameText("If opponent just initiated a Force drain at a non-shielded planet location, deploy on that location. Your characters, vehicles and starships may deploy here regardless of presence and location deployment restrictions. (Immune to Control.)");
         addIcons(Icon.JABBAS_PALACE);

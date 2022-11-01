@@ -7,7 +7,14 @@ import com.gempukku.swccgo.cards.effects.SetTargetedCardEffect;
 import com.gempukku.swccgo.cards.effects.StackCardFromVoidEffect;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card2_128 extends AbstractImmediateEffect {
     public Card2_128() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "There'll Be Hell To Pay", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "There'll Be Hell To Pay", Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Luke's dream of joining the Academy often distracted him from his chores, sometimes resulting in his having to pay the price for his impatience.");
         setGameText("Use 3 Force to deploy on table and stack one just-played interrupt here. To play any new Interrupt of the same name, player must first stack it here and use +1 Force for each Interrupt in stack, even if Interrupt is normally free. (Immune to Control.)");
         addIcons(Icon.A_NEW_HOPE, Icon.GRABBER);

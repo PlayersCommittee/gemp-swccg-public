@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card3_102 extends AbstractImmediateEffect {
     public Card3_102() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Frozen Dinner");
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Frozen Dinner", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("Freeze dried and ready to serve, a tasty, wholesome Rebel makes a nutritious meal for the whole wampa clan. They're Gr-r-reat!");
         setGameText("Deploy on opponent's character alone at Wampa Cave. Character is power = 0 and may not move. May be canceled if opponent has a lightsaber or total ability > 4 present. If character eaten by a creature, cumulatively adds 2 to ferocity.");
         addIcons(Icon.HOTH);

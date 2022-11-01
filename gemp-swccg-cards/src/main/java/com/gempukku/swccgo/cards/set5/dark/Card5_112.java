@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card5_112 extends AbstractImmediateEffect {
     public Card5_112() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.All_Too_Easy, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.All_Too_Easy, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'Perhaps you are not as strong as the Emperor thought.'");
         setGameText("If an opponent's character at the Carbonite Chamber was just 'hit' by a lightsaber, deploy on that character. Character is instead immediately captured and 'frozen.' If captive released, lose Immediate Effect. (Immune to Control.)");
         addIcons(Icon.CLOUD_CITY);

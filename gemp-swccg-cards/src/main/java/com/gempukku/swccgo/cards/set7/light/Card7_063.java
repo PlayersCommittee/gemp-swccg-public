@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +41,7 @@ import java.util.List;
  */
 public class Card7_063 extends AbstractImmediateEffect {
     public Card7_063() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Heroic_Sacrifice);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Heroic_Sacrifice, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("The Alliance lost many fine soldiers at conflicts such as the Battle of Hoth. The Rebel High Command is aware of the cost of freedom from Imperial tyranny.");
         setGameText("If you just forfeited a Rebel of ability > 2 from a battle at a battleground, deploy on that location; place that Rebel out of play and retrieve 2 Force for each Heroic Sacrifice on table. Immediate Effect canceled if opponent controls this location. (Immune to Control.)");
         addIcons(Icon.SPECIAL_EDITION);

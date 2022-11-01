@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card9_044 extends AbstractImmediateEffect {
     public Card9_044() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Time For Our Attack Has Come", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Time For Our Attack Has Come", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("'With the Imperial Fleet spread throughout the galaxy in a vain effort to engage us, it is relatively unprotected.'");
         setGameText("If you just initiated a second battle this turn, deploy on table. When you lose a battle, you may place Immediate Effect in Used Pile to cancel all battle damage against you, unless Draw Their Fire on table. (Immune to Control.)");
         addIcons(Icon.DEATH_STAR_II);

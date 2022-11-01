@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card7_065 extends AbstractImmediateEffect {
     public Card7_065() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Imperial_Atrocity);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Imperial_Atrocity, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("The Empire's ruthless tactics at times unintentionally create support for the cause of the Rebel Alliance.");
         setGameText("If you occupy at least two battlegrounds and just lost more than 2 Force to a Force drain at a location, deploy on that location (limit one per Force drain). Opponent loses 2 Force for each Imperial Atrocity on table.");
         addIcons(Icon.SPECIAL_EDITION);

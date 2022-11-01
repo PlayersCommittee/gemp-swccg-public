@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card3_098 extends AbstractImmediateEffect {
     public Card3_098() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Breached_Defenses, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Breached_Defenses, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("'Imperial troops have entered the base! Imperial troops have entered-'");
         setGameText("If an Imperial just moved to an Echo site, deploy on your side of table. While you have presence at an Echo site, your total power is +1 in battles at Hoth sites.");
         addIcons(Icon.HOTH);

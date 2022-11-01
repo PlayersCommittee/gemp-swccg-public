@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ClearTargetedCardsEffect;
 import com.gempukku.swccgo.cards.effects.SetTargetedCardEffect;
 import com.gempukku.swccgo.cards.effects.StackCardFromVoidEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -13,7 +20,8 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card210_016 extends AbstractImmediateEffect {
     public Card210_016() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "It's True, All Of It", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "It's True, All Of It", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("The heroes of the Rebellion know that where there is life, there is hope.");
         setGameText("If opponent just played an Interrupt, use 2 Force to deploy on table and stack that card here. If opponent just drew destiny (or played an Interrupt) with the same card title as card here, they lose 1 Force. Immune to Control.");
         addIcons(Icon.GRABBER, Icon.EPISODE_VII, Icon.VIRTUAL_SET_10);

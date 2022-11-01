@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card13_083 extends AbstractImmediateEffect {
     public Card13_083() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Qui-Gon's End", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Qui-Gon's End", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("While Qui-Gon spent years maintaining peace, Maul was sharpening his combat skills. Those years of training came to fruition in one fateful moment.");
         setGameText("Deploy on a site where Maul just defeated Qui-Gon in lightsaber combat. Place Qui-Gon out of play. While Obi-Wan at this site, his lightsaber combat total is +2 and opponent loses 1 Force at the end of each of your turns. (Immune to Control.)");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

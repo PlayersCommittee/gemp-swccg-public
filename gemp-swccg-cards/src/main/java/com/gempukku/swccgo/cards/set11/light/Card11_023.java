@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelDuelEffect;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +43,7 @@ import java.util.List;
  */
 public class Card11_023 extends AbstractImmediateEffect {
     public Card11_023() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "What Was It?", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "What Was It?", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("When Qui-Gon got away, Maul knew it would only be a matter of time until the two of them would meet again.");
         setGameText("If opponent just initiated a duel against one of your non-captive Jedi, deploy on that Jedi. Cancel the duel and relocate this Jedi to an adjacent site. Your duel destiny draws are each +1. (Immune to Control.)");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

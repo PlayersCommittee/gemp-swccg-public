@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card7_230 extends AbstractImmediateEffect {
     public Card7_230() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, Title.Imperial_Propaganda);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, Title.Imperial_Propaganda, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Imperial data transmissions depict Rebel incursions as terrorist acts. The Alliance is portrayed as a danger to civilians of the Empire.");
         setGameText("If you occupy at least two battlegrounds and just lost more than 2 Force to a Force drain at a location, deploy on that location (limit one per Force drain). Opponent loses 2 Force for each Imperial Propaganda on table.");
         addIcons(Icon.SPECIAL_EDITION);

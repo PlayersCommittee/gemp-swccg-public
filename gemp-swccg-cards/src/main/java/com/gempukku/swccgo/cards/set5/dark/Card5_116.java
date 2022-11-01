@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetTargetedCardEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +41,7 @@ import java.util.List;
  */
 public class Card5_116 extends AbstractImmediateEffect {
     public Card5_116() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, Title.Despair, Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, Title.Despair, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("The carbonite froze more than just Han's body.");
         setGameText("If a Rebel was just captured or 'frozen,' deploy on another Rebel. That Rebel may not apply ability toward drawing battle destiny (if Leia, she is also excluded from being the 'highest ability character'). If captive released, lose Immediate Effect.");
         addIcons(Icon.CLOUD_CITY);

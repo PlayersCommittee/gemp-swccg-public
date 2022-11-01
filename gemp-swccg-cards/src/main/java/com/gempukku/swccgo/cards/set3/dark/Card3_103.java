@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetTargetedCardEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card3_103 extends AbstractImmediateEffect {
     public Card3_103() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "High Anxiety", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "High Anxiety", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("When a Rebel is missing, ranking members of the Alliance express a professional yet dispassionate concern. Some are not so dispassionate.");
         setGameText("If an opponent's character with ability > 2 has just become missing, deploy on a Rebel with ability > 2 on same planet. Rebel may not participate in battle. Immediate Effect canceled if missing character is found or lost.");
         addIcons(Icon.HOTH);

@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.cards.effects.RelocateFromLostInSpaceOrWeatherVaneToStarshipOrVehicle;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -47,7 +50,7 @@ import java.util.List;
  */
 public class Card4_127 extends AbstractImmediateEffect {
     public Card4_127() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Lost In Space");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Lost In Space", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Congratulations on purchasing the TIE/ln starfighter by Sienar. Equipped with a jettison device and distress beacon, it should provide you with years of worry-free subjugation.");
         setGameText("If a pilot was just lost from a system or sector, deploy on that location and stack pilot here. Pilot may be rescued or captured by any capital starship present here during any move phase, and may be targeted by weapons (except during battle) as if present (treat as a starfighter with defense value = 0). Lost if no pilot here.");
         addIcons(Icon.DAGOBAH);

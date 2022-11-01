@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card13_067 extends AbstractImmediateEffect {
     public Card13_067() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Energy Walls", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Energy Walls", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Divide and conquer can be a powerful warfare tactic.");
         setGameText("During your control phase, deploy on Theed Palace Generator Core. No more than one character may deploy to here each turn, and characters may not move to or from here. Immediate Effect lost at end of opponent's turn.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

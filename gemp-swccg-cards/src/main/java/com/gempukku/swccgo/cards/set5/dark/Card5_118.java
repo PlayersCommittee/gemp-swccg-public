@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameLocationAsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card5_118 extends AbstractImmediateEffect {
     public Card5_118() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, Title.I_Am_Your_Father, Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, Title.I_Am_Your_Father, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'Search your feelings, you know it to be true.'");
         setGameText("If Vader just won a battle or duel against a Luke of ability < 6, deploy on Luke. During each of your move phases, opponent loses 2 Force. Also, when at same location as Vader, Luke is power and forfeit = 0 and does not add power to any starships he pilots.");
         addIcons(Icon.CLOUD_CITY);

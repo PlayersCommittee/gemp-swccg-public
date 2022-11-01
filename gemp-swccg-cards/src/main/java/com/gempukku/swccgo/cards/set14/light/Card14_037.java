@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card14_037 extends AbstractImmediateEffect {
     public Card14_037() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "They Win This Round", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "They Win This Round", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("The Queen realized that you must give up one battle in order to have an advantage in the next.");
         setGameText("If opponent just Force drained you at a location, deploy on that location. Opponent's Force drains here are +1. Your battle destiny draws here are +1 If you control this location, may place Immediate Effect in Used Pile to retrieve 4 Force. (Immune to Control.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

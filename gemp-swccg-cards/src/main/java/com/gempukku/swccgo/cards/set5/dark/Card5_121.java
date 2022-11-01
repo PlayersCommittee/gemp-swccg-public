@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card5_121 extends AbstractImmediateEffect {
     public Card5_121() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Mostly_Armless, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Mostly_Armless, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("One lesson learned in Jedi training is that when you have been injured, don't panic.");
         setGameText("If your character with a lightsaber just won a battle, deploy on an opponent's character present. Character is Disarmed (power -1 and may no longer carry weapons). Opponent loses 1 Force at the end of each opponent's turns. (Immune to Control.)");
         addIcons(Icon.CLOUD_CITY);

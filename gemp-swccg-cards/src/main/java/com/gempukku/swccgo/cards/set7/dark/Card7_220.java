@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +39,7 @@ import java.util.List;
  */
 public class Card7_220 extends AbstractImmediateEffect {
     public Card7_220() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Alert My Star Destroyer!");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Alert My Star Destroyer!", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("For important Imperial dignitaries, an individual Star Destroyer is placed at their disposal.");
         setGameText("If your admiral, moff or Dark Jedi just shuttled aboard your Star Destroyer, deploy on that character. Star Destroyer is immune to attrition and Flagship deploys free on that starship. Immediate Effect lost if character not aboard that starship.");
         addIcons(Icon.SPECIAL_EDITION);

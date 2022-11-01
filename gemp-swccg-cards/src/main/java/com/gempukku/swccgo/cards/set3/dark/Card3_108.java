@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card3_108 extends AbstractImmediateEffect {
     public Card3_108() {
-        super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Mournful_Roar, Uniqueness.UNIQUE);
+        super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Mournful_Roar, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("With the thought of losing Han, Chewbacca let out an anguished, sorrowful, lamenting, mournful, angst-ridden, tormented, agonizing roar.");
         setGameText("Deploy on Chewie if Han was just lost or just became missing. Opponent cannot play Let The Wookiee Win or Wookiee Roar. Opponent must also lose 1 Force at end of every player's turn. If Han on table, Effect canceled.");
         addIcons(Icon.HOTH);
