@@ -4,14 +4,26 @@ import com.gempukku.swccgo.cards.AbstractAlienImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +38,7 @@ import java.util.List;
  */
 public class Card110_010 extends AbstractAlienImperial {
     public Card110_010() {
-        super(Side.DARK, 1, 5, 4, 5, 7, "Mara Jade, The Emperor's Hand", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 4, 5, 7, "Mara Jade, The Emperor's Hand", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("Spy. Ordered to kill Luke Skywalker. Assumed the identity of a dancer named 'Arica' in order to sneak into Jabba's Palace.");
         setGameText("Adds 2 to power of anything she pilots. Power +2 if Emperor on table. May be targeted by Vader's Obsession and Epic Duel instead of Vader. Once per game, may deploy a weapon on her from Reserve Deck; reshuffle. Immune to attrition < 4.");
         addPersona(Persona.MARA_JADE);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlienImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +23,11 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHaveGameTextCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -35,7 +46,7 @@ import java.util.List;
  */
 public class Card211_001 extends AbstractAlienImperial {
     public Card211_001() {
-        super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 6, "Mitth'raw'nuruodo", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Thrawn. Chiss commander. Leader.");
         setGameText("[Pilot] 3. Once per turn, may target a related location; opponent loses 1 Force the next time they move to that location this turn. May lose 1 Force to cancel a just-drawn weapon destiny targeting a starship he is piloting. Thrawn’s game text may not be canceled.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_11);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlienImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card217_013 extends AbstractAlienImperial {
     public Card217_013() {
-        super(Side.DARK, 1, 2, 3, 3, 3, "Lando Calrissian, Vader's Broker", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 2, 3, 3, 3, "Lando Calrissian, Vader's Broker", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Scoundrel and gambler. Petty administrator of a small Tibanna gas mining operation. Easily coerced. Has problems of his own. Had dealings with the Tonnika sisters - twice.");
         setGameText("Once during opponent's turn, if with an Imperial on Cloud City, may activate 1 Force. Once during your turn, if with an alien on Cloud City, may draw top card of Reserve Deck. Once per game, may place a non-[Immune to Alter] Effect in owner's Used Pile.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.CLOUD_CITY, Icon.VIRTUAL_SET_17);
