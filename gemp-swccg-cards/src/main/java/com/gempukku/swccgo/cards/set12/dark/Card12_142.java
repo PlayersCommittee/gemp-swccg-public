@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card12_142 extends AbstractPoliticalEffect {
     public Card12_142() {
-        super(Side.DARK, 3, Title.This_Is_Outrageous, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.This_Is_Outrageous, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'I recommend a commission be sent to Naboo to ascertain the truth!'");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to cancel an opponent's Force drain. If a trade agenda here, once during your turn, you may place a card from hand in Lost Pile, shuffle that pile, and take top card into hand.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

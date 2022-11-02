@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card204_016 extends AbstractPoliticalEffect {
     public Card204_016() {
-        super(Side.LIGHT, 3, "You Assume Too Much", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "You Assume Too Much", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("'This is your arena. I feel I must return to mine.'");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to draw two cards from top of Reserve Deck. If an order or rebellion agenda here, once during your draw phase may place all cards on your Political Effects in Used Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.VIRTUAL_SET_4);

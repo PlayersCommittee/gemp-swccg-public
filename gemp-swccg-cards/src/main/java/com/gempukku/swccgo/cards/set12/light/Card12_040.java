@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtAndReorderTopCardsOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card12_040 extends AbstractPoliticalEffect {
     public Card12_040() {
-        super(Side.LIGHT, 3, "Ascertaining The Truth", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Ascertaining The Truth", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'We must move quickly to stop the Trade Federation.'");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to subtract 3 from any battle destiny just drawn. If an order agenda here, during your move phase you may peek at top 2 cards of any Reserve Deck; replace in any order.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

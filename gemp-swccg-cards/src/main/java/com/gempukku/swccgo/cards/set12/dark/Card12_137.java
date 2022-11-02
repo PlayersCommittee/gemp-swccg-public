@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ClearForRemainderOfGameDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -18,7 +20,11 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.LoseDestinyCardEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.SubstituteDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackCardFromHandEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
@@ -37,7 +43,7 @@ import java.util.List;
  */
 public class Card12_137 extends AbstractPoliticalEffect {
     public Card12_137() {
-        super(Side.DARK, 3, "Motion Supported", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Motion Supported", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'The delegates from Malastare concur the with delegates from the Trade Federation. A commission must be appointed!'");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to add 2 to your next Force drain at a battleground this turn. If a wealth agenda here, once per turn, you may lose your just drawn battle destiny to substitute it with a card from hand.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

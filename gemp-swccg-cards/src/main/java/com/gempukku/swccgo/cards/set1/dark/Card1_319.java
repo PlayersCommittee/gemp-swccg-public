@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAutomatedWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card1_319 extends AbstractAutomatedWeapon {
     public Card1_319() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Laser Projector");
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Laser Projector", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Laser system activated by distress signal from guards. Used at security checkpoints and detention block control rooms. Targeting guided by centralized droid controller.");
         setGameText("Use 2 Force to deploy on an interior site. May target a seeker (use defense value = 1), character or creature for free. Draw destiny. Target hit if destiny -1 > defense value. Laser Projector may be targeted by any weapon (use defense value = 1).");
     }

@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card12_138 extends AbstractPoliticalEffect {
     public Card12_138() {
-        super(Side.DARK, 3, "Our Blockade Is Perfectly Legal", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Our Blockade Is Perfectly Legal", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Until it could be proven otherwise, the Trade Federation maintained that they were pursuing a legal means of protesting the taxation of outlying trade routes.");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to add 3 to any battle destiny just drawn. If a blockade agenda here, during your turn you may cancel a 'react' or an attempt by opponent to move away from a battle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

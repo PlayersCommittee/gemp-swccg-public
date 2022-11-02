@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card12_045 extends AbstractPoliticalEffect {
     public Card12_045() {
-        super(Side.LIGHT, 3, Title.Plea_To_The_Court, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Plea_To_The_Court, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Amidala did not hold much hope in the options she had. Regardless of how limited the choices, she had to choose one path to try and avert disaster befalling Naboo.");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to cancel an opponent's Force drain. If a justice agenda here, during a battle where opponent has a weapon and you do not, may cancel a just drawn weapon destiny to cause a re-draw.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

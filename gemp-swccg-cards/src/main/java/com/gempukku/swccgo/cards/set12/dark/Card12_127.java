@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card12_127 extends AbstractPoliticalEffect {
     public Card12_127() {
-        super(Side.DARK, 3, "Accepting Trade Federation Control", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Accepting Trade Federation Control", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Palpatine suggested to the Queen that she acquiesce to the Trade Federation, just for the time being.");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to subtract 3 from any battle destiny just drawn. If a taxation agenda here, during your draw phase, you may activate 1 Force; opponent must use 1 Force (if possible).");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

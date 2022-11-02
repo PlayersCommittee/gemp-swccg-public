@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractAutomatedWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +44,7 @@ import java.util.List;
  */
 public class Card8_090 extends AbstractAutomatedWeapon {
     public Card8_090() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Explosive_Charge);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Explosive_Charge, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.U);
         setLore("Standard explosive charge carried by Rebel commandos. When used in multiple, these charges have the explosive capacity to level a heavily armored structure.");
         setGameText("Deploy on an interior planet site you occupy. Immune to Overload. Place in Used Pile if opponent controls this site. If you just lost a battle opponent initiated here, may draw destiny. All cards (except Effects) here are lost if destiny > 4 (otherwise, Charge lost).");
         addIcons(Icon.ENDOR);

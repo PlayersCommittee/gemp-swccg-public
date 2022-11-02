@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -13,7 +15,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ChooseEffectEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackCardFromHandEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card12_048 extends AbstractPoliticalEffect {
     public Card12_048() {
-        super(Side.LIGHT, 3, "The Gravest Of Circumstances", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "The Gravest Of Circumstances", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'The Naboo system has been invaded by the droid armies of the Trade Federation.'");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to add 3 to a battle destiny just drawn. If a taxation agenda here, during your turn may place any one card from hand on Used Pile; opponent must use 1 Force or lose 1 Force.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

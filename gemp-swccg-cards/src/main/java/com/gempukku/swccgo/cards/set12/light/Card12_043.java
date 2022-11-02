@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractPoliticalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ClearForRemainderOfGameDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card12_043 extends AbstractPoliticalEffect {
     public Card12_043() {
-        super(Side.LIGHT, 3, "I Will Not Defer", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "I Will Not Defer", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("'I've come before you to resolve this attack on our sovereignty now.'");
         setGameText("Deploy on table. If no senator here, you may place a senator here from hand to add 2 to your next Force drain at a battleground this turn. If a peace agenda here, once per turn you may activate up to 2 Force when opponent initiates battle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
