@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractCreatureVehicle;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card7_155 extends AbstractCreatureVehicle {
     public Card7_155() {
-        super(Side.LIGHT, 5, 2, 3, 3, null, 2, 3, "Ronto");
+        super(Side.LIGHT, 5, 2, 3, 3, null, 2, 3, "Ronto", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Creatures used as beasts of burden by Jawas. Tremendous strength makes them excellent pack animals. Very skittish around repulsorlift vehicles.");
         setGameText("May add 2 'riders' (passengers). Ability = 1/4. When 'ridden' by a Jawa, moves for free and draws one battle destiny if not able to otherwise.");
         addIcons(Icon.SPECIAL_EDITION);

@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreatureVehicle;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card7_317 extends AbstractCreatureVehicle {
     public Card7_317() {
-        super(Side.DARK, 3, 1, 2, null, 2, 1, 4, "URoRRuR'R'R's Bantha", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 2, null, 2, 1, 4, "URoRRuR'R'R's Bantha", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Raised by RR'uruurr for personal use by URoRRuR'R'R. Alpha male of his bantha herd. Has trampled many Jawas. Nicknamed 'Rrr'ur'R.");
         setGameText("May add 2 'riders' (passengers). Ability = 1/2. Adds 1 to power of each of your Tusken Raiders and other banthas present. When ridden by URoRRuR'R'R, adds one battle destiny.");
         addIcons(Icon.SPECIAL_EDITION);

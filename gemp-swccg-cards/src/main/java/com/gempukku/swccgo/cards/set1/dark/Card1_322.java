@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAutomatedWeapon;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_322 extends AbstractAutomatedWeapon {
     public Card1_322() {
-        super(Side.DARK, 2, PlayCardZoneOption.OPPONENTS_SIDE_OF_LOCATION, "Timer Mine");
+        super(Side.DARK, 2, PlayCardZoneOption.OPPONENTS_SIDE_OF_LOCATION, "Timer Mine", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("A timer-activated explosive device designed to be placed by a mining droid. Originally used in ore and spice mines for demolition. Altered for military use.");
         setGameText("Deploy on opponent's side at same site as one of your mining droids. 'Explodes' at beginning of your next turn. Draw destiny. That number of opponent's characters there are immediately lost (owner's choice). Timer Mine is also lost.");
         addKeywords(Keyword.MINE);

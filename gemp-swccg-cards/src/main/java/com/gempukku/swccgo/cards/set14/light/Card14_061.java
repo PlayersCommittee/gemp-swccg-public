@@ -3,13 +3,20 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractCreatureVehicle;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextAbilityModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MovesForFreeModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card14_061 extends AbstractCreatureVehicle {
     public Card14_061() {
-        super(Side.LIGHT, 4, 1, 1, null, 2, 4, 3, "Kaadu");
+        super(Side.LIGHT, 4, 1, 1, null, 2, 4, 3, "Kaadu", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Used by many Gungan warriors due to their fearless nature. Kaadu lay large numbers of eggs to compensate for those eaten by predators.");
         setGameText("May add 1 'rider' (passenger). Ability = 1/2. Moves for free. While 'ridden' by a Gungan, may move as a 'react.' While at a swamp, adds 1 to your Force drains there.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
