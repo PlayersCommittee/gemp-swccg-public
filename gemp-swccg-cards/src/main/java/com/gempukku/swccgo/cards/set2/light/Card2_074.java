@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractSquadron;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class Card2_074 extends AbstractSquadron {
     public Card2_074() {
-        super(Side.LIGHT, 3, null, 6, null, 3, 4, 6, "Y-wing Assault Squadron");
+        super(Side.LIGHT, 3, null, 6, null, 3, 4, 6, "Y-wing Assault Squadron", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("The Rebel Alliance deploys starfighters in triangular formations to minimize exposure to enemy fire. Two function as wingmen to cover one leader.");
         setGameText("* Replaces 3 Y-wings at one location (Y-wings go to Used Pile). May add 3 pilots or passengers. Permanent pilots provide total ability of 3.");
         addIcons(Icon.A_NEW_HOPE);

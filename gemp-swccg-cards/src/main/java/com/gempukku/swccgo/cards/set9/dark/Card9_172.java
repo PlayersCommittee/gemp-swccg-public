@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractSquadron;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card9_172 extends AbstractSquadron {
     public Card9_172() {
-        super(Side.DARK, 2, 5, 3, null, 3, null, 6, "The Emperor's Shield", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 3, null, 3, null, 6, "The Emperor's Shield", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Top outer rim pilots hand picked by Admiral Thrawn. Sent to protect the Emperor during his inspection of the second Death Star.");
         setGameText("Deploys -2 to Endor, Death Star II or same location as Thrawn. May deploy as a 'react'. Permanent pilots provide total ability of 3. Power +3 at Endor or when Emperor is at same or related location.");
         addIcons(Icon.DEATH_STAR_II);

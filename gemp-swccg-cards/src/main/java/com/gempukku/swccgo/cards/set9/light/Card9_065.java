@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractSquadron;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card9_065 extends AbstractSquadron {
     public Card9_065() {
-        super(Side.LIGHT, 3, null, 12, null, 2, 3, 12, "B-wing Attack Squadron");
+        super(Side.LIGHT, 3, null, 12, null, 2, 3, 12, "B-wing Attack Squadron", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Utilizes dense formations on attack mission to concentrate firepower. This tactic is particularly effective in defeating deflector shields.");
         setGameText("* Replaces 3 B-Wings at one location (B-wings go to Used Pile). Permanent pilots provide total ability of 3. Each of its weapon destiny draws is +1.");
         addIcons(Icon.DEATH_STAR_II);
