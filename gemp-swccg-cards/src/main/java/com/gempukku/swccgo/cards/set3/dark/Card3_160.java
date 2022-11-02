@@ -1,16 +1,7 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractAutomatedWeapon;
-import com.gempukku.swccgo.common.DestinyType;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -40,7 +31,7 @@ import java.util.List;
  */
 public class Card3_160 extends AbstractAutomatedWeapon {
     public Card3_160() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Infantry_Mine, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Infantry_Mine);
         setLore("Deadly explosive typically planted on the perimeter of strategic sites or high-security installations to prevent Rebel spies and saboteurs from gaining access.");
         setGameText("Deploy at same exterior site as your mining droid. 'Explodes' if a character deploys or moves (without using a vehicle or starfighter) to or across same site. Draw destiny. Character lost if destiny +2 > defense value. Infantry Mine is also lost.");
         addIcons(Icon.HOTH);

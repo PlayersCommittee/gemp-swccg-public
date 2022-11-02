@@ -1,16 +1,7 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractAutomatedWeapon;
-import com.gempukku.swccgo.common.DestinyType;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -43,7 +34,7 @@ import java.util.List;
  */
 public class Card9_091 extends AbstractAutomatedWeapon {
     public Card9_091() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Orbital_Mine, Uniqueness.DIAMOND_1, ExpansionSet.DEATH_STAR_II, Rarity.C);
+        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Orbital_Mine, Uniqueness.DIAMOND_1);
         setLore("Often Stolen from the Empire. Used by the Rebellion to protect key spaceports. Can be released to cover the retreat of a fleeing strike force.");
         setGameText("Deploy at the same system as a bomber. 'Explodes' if an opponents starship deploys or moves here. Draw destiny. Add 2 when targeting a capital starship. Starship lost if total destiny > defense value. Orbital mine is also lost.");
         addIcons(Icon.DEATH_STAR_II);
