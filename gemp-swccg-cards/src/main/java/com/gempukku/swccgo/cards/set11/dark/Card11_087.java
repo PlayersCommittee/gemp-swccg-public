@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractLostOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToLoseEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card11_087 extends AbstractLostOrStartingInterrupt {
     public Card11_087() {
-        super(Side.DARK, 3, "Start Your Engines!", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Start Your Engines!", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Podracing is based on ancient contests that utilized animal-drawn carts. Today, Podracing's reputation is known to be incredibly fast and dangerous.");
         setGameText("LOST: Peek at top 3 cards of your Reserve Deck; place all but one in Lost Pile. STARTING: Deploy Podrace Arena (with a Podracer, opponent may also deploy a Podracer there), Boonta Eve Podrace, and any Effect that deploys for free. Place Interrupt in Reserve Deck.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

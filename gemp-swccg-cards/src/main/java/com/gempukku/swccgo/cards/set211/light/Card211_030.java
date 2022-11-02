@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractLostOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card211_030 extends AbstractLostOrStartingInterrupt {
     public Card211_030() {
-        super(Side.LIGHT, 4, "Rendezvous Point On Tatooine");
+        super(Side.LIGHT, 4, "Rendezvous Point On Tatooine", Uniqueness.UNRESTRICTED, ExpansionSet.SET_11, Rarity.V);
         setLore("'When we find Jabba the Hutt and that bounty hunter, we'll contact you.'");
         setGameText("LOST: [download] a Tatooine battleground." +
                 "STARTING: If your Jabba's Palace site on table, deploy Seeking An Audience and up to 2 Effects that deploy on table and are always immune to Alter. Place Interrupt in hand.");

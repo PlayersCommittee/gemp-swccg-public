@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.MoveMobileEffectEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.MovementDirection;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card7_221 extends AbstractMobileEffect {
     public Card7_221() {
-        super(Side.DARK, 4, "Bantha Herd", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 4, "Bantha Herd", Uniqueness.RESTRICTED_2, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("While banthas are found on many worlds, the largest herds are found on Tatooine. The Sand People of that planet learned to tame the beasts.");
         setGameText("Deploy on an exterior Tatooine site. Specify starting direction. During your control phase, moves to next adjacent site (reversing direction as necessary). During battle, if your tusken raider or bantha here may add one battle destiny.");
         addIcons(Icon.SPECIAL_EDITION);

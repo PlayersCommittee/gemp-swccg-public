@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractLostOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card217_021 extends AbstractLostOrStartingInterrupt {
     public Card217_021() {
-        super(Side.DARK, 3, Title.Rise_Of_The_Sith, Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 3, Title.Rise_Of_The_Sith, Uniqueness.RESTRICTED_2, ExpansionSet.SET_17, Rarity.V);
         setGameText("LOST: Raise your converted location to the top. " +
                 "STARTING: If your starting location was a battleground, deploy Revenge Of The Sith and up to three Effects that deploy for free and are always immune to Alter. Place Interrupt in hand.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_17);

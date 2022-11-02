@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractMobileEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveMobileEffectEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card4_117 extends AbstractMobileEffect {
     public Card4_117() {
-        super(Side.DARK, 6, Title.Bombing_Run, Uniqueness.DIAMOND_1);
+        super(Side.DARK, 6, Title.Bombing_Run, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Bombers can sometimes slip past orbital defenses. Making a low-altitude bombing run allows 'surgical strikes,' even in cramped situations such as canyons and city streets.");
         setGameText("Deploy on a non-interior planet site (except Dagobah). May move to an adjacent non-interior site at start of your move phase. Your bombers at a related system you control may move to this site. Bombers must return to system at end of your battle phase (if possible).");
         addIcons(Icon.DAGOBAH);

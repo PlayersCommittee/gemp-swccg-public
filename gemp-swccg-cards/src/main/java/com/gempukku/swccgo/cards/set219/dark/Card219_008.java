@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractLostOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card219_008 extends AbstractLostOrStartingInterrupt {
     public Card219_008() {
-        super(Side.DARK, 4, "Grievous' Gambit");
+        super(Side.DARK, 4, "Grievous' Gambit", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLore("");
         setGameText("LOST: [download] [Episode I] Coruscant. " +
                     "STARTING: If A Stunning Move on table, deploy three Effects that deploy on your side of table, deploy for free, and are always immune to Alter. Place Interrupt in hand.");

@@ -4,7 +4,18 @@ import com.gempukku.swccgo.cards.AbstractMobileEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveMobileEffectEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.MovementDirection;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +40,7 @@ import java.util.List;
  */
 public class Card6_057 extends AbstractMobileEffect {
     public Card6_057() {
-        super(Side.LIGHT, 4, Title.Sandwhirl, Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, 4, Title.Sandwhirl, Uniqueness.DIAMOND_1, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Jawa shamans often predict when and where a sandstorm is going to take place. Even when caught in such a storm, the Jawas know how to avoid misfortune.");
         setGameText("Deploy on a desert. Specify starting direction. All characters (except Jawas and Tusken Raiders) present at same non-interior site are missing. During your control phase, moves to next adjacent site (reversing directions as necessary), but lost if at an interior site.");
         addIcons(Icon.JABBAS_PALACE);

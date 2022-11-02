@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractLostOrStartingInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -12,7 +14,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.SubstituteDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
@@ -35,7 +41,7 @@ import java.util.List;
  */
 public class Card11_039 extends AbstractLostOrStartingInterrupt {
     public Card11_039() {
-        super(Side.LIGHT, 3, "Podrace Prep", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Podrace Prep", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Advanced preparation in Podracing is usually the key to winning. A little extra work at the start can mean a lot in the long run.");
         setGameText("LOST: Instead of drawing race destiny, use a card from hand. STARTING: Deploy Podrace Arena (with a Podracer, opponent may also deploy a Podracer there), Boonta Eve Podrace and any Effect that deploys for free. Place Interrupt in Reserve Deck.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractMobileEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveMobileEffectEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.MovementDirection;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card4_035 extends AbstractMobileEffect {
     public Card4_035() {
-        super(Side.LIGHT, 4, Title.Rogue_Asteroid, Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, 4, Title.Rogue_Asteroid, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("'Considering the amount of damage we've sustained, they must have been destroyed.'");
         setGameText("Deploy on an asteroid sector and specify starting direction. Every move phase, moves to next adjacent asteroid sector (reversing direction as necessary). Where present, adds 2 to asteroid destiny. May be targeted by starship weapons (armor = 3).");
         addIcons(Icon.DAGOBAH);

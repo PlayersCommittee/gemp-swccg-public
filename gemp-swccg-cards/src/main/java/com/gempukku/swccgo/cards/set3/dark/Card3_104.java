@@ -4,7 +4,18 @@ import com.gempukku.swccgo.cards.AbstractMobileEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveMobileEffectEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.MovementDirection;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +41,7 @@ import java.util.List;
  */
 public class Card3_104 extends AbstractMobileEffect {
     public Card3_104() {
-        super(Side.DARK, 3, Title.Ice_Storm, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Ice_Storm, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("Among the gravest dangers in the harsh environment of Hoth are frequent quick-moving ice storms.");
         setGameText("Deploy at outermost marker. All characters present at same exterior site are missing. Each turn, during your control phase, storm moves to next marker, reversing direction if at innermost marker. Mobile Effect lost when moved beyond outermost marker.");
         addIcons(Icon.HOTH);
