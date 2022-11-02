@@ -3,16 +3,24 @@ package com.gempukku.swccgo.cards.set207.dark;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.cards.evaluators.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.evaluators.MaxLimitEvaluator;
+import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
+import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.ExchangeCardInHandWithCardInLostPileEffect;
-import com.gempukku.swccgo.logic.evaluators.Evaluator;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card207_023 extends AbstractSith {
     public Card207_023() {
-        super(Side.DARK, 1, 6, 8, 4, 5, "Savage Opress", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 8, 4, 5, "Savage Opress", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Dathomirian.");
         setGameText("Deploys -1 for each other Sith character on table (limit -4). Once per game, may exchange a card in hand with a Sith character in Lost Pile. Immune to attrition < 3.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.SEPARATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_7);

@@ -20,33 +20,6 @@ public abstract class AbstractSith extends AbstractCharacter {
      * @param power the power value
      * @param forfeit the forfeit value
      * @param title the card title
-     */
-    protected AbstractSith(Side side, float destiny, float deployCost, float power, float ability, float forfeit, String title) {
-        this(side, destiny, deployCost, power, ability, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a character that is a Sith.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractSith(Side side, float destiny, float deployCost, float power, float ability, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a character that is a Sith.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param forfeit the forfeit value
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
      * @param rarity the rarity

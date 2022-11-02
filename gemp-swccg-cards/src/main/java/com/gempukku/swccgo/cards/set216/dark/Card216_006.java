@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set216.dark;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -14,7 +22,11 @@ import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.GameTextCanceledCondition;
 import com.gempukku.swccgo.logic.effects.CancelGameTextEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
@@ -30,7 +42,7 @@ import java.util.List;
  */
 public class Card216_006 extends AbstractSith {
     public Card216_006() {
-        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader, Betrayer Of The Jedi", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader, Betrayer Of The Jedi", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("Leader.");
         setGameText("[Pilot] 3. During battle, if a lightsaber swung by Vader just 'hit' a character, character's game text is canceled (and if Amidala, she is immediately lost). While on Coruscant, adds one [Dark Side] icon here. Immune to [Set 3] Amidala and attrition < 5.");
         addPersona(Persona.VADER);

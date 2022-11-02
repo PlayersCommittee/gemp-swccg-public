@@ -4,13 +4,25 @@ import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.conditions.AloneCondition;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +35,7 @@ import java.util.List;
  */
 public class Card601_081 extends AbstractSith {
     public Card601_081() {
-        super(Side.DARK, 1, 5, 6, 5, 7, "Galen Marek, Starkiller", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 6, 5, 7, "Galen Marek, Starkiller", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("");
         setGameText("Galen's forfeit may not be reduced. Power and defense value +2 while with Mariss Brood. If defending a battle alone (or defending with Juno Eclipse), may be targeted by Force Lightning. Immune to Clash Of Sabers and attrition < 4.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR, Icon.LEGACY_BLOCK_4);

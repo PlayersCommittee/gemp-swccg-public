@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set214.dark;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card214_007 extends AbstractSith {
     public Card214_007() {
-        super(Side.DARK, 2, 4, 3, 4, 5, "Ochi", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 3, 4, 5, "Ochi", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("Assassin.");
         setGameText("Adds 2 to power of anything he pilots. While piloting Bestoon Legacy, it is immune to attrition < 5. " +
                 "While [Episode VII] Emperor on table, your total power here is +3. If opponent's character was just placed out of play, opponent loses 1 Force.");

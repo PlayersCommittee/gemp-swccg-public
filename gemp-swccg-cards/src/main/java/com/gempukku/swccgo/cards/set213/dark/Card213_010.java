@@ -3,14 +3,25 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotCancelDestinyDrawsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -25,7 +36,7 @@ import java.util.List;
  */
 public class Card213_010 extends AbstractSith {
     public Card213_010() {
-        super(Side.DARK, .5F, 4, 4, 6, 8, "Maul", Uniqueness.UNIQUE);
+        super(Side.DARK, .5F, 4, 4, 6, 8, "Maul", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Gangster. Crimson Dawn leader.");
         setGameText("Never deploys to a battleground. Once per turn, may add 1 to a just drawn battle or weapon destiny. " +
                 "Also, once per turn, may subtract 1 from a just drawn battle or weapon destiny. Opponent may not cancel your destiny draws. Immune to attrition < 5.");

@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card208_034 extends AbstractSith {
     public Card208_034() {
-        super(Side.DARK, 1, 6, 7, 6, 7, "Lord Maul With Lightsaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 7, 6, 7, "Lord Maul With Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Trade Federation.");
         setGameText("Permanent weapon is •Maul's Lightsaber (may add 1 to Force drain where present; adds 1 to your battle destiny draws here; may target a character for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addPersona(Persona.MAUL);

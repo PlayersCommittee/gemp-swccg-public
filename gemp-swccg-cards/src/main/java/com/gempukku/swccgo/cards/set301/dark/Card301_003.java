@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set301.dark;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +35,7 @@ import java.util.List;
  */
 public class Card301_003 extends AbstractSith {
     public Card301_003() {
-        super(Side.DARK, 1, 5, 4, 5, 7, "Asajj Ventress With Lightsabers", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 4, 5, 7, "Asajj Ventress With Lightsabers", Uniqueness.UNIQUE, ExpansionSet.DEMO_DECK, Rarity.V);
         setLore("Female Dathomirian assassin");
         setGameText("Power +1 with Dooku. Permanent weapon is •Asajj's Lightsabers (may target a character for free, or target two characters using 1 Force; draw two destiny; target(s) hit and forfeit -2 if total destiny > total defense value).");
         addIcons(Icon.PREMIUM, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.SEPARATIST, Icon.VIRTUAL_SET_P);

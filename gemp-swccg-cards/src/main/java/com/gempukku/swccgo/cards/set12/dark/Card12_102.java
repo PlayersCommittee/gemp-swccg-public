@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -10,7 +16,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ModifyPowerUntilEndOfBattleEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyForWeaponFiredByModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
@@ -27,7 +37,7 @@ import java.util.List;
  */
 public class Card12_102 extends AbstractSith {
     public Card12_102() {
-        super(Side.DARK, 1, 7, 7, 6, 8, "Darth Maul, Young Apprentice", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, 7, 6, 8, "Darth Maul, Young Apprentice", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Fueled by a hatred of the Jedi and an arsenal of dark abilities, this Sith warrior is a powerful weapon for his dark mentor, Darth Sidious.");
         setGameText("Deploys -2 to Coruscant. When Maul swings a lightsaber at a Jedi, each weapon destiny draw is +1. If Maul hits a Jedi Master during battle, that Jedi Master is power -3 for remainder of battle. Immune to Clash Of Sabers and attrition < 5.");
