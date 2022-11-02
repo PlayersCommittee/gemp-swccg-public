@@ -6,9 +6,12 @@ import com.gempukku.swccgo.cards.conditions.DuringAttemptToBlowAwayDeathStarII;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.ManeuverEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +41,7 @@ import java.util.List;
  */
 public class Card9_143 extends AbstractSector {
     public Card9_143() {
-        super(Side.DARK, Title.Capacitors, Title.Death_Star_II);
+        super(Side.DARK, Title.Capacitors, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("Deploys only if Coolant Shaft on table. While That Thing's Operational on table, you may add one battle destiny during battles at Death Star II system and system it orbits.");
         setLocationLightSideGameText("When your starship moves from here, draw movement destiny. Add maneuver. If total destiny < 2, starship is lost.");
         addIcon(Icon.DARK_FORCE, 1);

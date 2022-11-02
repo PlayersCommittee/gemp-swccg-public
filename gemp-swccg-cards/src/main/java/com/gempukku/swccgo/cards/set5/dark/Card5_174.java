@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card5_174 extends AbstractSector {
     public Card5_174() {
-        super(Side.DARK, "Clouds", Uniqueness.DIAMOND_3);
+        super(Side.DARK, "Clouds", Uniqueness.DIAMOND_3, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLocationDarkSideGameText("If you control, once per turn, may add 1 to a Force drain at a related site. Starships are power and maneuver -2 here.");
         setLocationLightSideGameText("If you control, Force drain +1 here. Starships are power and maneuver -2 here.");
         addIcon(Icon.DARK_FORCE, 1);

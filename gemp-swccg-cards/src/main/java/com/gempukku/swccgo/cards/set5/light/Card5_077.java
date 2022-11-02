@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractSector;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card5_077 extends AbstractSector {
     public Card5_077() {
-        super(Side.LIGHT, Title.Bespin_Cloud_City, Title.Bespin);
+        super(Side.LIGHT, Title.Bespin_Cloud_City, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLocationDarkSideGameText("If you control, for each of your starships or vehicles here, your total power is +1 in battles at Cloud City sites.");
         setLocationLightSideGameText("If you control, for each of your starships or vehicles here, your total power is +1 in battles at Cloud City sites.");
         addIcon(Icon.DARK_FORCE, 1);

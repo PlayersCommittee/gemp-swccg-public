@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractSector;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.TopLocationsOnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpecialRule;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card4_156 extends AbstractSector {
     public Card4_156() {
-        super(Side.DARK, Title.Big_One, Uniqueness.DIAMOND_1);
+        super(Side.DARK, Title.Big_One, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.U);
         setLocationDarkSideGameText("'Asteroid Rules' in effect here. If you control, Force drain +1 here for each Asteroid Field at same system.");
         setLocationLightSideGameText("'Asteroid Rules' in effect here.");
         addIcon(Icon.DARK_FORCE, 1);
