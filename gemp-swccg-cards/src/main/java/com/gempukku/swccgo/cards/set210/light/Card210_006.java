@@ -27,7 +27,7 @@ import java.util.List;
  * Set: Set 10
  * Type: Character
  * Subtype: Alien
- * Title: BoShek
+ * Title: BoShek (V)
  */
 public class Card210_006 extends AbstractAlien {
     public Card210_006() {

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card219_015 extends AbstractImperial {
     public Card219_015() {
-        super(Side.DARK, 2, 4, 4, 4, 6, "Morgan Elsbeth", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 4, 6, "Magistrate Morgan Elsbeth", Uniqueness.UNIQUE);
         setLore("Female leader.");
         setGameText("While present at a battleground site and you control more systems than opponent, Force drain +1 here. " +
                     "Power and defense value +2 while Thrawn at a system with a parsec number > 5. Immune to attrition < 3.");

@@ -80,6 +80,7 @@ public class Card213_032 extends AbstractObjective {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a card from Reserve Deck");
+            action.setActionMsg("Deploy a non-unique blaster (or a card with 'First Light' in title) from Reserve Deck");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );
