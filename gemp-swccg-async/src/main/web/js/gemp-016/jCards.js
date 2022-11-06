@@ -3608,6 +3608,14 @@ var fixedImages = {
 "501_103":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothalimperialstripmines.png",
 "501_104":"https://res.starwarsccg.org/cards/Hoth-Dark/large/silenceisgolden.gif",
 "501_105":"https://res.starwarsccg.org/cards/Virtual17-Dark/large/bb9e.gif",
+"501_106":"https://res.starwarsccg.org/cards/Virtual18-Dark/hires/adarktimefortherebelliontarkinsorders.png",
+"501_107":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/freerideendorcelebration.png",
+"501_108":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/masteryoda.png",
+"501_109":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/masterquigonjinnanoldfriend.png",
+"501_110":"https://res.starwarsccg.org/cards/Virtual11-Light/hires/thegalaxymayneedalegend.png",
+"501_110_BACK":"https://res.starwarsccg.org/cards/Virtual11-Light/hires/weneedlukeskywalker.png",
+"501_111":"https://res.starwarsccg.org/cards/Virtual4-Light/hires/bb8.png",
+"501_112":"https://res.starwarsccg.org/cards/Virtual8-Light/hires/endorewokvillage.png",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
