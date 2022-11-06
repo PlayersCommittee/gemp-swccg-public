@@ -45,14 +45,14 @@ public class Card208_025 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Deployable_As_JCC_By_HITCO, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Jedi_Council_Chamber, true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose Jedi Council Chamber to deploy";
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardToTargetFromReserveDeckEffect(action, Filters.Prophecy_Of_The_Force, Filters.Deployable_As_JCC_By_HITCO, true, false) {
+                new DeployCardToTargetFromReserveDeckEffect(action, Filters.Prophecy_Of_The_Force, Filters.Jedi_Council_Chamber, true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose Prophecy Of The Force to deploy";
