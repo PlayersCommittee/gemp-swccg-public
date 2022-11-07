@@ -4675,7 +4675,7 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location) {
-        return canInitiateBattleAtLocation(player, game, location, false);
+        return canInitiateBattleAtLocation(player, game, location, false) || canInitiateBattleAtLocation(player, game, location, true);
     }
 
     /**
@@ -4700,9 +4700,16 @@ public class GameConditions {
 
         // Check if player can use force to initiate battle
         if (!forFree) {
-            float battleCost = modifiersQuerying.getInitiateBattleCost(gameState, location, player);
+            float battleCost = modifiersQuerying.getInitiateBattleCost(gameState, location, player, forFree);
             int forceAvailableToUse = forceAvailableToUse(gameState.getGame(), player);
             if (forceAvailableToUse < battleCost)
+                return false;
+        }
+
+        // Check if player can initiate battle for free
+        if (forFree) {
+            if (!modifiersQuerying.alwaysInitiateBattleForFreeAtLocation(gameState, location, player)
+                    && !modifiersQuerying.mayInitiateBattleForFreeAtLocation(gameState, location, player))
                 return false;
         }
 

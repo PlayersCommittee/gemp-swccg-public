@@ -282,7 +282,17 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
 
         // Initiate battle
         if (GameConditions.canInitiateBattleAtLocation(playerId, game, self)) {
-            actions.add(new InitiateBattleAction(playerId, self));
+            // Can initiate battle at normal use of force
+            if (!game.getModifiersQuerying().alwaysInitiateBattleForFreeAtLocation(game.getGameState(), self, playerId)
+                    && GameConditions.canInitiateBattleAtLocation(playerId, game, self, false)) {
+                actions.add(new InitiateBattleAction(playerId, self, false));
+            }
+            // Can initiate battle for free
+            if (GameConditions.canInitiateBattleAtLocation(playerId, game, self, true)
+                    && (game.getModifiersQuerying().alwaysInitiateBattleForFreeAtLocation(game.getGameState(), self, playerId)
+                    || game.getModifiersQuerying().mayInitiateBattleForFreeAtLocation(game.getGameState(), self, playerId))) {
+                actions.add(new InitiateBattleAction(playerId, self, true));
+            }
         }
 
         // Docking bay transit

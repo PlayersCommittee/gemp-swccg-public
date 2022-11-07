@@ -4470,6 +4470,44 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Determines if the specified player always initiates battle for free at the specified location.
+     *
+     * @param gameState the game state
+     * @param location  the location
+     * @param playerId  the player
+     * @return true if the player always initiates battle for free at the specified location
+     */
+    @Override
+    public boolean alwaysInitiateBattleForFreeAtLocation(GameState gameState, PhysicalCard location, String playerId) {
+        // Check if initiates battle for free
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.INITIATE_BATTLE_FOR_FREE, location)) {
+            if (modifier.isForPlayer(playerId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the specified player can choose to initiate battle for free at the specified location.
+     *
+     * @param gameState the game state
+     * @param location  the location
+     * @param playerId  the player
+     * @return true if the specified player can choose to initiate battle for free at the specified location
+     */
+    @Override
+    public boolean mayInitiateBattleForFreeAtLocation(GameState gameState, PhysicalCard location, String playerId) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_INITIATE_BATTLE_FOR_FREE, location)) {
+            if (modifier.isForPlayer(playerId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * Gets the cost for the specified player to initiate a battle at the specified location.
      *
      * @param gameState the game state
@@ -4478,12 +4516,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      * @return the cost
      */
     @Override
-    public float getInitiateBattleCost(GameState gameState, PhysicalCard location, String playerId) {
+    public float getInitiateBattleCost(GameState gameState, PhysicalCard location, String playerId, boolean checkFree) {
+        if (checkFree) {
 
-        // Check if initiates battle for free
-        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.INITIATE_BATTLE_FOR_FREE, location)) {
-            if (modifier.isForPlayer(playerId)) {
-                return 0;
+            // Check if player always initiates battle for free
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.INITIATE_BATTLE_FOR_FREE, location)) {
+                if (modifier.isForPlayer(playerId)) {
+                    return 0;
+                }
+            }
+
+            // Check if player has the option to initiate battle for free
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_INITIATE_BATTLE_FOR_FREE, location)) {
+                if (modifier.isForPlayer(playerId)) {
+                    return 0;
+                }
             }
         }
 

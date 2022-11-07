@@ -43,7 +43,7 @@ public class Card208_030 extends AbstractImperial {
         
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
-        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.here(self), playerId));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, Filters.here(self), playerId));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Clash_Of_Sabers));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Sorry_About_The_Mess));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 6));

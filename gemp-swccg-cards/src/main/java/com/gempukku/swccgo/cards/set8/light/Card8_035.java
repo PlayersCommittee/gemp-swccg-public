@@ -2,14 +2,18 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.modifiers.InitiateBattlesForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.InitiateForceDrainCostModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattlesForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -35,7 +39,7 @@ public class Card8_035 extends AbstractNormalEffect {
         String opponent = game.getOpponent(player);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, player));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, player));
         modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new AndCondition(new OccupiesCondition(player, Filters.battleground_site),
                 new OccupiesCondition(player, Filters.battleground_system))), 3, player));
         modifiers.add(new InitiateForceDrainCostModifier(self, new UnlessCondition(new AndCondition(new OccupiesCondition(opponent, Filters.battleground_site),

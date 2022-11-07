@@ -1478,14 +1478,35 @@ public interface ModifiersQuerying {
     boolean isForceDrainModifierCanceled(GameState gameState, PhysicalCard location, PhysicalCard source, String playerModifying, String playerDraining, float amount);
 
     /**
-     * Gets the cost for the specified player to initiate a battle at the specified location.
+     * Determines if the specified player always initiates battle for free at the specified location.
      *
      * @param gameState the game state
      * @param location  the location
      * @param playerId  the player
-     * @return the cost
+     * @return true if the player always initiates battle for free at the specified location
      */
-    float getInitiateBattleCost(GameState gameState, PhysicalCard location, String playerId);
+     boolean alwaysInitiateBattleForFreeAtLocation(GameState gameState, PhysicalCard location, String playerId);
+
+    /**
+     * Determines if the specified player can choose to initiate battle for free at the specified location.
+     *
+     * @param gameState the game state
+     * @param location  the location
+     * @param playerId  the player
+     * @return true if the specified player can choose to initiate battle for free at the specified location
+     */
+    public boolean mayInitiateBattleForFreeAtLocation(GameState gameState, PhysicalCard location, String playerId);
+
+        /**
+         * Gets the cost for the specified player to initiate a battle at the specified location.
+         *
+         * @param gameState the game state
+         * @param location  the location
+         * @param playerId  the player
+         * @param freeIfPossible true if it should check if the player has the option to initiate the battle for free
+         * @return the cost
+         */
+    float getInitiateBattleCost(GameState gameState, PhysicalCard location, String playerId, boolean freeIfPossible);
 
     /**
      * Gets the losing Force cost for the specified player to initiate a battle at the specified location.

@@ -13,7 +13,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseDestinyCardEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.InitiateBattlesForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattlesForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -39,7 +39,7 @@ public class Card6_122 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.sameSite(self), game.getOpponent(self.getOwner())));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, Filters.sameSite(self), game.getOpponent(self.getOwner())));
         return modifiers;
     }
 

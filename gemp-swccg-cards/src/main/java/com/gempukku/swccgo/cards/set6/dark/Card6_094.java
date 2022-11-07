@@ -37,7 +37,7 @@ public class Card6_094 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, whilePondaBabaAtAudienceChamber, 2));
         modifiers.add(new ForfeitModifier(self, whilePondaBabaAtAudienceChamber, 1));
-        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.wherePresent(self), self.getOwner()));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, Filters.wherePresent(self), self.getOwner()));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Dark_Deal, new AtCondition(self, Filters.Cloud_City_site),
                 ModifyGameTextType.DARK_DEAL__ADDITIONAL_BESPIN_LOCATION_TO_CANCEL));
         return modifiers;

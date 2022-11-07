@@ -92,7 +92,7 @@ public class Card208_025 extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, self.getOwner()));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, self.getOwner()));
         return modifiers;
     }
 

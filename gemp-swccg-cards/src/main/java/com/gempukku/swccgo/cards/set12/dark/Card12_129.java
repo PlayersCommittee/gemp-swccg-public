@@ -5,7 +5,11 @@ import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleInitiatedByCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -14,8 +18,8 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToPlayInterruptModifier;
-import com.gempukku.swccgo.logic.modifiers.InitiateBattlesForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.InitiateForceDrainCostModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattlesForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -42,7 +46,7 @@ public class Card12_129 extends AbstractNormalEffect {
         Condition battlePlanOnTable = new OnTableCondition(self, Filters.Battle_Plan);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), player));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), player));
         modifiers.add(new ExtraForceCostToPlayInterruptModifier(self, Filters.and(Filters.opponents(self), Filters.Interrupt),
                 new AndCondition(new DuringBattleInitiatedByCondition(player), new DuringBattleAtCondition(Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)))), 1));
         modifiers.add(new InitiateForceDrainCostModifier(self, Filters.not(Filters.immuneToCardTitle(Title.Battle_Order)), new UnlessCondition(new OrCondition(battlePlanOnTable,

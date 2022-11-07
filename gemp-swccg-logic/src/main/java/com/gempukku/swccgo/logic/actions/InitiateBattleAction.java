@@ -15,6 +15,7 @@ public class InitiateBattleAction extends AbstractTopLevelRuleAction {
     private PhysicalCard _location;
     private boolean _useForceCostApplied;
     private boolean _battleInitiated;
+    private boolean _free;
 
     /**
      * Needed to generate snapshot.
@@ -30,6 +31,7 @@ public class InitiateBattleAction extends AbstractTopLevelRuleAction {
         snapshot._location = snapshotData.getDataForSnapshot(_location);
         snapshot._useForceCostApplied = _useForceCostApplied;
         snapshot._battleInitiated = _battleInitiated;
+        snapshot._free = _free;
     }
 
     /**
@@ -37,13 +39,16 @@ public class InitiateBattleAction extends AbstractTopLevelRuleAction {
      * @param playerId the player initiating the battle
      * @param location the location
      */
-    public InitiateBattleAction(String playerId, final PhysicalCard location) {
+    public InitiateBattleAction(String playerId, final PhysicalCard location, boolean free) {
         super(location, playerId);
         _location = location;
+        _free = free;
     }
 
     @Override
     public String getText() {
+        if (_free)
+            return "Initiate battle for free";
         return "Initiate battle";
     }
 
@@ -57,7 +62,7 @@ public class InitiateBattleAction extends AbstractTopLevelRuleAction {
             if (!_useForceCostApplied) {
                 _useForceCostApplied = true;
 
-                appendCost(new PayInitiateBattleCostEffect(this, _location, getPerformingPlayer()));
+                appendCost(new PayInitiateBattleCostEffect(this, _location, getPerformingPlayer(), _free));
                 return getNextCost();
             }
 

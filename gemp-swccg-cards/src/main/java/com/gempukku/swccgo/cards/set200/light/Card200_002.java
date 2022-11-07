@@ -46,8 +46,8 @@ public class Card200_002 extends AbstractRepublic {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new ManeuverModifier(self, Filters.hasPiloting(self), 2));
-        modifiers.add(new InitiateBattlesForFreeModifier(self, here, playerId));
-        modifiers.add(new InitiateBattlesForFreeModifier(self, here, opponent));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, here, playerId));
+        modifiers.add(new MayInitiateBattlesForFreeModifier(self, here, opponent));
         modifiers.add(new EachBattleDestinyModifier(self, here, 1, playerId));
         modifiers.add(new EachWeaponDestinyForWeaponFiredByModifier(self, duringBattle, 1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));

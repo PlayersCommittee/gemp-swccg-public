@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 public class PayInitiateBattleCostEffect extends AbstractSubActionEffect {
     private PhysicalCard _location;
     private String _playerId;
+    private boolean _free;
 
     /**
      * Creates an effect that pays the cost of initiating a battle.
@@ -19,10 +20,11 @@ public class PayInitiateBattleCostEffect extends AbstractSubActionEffect {
      * @param location the battle location
      * @param playerId the player initiating the battle
      */
-    public PayInitiateBattleCostEffect(Action action, PhysicalCard location, String playerId) {
+    public PayInitiateBattleCostEffect(Action action, PhysicalCard location, String playerId, boolean free) {
         super(action);
         _location = location;
         _playerId = playerId;
+        _free = free;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class PayInitiateBattleCostEffect extends AbstractSubActionEffect {
         if (initiateBattleCostAsLoseForce > 0) {
             subAction.appendEffect(new LoseForceEffect(subAction, _playerId, initiateBattleCostAsLoseForce, true));
         }
-        float initiateBattleCost = game.getModifiersQuerying().getInitiateBattleCost(game.getGameState(), _location, _playerId);
+        float initiateBattleCost = game.getModifiersQuerying().getInitiateBattleCost(game.getGameState(), _location, _playerId, _free);
         if (initiateBattleCost > 0) {
             subAction.appendEffect(new UseForceEffect(subAction, _playerId, initiateBattleCost));
         }
