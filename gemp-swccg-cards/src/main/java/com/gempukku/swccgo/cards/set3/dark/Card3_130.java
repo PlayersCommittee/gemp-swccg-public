@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.CancelTargetingEffect;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class Card3_130 extends AbstractUsedInterrupt {
     public Card3_130() {
-        super(Side.DARK, 6, "Oh, Switch Off");
+        super(Side.DARK, 6, Title.Oh_Switch_Off);
         setLore("Mindless philosophy for an overweight glob of grease.");
         setGameText("Cancel an attempt by opponent to target your droid to be stolen, 'hit' or lost. Droid is protected from all such attempts for remainder of turn. OR Switch OFF any binary droid for remainder of turn.");
         addIcons(Icon.HOTH);
@@ -51,30 +52,34 @@ public class Card3_130 extends AbstractUsedInterrupt {
             final RespondableEffect respondableEffect = (RespondableEffect) effect;
             final List<PhysicalCard> cardsTargeted = TargetingActionUtils.getCardsTargetedForReason(game, respondableEffect.getTargetingAction(), targetingReasons, filter);
 
+            // make sure the targeting action isn't immune to this card
+            if (respondableEffect.getTargetingAction() == null
+                    || !respondableEffect.getTargetingAction().isImmuneTo(self.getTitle())) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Cancel targeting");
-            // Allow response(s)
-            action.allowResponses(
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new CancelTargetingEffect(action, respondableEffect));
-                            action.appendEffect(
-                                    new AddUntilEndOfTurnModifierEffect(action,
-                                            new MayNotBeStolenModifier(self, Filters.in(cardsTargeted)), null));
-                            action.appendEffect(
-                                    new AddUntilEndOfTurnModifierEffect(action,
-                                            new MayNotTargetToBeHitModifier(self, Filters.in(cardsTargeted)), null));
-                            action.appendEffect(
-                                    new AddUntilEndOfTurnModifierEffect(action,
-                                            new MayNotTargetToBeLostModifier(self, Filters.in(cardsTargeted)), null));
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Cancel targeting");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new CancelTargetingEffect(action, respondableEffect));
+                                action.appendEffect(
+                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                new MayNotBeStolenModifier(self, Filters.in(cardsTargeted)), null));
+                                action.appendEffect(
+                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                new MayNotTargetToBeHitModifier(self, Filters.in(cardsTargeted)), null));
+                                action.appendEffect(
+                                        new AddUntilEndOfTurnModifierEffect(action,
+                                                new MayNotTargetToBeLostModifier(self, Filters.in(cardsTargeted)), null));
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

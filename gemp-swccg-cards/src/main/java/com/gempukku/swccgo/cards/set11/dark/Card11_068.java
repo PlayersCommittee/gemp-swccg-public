@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card11_068 extends AbstractNormalEffect {
     public Card11_068() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Million Voices Crying Out", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.A_Million_Voices_Crying_Out, Uniqueness.UNIQUE);
         setLore("Tarkin silenced the voices of Alderaan with the power of the Death Star.");
         setGameText("Deploy on table. Twice per game may take Commence Primary Ignition into hand from Lost Pile or Reserve Deck; reshuffle. If Alderaan 'blown away,' retrieve 3 Force whenever you deploy a unique (•) Star Destroyer. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

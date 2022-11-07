@@ -1834,6 +1834,24 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that have a printed destiny > X.
+     *
+     * @param destiny the value of X
+     * @return Filter
+     */
+    public static Filter printedDestinyGreaterThan(final float destiny) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getBlueprint().getDestiny()==null)
+                    return false;
+
+                return physicalCard.getBlueprint().getDestiny() > destiny;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that have multiple destiny values, such as R2D2.
      */
     public static final Filter multipleDestinyValues = new Filter() {

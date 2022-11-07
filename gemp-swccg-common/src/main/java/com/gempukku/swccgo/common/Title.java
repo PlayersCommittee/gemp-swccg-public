@@ -14,6 +14,7 @@ public interface Title {
     String A_Dangerous_Time = "A Dangerous Time";
     String A_Gift = "A Gift";
     String A_Great_Tactician_Creates_Plans = "A Great Tactician Creates Plans";
+    String A_Million_Voices_Crying_Out = "A Million Voices Crying Out";
     String A_Siths_Plans = "A Sith's Plans";
     String A_Power_Loss = "A Power Loss";
     String A_Sith_Legend = "A Sith Legend";
@@ -750,6 +751,7 @@ public interface Title {
     String Obsidian_10 = "Obsidian 10";
     String Odin_Nesloor = "Odin Nesloor";
     String Off_The_Edge = "Off The Edge";
+    String Oh_Switch_Off = "Oh, Switch Off";
     String Old_Allies = "Old Allies";
     String Old_Ben = "Old Ben";
     String Ominous_Rumors = "Ominous Rumors";
