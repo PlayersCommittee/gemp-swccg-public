@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set202.dark;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card202_013 extends AbstractCapitalStarship {
     public Card202_013() {
-        super(Side.DARK, 1, 6, 5, 5, null, 3, 6, "Binder", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 5, 5, null, 3, 6, "Binder", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setGameText("May add 6 pilots or passengers. Permanent pilot provides ability of 2. Your starships may move to here as a 'react'. For opponent to move a starship from here requires +1 Force. Immune to attrition < 4.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_2);
         addModelType(ModelType.INTERDICTOR_CLASS_STAR_DESTROYER);

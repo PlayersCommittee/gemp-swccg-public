@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.MayDeployWithoutPresenceOrForceIconsModifier;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card2_073 extends AbstractCapitalStarship {
     public Card2_073() {
-        super(Side.LIGHT, 1, 5, 5, 4, null, 3, 8, Title.Tantive_IV, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 5, 4, null, 3, 8, Title.Tantive_IV, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("Royal House of Alderaan consular ship. Used by Princess Leia for Imperial Senate business (and secret Rebel espionage). Captured by the Devastator over Tatooine.");
         setGameText("May be deployed even without presence or Force icons. May add 3 pilots and 4 passengers. Has ship-docking capability. Permanent pilot provides ability of 2.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

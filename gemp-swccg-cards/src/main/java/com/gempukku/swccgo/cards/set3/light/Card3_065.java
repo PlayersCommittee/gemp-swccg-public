@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class Card3_065 extends AbstractCapitalStarship {
     public Card3_065() {
-        super(Side.LIGHT, 3, 2, 1, 3, null, 4, 4, "Medium Transport");
+        super(Side.LIGHT, 3, 2, 1, 3, null, 4, 4, "Medium Transport", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U2);
         setLore("Passenger and cargo transport built by Gallofree Yards. Enormous cargo bays can be outfitted to safely accommodate large numbers of troops, munitions or supplies.");
         setGameText("May add 1 pilot, 4 passengers and 1 vehicle. Deploys and moves like a starfighter. Has ship-docking capability. Permanent pilot aboard provides ability of 1.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

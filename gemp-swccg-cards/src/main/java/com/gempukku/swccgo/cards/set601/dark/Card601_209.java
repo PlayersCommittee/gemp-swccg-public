@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card601_209 extends AbstractCapitalStarship {
     public Card601_209() {
-        super(Side.DARK, 2, 3, 5, 4, null, 4, 6, "Hound's Tooth", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 5, 4, null, 4, 6, "Hound's Tooth", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Controlled by state-of-the-art-voice-activated X10-D computers. Internal sensors and security systems monitor prisoner activity. Modified for Bossk's Trandoshan physiology.");
         setGameText("May add 1 pilot (must be smuggler or bounty hunter), 6 passengers and 1 vehicle. Immune to attrition < 4 if Bossk piloting. Deploys and moves like a starfighter. Has ship-docking capability.");

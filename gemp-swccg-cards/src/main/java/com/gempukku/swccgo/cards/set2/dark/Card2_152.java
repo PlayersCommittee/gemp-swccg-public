@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card2_152 extends AbstractCapitalStarship {
     public Card2_152() {
-        super(Side.DARK, 1, 8, 9, 6, null, 3, 9, "Conquest", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 8, 9, 6, null, 3, 9, "Conquest", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("One of the Imperial cruisers that chased the Millennium Falcon from Tatooine. It scanned the Falcon just before Han punched his starship to lightspeed.");
         setGameText("May add 6 pilots, 8 passengers, 2 vehicles and 4 TIEs. Has ship-docking capability. Permanent pilot provides ability of 1. Just after initiating battle against Falcon, may peek at opponent's hand.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

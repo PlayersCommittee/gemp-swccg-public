@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card2_155 extends AbstractCapitalStarship {
     public Card2_155() {
-        super(Side.DARK, 2, 6, 6, 5, null, 4, 5, "Victory-Class Star Destroyer");
+        super(Side.DARK, 2, 6, 6, 5, null, 4, 5, "Victory-Class Star Destroyer", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Commissioned by the Old Republic at end of the Clone Wars, Rendili StarDrive's Victory-class starship is atmosphere-capable but has a low sublight speed.");
         setGameText("May add 4 pilots, 6 passengers, 1 vehicle and 3 TIEs. Has ship-docking capability. Permanent pilot provides ability of 1. Adds 1 to your total power in battles at related planet sites.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

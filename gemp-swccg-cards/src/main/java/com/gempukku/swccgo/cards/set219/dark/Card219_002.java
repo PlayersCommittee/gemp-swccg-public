@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card219_002 extends AbstractCapitalStarship {
     public Card219_002() {
-        super(Side.DARK, 1, 8, 9, 6, null, 3, 9, Title.Chimaera, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 8, 9, 6, null, 3, 9, Title.Chimaera, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setVirtualSuffix(true);
         setLore("Early model Imperial-class Star Destroyer. Acting command ship in the absence of Executor.");
         setGameText("May add 6 pilots, 6 passengers, and 4 TIEs. Permanent pilot provides ability of 2. " +

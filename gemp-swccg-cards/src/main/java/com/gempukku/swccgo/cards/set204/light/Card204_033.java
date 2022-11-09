@@ -3,7 +3,12 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +29,7 @@ import java.util.List;
  */
 public class Card204_033 extends AbstractCapitalStarship {
     public Card204_033() {
-        super(Side.LIGHT, 2, 4, 5, 4, null, 3, 8, "Masanya", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 5, 4, null, 3, 8, "Masanya", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Frequently escorts Mon Calamari star cruisers. Personally assigned by Ackbar to main Rebel fleet. Advanced scanners continuously disrupt target acquisition signals.");
         setGameText("Deploys -2 to same system as any Star Cruiser. May add 3 pilots and 4 passengers. Permanent pilot provides ability of 2. Weapon destinies targeting your starships here are -2.");

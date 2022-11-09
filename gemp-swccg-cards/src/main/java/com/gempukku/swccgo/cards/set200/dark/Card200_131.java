@@ -7,7 +7,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card200_131 extends AbstractCapitalStarship {
     public Card200_131() {
-        super(Side.DARK, 1, 4, 6, 4, null, 4, 6, "Bossk In Hound's Tooth", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 6, 4, null, 4, 6, "Bossk In Hound's Tooth", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Bossk once said of his ship, 'Greeezeg uut nikek!'");
         setGameText("Permanent pilot is •Bossk, who provides ability of 2. During battle with opponent's [Independent] starship (or Falcon), may add one destiny to total power or attrition. Immune to attrition < 4.");

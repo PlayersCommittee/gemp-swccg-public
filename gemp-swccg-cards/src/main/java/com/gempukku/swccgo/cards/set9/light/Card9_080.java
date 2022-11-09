@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card9_080 extends AbstractCapitalStarship {
     public Card9_080() {
-        super(Side.LIGHT, 3, 5, 4, 5, null, 4, 6, "Nebulon-B Frigate");
+        super(Side.LIGHT, 3, 5, 4, 5, null, 4, 6, "Nebulon-B Frigate", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Product of Imperial Kuat Drive Yards. Several captured by Alliance. Imperial crews promptly defected. Can be outfitted for a variety of missions requiring mid-size capital starships.");
         setGameText("May add 4 pilots, 4 passengers, and 2 starfighters. Has ship-docking capability. Permanent pilot provides ability of 1. Turbolaser batteries and laser cannons may deploy aboard for free.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

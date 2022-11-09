@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card12_185 extends AbstractCapitalStarship {
     public Card12_185() {
-        super(Side.DARK, 2, 6, 5, 7, null, 3, 6, "Trade Federation Droid Control Ship", Uniqueness.DIAMOND_1);
+        super(Side.DARK, 2, 6, 5, 7, null, 3, 6, "Trade Federation Droid Control Ship", Uniqueness.DIAMOND_1, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("These heavily modified battleships are used to control and direct the Trade Federation's automated army. Easily identified by its array of sensors and antennae.");
         setGameText("May add 4 pilots, 4 passengers, 2 vehicles, and 4 starfighters. Has ship-docking capability. Permanent pilot provides ability of 2. While a droid starfighter here, adds one battle destiny.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.NAV_COMPUTER);

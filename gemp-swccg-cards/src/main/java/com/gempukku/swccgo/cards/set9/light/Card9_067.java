@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card9_067 extends AbstractCapitalStarship {
     public Card9_067() {
-        super(Side.LIGHT, 1, 9, 8, 6, null, 3, 10, "Defiance", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 9, 8, 6, null, 3, 10, "Defiance", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Fleet rear guard. Weapon batteries hard-wired to central targeting processor. Coordinates vicious crossfire against enemy capital starships.");
         setGameText("May add 5 pilots, 6 passengers, 1 vehicle and 3 starfighters. Has ship-docking capability. Permanent pilot aboard provides ability of 2. Each of it's weapon destiny draws are +2. Capital starships it hits are power -5.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

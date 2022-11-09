@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card7_304 extends AbstractCapitalStarship {
     public Card7_304() {
-        super(Side.DARK, 2, 5, 5, 5, null, 4, 5, Title.Jabbas_Space_Cruiser, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 5, 5, null, 4, 5, Title.Jabbas_Space_Cruiser, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Flying fortress of Jabba Desilijic Tiure. Reaches speeds of 800 kph in atmosphere. The crime lord installed hidden gunports as an unpleasant surprise for would-be pirates.");
         setGameText("Deploys and moves like a starfighter. May add 2 alien pilots and 6 passengers. Turbolaser Battery may deploy aboard as a 'react.' When Jabba aboard, moves for free and immune to attrition.");
         addIcons(Icon.SPECIAL_EDITION, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

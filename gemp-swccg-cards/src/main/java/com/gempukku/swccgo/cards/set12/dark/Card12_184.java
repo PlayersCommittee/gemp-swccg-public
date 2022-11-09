@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card12_184 extends AbstractCapitalStarship {
     public Card12_184() {
-        super(Side.DARK, 2, 7, 6, 6, null, 3, 7, "Trade Federation Battleship");
+        super(Side.DARK, 2, 7, 6, 6, null, 3, 7, "Trade Federation Battleship", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Massive cargo vessels that were converted by the Trade Federation into armed battleships. Each is equipped with a large contingent of droid starfighters and battle droids.");
         setGameText("May add 4 pilots, 4 passengers, 2 vehicles and 4 starfighters. Has ship-docking capability. Permanent pilot provides ability of 1. While with any starfighter, draws one battle destiny if unable to otherwise.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.NAV_COMPUTER);

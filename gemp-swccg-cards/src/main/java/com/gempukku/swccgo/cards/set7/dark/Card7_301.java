@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card7_301 extends AbstractCapitalStarship {
     public Card7_301() {
-        super(Side.DARK, 1, 8, 5, 4, null, 4, 5, "Bossk In Hound's Tooth", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 8, 5, 4, null, 4, 5, "Bossk In Hound's Tooth", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Bossk once said of his ship, 'Greeezeg uut nikek!'");
         setGameText("May add 6 passengers and 1 vehicle. Permanent pilot is •Bossk, who provides ability of 2, adds 2 to power and adds one battle destiny. Deploys and moves like a starfighter. Has ship-docking capability.");
         addPersonas(Persona.HOUNDS_TOOTH);

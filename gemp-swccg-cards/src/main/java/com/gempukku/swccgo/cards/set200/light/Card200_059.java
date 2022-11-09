@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card200_059 extends AbstractCapitalStarship {
     public Card200_059() {
-        super(Side.LIGHT, 2, 5, 6, 5, null, 4, 6, "Acclamator-Class Assault Ship");
+        super(Side.LIGHT, 2, 5, 6, 5, null, 4, 6, "Acclamator-Class Assault Ship", Uniqueness.UNRESTRICTED, ExpansionSet.SET_0, Rarity.V);
         setGameText("May add 4 pilots, 4 passengers, and 4 vehicles. Adds 1 to attrition against opponent here for each piloted [Republic] starship here. Permanent pilot provides ability of 2. Concussion Missiles may deploy aboard.");
         addModelType(ModelType.ACCLAMATOR_CLASS_ASSAULT_SHIP);
         addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.PILOT, Icon.NAV_COMPUTER, Icon.CLONE_ARMY, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_0);

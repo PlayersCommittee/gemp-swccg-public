@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card14_114 extends AbstractCapitalStarship {
     public Card14_114() {
-        super(Side.DARK, 1, 7, 6, 7, null, 3, 7, "Blockade Flagship", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, 6, 7, null, 3, 7, "Blockade Flagship", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Aware that the Senate was sending a commission to Naboo, the Trade Federation evacuated many of its battleships, leaving its flagship to operate as the Droid Control Ship.");
         setGameText("May add 4 pilots, 4 passengers, 2 vehicles and 4 droid starfighters. Permanent pilot provides ability of 2. Once per game, may deploy a Neimoidian pilot aboard from Reserve Deck; reshuffle.");
         addPersona(Persona.BLOCKADE_FLAGSHIP);

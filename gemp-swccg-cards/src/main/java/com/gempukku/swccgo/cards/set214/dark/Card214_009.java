@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.AloneCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card214_009 extends AbstractCapitalStarship {
     public Card214_009() {
-        super(Side.DARK, 1, 7, 9, 6, null, 3, 8, "Steadfast", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, 9, 6, null, 3, 8, "Steadfast", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("");
         setGameText("May add 6 pilots, 8 passengers, and 2 starfighters. Permanent pilot provides ability of 2. While alone at an [EPVII] system, adds Force icons to equalize them for both sides here. Immune to attrition < 4.");
         addPersona(Persona.STEADFAST);

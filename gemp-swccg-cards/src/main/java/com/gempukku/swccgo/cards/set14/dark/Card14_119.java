@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card14_119 extends AbstractCapitalStarship {
     public Card14_119() {
-        super(Side.DARK, 2, 1, 2, 4, null, null, 3, "Trade Federation Landing Craft");
+        super(Side.DARK, 2, 1, 2, 4, null, null, 3, "Trade Federation Landing Craft", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("C-9979 landing craft designed to transport and unload Multi Troop Transports and its battle droid cargo as rapidly as possible.");
         setGameText("May add 2 pilots and 6 vehicles. Deploys and moves like a starfighter. While at a site, once during your deploy phase may take an MTT into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.PRESENCE);

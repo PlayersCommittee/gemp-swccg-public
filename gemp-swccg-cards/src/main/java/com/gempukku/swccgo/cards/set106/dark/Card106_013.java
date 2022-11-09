@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card106_013 extends AbstractCapitalStarship {
     public Card106_013() {
-        super(Side.DARK, 3, 5, 5, 4, null, 3, 5, "Dreadnaught-Class Heavy Cruiser");
+        super(Side.DARK, 3, 5, 5, 4, null, 3, 5, "Dreadnaught-Class Heavy Cruiser", Uniqueness.UNRESTRICTED, ExpansionSet.OTSD, Rarity.PM);
         setLore("Introduced during the Clone Wars. 600 meters long. Some have cargo space converted to TIE hanger bays. Still used to maintain an Imperial presence in the Outer Rim.");
         setGameText("May add 3 pilots, 6 passengers and 4 TIEs. Has ship-docking capability. Permanent pilots provide total ability of 2. Turbolaser Battery may deploy aboard. Your TIEs present are each power +1.");
         addIcons(Icon.PREMIUM, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

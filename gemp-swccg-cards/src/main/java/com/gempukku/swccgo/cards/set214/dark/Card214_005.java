@@ -4,12 +4,19 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AttemptToBlowAwayShieldGateTotalModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card214_005 extends AbstractCapitalStarship {
     public Card214_005() {
-        super(Side.DARK, 1, 11, 12, 10, null, 2, 12, "Intimidator & Persecutor", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 11, 12, 10, null, 2, 12, "Intimidator & Persecutor", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         addComboCardTitles("Intimidator", "Persecutor");
         setLore("");
         setGameText("Deploys -4 to Scarif or opponent's system. May add 4 pilots, 4 TIEs, and 2 vehicles. Permanent pilots provide total ability of 4. While at Scarif, subtracts 2 from attempts to 'blow away' Shield Gate.");

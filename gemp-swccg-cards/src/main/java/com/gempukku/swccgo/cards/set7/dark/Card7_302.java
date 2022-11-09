@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card7_302 extends AbstractCapitalStarship {
     public Card7_302() {
-        super(Side.DARK, 2, 9, 7, 6, null, 3, 9, "Death Squadron Star Destroyer", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 9, 7, 6, null, 3, 9, "Death Squadron Star Destroyer", Uniqueness.RESTRICTED_3, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Vader's infamous Death Squadron, which blockaded the fleeing Rebels at the Battle of Hoth, boasts the finest captains of the Imperial fleet - and Ozzel.");
         setGameText("Deploy -2 to same system as Executor. May add 6 pilots, 8 passengers, 2 vehicles and 4 TIEs. Has ship-docking capability. Permanent pilot provides ability of 1. Immune to attrition < 4.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

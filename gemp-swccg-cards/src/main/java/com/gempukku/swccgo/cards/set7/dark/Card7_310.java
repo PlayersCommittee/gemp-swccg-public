@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.PerTIElnEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card7_310 extends AbstractCapitalStarship {
     public Card7_310() {
-        super(Side.DARK, 2, 9, 8, 6, null, 3, 9, "Vengeance", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 9, 8, 6, null, 3, 9, "Vengeance", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Part of Darth Vader's Death Squadron. Support vessel for the fleet's starfighters. Cargo areas converted into hangar space for additional TIE fighters.");
         setGameText("May add 6 pilots, 8 passengers, 1 vehicle and 6 TIEs. Has ship-docking capability. Permanent pilot provides ability of 2. Your TIE/lns are forfeit +2 at same location. Power +2 at Nal Hutta.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

@@ -4,7 +4,12 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -26,7 +31,7 @@ import java.util.List;
  */
 public class Card9_076 extends AbstractCapitalStarship {
     public Card9_076() {
-        super(Side.LIGHT, 2, 8, 7, 5, null, 3, 9, "Liberty", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 8, 7, 5, null, 3, 9, "Liberty", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Winged star cruiser. Military transport for technical units. Afforded special care by the Alliance's top engineers.");
         setGameText("May add 5 pilots, 6 passengers, 1 vehicle, and 3 starfighters. Has ship-docking capability. Permanent pilot provides ability of 2. May go to Used Pile instead of Lost Pile when forfeited (unless 'hit').");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

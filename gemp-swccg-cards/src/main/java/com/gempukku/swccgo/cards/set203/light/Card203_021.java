@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card203_021 extends AbstractCapitalStarship {
     public Card203_021() {
-        super(Side.LIGHT, 2, 3, 3, 4, null, 5, 6, Title.Wild_Karrde, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 4, null, 5, 6, Title.Wild_Karrde, Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setGameText("May add 3 pilots and 6 passengers. Permanent pilot aboard provides ability of 2. During battle, your total battle destiny is +1 for each smuggler aboard. Deploys and moves like a starfighter. Immune to attrition < 5.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.INDEPENDENT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_3);
         addModelType(ModelType.MODIFIED_ACTION_VI_FREIGHTER);

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractCapitalStarship;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card207_018 extends AbstractCapitalStarship {
     public Card207_018() {
-        super(Side.LIGHT, 1, 6, 6, 7, null, 3, 8, Title.Profundity, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 7, null, 3, 8, Title.Profundity, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setGameText("Deploys -2 to a system opponent occupies (-4 if opponent’s system). May add 6 pilots, 8 passengers, 3 starfighters, 3 vehicles, and 1 corvette. Permanent pilot provides ability of 2.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_7);
         addModelType(ModelType.MON_CALAMARI_STAR_CRUISER);

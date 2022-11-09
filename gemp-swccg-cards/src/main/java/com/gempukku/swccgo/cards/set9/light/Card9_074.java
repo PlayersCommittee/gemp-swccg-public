@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card9_074 extends AbstractCapitalStarship {
     public Card9_074() {
-        super(Side.LIGHT, 1, 12, 9, 8, null, 3, 12, "Home One", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 12, 9, 8, null, 3, 12, "Home One", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Command ship of the Rebel fleet. 1200 meters long. Masterpiece of aesthetic form. Most heavily armed and armored ship in the fleet. Admiral Ackbar's personal flagship.");
         setGameText("May add unlimited pilots, passengers, vehicles and starfighters. Has ship-docking capability. Permanent pilots provide total ability of 4. Immune to attrition < 8 (< 10 when Ackbar piloting).");
         addPersona(Persona.HOME_ONE);
