@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set218.light;
 
 import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +30,7 @@ import java.util.List;
  */
 public class Card218_003 extends AbstractJediMaster {
     public Card218_003() {
-        super(Side.LIGHT, 1, 6, 6, 7, 7, "Master Qui-Gon With Lightsaber", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 7, 7, "Master Qui-Gon With Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setLore("");
         setGameText("Permanent weapon is •Qui-Gon Jinn's Lightsaber (may target a character or creature for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addPersona(Persona.QUIGON);

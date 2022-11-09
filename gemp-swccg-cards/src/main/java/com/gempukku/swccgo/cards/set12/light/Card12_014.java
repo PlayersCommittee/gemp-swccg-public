@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card12_014 extends AbstractJediMaster {
     public Card12_014() {
-        super(Side.LIGHT, 1, 6, 6, 7, 7, "Mace Windu", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 7, 7, "Mace Windu", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Senior Jedi Council member who maintains rigorous adherence to the Code. Sent Qui-Gon to Naboo to accompany the Queen and learn more about the mysterious 'dark warrior'.");
         setGameText("Deploys +3 to any location except Jedi Council Chamber. While at Jedi Council Chamber, immune to attrition and once during your control phase, if Amidala at a battleground site and Maul not on table, opponent loses 2 Force.");

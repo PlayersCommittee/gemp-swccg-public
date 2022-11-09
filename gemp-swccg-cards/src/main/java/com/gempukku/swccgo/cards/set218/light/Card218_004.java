@@ -3,11 +3,21 @@ package com.gempukku.swccgo.cards.set218.light;
 import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayFireOneWeaponTwicePerBattleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +31,7 @@ import java.util.List;
  */
 public class Card218_004 extends AbstractJediMaster {
     public Card218_004() {
-        super(Side.LIGHT, 1, 7, 6, 7, 8, "Master Windu", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 7, 6, 7, 8, "Master Windu", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setLore("Jedi Council member.");
         setGameText("During battle, may swing a lightsaber twice. Power +1 for each of opponent's character of ability < 2 here. Your clones are forfeit +1 here. Immune to attrition < 6.");
         addPersona(Persona.MACE);

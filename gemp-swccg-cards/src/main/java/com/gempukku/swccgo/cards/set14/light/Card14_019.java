@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card14_019 extends AbstractJediMaster {
     public Card14_019() {
-        super(Side.LIGHT, 1, 8, 6, 7, 8, "Mace Windu, Jedi Master", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 8, 6, 7, 8, "Mace Windu, Jedi Master", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Jedi Council member who is known to be one of the strongest members of the Council. Has come to Naboo to investigate the death of the mysterious 'dark warrior.'");
         setGameText("Deploys -2 on Naboo. While on Naboo, once during your control phase may use 1 Force to cancel Maul's immunity to attrition for remainder of turn. Immune to attrition < 3 (< 5 while on Naboo).");

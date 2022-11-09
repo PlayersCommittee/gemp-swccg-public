@@ -3,22 +3,30 @@ package com.gempukku.swccgo.cards.set210.light;
 import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInUsedPileEffect;
-import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card210_019 extends AbstractJediMaster {
     public Card210_019() {
-        super(Side.LIGHT, 1, 6, 5, 7, 7, "Kit Fisto", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 5, 7, 7, "Kit Fisto", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Nautolan Jedi Council member.");
         setGameText("[Pilot] 2. Deploys -1 to an [Episode I] site (-2 if underwater). Landspeed = 2. Once per turn, may use 1 Force (or place your combat card here in Used Pile) to draw top card of Reserve Deck. Immune to attrition < 5.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.EPISODE_I, Icon.WARRIOR, Icon.PILOT);

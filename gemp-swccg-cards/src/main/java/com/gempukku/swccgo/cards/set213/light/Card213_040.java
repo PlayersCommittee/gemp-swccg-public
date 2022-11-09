@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AloneCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.InPlayDataAsFloatEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +41,7 @@ import java.util.List;
  */
 public class Card213_040 extends AbstractJediMaster {
     public Card213_040() {
-        super(Side.LIGHT, 1, 6, 6, 7, 8, "Qui-Gon Jinn, Serene Jedi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 7, 8, "Qui-Gon Jinn, Serene Jedi", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("Once per game, may deploy Meditation on Qui-Gon from Lost Pile. During battle, while alone, opponent may not cancel your destiny draws and your total battle destiny is +1 for each weapon destiny that was drawn while alone. Immune to attrition.");
         addPersona(Persona.QUIGON);

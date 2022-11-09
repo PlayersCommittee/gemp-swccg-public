@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card207_003 extends AbstractJediMaster {
     public Card207_003() {
-        super(Side.LIGHT, 2, 4, 4, 7, 6, "Depa Billaba", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 7, 6, "Depa Billaba", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Chalactan Jedi Master who was rescued by Mace Windu from space pirates when she was six months old. Jedi Council member who is renowned for her insights.");
         setGameText("If at least two [LS] icons here, once during your control phase may draw top card of Reserve Deck. If at least two [DS] icons here, may forfeit in place of your hit non-Jedi character present with Depa (forfeit = 0), restoring that character to normal.");

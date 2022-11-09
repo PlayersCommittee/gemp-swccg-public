@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card12_017 extends AbstractJediMaster {
     public Card12_017() {
-        super(Side.LIGHT, 1, 8, 6, 7, 9, "Master Qui-Gon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 8, 6, 7, 9, "Master Qui-Gon", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Jedi Master currently not on the Council. Although he serves the Council well, there have been times when he has defied their wishes to pursue a path he believes is right.");
         setGameText("Deploys -2 on Coruscant. If opponent's Dark Jedi on table, during your move phase may use 4 Force to return Qui-Gon (and all cards on him) to owner's hand. Immune to attrition and You Are Beaten.");

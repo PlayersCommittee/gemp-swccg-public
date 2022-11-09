@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card12_035 extends AbstractJediMaster {
     public Card12_035() {
-        super(Side.LIGHT, 1, 4, 3, 7, 7, "Yoda, Senior Council Member", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 3, 7, 7, "Yoda, Senior Council Member", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Senior Jedi Council member. Responsible for the early training of Obi-Wan Kenobi. When Qui-Gon brought Anakin before the Council, Yoda voted not to train the boy.");
         setGameText("Deploys only to Jedi Council Chamber. While at Jedi Council Chamber, you lose no Force from Dagobah: Cave and, during your move phase, may use 4 Force to relocate your other Jedi here to any site you occupy. Immune to attrition.");
         addPersona(Persona.YODA);

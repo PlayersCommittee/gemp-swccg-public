@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerDuelEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card11_010 extends AbstractJediMaster {
     public Card11_010() {
-        super(Side.LIGHT, 1, 8, 6, 7, 9, "Qui-Gon Jinn", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 8, 6, 7, 9, "Qui-Gon Jinn", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Accepted Obi-Wan Kenobi as his Padawan learner. Was given orders to protect Queen Amidala at all costs.");
         setGameText("Deploys -2 to Tatooine. Power +1 at same site as Maul. Once during a duel Qui-Gon is in, may cancel a duel destiny just drawn and cause a redraw. Opponent's aliens are power -1 at same site. Immune to attrition.");
         addPersona(Persona.QUIGON);

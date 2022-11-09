@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractJediMaster;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -11,7 +17,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.LightsaberCombatForceLossModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveGameTextCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +36,7 @@ import java.util.List;
  */
 public class Card13_039 extends AbstractJediMaster {
     public Card13_039() {
-        super(Side.LIGHT, 1, 8, 6, 7, 9, "Qui-Gon Jinn, Jedi Master", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 8, 6, 7, 9, "Qui-Gon Jinn, Jedi Master", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Jedi Master ordered by the Jedi Council to return to Naboo to seek out the mysterious 'dark warrior' that he had encountered on Tatooine.");
         setGameText("Deploys -2 to Naboo. Qui-Gon's game text may not be canceled. When Qui-Gon wins a lightsaber combat, adds 2 to opponent's Force loss. Once per game, may lose 2 Force to deploy a lightsaber on Qui-Gon from Lost Pile. Immune to attrition.");
         addPersona(Persona.QUIGON);
