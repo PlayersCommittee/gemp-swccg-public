@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card205_004 extends AbstractCharacterDevice {
     public Card205_004() {
-        super(Side.LIGHT, 5, "Rebel Flight Suit");
+        super(Side.LIGHT, 5, "Rebel Flight Suit", Uniqueness.UNRESTRICTED, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Pilot fatigues feature digital technology which can be customized for particular starfighters. Increases interface efficiency with a newly assigned craft.");
         setGameText("Deploy on a Rebel (or Resistance) pilot. Any starfighter or vehicle character pilots is power +2. If present at a site, may use 1 Force to place this device in Used Pile. Once per game, if character is piloting in battle, may cancel a non-[Immune to Sense] Interrupt.");

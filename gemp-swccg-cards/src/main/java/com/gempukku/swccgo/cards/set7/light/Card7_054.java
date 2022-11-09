@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card7_054 extends AbstractCharacterDevice {
     public Card7_054() {
-        super(Side.LIGHT, 5, "Wrist Comlink");
+        super(Side.LIGHT, 5, "Wrist Comlink", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Favored by scouts and troopers over the hand-held model. Easy to operate in difficult environments.");
         setGameText("Use 1 Force to deploy on your Rebel. Your characters and vehicles at related sites may move as a 'react' to same or adjacent site.");
         addIcons(Icon.SPECIAL_EDITION);

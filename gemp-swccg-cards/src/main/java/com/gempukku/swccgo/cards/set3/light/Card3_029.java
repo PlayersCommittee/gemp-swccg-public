@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card3_029 extends AbstractCharacterDevice {
     public Card3_029() {
-        super(Side.LIGHT, 5, "Echo Trooper Backpack");
+        super(Side.LIGHT, 5, "Echo Trooper Backpack", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Rebels carry a variety of equipment to be fully prepared for enemies and the elements. Weather-resistant backpacks keep gear protected and operational.");
         setGameText("Deploy on your trooper. May use any number of weapons and devices. Trooper is immune to attrition < 3 when at a planet site.");
         addIcons(Icon.HOTH);

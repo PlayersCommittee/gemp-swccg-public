@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card4_009 extends AbstractCharacterDevice {
     public Card4_009() {
-        super(Side.LIGHT, 4, "Droid Sensorscope");
+        super(Side.LIGHT, 4, "Droid Sensorscope", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Full-spectrum transceiver for R-unit droids including electro-photo receptors, DERs and heat and motion detectors. Data is routed directly to droids Intellex IV internal computer.");
         setGameText("Deploy on one of your R-unit droids. During any control phase, you may use 1 Force to peek at the top card of opponent's Reserve Deck. Also, if on Dagobah, droid may move for free.");
         addIcons(Icon.DAGOBAH);

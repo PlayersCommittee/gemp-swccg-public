@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card6_050 extends AbstractCharacterDevice {
     public Card6_050() {
-        super(Side.LIGHT, 5, "Hidden Compartment");
+        super(Side.LIGHT, 5, "Hidden Compartment", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Standard astromech internal cargo area measures 20 centimeters by 8 centimeters. Some models have a custom compressed-air launcher for shooting flares.");
         setGameText("Deploy on any R-unit droid. At start of a battle, you may 'react' by deploying one character weapon (at normal use of the Force) from Reserve Deck on a warrior present; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

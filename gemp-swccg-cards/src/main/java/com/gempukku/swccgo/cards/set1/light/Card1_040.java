@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_040 extends AbstractCharacterDevice {
     public Card1_040() {
-        super(Side.LIGHT, 4, "Tatooine Utility Belt");
+        super(Side.LIGHT, 4, "Tatooine Utility Belt", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Survival gear, food and tools are stored in small compartments. Made from bantha hide. Used by Luke and other Tatooine inhabitants.");
         setGameText("Use 1 Force to deploy on any Rebel or alien. While on Tatooine, that character's power and forfeit are +2.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

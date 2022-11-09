@@ -5,7 +5,18 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +42,7 @@ import java.util.List;
  */
 public class Card2_112 extends AbstractCharacterDevice {
     public Card2_112() {
-        super(Side.DARK, 5, Title.Hypo);
+        super(Side.DARK, 5, Title.Hypo, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("Truth drugs like Bavo Six decrease resistance to interrogation. The enormous needle adds psychological pressure, facilitating the interrogation process.");
         setGameText("Deploy on your IT-O. Once during each of your control phases, if present with a captive: You may ask one yes-or-no question about cards in opponent's hand. Opponent must answer truthfully or lose 1 Force. OR May add 1 to Force drain where present.");
         addIcons(Icon.A_NEW_HOPE);

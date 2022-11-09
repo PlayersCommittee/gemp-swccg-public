@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card7_053 extends AbstractCharacterDevice {
     public Card7_053() {
-        super(Side.LIGHT, 6, "Portable Scanner");
+        super(Side.LIGHT, 6, "Portable Scanner", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Cryoncorp EnhanceScan general-purpose scanner. 1,500-meter lifeform detection range. Motion sensor and metal detection sensors optimized for up to 500 meters.");
         setGameText("Deploy on your Rebel. Adds 2 to your search party destiny draws where present. Also, once during each of your control phases, may take one device or weapon (except a lightsaber) into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

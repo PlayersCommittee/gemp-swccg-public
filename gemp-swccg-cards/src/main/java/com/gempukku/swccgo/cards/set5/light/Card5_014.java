@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card5_014 extends AbstractCharacterDevice {
     public Card5_014() {
-        super(Side.LIGHT, 4, "Lando's Wrist Comlink", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Lando's Wrist Comlink", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Easily concealed device used by Lando to remain in contact with his subordinates. Directly connected to Cloud City's central computer.");
         setGameText("Deploy on a character. When at a Cloud City site, Lobot and your Cloud City troopers may deploy or move here as a 'react.'");
         addIcons(Icon.CLOUD_CITY);

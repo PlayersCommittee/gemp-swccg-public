@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card6_140 extends AbstractCharacterDevice {
     public Card6_140() {
-        super(Side.DARK, 4, Title.Jet_Pack, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 4, Title.Jet_Pack, Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Mitrinomon Z-6 jet pack. Exhaust vents are used to maneuver in mid-flight. Gyro-stabilizer automatically applies counterthrust when landing.");
         setGameText("Use 3 Force to deploy on any alien (except Boba Fett or Jabba). May 'fly' (landspeed = 3). May use 2 Force to move as a 'react'.");
         addIcons(Icon.JABBAS_PALACE);

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set10.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,7 +17,14 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.FiresForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetArmorModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -24,7 +38,7 @@ import java.util.List;
  */
 public class Card10_011 extends AbstractCharacterDevice {
     public Card10_011() {
-        super(Side.LIGHT, 3, Title.Mercenary_Armor, Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 3, Title.Mercenary_Armor, Uniqueness.RESTRICTED_2, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Worn by hired guns throughout the galaxy. Often used by Rebels when infiltrating underworld organizations. Leia wore Boushh's armor when she infiltrated Black Sun.");
         setGameText("Use 2 Force (free on Leia) to deploy on a Rebel without armor. Character gains spy skill, power +3, armor = 4, and immunity to attrition < 3. Imperial Barrier is canceled. Blasters deploy for free and fire for free on this character.");
         addIcons(Icon.REFLECTIONS_II);

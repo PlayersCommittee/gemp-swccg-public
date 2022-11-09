@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +39,7 @@ import java.util.List;
  */
 public class Card3_096 extends AbstractCharacterDevice {
     public Card3_096() {
-        super(Side.DARK, 3, "Portable Fusion Generator");
+        super(Side.DARK, 3, "Portable Fusion Generator", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Larger assault weapons require troops to carry their own power sources. Both light and efficient, these units produce ample power for most combat needs.");
         setGameText("Deploy on any warrior. When that warrior fires a blaster rifle or artillery weapon, adds 1 to each of that weapon's destiny draws. Also, may add 1 to power of one droid present.");
         addIcons(Icon.HOTH);

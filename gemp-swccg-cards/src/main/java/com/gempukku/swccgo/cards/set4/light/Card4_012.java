@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card4_012 extends AbstractCharacterDevice {
     public Card4_012() {
-        super(Side.LIGHT, 6, Title.Lukes_Backpack, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, Title.Lukes_Backpack, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Made on Dantooine. Luke used the many pockets in his gundark-skin backpack to carry supplies while on patrol.");
         setGameText("Deploy on any character. May carry and use any number of devices. May also carry Yoda, Kabe or any one Jawa or Ewok (as if riding a creature vehicle). Adds 1 to training destiny when carrying the Mentor.");
         addIcons(Icon.DAGOBAH);

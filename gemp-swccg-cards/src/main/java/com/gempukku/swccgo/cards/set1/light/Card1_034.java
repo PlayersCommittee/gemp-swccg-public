@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card1_034 extends AbstractCharacterDevice {
     public Card1_034() {
-        super(Side.LIGHT, 6, "Caller");
+        super(Side.LIGHT, 6, "Caller", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Hand-held device that can remotely command restraining bolt. Each caller can be keyed to specific bolt. Used by many species. Also called 'restraining bolt activators.");
         setGameText("Deploy on a Rebel or Jawa. During your control phase, may steal one droid at same site if it is controlled by a Restraining Bolt. After droid is stolen, Restraining Bolt returns to owner's hand.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

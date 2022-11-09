@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card601_155 extends AbstractCharacterDevice {
     public Card601_155() {
-        super(Side.DARK, 6, "Trophy Of A Kill", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 6, "Trophy Of A Kill", Uniqueness.RESTRICTED_2, ExpansionSet.LEGACY, Rarity.V);
         setGameText("Deploy on Galen, Grievous or your female of ability > 3. Character is immunity to attrition +2 (and power +2 if female). May add 1 to Force drain where present. This device lost if character Disarmed.");
         addIcons(Icon.PREMIUM, Icon.LEGACY_BLOCK_7);
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

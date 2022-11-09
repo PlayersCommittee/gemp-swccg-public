@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card1_035 extends AbstractCharacterDevice {
     public Card1_035() {
-        super(Side.LIGHT, 3, "Electrobinoculars");
+        super(Side.LIGHT, 3, "Electrobinoculars", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Enhances distant targets using a computer-assisted zoom technology. Provides range information. Works in low-light. Rugged case protects the internal systems.");
         setGameText("Use 1 Force to deploy on any warrior. At any time, you may peek at the top card of your Reserve Deck by using 2 Force. You may choose to move that card to the top of your Force Pile.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

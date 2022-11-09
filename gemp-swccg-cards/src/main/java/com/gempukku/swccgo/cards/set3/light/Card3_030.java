@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card3_030 extends AbstractCharacterDevice {
     public Card3_030() {
-        super(Side.LIGHT, 4, "Hoth Survival Gear");
+        super(Side.LIGHT, 4, "Hoth Survival Gear", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Cold-weather gear worn and carried by Echo Base troops. Enhances their ability to function and survive in Hoth's hostile environment.");
         setGameText("Deploy on any Rebel or warrior. While on Hoth, that character is power and forfeit +1 and is immune to Frostbite, Exposure and Ice Storm.");
         addIcons(Icon.HOTH);

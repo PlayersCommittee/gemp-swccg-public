@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card6_051 extends AbstractCharacterDevice {
     public Card6_051() {
-        super(Side.LIGHT, 4, "Holoprojector");
+        super(Side.LIGHT, 4, "Holoprojector", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Common feature on astromechs. Displays technical information. Sometimes used by princesses to send distress calls to old Jedi Knights, but not often.");
         setGameText("Deploy on any R-unit droid. During your control phase, may use 1 Force to search your Reserve Deck, take one hologram or dejarik card into hand and reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentAtScompLink;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card211_054 extends AbstractCharacterDevice {
     public Card211_054() {
-        super(Side.LIGHT, 4, Title.Cyborg_Construct, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Cyborg_Construct, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Biotech's latest model, the Aj ^ g, boasts greater storage capacity than all other models combined. Advertised as, \"Artificial Intelligence worth shaving your head for.\"");
         setGameText("Deploy on an alien of ability < 3. While at a Scomp link, Computer Interface is a Used Interrupt, and once per turn may use 1 Force to [upload] Computer Interface. Once per turn, if on Lobot, may [download] a trooper here.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_11);
