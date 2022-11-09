@@ -7,7 +7,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card14_124 extends AbstractCombatVehicle {
     public Card14_124() {
-        super(Side.DARK, 4, 2, 2, 4, null, 3, 4, "TT-6", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 2, 2, 4, null, 3, 4, "TT-6", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Primary command liaison transport. Contains the majority of officer battle droids. Has priority to unload as soon as the area is secured. Enclosed.");
         setGameText("May add 7 passengers. Once per turn, may deploy a battle droid leader to same site from Reserve Deck; reshuffle. Immune to attrition < 3 (< 5 if your AAT or STAP present).");
         addModelType(ModelType.MTT);

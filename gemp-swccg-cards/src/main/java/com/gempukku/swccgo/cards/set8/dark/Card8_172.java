@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card8_172 extends AbstractCombatVehicle {
     public Card8_172() {
-        super(Side.DARK, 3, 2, 3, 4, null, 3, 4, Title.Tempest_Scout_1, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, 4, null, 3, 4, Title.Tempest_Scout_1, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Enclosed AT-ST assigned as first response to incidents at Endor control bunker. Piloted by Lieutenant Arnet.");
         setGameText("May add 2 pilots or passengers. May move as a 'react' for free. When Arnet piloting, immune to attrition < 4 and adds 1 to attrition against opponent here.");
         addModelType(ModelType.AT_ST);

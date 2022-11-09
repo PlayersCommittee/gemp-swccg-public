@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card8_171 extends AbstractCombatVehicle {
     public Card8_171() {
-        super(Side.DARK, 3, 3, 3, 4, null, 3, 4, "Tempest Scout");
+        super(Side.DARK, 3, 3, 3, 4, null, 3, 4, "Tempest Scout", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.U);
         setLore("Manufactured by Kuat Drive Yards under the close supervision of the Empire. Often used in conjunction with AT-ATs in an anti-personnel role. Enclosed.");
         setGameText("May add 1 pilot or passenger. May move as a 'react' for 1 additional Force. Permanent pilot provides ability of 1. Your Elite Squadron stormtroopers are deploy -1 to same site.");
         addModelType(ModelType.AT_ST);

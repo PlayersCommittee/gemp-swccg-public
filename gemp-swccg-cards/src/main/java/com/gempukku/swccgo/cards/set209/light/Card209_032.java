@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
 
 public class Card209_032 extends AbstractCombatVehicle {
     public Card209_032() {
-        super(Side.LIGHT, 4, 4, 4, null, 4, 4, 6, "Blue 11", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 4, 4, null, 4, 4, 6, "Blue 11", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Enclosed");
         setGameText("May add 1 pilot and 2 passengers. Permanent pilot provides ability of 2. Once per turn, may [download] a non-pilot Rebel of ability < 5 aboard. Immune to attrition < 4.");
         addModelType(ModelType.U_WING);

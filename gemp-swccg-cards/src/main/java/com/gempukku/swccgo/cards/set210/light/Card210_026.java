@@ -2,23 +2,32 @@ package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfCardPlayedModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfWeaponFiringModifierEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ResetDefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetPowerModifier;
 import com.gempukku.swccgo.logic.modifiers.UseSpecificAbilityVsCardModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -29,7 +38,7 @@ import java.util.*;
  */
 public class Card210_026 extends AbstractCombatVehicle {
     public Card210_026() {
-        super(Side.LIGHT, 5, 2, 2, null, 5, 3, 4, "V-4X-D Ski Speeder");
+        super(Side.LIGHT, 5, 2, 2, null, 5, 3, 4, "V-4X-D Ski Speeder", Uniqueness.UNRESTRICTED, ExpansionSet.SET_10, Rarity.V);
         setLore("");
         setGameText("May add 1 Pilot. May move as a 'react'. Matching vehicle for any resistance pilot. Pilot's power = 0, and if targeted by Force Lightning, Trample, or a weapon, may use this card's defense value instead.");
         addModelType(ModelType.V_4X);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card13_056 extends AbstractCombatVehicle {
     public Card13_056() {
-        super(Side.DARK, 4, 5, 8, 4, null, 1, 5, "Blizzard 4", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 5, 8, 4, null, 1, 5, "Blizzard 4", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Staffed by an experienced crew. Blizzard 4's role in all engagements is to seek out new terrain uncovered by the initial offense thrust and unload troops to hold it. Enclosed.");
         setGameText("May add 6 passengers. Permanent pilots provide ability of 4. When deployed, you may deploy (for free) an Imperial warrior aboard from your Reserve Deck; reshuffle. End of your turn: Use 1 Force to maintain OR Place out of play.");
         addModelType(ModelType.AT_AT);

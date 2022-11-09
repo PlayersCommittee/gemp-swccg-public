@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card3_066 extends AbstractCombatVehicle {
     public Card3_066() {
-        super(Side.LIGHT, 2, 2, 3, null, 4, 4, 6, Title.Rogue_1, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, null, 4, 4, 6, Title.Rogue_1, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("Designated Rogue Leader. Led snowspeeder attack during the Battle of Hoth. Enclosed. Piloted by Commander Skywalker, with Dack Ralter as tailgunner.");
         setGameText("May add 2 pilots or passengers. Immune to attrition < 3 if Luke piloting. May move as a 'react' only to Hoth sites.");
         addModelType(ModelType.T_47);

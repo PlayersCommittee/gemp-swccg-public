@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.PilotedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card14_120 extends AbstractCombatVehicle {
     public Card14_120() {
-        super(Side.DARK, 3, 4, 6, 5, null, 1, 7, "AAT Assault Leader", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 6, 5, null, 1, 7, "AAT Assault Leader", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("The AAT commanded by OOM-9 was outfitted with enhanced armor and additional weaponry in order to subdue the Gungan insurrection on the Naboo battle plains. Enclosed.");
         setGameText("May add 1 pilot and 3 passengers. While piloted at same site as another AAT, adds two battle destiny. May deploy Energy Shell Launchers aboard from Reserve Deck; reshuffle. Immune to attrition < 5.");
         addModelType(ModelType.AAT);

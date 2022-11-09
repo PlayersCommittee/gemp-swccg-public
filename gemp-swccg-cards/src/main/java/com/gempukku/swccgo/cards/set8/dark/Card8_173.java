@@ -2,11 +2,22 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +31,7 @@ import java.util.List;
  */
 public class Card8_173 extends AbstractCombatVehicle {
     public Card8_173() {
-        super(Side.DARK, 3, 2, 3, 4, null, 3, 4, Title.Tempest_Scout_2, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, 4, null, 3, 4, Title.Tempest_Scout_2, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Assigned to coordinate battle activities with the Endor biker scout detachment. Enclosed. First saw battle in Kashyyyk forests.");
         setGameText("Deploy -1 to Endor. May add 2 pilots or passengers. May move as a 'react'. Immune to attrition < 3 when Marquand piloting. Your scouts may move here as a 'react'.");
         addModelType(ModelType.AT_ST);

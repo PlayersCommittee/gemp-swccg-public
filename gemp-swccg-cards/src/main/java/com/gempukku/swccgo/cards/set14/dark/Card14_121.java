@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.PilotedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card14_121 extends AbstractCombatVehicle {
     public Card14_121() {
-        super(Side.DARK, 2, 4, 5, 4, null, 1, 5, "Armored Attack Tank", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 4, 5, 4, null, 1, 5, "Armored Attack Tank", Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("The AAT is the most powerful vehicle in the Trade Federation arsenal. It includes range-enhanced laser cannons, projectile launchers and anti-personnel blasters. Enclosed.");
         setGameText("May add 1 pilot and 3 passengers. While piloted at same site as a battle droid, adds two battle destiny. Landspeed may not be increased. Immune to attrition < 4.");
         addModelType(ModelType.AAT);

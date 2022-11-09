@@ -4,12 +4,22 @@ import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByWeaponsLikeStarfighterModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -24,7 +34,7 @@ import java.util.List;
  */
 public class Card7_311 extends AbstractCombatVehicle {
     public Card7_311() {
-        super(Side.DARK, 3, 3, 3, null, 4, 5, 4, "Combat Cloud Car", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 3, null, 4, 5, 4, "Combat Cloud Car", Uniqueness.RESTRICTED_3, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Enclosed Ubrikkian Talon I Combat Cloud Car. Speeds up to 1,875 kph. Exceptional maneuverability makes this a favorite of outer Rim security forces.");
         setGameText("Permanent pilot provides ability of 2. At cloud sectors, power and maneuver +1, may deploy as a 'react' and may move and be targeted by weapons like a starfighter.");
         addModelType(ModelType.TALON_I_COMBAT_CLOUD_CAR);

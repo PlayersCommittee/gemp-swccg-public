@@ -2,13 +2,20 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.conditions.PilotedCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CharactersAboardMayJumpOffModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ResetPowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card8_169 extends AbstractCombatVehicle {
     public Card8_169() {
-        super(Side.DARK, 4, 1, 1, null, 5, 5, 3, "Speeder Bike");
+        super(Side.DARK, 4, 1, 1, null, 5, 5, 3, "Speeder Bike", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Aratech 74-Z military model. Preferred by troops operating far from Imperial maintenance facilities. Flight ceiling of 25 meters.");
         setGameText("May add 1 pilot and 1 passenger. May move as a 'react'. When piloted, vehicle and scouts aboard are immune to attrition < 4. Pilot's power = 0. If lost, characters aboard may 'jump off' (disembark).");
         addModelType(ModelType.SPEEDER_BIKE);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card210_038 extends AbstractCombatVehicle {
     public Card210_038() {
-        super(Side.DARK, 1, 6, 6, 7, null, 1, 6, "Marquand In Blizzard 6", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 7, null, 1, 6, "Marquand In Blizzard 6", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Enclosed. Death Squadron.");
         setGameText("May add 1 pilot. Permanent pilot is •Marquand, who provides ability of 2. Cards Blizzard 6 hits are power and forfeit -2 and may not apply ability towards drawing battle destiny. Immune to attrition < 4.");
         addModelType(ModelType.AT_AT);

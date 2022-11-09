@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card7_313 extends AbstractCombatVehicle {
     public Card7_313() {
-        super(Side.DARK, 1, 7, 5, 7, null, 1, 6, "Dune Walker", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 1, 7, 5, 7, null, 1, 6, "Dune Walker", Uniqueness.RESTRICTED_3, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Enclosed armored transport adapted for hot climates by replacing tertiary weapons systems with additional Sienar t23 heat dissipation units.");
         setGameText("Deploy -1 to a desert or Tatooine site. May add 1 pilot and 8 passengers. Immune to attrition < 4. Landspeed may not be increased. Permanent pilot provides ability of 1.");
         addModelType(ModelType.AT_AT);

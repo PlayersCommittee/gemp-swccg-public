@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card8_175 extends AbstractCombatVehicle {
     public Card8_175() {
-        super(Side.DARK, 4, 3, 4, 4, null, 2, 4, Title.Tempest_Scout_4, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 4, 4, null, 2, 4, Title.Tempest_Scout_4, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Enclosed vehicle. Equipped with a prototype targeting computer. Maintains accuracy even in dense foliage. Energy diverted from propulsion to weapons systems.");
         setGameText("May add 1 pilot or passenger. Permanent pilot provides ability of 1. AT-ST Dual Cannon deploys free aboard and may target at an adjacent site.");
         addModelType(ModelType.AT_ST);

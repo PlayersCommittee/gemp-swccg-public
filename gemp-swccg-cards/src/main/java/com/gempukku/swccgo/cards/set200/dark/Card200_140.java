@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card200_140 extends AbstractCombatVehicle {
     public Card200_140() {
-        super(Side.DARK, 4, 3, 3, 4, null, 3, 5, Title.Blizzard_Scout_1, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 3, 4, null, 3, 5, Title.Blizzard_Scout_1, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Enclosed All Terrain Scout Transport (AT-ST). Provides flanking support to the AT-ATs of Blizzard Force. Modified for cold weather combat.");
         setGameText("May add 1 pilot or passenger. Permanent pilot provides ability of 2. May move as a 'react'. During battle, if with your piloted AT-AT, may cancel game text of an opponent's character present.");

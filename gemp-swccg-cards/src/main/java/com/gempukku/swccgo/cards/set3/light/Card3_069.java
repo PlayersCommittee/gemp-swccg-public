@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card3_069 extends AbstractCombatVehicle {
     public Card3_069() {
-        super(Side.LIGHT, 1, 2, 3, null, 4, 4, 4, "Snowspeeder");
+        super(Side.LIGHT, 1, 2, 3, null, 4, 4, 4, "Snowspeeder", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U2);
         setLore("Modified Incom T-47 airspeeder. Enclosed. Adapted to the cold by installation of regulator coil heaters. Rebels typically nickname converted speeders after the intended environment.");
         setGameText("May add 1 pilot or passenger. Permanent pilot aboard provides ability of 1. May move as a 'react' to Hoth sites.");
         addModelType(ModelType.T_47);

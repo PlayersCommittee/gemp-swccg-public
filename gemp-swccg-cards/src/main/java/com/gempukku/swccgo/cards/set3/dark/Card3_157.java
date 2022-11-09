@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -19,7 +25,7 @@ import java.util.List;
  */
 public class Card3_157 extends AbstractCombatVehicle {
     public Card3_157() {
-        super(Side.DARK, 1, 6, 6, 7, null, 1, 6, "Blizzard Walker", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 1, 6, 6, 7, null, 1, 6, "Blizzard Walker", Uniqueness.RESTRICTED_3, ExpansionSet.HOTH, Rarity.U2);
         setLore("Enclosed All Terrain Armored Transport. Commonly called an Imperial walker. One of the most terrifying and deadly weapons in the Empire's arsenal. 15.5 meters tall.");
         setGameText("May add 2 pilots and 8 passengers. Immune to attrition < 4. Landspeed may not be increased.");
         addModelType(ModelType.AT_AT);

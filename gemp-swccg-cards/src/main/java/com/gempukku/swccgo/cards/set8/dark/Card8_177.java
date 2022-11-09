@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactModifier;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card8_177 extends AbstractCombatVehicle {
     public Card8_177() {
-        super(Side.DARK, 3, 3, 3, 3, null, 3, 4, Title.Tempest_Scout_6, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 3, null, 3, 4, Title.Tempest_Scout_6, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Enclosed. Modified for perimeter patrol. Elite crew trained for many months over heavily forested terrain.");
         setGameText("May deploy -2 as a 'react'. May move as a 'react' for free. Permanent pilots provide total ability of 2.");
         addModelType(ModelType.AT_ST);

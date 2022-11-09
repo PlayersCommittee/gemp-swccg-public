@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card8_081 extends AbstractCombatVehicle {
     public Card8_081() {
-        super(Side.LIGHT, 4, 2, 3, 4, null, 3, 5, "Chewie's AT-ST", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 3, 4, null, 3, 5, "Chewie's AT-ST", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Enclosed. Chewie's daring capture of an Imperial AT-ST helped turn the tide in the Battle of Endor.");
         setGameText("Deploy only to Endor or same site as Chewie or opponent's AT-ST. May add 2 pilots or passengers. Subtracts 1 from power of other AT-STs at same site. Immune to attrition < 4 when Chewie piloting.");
         addModelType(ModelType.AT_ST);

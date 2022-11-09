@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractCombatVehicle;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card7_156 extends AbstractCombatVehicle {
     public Card7_156() {
-        super(Side.LIGHT, 1, 2, 3, null, 4, 4, 4, "Sandspeeder");
+        super(Side.LIGHT, 1, 2, 3, null, 4, 4, 4, "Sandspeeder", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Enclosed Incom T-47 airspeeder adapted for use in hot, dry conditions. Maximum speed 600 kilometers per hour. Drive section left exposed for easier maintenance.");
         setGameText("May add 1 pilot or passenger. Permanent pilot provides ability of 1. May move as a 'react' to Tatooine or desert sites.");
         addModelType(ModelType.T_47);
