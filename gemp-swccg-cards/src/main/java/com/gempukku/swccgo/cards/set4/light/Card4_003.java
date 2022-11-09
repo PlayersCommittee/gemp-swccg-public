@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card4_003 extends AbstractCreature {
     public Card4_003() {
-        super(Side.LIGHT, 5, 2, null, 2, 0, "Bog-wing");
+        super(Side.LIGHT, 5, 2, null, 2, 0, "Bog-wing", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Large, flying jungle predator. One to five meters long, including tail. Swoops down and grasps victims in its claws. Young are born in mid-flight, as the mother drops from extreme altitude.");
         setGameText("* Ferocity = destiny -1. Habitat: Dagobah. Parasite: Character (that can move). Relocate Bog-wing and host up to two sites away (opponent of victim chooses). Bog-wing then detaches.");
         addModelType(ModelType.AVIAN);

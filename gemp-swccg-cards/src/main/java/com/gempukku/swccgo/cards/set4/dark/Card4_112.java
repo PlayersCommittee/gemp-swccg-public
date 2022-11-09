@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card4_112 extends AbstractCreature {
     public Card4_112() {
-        super(Side.DARK, 4, 2, null, 3, 0, Title.Space_Slug, Uniqueness.DIAMOND_1);
+        super(Side.DARK, 4, 2, null, 3, 0, Title.Space_Slug, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Gigantic silicon-based lifeform. Exists in the vacuum of space. Devours small vessels whole. Has difficulty keeping its modified light freighters down.");
         setGameText("* Ferocity = two destiny. Habitat: Big One (Cave is now Belly). Attacks starfighters (defeated cards are eaten or relocated to Belly, opponent of victim chooses). Once per turn, may open or close mouth.");
         addModelType(ModelType.SPACE);

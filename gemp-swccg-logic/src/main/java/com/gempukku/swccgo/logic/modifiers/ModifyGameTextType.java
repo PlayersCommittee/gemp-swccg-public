@@ -52,6 +52,7 @@ public enum ModifyGameTextType {
     REBEL_PLANNERS__APPLIES_TO_EVERY_SYSTEM("Applies to every system"),
     REBEL_TECH__DOUBLE_BONUS_TO_ATTACK_RUN("Attack Run bonus doubled"),
     RECOIL_IN_FEAR__MAY_NOT_BE_PLAYED_EXCEPT_TO_CANCEL_INTERRUPT("May not be played (except to cancel opponent's Interrupt)"),
+    REFLECTIONS_II_OBJECTIVE__TARGETS_ANAKIN_INSTEAD_OF_LUKE("Targets Anakin instead of Luke"),
     REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE("Targets Rey instead of Luke"),
     RESCUE_THE_PRINCESS__CANNOT_BE_PLACED_OUT_OF_PLAY("Cannot be placed out of play"),
     SAVE_YOU_IT_CAN__MOVE_PHASE_MAY_BE_TREATED_AS_DEPLOY_PHASE("'Move phase' may be treated as 'deploy phase'"),

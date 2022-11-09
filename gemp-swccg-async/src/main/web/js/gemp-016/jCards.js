@@ -3616,6 +3616,9 @@ var fixedImages = {
 "501_110_BACK":"https://res.starwarsccg.org/cards/Virtual11-Light/hires/weneedlukeskywalker.png",
 "501_111":"https://res.starwarsccg.org/cards/Virtual4-Light/hires/bb8.png",
 "501_112":"https://res.starwarsccg.org/cards/Virtual8-Light/hires/endorewokvillage.png",
+"501_113":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/nabootheedpalacegenerator.gif",
+"501_114":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/iampartofthelivingforce.png",
+"501_115":"https://res.starwarsccg.org/cards/Virtual4-Dark/hires/bowtothefirstorder.png",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
@@ -4481,7 +4484,8 @@ var Card = Class.extend({
                    (cardNo == 99) ||
                    (cardNo == 102) ||
                    (cardNo == 103) ||
-                   (cardNo == 112)
+                   (cardNo == 112) ||
+                   (cardNo == 113)
                    ;
         }
         if (setNo == 601) {

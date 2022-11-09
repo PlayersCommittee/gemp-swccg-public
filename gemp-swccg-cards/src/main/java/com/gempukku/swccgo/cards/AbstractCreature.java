@@ -1,10 +1,24 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.PlayCreatureAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -38,54 +52,14 @@ public abstract class AbstractCreature extends AbstractDeployable {
      * @param defenseValue the defense value
      * @param forfeit the forfeit value
      * @param title the card title
-     */
-    protected AbstractCreature(Side side, float destiny, float deployCost, float ferocity, float defenseValue, float forfeit, String title) {
-        this(side, destiny, deployCost, ferocity, defenseValue, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a creature.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param ferocity the ferocity
-     * @param defenseValue the defense value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     */
-    protected AbstractCreature(Side side, float destiny, float deployCost, Float ferocity, float defenseValue, float forfeit, String title) {
-        this(side, destiny, deployCost, ferocity, defenseValue, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a creature.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param ferocity the ferocity
-     * @param defenseValue the defense value
-     * @param forfeit the forfeit value
-     * @param title the card title
      * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
      */
-    protected AbstractCreature(Side side, float destiny, float deployCost, float ferocity, float defenseValue, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, (Float) ferocity, defenseValue, forfeit, title, uniqueness);
+    protected AbstractCreature(Side side, float destiny, float deployCost, float ferocity, float defenseValue, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        this(side, destiny, deployCost, (Float) ferocity, defenseValue, forfeit, title, uniqueness, expansionSet, rarity);
     }
 
-    /**
-     * Creates a blueprint for a creature.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param ferocity the ferocity
-     * @param defenseValue the defense value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractCreature(Side side, float destiny, float deployCost, Float ferocity, float defenseValue, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, ferocity, defenseValue, forfeit, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for a creature.

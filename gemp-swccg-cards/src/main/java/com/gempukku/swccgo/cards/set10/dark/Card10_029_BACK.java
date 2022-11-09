@@ -195,7 +195,9 @@ public class Card10_029_BACK extends AbstractObjective {
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeFlipped(game, self)) {
-            Filter lukeFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE) ? Filters.Rey : Filters.Luke;
+            Filter lukeFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE) ? Filters.Rey
+                    : GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_ANAKIN_INSTEAD_OF_LUKE) ? Filters.Anakin
+                    : Filters.Luke;
             if (GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(lukeFilter, Filters.at(Filters.battleground_site)))
                     || !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, xizorFilter)) {
 

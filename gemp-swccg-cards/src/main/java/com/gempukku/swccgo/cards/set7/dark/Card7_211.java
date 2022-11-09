@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card7_211 extends AbstractCreature {
     public Card7_211() {
-        super(Side.DARK, 1, 7, null, 5, 0, "Krayt Dragon", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 7, null, 5, 0, "Krayt Dragon", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Krayt dragons have beautiful and valuable pearls inside them as a gizzard to grind up food. Their fierceness is legendary. Up to 10 meters tall and 30 meters long.");
         setGameText("Ferocity = 6 + two destiny. Habitat: deserts and Tatooine exterior sites. May not deploy to an occupied site. If defeated, opponent may draw destiny and retrieve Force equal to destiny draw.");
         addModelType(ModelType.DESERT);

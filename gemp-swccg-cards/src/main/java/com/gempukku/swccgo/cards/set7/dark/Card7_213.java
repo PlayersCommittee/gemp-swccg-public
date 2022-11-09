@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card7_213 extends AbstractCreature {
     public Card7_213() {
-        super(Side.DARK, 5, 2, 2, 2, 0, "Rock Wart");
+        super(Side.DARK, 5, 2, 2, 2, 0, "Rock Wart", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Fast-moving, insect-like pest. Scavengers in rocky, secluded habitats. Hides in shadows and attacks when surprised. Nearly 1 meter long.");
         setGameText("Habitat: planet sites. Landspeed = 2. Ferocity +2 when present at Bluffs or any canyon.");
         addModelType(ModelType.SCAVENGER);

@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card7_052 extends AbstractCreature {
     public Card7_052() {
-        super(Side.LIGHT, 5, 2, 2, 2, 0, "Scurrier");
+        super(Side.LIGHT, 5, 2, 2, 2, 0, "Scurrier", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Considered to be a nuisance. Feeds on garbage. Its only defense is its speed. Nasty bite attack when surprised or cornered. Grow as big as 1.2 meters long.");
         setGameText("Habitat: planet sites. Landspeed = 2. Ferocity +2 when present at Mos Eisley or any ◇ spaceport site.");
         addModelType(ModelType.SCAVENGER);

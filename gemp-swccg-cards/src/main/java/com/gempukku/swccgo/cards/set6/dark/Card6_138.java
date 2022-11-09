@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card6_138 extends AbstractCreature {
     public Card6_138() {
-        super(Side.DARK, 4, 3, 4, 5, 0, "Bubo", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 4, 5, 0, "Bubo", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Watchbeast. Unwittingly foiled Ree Yees' plot to kill Jabba with a thermal detonator when it ate a crucial component. Louder than it is tough. Keeps watch for unwary intruders.");
         setGameText("Habitat: planet sites (except Hoth). Does not attack your characters. When at a Jabba's palace site, prevents opponents characters present from using their landspeed.");
         addModelType(ModelType.GUARD);

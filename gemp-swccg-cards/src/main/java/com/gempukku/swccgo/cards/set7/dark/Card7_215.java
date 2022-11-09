@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.evaluators.AtSameSiteEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card7_215 extends AbstractCreature {
     public Card7_215() {
-        super(Side.DARK, 5, 2, null, 4, 0, Title.Womp_Rat, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 5, 2, null, 4, 0, Title.Womp_Rat, Uniqueness.RESTRICTED_3, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Carnivorous rodents. Typically found in Beggar's Canyon. About the size of an average thermal exhaust port.");
         setGameText("* Ferocity = destiny. Habitat: exterior planet sites. Ferocity +1 for each other womp rat at same site. Lost if 'bullseyed' by Luke's T-16 Skyhopper present.");
         addModelType(ModelType.DESERT);

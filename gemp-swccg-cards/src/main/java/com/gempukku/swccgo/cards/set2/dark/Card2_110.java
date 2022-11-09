@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.evaluators.InPlayDataAsFloatEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card2_110 extends AbstractCreature {
     public Card2_110() {
-        super(Side.DARK, 3, 4, null, 5, 0, Title.Dianoga);
+        super(Side.DARK, 3, 4, null, 5, 0, Title.Dianoga, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("'Garbage squid' from Vodran's jungles. Changes color to match last meal. When unfed, turns transparent. Eats almost anything. Flexible eyestalk. 7 tentacles. Up to 6 meters long.");
         setGameText("* Ferocity = (power/ferocity of last character or creature eaten) + destiny. Habitat: exterior Dagobah sites, Trash Compactor and Dark Waters.");
         addModelType(ModelType.SWAMP);

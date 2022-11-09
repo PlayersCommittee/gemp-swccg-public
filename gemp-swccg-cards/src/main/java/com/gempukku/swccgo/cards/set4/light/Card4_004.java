@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +19,12 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.DetachParasiteEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAttackModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ParasiteTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
@@ -29,7 +41,7 @@ import java.util.List;
  */
 public class Card4_004 extends AbstractCreature {
     public Card4_004() {
-        super(Side.LIGHT, 3, 3, 2, 3, 0, Title.Mynock);
+        super(Side.LIGHT, 3, 3, 2, 3, 0, Title.Mynock, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Starship parasite. Flourishes in vacuum of space. Consumes radiation and other forms of energy. Chews on power cables. Adults have one-meter wingspan. Reproduces by macromiosis.");
         setGameText("Habitat: unlimited. Parasite: Starfighter. Host's power and hyperspeed are cumulatively -2; while both < 1, Mynocks randomly detach one at a time (cannot attach for remainder of turn). Moves like a starfighter.");
         addModelType(ModelType.SPACE);

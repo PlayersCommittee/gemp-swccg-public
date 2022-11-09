@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card6_139 extends AbstractCreature {
     public Card6_139() {
-        super(Side.DARK, 1, 6, null, 5, 0, Title.Rancor);
+        super(Side.DARK, 1, 6, null, 5, 0, Title.Rancor, Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Indigenous to Dathomir, but found on several dozen worlds throughout the galaxy. Vicious predator. Sometimes kept as pets by eccentrics and crime lords.");
         setGameText("* Ferocity = 8 + destiny. Habitat: Rancor Pit and exterior planet sites. Deploys only to the rancor pit or a site where Malakili is the only character. Moves towards another Rancor whenever possible.");
         addModelType(ModelType.GIGANTIC_PREDATOR);

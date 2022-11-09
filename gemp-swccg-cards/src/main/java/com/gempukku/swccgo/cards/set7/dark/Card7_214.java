@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCreature;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card7_214 extends AbstractCreature {
     public Card7_214() {
-        super(Side.DARK, 2, 4, null, 12, 0, Title.Sarlacc, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, null, 12, 0, Title.Sarlacc, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Very patient predator in the Dune Sea. Tentacles can grab prey up to four meters away. Digests victims for 1000 years. Often fed prisoners by Jabba the Hutt.");
         setGameText("* Ferocity = 4 + destiny. Habitat: Great Pit Of Carkoon. If Sarlacc eats a captive, may retrieve 1 Force for each of your aliens here. Anything eaten by Sarlacc is placed out of play.");
         addModelType(ModelType.ANCIENT_DESERT);

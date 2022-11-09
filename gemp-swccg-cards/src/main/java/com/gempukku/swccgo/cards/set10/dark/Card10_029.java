@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set10.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,8 +23,11 @@ import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -153,7 +162,9 @@ public class Card10_029 extends AbstractObjective {
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeFlipped(game, self)
                 && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(xizorFilter, atBattlegroundSite))) {
-            Filter lukeFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE) ? Filters.Rey : Filters.Luke;
+            Filter lukeFilter = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_REY_INSTEAD_OF_LUKE) ? Filters.Rey
+                    : GameConditions.hasGameTextModification(game, self, ModifyGameTextType.REFLECTIONS_II_OBJECTIVE__TARGETS_ANAKIN_INSTEAD_OF_LUKE) ? Filters.Anakin
+                    : Filters.Luke;
             if (!GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(lukeFilter, atBattlegroundSite))) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
