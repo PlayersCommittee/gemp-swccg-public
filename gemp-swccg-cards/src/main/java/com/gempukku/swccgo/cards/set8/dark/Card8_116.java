@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Card8_116 extends AbstractNormalEffect {
     public Card8_116() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "An Entire Legion Of My Best Troops", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.An_Entire_Legion_Of_My_Best_Troops, Uniqueness.UNIQUE);
         setLore("Stormtrooper standard gear includes plastoid composite armor, utility belt, positive-grip boots and energy sinks to dissipate blaster fire.");
         setGameText("Deploy on your side of table. Stormtroopers (except biker scouts) have armor = 4. Also, your blaster rifles, Stormtrooper Utility Belts and Blaster Scopes are deploy -1 and are destiny +2 when drawn for weapon or battle destiny. (Immune to Alter.)");
         addIcons(Icon.ENDOR);

@@ -45,6 +45,7 @@ public interface Title {
     String Always_Thinking_With_Your_Stomach = "Always Thinking With Your Stomach";
     String Always_Two_There_Are = "Always Two There Are";
     String Ambush = "Ambush";
+    String An_Entire_Legion_Of_My_Best_Troops = "An Entire Legion Of My Best Troops";
     String An_Inkling_Of_Its_Destructive_Potential = "An Inkling Of Its Destructive Potential";
     String Anakin_Skywalker = "Anakin Skywalker";
     String Anakins_Funeral_Pyre = "Endor: Anakin's Funeral Pyre";
