@@ -30,4 +30,9 @@ public class PutRandomCardsFromHandOnUsedPileEffect extends PutRandomCardsFromHa
     public PutRandomCardsFromHandOnUsedPileEffect(Action action, String playerId, String handOwner, int downToSize, int amount) {
         super(action, playerId, handOwner, downToSize, amount, Zone.USED_PILE, false);
     }
+
+    @Override
+    public Type getType() {
+        return Type.BEFORE_RANDOMLY_PLACING_CARDS_FROM_OPPONENTS_HAND_ON_USED_PILE;
+    }
 }

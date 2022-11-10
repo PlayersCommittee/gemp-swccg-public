@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card12_132 extends AbstractNormalEffect {
     public Card12_132() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Drop!", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Drop, Uniqueness.UNIQUE);
         setLore("Anakin had to heed Qui-Gon's advice to avoid the rapidly approaching storm.");
         setGameText("Use 3 Force to deploy on table. During your move phase, if opponent has 13 or more cards in hand, you may use 4 Force to place all but 8 (random choice) in Used Pile. Once during any control phase, you may place up to three cards from hand in Used Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

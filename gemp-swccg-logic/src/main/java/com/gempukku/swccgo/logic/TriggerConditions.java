@@ -1779,6 +1779,24 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if the specified player is about to place random cards from opponent's hand on used pile by using a card accepted by the card filter.
+     * @param game the game
+     * @param effect the effect
+     * @param playerId the player
+     * @param cardFilter the card filter
+     * @return true or false
+     */
+    public static boolean isAboutToPlaceRandomCardsFromOpponentsHandOnUsedPile(SwccgGame game, Effect effect, String playerId, Filterable cardFilter) {
+        if (effect.getType() == Effect.Type.BEFORE_RANDOMLY_PLACING_CARDS_FROM_OPPONENTS_HAND_ON_USED_PILE) {
+            if (playerId.equals(effect.getAction().getPerformingPlayer())) {
+                PhysicalCard sourceCard = effect.getAction().getActionSource();
+                return sourceCard != null && Filters.and(cardFilter).accepts(game.getGameState(), game.getModifiersQuerying(), sourceCard);
+            }
+        }
+        return false;
+    }
+
+    /**
      * Determines if the specified player just verified opponent's Reserve Deck.
      * @param game the game
      * @param effectResult the effect result
@@ -2439,6 +2457,29 @@ public class TriggerConditions {
 
             return GameUtils.getZoneFromZoneTop(card.getZone()) == Zone.USED_PILE
                     && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), card);
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a card accepted by the filter was placed in Used Pile from off table (and still in Used Pile) and isn't an Interrupt that was just played.
+     * @param game the game
+     * @param effectResult the effect result
+     * @param filter the filter
+     * @return true or false
+     */
+    public static boolean justPlacedInUsedPileFromOffTable(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        if (effectResult.getType() == EffectResult.Type.PUT_IN_CARD_PILE_FROM_OFF_TABLE) {
+            PutCardInCardPileFromOffTableResult result = (PutCardInCardPileFromOffTableResult) effectResult;
+            if (!result.isPlayedInterrupt()
+                    && result.getCardPile() == Zone.USED_PILE) {
+                PhysicalCard card = result.getCard();
+                if (card != null
+                        && GameUtils.getZoneFromZoneTop(card.getZone()) == Zone.USED_PILE
+                        && Filters.and(filter).accepts(game, card)) {
+                    return true;
+                }
+            }
         }
         return false;
     }

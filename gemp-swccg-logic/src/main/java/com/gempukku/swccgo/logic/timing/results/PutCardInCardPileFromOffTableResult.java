@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
  * in hand, etc.).
  */
 public class PutCardInCardPileFromOffTableResult extends EffectResult {
+    private Action _action;
     private PhysicalCard _card;
     private String _cardPileOwner;
     private Zone _cardPile;
@@ -41,6 +42,7 @@ public class PutCardInCardPileFromOffTableResult extends EffectResult {
      */
     public PutCardInCardPileFromOffTableResult(Action action, String performingPlayerId, PhysicalCard card, String cardPileOwner, Zone cardPile, boolean isPlayedInterrupt) {
         super(Type.PUT_IN_CARD_PILE_FROM_OFF_TABLE, performingPlayerId);
+        _action = action;
         _card = card;
         _cardPileOwner = cardPileOwner;
         _cardPile = cardPile;
@@ -88,5 +90,9 @@ public class PutCardInCardPileFromOffTableResult extends EffectResult {
     @Override
     public String getText(SwccgGame game) {
         return "Placed card in " + getCardPile().getHumanReadable();
+    }
+
+    public Action getAction() {
+        return _action;
     }
 }

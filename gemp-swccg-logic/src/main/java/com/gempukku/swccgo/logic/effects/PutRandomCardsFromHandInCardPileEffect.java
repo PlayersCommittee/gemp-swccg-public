@@ -7,6 +7,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -28,6 +29,7 @@ class PutRandomCardsFromHandInCardPileEffect extends AbstractSubActionEffect {
     private int _putInCardPileSoFar;
     private boolean _completed;
     private PutRandomCardsFromHandInCardPileEffect _that;
+    private boolean _checkedRemoveTwoMore;
 
 
     /**
@@ -50,6 +52,7 @@ class PutRandomCardsFromHandInCardPileEffect extends AbstractSubActionEffect {
         _bottom = bottom;
         _hidden = true;
         _that = this;
+        _checkedRemoveTwoMore = false;
     }
 
     @Override
@@ -92,6 +95,11 @@ class PutRandomCardsFromHandInCardPileEffect extends AbstractSubActionEffect {
         return new PassthruEffect(subAction) {
             @Override
             protected void doPlayEffect(final SwccgGame game) {
+                if (!_checkedRemoveTwoMore
+                        && game.getModifiersQuerying().hasGameTextModification(game.getGameState(), _action.getActionSource(), ModifyGameTextType.REMOVE_TWO_MORE_CARDS)) {
+                    _checkedRemoveTwoMore = true;
+                    _downToSize -= 2;
+                }
                 if (_that.isPlayableInFull(game)) {
                     List<PhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_handOwner), 1);
                     if (!randomCards.isEmpty()) {

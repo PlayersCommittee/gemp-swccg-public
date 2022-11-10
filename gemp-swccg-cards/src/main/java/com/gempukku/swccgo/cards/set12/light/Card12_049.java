@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card12_049 extends AbstractNormalEffect {
     public Card12_049() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Thrown Back", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Thrown_Back, Uniqueness.UNIQUE);
         setLore("Being sent to dispose of two Jedi is the battle droid equivalent of a really bad day at the office.");
         setGameText("Use 3 Force to deploy on table. During your move phase, if opponent has 13 or more cards in hand, you may use 4 Force to place all but 8 (random choice) in Used Pile. Once during any control phase, you may place up to three cards from hand in Used Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
