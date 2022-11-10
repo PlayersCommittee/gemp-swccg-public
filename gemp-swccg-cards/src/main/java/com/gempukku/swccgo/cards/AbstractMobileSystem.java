@@ -26,7 +26,9 @@ public abstract class AbstractMobileSystem extends AbstractSystem {
      * @param systemOrbiting the system this must deploy orbiting
      */
     protected AbstractMobileSystem(Side side, String title, int parsec, String systemOrbiting, ExpansionSet expansionSet, Rarity rarity) {
-        this(side, title, 0, parsec, expansionSet, rarity);
+        super(side, title, parsec, systemOrbiting, expansionSet, rarity);
+        _hyperspeed = 0f;
+        addIcons(Icon.MOBILE);
     }
 
     /**
