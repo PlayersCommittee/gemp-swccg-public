@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card1_025 extends AbstractDroid {
     public Card1_025() {
-        super(Side.LIGHT, 4, 1, 1, 3, "R4-E1 (Arfour-Eeone)");
+        super(Side.LIGHT, 4, 1, 1, 3, "R4-E1 (Arfour-Eeone)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("One of numerous vehicle computer operation droids, manufactured by Industrial Automation. This unit, R4-E1, is a companion of BoShek. Rambunctious. Fiercely independent.");
         setGameText("While aboard a non-creature vehicle, adds 1 to power, maneuver and landspeed. May drive transport vehicles.");
         addModelType(ModelType.VEHICLE);

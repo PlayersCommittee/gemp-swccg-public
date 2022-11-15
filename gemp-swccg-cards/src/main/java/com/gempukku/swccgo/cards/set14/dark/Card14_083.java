@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.TwicePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card14_083 extends AbstractDroid {
     public Card14_083() {
-        super(Side.DARK, 3, 2, 3, 4, "OOM-9", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, 4, "OOM-9", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(3);
         setLore("Officer battle droid who acted as a unit leader in the attack against the Gungans. Required advice from the Droid Control Ship in order to defeat the Gungan energy shield.");
         setGameText("Adds 2 to power of anything he pilots. May add or subtract one from a just drawn Energy Shell weapon destiny draw here. While at Battle Plains, twice per game may take Open Fire! or Cease Fire! into hand from Reserve Deck; reshuffle.");

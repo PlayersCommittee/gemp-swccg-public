@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card14_004 extends AbstractDroid {
     public Card14_004() {
-        super(Side.LIGHT, 6, 4, 1, 4, "Artoo, Brave Little Droid", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, 4, 1, 4, "Artoo, Brave Little Droid", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Starship maintenance droid within the Naboo droid pool. Personally responsible for saving Amidala's starship and getting her to Tatooine.");
         setGameText("While aboard any starfighter, adds 2 to its power and hyperspeed. While in battle at a system, may place Artoo in Used Pile to cancel a just-drawn battle destiny. Cancels Lateral Damage targeting a starship at same system.");

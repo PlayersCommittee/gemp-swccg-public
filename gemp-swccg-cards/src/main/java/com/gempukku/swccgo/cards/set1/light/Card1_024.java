@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_024 extends AbstractDroid {
     public Card1_024() {
-        super(Side.LIGHT, 4, 1, 1, 3, "R2-X2 (Artoo-Extoo)");
+        super(Side.LIGHT, 4, 1, 1, 3, "R2-X2 (Artoo-Extoo)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Typical starfighter pilot assistant. Contains ten coordinates for hyperspace jumps. Built-in tools and computer interfaces. R2-X2 was assigned to Red 10 at Yavin Base.");
         setGameText("While aboard any starfighter, adds 1 to power, maneuver, and hyperspeed.");
         addModelType(ModelType.ASTROMECH);

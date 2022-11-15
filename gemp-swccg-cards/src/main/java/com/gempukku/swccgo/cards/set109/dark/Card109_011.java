@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AloneCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +22,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBePurchasedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +40,7 @@ import java.util.List;
  */
 public class Card109_011 extends AbstractDroid {
     public Card109_011() {
-        super(Side.DARK, 1, 5, 4, 3, "IG-88 With Riot Gun", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 4, 3, "IG-88 With Riot Gun", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setArmor(5);
         setLore("Bounty hunter droid equipped with proprietary stealth technology. Archived several of its enhancement subroutines in favor of sophisticated tracking and capture programming.");
         setGameText("May initiate battle. Permanent weapon is riot gun (may target a character for free; draw destiny; target captured if destiny +1 > defense value). Adds one battle destiny if alone or with your other bounty hunter. Immune to Restraining Bolt and purchase.");

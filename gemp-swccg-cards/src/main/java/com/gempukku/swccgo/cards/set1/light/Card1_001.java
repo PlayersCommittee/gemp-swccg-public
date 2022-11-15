@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_001 extends AbstractDroid {
     public Card1_001() {
-        super(Side.LIGHT, 3, 2, 0, 2, "2X-3KPR (Tooex)");
+        super(Side.LIGHT, 3, 2, 0, 2, "2X-3KPR (Tooex)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Simple maintenance and diagnostics droid. Activates alarm sensors, security lighting and power fences on remote installations. KPR servant droids built by Lerrimore Droids.");
         setGameText("Where present under 'nighttime conditions,' each of your Rebels and aliens at same planet site are power +2, and also have immunity to attrition < 3 if a Hydroponics Station is present.");
         addModelType(ModelType.SECURITY);

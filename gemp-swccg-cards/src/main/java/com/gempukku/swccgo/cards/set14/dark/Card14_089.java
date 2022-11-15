@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card14_089 extends AbstractDroid {
     public Card14_089() {
-        super(Side.DARK, 2, 3, 2, 3, "SSA-1015", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, "SSA-1015", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(4);
         setLore("Security battle droid whose programming assured him a Jedi could be subdued. Supposed to be designated SSA-101, but a mistake in production pushed him back to 1015.");
         setGameText("While with an opponent's Jedi, your other battle droids present are power +1. Opponent's Jedi are deploy +4 to same site. While with another battle droid at a site, draws one battle destiny if unable to otherwise.");

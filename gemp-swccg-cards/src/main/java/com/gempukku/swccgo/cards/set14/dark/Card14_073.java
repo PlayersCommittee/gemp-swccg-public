@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card14_073 extends AbstractDroid {
     public Card14_073() {
-        super(Side.DARK, 2, 3, 3, 3, "Battle Droid Officer", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 3, 3, "Battle Droid Officer", Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(4);
         setLore("Leader. Officer battle droids contain programming that permits them to adapt to unusual situations. Known to malfunction from time to time.");
         setGameText("Your infantry battle droids deploy -1 to same site. While with another battle droid, adds 1 to your total battle destiny here. Your battle droids may move to this site for free.");

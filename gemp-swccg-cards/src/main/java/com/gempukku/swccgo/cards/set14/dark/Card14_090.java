@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card14_090 extends AbstractDroid {
     public Card14_090() {
-        super(Side.DARK, 2, 3, 2, 3, "SSA-306", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, "SSA-306", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(4);
         setLore("Security battle droid was assigned guard duty at Theed Palace. His shift can only be ended by a blaster shot.");
         setGameText("At same site, opponent's spies and smugglers are deploy +4 and may not apply their ability toward drawing battle destiny. While with another battle droid at a site, draws one battle destiny if unable to otherwise.");

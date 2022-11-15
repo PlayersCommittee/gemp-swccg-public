@@ -2,14 +2,22 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotExistAtTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +30,7 @@ import java.util.List;
  */
 public class Card1_192 extends AbstractDroid {
     public Card1_192() {
-        super(Side.DARK, 3, 1, 1, 3, "R1-G4 (Arone-Geefour)");
+        super(Side.DARK, 3, 1, 1, 3, "R1-G4 (Arone-Geefour)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Typical of the old model astromechs still used on capital starships and large freighters. Has armored Mark II reactor drone shell. R1-G4 was abandoned after owner was captured.");
         setGameText("When aboard a capital starship, adds 1 to power and hyperspeed, and that starship is immune to attrition < 3. Too large to go aboard a starfighter.");
         addModelType(ModelType.ASTROMECH);

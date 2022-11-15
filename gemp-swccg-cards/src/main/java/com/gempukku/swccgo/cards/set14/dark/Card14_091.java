@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card14_091 extends AbstractDroid {
     public Card14_091() {
-        super(Side.DARK, 2, 3, 2, 3, "SSA-719", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, "SSA-719", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setArmor(4);
         setLore("Security battle droid assigned to quell uprisings before they have a chance to gather momentum. Believes the best form of defense is offense.");
         setGameText("While with another battle droid, power +3. If with a battle droid on Naboo and you just verified opponent's Reserve Deck, may lose 2 Force to search that Reserve Deck and place one card you find there out of play.");

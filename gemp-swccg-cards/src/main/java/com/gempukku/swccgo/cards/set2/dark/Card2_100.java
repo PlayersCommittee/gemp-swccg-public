@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -12,7 +14,11 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetHyperspeedModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card2_100 extends AbstractDroid {
     public Card2_100() {
-        super(Side.DARK, 2, 2, 1, 3, "R3-T6 (Arthree-Teesix)", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 3, "R3-T6 (Arthree-Teesix)", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("R3 units have larger memory and more advanced circuitry than their R1 predecessors, allowing for more efficient astrogation plots. R3-T6 served on the Death Star.");
         setGameText("While aboard a capital starship, adds 1 to power and 2 to hyperspeed, and that starship is immune to attrition < 4. While at Death Star: Central Core, hyperspeed of Death Star system = 2.");
         addModelType(ModelType.ASTROMECH);

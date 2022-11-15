@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card2_099 extends AbstractDroid {
     public Card2_099() {
-        super(Side.DARK, 3, 2, 1, 3, "R2-Q2 (Artoo-Kyootoo)");
+        super(Side.DARK, 3, 2, 1, 3, "R2-Q2 (Artoo-Kyootoo)", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("R2 units are known for expertise in computer uplinking. R2-Q2 spent several decades serving with an Imperial reconnaissance fleet in the Expansion Region.");
         setGameText("While aboard any starfighter, adds 1 to power, maneuver and hyperspeed. When at a Scomp link during your draw phase, may use 1 Force to peek at top three cards of your Reserve Deck.");
         addModelType(ModelType.ASTROMECH);

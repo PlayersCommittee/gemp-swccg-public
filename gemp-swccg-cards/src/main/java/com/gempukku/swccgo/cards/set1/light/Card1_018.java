@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card1_018 extends AbstractDroid {
     public Card1_018() {
-        super(Side.LIGHT, 3, 2, 0, 4, "LIN-V8K (Elleyein-Veeatekay)");
+        super(Side.LIGHT, 3, 2, 0, 4, "LIN-V8K (Elleyein-Veeatekay)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C1);
         setLore("Armored military droid which specializes in laying explosive mines. Originally intended to set charges inside ore and spice mines, but has also been converted for military use.");
         setGameText("At any time during your turn, may use 1 Force to 'defuse' (lose) any one mine at same site.");
         addModelType(ModelType.MINING);

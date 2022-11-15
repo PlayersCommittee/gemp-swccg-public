@@ -2,13 +2,19 @@ package com.gempukku.swccgo.cards.set203.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card203_011 extends AbstractDroid {
     public Card203_011() {
-        super(Side.LIGHT, 3, 4, 2, 7, "R2-D2 & C-3PO", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 2, 7, "R2-D2 & C-3PO", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         addComboCardTitles("R2-D2", "C-3PO");
         setLore("Stranded in the Dune Sea, R2-D2 insisted on heading into rocky canyons where he thought settlements were likely to exist. Threepio had other ideas.");
         setGameText("If about to leave table (for any reason, even if inactive) from Tatooine system and Stolen Data Tapes here (or at Dune Sea), relocate R2-D2 & C-3PO to Dune Sea. Immune to A Gift, devices, and opponent's Interrupts.");

@@ -1,8 +1,11 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card1_006 extends AbstractDroid {
     public Card1_006() {
-        super(Side.LIGHT, 3, 1, 1, 4, "CZ-3 (Seezee-Three)");
+        super(Side.LIGHT, 3, 1, 1, 4, "CZ-3 (Seezee-Three)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C1);
         setLore("CZ comm droid built by Serv-O-Droid. Outdated but still commonly in use. Built-in comlink. Sophisticated scramblers and encryption programming.");
         setGameText("If opponent has just initiated a battle or Force drain at CZ-3's location or an adjacent site, you may 'react' by deploying cards (at normal use of the Force) to that battle or Force drain location.");
         addModelType(ModelType.COMMUNICATIONS);

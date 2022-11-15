@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.UnderNighttimeConditionConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card1_163 extends AbstractDroid {
     public Card1_163() {
-        super(Side.DARK, 2, 4, 2, 5, Title._5D6RA7, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 2, 5, Title._5D6RA7, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Aide to Admiral Motti's staff. Foul-tempered and vindictive. Feared by other droids. A spy for the ISB. Secretly investigates Imperial officers whose loyalties are in question.");
         setGameText("Power +1 if at same site as Motti or Yularen. Deploy +1 for all opponent's droids (and your 'mouse' droids) at same location. Immune to attrition during 'nighttime conditions.'");
         addKeywords(Keyword.SPY);

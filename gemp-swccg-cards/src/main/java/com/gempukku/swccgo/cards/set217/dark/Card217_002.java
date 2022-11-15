@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set217.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card217_002 extends AbstractDroid {
     public Card217_002() {
-        super(Side.DARK, 0.5, 2, 2, 4, "BB-9E", Uniqueness.UNIQUE);
+        super(Side.DARK, 0.5, 2, 2, 4, "BB-9E", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setAlternateDestiny(5.5);
         setGameText("Deploys -1 to same site as BB-8. Cancels game text of BB-8 and/or Rose at same site. During your move phase, may place in Used Pile; 'break cover' of all Undercover spies here (if any). Immune to Restraining Bolt and Sorry About The Mess.");
         addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_17);

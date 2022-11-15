@@ -4,12 +4,22 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostUsingLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +33,7 @@ import java.util.List;
  */
 public class Card14_084 extends AbstractDroid {
     public Card14_084() {
-        super(Side.DARK, 1, 6, 6, 5, "OWO-1 With Backup", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 5, "OWO-1 With Backup", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setArmor(5);
         setComboCard(true);
         setLore("Trade Federation battle droid leader assigned to take a squad and destroy what was left of the Jedi ambassadors. His mission went unaccomplished.");

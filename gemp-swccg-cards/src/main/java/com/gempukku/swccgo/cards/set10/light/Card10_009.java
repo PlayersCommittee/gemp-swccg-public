@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card10_009 extends AbstractDroid {
     public Card10_009() {
-        super(Side.LIGHT, 3, 2, 2, 4, Title.Leebo, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 4, Title.Leebo, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setArmor(4);
         setLore("Smuggler. Heavily modified Cybot Galactica LE-series repair droid. Information broker. Provides information gained through underworld channels to the Alliance.");
         setGameText("May be battled. While aboard any freighter adds 2 to hyperspeed and may draw one battle destiny if not able to otherwise. If you have completed Rycar's Run or Kessel Run, opponent loses 1 Force (2 if both) during each of your control phases.");

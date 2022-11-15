@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card2_109 extends AbstractDroid {
     public Card2_109() {
-        super(Side.DARK, 2, 3, 1, null, "WED15-l7 'Septoid' Droid", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 1, null, "WED15-l7 'Septoid' Droid", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Multi-armed maintenance droid fiercely loyal to the Empire. Specializes in extending effective operational life of Imperial resources. Nicknamed for an insect from Eriadu.");
         setGameText("* Forfeit value begins at 7. When 'forfeited,' droid remains in play, but forfeit value is reduced by the amount of attrition or battle damage absorbed. Droid lost when forfeit value reaches zero.");
         addModelType(ModelType.MAINTENANCE);

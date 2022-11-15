@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card1_032 extends AbstractDroid {
     public Card1_032() {
-        super(Side.LIGHT, 4, 2, 1, 3, "WED-9-M1 'Bantha' Droid", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 1, 3, "WED-9-M1 'Bantha' Droid", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Unique treadwell droid cobbled together by Jawas. Now owned by the DeMaals, proprietors of Docking Bay 94. Nicknamed 'bantha' for its slow and stubborn personality.");
         setGameText("Adds immunity to attrition < 2 to all your vehicles and droids at same location. Also, if 'bantha' droid is at a docking bay, adds immunity to attrition < 3 to all your starfighters at the related system and related sectors and may cancel Lateral Damage.");
         addModelType(ModelType.MAINTENANCE);

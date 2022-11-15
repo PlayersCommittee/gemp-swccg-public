@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card14_069 extends AbstractDroid {
     public Card14_069() {
-        super(Side.DARK, 2, 2, 3, 3, "3B3-10", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 3, 3, "3B3-10", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(3);
         setLore("Infantry battle droid who assumed command after his regiment's commander fell to Amidala's blaster. Re-routed Droid Control Ship order to himself in the heat of battle.");
         setGameText("While at Theed Palace Hallway, opponent's characters may not move from here. Once per game may take Halt! Into hand from Reserve Deck; reshuffle.");

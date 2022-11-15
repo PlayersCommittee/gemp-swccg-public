@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card11_014 extends AbstractDroid {
     public Card11_014() {
-        super(Side.LIGHT, 3, 2, 1, 3, "Threepio With His Parts Showing", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 3, "Threepio With His Parts Showing", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Protocol droid designed by Anakin in order to help his mother. C-3P0 was not to be sold when Anakin left with Qui-Gon Jinn for Coruscant.");
         setGameText("If in a battle with Shmi at a site, once per battle may place top card of your Used Pile on top of your Reserve Deck. Once per turn may place a card from hand on Used Pile to draw top card from Reserve Deck.");

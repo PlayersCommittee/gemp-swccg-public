@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card12_104 extends AbstractDroid {
     public Card12_104() {
-        super(Side.DARK, 2, 3, 3, 3, "Destroyer Droid");
+        super(Side.DARK, 2, 3, 3, 3, "Destroyer Droid", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.R);
         setArmor(3);
         setLore("These Trade Federation droids are basically a mobile weapons platform. They were commissioned by the Trade Federation from the Colicoids of Colla IV.");
         setGameText("Permanent weapon is Twin Cannons (may target a character or vehicle using 1 Force; draw destiny; if destiny > defense value, target hit and opponent loses 1 Force). While with another destroyer droid, draws one battle destiny if not able to otherwise.");

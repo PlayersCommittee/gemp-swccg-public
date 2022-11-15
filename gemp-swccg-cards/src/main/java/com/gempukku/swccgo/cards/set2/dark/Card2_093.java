@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card2_093 extends AbstractDroid {
     public Card2_093() {
-        super(Side.DARK, 2, 3, 4, 1, Title.IT0, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 1, Title.IT0, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("Floating prisoner interrogation droid. Uses probes and needles to dispense truth drugs and perform 'surgery.' Sensors determine subject's pain threshold and truthfulness.");
         setGameText("When at Detention Block Corridor, adds X to your Force drains here, where X = number of captives here. Immune to Restraining Bolt.");
         addModelType(ModelType.INTERROGATOR);

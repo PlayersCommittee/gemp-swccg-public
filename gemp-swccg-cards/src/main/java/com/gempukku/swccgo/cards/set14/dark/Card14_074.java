@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card14_074 extends AbstractDroid {
     public Card14_074() {
-        super(Side.DARK, 3, 2, 0, 2, "Battle Droid Pilot");
+        super(Side.DARK, 3, 2, 0, 2, "Battle Droid Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setArmor(2);
         setLore("Pilot battle droids require navigational programming not found in other types of battle droids. Therefore, even though they lack weaponry, their manufacturing cost is still the same.");
         setGameText("Adds 2 to power of anything he pilots (3 while piloting a battleship). While piloting a battleship, draws one battle destiny if unable to otherwise.");

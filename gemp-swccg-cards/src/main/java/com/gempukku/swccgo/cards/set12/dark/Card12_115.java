@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card12_115 extends AbstractDroid {
     public Card12_115() {
-        super(Side.DARK, 3, 4, 3, 4, "P-60", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 3, 4, "P-60", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setArmor(5);
         setLore("Trade Federation droideka led by unit commander P-59. Assisted in the attempt to keep the Jedi ambassadors from breaching the battleship's command center.");
         setGameText("Permanent weapon is Twin Cannons (may target a character or vehicle for free; draw destiny; if destiny +2 > defense value, target hit and opponent loses 1 Force). While with a destroyer droid at a site, adds one battle destiny.");

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card110_003 extends AbstractDroid {
     public Card110_003() {
-        super(Side.LIGHT, 2, 3, 1, 4, "See-Threepio", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 1, 4, "See-Threepio", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("C-3PO was Jabba's 'khan chita,' or translator. Survived more battles than most members of the Alliance. Wasn't informed of R2-D2's role in the rescue of Han.");
         setGameText("Deploys only to a Jabba's Palace site. Once per game, when replacing another C-3PO, retrieve 3 Force. When in battle with your other droid and a Rebel, adds one battle destiny. R2-D2 deploys and moves for free to same location.");
         addIcons(Icon.PREMIUM);

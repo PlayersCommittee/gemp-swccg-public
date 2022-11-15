@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card1_193 extends AbstractDroid {
     public Card1_193() {
-        super(Side.DARK, 4, 1, 1, 3, "R4-M9 (Arfour-Emmnine)");
+        super(Side.DARK, 4, 1, 1, 3, "R4-M9 (Arfour-Emmnine)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Typical multiple-use droid. Controls and repairs vehicles and computers. R4-M9 was once used by the Empire to pull data from Tantive IV's computer banks.");
         setGameText("While aboard a non-creature vehicle, adds 1 to power, maneuver and landspeed. May drive transport vehicles.");
         addModelType(ModelType.VEHICLE);

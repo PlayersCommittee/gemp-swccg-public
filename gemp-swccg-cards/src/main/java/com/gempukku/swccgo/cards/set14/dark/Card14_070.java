@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card14_070 extends AbstractDroid {
     public Card14_070() {
-        super(Side.DARK, 2, 3, 2, 3, "3B3-1204", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, "3B3-1204", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(4);
         setLore("Infantry battle droid programmed with anti-Jedi combat tactics by the blockade flagship. Was to begin uploading his program to the rest of the unit when the Jedi escaped.");
         setGameText("While with two other battle droids, may use 1 Force to target an opponent's Jedi present. Target's immunity to attrition is canceled for remainder of turn.");

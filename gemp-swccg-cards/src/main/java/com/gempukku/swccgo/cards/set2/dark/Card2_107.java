@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.conditions.UndercoverCondition;
 import com.gempukku.swccgo.cards.evaluators.PowerEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +38,7 @@ import java.util.List;
  */
 public class Card2_107 extends AbstractDroid {
     public Card2_107() {
-        super(Side.DARK, 3, 3, 1, 3, "U-3PO (Yoo-Threepio)", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 1, 3, "U-3PO (Yoo-Threepio)", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("This protocol droid served in the House of Alderaan's Diplomatic Corps. Imperials altered its programming for espionage, making the droid an unwitting spy for the Empire.");
         setGameText("Deploy on opponent's side as an Undercover spy (except that if present during a battle at a site, adds its power to Light Side). If spy's 'cover is broken,' the above game text is canceled and Light Side may use as if stolen.");
         addModelType(ModelType.PROTOCOL);

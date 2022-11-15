@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_175 extends AbstractDroid {
     public Card1_175() {
-        super(Side.DARK, null, 1, 0, 3, "EG-6 (Eegee-Six)");
+        super(Side.DARK, null, 1, 0, 3, "EG-6 (Eegee-Six)", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Ambulatory power generator made by Veril Line Systems to support equipment and vehicles. Slow-witted. This EG unit is memory-wiped and doesn't know its name or serial number.");
         setGameText("Adds 1 to power of each of your droids present, except power droids. *Destiny equals zero, but if drawn as a battle destiny where you have less power than opponent, your total power present is doubled (once per battle).");
         addModelType(ModelType.POWER);

@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +40,7 @@ import java.util.List;
  */
 public class Card14_072 extends AbstractDroid {
     public Card14_072() {
-        super(Side.DARK, 2, 3, 2, 3, "3B3-888", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, "3B3-888", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setArmor(4);
         setLore("Infantry battle droid belonging to the squad that captured Jar Jar Binks and Captain Tarpals at the Naboo battle plains.");
         setGameText("Once per turn may use 1 Force to target an opponent's character present; target is defense value -3 for remainder of turn. While with another battle droid at a site, draws one battle destiny if unable to otherwise.");
