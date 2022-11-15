@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card9_038 extends AbstractNormalEffect {
     public Card9_038() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Menace Fades", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Menace_Fades, Uniqueness.UNIQUE);
         setLore("As the Executor crashed into the Death Star, hope surged throughout the ranks of the outmanned Rebel fleet.");
         setGameText("Deploy on table. While you control any three Coruscant, Death Star and/or Death Star II locations, or any battleground site and one battleground system, all opponents Force drain bonuses everywhere are canceled. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

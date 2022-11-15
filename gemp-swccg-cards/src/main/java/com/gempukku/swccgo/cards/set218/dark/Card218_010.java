@@ -34,7 +34,7 @@ public class Card218_010 extends AbstractSystem {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new SuspendsCardModifier(self, Filters.title("Menace Fades"),
+        modifiers.add(new SuspendsCardModifier(self, Filters.title(Title.Menace_Fades),
                 new AndCondition(new OnTableCondition(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Icon.EPISODE_VII, Filters.Objective)),
                         new HereCondition(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.First_Order_character, Filters.leader)))));
         return modifiers;

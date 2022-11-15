@@ -3619,6 +3619,8 @@ var fixedImages = {
 "501_113":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/nabootheedpalacegenerator.gif",
 "501_114":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/iampartofthelivingforce.png",
 "501_115":"https://res.starwarsccg.org/cards/Virtual4-Dark/hires/bowtothefirstorder.png",
+"501_116":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/theyhavenoideawerecoming.png",
+"501_116_BACK":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/untilwewinorthechancesarespent.png",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",

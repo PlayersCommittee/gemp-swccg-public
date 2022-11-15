@@ -694,6 +694,7 @@ public interface Title {
     String Mechanical_Failure = "Mechanical Failure";
     String Meditation = "Meditation";
     String Meditation_Chamber = "Executor: Meditation Chamber";
+    String Menace_Fades = "Menace Fades";
     String Mercenary_Armor = "Mercenary Armor";
     String Meson_Martinet = "Meson Martinet";
     String Mianda = "Major Mianda";

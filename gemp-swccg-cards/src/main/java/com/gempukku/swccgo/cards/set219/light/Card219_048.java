@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -89,7 +90,7 @@ public class Card219_048 extends AbstractObjective {
                                 PhysicalCard self = game.findCardByPermanentId(permCardId);
 
                                 // Check condition(s)
-                                if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.title("Menace Fades"), Filters.title("Projection Of A Skywalker")))
+                                if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.title(Title.Menace_Fades), Filters.title(Title.Projection_Of_A_Skywalker)))
                                         && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
                                     RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -106,20 +107,20 @@ public class Card219_048 extends AbstractObjective {
 
                                 // Check condition(s)
                                 if (TriggerConditions.isTableChanged(game, effectResult)
-                                        && GameConditions.canTargetToCancel(game, self, Filters.title("Menace Fades"))) {
+                                        && GameConditions.canTargetToCancel(game, self, Filters.title(Title.Menace_Fades))) {
 
                                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                                     // Build action using common utility
-                                    CancelCardActionBuilder.buildCancelCardAction(action, Filters.title("Menace Fades"), "Menace Fades");
+                                    CancelCardActionBuilder.buildCancelCardAction(action, Filters.title(Title.Menace_Fades), Title.Menace_Fades);
                                     actions.add(action);
                                 }
                                 // Check condition(s)
                                 if (TriggerConditions.isTableChanged(game, effectResult)
-                                        && GameConditions.canTargetToCancel(game, self, Filters.title("Projection Of A Skywalker"))) {
+                                        && GameConditions.canTargetToCancel(game, self, Filters.title(Title.Projection_Of_A_Skywalker))) {
 
                                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                                     // Build action using common utility
-                                    CancelCardActionBuilder.buildCancelCardAction(action, Filters.title("Projection Of A Skywalker"), "Projection Of A Skywalker");
+                                    CancelCardActionBuilder.buildCancelCardAction(action, Filters.title(Title.Projection_Of_A_Skywalker), Title.Projection_Of_A_Skywalker);
                                     actions.add(action);
                                 }
                                 return actions;
