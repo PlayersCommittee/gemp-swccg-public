@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card3_064 extends AbstractSystem {
     public Card3_064() {
-        super(Side.LIGHT, Title.Ord_Mantell, 7);
+        super(Side.LIGHT, Title.Ord_Mantell, 7, ExpansionSet.HOTH, Rarity.U2);
         setLocationDarkSideGameText("Each of your bounty hunter pilots add an additional 1 to power of starships they pilot here.");
         setLocationLightSideGameText("If you control, each of opponent's bounty hunters is forfeit -2.");
         addIcon(Icon.DARK_FORCE, 1);

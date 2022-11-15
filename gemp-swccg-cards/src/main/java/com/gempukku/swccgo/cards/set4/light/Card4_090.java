@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card4_090 extends AbstractSystem {
     public Card4_090() {
-        super(Side.LIGHT, Title.Raithal, 3);
+        super(Side.LIGHT, Title.Raithal, 3, ExpansionSet.DAGOBAH, Rarity.R);
         setLocationDarkSideGameText("If you control, you may raise your converted Raithal system to the top.");
         setLocationLightSideGameText("If you control, all opponent's troopers are forfeit and destiny -1.");
         addIcon(Icon.DARK_FORCE, 1);

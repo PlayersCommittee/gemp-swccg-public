@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card6_083 extends AbstractSystem {
     public Card6_083() {
-        super(Side.LIGHT, Title.Kiffex, 2);
+        super(Side.LIGHT, Title.Kiffex, 2, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLocationDarkSideGameText("If you occupy with exactly 2 starships, your total power here is +2.");
         setLocationLightSideGameText("If you occupy with exactly 2 starships, your total power here is +2 and Vul Tazaene anywhere is doubled.");
         addIcon(Icon.DARK_FORCE, 2);

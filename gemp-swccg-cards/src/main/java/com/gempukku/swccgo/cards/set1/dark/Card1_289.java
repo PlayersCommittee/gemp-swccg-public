@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card1_289 extends AbstractSystem {
     public Card1_289() {
-        super(Side.DARK, Title.Tatooine, 7);
+        super(Side.DARK, Title.Tatooine, 7, ExpansionSet.PREMIERE, Rarity.C2);
         setLocationDarkSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Tatooine sites.");
         setLocationLightSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Tatooine sites.");
         addIcon(Icon.DARK_FORCE, 2);

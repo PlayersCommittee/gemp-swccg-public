@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card2_060 extends AbstractSystem {
     public Card2_060() {
-        super(Side.LIGHT, Title.Clakdor_VII, 7);
+        super(Side.LIGHT, Title.Clakdor_VII, 7, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLocationDarkSideGameText("If you control, each Bith character is destiny -1 and Ghhhk is power +2 in battles at a holosite.");
         setLocationLightSideGameText("If you occupy, each Bith character is destiny +2.");
         addIcon(Icon.LIGHT_FORCE, 1);

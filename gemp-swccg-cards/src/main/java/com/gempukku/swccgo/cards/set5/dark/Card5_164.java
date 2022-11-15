@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card5_164 extends AbstractSystem {
     public Card5_164() {
-        super(Side.DARK, Title.Bespin, 6);
+        super(Side.DARK, Title.Bespin, 6, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLocationDarkSideGameText("If you control, opponent's characters and vehicles deploy +1 to Cloud City locations");
         setLocationLightSideGameText("If you control, your characters and vehicles deploy -1 to Cloud City locations.");
         addIcon(Icon.DARK_FORCE, 2);

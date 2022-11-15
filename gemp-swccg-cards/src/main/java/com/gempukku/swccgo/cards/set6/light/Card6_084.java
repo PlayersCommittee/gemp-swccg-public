@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card6_084 extends AbstractSystem {
     public Card6_084() {
-        super(Side.LIGHT, Title.Kirdo_III, 1);
+        super(Side.LIGHT, Title.Kirdo_III, 1, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLocationDarkSideGameText("If you control, Force drain -1 here.");
         setLocationLightSideGameText("If you occupy, once per turn, may search Reserve Deck and take any desert, Kitonak, or Sandwhirl into hand; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);

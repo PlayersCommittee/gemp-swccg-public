@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card4_164 extends AbstractSystem {
     public Card4_164() {
-        super(Side.DARK, Title.Raithal, 3);
+        super(Side.DARK, Title.Raithal, 3, ExpansionSet.DAGOBAH, Rarity.U);
         setLocationDarkSideGameText("All your troopers are destiny +1 (+2 if you control). Tactical support is used interrupt.");
         setLocationLightSideGameText("If you occupy, opponent's Raithal game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card6_087 extends AbstractSystem {
     public Card6_087() {
-        super(Side.LIGHT, Title.Tibrin, 2);
+        super(Side.LIGHT, Title.Tibrin, 2, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("If you occupy, during your control phase, may exchange three cards in hand for any one card in your Lost Pile.");
         addIcon(Icon.DARK_FORCE, 1);

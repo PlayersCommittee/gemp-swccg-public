@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card4_154 extends AbstractSystem {
     public Card4_154() {
-        super(Side.DARK, Title.Anoat, 5);
+        super(Side.DARK, Title.Anoat, 5, ExpansionSet.DAGOBAH, Rarity.U);
         setLocationDarkSideGameText("If opponent initiates a battle here, your starships may move as a 'react' to or from nearest related asteroid sector.");
         setLocationLightSideGameText("If you control, all opponent's Ugnaughts on table are forfeit -1.");
         addIcon(Icon.DARK_FORCE, 2);

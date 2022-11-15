@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card2_146 extends AbstractSystem {
     public Card2_146() {
-        super(Side.DARK, Title.Kashyyyk, 6);
+        super(Side.DARK, Title.Kashyyyk, 6, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLocationDarkSideGameText("If you control, Force drain +1 here and all Wookiees on table are forfeit -3.");
         setLocationLightSideGameText("Your starships with any Wookiee aboard are power and forfeit +2 here.");
         addIcon(Icon.DARK_FORCE, 2);

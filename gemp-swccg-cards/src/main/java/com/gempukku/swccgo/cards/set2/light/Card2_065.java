@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card2_065 extends AbstractSystem {
     public Card2_065() {
-        super(Side.LIGHT, Title.Ralltiir, 3);
+        super(Side.LIGHT, Title.Ralltiir, 3, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLocationDarkSideGameText("Your capital starships deploy -2 here.");
         setLocationLightSideGameText("Your starships may move here as a 'react.'");
         addIcon(Icon.DARK_FORCE, 1);

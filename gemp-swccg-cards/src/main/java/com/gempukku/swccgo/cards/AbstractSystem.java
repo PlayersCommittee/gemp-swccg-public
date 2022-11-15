@@ -6,7 +6,11 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 
 /**
  * The abstract class providing the common implementation for systems.
@@ -34,6 +38,18 @@ public abstract class AbstractSystem extends AbstractLocation {
      */
     protected AbstractSystem(Side side, String title, int parsec, String systemOrbiting) {
         this(side, title, parsec, systemOrbiting, null, null);
+    }
+
+    /**
+     * Creates a blueprint for a system.
+     * @param side the side of the Force
+     * @param title the card title
+     * @param parsec the parsec number
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractSystem(Side side, String title, int parsec, ExpansionSet expansionSet, Rarity rarity) {
+        this(side, title, parsec, null, expansionSet, rarity);
     }
 
     /**

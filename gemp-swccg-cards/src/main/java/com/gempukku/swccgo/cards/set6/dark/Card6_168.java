@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card6_168 extends AbstractSystem {
     public Card6_168() {
-        super(Side.DARK, Title.Nal_Hutta, 3);
+        super(Side.DARK, Title.Nal_Hutta, 3, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLocationDarkSideGameText("During your control phase, may search Reserve Deck, take one Bounty or Hutt Bounty into hand; reshuffle.");
         setLocationLightSideGameText("If you control, Force drain -1 here and opponent's Nal Hutta game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

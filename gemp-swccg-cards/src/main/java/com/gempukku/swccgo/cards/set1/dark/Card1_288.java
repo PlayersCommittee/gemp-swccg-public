@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card1_288 extends AbstractSystem {
     public Card1_288() {
-        super(Side.DARK, Title.Kessel, 8);
+        super(Side.DARK, Title.Kessel, 8, ExpansionSet.PREMIERE, Rarity.U2);
         setLocationDarkSideGameText("Your starships deploy -1 here, -2 if Tarkin is aboard a starship here. If you control, Kessel Run is canceled.");
         setLocationLightSideGameText("Total ability of 6 or more required for you to draw battle destiny here.");
         addIcon(Icon.DARK_FORCE, 2);

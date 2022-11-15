@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card1_121 extends AbstractSystem {
     public Card1_121() {
-        super(Side.LIGHT, Title.Alderaan, 2);
+        super(Side.LIGHT, Title.Alderaan, 2, ExpansionSet.PREMIERE, Rarity.U2);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("Subtract 1 from each of opponent's battle destiny draws here.");
         addIcon(Icon.LIGHT_FORCE, 1);

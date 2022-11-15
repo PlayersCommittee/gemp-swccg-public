@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.ControlsEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card1_281 extends AbstractSystem {
     public Card1_281() {
-        super(Side.DARK, Title.Alderaan, 2);
+        super(Side.DARK, Title.Alderaan, 2, ExpansionSet.PREMIERE, Rarity.R1);
         setLocationDarkSideGameText("If you control, Force drain +1 here for each Death Star site on table also in your control.");
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.PLANET);

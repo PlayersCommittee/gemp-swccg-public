@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 public class Card3_151 extends AbstractSystem {
     public Card3_151() {
-        super(Side.DARK, Title.Ord_Mantell, 7);
+        super(Side.DARK, Title.Ord_Mantell, 7, ExpansionSet.HOTH, Rarity.C2);
         setLocationDarkSideGameText("Your Bounty Hunters are deploy -2 here.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);

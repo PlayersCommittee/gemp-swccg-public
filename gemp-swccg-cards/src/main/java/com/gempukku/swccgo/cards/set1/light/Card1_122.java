@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card1_122 extends AbstractSystem {
     public Card1_122() {
-        super(Side.LIGHT, Title.Dantooine, 5);
+        super(Side.LIGHT, Title.Dantooine, 5, ExpansionSet.PREMIERE, Rarity.U1);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("Your capital starships deploy -2 and your starfighters deploy -1 here.");
         addIcon(Icon.LIGHT_FORCE, 1);
