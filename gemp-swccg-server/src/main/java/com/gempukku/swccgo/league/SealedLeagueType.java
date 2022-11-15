@@ -12,7 +12,7 @@ public enum SealedLeagueType {
     ENDOR_DSII_SEALED("endor_dsII_sealed", "sealed", "Endor-Death Star II Sealed"),
     EPISODE_I_SEALED("episode_i_sealed", "sealed", "Episode I Sealed"),
     ALL_OF_THE_JEDI_SEALED("all_of_the_jedi_sealed", "sealed", "All of the Jedi Sealed"),
-    NOVELTY_SEALED("novelty_sealed","sealed", "Lightspeed Sealed"),
+    NOVELTY_SEALED("novelty_sealed","sealed", "Enhanced Choice Sealed"),
     WATTOS_CUBE_WITH_OBJECTIVE_PACKS("wattos_cube_with_objective", "cube", "Watto's Cube Objective"),
     WATTOS_CUBE_WITH_FIXED("wattos_cube_with_fixed", "cube", "Watto's Cube Fixed"),
     ;

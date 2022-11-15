@@ -294,6 +294,25 @@ public class SealedLeagueProduct {
     private void createNoveltySealed() {
 
         //current novelty sealed:
+        // Enhanced Choice Sealed
+        List<CardCollection> enhancedChoiceSealed = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        firstWeek.addItem("(S)Enhanced Premiere Pack Choice -- Dark", 1);
+        firstWeek.addItem("(S)Enhanced Premiere Pack Choice -- Light", 1);
+        firstWeek.addItem("(S)Enhanced Cloud City Pack Choice", 2);
+        firstWeek.addItem("(S)Enhanced Jabba's Palace Pack Choice", 2);
+        enhancedChoiceSealed.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        secondWeek.addItem("(S)Enhanced Cloud City Pack Choice", 1);
+        secondWeek.addItem("(S)Enhanced Jabba's Palace Pack Choice", 1);
+        enhancedChoiceSealed.add(secondWeek);
+
+        _collections.put(SealedLeagueType.NOVELTY_SEALED.getSealedCode(), enhancedChoiceSealed);
+    }
+
+    private void createLightspeedSealed() {
         //  Lightspeed Sealed (1 series)
         //  series 1 = randomly select two "packets" of 20 cards
 

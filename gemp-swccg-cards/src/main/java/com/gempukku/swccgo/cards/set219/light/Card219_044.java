@@ -57,7 +57,7 @@ public class Card219_044 extends AbstractNormalEffect {
                 new AndCondition(moreBattlegroundsCondition, new EndOfTurnLimitCounterNotReachedCondition(self, 1)),
                 -1));
 
-        Filter cardsWithYourAliensOfTheSameSpecies = Filters.with(self, Filters.and(Filters.your(playerId), Filters.at(Filters.site), Filters.alienWithAnotherAlienOfSameSpecies));
+        Filter cardsWithYourAliensOfTheSameSpecies = Filters.with(self, Filters.and(Filters.your(playerId), Filters.at(Filters.site), Filters.alienWithAnotherAlienOfSameSpeciesWithSameOwner));
         modifiers.add(new CancelImmunityToAttritionModifier(self, cardsWithYourAliensOfTheSameSpecies));
         modifiers.add(new InitiateBattlesForFreeModifier(self, Filters.and(Filters.your(playerId), Filters.battleground), playerId));
         return modifiers;

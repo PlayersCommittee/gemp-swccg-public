@@ -1319,12 +1319,16 @@ public class Filters {
     /**
      * Filter that accepts aliens that are with another alien that shares the same species.
      */
-    public static final Filter alienWithAnotherAlienOfSameSpecies = new Filter() {
+    public static final Filter alienWithAnotherAlienOfSameSpeciesWithSameOwner = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            if (physicalCard.getBlueprint().hasSpeciesAttribute() && physicalCard.getBlueprint().getSpecies() != null) {
-                Species species = physicalCard.getBlueprint().getSpecies();
-                return Filters.canSpot(gameState.getGame(), physicalCard, Filters.with(physicalCard, Filters.and(Filters.alien, Filters.other(physicalCard), Filters.species(species))));
+            String playerId = physicalCard.getOwner();
+            // need to check every species just in case a species is being added by a modifier
+            for (Species species: Species.values()) {
+                if (modifiersQuerying.isSpecies(gameState, physicalCard, species)
+                        && Filters.canSpot(gameState.getGame(), physicalCard, Filters.and(Filters.with(physicalCard), Filters.alien, Filters.owner(playerId), Filters.other(physicalCard), Filters.species(species)))) {
+                    return true;
+                }
             }
 
             return false;
