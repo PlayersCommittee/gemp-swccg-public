@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card6_001 extends AbstractDroid {
     public Card6_001() {
-        super(Side.LIGHT, 5, 1, 1, 3, Title._8D8, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, 1, 1, 3, Title._8D8, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Starship maintenance droid. Sold into the service of Jabba. Sympathetic to the droids and aliens it is forced to torture. Hates EV-9D9.");
         setGameText("May cancel Torture, Aiiii! Aaa! Aggggggggggggg! or Sonic Bombardment targeting a character at same site. Once during each of your turns, if with any imprisoned captive, may draw destiny: if destiny > 3, randomly select one captive there to be released.");
         addModelType(ModelType.MAINTENANCE);

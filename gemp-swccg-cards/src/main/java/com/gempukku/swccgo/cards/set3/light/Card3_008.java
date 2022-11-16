@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card3_008 extends AbstractDroid {
     public Card3_008() {
-        super(Side.LIGHT, null, 1, 0, 3, "EG-4 (Eegee-Four)");
+        super(Side.LIGHT, null, 1, 0, 3, "EG-4 (Eegee-Four)", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C1);
         setLore("Very popular droid on inhospitable worlds. Rugged design. Modified top-mounted power sockets. Donated to the Alliance by the Bothan underground.");
         setGameText("Power +1 for each of your droids present, except power droids. *Destiny equals zero, but if drawn as a battle destiny where you have less power than opponent, your total power present is doubled (once per battle).");
         addIcons(Icon.HOTH);

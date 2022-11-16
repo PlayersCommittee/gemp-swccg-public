@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set211.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card211_060 extends AbstractDroid {
     public Card211_060() {
-        super(Side.DARK, 2, 3, 3, 4, "IG MagnaGuard", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 3, 4, "IG MagnaGuard", Uniqueness.RESTRICTED_3, ExpansionSet.SET_11, Rarity.V);
         setArmor(4);
         setLore("Assassin. Trade Federation.");
         setGameText("Grievous is defense value +2 here.  While aboard Invisible Hand, draws one battle destiny if unable to otherwise and characters here are immune to Clash Of Sabers.");

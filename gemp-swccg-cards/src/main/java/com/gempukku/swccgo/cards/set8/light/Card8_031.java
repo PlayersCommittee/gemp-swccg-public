@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card8_031 extends AbstractDroid {
     public Card8_031() {
-        super(Side.LIGHT, 2, 4, 1, 5, "Threepio", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 1, 5, "Threepio", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Against his programming to impersonate a deity. Worshiped by the Ewoks. 'Aaaahhhhh-uuuuhhhhh. Aaaahhhhh-uuuuhhhhh. Aaaahhhhhuuuuhhhhh.'");
         setGameText("Deploys -2 on Endor. Adds 1 to attrition against opponent for each Ewok in battle at same site. If just lost from table during battle, may go to Used Pile. At same and related sites, Cloud city icon, Jabba's Palace icon, and Endor icon characters are immune to Bad Feeling Have I.");
         addIcons(Icon.ENDOR);

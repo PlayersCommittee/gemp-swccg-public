@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set217.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card217_045 extends AbstractDroid {
     public Card217_045() {
-        super(Side.LIGHT, 2, 2, 1, 3, "R3-A2 (Arthree-Aytoo)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 3, "R3-A2 (Arthree-Aytoo)", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLore("Special-purpose astromech capable of coordinating piloting coordinates and approach angles during combat.");
         setGameText("Your starships here with an astromech character aboard are power +1 (or +2 if also at Hoth), immune to Lateral Damage, and may move to systems or sectors as a 'react.'");

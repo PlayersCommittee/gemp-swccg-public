@@ -2,14 +2,27 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -24,7 +37,7 @@ import java.util.List;
  */
 public class Card208_002 extends AbstractDroid {
     public Card208_002() {
-        super(Side.LIGHT, 3, 2, 2, 3, "C1-10P (Chopper)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 3, "C1-10P (Chopper)", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Information broker and spy.");
         setGameText("While aboard a starship, it is power and defense value +2 and immune to Lateral Damage. May 'fly' (landspeed = 2). Permanent weapon is Electroshock Prod (may target a character of ability < 4; target may not use its game text for remainder of turn).");
         addPersona(Persona.CHOPPER);

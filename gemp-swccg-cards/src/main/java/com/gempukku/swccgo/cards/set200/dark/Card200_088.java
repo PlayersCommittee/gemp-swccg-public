@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card200_088 extends AbstractDroid {
     public Card200_088() {
-        super(Side.DARK, 2, 4, 3, 5, "Probot", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 3, 5, "Probot", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setArmor(3);
         setLore("Spy.");
         setGameText("Draws one battle destiny if not able to otherwise. Power +2 if with opponent's smuggler or Wookiee. During your move phase, may use 1 Force to 'break cover' of opponent's Undercover spy at same site. Immune to attrition < 3.");

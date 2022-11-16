@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card6_102 extends AbstractDroid {
     public Card6_102() {
-        super(Side.DARK, 1, 3, 3, 2, "EV-9D9", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 2, "EV-9D9", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("MerenData EV supervisor droid. Particularly enjoys torturing power droids. A clumsy designer nearly broke this unit before it was shipped. She formerly worked at Cloud City.");
         setGameText("During your control phase, may search Reserve Deck, take one power droid or Torture into hand and reshuffle. May Force drain at Droid Workshop, Droid Junkheap or Incinerator (+1 for each other droid present, including captive droids).");
         addIcons(Icon.JABBAS_PALACE);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card2_014 extends AbstractDroid {
     public Card2_014() {
-        super(Side.LIGHT, 2, 3, 1, 4, "R2-D2 (Artoo-Detoo)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 1, 4, "R2-D2 (Artoo-Detoo)", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setAlternateDestiny(5);
         setLore("Fiesty. Loyal. Heroic. Insecure. Rebel spy. Excels at trouble. Incorrigible counterpart of a mindless philosopher. Has picked up a slight flutter. A bit eccentric.");
         setGameText("While aboard any starfighter, adds 2 to power, maneuver and hyperspeed (3 on Red 5). If at a Scomp link when opponent draws destiny of: 1-3, you may activate one Force; 4-6, you may draw top card from Reserve Deck.");

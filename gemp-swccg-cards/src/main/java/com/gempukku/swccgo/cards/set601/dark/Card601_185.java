@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card601_185 extends AbstractDroid {
     public Card601_185() {
-        super(Side.DARK, 1, 4, 4, 5, "IG-88", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 5, "IG-88", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setArmor(5);
         setLore("Bounty hunter. Went berserk upon activation. Murdered all designers at Holowan Mechanicals. IG-88's outstanding 'dismantle on sight' warrant ignored by Darth Vader.");

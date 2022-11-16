@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card601_231 extends AbstractDroid {
     public Card601_231() {
-        super(Side.LIGHT, 3, 2, 1, 3, "R-3PO (Ar-Threepio)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 3, "R-3PO (Ar-Threepio)", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Designed as a response to the threat of Imperial espionage droids. Joins a droid pool and uncovers spies. Has tattoo reading 'Thank The Maker' on left posterior plating.");
         setGameText("Destiny +1 when drawn for weapon or battle destiny. During your control phase, if with opponent's Undercover spy, opponent loses 2 Force (may not be reduced). If a spy here 'breaks cover' or is lost, may place R-3PO in Used Pile.");

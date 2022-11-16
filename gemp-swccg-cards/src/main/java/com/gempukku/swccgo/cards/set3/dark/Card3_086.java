@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set3.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card3_086 extends AbstractDroid {
     public Card3_086() {
-        super(Side.DARK, 2, 2, 1, 3, "FX-10 (Effex-ten)");
+        super(Side.DARK, 2, 2, 1, 3, "FX-10 (Effex-ten)", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Standard medical droid used by Imperial field units. Enhanced programming allows FX-10 to treat a wide variety of battle wounds.");
         setGameText("Once per turn, one of your 'hit' non-droid characters at same or adjacent site may go to your Used Pile rather than your Lost Pile.");
         addIcons(Icon.HOTH);

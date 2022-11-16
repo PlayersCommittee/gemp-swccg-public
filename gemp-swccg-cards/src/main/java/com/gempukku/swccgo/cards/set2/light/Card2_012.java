@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card2_012 extends AbstractDroid {
     public Card2_012() {
-        super(Side.LIGHT, 2, 3, 2, 5, "M-HYD 'Binary' Droid");
+        super(Side.LIGHT, 2, 3, 2, 5, "M-HYD 'Binary' Droid", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Pretentious hydroponics droid. Specializes in working with binary load lifters and vaporators. Proficient in a number of languages but prefers to converse only in binary.");
         setGameText("Adds 2 to forfeit of each non-droid character at same and adjacent sites. At any time, any player may use 1 Force to turn M-HYD off (face down) or on again (face up).");
         addModelType(ModelType.BINARY_HYDROPONICS);

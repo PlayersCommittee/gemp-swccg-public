@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HitCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card213_008 extends AbstractDroid {
     public Card213_008() {
-        super(Side.DARK, 3, 1, 1, 4, "ID9 Probe Droid", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 1, 1, 4, "ID9 Probe Droid", Uniqueness.RESTRICTED_3, ExpansionSet.SET_13, Rarity.V);
         setArmor(4);
         setLore("Spy.");
         setGameText("During your deploy phase, may use 2 Force to relocate an Inquisitor to same site and place this droid in Used Pile. While present with Seventh Sister, opponent may not target Seventh Sister with weapons unless this card 'hit.'");

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +21,11 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.StackCardFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -32,7 +43,7 @@ import java.util.List;
  */
 public class Card213_038 extends AbstractDroid {
     public Card213_038() {
-        super(Side.LIGHT, 3, 2, 2, 4, "L3-37 (Elthree-Threeseven)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 4, "L3-37 (Elthree-Threeseven)", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setArmor(4);
         setLore("Female smuggler.");
         setGameText("While aboard (or stacked on) a freighter, adds 1 to power, maneuver, and hyperspeed, and when forfeiting L3-37, stack her on that freighter. May lose L3-37 to cancel a non-[Immune to Sense] Interrupt targeting a freighter she is aboard or stacked on.");

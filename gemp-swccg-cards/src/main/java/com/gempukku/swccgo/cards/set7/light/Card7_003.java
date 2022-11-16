@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.StackedOnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card7_003 extends AbstractDroid {
     public Card7_003() {
-        super(Side.LIGHT, 3, 1, 0, 4, "ASP-707 (Ayesspee)");
+        super(Side.LIGHT, 3, 1, 0, 4, "ASP-707 (Ayesspee)", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Extremely common menial-labor droid. Used for a variety of tasks. Mostly used for transporting heavy objects from one place to another.");
         setGameText("Your vehicles and devices deploy -1 here. Once during each of your control phases, may place your weapon, device or non-creature vehicle present on top of Reserve Deck. When on Crash Site Memorial, that Effect is immune to Alter.");
         addIcons(Icon.SPECIAL_EDITION);

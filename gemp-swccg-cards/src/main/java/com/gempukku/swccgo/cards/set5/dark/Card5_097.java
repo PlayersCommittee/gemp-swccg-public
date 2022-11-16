@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.MinEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card5_097 extends AbstractDroid {
     public Card5_097() {
-        super(Side.DARK, 3, 2, 1, 3, "E-3PO", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 3, "E-3PO", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Brought to Cloud City by the Empire. Facilitates Imperial-to-alien communication. Relayed carbonite chamber modification instructions to Ugloste. Arrogant. Rude. Vulgar.");
         setGameText("Total power at same site is +1 for each of your alien/Imperial pairs present. Once during every turn, may use 1 Force to 'insult' one opponent's droid present (except R2-D2), canceling that droid's game text for remainder of turn.");
         addModelType(ModelType.PROTOCOL);

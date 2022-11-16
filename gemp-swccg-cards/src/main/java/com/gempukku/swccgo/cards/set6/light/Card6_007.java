@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card6_007 extends AbstractDroid {
     public Card6_007() {
-        super(Side.LIGHT, 4, 2, 1, 2, "BG-J38", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 1, 2, "BG-J38", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Roche J9 worker drone. Undefeated hologame player. Kept by Jabba as a source of entertainment. Hoping for escape or termination.");
         setGameText("May add 2 to the destiny of each of your holograms and dejariks drawn for battle destiny or weapon destiny. While at a site you control, adds 1 to power of each of your dejariks and holograms at a holosite.");
         addModelType(ModelType.MAINTENANCE);

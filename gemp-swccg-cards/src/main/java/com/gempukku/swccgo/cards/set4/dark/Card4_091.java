@@ -6,7 +6,16 @@ import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.MinEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card4_091 extends AbstractDroid {
     public Card4_091() {
-        super(Side.DARK, 1, 2, 2, 3, "4-LOM", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 2, 2, 3, "4-LOM", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setArmor(3);
         setLore("Information Broker. Thief. Overrode and reprogrammed its own self-governing software. Convinced Jabba the Hut to upgrade its armor and weaponry. Became a bounty hunter.");
         setGameText("Total power at same site is +1 for each of your alien/droid pairs present. Once during each battle, if present with Zuckuss, may use 1 Force to search any Used Pile and move 1 character there to the Lost Pile. May initiate battle and be battled.");

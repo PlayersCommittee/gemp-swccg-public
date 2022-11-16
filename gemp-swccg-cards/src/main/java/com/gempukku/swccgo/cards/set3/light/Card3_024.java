@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card3_024 extends AbstractDroid {
     public Card3_024() {
-        super(Side.LIGHT, 3, 2, 0, 3, "WED-1016 'Techie' Droid", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 0, 3, "WED-1016 'Techie' Droid", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C1);
         setLore("Cybot Galactica starship maintenance droid. Repairs over 5,000 different onboard systems. Used by Rebel Alliance salvage teams.");
         setGameText("While at an exterior planet site or docking bay, once per turn may lose 1 Force to place a 'hit' starship or vehicle at same site, adjacent site, related system or related cloud sector in Used Pile instead of Lost Pile.");
         addIcons(Icon.HOTH);

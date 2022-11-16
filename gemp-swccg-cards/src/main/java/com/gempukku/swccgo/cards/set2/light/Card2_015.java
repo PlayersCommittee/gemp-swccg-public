@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card2_015 extends AbstractDroid {
     public Card2_015() {
-        super(Side.LIGHT, 4, 2, 1, 3, "R5-D4 (Arfive-Defour)");
+        super(Side.LIGHT, 4, 2, 1, 3, "R5-D4 (Arfive-Defour)", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Cheap astromech droid commonly referred to as 'Red'. Purposely blew his motivator to prevent splitting up R2-D2 and C-3PO on Tatooine. Poor navigator but skilled mechanic.");
         setGameText("While aboard any starship, adds 1 to power and maneuver. During your control phase, if aboard your starship damaged by an Ion cannon, restores armor/maneuver and hyperspeed.");
         addModelType(ModelType.ASTROMECH);

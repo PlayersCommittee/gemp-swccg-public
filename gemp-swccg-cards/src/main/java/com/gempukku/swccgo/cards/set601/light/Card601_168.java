@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card601_168 extends AbstractDroid {
     public Card601_168() {
-        super(Side.LIGHT, 1, 2, 0, 5, Title._21B, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 2, 0, 5, Title._21B, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Made by Genetech. Unusually independent for a droid. Forced to serve a Moff on Firro, but was liberated by Tiree. Now dedicated to serving the Alliance.");
         setGameText("Once per turn, may place your non-droid character just lost at same or related site in Used Pile instead of Lost Pile. X on Bacta Tank is -2.");

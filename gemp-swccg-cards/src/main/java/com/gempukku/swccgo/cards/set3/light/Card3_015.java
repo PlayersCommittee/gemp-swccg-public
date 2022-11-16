@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card3_015 extends AbstractDroid {
     public Card3_015() {
-        super(Side.LIGHT, 4, 1, 1, 3, "R5-M2 (Arfive-Emmtoo)");
+        super(Side.LIGHT, 4, 1, 1, 3, "R5-M2 (Arfive-Emmtoo)", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Programmed to pilot sublight tactical courses. R5 units are in high demand for combat starships. R5-M2 helped plan evacuation routes from Echo Base. Owned by Shawn Valdez.");
         setGameText("When aboard a capital starship, adds 1 to power and hyperspeed and that starship is immune to attrition < 3.");
         addIcons(Icon.HOTH);

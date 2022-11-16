@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.evaluators.PerTIEPresentInBattleEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card7_196 extends AbstractDroid {
     public Card7_196() {
-        super(Side.DARK, 2, 2, 1, 3, "R2-A5 (Artoo-Ayfive)", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 3, "R2-A5 (Artoo-Ayfive)", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Combat communications astromech. Coordinates starfighter attack vectors. Broadcasts target acquisition data to gunnery systems.");
         setGameText("When in battle aboard your capital starship at a system or sector, adds 1 to total attrition against opponent for each of your piloted TIEs present in that battle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.NAV_COMPUTER);

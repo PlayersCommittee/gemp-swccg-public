@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card3_009 extends AbstractDroid {
     public Card3_009() {
-        super(Side.LIGHT, 2, 2, 0, 3, "FX-7 (Effex-Seven)");
+        super(Side.LIGHT, 2, 2, 0, 3, "FX-7 (Effex-Seven)", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Model nicknamed 'Fixit' by Rebels at Echo Base. Though obsolete in advanced hospitals, FX-7 droids still operate at many Rebel outposts as assistant surgeons.");
         setGameText("Once per turn, one of your 'hit' non-droid characters at same or adjacent site may go to your Used Pile rather than your Lost Pile. Cumulatively subtracts 2 from X on your Bacta Tank.");
         addIcons(Icon.HOTH);

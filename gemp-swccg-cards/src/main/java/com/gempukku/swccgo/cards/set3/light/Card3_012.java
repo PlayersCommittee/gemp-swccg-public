@@ -4,15 +4,21 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.evaluators.AtSameSiteEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.LeaderModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeBattledModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card3_012 extends AbstractDroid {
     public Card3_012() {
-        super(Side.LIGHT, 4, 2, 1, 3, "K-3PO (Kay-Threepio)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 1, 3, "K-3PO (Kay-Threepio)", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("Old-model protocol droid. Learned military tactics while under the ownership of Commander Narra. In charge of the droid pool at Echo Base.");
         setGameText("May initiate battle and be battled. K-3PO is power +1 for each of your other droids at same Hoth or Yavin 4 site. Functions as a leader if present with another of your droids.");
         addIcons(Icon.HOTH);

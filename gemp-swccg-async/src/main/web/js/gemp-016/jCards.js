@@ -3621,6 +3621,7 @@ var fixedImages = {
 "501_115":"https://res.starwarsccg.org/cards/Virtual4-Dark/hires/bowtothefirstorder.png",
 "501_116":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/theyhavenoideawerecoming.png",
 "501_116_BACK":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/untilwewinorthechancesarespent.png",
+"501_117":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothal.png",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",

@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set204.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card204_036 extends AbstractDroid {
     public Card204_036() {
-        super(Side.DARK, 2, 4, 4, 4, "B2 Battle Droid", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 4, 4, 4, "B2 Battle Droid", Uniqueness.RESTRICTED_3, ExpansionSet.SET_4, Rarity.V);
         setArmor(5);
         setGameText("Draws one battle destiny if unable to otherwise. Attrition against opponent is +1 here.");
         addIcons(Icon.EPISODE_I, Icon.PRESENCE, Icon.SEPARATIST, Icon.VIRTUAL_SET_4);

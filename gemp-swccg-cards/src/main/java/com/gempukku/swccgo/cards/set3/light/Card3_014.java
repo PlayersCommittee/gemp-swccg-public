@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card3_014 extends AbstractDroid {
     public Card3_014() {
-        super(Side.LIGHT, 3, 2, 1, 3, "R-3PO (Ar-Threepio)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 3, "R-3PO (Ar-Threepio)", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Designed as a response to the threat of Imperial espionage droids. Joins a droid pool and uncovers spies. Has tattoo reading 'Thank The Maker' on left posterior plating.");
         setGameText("Once each turn, during your control phase, for each opponent's spy present opponent must lose 1 Force (2 if spy is a droid or is Undercover, 4 if both).");
         addIcons(Icon.HOTH);

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card200_080 extends AbstractDroid {
     public Card200_080() {
-        super(Side.DARK, 2, 3, 3, 3, "Droideka");
+        super(Side.DARK, 2, 3, 3, 3, "Droideka", Uniqueness.UNRESTRICTED, ExpansionSet.SET_0, Rarity.V);
         setArmor(3);
         setGameText("Permanent weapon is Twin Blaster Cannons (may target a character or vehicle; draw destiny; add 2 if targeting a vehicle; if destiny > defense value, target hit and you may activate 1 Force). While with another destroyer droid at a site, adds one battle destiny.");
         addIcons(Icon.EPISODE_I, Icon.PERMANENT_WEAPON, Icon.PRESENCE, Icon.SEPARATIST, Icon.VIRTUAL_SET_0);

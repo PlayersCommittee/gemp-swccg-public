@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card215_003 extends AbstractDroid {
     public Card215_003() {
-        super(Side.LIGHT, 3, 2, 1, 4, "C-3PO (See-Threepio)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 4, "C-3PO (See-Threepio)", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLore("Cybot Galactica 3PO human-cyborg relations droid. Fluent in over six million forms of communication. 112 years old. Has never been memory-wiped... as far as he knows.");
         setGameText("Once per turn, may place a card from hand on Used Pile to activate 1 Force (or to [upload] [A New Hope] R2-D2). During your control phase, if with a Rebel at an interior mobile battleground, opponent loses 1 Force.");
