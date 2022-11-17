@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card12_175 extends AbstractSystem {
     public Card12_175() {
-        super(Side.DARK, Title.Tatooine, 7);
+        super(Side.DARK, Title.Tatooine, 7, ExpansionSet.CORUSCANT, Rarity.U);
         setLocationDarkSideGameText("While you occupy, opponent's starship movement from here requires +1 Force. If Maul here, Force drain +1 here.");
         setLocationLightSideGameText("Your movement to here using hyperspeed requires -1 Force.");
         addIcon(Icon.DARK_FORCE, 2);

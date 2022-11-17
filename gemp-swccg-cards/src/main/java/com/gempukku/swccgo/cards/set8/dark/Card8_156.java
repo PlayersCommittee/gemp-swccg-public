@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card8_156 extends AbstractSystem {
     public Card8_156() {
-        super(Side.DARK, Title.Carida, 1);
+        super(Side.DARK, Title.Carida, 1, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("If you occupy, once during each of your control phases, you may lose 1 Force to retrieve one trooper into hand.");
         setLocationLightSideGameText("Force drain -1 here. If you do not occupy, all your troopers are forfeit -1.");
         addIcon(Icon.DARK_FORCE, 2);

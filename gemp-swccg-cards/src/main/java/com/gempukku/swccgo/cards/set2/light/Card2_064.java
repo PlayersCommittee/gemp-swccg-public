@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card2_064 extends AbstractSystem {
     public Card2_064() {
-        super(Side.LIGHT, Title.Kashyyyk, 6);
+        super(Side.LIGHT, Title.Kashyyyk, 6, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLocationDarkSideGameText("Total ability of 6 or more required for you to draw battle destiny here.");
         setLocationLightSideGameText("Your Wookiees and smugglers deploy -2 here.");
         addIcon(Icon.DARK_FORCE, 1);

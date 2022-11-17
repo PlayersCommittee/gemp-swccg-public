@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card12_084 extends AbstractSystem {
     public Card12_084() {
-        super(Side.LIGHT, Title.Tatooine, 7);
+        super(Side.LIGHT, Title.Tatooine, 7, ExpansionSet.CORUSCANT, Rarity.U);
         setLocationDarkSideGameText("Unless your [Trade Federation] or [Independent Starship] starship here, you may not draw more than one battle destiny here.");
         setLocationLightSideGameText("Your movement from here using hyperspeed requires -1 Force.");
         addIcon(Icon.DARK_FORCE, 1);

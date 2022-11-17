@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card7_286 extends AbstractSystem {
     public Card7_286() {
-        super(Side.DARK, Title.Kuat, 1);
+        super(Side.DARK, Title.Kuat, 1, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLocationDarkSideGameText("Your starships move as a 'react' (for free) to a battle here.");
         setLocationLightSideGameText("If you occupy, all Star Destroyers are deploy +1 (+3 if you control). Your movement to here requires +1 Force.");
         addIcon(Icon.DARK_FORCE, 1);

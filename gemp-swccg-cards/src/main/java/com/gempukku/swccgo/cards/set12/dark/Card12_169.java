@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card12_169 extends AbstractSystem {
     public Card12_169() {
-        super(Side.DARK, Title.Naboo, 5);
+        super(Side.DARK, Title.Naboo, 5, ExpansionSet.CORUSCANT, Rarity.U);
         setLocationDarkSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Naboo sites.");
         setLocationLightSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Naboo sites.");
         addIcon(Icon.DARK_FORCE, 2);

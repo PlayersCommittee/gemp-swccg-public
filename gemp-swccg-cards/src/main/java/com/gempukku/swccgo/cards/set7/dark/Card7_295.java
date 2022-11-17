@@ -6,7 +6,9 @@ import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card7_295 extends AbstractSystem {
     public Card7_295() {
-        super(Side.DARK, Title.Wakeelmui, 2);
+        super(Side.DARK, Title.Wakeelmui, 2, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLocationDarkSideGameText("If Kuat is on table, Force generation +2 for you here.");
         setLocationLightSideGameText("If you occupy, all TIEs deploy +1 (+2 if you control). Your movement to here requires +1 Force.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsWithoutCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card9_059 extends AbstractSystem {
     public Card9_059() {
-        super(Side.LIGHT, Title.Mon_Calamari, 6);
+        super(Side.LIGHT, Title.Mon_Calamari, 6, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("If you control without a Star Destroyer, Force drain -1 here.");
         setLocationLightSideGameText("If you occupy with a Star Cruiser, opponent's Star Destroyers may not deploy here. Your Star Cruisers deploy -1 here.");
         addIcon(Icon.DARK_FORCE, 1);

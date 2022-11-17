@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card9_150 extends AbstractSystem {
     public Card9_150() {
-        super(Side.DARK, Title.Sullust, 7);
+        super(Side.DARK, Title.Sullust, 7, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("If you control when Haven is canceled, opponent loses 8 Force.");
         setLocationLightSideGameText("Immune to Revolution.");
         addIcon(Icon.DARK_FORCE, 2);

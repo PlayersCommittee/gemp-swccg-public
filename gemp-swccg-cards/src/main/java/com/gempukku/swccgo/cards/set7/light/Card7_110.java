@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card7_110 extends AbstractSystem {
     public Card7_110() {
-        super(Side.LIGHT, Title.Bothawui, 2);
+        super(Side.LIGHT, Title.Bothawui, 2, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("Force drain -X here, where X = number of spies opponent has on table.");
         setLocationLightSideGameText("Your spies deploy -1 here and at related sites. If you control, characters targeted by Undercover are immune to Hutt Smooch.");
         addIcon(Icon.DARK_FORCE, 1);

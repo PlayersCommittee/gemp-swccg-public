@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card9_060 extends AbstractSystem {
     public Card9_060() {
-        super(Side.LIGHT, Title.Sullust, 7);
+        super(Side.LIGHT, Title.Sullust, 7, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("Your starships deploy +1 here.");
         setLocationLightSideGameText("To move your starship between here and Death Star II, system it orbits, or Mon Calamari requires -1 Force.");
         addIcon(Icon.DARK_FORCE, 1);

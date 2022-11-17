@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card7_116 extends AbstractSystem {
     public Card7_116() {
-        super(Side.LIGHT, Title.Coruscant, 0);
+        super(Side.LIGHT, Title.Coruscant, 0, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("Your starships and pilots deploy -2 here.");
         setLocationLightSideGameText("Force drain +1 here. If Rebels control this system, Imperials and Imperial starships are deploy +2.");
         addIcon(Icon.DARK_FORCE, 2);

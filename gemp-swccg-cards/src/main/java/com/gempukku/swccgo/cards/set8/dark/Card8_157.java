@@ -4,14 +4,20 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card8_157 extends AbstractSystem {
     public Card8_157() {
-        super(Side.DARK, Title.Endor, 8);
+        super(Side.DARK, Title.Endor, 8, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Endor sites.");
         setLocationLightSideGameText("If you have no Ewoks on Endor, Force drain -1 here. To move or deploy your starship to here requires +1 Force.");
         addIcon(Icon.LIGHT_FORCE, 2);

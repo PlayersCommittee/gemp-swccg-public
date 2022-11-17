@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card8_068 extends AbstractSystem {
     public Card8_068() {
-        super(Side.LIGHT, Title.Endor, 8);
+        super(Side.LIGHT, Title.Endor, 8, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("If you have no Imperials on Endor, Force drain -1 Here.");
         setLocationLightSideGameText("Force drain -1 here. To move your starship here from Sullust, Rendezvous Point or Haven requires -1 Force.");
         addIcon(Icon.LIGHT_FORCE, 2);

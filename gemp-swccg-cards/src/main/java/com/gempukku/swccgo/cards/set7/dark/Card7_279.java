@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card7_279 extends AbstractSystem {
     public Card7_279() {
-        super(Side.DARK, Title.Dagobah, 9);
+        super(Side.DARK, Title.Dagobah, 9, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLocationDarkSideGameText("If you occupy, opponent may not Force drain at related locations.");
         setLocationLightSideGameText("Neither player may Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);

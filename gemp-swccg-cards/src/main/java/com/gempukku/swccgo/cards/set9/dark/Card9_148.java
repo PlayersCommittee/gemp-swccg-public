@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card9_148 extends AbstractSystem {
     public Card9_148() {
-        super(Side.DARK, Title.Gall, 9);
+        super(Side.DARK, Title.Gall, 9, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("While you occupy, once per battle you may choose a target just 'hit' by a blaster or rifle (except Permanent weapons) to be lost.");
         setLocationLightSideGameText("Immune to Revolution.");
         addIcon(Icon.DARK_FORCE, 1);

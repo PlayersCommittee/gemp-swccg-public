@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set102.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card102_007 extends AbstractSystem {
     public Card102_007() {
-        super(Side.DARK, Title.Eriadu, 1);
+        super(Side.DARK, Title.Eriadu, 1, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLocationDarkSideGameText("Tarkin deploys free here. If you control, all Imperials with ability > 2 on table are forfeit +2.");
         setLocationLightSideGameText("If you control, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsWithoutCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card8_067 extends AbstractSystem {
     public Card8_067() {
-        super(Side.LIGHT, Title.Chandrila, 4);
+        super(Side.LIGHT, Title.Chandrila, 4, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("If you control with two Star Destroyers, Force drain +1 here. If you control with no capital starships, Force drain -1 here.");
         setLocationLightSideGameText("If you occupy with a capital starship, Force generation +2 for you here. Mon Mothma deploys -2 at any Chandrila location.");
         addIcon(Icon.DARK_FORCE, 1);

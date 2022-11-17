@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card12_073 extends AbstractSystem {
     public Card12_073() {
-        super(Side.LIGHT, Title.Coruscant, 0);
+        super(Side.LIGHT, Title.Coruscant, 0, ExpansionSet.CORUSCANT, Rarity.C);
         setLocationDarkSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Coruscant sites.");
         setLocationLightSideGameText("If you control, for each of your starships here, your total power is +1 in battles at Coruscant sites.");
         addIcon(Icon.DARK_FORCE, 1);

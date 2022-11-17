@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card9_056 extends AbstractSystem {
     public Card9_056() {
-        super(Side.LIGHT, "Aquaris", 4);
+        super(Side.LIGHT, "Aquaris", 4, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationLightSideGameText("If you control with a starfighter, opponent's Dreadnaught-class cruisers are deploy +3 and your Force generation here is +3.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);

@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card7_287 extends AbstractSystem {
     public Card7_287() {
-        super(Side.DARK, Title.Rendili, 2);
+        super(Side.DARK, Title.Rendili, 2, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("If you control, once during each of your control phases, may use 3 Force to retrieve a Victory-class Star Destroyer.");
         setLocationLightSideGameText("Force drain -1 here. If you occupy, opponent's Rendili game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

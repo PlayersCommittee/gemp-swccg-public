@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card7_124 extends AbstractSystem {
     public Card7_124() {
-        super(Side.LIGHT, Title.Roche, 7);
+        super(Side.LIGHT, Title.Roche, 7, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLocationDarkSideGameText("Force Drain -1 here. If you control, Asteroid Sanctuary at related sector is canceled.");
         setLocationLightSideGameText("During your deploy phase, you may deploy Big One and/or Asteroid Cave to this system from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);

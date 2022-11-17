@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card7_275 extends AbstractSystem {
     public Card7_275() {
-        super(Side.DARK, Title.Coruscant, 0);
+        super(Side.DARK, Title.Coruscant, 0, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("If you control with a Star Destroyer, Force drain +1 here and opponent may not deploy Rebels to related sites.");
         setLocationLightSideGameText("Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

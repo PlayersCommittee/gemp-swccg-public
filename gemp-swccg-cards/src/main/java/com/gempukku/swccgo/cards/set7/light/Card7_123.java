@@ -1,14 +1,20 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedWhenMovingFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedWhenMovingToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +27,7 @@ import java.util.List;
  */
 public class Card7_123 extends AbstractSystem {
     public Card7_123() {
-        super(Side.LIGHT, Title.Rendezvous_Point, 13);
+        super(Side.LIGHT, Title.Rendezvous_Point, 13, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationLightSideGameText("Your starships deploy -2 here and are hyperspeed +2 when moving to or from here. Neither player may Force drain here.");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.SPECIAL_EDITION, Icon.SPACE);
