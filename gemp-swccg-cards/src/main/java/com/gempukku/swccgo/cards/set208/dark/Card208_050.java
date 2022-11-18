@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card208_050 extends AbstractSystem {
     public Card208_050() {
-        super(Side.DARK, Title.Jedha, 4);
+        super(Side.DARK, Title.Jedha, 4, ExpansionSet.SET_8, Rarity.V);
         setLocationDarkSideGameText("While you control, your superlaser weapon destiny draws are +1.");
         setLocationLightSideGameText("Unless Baze, Bodhi, Chirrut, or Saw here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

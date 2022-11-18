@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card211_048 extends AbstractSystem {
     public Card211_048() {
-        super(Side.LIGHT, Title.Ahch_To, 9);
+        super(Side.LIGHT, Title.Ahch_To, 9, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("While you occupy an Ahch-To site, its game text is canceled. Players may not Force drain here.");
         setLocationLightSideGameText("Once during any deploy phase, may use 1 Force to relocate Luke between any two Ahch-To sites.");
         addIcon(Icon.DARK_FORCE, 1);

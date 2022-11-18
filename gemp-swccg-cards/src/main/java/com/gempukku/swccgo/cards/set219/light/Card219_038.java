@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set219.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card219_038 extends AbstractSystem {
     public Card219_038() {
-        super(Side.LIGHT, Title.Lothal, 6);
+        super(Side.LIGHT, Title.Lothal, 6, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("Unless Chimaera or Thrawn here, Force drain -1 here");
         setLocationLightSideGameText("Ghost deploys -2 here. While Ghost piloted here, opponent's battle destiny draws are -1 here.");
         addIcon(Icon.LIGHT_FORCE, 2);

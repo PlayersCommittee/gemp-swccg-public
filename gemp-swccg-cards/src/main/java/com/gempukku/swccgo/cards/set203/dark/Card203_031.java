@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set203.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card203_031 extends AbstractSystem {
     public Card203_031() {
-        super(Side.DARK, Title.Coruscant, 0);
+        super(Side.DARK, Title.Coruscant, 0, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("While you occupy with a Black Sun agent or ISB agent, gains one [Dark Force] icon and one [Light Force] icon.");
         setLocationLightSideGameText("While you control, gains one [Light Force] icon.");

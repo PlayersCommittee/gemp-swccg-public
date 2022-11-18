@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set217.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card217_033 extends AbstractSystem {
     public Card217_033() {
-        super(Side.LIGHT, Title.Dagobah, 9);
+        super(Side.LIGHT, Title.Dagobah, 9, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("No Force drains here.");
         setLocationLightSideGameText("Once per turn, may [upload] a Jedi Test or Dagobah site.");

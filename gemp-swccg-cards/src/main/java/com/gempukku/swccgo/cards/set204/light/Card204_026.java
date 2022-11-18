@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card204_026 extends AbstractSystem {
     public Card204_026() {
-        super(Side.LIGHT, Title.Jakku, 4);
+        super(Side.LIGHT, Title.Jakku, 4, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("Imperial starships deploy +1 here.");
         setLocationLightSideGameText("If [Episode VII] Falcon here, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

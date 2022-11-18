@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceLossEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card201_016 extends AbstractSystem {
     public Card201_016() {
-        super(Side.LIGHT, Title.Anoat, 5);
+        super(Side.LIGHT, Title.Anoat, 5, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Your Ugnaughts deploy free aboard starships here. If you control, all your Ugnaughts on table are forfeit +2.");
         setLocationLightSideGameText("Force loss from Security Precautions is reduced by 4.");

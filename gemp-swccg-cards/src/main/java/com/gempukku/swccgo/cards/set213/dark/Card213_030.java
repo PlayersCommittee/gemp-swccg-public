@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set213.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card213_030 extends AbstractSystem {
     public Card213_030() {
-        super(Side.DARK, Title.Wakeelmui, 2);
+        super(Side.DARK, Title.Wakeelmui, 2, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("Your TIEs may deploy here as a 'react.'");
         setLocationLightSideGameText("While opponent has more starships here than you, your starships here are power -1.");
         addIcon(Icon.DARK_FORCE, 2);

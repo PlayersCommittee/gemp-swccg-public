@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card601_136 extends AbstractSystem {
     public Card601_136() {
-        super(Side.LIGHT, Title.Corellia, 1);
+        super(Side.LIGHT, Title.Corellia, 1, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Each of your starships are hyperspeed +1 when moving from here.");
         setLocationLightSideGameText("Once per turn, if you occupy with a Corellian, may activate 1 Force.");

@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card211_019 extends AbstractSystem {
     public Card211_019() {
-        super(Side.DARK, Title.Dqar, 5);
+        super(Side.DARK, Title.Dqar, 5, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("Once per turn, if you just moved a [First Order] starship to here, may activate 2 Force.");
         setLocationLightSideGameText("Unless your Resistance leader here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

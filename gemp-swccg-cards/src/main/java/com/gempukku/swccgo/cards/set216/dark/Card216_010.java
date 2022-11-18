@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card216_010 extends AbstractSystem {
     public Card216_010() {
-        super(Side.DARK, Title.Naboo, 5);
+        super(Side.DARK, Title.Naboo, 5, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("If you control with a [Trade Federation] starship, your Force generation is +1 here.");
         setLocationLightSideGameText("If opponent controls and In Complete Control on table, your characters and vehicles deploy +1 to Naboo sites.");

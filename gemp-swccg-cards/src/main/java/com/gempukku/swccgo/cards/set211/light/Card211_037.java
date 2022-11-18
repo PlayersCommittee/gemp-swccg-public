@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card211_037 extends AbstractSystem {
     public Card211_037() {
-        super(Side.LIGHT, Title.Takodana, 5);
+        super(Side.LIGHT, Title.Takodana, 5, ExpansionSet.SET_11, Rarity.V);
         setLocationLightSideGameText("During your deploy phase, if you just deployed a Maz's Castle location, may draw top card of Reserve Deck.");
         setLocationDarkSideGameText("If you just deployed a starship here, may shuffle any Deck or Pile.");
         addIcon(Icon.LIGHT_FORCE, 2);

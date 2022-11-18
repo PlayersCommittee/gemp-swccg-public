@@ -3,14 +3,18 @@ package com.gempukku.swccgo.cards.set218.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +27,7 @@ import java.util.List;
  */
 public class Card218_010 extends AbstractSystem {
     public Card218_010() {
-        super(Side.DARK, Title.Hosnian_Prime, 1);
+        super(Side.DARK, Title.Hosnian_Prime, 1, ExpansionSet.SET_18, Rarity.V);
         setLocationDarkSideGameText("While your [Episode VII] objective on table and your First Order leader here, Menace Fades is suspended.");
         setLocationLightSideGameText("If Starkiller Base on table, your Force generation is -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

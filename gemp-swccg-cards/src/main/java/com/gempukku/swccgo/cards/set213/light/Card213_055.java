@@ -2,14 +2,20 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedWhenMovingFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedWhenMovingToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card213_055 extends AbstractSystem {
     public Card213_055() {
-        super(Side.LIGHT, Title.Corellia, 1);
+        super(Side.LIGHT, Title.Corellia, 1, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("If This Place Can Be A Little Rough on table, Force drain -1 here.");
         setLocationLightSideGameText("Your Corellians and freighters deploy -1 here. Your starships are hyperspeed +1 when moving to or from here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -2,15 +2,17 @@ package com.gempukku.swccgo.cards.set218.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card218_012 extends AbstractSystem {
     public Card218_012() {
-        super(Side.DARK, Title.Malastare, 3);
+        super(Side.DARK, Title.Malastare, 3, ExpansionSet.SET_18, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("If you control Podrace Arena, Force drain +1 here.");
         setLocationLightSideGameText("If opponent controls Podrace Arena, Force drain -1 here.");

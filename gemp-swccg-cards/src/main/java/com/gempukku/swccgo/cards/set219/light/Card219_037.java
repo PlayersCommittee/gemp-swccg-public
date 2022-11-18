@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card219_037 extends AbstractSystem {
     public Card219_037() {
-        super(Side.LIGHT, Title.Mandalore, 4);
+        super(Side.LIGHT, Title.Mandalore, 4, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("If your character armed with Darksaber on table, opponent may not deploy (or Force drain) here.");
         setLocationLightSideGameText("If your Mandalorian here, Force drain +1 here (+2 if armed with Darksaber).");
         addIcon(Icon.LIGHT_FORCE, 2);

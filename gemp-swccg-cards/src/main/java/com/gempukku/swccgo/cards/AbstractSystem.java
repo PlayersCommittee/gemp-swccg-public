@@ -24,27 +24,6 @@ public abstract class AbstractSystem extends AbstractLocation {
      * @param side the side of the Force
      * @param title the card title
      * @param parsec the parsec number
-     */
-    protected AbstractSystem(Side side, String title, int parsec) {
-        this(side, title, parsec, null);
-    }
-
-    /**
-     * Creates a blueprint for a system.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param parsec the parsec number
-     * @param systemOrbiting the system this must deploy orbiting
-     */
-    protected AbstractSystem(Side side, String title, int parsec, String systemOrbiting) {
-        this(side, title, parsec, systemOrbiting, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a system.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param parsec the parsec number
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */

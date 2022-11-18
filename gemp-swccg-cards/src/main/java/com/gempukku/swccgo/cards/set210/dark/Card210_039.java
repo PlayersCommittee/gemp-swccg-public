@@ -5,7 +5,11 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +30,7 @@ import java.util.List;
  */
 public class Card210_039 extends AbstractSystem {
     public Card210_039() {
-        super(Side.DARK, Title.Mustafar, 7);
+        super(Side.DARK, Title.Mustafar, 7, ExpansionSet.SET_10, Rarity.V);
         setLocationDarkSideGameText("While Anakin or Vader here, gains one [Dark Side] icon and one [Light Side] icon.");
         setLocationLightSideGameText("While Vader on table, unless Padme at a Mustafar location, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

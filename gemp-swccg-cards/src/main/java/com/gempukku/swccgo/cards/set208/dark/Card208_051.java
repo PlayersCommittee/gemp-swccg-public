@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card208_051 extends AbstractSystem {
     public Card208_051() {
-        super(Side.DARK, Title.Starkiller_Base, 1);
+        super(Side.DARK, Title.Starkiller_Base, 1, ExpansionSet.SET_8, Rarity.V);
         setLocationDarkSideGameText("Opponent may not limit Force generation at Starkiller Base locations. Once per turn, may [download] a Starkiller Base battleground.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.EPISODE_VII, Icon.PLANET, Icon.VIRTUAL_SET_8);

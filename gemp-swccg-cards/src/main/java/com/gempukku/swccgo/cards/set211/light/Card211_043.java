@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,9 +34,9 @@ import java.util.List;
 public class Card211_043 extends AbstractSystem {
 
     public Card211_043() {
-        super(Side.LIGHT, Title.Kamino, 7);
+        super(Side.LIGHT, Title.Kamino, 7, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("If opponent has two clones on table, Force drain -1 here.");
-        setLocationLightSideGameText("Once per turn, may use 1 Force to \\/ a Kamino site");
+        setLocationLightSideGameText("Once per turn, may use 1 Force to [download] a Kamino site");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcon(Icon.DARK_FORCE, 2);
         addIcons(Icon.PLANET, Icon.VIRTUAL_SET_11, Icon.EPISODE_I);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set219.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card219_036 extends AbstractSystem {
     public Card219_036() {
-        super(Side.LIGHT, Title.Malachor, 6);
+        super(Side.LIGHT, Title.Malachor, 6, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("While you control, Ezra is power -2 and may not apply ability toward drawing battle destiny.");
         setLocationLightSideGameText("While you control with a Phoenix Squadron character, Vader is power -2 and his weapon destiny draws are -1.");
         addIcon(Icon.LIGHT_FORCE, 2);

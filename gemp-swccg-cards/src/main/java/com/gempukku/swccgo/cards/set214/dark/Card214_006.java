@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set214.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card214_006 extends AbstractSystem {
     public Card214_006() {
-        super(Side.DARK, Title.Kijimi, 6);
+        super(Side.DARK, Title.Kijimi, 6, ExpansionSet.SET_14, Rarity.V);
         setLocationDarkSideGameText("If you control, your starships are hyperspeed +1 when moving from here.");
         setLocationLightSideGameText("Poe and your smugglers may deploy here as a 'react.'");
         addIcon(Icon.DARK_FORCE, 2);

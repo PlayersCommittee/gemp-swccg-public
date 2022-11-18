@@ -3,14 +3,20 @@ package com.gempukku.swccgo.cards.set218.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDrawMoreThanBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostToLocationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card218_028 extends AbstractSystem {
     public Card218_028() {
-        super(Side.LIGHT, Title.Polis_Massa, 8);
+        super(Side.LIGHT, Title.Polis_Massa, 8, ExpansionSet.SET_18, Rarity.V);
         setLocationDarkSideGameText("If a [Skywalker] Epic Event on table, Force drain -1 here. To move or deploy your starship to here requires +1 Force.");
         setLocationLightSideGameText("If your Skywalker here, opponent may not draw more than two battle destiny here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set216.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card216_013 extends AbstractSystem {
     public Card216_013() {
-        super(Side.DARK, Title.Scarif, 7);
+        super(Side.DARK, Title.Scarif, 7, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("While Shield Gate here, opponent's non-spy characters deploy +1 to Scarif sites.");
         setLocationLightSideGameText("While Profundity here, add 2 to attempts to 'blow away' Shield Gate.");
         addIcon(Icon.DARK_FORCE, 2);

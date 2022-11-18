@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card204_024 extends AbstractSystem {
     public Card204_024() {
-        super(Side.LIGHT, Title.Endor, 8);
+        super(Side.LIGHT, Title.Endor, 8, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("If you have no Imperials on Endor, Force drain -1 here.");
         setLocationLightSideGameText("If you have no Rebels on Endor, Force drain -1 here. If you control, each of opponent's biker scouts is forfeit -1.");

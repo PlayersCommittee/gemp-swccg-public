@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.AfterPlayersTurnNumberCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card203_033 extends AbstractSystem {
     public Card203_033() {
-        super(Side.DARK, Title.Tatooine, 7);
+        super(Side.DARK, Title.Tatooine, 7, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Opponent may not initiate battle here until after your first turn.");
         setLocationLightSideGameText("If a player controls, for each of their starships here, their total power is +1 in battles at Tatooine sites.");

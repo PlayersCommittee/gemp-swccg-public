@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set213.light;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card213_057 extends AbstractSystem {
     public Card213_057() {
-        super(Side.LIGHT, Title.Kessel, 8);
+        super(Side.LIGHT, Title.Kessel, 8, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("");
         setLocationLightSideGameText("Force drain +1 here. For remainder of game, Kessel Run is immune to Alter and may not be canceled.");
         addIcon(Icon.DARK_FORCE, 2);

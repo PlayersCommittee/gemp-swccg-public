@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card219_010 extends AbstractSystem {
     public Card219_010() {
-        super(Side.DARK, Title.Lothal, 6);
+        super(Side.DARK, Title.Lothal, 6, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("While you control, at related battleground sites you control with an Imperial leader, your Force drains are +1.");
         setLocationLightSideGameText("If Ghost and Phantom piloted here, Force drain +1 here. If no Rebel starships piloted here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card211_032 extends AbstractSystem {
     public Card211_032() {
-        super(Side.LIGHT, Title.Yavin_4, 4);
+        super(Side.LIGHT, Title.Yavin_4, 4, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("Unless you control, you may not deploy Effects on related locations.");
         setLocationLightSideGameText("If Haven is canceled, place it in your Used Pile.");
         addIcon(Icon.DARK_FORCE, 1);
