@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card2_067 extends AbstractSite {
     public Card2_067() {
-        super(Side.LIGHT, "Yavin 4: Briefing Room", Title.Yavin_4);
+        super(Side.LIGHT, "Yavin 4: Briefing Room", Title.Yavin_4, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLocationDarkSideGameText("If you control, Force drain +1 here and subtract 1 from total of Attack Run.");
         setLocationLightSideGameText("If you control, with a leader here, may add 1 to total of Attack Run.");
         addIcon(Icon.LIGHT_FORCE, 1);

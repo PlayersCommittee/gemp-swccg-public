@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RelocateFromLocationToWeatherVane;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card5_167 extends AbstractSite {
     public Card5_167() {
-        super(Side.DARK, Title.Chasm_Walkway, Title.Bespin);
+        super(Side.DARK, Title.Chasm_Walkway, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLocationDarkSideGameText("If Weather Vane on table, characters 'hit' here are instead immediately relocated there.");
         setLocationLightSideGameText("If Weather Vane on table, characters 'hit' here are instead immediately relocated there.");
         addIcon(Icon.DARK_FORCE, 2);

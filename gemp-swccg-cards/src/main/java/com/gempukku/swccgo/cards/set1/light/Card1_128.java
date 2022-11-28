@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card1_128 extends AbstractSite {
     public Card1_128() {
-        super(Side.LIGHT, Title.Cantina, Title.Tatooine);
+        super(Side.LIGHT, Title.Cantina, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLocationDarkSideGameText("Your aliens here, except Tusken Raiders, are each forfeit +1.");
         setLocationLightSideGameText("Your aliens here are each power +1.");
         addIcon(Icon.DARK_FORCE, 2);

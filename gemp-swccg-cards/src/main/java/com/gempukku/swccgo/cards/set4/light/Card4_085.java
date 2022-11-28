@@ -2,14 +2,21 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsLandedToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToDagobahLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card4_085 extends AbstractSite {
     public Card4_085() {
-        super(Side.LIGHT, Title.Dagobah_Bog_Clearing, Title.Dagobah);
+        super(Side.LIGHT, Title.Dagobah_Bog_Clearing, Title.Dagobah, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLocationDarkSideGameText("If you occupy, Force generation +1 for you here.");
         setLocationLightSideGameText("Your starfighters may deploy here and immune to Awwww, Cannot Get Your Ship Out here.");
         addIcon(Icon.LIGHT_FORCE, 1);

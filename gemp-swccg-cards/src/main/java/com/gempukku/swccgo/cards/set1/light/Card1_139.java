@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_139 extends AbstractSite {
     public Card1_139() {
-        super(Side.LIGHT, Title.Yavin_4_War_Room, Title.Yavin_4);
+        super(Side.LIGHT, Title.Yavin_4_War_Room, Title.Yavin_4, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLocationDarkSideGameText("If you initiate a battle here, add one battle destiny.");
         setLocationLightSideGameText("If you control, with a leader here, all Stormtroopers and TIEs on table are forfeit -1.");
         addIcon(Icon.LIGHT_FORCE, 2);

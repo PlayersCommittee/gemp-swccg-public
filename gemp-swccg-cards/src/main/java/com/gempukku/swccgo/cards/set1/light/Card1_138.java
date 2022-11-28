@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_138 extends AbstractSite {
     public Card1_138() {
-        super(Side.LIGHT, Title.Massassi_Throne_Room, Title.Yavin_4);
+        super(Side.LIGHT, Title.Massassi_Throne_Room, Title.Yavin_4, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("If this is your starting location, Light Side goes first in game.");
         addIcon(Icon.LIGHT_FORCE, 1);

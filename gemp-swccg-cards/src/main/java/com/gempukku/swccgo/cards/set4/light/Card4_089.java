@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card4_089 extends AbstractSite {
     public Card4_089() {
-        super(Side.LIGHT, Title.Yodas_Hut, Title.Dagobah);
+        super(Side.LIGHT, Title.Yodas_Hut, Title.Dagobah, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLocationDarkSideGameText("If you occupy, opponent's Yoda's Hut game text is canceled.");
         setLocationLightSideGameText("If Yoda here, once per turn, may subtract 2 from attrition against you at another location.");
         addIcon(Icon.LIGHT_FORCE, 2);

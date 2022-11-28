@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card4_088 extends AbstractSite {
     public Card4_088() {
-        super(Side.LIGHT, "Dagobah: Training Area", Title.Dagobah);
+        super(Side.LIGHT, "Dagobah: Training Area", Title.Dagobah, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLocationDarkSideGameText("You may use 1 Force to cancel any Force drain here.");
         setLocationLightSideGameText("Once per turn, may search Reserve Deck. Take one Jedi Test into hand. Reshuffle deck.");
         addIcon(Icon.DARK_FORCE, 1);

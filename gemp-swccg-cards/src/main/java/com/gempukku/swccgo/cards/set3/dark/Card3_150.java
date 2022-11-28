@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card3_150 extends AbstractSite {
     public Card3_150() {
-        super(Side.DARK, Title.Wampa_Cave, Title.Hoth);
+        super(Side.DARK, Title.Wampa_Cave, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLocationDarkSideGameText("Your Wampas deploy free here.");
         setLocationLightSideGameText("If you control, and Main Power Generators on table, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

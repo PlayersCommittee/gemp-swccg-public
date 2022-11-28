@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_293 extends AbstractSite {
     public Card1_293() {
-        super(Side.DARK, Title.Jundland_Wastes, Title.Tatooine);
+        super(Side.DARK, Title.Jundland_Wastes, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.C1);
         setLocationDarkSideGameText("Your Tusken Raiders here are each forfeit +1. If you control, Force drain +1 here.");
         setLocationLightSideGameText("Total ability of 6 or more required for you to draw battle destiny here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card5_169 extends AbstractSite {
     public Card5_169() {
-        super(Side.DARK, Title.East_Platform, Title.Bespin);
+        super(Side.DARK, Title.East_Platform, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force.");
         setLocationLightSideGameText("Your docking bay transit from here requires 2 Force.");
         addIcon(Icon.DARK_FORCE, 1);

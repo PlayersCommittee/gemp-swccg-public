@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card3_144 extends AbstractSite {
     public Card3_144() {
-        super(Side.DARK, Title.Defensive_Perimeter, Title.Hoth);
+        super(Side.DARK, Title.Defensive_Perimeter, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLocationDarkSideGameText("Add 1 to each of your weapon destiny draws here. If you control, Force drain +1 here.");
         setLocationLightSideGameText("Your troopers are forfeit -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

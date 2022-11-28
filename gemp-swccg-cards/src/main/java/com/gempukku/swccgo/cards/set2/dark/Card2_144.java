@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card2_144 extends AbstractSite {
     public Card2_144() {
-        super(Side.DARK, Title.Death_Star_Conference_Room, Title.Death_Star);
+        super(Side.DARK, Title.Death_Star_Conference_Room, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLocationDarkSideGameText("If you control, with a leader here, may add 1 to total of Commence Primary Ignition.");
         setLocationLightSideGameText("If you control, Force drain +1 and may subtract 1 from total of Commence Primary Ignition.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.InsteadOfForceDrainingEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +38,7 @@ import java.util.Map;
  */
 public class Card5_172 extends AbstractSite {
     public Card5_172() {
-        super(Side.DARK, Title.Security_Tower, Title.Bespin);
+        super(Side.DARK, Title.Security_Tower, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLocationDarkSideGameText("Once per game, may search your Reserve Deck, take Lando into hand and reshuffle.");
         setLocationLightSideGameText("If you control, instead of Force draining, may release one captive here.");
         addIcon(Icon.DARK_FORCE, 1);

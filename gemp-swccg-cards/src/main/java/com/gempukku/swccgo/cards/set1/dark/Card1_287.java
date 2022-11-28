@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.evaluators.PerYwingEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_287 extends AbstractSite {
     public Card1_287() {
-        super(Side.DARK, "Death Star: War Room", Title.Death_Star);
+        super(Side.DARK, "Death Star: War Room", Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLocationDarkSideGameText("If you control, with a leader here, all Rebel Troopers and Y-wings on table are forfeit -1.");
         setLocationLightSideGameText("If you initiate a battle here, add one battle destiny.");
         addIcon(Icon.DARK_FORCE, 2);

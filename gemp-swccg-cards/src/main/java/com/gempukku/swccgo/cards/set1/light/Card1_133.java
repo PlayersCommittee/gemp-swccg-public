@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_133 extends AbstractSite {
     public Card1_133() {
-        super(Side.LIGHT, Title.Mos_Eisley, Title.Tatooine);
+        super(Side.LIGHT, Title.Mos_Eisley, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLocationLightSideGameText("During your control phase, you may move free from here directly to Cantina (or vice versa).");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcon(Icon.DARK_FORCE, 1);

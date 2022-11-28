@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpecialRule;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card4_083 extends AbstractSite {
     public Card4_083() {
-        super(Side.LIGHT, Title.Big_One_Asteroid_Cave_Or_Space_Slug_Belly, null, Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, Title.Big_One_Asteroid_Cave_Or_Space_Slug_Belly, null, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.U);
         setLocationDarkSideGameText("'Cave Rules' in effect here.");
         setLocationLightSideGameText("'Cave Rules' in effect here. If you control, may cancel Force drains at system Related to Big One.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_131 extends AbstractSite {
     public Card1_131() {
-        super(Side.LIGHT, Title.Jawa_Camp, Title.Tatooine);
+        super(Side.LIGHT, Title.Jawa_Camp, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.C1);
         setLocationLightSideGameText("Your Jawas deploy here for 1 Force from you only, for free if Sandcrawler present.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);

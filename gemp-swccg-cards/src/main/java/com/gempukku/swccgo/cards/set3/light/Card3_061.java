@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card3_061 extends AbstractSite {
     public Card3_061() {
-        super(Side.LIGHT, Title.Main_Power_Generators, Title.Hoth);
+        super(Side.LIGHT, Title.Main_Power_Generators, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLocationDarkSideGameText("'Hoth Energy Shield Rules' in effect. If 'blown away,' Light Side loses 8 Force.");
         setLocationLightSideGameText("'Hoth Energy Shield Rules' in effect. Your artillery weapons here are powered.");
         addIcon(Icon.LIGHT_FORCE, 1);

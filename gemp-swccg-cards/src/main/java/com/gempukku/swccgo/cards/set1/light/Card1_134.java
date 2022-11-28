@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_134 extends AbstractSite {
     public Card1_134() {
-        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine);
+        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("Obi-Wan is deploy -3 here.");
         addIcon(Icon.LIGHT_FORCE, 2);

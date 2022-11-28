@@ -1,14 +1,21 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployOnlyUsingOwnForceToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetDeployCostToLocationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card1_292 extends AbstractSite {
     public Card1_292() {
-        super(Side.DARK, Title.Jawa_Camp, Title.Tatooine);
+        super(Side.DARK, Title.Jawa_Camp, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.C1);
         setLocationDarkSideGameText("Your Jawas deploy here for 1 Force from you only.");
         setLocationLightSideGameText("All your Jawas are power and forfeit -1 here.");
         addIcon(Icon.DARK_FORCE, 1);

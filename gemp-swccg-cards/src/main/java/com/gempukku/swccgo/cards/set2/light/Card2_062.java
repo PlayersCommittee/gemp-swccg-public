@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpecialRule;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card2_062 extends AbstractSite {
     public Card2_062() {
-        super(Side.LIGHT, Title.Death_Star_Trench, Title.Death_Star);
+        super(Side.LIGHT, Title.Death_Star_Trench, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLocationDarkSideGameText("'Trench Rules' in effect, your weapons fire free and Turbolaser Battery may deploy here.");
         setLocationLightSideGameText("'Trench Rules' in effect and each of your starfighters is maneuver -2 here.");
         addIcon(Icon.DARK_FORCE, 1);
