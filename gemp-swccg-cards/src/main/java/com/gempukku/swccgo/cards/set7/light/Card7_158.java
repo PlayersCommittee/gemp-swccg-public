@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card7_158 extends AbstractCharacterWeapon {
     public Card7_158() {
-        super(Side.LIGHT, 3, "Echo Base Trooper Rifle");
+        super(Side.LIGHT, 3, "Echo Base Trooper Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("BlasTech A295 blaster rifle. Standard-issue longarm at Echo Base. Highly accurate with good range. Favored by marksmen and snipers in a hostile environment.");
         setGameText("Use 3 Force to deploy on your warrior (Free on your Echo Base trooper). May target a character, creature or vehicle at same or adjacent site using 2 Force (1 if fired by an Echo Base trooper). Draw Destiny. Target hit if destiny +1 > defense value.");
         addIcons(Icon.SPECIAL_EDITION);

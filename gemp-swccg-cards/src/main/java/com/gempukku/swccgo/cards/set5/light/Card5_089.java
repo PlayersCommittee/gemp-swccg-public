@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card5_089 extends AbstractCharacterWeapon {
     public Card5_089() {
-        super(Side.LIGHT, 2, "Cloud City Blaster");
+        super(Side.LIGHT, 2, "Cloud City Blaster", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Black market ties make it possible for the Cloud City quartermaster to acquire powerful weapons such as this. Low refraction index provides minimal beam dispersion.");
         setGameText("Use 2 Force to deploy on your warrior at a Cloud City site. May target a character or creature using 2 Force. Draw destiny. Target hit (and may not be used to satisfy attrition) if destiny > defense value.");
         addIcons(Icon.CLOUD_CITY);

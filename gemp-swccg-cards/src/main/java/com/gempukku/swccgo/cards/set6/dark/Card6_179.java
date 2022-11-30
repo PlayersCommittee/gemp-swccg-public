@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card6_179 extends AbstractCharacterWeapon {
     public Card6_179() {
-        super(Side.DARK, 3, "Thermal Detonator", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Thermal Detonator", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Strictly regulated. Dangerously unstable. Explosive baradium core. Class-A type has blast radius of 20 meters. Can be programmed with a very sensitive deadman's switch.");
         setGameText("Use 3 Force to deploy on any bounty hunter. When collecting a bounty, adds 3 to Force retrieved. Also, may 'detonate' at same site. Draw 3 destiny. All cards (except Effects) with any of those destiny numbers at that site are lost. Thermal Detonator also lost.");
         addIcons(Icon.JABBAS_PALACE);

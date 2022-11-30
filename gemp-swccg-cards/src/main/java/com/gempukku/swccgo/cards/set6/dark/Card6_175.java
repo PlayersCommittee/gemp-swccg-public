@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card6_175 extends AbstractCharacterWeapon {
     public Card6_175() {
-        super(Side.DARK, 1, "Dengar's Modified Riot Gun", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Dengar's Modified Riot Gun", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Originally at area-effect weapon. Modified by Dengar to concentrate on one target. Induces an extended period of unconsciousness.");
         setGameText("Use 2 Force to deploy on Dengar, or 5 on your other bounty hunter. May target a non-droid character using 3 Force. Draw destiny. Character immediately captured if destiny +3 > defense value.");
         addIcons(Icon.JABBAS_PALACE);

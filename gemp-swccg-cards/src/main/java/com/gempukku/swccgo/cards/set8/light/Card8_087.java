@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card8_087 extends AbstractCharacterWeapon {
     public Card8_087() {
-        super(Side.LIGHT, 4, Title.Ewok_Bow);
+        super(Side.LIGHT, 4, Title.Ewok_Bow, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Primitive weapon. Effective in large volleys. Imperial troops are not prepared for such simple tactics.");
         setGameText("Use 1 Force to deploy on your Ewok. May target a character or creature using 1 Force. Draw destiny. Add 1 for each other Ewok present who is armed with an Ewok Bow. Target hit if total destiny > defense value.");
         addIcons(Icon.ENDOR);

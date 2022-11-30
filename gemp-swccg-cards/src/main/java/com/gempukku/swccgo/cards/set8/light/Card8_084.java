@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card8_084 extends AbstractCharacterWeapon {
     public Card8_084() {
-        super(Side.LIGHT, 3, Title.A280_Sharpshooter_Rifle, Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 3, Title.A280_Sharpshooter_Rifle, Uniqueness.RESTRICTED_2, ExpansionSet.ENDOR, Rarity.R);
         setLore("BlasTech sharpshooter rifle accurate to 500 meters. Corporal Janse brought several A280s with him when he left BlasTech.");
         setGameText("Use 2 Force to deploy on your scout warrior. May target a character, creature or vehicle at same or adjacent site for free. Draw destiny. Add 2 if warrior is alone and target is at an adjacent site. Target hit if total destiny > defense value.");
         addIcons(Icon.ENDOR);

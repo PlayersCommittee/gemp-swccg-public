@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card7_320 extends AbstractCharacterWeapon {
     public Card7_320() {
-        super(Side.DARK, 2, "Dr. Evazan's Sawed-off Blaster", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Dr. Evazan's Sawed-off Blaster", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Equipped with powerful infrared scope. Extremely sensitive trigger mechanism. Used to earn Evazan the death sentence on several systems.");
         setGameText("Deploy on Dr. Evazan (may deploy on him as a 'react') or use 3 Force to deploy on your warrior. May target a character or creature at same or adjacent site using 2 Force. Draw destiny. Target hit if destiny +1 > defense value. May fire repeatedly.");
         addIcons(Icon.SPECIAL_EDITION);

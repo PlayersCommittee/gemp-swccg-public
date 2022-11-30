@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card8_086 extends AbstractCharacterWeapon {
     public Card8_086() {
-        super(Side.LIGHT, 2, Title.Chewbaccas_Bowcaster, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, Title.Chewbaccas_Bowcaster, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Specially modified by Chewbacca. Fires larger bolts with more accuracy. Superior targeting at long distances.");
         setGameText("Deploy on Chewie, or use 4 Force to deploy on your other Wookiee. May target a character, creature or vehicle using 3 Force (for free if Chewie firing). Draw two destiny. Target hit if total destiny > defense value. If hit by Chewie, target's forfeit = 0.");
         addIcons(Icon.ENDOR);

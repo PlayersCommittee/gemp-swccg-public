@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card6_090 extends AbstractCharacterWeapon {
     public Card6_090() {
-        super(Side.LIGHT, 4, "Vibro-Ax");
+        super(Side.LIGHT, 4, "Vibro-Ax", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Vibrating blade powered by an energy cell hidden within the shaft. Used by many moisture farmers to prod banthas and other animals.");
         setGameText("Use 3 Force to deploy on any alien warrior. Adds 1 to power. May target a character using 1 Force. Both players draw destiny. Target immediately excluded from battle if warrior's power + your destiny > target's power + opponent's destiny.");
         addIcons(Icon.JABBAS_PALACE);

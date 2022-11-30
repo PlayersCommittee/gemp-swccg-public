@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card5_090 extends AbstractCharacterWeapon {
     public Card5_090() {
-        super(Side.LIGHT, 3, "Luke's Blaster Pistol", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Luke's Blaster Pistol", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Merr-Sonn Model 57. Part of an arms lot purchased for the Alliance from a black market dealer on Ord Mantell. Carried by Luke as a backup for his father's lightsaber.");
         setGameText("Use 1 Force to deploy on Luke, 3 on your other warrior. May target a character, creature or vehicle using 2 Force (if targeted by Luke, target loses immunity to attrition for remainder of turn.) Draw destiny. Add 1 if targeting a character or creature. Target hit if total destiny > defense value.");
         addIcons(Icon.CLOUD_CITY);

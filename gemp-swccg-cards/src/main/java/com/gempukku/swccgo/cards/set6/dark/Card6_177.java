@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card6_177 extends AbstractCharacterWeapon {
     public Card6_177() {
-        super(Side.DARK, 4, "Gamorrean Ax");
+        super(Side.DARK, 4, "Gamorrean Ax", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Built by Snogrutt, a Gamorrean engineer. Ax head contains an ultrasonic generator. Jabba's Gamorrean guards sometimes switch the power off to prove their might.");
         setGameText("Use 1 Force to deploy on your Gamorrean. Adds 1 to power. When present at a site, Gamorrean draws one battle destiny if not able to otherwise. May target a character or creature for free. Draw destiny. Target hit if destiny > defense value.");
         addIcons(Icon.JABBAS_PALACE);

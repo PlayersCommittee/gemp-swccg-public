@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card8_089 extends AbstractCharacterWeapon {
     public Card8_089() {
-        super(Side.LIGHT, 4, "Ewok Spear");
+        super(Side.LIGHT, 4, "Ewok Spear", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Chosen weapon of most Ewok warriors. Pointed tip made of stone or animal horn.");
         setGameText("Use 2 Force to deploy on your Ewok (free on Ewok Spearman). Adds 1 to power. May target a character or creature using 1 Force. Both players draw destiny. Target's power or ferocity for remainder of turn = 0 if your destiny + Ewok's power > opponent's destiny.");
         addIcons(Icon.ENDOR);

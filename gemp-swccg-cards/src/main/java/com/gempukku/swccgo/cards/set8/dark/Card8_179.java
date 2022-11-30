@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card8_179 extends AbstractCharacterWeapon {
     public Card8_179() {
-        super(Side.DARK, 4, Title.Scout_Blaster);
+        super(Side.DARK, 4, Title.Scout_Blaster, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Hold-out blaster utilized by Imperial scouts. Small size limits range, but concealability is often an asset.");
         setGameText("Deploy on your biker scout, or use 2 Force to deploy on your other warrior. May deploy as a 'react'. May target a character or creature using 1 Force (for free if fired by your spy or scout). Draw destiny. Target hit if destiny > defense value.");
         addIcons(Icon.ENDOR);

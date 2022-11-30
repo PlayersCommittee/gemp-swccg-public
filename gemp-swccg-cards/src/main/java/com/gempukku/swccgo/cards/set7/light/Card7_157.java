@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card7_157 extends AbstractCharacterWeapon {
     public Card7_157() {
-        super(Side.LIGHT, 4, "Disruptor Pistol");
+        super(Side.LIGHT, 4, "Disruptor Pistol", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Illegal weapon easily purchased by Rebel suppliers on the black market. Rechargeable energy packagedProduct make it a cost-effective weapon.");
         setGameText("Use 2 Force to deploy on your warrior (1 on your non-unique warrior). May target a character or creature using 2 Force (for free if on your non-unique warrior). Draw Destiny. Target lost if destiny > defense value.");
         addIcons(Icon.SPECIAL_EDITION);

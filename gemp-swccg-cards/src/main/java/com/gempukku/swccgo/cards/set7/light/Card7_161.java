@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card7_161 extends AbstractCharacterWeapon {
     public Card7_161() {
-        super(Side.LIGHT, 3, "Leia's Blaster Rifle", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Leia's Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Standard production blaster rifle issued at Echo Base. Modified by Rebel engineers for Leia's use. Has less recoil and a higher recharge rate.");
         setGameText("Deploy on your Leia or use 3 Force to deploy on your other warrior. May target a character, creature or vehicle using 1 Force. Draw destiny. Target hit if destiny +1 > defense value. If hit by Leia, target is lost.");
         addPersona(Persona.LEIAS_BLASTER_RIFLE);

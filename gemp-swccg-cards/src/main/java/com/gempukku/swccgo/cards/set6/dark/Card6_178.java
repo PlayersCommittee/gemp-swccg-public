@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card6_178 extends AbstractCharacterWeapon {
     public Card6_178() {
-        super(Side.DARK, 5, "Mos Eisley Blaster");
+        super(Side.DARK, 5, "Mos Eisley Blaster", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("BlasTech DL-18. Carried by Jabba's guards. Typically used for covering fire, to protect a comrade or pin an enemy down. Nicknamed 'Mos Eisley Special.'");
         setGameText("Use 1 Force to deploy on your alien warrior (free if on Tatooine). May target a character for free. Draw destiny. Target is forfeit -2 for remainder of turn if destiny +2 > defense value.");
         addIcons(Icon.JABBAS_PALACE);

@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card7_323 extends AbstractCharacterWeapon {
     public Card7_323() {
-        super(Side.DARK, 2, "Ponda Baba's Hold-out Blaster", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Ponda Baba's Hold-out Blaster", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("High-powered, short-barreled blaster. Modified Imperial blaster pistol. Kept concealed by the Aqualish mercenary.");
         setGameText("Deploy on your smuggler or use 2 Force to deploy on your warrior. May deploy on Ponda Baba as a 'react.' May target a character or creature using 2 Force. Draw destiny. Target hit, and forfeit = 0, if destiny +1 > defense value.");
         addIcons(Icon.SPECIAL_EDITION);

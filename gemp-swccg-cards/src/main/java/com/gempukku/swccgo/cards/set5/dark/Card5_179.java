@@ -1,14 +1,28 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.MayFireRepeatedlyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -22,7 +36,7 @@ import java.util.List;
  */
 public class Card5_179 extends AbstractCharacterWeapon {
     public Card5_179() {
-        super(Side.DARK, 1, Title.Boba_Fetts_Blaster_Rifle, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, Title.Boba_Fetts_Blaster_Rifle, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Sawed off BlasTech EE-3 blaster rifle. Although its barrel is a few centimeters under the legal limit, no one has lived to file an official complaint.");
         setGameText("Use 1 Force to deploy on Boba Fett, or 3 on your other bounty hunter. May deploy as a 'react.' May target a character, creature or vehicle using 2 Force. Draw destiny. Add 1 if targeting a vehicle. Target hit if total destiny > defense value. May fire repeatedly for 1 Force each time.");
         addIcons(Icon.CLOUD_CITY);
