@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card12_003 extends AbstractRepublic {
     public Card12_003() {
-        super(Side.LIGHT, 3, 2, 2, 1, 4, "Coruscant Guard");
+        super(Side.LIGHT, 3, 2, 2, 1, 4, "Coruscant Guard", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Highly trained guard personnel play a valuable role in protecting the various dignitaries and political figures that frequently have business to attend to on Coruscant.");
         setGameText("Once per turn, may use 1 Force to add 2 to politics of one of your senators present for remainder of turn. While present at Galactic Senate, all characters without politics here are forfeit = 0 (except Coruscant Guards).");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR);

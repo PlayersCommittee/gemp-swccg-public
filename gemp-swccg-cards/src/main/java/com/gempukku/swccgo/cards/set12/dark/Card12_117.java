@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +43,7 @@ import java.util.List;
  */
 public class Card12_117 extends AbstractRepublic {
     public Card12_117() {
-        super(Side.DARK, 2, 3, 2, 3, 6, "Rune Haako", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, 6, "Rune Haako", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Trade Federation settlement officer serving as legal council to Viceroy Gunray. Reputed to have one of the sharpest legal minds in all of the Republic. Neimoidian.");
         setGameText("While in battle, may choose one number. If next card opponent draws for destiny this battle has a printed destiny number matching this choice, that destiny is reduced to zero. If you just initiated a battle at same or adjacent site, retrieve 1 Force.");
         addPersona(Persona.HAAKO);

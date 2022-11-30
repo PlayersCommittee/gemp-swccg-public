@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card12_113 extends AbstractRepublic {
     public Card12_113() {
-        super(Side.DARK, 4, 1, 1, 3, 4, "Orn Free Taa", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 1, 1, 3, 4, "Orn Free Taa", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setPolitics(2);
         setLore("Obese Rutian Twi'lek senator. Once a tax collector, he has used his connections and political power to fuel a myriad of devious plots for whomever can make him the highest offer.");
         setGameText("Agendas: taxation, wealth. While in a senate majority, once per turn may take your just drawn battle destiny into hand. During opponent's deploy phase, may use X Force to place Taa in your Used Pile. (X = cards in opponent's Force Pile.)");

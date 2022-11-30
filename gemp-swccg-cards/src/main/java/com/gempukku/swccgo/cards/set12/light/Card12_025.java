@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card12_025 extends AbstractRepublic {
     public Card12_025() {
-        super(Side.LIGHT, 3, 2, 1, 2, 2, "Sabe", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 2, "Sabe", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Female chosen as a handmaiden by Panaka due to her resemblance to Amidala. Trained to play the role of the Queen whenever it is considered that Amidala may be at risk.");
         setGameText("While at same site as Amidala, Sabe is power +2 and Amidala is immune to attrition. When at a site, during your deploy phase may place Sabe out of play to deploy Amidala to that site (for free) from your Reserve Deck (reshuffle) or Lost Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

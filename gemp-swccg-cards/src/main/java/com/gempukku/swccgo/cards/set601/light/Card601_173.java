@@ -1,20 +1,25 @@
 package com.gempukku.swccgo.cards.set601.light;
 
-import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByPermanentWeaponsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +33,7 @@ import java.util.List;
 
 public class Card601_173 extends AbstractRepublic {
     public Card601_173() {
-        super(Side.LIGHT, 1, 6, 6, 6, 7, "Maris Brood, Fallen Jedi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 6, 7, "Maris Brood, Fallen Jedi", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("");
         setGameText("Matching weapon is Elegant Lightsaber and, if Sai'torr Kal Fas on table, may lose 2 Force to deploy it on her from Reserve Deck; reshuffle.  While with Galen or a [Sidious] Effect, adds one battle destiny.  Immune to [Permanent Weapon] weapons and attrition < 5.");
         addIcons(Icon.CLOUD_CITY, Icon.LEGACY_BLOCK_4);

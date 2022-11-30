@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.PilotingAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card14_015 extends AbstractRepublic {
     public Card14_015() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Arven, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Arven, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Bravo Squadron pilot who assisted in the attack at the battle of Naboo. Tactical expert of capital starship shield capabilities.");
         setGameText("Adds 2 to power of anything he pilots. While piloting Bravo 3 at same system as a battleship, adds one destiny to attrition only.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT);

@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealRandomCardInOpponentsHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card13_023 extends AbstractRepublic {
     public Card13_023() {
-        super(Side.LIGHT, 3, 2, 2, 2, 5, "Horace Vancil", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 5, "Horace Vancil", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Part of Amidala's advisory council, Horace monitors political crises, as well as providing the Queen with information regarding the current economic state of the city.");
         setGameText("Deploys -1 on Naboo. While at Theed Palace Throne Room, once during your control phase may reveal one card (random selection) from opponent's hand. Opponent must place card in Used Pile or lose 1 Force.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.InSenateMajorityCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card12_027 extends AbstractRepublic {
     public Card12_027() {
-        super(Side.LIGHT, 3, 3, 2, 2, 5, Title.Sei_Taria, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, 2, 5, Title.Sei_Taria, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setPolitics(3);
         setLore("Valorum's female administrative aide who has studied the taxation bills. After Valorum was voted out of his position as Chancellor, Sei chose to leave political life.");
         setGameText("Agendas: peace, taxation. If with Valorum, your Force generation at this location is +1. While in a senate majority, your Force drains are +1 at battleground systems while you control a battleground site.");

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.PresentInBattleEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card14_087 extends AbstractRepublic {
     public Card14_087() {
-        super(Side.DARK, 2, 3, 2, 3, 4, "Rune Haako, Legal Counsel", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, 4, "Rune Haako, Legal Counsel", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("The Trade Federation's only Neimoidian leader to have ever encountered a Jedi Knight. Assumed Daultay Dofine's responsibilities after Dofine questioned their Sith Lord's plans.");
         setGameText("While at Theed Palace Throne Room, your attrition against opponent in battles at same and related Naboo sites is +X, where X = number of battle droids present at that site. While with a battle droid, Haako is power and defense value +2.");

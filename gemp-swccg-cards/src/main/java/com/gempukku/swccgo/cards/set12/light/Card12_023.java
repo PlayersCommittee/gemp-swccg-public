@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card12_023 extends AbstractRepublic {
     public Card12_023() {
-        super(Side.LIGHT, 3, 3, 2, 4, 6, "Queen Amidala, Ruler Of Naboo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, 4, 6, "Queen Amidala, Ruler Of Naboo", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setAlternateImageSuffix(true);
         setPolitics(2);
         setLore("Naboo leader. Frustrated by the Trade Federation's control of her planet, Amidala came to the Senate to plead her case in person.");

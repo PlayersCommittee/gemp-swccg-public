@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card12_126 extends AbstractRepublic {
     public Card12_126() {
-        super(Side.DARK, 3, 2, 1, 2, 4, "Yeb Yeb Adem'thorn", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 2, 4, "Yeb Yeb Adem'thorn", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setPolitics(2);
         setLore("Senator who opposes the taxation of trade routes. Some say that a recent move from his homeworld to a luxurious Coruscant abode is evidence of his corruption.");
         setGameText("Agendas: trade, wealth. While in a senate majority, once during your turn, may peek at top card of opponent's Reserve Deck; return that card or lose 1 Force to make it lost.");

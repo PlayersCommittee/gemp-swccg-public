@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card14_023 extends AbstractRepublic {
     public Card14_023() {
-        super(Side.LIGHT, 2, 4, 4, 3, 6, "Panaka, Protector Of The Queen", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 3, 6, "Panaka, Protector Of The Queen", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Leader of the Royal Naboo security Forces. Fought alongside Amidala in order to capture Viceroy Nute Gunray.");
         setGameText("Deploys for free to a Naboo site. While with Amidala at a Naboo site, opponent may not target Amidala with weapons. While on Naboo, immune to attrition < 5.");
         addPersona(Persona.PANAKA);

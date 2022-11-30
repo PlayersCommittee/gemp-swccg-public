@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set200.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card200_006 extends AbstractRepublic {
     public Card200_006() {
-        super(Side.LIGHT, 3, 3, 3, 2, 5, "Commander Cody", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 2, 5, "Commander Cody", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setArmor(4);
         setLore("Leader. Clone trooper.");
         setGameText("Deploys -1 to same site as Obi-Wan. [Separatist] cards are power and defense value -1 here. When in battle at a site with Rex (or two of your clones), may cancel one just drawn battle destiny.");

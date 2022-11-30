@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card14_085 extends AbstractRepublic {
     public Card14_085() {
-        super(Side.DARK, 3, 0, 1, 1, 1, "Rayno Vaca", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 0, 1, 1, 1, "Rayno Vaca", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Coruscant taxi driver who barely makes enough money to get by. Will try any trick in the book to get an extra credit from his customer.");
         setGameText("Your characters may move from here using their landspeed for free. During your control phase, may place Vaca in Used Pile to take Lana Dobreed into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +37,7 @@ import java.util.List;
  */
 public class Card12_110 extends AbstractRepublic {
     public Card12_110() {
-        super(Side.DARK, 2, 2, 1, 3, 5, "Lott Dod", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 3, 5, "Lott Dod", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setPolitics(4);
         setLore("Primary Neimoidian senator who represents the Trade Federation in the Galactic Senate. Thwarted attempts by Amidala to end the blockade of Naboo.");
         setGameText("Agendas: ambition, blockade, trade. While in a senate majority, once during your control phase, may search your Force Pile and take any one card there into hand; reshuffle. While at Galactic Senate, your other Neimoidians are forfeit +2.");

@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +23,8 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -28,7 +39,7 @@ import java.util.List;
  */
 public class Card209_003 extends AbstractRepublic {
     public Card209_003() {
-        super(Side.LIGHT, 2, 3, 3, 2, 4, "CT-5385 (Tup)", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 2, 4, "CT-5385 (Tup)", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setArmor(4);
         setLore("Clone trooper.");
         setGameText("During any move phase, may fire a weapon at an Undercover spy. Permanent weapon is Clone Sniper Rifle (may target a character or vehicle for free; target hit if destiny +2 > defense value).");

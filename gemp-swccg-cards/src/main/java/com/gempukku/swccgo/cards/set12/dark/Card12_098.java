@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card12_098 extends AbstractRepublic {
     public Card12_098() {
-        super(Side.DARK, 3, 3, 2, 3, 5, "Baskol Yeesrim", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, 3, 5, "Baskol Yeesrim", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setPolitics(2);
         setLore("Gran senator who is part of the Malastare delegation. Supported Aks Moe's suggestion for a commission to be sent to Naboo.");
         setGameText("Agenda: blockade. While in a senate majority, once during your control phase opponent loses 1 Force for each Naboo location you control.");

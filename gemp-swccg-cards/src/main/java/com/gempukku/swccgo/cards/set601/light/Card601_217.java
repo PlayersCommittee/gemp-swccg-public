@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card601_217 extends AbstractRepublic {
     public Card601_217() {
-        super(Side.LIGHT, 2, 4, 3, 3, 4, Title.Rex, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 3, 3, 4, Title.Rex, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setArmor(4);
         setLore("Leader. Clone trooper.");
         setGameText("Your clones deploy -1 here. While at an [Episode 1] battleground site, adds one battle destiny. Permanent weapon is •Twin Blasters (may target a character for free; draw two destiny; target hit and forfeit -3 if total destiny -2 > defense value).");

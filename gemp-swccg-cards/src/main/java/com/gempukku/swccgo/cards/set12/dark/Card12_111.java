@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card12_111 extends AbstractRepublic {
     public Card12_111() {
-        super(Side.DARK, 3, 2, 0, 2, 2, "Neimoidian Pilot");
+        super(Side.DARK, 3, 2, 0, 2, 2, "Neimoidian Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Trade Federation Neimodian pilots are some of the most desired in the galaxy due to their willingness to follow orders.");
         setGameText("Deploys -2 at Naboo. When deployed aboard your battleship, you may activate 1 Force. Adds 2 to the power of any starship he pilots. Forfeit +2 while piloting.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card12_026 extends AbstractRepublic {
     public Card12_026() {
-        super(Side.LIGHT, 3, 2, 1, 2, 2, "Sache", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 2, "Sache", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Handmaiden chosen by Captain Panaka for her strength and loyalty to Naboo. Willing to protect the Queen, even with her life.");
         setGameText("While at same site as Amidala, Sache is power +2 and Amidala is defense value +2. If just lost during a battle, may use 2 Force to take Sache into hand.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

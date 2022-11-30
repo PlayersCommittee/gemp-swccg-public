@@ -20,33 +20,6 @@ public abstract class AbstractRepublic extends AbstractCharacter {
      * @param power the power value
      * @param forfeit the forfeit value
      * @param title the card title
-     */
-    protected AbstractRepublic(Side side, float destiny, float deployCost, float power, float ability, float forfeit, String title) {
-        this(side, destiny, deployCost, power, ability, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a character that is Republic.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractRepublic(Side side, float destiny, float deployCost, float power, float ability, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a character that is Republic.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param forfeit the forfeit value
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
      * @param rarity the rarity

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set203.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card203_027 extends AbstractRepublic {
     public Card203_027() {
-        super(Side.DARK, 1, 5, 6, 4, 7, "General Grievous", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 6, 4, 7, "General Grievous", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setArmor(5);
         setLore("Trade Federation.");
         setGameText("Any stolen lightsaber may deploy on Grievous. Once per game, Grievous may steal a lightsaber from opponent's Lost Pile. Unless alone, may lose 1 Force to return Grevious (and your cards on him) to hand from a site you control. Immune to attrition < 4.");

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set217.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,11 @@ import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -32,7 +43,7 @@ import java.util.*;
  */
 public class Card217_026 extends AbstractRepublic {
     public Card217_026() {
-        super(Side.LIGHT, 2, 3, 2, 3, 5, "Admiral Kilian", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 3, 5, "Admiral Kilian", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Corellian leader.");
         setGameText("[Pilot] 2. Unless with Boba Fett, your total power is +2 here. While piloting a capital starship, it is immune to attrition < 4 and, once per game, if it is about to be lost, may relocate your characters aboard to a related exterior site.");
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_17);

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card14_029 extends AbstractRepublic {
     public Card14_029() {
-        super(Side.LIGHT, 2, 3, 3, 3, 6, "Ric Olie, Bravo Leader", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 3, 6, "Ric Olie, Bravo Leader", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Leader of Bravo Squadron's attack on the Trade Federation Droid Control Ship at the Battle of Naboo. With the assistance of Anakin Skywalker, his squadron succeeded.");
         setGameText("Adds 3 to power of anything he pilots. While piloting during a battle at a system where you have two piloted Bravo Squadron starfighters, adds two battle destiny.");
         addPersona(Persona.RIC);

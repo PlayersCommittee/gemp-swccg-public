@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card14_030 extends AbstractRepublic {
     public Card14_030() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, Title.Royal_Naboo_Security_Officer);
+        super(Side.LIGHT, 3, 2, 2, 1, 3, Title.Royal_Naboo_Security_Officer, Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("The Royal Naboo Security Forces are used to protect Naboo's planetary rulers at all times. Commanded by Panaka, these volunteers have dedicated their lives to their homeland.");
         setGameText("Power -1 while not on Naboo. While you have at least three other non-unique Royal Naboo Security Officers at related Naboo sites, draws one battle destiny if unable to otherwise.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);

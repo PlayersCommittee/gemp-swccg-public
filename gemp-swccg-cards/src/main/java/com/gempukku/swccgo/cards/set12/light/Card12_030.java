@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card12_030 extends AbstractRepublic {
     public Card12_030() {
-        super(Side.LIGHT, 3, 4, 2, 4, 7, Title.Valorum, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 2, 4, 7, Title.Valorum, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setPolitics(5);
         setLore("Although Finis Valorum maintains the Galactic Senate's ultimate title, his real power is mired by endless bureaucracy, petty corruption, and incessant plotting.");
         setGameText("Agendas: justice, order. While in a senate majority, once per turn may use 2 Force to cancel a battle destiny just drawn at another site where you have a Republic Character. Opponent may use X Force; Valorum is politics -X for remainder of turn.");

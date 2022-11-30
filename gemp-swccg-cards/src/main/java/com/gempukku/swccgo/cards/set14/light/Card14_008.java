@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card14_008 extends AbstractRepublic {
     public Card14_008() {
-        super(Side.LIGHT, 3, 2, 3, 2, 5, "Corporal Rushing", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, 2, 5, "Corporal Rushing", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Royal Naboo security officer in charge of protecting Amidala's Throne Room. His wife and children were captured when the Trade Federation invaded the planet.");
         setGameText("Deploys -1 to Naboo. While firing a blaster, adds one to total weapon destiny. Once per battle, if a battle droid was just hit by a blaster here, battle droid is lost and opponent loses 1 Force.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);

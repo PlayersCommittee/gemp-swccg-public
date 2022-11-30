@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card216_021 extends AbstractRepublic {
     public Card216_021() {
-        super(Side.LIGHT, 1, 8, 7, 6, 8, "Anakin Skywalker, Jedi Knight", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 8, 7, 6, 8, "Anakin Skywalker, Jedi Knight", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("Jedi Council member.");
         setGameText("[Pilot] 3. While armed with a lightsaber, adds 2 to his defense value. During battle, may lose 2 Force to add one battle destiny. Immune to attrition < 6.");
         addPersona(Persona.ANAKIN);

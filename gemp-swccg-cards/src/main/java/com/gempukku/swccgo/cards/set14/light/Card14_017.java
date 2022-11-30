@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card14_017 extends AbstractRepublic {
     public Card14_017() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, "Lieutenant Rya Kirsch", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, "Lieutenant Rya Kirsch", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Became a member of Bravo Flight after embarrassing himself in front of Amidala as a guard. Has redeemed himself by becoming an expert in defense aviation tactics.");
         setGameText("Adds 2 to power of anything he pilots. While aboard Bravo 4, draws one battle destiny if not able to otherwise, and opponent's droid starfighters are deploy +2 at same system.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT);

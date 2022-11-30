@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +39,7 @@ import java.util.List;
  */
 public class Card601_055 extends AbstractRepublic {
     public Card601_055() {
-        super(Side.LIGHT, 3, 4, 3, 4, 6, Title.Padme, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 3, 4, 6, Title.Padme, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Queen Amidala posed as one of her own handmaidens for added safety as well as to keep an eye on her Jedi protectors. Was to be protected by the Jedi at all times.");
         setGameText("Adds 1 to power of anything she pilots.  During your control phase, if present at a battleground site, opponent loses 1 Force for each Skywalker occupying a battleground (-1 Force if Vader on table) and you may use 2 Force to take one Leia or non-Jedi Luke into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_5, Icon.TATOOINE, Icon.EPISODE_I);

@@ -4,8 +4,11 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card12_019 extends AbstractRepublic {
     public Card12_019() {
-        super(Side.LIGHT, 3, 2, 0, 2, 3, "Naboo Fighter Pilot");
+        super(Side.LIGHT, 3, 2, 0, 2, 3, "Naboo Fighter Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("One of many pilots who assisted at the Battle of Naboo. Determined to fight for the planet he's lived on all his life.");
         setGameText("Deploys -2 at Naboo. If just deployed aboard a N-1 starfighter, you may activate 1 Force. Adds 2 to the power of any starfighter he pilots (or 3 if piloting a N-1 starfighter). Forfeit + 1 when forfeited during a battle at a system.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT);

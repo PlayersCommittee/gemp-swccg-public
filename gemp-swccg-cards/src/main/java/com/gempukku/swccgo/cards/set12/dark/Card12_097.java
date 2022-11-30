@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.InSenateMajorityCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card12_097 extends AbstractRepublic {
     public Card12_097() {
-        super(Side.DARK, 2, 2, 3, 3, 5, "Aks Moe", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 3, 3, 5, "Aks Moe", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setPolitics(3);
         setLore("Gran senator from Malastare. A skillful politician who demanded that a commission be sent to Naboo to investigate the alleged occupation there.");
         setGameText("Agendas: ambition, blockade. While in a senate majority, your capital starships are each power +2, and your Force drains are +1 at each battleground system where you occupy a related site.");

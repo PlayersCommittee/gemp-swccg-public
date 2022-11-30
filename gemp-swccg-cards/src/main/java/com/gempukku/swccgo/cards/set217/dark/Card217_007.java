@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set217.dark;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card217_007 extends AbstractRepublic {
     public Card217_007() {
-        super(Side.DARK, 3, 2, 2, 1, 4, "Coruscant Guard");
+        super(Side.DARK, 3, 2, 2, 1, 4, "Coruscant Guard", Uniqueness.UNRESTRICTED, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLore("Coruscant Guards are an elite force whose assignments include the protection of important political figures, as well as the policing of Coruscant's higher profile city districts.");
         setGameText("While present at Galactic Senate, all characters without politics here are forfeit = 0 (except Coruscant Guards) and neither player may draw more than one battle destiny here.");

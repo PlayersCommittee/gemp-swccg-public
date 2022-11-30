@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card12_002 extends AbstractRepublic {
     public Card12_002() {
-        super(Side.LIGHT, 2, 4, 4, 3, 6, "Captain Panaka", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 3, 6, "Captain Panaka", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Leader of Amidala's royal guard who personally supervised the Queen's weapon and self-defense training. Served under Captain Magneta before his current assignment.");
         setGameText("Deploys -1 to same site as Amidala. Once per game, may deploy a blaster on Panaka from Reserve Deck; reshuffle. Once per turn, if Panaka just fired a blaster and 'hit' a character, opponent loses 2 Force.");
         addPersona(Persona.PANAKA);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card11_007 extends AbstractRepublic {
     public Card11_007() {
-        super(Side.LIGHT, 1, 6, 6, 5, 8, "Obi-Wan Kenobi, Padawan Learner", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 5, 8, "Obi-Wan Kenobi, Padawan Learner", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Qui-Gon Jinn's Padawan. Stayed behind to protect Queen Amidala when Qui-Gon left to explore Mos Espa, but was in constant communication should he be needed.");
         setGameText("Deploys -2 to Tatooine. If opponent just initiated a battle at a related Tatooine site, may use 2 Force to relocate Obi-Wan to that site. Immune to attrition < 4.");

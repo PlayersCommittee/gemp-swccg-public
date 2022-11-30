@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card14_016 extends AbstractRepublic {
     public Card14_016() {
-        super(Side.LIGHT, 2, 3, 4, 2, 5, "Lieutenant Chamberlyn", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 4, 2, 5, "Lieutenant Chamberlyn", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Royal Naboo security officer who became a leader of the underground movement against the Trade Federation. Known for discovering and analyzing battle droid weaknesses.");
         setGameText("Deploys -1 to Naboo. Once per game may deploy a blaster on Chamberlyn from Reserve Deck; reshuffle. Once during your control phase, may target a battle droid present and draw destiny. If destiny > 3, target lost.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set210.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +41,7 @@ import java.util.List;
 
 public class Card210_008 extends AbstractRepublic {
     public Card210_008() {
-        super(Side.LIGHT, 3, 3, 3, 2, 4, "Clone Squad Leader", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 3, 3, 2, 4, "Clone Squad Leader", Uniqueness.RESTRICTED_3, ExpansionSet.SET_10, Rarity.V);
         setArmor(4);
         setLore("Clone trooper.");
         setGameText("Your other clones present are each forfeit +1. Once during battle with your clone, may cancel and redraw your just drawn battle destiny. When moving with a 'squad' of up to three other clones, they all move simultaneously for 1 Force.");

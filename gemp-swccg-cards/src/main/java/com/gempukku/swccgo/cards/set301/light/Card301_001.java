@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set301.light;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card301_001 extends AbstractRepublic {
     public Card301_001() {
-        super(Side.LIGHT, 1, 5, 4, 5, 7, "Ahsoka Tano With Lightsabers", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 4, 5, 7, "Ahsoka Tano With Lightsabers", Uniqueness.UNIQUE, ExpansionSet.DEMO_DECK, Rarity.V);
         setLore("Female Togruta Padawan");
         setGameText("Power +1 with Anakin. Permanent weapon is •Ahsoka's Lightsabers (may target a character for free, or target two characters using 1 Force; draw two destiny; target(s) hit and forfeit -2 if total destiny > total defense value).");
         addIcons(Icon.PREMIUM, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.CLONE_ARMY, Icon.VIRTUAL_SET_P);

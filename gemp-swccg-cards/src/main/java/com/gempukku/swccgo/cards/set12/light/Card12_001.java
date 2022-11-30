@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card12_001 extends AbstractRepublic {
     public Card12_001() {
-        super(Side.LIGHT, 2, 2, 2, 2, 5, Title.Madakor, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 5, Title.Madakor, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Captain of the Radiant VII. Has gained her rank through consistent excellent performance, and has one of the finest service records of all Republic officers.");
         setGameText("Adds 2 to power of anything she pilots. While piloting Radiant VII and you have no other starships at same system, opponent may not draw more than one battle destiny here.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR);

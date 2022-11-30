@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card12_033 extends AbstractRepublic {
     public Card12_033() {
-        super(Side.LIGHT, 3, 2, 1, 2, 2, "Yane", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 2, "Yane", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("The youngest handmaiden, Yane stayed behind on Naboo while Amidala pleaded her case to the Galactic Senate. Musician.");
         setGameText("While at a Theed Palace site or same site as Amidala, opponent's Republic characters are deploy +1 here and Yane is forfeit +3. If just lost during a battle, may use 2 Force to place Yane in Used Pile.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

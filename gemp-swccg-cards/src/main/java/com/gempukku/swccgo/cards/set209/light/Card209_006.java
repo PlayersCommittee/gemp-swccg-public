@@ -4,14 +4,22 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card209_006 extends AbstractRepublic {
     public Card209_006() {
-        super(Side.LIGHT, 1, 6, 6, 6, 9, "General Kenobi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 6, 9, "General Kenobi", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Jedi Council member. Leader.");
         setGameText("During battle, if alone or with a clone, may activate 1 Force or add 1 to a just drawn destiny. Once per game, may [upload] a clone or [Reflections III] lightsaber. Immune to attrition < 6.");
         addPersona(Persona.OBIWAN);

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card12_032 extends AbstractRepublic {
     public Card12_032() {
-        super(Side.LIGHT, 2, 2, 3, 2, 4, "Tendau Bendon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, 2, 4, "Tendau Bendon", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setPolitics(2);
         setLore("Ithorian senator. Called on by his people to represent them in the Senate, though his heart is not in politics. Voted against the taxation of trade routes.");
         setGameText("Agendas: justice, peace. While in a senate majority, if you have at least one card in hand, once during your control phase may place your hand in Used Pile to draw up to four cards from Reserve Deck.");

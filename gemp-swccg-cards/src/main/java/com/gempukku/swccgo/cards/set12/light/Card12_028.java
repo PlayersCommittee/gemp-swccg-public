@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card12_028 extends AbstractRepublic {
     public Card12_028() {
-        super(Side.LIGHT, 3, 3, 1, 4, 5, "Senator Palpatine", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 4, 5, "Senator Palpatine", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setPolitics(4);
         setLore("Senator for the Naboo. Advised Amidala on actions required to highlight their conflict with the Trade Federation. Watches young Skywalker's future with great interest.");
         setGameText("Agendas: ambition, peace, order. While in a senate majority, once per turn, if opponent just drew battle destiny, use 1 Force to add its destiny number to your total power in that battle (you may not cancel that draw). Amidala is politics +1 here.");

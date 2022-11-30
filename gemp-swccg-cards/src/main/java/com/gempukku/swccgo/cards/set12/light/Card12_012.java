@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingAtCondition;
 import com.gempukku.swccgo.cards.conditions.TotalAbilityPilotingMoreThanCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card12_012 extends AbstractRepublic {
     public Card12_012() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Williams, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Williams, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Pilot of the Radiant VII. Was personally requested by Captain Madakor to assist in the transportation of the Jedi ambassadors.");
         setGameText("Adds 2 to power of anything he pilots. While piloting Radiant VII and you have no other starships at same system, unless opponent has total ability > 6 piloting here, opponent's total battle destiny here is -3.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR);

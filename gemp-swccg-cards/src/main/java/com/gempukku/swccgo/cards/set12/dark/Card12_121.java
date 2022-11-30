@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card12_121 extends AbstractRepublic {
     public Card12_121() {
-        super(Side.DARK, 2, 2, 1, 2, 3, "Tey How", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 2, 3, "Tey How", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Neimoidian Trade Federation communications officer to Nute Gunray. Had audio and visual mechanics surgically implanted to assist her in shipboard operations.");
         setGameText("Adds 2 to the power of anything she pilots. While aboard a battleship, whenever you must lose Force from a Force drain at a system within 2 parsecs of How, may use X Force to reduce the loss by X.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT);

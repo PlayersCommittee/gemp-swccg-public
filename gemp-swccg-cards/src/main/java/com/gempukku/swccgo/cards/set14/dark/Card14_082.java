@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card14_082 extends AbstractRepublic {
     public Card14_082() {
-        super(Side.DARK, 1, 3, 3, 4, 6, "Nute Gunray, Neimoidian Viceroy", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 4, 6, "Nute Gunray, Neimoidian Viceroy", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Neimoidian leader. Viceroy to the Trade Federation, but primarily under the influence of Darth Sidious. Ordered to take control of Naboo, and force the Queen to sign a treaty.");
         setGameText("Your [Presence] droids and AATs are destiny +1 if drawn for battle or weapon destiny. Once per turn, may take Take Them Away into hand from Reserve Deck; reshuffle. Immune to attrition < X, where X = twice the number of [Presence] droids present.");

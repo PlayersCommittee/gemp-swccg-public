@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card12_015 extends AbstractRepublic {
     public Card12_015() {
-        super(Side.LIGHT, 2, 2, 3, 2, 5, Title.Mas_Amedda, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, 2, 5, Title.Mas_Amedda, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setPolitics(3);
         setLore("Chancellor's Chagrian advisor who maintains order in the Senate. Although Senator Palpatine suggested he may be on the Trade Federation's payroll, nothing has been proven yet.");
         setGameText("Agenda: order. If with Valorum, your Force generation at this location is +1. While in a senate majority, once during your control phase, if you occupy a battleground site and a battleground system, opponent loses 2 Force.");

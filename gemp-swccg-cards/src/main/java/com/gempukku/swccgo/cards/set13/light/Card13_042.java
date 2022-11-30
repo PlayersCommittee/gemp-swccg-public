@@ -3,12 +3,22 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AgendaModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +32,7 @@ import java.util.List;
  */
 public class Card13_042 extends AbstractRepublic {
     public Card13_042() {
-        super(Side.LIGHT, 3, 2, 2, 2, 5, "Sio Bibble", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 5, "Sio Bibble", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setPolitics(1);
         setLore("Governor of Naboo. After initially opposing Amidala in her campaign to become Naboo's elected ruler, Sio Bibble is now one of her most ardent supporters.");
         setGameText("Agenda: order. While at same site as Amidala, your Force generation is +2 here. While on Naboo, subtracts one from opponent's Force drains at adjacent sites, and your other Republic characters present are power +1.");

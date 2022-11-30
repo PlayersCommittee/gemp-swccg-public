@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card14_014 extends AbstractRepublic {
     public Card14_014() {
-        super(Side.LIGHT, 2, 3, 4, 2, 3, "Jerus Jannick", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 4, 2, 3, "Jerus Jannick", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Part of Amidala's Royal Naboo Security Forces, Jerus has been trained as a protector of royalty, and is determined that his responsibility be carried out professionally.");
         setGameText("Deploys -2 to same site as Amidala. While in a battle with Amidala or Leia, your leaders present may not be targeted by weapons, and Jerus may be forfeited to satisfy all battle damage and attrition against you.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);

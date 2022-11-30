@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card12_011 extends AbstractRepublic {
     public Card12_011() {
-        super(Side.LIGHT, 2, 2, 1, 3, 5, "Liana Merian", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 3, 5, "Liana Merian", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setPolitics(2);
         setLore("Alderaanian senator. Known for her efforts to promote peace throughout the Republic by using her homeworld as an example.");
         setGameText("Agendas: peace, trade. While in a senate majority, once during opponent's turn, target an opponent's just drawn battle destiny; opponent must use or lose 2 Force or that battle destiny = 0.");

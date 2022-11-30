@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card217_025 extends AbstractRepublic {
     public Card217_025() {
-        super(Side.DARK, 2, 3, 3, 4, 5, "Wat Tambor", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 4, 5, "Wat Tambor", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Skakoan leader. Trade Federation. Techno Union.");
         setGameText("Opponent may not target your Republic characters with weapons unless each of your [Presence] droids present with them are 'hit.' [Set 8] Where Are Those Droidekas?! ignores Wat Tambor. Once per game, may draw two cards from Reserve Deck.");
         addIcons(Icon.SEPARATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_17);

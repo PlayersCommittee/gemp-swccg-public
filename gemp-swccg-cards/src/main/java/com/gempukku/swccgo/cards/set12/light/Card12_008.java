@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.conditions.InSenateMajorityCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card12_008 extends AbstractRepublic {
     public Card12_008() {
-        super(Side.LIGHT, 3, 2, 1, 2, 4, "Horox Ryyder", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 4, "Horox Ryyder", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setPolitics(2);
         setLore("Anx senator. Known for his patience, Horox exhibits unique insight into many complicated Senate issues.");
         setGameText("Agendas: order, taxation, peace. While in a senate majority, opponent may not draw more than one battle destiny at battleground systems, and you may not cancel opponent's battle destiny draws at systems.");
