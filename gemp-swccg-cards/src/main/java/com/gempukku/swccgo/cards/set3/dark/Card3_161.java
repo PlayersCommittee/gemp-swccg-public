@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card3_161 extends AbstractCharacterWeapon {
     public Card3_161() {
-        super(Side.DARK, 3, "Probe Droid Laser");
+        super(Side.DARK, 3, "Probe Droid Laser", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U2);
         setLore("Although a probe droid's primary defense is stealth, many models can be equipped with a laser cannon to enhance the droid's combat and sabotage capabilities.");
         setGameText("Deploy on your probe droid. May target an artillery weapon (use 5 as defense value), character or creature for free. Draw destiny. Artillery weapon lost if destiny > defense value. Character or creature hit if destiny > defense value.");
         addIcons(Icon.HOTH);

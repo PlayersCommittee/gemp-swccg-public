@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card4_175 extends AbstractCharacterWeapon {
     public Card4_175() {
-        super(Side.DARK, 1, Title.Bossks_Mortar_Gun, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, Title.Bossks_Mortar_Gun, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Relby-v10 micro grenade launcher. Modified version of the limited range CSPL 'Caspel' Projectile Launcher. Blows lots of stuff up.");
         setGameText("Use 2 Force to deploy on Bossk, 4 on any other warrior. May fire using 2 Force. Draw destiny. If destiny > 0, one card with that destiny number at same site is lost (your choice). If destiny = 0, mortar gun explodes and warrior firing it is lost.");
         addIcons(Icon.DAGOBAH);

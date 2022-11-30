@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.cards.evaluators.AbilityEvaluator;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SubtractEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +43,7 @@ import java.util.List;
  */
 public class Card1_314 extends AbstractCharacterWeapon {
     public Card1_314() {
-        super(Side.DARK, 2, "Dark Jedi Lightsaber");
+        super(Side.DARK, 2, "Dark Jedi Lightsaber", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Multifaceted jewels focus light into a deadly blade. Projects a meter-long beam of pure energy. A lightsaber is constructed personally by a Jedi as a part of training.");
         setGameText("Use X Force to deploy on your warrior where X = (7 - warrior's ability). May add 1 to Force drain where present. May target a character or creature using X Force. Draw two destiny. Target hit if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);

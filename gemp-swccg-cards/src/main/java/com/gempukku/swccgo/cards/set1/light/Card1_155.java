@@ -6,7 +6,16 @@ import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.cards.evaluators.AbilityEvaluator;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SubtractEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +44,7 @@ import java.util.List;
  */
 public class Card1_155 extends AbstractCharacterWeapon {
     public Card1_155() {
-        super(Side.LIGHT, 2, Title.Jedi_Lightsaber);
+        super(Side.LIGHT, 2, Title.Jedi_Lightsaber, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Elegant sword of pure energy. 'This is the weapon of a Jedi Knight. Not as clumsy or as random as a blaster. A lightsaber can be dangerous to an unskilled user.'");
         setGameText("Use X Force to deploy on your warrior where X = (7 - warrior's ability). May add 1 to Force drain where present. May target a character or creature by using X Force. Draw two destiny. Target hit if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);

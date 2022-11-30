@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card2_078 extends AbstractCharacterWeapon {
     public Card2_078() {
-        super(Side.LIGHT, 3, Title.Jawa_Ion_Gun);
+        super(Side.LIGHT, 3, Title.Jawa_Ion_Gun, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Cobbled-together weapon built from salvaged power cells, droid restraining bolts and an ion accelerator. Fires a stream of ion energy that stuns droids and irritates others.");
         setGameText("Use 1 Force to deploy on your Jawa, 3 on your warrior. May target a character using 1 Force. Draw destiny. Targeted droid stolen if destiny +1 > forfeit. Targeted non-droid character excluded from battle if destiny = defense value.");
         addIcons(Icon.A_NEW_HOPE);

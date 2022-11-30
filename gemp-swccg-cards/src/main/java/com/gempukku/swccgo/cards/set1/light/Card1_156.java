@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card1_156 extends AbstractCharacterWeapon {
     public Card1_156() {
-        super(Side.LIGHT, 5, "Leia's Sporting Blaster", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Leia's Sporting Blaster", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Defender sporting blaster, made by Drearian Defense Conglomerate. Intended for personal defense or small-game hunting. Short range. Low power. Carries energy for 50 shots.");
         setGameText("Use 1 Force to deploy on Leia, or 2 on your warrior. May target a character, creature or vehicle for free. Draw destiny. Target hit if destiny -1 > defense value. If hit by Leia, target's forfeit = 0.");
         addKeywords(Keyword.BLASTER);

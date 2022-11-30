@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card1_320 extends AbstractCharacterWeapon {
     public Card1_320() {
-        super(Side.DARK, 2, "Light Repeating Blaster Rifle");
+        super(Side.DARK, 2, "Light Repeating Blaster Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("BlasTech model T-21 light repeating blaster. Excellent power, good range. Carries energy for 25 shots. Unlimited firepower when attached to a power generator.");
         setGameText("Use 2 Force to deploy on your warrior. If your power droid or fusion generator present, may target a character, creature or vehicle using 2 Force. Draw destiny. Target hit if destiny +1 > defense value. May fire repeatedly for 2 Force each time.");
         addKeywords(Keyword.BLASTER_RIFLE);

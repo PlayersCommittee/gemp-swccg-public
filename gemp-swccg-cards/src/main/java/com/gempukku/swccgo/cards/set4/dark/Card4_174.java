@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card4_174 extends AbstractCharacterWeapon {
     public Card4_174() {
-        super(Side.DARK, 2, Title._4LOMs_Concussion_Rifle, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title._4LOMs_Concussion_Rifle, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("BlasTech LJ-90. Not as accurate as the E-11 Blaster Rifle, but uses the same scope mount and has much better range. Acquired by 4-LOM after teaming up with Zuckuss.");
         setGameText("Use 4 Force to deploy on your warrior, free on 4-LOM. May target a character or creature for free at same site or exterior site up to 2 sites away. Draw destiny. Add 1 if Blaster Scope attached. If total destiny - distance to target > defense value, target hit.");
         addIcons(Icon.DAGOBAH);

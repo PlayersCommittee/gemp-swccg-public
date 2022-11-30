@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card4_176 extends AbstractCharacterWeapon {
     public Card4_176() {
-        super(Side.DARK, 2, Title.Dengars_Blaster_Carbine, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Dengars_Blaster_Carbine, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Rugged, reliable Valken-38 carbine. Excellent sniper's weapon in the hands of a competent marksman. Stolen from a victim when Dengar was working as an Imperial Assassin.");
         setGameText("Use 1 Force to deploy on Dengar, 3 on your warrior. May target a character, creature or vehicle using 1 Force. Draw destiny. Target hit if destiny +1 > defense value. If hit by Dengar, target's forfeit = 0.");
         addIcons(Icon.DAGOBAH);

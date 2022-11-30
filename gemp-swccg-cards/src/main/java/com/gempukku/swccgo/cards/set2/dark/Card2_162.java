@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card2_162 extends AbstractCharacterWeapon {
     public Card2_162() {
-        super(Side.DARK, 5, "URoRRuR'R'R's Hunting Rifle", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "URoRRuR'R'R's Hunting Rifle", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Owning a hunting rifle is an important status symbol in Tusken culture. URoRRuR'R'R scavenged this weapon from a starship wreck near Anchorhead.");
         setGameText("Use 1 Force to deploy on URoRRuR'R'R or Chief Bast, 3 on your non-droid character. May target a character or creature using 1 Force. Draw destiny. Subtract 1 if targeting a character. Add 2 if targeting a creature. Target hit if total destiny > defense value.");
         addIcons(Icon.A_NEW_HOPE);

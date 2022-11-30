@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card2_079 extends AbstractCharacterWeapon {
     public Card2_079() {
-        super(Side.LIGHT, 5, "Luke's Hunting Rifle", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Luke's Hunting Rifle", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Czerka 6-2Aug2. Extended barrel provides long-range targeting without expensive laser sight. Sturdy construction, but no match for a Tusken Raider's gaderffi stick.");
         setGameText("Use 1 Force to deploy on Luke or Owen Lars, 3 on your non-droid character. May target a character or creature using 1 Force. Draw destiny. Subtract 1 if targeting a character. Add 2 if targeting a creature. Target hit if total destiny > defense value.");
         addIcons(Icon.A_NEW_HOPE);

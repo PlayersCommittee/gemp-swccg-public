@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card3_073 extends AbstractCharacterWeapon {
     public Card3_073() {
-        super(Side.LIGHT, 3, Title.Concussion_Grenade);
+        super(Side.LIGHT, 3, Title.Concussion_Grenade, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("Mier-Lan V-59 grenade. Blows stuff up.");
         setGameText("Use 2 Force to deploy on your warrior. May 'throw' at same or adjacent site. Draw destiny. All characters, weapons and devices with that destiny number present at that site are lost. (Only your warrior is lost if destiny = 0.) Concussion Grenade also lost.");
         addIcons(Icon.HOTH);

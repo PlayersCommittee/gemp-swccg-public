@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +28,7 @@ import java.util.List;
  */
 public class Card2_159 extends AbstractCharacterWeapon {
     public Card2_159() {
-        super(Side.DARK, 4, Title.Jawa_Blaster);
+        super(Side.DARK, 4, Title.Jawa_Blaster, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Built from scavenged parts, Jawa blaster are not required to adhere to any design standards. An etching on this stock warns 'datinni greb zroom.'");
         setGameText("Deploy on your Jawa. May target a character or creature for free. Draw destiny. If destiny -1 > defense value, target hit. If destiny = 0, Jawa Blaster 'explodes' (weapon and character firing it are lost).");
         addIcons(Icon.A_NEW_HOPE);

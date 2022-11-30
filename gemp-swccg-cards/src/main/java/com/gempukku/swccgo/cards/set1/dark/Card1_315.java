@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_315 extends AbstractCharacterWeapon {
     public Card1_315() {
-        super(Side.DARK, 4, Title.Gaderffii_Stick);
+        super(Side.DARK, 4, Title.Gaderffii_Stick, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Notorious 'gaffi' weapon favored by Tusken Raiders. Built from scavenged metal. Intimidates and evokes fear.");
         setGameText("Use 2 Force to deploy on any Tusken Raider. If a battle has just been initiated where present, target a character for free; draw two destiny. If total destiny > 5, target's weapons are 'knocked away' (may not be used this battle).");
     }

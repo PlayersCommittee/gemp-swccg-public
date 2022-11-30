@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card4_177 extends AbstractCharacterWeapon {
     public Card4_177() {
-        super(Side.DARK, 1, "IG-88's Neural Inhibitor", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "IG-88's Neural Inhibitor", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Menotor DAS-430 electromagnetic projectile launcher. Often mistaken for a blaster rifle. Fires small hollow darts filled with neurotoxin which cause temporary paralysis.");
         setGameText("Deploy on IG-88, or use 2 Force on any other bounty hunter. May target a non-droid character using 3 Force. Draw destiny. If destiny +1 > ability, until end of your next turn character is power, forfeit and landspeed = 0.");
         addIcons(Icon.DAGOBAH);
