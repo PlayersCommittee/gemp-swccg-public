@@ -24,6 +24,15 @@ public class MayNotCancelBattleDestinyModifier extends AbstractModifier {
     /**
      * Creates a modifier that prevents either players' battle destiny draws from being canceled.
      * @param source the source of the modifier
+     * @param locationFilter the filter for battle locations
+     */
+    public MayNotCancelBattleDestinyModifier(PhysicalCard source, Filterable locationFilter) {
+        this(source, locationFilter, null, null, null);
+    }
+
+    /**
+     * Creates a modifier that prevents either players' battle destiny draws from being canceled.
+     * @param source the source of the modifier
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
     public MayNotCancelBattleDestinyModifier(PhysicalCard source, Condition condition) {

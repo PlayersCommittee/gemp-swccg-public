@@ -112,6 +112,7 @@ public enum Persona implements Filterable {
     PRE_VIZSLA("Pre Vizsla"),
     PROFUNDITY("Profundity"),
     PROXIMA("Proxima"),
+    PRYCE("Pryce"),
     PRYDE("Pryde"),
     PUCK("Puck"),
     QUEENS_ROYAL_STARSHIP("Queen's Royal Starship"),

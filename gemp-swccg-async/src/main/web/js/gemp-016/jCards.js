@@ -3622,6 +3622,7 @@ var fixedImages = {
 "501_116":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/theyhavenoideawerecoming.png",
 "501_116_BACK":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/untilwewinorthechancesarespent.png",
 "501_117":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothal.png",
+"501_118":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothaladvancedprojectslaboratory.png",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
@@ -4488,7 +4489,8 @@ var Card = Class.extend({
                    (cardNo == 102) ||
                    (cardNo == 103) ||
                    (cardNo == 112) ||
-                   (cardNo == 113)
+                   (cardNo == 113) ||
+                   (cardNo == 118)
                    ;
         }
         if (setNo == 601) {

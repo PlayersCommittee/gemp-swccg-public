@@ -39,6 +39,7 @@ public class Card219_007 extends AbstractImperial {
         setGameText("If an artwork card was just stacked (or a Rebel was just captured here), may [upload] a card without ability. " +
                     "While in a battle you lost, unless 'hit' (or no other Imperials present), Pryce may not be forfeited. Immune to attrition < 4.");
         addKeywords(Keyword.FEMALE, Keyword.MINER, Keyword.LEADER);
+        addPersona(Persona.PRYCE);
         addIcons(Icon.VIRTUAL_SET_19, Icon.CORUSCANT);
     }
 
