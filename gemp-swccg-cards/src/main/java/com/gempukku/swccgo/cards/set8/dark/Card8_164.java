@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card8_164 extends AbstractSite {
     public Card8_164() {
-        super(Side.DARK, "Endor: Forest Clearing", Title.Endor);
+        super(Side.DARK, "Endor: Forest Clearing", Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("Your vehicles are each power +1 here. Force drain +1 here.");
         setLocationLightSideGameText("Your vehicles are each power +1 here.");
         addIcon(Icon.DARK_FORCE, 2);

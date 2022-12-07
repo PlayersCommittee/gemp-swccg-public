@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.evaluators.PowerOfHighestForfeitCharacterHereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card7_133 extends AbstractSite {
     public Card7_133() {
-        super(Side.LIGHT, Title.Toche_Station, Title.Tatooine);
+        super(Side.LIGHT, Title.Toche_Station, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLocationDarkSideGameText("If you occupy, opponent's Tosche Station game text is canceled.");
         setLocationLightSideGameText("You generate +X Force here, where X = power of your highest forfeit character here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.DuringSabaccCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card7_111 extends AbstractSite {
     public Card7_111() {
-        super(Side.LIGHT, "Cloud City: Casino", Title.Bespin);
+        super(Side.LIGHT, "Cloud City: Casino", Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLocationDarkSideGameText("Unless you have a gambler here, you may not use wild cards in Cloud City Sabacc.");
         setLocationLightSideGameText("Whenever your gambler present here wins Cloud City Sabacc, retrieve 2 Force (3 if Lando).");
         addIcon(Icon.DARK_FORCE, 1);

@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.AttackRunTotalModifier;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card7_134 extends AbstractSite {
     public Card7_134() {
-        super(Side.LIGHT, Title.Massassi_Headquarters, Title.Yavin_4);
+        super(Side.LIGHT, Title.Massassi_Headquarters, Title.Yavin_4, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("May not be separated from interior Yavin 4 sites. If you occupy, Attack Run total is -4.");
         setLocationLightSideGameText("May not be separated from interior Yavin 4 sites. If you control, Attack Run total is +2.");
         addIcon(Icon.LIGHT_FORCE, 2);

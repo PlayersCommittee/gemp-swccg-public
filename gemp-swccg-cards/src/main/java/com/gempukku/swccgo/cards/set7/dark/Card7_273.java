@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card7_273 extends AbstractSite {
     public Card7_273() {
-        super(Side.DARK, Title.Upper_Walkway, Title.Bespin);
+        super(Side.DARK, Title.Upper_Walkway, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLocationDarkSideGameText("During your move phase, may move for free from here to any other Cloud City exterior site.");
         setLocationLightSideGameText("Force drain -1 here. If you control, opponent's Upper Walkway game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

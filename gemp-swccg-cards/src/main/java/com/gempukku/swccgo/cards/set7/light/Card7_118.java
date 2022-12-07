@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card7_118 extends AbstractSite {
     public Card7_118() {
-        super(Side.LIGHT, Title.Detention_Block_Corridor, Title.Death_Star);
+        super(Side.LIGHT, Title.Detention_Block_Corridor, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLocationDarkSideGameText("During your deploy phase, IT-O and Hypo may deploy here from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Force drain +1 here. Whenever you release a captive here, retrieve 1 Force (4 if Leia).");
         addIcon(Icon.DARK_FORCE, 1);

@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -19,7 +25,7 @@ import java.util.List;
  */
 public class Card6_085 extends AbstractSite {
     public Card6_085() {
-        super(Side.LIGHT, "Tatooine: Desert", Title.Tatooine, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, "Tatooine: Desert", Title.Tatooine, Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLocationDarkSideGameText("Your character movement from here (except for scouts) requires +1 landspeed.");
         setLocationLightSideGameText("Your character movement from here (except for scouts) requires +1 landspeed.");
         addIcon(Icon.DARK_FORCE, 1);

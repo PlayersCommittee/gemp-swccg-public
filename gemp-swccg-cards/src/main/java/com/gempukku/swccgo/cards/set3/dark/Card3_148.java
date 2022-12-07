@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card3_148 extends AbstractSite {
     public Card3_148() {
-        super(Side.DARK, Title.Ice_Plains, Title.Hoth);
+        super(Side.DARK, Title.Ice_Plains, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLocationDarkSideGameText("During your move phase, you may move free from here directly to Mountains (or vice versa).");
         setLocationLightSideGameText("If you control, and Main Power Generators on table, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

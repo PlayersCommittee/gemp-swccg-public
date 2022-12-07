@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card6_163 extends AbstractSite {
     public Card6_163() {
-        super(Side.DARK, Title.Droid_Workshop, Title.Tatooine);
+        super(Side.DARK, Title.Droid_Workshop, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLocationDarkSideGameText("Your droids deploy -1 here.");
         setLocationLightSideGameText("If you control, with a droid here, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

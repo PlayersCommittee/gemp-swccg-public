@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.AtSameOrRelatedSiteCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card7_125 extends AbstractSite {
     public Card7_125() {
-        super(Side.LIGHT, "Spaceport City", Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, "Spaceport City", Uniqueness.DIAMOND_1, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("May not be deployed to Bespin, Dagobah, Endor, Hoth, Kashyyyk or Yavin 4. If your thief or scout present, Force drain +1 here.");
         setLocationLightSideGameText("May not be deployed to Bespin, Dagobah, Endor, Hoth, Kashyyyk or Yavin 4. If you have a non-unique Rebel leader at same or related site, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

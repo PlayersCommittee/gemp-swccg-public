@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card8_158 extends AbstractSite {
     public Card8_158() {
-        super(Side.DARK, "Endor: Ancient Forest", Title.Endor);
+        super(Side.DARK, "Endor: Ancient Forest", Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("Your aliens are deploy -1 here (or -2 if Yuzzum). If your Yuzzum present, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);

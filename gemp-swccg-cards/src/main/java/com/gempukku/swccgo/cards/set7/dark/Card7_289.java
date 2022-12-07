@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card7_289 extends AbstractSite {
     public Card7_289() {
-        super(Side.DARK, "Spaceport Docking Bay", Uniqueness.DIAMOND_1);
+        super(Side.DARK, "Spaceport Docking Bay", Uniqueness.DIAMOND_1, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("May not deploy to Bespin, Dagobah, Endor, Hoth or Yavin 4. Your docking bay transit from here requires 2 Force. Your starfighters deploy -1 (or -2 if freighter) here.");
         setLocationLightSideGameText("May not deploy to Bespin, Dagobah, Endor, Hoth or Yavin 4. Your docking bay transit from here requires 3 Force. Your pilots deploy +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

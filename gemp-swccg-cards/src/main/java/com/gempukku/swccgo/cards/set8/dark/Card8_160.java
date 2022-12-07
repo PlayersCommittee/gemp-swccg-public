@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card8_160 extends AbstractSite {
     public Card8_160() {
-        super(Side.DARK, Title.Bunker, Title.Endor);
+        super(Side.DARK, Title.Bunker, Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("Once per game, you may deploy Endor Shield from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("You may move here only from Back Door. While you control, Endor Shield is suspended.");
         addIcon(Icon.DARK_FORCE, 1);

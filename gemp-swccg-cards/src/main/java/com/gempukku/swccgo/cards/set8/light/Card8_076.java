@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card8_076 extends AbstractSite {
     public Card8_076() {
-        super(Side.LIGHT, Title.Landing_Platform, Title.Endor);
+        super(Side.LIGHT, Title.Landing_Platform, Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force (free if your Imperial present).");
         setLocationLightSideGameText("Your docking bay transit from here requires 2 Force.");
         addIcon(Icon.DARK_FORCE, 1);

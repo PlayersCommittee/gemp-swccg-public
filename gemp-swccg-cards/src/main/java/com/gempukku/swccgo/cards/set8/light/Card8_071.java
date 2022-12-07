@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card8_071 extends AbstractSite {
     public Card8_071() {
-        super(Side.LIGHT, Title.Chief_Chirpas_Hut, Title.Endor);
+        super(Side.LIGHT, Title.Chief_Chirpas_Hut, Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLocationDarkSideGameText("If you control Chief Chirpa's Hut, Ewoks at Endor sites are forfeit -1.");
         setLocationLightSideGameText("Your Ewoks are deploy -1 here. Chief Chirpa deploys free here.");
         addIcon(Icon.LIGHT_FORCE, 2);

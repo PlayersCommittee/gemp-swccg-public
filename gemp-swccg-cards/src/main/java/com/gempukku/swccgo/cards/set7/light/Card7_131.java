@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card7_131 extends AbstractSite {
     public Card7_131() {
-        super(Side.LIGHT, Title.Jabbas_Palace, Title.Tatooine);
+        super(Side.LIGHT, Title.Jabbas_Palace, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLocationDarkSideGameText("When deployed, lose 1 Force for each of your Jabba's Palace sites that you do not occupy.");
         setLocationLightSideGameText("If you occupy with an alien, Bo Shuda cannot be canceled.");
         addIcon(Icon.DARK_FORCE, 1);

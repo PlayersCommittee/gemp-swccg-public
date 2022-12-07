@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PartOfSystemCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card7_281 extends AbstractSite {
     public Card7_281() {
-        super(Side.DARK, "Desert", Uniqueness.DIAMOND_1);
+        super(Side.DARK, "Desert", Uniqueness.DIAMOND_1, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("May not deploy to Bespin, Coruscant, Dagobah, Hoth, Kessel or Naboo. Your Jawas and Tusken Raiders may deploy here. Sandwhirl here moves only if on Tatooine.");
         setLocationLightSideGameText("May not deploy to Bespin, Coruscant, Dagobah, Hoth, Kessel or Naboo. Each of your battle destiny draws is -1 here. Sandwhirl here moves only if on Tatooine.");
         addIcon(Icon.DARK_FORCE, 1);

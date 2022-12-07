@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card7_280 extends AbstractSite {
     public Card7_280() {
-        super(Side.DARK, Title.Detention_Block_Control_Room, Title.Death_Star);
+        super(Side.DARK, Title.Detention_Block_Control_Room, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLocationDarkSideGameText("If you occupy with an Imperial, this site may not be converted.");
         setLocationLightSideGameText("If you control, you may raise converted Detention Block Control Room to the top.");
         addIcon(Icon.DARK_FORCE, 1);

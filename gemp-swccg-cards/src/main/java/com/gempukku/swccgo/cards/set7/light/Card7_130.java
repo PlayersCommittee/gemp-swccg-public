@@ -2,14 +2,21 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card7_130 extends AbstractSite {
     public Card7_130() {
-        super(Side.LIGHT, Title.Beggars_Canyon, Title.Tatooine);
+        super(Side.LIGHT, Title.Beggars_Canyon, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("Your womp rats, banthas and Tusken Raiders deploy -1 here.");
         setLocationLightSideGameText("T-16s deploy free (and are power +2) here. If you control with a T-16, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

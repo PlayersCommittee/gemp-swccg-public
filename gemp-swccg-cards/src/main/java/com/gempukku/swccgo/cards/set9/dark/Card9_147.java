@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card9_147 extends AbstractSite {
     public Card9_147() {
-        super(Side.DARK, Title.Throne_Room, Title.Death_Star_II);
+        super(Side.DARK, Title.Throne_Room, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLocationDarkSideGameText("Once per game, you may take Emperor's Power into hand from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Immune to Revolution.");
         addIcon(Icon.DARK_FORCE, 2);

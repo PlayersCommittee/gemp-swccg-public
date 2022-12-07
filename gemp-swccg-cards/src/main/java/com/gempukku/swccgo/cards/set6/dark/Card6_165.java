@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card6_165 extends AbstractSite {
     public Card6_165() {
-        super(Side.DARK, Title.Entrance_Cavern, Title.Tatooine);
+        super(Side.DARK, Title.Entrance_Cavern, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLocationDarkSideGameText("Bib Fortuna deploys -3 here. If you control, with a Gamorrean here, Force drain +1 here.");
         setLocationLightSideGameText("If you control, Force drain +1 here and your aliens deploy -2 here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -3,13 +3,20 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card7_278 extends AbstractSite {
     public Card7_278() {
-        super(Side.DARK, Title.Coruscant_Imperial_Square, Title.Coruscant);
+        super(Side.DARK, Title.Coruscant_Imperial_Square, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("Emperor deploys free here. If your moff here, all Imperials are deploy -1 at sites.");
         setLocationLightSideGameText("Force drain +1 here. If you control, Emperor may not deploy to Coruscant.");
         addIcon(Icon.DARK_FORCE, 2);

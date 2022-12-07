@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card8_075 extends AbstractSite {
     public Card8_075() {
-        super(Side.LIGHT, Title.Hidden_Forest_Trail, Title.Endor);
+        super(Side.LIGHT, Title.Hidden_Forest_Trail, Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("If you occupy, opponent's Hidden Forest Trail game text is canceled.");
         setLocationLightSideGameText("During your move phase, your scouts may move between here and any exterior Endor site.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card8_162 extends AbstractSite {
     public Card8_162() {
-        super(Side.DARK, "Endor: Dense Forest", Title.Endor);
+        super(Side.DARK, "Endor: Dense Forest", Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLocationDarkSideGameText("No starships or vehicles here except speeder bikes, AT-STs, Ewok gliders and creature vehicles.");
         setLocationLightSideGameText("No starships or vehicles here except speeder bikes, AT-STs, Ewok gliders and creature vehicles.");
         addIcon(Icon.DARK_FORCE, 2);

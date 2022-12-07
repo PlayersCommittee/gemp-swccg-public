@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card7_113 extends AbstractSite {
     public Card7_113() {
-        super(Side.LIGHT, Title.Downtown_Plaza, Title.Bespin);
+        super(Side.LIGHT, Title.Downtown_Plaza, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLocationDarkSideGameText("If you control, opponent's Downtown Plaza game text is canceled.");
         setLocationLightSideGameText("Once during each of your control phases, may use 1 Force to retrieve one Cloud City location.");
         addIcon(Icon.DARK_FORCE, 2);

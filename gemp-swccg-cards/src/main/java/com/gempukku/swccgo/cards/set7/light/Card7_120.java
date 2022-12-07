@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +30,7 @@ import java.util.List;
  */
 public class Card7_120 extends AbstractSite {
     public Card7_120() {
-        super(Side.LIGHT, "Farm", Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, "Farm", Uniqueness.DIAMOND_1, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("May not be deployed to Bespin, Coruscant, Dagobah, Hoth, Kessel.");
         setLocationLightSideGameText("May not be deployed to Bespin, Coruscant, Dagobah, Hoth, Kessel. During your deploy phase, Hydroponics Station or Vaporator may deploy here from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card8_073 extends AbstractSite {
     public Card8_073() {
-        super(Side.LIGHT, Title.Ewok_Village, Title.Endor);
+        super(Side.LIGHT, Title.Ewok_Village, Title.Endor, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLocationDarkSideGameText("No starships or vehicles here. If no Ewoks on Endor, Force drain +1 here.");
         setLocationLightSideGameText("No starships or vehicles here. Ewok devices and Ewok weapons deploy -1 here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card7_129 extends AbstractSite {
     public Card7_129() {
-        super(Side.LIGHT, Title.Anchorhead, Title.Tatooine);
+        super(Side.LIGHT, Title.Anchorhead, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLocationDarkSideGameText("If you occupy, opponent's Anchorhead game text is canceled.");
         setLocationLightSideGameText("During your move phase, may move your characters from here to Mos Eisley.");
         addIcon(Icon.DARK_FORCE, 1);

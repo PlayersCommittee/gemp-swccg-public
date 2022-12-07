@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card6_086 extends AbstractSite {
     public Card6_086() {
-        super(Side.LIGHT, "Tatooine: Hutt Canyon", Title.Tatooine);
+        super(Side.LIGHT, "Tatooine: Hutt Canyon", Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLocationDarkSideGameText("If you occupy with a Tusken Raider, opponent may not draw battle destiny here.");
         setLocationLightSideGameText("If you occupy with a Jawa, opponent may not draw battle destiny here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card6_166 extends AbstractSite {
     public Card6_166() {
-        super(Side.DARK, Title.Rancor_Pit, Title.Tatooine);
+        super(Side.DARK, Title.Rancor_Pit, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLocationDarkSideGameText("Dark Waters may deploy here. If a creature present, cards cannot move from here.");
         setLocationLightSideGameText("If your character here is 'eaten,' opponent retrieves Force equal to character's forfeit.");
         addIcon(Icon.DARK_FORCE, 1);
