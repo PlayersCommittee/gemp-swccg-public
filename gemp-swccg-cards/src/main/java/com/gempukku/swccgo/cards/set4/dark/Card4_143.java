@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card4_143 extends AbstractUsedOrLostInterrupt {
     public Card4_143() {
-        super(Side.DARK, 2, "HoloNet Transmission", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 2, "HoloNet Transmission", Uniqueness.RESTRICTED_2, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("The Empire uses a real-time hologram communication network. Provides extensive coordination in battles, blockades and searches. Allows rapid deployment and reinforcement.");
         setGameText("USED: Cancel Transmission Terminated. LOST: Take one Imperial or Visage Of The Emperor into hand from Used Pile; reshuffle.");
         addIcons(Icon.DAGOBAH);

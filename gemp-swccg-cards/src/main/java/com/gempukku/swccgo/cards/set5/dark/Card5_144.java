@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card5_144 extends AbstractUsedOrLostInterrupt {
     public Card5_144() {
-        super(Side.DARK, 4, "He's All Yours, Bounty Hunter");
+        super(Side.DARK, 4, "He's All Yours, Bounty Hunter", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Once Skywalker had taken the bait, Han was of no use to the Empire.");
         setGameText("USED: Cancel Captive Pursuit. LOST: During your move phase, transfer an escorted captive to another bounty hunter or warrior present.");
         addIcons(Icon.CLOUD_CITY);

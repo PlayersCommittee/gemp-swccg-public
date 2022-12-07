@@ -3,12 +3,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card3_128 extends AbstractUsedOrLostInterrupt {
     public Card3_128() {
-        super(Side.DARK, 3, Title.Imperial_Supply, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Imperial_Supply, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C1);
         setLore("The Empire's efficient, fear-driven logistical systems can quickly divert weapons and equipment from one conflict to another, focusing on regions of highest strategic priority.");
         setGameText("USED: Lose 1 Force to activate 2 Force. LOST: Lose 1 Force to activate 4 Force.");
         addIcons(Icon.HOTH);

@@ -3,14 +3,21 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card2_043 extends AbstractUsedOrLostInterrupt {
     public Card2_043() {
-        super(Side.LIGHT, 6, Title.Advance_Preparation);
+        super(Side.LIGHT, 6, Title.Advance_Preparation, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Early warning and careful planning allow the Rebels to achieve maximum readiness while still maintaining optimal flexibility.");
         setGameText("USED: Place out of play any one of the following from your hand: Attack Run, You're All Clear Kid, Death Star: Trench or Rebel Tech. Retrieve 1 Force. LOST: Use 3 Force to retrieve Attack Run.");
         addIcons(Icon.A_NEW_HOPE);

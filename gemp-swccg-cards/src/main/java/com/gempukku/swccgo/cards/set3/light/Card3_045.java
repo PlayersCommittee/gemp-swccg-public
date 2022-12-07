@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card3_045 extends AbstractUsedOrLostInterrupt {
     public Card3_045() {
-        super(Side.LIGHT, 4, "Lucky Shot");
+        super(Side.LIGHT, 4, "Lucky Shot", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("AT-ATs are nearly impervious to infantry fire, but occasionally a blaster bolt hits between the plating. It's one shot in a million, but such odds are a familiar to the Rebellion.");
         setGameText("Add X to one weapon destiny (before weapon destiny is drawn) when targeting a combat vehicle. USED: X = 1. LOST: X = 3.");
         addIcons(Icon.HOTH);

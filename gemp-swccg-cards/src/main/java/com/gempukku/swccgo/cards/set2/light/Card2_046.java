@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card2_046 extends AbstractUsedOrLostInterrupt {
     public Card2_046() {
-        super(Side.LIGHT, 4, Title.Blue_Milk, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Blue_Milk, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Nutrient-rich beverage common in moisture farm communities. Rumored to have medicinal qualities. Popular in cantinas among those who can't hold their juri juice.");
         setGameText("USED: Select a player to activate 1 Force. LOST: Cancel Juri Juice or Hypo.");
         addIcons(Icon.A_NEW_HOPE);

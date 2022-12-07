@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileAndReserveDeckAndUsedPileAndReturnOneCardToEachEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card5_040 extends AbstractUsedOrLostInterrupt {
     public Card5_040() {
-        super(Side.LIGHT, 3, Title.Computer_Interface);
+        super(Side.LIGHT, 3, Title.Computer_Interface, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Lobot's direct link with the Cloud City central computer allowed him to efficiently manipulate the floating city's resources.");
         setGameText("USED: Cancel Limited Resources. LOST: Use 2 Force (free if Lobot on table) to examine the top card of your Reserve Deck, Force Pile and Used Pile. Return one of those three cards to the top of each deck or pile.");
         addIcons(Icon.CLOUD_CITY);

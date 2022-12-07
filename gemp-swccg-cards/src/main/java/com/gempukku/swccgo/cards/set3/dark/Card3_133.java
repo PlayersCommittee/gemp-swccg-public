@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card3_133 extends AbstractUsedOrLostInterrupt {
     public Card3_133() {
-        super(Side.DARK, 6, Title.Scruffy_Looking_Nerf_Herder);
+        super(Side.DARK, 6, Title.Scruffy_Looking_Nerf_Herder, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
         setLore("'But you didn't see us alone in the south passage. She expressed her true feelings for me.' 'My...Why you stuck-up, half-witted, scruffy-looking NERF HERDER!'");
         setGameText("USED: Cancel Solo Han or Warrior's Courage or I Know. LOST: If Han and Leia are in a battle together, draw two destiny. Subtract that amount from opponent's attrition and total power (cannot fall below zero).");
         addIcons(Icon.HOTH);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card4_045 extends AbstractUsedOrLostInterrupt {
     public Card4_045() {
-        super(Side.LIGHT, 5, "Away Put Your Weapon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Away Put Your Weapon", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("'I mean you no harm.'");
         setGameText("USED: If a lightsaber was just used to enhance a Force drain, place it in Owner's Used Pile. LOST: Place any or all of your devices and character weapons on table in your Used Pile.");
         addIcons(Icon.DAGOBAH);

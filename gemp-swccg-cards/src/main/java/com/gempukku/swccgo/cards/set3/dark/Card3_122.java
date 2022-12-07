@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card3_122 extends AbstractUsedOrLostInterrupt {
     public Card3_122() {
-        super(Side.DARK, 4, "Direct Hit");
+        super(Side.DARK, 4, "Direct Hit", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("Snowspeeders move much faster than AT-AT cannons can track, but if approaching on a poor attack vector, the snowspeeder is at the mercy of the well-trained AT-AT gunner.");
         setGameText("Add X to one weapon destiny (before weapon destiny is drawn) when targeting a combat vehicle. USED: X = 1. LOST: X = 3.");
         addIcons(Icon.HOTH);

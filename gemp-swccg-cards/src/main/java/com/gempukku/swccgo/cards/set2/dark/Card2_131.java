@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card2_131 extends AbstractUsedOrLostInterrupt {
     public Card2_131() {
-        super(Side.DARK, 4, Title.Evader);
+        super(Side.DARK, 4, Title.Evader, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("A panic move by Black 2 send Vader spinning wildly from the Death Star trench-ironically sparing his life. His destiny would be fulfilled another time.");
         setGameText("USED: Cancel all Revolutions in play (owner loses 1 Force for each). LOST: If Vader or Vader's Custom TIE was just lost, relocate that card to Used Pile. OR Relocate to Used Pile one Imperial just lost from any Death Star location.");
         addIcons(Icon.A_NEW_HOPE);

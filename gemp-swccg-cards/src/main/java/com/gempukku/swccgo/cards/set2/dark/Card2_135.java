@@ -3,12 +3,23 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealOpponentsHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromHandEffect;
+import com.gempukku.swccgo.logic.effects.PutCardsFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.PutRandomCardsFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -24,7 +35,7 @@ import java.util.List;
  */
 public class Card2_135 extends AbstractUsedOrLostInterrupt {
     public Card2_135() {
-        super(Side.DARK, 2, Title.Monnok);
+        super(Side.DARK, 2, Title.Monnok, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Dejarik creature. Savage predator from remote deserts of Soccorro. Respected and honored by Soccorran hunters, considered 'good luck' by superstitious smugglers.");
         setGameText("USED: If opponent has 13 or more cards in hand, place all but 8 (random selection) in Used Pile. LOST: Use 4 Force to reveal opponent's hand. All cards opponent has two or more of in hand are lost.");
         addIcons(Icon.A_NEW_HOPE);

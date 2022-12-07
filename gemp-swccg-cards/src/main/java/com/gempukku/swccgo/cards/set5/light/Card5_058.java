@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card5_058 extends AbstractUsedOrLostInterrupt {
     public Card5_058() {
-        super(Side.LIGHT, 5, Title.NOOOOOOOOOOOO, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.NOOOOOOOOOOOO, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Sometimes, the truth isn't very pretty.");
         setGameText("USED: If you just answered 'no' to a Hypo question, opponent loses 3 Force. LOST: Cancel Why Didn't You Tell Me? or I Am Your Father. OR If Luke is about to cross to the Dark Side, he is lost instead.");
         addIcons(Icon.CLOUD_CITY);

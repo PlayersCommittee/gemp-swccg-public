@@ -3,14 +3,25 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealOpponentsHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromHandEffect;
+import com.gempukku.swccgo.logic.effects.PutCardsFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.PutRandomCardsFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -28,7 +39,7 @@ import java.util.List;
  */
 public class Card2_049 extends AbstractUsedOrLostInterrupt {
     public Card2_049() {
-        super(Side.LIGHT, 2, Title.Grimtaash, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, Title.Grimtaash, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Dejarik representation of mythical Molator guardian. The spirit of Grimtaash is said to protect Alderaanian royalty from corruption and betrayal.");
         setGameText("USED: If opponent has 13 or more cards in hand, place all but 8 (random selection) in Used Pile. LOST: Cancel Molator (even at a holosite). OR Use 4 Force to reveal opponent's hand. All cards opponent has two or more of in hand are lost.");
         addIcons(Icon.A_NEW_HOPE);

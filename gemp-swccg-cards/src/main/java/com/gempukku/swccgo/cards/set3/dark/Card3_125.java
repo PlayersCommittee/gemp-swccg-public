@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card3_125 extends AbstractUsedOrLostInterrupt {
     public Card3_125() {
-        super(Side.DARK, 6, Title.Furry_Fury);
+        super(Side.DARK, 6, Title.Furry_Fury, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
         setLore("'All right, don't lose your temper.' Hoth hath no fury like a Wookiee scorned.");
         setGameText("USED: Cancel Wookiee Roar or Han's Back or Life Debt. LOST: If Han and Chewie are in a battle together, draw two destiny. Subtract total from opponent's attrition and total power (cannot fall below zero).");
         addIcons(Icon.HOTH);

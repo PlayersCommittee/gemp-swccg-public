@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card5_162 extends AbstractUsedOrLostInterrupt {
     public Card5_162() {
-        super(Side.DARK, 4, Title.Why_Didnt_You_Tell_Me, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Why_Didnt_You_Tell_Me, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Lacking foresight, Luke suffered the consequences of rushing into battle unprepared.");
         setGameText("USED: Cancel Noble Sacrifice, Gift Of The Mentor or Old Ben. LOST: If Luke is defending a battle, draw one destiny. Subtract that amount from opponent's attrition and total power (cannot fall below zero).");
         addIcons(Icon.CLOUD_CITY);

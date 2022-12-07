@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card5_148 extends AbstractUsedOrLostInterrupt {
     public Card5_148() {
-        super(Side.DARK, 4, Title.Prepare_The_Chamber, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Prepare_The_Chamber, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Coolant emitted by the TCF32 Carbonite Encasement Apparatus is rumored to have a mildly euphoric effect on Ugnaughts. Individuals on TCF32 duty are regarded with envy.");
         setGameText("USED: Add 2 to Carbon Freezing destiny. LOST: If one of your Ugnaughts is defending in a battle, add one battle destiny.");
         addIcons(Icon.CLOUD_CITY);

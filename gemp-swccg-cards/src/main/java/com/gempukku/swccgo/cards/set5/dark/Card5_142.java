@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card5_142 extends AbstractUsedOrLostInterrupt {
     public Card5_142() {
-        super(Side.DARK, 4, "Force Field", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Force Field", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Han was fast. Vader was faster.");
         setGameText("USED: Cancel an attempt to target a Dark Jedi with a character weapon. LOST: If one of your characters was just targeted by a weapon during a battle, use 3 Force to cancel the targeting.");
         addIcons(Icon.CLOUD_CITY);

@@ -5,9 +5,12 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card4_070 extends AbstractUsedOrLostInterrupt {
     public Card4_070() {
-        super(Side.LIGHT, 2, Title.We_Dont_Need_Their_Scum);
+        super(Side.LIGHT, 2, Title.We_Dont_Need_Their_Scum, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Bounty Hunters. Independent contractors. Highly competitive loners. Powerful. Deadly. Scum.");
         setGameText("USED: Cancel Res Luk Ra'auf. LOST: If two bounty hunters (or an Imperial and a bounty hunter) are in a battle together, use 2 Force to draw two destiny. Subtract total from opponent's attrition and total power (cannot fall below zero).");
         addIcons(Icon.DAGOBAH);

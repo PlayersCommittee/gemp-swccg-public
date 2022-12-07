@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card5_033 extends AbstractUsedOrLostInterrupt {
     public Card5_033() {
-        super(Side.LIGHT, 4, "Artoo, Come Back At Once!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Artoo, Come Back At Once!", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'You haven't finished with me yet!'");
         setGameText("USED: Search your Reserve Deck, take one Hero Of A Thousand Devices into hand and reshuffle. LOST: If R2-D2 is lost, use 1 Force to retrieve him. OR Use 3 Force to search your Reserve Deck, take R2-D2 into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY);

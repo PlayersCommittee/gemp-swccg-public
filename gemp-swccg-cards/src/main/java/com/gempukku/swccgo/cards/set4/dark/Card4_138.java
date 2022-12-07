@@ -3,18 +3,35 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfCardPilesEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromCardPilesEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -25,7 +42,7 @@ import java.util.*;
  */
 public class Card4_138 extends AbstractUsedOrLostInterrupt {
     public Card4_138() {
-        super(Side.DARK, 2, Title.Close_Call, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Close_Call, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("If this little one doesn't pulverize you, the next one just might.");
         setGameText("USED: Cancel one asteroid destiny and cause it to be drawn again. LOST: Lose 1 Force. Opponent must reveal the top card of Reserve Deck, Force Pile and Used Pile. Card(s) with lowest destiny number greater than zero are lost.");
         addIcons(Icon.DAGOBAH);

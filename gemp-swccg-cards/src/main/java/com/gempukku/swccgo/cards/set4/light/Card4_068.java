@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealUsedPileEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card4_068 extends AbstractUsedOrLostInterrupt {
     public Card4_068() {
-        super(Side.LIGHT, 3, Title.Visored_Vision, Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 3, Title.Visored_Vision, Uniqueness.RESTRICTED_2, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("It's 15 parsecs to Kessel, we've replaced the negative power coupling, it's dark and we're wearing welding goggles. Hit it.");
         setGameText("Name an Interrupt card. Opponent must reveal entire Used Pile, without shuffling. Then you choose: USED: Opponent must lose 1 Force for each copy of that Interrupt found there. LOST: Each copy of that Interrupt found there is lost.");
         addIcons(Icon.DAGOBAH);

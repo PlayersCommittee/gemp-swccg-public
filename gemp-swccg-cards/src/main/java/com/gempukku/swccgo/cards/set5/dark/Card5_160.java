@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card5_160 extends AbstractUsedOrLostInterrupt {
     public Card5_160() {
-        super(Side.DARK, 4, "Weapon Levitation", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Weapon Levitation", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Vader confiscated Han's blaster, his ship, his Wookiee, his girl and his only hope of escape.");
         setGameText("USED: Search your Used Pile, take one weapon into hand and reshuffle. LOST: If a battle was just initiated, one of your characters of ability > 3 present may 'steal' one character weapon present.");
         addIcons(Icon.CLOUD_CITY);

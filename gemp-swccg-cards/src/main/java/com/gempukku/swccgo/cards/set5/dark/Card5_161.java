@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card5_161 extends AbstractUsedOrLostInterrupt {
     public Card5_161() {
-        super(Side.DARK, 5, "Weapon Of An Ungrateful Son", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Weapon Of An Ungrateful Son", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("When Vader dueled Luke at Cloud City, he fought a son trained by his former master and a weapon constructed by his former self.");
         setGameText("USED: If a lightsaber was just used to enhance a Force drain, place it in Owner's Used Pile. LOST: Place any or all of your devices and character weapons on table in your Used Pile.");
         addIcons(Icon.CLOUD_CITY);

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card5_037 extends AbstractUsedOrLostInterrupt {
     public Card5_037() {
-        super(Side.LIGHT, 4, Title.Captive_Pursuit);
+        super(Side.LIGHT, 4, Title.Captive_Pursuit, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Han could have used a hand. Fortunately, Luke still had one to give.");
         setGameText("USED: If a battle was just initiated at a site, target a captive present. Captive released if you win battle. LOST: Cancel Aiiii! Aaa! Aggggggggggggg!, Sonic Bombardment, Interrogation Array, This Is Some Rescue or Special Delivery.");
         addIcons(Icon.CLOUD_CITY);

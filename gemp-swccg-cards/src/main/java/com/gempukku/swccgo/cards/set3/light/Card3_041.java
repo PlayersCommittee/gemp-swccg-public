@@ -5,9 +5,12 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card3_041 extends AbstractUsedOrLostInterrupt {
     public Card3_041() {
-        super(Side.LIGHT, 3, "Dark Dissension");
+        super(Side.LIGHT, 3, "Dark Dissension", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("The huge Imperial officers corps, with its high rate of turnover, is ripe with competitiveness and ambition. Advancement comes at the expense of another's career.");
         setGameText("USED: Cancel Dark Collaboration or Lone Pilot. LOST: If two Imperials each with ability > 2 are in a battle together, use 2 Force to draw two destiny. Subtract that amount from opponent's attrition and total power (cannot fall below zero).");
         addIcons(Icon.HOTH);

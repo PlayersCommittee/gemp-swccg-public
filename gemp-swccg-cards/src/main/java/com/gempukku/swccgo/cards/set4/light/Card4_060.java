@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card4_060 extends AbstractUsedOrLostInterrupt {
     public Card4_060() {
-        super(Side.LIGHT, 5, "Starship Levitation");
+        super(Side.LIGHT, 5, "Starship Levitation", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("A Jedi can move large objects with the power of the mind.");
         setGameText("USED: Cancel Awwww, Cannot Get Your Ship Out. LOST: Use 1 Force to draw destiny. If destiny < ability of your highest-ability character on table, search your Used Pile and take one starship into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH);
