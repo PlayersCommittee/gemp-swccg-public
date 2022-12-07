@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card3_088 extends AbstractImperial {
     public Card3_088() {
-        super(Side.DARK, 1, 1, 1, 1, 1, "Imperial Gunner");
+        super(Side.DARK, 1, 1, 1, 1, 1, "Imperial Gunner", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Walker operators work in pairs, one trained to pilot the AT-AT, the other serving as gunner. Imperial gunners consider themselves the best marksmen in the Empire.");
         setGameText("Adds 1 to weapon destiny draws of anything he is aboard as a passenger.");
         addIcons(Icon.HOTH, Icon.WARRIOR);

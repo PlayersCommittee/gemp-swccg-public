@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card2_103 extends AbstractImperial {
     public Card2_103() {
-        super(Side.DARK, 3, 2, 2, 1, 4, "Reserve Pilot", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 3, 2, 2, 1, 4, "Reserve Pilot", Uniqueness.RESTRICTED_2, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Injuries kept Lord Vader's best TIE wingman out of the primary wave of starfighters. He remains on reserve duty, ready to replace lost pilots.");
         setGameText("Adds 1 to power of anything he pilots. When piloting Black 2, Black 3 or Black 4, also adds 1 to maneuver and draws one battle destiny if not able to otherwise.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

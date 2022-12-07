@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card2_106 extends AbstractImperial {
     public Card2_106() {
-        super(Side.DARK, 2, 1, 2, 2, 3, "Trooper Davin Felth", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 1, 2, 2, 3, "Trooper Davin Felth", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("Dispatched to Tatooine to apprehend renegade droids fleeing the Tantive IV. Suspected to have misgivings about Imperial methods. Allegedly shot his commander in the back.");
         setGameText("While on Tatooine, Local Trouble and Look Sir, Droids are Used Interrupts. Opponent may select target when using Friendly Fire at same site as Felth.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

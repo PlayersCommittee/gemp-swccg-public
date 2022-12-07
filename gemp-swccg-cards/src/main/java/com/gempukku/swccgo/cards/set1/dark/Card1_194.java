@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card1_194 extends AbstractImperial {
     public Card1_194() {
-        super(Side.DARK, 1, 1, 1, 1, 2, "Stormtrooper");
+        super(Side.DARK, 1, 1, 1, 1, 2, "Stormtrooper", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C3);
         setLore("One of the countless elite shock troops totally loyal to the Emperor. Unquestioningly follows orders. Willing to sacrifice their lives to accomplish a mission. First-strike force.");
         setGameText("Deploys free to same site as one of your Imperials with ability > 2.");
         addIcons(Icon.WARRIOR);

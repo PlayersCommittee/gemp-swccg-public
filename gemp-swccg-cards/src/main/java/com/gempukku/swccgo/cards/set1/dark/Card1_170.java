@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_170 extends AbstractImperial {
     public Card1_170() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "Death Star Trooper");
+        super(Side.DARK, 3, 2, 2, 1, 3, "Death Star Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Elite soldiers trained in combat techniques and weapons skills. Devin Cant augmented security personnel guarding Princess Leia in Detention Block AA-23.");
         setGameText("Deploy only on Death Star, but may move elsewhere. Power -1 at a site other than a Death Star site.");
         addIcons(Icon.WARRIOR);

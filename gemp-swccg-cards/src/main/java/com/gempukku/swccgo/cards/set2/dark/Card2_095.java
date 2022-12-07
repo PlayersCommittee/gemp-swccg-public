@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,11 @@ import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Set: A New Hope
@@ -31,7 +42,7 @@ import java.util.*;
  */
 public class Card2_095 extends AbstractImperial {
     public Card2_095() {
-        super(Side.DARK, 3, 2, 2, 1, 5, "Lt. Pol Treidum", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 5, "Lt. Pol Treidum", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLore("Gantry officer charged with maintaining magnetic field, atmosphere and security in Death Star docking bay. After mission on Ralltiir, paranoid about infiltration by Rebel spies.");
         setGameText("While at Docking Control Room 327, adds 2 to your total power at Docking Bay 327. Once during each of your control phases, if at same site as an Undercover spy, may draw destiny. Spy's 'cover is broken' if destiny = spy's ability.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card3_083 extends AbstractImperial {
     public Card3_083() {
-        super(Side.DARK, 1, 2, 1, 1, 2, "AT-AT Driver");
+        super(Side.DARK, 1, 2, 1, 1, 2, "AT-AT Driver", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("Piloting walkers high above the battlefield, AT-AT drivers are protected by 15 centimeters of reinforced armor. Accordingly, they are regarded with contempt by the infantry.");
         setGameText("Adds 2 to power of any combat vehicle he pilots (3 if combat vehicle is an AT-AT).");
         addIcons(Icon.HOTH, Icon.PILOT);

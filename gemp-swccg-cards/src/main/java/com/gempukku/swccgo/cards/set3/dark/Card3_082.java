@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card3_082 extends AbstractImperial {
     public Card3_082() {
-        super(Side.DARK, 0, 0, 3, 2, 4, Title.Ozzel, Uniqueness.UNIQUE);
+        super(Side.DARK, 0, 0, 3, 2, 4, Title.Ozzel, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("Leader of the Emperor's Death Squadron assigned to hunt down and crush the Rebellion. As clumsy as he is stupid. Has just failed Darth Vader for the next-to-last time.");
         setGameText("Adds 2 to the power of anything he pilots. Subtracts 1 from deploy cost of each of your capital starships at same system. Lost if Vader on table and opponent 'reacts' to same location as Ozzel.");
         addIcons(Icon.HOTH, Icon.PILOT);

@@ -1,8 +1,11 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
@@ -19,7 +22,7 @@ import java.util.List;
  */
 public class Card1_180 extends AbstractImperial {
     public Card1_180() {
-        super(Side.DARK, 3, 2, 0, 2, 2, "Imperial Pilot");
+        super(Side.DARK, 3, 2, 0, 2, 2, "Imperial Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Among the Empire's best pilots. Loyal and fearless. Use superior numbers to overwhelm opponents. Trained under combat conditions. Wear sealed, high-gravity flight suits.");
         setGameText("Adds 2 to power of anything he pilots.");
         addIcons(Icon.PILOT);

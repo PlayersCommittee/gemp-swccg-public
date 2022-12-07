@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card3_085 extends AbstractImperial {
     public Card3_085() {
-        super(Side.DARK, 2, 3, 2, 3, 4, "Captain Piett", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, 4, "Captain Piett", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Captain on the Executor. Monitored probe droid telemetry. His flawless record of arrests and suppressions has contributed to an impressive rise through the ranks.");
         setGameText("Power +1 when at same site as Vader. Adds 2 to power of anything he pilots (3 if starship is Executor). May use 1 Force to take one Probe Droid into hand from Reserve Deck; reshuffle.");
         addPersona(Persona.PIETT);

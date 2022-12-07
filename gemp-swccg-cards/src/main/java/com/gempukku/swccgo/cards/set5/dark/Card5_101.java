@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.EscortingCaptiveCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card5_101 extends AbstractImperial {
     public Card5_101() {
-        super(Side.DARK, 2, 3, 2, 2, 4, "Lieutenant Sheckil", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 2, 4, "Lieutenant Sheckil", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Former warrant officer from Concord Dawn. Promoted due to superb performance. Specializes in transporting high-profile criminals. Twin brother of a famous mercenary.");
         setGameText("During your control phase, may use 1 Force to search your Reserve Deck, take one Human Shield into hand and reshuffle. When escorting a captive, captive is forfeit +2 and Sheckil is immune to attrition < 4.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

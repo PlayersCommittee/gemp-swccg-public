@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBesiegedBattleCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card5_100 extends AbstractImperial {
     public Card5_100() {
-        super(Side.DARK, 2, 2, 1, 2, 3, "Lieutenant Cecius", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 2, 3, "Lieutenant Cecius", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Former member of the Imperial infantry. Specializes in boarding and taking control of enemy ships. Native of Vogel 7. Hasn't had a date in years.");
         setGameText("Deploys free to any Executor site. Power +3 when participating in a Besieged battle. During your control phase, may use 1 Force to search your Reserve Deck, take one Besieged or Set For Stun into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card3_089 extends AbstractImperial {
     public Card3_089() {
-        super(Side.DARK, 2, 2, 2, 2, 4, "Lieutenant Cabbel", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 4, "Lieutenant Cabbel", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("A recent graduate of the Officer's Candidate School on Carida. Serves as first officer of the Tyrant. Ambitious, ruthless and efficient.");
         setGameText("Adds 2 to power of anything he pilots. On Tyrant, also adds 1 to armor. When in battle with an Imperial leader, subtracts 1 from opponent's total battle destiny.");
         addIcons(Icon.HOTH, Icon.PILOT);

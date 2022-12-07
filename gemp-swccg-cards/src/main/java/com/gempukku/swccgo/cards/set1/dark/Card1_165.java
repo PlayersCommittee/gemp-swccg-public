@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -38,7 +40,7 @@ import java.util.List;
  */
 public class Card1_165 extends AbstractImperial {
     public Card1_165() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Chief_Bast, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Chief_Bast, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Aide to Grand Moff Tarkin. Rarely underestimates enemies. Learned cunning and patience hunting big game as a youth.");
         setGameText("Adds 2 to power of anything he pilots. Power +1 if at same site as Tarkin. If a battle was just initiated at a system where Bast is present with your non-droid character aboard a starship, may 'evacuate' (relocate) both to a related site.");
         addIcons(Icon.PILOT);

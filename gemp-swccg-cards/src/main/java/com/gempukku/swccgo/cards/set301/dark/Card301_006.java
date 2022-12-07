@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card301_006 extends AbstractImperial {
     public Card301_006() {
-        super(Side.DARK, 2, 2, 2, 2, 4, "Captain Khurgee", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 4, "Captain Khurgee", Uniqueness.UNIQUE, ExpansionSet.DEMO_DECK, Rarity.V);
         setLore("Docking bay security officer. Leader. Honored for bravery aboard the Star Destroyer Thunderflare where he rescued five officers from the wreckage of a shuttle crash.");
         setGameText("While aboard Thunderflare, attrition against you is -2 here. Once during your turn, if at a battleground, may peek at top card of opponent's Reserve Deck. If it is a character, may reveal it and opponent loses 1 Force (if it is a Rebel, may also place it on Used Pile).");
         addIcons(Icon.VIRTUAL_SET_P, Icon.A_NEW_HOPE, Icon.PILOT, Icon.WARRIOR);

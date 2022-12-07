@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card1_164 extends AbstractImperial {
     public Card1_164() {
-        super(Side.DARK, 1, 3, 3, 3, 5, "Admiral Motti", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 3, 5, "Admiral Motti", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Senior Navy Commander of Death Star. Believes in technology. Ridiculed the Force. Ambitious leader. Promoted due to support of New Order, not military skills. Hates Vader.");
         setGameText("Deploys -2 if at least two Imperial starships on table. Adds 2 to power of anything he pilots. Subtracts 1 from forfeit of Rebel pilots at same system.");
         addPersona(Persona.MOTTI);

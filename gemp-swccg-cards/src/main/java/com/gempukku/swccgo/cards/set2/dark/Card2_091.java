@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card2_091 extends AbstractImperial {
     public Card2_091() {
-        super(Side.DARK, 2, 3, 1, 2, 2, "Imperial Commander");
+        super(Side.DARK, 2, 3, 1, 2, 2, "Imperial Commander", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Typical Imperial leader. Uses constant training and crisis simulations to help maintain high performance levels. Commander Daine Jir is known to be bold and outspoken.");
         setGameText("Adds 1 to forfeit of each of your other Imperials (except leaders) at same site.");
         addIcons(Icon.A_NEW_HOPE);

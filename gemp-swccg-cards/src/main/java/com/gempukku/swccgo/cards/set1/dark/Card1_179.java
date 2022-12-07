@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card1_179 extends AbstractImperial {
     public Card1_179() {
-        super(Side.DARK, 1, 4, 4, 3, 6, "Grand Moff Tarkin", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 3, 6, "Grand Moff Tarkin", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Leader. Governor of Outer Rim Territories. Commanded Death Star. Helped disband Imperial Senate. Defined doctrine of rule by fear. Plotted to use Death Star against Emperor.");
         setGameText("Adds 2 to power of anything he pilots. When with Vader in a battle, once per battle may cancel one opponent's destiny just drawn.");
         addPersona(Persona.TARKIN);

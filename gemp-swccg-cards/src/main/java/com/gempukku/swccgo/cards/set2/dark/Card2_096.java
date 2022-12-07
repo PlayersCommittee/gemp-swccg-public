@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card2_096 extends AbstractImperial {
     public Card2_096() {
-        super(Side.DARK, 2, 2, 1, 1, 3, "Lt. Shann Childsen", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 1, 3, "Lt. Shann Childsen", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Demoted after a superior blamed him for a clerical error. Considered a bully by fellow officers. Fanatically supports the New Order doctrine of alien subjugation.");
         setGameText("Power +2 when at Detention Block Corridor or Detention Block Control Room. Also, power +2 when an opponent's alien is present (+3 if alien is a Wookiee, Talz or Ewok).");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

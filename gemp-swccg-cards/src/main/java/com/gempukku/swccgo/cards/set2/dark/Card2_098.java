@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card2_098 extends AbstractImperial {
     public Card2_098() {
-        super(Side.DARK, 2, 2, 2, 2, 5, "Officer Evax", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 5, "Officer Evax", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLore("This Imperial Intelligence leader has a proven track record for predicting Rebel fleet movements. His coordination of starship maneuvers has saved many vulnerable bases.");
         setGameText("Adds 2 to power of anything he pilots. When at a Death Star site, Imperial starships may move to the Death Star system as a 'react.'");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

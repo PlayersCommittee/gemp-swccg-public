@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card5_092 extends AbstractImperial {
     public Card5_092() {
-        super(Side.DARK, 3, 3, 2, 2, 4, "Captain Bewil", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, 2, 4, "Captain Bewil", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Tactical officer from Dentaal. Leader. Familiar with utilizing computer controls to lure an invading enemy into a tactically weak position.");
         setGameText("During your control phase, may search your Reserve Deck, take one Laser Gate, Heart Of The Chasm or Rite Of Passage into hand and reshuffle. Opponent's characters may not move from same site as Bewil to a mobile site.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

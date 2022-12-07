@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.MayMoveCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card5_098 extends AbstractImperial {
     public Card5_098() {
-        super(Side.DARK, 4, 2, 2, 1, 2, "Imperial Trooper Guard Dainsom", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 2, 2, 1, 2, "Imperial Trooper Guard Dainsom", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Experienced trooper guard from Algarian. Assigned to guard sensitive areas. Formerly served aboard the Star Destroyer Thunderflare.");
         setGameText("Deploys only aboard Executor or on any Death Star Site. Cannot move. May cancel opponent's Force Drains at adjacent sites.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

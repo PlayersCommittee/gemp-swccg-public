@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card2_092 extends AbstractImperial {
     public Card2_092() {
-        super(Side.DARK, 1, 2, 1, 1, 3, "Imperial Squad Leader");
+        super(Side.DARK, 1, 2, 1, 1, 3, "Imperial Squad Leader", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C3);
         setLore("Captain Mod Terrik, a typical officer of the Desert Sands sandtrooper unit. Fearless and highly motivated. Willing to sacrifice as many troops as necessary.");
         setGameText("Adds 1 to forfeit of your other troopers at same site. When moving with a 'squad' of exactly three other troopers, all four move for 1 Force. Imperial Trooper Guards at same site may move.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,7 +16,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.HideFromBattleEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -26,7 +37,7 @@ import java.util.List;
  */
 public class Card5_093 extends AbstractImperial {
     public Card5_093() {
-        super(Side.DARK, 2, 3, 2, 2, 3, "Chief Retwin", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 2, 3, "Chief Retwin", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Highly skilled saboteur. Former Imperial sympathizer who worked for the defense forces on his home planet, Ralltiir. Joined the Empire after Ralltiir's subjugation.");
         setGameText("May use 3 Force to 'hide' (be excluded) from a battle. May use 2 Force to target one device or weapon present which deploys on a site. Draw destiny. If destiny > target's deploy cost, target is lost.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

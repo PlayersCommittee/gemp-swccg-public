@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card2_088 extends AbstractImperial {
     public Card2_088() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "DS-61-4", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, "DS-61-4", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("Imperial pilot nicknamed 'Dark Curse.' Survived assaults against several dissenter worlds including Ralltiir and Mon Calamari. Intends to retire after his next combat mission.");
         setGameText("Adds 3 to power of anything he pilots. When piloting Black 4, also may draw one battle destiny if not able to otherwise. May use 1 Force to take one Lone Pilot into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

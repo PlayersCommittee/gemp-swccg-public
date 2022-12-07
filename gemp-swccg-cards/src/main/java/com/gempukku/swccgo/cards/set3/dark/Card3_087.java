@@ -4,11 +4,21 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ArmorModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +32,7 @@ import java.util.List;
  */
 public class Card3_087 extends AbstractImperial {
     public Card3_087() {
-        super(Side.DARK, 1, 3, 3, 3, 5, "General Veers", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 3, 5, "General Veers", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R1);
         setLore("General Maximillian Veers is the model of Imperial Army officer. Cunning, loyal and ruthlessly efficient leader. In charge of the ground assault troops in Vader's forces.");
         setGameText("Power +1 when at same site as Admiral Ozzel. Adds 1 to power of each Imperial at same Hoth site. Adds 3 to power of any combat vehicle he pilots. On Blizzard 1, also adds 1 to armor and draws one battle destiny if not able to otherwise.");
         addPersona(Persona.VEERS);

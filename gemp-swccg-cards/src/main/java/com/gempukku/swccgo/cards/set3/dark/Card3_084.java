@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card3_084 extends AbstractImperial {
     public Card3_084() {
-        super(Side.DARK, 2, 3, 2, 2, 5, Title.Captain_Lennox, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 2, 5, Title.Captain_Lennox, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("Captain of the Imperial Star Destroyer Tyrant. An able leader. Unlike most Imperial officers, he is dedicated to his ship and crew. Finds political maneuvering distasteful.");
         setGameText("Adds 2 to power of anything he pilots (3 if starship is Tyrant). When on a Star Destroyer, may use its tractor beam once during each of your control phases.");
         addKeywords(Keyword.CAPTAIN, Keyword.LEADER);

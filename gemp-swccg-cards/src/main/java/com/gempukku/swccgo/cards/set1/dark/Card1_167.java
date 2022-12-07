@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card1_167 extends AbstractImperial {
     public Card1_167() {
-        super(Side.DARK, 2, 2, 1, 2, 3, "Commander Praji", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 2, 3, "Commander Praji", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Vader's aide on the Devastator. Personally supervised search for Death Star plans on Tatooine by Vader's order. Was graduated with honors from Imperial Navy Academy on Carida.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Devastator, also adds 1 to hyperspeed. Where present, cancels game text of C-3PO or R2-D2.");
         addIcons(Icon.PILOT, Icon.WARRIOR);

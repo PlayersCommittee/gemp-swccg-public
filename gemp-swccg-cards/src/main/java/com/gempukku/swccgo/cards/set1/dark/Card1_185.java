@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card1_185 extends AbstractImperial {
     public Card1_185() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Tanbris, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Tanbris, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Former fighter pilot grounded after injury. Tactical officer aboard Death Star. Competent strategist. Specializes in directing Imperial starfighters.");
         setGameText("Deploy -1 for starship weapons of any starship he pilots. Adds 2 to power of anything he pilots. Subtracts 1 from maneuver of any starfighter he pilots.");
         addIcons(Icon.PILOT);

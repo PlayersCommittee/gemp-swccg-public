@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +30,7 @@ import java.util.List;
  */
 public class Card2_083 extends AbstractImperial {
     public Card2_083() {
-        super(Side.DARK, 2, 3, 2, 2, 3, "Captain Khurgee", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 2, 3, "Captain Khurgee", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Docking bay security officer. Leader. Honored for bravery aboard the Star Destroyer Thunderflare where he rescued five officers from the wreckage of a shuttle crash.");
         setGameText("Once during each of your control phases, you may use 2 Force to take one Scanning Crew into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

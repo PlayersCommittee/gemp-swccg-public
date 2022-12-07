@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card3_092 extends AbstractImperial {
     public Card3_092() {
-        super(Side.DARK, 2, 3, 2, 2, 3, "Snowtrooper Officer", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 2, 2, 3, "Snowtrooper Officer", Uniqueness.RESTRICTED_3, ExpansionSet.HOTH, Rarity.C1);
         setLore("Elite snowtrooper offers, like all Imperial Army officers, are well versed in Rebel tactics. They serve as infantry liaisons to AT-ATs.");
         setGameText("Deploy only on Hoth, but may move elsewhere. Snowtroopers are deploy -1 to same site. Your troopers may move to same Hoth site as a 'react.'");
         addIcons(Icon.HOTH, Icon.WARRIOR);

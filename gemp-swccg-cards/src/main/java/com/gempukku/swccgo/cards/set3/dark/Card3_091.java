@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card3_091 extends AbstractImperial {
     public Card3_091() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "Snowtrooper");
+        super(Side.DARK, 3, 2, 2, 1, 3, "Snowtrooper", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C3);
         setLore("Cold Assault troopers are specially trained and equipped to operate in frozen environments. Blizzard Force snowtroopers often work in tandem with AT-ATs.");
         setGameText("Deploys only on Hoth. Power -1 when not at a Hoth site.");
         addIcons(Icon.HOTH, Icon.WARRIOR);
