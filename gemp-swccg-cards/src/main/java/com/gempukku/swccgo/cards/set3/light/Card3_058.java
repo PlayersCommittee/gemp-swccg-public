@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card3_058 extends AbstractSite {
     public Card3_058() {
-        super(Side.LIGHT, "Hoth: Echo Corridor", Title.Hoth);
+        super(Side.LIGHT, "Hoth: Echo Corridor", Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLocationLightSideGameText("If you control, once per turn, may use 4 Force to raise a converted Hoth site to the top.");
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.HOTH, Icon.UNDERGROUND, Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);

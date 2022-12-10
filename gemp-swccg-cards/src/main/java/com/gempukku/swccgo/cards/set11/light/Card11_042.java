@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card11_042 extends AbstractSite {
     public Card11_042() {
-        super(Side.LIGHT, Title.City_Outskirts, Title.Tatooine);
+        super(Side.LIGHT, Title.City_Outskirts, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLocationDarkSideGameText("Maul moves to here for free when using his landspeed.");
         setLocationLightSideGameText("Once per game, may deploy a Jedi here from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 1);

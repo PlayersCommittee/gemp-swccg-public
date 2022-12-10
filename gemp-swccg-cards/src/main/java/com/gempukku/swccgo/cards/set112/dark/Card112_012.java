@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card112_012 extends AbstractSite {
     public Card112_012() {
-        super(Side.DARK, Title.Lower_Passages, Title.Tatooine);
+        super(Side.DARK, Title.Lower_Passages, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLocationDarkSideGameText("During your move phase, your aliens may move between here and any Jabba's Palace site.");
         setLocationLightSideGameText("While your Lando here, opponent's Lower Passages game text is canceled. Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

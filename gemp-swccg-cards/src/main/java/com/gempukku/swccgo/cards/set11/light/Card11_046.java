@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card11_046 extends AbstractSite {
     public Card11_046() {
-        super(Side.LIGHT, Title.Slave_Quarters, Title.Tatooine);
+        super(Side.LIGHT, Title.Slave_Quarters, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLocationDarkSideGameText("If Watto present, Force Drain +1 here.");
         setLocationLightSideGameText("Once per game may deploy Shmi here from Reserve Deck; reshuffle.");
         addIcon(Icon.LIGHT_FORCE, 2);

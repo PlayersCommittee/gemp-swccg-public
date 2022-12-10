@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.RaceTotalMoreThanCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card11_044 extends AbstractSite {
     public Card11_044() {
-        super(Side.LIGHT, Title.Podrace_Arena, Title.Tatooine);
+        super(Side.LIGHT, Title.Podrace_Arena, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLocationDarkSideGameText("While either player's race total > 0, no battles or Force drains here.");
         setLocationLightSideGameText("While either player's race total > 0, no battles or Force drains here.");
         addIcon(Icon.DARK_FORCE, 1);

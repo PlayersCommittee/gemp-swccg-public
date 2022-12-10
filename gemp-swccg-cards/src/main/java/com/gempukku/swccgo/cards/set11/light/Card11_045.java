@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card11_045 extends AbstractSite {
     public Card11_045() {
-        super(Side.LIGHT, Title.Podracer_Bay, Title.Tatooine);
+        super(Side.LIGHT, Title.Podracer_Bay, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLocationDarkSideGameText("If you control, once per turn may exchange your top race destiny with top card of Lost Pile.");
         setLocationLightSideGameText("If you control, once per turn may exchange your top race destiny with top card of Lost Pile.");
         addIcon(Icon.DARK_FORCE, 1);

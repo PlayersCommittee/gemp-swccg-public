@@ -1,14 +1,21 @@
 package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MovesFreeFromLocationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card14_050 extends AbstractSite {
     public Card14_050() {
-        super(Side.LIGHT, "Naboo: Otoh Gunga Entrance", Title.Naboo);
+        super(Side.LIGHT, "Naboo: Otoh Gunga Entrance", Title.Naboo, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLocationDarkSideGameText("Cards with ability (except Gungans) deploy +4 to underwater sites. Immune to Revolution.");
         setLocationLightSideGameText("Your Gungans deploy -1 here and move from here for free. You may not Force drain here.");
         addIcon(Icon.LIGHT_FORCE, 1);

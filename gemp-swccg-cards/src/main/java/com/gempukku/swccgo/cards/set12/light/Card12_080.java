@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card12_080 extends AbstractSite {
     public Card12_080() {
-        super(Side.LIGHT, Title.Naboo_Swamp, Title.Naboo);
+        super(Side.LIGHT, Title.Naboo_Swamp, Title.Naboo, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLocationDarkSideGameText("Unless your battle droid present, Force drain -1 here.");
         setLocationLightSideGameText("Your gungans are each power +1 and deploy -1 here.");
         addIcon(Icon.DARK_FORCE, 1);

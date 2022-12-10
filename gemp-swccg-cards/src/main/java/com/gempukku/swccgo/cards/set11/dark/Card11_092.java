@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card11_092 extends AbstractSite {
     public Card11_092() {
-        super(Side.DARK, Title.Desert_Landing_Site, Title.Tatooine);
+        super(Side.DARK, Title.Desert_Landing_Site, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLocationDarkSideGameText("Maul deploys free here. If Maul here and If The Trace Was Correct on table, Force drain +2 here.");
         setLocationLightSideGameText("If Amidala at a battleground site (or captive), opponent may not Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card12_174 extends AbstractSite {
     public Card12_174() {
-        super(Side.DARK, Title.Theed_Palace_Throne_Room, Title.Naboo);
+        super(Side.DARK, Title.Theed_Palace_Throne_Room, Title.Naboo, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLocationDarkSideGameText("If Haako or Gunray present, Force drain +1 here.");
         setLocationLightSideGameText("Unless Amidala present, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

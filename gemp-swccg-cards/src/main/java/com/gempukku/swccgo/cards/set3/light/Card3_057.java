@@ -6,10 +6,13 @@ import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card3_057 extends AbstractSite {
     public Card3_057() {
-        super(Side.LIGHT, "Hoth: Echo Command Center (War Room)", Title.Hoth);
+        super(Side.LIGHT, "Hoth: Echo Command Center (War Room)", Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLocationDarkSideGameText("If you initiate a battle here, add one battle destiny. If you control, Force drain -1 here.");
         setLocationLightSideGameText("If you control, with X leaders here, your total power is +X in battles at Hoth locations.");
         addIcon(Icon.LIGHT_FORCE, 2);

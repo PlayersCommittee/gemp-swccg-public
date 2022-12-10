@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card12_172 extends AbstractSite {
     public Card12_172() {
-        super(Side.DARK, Title.Theed_Palace_Courtyard, Title.Naboo);
+        super(Side.DARK, Title.Theed_Palace_Courtyard, Title.Naboo, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLocationDarkSideGameText("During your move phase, may move your characters from here to any interior Naboo site.");
         setLocationLightSideGameText("Add 1 to each of your weapon destiny draws here.");
         addIcon(Icon.DARK_FORCE, 2);

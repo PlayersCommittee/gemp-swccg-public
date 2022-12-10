@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card12_178 extends AbstractSite {
     public Card12_178() {
-        super(Side.DARK, Title.Wattos_Junkyard, Title.Tatooine);
+        super(Side.DARK, Title.Wattos_Junkyard, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLocationDarkSideGameText("Once per game, may deploy Watto here from Reserve Deck; reshuffle. Watto deploys -2 here.");
         setLocationLightSideGameText("While Watto here, you may not draw battle destiny here.");
         addIcon(Icon.DARK_FORCE, 2);

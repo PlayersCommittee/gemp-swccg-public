@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card12_076 extends AbstractSite {
     public Card12_076() {
-        super(Side.LIGHT, Title.Jedi_Council_Chamber, Title.Coruscant);
+        super(Side.LIGHT, Title.Jedi_Council_Chamber, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLocationDarkSideGameText("Non-unique lightsaber Force drain bonuses everywhere are canceled.");
         setLocationLightSideGameText("[Episode I] Yoda may deploy here from Reserve Deck; reshuffle. Immune to Revolution.");
         addIcon(Icon.LIGHT_FORCE, 3);

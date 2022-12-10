@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card12_085 extends AbstractSite {
     public Card12_085() {
-        super(Side.LIGHT, Title.Marketplace, Title.Tatooine);
+        super(Side.LIGHT, Title.Marketplace, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLocationDarkSideGameText("If you control, once during each of your control phases may use 4 Force to retrieve 1 Force.");
         setLocationLightSideGameText("If you control, once during each of your control phases may use 2 Force to retrieve 1 Force.");
         addIcon(Icon.DARK_FORCE, 1);

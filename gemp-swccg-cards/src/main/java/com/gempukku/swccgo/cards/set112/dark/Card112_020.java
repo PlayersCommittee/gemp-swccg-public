@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set112.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card112_020 extends AbstractSite {
     public Card112_020() {
-        super(Side.DARK, Title.Desert_Heart, Title.Tatooine);
+        super(Side.DARK, Title.Desert_Heart, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLocationDarkSideGameText("Your character movement from here (except for Jawas) requires +1 landspeed.");
         setLocationLightSideGameText("Your character movement from here (except for Jawas) requires +1 landspeed.");
         addIcon(Icon.DARK_FORCE, 2);

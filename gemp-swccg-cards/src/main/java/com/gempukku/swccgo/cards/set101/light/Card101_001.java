@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set101.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card101_001 extends AbstractSite {
     public Card101_001() {
-        super(Side.LIGHT, "Death Star: Level 6 Core Shaft Corridor", Title.Death_Star);
+        super(Side.LIGHT, "Death Star: Level 6 Core Shaft Corridor", Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.PREMIERE_INTRO_TWO_PLAYER, Rarity.PM);
         setLocationDarkSideGameText("If you control, opponent needs 2 ability to control each Death Star site.");
         setLocationLightSideGameText("If the Light Side controls this site, Luke and Obi-Wan are each power +2.");
         addIcon(Icon.DARK_FORCE, 1);

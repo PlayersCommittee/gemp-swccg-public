@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DoesNotCountDuringEpicEventCalcModifier;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card3_062 extends AbstractSite {
     public Card3_062() {
-        super(Side.LIGHT, Title.North_Ridge, Title.Hoth);
+        super(Side.LIGHT, Title.North_Ridge, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLocationDarkSideGameText("This site does not count when calculating Epic Events.");
         setLocationLightSideGameText("This site does not count when calculating Epic Events.");
         addIcon(Icon.DARK_FORCE, 1);

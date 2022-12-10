@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card14_049 extends AbstractSite {
     public Card14_049() {
-        super(Side.LIGHT, Title.Boss_Nass_Chambers, Title.Naboo);
+        super(Side.LIGHT, Title.Boss_Nass_Chambers, Title.Naboo, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLocationDarkSideGameText("Opponent may not Force drain here. Immune to Revolution.");
         setLocationLightSideGameText("Once per game may take Boss Nass into hand from Reserve Deck; reshuffle.");
         addIcon(Icon.LIGHT_FORCE, 2);

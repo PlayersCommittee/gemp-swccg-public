@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set112.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card112_009 extends AbstractSite {
     public Card112_009() {
-        super(Side.LIGHT, Title.Hutt_Trade_Route, Title.Tatooine);
+        super(Side.LIGHT, Title.Hutt_Trade_Route, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLocationDarkSideGameText("Unless you control Hutt Trade Route, your game text on Tatooine: Jabba's Palace is canceled.");
         setLocationLightSideGameText("Your characters here aboard vehicles are each power +1.");
         addIcon(Icon.DARK_FORCE, 1);

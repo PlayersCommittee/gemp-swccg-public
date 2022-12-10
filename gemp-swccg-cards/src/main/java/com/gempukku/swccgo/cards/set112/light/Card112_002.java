@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set112.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card112_002 extends AbstractSite {
     public Card112_002() {
-        super(Side.LIGHT, "Jabba's Palace: Antechamber", Title.Tatooine);
+        super(Side.LIGHT, "Jabba's Palace: Antechamber", Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLocationDarkSideGameText("Creatures cannot attack here. Force drain -1 here.");
         setLocationLightSideGameText("Creatures cannot attack here. While no Rebels present, your total power here is +2.");
         addIcon(Icon.DARK_FORCE, 1);
