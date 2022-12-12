@@ -4006,7 +4006,6 @@ var fixedImages = {
 "215_2ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/apowerloss_ai.png",
 "209_40ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/vanee_ai.png",
 "204_41ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/generalhux_ai.png",
-"200_20ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalker_ai.png",
 
 };
 
