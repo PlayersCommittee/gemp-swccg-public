@@ -2,27 +2,24 @@ package com.gempukku.swccgo.cards.set218.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotCancelBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotCancelWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
-import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToRetrieveForceResult;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class Card218_007 extends AbstractUsedInterrupt {
     public Card218_007() {
         super(Side.DARK, 5, "A Dark Time For The Rebellion & Tarkin's Orders", Uniqueness.UNIQUE);
         addComboCardTitles("A Dark Time For The Rebellion", "Tarkin's Orders");
-        setGameText("For remainder of turn, opponent's Force retrieval using Resistance characters' game text is canceled. OR For remainder of turn, opponent may not cancel your battle destiny draws. OR Search opponent's Lost Pile; place one device you find there out of play. OR Cancel It Could Be Worse. OR Cancel Projection Of A Skywalker at an opponent's planet site.");
+        setGameText("For remainder of turn, opponent may not cancel your battle destiny draws or character weapon destiny draws. OR If you have two battlegrounds on table (and opponent does not), for remainder of turn, your total power in battles is +1 for each opponent's non-battleground location on table. OR Cancel It Could Be Worse or Nabrun Leids. OR If opponent does not occupy a battleground site (or if Menace Fades on table), cancel Projection Of A Skywalker.");
         addIcons(Icon.VIRTUAL_SET_18);
     }
 
@@ -47,77 +44,49 @@ public class Card218_007 extends AbstractUsedInterrupt {
 
         List<PlayInterruptAction> actions = new LinkedList<>();
 
-        // Check condition(s)
-        final PlayInterruptAction action1 = new PlayInterruptAction(game, self);
-        action1.setText("Prevent retrieval by Resistance characters");
-        // Allow response(s)
-        action1.allowResponses("Prevent retrieval from game text of Resistance characters for remainder of turn",
-                new RespondablePlayCardEffect(action1) {
-                    @Override
-                    protected void performActionResults(Action targetingAction) {
-                        // Perform result(s)
-                        final int permCardId = self.getPermanentCardId();
-                        final int gameTextSourceCardId = self.getCardId();
-                        action1.appendEffect(
-                                new AddUntilEndOfTurnActionProxyEffect(action1, new AbstractActionProxy() {
-
-                                    @Override
-                                    public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-                                        final PhysicalCard self = game.findCardByPermanentId(permCardId);
-                                        if (TriggerConditions.isAboutToRetrieveForce(game, effectResult, game.getOpponent(self.getOwner()))) {
-                                            PhysicalCard retrievingCard = ((AboutToRetrieveForceResult)effectResult).getSourceCard();
-
-                                            if (retrievingCard != null && Filters.Resistance_character.accepts(game, retrievingCard)) {
-
-                                                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                                                action.setText("Cancel retrieval");
-                                                action.appendEffect(
-                                                        new CancelForceRetrievalEffect(action)
-                                                );
-                                                return Collections.singletonList((TriggerAction) action);
-                                            }
-                                        }
-                                        return null;
-                                    }
-                                }));
-                    }
-                }
-        );
-        actions.add(action1);
-
-
-        final PlayInterruptAction protectBattleDestinyDrawsAction = new PlayInterruptAction(game, self);
-        protectBattleDestinyDrawsAction.setText("Affect battle destiny draws");
-        protectBattleDestinyDrawsAction.setActionMsg("Prevent opponent from canceling your battle destiny draws for remainder of turn");
+        final PlayInterruptAction protectBattleAndWeaponDestinyDrawsAction = new PlayInterruptAction(game, self);
+        protectBattleAndWeaponDestinyDrawsAction.setText("Affect battle and weapon destiny draws");
 
         // Allow response(s)
-        protectBattleDestinyDrawsAction.allowResponses(
-                new RespondablePlayCardEffect(protectBattleDestinyDrawsAction) {
+        protectBattleAndWeaponDestinyDrawsAction.allowResponses("Prevent opponent from canceling your battle and character weapon destiny draws for remainder of turn",
+                new RespondablePlayCardEffect(protectBattleAndWeaponDestinyDrawsAction) {
                     @Override
                     protected void performActionResults(Action targetingAction) {
-                        protectBattleDestinyDrawsAction.appendEffect(
-                                new AddUntilEndOfTurnModifierEffect(protectBattleDestinyDrawsAction,
+                        protectBattleAndWeaponDestinyDrawsAction.appendEffect(
+                                new AddUntilEndOfTurnModifierEffect(protectBattleAndWeaponDestinyDrawsAction,
                                         new MayNotCancelBattleDestinyModifier(self, playerId, opponent),
-                                        "Prevent "+opponent+" from canceling "+playerId+"'s battle destiny draws")
+                                        "Prevents "+opponent+" from canceling "+playerId+"'s battle destiny draws")
+                        );
+                        protectBattleAndWeaponDestinyDrawsAction.appendEffect(
+                                new AddUntilEndOfTurnModifierEffect(protectBattleAndWeaponDestinyDrawsAction,
+                                        new MayNotCancelWeaponDestinyModifier(self, opponent, Filters.and(Filters.your(self), Filters.character_weapon)),
+                                        "Prevents "+opponent+" from canceling "+playerId+"'s character weapon destiny draws")
                         );
                     }
                 }
         );
-        actions.add(protectBattleDestinyDrawsAction);
+        actions.add(protectBattleAndWeaponDestinyDrawsAction);
 
+        int yourBattlegroundCount = Filters.countTopLocationsOnTable(game, Filters.and(Filters.your(self), Filters.battleground));
+        int opponentBattlegroundCount = Filters.countTopLocationsOnTable(game, Filters.and(Filters.opponents(self), Filters.battleground));
 
-        GameTextActionId gameTextActionId = GameTextActionId.OMMNI_BOX_ITS_WORSE_V__SEARCH_LOST_PILE;
+        if (yourBattlegroundCount >= 2
+                && opponentBattlegroundCount < 2) {
+            final int opponentNonBattlegroundCount = Filters.countTopLocationsOnTable(game, Filters.and(Filters.opponents(self), Filters.non_battleground_location));
 
-        if (GameConditions.canSearchOpponentsLostPile(game, playerId, self, gameTextActionId)) {
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-            action.setText("Search opponent's Lost Pile");
-            action.allowResponses("Place a device out of play from opponent's Lost Pile", new RespondablePlayCardEffect(action) {
-                @Override
-                protected void performActionResults(Action targetingAction) {
-                    action.appendEffect(
-                            new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, opponent, Filters.device, false));
-                }
-            });
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setText("Add " + opponentNonBattlegroundCount + " to total power");
+
+            action.allowResponses("Add " + opponentNonBattlegroundCount + " to total power during battles for remainder of turn",
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            action.appendEffect(new AddUntilEndOfTurnModifierEffect(action,
+                                    new TotalPowerModifier(self, Filters.battleLocation, opponentNonBattlegroundCount, playerId),
+                                    "Adds " + opponentNonBattlegroundCount + " to total power during battles"));
+                        }
+                    }
+            );
             actions.add(action);
         }
 
@@ -130,11 +99,23 @@ public class Card218_007 extends AbstractUsedInterrupt {
             actions.add(action);
         }
 
+        // Check condition(s)
+        if (GameConditions.canTargetToCancel(game, self, Filters.Nabrun_Leids)) {
 
-        if (GameConditions.canTarget(game, self, TargetingReason.TO_BE_CANCELED, Filters.and(Filters.title(Title.Projection_Of_A_Skywalker), Filters.attachedTo(Filters.and(Filters.opponents(self), Filters.planet_site))))) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.and(Filters.title(Title.Projection_Of_A_Skywalker), Filters.attachedTo(Filters.and(Filters.opponents(self), Filters.planet_site))), Title.Projection_Of_A_Skywalker);
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Nabrun_Leids, Title.Nabrun_Leids);
+            actions.add(action);
+        }
+
+
+        if (GameConditions.canTargetToCancel(game, self, Filters.title(Title.Projection_Of_A_Skywalker))
+                && (!GameConditions.occupies(game, opponent, Filters.battleground_site)
+                || GameConditions.canSpot(game, self, Filters.title(Title.Menace_Fades)))) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.title(Title.Projection_Of_A_Skywalker), Title.Projection_Of_A_Skywalker);
             actions.add(action);
         }
 
@@ -146,7 +127,10 @@ public class Card218_007 extends AbstractUsedInterrupt {
         List<PlayInterruptAction> actions = new LinkedList<>();
 
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.It_Could_Be_Worse)
+        if ((TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.It_Could_Be_Worse, Filters.Nabrun_Leids))
+                || (TriggerConditions.isPlayingCard(game, effect, Filters.title(Title.Projection_Of_A_Skywalker))
+                && (!GameConditions.occupies(game, game.getOpponent(playerId), Filters.battleground_site)
+                || GameConditions.canSpot(game, self, Filters.title(Title.Menace_Fades)))))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self);

@@ -24,6 +24,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeStolenModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
@@ -47,7 +48,7 @@ public class Card217_050 extends AbstractEpicEventDeployable {
                 "My Father Has It: Anakin (and [Episode I] Obi-Wan) " +
                 "I Have It: Luke (and [Set 1] Obi-Wan) " +
                 "You Have That Power, Too: Rey (and [Episode VII] Luke) " +
-                "[Set 16] Anakin is deploy -1. Your total Force generation is +1. You may not deploy Boss Nass' Chambers or Jedi (except Yoda and the chosen characters). If you just initiated battle involving a Skywalker (or if opponent's Sidious just lost from table), may retrieve 1 Force.");
+                "[Set 16] Anakin is deploy -1. Your total Force generation is +1. You may not deploy Boss Nass' Chambers or Jedi (except Yoda and the chosen characters). If you just initiated battle involving a Skywalker (or if opponent's Sidious just lost from table), may retrieve 1 Force. Your lightsabers may not be stolen.");
         addIcons(Icon.SKYWALKER, Icon.EPISODE_I, Icon.EPISODE_VII, Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_17);
     }
 
@@ -135,6 +136,7 @@ public class Card217_050 extends AbstractEpicEventDeployable {
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.Jedi, Filters.except(Filters.or(Filters.Yoda, iHaveItFilter))), new InPlayDataEqualsCondition(self, I_HAVE_IT), self.getOwner()));
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.Jedi, Filters.except(Filters.or(Filters.Yoda, youHaveThatPowerTooFilter))), new InPlayDataEqualsCondition(self, YOU_HAVE_THAT_POWER_TOO), self.getOwner()));
         modifiers.add(new DeployCostModifier(self, Filters.and(Icon.VIRTUAL_SET_16, Filters.Anakin), -1));
+        modifiers.add(new MayNotBeStolenModifier(self, Filters.and(Filters.your(self), Filters.lightsaber)));
         return modifiers;
     }
 

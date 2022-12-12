@@ -4,7 +4,11 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -14,6 +18,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -29,8 +34,8 @@ public class Card301_002 extends AbstractObjective {
     public Card301_002() {
         super(Side.LIGHT, 0, Title.City_In_The_Clouds);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Bespin system and a Cloud City battleground site. While this side up, once per turn, may use 1 Force to [download] a Cloud City battleground site. Flip this card if you control two Cloud City battleground sites and occupy Bespin system, and opponent controls no Cloud City sites.");
-        addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P);
+        setGameText("Deploy Bespin system and a Cloud City battleground site. May deploy Weather Vane. While this side up, once per turn, may use 1 Force to [download] a Cloud City battleground. Flip this card if you control two Cloud City battleground sites and occupy Bespin system, and opponent controls no Cloud City sites.");
+        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_P);
     }
 
     @Override
@@ -50,6 +55,12 @@ public class Card301_002 extends AbstractObjective {
                         return "Choose Cloud City battleground site to deploy";
                     }
                 });
+        action.appendOptionalEffect(
+                new DeployCardsFromReserveDeckEffect(action, Filters.Weather_Vane, 0, 1, true, false) {
+                    public String getChoiceText(int numCardsToChoose) {
+                        return "Choose Weather Vane to deploy";
+                    }
+                });
         return action;
     }
 
@@ -63,8 +74,8 @@ public class Card301_002 extends AbstractObjective {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Cloud City battleground site from Reserve Deck");
-            action.setActionMsg("Deploy a Cloud City battleground site from Reserve Deck");
+            action.setText("Deploy Cloud City battleground from Reserve Deck");
+            action.setActionMsg("Deploy a Cloud City battleground from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
@@ -73,7 +84,7 @@ public class Card301_002 extends AbstractObjective {
                     new UseForceEffect(action, playerId, 1));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Cloud_City_site, Filters.battleground, true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.Cloud_City_location, Filters.battleground, true));
             return Collections.singletonList(action);
         }
         return null;

@@ -6,7 +6,12 @@ import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,9 +41,9 @@ public class Card219_001 extends AbstractObjective {
     public Card219_001() {
         super(Side.DARK, 0, Title.A_Great_Tactician_Creates_Plans);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Lothal system, Advanced Projects Laboratory, Imperial Complex, and Thrawn’s Art Collection." +
-                    "For remainder of game, you may not deploy [Episode I] (or [Episode VII]) cards with ability or [Presence], or any admiral (except Thrawn)." +
-                    "While this side up, Imperial Star Destroyers deploy -1 (-3 if Chimaera). Once per turn, may [download] a battleground system (or a site to Lothal)." +
+        setGameText("Deploy Lothal system, Advanced Projects Laboratory, Imperial Complex, and Thrawn's Art Collection. " +
+                    "For remainder of game, you may not deploy Chiraneau or [Episode I] (or [Episode VII]) cards with ability or [Presence]. Once per turn, may [download] a battleground system (or a site to Lothal). " +
+                    "While this side up, Imperial Star Destroyers deploy -1 (-3 if Chimaera). " +
                     "Flip this card during any deploy phase if Thrawn at a battleground and two or more artwork cards on table.");
         addIcons(Icon.VIRTUAL_SET_19);
     }
@@ -54,17 +59,17 @@ public class Card219_001 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Lothal_Imperial_Complex), true, false) {
-                    @Override
-                    public String getChoiceText() {
-                        return "Choose Lothal: Imperial Complex to deploy";
-                    }
-                });
-        action.appendRequiredEffect(
                 new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Lothal_Advanced_Projects_Laboratory), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose Lothal: Advanced Projects Laboratory to deploy";
+                    }
+                });
+        action.appendRequiredEffect(
+                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Lothal_Imperial_Complex), true, false) {
+                    @Override
+                    public String getChoiceText() {
+                        return "Choose Lothal: Imperial Complex to deploy";
                     }
                 });
         action.appendRequiredEffect(
@@ -79,8 +84,8 @@ public class Card219_001 extends AbstractObjective {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        Filter mayNotPlayFilter = Filters.or(Filters.and(Filters.your(self), Filters.admiral, Filters.except(Filters.Thrawn)),
+        List<Modifier> modifiers = new LinkedList<>();
+        Filter mayNotPlayFilter = Filters.or(Filters.Chiraneau,
                 Filters.and(Filters.your(self), Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE)));
         modifiers.add(new MayNotPlayModifier(self, mayNotPlayFilter, self.getOwner()));
         modifiers.add(new DeployCostModifier(self, Filters.and(Filters.Imperial_starship, Filters.Star_Destroyer),

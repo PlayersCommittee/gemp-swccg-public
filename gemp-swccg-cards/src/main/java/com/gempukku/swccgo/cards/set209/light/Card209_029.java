@@ -4,7 +4,12 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,10 +38,10 @@ public class Card209_029 extends AbstractObjective {
     public Card209_029() {
         super(Side.LIGHT, 0, Title.They_Have_No_Idea_Were_Coming);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room." +
-                "For remainder of game, you may not deploy Jedi. Baze, Chirrut, and Rebel troopers are spies." +
-                "While this side up, once per turn, may [download] a Rebel starship (except Home One or [Reflections III] Falcon) or a Scarif site." +
-                "Flip this card if you control two Scarif locations..");
+        setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room. " +
+                "For remainder of game, Baze, Chirrut, and Rebel troopers are spies. You may not deploy Taking Them With Us or Jedi. " +
+                "While this side up, once per turn, may [download] Rogue One, a corvette, or a Scarif site. " +
+                "Flip this card if you control two Scarif locations.");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_9);
     }
 
@@ -87,7 +92,7 @@ public class Card209_029 extends AbstractObjective {
         // Cannot deploy Jedi
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.Jedi, playerId), null));
+                        new MayNotDeployModifier(self, Filters.or(Filters.Jedi, Filters.title(Title.Taking_Them_With_Us)), playerId), null));
 
         // Baze, Chirrut and Rebel Troopers are Spies
         action.appendEffect(
@@ -105,29 +110,16 @@ public class Card209_029 extends AbstractObjective {
 
         GameTextActionId gameTextActionId = GameTextActionId.THEY_HAVE_NO_IDEA_WERE_COMING__DOWNLOAD_SITE_OR_STARSHIP;
 
-        // Check condition(s) - Once per turn, deploy:
-        //   1) A Scarif location
-        //   OR
-        //   2) Rebel starship (except RefIII Falcon and Home One)
-        //
+        // Check condition(s)
 
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-
-            // Build starship filter
-            Filter notRef3Falcon = Filters.not(Filters.and(Filters.Falcon, Icon.REFLECTIONS_III));
-            Filter notHomeOne = Filters.not(Filters.Home_One);
-            Filter notRef3FalconOrHomeOne = Filters.and(notRef3Falcon, notHomeOne);
-            Filter rebelStarshipNotHomeOneOrRef3Falcon = Filters.and(Filters.Rebel_starship, notRef3FalconOrHomeOne);
-
-
-            // Build Starship OR Scarif site
-            Filter starshipOrSite = Filters.or(rebelStarshipNotHomeOneOrRef3Falcon, Filters.Scarif_site);
+            Filter starshipOrSite = Filters.or(Filters.Rogue_One, Filters.corvette, Filters.Scarif_site);
 
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy starship or location from Reserve Deck");
-            action.setActionMsg("Deploy a Rebel starship (except Home One or [Reflections III] Falcon) or Scarif location from Reserve Deck");
+            action.setActionMsg("Deploy Rogue One, a corvette, or a Scarif site from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));

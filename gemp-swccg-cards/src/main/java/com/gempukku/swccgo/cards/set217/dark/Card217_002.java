@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set217.dark;
 
 import com.gempukku.swccgo.cards.AbstractDroid;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -18,9 +19,9 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.BreakCoversEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotUseCardToTransportToOrFromLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collection;
@@ -35,26 +36,18 @@ import java.util.List;
  */
 public class Card217_002 extends AbstractDroid {
     public Card217_002() {
-        super(Side.DARK, 0.5, 2, 2, 4, "BB-9E", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
-        setAlternateDestiny(5.5);
-        setGameText("Deploys -1 to same site as BB-8. Cancels game text of BB-8 and/or Rose at same site. During your move phase, may place in Used Pile; 'break cover' of all Undercover spies here (if any). Immune to Restraining Bolt and Sorry About The Mess.");
+        super(Side.DARK, 4.5, 2, 2, 4, "BB-9E", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
+        setGameText("If with a First Order leader at a battleground site, Force drain +1 here. During your move phase, may place in Used Pile; 'break cover' of all Undercover spies here (if any). Nabrun Leids may not transport cards to or from here. Immune to Restraining Bolt.");
         addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_17);
         addModelType(ModelType.ASTROMECH);
     }
 
     @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DeployCostToLocationModifier(self, -1, Filters.sameSiteAs(self, Filters.BB8)));
-        return modifiers;
-    }
-
-    @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.or(Filters.BB8, Filters.Rose), Filters.atSameSite(self))));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.here(self), Filters.battleground_site), new WithCondition(self, Filters.First_Order_leader), 1, self.getOwner()));
+        modifiers.add(new MayNotUseCardToTransportToOrFromLocationModifier(self, Filters.Nabrun_Leids, Filters.here(self)));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Restraining_Bolt));
-        modifiers.add(new ImmuneToTitleModifier(self, Title.Sorry_About_The_Mess));
         return modifiers;
     }
 

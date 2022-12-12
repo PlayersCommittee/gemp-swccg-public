@@ -2,10 +2,14 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,8 +38,9 @@ import java.util.List;
 public class Card204_032_BACK extends AbstractObjective {
     public Card204_032_BACK() {
         super(Side.LIGHT, 7, Title.We_Need_Your_Help);
-        setGameText("While this side up, once per turn may [download] a Jakku location. Once during opponent's control phase, if you control two Jakku battlegrounds and are about to lose Force (except to a Force drain at a Jakku location), may reduce that Force loss to 1 (may not be further reduced). Once per battle involving your Resistance character, may subtract 2 from a just drawn destiny. While with Han, your [Episode VII] characters and [Episode VII] starships are defense value +2. Flip this card if you do not occupy two battlegrounds.");
-        addIcons(Icon.PREMIUM, Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
+        setGameText("While this side up, once during opponent's control phase, if you control two Jakku battlegrounds and are about to lose Force (except to a Force drain at a Jakku location), may reduce that Force loss to 1 (may not be further reduced). Once per turn, during battle involving your Resistance character, may subtract 2 from a just drawn destiny. While with Han, your [Episode VII] characters and [Episode VII] starships are defense value +2. " +
+                "Flip this card if you do not occupy two battlegrounds.");
+        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
@@ -87,14 +92,14 @@ public class Card204_032_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
-                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Resistance_character))) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Subtract 2 from destiny");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerBattleEffect(action));
+                    new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
                     new ModifyDestinyEffect(action, -2));

@@ -5,13 +5,19 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.BlownAwayCondition;
 import com.gempukku.swccgo.cards.conditions.CommencePrimaryIgnitionTargetingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EpicEventCalculationTotalModifier;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +31,7 @@ public class Card217_001 extends AbstractNormalEffect {
     public Card217_001() {
         super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "An Effective Demonstration");
         setLore("");
-        setGameText("Deploy on table. Attempts to 'blow away' Alderaan are +5. If Alderaan has been 'blown away,' adds one [Light Side] icon at Death Star system and opponent's total battle destiny is -1. Once per game, may [upload] Superlaser. [Immune to Alter.]");
+        setGameText("Deploy on table. Attempts to 'blow away' Alderaan are +5. If Alderaan has been 'blown away,' adds one [Light Side] icon at Death Star system. Once per game, may [upload] Superlaser. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_17);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -35,7 +41,6 @@ public class Card217_001 extends AbstractNormalEffect {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new EpicEventCalculationTotalModifier(self, Filters.Commence_Primary_Ignition, new CommencePrimaryIgnitionTargetingCondition(Filters.Alderaan_system), 5));
         modifiers.add(new IconModifier(self, Filters.Death_Star_system, new BlownAwayCondition(Filters.title(Title.Alderaan, true)), Icon.LIGHT_FORCE, 1));
-        modifiers.add(new TotalBattleDestinyModifier(self, new BlownAwayCondition(Filters.title(Title.Alderaan, true)), -1, game.getOpponent(self.getOwner())));
         return modifiers;
     }
 

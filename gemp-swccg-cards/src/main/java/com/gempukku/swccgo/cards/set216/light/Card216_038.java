@@ -19,11 +19,9 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,18 +36,15 @@ public class Card216_038 extends AbstractJediMaster {
     public Card216_038() {
         super(Side.LIGHT, 1, 5, 2, 7, 9, Title.Master_Yoda, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("");
-        setGameText("While 'communing': You may not deploy Jedi Knights or [Maintenance] cards; [Dagobah] Luke is deploy -1 and power and defense value +1; once per turn, may [download] a battleground with two [Dark Side]; once per game, may retrieve 1 Force.");
+        setGameText("While 'communing': You may not deploy Jedi Knights, [Maintenance] cards, or [Permanent Weapon] cards; your immunity to attrition is limited to < 4; once per turn, may [download] a battleground with two [Dark Side]; once per game, may retrieve 1 Force.");
         addIcons(Icon.VIRTUAL_SET_16);
         addPersona(Persona.YODA);
     }
 
     public List<Modifier> getWhileStackedModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotDeployModifier(self, Filters.or(Filters.Jedi_Knight, Icon.MAINTENANCE), new CommuningCondition(self), self.getOwner()));
-        modifiers.add(new DeployCostModifier(self, Filters.and(Icon.DAGOBAH, Filters.Luke), new CommuningCondition(self), -1));
-        modifiers.add(new PowerModifier(self, Filters.and(Icon.DAGOBAH, Filters.Luke), new CommuningCondition(self), 1));
-        modifiers.add(new DefenseValueModifier(self, Filters.and(Icon.DAGOBAH, Filters.Luke), new CommuningCondition(self), 1));
-
+        modifiers.add(new MayNotDeployModifier(self, Filters.or(Icon.PERMANENT_WEAPON, Icon.MAINTENANCE, Filters.Jedi_Knight), new CommuningCondition(self), self.getOwner()));
+        modifiers.add(new ImmunityToAttritionLimitedToModifier(self, Filters.your(self), new CommuningCondition(self),4));
         return modifiers;
     }
 

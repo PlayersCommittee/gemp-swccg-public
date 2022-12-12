@@ -3,8 +3,14 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,13 +39,16 @@ public class Card210_042 extends AbstractObjective {
         super(Side.DARK, 0, Title.Ralltiir_Operations);
         setVirtualSuffix(true);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Ralltiir system. For remainder of game, spaceport sites are immune to Always Thinking With Your Stomach, He Hasn't Come Back Yet, and Ounee Ta. Your Force generation is +1 at each Ralltiir location. While this side up, once per turn, may deploy a site (or non-unique Imperial) to Ralltiir from Reserve Deck; reshuffle. Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations.");
+        setGameText("Deploy [Set 20] Ralltiir system. " +
+                "For remainder of game, spaceport sites are immune to Always Thinking With Your Stomach, He Hasn't Come Back Yet, and non-[Set 18] Ounee Ta. You may not play [Coruscant] Do They Have A Code Clearance?. Your Force generation is +1 at each Ralltiir site. " +
+                "While this side up, once per turn, may [download] a site (or non-unique Imperial) to Ralltiir. " +
+                "Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);
     }
 
     @Override
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        return deployCardWithObjectiveText(self, Filters.Ralltiir_system, "Ralltiir system");
+        return deployCardWithObjectiveText(self, Filters.and(Icon.VIRTUAL_SET_20, Filters.Ralltiir_system), "[Set 20] Ralltiir system");
     }
 
     @Override
@@ -48,7 +57,8 @@ public class Card210_042 extends AbstractObjective {
         action.appendEffect(spaceportSitesImmuneToHeHasntComeBackYetForRemainderOfGame(self, action));
         action.appendEffect(spaceportSitesImmuneToOuneeTaForRemainderOfGame(self, action));
         action.appendEffect(mayNotPlayAlwaysThinkingWithYourStomach(self, action));
-        yourForceGenPlusOneAtEachRalltiirLocation(self, game);
+        action.appendEffect(mayNotPlayCoruscantCodeClearance(self, action));
+        yourForceGenPlusOneAtEachRalltiirSite(self, game);
         return action;
     }
 
@@ -97,11 +107,11 @@ public class Card210_042 extends AbstractObjective {
         return null;
     }
 
-    private void yourForceGenPlusOneAtEachRalltiirLocation(PhysicalCard self, SwccgGame game) {
+    private void yourForceGenPlusOneAtEachRalltiirSite(PhysicalCard self, SwccgGame game) {
         if (!GameConditions.cardHasAnyForRemainderOfGameDataSet(self)) {
             self.setForRemainderOfGameData(self.getCardId(), new ForRemainderOfGameData());
             game.getModifiersEnvironment().addUntilEndOfGameModifier(
-                    new ForceGenerationModifier(self, Filters.Ralltiir_location, 1, self.getOwner()));
+                    new ForceGenerationModifier(self, Filters.Ralltiir_site, 1, self.getOwner()));
         }
     }
 
@@ -112,11 +122,16 @@ public class Card210_042 extends AbstractObjective {
 
     private AddUntilEndOfGameModifierEffect spaceportSitesImmuneToOuneeTaForRemainderOfGame(PhysicalCard self, RequiredGameTextTriggerAction action) {
         return new AddUntilEndOfGameModifierEffect(action,
-                new ImmuneToTitleModifier(self, Filters.spaceport_site, Title.Ounee_Ta), null);
+                new ImmuneToTitleModifier(self, Filters.spaceport_site, new OnTableCondition(self, Filters.and(Filters.not(Icon.VIRTUAL_SET_18), Filters.title(Title.Ounee_Ta))), Title.Ounee_Ta), null);
     }
 
     private AddUntilEndOfGameModifierEffect mayNotPlayAlwaysThinkingWithYourStomach(PhysicalCard self, RequiredGameTextTriggerAction action) {
         return new AddUntilEndOfGameModifierEffect(action,
-                new MayNotPlayModifier(self, Filters.Always_Thinking_With_Your_Stomach, self.getOwner()), null);
+                new ImmuneToTitleModifier(self, Filters.spaceport_site, Title.Always_Thinking_With_Your_Stomach), null);
+    }
+
+    private AddUntilEndOfGameModifierEffect mayNotPlayCoruscantCodeClearance(PhysicalCard self, RequiredGameTextTriggerAction action) {
+        return new AddUntilEndOfGameModifierEffect(action,
+                new MayNotPlayModifier(self, Filters.and(Icon.CORUSCANT, Filters.title(Title.Do_They_Have_A_Code_Clearance)), self.getOwner()), null);
     }
 }

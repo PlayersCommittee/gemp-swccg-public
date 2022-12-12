@@ -29,7 +29,7 @@ public class Card216_039 extends AbstractStartingInterrupt {
     public Card216_039() {
         super(Side.LIGHT, 5, "I Am Part Of The Living Force", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("");
-        setGameText("If your starting location had 'communing' in game text, deploy Communing and stack a Jedi with 'communing' in game text on it. Deploy up to three Effects that deploy on table and are always immune to Alter. Place Interrupt in Lost Pile.");
+        setGameText("If your starting location had 'communing' in game text, deploy Communing and stack a Jedi with 'communing' in game text on it. Deploy up to three Effects that deploy on table, deploy for free, and are always immune to Alter. Place Interrupt in Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_16);
     }
 
@@ -62,7 +62,7 @@ public class Card216_039 extends AbstractStartingInterrupt {
                                                         new StackCardFromReserveDeckEffect(action, communing, Filters.and(Filters.Jedi, communingInGameText), false)
                                                 );
                                                 action.appendEffect(
-                                                        new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter,
+                                                        new DeployCardsFromReserveDeckEffect(action, Filters.and(Filters.Effect, Filters.always_immune_to_Alter, Filters.deploysForFree,
                                                                 Filters.or(Filters.gameTextContains("deploy on table"), Filters.gameTextContains("deploy on your side of table"))), 1, 3, true, false));
                                             }
 

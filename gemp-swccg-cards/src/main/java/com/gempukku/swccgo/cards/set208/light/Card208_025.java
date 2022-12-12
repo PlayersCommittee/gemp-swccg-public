@@ -3,21 +3,26 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.PhaseCondition;
-import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.RecirculateEffect;
+import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattlesForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,10 +39,10 @@ public class Card208_025 extends AbstractObjective {
     public Card208_025() {
         super(Side.LIGHT, 0, Title.He_Is_The_Chosen_One);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Jedi Council Chamber (with Prophecy Of The Force there), Ewok Village, and I Feel The Conflict.\n" +
-                "For remainder of game, you may not deploy [Episode I] or [Episode VII] characters (except Obi-Wan and Yoda) or locations. Luke may not be captured by Bring Him Before Me unless there are two cards stacked on Insignificant Rebellion during any move phase.\n" +
-                "While this side up, you may initiate battles for free.\n" +
-                "Flip this card if Luke (or a Jedi) at a battleground site and opponent has no characters of ability > 4 at battleground sites.");
+        setGameText("Deploy Anakin's Funeral Pyre (with Prophecy Of The Force there), Ewok Village, and I Feel The Conflict. " +
+                "For remainder of game, you may not deploy [Episode I] or [Episode VII] characters or locations (except Obi-Wan, Yoda, and Lars' Moisture Farm). If Luke just won a battle, may re-circulate and shuffle Reserve Deck. Emperor's Power does not increase deploy costs at battlegrounds. " +
+                "While this side up, you may initiate battles for free. " +
+                "Flip this card if Luke or a Jedi at a battleground site (unless an opponent's character of ability > 4 is).");
         addIcons(Icon.VIRTUAL_SET_8);
     }
 
@@ -45,14 +50,14 @@ public class Card208_025 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Jedi_Council_Chamber, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Anakins_Funeral_Pyre), true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose Jedi Council Chamber to deploy";
+                        return "Choose Anakin's Funeral Pyre to deploy";
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardToTargetFromReserveDeckEffect(action, Filters.Prophecy_Of_The_Force, Filters.Jedi_Council_Chamber, true, false) {
+                new DeployCardToTargetFromReserveDeckEffect(action, Filters.Prophecy_Of_The_Force, Filters.title(Title.Anakins_Funeral_Pyre), true, false) {
                     @Override
                     public String getChoiceText() {
                         return "Choose Prophecy Of The Force to deploy";
@@ -80,12 +85,11 @@ public class Card208_025 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.and(Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.or(Filters.and(Filters.character, Filters.except(Filters.or(Filters.ObiWan, Filters.Yoda))), Filters.location)), playerId), null));
+                        new MayNotDeployModifier(self, Filters.and(Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.or(Filters.and(Filters.character, Filters.except(Filters.or(Filters.ObiWan, Filters.Yoda))), Filters.and(Filters.location, Filters.except(Filters.Lars_Moisture_Farm)))), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new ModifyGameTextModifier(self, Filters.Bring_Him_Before_Me, new UnlessCondition(new AndCondition(new PhaseCondition(Phase.MOVE),
-                                new OnTableCondition(self, Filters.and(Filters.Insignificant_Rebellion, Filters.hasStacked(2, Filters.any))))),
-                                ModifyGameTextType.BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE), null));
+                        new ImmuneToDeployCostModifiersToLocationModifier(self, Filters.any, Filters.Emperors_Power, Filters.battleground), null));
+
         return action;
     }
 
@@ -94,6 +98,24 @@ public class Card208_025 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayInitiateBattlesForFreeModifier(self, self.getOwner()));
         return modifiers;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.wonBattle(game, effectResult, Filters.Luke)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Re-circulate and reshuffle");
+            action.setActionMsg("Re-circulate and shuffle Reserve Deck");
+
+            action.appendEffect(
+                    new RecirculateEffect(action, playerId));
+            action.appendEffect(
+                    new ShuffleReserveDeckEffect(action, playerId));
+
+            return Collections.singletonList(action);
+        }
+
+        return null;
     }
 
     @Override

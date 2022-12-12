@@ -6,7 +6,12 @@ import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,8 +43,8 @@ import java.util.List;
 public class Card301_002_BACK extends AbstractObjective {
     public Card301_002_BACK() {
         super(Side.LIGHT, 7, Title.You_Truly_Belong_Here_With_Us);
-        setGameText("While this side up, once per game, may [download] Cloud City Celebration. Once during your control phase, may use 2 Force to [upload] one Interrupt. Once per turn, may move your character as a 'react' to a battle or Force drain at a Cloud City site. Flip this card if opponent controls more Cloud City sites than you.");
-        addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P);
+        setGameText("While this side up, once per game, may [download] Cloud City Celebration. Once during your control phase, may use 2 Force to [upload] an Interrupt. Once per turn, may move your character as a 'react' to a battle or Force drain at a Cloud City site. Flip this card if opponent controls more Cloud City sites than you.");
+        addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_P);
     }
 
     @Override

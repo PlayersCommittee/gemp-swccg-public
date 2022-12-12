@@ -3479,6 +3479,16 @@ var fixedImages = {
 "219_47":"https://res.starwarsccg.org/cards/Virtual19-Light/hires/weathervane.png",
 "219_48":"https://res.starwarsccg.org/cards/Virtual19-Light/hires/zerohour.png",
 "219_48_BACK":"https://res.starwarsccg.org/cards/Virtual19-Light/large/liberationoflothal.gif",
+"220_1":"https://res.starwarsccg.org/cards/Virtual20-Dark/hires/bibfortunaheirtothepalace.png",
+"220_2":"https://res.starwarsccg.org/cards/Virtual20-Dark/hires/drop.png",
+"220_3":"https://res.starwarsccg.org/cards/Virtual20-Dark/hires/ralltiir.png",
+"220_4":"https://res.starwarsccg.org/cards/Virtual20-Dark/hires/thirdsister.png",
+"220_5":"https://res.starwarsccg.org/cards/Virtual20-Dark/hires/zuckuss.png",
+"220_6":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
+"220_7":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/millenniumfalcon.png",
+"220_8":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/nabootheedpalacegenerator.png",
+"220_9":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/prisoner2187.png",
+"220_10":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/thrownback.png",
 
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
@@ -3996,6 +4006,7 @@ var fixedImages = {
 "215_2ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/apowerloss_ai.png",
 "209_40ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/vanee_ai.png",
 "204_41ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/generalhux_ai.png",
+"200_20ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalker_ai.png",
 
 };
 
@@ -4470,6 +4481,8 @@ var Card = Class.extend({
             return (cardNo >= 11 && cardNo <=14) ||
                    (cardNo == 31) ||
                    (cardNo >= 39 && cardNo <=42);
+        }if(setNo == 220) {
+            return (cardNo == 8);
         }if (setNo == 501) {
             return (cardNo == 6)  ||
                    (cardNo == 10) ||

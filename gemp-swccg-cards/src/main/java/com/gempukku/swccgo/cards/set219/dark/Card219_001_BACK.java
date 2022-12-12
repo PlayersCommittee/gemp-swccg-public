@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,9 +18,17 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.CancelImmunityToAttritionUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.ExcludeFromBattleEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromPileEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -36,24 +47,49 @@ import java.util.List;
 public class Card219_001_BACK extends AbstractObjective {
     public Card219_001_BACK() {
         super(Side.DARK, 7, Title.The_Result_Is_Often_Resentment);
-        setGameText("While this side up, if a battle was just initiated involving an Imperial leader or piloted TIE defender, may ‘study’ one artwork card. " +
-                    "If it is a weapon, cancel the battle. Otherwise, if possible, if its printed destiny number is:" +
-                    "(0-2) opponent’s immunity to attrition is canceled;" +
-                    "(3-4) opponent excludes their character from battle;" +
-                    "(5+) add 3 to your total power." +
-                    "Place artwork card in owner's Lost Pile." +
-                    "Flip this card if Thrawn not on table or (except during battle) if no artwork cards on table.");
+        setGameText("While this side up, if a battle was just initiated involving an Imperial leader or piloted TIE defender, may 'study' one artwork card. " +
+                    "If it is a weapon, cancel the battle. Otherwise, if possible, if its printed destiny number is: " +
+                    "(0-2) opponent's immunity to attrition is canceled; " +
+                    "(3-4) opponent excludes their character from battle; " +
+                    "(5+) add 3 to your total power. " +
+                    "Place artwork card in owner's Lost Pile. " +
+                    "Flip this card if Thrawn not on table or (except during battle) if no artwork cards on table. ");
         addIcons(Icon.VIRTUAL_SET_19);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        Filter mayNotPlayFilter = Filters.or(Filters.and(Filters.your(self), Filters.admiral, Filters.except(Filters.Thrawn)),
+        Filter mayNotPlayFilter = Filters.or(Filters.Chiraneau,
                 Filters.and(Filters.your(self), Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE)));
         modifiers.add(new MayNotPlayModifier(self, mayNotPlayFilter, self.getOwner()));
         return modifiers;
     }
+
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.A_GREAT_TACTICIAN_CREATES_PLANS__DOWNLOAD_LOCATION;
+
+        // Check condition(s)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy card from Reserve Deck");
+            action.setActionMsg("Deploy a battleground system (or a site to Lothal)");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new DeployCardFromPileEffect(action, self.getOwner(), Zone.RESERVE_DECK, Filters.or(Filters.battleground_system,
+                            Filters.and(Filters.site, Filters.deployableToSystem(self, Title.Lothal, null, false, 0))), Filters.locationAndCardsAtLocation(Filters.partOfSystem(Title.Lothal)), Filters.battleground_system, Title.Lothal, null, false, Filters.none, 0, Filters.none, null, null, false, true));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         if (TriggerConditions.battleInitiated(game, effectResult)

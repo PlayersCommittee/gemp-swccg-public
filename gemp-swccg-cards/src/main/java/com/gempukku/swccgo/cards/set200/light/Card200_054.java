@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set200.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -13,13 +14,14 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.RetrieveCardIntoHandEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -34,62 +36,86 @@ public class Card200_054 extends AbstractUsedOrLostInterrupt {
         super(Side.LIGHT, 4, "Jedi Levitation");
         setVirtualSuffix(true);
         setLore("A Jedi can adjust the force within and around an object, causing it to move as the Jedi wills.");
-        setGameText("USED: If you just drew a character for destiny, take that card into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve a non-[Maintenance] character into hand.");
+        setGameText("USED: If you just drew a character for destiny, choose: Take that card into hand. OR Cancel and redraw that destiny. " +
+                "LOST: Once per game, use 4 Force to take a character into hand from Lost Pile.");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_0);
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
+        List<PlayInterruptAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.ANY_CARD__CANCEL_AND_REDRAW_A_DESTINY;
 
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
-                && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)
-                && GameConditions.isDestinyCardMatchTo(game, Filters.character)
-                && GameConditions.canTakeDestinyCardIntoHand(game, playerId)) {
+                && GameConditions.isDestinyCardMatchTo(game, Filters.character)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
-            action.setText("Take destiny card into hand and cause re-draw");
-            // Pay cost(s)
-            action.appendEffect(
-                    new TakeDestinyCardIntoHandEffect(action));
-            // Allow response(s)
-            action.allowResponses("Cancel destiny and cause re-draw",
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new CancelDestinyAndCauseRedrawEffect(action));
+            // Take destiny into hand
+            if (GameConditions.canTakeDestinyCardIntoHand(game, playerId)) {
+
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                action.setText("Take destiny card into hand");
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new TakeDestinyCardIntoHandEffect(action));
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                actions.add(action);
+            }
+            // Cancel and redraw destiny
+            if (GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)) {
+
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.USED);
+                action.setText("Cancel destiny and cause re-draw");
+
+                // Allow response(s)
+                action.allowResponses(
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new CancelDestinyAndCauseRedrawEffect(action));
+                            }
+                        }
+                );
+                actions.add(action);
+            }
         }
-        return null;
+        return actions;
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
-        GameTextActionId gameTextActionId = GameTextActionId.JEDI_LEVITATION__RETRIEVE_NON_MAINTENANCE_CHARACTER;
+        GameTextActionId gameTextActionId = GameTextActionId.JEDI_LEVITATION_V__TAKE_CHARACTER_INTO_HAND_FROM_LOST_PILE;
 
         // Check condition(s)
-        if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 3)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 4)
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
-            action.setText("Retrieve a non-[Maintenance] character into hand");
+            action.setText("Take a character into hand from Lost Pile");
+
+            action.appendUsage(
+                    new OncePerGameEffect(action));
             // Pay cost(s)
             action.appendCost(
-                    new UseForceEffect(action, playerId, 3));
+                    new UseForceEffect(action, playerId, 4));
             // Allow response(s)
-            action.allowResponses(
+            action.allowResponses("Take a character into hand from Lost Pile",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new RetrieveCardIntoHandEffect(action, playerId, Filters.and(Filters.character, Filters.not(Icon.MAINTENANCE))));
+                                    new TakeCardIntoHandFromLostPileEffect(action, playerId, Filters.character, false));
                         }
                     }
             );

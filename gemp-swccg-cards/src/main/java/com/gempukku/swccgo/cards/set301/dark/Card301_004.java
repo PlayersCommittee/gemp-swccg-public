@@ -4,7 +4,11 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,8 +35,8 @@ public class Card301_004 extends AbstractObjective {
     public Card301_004() {
         super(Side.DARK, 0, Title.Twin_Suns_Of_Tatooine);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Tatooine system and a non-Jabba's Palace Tatooine battleground site. For remainder of game, you may not deploy Jabba's Palace sites or Sandwhirl. While this side up, once per turn, may use 1 Force to [download] a Tatooine battleground site. Flip this card if you control two Tatooine battleground sites (at least one with a Dark Jedi) and occupy Tatooine system, and opponent controls no Tatooine sites.");
-        addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_P);
+        setGameText("Deploy Tatooine system and a non-Jabba's Palace Tatooine site. For remainder of game, you may not deploy Jabba's Palace sites or Sandwhirl. While this side up, once per turn, may use 1 Force to [download] a Tatooine battleground site. Flip this card if you control two Tatooine battleground sites (at least one with a Dark Jedi) and occupy Tatooine system, and opponent controls no Tatooine sites.");
+        addIcons(Icon.EPISODE_I, Icon.TATOOINE, Icon.VIRTUAL_SET_P);
     }
 
     @Override
@@ -46,10 +50,10 @@ public class Card301_004 extends AbstractObjective {
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Tatooine_site, Filters.not(Filters.Jabbas_Palace_site)), Filters.battleground, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Tatooine_site, Filters.not(Filters.Jabbas_Palace_site)), false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose non-Jabba's Palace Tatooine battleground site to deploy";
+                        return "Choose non-Jabba's Palace Tatooine site to deploy";
                     }
                 });
         return action;

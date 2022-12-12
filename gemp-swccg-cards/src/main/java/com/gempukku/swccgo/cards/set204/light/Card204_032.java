@@ -5,7 +5,11 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,8 +41,10 @@ public class Card204_032 extends AbstractObjective {
     public Card204_032() {
         super(Side.LIGHT, 0, Title.Old_Allies);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Jakku system and Niima Outpost Shipyard (with [Episode VII] Falcon there). May deploy Graveyard Of Giants. For remainder of game, you may not deploy Harc Seff, Luke, or Jedi. Your Destiny is suspended. Opponent's [Reflections II] Objective targets Rey Instead Of Luke. While Rey at a battleground site, Visage Of The Emperor is suspended. While this side up, once per turn, may [download] a Jakku location. Flip this card if you control Jakku system and occupy two Jakku battleground sites (or vice versa).");
-        addIcons(Icon.PREMIUM, Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
+        setGameText("Deploy Jakku system and Niima Outpost Shipyard (with [Episode VII] Falcon there). May deploy Graveyard Of Giants. " +
+                "For remainder of game, you may not deploy Combined Fleet Action, Harc Seff, Luke, or Jedi. Your Destiny is suspended. Opponent's [Reflections II] objective targets Rey instead of Luke. While Rey at a battleground site, Visage Of The Emperor is suspended. Once per turn, may [download] a Jakku location. " +
+                "Flip this card if you control Jakku system and occupy two Jakku battleground sites (or vice versa).");
+        addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }
 
     @Override
@@ -79,7 +85,7 @@ public class Card204_032 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.or(Filters.Luke, Filters.Jedi, Filters.Harc), playerId), null));
+                        new MayNotDeployModifier(self, Filters.or(Filters.Luke, Filters.Jedi, Filters.Harc, Filters.title(Title.Combined_Fleet_Action)), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new SuspendsCardModifier(self, Filters.Your_Destiny), null));
