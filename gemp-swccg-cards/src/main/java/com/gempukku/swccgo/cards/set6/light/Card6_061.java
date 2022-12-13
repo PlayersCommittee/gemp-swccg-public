@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.cards.effects.RetargetWeaponEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +39,7 @@ import java.util.List;
  */
 public class Card6_061 extends AbstractUsedOrLostInterrupt {
     public Card6_061() {
-        super(Side.LIGHT, 4, Title.Blaster_Deflection, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Blaster_Deflection, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("A Jedi can anticipate the actions of his opponent and let the Force control his actions, causing him to effortlessly deflect an opponent's attacks.");
         setGameText("USED: Cancel an attempt to use a character weapon to target your character of ability > 4. LOST: If your character of ability > 4 with a lightsaber was just targeted by a blaster, use 3 Force to re-target that blaster to an opponent's character present.");
         addIcons(Icon.JABBAS_PALACE);

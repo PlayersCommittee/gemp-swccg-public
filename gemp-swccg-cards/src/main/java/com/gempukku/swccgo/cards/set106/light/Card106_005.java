@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set106.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card106_005 extends AbstractUsedOrLostInterrupt {
     public Card106_005() {
-        super(Side.LIGHT, 3, Title.Its_A_Hit, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Its_A_Hit, Uniqueness.UNIQUE, ExpansionSet.OTSD, Rarity.PM);
         setLore("Red Leader fired the first shot in the Death Star trench, causing massive internal damage. The spectacular near-miss inspired Red Squadron to double their efforts.");
         setGameText("USED: Cancel a Force drain at a site related to a system you control. LOST: Cancel Counter Assault, It's Worse, Elis Helrot, Tallon Roll, Limited Resources or Scanning Crew. OR Use 3 Force to search your Lost Pile and take one non-unique starfighter into hand.");
         addIcons(Icon.PREMIUM);

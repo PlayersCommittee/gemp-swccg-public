@@ -2,14 +2,24 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.ResetHyperspeedUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.AttemptToBlowAwayBlockadeFlagshipTotalModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -25,7 +35,7 @@ import java.util.List;
  */
 public class Card14_108 extends AbstractUsedOrLostInterrupt {
     public Card14_108() {
-        super(Side.DARK, 4, "This Is Not Good", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "This Is Not Good", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("'Everything's overheated.'");
         setGameText("USED: For remainder of turn, subtract 2 from any attempt to 'blow away' Blockade Flagship. LOST: During any deploy phase, use 3 Force to target any starship at same system as your battleship. Target is hyperspeed = 0 until end of turn.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card6_063 extends AbstractUsedOrLostInterrupt {
     public Card6_063() {
-        super(Side.LIGHT, 5, "Corellian Retort", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Corellian Retort", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("'Threepio, you tell that slimy piece of worm-ridden filth he'll get no such pleasure from us!'");
         setGameText("USED: Search your Reserve Deck, take one Captive Fury or Captive Pursuit into hand and reshuffle. LOST: If a bounty hunter (or gangster) and Han are involved in the same battle, you may add one battle destiny (add two if gangster is Jabba).");
         addIcons(Icon.JABBAS_PALACE);

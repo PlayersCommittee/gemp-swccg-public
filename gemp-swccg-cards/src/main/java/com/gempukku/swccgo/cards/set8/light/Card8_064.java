@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card8_064 extends AbstractUsedOrLostInterrupt {
     public Card8_064() {
-        super(Side.LIGHT, 5, "Were You Looking For Me?");
+        super(Side.LIGHT, 5, "Were You Looking For Me?", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.R);
         setLore("For the second time in the Endor mission, C-3PO saved the day.");
         setGameText("USED: Take one or two communications or protocol droids (or one of each) into hand from Reserve Deck; reshuffle. LOST: Retrieve C-3PO. OR If C-3PO is in battle at a site, add one battle destiny (or two if with three Ewoks).");
         addIcons(Icon.ENDOR);

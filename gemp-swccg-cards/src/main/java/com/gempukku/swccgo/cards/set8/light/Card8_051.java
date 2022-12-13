@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card8_051 extends AbstractUsedOrLostInterrupt {
     public Card8_051() {
-        super(Side.LIGHT, 6, "Fly Casual", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Fly Casual", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("As a smuggler, Han had years of experience at avoiding Imperial detection. He chose the approach to Endor's moon as the time to pass some of that knowledge on to Chewie.");
         setGameText("USED: Cancel Early Warning Network or It's An Older Code. OR During your deploy phase, deploy one starship (deploy -1) and/or one pilot to a system even without presence or Force icons. LOST: Take one Tydirium or Tantive IV into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.ENDOR);

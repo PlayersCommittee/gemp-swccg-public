@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +19,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -30,7 +42,7 @@ import java.util.Set;
  */
 public class Card6_158 extends AbstractUsedOrLostInterrupt {
     public Card6_158() {
-        super(Side.DARK, 6, Title.Torture, Uniqueness.UNIQUE);
+        super(Side.DARK, 6, Title.Torture, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("'We have been without an interpreter since our master got angry with our last protocol droid and disintegrated him.'");
         setGameText("USED: Cancel Never Tell Me The Odds if it was just inserted or revealed. (Immune to Sense). LOST: Target a droid at Droid Workshop that you have captured or stolen. Droid is lost. Retrieve Force equal to droid's forfeit (doubled if stolen).");
         addIcons(Icon.JABBAS_PALACE);

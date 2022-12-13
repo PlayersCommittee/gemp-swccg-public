@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card8_045 extends AbstractUsedOrLostInterrupt {
     public Card8_045() {
-        super(Side.LIGHT, 4, Title.Covert_Landing, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Covert_Landing, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("The stolen code allowed the Rebels to land their strike team on the Endor surface undetected - or so they thought.");
         setGameText("USED: If your shuttle (including a shuttle vehicle) is in battle, add one battle destiny. LOST: If your starfighter just landed at a site where opponent has no presence, deploy scouts (and weapons on those scouts) aboard it (capacity permitting) from Reserve Deck; reshuffle.");
         addIcons(Icon.ENDOR);

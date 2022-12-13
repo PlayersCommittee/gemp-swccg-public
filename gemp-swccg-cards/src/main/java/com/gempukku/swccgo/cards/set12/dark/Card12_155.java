@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card12_155 extends AbstractUsedOrLostInterrupt {
     public Card12_155() {
-        super(Side.DARK, 4, "No Civility, Only Politics", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "No Civility, Only Politics", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("It's not rare to see a senator using the system to forward his own personal agenda. Much goes on behind closed doors that the Senate never sees.");
         setGameText("USED: During your move phase, take one of your characters with politics at Galactic Senate into hand. LOST: If you have a Republic character with politics in battle at a site, add one battle destiny; that character is power and politics = 0 until end of turn.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

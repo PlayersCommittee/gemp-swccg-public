@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card12_069 extends AbstractUsedOrLostInterrupt {
     public Card12_069() {
-        super(Side.LIGHT, 4, "Speak With The Jedi Council", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Speak With The Jedi Council", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Qui-Gon knew that urgency was required. What had transpired on Tatooine demanded the attention of the Council.");
         setGameText("USED: If the Jedi Council Chamber is not on table, you may deploy it from Reserve Deck; reshuffle. LOST: Deploy one Jedi Council member to the Jedi Council Chamber from Reserve Deck; reshuffle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

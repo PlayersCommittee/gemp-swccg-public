@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card7_246 extends AbstractUsedOrLostInterrupt {
     public Card7_246() {
-        super(Side.DARK, 4, "All Power To Weapons");
+        super(Side.DARK, 4, "All Power To Weapons", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("The TIE fighter's energy management system allows its pilot to transfer all power from engines to weapons at a moment's notice.");
         setGameText("USED: If a battle was just initiated, each of your TIEs present is power +2 and immune to attrition for remainder of turn. LOST: Lose 1 Force to take up to three non-unique TIEs into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

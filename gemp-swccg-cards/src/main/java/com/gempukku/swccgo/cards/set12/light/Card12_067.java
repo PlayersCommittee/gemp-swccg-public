@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealOpponentsHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -11,7 +17,12 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.UsedOrLostDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromHandEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromVoidInUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
@@ -26,7 +37,7 @@ import java.util.List;
  */
 public class Card12_067 extends AbstractUsedOrLostInterrupt {
     public Card12_067() {
-        super(Side.LIGHT, 2, "Reveal Ourselves To The Jedi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, "Reveal Ourselves To The Jedi", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Darth Maul was eager to make his presence known.");
         setGameText("Use 5 Force to reveal opponent's hand. If opponent has no duplicate cards there, place this Interrupt in Used Pile. Otherwise USED: place a revealed card in opponent's Used Pile. LOST: all cards opponent has two or more of are lost. (Immune to Sense.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

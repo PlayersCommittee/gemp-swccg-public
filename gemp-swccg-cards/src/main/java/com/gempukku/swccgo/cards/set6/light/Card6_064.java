@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card6_064 extends AbstractUsedOrLostInterrupt {
     public Card6_064() {
-        super(Side.LIGHT, 6, "Don't Forget The Droids", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Don't Forget The Droids", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("'We're on our way!'");
         setGameText("USED: Cancel 3,720 To 1 if it was just inserted or revealed. (Immune to Sense.) LOST: Cancel one opponent's battle destiny just drawn by sacrificing (losing) one of your droids in that battle.");
         addIcons(Icon.JABBAS_PALACE);

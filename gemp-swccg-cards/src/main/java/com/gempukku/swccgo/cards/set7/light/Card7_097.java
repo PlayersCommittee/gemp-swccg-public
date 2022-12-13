@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerXwingEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerYwingEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card7_097 extends AbstractUsedOrLostInterrupt {
     public Card7_097() {
-        super(Side.LIGHT, 5, Title.Organized_Attack);
+        super(Side.LIGHT, 5, Title.Organized_Attack, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("'Hold up here and wait for my signal to start your run.'");
         setGameText("USED: If a battle was just initiated, each of your X-wings and Y-wings present is power +1 and immune to attrition for remainder of turn. LOST: Lose 1 Force to take up to three non-unique X-wings and/or non-unique Y-wings into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

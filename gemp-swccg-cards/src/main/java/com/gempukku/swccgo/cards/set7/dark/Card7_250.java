@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card7_250 extends AbstractUsedOrLostInterrupt {
     public Card7_250() {
-        super(Side.DARK, 3, "Flawless Marksmanship", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Flawless Marksmanship", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Heavy-weapons gunners assigned to Imperial facilities undergo intense training. The Imperial Navy boasts a higher weapons accuracy rate than that of the Imperial Army.");
         setGameText("Add X to one starship weapon or tractor beam destiny (before destiny is drawn) when targeting opponent's starship.USED: X = 2. LOST: X = 4.");
         addIcons(Icon.SPECIAL_EDITION);

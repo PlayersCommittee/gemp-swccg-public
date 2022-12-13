@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card8_059 extends AbstractUsedOrLostInterrupt {
     public Card8_059() {
-        super(Side.LIGHT, 5, "Sound The Attack", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Sound The Attack", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Ewok warriors on patrol use primitive animal horns to coordinate their defenses.");
         setGameText("USED: Use 1 Force to take into hand one vehicle, weapon or interrupt with 'Ewok' in the title from Reserve Deck; reshuffle. LOST: If your Ewok is defending a battle, add one battle destiny.");
         addIcons(Icon.ENDOR);

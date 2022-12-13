@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set106.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card106_017 extends AbstractUsedOrLostInterrupt {
     public Card106_017() {
-        super(Side.DARK, 4, "Tarkin's Orders", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Tarkin's Orders", Uniqueness.UNIQUE, ExpansionSet.OTSD, Rarity.PM);
         setLore("'Put all sections on alert!'");
         setGameText("USED: Cancel a Force drain at a site related to a system you control. LOST: Cancel Surprise Assault, It Could Be Worse, Nabrun Leids, Collision! or Hyper Escape. OR Lose 1 Force to search your Lost Pile and take one non-unique starfighter into hand.");
         addIcons(Icon.PREMIUM);

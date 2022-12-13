@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card12_053 extends AbstractUsedOrLostInterrupt {
     public Card12_053() {
-        super(Side.LIGHT, 5, "All Wings Report In & Darklighter Spin", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "All Wings Report In & Darklighter Spin", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.All_Wings_Report_In, Title.Darklighter_Spin);
         setGameText("USED: Take one unique (•) unpiloted starfighter into hand from Reserve Deck; reshuffle. LOST: During a battle at a system or sector, if you are about to draw a card for battle destiny, you may instead use the maneuver number of your unique (•) starfighter in that battle.");
         addIcons(Icon.CORUSCANT);

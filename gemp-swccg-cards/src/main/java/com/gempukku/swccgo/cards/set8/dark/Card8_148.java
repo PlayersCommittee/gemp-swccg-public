@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card8_148 extends AbstractUsedOrLostInterrupt {
     public Card8_148() {
-        super(Side.DARK, 3, Title.Its_An_Older_Code, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Its_An_Older_Code, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Even though Vader allowed the stolen shuttle Tydirium to land on Endor, he had a plan to deal with the Rebels.");
         setGameText("USED: If opponent just landed a starship at an exterior site, you may deploy up to three related sites from your Reserve Deck; reshuffle. LOST: Use 2 Force to 'scan' (reveal) opponent's hand. You may place one starship you find there in opponent's Used Pile.");
         addIcons(Icon.ENDOR);

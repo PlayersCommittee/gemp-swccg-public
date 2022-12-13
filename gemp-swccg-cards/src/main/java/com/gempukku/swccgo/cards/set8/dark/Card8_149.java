@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card8_149 extends AbstractUsedOrLostInterrupt {
     public Card8_149() {
-        super(Side.DARK, 5, "Main Course", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Main Course", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Threepio always tried to be polite to Captain Solo and to keep him from getting hot under the collar.");
         setGameText("USED: Cancel Frozen Assets. (Immune to Sense.) LOST: If opponent's alien and Rebel are in battle together without a protocol droid, draw one destiny (or two if Rebel is Han) and subtract that amount from opponent's attrition and total power.");
         addIcons(Icon.ENDOR);

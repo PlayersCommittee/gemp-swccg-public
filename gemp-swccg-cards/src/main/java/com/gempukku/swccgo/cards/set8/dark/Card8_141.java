@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +17,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyForfeitUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card8_141 extends AbstractUsedOrLostInterrupt {
     public Card8_141() {
-        super(Side.DARK, 4, Title.Eee_Chu_Wawa, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Eee_Chu_Wawa, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Paploo's brave diversion provided more of a ride than the adventurous Ewok had bargained for.");
         setGameText("USED: For remainder of turn, subtract 1 from forfeit of each opponent's Ewok (or subtract 2 from any one opponent's character). LOST: Cancel one Ewok's game text for remainder of turn. OR Cancel Sound The Attack.");
         addIcons(Icon.ENDOR);

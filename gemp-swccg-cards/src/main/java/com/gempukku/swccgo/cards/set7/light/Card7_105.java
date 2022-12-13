@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card7_105 extends AbstractUsedOrLostInterrupt {
     public Card7_105() {
-        super(Side.LIGHT, 3, "Steady Aim", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Steady Aim", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Although unfamiliar with the quad laser turrets on the Falcon, Luke quickly scored two hits.");
         setGameText("Add X to one starship weapon destiny (before destiny is drawn) when targeting opponent's starship. USED: X=2. LOST: X=4.");
         addIcons(Icon.SPECIAL_EDITION);

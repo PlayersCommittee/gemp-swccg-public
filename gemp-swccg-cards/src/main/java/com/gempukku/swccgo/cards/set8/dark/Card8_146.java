@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card8_146 extends AbstractUsedOrLostInterrupt {
     public Card8_146() {
-        super(Side.DARK, 4, "Hot Pursuit", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Hot Pursuit", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("The mobility of speeder bikes is greatly valued by the Empire's advanced scout detachments.");
         setGameText("USED: If opponent's card present with your vehicle of landspeed > 2 has just begun to move as a 'react', cancel that 'react'. LOST: Select one opponent's vehicle present with your vehicle of landspeed > 2 to be power = 0 for remainder of turn.");
         addIcons(Icon.ENDOR);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card7_245 extends AbstractUsedOrLostInterrupt {
     public Card7_245() {
-        super(Side.DARK, 4, "A Real Hero", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "A Real Hero", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'I got my own problems.'");
         setGameText("USED: Take Lobot into hand from Reserve Deck; reshuffle. LOST: If your Lando is in a battle at a Cloud City site, add two battle destiny. OR If Han and your Lando are involved in the same battle, cancel one opponent's battle destiny just after it is revealed.");
         addIcons(Icon.SPECIAL_EDITION);

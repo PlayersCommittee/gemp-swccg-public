@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card12_055 extends AbstractUsedOrLostInterrupt {
     public Card12_055() {
-        super(Side.LIGHT, 5, "Are You Brain Dead?!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Are You Brain Dead?!", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("'I'm not going in there with two Jedi!'");
         setGameText("USED: Target your [Episode I] Jedi defending a battle. Target is immune to attrition for rest of turn (unless Dark Jedi present). LOST: In a battle you lost, place a Jedi Council Member you just forfeited in Used Pile to cancel all battle damage and attrition against you.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
