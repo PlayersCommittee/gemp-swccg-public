@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card217_008 extends AbstractImperial {
     public Card217_008() {
-        super(Side.DARK, 2, 3, 3, 3, 4, "Deputy Director Harus Ison", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 4, "Deputy Director Harus Ison", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("ISB leader.");
         setGameText("During your deploy phase, a unique (•) Imperial of ability < 3 here may make a regular move. When deployed, may place a unique (•) ISB agent here in Used Pile to deploy (for free) a non-Tarkin ISB agent with a different title here from Used Pile; reshuffle.");
         addKeywords(Keyword.LEADER);

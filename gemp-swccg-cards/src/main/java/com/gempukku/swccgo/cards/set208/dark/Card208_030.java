@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +20,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattlesForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
@@ -29,7 +40,7 @@ import java.util.List;
  */
 public class Card208_030 extends AbstractImperial {
     public Card208_030() {
-        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader, Emperor's Enforcer", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader, Emperor's Enforcer", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Leader.");
         setGameText("[Pilot] 3. You may initiate battles here for free. Once per turn, may cancel game text of opponent's character of ability < 4 at same site until end of turn. Immune to Clash Of Sabers, Sorry About The Mess, and attrition < 6.");
         addPersona(Persona.VADER);

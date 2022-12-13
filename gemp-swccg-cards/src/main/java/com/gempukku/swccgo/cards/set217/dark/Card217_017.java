@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +20,10 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddToAttritionEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -29,7 +40,7 @@ import java.util.List;
  */
 public class Card217_017 extends AbstractImperial {
     public Card217_017() {
-        super(Side.DARK, 2, 3, 3, 3, 5, "Officer Valin Hess", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 5, "Officer Valin Hess", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Leader.");
         setGameText("During battle, may place an Imperial of ability < 4 from your Lost Pile out of play to add X to attrition against opponent, where X = that character's ability. Except during battle, may lose Valin Hess to target an opponent's Undercover spy here; target is lost.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_17);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set213.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card213_011 extends AbstractImperial {
     public Card213_011() {
-        super(Side.DARK, 2, 4, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 5, 5, 4, "Ninth Sister", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Female Dowutin. Inquisitor.");
         setGameText("Defense value -2 while opponent has a weapon present. Unless opponent's character of ability > 3 at same site, reset opponent's total battle destiny here to 0.");
         setSpecies(Species.DOWUTIN);

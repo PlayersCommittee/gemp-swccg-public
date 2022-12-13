@@ -6,7 +6,9 @@ import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MaxEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card205_015 extends AbstractImperial {
     public Card205_015() {
-        super(Side.DARK, 1, 3, 3, 4, 6, "Sim Aloo", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 4, 6, "Sim Aloo", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Imperial council member. Senior political advisor to Emperor Palpatine. Never speaks. Like his master, shows remarkable patience and wisdom.");
         setGameText("If Emperor on table, destiny +2 when drawn for destiny. While at Death Star II: Throne Room, your total battle destiny during battles anywhere is +X, where X = number of Dark Jedi here or cards stacked on Insignificant Rebellion.");

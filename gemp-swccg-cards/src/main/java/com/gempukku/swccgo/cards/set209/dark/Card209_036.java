@@ -2,22 +2,26 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +33,7 @@ import java.util.List;
  */
 public class Card209_036 extends AbstractImperial {
     public Card209_036() {
-        super(Side.DARK, 2, 3, 3, 3, 5, "Krennic, Death Star Commandant", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 5, "Krennic, Death Star Commandant", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Commander.  Leader");
         addKeywords(Keyword.LEADER, Keyword.COMMANDER);
         setGameText("[Pilot]2. Once per turn, if Death Star orbiting a battleground, may peek at top two cards of your Force Pile and take one into hand. Once per game, may [upload] a non-unique Star Destroyer.");

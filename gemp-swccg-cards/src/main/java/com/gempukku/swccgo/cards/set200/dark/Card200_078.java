@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.NumTimesPerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card200_078 extends AbstractImperial {
     public Card200_078() {
-        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 6, 8, "Darth Vader", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Dark Lord of the Sith. Servant of Emperor's. Encased in armor with cybernetic life support. Student of Obi-Wan Kenobi. Was the best starpilot in the galaxy. Cunning warrior.");
         setGameText("[Pilot] 3. While aboard a starship, it is immune to attrition < 5. During battle at same system (twice if with your Black Squadron pilot), may cumulatively subtract 2 from a just drawn destiny. Immune to attrition < 5.");

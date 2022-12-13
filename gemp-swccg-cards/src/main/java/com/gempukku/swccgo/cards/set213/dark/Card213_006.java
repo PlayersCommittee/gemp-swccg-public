@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card213_006 extends AbstractImperial {
     public Card213_006() {
-        super(Side.DARK, 2, 4, 4, 5, 6, "Fifth Brother", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 5, 6, "Fifth Brother", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Inquisitor.");
         setGameText("Power +3 and defense value -2 while with a Jedi, Padawan, or 'Hatred' card. Characters here may not have their forfeit increased.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_13);

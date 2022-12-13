@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HitCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card219_007 extends AbstractImperial {
     public Card219_007() {
-        super(Side.DARK, 2, 3, 2, 3, 5, "Governor Pryce", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, 5, "Governor Pryce", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setPolitics(2);
         setLore("Female miner. Leader.");
         setGameText("If an artwork card was just stacked (or a Rebel was just captured here), may [upload] a card without ability. " +

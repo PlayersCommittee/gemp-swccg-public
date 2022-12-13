@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card202_010 extends AbstractImperial {
     public Card202_010() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "General Nevar", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "General Nevar", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setLore("ISB leader.");
         setGameText("[Pilot] 2, 3: Blizzard 2. Deploys -1 to Hoth. When deployed, may peek at top card of any Reserve Deck. When a spy here is targeted by Trample, adds 1 to your destiny draw.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_2);

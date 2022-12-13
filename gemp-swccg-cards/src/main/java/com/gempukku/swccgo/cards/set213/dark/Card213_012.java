@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card213_012 extends AbstractImperial {
     public Card213_012() {
-        super(Side.DARK, 2, 5, 4, 5, 7, "Seventh Sister", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 4, 5, 7, "Seventh Sister", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Female Mirialan Inquisitor.");
         setGameText("Attrition against you is -1 here while with a Jedi, Padawan, probe droid, or 'Hatred' card. Once per turn, may use 1 Force (free if your probe droid here) to draw top card of Reserve Deck. Your Inquisitors and probe droids here are immune to attrition < 4.");
         setSpecies(Species.MIRIALAN);

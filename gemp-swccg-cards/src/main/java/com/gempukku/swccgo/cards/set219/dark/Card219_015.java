@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -15,7 +17,11 @@ import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.GreaterThanCondition;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card219_015 extends AbstractImperial {
     public Card219_015() {
-        super(Side.DARK, 2, 4, 4, 4, 6, "Magistrate Morgan Elsbeth", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 4, 6, "Magistrate Morgan Elsbeth", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLore("Female leader.");
         setGameText("While present at a battleground site and you control more systems than opponent, Force drain +1 here. " +
                     "Power and defense value +2 while Thrawn at a system with a parsec number > 5. Immune to attrition < 3.");

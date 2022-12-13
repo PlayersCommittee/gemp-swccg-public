@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +40,7 @@ import java.util.List;
  */
 public class Card208_036 extends AbstractImperial {
     public Card208_036() {
-        super(Side.DARK, 4, 3, 4, 3, 5, "Myn Kyneugh", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 4, 3, 5, "Myn Kyneugh", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Royal guard leader. Remembers nothing of his past other than serving his Emperor. Early instructor of Kir Kanos and Carnor Jax.");
         setGameText("When deployed, may play a Defensive Shield from under your Starting Effect (as if from hand). While at opponent's battleground, Force drains here may not be reduced. Once per game, may use 1 Force to place opponent's just-played Interrupt out of play.");

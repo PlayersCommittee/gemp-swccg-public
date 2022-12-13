@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.RevealTopCardsOfReserveDeckEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card203_022 extends AbstractImperial {
     public Card203_022() {
-        super(Side.DARK, 2, 4, 4, 3, 6, "Agent Kallus", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 3, 6, "Agent Kallus", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLore("ISB Leader");
         setGameText("[Pilot] 2. When deployed, may reveal the top two cards of your Reserve Deck; take one into hand and place the other in Used Pile. While with an ISB agent, adds one battle destiny.");
         addKeywords(Keyword.LEADER);

@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set201.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card201_023 extends AbstractImperial {
     public Card201_023() {
-        super(Side.DARK, 2, 2, 2, 2, 4, "Corporal Vandolay", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 4, "Corporal Vandolay", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("ISB attache to the Executor. Detention Officer. Political Liaison for COMPNOR. Responsible for all prisoner transfers. Fiercely loyal to the Emperor's New Order.");
         setGameText("[Pilot] 1. When deployed, may take an ISB agent here into hand. Once per turn, if you just drew an ISB agent for battle destiny anywhere, may take that card into hand to cancel and re-draw that destiny.");

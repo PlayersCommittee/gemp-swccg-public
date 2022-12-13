@@ -2,11 +2,16 @@ package com.gempukku.swccgo.cards.set210.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerTIESubtypeEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +35,7 @@ import java.util.List;
  */
 public class Card210_030 extends AbstractImperial {
     public Card210_030() {
-        super(Side.DARK, 2, 2, 1, 3, 3, "Commander Brandei", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 3, 3, "Commander Brandei", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Technical Services Officer of the Fleet Support Branch. Responsible for keeping Executor's 12 TIE squadrons serviced and combat ready. Just received transfer to Judicator.");
         setGameText("Adds 2 to power of anything he pilots (3 if Judicator). Your total battle destiny here is +1 for each TIE subtype here or aboard same starship. During your turn, may /\\ one launch bay or non-unique TIE.");
         addIcons(Icon.DAGOBAH, Icon.PILOT, Icon.VIRTUAL_SET_10);

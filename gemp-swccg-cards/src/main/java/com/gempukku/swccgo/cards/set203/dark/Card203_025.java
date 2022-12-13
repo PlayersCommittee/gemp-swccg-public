@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card203_025 extends AbstractImperial {
     public Card203_025() {
-        super(Side.DARK, 2, 2, 1, 2, 4, "Commander Nemet", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 2, 4, "Commander Nemet", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("Logistics officer for the Avenger, member of the Line Branch of the Imperial Navy. Relays important scanner information to Captain Needa. Fiercely competitive.");
         setGameText("[Pilot] 2. Once per game, may [download] an Imperial-class Star Destroyer. While piloting Avenger, it is immune to attrition < 4 and during battle may lose an Imperial aboard (or from hand) to cancel a just drawn destiny (causes a redraw if opponent's first battle destiny).");

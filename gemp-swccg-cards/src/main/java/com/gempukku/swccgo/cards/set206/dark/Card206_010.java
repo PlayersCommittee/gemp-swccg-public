@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card206_010 extends AbstractImperial {
     public Card206_010() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "Death Trooper", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 3, 2, 4, "Death Trooper", Uniqueness.RESTRICTED_3, ExpansionSet.SET_6, Rarity.V);
         setArmor(3);
         setLore("Stormtrooper.");
         setGameText("While you have no other troopers here (except death troopers), adds one battle destiny at same site as Krennic, Tarkin, or Thrawn. May place character in Used Pile to cancel a just drawn weapon destiny targeting your leader here.");

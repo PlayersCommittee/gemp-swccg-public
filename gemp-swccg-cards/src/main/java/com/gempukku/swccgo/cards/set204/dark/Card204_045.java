@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set204.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card204_045 extends AbstractImperial {
     public Card204_045() {
-        super(Side.DARK, 1, 4, 4, 3, 6, "Tarkin", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 3, 6, "Tarkin", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Imperial Governor of the Seswenna Sector. Conceived and implemented the Death Star project. A leader in the effort to crush the Rebellion.");
         setGameText("[Pilot] 2. When deployed, may draw cards from Reserve Deck until you have up to six cards in hand. During battle, if present with two ISB agents, may cancel an opponent's just drawn destiny.");

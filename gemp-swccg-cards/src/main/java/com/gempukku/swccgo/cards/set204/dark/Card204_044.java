@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set204.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card204_044 extends AbstractImperial {
     public Card204_044() {
-        super(Side.DARK, 3, 3, 3, 2, 4, "Stormtrooper Patrol", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 3, 2, 4, "Stormtrooper Patrol", Uniqueness.RESTRICTED_3, ExpansionSet.SET_4, Rarity.V);
         setArmor(4);
         setLore("Imperial stormtroopers adopt strict security measures. Excellent communications and sheer numbers can hinder Rebel movement across entire territories.");
         setGameText("May deploy as a 'react' to a site. Each other stormtrooper present is power +1. Rebels are deploy +1 to same site.");

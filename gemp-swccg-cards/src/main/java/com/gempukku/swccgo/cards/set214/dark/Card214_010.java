@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card214_010 extends AbstractImperial {
     public Card214_010() {
-        super(Side.DARK, 5, 1, 1, 3, 2, "The Client", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, 1, 1, 3, 2, "The Client", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("");
         setGameText("During your control phase, if present at a site and your bounty hunter occupies a battleground, opponent loses 1 Force. Once per game, you just lost a bounty hunter anywhere, may [upload] a bounty hunter.");
         addIcons(Icon.VIRTUAL_SET_14);

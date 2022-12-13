@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card219_005 extends AbstractImperial {
     public Card219_005() {
-        super(Side.DARK, 2, 3, 2, 3, 4, "Ensign Eli Vanto", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, 4, "Ensign Eli Vanto", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setPolitics(1);
         setGameText("[Pilot] 2: any capital starship. " +
                     "While with Thrawn, your starships here are power and hyperspeed +1. " +

@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card215_022 extends AbstractImperial {
     public Card215_022() {
-        super(Side.DARK, 1, 4, 3, 3, 6, "Admiral Piett", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 3, 3, 6, "Admiral Piett", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLore("Veteran of the Imperial military machine. Leader of the Imperial fleet at Endor. Skilled at political maneuvering and appeasing his powerful superiors.");
         setGameText("[Pilot] 3: Executor. Deploys -1 for each of your starship sites on table. Starfighters here may not 'attach.' Once per game, if piloting Executor, may [upload] Emperor's Orders.");

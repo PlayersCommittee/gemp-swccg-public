@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
 import com.gempukku.swccgo.cards.effects.InsteadOfForceDrainingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card213_001 extends AbstractImperial {
     public Card213_001() {
-        super(Side.DARK, 0, 2, 2, 2, 4, Title.Ozzel, Uniqueness.UNIQUE);
+        super(Side.DARK, 0, 2, 2, 2, 4, Title.Ozzel, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Leader of the Emperor's Death Squadron assigned to hunt down and crush the Rebellion. As clumsy as he is stupid. Has just failed Darth Vader for the next-to-last time.");
         setGameText("Adds 2 to power of anything he pilots. Matching pilot for any Death Squadron Star Destroyer and, while piloting one, instead of Force draining here, may draw top card of Reserve Deck or raise your same or related converted location to the top.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_13);
