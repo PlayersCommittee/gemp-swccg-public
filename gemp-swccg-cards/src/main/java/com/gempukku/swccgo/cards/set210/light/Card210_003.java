@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set210.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +35,7 @@ import java.util.List;
  */
 public class Card210_003 extends AbstractCharacterWeapon {
     public Card210_003() {
-        super(Side.LIGHT, 1, Title.Anakins_Lightsaber, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, Title.Anakins_Lightsaber, Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Constructed by Anakin Skywalker. Kept by Obi-Wan Kenobi until given to Luke.");
         setGameText("Deploy on Anakin, Luke, or Rey. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addPersona(Persona.ANAKINS_LIGHTSABER);

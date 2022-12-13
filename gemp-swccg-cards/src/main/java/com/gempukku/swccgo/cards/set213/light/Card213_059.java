@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card213_059 extends AbstractCharacterWeapon {
     public Card213_059() {
-        super(Side.LIGHT, 5, "Rock");
+        super(Side.LIGHT, 5, "Rock", Uniqueness.UNRESTRICTED, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("Ewok weapon. Deploy on your warrior or Ewok. May 'throw' (place in Used Pile) to target a character. For remainder of turn, target is power -3 (and if Proxima, she cannot battle). If on a Corellian and a battle just initiated at same site, may 'throw' Rock.");
         addIcon(Icon.VIRTUAL_SET_13);

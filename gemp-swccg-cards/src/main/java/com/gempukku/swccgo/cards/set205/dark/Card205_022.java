@@ -5,7 +5,18 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
 import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +41,7 @@ import java.util.List;
  */
 public class Card205_022 extends AbstractCharacterWeapon {
     public Card205_022() {
-        super(Side.DARK, 1, Title.Boba_Fetts_Blaster_Rifle, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, Title.Boba_Fetts_Blaster_Rifle, Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Sawed off BlasTech EE-3 blaster rifle. Although its barrel is a few centimeters under the legal limit, no one has lived to file an official complaint.");
         setGameText("Deploy on your non-[Maintenance] bounty hunter. If on Boba Fett, once per game, during your move phase, may use 2 Force to relocate him (with any captive he is escorting) to a [Jabba's Palace] site. May target a character or vehicle for free. Draw destiny. Target hit if destiny + 2 > defense value.");

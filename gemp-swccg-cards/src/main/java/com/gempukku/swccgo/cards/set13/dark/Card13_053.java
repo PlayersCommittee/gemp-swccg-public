@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +29,7 @@ import java.util.List;
  */
 public class Card13_053 extends AbstractCharacterWeapon {
     public Card13_053() {
-        super(Side.DARK, 7, "Aurra Sing's Blaster Rifle", Uniqueness.UNIQUE);
+        super(Side.DARK, 7, "Aurra Sing's Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Aurra Sing's weapon of choice when she isn't using an opponent's lightsaber against them. Targeting mechanism is so complex only Aurra Sing can decipher it.");
         setGameText("Deploy on Aurra Sing. May target a character or creature for free. Target loses all immunity to attrition for remainder of turn. Draw destiny. Target hit if destiny +1 > defense value. Jedi hit by Aurra Sing are power = 0 for remainder of battle.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

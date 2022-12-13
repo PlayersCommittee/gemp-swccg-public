@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card207_019 extends AbstractCharacterWeapon {
     public Card207_019() {
-        super(Side.LIGHT, 5, "Luke's Hunting Rifle", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Luke's Hunting Rifle", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Czerka 6-2Aug2. Extended barrel provides long-range targeting without expensive laser sight. Sturdy construction, but no match for a Tusken Raider's gaderffi stick.");
         setGameText("Deploy on your alien or Rebel. May target a character or creature for free. Draw destiny. Target hit if destiny +2 > defense value. If hit by Luke or Owen, target’s forfeit = 0 and you retrieve 1 Force. Once during your move phase, may fire at a Jawa or Undercover spy.");

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card200_142 extends AbstractCharacterWeapon {
     public Card200_142() {
-        super(Side.DARK, 1, "Dooku's Lightsaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Dooku's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setGameText("Deploy on Dooku or a [Separatist] character of ability > 4. Adds 1 to this character's duel and lightsaber combat totals. May add 1 to Force drain where present. May target a character for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_0);

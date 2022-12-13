@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set204.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +27,7 @@ import java.util.List;
  */
 public class Card204_057 extends AbstractCharacterWeapon {
     public Card204_057() {
-        super(Side.DARK, 2, "F-11D Blaster Rifle");
+        super(Side.DARK, 2, "F-11D Blaster Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.SET_4, Rarity.V);
         setGameText("Deploy on your First Order warrior. May target a character or vehicle for free. Draw destiny. Target hit, and may not be used to satisfy attrition, if destiny (+1 if fired by a stormtrooper) > defense value.");
         addKeywords(Keyword.BLASTER_RIFLE);
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);

@@ -2,11 +2,17 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.cards.evaluators.ControlsEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +22,6 @@ import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -32,7 +37,7 @@ import java.util.List;
  */
 public class Card601_154 extends AbstractCharacterWeapon {
     public Card601_154() {
-        super(Side.DARK, 2, "Dark Jedi Lightsaber");
+        super(Side.DARK, 2, "Dark Jedi Lightsaber", Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Multifaceted jewels focus light into a deadly blade. Projects a meterlong beam of pure energy. A lightsaber is constructed personally by a Jedi as a part of training.");
         setGameText("Deploy on Aurra Sing or Sidious. May add 1 to Force drain at an [Episode I] site where present. May target a character or creature for free. Draw two destiny. Add number of Jedi present. Target hit, and its forfeit = 0, if total destiny > defense value.");

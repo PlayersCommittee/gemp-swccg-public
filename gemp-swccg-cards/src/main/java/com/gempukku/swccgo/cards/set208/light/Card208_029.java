@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.effects.PreventEffectOnCardEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card208_029 extends AbstractCharacterWeapon {
     public Card208_029() {
-        super(Side.LIGHT, 3, "Luke's Blaster Pistol", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Luke's Blaster Pistol", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Merr-Sonn Model 57. Part of an arms lot purchased for the Alliance from a black market dealer on Ord Mantell. Carried by Luke as a backup for his father's lightsaber.");
         setGameText("Deploy on non-Jedi Luke. May target a character for free. Target loses any immunity to attrition for remainder of turn. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. If about to be lost, may lose 1 Force to place on bottom of Used Pile.");

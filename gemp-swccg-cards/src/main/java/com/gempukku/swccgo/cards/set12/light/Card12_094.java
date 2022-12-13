@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card12_094 extends AbstractCharacterWeapon {
     public Card12_094() {
-        super(Side.LIGHT, 2, "Naboo Blaster Rifle");
+        super(Side.LIGHT, 2, "Naboo Blaster Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Standard issue blaster given to Naboo security volunteers. Noted for its effectiveness in battle and cheap manufacturing cost.");
         setGameText("Use 1 Force to deploy on your warrior. May target a character, creature, vehicle using 1 Force. Draw destiny. Target hit if destiny +2 > defense value.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

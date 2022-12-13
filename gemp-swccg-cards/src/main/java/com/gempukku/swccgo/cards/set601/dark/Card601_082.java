@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card601_082 extends AbstractCharacterWeapon {
     public Card601_082() {
-        super(Side.DARK, 1, "Galen's Lightsaber, Vader's Gift", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Galen's Lightsaber, Vader's Gift", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Custom-built by Darth Vader. After the Clone Wars, he wielded this weapon while hunting down the last of the Jedi. Cuts through almost anything except another lightsaber blade.");
         setGameText("Deploy on Galen.  Galen may add one destiny to total power or attrition.  May target a character or creature for free.  Draw two destiny.  Target hit, and may not be used to satisfy attrition, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);

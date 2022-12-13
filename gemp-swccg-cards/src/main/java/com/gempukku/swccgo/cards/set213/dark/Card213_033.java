@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set213.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card213_033 extends AbstractCharacterWeapon {
     public Card213_033() {
-        super(Side.DARK, 4, Title.Black_Sun_Blaster);
+        super(Side.DARK, 4, Title.Black_Sun_Blaster, Uniqueness.UNRESTRICTED, ExpansionSet.SET_13, Rarity.V);
         setLore("Highly specialized weapon used for disintegration. Commonly found on the black market and in criminal arsenals. One of the favored weapons of the Black Sun.");
         setGameText("Use 1 Force to deploy on your alien warrior (free if your Black Sun agent leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and you may activate 1 Force.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);

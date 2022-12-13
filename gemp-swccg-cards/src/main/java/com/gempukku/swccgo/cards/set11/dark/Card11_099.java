@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +39,7 @@ import java.util.List;
  */
 public class Card11_099 extends AbstractCharacterWeapon {
     public Card11_099() {
-        super(Side.DARK, 1, Title.Mauls_Lightsaber, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, Title.Mauls_Lightsaber, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Trained in the Sith arts, Maul's ferocity in combat is matched by no other. When armed with a lightsaber, his opponent's only option is usually that of escape.");
         setGameText("Deploy on Maul. While on Maul, may not be stolen. May add 1 to Force drain where present. May target a character or creature. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addPersona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);

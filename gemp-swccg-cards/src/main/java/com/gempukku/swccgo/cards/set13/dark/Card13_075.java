@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +39,7 @@ import java.util.List;
  */
 public class Card13_075 extends AbstractCharacterWeapon {
     public Card13_075() {
-        super(Side.DARK, 1, "Maul's Double-Bladed Lightsaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Maul's Double-Bladed Lightsaber", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Maul's double-bladed lightsaber was actually two lightsabers fused into one. Only after years of training could Maul finally wield this powerful weapon, which hasn't been used in ages.");
         setGameText("Deploy on Maul. Adds 1 to Maul's lightsaber combat total. May lose 1 Force to add 2 to Force drain where present. Twice per battle, may target a character. Draw two destiny. Target hit, and its forfeit = 0, if total > defense value. May not be stolen.");
         addPersona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);

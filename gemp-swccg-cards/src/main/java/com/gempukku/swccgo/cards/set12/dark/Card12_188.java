@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card12_188 extends AbstractCharacterWeapon {
     public Card12_188() {
-        super(Side.DARK, 5, "Naboo Blaster");
+        super(Side.DARK, 5, "Naboo Blaster", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Weapons were confiscated by battle droids during the Trade Federation's occupation of Naboo. Considered superior to blasters manufactured in the Outer Rim.");
         setGameText("Use 1 Force to deploy on your warrior or battle droid. May target a character, creature, or vehicle using 1 Force. Draw destiny. Target hit if destiny +1 > defense value.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

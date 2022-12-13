@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +28,7 @@ import java.util.List;
  */
 public class Card14_062 extends AbstractCharacterWeapon {
     public Card14_062() {
-        super(Side.LIGHT, 6, "Amidala's Blaster", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Amidala's Blaster", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Amidala's ability as a warrior is underestimated by those who encounter her. With her weapon of choice, she often uses this fact to her advantage.");
         setGameText("Deploy on Amidala. May target a character or creature for free. Draw destiny. Character is power and forfeit = 0 if destiny > defense value. Creature lost if destiny +2 > defense value.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

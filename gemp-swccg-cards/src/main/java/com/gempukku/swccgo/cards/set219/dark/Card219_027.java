@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card219_027 extends AbstractCharacterWeapon {
     public Card219_027() {
-        super(Side.DARK, 1, "Vader's Lightsaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Vader's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setVirtualSuffix(true);
         setLore("Custom-built by Darth Vader. After the Clone Wars, he wielded this weapon while hunting down the last of the Jedi. Cuts through almost anything except another lightsaber blade.");
         setGameText("Deploy on [Episode I] Vader. May add 1 to Force drain where present. May target a character or creature for free. " +

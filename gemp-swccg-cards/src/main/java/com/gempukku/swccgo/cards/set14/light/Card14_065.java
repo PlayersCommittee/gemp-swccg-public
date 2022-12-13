@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card14_065 extends AbstractCharacterWeapon {
     public Card14_065() {
-        super(Side.LIGHT, 5, "Electropole");
+        super(Side.LIGHT, 5, "Electropole", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Gungan weapon that is very similar to the Force pike. Used to control crowds, wild animals, and the occasional battle droid.");
         setGameText("Deploy on your Gungan. May target a character for free. Draw destiny. If destiny > defense value, character is power -4 for remainder of turn. At the end of battle here, may place this electropole on top of Reserve Deck.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

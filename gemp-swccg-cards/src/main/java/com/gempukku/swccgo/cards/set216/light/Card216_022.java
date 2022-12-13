@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.evaluators.ControlsEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card216_022 extends AbstractCharacterWeapon {
     public Card216_022() {
-        super(Side.LIGHT, 2, "Bowcaster");
+        super(Side.LIGHT, 2, "Bowcaster", Uniqueness.UNRESTRICTED, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("Hand-crafted weapon of choice among Wookiees. Fires explosive 'quarrels' (which look like blaster bolts). Requires great strength to use. Extra ammo carried on bandoleers.");
         setGameText("Deploy on your Wookiee. If Wookiee is non-unique, adds 1 to power. May target a character or vehicle for free. Draw destiny. Add 1 for each Kashyyyk location you control. Target hit and is power -3 if total destiny > defense value.");

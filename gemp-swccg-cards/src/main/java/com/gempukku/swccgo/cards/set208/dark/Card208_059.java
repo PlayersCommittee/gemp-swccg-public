@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card208_059 extends AbstractCharacterWeapon {
     public Card208_059() {
-        super(Side.DARK, 1, "Darth Vader's Lightsaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Darth Vader's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Vader's lightsaber. Symbol of the most feared man in the galaxy. Vader's control of the dark side of the Force allows him to wield this weapon in surprising ways.");
         setGameText("Deploy on Vader. May not be stolen. If present during battle, may 'throw' (place in Lost Pile) to add a destiny to attrition. May target a character for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");

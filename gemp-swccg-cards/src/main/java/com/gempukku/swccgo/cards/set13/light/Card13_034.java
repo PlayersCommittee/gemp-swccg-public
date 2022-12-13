@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card13_034 extends AbstractCharacterWeapon {
     public Card13_034() {
-        super(Side.LIGHT, 2, Title.Obiwans_Lightsaber, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, Title.Obiwans_Lightsaber, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Constructed by Obi-Wan himself, this Padawan's lightsaber was responsible for tearing an ancient Sith weapon in half.");
         setGameText("Deploy on [Episode I] Obi-Wan. May add 1 to Force drain if present at a Naboo battleground. May target a character or creature for free. Draw two destiny. Add 1 if targeting a Dark Jedi. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

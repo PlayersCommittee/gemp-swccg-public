@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set213.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card213_034 extends AbstractCharacterWeapon {
     public Card213_034() {
-        super(Side.DARK, 3, Title.Crimson_Dawn_Blaster, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, Title.Crimson_Dawn_Blaster, Uniqueness.RESTRICTED_3, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("Use 1 Force to deploy on your warrior (free if your Crimson Dawn leader on table). May target a character or vehicle for free. Draw destiny. If destiny +1 > defense value, target hit and may not be used to satisfy attrition.");
         addIcons(Icon.VIRTUAL_SET_13);

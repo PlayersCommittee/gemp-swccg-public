@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card601_164 extends AbstractCharacterWeapon {
     public Card601_164() {
-        super(Side.LIGHT, 2, "Elegant Lightsaber");
+        super(Side.LIGHT, 2, "Elegant Lightsaber", Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setLore("The lightsaber is an extremely versatile weapon, making a Jedi a rather difficult opponent to slow down. 'This is impossible!'");
         setGameText("Deploy on a Jedi. May add 1 to Force drain at opponent's site where present. May target a character or creature for free. Draw two destiny. If total destiny > defense value, target hit and may not be used to satisfy attrition.");
         addKeywords(Keyword.LIGHTSABER);

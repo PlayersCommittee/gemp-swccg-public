@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set214.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card214_003 extends AbstractCharacterWeapon {
     public Card214_003() {
-        super(Side.DARK, 2, Title.Darksaber, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Darksaber, Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("");
         setGameText("Deploy on Gideon, [Set 13] Maul, or your Mandalorian. May add 1 to Force drain where present. May target a character. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. If just lost from table or hand, opponent may steal this weapon into hand.");
         addIcons(Icon.VIRTUAL_SET_14);

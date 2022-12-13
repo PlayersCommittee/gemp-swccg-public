@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set200.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card200_141 extends AbstractCharacterWeapon {
     public Card200_141() {
-        super(Side.DARK, 3, "Blaster Rifle");
+        super(Side.DARK, 3, "Blaster Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Stormtrooper BlasTech E-11 blaster rifle. Can convert from a pistol to a rifle configuration by using extendable stock. Carries 100 shots. Military issue only.");
         setGameText("Deploy on your Imperial warrior; warrior is power +1. May target a character, creature, or vehicle for free. Draw destiny; add 1 if targeting a character, 2 if a vehicle. Target hit, and may not be used to satisfy attrition, if total destiny > defense value.");

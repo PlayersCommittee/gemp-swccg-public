@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card12_095 extends AbstractCharacterWeapon {
     public Card12_095() {
-        super(Side.LIGHT, 5, "Naboo Security Officer Blaster");
+        super(Side.LIGHT, 5, "Naboo Security Officer Blaster", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Used primarily by high-ranking Naboo security officers, and known for its precision targeting.");
         setGameText("Use 1 Force to deploy on your warrior. May target a character, creature, vehicle for free. Draw destiny. Add 1 if fired by a leader. Target hit if total destiny > defense value.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

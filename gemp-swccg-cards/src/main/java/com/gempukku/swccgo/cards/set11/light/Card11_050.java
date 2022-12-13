@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card11_050 extends AbstractCharacterWeapon {
     public Card11_050() {
-        super(Side.LIGHT, 1, "Qui-Gon Jinn's Lightsaber", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, "Qui-Gon Jinn's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Qui-Gon was forced to defend himself when Darth Maul tracked them down on Tatooine. He was barely able to escape, in order to fight another day.");
         setGameText("Deploy on Qui-Gon. May add 1 to Force drain where present. May target a character or creature. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");

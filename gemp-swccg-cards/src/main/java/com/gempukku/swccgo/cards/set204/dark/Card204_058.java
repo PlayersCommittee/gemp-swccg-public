@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set204.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card204_058 extends AbstractCharacterWeapon {
     public Card204_058() {
-        super(Side.DARK, 1, "Kylo Ren's Lightsaber", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, "Kylo Ren's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("Deploy on Kylo. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. If total destiny > defense value, target hit, its forfeit = 0, and both players lose 1 Force.");
         addPersona(Persona.KYLOS_LIGHTSABER);
         addKeywords(Keyword.LIGHTSABER);

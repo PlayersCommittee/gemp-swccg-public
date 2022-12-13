@@ -1,8 +1,14 @@
 package com.gempukku.swccgo.cards.set215.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,7 +16,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 
 import java.util.Collections;
@@ -25,7 +30,7 @@ import java.util.List;
  */
 public class Card215_019 extends AbstractCharacterWeapon {
     public Card215_019() {
-        super(Side.LIGHT, 3, "Stolen Stormtrooper Blaster Rifle");
+        super(Side.LIGHT, 3, "Stolen Stormtrooper Blaster Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.SET_15, Rarity.V);
         setLore("BlasTech E-11 blaster rifle. Standard issue for Imperial forces. So numerous that many have been stolen by Rebels. Extendable stock. Carries energy for 100 shots.");
         setGameText("Deploy on your Rebel or stormtrooper. May target a character, creature, or vehicle for free. Draw destiny. Add 1 if targeting a vehicle. Target hit if total destiny +1 > defense value. If hit by Chewie or a stormtrooper, target may not be used to satisfy attrition.");
         addIcons(Icon.VIRTUAL_SET_15);

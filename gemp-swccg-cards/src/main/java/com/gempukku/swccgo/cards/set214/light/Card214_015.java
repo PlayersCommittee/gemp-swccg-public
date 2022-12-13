@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set214.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +28,7 @@ import java.util.List;
  */
 public class Card214_015 extends AbstractCharacterWeapon {
     public Card214_015() {
-        super(Side.LIGHT, 5, "Ahsoka's Shoto Lightsaber", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Ahsoka's Shoto Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("");
         setGameText("Deploy on Ahsoka or a non-[Episode I] Padawan. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value (if hit target is an Inquisitor, opponent also loses 1 Force).");
         addIcon(Icon.VIRTUAL_SET_14);

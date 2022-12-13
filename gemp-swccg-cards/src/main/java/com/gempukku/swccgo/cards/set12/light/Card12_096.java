@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card12_096 extends AbstractCharacterWeapon {
     public Card12_096() {
-        super(Side.LIGHT, 4, "Panaka's Blaster", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Panaka's Blaster", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Naboo blaster personally modified by Captain Panaka. Boosted by extra power packagedProduct that allow it to maintain sustained fire in tense situations.");
         setGameText("Deploy on Panaka. May target a character, creature, or vehicle for free. Draw destiny. Target hit if destiny +2 > defense value. When this blaster hits a character or vehicle in battle, your total power here is +3 for remainder of battle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

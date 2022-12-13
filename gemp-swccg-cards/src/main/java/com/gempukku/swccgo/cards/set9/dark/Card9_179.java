@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card9_179 extends AbstractCharacterWeapon {
     public Card9_179() {
-        super(Side.DARK, 4, "Force Pike");
+        super(Side.DARK, 4, "Force Pike", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Uses microscopic vibrations emitted from its tip. Cuts through stone, metal, and bone. Ceremonial weapon for most; deadly implement in the hands of an Emperor's Royal Guard.");
         setGameText("Deploy on your Royal Guard (or use 3 Force to deploy on your other warrior). Adds 1 to defense value. May target a character or creature using 1 Force. Draw destiny. Target hit if destiny +1 > defense value. If hit by a Royal Guard, target's power = 0.");
         addIcons(Icon.DEATH_STAR_II);
