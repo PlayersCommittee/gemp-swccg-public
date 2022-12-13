@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card13_087 extends AbstractImperial {
     public Card13_087() {
-        super(Side.DARK, 4, 6, 8, 1, 4, "Stormtrooper Garrison");
+        super(Side.DARK, 4, 6, 8, 1, 4, "Stormtrooper Garrison", Uniqueness.UNRESTRICTED, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setArmor(3);
         setLore("The Imperial Navy's ruthless shock troops. The distinctive white armor of the stormtrooper is recognized throughout the galaxy as a feared occupational force.");
         setGameText("Imperial leaders present may not be targeted by weapons. While with an Imperial leader, adds one battle destiny. While at an opponent's site, Force drain +1 here (or +2 if also a Rebel Base). End of your turn: Use 1 Force to maintain OR Lose 1 Force to place in Used Pile OR Place out of play.");

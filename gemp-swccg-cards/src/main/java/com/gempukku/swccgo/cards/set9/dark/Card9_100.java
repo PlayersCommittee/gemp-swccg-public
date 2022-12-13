@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card9_100 extends AbstractImperial {
     public Card9_100() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Captain Godherdt", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Captain Godherdt", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Elite fleet engineer. Technically brilliant. Key operator of magnetic signature sensors monitoring Star Destroyer hulls.");
         setGameText("Adds 3 to power of any capital starship he pilots. While aboard a Star Destroyer, adds 1 to armor, adds 1 to hyperspeed and, once during each of your move phases, may cancel Landing Claw at same system or sector.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);

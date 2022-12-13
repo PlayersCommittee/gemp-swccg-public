@@ -2,12 +2,22 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployOtherCardsAsReactToLocationForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +30,7 @@ import java.util.List;
  */
 public class Card9_118 extends AbstractImperial {
     public Card9_118() {
-        super(Side.DARK, 4, 3, 4, 3, 5, "Myn Kyneugh", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 4, 3, 5, "Myn Kyneugh", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Royal guard leader. Remembers nothing of his past other than serving his Emperor. Early instructor of Kir Kanos and Carnor Jax.");
         setGameText("Deploys only on Coruscant or to Emperor's site (or related site). When armed with a Force pike, adds one battle destiny. Your troopers and Royal Guards may 'react' to here for free. Adds 1 to defense value of other Royal Guards at same and related sites.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

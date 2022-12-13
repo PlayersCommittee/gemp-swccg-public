@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card10_043 extends AbstractImperial {
     public Card10_043() {
-        super(Side.DARK, 3, 2, 5, 3, 3, "Kir Kanos", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 5, 3, 3, "Kir Kanos", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Fiercely devoted Royal Guard. Feels deeply indebted to those who risk their life for him. Unaware of the extent of Palpatine's atrocities and cruelty.");
         setGameText("When armed with a Force pike, adds one battle destiny. Once during each of your deploy phases, lose 1 Force or place Kanos and cards deployed on him in owner's Used Pile (if Emperor on table, may use 1 Force instead).");
         addIcons(Icon.REFLECTIONS_II, Icon.WARRIOR);

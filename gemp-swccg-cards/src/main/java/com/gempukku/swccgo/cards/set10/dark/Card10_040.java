@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set10.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card10_040 extends AbstractImperial {
     public Card10_040() {
-        super(Side.DARK, 1, 4, 2, 4, 7, Title.Thrawn, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 2, 4, 7, Title.Thrawn, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("The last remaining Grand Admiral. Found legendary Katana fleet of missing dreadnaughts. Military genius. Master of unorthodox tactics. Passionate collector of art. Leader.");
         setGameText("Adds 3 to power of any starship he pilots. When piloting a star destroyer in battle, adds one battle destiny. While no other admiral and no star cruiser on table, your Admiral's Order just placed in Used Pile from table, may be taken into hand instead.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);

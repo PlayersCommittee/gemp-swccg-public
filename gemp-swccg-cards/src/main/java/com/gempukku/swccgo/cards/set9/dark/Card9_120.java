@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card9_120 extends AbstractImperial {
     public Card9_120() {
-        super(Side.DARK, 1, 5, 3, 4, 6, "Sim Aloo", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 3, 4, 6, "Sim Aloo", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Imperial council member. Senior political advisor to Emperor Palpatine. Never speaks. Like his master, shows remarkable patience and wisdom.");
         setGameText("Deploys -3 to Emperor's site. When with Emperor, adds one battle destiny. Once per turn, you may use 1 Force to peek at top card of opponent's Reserve Deck; may place that card on bottom of that Reserve Deck. Immune to attrition < 4.");
         addIcons(Icon.DEATH_STAR_II);

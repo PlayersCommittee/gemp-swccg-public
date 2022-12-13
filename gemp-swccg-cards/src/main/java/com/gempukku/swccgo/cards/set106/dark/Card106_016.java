@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set106.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card106_016 extends AbstractImperial {
     public Card106_016() {
-        super(Side.DARK, 3, 1, 1, 1, 1, "Stormtrooper Cadet");
+        super(Side.DARK, 3, 1, 1, 1, 1, "Stormtrooper Cadet", Uniqueness.UNRESTRICTED, ExpansionSet.OTSD, Rarity.PM);
         setLore("After months of intense training, a trooper is paired with a veteran soldier. While providing support during field operations, the new trooper masters Imperial military tactics.");
         setGameText("Deploys free to same site as an Imperial leader. Adds 1 to power of one non-unique Imperial warrior present. When forfeited at same site as an Imperial 'veteran' (a leader or non-cadet trooper), also satisfies all remaining attrition against you.");
         addIcons(Icon.PREMIUM);

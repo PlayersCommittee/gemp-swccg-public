@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card601_084 extends AbstractImperial {
     public Card601_084() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "General Nevar", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "General Nevar", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Leader.");
         setGameText("[Pilot] 2, 3: Blizzard 2. Deploys -1 on Hoth. Once per game, may deploy a marker site with < 2 [Dark Side] or a battleground (except Endor system or a war room). Once per game, if piloting at a site where no characters present, may peek at opponent's hand.");
         addIcons(Icon.PILOT, Icon.DAGOBAH, Icon.LEGACY_BLOCK_7);

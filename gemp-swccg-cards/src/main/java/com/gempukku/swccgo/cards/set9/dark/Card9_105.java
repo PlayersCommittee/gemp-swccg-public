@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card9_105 extends AbstractImperial {
     public Card9_105() {
-        super(Side.DARK, 1, 2, 2, 2, 4, "Colonel Jendon", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 2, 2, 2, 4, "Colonel Jendon", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Senior test pilot ordered to shake down first TIE defenders assigned to fleet operations. Occasionally given honor duty of flying Vader's shuttle.");
         setGameText("Adds 3 to power and 1 to maneuver of anything he pilots. When piloting Onyx 1, draws one battle destiny if not able to otherwise.");
         addPersona(Persona.JENDON);

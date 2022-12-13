@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,7 +44,7 @@ import java.util.List;
  */
 public class Card601_189 extends AbstractImperial {
     public Card601_189() {
-        super(Side.DARK, 3, 4, 2, 4, 5, "Ysanne Isard", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 2, 4, 5, "Ysanne Isard", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Female ISB leader. Spy.");
         setGameText("Power +3 while defending a battle with a spy. While with a non-frozen captive, attrition against opponent everywhere is +2. During your move phase, may use 1 Force to 'break cover' of an Undercover spy here. Immune to attrition < 3.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR, Icon.LEGACY_BLOCK_7);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card9_116 extends AbstractImperial {
     public Card9_116() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Phennir, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Phennir, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Executive officer of the 181st Imperial Fighter Wing. Older brother killed by Wedge Antilles at the Battle of Yavin.");
         setGameText("Adds 3 to power of any TIE he pilots. When piloting Saber 2, draws one battle destiny if not able to otherwise. Once per game, you may take Fighters Coming In into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

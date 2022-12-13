@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card9_111 extends AbstractImperial {
     public Card9_111() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Lieutenant Endicott", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Lieutenant Endicott", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Docking bay technician. Orphan. Offered post on new Death Star when he graduated third in class from the Imperial Academy at Carida.");
         setGameText("Deploys -2 to any docking bay or launch bay. While he is at Death Star II: Docking Bay, you may shuttle for free between here and exterior sites related to system Death Star II orbits.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

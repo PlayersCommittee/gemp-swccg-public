@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card9_115 extends AbstractImperial {
     public Card9_115() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Major Rhymer", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Major Rhymer", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Leader of Scimitar Squadron, the elite bomber wing assigned to defend the Endor shield generator from any ground assault.");
         setGameText("Deploys -2 aboard Scimitar 1. Adds 2 to power of anything he pilots. When piloting a bomber making a Bombing Run, prevents opponent's characters at same site from using landspeed.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

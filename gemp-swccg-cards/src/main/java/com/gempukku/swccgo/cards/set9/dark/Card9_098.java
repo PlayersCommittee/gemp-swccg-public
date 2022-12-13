@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card9_098 extends AbstractImperial {
     public Card9_098() {
-        super(Side.DARK, 1, 4, 3, 3, 6, "Admiral Piett", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 3, 3, 6, "Admiral Piett", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.XR);
         setLore("Veteran of the Imperial military machine. Leader of the Imperial fleet at Endor. Skilled at political maneuvering and appeasing his powerful superiors.");
         setGameText("Deploys -2 to Executor. Adds 2 to power of anything he pilots (3 if a Star Destroyer). Your capital starships deploy -1 to same system. Once per game, you may take one Admiral's Order or any commander into hand from Reserve Deck; reshuffle.");
         addPersona(Persona.PIETT);

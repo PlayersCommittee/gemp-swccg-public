@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card9_102 extends AbstractImperial {
     public Card9_102() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "Captain Sarkli", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, "Captain Sarkli", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Piett's nephew. Once granted audience with Emperor. On fast-track to promotion. Absolutely fearless spy.");
         setGameText("Adds 2 to power of anything he pilots. While he controls opponent's non-battleground location, opponent generates no Force here. While he occupies opponent's Subjugated system, Liberation is flipped and Local Uprising may not be flipped.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);

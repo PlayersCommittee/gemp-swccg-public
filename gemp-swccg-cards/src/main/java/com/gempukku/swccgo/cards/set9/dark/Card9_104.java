@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card9_104 extends AbstractImperial {
     public Card9_104() {
-        super(Side.DARK, 2, 4, 3, 2, 5, "Colonel Davod Jon", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 3, 2, 5, "Colonel Davod Jon", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Scout. Special forces leader. Convinced superiors that wilderness survival and recon training are necessary for militia dominance, despite technological superiority.");
         setGameText("While at an exterior planet site, power +2, immune to attrition < 3 and draws one battle destiny if not able to otherwise. When present with a Scomp link, cancels Surprise Assault at a related site where you have a spy or scout.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

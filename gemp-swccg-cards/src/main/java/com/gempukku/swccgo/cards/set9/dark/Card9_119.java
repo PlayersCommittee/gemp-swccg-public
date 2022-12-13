@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card9_119 extends AbstractImperial {
     public Card9_119() {
-        super(Side.DARK, 3, 2, 3, 2, 3, "Royal Guard");
+        super(Side.DARK, 3, 2, 3, 2, 3, "Royal Guard", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Member of Emperor's Royal Guard. Completely subservient. Royal Guards must fight one of their own to the death in order to complete their training.");
         setGameText("Deploys only on Coruscant or to Emperor's site (or related site). When armed with a Force pike and defending a battle, adds one battle destiny. Emperor may not be targeted by weapons unless all Royal Guards present with Emperor are 'hit'.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card9_117 extends AbstractImperial {
     public Card9_117() {
-        super(Side.DARK, 1, 3, 3, 3, 6, Title.Jerjerrod, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 3, 6, Title.Jerjerrod, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Leader. Found discussions with Vader to be particularly motivating. Does not want to find out if the Emperor is more forgiving than Vader.");
         setGameText("Adds 2 to power of any capital starship he pilots. Once during each of your turns, you may take one Death Star II sector or Superlaser Mark II into hand from Reserve Deck; reshuffle. Prevents opponent's spies from deploying to same Death Star II site.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);

@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card9_110 extends AbstractImperial {
     public Card9_110() {
-        super(Side.DARK, 2, 4, 2, 4, 5, "Janus Greejatus", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 2, 4, 5, "Janus Greejatus", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Imperial council member. Very cruel at heart. Has lusted for power his entire life. Predictable and controllable.");
         setGameText("Deploys -3 to Emperor's site. When with Emperor at a battleground site, adds 1 to your Force drains here. Once per turn, you may use 1 Force to place a card from hand to bottom of Used Pile and draw top card of Reserve Deck. Immune to attrition < 3.");
         addIcons(Icon.DEATH_STAR_II);

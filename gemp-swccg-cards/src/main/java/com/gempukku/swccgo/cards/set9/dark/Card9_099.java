@@ -3,12 +3,23 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +32,7 @@ import java.util.List;
  */
 public class Card9_099 extends AbstractImperial {
     public Card9_099() {
-        super(Side.DARK, 1, 3, 2, 3, 5, Title.Fel, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 2, 3, 5, Title.Fel, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Corellian Baron. Leader of famed 181st Imperial Fighter Wing. Taught at the Imperial Academy on Prefsbelt IV. Instructed Biggs Darklighter.");
         setGameText("Adds 3 to power of anything he pilots. When piloting Saber 1, adds one battle destiny and 2 to maneuver. Adds 1 to your total battle destiny for each of your piloted TIE Interceptors in same battle.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);
