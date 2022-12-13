@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card8_092 extends AbstractImperial {
     public Card8_092() {
-        super(Side.DARK, 3, 1, 1, 1, 2, "Biker Scout Trooper");
+        super(Side.DARK, 3, 1, 1, 1, 2, "Biker Scout Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Scout troopers, or 'biker scouts' as they are commonly called, are stormtrooper specialists. Given wide latitude to operate independently of Imperial control.");
         setGameText("Adds 3 to power of any speeder bike he pilots. Power -1 while not at a forest, jungle or Endor site. Forfeit +2 aboard a speeder bike. Once during each of your deploy phases, may deploy a speeder bike to same site from Reserve Deck; reshuffle.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

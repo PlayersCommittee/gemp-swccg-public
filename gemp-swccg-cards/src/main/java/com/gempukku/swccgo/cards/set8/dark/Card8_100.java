@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card8_100 extends AbstractImperial {
     public Card8_100() {
-        super(Side.DARK, 3, 2, 1, 2, 3, Title.Elite_Squadron_Stormtrooper, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 2, 1, 2, 3, Title.Elite_Squadron_Stormtrooper, Uniqueness.RESTRICTED_3, ExpansionSet.ENDOR, Rarity.C);
         setLore("Commander Igar selected the Empire's most dedicated stormtroopers to guard Endor for the Emperor. All they know is killing and white uniforms.");
         setGameText("Power +2 while armed with a blaster. When using a blaster, subtracts 1 from Force required to fire it. Adds 2 to forfeit of each stormtrooper of ability < 2 at same site.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

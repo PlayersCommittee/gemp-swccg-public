@@ -5,9 +5,12 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card8_107 extends AbstractImperial {
     public Card8_107() {
-        super(Side.DARK, 3, 2, 1, 1, 3, "Navy Trooper");
+        super(Side.DARK, 3, 2, 1, 1, 3, "Navy Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Navy troopers are assigned to defend key installations. Trained to protect against alien species and other insurgents.");
         setGameText("Deploy -1 to a mobile site (except on Cloud City). When defending a battle, power +1 (or +2 if also at an interior site). When in battle against an operative, prevents opponent from drawing more than one battle destiny.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

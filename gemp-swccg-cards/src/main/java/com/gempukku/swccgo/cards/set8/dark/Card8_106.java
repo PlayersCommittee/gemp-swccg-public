@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card8_106 extends AbstractImperial {
     public Card8_106() {
-        super(Side.DARK, 2, 2, 3, 2, 3, Title.Marquand, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 3, 2, 3, Title.Marquand, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Directed a counterattack against the Ewoks on Endor. Formerly crewed an AT-AT assigned to Devastator. Originally from Kessel.");
         setGameText("Adds 3 to power of any combat vehicle he pilots. When piloting a combat vehicle with Watts, may add one battle destiny and, if that vehicle has immunity to attrition, adds 2 to immunity.");
         addIcons(Icon.ENDOR, Icon.PILOT);

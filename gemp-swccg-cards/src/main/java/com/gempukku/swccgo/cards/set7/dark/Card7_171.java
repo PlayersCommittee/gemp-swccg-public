@@ -2,14 +2,27 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.DoubledModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.NotUniqueModifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +36,7 @@ import java.util.List;
  */
 public class Card7_171 extends AbstractImperial {
     public Card7_171() {
-        super(Side.DARK, 3, 1, 2, 1, 2, "Corporal Grenwick", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 2, 1, 2, "Corporal Grenwick", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Death Star trooper who witnessed Leia's interrogation. Senior tactical advisor to Sergeant Major Enfield. Coordinates security duty assignments for Detention Block AA-23.");
         setGameText("While Grenwick is on Death Star, your Death Star Sentry is not unique (•), is doubled, deploys free, applies all three of its modifiers and is immune to Alter. Power -1 when not on Death Star.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

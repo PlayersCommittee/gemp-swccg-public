@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card8_108 extends AbstractImperial {
     public Card8_108() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "Navy Trooper Fenson", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 3, "Navy Trooper Fenson", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Rendili native skilled at close-quarters combat. Worked with Trooper Vesden to monitor enemy activity on Endor.");
         setGameText("Subtracts 3 from Force opponent retrieves for On The Edge and Off The Edge. When at Bunker, adds 2 to deploy cost of each opponent's character (except Ewoks, spies and scouts) to Endor sites (except Rebel Landing Site).");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card4_102 extends AbstractImperial {
     public Card4_102() {
-        super(Side.DARK, 3, 3, 2, 1, 2, "Imperial Helmsman", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 2, 1, 2, "Imperial Helmsman", Uniqueness.RESTRICTED_3, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Warrant Officer Bachenkall is typical of the many graduates of the Imperial Training academy on Raithal. The sector naval school trains pilots in capital starship help tactics.");
         setGameText("Adds 2 to power of anything he pilots. When piloting a Star Destroyer, also draws one battle destiny if not able to otherwise.");
         addIcons(Icon.DAGOBAH, Icon.PILOT);

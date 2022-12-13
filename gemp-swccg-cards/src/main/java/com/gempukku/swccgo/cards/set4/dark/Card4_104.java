@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card4_104 extends AbstractImperial {
     public Card4_104() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "Lieutenant Suba", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "Lieutenant Suba", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Chief of security and political officer on Executor. Responsible for ensuring the loyalty of his fellow officers. Disapproved of Vader's unwillingness to simply kill Skywalker.");
         setGameText("While at a Death Star or Executor site, your troopers deploy free there and are power and forfeit +1 there, and you may use 1 Force to search your Reserve Deck and take one Tactical Support into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH, Icon.WARRIOR);

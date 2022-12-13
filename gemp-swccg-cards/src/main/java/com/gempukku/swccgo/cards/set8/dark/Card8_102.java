@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.evaluators.MinEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card8_102 extends AbstractImperial {
     public Card8_102() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Grond, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Grond, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Colonel Dyer's aide. Coordinates scout actions. As a youth, raced swoops on homeworld of Corellia. Formerly served with Emperor's Demonstration Team.");
         setGameText("Adds 2 to power of anything he pilots or any swoop he drives. When in battle at an exterior site, adds 2 to attrition against opponent for each of your biker scout/trooper (non-biker scout) pairs present.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card4_099 extends AbstractImperial {
     public Card4_099() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "Corporal Vandolay", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, "Corporal Vandolay", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("ISB attache to the Executor. Detention Officer. Political Liaison for COMPNOR. Responsible for all prisoner transfers. Fiercely loyal to the Emperor's New Order.");
         setGameText("May use 1 Force to search your Reserve Deck and take one Spice Mines Of Kessel or Detention Block Corridor into hand. Shuffle, cut and replace. While at a mobile site, We Have A Prisoner is a Used Interrupt.");
         addIcons(Icon.DAGOBAH, Icon.WARRIOR);

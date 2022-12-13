@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card8_109 extends AbstractImperial {
     public Card8_109() {
-        super(Side.DARK, 3, 2, 1, 1, 2, "Navy Trooper Shield Technician", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 2, 1, 1, 2, "Navy Trooper Shield Technician", Uniqueness.RESTRICTED_3, ExpansionSet.ENDOR, Rarity.C);
         setLore("Many Imperial Navy troopers receive technical as well as combat training, which they use to maintain the Empire's military facilities.");
         setGameText("Forfeit +2 while with Hewex. When at Bunker (or aboard a Star Destroyer at Endor), cumulatively adds 1 to deploy cost of each opponent's starship and non-Ewok vehicle deploying to Endor (or to your mobile site orbiting Endor)");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

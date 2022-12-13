@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card7_175 extends AbstractImperial {
     public Card7_175() {
-        super(Side.DARK, 1, 6, 6, 6, 8, Title.Darth_Vader_Dark_Lord_of_the_Sith, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 6, 6, 6, 8, Title.Darth_Vader_Dark_Lord_of_the_Sith, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Formerly Anakin Skywalker, Jedi Knight. Became Darth Vader. Ordered by Emperor Palpatine to deal with Luke Skywalker, but bargained for his son's life instead.");
         setGameText("Adds 3 to power of anything he pilots. When in a battle, may target one opponent's character present. Draw destiny. Target 'choked' (lost) if destiny > ability. Immune to attrition < 5.");
         addPersona(Persona.VADER);

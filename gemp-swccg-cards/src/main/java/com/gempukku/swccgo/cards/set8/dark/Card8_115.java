@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card8_115 extends AbstractImperial {
     public Card8_115() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Sergeant Wallen", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Sergeant Wallen", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Stormtrooper assigned to Colonel Dyer's command. His unit was recommended to Commander Igar by Governor Yount of the Wakeelmui garrison.");
         setGameText("May deploy for free to a battle you just initiated at a battleground site.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

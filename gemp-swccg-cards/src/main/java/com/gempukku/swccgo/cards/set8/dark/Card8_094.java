@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card8_094 extends AbstractImperial {
     public Card8_094() {
-        super(Side.DARK, 1, 4, 3, 3, 5, Title.Igar, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 3, 3, 5, Title.Igar, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Leader. Served with General Veers' Blizzard unit at Battle of Hoth. Assigned by Vader to coordinate surface defense of Endor's moon. Kuat native.");
         setGameText("Adds 3 to power of any combat vehicle he pilots. When piloting Tempest 1 or a non-unique AT-AT, adds one battle destiny. When in battle with Veers or Tagge, may use 2 Force to cancel and redraw one just-drawn battle destiny.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

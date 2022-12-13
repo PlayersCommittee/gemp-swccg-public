@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card4_106 extends AbstractImperial {
     public Card4_106() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Warrant Officer M'Kae", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Warrant Officer M'Kae", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Hard-working Avenger signal officer. Coordinates and tests tractor beam operations. Apprises Executor of his ship's activities and relays orders from the flagship to his captain.");
         setGameText("Adds 2 to power of anything he pilots. May use 1 Force to take one tractor beam, Our First Catch Of The Day or Besieged into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.DAGOBAH, Icon.PILOT);

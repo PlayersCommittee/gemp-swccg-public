@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card8_104 extends AbstractImperial {
     public Card8_104() {
-        super(Side.DARK, 2, 2, 2, 2, 4, Title.Watts, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 4, Title.Watts, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Native of Corulag. Watts' gunnery skills produce devastating results. Temporarily assigned to Kuat Drive Yards to work on prototype AT-ST weaponry.");
         setGameText("Adds 2 to power of any combat vehicle he pilots. Adds 1 to each weapon destiny draw of any combat vehicle he pilots (or 2 if on Tempest Scout 2 or if present with Marquand).");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

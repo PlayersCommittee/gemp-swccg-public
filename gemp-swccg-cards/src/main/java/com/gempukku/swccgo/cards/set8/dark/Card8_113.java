@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card8_113 extends AbstractImperial {
     public Card8_113() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Irol, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Irol, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Cocky stormtrooper from an Outer Rim forest planet. Confident biker scout and hunter. Relies on superior balance and strength to operate his speeder bike.");
         setGameText("May deploy -1 as a 'react' to any forest, jungle or exterior Endor site. Adds 3 to power of any speeder bike he pilots. When vehicle he drives or pilots is targeted by High-speed Tactics or Get Alongside That One, adds 2 to your destiny draw.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

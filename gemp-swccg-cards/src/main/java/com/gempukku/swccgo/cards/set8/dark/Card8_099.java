@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +43,7 @@ import java.util.List;
  */
 public class Card8_099 extends AbstractImperial {
     public Card8_099() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Corporal Oberk", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Corporal Oberk", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Originally from Ukio. Stormtrooper assigned to search for Rebel activity on Endor. Trying to impress the commander of his biker scout detachment.");
         setGameText("Adds 3 to power of any speeder bike he pilots. Once during each of your control phases, may target one opponent's missing character at same site. Draw destiny. Add 2 if Oberk is armed with a blaster. Target captured if total destiny > ability.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

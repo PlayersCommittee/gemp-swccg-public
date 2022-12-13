@@ -3,14 +3,21 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotReactFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card8_101 extends AbstractImperial {
     public Card8_101() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Arnet, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Arnet, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Veteran AT-ST pilot assigned to coordinate the surprise counterattack in the Battle of Endor. Commanded a prototype AT-ST in General Veers' assault upon Hoth.");
         setGameText("Deploys free aboard Blizzard Scout 1. Adds 2 to power of any combat vehicle he pilots (or 3 if an AT-ST). When piloting Tempest Scout 1, draws one battle destiny if not able to otherwise. Opponent may not 'react' to or from same site.");
         addIcons(Icon.ENDOR, Icon.PILOT);

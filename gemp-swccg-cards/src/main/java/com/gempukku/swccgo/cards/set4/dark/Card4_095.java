@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card4_095 extends AbstractImperial {
     public Card4_095() {
-        super(Side.DARK, 2, 3, 1, 3, 3, "Commander Brandei", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 1, 3, 3, "Commander Brandei", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Technical Services Officer of the Fleet Support Branch. Responsible for keeping Executor's 12 TIE squadrons serviced and combat ready. Just received transfer to Judicator.");
         setGameText("Adds 2 to power of anything he pilots. Once during each of your control phases, when aboard a Star Destroyer or at any docking bay, may use 1 Force to take one TIE into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.DAGOBAH, Icon.PILOT);

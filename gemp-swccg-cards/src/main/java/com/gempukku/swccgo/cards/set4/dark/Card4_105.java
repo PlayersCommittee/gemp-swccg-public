@@ -4,12 +4,22 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.BlownAwayCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +33,7 @@ import java.util.List;
  */
 public class Card4_105 extends AbstractImperial {
     public Card4_105() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "Lieutenant Venka", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, "Lieutenant Venka", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Worked hard for a transfer to the Executor. One of the many noncommissioned personnel promoted to replace the vast number of officers lost during the Death Star disaster.");
         setGameText("Power +2 when at an Executor site or same site as Tarkin or Chief Bast, or if the Death Star has been 'blown away.' Fear Will Keep Them In Line is destiny +2 and, when it adds 1 to your power, also adds 1 to attrition against opponent.");
         addIcons(Icon.DAGOBAH, Icon.WARRIOR);

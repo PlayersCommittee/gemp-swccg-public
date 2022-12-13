@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.InsteadOfForceDrainingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card7_172 extends AbstractImperial {
     public Card7_172() {
-        super(Side.DARK, 3, 2, 4, 1, 3, "Corporal Prescott", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 4, 1, 3, "Corporal Prescott", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Death Star trooper and detention block guard. Volunteered for prison detail. Takes sadistic pleasure in seeing Imperial justice enforced.");
         setGameText("When at a prison, instead of Force draining there, may use X Force to retrieve X Force, where X = number of imprisoned Rebels there. Power -2 when not on Death Star.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

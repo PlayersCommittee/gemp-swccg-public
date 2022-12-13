@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card8_098 extends AbstractImperial {
     public Card8_098() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "Corporal Misik", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 3, "Corporal Misik", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Son of a Tatooine diplomat. Stormtrooper. Biker scout. Deadly shot. Develops speeder bike tactics with Sergeant Barich. Hopes for promotion to Emperor's Demonstration Team.");
         setGameText("Adds 3 to power of any speeder bike he pilots. When firing a Scout Blaster, adds 1 to his total weapon destiny. When with Barich in a battle and piloting or driving a vehicle, may add that vehicle's maneuver to your total power.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

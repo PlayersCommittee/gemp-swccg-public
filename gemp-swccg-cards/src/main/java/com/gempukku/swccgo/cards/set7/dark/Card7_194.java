@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.PilotingAtCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card7_194 extends AbstractImperial {
     public Card7_194() {
-        super(Side.DARK, 2, 3, 3, 2, 3, Title.OS_72_10, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 3, Title.OS_72_10, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Pilot of Obsidian 10. Has served aboard the Conquest, the Thunderflare and the Executor. Not interested in advancing his rank as it would remove him from the pilot's seat.");
         setGameText("Adds 2 to power of anything he pilots (3 if any TIE). When piloting a TIE at a cloud sector, adds one battle destiny and makes that TIE immune to attrition < 4 (< 6 if Obsidian 10).");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.WARRIOR);

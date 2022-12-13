@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card8_111 extends AbstractImperial {
     public Card8_111() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "Sergeant Barich", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, "Sergeant Barich", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Wakeelmui native. Former employee of Sienar Fleet Systems missile division. Stormtrooper biker scout with dreams of transferring to 181st Imperial Fighter Group.");
         setGameText("Adds 2 to power of anything he pilots (or 3 to any speeder bike). When in a battle with your other biker scout, may draw one destiny and subtract that amount from opponent's attrition and total power.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

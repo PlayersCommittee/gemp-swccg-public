@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card4_098 extends AbstractImperial {
     public Card4_098() {
-        super(Side.DARK, 2, 3, 3, 1, 3, "Corporal Derdram", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 1, 3, "Corporal Derdram", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Member of Imperial Intelligence, Internal Security division. Assigned by IntSec to Executor. Responsible for physical safety of Imperial personnel against Rebel saboteurs.");
         setGameText("Power +1 when at any Executor site. While at Detention Block Corridor, cancels game text of Detention Block Control Room. May use 1 Force to search your Reserve Deck and take one IT-O or Hypo into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH, Icon.WARRIOR);

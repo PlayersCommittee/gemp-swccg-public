@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card4_096 extends AbstractImperial {
     public Card4_096() {
-        super(Side.DARK, 2, 3, 3, 2, 4, "Commander Gherant", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 2, 4, "Commander Gherant", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Deck officer aboard the Super Star Destroyer Executor. Responsible for preventing unauthorized access to sensitive areas of the Empire's flagship. Hand-picked by Captain Piett.");
         setGameText("If aboard Executor (even at an Executor site), once during each of your deploy phases, may use 2 Force to search your Reserve Deck and take any one Executor site into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH, Icon.WARRIOR);

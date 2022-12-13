@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card8_105 extends AbstractImperial {
     public Card8_105() {
-        super(Side.DARK, 2, 2, 2, 2, 4, Title.Hewex, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 4, Title.Hewex, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Leader of Navy detachment assigned to guard the Endor control bunker. Liaison between Imperial technicians and command staff.");
         setGameText("Adds 1 to total power for each of your troopers present at same site. When on Endor, subtracts 1 from total for Deactivate The Shield Generator and your troopers are forfeit +1 on Endor. When at Bunker, allows Imperials to deploy there as a 'react'.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

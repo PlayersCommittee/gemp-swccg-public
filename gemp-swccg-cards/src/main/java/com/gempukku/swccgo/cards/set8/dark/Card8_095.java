@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.InLocalTroubleBattleCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card8_095 extends AbstractImperial {
     public Card8_095() {
-        super(Side.DARK, 3, 2, 2, 1, 3, Title.Avarik, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 3, Title.Avarik, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Frequently engaged in brawls at the local enlisted clubs on homeworld of Corulag. Stormtrooper assigned to biker scout unit. Monitors Yuzzum activity.");
         setGameText("Adds 3 to power of any speeder bike he pilots (when piloting it in battle, also adds 1 to your total battle destiny). When in a Local Trouble battle, adds one destiny to your total power.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

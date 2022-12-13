@@ -3,15 +3,21 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToDrivenBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card8_097 extends AbstractImperial {
     public Card8_097() {
-        super(Side.DARK, 3, 2, 1, 2, 3, "Corporal Drelosyn", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 2, 3, "Corporal Drelosyn", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Stormtrooper from Coruscant. Honed piloting skills by racing swoops in underworld of Imperial capital. Still tempering his skills as a biker scout.");
         setGameText("Adds 3 to power of any speeder bike he pilots or anything he drives. When in battle with Irol at a site, adds one battle destiny. Power +1 at any mobile, interior or spaceport site.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);
