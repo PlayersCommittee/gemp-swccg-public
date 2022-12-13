@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,15 +17,16 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelDestinyAndCauseRedrawEffect;
+import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardIntoHandEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.StackedCardResult;
-import com.gempukku.swccgo.logic.timing.results.StackedFromCardPileResult;
-import com.gempukku.swccgo.logic.timing.results.StackedFromHandResult;
-import com.gempukku.swccgo.logic.timing.results.StackedFromTableResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card209_019 extends AbstractUsedOrLostInterrupt {
     public Card209_019() {
-        super(Side.LIGHT, 4, "Effective Repairs & Starship Levitation", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Effective Repairs & Starship Levitation", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         addComboCardTitles(Title.Effective_Repairs, Title.Starship_Levitation);
         setLore("");
         setGameText("USED: Cancel Broken Concentration, Lateral Damage, or Limited Resources. OR Place a card just stacked on Droid Racks or Strategic Reserves in opponent's Lost Pile. (Immune to Sense) OR If you just drew a starship for destiny, take that starship into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve an Effect of any kind or a non-[Maintenance] starship into hand.");

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card204_023 extends AbstractUsedOrLostInterrupt {
     public Card204_023() {
-        super(Side.LIGHT, 2, Title.You_Do_Have_Your_Moments, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, Title.You_Do_Have_Your_Moments, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Sarcastic. Sardonic. Irreverent. Impertinent. Exasperating. Disrespectful. Outrageous and charming. Han was a scoundrel but Leia began to realize that she loved him.");
         setGameText("USED: Cancel and redraw a just drawn destiny. LOST: A just drawn battle destiny is +3");

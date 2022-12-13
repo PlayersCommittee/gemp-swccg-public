@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set217.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card217_046 extends AbstractUsedOrLostInterrupt {
     public Card217_046() {
-        super(Side.LIGHT, 3, Title.Return_Of_A_Jedi);
+        super(Side.LIGHT, 3, Title.Return_Of_A_Jedi, Uniqueness.UNRESTRICTED, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Where did you dig up that old fossil?' 'I don't think he exists anymore.' 'Surely he must be dead by now.' 'I can't believe he's gone.' 'Oh, he's not dead, not yet.' Obi's back!");
         setGameText("Unless a Jedi Master 'communing': USED: [upload] Obi-Wan's Hut, Obi-Wan's Journal or a card with 'mentor' in title. LOST: During battle, if non-[Episode I] Obi-Wan with a Dark Jedi (or 'communing'), add one battle destiny.");

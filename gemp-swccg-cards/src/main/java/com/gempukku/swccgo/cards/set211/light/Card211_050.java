@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card211_050 extends AbstractUsedOrLostInterrupt {
     public Card211_050() {
-        super(Side.LIGHT, 4, "Where's Han?", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Where's Han?", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("");
         setGameText("USED: [Upload] Han's Dice or non-[Maintenance] Han. LOST: If you just lost a gambler, take that gambler into hand. OR Once per game, exchange a card in hand with a Resistance Agent or [Episode VII] Skywalker in Lost Pile.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_11);

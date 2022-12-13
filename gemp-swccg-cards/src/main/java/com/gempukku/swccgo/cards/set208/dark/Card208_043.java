@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card208_043 extends AbstractUsedOrLostInterrupt {
     public Card208_043() {
-        super(Side.DARK, 3, Title.Double_Back);
+        super(Side.DARK, 3, Title.Double_Back, Uniqueness.UNRESTRICTED, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Having lost sight of Boba Fett, Luke was surprised by his sudden reappearance.");
         setGameText("USED: [Upload] 4-LOM, non-[Maintenance] Boba Fett, Danz Borin, or Dengar. LOST: During your move phase, your bounty hunter (or [Independent] starship they are piloting) may make an additional move. OR Move your bounty hunter as a 'react'.");

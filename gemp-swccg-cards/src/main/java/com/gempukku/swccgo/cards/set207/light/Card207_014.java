@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set207.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,14 +28,14 @@ import java.util.List;
 
 
 /**
- * Set: Special Edition
+ * Set: Set 7
  * Type: Interrupt
  * Subtype: Used or Lost
  * Title: They're Tracking Us (V)
  */
 public class Card207_014 extends AbstractUsedOrLostInterrupt {
     public Card207_014() {
-        super(Side.LIGHT, 4, "They're Tracking Us", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "They're Tracking Us", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Not this ship, sister.'");
         setGameText("USED: Add or subtract 1 from opponent's just drawn destiny. OR Activate 1 Force. LOST: Cancel Close Call, Gravity Shadow, Overwhelmed, or They've Shut Down The Main Reactor. [Immune to Sense]");

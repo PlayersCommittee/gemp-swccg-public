@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card219_009 extends AbstractUsedOrLostInterrupt {
     public Card219_009() {
-        super(Side.DARK, 5, "History, Philosophy, And Art", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "History, Philosophy, And Art", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: During battle, add 1 to your total battle destiny for each artwork card on table. " +
                     "LOST: Once per game, if your [Set 19] objective just ‘studied’ an Interrupt, you may take one Interrupt into hand from Lost Pile.");
         addIcons(Icon.VIRTUAL_SET_19);

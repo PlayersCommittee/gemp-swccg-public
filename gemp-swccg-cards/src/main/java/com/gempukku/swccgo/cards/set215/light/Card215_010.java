@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set215.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card215_010 extends AbstractUsedOrLostInterrupt {
     public Card215_010() {
-        super(Side.LIGHT, 5, "For the Republic!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "For the Republic!", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("");
         setGameText("USED: Deploy Cloning Cylinders for free from hand (or Reserve Deck; reshuffle). " +
                 "LOST: If a battle was just initiated at a site, each of your clones present is power +1 (+2 and immune to attrition if a Jedi there) for remainder of turn.");

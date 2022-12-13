@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set201.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card201_036 extends AbstractUsedOrLostInterrupt {
     public Card201_036() {
-        super(Side.DARK, 5, "TIE Sentry Ships", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "TIE Sentry Ships", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Several TIEs were assigned to patrol Cloud City prior to the Imperial occupation of Bespin. Their instructions were to herd any vessels attempting to escape toward the Executor.");
         setGameText("USED: If you just drew a starship for destiny, take that starship into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve a starship into hand.");

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
 import com.gempukku.swccgo.cards.effects.RevealCardFromOwnHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,14 +30,14 @@ import java.util.List;
 
 
 /**
- * Set: Coruscant
+ * Set: Set 18
  * Type: Interrupt
  * Subtype: Used Or Lost
  * Title: Take A Seat, Young Skywalker
  */
 public class Card218_006 extends AbstractUsedOrLostInterrupt {
     public Card218_006() {
-        super(Side.LIGHT, 4, "Take A Seat, Young Skywalker", Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 4, "Take A Seat, Young Skywalker", Uniqueness.RESTRICTED_2, ExpansionSet.SET_18, Rarity.V);
         setGameText("USED: Reveal a random card from your hand to deploy Jedi Council Chamber from Reserve Deck; reshuffle. LOST: During your move phase, relocate Anakin to Jedi Council Chamber.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_18);
     }

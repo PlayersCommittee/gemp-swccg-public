@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set207.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,7 +28,11 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -30,7 +43,7 @@ import java.util.*;
  */
 public class Card207_015 extends AbstractUsedOrLostInterrupt {
     public Card207_015() {
-        super(Side.LIGHT, 4, Title.This_Is_My_Ship, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.This_Is_My_Ship, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setGameText("USED: Deploy Ghost and Hera simultaneously from your hand and/or Reserve Deck (for -1 Force each). LOST: If Chopper, Ezra, Hera, Kanan, Sabine, or Zeb in a battle, they each add 1 to your total battle destiny.");
         addIcons(Icon.VIRTUAL_SET_7);
     }

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set200.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card200_116 extends AbstractUsedOrLostInterrupt {
     public Card200_116() {
-        super(Side.DARK, 2, Title.Close_Call, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Close_Call, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("If this little one doesn't pulverize you, the next one just might.");
         setGameText("USED: During battle, cancel and redraw a just drawn destiny. LOST: A just drawn battle or weapon destiny is -3");

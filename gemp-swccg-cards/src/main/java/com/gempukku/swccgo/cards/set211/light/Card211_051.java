@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +38,7 @@ import java.util.List;
 
 public class Card211_051 extends AbstractUsedOrLostInterrupt {
     public Card211_051() {
-        super(Side.LIGHT, 5, "Force Projection", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Force Projection", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("");
         setGameText("USED: If [Episode VII] Luke at a site, target all your characters at one other site. They are defense value = 5 this turn. LOST: Once per game, if opponent just drew battle destiny and Luke is out of play, draw destiny and subtract that amount from opponent's total battle destiny.");
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_11);

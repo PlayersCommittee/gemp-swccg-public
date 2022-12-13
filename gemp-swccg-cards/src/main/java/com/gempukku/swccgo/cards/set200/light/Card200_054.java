@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card200_054 extends AbstractUsedOrLostInterrupt {
     public Card200_054() {
-        super(Side.LIGHT, 4, "Jedi Levitation");
+        super(Side.LIGHT, 4, "Jedi Levitation", Uniqueness.UNRESTRICTED, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("A Jedi can adjust the force within and around an object, causing it to move as the Jedi wills.");
         setGameText("USED: If you just drew a character for destiny, choose: Take that card into hand. OR Cancel and redraw that destiny. " +

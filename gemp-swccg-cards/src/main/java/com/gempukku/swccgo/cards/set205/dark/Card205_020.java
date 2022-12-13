@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card205_020 extends AbstractUsedOrLostInterrupt {
     public Card205_020() {
-        super(Side.DARK, 5, "Point Man");
+        super(Side.DARK, 5, "Point Man", Uniqueness.UNRESTRICTED, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("In a military situation, on a regional or galactic scale, commands sometimes get misinterpreted. A local commander giving orders is far more reliable.");
         setGameText("USED: Move your trooper as a 'react' to a battle where you have a leader. OR During any draw phase, place a card from hand under your Used Pile to take any one card into hand from Force Pile; reshuffle. LOST: During a battle at a site, cancel Keep Your Eyes Open.");

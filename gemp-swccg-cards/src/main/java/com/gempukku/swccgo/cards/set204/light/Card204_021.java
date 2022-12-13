@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +39,7 @@ import java.util.List;
  */
 public class Card204_021 extends AbstractUsedOrLostInterrupt {
     public Card204_021() {
-        super(Side.LIGHT, 5, "Mindful Of The Future", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Mindful Of The Future", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("'But not at the expense of the moment.'");
         setGameText("USED: If Maul just swung a lightsaber during battle, that lightsaber may not target again this battle. LOST: If [Episode I] Obi-wan or non-[Permanent Weapon] Qui-Gon is in battle with a Dark Jedi, add one battle destiny. OR Cancel Maul Strikes or The Phantom Menace.");

@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.choose.ChooseAndLoseCardFromHandEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card213_020 extends AbstractUsedOrLostInterrupt {
     public Card213_020() {
-        super(Side.DARK, 5, "I've Been Searching For You For Some Time");
+        super(Side.DARK, 5, "I've Been Searching For You For Some Time", Uniqueness.UNRESTRICTED, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("USED: If opponent's character is about to be lost, place all 'Hatred' cards (if any) on that character in owner's Used Pile. LOST: Lose Vader or an Inquistor from hand to take up to two Inquisitors into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.VIRTUAL_SET_13);

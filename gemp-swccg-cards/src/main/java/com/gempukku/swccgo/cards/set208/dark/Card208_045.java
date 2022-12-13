@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card208_045 extends AbstractUsedOrLostInterrupt {
     public Card208_045() {
-        super(Side.DARK, 4, Title.Sonic_Bombardment, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Sonic_Bombardment, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Oouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioouioo-");
         setGameText("USED: [Upload] Downtown Plaza or a prison. LOST: [Upload] one unique (•) bounty. OR Target an alien. For remainder of turn, target is power and forfeit -1 (-3 if Chewie).");

@@ -4,8 +4,11 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card205_019 extends AbstractUsedOrLostInterrupt {
     public Card205_019() {
-        super(Side.DARK, 4, "A Trophy Sacrificed");
+        super(Side.DARK, 4, "A Trophy Sacrificed", Uniqueness.UNRESTRICTED, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jabba's minions could be expected to be sacrificed to save the Hutt, to destroy one of the Hutts enemies or to provide the Hutt and his minions with a good laugh.");
         setGameText("To play this Interrupt, you must first place a card stacked on Jabba's Trophies in owner's Lost Pile. USED: Draw top card of Reserve Deck. LOST: Cancel an attempt to use a weapon to target your alien. OR Cancel Sense.");

@@ -2,12 +2,18 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card209_047 extends AbstractUsedOrLostInterrupt {
     public Card209_047() {
-        super(Side.DARK, 4, "Death Squadron Assignment", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Death Squadron Assignment", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Make ready to land our troops beyond their energy field and deploy the fleet so that nothing gets off the system.");
         setGameText("USED: [upload] a card with 'Death Squadron' in lore. LOST: [download] an Imperial to a [Hoth] location.");
         addIcons(Icon.VIRTUAL_SET_9);

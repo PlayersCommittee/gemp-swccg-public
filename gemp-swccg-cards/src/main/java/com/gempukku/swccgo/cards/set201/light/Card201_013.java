@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set201.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card201_013 extends AbstractUsedOrLostInterrupt {
     public Card201_013() {
-        super(Side.LIGHT, 5, "Hear Me Baby, Hold Together");
+        super(Side.LIGHT, 5, "Hear Me Baby, Hold Together", Uniqueness.UNRESTRICTED, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Smuggler and Rebel starships use black market armor plating and deflector shields to withstand enemy fire. Expensive but life-saving modifications.");
         setGameText("USED: Play a Defensive Shield from under your Starting Effect. [Immune to Sense] OR Cancel Counter Assault, [Set 0] Defensive Fire, or Hidden Weapons. Or Make a just drawn Overload destiny = 1/2. LOST: Cancel Cease Fire! or I Have Your Now.");

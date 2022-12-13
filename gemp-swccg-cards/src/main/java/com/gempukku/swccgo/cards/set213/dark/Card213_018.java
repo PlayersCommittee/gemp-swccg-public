@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card213_018 extends AbstractUsedOrLostInterrupt {
     public Card213_018() {
-        super(Side.DARK, 4, "Far More Frightening Than Death", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Far More Frightening Than Death", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("USED: Stack top card of Lost Pile face down (as a 'Hatred' card) on opponent's leader (or character of ability > 3) at a battleground. "
                 + "LOST: If your Inquisitor in battle with a Jedi, Padawan, or 'Hatred' card, add one battle destiny (add two if with all three).");

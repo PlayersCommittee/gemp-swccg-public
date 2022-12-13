@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set204.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -13,7 +15,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TakeFirstBattleWeaponsSegmentActionEffect;
+import com.gempukku.swccgo.logic.effects.TakeFirstTwoBattleWeaponsSegmentActionsEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card204_049 extends AbstractUsedOrLostInterrupt {
     public Card204_049() {
-        super(Side.DARK, 5, "Force Freeze", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Force Freeze", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("USED: Cancel the game text of a character of ability < 5 present with Kylo for remainder of turn. LOST: If a battle was just initiated where there are no smugglers, take the first weapons segment action (or first two if you initiated).");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }

@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card211_013 extends AbstractUsedOrLostInterrupt {
     public Card211_013() {
-        super(Side.DARK, 4, "He's All Yours, Bounty Hunter");
+        super(Side.DARK, 4, "He's All Yours, Bounty Hunter", Uniqueness.UNRESTRICTED, ExpansionSet.SET_11, Rarity.V);
         setLore("Once Skywalker had taken the bait, Han was of no use to the Empire.");
         setGameText("USED: For remainder of turn, your bounty hunter draws one battle destiny if unable to otherwise and moves for free during your move phase. LOST: Cancel an attempt to use a weapon to target your bounty hunter escorting a captive.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_11);

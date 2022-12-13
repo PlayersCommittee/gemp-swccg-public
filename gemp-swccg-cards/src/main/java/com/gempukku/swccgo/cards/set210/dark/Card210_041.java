@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set210.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +41,7 @@ import java.util.List;
  */
 public class Card210_041 extends AbstractUsedOrLostInterrupt {
     public Card210_041() {
-        super(Side.DARK, 5, Title.Oota_Goota_Solo, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Oota_Goota_Solo, Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Greedo cheskopokuta klees ruya Solo. Hoko yanee boopa gush Cantina. Cheeco wa Solo's anye nyuma Greedo vakee. Jabba kul steeka et en anpaw.");
         setGameText("USED: Cancel Nabrun Leids. [Immune to Sense.] OR Use 1 Force to take a Rodian (or a non-unique alien of your Rep's species) into hand from Reserve Deck; reshuffle. LOST: During your move phase, \"break cover\" of an Undercover spy.");
         addIcons(Icon.A_NEW_HOPE);

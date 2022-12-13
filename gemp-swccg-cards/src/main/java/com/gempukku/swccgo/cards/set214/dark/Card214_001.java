@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set214.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +19,16 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfCardPlayedModifierEffect;
+import com.gempukku.swccgo.logic.effects.CancelCardBeingPlayedEffect;
+import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardBeingPlayedForCancelingEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsAtSameLocationEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.NoForceLossFromCardModifier;
@@ -35,7 +51,7 @@ import java.util.List;
  */
 public class Card214_001 extends AbstractUsedOrLostInterrupt {
     public Card214_001() {
-        super(Side.DARK, 4, "Alter & Collateral Damage");
+        super(Side.DARK, 4, "Alter & Collateral Damage", Uniqueness.UNRESTRICTED, ExpansionSet.SET_14, Rarity.V);
         addComboCardTitles(Title.Alter, Title.Collateral_Damage);
         setVirtualSuffix(true);
         setGameText("USED: Cancel Sense." +

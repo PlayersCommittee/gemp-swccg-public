@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card204_020 extends AbstractUsedOrLostInterrupt {
     public Card204_020() {
-        super(Side.LIGHT, 5, Title.Keep_Your_Eyes_Open);
+        super(Side.LIGHT, 5, Title.Keep_Your_Eyes_Open, Uniqueness.UNRESTRICTED, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Look, don't worry. Everything's gonna be fine. Trust me.'");
         setGameText("USED: Cancel an attempt to fire a weapon during any move phase. LOST: If a battle was just initiated, lose 1 Force to prevent all weapons from being fired for remainder of battle.");

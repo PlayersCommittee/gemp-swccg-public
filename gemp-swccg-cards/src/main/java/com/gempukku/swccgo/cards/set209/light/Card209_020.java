@@ -3,14 +3,24 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -26,7 +36,7 @@ import java.util.List;
  */
 public class Card209_020 extends AbstractUsedOrLostInterrupt {
     public Card209_020() {
-        super(Side.LIGHT, 5, Title.Knights_Of_The_Old_Republic, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Knights_Of_The_Old_Republic, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("A Jedi seeks nonviolent solutions to problems, but may fight to preserve the existence of life. An apprentice must learn which battles to fight and which to avoid.");
         setGameText("USED: If present with a Dark Jedi or [Episode I] Jedi, your Padawan is power +2 for remainder of turn. OR Deploy one [Episode I] lightsaber from Reserve Deck; reshuffle. LOST: Once per game, retrieve a Padawan or [Episode I] lightsaber.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_9);

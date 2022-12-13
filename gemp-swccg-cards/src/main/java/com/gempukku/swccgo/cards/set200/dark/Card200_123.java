@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card200_123 extends AbstractUsedOrLostInterrupt {
     public Card200_123() {
-        super(Side.DARK, 4, Title.Sith_Fury, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Sith_Fury, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("At his peak, no one could stand up to the Dark Lord of the Sith. His superior tactics devastated those who opposed him.");
         setGameText("USED: If you just drew a character for destiny, choose: Take that card into hand. OR Cancel and redraw that destiny. " +

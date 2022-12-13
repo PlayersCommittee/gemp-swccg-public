@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set200.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card200_056 extends AbstractUsedOrLostInterrupt {
     public Card200_056() {
-        super(Side.LIGHT, 5, "Starship Levitation");
+        super(Side.LIGHT, 5, "Starship Levitation", Uniqueness.UNRESTRICTED, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("A Jedi can move large objects with the power of the mind.");
         setGameText("USED: If you just drew a starship for destiny, take that starship into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve a non-[Maintenance] starship into hand.");

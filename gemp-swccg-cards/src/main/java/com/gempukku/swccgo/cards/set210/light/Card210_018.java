@@ -4,14 +4,22 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -27,7 +35,7 @@ import java.util.List;
 
 public class Card210_018 extends AbstractUsedOrLostInterrupt {
     public Card210_018() {
-        super(Side.LIGHT, 3, "Jedi Mind Trick", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Jedi Mind Trick", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("'You will bring Captain Solo and the Wookiee to me.'");
         setGameText("USED: If opponent just initiated a battle or Force drain, they must use 2 Force, or it is canceled. LOST: If your Jedi in battle (unless with a Dark Jedi, Hutt, or Toydarian), 'wave hand at' (add or subtract 2 from) an opponent's just drawn destiny.");
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_10);

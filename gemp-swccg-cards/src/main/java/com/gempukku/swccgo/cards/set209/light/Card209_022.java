@@ -2,9 +2,13 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +16,9 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card209_022 extends AbstractUsedOrLostInterrupt {
     public Card209_022() {
-        super(Side.LIGHT, 5, "Rescue In The Clouds", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Rescue In The Clouds", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setVirtualSuffix(true);
         setLore("'I know where Luke is.'");
         setGameText("USED: At a system or Bespin location, choose: Cancel a just drawn destiny targeting the ability or defense value of your non-Undercover character of ability < 5. OR During battle, draw one battle destiny if unable to otherwise. LOST: Cancel Close Call.");

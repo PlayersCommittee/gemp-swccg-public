@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +21,10 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.BreakCoverEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -28,7 +41,7 @@ import java.util.List;
  */
 public class Card210_024 extends AbstractUsedOrLostInterrupt {
     public Card210_024() {
-        super(Side.LIGHT, 5, Title.Quite_A_Mercenary);
+        super(Side.LIGHT, 5, Title.Quite_A_Mercenary, Uniqueness.UNRESTRICTED, ExpansionSet.SET_10, Rarity.V);
         setLore("Smugglers and other rogues frequent spaceports along trade routes. 'Your friend is quite a mercenary. I wonder if he really cares about anything, or anybody.'");
         setGameText("USED: Cancel Elis Helrot or Stunning Leader. [Immune to Sense.] OR Cancel a smuggler's game text for remainder of turn. OR [upload] [Reflections II] Chewie or Mercenary Armor. LOST: During your move phase, “break cover” of an Undercover spy.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_10);

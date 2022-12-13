@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card219_018 extends AbstractUsedOrLostInterrupt {
     public Card219_018() {
-        super(Side.DARK, 4, "Surely You Can Do Better", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Surely You Can Do Better", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: During battle, target a character present with [Set 13] Dooku. Target is power -3. " +
                     "LOST: If lightsaber combat was just initiated, add one destiny to your total. " +
                     "OR If [Set 13] Dooku on table, deploy Dooku’s Lightsaber from Lost Pile.");

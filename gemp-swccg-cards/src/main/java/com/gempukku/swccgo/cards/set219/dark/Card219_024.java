@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card219_024 extends AbstractUsedOrLostInterrupt {
     public Card219_024() {
-        super(Side.DARK, 4, "Understand Art, Understand A Species", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Understand Art, Understand A Species", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: Target a character in battle. Target and opponent's cards that share any characteristic(s) with it are power and forfeit -1. " +
                     "LOST: Once per game, if your [Set 19] objective just ‘studied’ a character, add one battle destiny (two if a character of same species is in battle).");
         addIcons(Icon.VIRTUAL_SET_19);
