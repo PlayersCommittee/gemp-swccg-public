@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card601_025 extends AbstractUsedOrLostInterrupt {
     public Card601_025() {
-        super(Side.DARK, 4, "Sneak Attack", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Sneak Attack", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Imperial training allows scouts to use speed and stealth to their advantage. On Endor, they were also backed up by Commander Igar's ATSTs.");
         setGameText("USED: If opponent just initiated a battle, place a card from hand on top of Reserve Deck. LOST: Add one battle destiny where you have an AT-ST, scout, or lone Imperial of ability < 4.");

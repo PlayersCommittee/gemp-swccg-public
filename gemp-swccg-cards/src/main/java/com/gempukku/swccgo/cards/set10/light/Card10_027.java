@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set10.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card10_027 extends AbstractUsedOrLostInterrupt {
     public Card10_027() {
-        super(Side.LIGHT, 2, "Yoda Stew & You Do Have Your Moments", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, "Yoda Stew & You Do Have Your Moments", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Yoda_Stew, Title.You_Do_Have_Your_Moments);
         setGameText("USED: During opponent's turn, take up to 4 cards from your hand and place them on top of your Force Pile. LOST: During a battle, before any cards have been forfeited, cause all attrition for both sides to be reduced to 0.");
         addIcons(Icon.REFLECTIONS_II);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card11_089 extends AbstractUsedOrLostInterrupt {
     public Card11_089() {
-        super(Side.DARK, 5, "Vader's Anger", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Vader's Anger", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Anger and aggression fuel the dark side of the Force.");
         setGameText("USED: Add 1 to your just-drawn lightsaber weapon destiny draw. LOST: If a duel was just initiated, place the top card of your Used Pile on top of your Reserve Deck.");
         addIcons(Icon.TATOOINE);

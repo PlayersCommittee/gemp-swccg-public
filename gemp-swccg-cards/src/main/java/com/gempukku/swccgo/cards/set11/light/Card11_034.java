@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card11_034 extends AbstractUsedOrLostInterrupt {
     public Card11_034() {
-        super(Side.LIGHT, 6, "Entering The Arena", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Entering The Arena", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("'What'd he mean by that?' 'I'll tell you later.'");
         setGameText("USED: Once per game may take Podracer Bay into hand from Reserve Deck; reshuffle. LOST: During a battle at Podracer Bay, add one battle destiny.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

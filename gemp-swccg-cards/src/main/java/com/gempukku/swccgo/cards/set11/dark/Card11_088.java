@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card11_088 extends AbstractUsedOrLostInterrupt {
     public Card11_088() {
-        super(Side.DARK, 4, "There Is No Conflict", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "There Is No Conflict", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("'That name no longer has any meaning...'");
         setGameText("USED: If your Imperial of ability > 2 just won a battle, randomly take into hand one card stacked on I Feel The Conflict. (Immune to Sense.) LOST: If Vader in battle, subtract 2 from each of opponent's battle destiny draws.");
         addIcons(Icon.TATOOINE);

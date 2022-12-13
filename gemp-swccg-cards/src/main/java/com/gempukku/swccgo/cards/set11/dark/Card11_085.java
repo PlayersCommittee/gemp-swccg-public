@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card11_085 extends AbstractUsedOrLostInterrupt {
     public Card11_085() {
-        super(Side.DARK, 5, Title.Podracer_Collision, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Podracer_Collision, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Podracing demands constant attention to many variables as well as all opponents. Failure to do so can often result in reduced performance.");
         setGameText("USED: If you just verified opponent's Reserve Deck, search that Reserve Deck and place one Interrupt found there out of play. LOST: Lose 1 Force to remove a race destiny (random selection) from any Podracer and place it in owner's hand.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

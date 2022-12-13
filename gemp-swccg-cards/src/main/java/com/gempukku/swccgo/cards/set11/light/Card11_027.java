@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfLostPileEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class Card11_027 extends AbstractUsedOrLostInterrupt {
     public Card11_027() {
-        super(Side.LIGHT, 4, "A Jedi's Focus", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "A Jedi's Focus", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Vader was surprised at how far the 'young apprentice' had come in his training.");
         setGameText("USED: If you have a character with a lightsaber in battle, all opponent's aliens at same site are power -1 for remainder of turn (-2 if alien is non-unique). LOST: If a duel was just initiated, add the destiny number of the top card of your Lost Pile to your total.");
         addIcons(Icon.TATOOINE);

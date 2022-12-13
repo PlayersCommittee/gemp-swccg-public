@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card11_028 extends AbstractUsedOrLostInterrupt {
     public Card11_028() {
-        super(Side.LIGHT, 5, "A Jedi's Patience", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "A Jedi's Patience", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Early on in his duel with Vader, Luke took his time in trying to sense his opponent's weaknesses.");
         setGameText("USED: If your character armed with a lightsaber is defending a battle, adds 2 to your total power in that battle. LOST: During a duel, cancel one of your duel destiny draws to cause a re-draw.");
         addIcons(Icon.TATOOINE);

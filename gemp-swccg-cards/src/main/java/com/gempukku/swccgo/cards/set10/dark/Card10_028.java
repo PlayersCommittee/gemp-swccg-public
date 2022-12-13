@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set10.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card10_028 extends AbstractUsedOrLostInterrupt {
     public Card10_028() {
-        super(Side.DARK, 2, "Abyssin Ornament & Wounded Wookiee", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Abyssin Ornament & Wounded Wookiee", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Abyssin_Ornament, Title.Wounded_Wookiee);
         setGameText("USED: Take one non-unique alien into hand from Reserve Deck; reshuffle. LOST: During a battle, if opponent drew more than two battle destiny, cancel all but two of those destiny draws (your choice). OR If your non-unique alien is in a battle, cancel game text of one Rebel for remainder of turn.");
         addIcons(Icon.REFLECTIONS_II);

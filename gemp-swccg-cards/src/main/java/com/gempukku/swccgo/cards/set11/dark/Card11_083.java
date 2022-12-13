@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelDuelEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card11_083 extends AbstractUsedOrLostInterrupt {
     public Card11_083() {
-        super(Side.DARK, 4, "Lightsaber Parry", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Lightsaber Parry", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Vader had to show Luke that giving in to the dark side of the Force was his only destiny.");
         setGameText("USED: If a battle was just initiated where you have a character armed with a lightsaber, characters may not be targeted by lightsabers for remainder of battle. LOST: If opponent just initiated a duel, opponent must choose to lose 4 Force or cancel the duel.");
         addIcons(Icon.TATOOINE);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +17,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -28,7 +39,7 @@ import java.util.List;
  */
 public class Card11_033 extends AbstractUsedOrLostInterrupt {
     public Card11_033() {
-        super(Side.LIGHT, 4, "End Of A Reign", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "End Of A Reign", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("The turning of Vader and the loss of Palpatine was the beginning of a new era for the entire galaxy.");
         setGameText("USED: Cancel Overseeing It Personally. OR Use 4 Force to cancel Vader's game text for remainder of turn. LOST: If Emperor just lost from table, draw destiny. Opponent must lose Force equal to the destiny draw.");
         addIcons(Icon.TATOOINE);

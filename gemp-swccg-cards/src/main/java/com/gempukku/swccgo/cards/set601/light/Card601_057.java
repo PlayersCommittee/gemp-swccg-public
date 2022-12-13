@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card601_057 extends AbstractUsedOrLostInterrupt {
     public Card601_057() {
-        super(Side.LIGHT, 6, Title.Run_Luke_Run, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, Title.Run_Luke_Run, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("After seeing Vader strike down Obi-Wan, Luke attacked recklessly until he heard the old Jedi Master's voice warn, 'Run Luke, Run!'");
         setGameText("USED: During battle, if Obi-Wan out of play, cancel an attempt to target a Rebel with a weapon. \n" +
                 "LOST: During battle at a site, place non-[Episode I] Obi-Wan out of play (even from hand); Your other characters there may move away for free.");

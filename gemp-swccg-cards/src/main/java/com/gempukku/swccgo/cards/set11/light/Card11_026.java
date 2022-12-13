@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelDuelEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card11_026 extends AbstractUsedOrLostInterrupt {
     public Card11_026() {
-        super(Side.LIGHT, 5, "A Jedi's Concentration", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "A Jedi's Concentration", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Luke's experience on Dagobah gave him great skill in using the Force. Vader had to keep his focus on Luke at all times, or face the consequences.");
         setGameText("USED: If a battle was just initiated where you have a character armed with a lightsaber, characters may not be targeted by lightsabers for remainder of battle. LOST: If opponent just initiated a duel, opponent must choose to lose 4 Force or cancel the duel.");
         addIcons(Icon.TATOOINE);

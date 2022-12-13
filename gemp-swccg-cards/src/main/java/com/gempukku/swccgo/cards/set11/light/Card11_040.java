@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card11_040 extends AbstractUsedOrLostInterrupt {
     public Card11_040() {
-        super(Side.LIGHT, 5, "Too Close For Comfort", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Too Close For Comfort", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Anakin needed all the help he could get to evade Sebulba's tactics.");
         setGameText("USED: If your character was just targeted by a weapon, opponent must use 2 Force or the targeting is canceled. LOST: Cancel Hit Racer or Podracer Collision.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);
