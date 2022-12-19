@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card217_048 extends AbstractSite {
     public Card217_048() {
-        super(Side.LIGHT, Title.Slave_Quarters, Title.Tatooine);
+        super(Side.LIGHT, Title.Slave_Quarters, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("");
         setLocationLightSideGameText("Deploys only as a starting location. If you just chose My Father Has It on your [Skywalker] Epic Event, [download] Your Thoughts Dwell On Your Mother.");

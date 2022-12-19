@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card213_029 extends AbstractSite {
     public Card213_029() {
-        super(Side.DARK, "Malachor: Sith Temple Entrance", Title.Malachor);
+        super(Side.DARK, "Malachor: Sith Temple Entrance", Title.Malachor, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("You initiate battles here for free. Unless you occupy, Inquisitors deploy -1 here.");
         setLocationLightSideGameText("Once per game, you may deploy a Padawan (except Anakin) here from Reserve Deck; reshuffle.");
         addIcon(Icon.DARK_FORCE, 2);

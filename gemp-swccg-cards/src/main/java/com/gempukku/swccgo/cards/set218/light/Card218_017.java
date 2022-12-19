@@ -2,13 +2,18 @@ package com.gempukku.swccgo.cards.set218.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextOnSideOfLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +26,7 @@ import java.util.List;
  */
 public class Card218_017 extends AbstractSite {
     public Card218_017() {
-        super(Side.LIGHT, "Death Star: Level 6 Core Shaft Corridor", Title.Death_Star);
+        super(Side.LIGHT, "Death Star: Level 6 Core Shaft Corridor", Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("If you occupy, opponent's Level 6 Core Shaft Corridor game text is canceled.");
         setLocationLightSideGameText("Your stormtroopers here may move as a 'react' to a battle or Force drain at an adjacent site.");

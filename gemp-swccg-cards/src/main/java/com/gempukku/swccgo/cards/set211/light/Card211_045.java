@@ -1,13 +1,20 @@
 package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
-import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DestinyDrawForActionSourceModifier;
+import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToFireWeaponModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +28,7 @@ import java.util.List;
 
 public class Card211_045 extends AbstractSite {
     public Card211_045() {
-        super(Side.LIGHT, "Ahch-To: Jedi Village", Title.Ahch_To);
+        super(Side.LIGHT, "Ahch-To: Jedi Village", Title.Ahch_To, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("While Luke here, destiny draws for Alter and Sense are +2.");
         setLocationLightSideGameText("While Luke here, opponent must first use 1 Force to fire a weapon anywhere.");
         addIcon(Icon.LIGHT_FORCE, 1);

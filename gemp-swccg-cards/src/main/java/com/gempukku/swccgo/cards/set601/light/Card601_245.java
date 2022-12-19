@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set601.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card601_245 extends AbstractSite {
     public Card601_245() {
-        super(Side.LIGHT, Title.Nightclub, Title.Coruscant);
+        super(Side.LIGHT, Title.Nightclub, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLocationDarkSideGameText("Your characters here are defense value -1 and may not be excluded from battle.");
         setLocationLightSideGameText("Your characters here are defense value -1 and may not be excluded from battle.");
         addIcon(Icon.DARK_FORCE, 2);

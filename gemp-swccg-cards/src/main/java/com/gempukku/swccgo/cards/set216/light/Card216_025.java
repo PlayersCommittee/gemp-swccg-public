@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set216.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CommuningCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card216_025 extends AbstractSite {
     public Card216_025() {
-        super(Side.LIGHT, "Coruscant: Jedi Temple Meditation Room", Title.Coruscant);
+        super(Side.LIGHT, "Coruscant: Jedi Temple Meditation Room", Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("If Qui-Gon 'communing,' may [download] Theed Palace Generator.");
         setLocationLightSideGameText("While Qui-Gon 'communing,' no Force drains here.");
         addIcon(Icon.LIGHT_FORCE, 2);

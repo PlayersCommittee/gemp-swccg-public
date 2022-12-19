@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card219_031 extends AbstractSite {
     public Card219_031() {
-        super(Side.LIGHT, "Coruscant: Jedi Temple", Title.Coruscant);
+        super(Side.LIGHT, "Coruscant: Jedi Temple", Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("");
         setLocationLightSideGameText("During your move phase, [Episode I] Jedi may move between here and a battleground site. " +
                                      "While a Jedi here, opponent's characters deploy +2 here and cancels Force drains at Jedi Council Chamber.");

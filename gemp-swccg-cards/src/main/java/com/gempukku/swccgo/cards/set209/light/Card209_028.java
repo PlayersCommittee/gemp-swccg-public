@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card209_028 extends AbstractSite {
     public Card209_028() {
-        super(Side.LIGHT, Title.Massassi_Ruins, Title.Yavin_4);
+        super(Side.LIGHT, Title.Massassi_Ruins, Title.Yavin_4, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("If Yavin 4 system on table, Force drain -1 here.");
         setLocationLightSideGameText("If Yavin 4 'blown away,' Force loss is reduced by 4.");

@@ -2,16 +2,20 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
-import com.gempukku.swccgo.logic.effects.choose.*;
+import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.DrawCardsIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -27,7 +31,7 @@ import java.util.List;
  */
 public class Card601_014 extends AbstractSite {
     public Card601_014() {
-        super(Side.DARK, Title.Skyhook_Platform, Title.Kashyyyk);
+        super(Side.DARK, Title.Skyhook_Platform, Title.Kashyyyk, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLocationDarkSideGameText("May place a card stacked here in owner's Lost Pile to draw two cards from Reserve Deck.");
         setLocationLightSideGameText("Opponent's Kashyyyk locations are immune to Revolution and Expand The Empire.");
         addIcon(Icon.DARK_FORCE, 2);

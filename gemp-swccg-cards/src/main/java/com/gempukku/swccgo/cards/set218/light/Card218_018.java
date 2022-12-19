@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set218.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -18,7 +21,6 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card218_018 extends AbstractSite {
     public Card218_018() {
-        super(Side.LIGHT, "Death Star II: Turbolift Walkway", Title.Death_Star_II);
+        super(Side.LIGHT, "Death Star II: Turbolift Walkway", Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setLocationDarkSideGameText("If you have more than two characters here, you must target one to be lost (cannot be prevented).");
         setLocationLightSideGameText("If you have more than one character here, you must target one to be lost (cannot be prevented).");
         addIcon(Icon.DARK_FORCE, 1);

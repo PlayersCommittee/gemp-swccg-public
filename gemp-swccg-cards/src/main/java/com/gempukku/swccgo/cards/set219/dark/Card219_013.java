@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card219_013 extends AbstractSite {
     public Card219_013() {
-        super(Side.DARK, Title.Lothal_Imperial_Complex, Title.Lothal);
+        super(Side.DARK, Title.Lothal_Imperial_Complex, Title.Lothal, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("If you control with a leader, once per battle at a related site, you may deploy a card as a ‘react’.");
         setLocationLightSideGameText("Your non-Rebel characters deploy +1 here.");
         addIcon(Icon.DARK_FORCE, 2);

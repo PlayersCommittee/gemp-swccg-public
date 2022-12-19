@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set216.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card216_004 extends AbstractSite {
     public Card216_004() {
-        super(Side.DARK, "Coruscant: The Works", Title.Coruscant);
+        super(Side.DARK, "Coruscant: The Works", Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("May [download] non-[Theed Palace] Sidious here.");
         setLocationLightSideGameText("If opponent's [Special Edition] objective on table, gains one [Light Side] icon and Force drain +2 here.");
         addIcon(Icon.DARK_FORCE, 2);

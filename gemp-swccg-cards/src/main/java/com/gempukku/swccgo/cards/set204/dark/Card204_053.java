@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set204.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card204_053 extends AbstractSite {
     public Card204_053() {
-        super(Side.DARK, Title.Tuanul_Village, Title.Jakku);
+        super(Side.DARK, Title.Tuanul_Village, Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("First Order characters are each power +1 here.");
         setLocationLightSideGameText("Resistance characters are each defense value and forfeit +1 here.");
         addIcon(Icon.DARK_FORCE, 2);

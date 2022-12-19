@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set203.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card203_034 extends AbstractSite {
     public Card203_034() {
-        super(Side.DARK, Title.Uplink_Station, Title.Coruscant);
+        super(Side.DARK, Title.Uplink_Station, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLocationDarkSideGameText("If Falleen's Fist at Coruscant and your Black Sun agent here, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);

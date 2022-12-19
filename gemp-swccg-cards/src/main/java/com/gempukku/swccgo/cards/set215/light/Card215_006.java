@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DeathStarPowerShutDownCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card215_006 extends AbstractSite {
     public Card215_006() {
-        super(Side.LIGHT, Title.Death_Star_Central_Core, Title.Death_Star);
+        super(Side.LIGHT, Title.Death_Star_Central_Core, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLocationDarkSideGameText("If you occupy, opponent must first use 1 Force to move a character from here.");
         setLocationLightSideGameText("If A Power Loss 'shut down' this game, Force drain +1 here and Death Star Tractor Beam lost.");
         addIcon(Icon.LIGHT_FORCE, 2);

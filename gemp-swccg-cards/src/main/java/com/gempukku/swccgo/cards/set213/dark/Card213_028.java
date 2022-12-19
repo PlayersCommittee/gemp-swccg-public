@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set213.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card213_028 extends AbstractSite {
     public Card213_028() {
-        super(Side.DARK, "Malachor: Sith Temple Upper Chamber", Title.Malachor);
+        super(Side.DARK, "Malachor: Sith Temple Upper Chamber", Title.Malachor, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("Force drain +1 here. While Vader alone here, he is power +2.");
         setLocationLightSideGameText("While Ahsoka alone (or with Ezra) here, she is power +2.");
         addIcon(Icon.DARK_FORCE, 2);

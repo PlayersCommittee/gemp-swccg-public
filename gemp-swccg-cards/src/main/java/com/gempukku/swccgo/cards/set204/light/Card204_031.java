@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card204_031 extends AbstractSite {
     public Card204_031() {
-        super(Side.LIGHT, Title.Tuanul_Village, Title.Jakku);
+        super(Side.LIGHT, Title.Tuanul_Village, Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("If your First Order character here, your total power here is +2.");
         setLocationLightSideGameText("Lor San Tekka is power +4 and defense value -2 here.");
         addIcon(Icon.DARK_FORCE, 1);

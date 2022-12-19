@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card217_027 extends AbstractSite {
     public Card217_027() {
-        super(Side.LIGHT, "Ajan Kloss: Training Course", Title.Ajan_Kloss);
+        super(Side.LIGHT, "Ajan Kloss: Training Course", Title.Ajan_Kloss, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLocationDarkSideGameText("");
         setLocationLightSideGameText("Deploys only as a starting location. If you just chose You Have That Power, Too on your [Skywalker] Epic Event, [download] My Parents Were Strong.");
         addIcon(Icon.LIGHT_FORCE, 2);

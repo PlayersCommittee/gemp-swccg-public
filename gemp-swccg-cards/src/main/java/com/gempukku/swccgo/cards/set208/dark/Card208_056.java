@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card208_056 extends AbstractSite {
     public Card208_056() {
-        super(Side.DARK, Title.Mos_Espa, Title.Tatooine);
+        super(Side.DARK, Title.Mos_Espa, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Your characters here and at Watto's Junkyard are immune to opponent's Sandwhirl.");
         setLocationLightSideGameText("For remainder of game, sites may not deploy between this site and Watto's Junkyard.");

@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card204_027 extends AbstractSite {
     public Card204_027() {
-        super(Side.LIGHT, Title.Niima_Outpost_Shipyard, Title.Jakku);
+        super(Side.LIGHT, Title.Niima_Outpost_Shipyard, Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("Your gangsters and scavengers deploy -1 here.");
         setLocationLightSideGameText("Your starfighters take off and land here for free.");
         addIcon(Icon.DARK_FORCE, 1);

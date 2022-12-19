@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card208_053 extends AbstractSite {
     public Card208_053() {
-        super(Side.DARK, "Starkiller Base: Forest", Title.Starkiller_Base);
+        super(Side.DARK, "Starkiller Base: Forest", Title.Starkiller_Base, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLocationDarkSideGameText("While Kylo armed with a lightsaber here, he is power +2.");
         setLocationLightSideGameText("While Rey armed with a lightsaber here, she is power +2.");
         addIcon(Icon.DARK_FORCE, 2);

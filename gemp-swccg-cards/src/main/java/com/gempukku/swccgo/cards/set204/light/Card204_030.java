@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card204_030 extends AbstractSite {
     public Card204_030() {
-        super(Side.LIGHT, "Jakku: Starship Graveyard", Title.Jakku);
+        super(Side.LIGHT, "Jakku: Starship Graveyard", Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("Unless you occupy, your non-scavenger characters deploy and move to here for +1 Force.");
         setLocationLightSideGameText("If you just deployed a scavenger here, may retrieve a device, droid, or weapon.");
         addIcon(Icon.DARK_FORCE, 2);

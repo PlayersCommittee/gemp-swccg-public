@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set215.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card215_014 extends AbstractSite {
     public Card215_014() {
-        super(Side.LIGHT, Title.Kachirho, Title.Kashyyyk);
+        super(Side.LIGHT, Title.Kachirho, Title.Kashyyyk, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLocationDarkSideGameText("Total ability of 6 or more required for you to draw battle destiny here.");
         setLocationLightSideGameText("Once per turn, if you occupy with a Wookiee, may [download]▼ a Kashyyyk location.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card216_009 extends AbstractSite {
     public Card216_009() {
-        super(Side.DARK, "Mustafar: Private Platform (Docking Bay)", Title.Mustafar);
+        super(Side.DARK, "Mustafar: Private Platform (Docking Bay)", Title.Mustafar, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("Once per turn, may [download] a starfighter with 'Vader' in title here.");
         setLocationLightSideGameText("Your docking bay transit to or from here requires +4 Force (+6 Force if Vader or Vaneé here).");
         addIcon(Icon.DARK_FORCE, 1);

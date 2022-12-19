@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card211_041 extends AbstractSite {
     public Card211_041() {
-        super(Side.LIGHT, "Kamino: Clone Training Center", "Kamino");
+        super(Side.LIGHT, "Kamino: Clone Training Center", "Kamino", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("Fetts deploy -1 here.");
         setLocationLightSideGameText("If you control, your non-unique clone troopers are power and forfeit + 1.");
         addIcon(Icon.DARK_FORCE, 1);

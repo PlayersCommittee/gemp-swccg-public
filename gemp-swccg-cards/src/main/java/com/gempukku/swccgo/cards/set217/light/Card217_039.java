@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set217.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card217_039 extends AbstractSite {
     public Card217_039() {
-        super(Side.LIGHT, "Kef Bir: Oceanic Wreckage", Title.Kef_Bir);
+        super(Side.LIGHT, "Kef Bir: Oceanic Wreckage", Title.Kef_Bir, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLocationDarkSideGameText("Unless you occupy, Kylo and Sidious deploy -1 here.");
         setLocationLightSideGameText("Unless Rey, Han, or Ben Solo here, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

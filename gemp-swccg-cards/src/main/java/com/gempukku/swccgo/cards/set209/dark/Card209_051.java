@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set209.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card209_051 extends AbstractSite {
     public Card209_051() {
-        super(Side.DARK, Title.Sewer, Title.Coruscant);
+        super(Side.DARK, Title.Sewer, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLocationDarkSideGameText("Once per game, may exchange an alien in hand with a non-spy Black Sun Agent in Lost Pile.");
         setLocationLightSideGameText("Once per game, if you control, may retrieve a Corellian.");
         addIcon(Icon.DARK_FORCE, 2);

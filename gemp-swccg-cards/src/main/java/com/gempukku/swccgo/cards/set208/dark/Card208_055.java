@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card208_055 extends AbstractSite {
     public Card208_055() {
-        super(Side.DARK, "Starkiller Base: Shield Control", Title.Starkiller_Base);
+        super(Side.DARK, "Starkiller Base: Shield Control", Title.Starkiller_Base, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLocationDarkSideGameText("If you control with a First Order leader, Force drain +1 here.");
         setLocationLightSideGameText("Chewie, Finn, and Han are deploy -1 and power +1 here.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set216.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card216_016 extends AbstractSite {
     public Card216_016() {
-        super(Side.DARK, "Scarif: Command Center", Title.Scarif);
+        super(Side.DARK, "Scarif: Command Center", Title.Scarif, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("If an Imperial leader here, add one destiny to your [Set 9] Epic Event total targeting a Scarif site.");
         setLocationLightSideGameText("If Shield Gate on table, opponent's Force drains here are +1.");
         addIcon(Icon.DARK_FORCE, 2);

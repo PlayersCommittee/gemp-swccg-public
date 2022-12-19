@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card204_028 extends AbstractSite {
     public Card204_028() {
-        super(Side.LIGHT, Title.Ravager_Crash_Site, Title.Jakku);
+        super(Side.LIGHT, Title.Ravager_Crash_Site, Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("Unless opponent's scavenger present, opponent's Ravager Crash Site game text is canceled.");
         setLocationLightSideGameText("At the start of your turn, may stack top card of Lost Pile face down on Graveyard Of Giants.");
         addIcon(Icon.DARK_FORCE, 1);

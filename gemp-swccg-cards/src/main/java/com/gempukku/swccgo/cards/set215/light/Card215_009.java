@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set215.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card215_009 extends AbstractSite {
     public Card215_009() {
-        super(Side.LIGHT, Title.Trash_Compactor, Title.Death_Star);
+        super(Side.LIGHT, Title.Trash_Compactor, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Unless you control an adjacent site, We're All Gonna Be A Lot Thinner! is canceled.");
         setLocationLightSideGameText("During your move phase, you may move to here for free from any Death Star site.");

@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set216.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card216_026 extends AbstractSite {
     public Card216_026() {
-        super(Side.LIGHT, Title.Yodas_Hut, Title.Dagobah);
+        super(Side.LIGHT, Title.Yodas_Hut, Title.Dagobah, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("If Yoda here or [Set 16] Yoda 'communing,' once per turn, may subtract 2 from attrition against you.");
         setLocationLightSideGameText("If Yoda here or [Set 16] Yoda 'communing,' Broken Concentration is canceled.");

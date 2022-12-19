@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card210_001 extends AbstractSite {
     public Card210_001() {
-        super(Side.LIGHT, Title.Saddle, Title.Ahch_To);
+        super(Side.LIGHT, Title.Saddle, Title.Ahch_To, Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLocationDarkSideGameText("");
         setLocationLightSideGameText("May [download] [Episode VII] Luke here. Once per turn, if Luke alone here, may subtract 2 from opponent's total power during a battle at another location.");
         addIcon(Icon.LIGHT_FORCE, 2);

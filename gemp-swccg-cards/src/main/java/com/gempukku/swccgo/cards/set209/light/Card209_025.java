@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card209_025 extends AbstractSite {
     public Card209_025() {
-        super(Side.LIGHT, Title.DataVault, Title.Scarif);
+        super(Side.LIGHT, Title.DataVault, Title.Scarif, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLocationLightSideGameText("While opponent occupies, Stardust (and any character it is on) may not move from here.");
         setLocationDarkSideGameText("All immunity to attrition (and Ephant Mon's game text) here is canceled.");
         addIcon(Icon.LIGHT_FORCE, 1);

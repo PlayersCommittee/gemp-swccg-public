@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card216_015 extends AbstractSite {
     public Card216_015() {
-        super(Side.DARK, Title.Scarif_Citadel_Tower, Title.Scarif);
+        super(Side.DARK, Title.Scarif_Citadel_Tower, Title.Scarif, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("If a player just Force drained here, they may raise a converted Scarif location to the top.");
         setLocationLightSideGameText("Unless your spy here, total ability of 6 or more required for you to draw battle destiny here.");
         addIcon(Icon.DARK_FORCE, 1);

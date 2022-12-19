@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card216_017 extends AbstractSite {
     public Card216_017() {
-        super(Side.DARK, Title.Scarif_Landing_Pad_Five, Title.Scarif);
+        super(Side.DARK, Title.Scarif_Landing_Pad_Five, Title.Scarif, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force (free if an Imperial leader here).");
         setLocationLightSideGameText("Your docking bay transit from here requires 3 Force (7 if Shield Gate on table).");
         addIcon(Icon.DARK_FORCE, 1);

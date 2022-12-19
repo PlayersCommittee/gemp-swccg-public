@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card203_032 extends AbstractSite {
     public Card203_032() {
-        super(Side.DARK, Title.Xizors_Palace, Title.Coruscant);
+        super(Side.DARK, Title.Xizors_Palace, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLocationDarkSideGameText("Black Sun agents move to here for free. Once per turn, may [download] a Xizor's Palace site.");
         setLocationLightSideGameText("Unless Chewie, Dash, or Leia present, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);

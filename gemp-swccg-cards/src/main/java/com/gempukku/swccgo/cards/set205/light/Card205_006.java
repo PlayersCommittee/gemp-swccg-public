@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set205.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card205_006 extends AbstractSite {
     public Card205_006() {
-        super(Side.LIGHT, Title.Lars_Moisture_Farm, Title.Tatooine);
+        super(Side.LIGHT, Title.Lars_Moisture_Farm, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Unless Vader or your trooper here, Force drain -1 here (if both here, Force drain +1 instead).");
         setLocationLightSideGameText("Anakin, Beru, and Owen may move to and from here for free when using landspeed.");

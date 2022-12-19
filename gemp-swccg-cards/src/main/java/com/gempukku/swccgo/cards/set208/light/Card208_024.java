@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card208_024 extends AbstractSite {
     public Card208_024() {
-        super(Side.LIGHT, Title.Yavin_4_War_Room, Title.Yavin_4);
+        super(Side.LIGHT, Title.Yavin_4_War_Room, Title.Yavin_4, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Opponent's characters here are immune to Set For Stun.");
         setLocationLightSideGameText("Once per game, may [download] a Rebel leader here.");

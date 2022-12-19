@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set214.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card214_019 extends AbstractSite {
     public Card214_019() {
-        super(Side.LIGHT, Title.Chief_Chirpas_Hut, Title.Endor);
+        super(Side.LIGHT, Title.Chief_Chirpas_Hut, Title.Endor, Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLocationDarkSideGameText("Force generation here may not be prevented by Objectives.");
         setLocationLightSideGameText("You may not generate more than 2 Force at non-battlegrounds. Ewoks deploy -2 here.");
         addIcon(Icon.LIGHT_FORCE, 2);

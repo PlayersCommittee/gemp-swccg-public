@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card601_060 extends AbstractSite {
     public Card601_060() {
-        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine);
+        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("Once per turn, if Obi-Wan 'communing' may deploy from Reserve Deck an effect with 'Rebel' in title; reshuffle.");
         addIcon(Icon.LIGHT_FORCE, 2);

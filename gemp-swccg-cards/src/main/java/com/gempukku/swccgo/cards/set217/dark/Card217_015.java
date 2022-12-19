@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set217.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card217_015 extends AbstractSite {
     public Card217_015() {
-        super(Side.DARK, "Malachor: Sith Temple Gateway", Title.Malachor);
+        super(Side.DARK, "Malachor: Sith Temple Gateway", Title.Malachor, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLocationDarkSideGameText("[Set 13] Maul ignores [Set 13] objective deployment restrictions here.");
         setLocationLightSideGameText("Opponent may not target Ezra with weapons here.");
         addIcon(Icon.DARK_FORCE, 1);

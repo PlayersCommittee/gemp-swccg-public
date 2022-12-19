@@ -1,14 +1,22 @@
 package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
-import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.cards.conditions.OutOfPlayCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +30,7 @@ import java.util.List;
 
 public class Card211_047 extends AbstractSite {
     public Card211_047() {
-        super(Side.LIGHT, "Ahch-To: Cliffs", Title.Ahch_To);
+        super(Side.LIGHT, "Ahch-To: Cliffs", Title.Ahch_To, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("While Luke here, attrition against you everywhere is +1. ");
         setLocationLightSideGameText("If Luke here or out of play, Force Projection is [Immune to Sense].");
         addIcon(Icon.LIGHT_FORCE, 2);

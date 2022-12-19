@@ -1,17 +1,21 @@
 package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
-import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.NotCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitToCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitToForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +29,7 @@ import java.util.List;
  */
 public class Card601_150 extends AbstractSite {
     public Card601_150() {
-        super(Side.DARK, "Coruscant: Private Platform (Docking Bay)", Title.Coruscant);
+        super(Side.DARK, "Coruscant: Private Platform (Docking Bay)", Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLocationDarkSideGameText("If deployed by your [Block 7] objective, may not be separated from Palpatine's Quarters. Your docking bay transit to or from here is free.");
         setLocationLightSideGameText("All docking bay transit from same site as Insidious Prisoner is free. Your docking bay transit to or from here requires 2 Force.");
         addIcon(Icon.DARK_FORCE, 1);

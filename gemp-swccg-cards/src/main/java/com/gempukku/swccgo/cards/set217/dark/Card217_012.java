@@ -3,14 +3,22 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.DuringPlayersTurnNumberCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MovesFreeFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MovesFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card217_012 extends AbstractSite {
     public Card217_012() {
-        super(Side.DARK, Title.North_Ridge, Title.Hoth);
+        super(Side.DARK, Title.North_Ridge, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("AT-ATs move to and from here for free. During your first turn, AT-ATs may not deploy here.");
         setLocationLightSideGameText("T-47s are power +1 here. If you have two piloted T-47s here, Force drain +1 here.");

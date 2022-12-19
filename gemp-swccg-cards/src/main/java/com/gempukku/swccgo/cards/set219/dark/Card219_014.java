@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card219_014 extends AbstractSite {
     public Card219_014() {
-        super(Side.DARK, "Lothal: Imperial Strip Mines", Title.Lothal);
+        super(Side.DARK, "Lothal: Imperial Strip Mines", Title.Lothal, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("If your miner present, your Force generation is +2 here.");
         setLocationLightSideGameText("If you control, your Force generation is +1 here.");
         addIcon(Icon.DARK_FORCE, 2);

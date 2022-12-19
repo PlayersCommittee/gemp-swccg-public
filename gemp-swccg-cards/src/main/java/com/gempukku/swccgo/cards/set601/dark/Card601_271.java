@@ -1,15 +1,20 @@
 package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +27,7 @@ import java.util.List;
  */
 public class Card601_271 extends AbstractSite {
     public Card601_271() {
-        super(Side.DARK, "Ralltiir: Spaceport Financial District", Title.Ralltiir);
+        super(Side.DARK, "Ralltiir: Spaceport Financial District", Title.Ralltiir, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLocationDarkSideGameText("Same and related spaceport sites opponent does not control gain one [Dark Side] icon.");
         setLocationLightSideGameText("Immune to Expand the Empire and Revolution.");
         addIcon(Icon.DARK_FORCE, 1);

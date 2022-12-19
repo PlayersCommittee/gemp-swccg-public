@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.MoveUsingLocationTextAction;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card208_054 extends AbstractSite {
     public Card208_054() {
-        super(Side.DARK, "Starkiller Base: Interrogation Room (Prison)", Title.Starkiller_Base);
+        super(Side.DARK, "Starkiller Base: Interrogation Room (Prison)", Title.Starkiller_Base, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLocationDarkSideGameText("During your move phase, may use 2 Force to move Kylo between here and a battleground.");
         setLocationLightSideGameText("If Kylo here and And Now You'll Give It To Me on table, opponent's Force drains are +2 here.");
         addIcon(Icon.DARK_FORCE, 1);

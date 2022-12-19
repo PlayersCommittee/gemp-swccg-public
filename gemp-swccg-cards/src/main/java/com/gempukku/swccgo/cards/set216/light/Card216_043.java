@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CommuningCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card216_043 extends AbstractSite {
     public Card216_043() {
-        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine);
+        super(Side.LIGHT, Title.ObiWans_Hut, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("While Obi-Wan 'communing,' no Force drains here.");
         setLocationLightSideGameText("If Obi-Wan 'communing,' once per turn, may subtract 2 from a just drawn [Permanent Weapon] weapon destiny.");

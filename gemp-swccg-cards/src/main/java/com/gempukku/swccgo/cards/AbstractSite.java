@@ -16,37 +16,6 @@ public abstract class AbstractSite extends AbstractLocation {
      * Creates a blueprint for a site.
      * @param side the side of the Force
      * @param title the card title
-     * @param systemName the system the site is related to, or null if a generic location or non-planet site
-     */
-    protected AbstractSite(Side side, String title, String systemName) {
-        this(side, title, systemName, Uniqueness.UNIQUE);
-    }
-
-    /**
-     * Creates a blueprint for a site.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractSite(Side side, String title, Uniqueness uniqueness) {
-        this(side, title, null, uniqueness);
-    }
-
-    /**
-     * Creates a blueprint for a site.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param systemName the system the site is related to, or null if a generic location or non-planet site
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractSite(Side side, String title, String systemName, Uniqueness uniqueness) {
-        this(side, title, systemName, uniqueness, null, null);
-    }
-
-    /**
-     * Creates a blueprint for a site.
-     * @param side the side of the Force
-     * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
      * @param rarity the rarity

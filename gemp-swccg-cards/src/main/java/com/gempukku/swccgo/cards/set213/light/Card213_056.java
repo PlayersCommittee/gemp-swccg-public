@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set213.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card213_056 extends AbstractSite {
     public Card213_056() {
-        super(Side.LIGHT, Title.Death_Star_II_Chasm_Walkway, Title.Death_Star_II);
+        super(Side.LIGHT, Title.Death_Star_II_Chasm_Walkway, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("Your total power here is -1 for each card stacked on I Feel The Conflict.");
         setLocationLightSideGameText("If alone, Luke is power +2 here.");
         addIcon(Icon.DARK_FORCE, 2);

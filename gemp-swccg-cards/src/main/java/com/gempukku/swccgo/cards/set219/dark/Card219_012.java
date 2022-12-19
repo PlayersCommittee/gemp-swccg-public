@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set219.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card219_012 extends AbstractSite {
     public Card219_012() {
-        super(Side.DARK, Title.Lothal_Capital_City, Title.Lothal);
+        super(Side.DARK, Title.Lothal_Capital_City, Title.Lothal, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("Rukh, Imperials, AT-DPs, AT-STs, and speeder bikes are power and defense value +1 here.");
         setLocationLightSideGameText("While you occupy, your Imperial Complex game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

@@ -2,9 +2,15 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.*;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,10 +18,9 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromForcePileEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardsIntoHandFromForcePileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.GenerateNoForceModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -30,7 +35,7 @@ import java.util.List;
 
 public class Card211_046 extends AbstractSite {
     public Card211_046() {
-        super(Side.LIGHT, "Ahch-To: Jedi Temple", Title.Ahch_To);
+        super(Side.LIGHT, "Ahch-To: Jedi Temple", Title.Ahch_To, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("Unless your battleground on table, you generate no Force here.");
         setLocationLightSideGameText("Once during your turn, if Luke alone here, may draw top card of Force Pile. ");
         addIcon(Icon.LIGHT_FORCE, 2);

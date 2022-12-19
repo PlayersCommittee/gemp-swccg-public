@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set218.light;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card218_022 extends AbstractSite {
     public Card218_022() {
-        super(Side.LIGHT, "Kef Bir: Oceanic Ruins", Title.Kef_Bir);
+        super(Side.LIGHT, "Kef Bir: Oceanic Ruins", Title.Kef_Bir, Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setLocationDarkSideGameText("When deployed, may play a Defensive Shield from under your Starting Effect as if from hand.");
         setLocationLightSideGameText("If you occupy with a Jedi, you lose no more than 1 Force to That Thing's Operational.");
         addIcon(Icon.DARK_FORCE, 1);

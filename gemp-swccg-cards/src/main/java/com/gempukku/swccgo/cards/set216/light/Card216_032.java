@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card216_032 extends AbstractSite {
     public Card216_032() {
-        super(Side.LIGHT, "Kashyyyk: Sacred Falls (Forest)", Title.Kashyyyk);
+        super(Side.LIGHT, "Kashyyyk: Sacred Falls (Forest)", Title.Kashyyyk, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLocationDarkSideGameText("While opponent occupies with a Wookiee, your Force generation here is canceled.");
         setLocationLightSideGameText("Your Wookiees move from here for free when using landspeed.");
         addIcon(Icon.DARK_FORCE, 1);

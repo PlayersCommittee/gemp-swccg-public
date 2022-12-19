@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card211_018 extends AbstractSite {
     public Card211_018() {
-        super(Side.DARK, Title.Private_Platform, Title.Coruscant);
+        super(Side.DARK, Title.Private_Platform, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("Your docking bay transit from here requires 1 Force.");
         setLocationLightSideGameText("Your docking bay transit from here requires 2 Force (1 if Obi-Wan present).");
         addIcon(Icon.DARK_FORCE, 1);

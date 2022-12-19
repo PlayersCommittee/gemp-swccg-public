@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card213_023 extends AbstractSite {
     public Card213_023() {
-        super(Side.DARK, Title.Dathomir_Mauls_Chambers, Title.Dathomir);
+        super(Side.DARK, Title.Dathomir_Mauls_Chambers, Title.Dathomir, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLocationDarkSideGameText("May deploy [Set 13] Maul here from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Jar Jar and your spies (except Ezra) may not deploy here. Opponent may not Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);

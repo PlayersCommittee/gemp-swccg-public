@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class Card209_049 extends AbstractSite {
     public Card209_049() {
-        super(Side.DARK, Title.Jedha_City, Title.Jedha);
+        super(Side.DARK, Title.Jedha_City, Title.Jedha, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLocationDarkSideGameText("May be deployed instead of Alderaan by Set Your Course For Alderaan.");
         setLocationLightSideGameText("Baze, Chirrut, and Saw deploy -1 here.");
         addIcon(Icon.LIGHT_FORCE, 1);

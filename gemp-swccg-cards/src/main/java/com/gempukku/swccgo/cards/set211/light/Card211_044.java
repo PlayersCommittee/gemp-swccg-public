@@ -2,8 +2,14 @@ package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.HereCondition;
+import com.gempukku.swccgo.cards.conditions.OutOfPlayCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +20,8 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlayStackedDefensiveShieldEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NoForceLossFromCardModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +37,7 @@ import java.util.List;
 
 public class Card211_044 extends AbstractSite {
     public Card211_044() {
-        super(Side.LIGHT, "Ahch-To: Luke's Hut", Title.Ahch_To);
+        super(Side.LIGHT, "Ahch-To: Luke's Hut", Title.Ahch_To, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLocationDarkSideGameText("When deployed, may play a Defensive Shield from under your Starting Effect as if from hand.");
         setLocationLightSideGameText("While Luke here or out of play, you lose no Force to [Reflections II] objectives.");
         addIcon(Icon.LIGHT_FORCE, 1);

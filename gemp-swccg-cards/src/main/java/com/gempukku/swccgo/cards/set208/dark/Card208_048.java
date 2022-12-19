@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card208_048 extends AbstractSite {
     public Card208_048() {
-        super(Side.DARK, "Death Star: War Room", Title.Death_Star);
+        super(Side.DARK, "Death Star: War Room", Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLocationDarkSideGameText("Krennic deploys free here. Opponent may not limit Force generation at Death Star locations.");
         setLocationLightSideGameText("If a system was just 'blown away' by Superlaser, you lose 3 Force.");

@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set209.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card209_024 extends AbstractSite {
     public Card209_024() {
-        super(Side.LIGHT, "Scarif: Beach", Title.Scarif);
+        super(Side.LIGHT, "Scarif: Beach", Title.Scarif, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLocationLightSideGameText("Your combat vehicles, scouts, and spies are each power +1 here. Force drain +1 here.");
         setLocationDarkSideGameText("Your combat vehicles and Imperial troopers are each forfeit +1 here.");
         addIcon(Icon.LIGHT_FORCE, 2);

@@ -1,17 +1,24 @@
 package com.gempukku.swccgo.cards.set210.light;
 
 import com.gempukku.swccgo.cards.AbstractSite;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.IsPoweredModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.UnderHothEnergyShieldModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card210_015 extends AbstractSite {
     public Card210_015() {
-        super(Side.LIGHT, Title.Main_Power_Generators, Title.Hoth);
+        super(Side.LIGHT, Title.Main_Power_Generators, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLocationDarkSideGameText("Your movement to or from here requires +1 Force. If \"blown away,\" Light Side loses 8 Force.");
         setLocationLightSideGameText("'Hoth Energy Shield Rules' in effect. Your artillery weapons on Hoth are powered.");
         addIcon(Icon.LIGHT_FORCE, 2);
