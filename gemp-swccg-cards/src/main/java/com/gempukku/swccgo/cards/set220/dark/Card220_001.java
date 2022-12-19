@@ -50,7 +50,7 @@ public class Card220_001 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new CancelsGameTextModifier(self, Filters.Jabba));
         modifiers.add(new AddsDestinyToAttritionModifier(self, new WithCondition(self, 2, Filters.alien), 1));
-        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.other(self.getAtLocation()), Filters.Tatooine_battleground_site), new AtCondition(self, Filters.Audience_Chamber), 1, self.getOwner()));
+        modifiers.add(new ForceDrainModifier(self, Filters.and(Filters.not(Filters.here(self)), Filters.Tatooine_location, Filters.battleground), new AtCondition(self, Filters.Audience_Chamber), 1, self.getOwner()));
         return modifiers;
     }
 
