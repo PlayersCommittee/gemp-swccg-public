@@ -37,7 +37,7 @@ public class Card201_030 extends AbstractNormalEffect {
     public Card201_030() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Enforcement", Uniqueness.UNIQUE);
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
-        setGameText("Deploy on table. You may initiate battles for free. Once per turn, if you just drew a character for destiny, may take that card into hand to cancel and redraw that destiny. Canceled if your non-Imperial character (or starship) on table. [Immune to Alter.]");
+        setGameText("Deploy on table. You may initiate battles for free. Once per turn during battle, if you just drew a character for destiny, may take that card into hand to cancel and redraw that destiny. Canceled if your non-Imperial character (or starship) on table. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_1);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -81,6 +81,7 @@ public class Card201_030 extends AbstractNormalEffect {
         // Check condition(s)
         if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isDuringBattle(game)
                 && GameConditions.canCancelDestinyAndCauseRedraw(game, playerId)
                 && GameConditions.isDestinyCardMatchTo(game, Filters.character)
                 && GameConditions.canTakeDestinyCardIntoHand(game, playerId)) {
