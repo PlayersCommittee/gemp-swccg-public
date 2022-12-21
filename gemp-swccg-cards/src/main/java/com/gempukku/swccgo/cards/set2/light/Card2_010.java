@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card2_010 extends AbstractAlien {
     public Card2_010() {
-        super(Side.LIGHT, 3, 4, 4, (float)1.5, 4, "Hunchback", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 4, 1.5, 4, "Hunchback", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("What hump?");
         setGameText("On a hunch, if opponent just initiated a Force drain at an adjacent site, you may use 1 Force to search opponent's Force Pile and place out of play one card there that has 'back' in the title; reshuffle.");
         addIcons(Icon.A_NEW_HOPE);

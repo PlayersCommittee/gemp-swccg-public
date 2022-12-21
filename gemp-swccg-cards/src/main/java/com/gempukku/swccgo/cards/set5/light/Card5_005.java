@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.cards.evaluators.ControlsEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card5_005 extends AbstractAlien {
     public Card5_005() {
-        super(Side.LIGHT, 1, 3, 2, 3, 6, "Lando Calrissian", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 2, 3, 6, "Lando Calrissian", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Gambler. Scoundrel. Former owner of the Millennium Falcon. Despite a notorious past, has become a successful chief administrator of a Tibanna gas mining facility.");
         setGameText("Adds 2 to power of anything he pilots (3 if piloting Falcon). Power +1 for every Cloud City location you control. When playing Sabacc, may add 1 to or subtract 1 from your total.");
         addIcons(Icon.CLOUD_CITY, Icon.PILOT, Icon.WARRIOR);

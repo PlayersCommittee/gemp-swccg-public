@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card2_024 extends AbstractAlien {
     public Card2_024() {
-        super(Side.LIGHT, 2, 3, 2, 2, 2, Title.Zutton, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 2, Title.Zutton, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLore("Snivvian also known as 'Snaggletooth.' A tortured artist who, like most Snivvians, is driven to live out the stories he creates.");
         setGameText("Where present, just before opponent draws battle destiny, you may use 1 Force to reduce opponent's total battle destiny by 1.");
         addIcons(Icon.A_NEW_HOPE);

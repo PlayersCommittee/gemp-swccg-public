@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,7 +13,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PredictWinnerEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card1_191 extends AbstractAlien {
     public Card1_191() {
-        super(Side.DARK, 2, 3, 1, 4, 2, "Prophetess", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 1, 4, 2, "Prophetess", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Renowned female psychic. Predictor of doom. Agent for Governor Aryon of Tatooine. Tailed Jabba and his thugs to Docking Bay 94 when they confronted Han Solo.");
         setGameText("If you initiate a battle where present, you must predict the winner before the battle starts. If correct, randomly retrieve one lost card. If incorrect, lose 1 Force. Immune to attrition < 3.");
         addKeywords(Keyword.FEMALE);

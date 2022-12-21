@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card2_008 extends AbstractAlien {
     public Card2_008() {
-        super(Side.LIGHT, 3, 3, 1, 1, 2, "Garouf Lafoe", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 1, 2, "Garouf Lafoe", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Free-trader who imports ice chunks from rings of Ohann and Adriana, outer planets in Tatoo system. Sales remain cold...due to steep Imperial taxes and bribes.");
         setGameText("Adds 1 to power of anything he pilots. Adds 1 to forfeit of each of your characters at same Tatooine site. Subtracts 1 from forfeit of each of opponent's characters at same Hoth site. Game text suspended if at same site as a tax collector.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

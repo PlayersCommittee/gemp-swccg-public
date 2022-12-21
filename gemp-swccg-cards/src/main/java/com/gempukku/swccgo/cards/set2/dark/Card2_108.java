@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +29,7 @@ import java.util.List;
  */
 public class Card2_108 extends AbstractAlien {
     public Card2_108() {
-        super(Side.DARK, 3, 3, 1, 1, 4, Title.URoRRuRRR, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 1, 1, 4, Title.URoRRuRRR, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Leader of a Tusken Raider tribe. Unafraid of machines. Skilled hunter and marksman. Raids moisture farms for water. Roams the Jundland Wastes in search of unwary travelers.");
         setGameText("Deploys only on on Tatooine. When at same site as another Tusken Raider, may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.A_NEW_HOPE);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card1_189 extends AbstractAlien {
     public Card1_189() {
-        super(Side.DARK, 3, 4, 3, 1, 5, Title.Myo, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 3, 1, 5, Title.Myo, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("A regenerating, primitive, violent, desert dwelling, fearless, mercenary-joining, Lirin Car'n-befriending, cyclopian Abyssin from Byss. Calling him 'monoc' will start a fight.");
         setGameText("Power +1 if present with Lirin Car'n or any bounty hunter. If lost or forfeited as a result of a battle, Myo 'regenerates' (place on top of your Used Pile).");
         addIcons(Icon.WARRIOR);

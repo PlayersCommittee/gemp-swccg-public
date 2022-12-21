@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.conditions.UnderNighttimeConditionConditions;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsPresentEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card1_171 extends AbstractAlien {
     public Card1_171() {
-        super(Side.DARK, 1, 4, 1, 4, 4, "Djas Puhr", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 1, 4, 4, "Djas Puhr", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Male Sakiyan, a race often employed as assassins. Bounty hunter. Incredible infrared peripheral vision. Has excellent aural and olfactory senses. Often tracks by scent.");
         setGameText("Power +1 for each [Dark Side Force] present, +2 under 'nighttime conditions.' Immune to attrition < 3.");
         addIcons(Icon.WARRIOR);

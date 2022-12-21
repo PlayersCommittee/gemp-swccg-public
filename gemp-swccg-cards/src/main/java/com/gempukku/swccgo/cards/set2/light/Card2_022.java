@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card2_022 extends AbstractAlien {
     public Card2_022() {
-        super(Side.LIGHT, 3, 3, 2, 1, 1, Title.Tzizvvt, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, 1, 1, Title.Tzizvvt, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("This male Brizzit, from the planet Jandoon, is hiding from the Imperials on the remote world Tatooine. He hopes to procure passage to the Outer Rim before the Empire finds him.");
         setGameText("May 'fly' (move) only during your deploy phase, up to two sites away, for 1 Force. Power +1 at Trash Compactor, any Dagobah site or same site as Dark Waters or Tarkin.");
         addIcons(Icon.A_NEW_HOPE);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card4_107 extends AbstractAlien {
     public Card4_107() {
-        super(Side.DARK, 1, 4, 2, 4, 3, "Zuckuss", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 2, 4, 3, "Zuckuss", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Male Gand. Practitioner of ancient religious findsman vocation. Bounty hunter and scout. Gains surprisingly accurate information through mystical visions during meditation.");
         setGameText("Adds 2 to power of anything he pilots. May move for free as a 'react.' Once during each battle, may use 1 Force to cause one alien of ability < 3 at same site to be forfeit = 0 for remainder of turn. Immune to attrition < 3.");
         addPersona(Persona.ZUCKUSS);

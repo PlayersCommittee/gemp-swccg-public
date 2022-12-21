@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card1_169 extends AbstractAlien {
     public Card1_169() {
-        super(Side.DARK, 2, null, 2, 2, 2, Title.Dathcha, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, null, 2, 2, 2, Title.Dathcha, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Jawa adventurer and trader. Famous for taunting a krayt dragon and escaping to tell the tale. Wants to leave Tatooine to explore the galaxy.");
         setGameText("To deploy, requires 2 Force from each players' Force Pile. Cannot deploy otherwise. Deploy only on Tatooine, but may move elsewhere. Power +2 at non-Tatooine sites.");
         addIcons(Icon.WARRIOR);

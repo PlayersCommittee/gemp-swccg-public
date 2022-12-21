@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card5_094 extends AbstractAlien {
     public Card5_094() {
-        super(Side.DARK, 2, 3, 1, 1, 3, "Cloud City Engineer", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 1, 1, 3, "Cloud City Engineer", Uniqueness.RESTRICTED_3, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Maintenance specialist Lee Phenets. Assigned to ensure the smooth operation of Cloud City. One of the few humans respected by the city's Ugnaughts.");
         setGameText("When present at a converted site, may use 2 Force to raise your site to the top. Also, when present at an opponent's site that has a Scomp link, your Force drains are +1 there. Ugnaughts deploy -1 to same Cloud City site.");
         addIcons(Icon.CLOUD_CITY);

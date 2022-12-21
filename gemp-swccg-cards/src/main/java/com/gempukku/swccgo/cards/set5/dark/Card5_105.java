@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card5_105 extends AbstractAlien {
     public Card5_105() {
-        super(Side.DARK, 3, 2, 1, 1, 2, "Ugnaught");
+        super(Side.DARK, 3, 2, 1, 1, 2, "Ugnaught", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Cheap manual labor from Gentes in the Anoat system. Make up Cloud City's second largest population. Responsible for maintenance and menial chores throughout the city.");
         setGameText("When at Carbonite Chamber, cumulatively adds 1 to each Carbon-Freezing destiny draw. During your control phase, may lose 1 Force from hand to search your Lost Pile and take one weapon or device into hand.");
         addIcons(Icon.CLOUD_CITY);

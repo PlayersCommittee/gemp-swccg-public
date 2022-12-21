@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card5_008 extends AbstractAlien {
     public Card5_008() {
-        super(Side.LIGHT, 2, 2, 1, 1, 2, Title.Tibanna_Gas_Miner);
+        super(Side.LIGHT, 2, 2, 1, 1, 2, Title.Tibanna_Gas_Miner, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Long-time Cloud City resident Willow Hood. Employed by a mining company which is sympathetic to the Rebels and sells them Tibanna gas at a discount.");
         setGameText("When at a site, adds 1 to your Force drains at related cloud sectors. Also, during your activate phase, if at a Cloud City site and you control Bespin: Cloud City, may cumulatively activate 1 Force for every cloud sector on Bespin.");
         addIcons(Icon.CLOUD_CITY);

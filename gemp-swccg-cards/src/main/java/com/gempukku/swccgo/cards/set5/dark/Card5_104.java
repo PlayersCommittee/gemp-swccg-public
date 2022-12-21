@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -11,7 +13,12 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.LeaderModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card5_104 extends AbstractAlien {
     public Card5_104() {
-        super(Side.DARK, 2, 2, 1, 2, 3, "Ugloste", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, 2, 3, "Ugloste", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Ugnaught assigned to determine how to use carbon-freezing on humans. Placed in charge or the Ugnaught workers on Cloud City. Formerly enslaved by humans.");
         setGameText("Power +2 at Trash Compactor, Droid Junkheap, Incinerator or Carbonite Chamber. Functions as a leader if present with another Ugnaught. Where present, other Ugnaughts are forfeit +2 and double their bonus to Carbon-Freezing destiny.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

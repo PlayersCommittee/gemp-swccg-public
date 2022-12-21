@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card5_002 extends AbstractAlien {
     public Card5_002() {
-        super(Side.LIGHT, 2, 2, 1, 1, 2, "Cloud City Technician", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 2, 1, 1, 2, "Cloud City Technician", Uniqueness.RESTRICTED_3, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Former Imperial technician disenchanted with the New Order. Sympathetic to the Alliance. His knowledge of Imperial computer systems makes him a valuable ally.");
         setGameText("When present at a converted site, may use 2 Force to raise your site to the top. Also, when present at an opponent's site that has a Scomp link, your Force drains are +1 there.");
         addIcons(Icon.CLOUD_CITY);

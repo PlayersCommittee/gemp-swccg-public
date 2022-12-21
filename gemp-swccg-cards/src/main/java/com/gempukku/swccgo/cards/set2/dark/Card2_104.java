@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card2_104 extends AbstractAlien {
     public Card2_104() {
-        super(Side.DARK, 3, 2, 2, 1, 2, "Rodian", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 2, 2, 1, 2, "Rodian", Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Thuku is a typical male Rodian. Sent to hunt down Greedo by Navik the Red, head of the Chattza tribe. Rodians enjoy 'the hunt,' so many are employed as assassins.");
         setGameText("Adds 1 to power of each of your bounty hunters and smugglers (but subtracts 1 from Greedo's power) at same site. Adds 1 to power of anything he pilots.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleInitiatedByOwnerCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card5_103 extends AbstractAlien {
     public Card5_103() {
-        super(Side.DARK, 2, 0, 2, 1, 3, "Trooper Jerrol Blendin", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 0, 2, 1, 3, "Trooper Jerrol Blendin", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Corrupt captain of the Cloud City Wing Guard. Began working during the administration of Baron Raynor. Easily bribed. Keeps the peace through intimidation.");
         setGameText("Deploys only on Cloud City, but may move elsewhere. Power +2 when participating in a battle you initiate. Opponent may use 2 Force to 'bribe' (exclude) Blendin from battle.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

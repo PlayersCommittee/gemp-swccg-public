@@ -3,14 +3,26 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 import java.util.Collections;
@@ -25,7 +37,7 @@ import java.util.List;
  */
 public class Card1_009 extends AbstractAlien {
     public Card1_009() {
-        super(Side.LIGHT, 2, 2, 1, 1, 4, Title.Figrin_Dan, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 1, 4, Title.Figrin_Dan, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("A male Bith. Musician who leads the Mos Eisley Cantina band, Figrin D'an and the Modal Nodes. Expert gambler and card shark.");
         setGameText("Once each turn during your control phase, you may use 1 Force to make a 'wager.' Draw three destiny. Opponent draws two destiny. Player with highest total may randomly select one card to be retrieved from that player's Lost Pile.");
         addKeywords(Keyword.MUSICIAN, Keyword.GAMBLER);

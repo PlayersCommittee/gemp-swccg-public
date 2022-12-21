@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card2_090 extends AbstractAlien {
     public Card2_090() {
-        super(Side.DARK, 4, 2, null, 2, 3, "Hem Dazon", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 2, null, 2, 3, "Hem Dazon", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("Male scout from Cona. As with many Arconas, Hem has succumbed to the power of salt, and addiction indicated by his gold eye color.");
         setGameText("Once during each of your deploy phases, may place, face down, one card from hand or Force Pile under Hem, as 'salt consumption.' If Hem lost, cards underneath also lost. *Power = 1 + number of cards underneath.");
         addIcons(Icon.A_NEW_HOPE);

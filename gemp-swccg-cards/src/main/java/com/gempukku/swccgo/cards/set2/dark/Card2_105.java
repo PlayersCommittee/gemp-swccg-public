@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfCardPileEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card2_105 extends AbstractAlien {
     public Card2_105() {
-        super(Side.DARK, 6, 3, 1, 1, 1, "Tech Mo'r", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, 3, 1, 1, 1, "Tech Mo'r", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Male Bith musician. Plays Ommni Box in Figrin D'an's band. Lost ownership of instrument to Figrin while gambling.");
         setGameText("After using Ommni Box, peek at top X cards of pile or deck just shuffled, where X = number of other musicians at same site. May reshuffle without peeking.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card2_087 extends AbstractAlien {
     public Card2_087() {
-        super(Side.DARK, 3, 3, 3, 1, 2, "Defel", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 3, 1, 2, "Defel", Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Male Defel from Af'El. This species, also known as 'wraiths,' is capable of warping light around themselves, becoming difficult to see at dusk.");
         setGameText("Under 'nighttime conditions,' may use 1 Force to 'hide' (exclude himself) from a battle. While at a site affected by Revolution, opponent must lose 1 Force during your control phase.");
         addIcons(Icon.A_NEW_HOPE);

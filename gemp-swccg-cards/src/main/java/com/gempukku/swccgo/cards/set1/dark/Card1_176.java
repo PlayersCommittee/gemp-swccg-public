@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsPresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card1_176 extends AbstractAlien {
     public Card1_176() {
-        super(Side.DARK, 4, 2, 2, 1, 3, Title.Feltipern_Trevagg, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 2, 2, 1, 3, Title.Feltipern_Trevagg, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Corrupt tax collector. A male Gotal. Bounty hunter. Once sought a bounty on Obi-Wan. Has limited sensing ability to droid emanations. Romanced M'iiyoom Onith.");
         setGameText("While no droid present with Trevagg, to initiate battles at same location as Trevagg, player must use X Force, where X = total number of [Dark Side Force] and [Light Side Force] present.");
         addIcons(Icon.WARRIOR);

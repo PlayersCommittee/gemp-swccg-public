@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card1_183 extends AbstractAlien {
     public Card1_183() {
-        super(Side.DARK, 2, 6, 8, 1, 2, "Kitik Keed'kak", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 6, 8, 1, 2, "Kitik Keed'kak", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("A female insectoid Yam'rii. Very strong and easily angered. Known for stealth, but also has good technological aptitude. Meat eater. Loves eggs.");
         setGameText("Immediately lost if at same site as overprotective mother, Kal'Faln C'ndros. Cannot board starfighters or enclosed vehicles.");
         addKeywords(Keyword.FEMALE);

@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card5_095 extends AbstractAlien {
     public Card5_095() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "Cloud City Trooper");
+        super(Side.DARK, 3, 2, 2, 1, 3, "Cloud City Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Officially titled Cloud City Wing Guards. Some are holdovers from previous administrations which were more totalitarian. A moderate pay scale breeds corruption.");
         setGameText("Deploys only on Cloud City, but may move elsewhere. Power -1 when at a site other than a Cloud City site.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);

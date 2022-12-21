@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.evaluators.AtSameSiteEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card2_007 extends AbstractAlien {
     public Card2_007() {
-        super(Side.LIGHT, 3, 2, 1, 1, 3, "Doikk Na'ts", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 1, 3, "Doikk Na'ts", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Male Bith musician. Plays Fizz (Dorenian Beshniquel) in Figrin D'an's band. Frustrated by sentients, especially humans, he prefers to work with droids.");
         setGameText("For each other musician at same site, the ability required to draw battle destiny here increases by 1 for both players.");
         addIcons(Icon.A_NEW_HOPE);

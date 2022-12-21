@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card1_020 extends AbstractAlien {
     public Card1_020() {
-        super(Side.LIGHT, 3, 2, 1, 3, 3, Title.Momaw_Nadon, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 3, 3, Title.Momaw_Nadon, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Male Ithorian, from a tree-loving race derogatorily nicknamed, 'Hammerheads.' Master of animal husbandry and horticulture. Former herd ship leader. Rebel spy.");
         setGameText("During your control phase, may snare (steal) one Bantha, Dewback, Wampa, Rancor, Bubo, or Dragonsnake present at same site.");
         addKeywords(Keyword.SPY);

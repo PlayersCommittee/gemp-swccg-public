@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChoosePileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card1_184 extends AbstractAlien {
     public Card1_184() {
-        super(Side.DARK, 3, 2, 1, 1, 3, "Labria", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 1, 3, "Labria", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Information broker. Spy. Devaronian males instinctively have 'wanderlust.' Frustrated that he must be reclusive due to shady past. Suffers from prejudice due to devilish appearance.");
         setGameText("Once each turn, during your control phase, you may reveal the top card of your Reserve Deck to both players. If it is a vehicle or starship, card is immediately lost. Otherwise, return it to the top of your Reserve Deck, Force Pile or Used Pile.");
         addKeywords(Keyword.INFORMATION_BROKER, Keyword.SPY);

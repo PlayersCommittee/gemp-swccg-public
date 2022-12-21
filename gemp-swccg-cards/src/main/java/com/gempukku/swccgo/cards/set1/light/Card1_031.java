@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card1_031 extends AbstractAlien {
     public Card1_031() {
-        super(Side.LIGHT, 3, 1, 1, 1, 4, "Talz", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 1, 1, 1, 4, "Talz", Uniqueness.RESTRICTED_3, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Muftak is a typical male Talz from Alzoc III, a system enslaved by the Empire. A Talz's second pair of eyes provide excellent night vision. Muftak is a friend and protector of Kabe.");
         setGameText("May forfeit in place of any other character hit by a weapon at same site, restoring that character to normal. Any Talz is power +2 under 'nighttime conditions'.");
         setSpecies(Species.TALZ);

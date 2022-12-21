@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_012 extends AbstractAlien {
     public Card1_012() {
-        super(Side.LIGHT, 3, null, 1, 1, 1, "Jawa");
+        super(Side.LIGHT, 3, null, 1, 1, 1, "Jawa", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Pesky scavenger species. One meter tall. Trade language nearly unintelligible...unless Jawas wish to be understood. Sometimes build massive stone fortresses.");
         setGameText("*To deploy, requires 1 Force from each players' Force Pile. Cannot deploy otherwise. Deploy only on Tatooine, but may move elsewhere.");
         setSpecies(Species.JAWA);

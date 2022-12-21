@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_196 extends AbstractAlien {
     public Card1_196() {
-        super(Side.DARK, 2, 2, 1, 1, 1, "Tusken Raider");
+        super(Side.DARK, 2, 2, 1, 1, 1, "Tusken Raider", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("'Sand People.' Ride banthas. Wield gaderffi (gaffi) sticks. Wear eye protectors and breath masks. Violent, nomadic, desert survival experts. 'Urrrg! Ur Ur Uur!'");
         setGameText("Deploys only on Tatooine. Power +1 if another non-unique Tusken Raider present. If you have four or more non-unique Tusken Raiders present, your total power here is +2.");
         setSpecies(Species.TUSKEN_RAIDER);

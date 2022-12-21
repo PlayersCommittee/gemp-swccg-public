@@ -2,14 +2,25 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.ResetTotalBattleDestinyFromDrawsEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotExistAtTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -25,7 +36,7 @@ import java.util.List;
  */
 public class Card1_015 extends AbstractAlien {
     public Card1_015() {
-        super(Side.LIGHT, 2, 0, 1, 1, 5, Title.KalFalnl_Cndros, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 0, 1, 1, 5, Title.KalFalnl_Cndros, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("A female Quor'sav, a warm-blooded, avian/monotreme species. 3.5 meters tall. Over-protective mother. Freelance pilot. Has custom-built ship with tall corridors. Lays eggs.");
         setGameText("When in a battle, if both players draw only one battle destiny and yours is higher, reduces opponent's destiny to zero. Landspeed = 3. Adds 2 to power of anything she pilots. May not deploy to or board starfighters or enclosed vehicles.");
         addIcons(Icon.PILOT);

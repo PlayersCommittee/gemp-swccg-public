@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.evaluators.HandSizeEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -11,7 +13,11 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextPowerModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card2_002 extends AbstractAlien {
     public Card2_002() {
-        super(Side.LIGHT, Math.PI, null, null, 3, null, "Brainiac", Uniqueness.UNIQUE);
+        super(Side.LIGHT, Math.PI, null, null, 3, null, "Brainiac", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("BoShek nicknamed this male Siniteen 'Brainiac' due to his ability to calculate hyperspace coordinates in his head. 'He's the brains, sweetheart!'");
         setGameText("* Power = v(3(X-Y)+2(A-B)+ p) (minimum power=1). X = Dark Side hand cards; Y = Light Side hand cards; A = total number of Dark icons in play; B = total number of Light icons in play; p?= 3.141592653589793238462643383...");
         addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER);

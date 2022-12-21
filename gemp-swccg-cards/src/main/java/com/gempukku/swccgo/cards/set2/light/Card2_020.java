@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card2_020 extends AbstractAlien {
     public Card2_020() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Saurin", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Saurin", Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Hrchek Kal Fas, a male Saurin from Durkteel, is a typical droid trader. Scours the 'invisible market' for the best droid prices. Guarded by his cousin Sai'torr.");
         setGameText("At any time, may use 1 Force to remove (lose) a Restraining Bolt at same site. Receives an extra power +1 when 'protected' by Sai'torr Kal Fas.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

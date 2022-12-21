@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card1_190 extends AbstractAlien {
     public Card1_190() {
-        super(Side.DARK, 3, 2, 2, 1, 3, Title.Ponda_Baba, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 3, Title.Ponda_Baba, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("A male Quara (or fingered Aqualish). Thug, smuggler and partner of Dr. Evazan. Has a poor quality cybernetic arm replacement.");
         setGameText("Power +3 when battling at same site as Dr. Evazan, unless opponent has a lightsaber present. Adds 2 to power of anything he pilots.");
         addIcons(Icon.PILOT, Icon.WARRIOR);

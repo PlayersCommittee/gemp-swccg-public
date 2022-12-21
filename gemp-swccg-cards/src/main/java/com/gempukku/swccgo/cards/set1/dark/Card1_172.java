@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card1_172 extends AbstractAlien {
     public Card1_172() {
-        super(Side.DARK, 3, 2, 1, 2, 3, Title.Dr_Evazan, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 2, 3, Title.Dr_Evazan, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Thug. Smuggler. Twisted 'doctor'. Disfigured by blaster. Has death sentence in over 12 systems. Notorious partner of Ponda Baba. Aliases: Dr. Cornelius and Rooboo.");
         setGameText("Adds 2 to power of anything he pilots. The not-so-good doctor may 'operate' on any other character present that was just 'hit' or just Disarmed; 'patient' is lost.");
         addIcons(Icon.PILOT, Icon.WARRIOR);

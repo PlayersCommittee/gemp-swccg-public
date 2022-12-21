@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DuringForceDrainAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card2_097 extends AbstractAlien {
     public Card2_097() {
-        super(Side.DARK, 3, 3, 1, 1, 5, Title.Mosep, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 1, 1, 5, Title.Mosep, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Jabba's Nimbanel accountant. Inside contacts allow him to disrupt the cash flow of the Hutt's enemies. He knows a mistake could make him the next write-off.");
         setGameText("When opponent is losing Force from Force drains at the same or an adjacent site, lost Force must come from Reserve Deck if possible.");
         addIcons(Icon.A_NEW_HOPE);

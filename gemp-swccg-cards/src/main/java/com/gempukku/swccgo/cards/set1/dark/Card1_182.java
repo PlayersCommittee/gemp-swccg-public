@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_182 extends AbstractAlien {
     public Card1_182() {
-        super(Side.DARK, 3, null, 1, 1, 1, "Jawa");
+        super(Side.DARK, 3, null, 1, 1, 1, "Jawa", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Small, rodent-like scavenger species. Refurbish and sell droids. Nest in sandcrawlers. Considered to be pests by most species.");
         setGameText("To deploy, requires 1 Force from each players' Force Pile. Cannot deploy otherwise. Deploy only on Tatooine, but may move elsewhere.");
         setSpecies(Species.JAWA);

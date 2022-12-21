@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card2_082 extends AbstractAlien {
     public Card2_082() {
-        super(Side.DARK, 2, 3, 2, 2, 2, Title.Advosze, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 3, 2, 2, 2, Title.Advosze, Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Typical of male Advosze, Bom Vimdin despises those of his own species. Pessimistic and territorial, he is a lone smuggler who prefers to work for corrupt officials.");
         setGameText("Adds 2 to power of anything he pilots. Whenever you deploy a weapon or device from hand at same location, activate 1 Force as a 'kickback.' Limit of one Advosze per location.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

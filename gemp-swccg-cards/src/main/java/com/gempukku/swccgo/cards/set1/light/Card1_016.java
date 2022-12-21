@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealRandomCardInOpponentsHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card1_016 extends AbstractAlien {
     public Card1_016() {
-        super(Side.LIGHT, 4, 3, 1, 3, 3, "Leesub Sirln", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 3, 1, 3, 3, "Leesub Sirln", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Leesub is a Qiraash (near-human). Enslaved as child. Limited precognition. Selected by Imperial High Inquisitor Tremayne as Force adept. Escaped and hiding in Mos Eisley.");
         setGameText("Once each turn during your control phase, may use 1 Force to guess a card type and point to a card in opponent's hand. Card must be shown. If guessed correctly, card is lost.");
         addKeywords(Keyword.FEMALE);

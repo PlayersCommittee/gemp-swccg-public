@@ -134,8 +134,98 @@ public abstract class AbstractAlien extends AbstractCharacter {
      * @param expansionSet the expansionSet
      * @param rarity the rarity
      */
-    protected AbstractAlien(Side side, Float destiny, Float deployCost, Float power, float ability, Float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+    protected AbstractAlien(Side side, float destiny, float deployCost, float power, double ability, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, deployCost, power, (float) ability, forfeit, title, uniqueness, expansionSet, rarity);
+        addCardType(CardType.ALIEN);
+        addIcons(Icon.ALIEN);
+    }
+
+    /**
+     * Creates a blueprint for a character that is an alien.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param power the power value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractAlien(Side side, float destiny, float deployCost, Float power, float ability, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
         super(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, expansionSet, rarity);
+        addCardType(CardType.ALIEN);
+        addIcons(Icon.ALIEN);
+    }
+
+    /**
+     * Creates a blueprint for a character that is an alien.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param power the power value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractAlien(Side side, float destiny, float deployCost, float power, float ability, double forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, deployCost, power, ability, (float) forfeit, title, uniqueness, expansionSet, rarity);
+        addCardType(CardType.ALIEN);
+        addIcons(Icon.ALIEN);
+    }
+
+    /**
+     * Creates a blueprint for a character that is an alien.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param power the power value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractAlien(Side side, float destiny, float deployCost, float power, float ability, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, expansionSet, rarity);
+        addCardType(CardType.ALIEN);
+        addIcons(Icon.ALIEN);
+    }
+
+    /**
+     * Creates a blueprint for a character that is an alien.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param power the power value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractAlien(Side side, float destiny, Float deployCost, float power, float ability, float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, expansionSet, rarity);
+        addCardType(CardType.ALIEN);
+        addIcons(Icon.ALIEN);
+    }
+
+    /**
+     * Creates a blueprint for a character that is an alien.
+     * @param side the side of the Force
+     * @param destiny the destiny value
+     * @param deployCost the deploy cost
+     * @param power the power value
+     * @param forfeit the forfeit value
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractAlien(Side side, double destiny, Float deployCost, Float power, float ability, Float forfeit, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, (float) destiny, deployCost, power, ability, forfeit, title, uniqueness, expansionSet, rarity);
         addCardType(CardType.ALIEN);
         addIcons(Icon.ALIEN);
     }
