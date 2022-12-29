@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card6_040 extends AbstractAlien {
     public Card6_040() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Sic-Six");
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Sic-Six", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Gifted engineers. Sic-six believe their technology is superior. Have a poison stinger. Spin vast and intricate webs which create a hazard for landing starships. Avoided by pilots.");
         setGameText("Subtracts 2 from forfeit of each opponent's pilot at same site. Prevents characters from moving to or from same or adjacent sites using Elis Helrot or Nabrun Leids.");
         addIcons(Icon.JABBAS_PALACE);

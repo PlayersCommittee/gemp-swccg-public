@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card6_042 extends AbstractAlien {
     public Card6_042() {
-        super(Side.LIGHT, 1, 4, 3, 3, 6, "Tamtel Skreej", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 3, 3, 6, "Tamtel Skreej", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Gambler. Lando Calrissian posed as a guard for Jabba in order to spy on the Hutt. Feared that he would be recognized by some of Jabba's companions.");
         setGameText("Deploys only on Tatooine. Adds 2 to power of anything he pilots. Once per game, Undercover may deploy on Tamtel from Reserve Deck; reshuffle. While at a site you control, Rebels are immune to None Shall Pass at that site.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR);

@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.conditions.UnderNighttimeConditionConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card6_134 extends AbstractAlien {
     public Card6_134() {
-        super(Side.DARK, 2, 4, 3, 1, 1, "Whiphid");
+        super(Side.DARK, 2, 4, 3, 1, 1, "Whiphid", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Whipids originate from Toola in the Kaelta system, a planet extremely distant from its sun. Accustomed to hunting for prey in the near dark and the bitter cold.");
         setGameText("Power +2 on Hoth. Forfeit +2 under nighttime conditions. When at a site, if opponent cancels Sunsdown at the related system, causes Effect to go to Used Pile, and you may retrieve 2 Force.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

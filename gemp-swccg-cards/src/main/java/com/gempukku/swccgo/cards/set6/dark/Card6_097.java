@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card6_097 extends AbstractAlien {
     public Card6_097() {
-        super(Side.DARK, 3, null, 2, 2, 2, "Beedo", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, null, 2, 2, 2, "Beedo", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Rodian bounty hunter. Relative of Greedo. Taking Greedo's place in Jabba's court. Fearful of Jabba's wrath. Notorious sycophant.");
         setGameText("* Replaces any other male Rodian for free (Rodian goes to the Used Pile) or deploys for 3 Force. While at Audience Chamber, all your Rodians are power +2, and whenever Greedo threatens a smuggler, may add 2 to destiny draw.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

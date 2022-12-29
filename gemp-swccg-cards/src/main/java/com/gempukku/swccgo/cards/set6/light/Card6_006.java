@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card6_006 extends AbstractAlien {
     public Card6_006() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Baragwin", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Baragwin", Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Hunchbacked scavengers. Found in separate groups throughout the galaxy. Good at finding missing items. Make excellent gun runners. Some work with the rebellion.");
         setGameText("Once per turn, if the top card of your Lost Pile is a weapon, device or transport vehicle, may use 1 Force to retrieve it. During your control phase, may exchange one card in hand for one weapon or device in your Lost Pile.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

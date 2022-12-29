@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card6_015 extends AbstractAlien {
     public Card6_015() {
-        super(Side.LIGHT, 2, 3, 2, 1, 2, "Geezum", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 1, 2, "Geezum", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Snivvian scout. Enjoys exploring new planets and charting difficult terrain. Paid very well by Jabba to do so. Unsure of his employer's motivations.");
         setGameText("During your control phase, if at an exterior planet site, may use 2 Force to search your Reserve Deck, take a related site into hand and reshuffle. While at Audience Chamber, all your other Snivvians are forfeit +2.");
         addIcons(Icon.JABBAS_PALACE);

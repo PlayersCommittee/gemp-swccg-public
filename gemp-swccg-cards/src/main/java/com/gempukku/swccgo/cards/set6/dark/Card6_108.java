@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card6_108 extends AbstractAlien {
     public Card6_108() {
-        super(Side.DARK, 3, 3, 3, 2, 2, "Hermi Odle", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 2, 2, "Hermi Odle", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Baragwin assigned by Jabba to be the palace's master weaponsmith. Enemy of Pote Snitkin.");
         setGameText("When in a battle, you may 'react' by deploying any one non-unique blaster (for free) on Hermi from Reserve Deck. reshuffle. When present with your Advosze at a site, allows your character weapons to transfer for free there.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.CancelAttackEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card6_105 extends AbstractAlien {
     public Card6_105() {
-        super(Side.DARK, 2, 4, 4, 1, 1, Title.Gamorrean_Guard);
+        super(Side.DARK, 2, 4, 4, 1, 1, Title.Gamorrean_Guard, Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Big. Strong. Dumb.");
         setGameText("Deploys only to Tatooine. Power -1 when not at a Tatooine site. May be sacrificed (lost) to cancel an attack just initiated by a creature present.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

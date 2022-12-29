@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card6_002 extends AbstractAlien {
     public Card6_002() {
-        super(Side.LIGHT, 4, 2, 2, 1, 2, Title.Ardon_Crell, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 2, 1, 2, Title.Ardon_Crell, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Representative from the Moisture Farmers of Tatooine (local 253). Pays Jabba for protection from Sand People.");
         setGameText("Deploys free on Tatooine. While on Tatooine, your Force drains are +1 at exterior sites where you have a Vaporator or Hydroponics Station (+2 if both). While present with a Vaporator, each of your characters present is immune to attrition < 3.");
         addIcons(Icon.JABBAS_PALACE);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card6_104 extends AbstractAlien {
     public Card6_104() {
-        super(Side.DARK, 2, 3, 1, 1, 2, Title.Gailid, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 1, 1, 2, Title.Gailid, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Mosep's assistant. Accountant. Tax collector. Enjoys tending to Jabba's skiffs with Barada.");
         setGameText("Deploys free to same site as Mosep. Adds 2 to power of anything he pilots. While at Audience Chamber, adds 1 to your Force drains at Jabba's Palace sites.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT);

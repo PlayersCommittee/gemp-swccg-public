@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card6_110 extends AbstractAlien {
     public Card6_110() {
-        super(Side.DARK, 2, 5, 4, 1, 3, Title.Jquille, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 4, 1, 3, Title.Jquille, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Whiphid spy in league with Lady Valarian. Yearns for battle. Enjoys hearing the screams of his victims. Plotting to kill Jabba.");
         setGameText("Power +2 on Hoth. At the start of a battle, may cause one opponent's character of ability < 3 present to be excluded from the battle. While at Audience Chamber, all your other Whipids are forfeit +2.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

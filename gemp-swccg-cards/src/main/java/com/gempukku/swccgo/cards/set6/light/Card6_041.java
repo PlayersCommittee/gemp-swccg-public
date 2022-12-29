@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.UnderNighttimeConditionConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card6_041 extends AbstractAlien {
     public Card6_041() {
-        super(Side.LIGHT, 2, 2, 1, 1, 2, "Snivvian");
+        super(Side.LIGHT, 2, 2, 1, 1, 2, "Snivvian", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Cadomai is the homeworld of the generally artistic Snivvians. Its cold, dark climate makes them excellent scouts.");
         setGameText("May deploy as a 'react'. Power +2 under 'nighttime conditions'. When at a site, if opponent cancels Nightfall on related system, causes Effect to go to Used Pile and may retrieve 2 Force.");
         addIcons(Icon.JABBAS_PALACE);

@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.CancelCardResultEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card6_124 extends AbstractAlien {
     public Card6_124() {
-        super(Side.DARK, 3, 1, 2, 1, 2, "Taym Dren-garen", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 2, 1, 2, "Taym Dren-garen", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Instigator of several Sand People raids on Tatooine. Keeps the Tusken Raiders well supplied so they can keep local authorities distracted from Jabba's activities.");
         setGameText("When on Tatooine, may cancel any result of Krayt Dragon Bones. While at Audience Chamber, all your Tusken Raiders are power = 3 and forfeit +2.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

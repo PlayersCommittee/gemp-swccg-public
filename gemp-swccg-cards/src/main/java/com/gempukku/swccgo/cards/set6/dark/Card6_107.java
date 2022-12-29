@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card6_107 extends AbstractAlien {
     public Card6_107() {
-        super(Side.DARK, 3, 3, 1, 3, 2, "Herat", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 1, 3, 2, "Herat", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Female Jawa shaman. Advised Wittin during his plotting with Jabba. Agreed to fan the Hutt in return for his cooperation to help usurp Kalit.");
         setGameText("Deploys only on Tatooine. During your control phase, may search Reserve Deck, take one Utinni! or Jawa into hand and reshuffle. If you have 3 or more Jawas on table, may play Utinni! to cancel a Force drain at a Tatooine site or to cancel Control.");
         addIcons(Icon.JABBAS_PALACE);

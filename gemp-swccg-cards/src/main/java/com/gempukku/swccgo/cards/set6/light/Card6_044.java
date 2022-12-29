@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card6_044 extends AbstractAlien {
     public Card6_044() {
-        super(Side.LIGHT, 1, 3, 1, 2, 3, Title.Tessek, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 1, 2, 3, Title.Tessek, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Quarren accountant. Embezzling from Jabba. Leader. Escaped Mon Calamari after its subjugation by the Empire. Plotting to kill Jabba and free the Hutt's captives.");
         setGameText("Whenever your opponent deploys a character of destiny 1, you may activate 1 Force. While at Audience Chamber, adds 1 to your Force drains where you have a non-unique alien and all your non-unique aliens are deploy -1.");
         addIcons(Icon.JABBAS_PALACE);

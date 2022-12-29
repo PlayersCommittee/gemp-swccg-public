@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card6_025 extends AbstractAlien {
     public Card6_025() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Laudica", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Laudica", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Corellian gun-runner. Skilled markswoman. Friends with Brindy Truchong and the Tonnika sisters. Romantically involved with Rayc Ryjerd, against her better judgment.");
         setGameText("When in a battle, you may 'react' by deploying any one non-unique blaster (for free) on Laudica from Reserve Deck; reshuffle. When present with your non-unique Corellian at a site, allows your character weapons to transfer for free there.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

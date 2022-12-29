@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card6_118 extends AbstractAlien {
     public Card6_118() {
-        super(Side.DARK, 3, 4, 4, 2, 3, "Ortugg", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 4, 2, 3, "Ortugg", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Gamorrean in charge of the Gamorreans at Jabba's palace. Posted to stand guard at the entrance cavern. Assigned by Jabba to keep an eye on Tessek.");
         setGameText("Deploys only on Tatooine. Functions as a leader if present with another Gamorrean. While at Audience Chamber, all your other Gamorreans are forfeit +2.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

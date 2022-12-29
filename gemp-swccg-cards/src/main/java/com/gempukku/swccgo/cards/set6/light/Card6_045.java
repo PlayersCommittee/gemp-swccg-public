@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DoubledCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +38,7 @@ import java.util.List;
  */
 public class Card6_045 extends AbstractAlien {
     public Card6_045() {
-        super(Side.LIGHT, 2, 2, 2, 2, 2, Title.Vul_Tazaene, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 2, Title.Vul_Tazaene, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Security officer from Kiffex searching for the Tonnika sisters. In love with one of them, he's not sure which.");
         setGameText("Adds 2 to power of anything he pilots. Twice during battle at same system, may use 2 Force to add 2 to any destiny of 2. If present with Tonnika Sisters, Vul and Tonnika Sisters are lost.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT);

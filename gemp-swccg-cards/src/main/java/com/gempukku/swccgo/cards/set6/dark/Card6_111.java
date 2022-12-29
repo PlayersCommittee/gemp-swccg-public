@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.evaluators.AbilityOfHighestAbilityCharacterPresentEvaluator;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card6_111 extends AbstractAlien {
     public Card6_111() {
-        super(Side.DARK, 2, 4, null, 2, 2, "Kithaba", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, null, 2, 2, "Kithaba", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Famous Klatooinian assassin. After disposing of a few more prisoners, plans to quit the killing business and become a full-time musician. Rises to the challenges he faces.");
         setGameText("Deploys only on Tatooine. Adds 1 to power of anything he pilots. Power = 1 + ability of opponent's highest-ability character present.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR);

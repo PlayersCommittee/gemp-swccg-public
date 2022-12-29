@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card6_123 extends AbstractAlien {
     public Card6_123() {
-        super(Side.DARK, 4, 2, 2, 1, 2, "Skrilling");
+        super(Side.DARK, 4, 2, 2, 1, 2, "Skrilling", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Regarded as whiners. Skrillings are a scavenger species. Steal from corpses left behind on battlefields. Feed on carrion and uncooked meat. Avoided by many species.");
         setGameText("Once per turn, may steal a weapon or device from an opponent's character just lost or forfeited where present. When you play Tusken Scavengers, may steal vehicles, weapons and devices found (place them in your Used Pile).");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

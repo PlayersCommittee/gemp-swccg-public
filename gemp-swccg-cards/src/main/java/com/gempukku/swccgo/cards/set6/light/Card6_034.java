@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.TrainedByCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card6_034 extends AbstractAlien {
     public Card6_034() {
-        super(Side.LIGHT, 2, 3, 2, 2, 4, "Rayc Ryjerd", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 4, "Rayc Ryjerd", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("An 'honest' smuggler. Working for Jabba to pay off debts for his ship. Rycar's son. Even more of an idiot.");
         setGameText("Adds 2 to power of anything he pilots (or 4 if trained by Rycar Ryjerd). Any starfighter Rayc pilots is immune to Tallon Roll and is not lost if an asteroid sector is drawn for asteroid destiny.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT);

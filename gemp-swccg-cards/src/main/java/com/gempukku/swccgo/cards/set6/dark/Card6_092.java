@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.BeheadedVictimsEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card6_092 extends AbstractAlien {
     public Card6_092() {
-        super(Side.DARK, 2, 4, 3, 1, 2, "Amanaman", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 3, 1, 2, "Amanaman", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Male Amanin. Hangs the heads of his victims on his staff. Nicknamed Amanaman; his real name is unknown on Tatooine.");
         setGameText("Once per battle, may use 2 Force to 'behead' (place out of play) one opposing non-droid character lost or forfeited where present. Adds X to attrition in battles at same site where X = the number of 'beheaded' victims.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

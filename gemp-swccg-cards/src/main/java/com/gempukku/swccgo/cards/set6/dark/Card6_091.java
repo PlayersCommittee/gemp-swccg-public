@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card6_091 extends AbstractAlien {
     public Card6_091() {
-        super(Side.DARK, 3, 2, 2, 1, 2, "Abyssin");
+        super(Side.DARK, 3, 2, 2, 1, 2, "Abyssin", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Abyssins have an extremely violent culture. They also possess tremendous regenerative abilities. Often become mercenaries once they leave their homeworld, Byss.");
         setGameText("Power +2 and Forfeit +1 while Myo at Audience Chamber. If lost or forfeited during a battle, may use 2 Force to 'regenerate' (place Abyssin in your Used Pile).");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card6_114 extends AbstractAlien {
     public Card6_114() {
-        super(Side.DARK, 2, 3, 2, 1, 2, "Murttoc Yine", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 1, 2, "Murttoc Yine", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Information broker. Spy. Has many nefarious contacts in the underworld. Contact point for many seeking employment with Jabba.");
         setGameText("During your control phase, if at a Jabba's Palace site you control, may use 3 Force to search your Reserve Deck, take one other alien that is a smuggler, information broker, thief or spy into hand and reshuffle.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

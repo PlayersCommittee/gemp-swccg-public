@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card6_026 extends AbstractAlien {
     public Card6_026() {
-        super(Side.LIGHT, 3, 2, 1, 2, 2, "Leslomy Tacema", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 2, "Leslomy Tacema", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Female Duros. Expert pilot. Helps run the docking facilities in Mos Eisley. Friends with Ellorrs Madak. Approves all cargo manifests. Forgiving of minor transgressions.");
         setGameText("Adds 3 to power of anything she pilots. While at Audience Chamber, adds 2 to the power bonus provided by Ellorrs Madak.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT);

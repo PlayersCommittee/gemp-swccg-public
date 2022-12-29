@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card6_112 extends AbstractAlien {
     public Card6_112() {
-        super(Side.DARK, 3, 3, 2, 1, 2, Title.Klaatu, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, 1, 2, Title.Klaatu, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Kadas'sa'Nikto. Barada's main assistant. In charge of repairing Jabba's skiffs. Gambler. Always tries to make it back to the palace to watch the Rancor get fed.");
         setGameText("Deploys only on Tatooine. Power +2 when with Barada or defending a battle at a Jabba's Palace site. During a battle at same site, may forfeit a transport vehicle present to satisfy all remaining battle damage and attrition against you.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtAndReorderForcePileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card6_039 extends AbstractAlien {
     public Card6_039() {
-        super(Side.LIGHT, 3, 3, 1, 1, 3, "Shasa Tiel", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 1, 3, "Shasa Tiel", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setArmor(3);
         setLore("Ishi Tib accountant. One of Mosep's assistants. Formerly worked for SoroSuub Inc. Blackmailed into working for Jabba. Hates her job. Searching for a means of escape.");
         setGameText("Power +1 at any swamp. During opponent's control phase, may use 3 Force to examine the cards in opponent's Force Pile, reorder however you wish and replace. While at Audience Chamber, all your other Ishi Tibs are power and forfeit +2.");

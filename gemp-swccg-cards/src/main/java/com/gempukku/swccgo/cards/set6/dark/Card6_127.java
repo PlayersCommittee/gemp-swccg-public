@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card6_127 extends AbstractAlien {
     public Card6_127() {
-        super(Side.DARK, 2, 2, 2, 1, 2, "Vedain", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 1, 2, "Vedain", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Kajain'sa'Nikto scout. Sold by his family into slavery to Jabba. Gambler. Plays sabacc with his fellow Nikto.");
         setGameText("Deploys only on Tatooine. During your control phase, if at a Jabba's Palace site, may use 2 Force to make a 'wager'. Both players draw one destiny. Player with lower number loses 1 Force.");
         addIcons(Icon.JABBAS_PALACE);

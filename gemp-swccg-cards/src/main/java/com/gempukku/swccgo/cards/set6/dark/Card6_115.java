@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card6_115 extends AbstractAlien {
     public Card6_115() {
-        super(Side.DARK, 3, 3, 2, 1, 3, "Nikto");
+        super(Side.DARK, 3, 3, 2, 1, 3, "Nikto", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Several different types if Nikto were sold to Jabba by slavers. Compete with Weequay to prove themselves the stronger species.");
         setGameText("Deploys only to a Jabba's Palace site. Power and forfeit +2 when defending a battle at a Jabba's Palace site.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

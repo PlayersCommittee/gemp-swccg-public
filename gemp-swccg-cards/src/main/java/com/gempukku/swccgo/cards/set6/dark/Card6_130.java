@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +30,7 @@ import java.util.List;
  */
 public class Card6_130 extends AbstractAlien {
     public Card6_130() {
-        super(Side.DARK, 3, 3, 3, 1, 1, Title.Weequay_Guard, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 3, 1, 1, Title.Weequay_Guard, Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Weequay are extremely fierce warriors. Species name means, 'follower of Quay'. Very religious. Communicate through pheromones. Smell really bad.");
         setGameText("Deploys only on Tatooine. Deploy -1 to same site as any Weequay. When at same site as any Weequay, (except Weequay Guards), may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

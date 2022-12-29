@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card6_117 extends AbstractAlien {
     public Card6_117() {
-        super(Side.DARK, 3, 3, 2, 1, 2, "Nysad", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, 1, 2, "Nysad", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Kajain'sa'Nikto. Fiercely loyal to Jabba. Stands guard over the sail barge during the Hutt's many trips to Mos Eisley.");
         setGameText("Deploys only on Tatooine. May deploy as a 'react' to a Jabba's Palace site or aboard a vehicle at a Tatooine site. Power +3 when defending a battle at a Jabba's Palace site.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

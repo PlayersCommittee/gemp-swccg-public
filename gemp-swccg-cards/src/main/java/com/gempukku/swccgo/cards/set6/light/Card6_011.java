@@ -3,11 +3,23 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToLandspeedRequirementsModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +33,7 @@ import java.util.List;
  */
 public class Card6_011 extends AbstractAlien {
     public Card6_011() {
-        super(Side.LIGHT, 3, 2, 1, 1, 3, "Droopy McCool", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 1, 3, "Droopy McCool", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Kitonak musician. Lead jizz wailer. Searching for other Kitonak rumored to be living on Tatooine. Rarely uses his real name, Snit.");
         setGameText("Power +2 at any desert or Tatooine site. Immune to Gravel Storm, Sandwhirl and desert landspeed requirements. While at Audience Chamber, all your other Kitonaks are forfeit +2. Immune to attrition < number of your musicians on table.");
         addIcons(Icon.JABBAS_PALACE);

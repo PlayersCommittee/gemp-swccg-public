@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -18,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-
 /**
  * Set: Jabba's Palace
  * Type: Character
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card6_131 extends AbstractAlien {
     public Card6_131() {
-        super(Side.DARK, 3, 4, 3, 1, 2, "Weequay Hunter", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 4, 3, 1, 2, "Weequay Hunter", Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("To maintain religious practices, Weequay hunters capture banthas. The beasts are then sacrificed as part of a battle ceremony. Tusken Raiders tend not to appreciate this.");
         setGameText("Deploys only on Tatooine. When present at the start of a battle, may sacrifice (lose) one of your Banthas present: adds 2 to power of each Weequay there for remainder of turn. (May not sacrifice if Tusken Raiders present outnumber Weequay present).");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

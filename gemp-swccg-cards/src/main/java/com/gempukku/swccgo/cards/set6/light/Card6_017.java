@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card6_017 extends AbstractAlien {
     public Card6_017() {
-        super(Side.LIGHT, 2, 2, 1, 1, 3, "Gran", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 2, 1, 1, 3, "Gran", Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("From an ancient civilization. Pacifists. Those who commit acts of violence are banished from their home planet, Kinyen. Organizes peaceful protests against the Empire.");
         setGameText("May retrieve 1 Force whenever opponent initiates battle at same or adjacent site (if at same site, retrieved Force may be taken into hand).");
         addIcons(Icon.JABBAS_PALACE);

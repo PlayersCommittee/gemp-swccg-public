@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card6_037 extends AbstractAlien {
     public Card6_037() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Saelt-Marae", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Saelt-Marae", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Male Yarkora. Mysterious member of Jabba's court. Posing as an alien artifact trader. Associates with the B'omarr monks at Jabba's palace. No one knows his true motivations.");
         setGameText("During battle, if an opponent's alien present, may use 3 Force to peek at top card of any Reserve Deck. While at Audience Chamber, all your other Yarkora are power and forfeit +2.");
         addIcons(Icon.JABBAS_PALACE);

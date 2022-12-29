@@ -3,11 +3,22 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToLandspeedRequirementsModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +32,7 @@ import java.util.List;
  */
 public class Card6_023 extends AbstractAlien {
     public Card6_023() {
-        super(Side.LIGHT, 3, 2, 1, 1, 2, "Kitonak", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 2, 1, 1, 2, "Kitonak", Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Natives of Kirdo III, a desert world, Kitonak possess tough, leathery skin. Many become musicians. Very patient. Thousands have been enslaved by the Empire.");
         setGameText("Power +1 at a Tatooine site, or power +2 at any desert. Immune to Gravel Storm, Sandwhirl and desert landspeed requirements. Immune to attrition < the number of your musicians present.");
         addIcons(Icon.JABBAS_PALACE);

@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllAttritionEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card6_099 extends AbstractAlien {
     public Card6_099() {
-        super(Side.DARK, 3, 3, 2, 1, 2, "Chevin");
+        super(Side.DARK, 3, 3, 2, 1, 2, "Chevin", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Most Chevin are mercenaries, gun runners and slavers. Have strong communities on their homeworld. Wear clothing only because others do.");
         setGameText("Power +2 and forfeit +1 while Ephant Mon is at Audience Chamber. When forfeited at same site as one of your alien leaders, may satisfy all remaining attrition against you.");
         addIcons(Icon.JABBAS_PALACE);

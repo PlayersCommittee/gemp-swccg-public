@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card6_122 extends AbstractAlien {
     public Card6_122() {
-        super(Side.DARK, 3, 1, 0, 1, 3, "Salacious Crumb", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 0, 1, 3, "Salacious Crumb", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Male Kowakian. Prankster. Humiliates others for Jabba's amusement. His life depends on making Jabba laugh at least once per day.");
         setGameText("Opponent may initiate battle at same site for free. At same or adjacent site, whenever an opponent draws a card for battle destiny, if it is: Even, opponent must use 1 Force (if possible); Odd, destiny card is lost. (AH-hahahahaha!)");
         addIcons(Icon.JABBAS_PALACE);

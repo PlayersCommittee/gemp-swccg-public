@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card6_101 extends AbstractAlien {
     public Card6_101() {
-        super(Side.DARK, 1, 4, 2, 3, 2, Title.Ephant_Mon, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 2, 3, 2, Title.Ephant_Mon, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Chevin smuggler. One of Jabba's few truly loyal associates. Keeps Jabba informed as to the various plots against his life. Leader.");
         setGameText("Opponent's spies, gamblers and thieves may not deploy or move to same site. When with Jabba in a battle, power +2 and, if forfeited, may satisfy all remaining battle damage and attrition against you.");
         addIcons(Icon.JABBAS_PALACE);

@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PlayingSabaccCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card6_010 extends AbstractAlien {
     public Card6_010() {
-        super(Side.LIGHT, 3, 3, 1, 2, 2, "Devaronian");
+        super(Side.LIGHT, 3, 3, 1, 2, 2, "Devaronian", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Adept at sneaking through corridors and alleyways. Devaronians frequently surprise opponents. Regarded as drunkards, gamblers and fools by many species.");
         setGameText("Power +2 at Mos Eisley, any mobile site or any docking bay. Adds 2 to power of anything he pilots. When playing sabacc, may use clone cards to 'clone' his own destiny number.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT);

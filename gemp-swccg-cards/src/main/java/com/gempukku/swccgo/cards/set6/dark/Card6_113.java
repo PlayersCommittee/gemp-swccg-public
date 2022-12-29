@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +39,7 @@ import java.util.List;
  */
 public class Card6_113 extends AbstractAlien {
     public Card6_113() {
-        super(Side.DARK, 3, 3, 2, 1, 2, Title.Malakili, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, 1, 2, Title.Malakili, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Corellian. Worked for Circus Horrificus. Disapproves of Jabba's treatment of the rancor. Plotting with Lady Valarian to steal the immense beast away from Jabba's palace.");
         setGameText("Deploys only on Tatooine. During your control phase, may snare (steal) one creature or unoccupied creature vehicle present. Creatures at same site (except Sarlacc) do not attack and cannot be attacked.");
         addIcons(Icon.JABBAS_PALACE);

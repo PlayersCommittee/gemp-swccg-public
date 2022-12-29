@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +39,7 @@ import java.util.List;
  */
 public class Card6_106 extends AbstractAlien {
     public Card6_106() {
-        super(Side.DARK, 2, 3, 2, 2, 2, "Giran", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 2, 2, "Giran", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Kajain'sa'Nikto. Loyal to Jabba. Helps tend the rancor with Malakili. Hopes to snare a krayt dragon someday and pit it against the rancor.");
         setGameText("Deploys only on Tatooine. Power +3 when defending a battle at a Jabba's Palace site. May forfeit in place of one of your alien leaders present who was 'hit' by a weapon, restoring that leader to normal.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

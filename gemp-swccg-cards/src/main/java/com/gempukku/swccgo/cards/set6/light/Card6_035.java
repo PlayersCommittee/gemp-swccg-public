@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.NumTimesPerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card6_035 extends AbstractAlien {
     public Card6_035() {
-        super(Side.LIGHT, 2, 2, 1, 1, 3, Title.Rennek, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 1, 3, Title.Rennek, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Nerf herder. Personally oversees the herding of Jabba's nerfs. Scruffy-looking appearance conceals his expertise in unusual combat techniques.");
         setGameText("Creatures at same site (except Sarlacc) do not attack and cannot be attacked. Up to three times per turn, may use 1 Force to cumulatively add 1 to his power for remainder of turn.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);

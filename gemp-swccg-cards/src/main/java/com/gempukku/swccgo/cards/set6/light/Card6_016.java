@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +39,7 @@ import java.util.List;
  */
 public class Card6_016 extends AbstractAlien {
     public Card6_016() {
-        super(Side.LIGHT, 4, 2, 0, 2, 4, "Ghoel", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 0, 2, 4, "Ghoel", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Wol Cabbasshite. Immobile. Species evolved from parasites. Mistakenly left in Jabba's palace. No one suspects its intelligence. Often tries to lick passersby.");
         setGameText("Deploys only at interior sites. Cannot move. During a battle at same site, may target one character present. Draw destiny. If destiny +3 > ability, target may not use ability toward drawing battle destiny this turn.");
         addIcons(Icon.JABBAS_PALACE);

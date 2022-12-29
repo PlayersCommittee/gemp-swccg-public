@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card6_096 extends AbstractAlien {
     public Card6_096() {
-        super(Side.DARK, 2, 5, 4, 1, 3, Title.Barada, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 4, 1, 3, Title.Barada, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Male Klatooinian in charge of Jabba's repulsorpool. Sold onto slavery and won by Jabba in sabacc. Responsible for maintenance and supplies for Jabba's vehicles.");
         setGameText("Deploys only to a Jabba's Palace site. Power = 0 at any location other than a Tatooine site. Power +2 at any Jabba's Palace site while Jabba is on the table. Your transport vehicles lost from same site may go to your Used Pile rather than your Lost Pile.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
