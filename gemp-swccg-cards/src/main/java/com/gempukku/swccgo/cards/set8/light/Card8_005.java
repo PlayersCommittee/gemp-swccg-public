@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card8_005 extends AbstractRebel {
     public Card8_005() {
-        super(Side.LIGHT, 2, 2, 1, 2, 4, "Corporal Delevar", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 2, 4, "Corporal Delevar", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Veteran of Battle of Hoth. Medic and Scout assigned to General Solo's assault force. Prides himself on being an efficient soldier in General Madine's commando organization.");
         setGameText("Prevents your characters from having their forfeit reduced at same location (and at Hoth sites if Delevar is at Echo Med Lab). When with your FX droid, once per turn allows your character just forfeited from same site to be placed in Used Pile.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

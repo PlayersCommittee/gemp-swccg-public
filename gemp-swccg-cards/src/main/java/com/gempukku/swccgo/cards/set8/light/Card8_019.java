@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card8_019 extends AbstractRebel {
     public Card8_019() {
-        super(Side.LIGHT, 2, 3, 3, 3, 4, Title.Lieutenant_Page, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 3, 4, Title.Lieutenant_Page, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Scout who served under General Veers' command. Defected and was recruited by General Madine's commando organization. Works closely with Colonel Cracken.");
         setGameText("Adds 1 to each of your battle destiny draws when with Derlin, Cracken or Madine at a site (or when with at least two of your other scouts at an exterior planet site). Your Rebel scouts deploy -1 to same exterior site (except Rebel Landing Site).");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

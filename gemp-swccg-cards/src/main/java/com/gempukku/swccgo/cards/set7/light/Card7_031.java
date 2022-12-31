@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card7_031 extends AbstractRebel {
     public Card7_031() {
-        super(Side.LIGHT, 2, 3, 2, 3, 4, "Major Palo Torshan", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 3, 4, "Major Palo Torshan", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Coordinator of Rebel base security. Served under General Dodonna at Yavin 4. Sat in on conferences planning the Battle of Yavin. Developed counterintelligence techniques.");
         setGameText("Deploys -2 on a Rebel Base. While at your war room, adds 1 to your Attack Run total. Once during each of your control phases, may use 1 Force to take one Double Agent or Sabotage into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

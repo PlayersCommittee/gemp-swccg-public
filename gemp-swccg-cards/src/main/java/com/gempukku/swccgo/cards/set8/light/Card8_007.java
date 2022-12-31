@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card8_007 extends AbstractRebel {
     public Card8_007() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Corporal Kensaric", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Corporal Kensaric", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Scout responsible for covering the tracks of General Solo's strike team. Served under Bren Derlin during the Battle of Hoth.");
         setGameText("When present at an exterior battleground site with your other scout, adds 2 (or 1 if Goo Nee Tay on table) to deploy cost of opponent's characters, vehicles and starships to same site.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

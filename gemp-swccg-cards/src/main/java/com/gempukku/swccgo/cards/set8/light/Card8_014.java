@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card8_014 extends AbstractRebel {
     public Card8_014() {
-        super(Side.LIGHT, 1, 3, 3, 3, 6, Title.Madine, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 6, Title.Madine, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Military advisor to Mon Mothma. Leader of commando project. Corellian native. Defected to the Alliance shortly after the Battle of Yavin. Rescued by Rogue Squadron.");
         setGameText("Once during each of your deploy phases, may take one scout of ability < 3 into hand from Reserve Deck; reshuffle. While at your war room or aboard your capital starship, adds 1 to immunity to attrition of all your scouts who have immunity.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

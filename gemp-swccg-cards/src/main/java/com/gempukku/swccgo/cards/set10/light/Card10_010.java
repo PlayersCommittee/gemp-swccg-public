@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set10.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +41,7 @@ import java.util.List;
  */
 public class Card10_010 extends AbstractRebel {
     public Card10_010() {
-        super(Side.LIGHT, 1, 7, 6, 6, 8, "Luke Skywalker, Rebel Scout", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 7, 6, 6, 8, "Luke Skywalker, Rebel Scout", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Resourceful scout and member of the Rebel infiltration team assembled to destroy the shield generator. Surrendered to his father so that he would not endanger the mission.");
         setGameText("May cancel immunity to attrition of any vehicle here. If escorted by Vader and Take Your Father's Place on table, during your move phase may relocate Vader (with Luke) to Death Star II: Throne Room. Immune to Always Thinking With Your Stomach and attrition < 5.");
         addPersona(Persona.LUKE);

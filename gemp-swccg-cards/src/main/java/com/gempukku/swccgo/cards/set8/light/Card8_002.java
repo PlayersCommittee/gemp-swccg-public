@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +41,7 @@ import java.util.List;
  */
 public class Card8_002 extends AbstractRebel {
     public Card8_002() {
-        super(Side.LIGHT, 1, 6, 6, 2, 7, "Chewbacca Of Kashyyyk", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 6, 2, 7, "Chewbacca Of Kashyyyk", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Wookiee scout. Volunteered for Han's Endor strike team. Keeps his distance, but doesn't look like he's keeping his distance. Always thinks with his stomach.");
         setGameText("Deploys -2 on Endor. Adds 2 to power of anything he pilots. When targeted by a weapon, may 'roar' (defense value = 4). When on Endor during your deploy phase, may deploy Lumat and/or Wuta for free here from Reserve Deck; reshuffle.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.WARRIOR);

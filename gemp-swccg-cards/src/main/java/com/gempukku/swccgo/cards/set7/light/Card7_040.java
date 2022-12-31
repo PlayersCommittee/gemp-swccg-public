@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card7_040 extends AbstractRebel {
     public Card7_040() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Ryle Torsyn", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Ryle Torsyn", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Piloted Gold 3 at the Battle of Yavin. Recruited by Garven Dreis. Found hidden Imperial tracking device that forced the evacuation of Rebel base on Dantooine.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Gold 3 during battle, adds one destiny to total power only. When at Dantooine system, adds 1 to each of your Force drains there.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);

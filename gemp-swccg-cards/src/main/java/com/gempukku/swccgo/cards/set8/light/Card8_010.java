@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card8_010 extends AbstractRebel {
     public Card8_010() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Endor Scout Trooper");
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Endor Scout Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Rebel troopers receive scout training that helps them to survive combat in harsh environments. Often protect 'specialists' while they accomplish mission tasks.");
         setGameText("Power -1 while not on Endor. While this character is on Endor, Lieutenant Page and each of your Rebel scouts of ability < 3 at same and adjacent exterior sites are immune to attrition < 2.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

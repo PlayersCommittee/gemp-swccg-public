@@ -1,20 +1,33 @@
 package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.CapturedOnlyCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
-import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotInitiateBattleAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.CaptureCharacterResult;
-import org.apache.log4j.Logger;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -27,7 +40,7 @@ import java.util.List;
  */
 public class Card6_032 extends AbstractRebel {
     public Card6_032() {
-        super(Side.LIGHT, 1, 0, 3, 4, 7, "Princess Leia Organa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 0, 3, 4, 7, "Princess Leia Organa", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Captured by Jabba. Princess Leia provided a distraction for his henchbeings. Waiting for the first chance to escape. Really made Jabba's tail wiggle.");
         setGameText("* Deploys free as an escorted captive of Jabba, or a bounty hunter (you may not initiate battle there on the same turn). While a captive, opponent's unique (*) aliens at same site are forfeit -2. If released, retrieve 5 Force. Immune to attrition < 3.");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR);

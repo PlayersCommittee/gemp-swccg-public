@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card7_042 extends AbstractRebel {
     public Card7_042() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Sergeant Hollis", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Sergeant Hollis", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Trooper stationed at Echo Base during the Battle of Hoth. Distinguished himself with several acts of valor, earning the Kenobi Medallion.");
         setGameText("When in battle with another Echo Base trooper, adds one battle destiny. Once during each of your control phases, may take one Rebel Ambush into hand from Reserve Deck; reshuffle. Power -1 when not on Hoth.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfReserveDeckEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card8_028 extends AbstractRebel {
     public Card8_028() {
-        super(Side.LIGHT, 2, 1, 2, 1, 3, "Sergeant Bruckman", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, 1, 3, "Sergeant Bruckman", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Corellian Scout who served as point man for General Solo's strike team. Recruited by General Madine for the Alliance commando unit.");
         setGameText("When opponent has just initiated a battle at same exterior site and all your ability here is provided by scouts, may reveal top card of Reserve Deck. If that card is a scout, may deploy it here for free (otherwise, replace on top of Reserve Deck).");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

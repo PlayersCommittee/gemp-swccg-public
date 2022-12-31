@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card8_027 extends AbstractRebel {
     public Card8_027() {
-        super(Side.LIGHT, 2, 2, 3, 2, 3, "Sergeant Brooks Carlson", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, 2, 3, "Sergeant Brooks Carlson", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Veteran pathfinder. Defected with General Madine. Recruited as a Scout for the newly-formed commando unit.");
         setGameText("Landspeed = 2. Allows your other scouts present at same exterior site to move with him (using landspeed = 2) for free. Adds 1 to immunity to attrition of all your scouts present at same exterior site who have immunity.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card8_029 extends AbstractRebel {
     public Card8_029() {
-        super(Side.LIGHT, 2, 3, 3, 2, 4, "Sergeant Junkin", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 2, 4, "Sergeant Junkin", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Demolitions expert and scout. Supervises explosives preparations for covert operations. Consulted with General Madine to plan placement of explosives within control bunker.");
         setGameText("When at Bunker, adds 1 to Deactivate The Shield Generator total for each Explosive Charge here. When Junkin uses a Concussion Grenade, all your characters are immune to that grenade and you may add or subtract 1 from weapon destiny draw.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

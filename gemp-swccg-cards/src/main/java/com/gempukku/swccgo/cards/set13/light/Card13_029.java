@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.TwicePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card13_029 extends AbstractRebel {
     public Card13_029() {
-        super(Side.LIGHT, 3, 4, 3, 4, 7, "Leia, Rebel Princess", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 3, 4, 7, "Leia, Rebel Princess", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("After attracting Luke's attention and then Han's attention, Leia should not have been surprised when she got more attention than desired from Jabba.");
         setGameText("Twice per game, may place top card of Lost Pile on top of Reserve Deck to cancel a Force drain at a related site. Unless opponent's non-alien character here, opponent's total ability at same site = 0. Immune to attrition < 5 if with Luke, Han or Jabba.");
         addPersona(Persona.LEIA);

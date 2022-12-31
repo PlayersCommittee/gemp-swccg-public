@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +42,7 @@ import java.util.List;
  */
 public class Card5_001 extends AbstractRebel {
     public Card5_001() {
-        super(Side.LIGHT, 1, 4, 4, 3, 7, "Captain Han Solo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 4, 3, 7, "Captain Han Solo", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Smuggler and scoundrel. His piloting abilities have become legend in the Rebellion. Intends to leave the Alliance to pay off Jabba the Hutt.");
         setGameText("Deploys only on Falcon, Hoth or Cloud City. Adds 3 to power of anything he pilots. When piloting Falcon, adds one battle destiny and 2 to maneuver. Once during each battle, may use 2 Force to cancel one opponent's destiny just drawn and cause a re-draw.");
         addIcons(Icon.CLOUD_CITY, Icon.PILOT, Icon.WARRIOR);

@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card7_030 extends AbstractRebel {
     public Card7_030() {
-        super(Side.LIGHT, 3, 2, 1, 2, 4, "Lieutenant Tarn Mison", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 4, "Lieutenant Tarn Mison", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Former Imperial pilot. Joined the Alliance shortly after the Battle of Yavin. Flew cover for Bright Hope during the evacuation of Hoth. Expert marksman.");
         setGameText("Deploys -1 aboard your unique (•) Rebel starfighter. Adds 2 to power of anything he pilots. When starfighter he pilots fires a starship weapon, characters aboard target are forfeit = 0 for remainder of turn.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set101.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card101_002 extends AbstractRebel {
     public Card101_002() {
-        super(Side.LIGHT, 1, 4, 2, 3, 4, "Luke", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 2, 3, 4, "Luke", Uniqueness.UNIQUE, ExpansionSet.PREMIERE_INTRO_TWO_PLAYER, Rarity.PM);
         setLore("Raised by guardians Owen and Beru Lars on a moisture farm on Tatooine, where Owen wanted him to stay. Nicknamed 'Wormie' by childhood friends Camie and Fixer.");
         setGameText("Must deploy on Tatooine, but may move elsewhere. May not be deployed if two or more of opponent's unique (•) characters on table. Your warriors at same site as Luke, or adjacent sites are forfeit +1.");
         addPersona(Persona.LUKE);

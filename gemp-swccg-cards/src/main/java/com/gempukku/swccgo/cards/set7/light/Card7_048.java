@@ -3,7 +3,18 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.UndercoverCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +43,7 @@ import java.util.List;
  */
 public class Card7_048 extends AbstractRebel {
     public Card7_048() {
-        super(Side.LIGHT, 1, 3, 3, 3, 6, Title.TK422, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 6, Title.TK422, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setArmor(5);
         setLore("Corellian smuggler. Spy. Han stole the armor and identity of an enemy soldier that boarded the Millennium Falcon. Bluffed his way into the detention area.");
         setGameText("Deploys only as an Undercover spy at same site as an Imperial. While Undercover, Imperials are deploy +1 at related sites. May voluntarily 'break cover' only during your move phase by using 3 Force. Captured if 'cover broken' by opponent.");

@@ -4,8 +4,11 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card7_022 extends AbstractRebel {
     public Card7_022() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Incom Engineer");
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Incom Engineer", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("After narrowly escaping the nationalization of Incom by the Empire, many former employees joined the Rebellion. They spent long hours maintaining X-wings and T-47s.");
         setGameText("At same and related locations, adds 2 to your total battle destiny where your X-wing, T-47, T-16 and Z-95 is present and makes those vehicles and starships immune to attrition < 3 (< 5 if he is present with your maintenance droid).");
         addIcons(Icon.SPECIAL_EDITION);

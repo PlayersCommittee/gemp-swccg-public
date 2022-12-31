@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +24,11 @@ import com.gempukku.swccgo.logic.effects.BreakCoverEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
@@ -30,7 +43,7 @@ import java.util.List;
  */
 public class Card10_005 extends AbstractRebel {
     public Card10_005() {
-        super(Side.LIGHT, 3, 4, 2, 4, 5, "Corran Horn", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 2, 4, 5, "Corran Horn", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Corellian. Former counter-intelligence agent and spy for CorSec (Corellian Security). Gifted tactician. One of Wedge Antilles' best pilots. Member of Rogue Squadron.");
         setGameText("Adds 2 to power and 2 to maneuver of anything he pilots. During your move phase, may use 1 Force to 'break cover' of opponent's Undercover spy at same site. Power +3 in battle against opponent's spy or bounty hunter. Immune to attrition < 3.");
         addPersona(Persona.CORRAN_HORN);

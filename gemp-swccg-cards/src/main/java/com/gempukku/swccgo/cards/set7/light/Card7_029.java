@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card7_029 extends AbstractRebel {
     public Card7_029() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Lieutenant Naytaan", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Lieutenant Naytaan", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Piloted Red 9 at the Battle of Yavin. Led the relief effort of Clak'dor VII in the Mayagil sector. Became an 'ace' in only two missions.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Red 9 during battle, adds one destiny to total power only. When at Clak'dor VII system, adds 1 to each of your Force drains there.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);

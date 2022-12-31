@@ -5,14 +5,25 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ArmorModifier;
 import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -32,7 +43,7 @@ import java.util.List;
  */
 public class Card13_009 extends AbstractRebel {
     public Card13_009() {
-        super(Side.LIGHT, 3, 6, 9, 2, 6, "Chewie, Enraged", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 6, 9, 2, 6, "Chewie, Enraged", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setArmor(4);
         setLore("Smuggler. Very few people need to be told that angry Wookiees should be given a wide berth.");
         setGameText("X = number of Imperials present. While with Han or Leia, adds 2 to your battle destiny draws here. During your turn, target one Imperial of power < 5 present. Target's game text canceled for remainder of turn. End of your turn: Use 2 Force to maintain OR Lose 1 Force to place in Used Pile OR Place out of play.");

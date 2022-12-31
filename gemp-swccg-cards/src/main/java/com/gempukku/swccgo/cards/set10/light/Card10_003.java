@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card10_003 extends AbstractRebel {
     public Card10_003() {
-        super(Side.LIGHT, 1, 5, 6, 2, 6, "Chewbacca, Protector", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 6, 2, 6, "Chewbacca, Protector", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setArmor(4);
         setLore("Chewie honored his life debt to Han by protecting Leia. Posed as the mercenary Snoova while on Coruscant. Smuggler. Wookiee.");
         setGameText("Deploys -3 to same site as Leia. Adds 2 to power of anything he pilots (3 if Falcon). Once per turn, may target opponent's character at same site who has power < 4 and cancel target's game text for remainder of turn.");

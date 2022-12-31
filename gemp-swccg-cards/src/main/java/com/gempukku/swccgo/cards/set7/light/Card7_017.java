@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card7_017 extends AbstractRebel {
     public Card7_017() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, "Firin Morett", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, "Firin Morett", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Engineer responsible for preparing Red and Gold Squadron starships for battle. Has final launch authority in the Yavin 4 docking bay.");
         setGameText("Subtracts 2 from deploy cost of each of your starfighters to same docking bay. Once during each of your control phases, may take one Advance Preparation, Rebel Planners or docking bay into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

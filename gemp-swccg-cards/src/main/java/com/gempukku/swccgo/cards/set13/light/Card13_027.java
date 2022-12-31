@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -11,7 +13,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -32,7 +38,7 @@ import java.util.List;
  */
 public class Card13_027 extends AbstractRebel {
     public Card13_027() {
-        super(Side.LIGHT, 5, 5, 6, 3, 7, "Lando Calrissian, Scoundrel", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, 5, 6, 3, 7, "Lando Calrissian, Scoundrel", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("With a silvery tongue or a rapid-fire blaster, Lando prides himself on being able to get out of tight situations. Is at his best when cornered.");
         setGameText("Adds one battle destiny. If opponent initiates battle at same location, retrieve 1 Force and add its destiny number to Lando's power, or power of Falcon he is piloting. End of your turn: Use 1 Force to maintain OR Lose 2 Force to place in Used Pile OR Place out of play.");
         addPersona(Persona.LANDO);

@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +34,7 @@ import java.util.List;
  */
 public class Card8_004 extends AbstractRebel {
     public Card8_004() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Corporal Beezer", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Corporal Beezer", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Alderaanian slicer and technician. Trained by Brooks Carlson to serve as a Scout for Alliance commandos. She gets nervous when General Solo tries to hotwire something.");
         setGameText("Prevents opponent from 'reacting' to same site. Once during each of your deploy phases, may deploy one device to same location from Reserve Deck; reshuffle. Rebels of ability < 3 and [Endor] Rebels are immune to Scanning Crew.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);

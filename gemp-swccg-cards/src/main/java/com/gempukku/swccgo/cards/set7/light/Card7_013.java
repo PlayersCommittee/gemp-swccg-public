@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card7_013 extends AbstractRebel {
     public Card7_013() {
-        super(Side.LIGHT, 3, 1, 1, 1, 3, "Corellia Operative");
+        super(Side.LIGHT, 3, 1, 1, 1, 3, "Corellia Operative", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Many of the Alliance's best engineers are sent to Corellia. The Rebellion maintains a presence on Corellia to ensure and assist in the production of the Alliance's starships.");
         setGameText("While at a Corellia site: adds 1 to your Force drains there, is forfeit +1 (and power +1 if your Corellian is on Corellia) and, once during each of your deploy phases, may deploy one site to Corellia from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

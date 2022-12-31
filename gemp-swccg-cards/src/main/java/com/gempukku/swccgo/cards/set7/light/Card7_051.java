@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card7_051 extends AbstractRebel {
     public Card7_051() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Yavin 4 Trooper");
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Yavin 4 Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Elite troop force assigned to Massassi Base in the jungles of Yavin 4. Responsible for monitoring the perimeter of the Rebel outpost.");
         setGameText("Deploys only to a Yavin 4 site or any jungle. Power -1 when not at a Yavin 4 site. Warrior's Courage and Blast The Door, Kid! played at same site are Used Interrupts. Forfeit +2 when present with a Rebel leader.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

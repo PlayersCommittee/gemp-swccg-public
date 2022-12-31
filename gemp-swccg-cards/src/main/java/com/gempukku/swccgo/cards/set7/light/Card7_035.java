@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +37,7 @@ import java.util.List;
  */
 public class Card7_035 extends AbstractRebel {
     public Card7_035() {
-        super(Side.LIGHT, 1, 3, 3, 3, 7, "Princess Organa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 7, "Princess Organa", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Adopted by Bail Organa. Former senator of Alderaan. Natural leader. Helped steal the Death Star plans. A key figure in the Rebel Alliance.");
         setGameText("While at a Rebel Base location, subtracts 1 from opponent's Force drains at related locations. Once during each of your deploy phases, may deploy one Leia Of Alderaan, Reflection or leader of ability < 3 to same location from Reserve Deck; reshuffle.");
         addPersona(Persona.LEIA);
