@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_116 extends AbstractLostInterrupt {
     public Card1_116() {
-        super(Side.LIGHT, 5, Title.The_Force_Is_Strong_With_This_One);
+        super(Side.LIGHT, 5, Title.The_Force_Is_Strong_With_This_One, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Luke's piloting skills and Force abilities made his X-wing a difficult target for Darth Vader as they raced down the Death Star trench.");
         setGameText("If Luke and an Imperial with ability > 2 are involved in the same battle, you may add one battle destiny (add 2 if Imperial is Vader).");
     }

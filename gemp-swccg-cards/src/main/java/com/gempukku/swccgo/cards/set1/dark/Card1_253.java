@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +16,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card1_253 extends AbstractLostInterrupt {
     public Card1_253() {
-        super(Side.DARK, 4, Title.Ive_Got_A_Problem_Here);
+        super(Side.DARK, 4, Title.Ive_Got_A_Problem_Here, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Debris fragments damaged Jek Porkins' X-wing, causing a cascade of computer and flight control failures.");
         setGameText("Use 1 Force to target opponent's starfighter with maneuver at a system or sector where a battle just finished. Draw destiny. Starfighter lost if destiny > maneuver.");
     }

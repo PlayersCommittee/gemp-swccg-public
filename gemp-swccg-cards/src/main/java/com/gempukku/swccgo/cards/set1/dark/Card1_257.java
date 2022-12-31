@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card1_257 extends AbstractLostInterrupt {
     public Card1_257() {
-        super(Side.DARK, 4, Title.Lone_Pilot, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Lone_Pilot, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("One lone TIE fighter, acting as a scout near the Death Star, suddenly encountered the Millennium Falcon.");
         setGameText("If your pilot (or permanent pilot) is defending a battle alone at a system or sector, add one battle destiny. OR If Motti is defending a battle alone at a system or sector, add two battle destiny.");
     }

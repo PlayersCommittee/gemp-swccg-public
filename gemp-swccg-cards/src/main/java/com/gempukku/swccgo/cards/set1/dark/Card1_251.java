@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_251 extends AbstractLostInterrupt {
     public Card1_251() {
-        super(Side.DARK, 4, Title.Imperial_Reinforcements);
+        super(Side.DARK, 4, Title.Imperial_Reinforcements, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C1);
         setLore("Imperial stormtroopers deploy in 8-10 trooper squads. Reinforcements are typically held in reserve according to standard Imperial operating procedures.");
         setGameText("If opponent has more total characters and starships on table than you have, use 1 Force to draw destiny. Retrieve that number of Stormtroopers and/or TIE/lns.");
     }

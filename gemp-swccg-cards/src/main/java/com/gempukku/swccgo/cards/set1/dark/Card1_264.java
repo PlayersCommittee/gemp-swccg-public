@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +17,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card1_264 extends AbstractLostInterrupt {
     public Card1_264() {
-        super(Side.DARK, 3, Title.Physical_Choke);
+        super(Side.DARK, 3, Title.Physical_Choke, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Darth Vader often used physical means of 'persuasion' to get information. Captain Antilles of Tantive IV chose to die rather than reveal the location of the stolen Death Star plans.");
         setGameText("Cause one Rebel Trooper to be immediately lost. OR If a Dark Jedi is present at a battle you have just won, use 1 Force to attempt to choke any opposing character present. Draw destiny. If destiny > target's ability, target is lost.");
     }

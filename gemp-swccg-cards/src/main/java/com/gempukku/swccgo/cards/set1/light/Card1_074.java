@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card1_074 extends AbstractLostInterrupt {
     public Card1_074() {
-        super(Side.LIGHT, 4, Title.Collision);
+        super(Side.LIGHT, 4, Title.Collision, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("High-speed collisions are a constant danger during chaotic starfighter dogfights. Scanners can be jammed. Pilots rely on vision, increasing the chances of such accidents.");
         setGameText("Use 1 Force if opponent has at least two starships present at same system or sector. Draw destiny. If destiny < number of those starships, opponent must lose one of them.");
     }

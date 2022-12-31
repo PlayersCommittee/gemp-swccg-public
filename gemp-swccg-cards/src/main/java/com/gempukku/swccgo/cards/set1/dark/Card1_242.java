@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_242 extends AbstractLostInterrupt {
     public Card1_242() {
-        super(Side.DARK, 5, "Dead Jawa");
+        super(Side.DARK, 5, "Dead Jawa", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Many Jawas were killed by stormtroopers searching for R2-D2. They used banthas and gaffi sticks to feign a Tusken Raider attack, but Obi-Wan saw through the ruse.");
         setGameText("If two or more Stormtroopers are present where the opponent has Jawas, target as many Jawas there as desired. Draw destiny. If destiny > the number of Jawas you targeted, they are immediately lost.");
     }

@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class Card1_255 extends AbstractLostInterrupt {
     public Card1_255() {
-        super(Side.DARK, 5, Title.Limited_Resources, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Limited_Resources, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("The Empire dominates consumption of resources. Despite being efficient, Rebel logistical and maintenance officers often are compelled to expend emergency reserves.");
         setGameText("If the opponent has two cards or less in hand, opponent must immediately lose 2 Force (4 Force if it is your turn). If the opponent has Fusion Generator Supply Tanks aboard a starship, loss is reduced by 2.");
     }

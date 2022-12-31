@@ -3,16 +3,23 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealUsedPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PutCardsFromUsedPileInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card1_259 extends AbstractLostInterrupt {
     public Card1_259() {
-        super(Side.DARK, 3, Title.Look_Sir_Droids);
+        super(Side.DARK, 3, Title.Look_Sir_Droids, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Trooper 1124, Davin Felth, discovered droid plating dropped by R2-D2 and C-3PO when exiting escape pod.");
         setGameText("Use 1 Force to search through the opponent's Used Pile and move any droids you find there to opponent's Lost Pile. OR Use X Force to destroy any one droid on table where X = droid's deploy cost.");
     }

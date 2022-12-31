@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card1_111 extends AbstractLostInterrupt {
     public Card1_111() {
-        super(Side.LIGHT, 4, Title.Solo_Han, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Solo_Han, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("As a smuggler, Solo must always be alert for trouble, even when appearing relaxed. Bounty hunters are eager to claim the price on the Corellian pirate's head.");
         setGameText("If Han is defending a battle alone at a site, add two battle destiny. OR If your alien is defending a battle alone at a site, add one battle destiny.");
     }

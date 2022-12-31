@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card1_261 extends AbstractLostInterrupt {
     public Card1_261() {
-        super(Side.DARK, 6, Title.Nevar_Yalnal);
+        super(Side.DARK, 6, Title.Nevar_Yalnal, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Immense Ranat scavenger from Aralia. Slyly spies for anyone willing to pay his price. Outcast. Works as a laborer for Hrchek, the Saurin droid trader.");
         setGameText("If both players have a spy at same site, draw destiny. Add 2 if opponent's spy is Undercover. Opponent's spy is lost if destiny > 2.");
     }

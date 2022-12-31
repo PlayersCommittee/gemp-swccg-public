@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card1_113 extends AbstractLostInterrupt {
     public Card1_113() {
-        super(Side.LIGHT, 3, Title.Surprise_Assault);
+        super(Side.LIGHT, 3, Title.Surprise_Assault, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C1);
         setLore("Imperial troops with strict orders are often caught off-guard by innovative Rebel ambushes, sneak attacks, or sabotage efforts.");
         setGameText("Use 1 Force to cancel a Force drain at one location. Draw one destiny for each character, starship and vehicle the opponent has present. Compare your destiny total to opponent's power total. Player with lowest total loses Force equal to the difference.");
     }

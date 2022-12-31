@@ -1,15 +1,22 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfCardPlayedModifierEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardBeingPlayedEffect;
 import com.gempukku.swccgo.logic.modifiers.BattleDamageMultiplierModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card1_077 extends AbstractLostInterrupt {
     public Card1_077() {
-        super(Side.LIGHT, 4, Title.Dont_Underestimate_Our_Chances);
+        super(Side.LIGHT, 4, Title.Dont_Underestimate_Our_Chances, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C1);
         setLore("'Stand-by alert. Death Star approaching. Estimated time to firing range, fifteen minutes.'");
         setGameText("If an opponent has just initiated a battle, triple the resulting battle damage for the eventual loser. OR Triple the result of You Overestimate Their Chances.");
     }

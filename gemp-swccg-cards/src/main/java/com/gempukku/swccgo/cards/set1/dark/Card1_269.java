@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_269 extends AbstractLostInterrupt {
     public Card1_269() {
-        super(Side.DARK, 3, Title.Takeel);
+        super(Side.DARK, 3, Title.Takeel, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Takeel, a burned-out Snivvian mercenary known as a double-crosser. Spice addicted. Frequents the Cantina looking for work, but has also turned lawbreakers over to the Empire.");
         setGameText("If both players just drew one battle destiny, use 1 Force to switch numbers.");
     }

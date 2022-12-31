@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card1_081 extends AbstractLostInterrupt {
     public Card1_081() {
-        super(Side.LIGHT, 4, "Full Throttle", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Full Throttle", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Rebel pilots use visual scanning to supplement sensors for an edge against Imperial fighter pilots. Natural instincts allow lone Rebels to overcome superior numbers.");
         setGameText("If your pilot (or permanent pilot) is defending a battle alone at a system or sector, add one battle destiny. OR If Luke is defending a battle alone at a system or sector, add 1 to power and add one battle destiny.");
     }

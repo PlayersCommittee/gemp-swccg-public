@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card1_083 extends AbstractLostInterrupt {
     public Card1_083() {
-        super(Side.LIGHT, 3, Title.Hans_Back);
+        super(Side.LIGHT, 3, Title.Hans_Back, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("'Didn't we just leave this party?'");
         setGameText("If Han is lost, use 1 Force to retrieve him from the Lost Pile. OR Use 3 Force to search through your Reserve Deck and take Han into your hand. Shuffle deck, cut and replace.");
     }

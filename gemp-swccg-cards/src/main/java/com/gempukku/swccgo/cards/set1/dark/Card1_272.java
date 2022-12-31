@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card1_272 extends AbstractLostInterrupt {
     public Card1_272() {
-        super(Side.DARK, 3, "The Empire's Back");
+        super(Side.DARK, 3, "The Empire's Back", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("'No star system will dare oppose the Emperor now.'");
         setGameText("If Vader, Tarkin, Motti or Tagge is lost, use 2 Force to retrieve one of them from the Lost Pile. OR Use 4 Force to search through your Reserve Deck and take Vader, Tarkin, Motti, or Tagge into your hand. Shuffle deck, cut and replace.");
     }

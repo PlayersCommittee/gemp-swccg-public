@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +16,13 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card1_101 extends AbstractLostInterrupt {
     public Card1_101() {
-        super(Side.LIGHT, 2, "On The Edge");
+        super(Side.LIGHT, 2, "On The Edge", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Luke and Leia nearly fell over the retracted bridge across the Death Star's central core while trying to elude stormtroopers. They were soon trapped on the precipice.");
         setGameText("Use 1 Force and target one Rebel (on table) of ability > 2. Choose a number from 1 to 6. You may retrieve that amount from your Lost Pile if you now draw destiny > chosen number. If you fail, Rebel is lost.");
     }

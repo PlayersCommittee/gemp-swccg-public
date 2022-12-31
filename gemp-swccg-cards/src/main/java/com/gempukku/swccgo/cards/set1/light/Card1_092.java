@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card1_092 extends AbstractLostInterrupt {
     public Card1_092() {
-        super(Side.LIGHT, 3, Title.Jedi_Presence);
+        super(Side.LIGHT, 3, Title.Jedi_Presence, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Jedi Knights inspired allies on the battlefield through bravery and heroism. Obi-Wan's presence encouraged the Rebels and gave them a chance to escape the Death Star.");
         setGameText("If one of your Jedi is present during any battle, use 1 Force to cause all other Rebels there to battle at double power.");
     }

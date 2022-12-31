@@ -3,7 +3,10 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class Card1_236 extends AbstractLostInterrupt {
     public Card1_236() {
-        super(Side.DARK, 5, "Charming To The Last");
+        super(Side.DARK, 5, "Charming To The Last", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("'You're far too trusting. Dantooine is too remote to make an effective demonstration. But don't worry...We will deal with your Rebel friends soon enough.'");
         setGameText("If Tarkin and a Rebel with ability > 2 are involved in the same battle, you may add one battle destiny (add two destiny if Rebel is Leia).");
     }

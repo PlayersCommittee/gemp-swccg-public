@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card1_072 extends AbstractLostInterrupt {
     public Card1_072() {
-        super(Side.LIGHT, 4, Title.Beru_Stew, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Beru_Stew, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Moisture farmers grow enough food to sustain Tatooine's population. Beru Lars has devised many dishes using herbs and roots naturally found in Tatooine's desert.");
         setGameText("Each player must immediately activate 2 Force. Also, you may activate 1 additional Force for each Beru Lars, Owen Lars or Hydroponics Station on table.");
     }

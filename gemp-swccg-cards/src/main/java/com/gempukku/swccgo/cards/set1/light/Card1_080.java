@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card1_080 extends AbstractLostInterrupt {
     public Card1_080() {
-        super(Side.LIGHT, 4, Title.Friendly_Fire);
+        super(Side.LIGHT, 4, Title.Friendly_Fire, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Overcrowding in heavy fire zones increases chances of accidentally shooting one's own comrades. Stormtroopers never let accuracy get in the way of victory.");
         setGameText("An accident occurs at the beginning of a battle at any site where opponent has at least two characters and one weapon. Draw destiny. If destiny < number of opponent's characters at that site, one is lost. (Opponent's choice.)");
     }

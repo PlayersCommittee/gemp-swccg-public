@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card1_240 extends AbstractLostInterrupt {
     public Card1_240() {
-        super(Side.DARK, 3, Title.Dark_Jedi_Presence);
+        super(Side.DARK, 3, Title.Dark_Jedi_Presence, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("A Dark Lord's presence motivates Imperial troops. 'See to it personally, Commander.'");
         setGameText("If one of your Dark Jedi is present during any battle, use 1 Force to cause all other Imperials there to battle at double power.");
     }

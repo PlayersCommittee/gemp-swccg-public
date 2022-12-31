@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card1_110 extends AbstractLostInterrupt {
     public Card1_110() {
-        super(Side.LIGHT, 5, Title.Skywalkers, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Skywalkers, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Luke and Leia escaped to an unused portion of the Death Star, evading security checkpoints. At a retracted bridge, they swung across on a grappling line through enemy fire.");
         setGameText("If Luke and Leia are in a battle together, you may add two battle destiny OR Cancel Imperial Barrier or Wrong Turn or Retract The Bridge.");
     }

@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +17,13 @@ import com.gempukku.swccgo.game.state.DuelState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.DuelDirections;
+import com.gempukku.swccgo.logic.effects.DuelEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card1_271 extends AbstractLostInterrupt {
     public Card1_271() {
-        super(Side.DARK, 6, Title.The_Circle_Is_Now_Complete);
+        super(Side.DARK, 6, Title.The_Circle_Is_Now_Complete, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Vader and Obi-Wan Kenobi fought a final lightsaber duel near Hangar Bay 327 on the Death Star. 'When I left you I was but the learner; now I am the master.'");
         setGameText("If Vader and Obi-Wan are present at same site, use 1 Force to initiate a duel between them.  Compare their power, and add 2 if that character is armed with a lightsaber.  Loser (lowest total) of duel is placed out of play.");
     }

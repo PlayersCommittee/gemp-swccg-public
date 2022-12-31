@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_280 extends AbstractLostInterrupt {
     public Card1_280() {
-        super(Side.DARK, 5, "Your Powers Are Weak, Old Man");
+        super(Side.DARK, 5, "Your Powers Are Weak, Old Man", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("'You should not have come back.'");
         setGameText("During any battle involving both Vader and Obi-Wan, you may add one battle destiny. OR Destroy (cancel) either: Return Of A Jedi, Jedi Lightsaber, Jedi Presence, or Old Ben.");
     }

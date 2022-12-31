@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_247 extends AbstractLostInterrupt {
     public Card1_247() {
-        super(Side.DARK, 3, Title.Gravel_Storm);
+        super(Side.DARK, 3, Title.Gravel_Storm, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Tatooine's twin suns cause turbulent storms that strike with little or no warning. Strong winds whip rocks through the air with enormous force.");
         setGameText("Strikes at Dune Sea, Jundland Wastes, Beggar's Canyon, Lars' Moisture Farm, Jawa Camp, or Mos Eisley. Target opponent's character present at that site. Draw destiny. Target lost if destiny > ability.");
     }

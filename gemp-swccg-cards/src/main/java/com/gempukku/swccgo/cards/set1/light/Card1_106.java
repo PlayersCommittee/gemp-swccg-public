@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_106 extends AbstractLostInterrupt {
     public Card1_106() {
-        super(Side.LIGHT, 4, Title.Rebel_Reinforcements);
+        super(Side.LIGHT, 4, Title.Rebel_Reinforcements, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C1);
         setLore("Rebels rely on hidden 'cells' of undercover operatives. Striking from hidden bases, troops or starfighters can arrive in a battle zone at any time.");
         setGameText("If opponent outnumbers you in total characters and starships on table, use 1 Force to draw destiny. That number of Rebel Troopers and/or Y-Wings, may be retrieved from Lost Pile.");
     }

@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card1_239 extends AbstractLostInterrupt {
     public Card1_239() {
-        super(Side.DARK, 5, Title.Dark_Collaboration, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Dark_Collaboration, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Imperial leaders are ruthlessly effective when working together. Tarkin, Motti and Tagge presented a deadly combination as they plotted to 'crush the Rebellion.'");
         setGameText("If Tarkin and either Tagge or Motti are in a battle together, you may add two battle destiny. OR Cancel Restricted Deployment or Rebel Barrier.");
     }

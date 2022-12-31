@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +15,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card1_073 extends AbstractLostInterrupt {
     public Card1_073() {
-        super(Side.LIGHT, 5, Title.Cantina_Brawl);
+        super(Side.LIGHT, 5, Title.Cantina_Brawl, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("'...watch your step. This place can be a little rough.' The Mos Eisley Cantina harbors smugglers, thieves, cutthroats, criminals and bounty hunters!");
         setGameText("Use 2 Force to cause a fight to break out in the Cantina. Both players draw destiny. All characters in Cantina with an ability number matching either destiny draw are lost.");
     }

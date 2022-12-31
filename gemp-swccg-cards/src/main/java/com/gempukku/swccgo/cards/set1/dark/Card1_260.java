@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class Card1_260 extends AbstractLostInterrupt {
     public Card1_260() {
-        super(Side.DARK, 4, "Moment Of Triumph", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Moment Of Triumph", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("A ruthless ruler of Outer Rim Territories. Grand Moff Tarkin used the Death Star to destroy Alderaan, creating the doctrine of rule by fear.");
         setGameText("If Tarkin is defending a battle alone, add two battle destiny. OR If your alien is defending a battle alone, add one battle destiny.");
     }

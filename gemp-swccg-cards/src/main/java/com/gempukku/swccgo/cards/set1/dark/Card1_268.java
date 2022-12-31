@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -12,7 +15,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card1_268 extends AbstractLostInterrupt {
     public Card1_268() {
-        super(Side.DARK, 2, Title.Set_For_Stun);
+        super(Side.DARK, 2, Title.Set_For_Stun, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("'...bring me the passengers. I want them alive!' Imperial soldiers use blaster stun settings to intimidate or to capture prisoners for questioning and interrogation.");
         setGameText("Use 2 Force to target one opponent's character. Draw destiny. If destiny > character's ability, character immediately returns to opponent's hand. (Also, any cards deployed on character return to owners' hands.)");
     }

@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card1_076 extends AbstractLostInterrupt {
     public Card1_076() {
-        super(Side.LIGHT, 5, Title.Dont_Get_Cocky, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Dont_Get_Cocky, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Luke and Han made an effective team when defending the Millennium Falcon with its quad laser cannons against attacking TIE fighters. 'Great kid! Don't get cocky.'");
         setGameText("If Luke and Han are in a battle together, you may add two battle destiny. OR If opponent just initiated a battle at a system or sector, choose one TIE/ln present to be lost.");
     }

@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +15,13 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelCardBeingPlayedEffect;
+import com.gempukku.swccgo.logic.effects.IncreaseForceLossEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardBeingPlayedForCancelingEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card1_252 extends AbstractLostInterrupt {
     public Card1_252() {
-        super(Side.DARK, 6, Title.Its_Worse);
+        super(Side.DARK, 6, Title.Its_Worse, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Things went from bad to worse when Luke was attacked by a dianoga, a parasitic predator native to the planet Vodran.");
         setGameText("If It Could Be Worse was just played, it is canceled and you may use X Force to raise damage against opponent by X amount. OR If opponent just lost Force from a battle, play to increase loss by 1 Force.");
     }

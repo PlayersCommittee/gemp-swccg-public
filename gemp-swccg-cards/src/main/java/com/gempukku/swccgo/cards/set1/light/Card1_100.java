@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_100 extends AbstractLostInterrupt {
     public Card1_100() {
-        super(Side.LIGHT, 3, Title.Old_Ben);
+        super(Side.LIGHT, 3, Title.Old_Ben, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("'That old man's just a crazy wizard.' Obi-Wan lived in Tatooine's deserts for years...ready for the right moment to act.");
         setGameText("Use 1 Force if any of your characters (except Obi-Wan) was just forfeited from a Tatooine site. Mysterious 'crazy wizard' steps in and revives (returns from Lost Pile) that character back to same site.");
     }

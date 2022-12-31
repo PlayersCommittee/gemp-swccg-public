@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card1_082 extends AbstractLostInterrupt {
     public Card1_082() {
-        super(Side.LIGHT, 5, Title.Gift_Of_The_Mentor, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Gift_Of_The_Mentor, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Luke relied on Obi-Wan's knowledge and advice to learn the ways of the Force. Obi-Wan continued to counsel Luke long after the old Jedi's apparent 'death.'");
         setGameText("If Luke and Obi-Wan or Yoda are in a battle together, you may add two battle destiny. OR Use 1 Force to search through your Reserve Deck and take any one lightsaber into your hand. Shuffle deck, cut and replace.");
     }

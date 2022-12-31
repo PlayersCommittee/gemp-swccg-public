@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card1_093 extends AbstractLostInterrupt {
     public Card1_093() {
-        super(Side.LIGHT, 4, "Krayt Dragon Howl", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Krayt Dragon Howl", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Using Jedi skill, Obi-Wan Kenobi imitated perfectly the mournful howl of the dangerous krayt dragon to scare Tusken Raiders away from Luke Skywalker.");
         setGameText("If Obi-Wan is defending a battle alone at a site, add 1 to power and add one battle destiny. OR If any other Rebel with ability > 2 is defending a battle alone at a site, add one battle destiny.");
     }

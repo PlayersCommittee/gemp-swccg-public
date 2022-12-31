@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_246 extends AbstractLostInterrupt {
     public Card1_246() {
-        super(Side.DARK, 3, Title.Full_Scale_Alert);
+        super(Side.DARK, 3, Title.Full_Scale_Alert, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Imperial stormtroopers adopt strict security measures. Excellent communications and sheer numbers can hinder Rebel movement across entire territories.");
         setGameText("Use 2 Force. Draw Destiny. If destiny < number of Stormtroopers on the table, all opponent's movement is blocked for the remainder of this turn (except for smugglers and the starships they are aboard).");
     }

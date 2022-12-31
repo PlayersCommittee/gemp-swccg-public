@@ -3,15 +3,22 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealUsedPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardsFromUsedPileInLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardsIntoUsedPileFromUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card1_275 extends AbstractLostInterrupt {
     public Card1_275() {
-        super(Side.DARK, 5, Title.Tusken_Scavengers);
+        super(Side.DARK, 5, Title.Tusken_Scavengers, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("'Sand People always ride single file to hide their numbers.' They frequently attack strangers as they scavenge for useful equipment. Looted Luke's landspeeder.");
         setGameText("Use 1 Force to draw destiny. If destiny < the number of Tusken Raiders on table, you may scavenge (search through) the opponent's Used Pile. All vehicles, weapons or devices you find there are lost.");
     }

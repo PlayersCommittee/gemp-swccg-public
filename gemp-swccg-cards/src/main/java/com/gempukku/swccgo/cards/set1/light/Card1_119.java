@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card1_119 extends AbstractLostInterrupt {
     public Card1_119() {
-        super(Side.LIGHT, 4, Title.Warriors_Courage, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Warriors_Courage, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Each Rebel soldier is driven by bravery and a belief in the Rebel Alliance's ideal of freedom. Courageous and quick-thinking Rebels often defeat Imperial legions.");
         setGameText("If your warrior is defending a battle alone at a site, add one battle destiny. OR If Leia is defending a battle alone at a site, add two battle destiny.");
     }

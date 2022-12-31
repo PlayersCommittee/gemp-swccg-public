@@ -1,8 +1,11 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card1_278 extends AbstractLostInterrupt {
     public Card1_278() {
-        super(Side.DARK, 6, Title.Were_All_Gonna_Be_A_Lot_Thinner);
+        super(Side.DARK, 6, Title.Were_All_Gonna_Be_A_Lot_Thinner, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Trash compactors crush waste before it is jettisoned into space. Magnetically sealed to prevent leakage. R2-D2 saved the day by shutting down compactor 3263827.");
         setGameText("Everything in Trash Compactor is crushed (lost).");
     }
