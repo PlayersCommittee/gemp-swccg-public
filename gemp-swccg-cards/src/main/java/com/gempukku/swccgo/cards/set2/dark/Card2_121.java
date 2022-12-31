@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card2_121 extends AbstractNormalEffect {
     public Card2_121() {
-        super(Side.DARK, 3, null, "Imperial Justice");
+        super(Side.DARK, 3, null, "Imperial Justice", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("'There's nothing you could have done Luke, had you been there. You'd have been killed too.'");
         setGameText("If opponent is generating at least 4 more Force than you, deploy on a location to cancel all Force generation at that location. OR Deploy on a location. It is now immune to Revolution.");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

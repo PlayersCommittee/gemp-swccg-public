@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card1_047 extends AbstractNormalEffect {
     public Card1_047() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Demotion);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Demotion, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Repercussions for failure are severe in the Imperial military. Many officers prefer demotion to 'alternative' punishment from Darth Vader.");
         setGameText("Use 2 Force to deploy on any Imperial except Vader, Emperor or a stormtrooper. That Imperial is power -2 and its game text is canceled.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

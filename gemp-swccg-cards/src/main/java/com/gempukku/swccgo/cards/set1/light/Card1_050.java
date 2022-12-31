@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class Card1_050 extends AbstractNormalEffect {
     public Card1_050() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.NEXT_TO_EITHER_LOST_PILE, Title.Eyes_In_The_Dark);
+        super(Side.LIGHT, 5, PlayCardZoneOption.NEXT_TO_EITHER_LOST_PILE, Title.Eyes_In_The_Dark, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("'I don't like the look of this.'");
         setGameText("Deploy beside either player's Lost Pile. That pile is turned face down. Cards from that player's Life Force may not be viewed when they are lost.");
     }

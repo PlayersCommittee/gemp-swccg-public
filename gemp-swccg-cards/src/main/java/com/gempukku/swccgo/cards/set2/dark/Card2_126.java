@@ -4,7 +4,18 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +47,7 @@ import java.util.List;
  */
 public class Card2_126 extends AbstractNormalEffect {
     public Card2_126() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Swilla Corey");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Swilla Corey", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Petty criminals throughout the galaxy often earn extra money by teaching their trade to initiates. Thievery has become more popular as the Empire tightens its grip.");
         setGameText("Deploy on your non-thief to give that character thief skill. Once during each of your control phases, may target one device at same site. Draw destiny. If destiny < target's destiny number, it is stolen. OR Deploy on a weapon to prevent theft. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

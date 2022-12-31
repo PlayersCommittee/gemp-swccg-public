@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card1_045 extends AbstractNormalEffect {
     public Card1_045() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Crash_Site_Memorial, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Crash_Site_Memorial, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Mos Eisley was built around wreckage of the colony ship Dowager Queen. The wreck remains as a monument where residents leave junk for Jawa scavengers.");
         setGameText("Deploy on your side of table. If you just lost a vehicle, droid, weapon, or device, may stack it here. Once during your deploy phase, you may exchange any one card in hand with one card stacked here.");
     }

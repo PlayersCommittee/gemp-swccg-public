@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card2_034 extends AbstractNormalEffect {
     public Card2_034() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Logistical_Delay, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Logistical_Delay, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("The Empire's tremendous military machine requires extensive coordination at every level. Slight errors in any step can quickly escalate supply delays.");
         setGameText("Use 3 Force to deploy on opponent's side of table. All opponent's TIEs are deploy +1.");
         addIcons(Icon.A_NEW_HOPE);

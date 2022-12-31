@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card1_214 extends AbstractNormalEffect {
     public Card1_214() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Disarmed);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Disarmed, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("C-3PO's arm was pulled off by attacking Tusken Raiders. 'I don't think I can make it. You go on, Master Luke...I'm done for.'");
         setGameText("If both players have a character with a weapon present at same site, deploy on that opponent's character during any control phase. Character loses all weapons, is power -1 and may no longer carry weapons. (Immune to Alter.)");
         addKeywords(Keyword.DISARMING_CARD, Keyword.DEPLOYS_ON_CHARACTERS);

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card1_057 extends AbstractNormalEffect {
     public Card1_057() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Obi-Wan's Cape", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Obi-Wan's Cape", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("A symbol of the noble Jedi and his mysterious powers.");
         setGameText("Use 2 Force to deploy on your Rebel or alien. Character is immune to attrition < 5. Also, When a battle was just initiated where present, may use 1 Force to choose one opponent's character of ability = 1 present to move away (for free), or that character is lost.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

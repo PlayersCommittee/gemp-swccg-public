@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card2_035 extends AbstractNormalEffect {
     public Card2_035() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Luke's Cape", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Luke's Cape", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("A symbol of the adventurous pilot and the awakening of his destiny. 'You've taken your first step into a larger world.'");
         setGameText("Use 2 Force to deploy on a Rebel or alien. If Luke's Cape is not at a Tatooine location, your total Force generation is +1. That character is immune to attrition < 3.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

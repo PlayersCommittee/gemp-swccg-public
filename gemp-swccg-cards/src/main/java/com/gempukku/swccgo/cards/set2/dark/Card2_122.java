@@ -2,14 +2,24 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card2_122 extends AbstractNormalEffect {
     public Card2_122() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Krayt_Dragon_Bones, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Krayt_Dragon_Bones, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Tusken Raiders, Jawas and other desert dwellers believe that krayt dragon bones possess mystical powers that can bring good or bad luck.");
         setGameText("Use 1 Force to deploy on table. Each opponent's destiny draw, you do the following: (0) Put top used card in hand. (1) lose 1 Force. (2) activate 1 Force. (3) lose this Effect. (4) retrieve top lost card. (5) deploy a character for free. (6+) nothing.");
         addIcons(Icon.A_NEW_HOPE);

@@ -5,14 +5,27 @@ import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.conditions.DoubledCondition;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ArmorModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +37,7 @@ import java.util.List;
  */
 public class Card1_065 extends AbstractNormalEffect {
     public Card1_065() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Special_Modifications, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Special_Modifications, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Han's 'special modifications' for the Millennium Falcon included security mechanisms, deflector shields, hull plating, faster hyperdrive and enhanced weapons.");
         setGameText("Use 1 Force to deploy on any starship to add 2 to its armor or maneuver. If on Falcon with Han, Lando or Chewie piloting, also adds 2 to power and forfeit.");
     }

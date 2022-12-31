@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,7 +27,7 @@ import java.util.List;
  */
 public class Card1_227 extends AbstractNormalEffect {
     public Card1_227() {
-        super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, Title.Presence_Of_The_Force, Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, Title.Presence_Of_The_Force, Uniqueness.RESTRICTED_2, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("A location is affected by the history of the events which occur there. The Force '...binds the galaxy together' and has an ebb and flow.");
         setGameText("Deploy on any location to add one [Dark Side Force] and one [Light Side Force].");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

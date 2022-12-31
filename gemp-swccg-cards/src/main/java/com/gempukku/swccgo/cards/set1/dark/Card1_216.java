@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_216 extends AbstractNormalEffect {
     public Card1_216() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Fear_Will_Keep_Them_In_Line);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Fear_Will_Keep_Them_In_Line, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("'The regional governors now have direct control over their territories. Fear will keep the local systems in line. Fear of this battle station.'");
         setGameText("Deploy on any capital starship. When that starship is at a system or sector you control, your total power is +1 in battles at related sites.");
     }

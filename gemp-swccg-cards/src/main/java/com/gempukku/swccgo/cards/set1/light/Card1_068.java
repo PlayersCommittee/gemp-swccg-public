@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.conditions.DoubledCondition;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +21,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.IncreaseAbilityRequiredForBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -27,7 +39,7 @@ import java.util.List;
  */
 public class Card1_068 extends AbstractNormalEffect {
     public Card1_068() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Yavin_Sentry, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Yavin_Sentry, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Rebel sentries are stationed on raised sensor platforms. On watch for Imperial scouts and other hazards, they supplement data gathered by Yavin Base's main sensors.");
         setGameText("Use 2 Force to deploy at any Yavin 4 site. Declare one of the following to affect that site and adjacent sites while 'sentry' present: Opponent's deploy +1. OR Opponent's ability required for battle destiny +1. OR Your total power +1.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

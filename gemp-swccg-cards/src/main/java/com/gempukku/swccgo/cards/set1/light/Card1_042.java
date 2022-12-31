@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -19,7 +26,7 @@ import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
  */
 public class Card1_042 extends AbstractNormalEffect {
     public Card1_042() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, "A Tremor In The Force", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, "A Tremor In The Force", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("'Stand By...'");
         setGameText("Once per game, during your deploy phase, 'insert' (face down) into opponent's Reserve Deck; reshuffle. When effect reaches top it is immediately lost, but opponent may not activate any more Force that turn. (Immune to Alter.)");
         addImmuneToCardTitle(Title.Alter);

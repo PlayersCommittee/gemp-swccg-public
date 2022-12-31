@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card1_049 extends AbstractNormalEffect {
     public Card1_049() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Ellorrs_Madak);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Ellorrs_Madak, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Like many Duros, Madak has natural piloting and navigation skill. Former scout. Freelance instructor. Makes runs to important trade worlds Celanon, Byblos and Yaga Minor.");
         setGameText("Deploy on your non-pilot character (except droids) to give that character [Pilot] skill. Adds 2 to power of anything that character pilots. OR Deploy on your pilot. Adds 1 to power of anything that character pilots. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

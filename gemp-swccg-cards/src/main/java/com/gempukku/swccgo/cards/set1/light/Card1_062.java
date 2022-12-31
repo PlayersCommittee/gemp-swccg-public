@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.EffectsOfRevolutionCanceledCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card1_062 extends AbstractNormalEffect {
     public Card1_062() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Revolution);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Revolution, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Spies and informants gave Rebels vital data to plan strategic turnabouts, create local insurgencies, and hamper Imperial activities.");
         setGameText("Use 3 Force to deploy on any location. Rotate the location so that icons and game texts switch direction. (If Expand the Empire present, it also switches.) If Revolution later canceled, location rotates back again.");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

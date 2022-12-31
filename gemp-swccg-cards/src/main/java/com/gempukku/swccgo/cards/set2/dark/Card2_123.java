@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card2_123 extends AbstractNormalEffect {
     public Card2_123() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Maneuver Check", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Maneuver Check", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("'Luke, at that speed will you be able to pull out in time?'");
         setGameText("Deploy on Death Star:Trench. Opponent must make maneuver check for starfighters leaving the trench. For each starfighter, owner draws destiny. If destiny + maneuver < 5, starfighter is lost.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayersTurnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +42,7 @@ import java.util.List;
  */
 public class Card1_044 extends AbstractNormalEffect {
     public Card1_044() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Beggar, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Beggar, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Many Mos Eisley citizens, once swindled and robbed, become destitute. Unable to afford off-planet passage, they live in the streets and do odd jobs or beg.");
         setGameText("Use 3 Force to deploy on any exterior Tatooine site (free at Beggar's Canyon). You may use any amount of Force in the opponent's Force Pile during your turns. However, if you use more than 1 of the opponent's Force in a turn, Beggar is lost.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

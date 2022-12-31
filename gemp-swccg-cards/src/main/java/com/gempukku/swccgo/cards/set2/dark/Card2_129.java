@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card2_129 extends AbstractNormalEffect {
     public Card2_129() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Undercover);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Undercover, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("The Empire maintains a network of spies attempting to infiltrate the Rebel Alliance or misinform their operatives.");
         setGameText("Deploy on your spy at a site and cross spy to opponent's side. Spy is now Undercover. During your deploy phase, may voluntarily 'break cover' (lose Effect) if at a site. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

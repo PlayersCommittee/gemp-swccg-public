@@ -4,10 +4,24 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.SetTargetedCardEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -20,7 +34,11 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AstromechCapacityModifier;
+import com.gempukku.swccgo.logic.modifiers.CancelIconModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.RemovePermanentAstromechsModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -36,7 +54,7 @@ import java.util.List;
  */
 public class Card1_218 extends AbstractNormalEffect {
     public Card1_218() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "I've Lost Artoo!");
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "I've Lost Artoo!", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("'WHAAAAAAAAAOOOOW!'");
         setGameText("Use 1 Force to target a starship's [Nav Computer] or astromech. Draw destiny. If destiny > 1, [Nav Computer] or astromech is lost. If starship's [Nav Computer] is lost, place Effect on starship (may add 1 astromech); otherwise, Effect lost.");
     }

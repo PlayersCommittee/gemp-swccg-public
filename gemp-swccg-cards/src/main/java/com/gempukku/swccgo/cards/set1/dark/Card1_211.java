@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_211 extends AbstractNormalEffect {
     public Card1_211() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Blaster_Rack);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Blaster_Rack, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Imperial facilities like the Death Star and garrison bases have blaster racks at key locations to equip soldiers with weapons like blaster rifles and thermal detonators.");
         setGameText("Deploy on your side of table. At any time, you may transfer one of your character weapons from any site to the Blaster Rack. During your deploy phase, weapon may be transferred to your character on table for an expenditure of Force equal to the weapon's deploy cost.");
     }

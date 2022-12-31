@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card1_053 extends AbstractNormalEffect {
     public Card1_053() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "K'lor'slug", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "K'lor'slug", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Dejarik of venomous swamp creature from Noe'ha'on. Keen senses of smell and vision. Dangerous hunter. Lays eggs - hundreds of ravenously hungry hatchlings.");
         setGameText("Deploy on your side of table. For each unit of ability you have present during a battle, you may use 1 Force to raise your total power by 1. Ability used in this way cannot also be used to draw destiny.");
         addKeywords(Keyword.DEJARIK);

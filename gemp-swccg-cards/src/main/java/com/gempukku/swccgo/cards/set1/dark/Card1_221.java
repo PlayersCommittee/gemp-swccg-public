@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card1_221 extends AbstractNormalEffect {
     public Card1_221() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Ket_Maliss);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Ket_Maliss, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Assassins are highly valued by Jabba the Hutt and other gangsters. Prince Xizor's 'shadow killer,' has unknown but undoubtably lethal business in Mos Eisley.");
         setGameText("Deploy on any non-warrior character (except droids) to give that character [Warrior] skill. OR Deploy on any warrior. That character is power +1. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

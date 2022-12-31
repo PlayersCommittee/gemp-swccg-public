@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card2_038 extends AbstractNormalEffect {
     public Card2_038() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Solomahal");
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Solomahal", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("A crafty purloiner from Tirac Munda with a heart of gold. Often hired to advise the wealthy on how to protect their own property. Well traveled and skilled in many languages.");
         setGameText("Deploy on your warrior to give that warrior scout skill. That warrior may move as a 'react.' OR Deploy on your scout. When that scout 'reacts,' it is power +2 for remainder of turn. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

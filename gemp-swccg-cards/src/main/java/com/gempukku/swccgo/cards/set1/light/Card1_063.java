@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card1_063 extends AbstractNormalEffect {
     public Card1_063() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Rycar_Ryjerd);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Rycar_Ryjerd, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("A Bimm trader and smuggler of starship weapons. Trusts no one. Does business with anyone. Teaches smuggler apprentices. Has mastered Jawa language.");
         setGameText("Deploy on any non-smuggler to give that character smuggler skill. OR Deploy on any smuggler. That character is power +1. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

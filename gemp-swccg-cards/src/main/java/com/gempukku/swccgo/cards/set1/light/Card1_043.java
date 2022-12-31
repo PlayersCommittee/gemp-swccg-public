@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card1_043 extends AbstractNormalEffect {
     public Card1_043() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Affect Mind", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Affect Mind", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("'What was that?' The Jedi power known as 'affect mind' is often used to create minor distractions, allowing Jedi to elude enemies rather than engage them in battle.");
         setGameText("Use 1 Force to deploy on one of your Jedi. Unless a Dark Jedi is also present, opponent's total ability at same location is reduced by 2.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

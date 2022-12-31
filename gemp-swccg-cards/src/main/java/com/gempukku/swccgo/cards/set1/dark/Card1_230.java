@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.CanAddDestinyToPowerCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card1_230 extends AbstractNormalEffect {
     public Card1_230() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Sunsdown);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Sunsdown, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("When the twin suns of Tatooine set. 'Sand People or worse' become a threat, and battles are more dangerous. On Hoth, temperatures drop to deadly extremes.");
         setGameText("Deploy on any planet system to cause 'nighttime conditions' at related sites. During battles there, both sides add one destiny to power only. Spies deploy free to sites under 'nighttime conditions.'");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card1_210 extends AbstractNormalEffect {
     public Card1_210() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Blast_Door_Controls, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Blast_Door_Controls, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Panels control blast doors and key security lock-downs during alerts. Luke destroyed one, locking Imperial forces out of Hangar Bay 327.");
         setGameText("Deploy on your side of table. Cancels: Into The Garbage Chute, Flyboy; Narrow Escape; Blast The Door, Kid!; and Rebel Barrier.");
     }

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +29,7 @@ import java.util.List;
  */
 public class Card2_119 extends AbstractNormalEffect {
     public Card2_119() {
-        super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, Title.Dark_Waters);
+        super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, Title.Dark_Waters, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("Swamp predators require damp and cluttered environments to enhance their camouflage and stealth. 'Something just moved past my leg.'");
         setGameText("Deploy on any exterior planet site (except Hoth) or any interior vehicle site. Opponent's Force drains are -1 here. (Immune to Alter when a swamp creature is present.)");
         addIcons(Icon.A_NEW_HOPE);

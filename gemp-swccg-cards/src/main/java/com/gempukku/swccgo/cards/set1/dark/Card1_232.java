@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class Card1_232 extends AbstractNormalEffect {
     public Card1_232() {
-        super(Side.DARK, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Wrong_Turn, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Wrong_Turn, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Imperial troopers use tactics to strand and cut off fugitives. Only daring and unpredictable actions gave Luke and Leia a chance to escape.");
         setGameText("Use 3 Force to deploy on opponent's side of table. All opponent's warriors are deploy +1.");
     }

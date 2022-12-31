@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card1_217 extends AbstractNormalEffect {
     public Card1_217() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "I Find Your Lack Of Faith Disturbing", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "I Find Your Lack Of Faith Disturbing", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Darth Vader ruthlessly used the Force to strike down enemies and soldiers who displeased him. He could choke victims from afar without touching them.");
         setGameText("Use 1 Force to deploy on one of your Dark Jedi. Opponent's total ability at same location is reduced by 2, unless an opponent's Jedi is also present.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

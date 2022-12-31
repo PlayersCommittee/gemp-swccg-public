@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,7 +26,7 @@ import java.util.List;
  */
 public class Card1_215 extends AbstractNormalEffect {
     public Card1_215() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Expand_The_Empire, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Expand_The_Empire, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("The Emperor disbanded the Imperial Senate 'for the duration of the emergency,' seizing absolute power. He planned to extend rule by terrorizing planets into submission.");
         setGameText("Deploy on any site. 'Expands' your 'game text' for that site to add to your 'game text' at the adjacent sites.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

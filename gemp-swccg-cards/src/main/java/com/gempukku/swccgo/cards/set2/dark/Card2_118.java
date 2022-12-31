@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +22,12 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CancelIconModifier;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.PilotCapacityModifier;
+import com.gempukku.swccgo.logic.modifiers.RemovePermanentPilotsModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -30,7 +42,7 @@ import java.util.List;
  */
 public class Card2_118 extends AbstractNormalEffect {
     public Card2_118() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Come_With_Me);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Come_With_Me, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Pilots are often reassigned at the last minute for a variety of tactical reasons. Darth Vader ordered DS-61-2 and DS-61-3 to accompany him to the Battle of Yavin.");
         setGameText("Use 1 Force to target a starfighter having one or more permanent pilots. Draw destiny. If destiny > 2, deploy on starfighter to remove all permanent pilots (otherwise, Effect is lost). May add 1 pilot for each permanent pilot removed. (Immune to Alter.)");
         addIcons(Icon.A_NEW_HOPE);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card1_225 extends AbstractNormalEffect {
     public Card1_225() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Molator, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Molator, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Creature in dejarik hologame drawn from Alderaanian mythology. Stories describe molators as powerful, enchanted protectors of Alderaanian kings and queens.");
         setGameText("Deploy on your side of table. For each unit of ability you have present during a battle, you may use 1 Force to raise your total power by 1. Ability used in this way cannot also be used to draw destiny.");
         addKeywords(Keyword.DEJARIK, Keyword.HOLOGRAM);

@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card2_040 extends AbstractNormalEffect {
     public Card2_040() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Undercover);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Undercover, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Alliance Intelligence expends considerable resources to infiltrate the Imperial military bureaucracy, but the ISB's security sweeps make these shadowy operations dangerous.");
         setGameText("Deploy on your spy at a site and cross spy to opponent's side.  Spy is now Undercover.  During your deploy phase, may voluntarily 'break cover' (lose Effect) if at a site. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

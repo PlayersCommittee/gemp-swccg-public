@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card1_054 extends AbstractNormalEffect {
     public Card1_054() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Lightsaber_Proficiency, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Lightsaber_Proficiency, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("A Jedi learns not only to wield a lightsaber, but how to channel the Force to increase skill and control the lightsaber's damage.");
         setGameText("Deploy on any character with ability > 2 and a lightsaber. That character is power +3 in battles or may add 1 to Force drain where present. Effect is lost if character loses lightsaber.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

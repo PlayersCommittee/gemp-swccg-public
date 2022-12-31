@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_066 extends AbstractNormalEffect {
     public Card1_066() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Traffic Control");
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Traffic Control", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Expert traffic controllers coordinate launches faster than automated launch systems. Rebel bases scramble fighters quickly during Imperial attacks.");
         setGameText("Use 1 Force to deploy on your side of table. During your control phase, you may return any cards from your hand to the top of your Used Pile.");
     }

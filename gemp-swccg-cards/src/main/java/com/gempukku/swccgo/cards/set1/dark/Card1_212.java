@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,14 +21,25 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfPlayersNextTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInLostPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.CantDriveOrPilotModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetAbilityModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetPowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.DarkHoursResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Premiere
@@ -32,7 +51,7 @@ public class Card1_212 extends AbstractNormalEffect {
     // Note: This card stores the "discardAfterTurnNumber" as it's "WhileInPlayData"
 
     public Card1_212() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Dark Hours", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Dark Hours", Uniqueness.RESTRICTED_3, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("After surviving Tarkin's extortion, kidnapping, threats of execution and the assault of the Interceptor droid, Princess Leia was asleep when her rescuers came.");
         setGameText("Deploy on a site under 'nighttime conditions.' One at a time, target each non-droid character here and draw destiny. If destiny > ability, character 'sleeps' (power, forfeit and ability = 0, 'game text' is canceled, and may not pilot, drive, or move). At the end of your next turn, lose effect and restore targets (if on table) to normal.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);
