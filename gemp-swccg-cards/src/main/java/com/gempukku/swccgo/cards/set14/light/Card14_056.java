@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card14_056 extends AbstractStarfighter {
     public Card14_056() {
-        super(Side.LIGHT, 2, 1, 2, null, 4, 3, 3, Title.Bravo_4, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, null, 4, 3, 3, Title.Bravo_4, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Flown by Rya Kirsch at the Battle of Naboo. Bravo 4 was primarily used as a recon vessel before it began its assault on the Trade Federation's Droid Control Ship.");
         setGameText("Deploys -1 to Naboo. May add 1 pilot. While Rya piloting, immune to attrition < 4. While at Naboo system, adds 1 to each of your Force drains there.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER);

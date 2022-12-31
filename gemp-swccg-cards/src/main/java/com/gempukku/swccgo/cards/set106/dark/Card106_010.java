@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set106.dark;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card106_010 extends AbstractStarfighter {
     public Card106_010() {
-        super(Side.DARK, 2, 4, 1, null, 3, null, 4, "Black Squadron TIE", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 4, 1, null, 3, null, 4, "Black Squadron TIE", Uniqueness.RESTRICTED_3, ExpansionSet.OTSD, Rarity.PM);
         setLore("Part of Vader's hand-picked squadron stationed at the Death Star. Boasts the latest in Imperial weaponry. Each pilot and starfighter is at the peak of readiness.");
         setGameText("Deploy -2 to Death Star or same location as Vader. Permanent pilot aboard provides ability of 2 and adds 2 to power. Adds 1 to its weapon destiny draws.");
         addIcons(Icon.PREMIUM, Icon.PILOT);

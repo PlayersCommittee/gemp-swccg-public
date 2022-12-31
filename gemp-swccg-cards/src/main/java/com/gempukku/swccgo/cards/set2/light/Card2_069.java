@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card2_069 extends AbstractStarfighter {
     public Card2_069() {
-        super(Side.LIGHT, 2, 1, 2, null, 4, 4, 3, Title.Gold_2, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, null, 4, 4, 3, Title.Gold_2, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Tiree's Y-wing during the Battle of Yavin. Custom high-power lateral thrusters provide enhanced maneuverability, allowing Gold 2 to better draw and evade enemy fire.");
         setGameText("May add 2 pilots or passengers. May forfeit in place of your other starfighter hit in Death Star: Trench, restoring that starfighter to normal.");
         addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

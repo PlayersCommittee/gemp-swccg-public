@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +40,7 @@ import java.util.List;
  */
 public class Card201_018 extends AbstractStarfighter {
     public Card201_018() {
-        super(Side.LIGHT, 2, 4, 5, null, 5, 4, 4, "Green Leader In Green Squadron 1", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 5, null, 5, 4, 4, "Green Leader In Green Squadron 1", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setGameText("Permanent pilot is •Green Leader, who provides ability of 2. Adds one battle destiny with a Rebel snub fighter. During battle, may cancel immunity to attrition of any starship here; this A-wing is 'hit'.");
         addPersona(Persona.GREEN_SQUADRON_1);
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_1);

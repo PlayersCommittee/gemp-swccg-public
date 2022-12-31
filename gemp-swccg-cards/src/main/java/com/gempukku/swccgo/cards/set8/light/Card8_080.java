@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card8_080 extends AbstractStarfighter {
     public Card8_080() {
-        super(Side.LIGHT, 3, 3, 2, null, 3, 5, 5, Title.YT_1300_Transport);
+        super(Side.LIGHT, 3, 3, 2, null, 3, 5, 5, Title.YT_1300_Transport, Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Reliable and durable. Widely used freighter made by Corellian Engineering Corporation. Sales have dramatically increased in proportion to the fame of Han Solo's ship.");
         setGameText("May add 1 pilot, 2 passengers and 1 vehicle. Has ship-docking capability. Permanent pilot provides ability of 1. Quad Laser Cannon and Surface Defense Cannon may deploy (and fire free) aboard.");
         addIcons(Icon.ENDOR, Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

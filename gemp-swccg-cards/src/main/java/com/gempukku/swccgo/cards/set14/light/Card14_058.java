@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card14_058 extends AbstractStarfighter {
     public Card14_058() {
-        super(Side.LIGHT, 3, 2, 2, null, 4, 3, 3, Title.Bravo_Fighter, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, null, 4, 3, 3, Title.Bravo_Fighter, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Flown by an unknown pilot who likes to spin a lot. Played the deciding role in the attack against the Droid Control Ship.");
         setGameText("Permanent pilot provides ability of 3. During your control phase, if landed aboard Blockade Flagship, may draw one destiny. If destiny > 6, place Bravo Fighter in your Used Pile; Flagship 'blown away.'");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.REPUBLIC, Icon.PILOT, Icon.NAV_COMPUTER);

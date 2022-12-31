@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card106_009 extends AbstractStarfighter {
     public Card106_009() {
-        super(Side.LIGHT, 3, 2, 2, null, 4, null, 2, "Z-95 Headhunter");
+        super(Side.LIGHT, 3, 2, 2, null, 4, null, 2, "Z-95 Headhunter", Uniqueness.UNRESTRICTED, ExpansionSet.OTSD, Rarity.PM);
         setLore("Developed by Incom/Subpro. Atmospheric fighter adapted for space travel. AF-4 version refitted with Incom 2a fission engines and two Taim & Bak KX5 laser cannons.");
         setGameText("Permanent pilot aboard provides ability of 1. Power and Maneuver +2 at non-unique cloud sectors. May be carried aboard starships like a vehicle.");
         addIcons(Icon.PREMIUM, Icon.INDEPENDENT, Icon.PILOT);

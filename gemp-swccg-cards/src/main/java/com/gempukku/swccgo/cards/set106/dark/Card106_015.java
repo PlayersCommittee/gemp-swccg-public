@@ -4,11 +4,21 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.FiresForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,7 +33,7 @@ import java.util.List;
  */
 public class Card106_015 extends AbstractStarfighter {
     public Card106_015() {
-        super(Side.DARK, 2, 4, 1, null, 3, null, 4, "Obsidian Squadron TIE", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 4, 1, null, 3, null, 4, "Obsidian Squadron TIE", Uniqueness.RESTRICTED_3, ExpansionSet.OTSD, Rarity.PM);
         setLore("Modified TIE fighter. Specifically adapted for atmospheric engagement. Some are fitted with high-output solar panels to support improved weaponry.");
         setGameText("Deploy -1 at any cloud sector. Permanent pilot provides ability of 2 and adds 2 to power. Power +2 at non-unique cloud sectors. Boosted TIE Cannon may deploy aboard and fires free aboard.");
         addIcons(Icon.PREMIUM, Icon.PILOT);

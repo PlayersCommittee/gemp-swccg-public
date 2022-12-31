@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card14_117 extends AbstractStarfighter {
     public Card14_117() {
-        super(Side.DARK, 2, 3, 2, null, 2, null, 3, "DFS-1308", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, null, 2, null, 3, "DFS-1308", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("1308 was one of several droids who analyzed the N-1 starfighter during the Trade Federation's occupation of Naboo. Was unable to calculate the 'human factor' inside the N-1.");
         setGameText("Deploys -1 to same location as your battleship. While with another droid starfighter at a system, opponent may not draw more than one battle destiny here.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.PRESENCE);

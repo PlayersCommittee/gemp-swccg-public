@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card9_083 extends AbstractStarfighter {
     public Card9_083() {
-        super(Side.LIGHT, 3, 2, 3, null, 4, 5, 4, "Red Squadron 7", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, null, 4, 5, 4, "Red Squadron 7", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Incom starfighter flown by Keir Santage. Flew twelve sorties against Imperial shipyards at Fondor.");
         setGameText("May add 1 pilot. Keir Santage deploys -2 aboard. Your other Red Squadron starfighters at same location are maneuver +1.");
         addIcons(Icon.DEATH_STAR_II, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

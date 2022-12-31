@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card208_027 extends AbstractStarfighter {
     public Card208_027() {
-        super(Side.LIGHT, 4, 2, 2, null, 4, 3, 4, Title.Phantom, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 2, null, 4, 3, 4, Title.Phantom, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Phoenix Squadron.");
         setGameText("May add 2 pilots and 2 passengers. May deploy (with a pilot) or move as a 'react' to same system as a Rebel starship. When with Ghost, adds one destiny to total power.");
         addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_8);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set201.dark;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card201_040 extends AbstractStarfighter {
     public Card201_040() {
-        super(Side.DARK, 3, 3, 3, null, 5, 5, 5, "Slave I, Symbol Of Fear", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, null, 5, 5, 5, "Slave I, Symbol Of Fear", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("Originally designed as a planetary defense craft. Uses restricted jamming technology, allowing it to appear out of nowhere. Contains many hidden armaments.");
         setGameText("May add 2 pilots and 2 passengers. Power +1 for each opponent's starship here. While Jango or Boba Fett piloting, immune to attrition < 5.");
         addPersona(Persona.SLAVE_I);

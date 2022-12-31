@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +19,12 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfWeaponFiringModifierEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ResetCalculationVariableModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -28,7 +40,7 @@ import java.util.List;
  */
 public class Card9_082 extends AbstractStarfighter {
     public Card9_082() {
-        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 5, "Red Squadron 4", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 5, "Red Squadron 4", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Flown by Derek 'Hobbie' Klivian during the attack on the second Death Star. Second-highest mission total of any X-wing in service for the Alliance.");
         setGameText("May add 1 pilot. Hobbie deploys -2 aboard. When firing X-wing Laser Cannons, may use 2 Force to make X = 3. When Hobbie piloting, maneuver +2 and immune to attrition < 4.");
         addIcons(Icon.DEATH_STAR_II, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

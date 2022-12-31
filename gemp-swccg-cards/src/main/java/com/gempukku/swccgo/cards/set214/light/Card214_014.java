@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -38,7 +41,7 @@ import java.util.List;
  */
 public class Card214_014 extends AbstractStarfighter {
     public Card214_014() {
-        super(Side.LIGHT, 3, 3, 3, null, 4, 4, 6, "ARC-170 Starfighter");
+        super(Side.LIGHT, 3, 3, 3, null, 4, 4, 6, "ARC-170 Starfighter", Uniqueness.UNRESTRICTED, ExpansionSet.SET_14, Rarity.V);
         setGameText("May add 1 pilot or passenger. Permanent pilot provides ability of 2. Opponent may not 'react' to or from here. During battle, if about to be lost before the damage segment, lost at end of battle instead.");
         addIcons(Icon.CLONE_ARMY, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_14, Icon.SCOMP_LINK, Icon.PILOT);
         addModelType(ModelType.RECONNAISSANCE_FIGHTER);

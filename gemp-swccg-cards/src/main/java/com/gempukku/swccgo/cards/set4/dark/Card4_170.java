@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card4_170 extends AbstractStarfighter {
     public Card4_170() {
-        super(Side.DARK, 4, 4, 2, null, 3, 5, 3, "Mist Hunter", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 4, 2, null, 3, 5, 3, "Mist Hunter", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Commissioned by a group of Gand venture capitalists headed by Zuckuss. Manufactured by Byblos Drive Yards. Uses repulsor lift technology developed for combat cloud cars.");
         setGameText("May add 2 pilots (one must be a smuggler or bounty hunter) and 3 passengers. Immune to attrition < 3 if Zuckuss is piloting. Has ship-docking capability.");
         addIcons(Icon.DAGOBAH, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

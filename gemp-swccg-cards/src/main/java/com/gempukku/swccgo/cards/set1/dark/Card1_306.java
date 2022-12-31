@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card1_306 extends AbstractStarfighter {
     public Card1_306() {
-        super(Side.DARK, 2, 2, 2, null, 3, 2, 4, "Vader's Custom TIE", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, null, 3, 2, 4, "Vader's Custom TIE", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("TIE advanced x1 prototype. First of a limited production run leading to the development of the TIE Interceptor. At Vader's insistence a hyperdrive was installed.");
         setGameText("May add 1 pilot. If Vader is pilot, Custom TIE is immune to attrition < 4. Must have pilot aboard to use power, maneuver or hyperspeed.");
         addPersona(Persona.VADERS_CUSTOM_TIE);

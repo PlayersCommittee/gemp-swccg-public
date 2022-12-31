@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card8_168 extends AbstractStarfighter {
     public Card8_168() {
-        super(Side.DARK, 4, 2, 2, null, 2, 3, 3, "Lambda-Class Shuttle");
+        super(Side.DARK, 4, 2, 2, null, 2, 3, 3, "Lambda-Class Shuttle", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Manufactured by Sienar Fleet Systems. Length 20 meters. Bottom wings fold for docking and landing. Boarding ramp allows easy access to passenger and cargo areas.");
         setGameText("Deploy -1 if Sienar Fleet Systems on table. May add 1 pilot and 6 passengers. Permanent pilot provides ability of 1. Takes off and lands for free.");
         addIcons(Icon.ENDOR, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

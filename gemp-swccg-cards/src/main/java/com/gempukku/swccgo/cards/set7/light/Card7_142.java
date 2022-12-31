@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasMatchingPilotAboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card7_142 extends AbstractStarfighter {
     public Card7_142() {
-        super(Side.LIGHT, 3, 1, 2, null, 3, 4, 3, Title.Gold_4, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 1, 2, null, 3, 4, 3, Title.Gold_4, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Point starfighter for Gold Squadron during the approach to the Death Star. Impact scars on its hull caused by small asteroids.");
         setGameText("If deployed to Anoat, may retrieve 1 Force. May add 2 pilots or passengers. SW-4 Ion Cannon deploys and fires free aboard. Immune to attrition < 4 when matching pilot aboard.");
         addIcons(Icon.SPECIAL_EDITION, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

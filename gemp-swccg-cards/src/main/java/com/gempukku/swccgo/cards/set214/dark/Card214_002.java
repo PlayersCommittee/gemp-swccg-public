@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card214_002 extends AbstractStarfighter {
     public Card214_002() {
-        super(Side.DARK, 4, 3, 3, null, 4, 5, 4, "Bestoon Legacy", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 3, null, 4, 5, 4, "Bestoon Legacy", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("");
         setGameText("May add 2 pilots and 3 passengers. During your control phase, may peek at the top card of your Reserve Deck; may place it on Used Pile (if card is an assassin, may take it into hand).");
         addPersona(Persona.BESTOON_LEGACY);

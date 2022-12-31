@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card14_116 extends AbstractStarfighter {
     public Card14_116() {
-        super(Side.DARK, 2, 1, 2, null, 2, null, 3, "DFS-1015", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 1, 2, null, 2, null, 3, "DFS-1015", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Tactical support starfighter that utilizes learning subroutines to maximize the effectiveness of droid starfighter offensive strategies.");
         setGameText("Deploys -1 to same location as your battleship. While with another droid starfighter at a system, once per battle if about to draw a battle destiny here, may instead draw two and choose one.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.PRESENCE);

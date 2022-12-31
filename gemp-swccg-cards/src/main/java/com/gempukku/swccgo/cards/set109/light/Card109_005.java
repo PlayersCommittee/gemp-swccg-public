@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotSeatOccupiedCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card109_005 extends AbstractStarfighter {
     public Card109_005() {
-        super(Side.LIGHT, 2, 2, 2, null, 4, 2, 3, "Z-95 Bespin Defense Fighter", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 2, 2, null, 4, 2, 3, "Z-95 Bespin Defense Fighter", Uniqueness.RESTRICTED_3, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setLore("Used to combat pirate activity in and around Cloud City. Top speed in atmosphere 1,150 kph. Hyperdrive installed by Bespin Motors.");
         setGameText("Permanent pilot provides ability of 1 and adds 1 to power. May add one alien pilot (suspends permanent pilot). Power +2 at Bespin locations. May be carried aboard starships like a vehicle.");
         addIcons(Icon.PREMIUM, Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

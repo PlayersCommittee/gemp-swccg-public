@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +20,11 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfWeaponFiringModifierEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ResetCalculationVariableModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -28,7 +40,7 @@ import java.util.List;
  */
 public class Card9_162 extends AbstractStarfighter {
     public Card9_162() {
-        super(Side.DARK, 3, 2, 3, null, 4, null, 4, Title.Saber_1, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, null, 4, null, 4, Title.Saber_1, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("TIE interceptor serial number 000004. Assigned to Baron Soontir Fel of the fighting 181st. Bears the Saber Squadron bloodstripe, representing a minimum of 10 kills.");
         setGameText("May add 1 pilot. Fel deploys -1 aboard. When firing SFS L-s9.3 Laser Cannons, may use 1 Force to make X = 3. Immune to attrition < 5 when Fel piloting.");
         addIcons(Icon.DEATH_STAR_II);

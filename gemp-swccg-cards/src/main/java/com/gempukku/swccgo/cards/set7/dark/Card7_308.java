@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card7_308 extends AbstractStarfighter {
     public Card7_308() {
-        super(Side.DARK, 3, 3, 3, null, 4, 2, 3, "TIE Defender Mark I");
+        super(Side.DARK, 3, 3, 3, null, 4, 2, 3, "TIE Defender Mark I", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("First production run of TIE defender design. Powerful P-sz9.7 sublight engines. Fire-linked laser cannons. Aft blind spot exploited by maneuverable enemy starfighters.");
         setGameText("May deploy as a 'react'. Permanent pilot provides ability of 1. Any starship cannon may deploy aboard. Power -2 while opponent has a starfighter present with higher maneuver.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.NAV_COMPUTER);

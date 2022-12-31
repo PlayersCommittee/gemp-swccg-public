@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card601_049 extends AbstractStarfighter {
     public Card601_049() {
-        super(Side.LIGHT, 3, 3, 3, null, 5, 4, 5, "Lady Luck", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, null, 5, 4, 5, "Lady Luck", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("");
         setGameText("May add 2 pilots and 2 passengers. Scoundrels deploy -1 aboard. May reveal from hand to take into hand [Cloud City] Lando from Reserve Deck; reshuffle; and deploy both simultaneously. While Lando piloting, immune to attrition < 5 (< 6 if at Bespin). ");
         addIcons(Icon.CORUSCANT, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_8);

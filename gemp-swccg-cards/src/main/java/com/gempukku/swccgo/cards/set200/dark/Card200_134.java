@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card200_134 extends AbstractStarfighter {
     public Card200_134() {
-        super(Side.DARK, 2, 4, 4, null, 5, 4, 5, "Elis In Hinthra", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, null, 5, 4, 5, "Elis In Hinthra", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setGameText("May add 1 pilot and 3 passengers. Permanent pilot is •Elis, who provides ability of 2. Once per game, may use 1 Force to [download] a smuggler aboard. Immune to attrition < 5.");
         addIcons(Icon.REFLECTIONS_II, Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_0);
         addModelType(ModelType.HEAVILY_MODIFIED_FREIGHTER);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card9_070 extends AbstractStarfighter {
     public Card9_070() {
-        super(Side.LIGHT, 3, 1, 2, null, 3, 4, 2, "Gray Squadron 2", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 1, 2, null, 3, 4, 2, "Gray Squadron 2", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Flown by Lieutenant Telsij as Colonel Salm's wingman. Part of gray squadron at the battle of Endor.");
         setGameText("May add 2 pilots or passengers. Immune to attrition < 3 when Lieutenant Telsij or Karie Neth piloting (when both immune to attrition < 5 and adds one destiny to power only).");
         addIcons(Icon.DEATH_STAR_II, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card207_017 extends AbstractStarfighter {
     public Card207_017() {
-        super(Side.LIGHT, 2, 3, 4, null, 4, 5, 6, Title.Ghost, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 4, null, 4, 5, 6, Title.Ghost, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Phoenix Squadron.");
         setGameText("May add 2 pilots, 3 passengers, and Phantom. Has ship-docking capability. May deploy Phantom here from Reserve deck; reshuffle. While Hera piloting, immune to attrition < 5 (may not be canceled).");
         addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_7);

@@ -5,7 +5,18 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -40,7 +51,7 @@ import java.util.List;
  */
 public class Card204_035 extends AbstractStarfighter {
     public Card204_035() {
-        super(Side.LIGHT, 0, 0, 3, null, 4, 6, 7, Title.The_Falcon_Junkyard_Garbage, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, 0, 3, null, 4, 6, 7, Title.The_Falcon_Junkyard_Garbage, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setLore("The Millennium Falcon's well-known reputation is favorable not only for its captain and first mate, but for the Alliance as well.");
         setGameText("May not be placed in Reserve Deck. If Falcon about to leave table, place it out of play. May add 2 pilots and 2 passengers. Has ship-docking capability. While [Episode VII] Han or Rey piloting, maneuver +2 and immune to attrition < 4 (< 6 if both). Once during your move phase, if at a site, may flip this card (even if unpiloted).");

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card14_055 extends AbstractStarfighter {
     public Card14_055() {
-        super(Side.LIGHT, 2, 1, 2, null, 4, 3, 3, Title.Bravo_3, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, null, 4, 3, 3, Title.Bravo_3, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Arven Wendik's starfighter at the Battle of Naboo. Oldest starfighter in the Naboo corps.");
         setGameText("Deploys -1 to Naboo. May add one pilot. While Arven piloting, immune to attrition < 4. While at Naboo system, opponent's battle destiny draws are -1 here.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER);

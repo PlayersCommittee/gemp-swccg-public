@@ -6,9 +6,12 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotSeatOccupiedCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card12_090 extends AbstractStarfighter {
     public Card12_090() {
-        super(Side.LIGHT, 3, 1, 2, null, 4, 3, 3, "Naboo Defense Fighter");
+        super(Side.LIGHT, 3, 1, 2, null, 4, 3, 3, "Naboo Defense Fighter", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Part of the Royal Naboo Air Security Forces. Designed by Theed Palace Space Vessel Engineering Corps and used in the attack on the Trade Federation Droid Control Ship.");
         setGameText("Permanent pilot provides ability of 1. May add 1 pilot (suspends permanent pilot). Power +1 at Naboo system. While with another N-1 starfighter, draws one battle destiny if unable to otherwise.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.REPUBLIC, Icon.PILOT, Icon.NAV_COMPUTER);

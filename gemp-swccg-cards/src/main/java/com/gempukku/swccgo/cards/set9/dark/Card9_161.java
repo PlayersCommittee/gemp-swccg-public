@@ -2,11 +2,22 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +31,7 @@ import java.util.List;
  */
 public class Card9_161 extends AbstractStarfighter {
     public Card9_161() {
-        super(Side.DARK, 2, 3, 3, null, 4, 3, 4, Title.Onyx_2, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, null, 4, 3, 4, Title.Onyx_2, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Part of limited production run of TIE defenders. Testing of the prototype defender indicated the need for a more powerful hyperdrive, which was added for this production model.");
         setGameText("Deploys for free to any mobile system. May deploy with a pilot as a 'react'. May add 1 pilot. Any starship cannon may deploy aboard. Immune to attrition < 4 when Yorr piloting.");
         addIcons(Icon.DEATH_STAR_II, Icon.NAV_COMPUTER);

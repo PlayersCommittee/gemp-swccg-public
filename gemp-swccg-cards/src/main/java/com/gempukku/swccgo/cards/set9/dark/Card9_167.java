@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBombingRunBattleCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card9_167 extends AbstractStarfighter {
     public Card9_167() {
-        super(Side.DARK, 2, 2, 1, null, 2, null, 4, "Scimitar 2", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, null, 2, null, 4, "Scimitar 2", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("TIE bomber repaired after being struck by an asteroid in the Anoat system. Stationed aboard second Death Star battle station.");
         setGameText("May add 1 pilot. Power +3 during a Bombing Run battle. Once per game, you may deploy one Proton Bombs from Reserve Deck on this starfighter; reshuffle.");
         addPersona(Persona.SCIMITAR_2);

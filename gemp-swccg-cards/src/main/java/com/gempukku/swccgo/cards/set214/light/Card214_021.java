@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.AbilityOfPilotEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card214_021 extends AbstractStarfighter {
     public Card214_021() {
-        super(Side.LIGHT, 2, 2, 2, null, 0, 6, 5, "Plo Koon's Jedi Starfighter", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, null, 0, 6, 5, "Plo Koon's Jedi Starfighter", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setGameText("May add 1 Jedi pilot. *Maneuver = pilot's ability. While Plo piloting, power +2, immune to attrition < 3, and once per turn, may cancel and redraw your weapon or battle destiny just drawn here.");
         addIcons(Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_14, Icon.CLONE_ARMY, Icon.SCOMP_LINK);
         addModelType(ModelType.JEDI_INTERCEPTOR);

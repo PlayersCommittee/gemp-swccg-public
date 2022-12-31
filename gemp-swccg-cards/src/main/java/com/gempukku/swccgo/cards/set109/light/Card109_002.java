@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set109.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card109_002 extends AbstractStarfighter {
     public Card109_002() {
-        super(Side.LIGHT, 2, 5, 3, null, 3, 5, 6, "Lando In Millennium Falcon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 5, 3, null, 3, 5, 6, "Lando In Millennium Falcon", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setLore("Heavily modified Corellian YT-1300 freighter. 'She's the fastest hunk of junk in the galaxy.'");
         setGameText("May add 1 pilot and 2 passengers. Permanent pilot is •Lando, who provides ability of 3 and adds 3 to power. May not be piloted by Han unless he won a hand of sabacc this game. Immune to attrition < 5.");
         addPersonas(Persona.FALCON);

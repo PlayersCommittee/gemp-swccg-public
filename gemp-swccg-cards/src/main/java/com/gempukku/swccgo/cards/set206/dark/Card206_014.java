@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card206_014 extends AbstractStarfighter {
     public Card206_014() {
-        super(Side.DARK, 2, 2, 2, null, 3, 3, 5, "Vader's Custom TIE", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, null, 3, 3, 5, "Vader's Custom TIE", Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setVirtualSuffix(true);
         setLore("TIE advanced x1 prototype. First of a limited production run leading to the development of the TIE Interceptor. At Vader's insistence a hyperdrive was installed.");
         setGameText("May add 1 pilot. Vader deploys -2 aboard. While Vader piloting, immune to attrition < 5 and during battle, may cancel game text of a passenger (or pilot of ability < 4) here.");

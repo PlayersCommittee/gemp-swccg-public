@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card14_115 extends AbstractStarfighter {
     public Card14_115() {
-        super(Side.DARK, 2, 1, 2, null, 2, null, 3, "DFS Squadron Starfighter", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 1, 2, null, 2, null, 3, "DFS Squadron Starfighter", Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Starfighters assigned to DFS Squadron are provided with advanced targeting routines to assist them in protecting Trade Federation command ships.");
         setGameText("Deploys -1 to Naboo or same system as your battleship. While at same system as your battleship, may deploy Droid Starfighter Laser Cannons aboard from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.PRESENCE);

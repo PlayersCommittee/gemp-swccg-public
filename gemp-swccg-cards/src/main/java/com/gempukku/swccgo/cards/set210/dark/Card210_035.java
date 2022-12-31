@@ -4,14 +4,21 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelImmunityToAttritionUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPowerUntilEndOfBattleEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card210_035 extends AbstractStarfighter {
     public Card210_035() {
-        super(Side.DARK, 2, 2, 2, null, 4, 3, 4, "Kylo Ren's TIE Silencer", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, null, 4, 3, 4, "Kylo Ren's TIE Silencer", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("");
         setGameText("May add 1 pilot. Kylo deploys -3 aboard. While Kylo piloting, immune to attrition < 5 and, unless Leia here, once per battle may lose immunity to attrition to 'spin': add maneuver to power.");
         addIcons(Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_10, Icon.EPISODE_VII, Icon.FIRST_ORDER);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card4_169 extends AbstractStarfighter {
     public Card4_169() {
-        super(Side.DARK, 4, 4, 3, null, 3, 3, 3, "IG-2000", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 4, 3, null, 3, 3, 3, "IG-2000", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("IG-88's assault starfighter. Custom designed. Boasts a Kuat Galaxy-15 engine from a Nebulon-B frigate. Heavy ion cannon often used to disable starships before boarding.");
         setGameText("May add 1 pilot (must be a smuggler or bounty hunter) and 2 passengers. Maneuver +3 and immune to attrition < 3 if IG-88 piloting. Ion Cannon may deploy aboard.");
         addIcons(Icon.DAGOBAH, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

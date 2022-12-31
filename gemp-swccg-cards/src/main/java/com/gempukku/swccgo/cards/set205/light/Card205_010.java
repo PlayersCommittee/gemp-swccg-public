@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttemptToBlowAwayDeathStarIICondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card205_010 extends AbstractStarfighter {
     public Card205_010() {
-        super(Side.LIGHT, 2, 3, 3, null, 5, 4, 5, "Tycho In Green Squadron 3", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, null, 5, 4, 5, "Tycho In Green Squadron 3", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setLore("Flown by Tycho Celchu at the Battle of Endor. Modified canopy improves pilot vision in tight confines. Assigned to fly top cover for Millennium Falcon.");
         setGameText("May deploy as a 'react'. Permanent pilot is •Tycho, who provides ability of 2 and adds 3 to his [Death Star II] Epic Event destiny draws. During battle, may target a starfighter; target's immunity to attrition is canceled.");
         addPersona(Persona.GREEN_SQUADRON_3);

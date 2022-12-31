@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card9_062 extends AbstractStarfighter {
     public Card9_062() {
-        super(Side.LIGHT, 3, 2, 3, null, 5, 4, 3, "A-wing");
+        super(Side.LIGHT, 3, 2, 3, null, 5, 4, 3, "A-wing", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Created by General Dodonna and Rebel engineer Walex Blissex. Designed to combat the speed and maneuverability of the TIE interceptor. Jamming suite disrupts enemy communications.");
         setGameText("Permanent pilot provides ability of 1. Opponent may not 'react' to or from here. Power -1 when opponent has a starfighter present with higher maneuver.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

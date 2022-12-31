@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card207_029 extends AbstractStarfighter {
     public Card207_029() {
-        super(Side.DARK, 3, 2, 2, null, 5, 3, 4, "Punishing One", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, null, 5, 3, 4, "Punishing One", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Old Corellian Engineering Corporation starfighter. Has outdated Class Three hyperdrive, but high sublight speed capability. Easy to maintain. Owned by Dengar.");
         setGameText("May add 1 pilot. Corellians deploy -2 aboard. When deployed, may place an Admiral's Order in owner's Used Pile. While a Corellian piloting, power +2 and immune to attrition < 3 (< 5 if Dengar).");

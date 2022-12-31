@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card204_034 extends AbstractStarfighter {
     public Card204_034() {
-        super(Side.LIGHT, 2, 2, 2, null, 4, 3, 4, "Stolen First Order TIE Fighter", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, null, 4, 3, 4, "Stolen First Order TIE Fighter", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("May add Poe (or a spy) as a pilot and 1 passenger. Deploys free to opponent's system. While Poe piloting, maneuver +2. If Finn aboard, apply his ability towards drawing battle destiny.");
         addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.RESISTANCE, Icon.VIRTUAL_SET_4);
         addModelType(ModelType.TIE_SF);

@@ -2,14 +2,23 @@ package com.gempukku.swccgo.cards.set218.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveGameTextCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHavePowerReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +31,7 @@ import java.util.List;
  */
 public class Card218_008 extends AbstractStarfighter {
     public Card218_008() {
-        super(Side.DARK, 2, 2, 3, null, 4, 3, 4, "Alpha 1", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 3, null, 4, 3, 4, "Alpha 1", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setGameText("May add 1 pilot. While Stele piloting: immune to attrition < 5, game text of Fighters Coming In may not be canceled, and the power of your TIE Defenders here may not be reduced.");
         addIcons(Icon.NAV_COMPUTER, Icon.VIRTUAL_SET_18);
         addModelType(ModelType.TIE_DEFENDER);

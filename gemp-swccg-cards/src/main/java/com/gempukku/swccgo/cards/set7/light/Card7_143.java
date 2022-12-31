@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasMatchingPilotAboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card7_143 extends AbstractStarfighter {
     public Card7_143() {
-        super(Side.LIGHT, 3, 1, 2, null, 3, 4, 3, Title.Gold_6, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 1, 2, null, 3, 4, 3, Title.Gold_6, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("'Led an attack on an Imperial outpost at Kashyyyk. Disabled the outpost's shields with ion cannons. Flown by Hol Okand during the Battle of Yavin.");
         setGameText("If deployed to Kashyyyk, may retrieve 1 Force. May add 2 pilots or passengers. SW-4 Ion Cannon deploys and fires free aboard. Immune to attrition < 4 when matching pilot aboard.");
         addIcons(Icon.SPECIAL_EDITION, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

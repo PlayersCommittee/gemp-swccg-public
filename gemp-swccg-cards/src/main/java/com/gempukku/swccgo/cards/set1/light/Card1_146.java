@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
  */
 public class Card1_146 extends AbstractStarfighter {
     public Card1_146() {
-        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 4, "X-wing");
+        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 4, "X-wing", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Model T-65 by Incom Corporation. Delivered to Alliance by defecting design team. 12.5 meters long. Wings deploy in an 'X' position for better weapons coverage.");
         setGameText("Permanent pilot aboard provides ability of 1.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

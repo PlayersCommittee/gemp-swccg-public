@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotSeatOccupiedCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -14,7 +16,12 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployForFreeForSimultaneouslyDeployingPilotModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendPermanentPilotModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card10_049 extends AbstractStarfighter {
     public Card10_049() {
-        super(Side.DARK, 3, 2, 3, null, 4, 5, 4, "Stinger", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, null, 4, 5, 4, "Stinger", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Constructed by a secretive Surronian hive craftguild. Equipped with H2-1 hyperdrive system and emergency braking jets. Guri's personal starship. Gift from Prince Xizor.");
         setGameText("Permanent pilot provides 1 ability. May add Guri as pilot (suspends permanent pilot). Guri deploys aboard for free. When Guri piloting, adds one battle destiny and immune to attrition < 5.");
         addIcons(Icon.REFLECTIONS_II, Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

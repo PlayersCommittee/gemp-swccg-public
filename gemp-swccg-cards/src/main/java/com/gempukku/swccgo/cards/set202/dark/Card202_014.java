@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MinLimitEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card202_014 extends AbstractStarfighter {
     public Card202_014() {
-        super(Side.DARK, 6, 1, 1, null, 4, null, 3, "Black 6", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, 1, 1, null, 4, null, 3, "Black 6", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setGameText("May add 1 pilot. While Tanbris piloting, power +1. Once per game, may retrieve bottom card of Lost Pile. Your total battle destiny here is +X, where X = this TIE's power - 5.");
         addIcons(Icon.VIRTUAL_SET_2);
         addKeywords(Keyword.BLACK_SQUADRON);

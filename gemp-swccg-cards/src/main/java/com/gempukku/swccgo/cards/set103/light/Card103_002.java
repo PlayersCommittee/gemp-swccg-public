@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set103.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card103_002 extends AbstractStarfighter {
     public Card103_002() {
-        super(Side.LIGHT, 2, 6, 3, null, 4, 5, 5, "Red Leader In Red 1", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 6, 3, null, 4, 5, 5, "Red Leader In Red 1", Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLore("Called 'Boss' or 'Chief' by his squadron, Garven Dreis was the first pilot to fire proton torpedoes at the Death Star's exhaust port during the Battle of Yavin.");
         setGameText("Permanent pilot aboard is •Red Leader, who provides ability of 2, adds 2 to power and may draw one battle destiny if not able to otherwise.");
         addPersonas(Persona.RED_1);

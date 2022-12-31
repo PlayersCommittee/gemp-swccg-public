@@ -6,10 +6,13 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +41,7 @@ import java.util.List;
  */
 public class Card7_140 extends AbstractStarfighter {
     public Card7_140() {
-        super(Side.LIGHT, 3, 3, 4, null, 2, 3, 4, "B-wing Attack Fighter");
+        super(Side.LIGHT, 3, 3, 4, null, 2, 3, 4, "B-wing Attack Fighter", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("First models designed in Roche asteroid field by Admiral Ackbar's team of Verpine engineers. Early design equipped to detect and neutralize Imperial orbital mines.");
         setGameText("Permanent pilot provides ability of 1. May fire 2 or more weapons during battle. Each of its destiny draws is +1. During your turn, may use 1 Force to 'defuse' (lose) an Orbital Mine present.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

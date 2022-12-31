@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set10.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card10_020 extends AbstractStarfighter {
     public Card10_020() {
-        super(Side.LIGHT, 2, 2, 2, null, 4, 5, 5, "Pulsar Skate", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, null, 4, 5, 5, "Pulsar Skate", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Owned by legendary Terrik family of smugglers. Used to chase down the pirates who killed Wedge's parents. On Corellian Security's most wanted list. 37.5 meters long.");
         setGameText("May add 2 pilots and 6 passengers. May add ability of your (•) unique smuggler aboard to X on Kessel Run targeting that smuggler. When Booster, Mirax or Wedge piloting, Immune to attrition < 5.");
         addPersona(Persona.PULSAR_SKATE);

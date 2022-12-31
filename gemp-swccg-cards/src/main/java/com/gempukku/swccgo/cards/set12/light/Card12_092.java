@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card12_092 extends AbstractStarfighter {
     public Card12_092() {
-        super(Side.LIGHT, 2, 4, 5, 4, null, 4, 7, "Radiant VII", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 5, 4, null, 4, 7, "Radiant VII", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Optimized for diplomatic missions with sensor-proof pods that have ejection capabilities. Easily identified by its red coloration.");
         setGameText("May add 3 pilots and 3 passengers. Has ship-docking capability. While Madakor or Williams piloting, immune to Lateral Damage and attrition < 5.");
         addPersona(Persona.RADIANT_VII);

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card9_068 extends AbstractStarfighter {
     public Card9_068() {
-        super(Side.LIGHT, 3, 3, 3, null, 5, 6, 7, "Gold Squadron 1", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, null, 5, 6, 7, "Gold Squadron 1", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("The Millennium Falcon relies on heavily upgraded speed and maneuverability to survive in combat. General Calrissian's starship at Battle of Endor.");
         setGameText("Deploy -2 to Endor. May add 2 pilots and 2 passengers. Immune to Tallon Roll. Immune to attrition < 4 when Lando or Nien Nunb piloting (< 6 when both).");
         addPersona(Persona.FALCON);

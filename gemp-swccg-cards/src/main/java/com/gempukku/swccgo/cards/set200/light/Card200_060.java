@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card200_060 extends AbstractStarfighter {
     public Card200_060() {
-        super(Side.LIGHT, 2, 4, 4, null, 4, 5, 4, "Booster In Pulsar Skate", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, null, 4, 5, 4, "Booster In Pulsar Skate", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setLore("Owned by legendary Terrik family of smugglers. Used to chase down the pirates who killed Wedge's parents. On Corellian Security's most wanted list. 37.5 meters long.");
         setGameText("May add 1 pilot and 6 passengers. Permanent pilot is •Booster, who provides ability of 3. Once per game, may [download] Mirax here. Immune to Lateral Damage and attrition < 5.");
         addPersona(Persona.PULSAR_SKATE);

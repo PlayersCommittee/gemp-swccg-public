@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
 import com.gempukku.swccgo.cards.effects.RelocateFromLocationToStarshipOrVehicle;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +44,7 @@ public class Card211_034 extends AbstractStarfighter {
     private Filter MATCHING_PILOTS = Filters.or(Filters.BB8, Filters.Rose, Filters.DJ);
 
     public Card211_034() {
-        super(Side.LIGHT, 2, 2, 2, null, 4, 5, 5, "Libertine", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, null, 4, 5, 5, "Libertine", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("");
         setGameText("May add 2 pilots and 2 passengers. During your deploy phase, may relocate your character of ability < 4 at a related exterior site aboard. While BB-8, DJ, or Rose aboard, immune to attrition < 5.");
         addPersona(Persona.LIBERTINE);

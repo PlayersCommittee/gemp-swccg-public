@@ -4,12 +4,21 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployForFreeForSimultaneouslyDeployingPilotModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card9_156 extends AbstractStarfighter {
     public Card9_156() {
-        super(Side.DARK, 3, 3, 2, null, 3, 3, 5, "Emperor's Personal Shuttle", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, null, 3, 3, 5, "Emperor's Personal Shuttle", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Transport used extensively by Emperor Palpatine. Extremely well guarded. Pilots ordered to maintain constant contact with all nearby Imperial strike forces.");
         setGameText("May add 1 pilot and 4 passengers. Permanent pilot provides ability 2. Emperor deploys for free aboard. While Emperor aboard, immune to attrition and adds one battle destiny.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

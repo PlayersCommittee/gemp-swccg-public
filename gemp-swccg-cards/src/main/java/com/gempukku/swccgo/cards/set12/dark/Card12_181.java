@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card12_181 extends AbstractStarfighter {
     public Card12_181() {
-        super(Side.DARK, 2, 2, 3, null, 3, null, 2, "Droid Starfighter");
+        super(Side.DARK, 2, 2, 3, null, 3, null, 2, "Droid Starfighter", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("These automated starfighters are managed by the Droid Control Ship and are used en masse by the Trade Federation to overwhelm an opponent with sheer numbers.");
         setGameText("Deploys -1 to same location as your battleship. Power -1 unless your droid control ship present. While another droid starfighter here, opponent's starfighters present are each power -1.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.PRESENCE);

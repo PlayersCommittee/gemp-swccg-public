@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AloneCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card208_058 extends AbstractStarfighter {
     public Card208_058() {
-        super(Side.DARK, 2, 5, 5, null, 5, 5, 7, "Mara Jade In VT-49 Decimator", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 5, null, 5, 5, 7, "Mara Jade In VT-49 Decimator", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setGameText("May add 1 pilot and 2 passengers. Permanent pilot is •Mara Jade, who provides ability of 5. While alone and piloted by an Imperial, adds one battle destiny. Immune to attrition < 4.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_8);
         addModelType(ModelType.VT_49_DECIMATOR);

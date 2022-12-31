@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card109_010 extends AbstractStarfighter {
     public Card109_010() {
-        super(Side.DARK, 1, 5, 2, null, 5, 3, 5, "Dengar In Punishing One", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 2, null, 5, 3, 5, "Dengar In Punishing One", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setLore("Corellian starfighter. Dengar replaced its passenger capacity and TIE cannons with enhanced targeting systems. Allows Dengar to track and engage multiple enemies at once.");
         setGameText("Permanent pilot is •Dengar, who provides ability of 2 and adds 2 to power. When in battle, adds 1 to total battle destiny for each opponent's starship present. Cancels opponent's immunity to attrition here.");
         addPersonas(Persona.PUNISHING_ONE);

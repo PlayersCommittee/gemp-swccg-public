@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set200.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card200_128 extends AbstractStarfighter {
     public Card200_128() {
-        super(Side.DARK, 3, 2, 2, null, 4, null, 5, Title.Black_5, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, null, 4, null, 5, Title.Black_5, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setGameText("May add DS-61-5 as pilot. During battle, if about to be lost before the damage segment, is instead 'hit'. If targeted by Watch Your Back!, it is a Used Interrupt. Immune to Don't Get Cocky and attrition < 4.");
         addModelType(ModelType.TIE_LN);
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_0);

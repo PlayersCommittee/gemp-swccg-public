@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card205_021 extends AbstractStarfighter {
     public Card205_021() {
-        super(Side.DARK, 2, 2, 4, null, 2, null, 4, "Captain Jonus In Scimitar 2", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 4, null, 2, null, 4, "Captain Jonus In Scimitar 2", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setLore("TIE bomber repaired after being struck by an asteroid in the Anoat system. Stationed aboard second Death Star battle station.");
         setGameText("Permanent pilot is •Jonus, who provides ability of 2. This starship's missile weapon destiny draws are +1. If at a system you control, your total power at related sites is +1.");
         addPersona(Persona.SCIMITAR_2);

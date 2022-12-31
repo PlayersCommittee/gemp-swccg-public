@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card9_159 extends AbstractStarfighter {
     public Card9_159() {
-        super(Side.DARK, 3, 1, 1, null, 3, null, 3, Title.Obsidian_10, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 1, null, 3, null, 3, Title.Obsidian_10, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Recalled to defend second Death Star during construction. Stationed aboard Thunderflare.");
         setGameText("May deploy with a pilot as a 'react' to any asteroid sector or cloud sector. May add one pilot. OS-72-10 deploys -2 aboard.");
         addIcons(Icon.DEATH_STAR_II);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set205.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.AddsDestinyToPowerModifier;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card205_007 extends AbstractStarfighter {
     public Card205_007() {
-        super(Side.LIGHT, 2, 6, 8, null, 6, 7, 8, "Han, Chewie, And The Falcon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 6, 8, null, 6, 7, 8, "Han, Chewie, And The Falcon", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setComboCard(true);
         setLore("Although temperamental, this trusty hunk of junk always seems to perform for its proud owner and his Wookiee co-pilot when needed the most.");

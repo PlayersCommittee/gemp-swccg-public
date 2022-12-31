@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card204_055 extends AbstractStarfighter {
     public Card204_055() {
-        super(Side.DARK, 4, 4, 3, null, 3, 3, 5, "Kylo Ren's Command Shuttle", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 4, 3, null, 3, 3, 5, "Kylo Ren's Command Shuttle", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("May add 1 pilot and 3 passengers. Permanent pilot provides ability of 2. May deploy to exterior sites. When deployed, may [download] Kylo aboard (deploy -2). Takes off and lands for free.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.NAV_COMPUTER, Icon.FIRST_ORDER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_4);
         addModelType(ModelType.UPSILON_CLASS_SHUTTLE);

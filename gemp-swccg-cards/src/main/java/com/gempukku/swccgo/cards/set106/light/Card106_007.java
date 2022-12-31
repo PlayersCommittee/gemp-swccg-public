@@ -3,11 +3,21 @@ package com.gempukku.swccgo.cards.set106.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.FiresForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -22,7 +32,7 @@ import java.util.List;
  */
 public class Card106_007 extends AbstractStarfighter {
     public Card106_007() {
-        super(Side.LIGHT, 2, 5, 3, null, 4, 5, 4, "Red Squadron X-wing", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 5, 3, null, 4, 5, 4, "Red Squadron X-wing", Uniqueness.RESTRICTED_3, ExpansionSet.OTSD, Rarity.PM);
         setLore("Most Red Squadron pilots trained under Garven Dreis. Flew top cover during the Battle of Yavin. Became famous for Red 5's historic attack run.");
         setGameText("Deploy -2 at Yavin 4 or to same location as Red Leader. Permanent pilot provides ability of 2 and adds 2 to power. Proton Torpedoes deploy and fire free aboard.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

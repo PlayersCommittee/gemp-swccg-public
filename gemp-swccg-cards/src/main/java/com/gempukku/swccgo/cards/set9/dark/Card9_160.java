@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card9_160 extends AbstractStarfighter {
     public Card9_160() {
-        super(Side.DARK, 2, 3, 3, null, 4, 3, 4, "Onyx 1", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, null, 4, 3, 4, "Onyx 1", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Designed to emulate Rebel starfighter advantages. Production began shortly before the Battle of Endor. Armed with laser cannons, ion cannons and missile launchers.");
         setGameText("May deploy -2 with a pilot as a 'react' to same location as any Imperial-class Star Destroyer. May add 1 pilot. Any starship cannon may deploy aboard. Immune to attrition < 4 when Jendon piloting.");
         addPersona(Persona.ONYX_1);

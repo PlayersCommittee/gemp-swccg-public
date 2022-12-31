@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card4_172 extends AbstractStarfighter {
     public Card4_172() {
-        super(Side.DARK, 3, 3, 2, null, 4, 2, 2, "TIE Avenger");
+        super(Side.DARK, 3, 3, 2, null, 4, 2, 2, "TIE Avenger", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Design based on Lord Vader's prototype Advanced x1. Manufactured until replaced by the more economical TIE Interceptor. Equipped with deflector shields and a hyperdrive.");
         setGameText("Deploy -1 to same system as any Imperial capital starship. May add 1 pilot. Boosted TIE Cannon may deploy aboard.");
         addIcons(Icon.DAGOBAH, Icon.NAV_COMPUTER);

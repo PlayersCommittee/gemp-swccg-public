@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentAstromech;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +19,8 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card211_028 extends AbstractStarfighter {
     public Card211_028() {
-        super(Side.LIGHT, (float)(Math.PI), 3, 4, null, 5, 6, 5, "BB-8 In Black Squadron 1", Uniqueness.UNIQUE);
+        super(Side.LIGHT, (float)(Math.PI), 3, 4, null, 5, 6, 5, "BB-8 In Black Squadron 1", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setGameText("May add 1 pilot. Permanent astromech aboard is •BB-8. If Poe piloting, may lose 1 Force to cancel a just drawn weapon destiny targeting this starship. Immune to attrition < 4.");
         addPersona(Persona.BLACK_1); // BB-8 Persona added in AbstractPermanentAboard later
         setPilotCapacity(1);

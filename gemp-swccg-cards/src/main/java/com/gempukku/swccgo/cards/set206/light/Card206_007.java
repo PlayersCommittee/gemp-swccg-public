@@ -3,13 +3,24 @@ package com.gempukku.swccgo.cards.set206.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToLocationWithoutPresenceOrForceIconsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +34,7 @@ import java.util.List;
  */
 public class Card206_007 extends AbstractStarfighter {
     public Card206_007() {
-        super(Side.LIGHT, 3, 3, 2, null, 3, 4, 5, Title.Rogue_One, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, null, 3, 4, 5, Title.Rogue_One, Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setGameText("May add 2 pilots and 4 passengers. May deploy with a pilot to a system without presence or Force icons. Spies deploy -1 aboard. Immune to attrition < 6 at opponent's system (unless a Dark Jedi here).");
         addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_6);
         addKeywords(Keyword.ROGUE_SQUADRON);

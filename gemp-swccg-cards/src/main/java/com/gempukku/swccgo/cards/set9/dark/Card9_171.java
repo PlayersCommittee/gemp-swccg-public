@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card9_171 extends AbstractStarfighter {
     public Card9_171() {
-        super(Side.DARK, 4, 4, 1, null, 4, null, 3, "Scythe Squadron TIE", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 4, 4, 1, null, 4, null, 3, "Scythe Squadron TIE", Uniqueness.RESTRICTED_3, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Scythe Squadron TIE fighters are modified TIE/lns assigned to defend the second Death Star during construction. Their pilots fly frequent training missions within the Death Star.");
         setGameText("Deploy -2 to Death Star II or Endor. Permanent pilot provides ability of 2 and adds 1 to power and maneuver.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

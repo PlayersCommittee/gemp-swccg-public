@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set301.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card301_008 extends AbstractStarfighter {
     public Card301_008() {
-        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 4, Title.Red_12, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 4, Title.Red_12, Uniqueness.UNIQUE, ExpansionSet.DEMO_DECK, Rarity.V);
         setLore("");
         setGameText("May add 1 pilot. If Puck Naeco piloting, he may be placed in Used Pile instead of Lost Pile when he is forfeited. Immune to attrition < 4.");
         addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

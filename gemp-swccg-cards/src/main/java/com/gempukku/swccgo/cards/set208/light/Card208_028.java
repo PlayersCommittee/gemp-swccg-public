@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +27,7 @@ import java.util.List;
  */
 public class Card208_028 extends AbstractStarfighter {
     public Card208_028() {
-        super(Side.LIGHT, 6, 2, 3, null, 4, 5, 4, "Red Squadron 6", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, 2, 3, null, 4, 5, 4, "Red Squadron 6", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setGameText("May add 1 pilot. While Ello Asty piloting, attrition against opponent is +1 here.");
         addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.RESISTANCE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_8);
         addModelType(ModelType.X_WING);

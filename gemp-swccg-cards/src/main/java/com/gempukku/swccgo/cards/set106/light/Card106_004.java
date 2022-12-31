@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set106.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card106_004 extends AbstractStarfighter {
     public Card106_004() {
-        super(Side.LIGHT, 3, 4, 2, null, 3, 4, 3, "Gold Squadron Y-wing", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 4, 2, null, 3, 4, 3, "Gold Squadron Y-wing", Uniqueness.RESTRICTED_3, ExpansionSet.OTSD, Rarity.PM);
         setLore("Gold Squadron had the best Y-wing pilots in the Alliance. Lead by Jon 'Dutch' Vander. First wave of starfighters to assault the Death Star. Many were lost in the Battle of Yavin.");
         setGameText("Deploy -2 at Yavin 4 or to same location as Dutch. May add 1 pilot or passenger. Permanent pilot aboard provides ability of 2 and adds 2 to power. Adds 1 to its ion cannon weapon destiny draws.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

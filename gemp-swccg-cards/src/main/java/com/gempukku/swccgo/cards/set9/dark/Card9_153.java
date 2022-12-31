@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card9_153 extends AbstractStarfighter {
     public Card9_153() {
-        super(Side.DARK, 2, 2, 1, null, 3, null, 3, "Black 11", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 1, null, 3, null, 3, "Black 11", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Stationed aboard command ship Executor. Pilot known as 'Wampa' for icy precision in battle. Often serves as escort to Lord Vader's shuttle.");
         setGameText("Deploy -1 to any mobile system. Permanent pilot provides ability of 2. When with Vader in battle, may draw destiny and subtract that amount from opponent's total power.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

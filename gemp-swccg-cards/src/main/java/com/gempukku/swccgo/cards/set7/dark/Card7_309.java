@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card7_309 extends AbstractStarfighter {
     public Card7_309() {
-        super(Side.DARK, 3, 2, 2, null, 2, 3, 4, "Vader's Personal Shuttle", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, null, 2, 3, 4, "Vader's Personal Shuttle", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Customized transport of Lord Vader. Employs advanced sensor jamming gear. Modified with enhanced tactical displays constructed to the Dark Lord's specifications.");
         setGameText("May add 1 pilot and 4 passengers. Permanent pilot aboard provides ability of 2. Moves for free. While Vader aboard, opponent must have ability > 5 to draw battle destiny at same system. May not Tallon Roll.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

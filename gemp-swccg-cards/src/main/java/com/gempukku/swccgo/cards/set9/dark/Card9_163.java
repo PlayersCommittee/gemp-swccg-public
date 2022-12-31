@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card9_163 extends AbstractStarfighter {
     public Card9_163() {
-        super(Side.DARK, 3, 2, 3, null, 4, null, 3, Title.Saber_2, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, null, 4, null, 3, Title.Saber_2, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("TIE interceptor flown by Major Phennir. Assigned to protect Avenger at the Battle of Endor. Responsible for the logistics of Saber Squadron.");
         setGameText("May add 1 pilot. When Phennir piloting, immune to attrition < 4 and adds 1 to forfeit of each other Saber Squadron pilot in same battle.");
         addIcons(Icon.DEATH_STAR_II);

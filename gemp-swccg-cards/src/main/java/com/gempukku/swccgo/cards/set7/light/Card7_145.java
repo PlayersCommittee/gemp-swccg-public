@@ -2,11 +2,22 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasMatchingPilotAboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToSystemModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.FiresForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +31,7 @@ import java.util.List;
  */
 public class Card7_145 extends AbstractStarfighter {
     public Card7_145() {
-        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 5, Title.Red_10, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, null, 4, 5, 5, Title.Red_10, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Theron Nett's X-wing. Assigned to be Red Leader's wingman during the second attack run on the Death Star.");
         setGameText("Deploys free to Ord Mantell. May add 1 pilot. Proton Torpedoes deploy and fire free aboard. Immune to attrition < 4 when matching pilot aboard.");
         addIcons(Icon.SPECIAL_EDITION, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

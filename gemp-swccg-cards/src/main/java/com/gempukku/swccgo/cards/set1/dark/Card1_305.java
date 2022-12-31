@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
  */
 public class Card1_305 extends AbstractStarfighter {
     public Card1_305() {
-        super(Side.DARK, 4, 2, 1, null, 1, 5, 3, "TIE Scout");
+        super(Side.DARK, 4, 2, 1, null, 1, 5, 3, "TIE Scout", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Limited production, light reconnaissance starship. Minimal armor and weapons. Long-range sensor and communications array. Scouts for Rebel activity.");
         setGameText("May add 1 pilot and 1 passenger, or 2 passengers. Permanent pilot aboard provides ability of 1.");
         addIcons(Icon.PILOT, Icon.NAV_COMPUTER);

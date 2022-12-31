@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card9_169 extends AbstractStarfighter {
     public Card9_169() {
-        super(Side.DARK, 4, 2, 1, null, 4, null, 3, "Scythe 1", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 2, 1, null, 4, null, 3, "Scythe 1", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("TIE fighter garrisoned aboard second Death Star. Part of Scythe Squadron, a TIE group with upgraded SFS Pw702 maneuvering jets to increase performance in tight quarters.");
         setGameText("May add 1 pilot. Once during each of your move phases, may fire one starship weapon aboard ('hit' targets are lost) and/or make an additional move. Immune to attrition < 4 when Mianda piloting.");
         addIcons(Icon.DEATH_STAR_II);

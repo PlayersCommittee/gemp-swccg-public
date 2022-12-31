@@ -4,11 +4,22 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.InBattleInitiatedByOwnerCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,7 +34,7 @@ import java.util.List;
  */
 public class Card110_008 extends AbstractStarfighter {
     public Card110_008() {
-        super(Side.DARK, 1, 5, 3, null, 3, 3, 4, "IG-88 In IG-2000", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 3, null, 3, 3, 4, "IG-88 In IG-2000", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("Starship adapted to the assassin droid's specifications. Flight controls linked directly to processing unit. Real-time relays minimize response time.");
         setGameText("May add 2 passengers. Permanent pilot is •IG-88, who adds 2 to power and 3 to maneuver. May initiate battle. When in a battle you initiate, adds one battle destiny. Ion Cannon may deploy aboard.");
         addPersonas(Persona.IG2000);

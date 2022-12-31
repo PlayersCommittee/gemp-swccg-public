@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card9_164 extends AbstractStarfighter {
     public Card9_164() {
-        super(Side.DARK, 3, 1, 3, null, 4, null, 3, Title.Saber_3, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 3, null, 4, null, 3, Title.Saber_3, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("TIE interceptor assigned to fly on the wing of Baron Fel. Often ordered to remain at a distance from Fel to give the Baron maneuvering room during combat.");
         setGameText("May add 1 pilot. Cannons are deploy -2 aboard. Immune to attrition < 3 when DS-181-3 piloting.");
         addIcons(Icon.DEATH_STAR_II);

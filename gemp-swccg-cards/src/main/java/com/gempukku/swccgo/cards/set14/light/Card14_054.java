@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card14_054 extends AbstractStarfighter {
     public Card14_054() {
-        super(Side.LIGHT, 2, 1, 2, null, 4, 3, 3, Title.Bravo_2, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, null, 4, 3, 3, Title.Bravo_2, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Starfighter assigned to Officer Dolphe at the battle of Naboo. Damaged when the Trade Federation first invaded his planet, but Dolphe was able to make the necessary repairs.");
         setGameText("Deploys -1 to Naboo. May add 1 pilot. While Dolphe piloting, immune to attrition < 4. While at Naboo system, your Bravo Squadron pilots at same system are forfeit +2.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER);

@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card2_154 extends AbstractStarfighter {
     public Card2_154() {
-        super(Side.DARK, 3, 2, 1, null, 2, null, 3, "TIE Vanguard");
+        super(Side.DARK, 3, 2, 1, null, 2, null, 3, "TIE Vanguard", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Reconnaissance starfighter. Often deployed first to gather detailed information on enemy starship movement before full fleet engagement.");
         setGameText("Permanent pilot provides ability of 1. You may deploy cards to same system or sector as a 'react'.");
         addIcons(Icon.A_NEW_HOPE, Icon.PILOT);

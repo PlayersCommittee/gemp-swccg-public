@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card5_176 extends AbstractStarfighter {
     public Card5_176() {
-        super(Side.DARK, 3, 1, 1, null, 3, null, 3, "Obsidian 8", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 1, null, 3, null, 3, "Obsidian 8", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Modified TIE fighter. Used most often to pursue raiders attempting to take refuge in the upper atmosphere of nearby planets. Pilot previously stationed aboard Devastator.");
         setGameText("Deploy -1 and power +3 at any cloud sector. Permanent pilot aboard provides ability of 1.");
         addIcons(Icon.CLOUD_CITY, Icon.PILOT);

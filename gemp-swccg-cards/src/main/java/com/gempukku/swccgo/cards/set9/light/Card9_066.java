@@ -5,9 +5,12 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotSeatOccupiedCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card9_066 extends AbstractStarfighter {
     public Card9_066() {
-        super(Side.LIGHT, 3, 3, 4, null, 2, 3, 4, "B-wing Bomber");
+        super(Side.LIGHT, 3, 3, 4, null, 2, 3, 4, "B-wing Bomber", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Carries weapon systems capable of taking on escort frigates and capital starships. Armed with high-powered ion cannon used to disable deflector shields.");
         setGameText("May add 1 pilot (suspends permanent pilot). Permanent pilot provides ability of 1. May fire two or more weapons during battle. Each of its ion cannon weapon destiny draws is +3.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

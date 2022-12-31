@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card9_175 extends AbstractStarfighter {
     public Card9_175() {
-        super(Side.DARK, 2, 2, 3, null, 4, null, 3, "TIE Interceptor");
+        super(Side.DARK, 2, 2, 3, null, 4, null, 3, "TIE Interceptor", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Advanced TIE design. Assigned to elite squadrons, such as the 181st. Developed with enhanced weapons and maneuverability to defeat the Incom X-wing design.");
         setGameText("Permanent pilot provides ability of 1. Power +1 when present with an X-wing. During each battle, may fire one starship weapon aboard twice.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

@@ -4,10 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtSameSystemAsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card12_093 extends AbstractStarfighter {
     public Card12_093() {
-        super(Side.LIGHT, 1, 3, 3, 4, null, 4, 6, "Republic Cruiser");
+        super(Side.LIGHT, 1, 3, 3, 4, null, 4, 6, "Republic Cruiser", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Manufactured by Corellian Engineering Corporation, this consular ship design serves the Republic for a variety of dignitary transportation and diplomatic missions.");
         setGameText("May add 1 pilot and 3 passengers. Permanent pilot provides ability of 2. Has ship-docking capability. While at same system as opponent's battleship, opponent's battle destiny draws are each -1 here.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.REPUBLIC, Icon.PILOT, Icon.NAV_COMPUTER);

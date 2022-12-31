@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card14_057 extends AbstractStarfighter {
     public Card14_057() {
-        super(Side.LIGHT, 2, 1, 2, null, 5, 3, 3, Title.Bravo_5, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, null, 5, 3, 3, Title.Bravo_5, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Ellberger's starfighter at the battle of Naboo has excellent evasion capabilities, and can remain a threat to its target for as long as possible.");
         setGameText("Deploys -1 to Naboo. May add 1 pilot. While Ellberger piloting, immune to attrition < 3. While at Naboo, opponent's battleships present are power -1.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER);

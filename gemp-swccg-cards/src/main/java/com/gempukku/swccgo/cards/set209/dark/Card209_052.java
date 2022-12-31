@@ -3,13 +3,19 @@ package com.gempukku.swccgo.cards.set209.dark;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HasAboardCondition;
-import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.List;
 
 public class Card209_052 extends AbstractStarfighter {
     public Card209_052() {
-        super(Side.DARK, 2, 2, 3, null, 4, 3, 4, "First Order Special Forces TIE", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 2, 3, null, 4, 3, 4, "First Order Special Forces TIE", Uniqueness.RESTRICTED_3, ExpansionSet.SET_9, Rarity.V);
         setLore("");
         setGameText("May add 1 pilot and 1 passenger. Matching starfighter for any First Order pilot of ability < 3. Power +1 at opponent's system. While matching pilot aboard, immune to attrition < 3.");
         addModelType(ModelType.TIE_SF);

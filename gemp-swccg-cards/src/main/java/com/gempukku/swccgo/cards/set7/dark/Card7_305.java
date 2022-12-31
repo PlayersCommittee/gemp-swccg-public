@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card7_305 extends AbstractStarfighter {
     public Card7_305() {
-        super(Side.DARK, 2, 5, 2, null, 3, null, 3, "OS-72-1 In Obsidian 1", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 2, null, 3, null, 3, "OS-72-1 In Obsidian 1", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Lead starfighter of Obsidian Squadron. Flown by Cive Rashon. Call sign 'Howlrunner.' She served in an elite TIE squadron aboard the Star Destroyer Avenger.");
         setGameText("Deploy -1 and power +3 at a cloud sector. Permanent pilot is •OS-72-1, who provides ability of 2, adds 2 to power and, at a cloud sector, may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtSameSystemAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card14_118 extends AbstractStarfighter {
     public Card14_118() {
-        super(Side.DARK, 2, 2, 2, null, 2, null, 3, "DFS-327", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, null, 2, null, 3, "DFS-327", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Droid starfighter programmed for battleship defense. Will not pursue enemy starfighters once repelled, but can disable vital systems on attacking capital starships.");
         setGameText("While at same system as your battleship, DFS-327 is power +3, and opponent's pilots deploy +2 to starfighters at this system.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.PILOT, Icon.PRESENCE);

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card205_009 extends AbstractStarfighter {
     public Card205_009() {
-        super(Side.LIGHT, 2, 5, 6, 5, null, 7, 7, "Ric In Queen's Royal Starship", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 5, 6, 5, null, 7, 7, "Ric In Queen's Royal Starship", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setLore("Chromium-plated, sleek transport ship used by the royalty of the Naboo. Spaceframe was designed around a J-type configuration.");
         setGameText("May add 1 pilot and 5 passengers. Permanent pilot is •Ric, who provides ability of 3. R2-D2 deploys -2 aboard. While We'll Need A New One on table, adds one battle destiny. Immune to attrition < 5.");
         addPersona(Persona.QUEENS_ROYAL_STARSHIP);

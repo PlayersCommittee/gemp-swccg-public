@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.InBombingRunBattleCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card9_168 extends AbstractStarfighter {
     public Card9_168() {
-        super(Side.DARK, 2, 2, 1, null, 2, null, 4, "Scimitar Squadron TIE", Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 2, 2, 1, null, 2, null, 4, "Scimitar Squadron TIE", Uniqueness.RESTRICTED_3, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Bombers typically assigned to attack secondary targets and provide cover during bombing runs. Targeting systems calibrated to track fast-moving Rebel starfighters.");
         setGameText("Permanent pilot provides ability of 2. Power +3 during a Bombing Run battle. Cumulatively adds 1 to total weapon destiny of your other TIE/sa present firing Concussion Missiles.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

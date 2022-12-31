@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractStarfighter;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card2_072 extends AbstractStarfighter {
     public Card2_072() {
-        super(Side.LIGHT, 6, 2, 3, null, 4, 5, 5, Title.Red_6, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, 2, 3, null, 4, 5, 5, Title.Red_6, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Jek Porkins' X-wing at Battle of Yavin. Instrumental in success of strafing attacks against Death Star. Skipped last inspection of computer and flight control systems.");
         setGameText("May add 1 pilot. Opponent may add 2 to destiny drawn for I've Got A Problem Here when targeting Red 6.");
         addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

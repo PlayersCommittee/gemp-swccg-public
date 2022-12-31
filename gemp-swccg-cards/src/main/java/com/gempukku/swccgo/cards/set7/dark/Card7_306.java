@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card7_306 extends AbstractStarfighter {
     public Card7_306() {
-        super(Side.DARK, 3, 4, 1, null, 3, null, 2, "OS-72-2 In Obsidian 2", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 1, null, 3, null, 2, "OS-72-2 In Obsidian 2", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Piloted by Dodson Makraven, wingman of Cive Rashon. Experienced TIE pilot with many kills in atmospheric combat. Nicknamed 'Night Beast' for his many curfew violations.");
         setGameText("Deploy -1 and power +3 at a cloud sector. Permanent pilot is •OS-72-2, who provides ability of 2, adds 2 to power and, at a cloud sector, may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);

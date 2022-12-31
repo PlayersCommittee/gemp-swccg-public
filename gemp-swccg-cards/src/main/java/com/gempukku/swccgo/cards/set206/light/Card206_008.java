@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card206_008 extends AbstractStarfighter {
     public Card206_008() {
-        super(Side.LIGHT, 2, 3, 3, null, 4, 6, 7, "The Falcon", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, null, 4, 6, 7, "The Falcon", Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setGameText("May add 2 pilots and 2 passengers. Once per game, during your move phase, may make an additional move. While [Episode VII] Chewie, [Episode VII] Han, or Rey piloting, maneuver = 6 and immune to attrition < 5.");
         addPersona(Persona.FALCON);
         addIcons(Icon.EPISODE_VII, Icon.NAV_COMPUTER, Icon.RESISTANCE, Icon.SCOMP_LINK);

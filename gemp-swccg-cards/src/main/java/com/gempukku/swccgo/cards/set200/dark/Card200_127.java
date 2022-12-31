@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +41,7 @@ import java.util.List;
  */
 public class Card200_127 extends AbstractStarfighter {
     public Card200_127() {
-        super(Side.DARK, 2, 1, 1, null, 4, null, 3, "Black 2", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 1, 1, null, 4, null, 3, "Black 2", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("TIE/ln assigned to pilot DS-61-2. Has 27 'flames' on cockpit, one for each Rebel kill. Control yoke has a holo of Mithels' young son, Rejili.");
         setGameText("May add 1 pilot. During your deploy phase, may [upload] one Pride Of The Empire. During battle, All Wings Report In and Organized Attack are canceled. While DS-61-2 piloting, immune to attrition < 5.");

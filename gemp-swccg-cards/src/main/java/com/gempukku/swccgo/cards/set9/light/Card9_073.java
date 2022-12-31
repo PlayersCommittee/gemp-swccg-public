@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card9_073 extends AbstractStarfighter {
     public Card9_073() {
-        super(Side.LIGHT, 3, 4, 3, null, 5, 4, 3, "Green Squadron A-wing", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 4, 3, null, 5, 4, 3, "Green Squadron A-wing", Uniqueness.RESTRICTED_3, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("A-wing starfighters from Green Squadron. Assigned mission of screening Rebel capital starships from enemy fighters and bombers.");
         setGameText("Deploy -1 to Sullust or same system or sector as Green Leader. Permanent pilot provides ability of 2 and adds 2 to power. Power -1 when opponent has a starfighter present with a higher maneuver.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
