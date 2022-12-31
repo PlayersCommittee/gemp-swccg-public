@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +29,7 @@ import java.util.List;
  */
 public class Card4_121 extends AbstractNormalEffect {
     public Card4_121() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Field_Promotion);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Field_Promotion, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Imperial officers are fiercely competitive, especially on the Executor. Lord Vader's flagship is a place where devious political calculation prospers. The naive are doomed to failure.");
         setGameText("Deploy on an Imperial of ability < 5 present with Vader, Emperor or one of your admirals, generals, or moffs. Imperial gains leader skill, is power +1, and is immune to Demotion, Report to Lord Vader, and What is Thy Bidding, My Master? (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

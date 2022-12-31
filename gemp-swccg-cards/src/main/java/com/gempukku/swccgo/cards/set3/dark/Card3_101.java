@@ -1,7 +1,16 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +31,7 @@ import java.util.List;
  */
 public class Card3_101 extends AbstractNormalEffect {
     public Card3_101() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Frostbite, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Frostbite, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLore("'Luke! Luke! Don't do this. C'mon, gimme a sign here.'");
         setGameText("Deploy on Hoth system. At the end of each player's turn, for every character that player has present at a marker site under 'nighttime conditions,' that player must lose 1 Force (2 if character is missing).");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

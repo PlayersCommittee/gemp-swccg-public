@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class Card4_119 extends AbstractNormalEffect {
     public Card4_119() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Corrosive Damage", Uniqueness.DIAMOND_1);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Corrosive Damage", Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("The interior or a space slug's maw is mildly acidic. Long-term exposure to this corrosive environment can cause considerable damage.");
         setGameText("Deploy on Space Slug Belly. At the end of each player's turn, for every character and starship that player has present, that player must lose 1 Force. Effect canceled if Space Slug lost.");
         addIcons(Icon.DAGOBAH);

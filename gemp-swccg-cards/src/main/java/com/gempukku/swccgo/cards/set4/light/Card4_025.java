@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card4_025 extends AbstractNormalEffect {
     public Card4_025() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Hiding In The Garbage", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Hiding In The Garbage", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Rebels often exploit loopholes in Imperial procedures to gain an advantage.");
         setGameText("Use 2 Force to deploy on your side of table. At any time, you may declare a card type. Use Force one by one, revealing each card used, until a card of that type is revealed (take it into hand) or Force Pile is depleted.");
         addIcons(Icon.DAGOBAH);

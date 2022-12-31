@@ -3,7 +3,18 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +38,7 @@ import java.util.List;
  */
 public class Card4_017 extends AbstractNormalEffect {
     public Card4_017() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Asteroid_Sanctuary, Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Asteroid_Sanctuary, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Smugglers and other criminals sometimes hide in asteroids to avoid capture. The larger the asteroid field, the more resources have to be devoted to the pursuit.");
         setGameText("Deploy on any asteroid sector you control. During each of your control phases, opponent loses X Force, where X = total number of asteroid sectors at same system that are not occupied by opponent. Effect canceled if opponent controls this location.");
         addIcons(Icon.DAGOBAH);

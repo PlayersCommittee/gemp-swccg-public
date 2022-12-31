@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.StackRandomCardsFromHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card4_039 extends AbstractNormalEffect {
     public Card4_039() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Stone_Pile, Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Stone_Pile, Uniqueness.RESTRICTED_2, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Use the Force. Yes... Now, the stone. Feel it.");
         setGameText("Use 2 Force to deploy on any Dagobah site. Randomly select two cards from opponent's hand and place them, unseen, face down beneath Stone Pile. Cards return to opponent's hand if Effect leaves table. Canceled if opponent occupies this site.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

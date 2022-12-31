@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card3_105 extends AbstractNormalEffect {
     public Card3_105() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Image Of The Dark Lord", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Image Of The Dark Lord", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Vader's hologram exacts loyalty from his legions.");
         setGameText("Use 4 Force to deploy at any site if opponent is generating at least 3 Force more than you. At that site, adjacent sites and same site as Vader, players activate Force only if they have presence.");
         addIcons(Icon.HOTH);

@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +29,7 @@ import java.util.List;
  */
 public class Card4_128 extends AbstractNormalEffect {
     public Card4_128() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Much Anger In Him", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Much Anger In Him", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Adventure, heh. Excitement, heh. A Jedi craves not these things. You are reckless.'");
         setGameText("Deploy on a Rebel. At the end of each opponent's battle phases, if you have presence at the location where that Rebel has presence and a battle did not take place there, opponent loses 4 Force.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

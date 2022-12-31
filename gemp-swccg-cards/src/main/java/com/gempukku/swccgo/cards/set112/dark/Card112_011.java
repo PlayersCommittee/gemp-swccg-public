@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set112.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.DifferentCardTitlesParticipatingInBattleCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card112_011 extends AbstractNormalEffect {
     public Card112_011() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Hutt_Influence, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Hutt_Influence, Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLore("Jabba's criminal empire extends to all reaches of the Outer Rim.");
         setGameText("Deploy on table. Opponent may not cancel or modify Force drains at each Tatooine battleground site where you have two aliens with different card titles. Also, attrition against you is reduced by 2 when two of your non-unique aliens with different card titles are in battle.");
         addIcons(Icon.PREMIUM);

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataEqualsCondition;
 import com.gempukku.swccgo.cards.conditions.PlayersTurnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card3_106 extends AbstractNormalEffect {
     public Card3_106() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Imperial Domination", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Imperial Domination", Uniqueness.RESTRICTED_2, ExpansionSet.HOTH, Rarity.U1);
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
         setGameText("Deploy on any location. Whenever you control this location during your control phase but do not Force drain here, opponent generates no Force here on opponent's next turn.");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

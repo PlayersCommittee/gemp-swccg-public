@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card4_114 extends AbstractNormalEffect {
     public Card4_114() {
-        super(Side.DARK, 3, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, Title._3720_To_1, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, Title._3720_To_1, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("What are the odds of having a Corellian, a Wookiee and a protocol droid together with an Alderaanian princess who happens to be the daughter of the Dark Lord of the Sith?");
         setGameText("'Insert' in opponent's Reserve Deck. When Effect reaches top it is lost and up to the three lowest destiny numbers of each player's characters on table are totaled. Player with lower total loses Force equal to the difference. (Immune to Alter.)");
         addIcons(Icon.DAGOBAH);

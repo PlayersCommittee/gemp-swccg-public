@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +27,7 @@ import java.util.List;
  */
 public class Card4_022 extends AbstractNormalEffect {
     public Card4_022() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Encampment", Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Encampment", Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Pirates, smugglers and Rebels operate from tiny camps which can be set up quickly and relocated at a moment's notice. A surprise visitor made Luke an unhappy camper.");
         setGameText("Use 2 Force to deploy on any exterior planet site where you have a Rebel or alien. You may deploy characters at this site, even without presence, regardless of location deployment restrictions.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

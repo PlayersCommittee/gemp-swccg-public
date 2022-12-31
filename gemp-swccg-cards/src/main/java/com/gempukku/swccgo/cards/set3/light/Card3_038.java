@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -12,7 +14,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card3_038 extends AbstractNormalEffect {
     public Card3_038() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Tauntaun Bones", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Tauntaun Bones", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("The bones of a tauntaun represent both death and life: death for the prey, life for the predator. A symbol of the ebb and flow of the Force through all things.");
         setGameText("Use 1 Force to deploy on table. Each opponent's destiny draw, you do the following: (0) Put top used card in hand. (1) lose 1 Force. (2) activate 1 Force. (3) lose this Effect. (4) retrieve top lost card. (5) deploy a character for free. (6+) nothing.");
         addIcons(Icon.HOTH);

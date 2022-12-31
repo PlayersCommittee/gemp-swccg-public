@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card4_028 extends AbstractNormalEffect {
     public Card4_028() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "No Disintegrations!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "No Disintegrations!", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'There will be a substantial reward for the one who finds the Millennium Falcon. You are free to use any methods necessary, but I want them alive.'");
         setGameText("Use 2 Force to deploy on your side of table. If a Rebel of ability > 2 is lost (not captured) during a battle involving an opponent's bounty hunter, opponent loses 3 Force. If Vader on table, one bounty hunter involved in that battle (your choice) is also lost.");
         addIcons(Icon.DAGOBAH);

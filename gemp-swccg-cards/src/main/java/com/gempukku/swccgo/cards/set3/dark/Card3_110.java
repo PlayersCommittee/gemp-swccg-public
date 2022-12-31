@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card3_110 extends AbstractNormalEffect {
     public Card3_110() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Silence_Is_Golden);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Silence_Is_Golden, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U2);
         setLore("'Excuse me, sir, might I in--'");
         setGameText("Use 2 Force to deploy on your side of table. Neither player may move or deploy cards as a 'react' to a location where a droid is present. May be canceled by Scomp Link Access.");
         addIcons(Icon.HOTH);

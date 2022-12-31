@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card4_132 extends AbstractNormalEffect {
     public Card4_132() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Sudden Impact");
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Sudden Impact", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("An asteroid looming in one's path can force a quick decision. One must choose, but choose wisely. This pilot chose poorly.");
         setGameText("Deploy on any Effect or Utinni Effect (except those immune to Alter). During each of owner's draw phases, if you occupy an asteroid sector, owner must choose to either lose 1 Force or voluntarily cancel that Effect or Utinni Effect. (Immune to Alter.)");
         addIcons(Icon.DAGOBAH);

@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card4_027 extends AbstractNormalEffect {
     public Card4_027() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, Title.Never_Tell_Me_The_Odds, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, Title.Never_Tell_Me_The_Odds, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("'You said you wanted to be around when I made a mistake, well, this could be it, sweetheart.'");
         setGameText("'Insert' in opponent's Reserve Deck. When Effect reaches top it is lost and up to the three lowest destiny numbers of each player's characters on table are totaled. Player with lower total loses Force equal to the difference. (Immune to Alter.)");
         addIcons(Icon.DAGOBAH);

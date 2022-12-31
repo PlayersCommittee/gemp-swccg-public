@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set112.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card112_010 extends AbstractNormalEffect {
     public Card112_010() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Underworld_Contacts, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Underworld_Contacts, Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLore("Influence, like any commodity, has a price in the Outer Rim territories.");
         setGameText("Deploy on a Tatooine site. Your Force generation here is +1. Opponent may not cancel or modify Force drains at each Tatooine battleground site where you have two aliens with different card titles. At any time, you may use 2 Force to raise your converted Tatooine site to top.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

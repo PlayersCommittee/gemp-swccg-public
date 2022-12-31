@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +32,7 @@ import java.util.List;
  */
 public class Card3_100 extends AbstractNormalEffect {
     public Card3_100() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Squadron, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Squadron, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("'Make ready to land our troops beyond their energy field and deploy the fleet so that nothing gets off the system.'");
         setGameText("Deploy on any system. Adds X to total power of your starships at that system, where X = number of your starships present. Your troopers and combat vehicles may shuttle to related sites for free.");
         addIcons(Icon.HOTH);

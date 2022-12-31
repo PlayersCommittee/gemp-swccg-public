@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +19,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateAttacksAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayInitiateBattleAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotInitiateAttacksAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotInitiateBattleAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,7 +38,7 @@ import java.util.List;
  */
 public class Card4_043 extends AbstractNormalEffect {
     public Card4_043() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Yoda's Gimer Stick", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Yoda's Gimer Stick", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("A symbol of the Jedi Master and his ancient wisdom. Speak softly you may but a big stick you must carry, yes.");
         setGameText("Deploy on Yoda. You may initiate battles and attacks where present. OR Use 2 Force to deploy on one of your characters of ability > 3. Immune to attrition. Where present, no battles or attacks may be initiated unless an opponent's character of ability > 3 present.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

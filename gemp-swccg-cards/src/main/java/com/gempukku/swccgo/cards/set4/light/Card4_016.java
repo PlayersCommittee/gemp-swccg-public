@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card4_016 extends AbstractNormalEffect {
     public Card4_016() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, Title.Anger_Fear_Aggression, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.OPPONENTS_RESERVE_DECK, Title.Anger_Fear_Aggression, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("'The dark side of the Force are they. Easily they flow, quick to join you in a fight.'");
         setGameText("'Insert' in opponent's Reserve Deck. When Effect reaches top it is lost, but opponent must initiate a battle by the end of opponent's next battle phase or lose 4 Force. (Immune to Alter.)");
         addIcons(Icon.DAGOBAH);

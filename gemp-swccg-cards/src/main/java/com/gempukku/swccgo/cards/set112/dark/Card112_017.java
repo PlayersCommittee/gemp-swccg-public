@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set112.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card112_017 extends AbstractNormalEffect {
     public Card112_017() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Power Of The Hutt", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Power Of The Hutt", Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLore("Jabba runs his organization out of a palace built around a B'omarr monastery. His fortress near the border of the western Dune Sea is safe from enemies in Mos Eisley.");
         setGameText("Deploy on table. Once during each of your turns, may deploy one Boelo, Bib, Ephant Mon, Jabba's Sail Barge, Jabba's Space Cruiser, or Hutt Influence from Reserve Deck; reshuffle. Also, your aliens aboard Jabba's Sail Barge are immune to attrition < 6. (Immune to Alter.)");
         addIcons(Icon.PREMIUM);

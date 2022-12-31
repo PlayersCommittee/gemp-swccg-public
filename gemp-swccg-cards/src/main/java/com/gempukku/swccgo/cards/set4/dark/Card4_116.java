@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -19,7 +25,7 @@ import java.util.List;
  */
 public class Card4_116 extends AbstractNormalEffect {
     public Card4_116() {
-        super(Side.DARK, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Bad_Feeling_Have_I, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Bad_Feeling_Have_I, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Ready are you? What know you of ready?'");
         setGameText("Deploy on opponent's side of table. Luke, Leia, Han, Chewie, Lando, Yoda, and Obi-Wan are deploy +2. Also, opponent may not play any cards with the words 'bad feeling' in the title.");
         addIcons(Icon.DAGOBAH);
