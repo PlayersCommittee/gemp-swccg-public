@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.DrawsNoMoreThanBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card9_054 extends AbstractUsedInterrupt {
     public Card9_054() {
-        super(Side.LIGHT, 4, "Rebel Leadership", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Rebel Leadership", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("In times of greatest need, the Rebellion relies on the brilliant leadership provided by commanders fighting for freedom.");
         setGameText("Each of your admirals and generals is forfeit +1 for remainder of turn. OR If your admiral is in battle at a system (or your general, except Obi-Wan, is in battle at a site), you may either add one battle destiny or prevent opponent from drawing more than one battle destiny.");
         addIcons(Icon.DEATH_STAR_II);

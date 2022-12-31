@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.DrawsNoMoreThanBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card9_137 extends AbstractUsedInterrupt {
     public Card9_137() {
-        super(Side.DARK, 4, Title.Imperial_Command, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Imperial_Command, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("The Emperor's high command is subjected to close scrutiny by the Imperial bureaucracy. Despite this apparent lack of trust, many turn out to be fine commanders.");
         setGameText("Take one admiral or general into hand from Reserve Deck; reshuffle. OR If your admiral is in battle at a system (or your general is in battle at a site), you may either add one battle destiny or prevent opponent from drawing more than one battle destiny.");
         addIcons(Icon.DEATH_STAR_II);

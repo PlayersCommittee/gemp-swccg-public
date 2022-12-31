@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card1_089 extends AbstractUsedInterrupt {
     public Card1_089() {
-        super(Side.LIGHT, 6, Title.Into_The_Garbage_Chute_Flyboy);
+        super(Side.LIGHT, 6, Title.Into_The_Garbage_Chute_Flyboy, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
         setLore("Leia led an unorthodox escape into a 'garbage masher' on the detention level. 'What an incredible smell you've discovered!'");
         setGameText("If Trash Compactor is on table, cancel any battle just initiated at another Death Star site by moving (for free) all your characters involved to the Trash Compactor.");
     }

@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_115 extends AbstractUsedInterrupt {
     public Card1_115() {
-        super(Side.LIGHT, 5, Title.Bith_Shuffle);
+        super(Side.LIGHT, 5, Title.Bith_Shuffle, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Figrin D'an and the Modal Nodes play at the Cantina with a distinctive rocking motion. When Luke arrived, they were playing one of their favorite songs, 'Mad About Me.'");
         setGameText("Shuffle any player's Reserve Deck or Lost Pile or Used Pile.");
     }

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card2_059 extends AbstractUsedInterrupt {
     public Card2_059() {
-        super(Side.LIGHT, 3, Title.Youre_All_Clear_Kid, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Youre_All_Clear_Kid, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("'Now let's blow this thing and go home!'");
         setGameText("Cancel I'm On The Leader. (Immune to Sense.)  OR  Use 1 Force during an Attack Run.  Move one TIE in Death Star: Trench (your choice) to Death Star system for free.  Add 1 to total of Attack Run if lead starfighter has matching pilot aboard.");
         addIcons(Icon.A_NEW_HOPE);

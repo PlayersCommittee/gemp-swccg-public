@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealUsedPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card1_273 extends AbstractUsedInterrupt {
     public Card1_273() {
-        super(Side.DARK, 5, "Trinto Duaba");
+        super(Side.DARK, 5, "Trinto Duaba", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("A Stennes Shifter, a near-human race. Have ability to blend unnoticed into crowds. Trinto profits from turning lawbreakers over to Imperial authorities.");
         setGameText("If there are cards in the opponent's Used Pile during your battle phase, draw one destiny. All cards there with the same destiny number are lost.");
     }

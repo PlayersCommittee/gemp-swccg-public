@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_118 extends AbstractUsedInterrupt {
     public Card1_118() {
-        super(Side.LIGHT, 4, Title.Utinni);
+        super(Side.LIGHT, 4, Title.Utinni, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Jawa trade language word for 'Come here!' Jawas work communally and scavenge for equipment.");
         setGameText("If one of your Jawas is at the same location as any Utinni Effect, 'steal' that Utinni Effect into your hand, to use or lose as your own. OR Cancel any Interrupt or Effect with 'Jawa' in the card name.");
     }

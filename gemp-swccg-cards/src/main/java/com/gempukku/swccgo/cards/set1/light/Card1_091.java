@@ -2,7 +2,10 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card1_091 extends AbstractUsedInterrupt {
     public Card1_091() {
-        super(Side.LIGHT, 4, "I've Got A Bad Feeling About This");
+        super(Side.LIGHT, 4, "I've Got A Bad Feeling About This", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Han's smuggling adventures in Corporate Sector and Hutt Space put him in many tight scrapes. He's about to be in another.");
         setGameText("If you just initiated a battle at a location where you have less power than the opponent, double opponent's battle damage if you win the battle (if Han is present at the battle location, triple opponent's battle damage).");
     }

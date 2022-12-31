@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card2_141 extends AbstractUsedInterrupt {
     public Card2_141() {
-        super(Side.DARK, 6, Title.This_Is_Some_Rescue);
+        super(Side.DARK, 6, Title.This_Is_Some_Rescue, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("'When you came in here, didn't you have a plan for getting out?'");
         setGameText("Cancel I'm Here To Rescue You, Plastoid Armor, Out Of Commission, Alternatives To Fighting, Cell 2187 or Ewok Rescue.");
         addIcons(Icon.A_NEW_HOPE);

@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_235 extends AbstractUsedInterrupt {
     public Card1_235() {
-        super(Side.DARK, 5, Title.Boring_Conversation_Anyway);
+        super(Side.DARK, 5, Title.Boring_Conversation_Anyway, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("'Uh...had a slight weapons malfunction. But, uh, everything's perfectly all right now. We're fine. We're all fine here, now, thank you. How are you?'");
         setGameText("Cancel either: Report To Lord Vader, Scomp Link Access, Rebel Planners, Rebel Reinforcements, Gift of the Mentor, Panic, Don't Get Cocky, Skywalkers, Demotion, Combined Attack or Surprise Assault.");
     }

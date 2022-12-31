@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_088 extends AbstractUsedInterrupt {
     public Card1_088() {
-        super(Side.LIGHT, 5, Title.Hyper_Escape);
+        super(Side.LIGHT, 5, Title.Hyper_Escape, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("'We'll be safe enough once we make the jump to hyperspace.' A starship in hyperspace cannot be tracked unless a homing beacon has been hidden aboard.");
         setGameText("If a battle was just initiated at any system or sector, move all your starships and vehicles there away.");
     }

@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card9_050 extends AbstractUsedInterrupt {
     public Card9_050() {
-        super(Side.LIGHT, 5, "Head Back To The Surface", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Head Back To The Surface", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("'And see if you can get a few of those TIE fighters to follow you.'");
         setGameText("If your piloted unique (•) starfighter is present with opponent's piloted starfighter during your move phase at a non-cloud sector, relocate both to related system. OR Target your starfighter in battle. During this battle, your other starships may not be targeted by weapons.");
         addIcons(Icon.DEATH_STAR_II);

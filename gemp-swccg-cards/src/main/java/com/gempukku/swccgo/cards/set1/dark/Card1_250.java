@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_250 extends AbstractUsedInterrupt {
     public Card1_250() {
-        super(Side.DARK, 4, Title.Imperial_Code_Cylinder);
+        super(Side.DARK, 4, Title.Imperial_Code_Cylinder, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Imperial officers are issued coded cylinders which access computer information via Scomp links. Each cylinder is coded to the officer's own security clearance.");
         setGameText("If any Imperial leader is present with a Scomp link, you may: Glance at the cards in any Reserve Deck for 20 seconds. Shuffle, cut and replace. OR If also at a Death Star site, cancel Scomp Link Access or Into The Garbage Chute, Flyboy.");
     }

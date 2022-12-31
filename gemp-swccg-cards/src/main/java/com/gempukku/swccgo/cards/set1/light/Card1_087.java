@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card1_087 extends AbstractUsedInterrupt {
     public Card1_087() {
-        super(Side.LIGHT, 4, Title.How_Did_We_Get_Into_This_Mess);
+        super(Side.LIGHT, 4, Title.How_Did_We_Get_Into_This_Mess, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Stranded in the Dune Sea, R2-D2 insisted on heading into rocky canyons where he thought settlements were likely to exist. Threepio had other ideas.");
         setGameText("If one of your droids is at the Dune Sea or where there is a Scomp link, use 1 Force to discard your entire hand to your Used Pile. Draw the same number of cards from your Reserve Deck. Draw one extra card if droid is C-3PO or R2-D2.");
     }

@@ -3,8 +3,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card1_262 extends AbstractUsedInterrupt {
     public Card1_262() {
-        super(Side.DARK, 5, Title.Ommni_Box);
+        super(Side.DARK, 5, Title.Ommni_Box, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Difficult-to-play instrument which enhances music. Tech Mo'r plays one for Figrin D'an and the Modal Nodes in the Mos Eisley Cantina.");
         setGameText("Shuffle any player's Reserve Deck or Lost Pile or Used Pile.");
     }

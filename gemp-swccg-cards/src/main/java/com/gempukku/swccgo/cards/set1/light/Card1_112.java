@@ -2,6 +2,8 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -11,7 +13,11 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card1_112 extends AbstractUsedInterrupt {
     public Card1_112() {
-        super(Side.LIGHT, 6, Title.Spaceport_Speeders, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 6, Title.Spaceport_Speeders, Uniqueness.RESTRICTED_3, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Spaceport Speeders buys, trades and sells floaters. Wioslea is known as a shrewd bargainer. Luke got 2,000 credits for his X-24 speeder.");
         setGameText("Sell one of your vehicles or droids at Mos Eisley or same site as Wioslea. Draw two destiny (three destiny if vehicle is Luke's X-34 Landspeeder). The total is the 'offer,' which you must accept. Activate that much Force; then vehicle or droid is lost.");
     }

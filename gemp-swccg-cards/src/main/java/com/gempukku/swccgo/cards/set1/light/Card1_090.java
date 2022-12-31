@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card1_090 extends AbstractUsedInterrupt {
     public Card1_090() {
-        super(Side.LIGHT, 4, Title.It_Could_Be_Worse);
+        super(Side.LIGHT, 4, Title.It_Could_Be_Worse, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("After escaping Detention Block AA-23. Rebels found themselves in the trash compactor. Leia pointed out, 'It could be worse.' It soon was.");
         setGameText("If you must lose Force for any reason, reduce the loss by X amount by using X Force.");
     }

@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.effects.CancelTargetingEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +19,11 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeChokedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeStolenModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeCapturedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeHitModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeLostModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card1_078 extends AbstractUsedInterrupt {
     public Card1_078() {
-        super(Side.LIGHT, 6, Title.Droid_Shutdown);
+        super(Side.LIGHT, 6, Title.Droid_Shutdown, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("If low on energy and unable to recharge, a droid can shutdown active systems to conserve power.");
         setGameText("Cancel an attempt by opponent to target your droid to be stolen, 'hit,' lost or captured. Droid is protected from all such attempts for remainder of turn.");
     }

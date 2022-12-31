@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card1_241 extends AbstractUsedInterrupt {
     public Card1_241() {
-        super(Side.DARK, 6, Title.Dark_Maneuvers);
+        super(Side.DARK, 6, Title.Dark_Maneuvers, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Imperial TIE fighters, while easily damaged, are very fast and agile. Sophisticated tactics are executed to take advantage of Rebel X-wing and Y-wing weaknesses.");
         setGameText("Add 2 to maneuver and 1 to power of any starfighter for the remainder of this turn. If it has hyperdrive, also add 2 to hyperspeed. (Interrupt may even affect the result immediately after a destiny draw targeting the starfighter's maneuver.)");
     }

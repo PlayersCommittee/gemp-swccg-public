@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card1_105 extends AbstractUsedInterrupt {
     public Card1_105() {
-        super(Side.LIGHT, 4, Title.Rebel_Barrier);
+        super(Side.LIGHT, 4, Title.Rebel_Barrier, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("While being chased through the Death Star, Luke and Leia disabled the blast doors behind them in order to slow down pursuing stormtroopers.");
         setGameText("Use 1 Force to prevent any character or starship just deployed by the opponent from battling or moving for the remainder of this turn.");
     }

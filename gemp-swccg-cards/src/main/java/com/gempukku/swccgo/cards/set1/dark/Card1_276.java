@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card1_276 extends AbstractUsedInterrupt {
     public Card1_276() {
-        super(Side.DARK, 4, Title.Utinni);
+        super(Side.DARK, 4, Title.Utinni, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("The Jawa who shot R2-D2 with an ionization gun called to his companions, 'Utinni!', the Jawa word for 'come here!'");
         setGameText("If one of your Jawas is at the same location as any Utinni Effect, 'steal' that Utinni Effect into your hand, to use or lose as your own. OR Cancel any Interrupt or Effect with 'Jawa' in the card name.");
     }

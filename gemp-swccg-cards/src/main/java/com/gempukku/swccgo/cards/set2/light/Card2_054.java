@@ -2,17 +2,30 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceRandomCardOutOfPlayFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.ReleaseCapturedStarshipEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.lang.annotation.Target;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -27,7 +40,7 @@ import java.util.List;
  */
 public class Card2_054 extends AbstractUsedInterrupt {
     public Card2_054() {
-        super(Side.LIGHT, 5, Title.Out_Of_Commission);
+        super(Side.LIGHT, 5, Title.Out_Of_Commission, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("'I hope that old man got the tractor beam out of commission or this is gonna be a real short trip.'");
         setGameText("During your control phase, use 2 Force to release a starship held by any Tractor Beam. (Not effective on Death Star Tractor Beam if Central Core in play.) OR Randomly select one card from opponent's Lost Pile or Blaster Rack and place out of play.");
         addIcons(Icon.A_NEW_HOPE);
