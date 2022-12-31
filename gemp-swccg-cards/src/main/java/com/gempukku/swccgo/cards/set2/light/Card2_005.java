@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card2_005 extends AbstractRebel {
     public Card2_005() {
-        super(Side.LIGHT, 2, 3, 2, 2, 4, "Commander Vanden Willard", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 4, "Commander Vanden Willard", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Leader of Rebel forces on Yavin 4. Formerly Suolriep sector HQ commander. As a Rebel spy, aided Princess Leia and Bail Organa in the years prior to the Senate's dissolution.");
         setGameText("When at a war room you control, adds 1 to power of each Rebel starship at the related system. May use 1 Force to cancel Astromech Shortage.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card2_017 extends AbstractRebel {
     public Card2_017() {
-        super(Side.LIGHT, 2, 3, 1, 2, 2, "Rebel Commander");
+        super(Side.LIGHT, 2, 3, 1, 2, 2, "Rebel Commander", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Commander Bob Hudsol. Typical of hard-line Corellian officers known for caution in battle. Leader of resistance in Bothan space. Developed strong ties to Bothan spynet.");
         setGameText("Adds 1 to forfeit of each of your other Rebels (except leaders) at same site. Bothan spies deploy free to same location.");
         addIcons(Icon.A_NEW_HOPE);

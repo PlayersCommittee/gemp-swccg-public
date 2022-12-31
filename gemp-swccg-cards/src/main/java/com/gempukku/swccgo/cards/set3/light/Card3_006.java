@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +27,7 @@ import java.util.List;
  */
 public class Card3_006 extends AbstractRebel {
     public Card3_006() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Echo Base Trooper");
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Echo Base Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C3);
         setLore("The personnel assigned to protect Echo Base are veteran warriors. Troopers such as Jess Allashane are trained to counter Imperial tactics in cold environment.");
         setGameText("Deploy only on Hoth, but may move elsewhere. Power -1 when at a site other than a Hoth site.");
         addIcons(Icon.HOTH, Icon.WARRIOR);

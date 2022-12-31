@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card1_013 extends AbstractRebel {
     public Card1_013() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Jek, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Jek, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Piloted Red 6 at Battle of Yavin. Specializes in strafing runs. Served in Tierfon Yellow Aces squadron at Tierfon Rebel Outpost. Free trader from Bestine system.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Red 6, also adds 1 to maneuver and draws one battle destiny if not able to otherwise.");
         addIcons(Icon.PILOT, Icon.WARRIOR);

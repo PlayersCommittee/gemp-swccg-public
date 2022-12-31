@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card3_013 extends AbstractRebel {
     public Card3_013() {
-        super(Side.LIGHT, 2, 2, 2, 2, 5, Title.Derlin, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 5, Title.Derlin, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Hero of Nentan. Supervised construction of Echo Base on Hoth. Head of base security. At the Mos Eisley Cantina, everyone knows his name.");
         setGameText("While on Hoth, opponent may not 'react' to any Echo site, and Derlin may use 1 Force to cancel Breached Defenses. While at Cantina, power +1 and may use 1 Force to cancel Local Trouble.");
         addIcons(Icon.HOTH, Icon.WARRIOR);

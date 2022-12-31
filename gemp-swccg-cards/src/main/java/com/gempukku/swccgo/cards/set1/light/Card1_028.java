@@ -1,10 +1,13 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_028 extends AbstractRebel {
     public Card1_028() {
-        super(Side.LIGHT, 1, 1, 1, 1, 2, "Rebel Trooper");
+        super(Side.LIGHT, 1, 1, 1, 1, 2, "Rebel Trooper", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C3);
         setLore("Corellian Corvette trooper Ensign Chad Hilse, an Alderaanian, typifies the loyal Rebel volunteers dedicated to defeating the Empire. Trained in starship and ground combat.");
         setGameText("Deploys free to same site as one of your Rebels with ability > 2.");
         addIcons(Icon.WARRIOR);

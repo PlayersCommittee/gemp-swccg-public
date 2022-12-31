@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card3_007 extends AbstractRebel {
     public Card3_007() {
-        super(Side.LIGHT, 2, 3, 2, 2, 3, "Echo Base Trooper Officer", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 3, 2, 2, 3, "Echo Base Trooper Officer", Uniqueness.RESTRICTED_3, ExpansionSet.HOTH, Rarity.C1);
         setLore("Like many Rebel specialists, Trey Callum defected from the Imperial officer corps. Trooper officers are masters at stretching the meager resources of the Rebellion.");
         setGameText("Deploy only on Hoth but may move elsewhere. Echo Base Troopers deploy -1 to same site. Your troopers may move to same Hoth site as a 'react.'");
         addIcons(Icon.HOTH, Icon.WARRIOR);

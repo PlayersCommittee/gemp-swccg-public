@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtSameLocationAsCondition;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card3_005 extends AbstractRebel {
     public Card3_005() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Hobbie, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Hobbie, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("Defected from the Empire with Biggs Darklighter. Aided in mutiny aboard the transport Rand Ecliptic. Served in the Ecliptic Evaders. Luke's wingman at the Battle of Hoth.");
         setGameText("Power +2 when at same site as Biggs. Adds 2 to power of anything he pilots (3 if a Star Destroyer is at same location). When piloting Rogue 4, also adds 2 to maneuver.");
         addIcons(Icon.HOTH, Icon.PILOT, Icon.WARRIOR);

@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card3_004 extends AbstractRebel {
     public Card3_004() {
-        super(Side.LIGHT, 2, 2, 2, 2, 5, "Dack Ralter", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 5, "Dack Ralter", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Born in an Imperial labor camp on Kalist 6. Joined the Rebellion after his escape. Young student of Commander Skywalker. Experienced crackshot gunner.");
         setGameText("Adds 1 to weapon destiny draws of anything he is aboard as a passenger (adds 3 if aboard Rogue 1 or with Luke).");
         addIcons(Icon.HOTH, Icon.WARRIOR);

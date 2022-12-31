@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card3_025 extends AbstractRebel {
     public Card3_025() {
-        super(Side.LIGHT, 2, 2, 2, 2, 5, "Wes Janson", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 5, "Wes Janson", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Served for many years as a gunner with friend Jek Porkins in the Tierfon Yellow Aces. Expert marksmanship helped the Alliance earn some of its earliest victories.");
         setGameText("Adds 1 to weapon destiny draws of anything he is aboard as a passenger (adds 3 if aboard Rogue 3 or with Wedge or Jek).");
         addIcons(Icon.HOTH, Icon.WARRIOR);

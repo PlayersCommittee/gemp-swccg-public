@@ -1,8 +1,11 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class Card1_027 extends AbstractRebel {
     public Card1_027() {
-        super(Side.LIGHT, 3, 2, 0, 2, 2, "Rebel Pilot");
+        super(Side.LIGHT, 3, 2, 0, 2, 2, "Rebel Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Lt. Wenton Chan, from Corulag, is typical of the new pilots who volunteer for dangerous duty in the Rebellion. Few have Academy training. Most learn piloting on skyhoppers.");
         setGameText("Adds 2 to power of anything he pilots.");
         addIcons(Icon.PILOT);

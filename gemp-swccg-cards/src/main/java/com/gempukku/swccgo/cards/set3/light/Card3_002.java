@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card3_002 extends AbstractRebel {
     public Card3_002() {
-        super(Side.LIGHT, 2, 2, 2, 1, 3, "Cal Alder", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 1, 3, "Cal Alder", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("An expert Scout originally from Kai'Shebbol in the Kathol sector. Served with Bren Derlin for many years. Patrols the outer perimeter of Echo Base.");
         setGameText("Power +1 at Defensive Perimeter. Your vehicles move for free if moving toward same site as Cal.");
         addPersona(Persona.CAL);

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card1_011 extends AbstractRebel {
     public Card1_011() {
-        super(Side.LIGHT, 1, 3, 3, 3, 6, "Han Solo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 6, "Han Solo", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Smuggler, gambler and 'freelance law-bender.' Crafty Corellian pirate. Rebel hero. Owns Millennium Falcon. Co-pilot Chewbacca promised him 'life-debt.' Has bounty on head.");
         setGameText("Once during battle, may use 1 Force to cancel and re-draw your just drawn destiny. Adds 2 to power of anything he pilots. When piloting Falcon, also adds 2 to maneuver and may draw one battle destiny if not able to otherwise.");
         addPersona(Persona.HAN);

@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card1_022 extends AbstractRebel {
     public Card1_022() {
-        super(Side.LIGHT, 2, 2, 1, 3, 4, Title.Owen_Lars, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 3, 4, Title.Owen_Lars, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Guardian of Luke Skywalker. Husband of Beru Lars. Brother of Obi-Wan Kenobi. Farmer of moisture. Disapprover of Luke's desire to leave Tatooine.");
         setGameText("Deploys free at Lars' Moisture Farm. Power +2 if at same site as Beru Lars or a Vaporator. If lost from table during opponent's turn, Luke is power +3 until the end of your next turn.");
     }

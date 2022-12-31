@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +38,7 @@ import java.util.List;
  */
 public class Card1_010 extends AbstractRebel {
     public Card1_010() {
-        super(Side.LIGHT, 2, 3, 2, 2, 5, Title.General_Dodonna, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 5, Title.General_Dodonna, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Skilled tactician and natural leader. Planned attack on Death Star after analyzing technical readouts provided by Princess Leia. Star Destroyer captain during Old Republic.");
         setGameText("Increases Rebel Planners by 1, doubles if at same site. May use 1 Force to cancel Wrong Turn. Each Rebel present with him at a Yavin 4 site is power +1.");
         addIcons(Icon.WARRIOR);

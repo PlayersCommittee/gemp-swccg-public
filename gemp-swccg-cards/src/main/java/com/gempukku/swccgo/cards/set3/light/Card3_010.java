@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card3_010 extends AbstractRebel {
     public Card3_010() {
-        super(Side.LIGHT, 1, 3, 2, 2, 5, "General Carlist Rieekan", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 2, 2, 5, "General Carlist Rieekan", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("One of the original founders of the Rebel Alliance. Former civilian strategist with the House of Organa. Somber leader of Echo Base.");
         setGameText("Each Rebel present with him at a Hoth site is power +1. May use 1 Force to cancel Death Squadron. While at an Echo site, opponent must occupy an additional Hoth site to cancel Echo Base Operations.");
         addIcons(Icon.HOTH, Icon.WARRIOR);

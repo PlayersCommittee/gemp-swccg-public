@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +23,10 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.BattleInitiatedResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -27,7 +37,7 @@ import java.util.*;
  */
 public class Card3_019 extends AbstractRebel {
     public Card3_019() {
-        super(Side.LIGHT, 3, 3, 1, 2, 4, "Shawn Valdez", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 1, 2, 4, "Shawn Valdez", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("Experienced evacuation officer. Charismatic leader of Echo Base troopers. Trained to expedite the evacuation of Rebel installations with maximum efficiency. Poetic musician.");
         setGameText("Whenever you just initiated a battle at same site as Shawn, your troopers at adjacent sites who have not already battled this turn may immediately move to same site (as a regular move).");
         addIcons(Icon.HOTH, Icon.WARRIOR);

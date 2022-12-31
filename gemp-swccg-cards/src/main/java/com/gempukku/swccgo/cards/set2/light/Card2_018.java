@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card2_018 extends AbstractRebel {
     public Card2_018() {
-        super(Side.LIGHT, 1, 2, 1, 1, 3, "Rebel Squad Leader");
+        super(Side.LIGHT, 1, 2, 1, 1, 3, "Rebel Squad Leader", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C3);
         setLore("Lt. Pello Scrambas is a typical veteran officer in the Rebel forces. Loyally served the Organa family for nearly two decades as a guard for the Royal House of Alderaan.");
         setGameText("Adds 1 to forfeit of your other troopers and Rebel Guards at same site. When moving with a 'squad' of exactly three other troopers and/or Rebel Guards, all four move for 1 Force. Rebel Guards at same site may move.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);

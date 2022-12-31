@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card2_019 extends AbstractRebel {
     public Card2_019() {
-        super(Side.LIGHT, 2, 2, 1, 1, 3, Title.Rebel_Tech, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 2, 1, 1, 3, Title.Rebel_Tech, Uniqueness.RESTRICTED_3, ExpansionSet.A_NEW_HOPE, Rarity.C1);
         setLore("Del Goren, typical expert in communications and scanner jamming, served aboard the Rebel privateer corvette Spiral before joining the Alliance High Council.");
         setGameText("When at your war room: Cumulatively adds 1 to total of Attack Run. OR Once during each of your control phases, may send this tech to your Used Pile and take Death Star: Trench into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.A_NEW_HOPE);

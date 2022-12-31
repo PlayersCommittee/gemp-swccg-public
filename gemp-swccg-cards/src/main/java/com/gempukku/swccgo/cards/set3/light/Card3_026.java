@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtRandomCardsInOpponentsHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card3_026 extends AbstractRebel {
     public Card3_026() {
-        super(Side.LIGHT, 2, 2, 1, 2, 3, "Wyron Serper", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 2, 3, "Wyron Serper", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("Rebel spy. Served undercover as a sensor specialist aboard the Star Destroyer Avenger. Assigned to scan for Imperial ships through the meteor activity of the Hoth system.");
         setGameText("Once during each of your control phases, may peek at X cards randomly selected from opponent's hand, where X = number of [Dark Side Force] icons at same site. Also, when you are drawing destiny, adds 2 to the destiny of any card with 'scan' in the title.");
         addIcons(Icon.HOTH);

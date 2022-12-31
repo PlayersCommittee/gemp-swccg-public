@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card3_020 extends AbstractRebel {
     public Card3_020() {
-        super(Side.LIGHT, 2, 2, 1, 2, 3, "Tamizander Rey", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 2, 3, "Tamizander Rey", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("A native of Esseles. Resigned from Esselian defense force after the Imperial Senate was disbanded. Senior deck officer of Echo Base responsible for docking bay operations.");
         setGameText("Adds 2 to power of anything he pilots. Your starships may move from same exterior site for free. While at Echo Docking Bay, once every turn, may allow one character on Hoth to be immune to The Shield Doors Must Be Closed.");
         addIcons(Icon.HOTH, Icon.PILOT);

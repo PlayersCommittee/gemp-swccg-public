@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card3_011 extends AbstractRebel {
     public Card3_011() {
-        super(Side.LIGHT, 2, 2, 1, 2, 4, "Jeroen Webb", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 2, 4, "Jeroen Webb", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("Native of Ralltiir. Spy for Ralltiir's underground network after his homeworld was subjugated.");
         setGameText("Adds 2 to power of anything he pilots. When in battle with a Rebel leader, subtracts 1 from opponent's total battle destiny.");
         addIcons(Icon.HOTH, Icon.PILOT);
