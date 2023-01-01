@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set203.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card203_006 extends AbstractRebel {
     public Card203_006() {
-        super(Side.LIGHT, 2, 4, 4, 5, 6, Title.Kanan, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 5, 6, Title.Kanan, Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLore("Padawan");
         setGameText("[Pilot] 1. While present with an Imperial (or two Rebels), all immunity to attrition here is canceled.");
         addPersona(Persona.KANAN);

@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card206_003 extends AbstractRebel {
     public Card206_003() {
-        super(Side.LIGHT, 2, 4, 4, 2, 5, Title.Captain_Cassian_Andor, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 2, 5, Title.Captain_Cassian_Andor, Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setLore("Information broker and spy.");
         setGameText("Deploys -1 if a Rebel leader on table. Once per game, may place a character in your Lost Pile out of play to cancel a just drawn weapon or battle destiny here. If just lost, may activate 1 Force. While at opponent's location, immune to attrition < 4.");
         addPersona(Persona.CASSIAN);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,11 +19,16 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.SwitchBattleDestinyNumbersEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToDrawDestinyCardResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +41,7 @@ import java.util.List;
  */
 public class Card209_004 extends AbstractRebel {
     public Card209_004() {
-        super(Side.LIGHT, 3, 3, 3 , 3, 4, "Galen Erso", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3 , 3, 4, "Galen Erso", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Information broker, leader, and spy.");
         setGameText("Once per game, may place a non-[Immune to Alter] Effect in owner’s Used Pile. If both players just drew one battle destiny here, may use 2 Force (free if with an Imperial) to switch numbers. Opponent must first lose 2 Force to fire a superlaser.");
         addIcons(Icon.VIRTUAL_SET_9);

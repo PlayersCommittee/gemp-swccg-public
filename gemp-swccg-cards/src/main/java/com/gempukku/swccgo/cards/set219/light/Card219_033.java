@@ -3,13 +3,25 @@ package com.gempukku.swccgo.cards.set219.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RetrieveCardIntoHandEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,7 +35,7 @@ import java.util.List;
  */
 public class Card219_033 extends AbstractRebel {
     public Card219_033() {
-        super(Side.LIGHT, 2, 5, 4, 5, 6, "Ezra, Hero Of Phoenix Squadron", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 5, 4, 5, 6, "Ezra, Hero Of Phoenix Squadron", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLore("Commander. Leader. Padawan");
         setGameText("Other Phoenix Squadron characters here are forfeit and defense value +2. " +
                     "Once per game, may retrieve a Phoenix Squadron character into hand. " +

@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card214_017 extends AbstractRebel {
     public Card214_017() {
-        super(Side.LIGHT, 2, 2, 2, 2, 3, "Corporal Pao", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 3, "Corporal Pao", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("Drabatan trooper.");
         setGameText("Power +1 while with Melshi or Sefla. During battle, may add X (limit 3) to a just drawn battle destiny, where X = number of your spies out of play. If just lost from a site, may draw cards from Reserve Deck until you have up to six cards in hand.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_14);

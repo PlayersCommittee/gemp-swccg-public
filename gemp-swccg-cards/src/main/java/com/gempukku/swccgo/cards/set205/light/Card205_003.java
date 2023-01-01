@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set205.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card205_003 extends AbstractRebel {
     public Card205_003() {
-        super(Side.LIGHT, 2, 3, 2, 2, 4, "Tycho Celchu", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 4, "Tycho Celchu", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Spy fighting for the memory of his homeworld of Alderaan. Rogue Squadron pilot. Volunteered to fly an A-wing at the Battle of Endor. Former TIE fighter pilot.");
         setGameText("[Pilot] 3. May reveal from hand to steal an unpiloted TIE from opponent's Lost Pile and deploy both simultaneously. Any snub fighter he pilots is maneuver +1 and immune to attrition < 4.");

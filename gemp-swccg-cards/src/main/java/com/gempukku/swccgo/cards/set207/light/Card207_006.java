@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set207.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card207_006 extends AbstractRebel {
     public Card207_006() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Kian, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Kian, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Rogue Squadron pilot. Assigned as gunner aboard Colonel Salm's Y-wing at Battle of Endor, as part of Gray Squadron. Former member of Aggressor Squadron.");
         setGameText("[Pilot] 2. Matching pilot for any ‘snub’ fighter. While piloting a ‘snub’ fighter, draws one battle destiny if unable to otherwise and opponent may not substitute battle destiny draws here.");

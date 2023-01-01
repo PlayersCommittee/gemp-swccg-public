@@ -4,12 +4,23 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +34,7 @@ import java.util.List;
  */
 public class Card202_003 extends AbstractRebel {
     public Card202_003() {
-        super(Side.LIGHT, 4, 2, 2, 2, 6, "Wedge Antilles", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 2, 2, 2, 6, "Wedge Antilles", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setVirtualSuffix(true);
         setLore("Highly decorated Corellian. Piloted Red 2 at the Battle of Yavin. A wealthy orphan, he bought a freighter with his inheritance. First joined the Alliance as a weapons smuggler.");
         setGameText("[Pilot] 3. While piloting an [Independent] starfighter, it is maneuver +1 (+2 if Pulsar Skate) and Wedge draws one battle destiny if unable to otherwise. While with Booster or Mirax, your total battle destiny here is +1.");

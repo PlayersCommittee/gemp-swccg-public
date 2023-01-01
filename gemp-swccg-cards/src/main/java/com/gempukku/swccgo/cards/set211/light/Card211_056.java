@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set211.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card211_056 extends AbstractRebel {
     public Card211_056() {
-        super(Side.LIGHT, 3, 4, 3, 2, 5,"Rebel Trooper Reinforcements", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 4, 3, 2, 5,"Rebel Trooper Reinforcements", Uniqueness.RESTRICTED_3, ExpansionSet.SET_11, Rarity.V);
         setLore("Rebels rely on hidden 'cells' of undercover operatives. Striking from hidden bases, troops or starfighters can arrive in a battle zone at any time.");
         setGameText("May deploy as a 'react' to a site. Deploys -2 to a site where opponent has more characters than you. Ambush is a Used Interrupt.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_11);

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card208_004 extends AbstractRebel {
     public Card208_004() {
-        super(Side.LIGHT, 2, 2, 1, 2, 4, "Corporal Delevar", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 2, 4, "Corporal Delevar", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Veteran of Battle of Hoth. Medic and Scout assigned to General Solo's assault force. Prides himself on being an efficient soldier in General Madine's commando organization.");
         setGameText("Once per game, may [download] 2-1B here. Once per turn, if present at a site, may 'operate' on your Disarmed character (or your just 'hit' non-droid character of ability < 4) present here; character is restored to normal.");

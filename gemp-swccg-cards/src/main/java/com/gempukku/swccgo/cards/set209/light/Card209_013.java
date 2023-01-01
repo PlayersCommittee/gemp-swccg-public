@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card209_013 extends AbstractRebel {
     public Card209_013() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, "Taidu Sefla", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, "Taidu Sefla", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Trooper.");
         setGameText("When deployed (or just lost), may draw bottom card of Used Pile. During battle, may subtract X (limit 3) from a just drawn weapon or battle destiny, where X = number of your spies out of play. Your spies here are immune to Nevar Yalnal.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_9);

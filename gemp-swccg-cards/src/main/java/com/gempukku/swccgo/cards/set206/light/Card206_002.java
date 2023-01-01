@@ -2,12 +2,22 @@ package com.gempukku.swccgo.cards.set206.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToFireWeaponModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotUseCardToTransportToOrFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +31,7 @@ import java.util.List;
  */
 public class Card206_002 extends AbstractRebel {
     public Card206_002() {
-        super(Side.LIGHT, 2, 2, 2, 1, 4, "Cal Alder", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 1, 4, "Cal Alder", Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setVirtualSuffix(true);
         setLore("An expert Scout originally from Kai'Shebbol in the Kathol sector. Served with Bren Derlin for many years. Patrols the outer perimeter of Echo Base.");
         setGameText("May deploy as a 'react'. Deploys -1 to same site as a Rebel leader. Unless with Luke, opponent must first use 1 Force to fire a weapon at same site. Elis Helrot may not transport characters to or from here.");

@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card208_008 extends AbstractRebel {
     public Card208_008() {
-        super(Side.LIGHT, 1, 3, 3, 4, 7, "Luke Skywalker, The Rebellion's Hope", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 4, 7, "Luke Skywalker, The Rebellion's Hope", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setGameText("[Pilot] 3. If armed with a blaster or rifle at a site (or piloting Red 5), may add one destiny to total power or attrition. Run Luke, Run! is a Used Interrupt. Immune to attrition < 4.");
         addPersona(Persona.LUKE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_8);

@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card207_002 extends AbstractRebel {
     public Card207_002() {
-        super(Side.LIGHT, 2, 4, 4, 4, 5, Title.Chirrut, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 4, 5, Title.Chirrut, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setGameText("If a battle was just initiated here, may peek at the top card of any Reserve Deck; return it or place it on top of owner's Force Pile. If just lost, may [upload] or retrieve Baze. Once per game, your may re-circulate.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_7);
     }

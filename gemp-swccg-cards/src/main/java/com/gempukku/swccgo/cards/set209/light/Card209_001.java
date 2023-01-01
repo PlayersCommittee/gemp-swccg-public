@@ -3,13 +3,21 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card209_001 extends AbstractRebel {
     public Card209_001() {
-        super(Side.LIGHT, 2, 0, 2, 3, 4, "Admiral Raddus", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 0, 2, 3, 4, "Admiral Raddus", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Mon Calamari leader.");
         setGameText("Your capital starships here are power +1. Once per game, may [upload] Rogue One, a Hammerhead corvette, or a non-unique corvette.");
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_9);

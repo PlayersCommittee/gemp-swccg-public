@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set207.light;
 
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +39,7 @@ import java.util.List;
  */
 public class Card207_001 extends AbstractRebel {
     public Card207_001() {
-        super(Side.LIGHT, 2, 4, 4, 3, 5, Title.Baze, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 3, 5, Title.Baze, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setArmor(5);
         setGameText("If about to be lost, may fire Baze's Cannon. Permanent weapon is •Baze's Cannon (may target a character for free; draw destiny; add 1 if targeting a character of ability < 3; target hit, and its forfeit = 0, if destiny + 1 > defense value).");
         addPersona(Persona.BAZE);

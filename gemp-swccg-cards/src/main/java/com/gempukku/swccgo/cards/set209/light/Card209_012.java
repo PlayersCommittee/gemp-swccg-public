@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card209_012 extends AbstractRebel {
     public Card209_012() {
-        super(Side.LIGHT, 2, 4, 4, 3, 6, "Saw Gerrera", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 3, 6, "Saw Gerrera", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Leader.");
         setGameText("Attrition against opponent is +1 here for each of their characters present. Opponent may not reduce your Force drains here. Cancels Trooper Assault here.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_9);

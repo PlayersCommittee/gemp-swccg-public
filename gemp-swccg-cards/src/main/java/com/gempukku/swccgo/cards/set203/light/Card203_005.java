@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set203.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.HitCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card203_005 extends AbstractRebel {
     public Card203_005() {
-        super(Side.LIGHT, 1, 5, 8, 1, 5, "Endor Commando Team", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 8, 1, 5, "Endor Commando Team", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setArmor(4);
         setLore("General Solo's strike team was made up of the Alliance's finest ground troops. Scout troopers.");
         setGameText("Deploys -1 to Endor. During battle, your other Rebels present with Endor Commando Team may not have their forfeit reduced unless this card 'hit'. Each time this character is 'hit', it is cumulatively power -2 until end of turn.");

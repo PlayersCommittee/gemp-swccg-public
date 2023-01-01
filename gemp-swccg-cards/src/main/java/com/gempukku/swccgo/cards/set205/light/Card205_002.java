@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card205_002 extends AbstractRebel {
     public Card205_002() {
-        super(Side.LIGHT, 2, 2, 2, 1, 3, "Ensign Chad Hilse", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 1, 3, "Ensign Chad Hilse", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setLore("Corellian Corvette trooper Ensign Chad Hilse, an Alderaanian, typifies the loyal Rebel volunteers dedicated to defeating the Empire. Trained in starship and ground combat.");
         setGameText("During battle, if present at a site with a stormtrooper (or Rebel leader), may add one destiny to total power only. Once per turn, may subtract 1 from a destiny draw of an opponent's Interrupt or weapon targeting a non-Jedi Rebel here.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_5);

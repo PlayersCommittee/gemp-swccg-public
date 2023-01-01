@@ -4,13 +4,26 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveDeployCostModifiedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +39,7 @@ import java.util.List;
  */
 public class Card201_005 extends AbstractRebel {
     public Card201_005() {
-        super(Side.LIGHT, 1, 3, 3, 4, 7, "Princess Leia", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 4, 7, "Princess Leia", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Prominent leader in the struggling Alliance. Former member of the Imperial Senate. Beginning to discover her true heritage. Likes scoundrels.");
         setGameText("Leia's deploy cost may not be modified by opponent. Adds one battle destiny if with Han or Vader. May move as a 'react' to same site as an Imperial. Once per turn, may [download] Leia Of Alderaan or Reflection. Immune to attrition < 4.");

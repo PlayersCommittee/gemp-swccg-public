@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card208_013 extends AbstractRebel {
     public Card208_013() {
-        super(Side.LIGHT, 2, 4, 5, 2, 5, Title.Zeb, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 5, 2, 5, Title.Zeb, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Lasat.");
         setGameText("[Pilot] 1. During battle with an opponent's combat vehicle (or with two Rebels), attrition against opponent is +2. Rebels here are immune to Trample.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_8);

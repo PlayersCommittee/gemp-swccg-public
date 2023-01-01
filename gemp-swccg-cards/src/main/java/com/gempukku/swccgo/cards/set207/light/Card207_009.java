@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataNotSetCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card207_009 extends AbstractRebel {
     public Card207_009() {
-        super(Side.LIGHT, 2, 3, 4, 2, 6, Title.Sabine, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 4, 2, 6, Title.Sabine, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setArmor(5);
         setLore("Female Mandalorian. Scout.");
         setGameText("Once per turn, when firing a rifle or blaster, may target for free and add 2 to total weapon destiny. While with an Imperial (or two Rebels), whenever you win a battle here, opponent loses 2 Force. Immune to Hidden Weapons.");

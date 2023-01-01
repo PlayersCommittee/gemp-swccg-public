@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card208_006 extends AbstractRebel {
     public Card208_006() {
-        super(Side.LIGHT, 1, 3, 2, 2, 5, "General Carlist Rieekan", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 2, 2, 5, "General Carlist Rieekan", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("One of the original founders of the Rebel Alliance. Former civilian strategist with the House of Organa. Somber leader of Echo Base.");
         setGameText("Deploys -1 to a war room. While at a war room, your capital starships at Rebel Base systems may not be targeted by weapons and your Rebels and T-47s at same and related Rebel Base locations move for free to same or related locations.");

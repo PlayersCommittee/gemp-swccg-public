@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set205.dark;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card205_014_BACK extends AbstractRebel {
     public Card205_014_BACK() {
-        super(Side.DARK, 7, 0, 6, 6, 0, "Luke Skywalker, The Emperor's Prize", Uniqueness.UNIQUE);
+        super(Side.DARK, 7, 0, 6, 6, 0, "Luke Skywalker, The Emperor's Prize", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setGameText("Luke Skywalker, The Emperor's Prize is a Dark Side card and does not count toward your deck limit. Reveal to opponent when deploying your Starting Effect. Deploys to Death Star II: Throne Room only at start of game as a frozen captive if Bring Him Before Me on table and Your Destiny is suspended; otherwise place out of play. For remainder of game, may not be placed in Reserve Deck. Luke Skywalker, The Emperor's Prize is a persona of Luke only while on table. While this side up, Bring Him Before Me may not flip. May not be escorted. Flip this card if Vader present and not escorting a captive. Place out of play if released or about to leave table.");
         setDoesNotCountTowardDeckLimit(true);
         addPersona(Persona.LUKE);

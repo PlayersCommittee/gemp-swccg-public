@@ -8,7 +8,16 @@ import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -16,7 +25,12 @@ import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AgendaModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeChokedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -31,7 +45,7 @@ import java.util.List;
  */
 public class Card202_001 extends AbstractRebel {
     public Card202_001() {
-        super(Side.LIGHT, 1, 3, 3, 3, 6, "Leia Organa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 6, "Leia Organa", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setVirtualSuffix(true);
         setLore("Strong-willed princess from Alderaan. Youngest Imperial Senator ever. Used diplomatic immunity to spy for Rebels. Led relief effort on Ralltir. Natural leader.");
         setGameText("Agenda: rebellion. May not be 'choked'. Gains [Republic] at Galactic Senate. Draws one battle destiny if unable to otherwise (if with an Imperial leader, may add one destiny to total power or attrition instead). 'Diplomatic' immunity to attrition < 3.");

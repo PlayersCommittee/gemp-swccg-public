@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set206.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card206_004 extends AbstractRebel {
     public Card206_004() {
-        super(Side.LIGHT, 2, 4, 4, 3, 5, "Jyn Erso", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 3, 5, "Jyn Erso", Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setLore("Female spy.");
         setGameText("May deploy to a site as an Undercover spy. Draws one battle destiny if unable to otherwise. If just lost, may peek at opponent's hand.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_6);

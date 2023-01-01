@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set206.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
@@ -37,7 +45,7 @@ import java.util.List;
  */
 public class Card206_001 extends AbstractRebel {
     public Card206_001() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Bodhi, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Bodhi, Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setLore("Gambler and spy.");
         setGameText("[Pilot] 2, 3: Rogue One or a stolen starship. May be deployed simultaneously with a piloted starship from hand to a system even without presence or Force icons. If about to be lost, your Rebel or Rebel starship at a related location may make a regular move.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_6);
