@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set3.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ForRemainderOfGameDataEqualsCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -16,7 +19,13 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.ImmuneToUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -33,7 +42,7 @@ import java.util.List;
  */
 public class Card3_043 extends AbstractUsedInterrupt {
     public Card3_043() {
-        super(Side.LIGHT, 7, "I Thought They Smelled Bad On The Outside");
+        super(Side.LIGHT, 7, "I Thought They Smelled Bad On The Outside", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
         setLore("'Hang on, kid. This may smell bad, kid...but it'll keep you warm...until I can get the shelter built...'");
         setGameText("Sacrifice (lose) your creature vehicle to protect one character present from Exposure, Ice Storm, Frostbite and Gravel Storm for remainder of turn. (Two characters may be protected if sacrificing a ronto.) OR Double Tzizvvt's power until he moves.");
         addIcons(Icon.HOTH);

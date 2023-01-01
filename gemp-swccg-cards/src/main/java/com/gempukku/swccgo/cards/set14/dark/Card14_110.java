@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +20,12 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.HitCardEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -32,7 +43,7 @@ import java.util.List;
  */
 public class Card14_110 extends AbstractUsedInterrupt {
     public Card14_110() {
-        super(Side.DARK, 5, "We're Hit, Artoo", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 5, "We're Hit, Artoo", Uniqueness.RESTRICTED_2, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Complex recursive algorithms are used by Trade Federation starships to seek out and destroy enemies within targeting range.");
         setGameText("Once during battle, target a participating starfighter present with your droid starfighter. Draw destiny. If destiny > target's defense value, target 'hit.' OR If opponent's starfighter was just 'hit' where your droid starfighter is present, activate up to 4 Force.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

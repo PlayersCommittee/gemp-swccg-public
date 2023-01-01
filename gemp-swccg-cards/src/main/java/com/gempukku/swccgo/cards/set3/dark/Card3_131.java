@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card3_131 extends AbstractUsedInterrupt {
     public Card3_131() {
-        super(Side.DARK, 6, Title.Our_First_Catch_Of_The_Day);
+        super(Side.DARK, 6, Title.Our_First_Catch_Of_The_Day, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("'Sir, Rebel ships are coming into our sector.'");
         setGameText("Add 2 to a tractor beam destiny draw. OR Cancel The First Transport Is Away! or Hyper Escape.");
         addIcons(Icon.HOTH);

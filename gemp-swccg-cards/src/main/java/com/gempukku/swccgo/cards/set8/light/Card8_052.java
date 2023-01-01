@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealRandomCardInOpponentsHandEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card8_052 extends AbstractUsedInterrupt {
     public Card8_052() {
-        super(Side.LIGHT, 5, Title.Free_Ride, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Free_Ride, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("To prevent biker scouts from reaching their base, Luke and Leia 'borrowed' some nearby transportation.");
         setGameText("If you control a location where opponent has a speeder bike, AT-ST or skiff, steal that vehicle (any characters aboard are lost). OR Peek at one card randomly selected from opponent's hand. If that card is a speeder bike, AT-ST or skiff, steal it into hand.");
         addIcons(Icon.ENDOR);

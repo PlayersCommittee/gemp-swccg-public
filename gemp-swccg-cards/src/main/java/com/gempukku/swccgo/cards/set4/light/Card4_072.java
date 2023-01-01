@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card4_072 extends AbstractUsedInterrupt {
     public Card4_072() {
-        super(Side.LIGHT, 3, Title.Yoda_Stew, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Yoda_Stew, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("'For the Jedi it is time to eat as well.'");
         setGameText("During opponent's turn, take up to four cards from your hand and place them on top of your Force Pile.");
         addIcons(Icon.DAGOBAH);

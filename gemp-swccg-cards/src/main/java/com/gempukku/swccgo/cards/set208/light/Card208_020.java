@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card208_020 extends AbstractUsedInterrupt {
     public Card208_020() {
-        super(Side.LIGHT, 5, "Mandalorian Mishap", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Mandalorian Mishap", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("Most space-faring adventurers meet their fate with a calm, quiet dignity.");
         setGameText("Cancel the game text of Jodo or any Fett for remainder of turn. OR [Upload] Sabine, Under Attack, or a blaster. OR During a battle, if opponent just drew more than two battle destiny cancel one of those destiny draws (your choice).");

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -13,14 +15,25 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
+import com.gempukku.swccgo.logic.effects.ModifyDefenseValueUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayBeFiredTwicePerBattleModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -31,7 +44,7 @@ import java.util.*;
  */
 public class Card213_054 extends AbstractUsedInterrupt {
     public Card213_054() {
-        super(Side.LIGHT, 3, "Savareen Standoff", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Savareen Standoff", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("If a battle was just initiated, immediately fire a blaster deployed on your smuggler present. That blaster may fire again this battle. OR Your smuggler armed with a weapon card is defense value +2 for remainder of turn (even if just targeted by an Interrupt or weapon).");
         addIcons(Icon.VIRTUAL_SET_13);

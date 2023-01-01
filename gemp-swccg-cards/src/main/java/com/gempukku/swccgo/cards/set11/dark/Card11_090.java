@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card11_090 extends AbstractUsedInterrupt {
     public Card11_090() {
-        super(Side.DARK, 5, Title.Wattos_Chance_Cube, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Wattos_Chance_Cube, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("'We'll let fate decide, huh?'");
         setGameText("If Watto is in a battle at a site, draw destiny. If destiny is odd, your total battle destiny = 0 this battle. If destiny is even, add two battle destiny.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

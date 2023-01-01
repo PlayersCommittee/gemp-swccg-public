@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set216.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card216_045 extends AbstractUsedInterrupt {
     public Card216_045() {
-        super(Side.LIGHT, 4, "Wookiee Guide", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Wookiee Guide", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("Chewie felt right at home in the forests of Endor, which closely resemble the environment on his homeworld of Kashyyyk.");
         setGameText("If opponent just initiated battle at an Endor or Kashyyyk site (or any forest), move your non-unique Wookiee there as a 'react.' OR [download] a Wookiee to a Kashyyyk site. OR Activate 1 Force for each Kashyyyk location you occupy.");

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAsReactEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card5_043 extends AbstractUsedInterrupt {
     public Card5_043() {
-        super(Side.LIGHT, 4, "Dash", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Dash", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("See Luke run. Run Luke, run!");
         setGameText("Use 2 Force to increase a character's or creature vehicle's landspeed by 1 for remainder of turn. OR Use 3 Force to move one of your characters as a 'react' (free if character is a scout).");
         addIcons(Icon.CLOUD_CITY);

@@ -2,7 +2,12 @@ package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +30,7 @@ import java.util.List;
  */
 public class Card217_042 extends AbstractUsedInterrupt {
     public Card217_042() {
-        super(Side.LIGHT, 4, "Now, This Is Podracing!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Now, This Is Podracing!", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setGameText("During battle, add 1 to opponent's just drawn destiny (or to your just drawn weapon destiny). OR If Your Thoughts Dwell On Your Mother on table, [upload] Night Club or Skywalker Hut.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_17);
     }

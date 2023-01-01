@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card4_062 extends AbstractUsedInterrupt {
     public Card4_062() {
-        super(Side.LIGHT, 3, Title.This_Is_More_Like_It);
+        super(Side.LIGHT, 3, Title.This_Is_More_Like_It, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'You like me because I'm a scoundrel. There aren't enough scoundrels in your life.' 'I happen to like nice men.' 'I'm a nice man.' 'No you're not, you're ..'");
         setGameText("During a battle, lose X Force to reduce attrition against you by X. OR Cancel This Is Just Wrong.");
         addIcons(Icon.DAGOBAH);

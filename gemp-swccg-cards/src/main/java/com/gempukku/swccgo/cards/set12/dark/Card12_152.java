@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card12_152 extends AbstractUsedInterrupt {
     public Card12_152() {
-        super(Side.DARK, 5, "Masterful Move & Endor Occupation", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Masterful Move & Endor Occupation", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.Masterful_Move, Title.Endor_Occupation);
         setGameText("Cancel Tatooine Celebration, Cloud City Celebration, or Coruscant Celebration. (Immune to Sense.) OR Use 1 Force to take one hologram, dejarik, or Imperial Holotable into hand from Reserve Deck; reshuffle. OR Cancel Mantellian Savrip. OR Cancel opponent's Force drain at a holosite.");
         addIcons(Icon.CORUSCANT);

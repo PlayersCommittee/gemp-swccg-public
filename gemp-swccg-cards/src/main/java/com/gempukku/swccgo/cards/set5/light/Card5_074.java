@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card5_074 extends AbstractUsedInterrupt {
     public Card5_074() {
-        super(Side.LIGHT, 4, "We'll Find Han", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "We'll Find Han", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'I promise.' 'Auuuuuug!'");
         setGameText("Deploy Han to same site as Chewie or your Lando (regardless of deployment restrictions). OR If Chewie and your Lando are in a battle together, subtract 3 from all attrition against you (cannot not fall below zero). OR Cancel I Had No Choice.");
         addIcons(Icon.CLOUD_CITY);

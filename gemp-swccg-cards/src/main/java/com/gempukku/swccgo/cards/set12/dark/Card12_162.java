@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card12_162 extends AbstractUsedInterrupt {
     public Card12_162() {
-        super(Side.DARK, 5, "Vote Now!", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Vote Now!", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("With enough political support, any number of devious plans can be put into motion.");
         setGameText("During your control phase, draw destiny. If destiny > 2, draw up to X cards (maximum 4) from Reserve Deck, where X = your total politics at Galactic Senate minus opponent's total politics at Galactic Senate.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

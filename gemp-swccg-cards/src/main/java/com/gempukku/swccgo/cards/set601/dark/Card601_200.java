@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card601_200 extends AbstractUsedInterrupt {
     public Card601_200() {
-        super(Side.DARK, 4, "Imbalance & Kintan Strider", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Imbalance & Kintan Strider", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         addComboCardTitles("Imbalance", "Kintan Strider");
         setGameText("Cancel Blaster Proficiency. [Immune to Sense] OR If opponent just retrieved Force, opponent must lose X Force, where X = one-half the number of cards retrieved (round down) to a minimum of 1. OR If opponent's character just lost, lose 1 Force to retrieve the topmost character of ability < 6 (except a [Maintenance] or [Permanent Weapon] card) in your Lost Pile into hand.");
         addIcons(Icon.DAGOBAH, Icon.LEGACY_BLOCK_6);

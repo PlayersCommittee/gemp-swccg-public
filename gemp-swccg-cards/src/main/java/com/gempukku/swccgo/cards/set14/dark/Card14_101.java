@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class Card14_101 extends AbstractUsedInterrupt {
     public Card14_101() {
-        super(Side.DARK, 4, Title.Cease_Fire, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Cease_Fire, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("The amount of time it takes for a sub-command to transfer to an officer battle droid, and then to the rest of his regiment, is .396 of a second.");
         setGameText("If a battle was just initiated, lose 2 Force to prevent all weapons from being fired for remainder of battle. OR Target all your battle droids at a site. Targets may not have their forfeit value reduced for remainder of turn. OR Cancel Blaster Proficiency.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

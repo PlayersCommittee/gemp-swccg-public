@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card3_047 extends AbstractUsedInterrupt {
     public Card3_047() {
-        super(Side.LIGHT, 5, Title.One_More_Pass, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.One_More_Pass, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U1);
         setLore("'Cable out. Let 'er go!'");
         setGameText("If you are about to draw power harpoon weapon destiny, add ability of one pilot aboard same vehicle.");
         addIcons(Icon.HOTH);

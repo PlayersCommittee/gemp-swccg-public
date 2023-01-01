@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card6_071 extends AbstractUsedInterrupt {
     public Card6_071() {
-        super(Side.LIGHT, 5, "Mandalorian Mishap", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Mandalorian Mishap", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Most space-faring adventurers meet their fate with a calm, quiet dignity.");
         setGameText("If Boba Fett is defending a battle, draw one battle destiny. Subtract that amount from opponent's attrition and total power (cannot fall below zero). OR Cancel, for the remainder of the turn, the game text of Jet Pack or any weapon that may fire repeatedly.");
         addIcons(Icon.JABBAS_PALACE);

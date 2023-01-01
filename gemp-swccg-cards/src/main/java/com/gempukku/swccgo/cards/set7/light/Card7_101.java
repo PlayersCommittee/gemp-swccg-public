@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card7_101 extends AbstractUsedInterrupt {
     public Card7_101() {
-        super(Side.LIGHT, 5, Title.Rebel_Ambush);
+        super(Side.LIGHT, 5, Title.Rebel_Ambush, Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Entrenched Rebel troops defend their ground with surprising fierceness.");
         setGameText("If a battle was just initiated at a site, each of your troopers present is power +1 (+2 if at a Rebel Base site) and immune to attrition for remainder of turn.");
         addIcons(Icon.SPECIAL_EDITION);

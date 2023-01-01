@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card7_084 extends AbstractUsedInterrupt {
     public Card7_084() {
-        super(Side.LIGHT, 4, "Balanced Attack", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Balanced Attack", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Alliance starfighter pilots cross-train with other starship types to maximize combat efficiency.");
         setGameText("If you have more than one class of 'snub fighter' (Z-95, A-wing, Bwing, X-wing or Y-wing) in a battle, for each different class, add 1 to attrition against opponent (add 2 more if Falcon present). OR Take one admiral or general into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

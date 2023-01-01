@@ -2,7 +2,12 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +17,10 @@ import com.gempukku.swccgo.logic.actions.TractorBeamAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseTractorBeamEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalTractorBeamDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card7_254 extends AbstractUsedInterrupt {
     public Card7_254() {
-        super(Side.DARK, 6, "In Range", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, "In Range", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("'They'll be in range of our tractor beam in moments, my lord.' 'Good. Prepare the boarding party and set your weapons for stun.'");
         setGameText("If you have a Star Destroyer in a battle, during the weapons segment use its tractor beam for free. Add 2 to tractor beam destiny if targeting a unique (*) starship. If not captured, target is power and maneuver -3 for remainder of turn.");
         addIcons(Icon.SPECIAL_EDITION);

@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set216.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card216_012 extends AbstractUsedInterrupt {
     public Card216_012() {
-        super(Side.DARK, 3, "Projective Telepathy", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Projective Telepathy", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Luke.' 'Father.' 'Son, come with me.'");
         setGameText("If drawn for destiny, may take into hand. Draw top card of Force Pile. " +

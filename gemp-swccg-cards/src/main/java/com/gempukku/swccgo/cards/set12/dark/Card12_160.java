@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card12_160 extends AbstractUsedInterrupt {
     public Card12_160() {
-        super(Side.DARK, 6, "The Point Is Conceded", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, "The Point Is Conceded", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Political pressure carefully applied with a generous helping of Republic procedure can negate the strongest of motions.");
         setGameText("If you have a senate majority, activate 1 Force. OR If your opponent has a senate majority, place your senator at Galactic Senate in Used Pile to place an opponent's character present (your choice) in opponent's Used Pile. (Immune to Sense.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

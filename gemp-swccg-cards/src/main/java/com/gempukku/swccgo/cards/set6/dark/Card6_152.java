@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card6_152 extends AbstractUsedInterrupt {
     public Card6_152() {
-        super(Side.DARK, 4, "Bantha Fodder");
+        super(Side.DARK, 4, "Bantha Fodder", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("'Uu a'kingsa riika pagh bagla bis kachata weenow con bantha poodoo.'");
         setGameText("Cancel As Good As Gone or Innocent Scoundrel. OR Search your Reserve Deck and take one bantha, Tusken Raider, Taym Dren-garen or Weequay into hand; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

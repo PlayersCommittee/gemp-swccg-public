@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card8_063 extends AbstractUsedInterrupt {
     public Card8_063() {
-        super(Side.LIGHT, 6, "Throw Me Another Charge", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Throw Me Another Charge", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Han knew that it was urgent that he quickly finished his assignment.");
         setGameText("Take one automated weapon into hand from Reserve Deck; reshuffle. OR Add 1 to Deactivate The Shield Generator total. OR Cancel Trooper Charge, Blasted Droid, Trooper Assault or Dark Jedi Presence.");
         addIcons(Icon.ENDOR);

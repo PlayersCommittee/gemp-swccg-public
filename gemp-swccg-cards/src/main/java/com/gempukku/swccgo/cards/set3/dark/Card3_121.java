@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card3_121 extends AbstractUsedInterrupt {
     public Card3_121() {
-        super(Side.DARK, 5, "Debris Zone");
+        super(Side.DARK, 5, "Debris Zone", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
         setLore("A reactor core explosion in a destroyed AT-AT causes a plasma release which shatters its armor, showering the immediate area with molten projectiles.");
         setGameText("If an AT-AT, an AT-ST, Jabba's Sail Barge or Planet Defender Ion Cannon has just been lost at a site, draw destiny. All cards with that destiny number at that site are lost.");
         addIcons(Icon.HOTH);

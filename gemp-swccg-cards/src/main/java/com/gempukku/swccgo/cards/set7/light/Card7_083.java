@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card7_083 extends AbstractUsedInterrupt {
     public Card7_083() {
-        super(Side.LIGHT, 5, "Antilles Maneuver", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Antilles Maneuver", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("As their war with the Empire continued, Rebel pilots learned ways to counter standard Imperial tactics such as the Tallon Roll.");
         setGameText("Take one Corellian Slip into hand from Reserve Deck; reshuffle. OR If Luke and Wedge are in a battle together at a system or sector, exclude from that battle one opponent's starfighter or combat vehicle present.");
         addIcons(Icon.SPECIAL_EDITION);

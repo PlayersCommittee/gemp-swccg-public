@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card6_078 extends AbstractUsedInterrupt {
     public Card6_078() {
-        super(Side.LIGHT, 5, "Unfriendly Fire");
+        super(Side.LIGHT, 5, "Unfriendly Fire", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("'Get the gun! Point it at the deck!'");
         setGameText("If an AT-AT, an AT-ST, Jabba's Sail Barge or Planet Defender Ion Cannon has just been lost at a site, draw destiny. All cards with that destiny number at that site are lost.");
         addIcons(Icon.JABBAS_PALACE);

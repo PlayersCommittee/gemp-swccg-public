@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set201.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PreventEffectOnCardEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card201_035 extends AbstractUsedInterrupt {
     public Card201_035() {
-        super(Side.DARK, 5, Title.Cold_Feet);
+        super(Side.DARK, 5, Title.Cold_Feet, Uniqueness.UNRESTRICTED, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Wampas pack snow around the appendages of captured prey, making use of Hoth's cold environment to immobilize them.");
         setGameText("Play a Defensive Shield from under your Starting Effect. [Immune to Sense] OR Cancel Mantellian Savrip or Surprise Assault. OR Cancel an attempt to remove a just-lost character from opponent's Lost Pile.");

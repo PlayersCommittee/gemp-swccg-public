@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card5_157 extends AbstractUsedInterrupt {
     public Card5_157() {
-        super(Side.DARK, 5, Title.This_Is_Still_Wrong, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.This_Is_Still_Wrong, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Han: 2. Luke: 2. Chewie: 0.");
         setGameText("If a battle was just initiated where opponent has a female targeted by This Is Just Wrong, add one battle destiny. OR Search your Reserve Deck, take one This Is Just Wrong into hand and reshuffle. OR Cancel This Is More Like It.");
         addIcons(Icon.CLOUD_CITY);

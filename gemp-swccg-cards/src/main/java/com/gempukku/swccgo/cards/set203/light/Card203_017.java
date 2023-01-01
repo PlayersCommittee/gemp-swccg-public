@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.DrawsNoMoreThanBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card203_017 extends AbstractUsedInterrupt {
     public Card203_017() {
-        super(Side.LIGHT, 4, "Rebel Leadership", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Rebel Leadership", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("In times of greatest need, the Rebellion relies on the brilliant leadership provided by commanders fighting for freedom.");
         setGameText("[Upload] an admiral or general. OR If your admiral is in battle at a system (or your general is in battle at a site), you may either add one battle destiny or prevent opponent from drawing more than one battle destiny.");

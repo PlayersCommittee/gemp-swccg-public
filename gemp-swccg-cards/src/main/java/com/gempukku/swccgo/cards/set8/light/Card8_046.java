@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card8_046 extends AbstractUsedInterrupt {
     public Card8_046() {
-        super(Side.LIGHT, 5, Title.Endor_Celebration, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Endor_Celebration, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("The Rebel presence on Endor meant that the Ewoks would be able to live free from the Empire's tyranny.");
         setGameText("Cancel Tatooine Occupation, Cloud City Occupation or Rebel Base Occupation. (Immune to Sense.) OR During your activate phase, activate 1 Force for each Endor battleground you occupy.");
         addIcons(Icon.ENDOR);

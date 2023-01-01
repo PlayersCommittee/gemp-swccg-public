@@ -4,9 +4,11 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsTotalPowerAndAttritionEffect;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card7_091 extends AbstractUsedInterrupt {
     public Card7_091() {
-        super(Side.LIGHT, 4, "Heroes Of Yavin", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Heroes Of Yavin", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("The three Rebels proved to be a deadly combination time and time again.");
         setGameText("If Luke, Chewie and Han are in a battle together, draw destiny and subtract that amount from opponent's attrition and total power. OR If Red 5 and Falcon are in a battle together, add one battle destiny.");
         addIcons(Icon.SPECIAL_EDITION);

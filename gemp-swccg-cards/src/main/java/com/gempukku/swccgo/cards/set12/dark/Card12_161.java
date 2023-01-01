@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileEffect;
 import com.gempukku.swccgo.cards.effects.RetargetInterruptEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,7 +44,7 @@ import java.util.Set;
  */
 public class Card12_161 extends AbstractUsedInterrupt {
     public Card12_161() {
-        super(Side.DARK, 4, "They're Still Coming Through!");
+        super(Side.DARK, 4, "They're Still Coming Through!", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Despite the barriers erected, sometimes a determined opponent cannot be kept out.");
         setGameText("Cancel Rebel Barrier, It's A Trap!, or Smoke Screen. OR Re-target Fallen Portal by choosing up to two of opponent's characters there instead of your own. OR Peek at the top card of your Force Pile; either return it, or place it under your Force Pile or Reserve Deck.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

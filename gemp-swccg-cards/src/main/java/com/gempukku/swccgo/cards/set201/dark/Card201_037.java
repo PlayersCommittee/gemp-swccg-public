@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set201.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardActionReason;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +39,7 @@ import java.util.List;
  */
 public class Card201_037 extends AbstractUsedInterrupt {
     public Card201_037() {
-        super(Side.DARK, 5, "Turn It Off! Turn It Off!");
+        super(Side.DARK, 5, "Turn It Off! Turn It Off!", Uniqueness.UNRESTRICTED, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Turn it off! Turn it off! Off! TURN IT OFF!");
         setGameText("Play a Defensive Shield from under your Starting Effect. OR If opponent just deployed a [Maintenance] card, it may not battle for remainder of turn. OR Cancel Out Of Commission (if attempting to place a card out of play). [Immune to Sense]");

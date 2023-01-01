@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtBottomCardOfCardPileEffect;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card213_021 extends AbstractUsedInterrupt {
     public Card213_021() {
-        super(Side.DARK, 4, "Imperial Code Cylinder");
+        super(Side.DARK, 4, "Imperial Code Cylinder", Uniqueness.UNRESTRICTED, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("Take Krennic or a non-spy captain into hand from Reserve Deck; reshuffle. OR Peek at the bottom card of any deck or pile. OR During the power segment of a battle, if your captain in battle with your leader, cancel one destiny just drawn (except a battle destiny).");
         addIcons(Icon.VIRTUAL_SET_13);

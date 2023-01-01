@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card13_058 extends AbstractUsedInterrupt {
     public Card13_058() {
-        super(Side.DARK, 3, "Blow Parried", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Blow Parried", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Offense may win battles, but defense keeps you alive long enough to mount an offense.");
         setGameText("Take top card of Force Pile into hand. OR If opponent just revealed a combat card, it is canceled (place in opponent's Used Pile) and opponent must draw destiny instead (that destiny is reduced by 1). OR Cancel Glancing Blow, Clash Of Sabers, or Obi-Wan's Journal.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

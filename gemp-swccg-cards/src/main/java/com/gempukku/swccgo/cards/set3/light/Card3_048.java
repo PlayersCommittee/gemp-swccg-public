@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtCardEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card3_048 extends AbstractUsedInterrupt {
     public Card3_048() {
-        super(Side.LIGHT, 4, "Perimeter Scan");
+        super(Side.LIGHT, 4, "Perimeter Scan", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("'It's a good bet the Empire knows we're here.'");
         setGameText("Use 1 Force to glance at any one card which is face-down at a location. OR Use 1 Force to glance at opponent's hand. You may move each droid spy and Infantry Mine you find there to opponent's Used Pile. OR Cancel Probe Telemetry.");
         addIcons(Icon.HOTH);

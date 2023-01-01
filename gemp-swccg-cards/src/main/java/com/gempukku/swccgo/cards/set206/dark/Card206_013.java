@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set206.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card206_013 extends AbstractUsedInterrupt {
     public Card206_013() {
-        super(Side.DARK, 4, Title.Any_Methods_Necessary, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Any_Methods_Necessary, Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setLore("Darth Vader authorized the bounty hunters to use any means at their disposal to find and capture the Millennium Falcon - not that they need any encouragement.");
         setGameText("If Jodo Kast or your Fett was just targeted by a weapon, cancel the targeting and place weapon (unless a [Permanent Weapon]) in owner's Used Pile. OR [Upload] (or [download] as a 'react'): Binders, Jet Pack, Mandalorian Armor, or a blaster rifle.");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_6);

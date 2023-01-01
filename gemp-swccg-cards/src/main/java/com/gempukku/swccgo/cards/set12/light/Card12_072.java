@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card12_072 extends AbstractUsedInterrupt {
     public Card12_072() {
-        super(Side.LIGHT, 5, "We Wish To Board At Once", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "We Wish To Board At Once", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Ambassadors carry a certain amount of political power. Jedi ambassadors carry a lot more.");
         setGameText("Use 3 Force to take one Effect of any kind into hand from your Reserve Deck; reshuffle. OR Take Radiant VII, or one Interrupt with the word 'Podracer(s)' in its game text, into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

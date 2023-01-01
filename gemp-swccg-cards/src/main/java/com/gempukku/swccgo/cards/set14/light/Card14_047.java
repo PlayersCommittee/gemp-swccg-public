@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card14_047 extends AbstractUsedInterrupt {
     public Card14_047() {
-        super(Side.LIGHT, 4, "Whoooo!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Whoooo!", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("'Look! One of ours, out of the main hold!'");
         setGameText("Take a unique (•) N-1 starfighter into hand from Reserve Deck; reshuffle. OR If a battle was just initiated at a system where opponent has a droid starfighter, all droid starfighters at that system are power -1 for remainder of turn.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

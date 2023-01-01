@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set204.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card204_050 extends AbstractUsedInterrupt {
     public Card204_050() {
-        super(Side.DARK, 7, "Hunting Party", Uniqueness.UNIQUE);
+        super(Side.DARK, 7, "Hunting Party", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Sometimes a missing person is found by the wrong search party.");
         setGameText("During your control phase, if your bounty hunter or Trandoshan is escorting a non-frozen captive at a battleground site you control, opponent loses 1 Force. OR If your bounty hunter or Trandoshan just captured a character, opponent loses 1 Force. [Immune to Sense]");

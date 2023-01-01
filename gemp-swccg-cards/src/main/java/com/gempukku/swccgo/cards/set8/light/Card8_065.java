@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsAttritionEffect;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card8_065 extends AbstractUsedInterrupt {
     public Card8_065() {
-        super(Side.LIGHT, 4, "Wookiee Guide", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Wookiee Guide", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Chewie felt right at home in the forests of Endor, which closely resemble the environment on his homeworld of Kashyyyk.");
         setGameText("Add 1 to landspeed of your scout at an exterior planet site for remainder of turn. OR If Han is with Leia or Chewie in battle, draw one destiny and subtract it from opponent's attrition against you.");
         addIcons(Icon.ENDOR);

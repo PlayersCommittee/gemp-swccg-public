@@ -4,21 +4,25 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelDuelEffect;
 import com.gempukku.swccgo.cards.effects.CancelLightsaberCombatEffect;
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromUsedPileEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
-import com.gempukku.swccgo.logic.timing.results.RetrieveForceResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +35,7 @@ import java.util.List;
  */
 public class Card218_019 extends AbstractUsedInterrupt {
     public Card218_019() {
-        super(Side.LIGHT, 6, "Fall Of The Legend", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Fall Of The Legend", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setVirtualSuffix(true);
         setGameText("If opponent just lost a Dark Jedi or leader, take a card into hand from Used Pile; reshuffle. OR If opponent just retrieved Force, opponent loses 1 Force. OR If lightsaber combat or a duel was just initiated, lose 2 Force (3 if during your move phase) to cancel it.");
         addIcons(Icon.VIRTUAL_SET_18);

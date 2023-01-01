@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card8_062 extends AbstractUsedInterrupt {
     public Card8_062() {
-        super(Side.LIGHT, 5, "This Is Absolutely Right", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "This Is Absolutely Right", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("'He's my brother.'");
         setGameText("If Han and Leia are present together at a battleground site (and neither is Undercover), choose one of the following: Your Force drain is +1 at that site this turn. OR Opponent's Force drains at related locations are -1 next turn. OR Cancel This Is Still Wrong.");
         addIcons(Icon.ENDOR);

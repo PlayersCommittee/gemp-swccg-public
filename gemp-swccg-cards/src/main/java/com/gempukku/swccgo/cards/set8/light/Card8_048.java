@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -16,7 +18,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeDestinyCardIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -41,7 +47,7 @@ import java.util.List;
  */
 public class Card8_048 extends AbstractUsedInterrupt {
     public Card8_048() {
-        super(Side.LIGHT, 4, "Ewok Log Jam", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Ewok Log Jam", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Any problem can be solved by the proper application of the principles of mass and velocity.");
         setGameText("If opponent's transport vehicle or AT-ST just deployed or moved to an Endor site, draw destiny. Add 1 for each of your Ewoks present. Vehicle lost if total destiny -1 > defense value. OR Lose 1 Force to take into hand a card you just drew for battle or weapon destiny.");
         addIcons(Icon.ENDOR);

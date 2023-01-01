@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card601_018 extends AbstractUsedInterrupt {
     public Card601_018() {
-        super(Side.DARK, 5, "Lightsaber Deficiency", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Lightsaber Deficiency", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Ah... Uh...'");
         setGameText("Take Ghhhk or Molator into hand from Reserve Deck; reshuffle. OR Cancel Corellian Retort, Gift Of The Mentor, or Jedi Presence. OR Retrieve Protocol Failure into hand. OR If a lightsaber was just 'swung' during battle, it may not target again this battle.");

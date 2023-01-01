@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.TargetingReason;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card216_028 extends AbstractUsedInterrupt {
     public Card216_028() {
-        super(Side.LIGHT, 5, "Free Ride & Endor Celebration", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Free Ride & Endor Celebration", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         addComboCardTitles(Title.Free_Ride, Title.Endor_Celebration);
         setGameText("Cancel Cloud City Occupation, Rebel Base Occupation, or Tatooine Occupation. [Immune to Sense.] OR Cancel Force Lightning (unless targeting an Undercover spy). OR Cancel an attempt to deploy or move a combat vehicle as a 'react.' OR During your turn, target opponent's spy (or unpiloted combat vehicle) at a site you control; target is lost. (Immune to Oh, Switch Off.) OR For remainder of turn, suspend the following cards on table (if any): A Million Voices Crying Out and An Entire Legion Of My Best Troops.");

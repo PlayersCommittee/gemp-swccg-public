@@ -2,7 +2,12 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +33,7 @@ import java.util.List;
  */
 public class Card14_041 extends AbstractUsedInterrupt {
     public Card14_041() {
-        super(Side.LIGHT, 4, "Big Boomers!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Big Boomers!", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Gungan weaponry can be quite sophisticated. Sometimes its users are not.");
         setGameText("If there is more than 1 card in opponent's Force Pile, opponent must use 1 Force. OR Take a Fambaa or Booma into hand from Reserve Deck; reshuffle. OR If you just drew weapon destiny for your Booma, cancel that destiny to cause a re-draw.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

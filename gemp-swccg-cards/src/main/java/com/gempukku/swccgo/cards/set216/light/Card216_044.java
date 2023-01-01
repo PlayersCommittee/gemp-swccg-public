@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set216.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card216_044 extends AbstractUsedInterrupt {
     public Card216_044() {
-        super(Side.LIGHT, 4, "This Is Where The Fun Begins", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "This Is Where The Fun Begins", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("If a battle was just initiated, each of your [Republic] starfighters present is power +1 and immune to attrition for remainder of turn. OR If Anakin and Obi-Wan are in a battle together, cancel one opponent's destiny just drawn (except a battle destiny).");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_16);

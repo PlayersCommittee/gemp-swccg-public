@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set215.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card215_018 extends AbstractUsedInterrupt {
     public Card215_018() {
-        super(Side.LIGHT, 4, "Slight Weapons Malfunction", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Slight Weapons Malfunction", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLore("Han was gifted in the art of understatement.");
         setGameText("[upload] a Rebel stormtrooper. OR Cancel a weapon destiny targeting a stormtrooper (or Chewie). OR If a stormtrooper just fired a weapon (except a lightsaber) during battle, add one battle destiny.");

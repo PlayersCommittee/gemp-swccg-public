@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -12,7 +14,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.MayNotMoveOrBattleUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.BattleDamageLimitModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -32,7 +38,7 @@ import java.util.List;
  */
 public class Card8_143 extends AbstractUsedInterrupt {
     public Card8_143() {
-        super(Side.DARK, 6, "Freeze!", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, "Freeze!", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Despite Wicket's warnings, an Imperial scout got the drop on Leia.");
         setGameText("If a Rebel just deployed or moved to a site where you have a trooper present armed with a weapon, use 1 Force. For remainder of turn, that Rebel may not battle or move and battle damage against you is limited to 4 at that location.");
         addIcons(Icon.ENDOR);

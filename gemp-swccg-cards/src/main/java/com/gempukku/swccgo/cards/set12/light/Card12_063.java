@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card12_063 extends AbstractUsedInterrupt {
     public Card12_063() {
-        super(Side.LIGHT, 5, "My Loyal Bodyguard", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "My Loyal Bodyguard", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Amidala's handmaidens served more functions than a casual observer would ever notice.");
         setGameText("Deploy a handmaiden to Amidala's location from Reserve Deck; reshuffle. OR If opponent just initiated battle at same site as your handmaiden and Amidala, add one battle destiny.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

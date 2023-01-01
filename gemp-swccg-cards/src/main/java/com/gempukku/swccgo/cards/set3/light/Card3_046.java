@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card3_046 extends AbstractUsedInterrupt {
     public Card3_046() {
-        super(Side.LIGHT, 5, "Nice Of You Guys To Drop By");
+        super(Side.LIGHT, 5, "Nice Of You Guys To Drop By", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("'Echo Base, this is Rogue 2. I've found them. Repeat. I've found them.'");
         setGameText("Send one of your missing characters at same site as one of your piloted or driven vehicles to your Used Pile. OR Cancel any attempt by one character to 'hide' from a battle.");
         addIcons(Icon.HOTH);

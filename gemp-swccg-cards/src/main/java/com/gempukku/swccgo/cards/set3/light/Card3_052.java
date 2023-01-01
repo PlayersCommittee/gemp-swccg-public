@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card3_052 extends AbstractUsedInterrupt {
     public Card3_052() {
-        super(Side.LIGHT, 6, "Who's Scruffy-Looking?");
+        super(Side.LIGHT, 6, "Who's Scruffy-Looking?", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("'I must've hit pretty close to the mark to get her all riled up like that, huh kid?'");
         setGameText("Cancel Scruffy-Looking Nerf Herder or I'd Just As Soon Kiss A Wookiee or Furry Fury or This Is Just Wrong or Death Mark or Mournful Roar or Takeel or Ket Maliss. OR Double Rennek's power for remainder of turn.");
         addIcons(Icon.HOTH);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set218.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,7 +16,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilDamageSegmentOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.HitCardEffect;
+import com.gempukku.swccgo.logic.effects.PreventableCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeCapturedModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeLostModifier;
@@ -31,7 +42,7 @@ import java.util.List;
  */
 public class Card218_024 extends AbstractUsedInterrupt {
     public Card218_024() {
-        super(Side.LIGHT, 4, "Local Defense & Put That Down", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Local Defense & Put That Down", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         addComboCardTitles("Local Defense", "Put That Down");
         setGameText("[upload] an [Independent] starship. OR If your starship (or non-Jedi character) is about to be captured or lost during the weapons segment of a battle, it is hit instead and may not be captured or lost until the damage segment. OR If opponent just played an Interrupt during battle, activate 2 Force.");
         addIcons(Icon.VIRTUAL_SET_18);

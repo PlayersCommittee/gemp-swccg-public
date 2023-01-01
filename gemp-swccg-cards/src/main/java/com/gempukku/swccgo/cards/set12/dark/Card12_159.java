@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card12_159 extends AbstractUsedInterrupt {
     public Card12_159() {
-        super(Side.DARK, 5, "Squabbling Delegates", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Squabbling Delegates", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("To simply be a sitting member of the Galactic Senate consumes a lot of time and energy. The opposition that is arrayed against you does not make it any easier.");
         setGameText("Once per game, retrieve 1 Force for each of your senators at Galactic Senate. (Immune to Sense.) OR Take one senator (or Coruscant Guard) into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

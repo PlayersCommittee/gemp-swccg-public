@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card11_031 extends AbstractUsedInterrupt {
     public Card11_031() {
-        super(Side.LIGHT, 5, "Changing The Odds", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Changing The Odds", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Qui-Gon used his Jedi abilities to insure that there was no 'chance' involved with the use of Watto's chance cube.");
         setGameText("If opponent just drew battle destiny (or destiny for Watto's Chance Cube), subtract one from that destiny. OR If you just verified opponent's Reserve Deck, search that Reserve Deck and place one Interrupt found there out of play.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

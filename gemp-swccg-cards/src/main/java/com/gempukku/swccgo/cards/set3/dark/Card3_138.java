@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card3_138 extends AbstractUsedInterrupt {
     public Card3_138() {
-        super(Side.DARK, 4, Title.Trample);
+        super(Side.DARK, 4, Title.Trample, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("The enormous feet of a walker are designed for mobility on many types of terrain. They also can be used by merciless pilots to crush the Rebellion.");
         setGameText("If you have a piloted AT-AT or AT-ST present at a site, target opponent's character, 'crashed' vehicle or unpiloted vehicle without armor present. Draw destiny. Character lost if destiny > ability. Vehicle lost if destiny < 7.");
         addIcons(Icon.HOTH);

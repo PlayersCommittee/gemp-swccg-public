@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
 import com.gempukku.swccgo.cards.effects.DrawsNoMoreThanBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card218_005 extends AbstractUsedInterrupt {
     public Card218_005() {
-        super(Side.LIGHT, 4, "Rebel Leadership & Critical Error Revealed", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Rebel Leadership & Critical Error Revealed", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         addComboCardTitles("Rebel Leadership", "Critical Error Revealed");
         setGameText("Take an admiral or general into hand from Reserve Deck; reshuffle. OR If your admiral is in battle at a system (or your general is in battle at a site), prevent opponent from drawing more than one battle destiny (your total battle destiny is +1 if Ackbar or Leia in battle). OR Raise your converted location to the top.");
         addIcons(Icon.VIRTUAL_SET_18);

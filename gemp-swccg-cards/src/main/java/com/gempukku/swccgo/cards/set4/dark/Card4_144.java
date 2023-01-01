@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card4_144 extends AbstractUsedInterrupt {
     public Card4_144() {
-        super(Side.DARK, 4, "Imbalance", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Imbalance", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("'ConcentraaAAATE!'");
         setGameText("If opponent just retrieved Force, opponent must lose X Force, where X = one-half the number of cards retrieved (round up).");
         addIcons(Icon.DAGOBAH);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card6_072 extends AbstractUsedInterrupt {
     public Card6_072() {
-        super(Side.LIGHT, 5, Title.Nar_Shaddaa_Wind_Chimes, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Nar_Shaddaa_Wind_Chimes, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("One of the few possessions Jabba brought with him from Nar Shaddaa, the smugglers moon orbiting Nal Hutta. A symbol of renewal in Hutt Society.");
         setGameText("Once per game, target one non-unique character on table. Draw destiny. If destiny is less than X, retrieve X Force, where X equals the number of copies of that card you have on table (immune to Sense). OR search your Reserve Deck and take one non-unique alien into hand; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

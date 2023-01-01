@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -13,7 +15,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerAndForfeitUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotUseWeaponsModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card8_137 extends AbstractUsedInterrupt {
     public Card8_137() {
-        super(Side.DARK, 4, "Compact Firepower", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Compact Firepower", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("The small blasters used by biker scouts can be fired when piloting a vehicle at high speed.");
         setGameText("If your warrior just fired a DH-17 blaster or scout blaster during a battle, draw destiny: (0) no effect, (1-3) target may not use weapons this turn, (4+) target is power and forfeit = 0 this battle.");
         addIcons(Icon.ENDOR);

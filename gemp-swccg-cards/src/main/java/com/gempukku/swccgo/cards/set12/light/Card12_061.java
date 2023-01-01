@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card12_061 extends AbstractUsedInterrupt {
     public Card12_061() {
-        super(Side.LIGHT, 5, "Might Of The Republic", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Might Of The Republic", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Despite its current reputation, the Republic still has able citizens that are willing to try and fight the injustices before them.");
         setGameText("Once per game, retrieve 1 Force for each of your senators at Galactic Senate. (Immune to Sense.) OR Take one senator (or Coruscant Guard, Sei Taria or Mas Amedda) into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

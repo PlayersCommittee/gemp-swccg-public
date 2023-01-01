@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card5_159 extends AbstractUsedInterrupt {
     public Card5_159() {
-        super(Side.DARK, 5, Title.Trooper_Assault);
+        super(Side.DARK, 5, Title.Trooper_Assault, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("An assault of stormtroopers caused Leia, Chewie and Lando to retreat. When working together, the troopers' powerful onslaught can appear unstoppable.");
         setGameText("If a battle was just initiated at a site, each of your troopers present is power +2 and immune to attrition for remainder of turn.");
         addIcons(Icon.CLOUD_CITY);

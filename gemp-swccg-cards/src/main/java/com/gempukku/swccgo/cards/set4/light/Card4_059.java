@@ -3,14 +3,20 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelAttackEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card4_059 extends AbstractUsedInterrupt {
     public Card4_059() {
-        super(Side.LIGHT, 6, "Shoo! Shoo!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Shoo! Shoo!", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("'Oh! Go away! Go away! Beastly thing!'");
         setGameText("If you have a droid on table: Cancel an attack just initiated by a creature. OR Immediately move one opponent's creature (except an attached creature) to an adjacent location (habitat permitting).");
         addIcons(Icon.DAGOBAH);

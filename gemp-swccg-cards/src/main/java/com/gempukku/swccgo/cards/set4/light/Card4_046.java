@@ -2,8 +2,9 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.CancelAttackEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -11,10 +12,13 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.InitiateAttackNonCreatureAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DetachParasitesEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.AttackTargetSelectedResult;
@@ -33,7 +37,7 @@ import java.util.List;
  */
 public class Card4_046 extends AbstractUsedInterrupt {
     public Card4_046() {
-        super(Side.LIGHT, 5, "Blasted Varmints", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Blasted Varmints", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("'I just got this bucket back together. I'm not gonna let something tear it apart.'");
         setGameText("Use 1 Force to cause all Mynocks or Vine Snakes to detach from one starfighter or character. OR Cause one Mynock attached to any starfighter to be lost. OR After creature has selected a target character, cancel that selection and select again.");
         addIcons(Icon.DAGOBAH);

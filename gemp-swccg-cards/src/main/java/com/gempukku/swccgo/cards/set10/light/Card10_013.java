@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set10.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +40,7 @@ import java.util.List;
  */
 public class Card10_013 extends AbstractUsedInterrupt {
     public Card10_013() {
-        super(Side.LIGHT, 4, "Nar Shaddaa Wind Chimes & Out Of Somewhere", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Nar Shaddaa Wind Chimes & Out Of Somewhere", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Nar_Shaddaa_Wind_Chimes, Title.Out_Of_Somewhere);
         setGameText("Once per game, target one non-unique character on table. Draw destiny. If destiny < X, retrieve X Force, where X equals the number of copies of that card you have on table (Immune to Sense). OR Take one non-unique alien into hand from Reserve Deck; reshuffle. OR If opponent just initiated a battle with more than double your total power, search your Reserve Deck. Any one character you find there may immediately deploy as a 'react;' reshuffle.");
         addIcons(Icon.REFLECTIONS_II);

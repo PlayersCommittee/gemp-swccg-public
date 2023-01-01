@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card6_074 extends AbstractUsedInterrupt {
     public Card6_074() {
-        super(Side.LIGHT, 4, "Skull", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Skull", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Bidlo Kwerve was involved in both the procurement and (posthumously) the loss of the rancor.");
         setGameText("During a battle or attack, place out of play one non-droid character, creature or creature vehicle from your Lost Pile. Add its destiny number to your total power. OR Search your Reserve Deck, take Fallen Portal or Blast the Door, Kid! into hand and reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

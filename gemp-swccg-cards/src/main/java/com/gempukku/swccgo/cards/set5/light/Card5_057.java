@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAwayAsReactEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card5_057 extends AbstractUsedInterrupt {
     public Card5_057() {
-        super(Side.LIGHT, 5, "Lift Tube Escape", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Lift Tube Escape", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("First floor: parasols and powdered blue milk. Second floor: bantha skin rugs, bog-wing drapes and juri juice tables. Third floor: a squadron of Imperial stormtroopers.");
         setGameText("If opponent just initiated battle, one of your Lift Tubes present may move as a 'react' from that battle. OR Place one of your unoccupied Lift Tubes on table in your Used Pile. OR Search your Reserve Deck, take one Lift Tube into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY);

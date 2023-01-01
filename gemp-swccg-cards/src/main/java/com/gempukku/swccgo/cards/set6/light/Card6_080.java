@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card6_080 extends AbstractUsedInterrupt {
     public Card6_080() {
-        super(Side.LIGHT, 5, "You Will Take Me To Jabba Now", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "You Will Take Me To Jabba Now", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("'Et tu taka bu Jabba now.'");
         setGameText("If Jabba is at a Jabba's Palace site, relocate one of your characters to that location from a related site. OR During your deploy phase, deploy one alien (at normal use of the Force) from Reserve Deck to the Audience Chamber; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

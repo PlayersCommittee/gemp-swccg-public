@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -14,7 +16,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card8_140 extends AbstractUsedInterrupt {
     public Card8_140() {
-        super(Side.DARK, 3, "Don't Move!", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Don't Move!", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Stormtroopers rely on an intimidating presence and technologically superiority.");
         setGameText("If a battle was just initiated, and two of your troopers are armed with weapons, target one opponent's character present. Draw destiny: (0-2) no effect, (3-4) target is power = 0 for remainder of turn, (5+) target captured.");
         addIcons(Icon.ENDOR);

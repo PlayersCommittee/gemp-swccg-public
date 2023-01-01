@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card4_047 extends AbstractUsedInterrupt {
     public Card4_047() {
-        super(Side.LIGHT, 6, Title.Closer, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, Title.Closer, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("'I'm going in closer to one of those big ones.' 'Closer?!' 'Closer?!' 'Graarg?!'");
         setGameText("During your move phase, use 1 Force to relocate one of your starships from a planet system to any related asteroid sector (or vice versa). This movement is free if a smuggler is on board. OR Cancel Rogue Asteroid or Close Call.");
         addIcons(Icon.DAGOBAH);

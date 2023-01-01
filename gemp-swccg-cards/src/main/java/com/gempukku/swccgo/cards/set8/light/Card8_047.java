@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,14 +17,23 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CrashVehicleEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.results.MovedResult;
 import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -29,7 +44,7 @@ import java.util.*;
  */
 public class Card8_047 extends AbstractUsedInterrupt {
     public Card8_047() {
-        super(Side.LIGHT, 5, "Ewok And Roll", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Ewok And Roll", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Even an All Terrain Scout Transport cannot stand on all terrain.");
         setGameText("If opponent's creature vehicle or AT-ST just deployed or moved to where your Ewok is present, draw destiny. Creature vehicle lost if destiny > defense value. AT-ST crashed if destiny +2 > armor. OR If your Ewok is defending a battle, add 2 to your total power.");
         addIcons(Icon.ENDOR);

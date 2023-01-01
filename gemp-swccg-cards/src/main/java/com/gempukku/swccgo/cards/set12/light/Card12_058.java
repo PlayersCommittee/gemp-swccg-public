@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealRandomCardInOpponentsHandEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card12_058 extends AbstractUsedInterrupt {
     public Card12_058() {
-        super(Side.LIGHT, 5, "Free Ride & Endor Celebration", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Free Ride & Endor Celebration", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.Free_Ride, Title.Endor_Celebration);
         setGameText("Cancel Tatooine Occupation, Cloud City Occupation, Rebel Base Occupation. (Immune to Sense.) OR Peak at one card randomly selected from opponent's hand. If that card is a speeder bike, AT-ST, or skiff, steal it into hand.");
         addIcons(Icon.CORUSCANT);

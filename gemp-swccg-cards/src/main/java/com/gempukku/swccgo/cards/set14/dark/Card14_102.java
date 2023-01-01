@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card14_102 extends AbstractUsedInterrupt {
     public Card14_102() {
-        super(Side.DARK, 5, "Drop Your Weapons", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Drop Your Weapons", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("In situations of confrontation, a command high on a battle droid's priority queue is to neutralize any kind of armament an opponent has.");
         setGameText("Target an opponent's weapon at same site as your battle droid. Each of that weapon's destiny draws are -1 for remainder of turn. OR If your battle droid just fired a blaster and hit a character, all opponent's weapons at same site are lost.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

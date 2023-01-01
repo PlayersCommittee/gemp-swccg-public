@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card5_132 extends AbstractUsedInterrupt {
     public Card5_132() {
-        super(Side.DARK, 3, Title.Blasted_Droid, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Blasted_Droid, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("'Oh my! Oh, uh, I'm, I'm terribly sorry. I. . . I didn't mean to intrude. No, no, no, please don't get up. No!'");
         setGameText("During your control phase, fire (for free) one of your blasters carried by a trooper or one of your automated weapons. Any hit targets are immediately lost.");
         addIcons(Icon.CLOUD_CITY);

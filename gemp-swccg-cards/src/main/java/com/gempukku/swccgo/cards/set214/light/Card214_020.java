@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set214.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card214_020 extends AbstractUsedInterrupt {
     public Card214_020() {
-        super(Side.LIGHT, 4, Title.Our_Only_Hope, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Our_Only_Hope, Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("'The Emperor knew, as I did, if Anakin were to have any offspring, they would be a threat to him.'");
         setGameText("Relocate Prophecy Of The Force to a site. OR If Like My Father Before Me on table, [upload] Yoda's Hut or a Death Star II site.");
         addIcons(Icon.DEATH_STAR_II, Icon.VIRTUAL_SET_14);

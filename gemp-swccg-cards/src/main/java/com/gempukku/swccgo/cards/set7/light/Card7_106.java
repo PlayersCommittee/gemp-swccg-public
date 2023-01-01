@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card7_106 extends AbstractUsedInterrupt {
     public Card7_106() {
-        super(Side.LIGHT, 3, "Suppressive Fire", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Suppressive Fire", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Echo Base heavy weapons units provided covering fire, allowing Alliance personnel to escape Hoth.");
         setGameText("During your control phase, fire (for free) one of your blasters carried by a trooper or one of your automated weapons. 'Hit' target is lost.");
         addIcons(Icon.SPECIAL_EDITION);

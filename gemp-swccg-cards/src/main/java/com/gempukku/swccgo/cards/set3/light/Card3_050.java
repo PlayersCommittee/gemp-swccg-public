@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card3_050 extends AbstractUsedInterrupt {
     public Card3_050() {
-        super(Side.LIGHT, 6, Title.Under_Attack);
+        super(Side.LIGHT, 6, Title.Under_Attack, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("With the Rebels' limited resources and small numbers, desperate strategies are often required.");
         setGameText("During your control phase, target a vehicle with armor present with your warrior. Draw destiny. If warrior has a Concussion Grenade or a lightsaber, add 3 to destiny draw (7 if both). Vehicle (and grenade) lost if total destiny > armor.");
         addIcons(Icon.HOTH);

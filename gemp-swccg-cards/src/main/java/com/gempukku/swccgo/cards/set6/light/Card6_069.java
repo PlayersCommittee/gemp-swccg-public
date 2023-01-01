@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card6_069 extends AbstractUsedInterrupt {
     public Card6_069() {
-        super(Side.LIGHT, 5, Title.Ke_Chu_Ke_Kukuta);
+        super(Side.LIGHT, 5, Title.Ke_Chu_Ke_Kukuta, Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("'Balka. Hachu ma blinki?'");
         setGameText("If opponent just deployed an Imperial to a Jabba's Palace site (and you have no Rebels at any Jabba's Palace site), return Imperial to opponent's hand. Any Force used to deploy that Imperial remains used and Imperial may not be deployed for remainder of turn.");
         addIcons(Icon.JABBAS_PALACE);

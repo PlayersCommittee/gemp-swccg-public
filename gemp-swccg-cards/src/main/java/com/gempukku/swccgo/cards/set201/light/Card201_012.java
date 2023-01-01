@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set201.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +39,7 @@ import java.util.List;
  */
 public class Card201_012 extends AbstractUsedInterrupt {
     public Card201_012() {
-        super(Side.LIGHT, 6, Title.Escape_Pod);
+        super(Side.LIGHT, 6, Title.Escape_Pod, Uniqueness.UNRESTRICTED, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Capital starships have emergency escape pods. Equipped with food, water, flares, medpacs, hunting blaster and tracking beacon (R2-D2 deactivated this one's beacon).");
         setGameText("Use 1 Force to [upload] a dejarik or holosite. OR Cancel a Force drain at a holosite. OR If opponent is about to place your character out of play, place that character in your Lost Pile instead.");

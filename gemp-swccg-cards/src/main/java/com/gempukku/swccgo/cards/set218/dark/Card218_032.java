@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +45,7 @@ import java.util.List;
  */
 public class Card218_032 extends AbstractUsedInterrupt {
     public Card218_032() {
-        super(Side.DARK, 4, "He's No Good To Me Dead", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "He's No Good To Me Dead", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setGameText("For remainder of turn, your Fetts add 1 to their weapon destiny draws and targets they 'hit' are forfeit = 0. OR Once per game, cancel a battle just initiated where a Fett is escorting a captive; opponent's cards there move for free this turn. [Immune to Sense.]");
         addIcons(Icon.VIRTUAL_SET_18);
     }

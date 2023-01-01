@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RelocateFromWeatherVaneToLocation;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card10_025 extends AbstractUsedInterrupt {
     public Card10_025() {
-        super(Side.LIGHT, 5, "The Bith Shuffle & Desperate Reach");
+        super(Side.LIGHT, 5, "The Bith Shuffle & Desperate Reach", Uniqueness.UNRESTRICTED, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Bith_Shuffle, Title.Desperate_Reach);
         setGameText("Shuffle any player's Reserve Deck or Used Pile. OR During your move phase, relocate one of your characters (unless Disarmed) from Weather Vane to any Cloud City site. Character may not move for remainder of turn. OR Cancel Imperial Barrier or The Shield Doors Must Be Closed.");
         addIcons(Icon.REFLECTIONS_II);

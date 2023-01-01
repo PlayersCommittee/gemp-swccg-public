@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set218.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card218_002 extends AbstractUsedInterrupt {
     public Card218_002() {
-        super(Side.DARK, 5, "Seal Off The Bridge", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Seal Off The Bridge", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setGameText("Use 3 Force to take a Neimoidian or an Effect of any kind into hand from Reserve Deck; reshuffle. OR Deploy Blockade Flagship: Bridge from Reserve Deck; reshuffle.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_18);
     }

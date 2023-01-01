@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card5_149 extends AbstractUsedInterrupt {
     public Card5_149() {
-        super(Side.DARK, 3, "Projective Telepathy", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Projective Telepathy", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("'Luke.' 'Father.' 'Son, come with me.'");
         setGameText("Cancel Anger, Fear, Aggression when it is inserted or revealed. OR If your opponent just initiated a battle or Force drain, opponent must choose to use 2 Force, or cancel that battle or Force drain.");
         addIcons(Icon.CLOUD_CITY);

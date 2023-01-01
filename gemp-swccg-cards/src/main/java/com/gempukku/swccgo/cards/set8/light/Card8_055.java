@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -21,7 +23,10 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -32,7 +37,7 @@ import java.util.*;
  */
 public class Card8_055 extends AbstractUsedInterrupt {
     public Card8_055() {
-        super(Side.LIGHT, 5, "I Have A Really Bad Feeling About This", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "I Have A Really Bad Feeling About This", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("'I'm rather embarrassed, General Solo, but it appears you are to be the main course at a banquet in my honor.'");
         setGameText("If opponent just initiated a battle where opponent has more than double your power, target your highest-ability character in that battle. Draw destiny. If destiny < target's ability, deploy one character there from hand (for free).");
         addIcons(Icon.ENDOR);

@@ -6,7 +6,9 @@ import com.gempukku.swccgo.cards.effects.CancelTractorBeamTargetingEffect;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card219_045 extends AbstractUsedInterrupt {
     public Card219_045() {
-        super(Side.LIGHT, 5, "This Is Our Rebellion", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "This Is Our Rebellion", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("Peek at up to X cards from the top of your Reserve Deck, where X = number of your Lothal sites on table; " +
                 "take one into hand and shuffle your Reserve Deck. " +
                 "OR Cancel an attempt to target your starship with a weapon or tractor beam.");

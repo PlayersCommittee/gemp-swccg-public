@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card208_022 extends AbstractUsedInterrupt {
     public Card208_022() {
-        super(Side.LIGHT, 3, "Walker Sighting", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Walker Sighting", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Echo station, 3TA. We have spotted Imperial walkers.' A Rebel tactic is to put as much ground as possible between walkers and Rebel troops, allowing time to prepare a defense.");
         setGameText("Cancel Too Cold For Speeders. OR Unless opponent's AT-AT or AT-ST at a battleground site, retrieve 1 Force for each Rebel Base location you control (limit 3). OR Your Rebels and T-47s at sites where opponent has an AT-AT or AT-ST are power +2 for remainder of turn.");

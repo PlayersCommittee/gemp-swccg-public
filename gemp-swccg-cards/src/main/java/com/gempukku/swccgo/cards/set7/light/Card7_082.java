@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card7_082 extends AbstractUsedInterrupt {
     public Card7_082() {
-        super(Side.LIGHT, 5, Title.All_Wings_Report_In, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.All_Wings_Report_In, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'Red 10 standing by.' 'Red 7 standing by.' 'Red 3 standing by.' 'Red 6 standing by.' 'Red 9 standing by.' 'Red 2 standing by.' 'Red 11 standing by.' 'Red 5 standing by.'");
         setGameText("Once per game, target one non-unique starfighter on table. Draw destiny. If destiny < X, retrieve X Force, where X = number of copies of that card you have on table. (Immune to Sense.) OR Take one non-unique starfighter into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

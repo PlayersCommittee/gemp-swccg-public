@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card13_043 extends AbstractUsedInterrupt {
     public Card13_043() {
-        super(Side.LIGHT, 3, "Strike Blocked", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Strike Blocked", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("At times it was calculated defense, at others it was simply survival.");
         setGameText("Take top card of Force Pile into hand. OR If opponent just revealed a combat card, it is canceled (place in opponent's Used Pile) and opponent must draw destiny instead (that destiny is reduced by 1). OR Cancel Maul Strikes, Dark Strike, or You Are Beaten.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

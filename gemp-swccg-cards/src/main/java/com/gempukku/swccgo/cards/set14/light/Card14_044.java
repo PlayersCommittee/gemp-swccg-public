@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card14_044 extends AbstractUsedInterrupt {
     public Card14_044() {
-        super(Side.LIGHT, 5, "Take This!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Take This!", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("'And this!'");
         setGameText("If you are about to draw weapon destiny for Proton Torpedoes, instead draw 3 and choose 1. OR For rest of turn, add 2 to any attempt to 'blow away' Blockade Flagship. OR Take Proton Torpedoes or Bravo Fighter into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

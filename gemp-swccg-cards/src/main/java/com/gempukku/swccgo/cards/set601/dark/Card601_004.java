@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card601_004 extends AbstractUsedInterrupt {
     public Card601_004() {
-        super(Side.DARK, 5, Title.Cold_Feet);
+        super(Side.DARK, 5, Title.Cold_Feet, Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Wampas pack snow around the appendages of captured prey, making use of Hoth's cold environment to immobilize them.");
         setGameText("Take a 'grabber' into hand from Reserve Deck; reshuffle. (Immune to Sense.)  OR  Play a Defensive Shield from under your Starting Effect.  OR  Cancel Don't Forget The Droids, It Can Wait, or Surprise Assault.  OR  Suspend Bacta Tank ('patient' remains on Effect), Bo Shuda, Goo Nee Tay, or Mantellian Savrip for remainder of turn.");

@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RelocateFromLostPileToWeatherVane;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card5_047 extends AbstractUsedInterrupt {
     public Card5_047() {
-        super(Side.LIGHT, 6, "Fall Of The Legend", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "Fall Of The Legend", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Luke had a falling out with his estranged father.");
         setGameText("If you just lost a character during a battle or duel at a Cloud City site, use 2 Force to relocate that character to Weather Vane instead of your Lost Pile. OR Search your Reserve Deck, take one Weather Vane into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY);

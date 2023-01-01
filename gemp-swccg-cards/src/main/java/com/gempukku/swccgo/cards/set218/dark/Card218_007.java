@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set218.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card218_007 extends AbstractUsedInterrupt {
     public Card218_007() {
-        super(Side.DARK, 5, "A Dark Time For The Rebellion & Tarkin's Orders", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "A Dark Time For The Rebellion & Tarkin's Orders", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         addComboCardTitles("A Dark Time For The Rebellion", "Tarkin's Orders");
         setGameText("For remainder of turn, opponent may not cancel your battle destiny draws or character weapon destiny draws. OR If you have two battlegrounds on table (and opponent does not), for remainder of turn, your total power in battles is +1 for each opponent's non-battleground location on table. OR Cancel It Could Be Worse or Nabrun Leids. OR If opponent does not occupy a battleground site (or if Menace Fades on table), cancel Projection Of A Skywalker.");
         addIcons(Icon.VIRTUAL_SET_18);

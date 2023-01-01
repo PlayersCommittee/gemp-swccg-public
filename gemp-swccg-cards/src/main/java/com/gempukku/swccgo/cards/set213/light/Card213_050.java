@@ -2,13 +2,20 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.CancelImmunityToAttritionUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalBattleDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card213_050 extends AbstractUsedInterrupt {
     public Card213_050() {
-        super(Side.LIGHT, 3, Title.Hans_Dice);
+        super(Side.LIGHT, 3, Title.Hans_Dice, Uniqueness.UNRESTRICTED, ExpansionSet.SET_13, Rarity.V);
         setLore("A pair of dice dangling above Millennium Falcon's cockpit, for luck. 'I've never seen anything to make me believe there's one, all-powerful Force controlling everything.'");
         setGameText("If Han or your gambler is in battle (with no Jedi), draw destiny: (0-2) subtract that amount from opponent's total battle destiny; (3-4) cancel the game text of a character participating in battle (if any); (5+) opponent loses all immunity to attrition (if any) this battle.");
         setVirtualSuffix(true);

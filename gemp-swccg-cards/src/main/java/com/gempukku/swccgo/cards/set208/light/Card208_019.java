@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +39,7 @@ import java.util.List;
  */
 public class Card208_019 extends AbstractUsedInterrupt {
     public Card208_019() {
-        super(Side.LIGHT, 4, "I've Got A Bad Feeling About...", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "I've Got A Bad Feeling About...", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("Unlike the Empire, the Alliance treats their droids with respect. Many droids volunteered to share the risk of battle and aid the Rebellion's assault on the Death Star.");
         setGameText("[Upload] one security droid. OR During your control phase, if K-2SO controls opponent's site, opponent loses 1 Force. OR If a battle was just initiated where K-2SO is with your spy, lose K-2SO to cancel that battle. OR Cancel Nevar Yalnal.");
         addIcons(Icon.VIRTUAL_SET_8);

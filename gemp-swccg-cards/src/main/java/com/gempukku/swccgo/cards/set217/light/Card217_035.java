@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card217_035 extends AbstractUsedInterrupt {
     public Card217_035() {
-        super(Side.LIGHT, 4, "Everything We Need", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Everything We Need", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setGameText("If My Parents Were Strong on table, choose: [upload] Saddle or a Kef Bir site. OR During battle, add X to your total power, where X = number of your cards out of play.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_17);
     }

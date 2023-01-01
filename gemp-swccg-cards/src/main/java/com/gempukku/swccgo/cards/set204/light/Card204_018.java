@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card204_018 extends AbstractUsedInterrupt {
     public Card204_018() {
-        super(Side.LIGHT, 5, "Escape Pod & We're Doomed");
+        super(Side.LIGHT, 5, "Escape Pod & We're Doomed", Uniqueness.UNRESTRICTED, ExpansionSet.SET_4, Rarity.V);
         addComboCardTitles(Title.Escape_Pod, Title.Were_Doomed);
         setGameText("Use 1 Force to [upload] a dejarik. OR For remainder of turn, you lose no Force to Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, You May Start Your Landing, or You'll Be Dead!");
         addIcons(Icon.VIRTUAL_SET_4);

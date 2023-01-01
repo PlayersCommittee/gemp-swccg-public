@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card5_072 extends AbstractUsedInterrupt {
     public Card5_072() {
-        super(Side.LIGHT, 3, Title.Swing_And_A_Miss, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, Title.Swing_And_A_Miss, Uniqueness.RESTRICTED_3, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("It's the bottom of the ninth level of Cloud City. Vader steps up to the platform. Here's the delivery. . . oooh, he took a big cut there! The Force sure wasn't with him on that one!");
         setGameText("If opponent just used a lightsaber to target, draw one destiny and subtract that amount from opponent's weapon destiny. OR Cancel one Mostly Armless card just played. OR Cancel Dark Strike, End This Destructive Conflict or Focused Attack.");
         addIcons(Icon.CLOUD_CITY);

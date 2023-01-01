@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.choose.ChooseAndLoseCardFromHandEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card7_261 extends AbstractUsedInterrupt {
     public Card7_261() {
-        super(Side.DARK, 4, "Sacrifice", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Sacrifice", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("Jabba's minions could be expected to be sacrificed to save the Hutt, to destroy one of the Hutts enemies or to provide the Hutt and his minions with a good laugh.");
         setGameText("Reduce your battle damage by 5 by losing from hand a starship, vehicle, or character. OR If your character's forfeit was just reduced to 0, restore it to normal. (Immune to Sense.)");
         addIcons(Icon.SPECIAL_EDITION);

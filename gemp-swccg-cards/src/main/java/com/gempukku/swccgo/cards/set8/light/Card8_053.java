@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +38,7 @@ import java.util.List;
  */
 public class Card8_053 extends AbstractUsedInterrupt {
     public Card8_053() {
-        super(Side.LIGHT, 4, Title.Get_Alongside_That_One, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Get_Alongside_That_One, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Versatility is key to the Rebellion. The Rebels' ability to adapt to any situation is well-known.");
         setGameText("Target two non-creature vehicles with maneuver (one yours, one opponent's) present at same site. Both players draw destiny; add your vehicle's maneuver to your total. Lowest total loses vehicle. OR Your speeder bike piloted by Luke or a scout adds one battle destiny.");
         addIcons(Icon.ENDOR);

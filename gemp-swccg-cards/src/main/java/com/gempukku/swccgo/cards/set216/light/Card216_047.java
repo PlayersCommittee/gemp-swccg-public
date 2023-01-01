@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.CancelTargetingEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnForCardTitleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,7 +44,7 @@ import java.util.List;
  */
 public class Card216_047 extends AbstractUsedInterrupt {
     public Card216_047() {
-        super(Side.LIGHT, 3, Title.Wookiee_Roar, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Wookiee_Roar, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("'GHRRRRAARRRRHG!'");
         setGameText("When drawn for destiny, once per turn, choose one of your Wookiees to be power +1 for remainder of turn. " +

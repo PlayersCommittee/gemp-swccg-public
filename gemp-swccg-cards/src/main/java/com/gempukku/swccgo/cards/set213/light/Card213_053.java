@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card213_053 extends AbstractUsedInterrupt {
     public Card213_053() {
-        super(Side.LIGHT, 4, "I've Got A Really Good Feeling About This", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "I've Got A Really Good Feeling About This", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("");
         setGameText("If you have two smugglers on table, choose one: If opponent has more cards in hand than you, draw one card from Reserve Deck (two if [Set 13] Han on table). OR If there are more [Dark Side] than [Light Side] on table, activate 1 Force (2 if [Set 13] Han on table). OR Re-circulate.");
         addIcons(Icon.VIRTUAL_SET_13);

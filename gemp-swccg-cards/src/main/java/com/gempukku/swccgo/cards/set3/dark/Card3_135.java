@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +37,7 @@ import java.util.List;
  */
 public class Card3_135 extends AbstractUsedInterrupt {
     public Card3_135() {
-        super(Side.DARK, 6, "Stop Motion");
+        super(Side.DARK, 6, "Stop Motion", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("'Your tauntaun'll freeze before you reach the first marker.'");
         setGameText("Target one creature vehicle at any marker site. Draw destiny. If site under 'nighttime conditions,' add 2 to destiny draw. Tauntaun lost if total destiny > 5. Other creature vehicle lost if total destiny > 3.");
         addIcons(Icon.HOTH);

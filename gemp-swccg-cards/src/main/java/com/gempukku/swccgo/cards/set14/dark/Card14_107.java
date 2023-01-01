@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card14_107 extends AbstractUsedInterrupt {
     public Card14_107() {
-        super(Side.DARK, 5, Title.There_They_Are, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.There_They_Are, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("When unexplained droid losses are detected, a Droid Control Ship can call in reinforcements in seconds.");
         setGameText("If a battle was just initiated, your non-unique battle droids are each power +1 for remainder of battle. (Immune to Sense if battle at a Naboo site.) OR Take a non-unique battle droid or non-unique droid starfighter into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card12_066 extends AbstractUsedInterrupt {
     public Card12_066() {
-        super(Side.LIGHT, 7, "Rebel Artillery", Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 7, "Rebel Artillery", Uniqueness.RESTRICTED_2, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("The Rebel Alliance utilizes every piece of equipment, ammunition and personnel it can muster.");
         setGameText("During your control phase, if you have a weapon (except a lightsaber or [Permanent Weapon]) at a battleground you control, opponent loses 1 Force. OR If you just used a weapon (except a lightsaber or [Permanent Weapon]) to 'hit' a character or starship, opponent loses 1 Force. (Immune to Sense.)");
         addIcons(Icon.CORUSCANT);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card5_065 extends AbstractUsedInterrupt {
     public Card5_065() {
-        super(Side.LIGHT, 4, "Put That Down", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Put That Down", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Lord Vader interceded between the trigger happy mercenary and his target.");
         setGameText("If one of your characters was just targeted by a weapon during battle, use 3 Force to cancel that targeting. OR Cancel Double Back or Res Luk Ra'auf.");
         addIcons(Icon.CLOUD_CITY);

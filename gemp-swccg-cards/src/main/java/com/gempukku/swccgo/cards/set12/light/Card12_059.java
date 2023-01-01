@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card12_059 extends AbstractUsedInterrupt {
     public Card12_059() {
-        super(Side.LIGHT, 4, "Inconsequential Barriers", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Inconsequential Barriers", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("The lightsaber is an extremely versatile weapon, making a Jedi a rather difficult opponent to slow down. 'This is impossible!'");
         setGameText("Cancel Imperial Barrier, None Shall Pass, or Set For Stun. OR Peek at the top card of your Force Pile; either return it, or place it under your Force Pile or Reserve Deck.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

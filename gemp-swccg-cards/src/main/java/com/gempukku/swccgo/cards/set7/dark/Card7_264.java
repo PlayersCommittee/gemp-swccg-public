@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card7_264 extends AbstractUsedInterrupt {
     public Card7_264() {
-        super(Side.DARK, 5, "Tauntaun Skull", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Tauntaun Skull", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Bones strewn around the cave lair of the wampa are proof of the beat's prowess.");
         setGameText("During a battle or attack, place out of play one non-droid character, creature or creature vehicle from your Lost Pile. Add its destiny number to your total power. OR Take one Stop Motion or Yaggle Gakkle into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

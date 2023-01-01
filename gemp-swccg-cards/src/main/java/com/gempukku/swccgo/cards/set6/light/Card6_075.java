@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card6_075 extends AbstractUsedInterrupt {
     public Card6_075() {
-        super(Side.LIGHT, 4, Title.Someone_Who_Loves_You);
+        super(Side.LIGHT, 4, Title.Someone_Who_Loves_You, Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Han's appreciation toward his mysterious liberator was rather quickly overcome.");
         setGameText("If Han was just lost and Leia is on table (or vice versa), place the just lost character on your Used Pile instead. OR If Leia is present at a site where Han is captive, release Han. OR Cancel a Force drain at a prison.");
         addIcons(Icon.JABBAS_PALACE);

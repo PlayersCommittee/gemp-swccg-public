@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card4_071 extends AbstractUsedInterrupt {
     public Card4_071() {
-        super(Side.LIGHT, 7, "WHAAAAAAAAAOOOOW!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 7, "WHAAAAAAAAAOOOOW!", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("You're lucky you don't taste very good.");
         setGameText("If one of your characters was just defeated by a Dragonsnake, Rancor, Sarlacc, Dianoga, or Wampa, instead of being 'eaten', that character is 'hurled' (relocated) to an adjacent site, if possible.");
         addIcons(Icon.DAGOBAH);

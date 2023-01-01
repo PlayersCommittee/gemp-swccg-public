@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card7_100 extends AbstractUsedInterrupt {
     public Card7_100() {
-        super(Side.LIGHT, 5, "Rapid Fire");
+        super(Side.LIGHT, 5, "Rapid Fire", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Rebel engineers at Echo Base quickly armed T-47 snowspeeders with harpoon guns in preparation for the impending attack.");
         setGameText("If a battle was just initiated, deploy (for free) a vehicle weapon or starship weapon from hand (or Reserve Deck; reshuffle) on your participating vehicle or starship.");
         addIcons(Icon.SPECIAL_EDITION);

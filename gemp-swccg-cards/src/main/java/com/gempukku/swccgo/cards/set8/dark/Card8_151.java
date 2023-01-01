@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -13,7 +15,11 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card8_151 extends AbstractUsedInterrupt {
     public Card8_151() {
-        super(Side.DARK, 5, "Pitiful Little Band", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Pitiful Little Band", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("The Emperor's defense of the forest moon of Endor appeared to work with devastating effectiveness.");
         setGameText("If your scout is battling opponent's scout, spy or operative, add one battle destiny. OR If you have a spy or scout at Bunker or any prison, place out of play one captured spy of ability < 3 or captured operative there. Retrieve Force equal to double that captive's forfeit.");
         addIcons(Icon.ENDOR);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card204_017 extends AbstractUsedInterrupt {
     public Card204_017() {
-        super(Side.LIGHT, 4, "Are You Okay?", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Are You Okay?", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("Subtract 2 from a just drawn destiny targeting the ability or defense value of your non-Jedi [Episode VII] character. OR If you just forfeited a character from a Jakku site during your turn, use 1 Force to deploy that character from Lost Pile to same site for free.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }

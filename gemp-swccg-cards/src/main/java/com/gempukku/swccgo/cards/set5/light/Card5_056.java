@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.complete.ChooseExistingCardPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card5_056 extends AbstractUsedInterrupt {
     public Card5_056() {
-        super(Side.LIGHT, 5, Title.Keep_Your_Eyes_Open);
+        super(Side.LIGHT, 5, Title.Keep_Your_Eyes_Open, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("'Look, don't worry. Everything's gonna be fine. Trust me.'");
         setGameText("If a battle was just initiated where you have two smugglers, you may move any or all of your characters, vehicles and starships away (at normal use of the Force). OR Glance at the cards in any Lost Pile and replace unshuffled.");
         addIcons(Icon.CLOUD_CITY);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -13,7 +15,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPoliticsUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPowerUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card12_070 extends AbstractUsedInterrupt {
     public Card12_070() {
-        super(Side.LIGHT, 4, "Stay Here, Where It's Safe", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Stay Here, Where It's Safe", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Having enforced a momentous change upon the Senate, the headstrong Queen then wished to return to Naboo and do the same.");
         setGameText("Target your character with a peace or order agenda. Draw destiny. For remainder of turn, target is power +X (or politics +X if at Galactic Senate) and immune to attrition < X, where X = destiny number of the card drawn. (Immune to Sense.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

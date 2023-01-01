@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card12_071 extends AbstractUsedInterrupt {
     public Card12_071() {
-        super(Side.LIGHT, 5, "Vote Now!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Vote Now!", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("'Vote now! Vote now! Vote now!'");
         setGameText("During your control phase, draw destiny. If destiny > 2, draw up to X cards (maximum 4) from Reserve Deck, where X = your total politics at Galactic Senate minus opponent's total politics at Galactic Senate.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

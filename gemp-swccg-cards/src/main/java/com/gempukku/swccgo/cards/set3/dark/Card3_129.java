@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -38,7 +41,7 @@ import java.util.List;
  */
 public class Card3_129 extends AbstractUsedInterrupt {
     public Card3_129() {
-        super(Side.DARK, 5, "Lightsaber Deficiency");
+        super(Side.DARK, 5, "Lightsaber Deficiency", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("'Ah...Uh...'");
         setGameText("Cancel Lightsaber Proficiency. OR Target a character with ability < 4 using a lightsaber in a battle or a Force drain. Draw destiny. Target lost if destiny > ability. Lightsaber lost if destiny = ability.");
         addIcons(Icon.HOTH);

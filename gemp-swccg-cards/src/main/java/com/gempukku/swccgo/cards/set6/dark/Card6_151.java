@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card6_151 extends AbstractUsedInterrupt {
     public Card6_151() {
-        super(Side.DARK, 5, Title.Abyssin_Ornament, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Abyssin_Ornament, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("The Abyssins are known for their regenerative abilities. Jabba keeps several statue heads of Abyssin creatures on his repulsor sled.");
         setGameText("Once per game, target one non-unique character on table. Draw destiny. If destiny is less than X, retrieve X Force, where X equals the number of copies of that card you have on table (immune to Sense). OR search your Reserve Deck and take one non-unique alien into hand; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card8_134 extends AbstractUsedInterrupt {
     public Card8_134() {
-        super(Side.DARK, 6, "Accelerate");
+        super(Side.DARK, 6, "Accelerate", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("The Empire trains its personnel to operate a variety of specialized equipment in demanding environments. This training allows troops to take seemingly risky actions.");
         setGameText("Adds 2 to maneuver, 1 to power and 1 to landspeed of either your speeder bike piloted by a biker scout or your swoop for remainder of turn. (Interrupt may even affect the result just after a destiny draw targeting the vehicle's maneuver.)");
         addIcons(Icon.ENDOR);

@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set202.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card202_006 extends AbstractUsedInterrupt {
     public Card202_006() {
-        super(Side.LIGHT, 4, "Force Levitation", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Force Levitation", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setGameText("[Upload] a device (except Landing Claw). OR Target one opponent's droid present with your Jedi in battle. For remainder of turn, target is power -1 and may not fire weapons.");
         addIcons(Icon.VIRTUAL_SET_2);
     }

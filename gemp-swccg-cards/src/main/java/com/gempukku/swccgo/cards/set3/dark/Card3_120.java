@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card3_120 extends AbstractUsedInterrupt {
     public Card3_120() {
-        super(Side.DARK, 4, "Crash Landing");
+        super(Side.DARK, 4, "Crash Landing", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("AT-AT weapons are rarely quick enough to score a direct hit on a fastmoving snowspeeder. They are more likely to wing a craft, causing a forced landing.");
         setGameText("If you have a piloted AT-AT present at a site, target opponent's non-creature vehicle present at same or adjacent exterior site. Draw destiny. If AT-AT has a vehicle weapon, add 1 to destiny draw. Target 'crashes' if total destiny > 3.");
         addIcons(Icon.HOTH);
