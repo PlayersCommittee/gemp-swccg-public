@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set209.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +18,11 @@ import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
+import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromCardModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotReactModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,7 +35,7 @@ import java.util.List;
  */
 public class Card209_017 extends AbstractNormalEffect {
     public Card209_017() {
-        super(Side.LIGHT, 7, null, "Relatively Unprotected", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 7, null, "Relatively Unprotected", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("'With the Imperial Fleet spread throughout the galaxy in a vain effort to engage us, it is relatively unprotected.'");
         setGameText("Deploy on table. While you occupy two battlegrounds (or opponent's site), you lose no more than 1 Force to Carbon-Freezing or That Thing's Operational. [Immune to Alter]. OR Deploy on a Star Destroyer or vehicle; its immunity to attrition is -4 and it may not 'react.'");
         addIcons(Icon.VIRTUAL_SET_9);

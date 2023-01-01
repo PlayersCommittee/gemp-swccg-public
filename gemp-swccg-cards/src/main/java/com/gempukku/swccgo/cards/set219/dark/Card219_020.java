@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set219.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card219_020 extends AbstractNormalEffect {
     public Card219_020() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Thrawns_Art_Collection, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Thrawns_Art_Collection, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("Use 4 Force to deploy on table. If you just initiated a Force drain (or won a battle) at same battleground as Thrawn, " +
                 "opponent loses 1 Force (cannot be reduced) and stacks it here face up. (These stacked cards are artwork cards.) [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_19);

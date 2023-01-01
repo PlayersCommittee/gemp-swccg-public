@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card14_095 extends AbstractNormalEffect {
     public Card14_095() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "At Last We Are Getting Results", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "At Last We Are Getting Results", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("First sign that your blockade is going well: the Queen's on the comlink.");
         setGameText("Deploy on table. Your [Trade Federation] starfighters are forfeit +2. During every draw phase, opponent loses 1 Force unless they occupy a battleground system. Effect lost if you do not occupy two battleground systems with [Trade Federation] starships.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

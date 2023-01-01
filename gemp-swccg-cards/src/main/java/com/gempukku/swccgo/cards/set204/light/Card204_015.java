@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card204_015 extends AbstractNormalEffect {
     public Card204_015() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We're Leaving", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We're Leaving", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Qui-Gon realized that sometimes it's best to just leave, before any more damage is done.");
         setGameText("Deploy on table. Once per game, may stack top card of Lost Pile beneath Credits Will Do Fine. May examine cards stacked beneath Credits Will Do Fine and place any two in owner's Lost Pile to [upload] (or retrieve into hand) a starship. [Immune to Alter]");

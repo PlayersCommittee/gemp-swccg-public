@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card11_021 extends AbstractNormalEffect {
     public Card11_021() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.The_Camp, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.The_Camp, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("An isolated camp protected by Obi-Wan and Captain Panaka was established at the Queen's starship while Qui-Gon searched for a way to repair the leaking hyperdrive.");
         setGameText("Deploy on table. Each non-battleground docking bay generates no more than one Force for either player. Opponent's aliens deploy +1 on Tatooine (or +2 if non-unique or to same Tatooine site as your Jedi, or +4 if both). (Immune to Alter.)");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

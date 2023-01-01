@@ -2,16 +2,31 @@ package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromOffTableEffect;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
+import com.gempukku.swccgo.logic.modifiers.MaximumDefenseValueModifiedToModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAddDestinyDrawsToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAddDestinyDrawsToPowerModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -26,7 +41,7 @@ import java.util.List;
  */
 public class Card601_094 extends AbstractNormalEffect {
     public Card601_094() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Revenge Of The Sith", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Revenge Of The Sith", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("A symbol of the Dark Lord of the Sith, and of the seductive power of the dark side. Hologram.");
         setGameText("Deploy on Vader. [Coruscant] holograms are lost. Opponent may not add destiny draws to total power or attrition here. While with a Skywalker or Jedi, Vader's defense value is +2 (to a maximum of 8) and his immunity to attrition is +2.  When Vader leaves table, place Effect in Used Pile. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY, Icon.LEGACY_BLOCK_6);

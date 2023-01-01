@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set102.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -12,7 +14,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfCardPlayedModifierEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.RetargetHighestAbilityCharacterForSenseAlterIfNeededEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ExcludedFromBeingTheHighestAbilityCharacterModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card102_001 extends AbstractNormalEffect {
     public Card102_001() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "For Luck", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "For Luck", Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLore("Before swinging across the treacherous abyss, Leia gave Luke a kiss for luck. Despite an incessant storm of laserblasts, they made it.");
         setGameText("Deploy on table. If Counter Assault is played, may use 1 Force to add one destiny to your total. If Sense or Alter just played, may use X Force to exclude X Dark Jedi from being the 'highest-ability character.'");
         addIcons(Icon.PREMIUM);

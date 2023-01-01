@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set217.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card217_024 extends AbstractNormalEffect {
     public Card217_024() {
-        super(Side.DARK, 1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Unlimited_Power, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Unlimited_Power, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Eliciting fear from the opponent gives the dark side a powerful advantage.");
         setGameText("Deploy on table. Emperor and Maul are lost. At the start of your turn, if Sidious on Coruscant (or Insidious Prisoner on table), may place two cards from hand on Reserve Deck, reshuffle, and draw two cards from Reserve Deck. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.SIDIOUS, Icon.VIRTUAL_SET_17);

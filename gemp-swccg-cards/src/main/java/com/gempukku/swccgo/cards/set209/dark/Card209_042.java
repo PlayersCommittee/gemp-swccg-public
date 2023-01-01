@@ -4,15 +4,25 @@ package com.gempukku.swccgo.cards.set209.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ArmorModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.FiresForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +34,7 @@ import java.util.List;
  */
 public class Card209_042 extends AbstractNormalEffect {
     public Card209_042() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Prepare For A Surface Attack", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Prepare For A Surface Attack", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Ruthless and well-equipped for both air and ground assault, Vader's feared Death Squadron came to the icy Rebel Base with total domination in mind.");
         setGameText("Deploy on table. AT-AT Cannons deploy -1, fire for free, and add 1 to armor. During your control phase, may take a non-[Jabba's Palace] vehicle weapon (without 'lost' in game text), [Hoth] device, or [Hoth] Epic Event into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.VIRTUAL_SET_9, Icon.VIRTUAL_SET_9);

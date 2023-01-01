@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set206.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceLossEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +31,7 @@ import java.util.List;
  */
 public class Card206_006 extends AbstractNormalEffect {
     public Card206_006() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "What Chance Do We Have?", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "What Chance Do We Have?", Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setGameText("Deploy on table. Whenever you lose Force (except from a Force drain or your card) during opponent's control phase, unless opponent occupies more battlegrounds than you, may reduce loss (to a minimum of 1) by the number of battlegrounds you occupy. [Immune to Alter]");
         addIcons(Icon.VIRTUAL_SET_6);
         addImmuneToCardTitle(Title.Alter);

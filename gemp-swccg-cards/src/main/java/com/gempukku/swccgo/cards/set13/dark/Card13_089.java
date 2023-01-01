@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card13_089 extends AbstractNormalEffect {
     public Card13_089() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Hutts Are Gangsters", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Hutts Are Gangsters", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'If they discovered her...'");
         setGameText("Deploy on table. While Amidala with Jabba, her game text is canceled. While you occupy an [Episode I] Tatooine site with [Episode I] Jabba, once per turn you may place a card from hand in your Used Pile to draw a card from Reserve Deck. (Immune to Alter.)");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card11_077 extends AbstractNormalEffect {
     public Card11_077() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.You_May_Start_Your_Landing, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.You_May_Start_Your_Landing, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Echo Base was no match for the Imperial war machine.");
         setGameText("Deploy on table if 5th Marker also on table. During your control phase opponent loses 1 Force for each marker site you occupy with an AT-AT. Once per game, may take both Walker Garrison and 3rd Marker into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

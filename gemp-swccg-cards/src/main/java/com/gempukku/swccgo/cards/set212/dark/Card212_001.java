@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set212.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card212_001 extends AbstractNormalEffect {
     public Card212_001() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Evil_Is_Everywhere, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Evil_Is_Everywhere, Uniqueness.UNIQUE, ExpansionSet.SET_12, Rarity.V);
         setLore("");
         setGameText("Deploy on table. Non-[Episode I] Dark Jedi are lost. Unless with Obi-Wan, Dooku is immune to attrition. Your game text on Jedi Council Chamber is canceled. Once per turn, may [download] a mobile hallway or [Episode I] lightsaber. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_12);

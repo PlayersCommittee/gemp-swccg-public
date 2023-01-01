@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card211_029 extends AbstractNormalEffect {
     public Card211_029() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Make Ten Men Feel Like A Hundred", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Make Ten Men Feel Like A Hundred", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("");
         setGameText("If Stardust on table, deploy on table. Nightfall is canceled. Saw is a spy. Rebel spies deploy -1 to Scarif. Once per battle, if you just drew a Rebel spy for destiny, may retrieve 1 Force. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_11);

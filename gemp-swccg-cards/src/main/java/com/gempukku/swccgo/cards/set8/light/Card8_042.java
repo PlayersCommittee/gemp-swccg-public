@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card8_042 extends AbstractNormalEffect {
     public Card8_042() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, Title.Wokling, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, Title.Wokling, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Every Ewok is taught to be protective of the younger members of their clan.");
         setGameText("Use 2 Force to deploy on an Endor site where you have an Ewok.  Moves like a character.  Adds one [Light Side Force] icon while your Ewok is present.  Effect lost if you initiate a battle here or opponent controls this location.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

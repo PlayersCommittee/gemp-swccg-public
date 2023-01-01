@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card5_125 extends AbstractNormalEffect {
     public Card5_125() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Vader's Bounty", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Vader's Bounty", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'We would be honored if you would join us.'");
         setGameText("Deploy on a Rebel of ability > 2. If subsequently captured by a bounty hunter and then transferred to a prison where Vader is present, retrieve Force equal to character's forfeit (+4 if Luke) and lose Effect. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);

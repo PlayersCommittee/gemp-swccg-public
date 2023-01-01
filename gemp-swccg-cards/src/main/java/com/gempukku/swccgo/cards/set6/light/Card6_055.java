@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card6_055 extends AbstractNormalEffect {
     public Card6_055() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "I Must Be Allowed To Speak", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "I Must Be Allowed To Speak", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("'Jedi mod spienko eek.'");
         setGameText("Deploy on a Jabba's Palace site. Luke may deploy at this site regardless of presence or location deployment restrictions. When he is deployed here, relocate Effect to Luke, he is immune to attrition while on Tatooine. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

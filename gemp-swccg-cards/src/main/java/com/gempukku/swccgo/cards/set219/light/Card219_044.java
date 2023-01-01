@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set219.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card219_044 extends AbstractNormalEffect {
     public Card219_044() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Steady, Steady & Bargaining Table", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Steady, Steady & Bargaining Table", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         addComboCardTitles(Title.Steady_Steady, "Bargaining Table");
         setGameText("Deploy on table. At your battlegrounds, you initiate battles for free. " +
                 "At sites where you have two aliens of the same species, all immunity to attrition is canceled. " +

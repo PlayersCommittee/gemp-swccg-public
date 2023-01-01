@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card9_034 extends AbstractNormalEffect {
     public Card9_034() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Feel_The_Conflict, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Feel_The_Conflict, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("'I know there is good in you. The Emperor hasn't driven it from you fully.'");
         setGameText("Use 2 Force to deploy on table. Each time you win a battle or duel, opponent loses 1 Force (cannot be reduced) and stacks lost card here face down. When attempting to cross Vader over, add 3 to total destiny for each card in stack. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

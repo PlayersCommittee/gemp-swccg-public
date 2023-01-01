@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +40,7 @@ import java.util.List;
  */
 public class Card7_218 extends AbstractNormalEffect {
     public Card7_218() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "A Bright Center To The Universe", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "A Bright Center To The Universe", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("The intimidating power of the Empire was focused in the core systems, allowing the Emperor to ignore minor activities occurring on the Outer Rim.");
         setGameText("Deploy on Death Star system or Coruscant system. Target another system. At locations related to target system, opponent's Force drain modifiers are canceled. Effect canceled if opponent controls this system. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card14_096 extends AbstractNormalEffect {
     public Card14_096() {
-        super(Side.DARK, 1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Droid_Racks, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Droid_Racks, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("The Trade Federation utilizes such efficient methods of droid deployment that it is rumored even they do not know exactly how many battle droids are in circulation");
         setGameText("Use 4 Force to deploy on table. If your battle droid was just lost, may place it here. During your control phase, may use 2 Force (1 Force if your piloted MTT on table) to take any battle droid from here into hand. (Immune to Alter.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

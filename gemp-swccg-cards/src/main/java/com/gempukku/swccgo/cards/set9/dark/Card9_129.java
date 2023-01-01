@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card9_129 extends AbstractNormalEffect {
     public Card9_129() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Mobilization_Points, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Mobilization_Points, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("The imperial noose relies on swift troop dispatch from docking bays.");
         setGameText("Deploy on table. Your Force generation is +1 at each docking bay you occupy (or +2 if you control). Once per game, you may take one Carida, Wakeelmui, Gall, Kuat or Rendili system or Executor into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

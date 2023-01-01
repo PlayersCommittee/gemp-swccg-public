@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card14_097 extends AbstractNormalEffect {
     public Card14_097() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fighters Straight Ahead", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Fighters Straight Ahead", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Sometimes a swarm of starfighters can look more imposing than it really is. Mostly though, it's just best to avoid them altogether.");
         setGameText("Deploy on table. Your Force generation is +1 at systems you control. Opponent's non-unique starfighters are deploy +1 (or +2 to a system you occupy). (Immune to Alter.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

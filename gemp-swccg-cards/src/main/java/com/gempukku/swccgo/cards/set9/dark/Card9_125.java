@@ -4,12 +4,26 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.evaluators.PerTIEEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +35,7 @@ import java.util.List;
  */
 public class Card9_125 extends AbstractNormalEffect {
     public Card9_125() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Flagship_Operations, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Flagship_Operations, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("'There's too many of them!'");
         setGameText("Deploy on any Star Destroyer if at least 5 Executor sites on table. Your TIEs are deploy -1, forfeit +2 and destiny +2. At systems where you have a TIE, your Imperial capital starships are deploy -3 and your battle destiny draws are +1 each. (If on Executor, immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set208.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card208_039 extends AbstractNormalEffect {
     public Card208_039() {
-        super(Side.DARK, 1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Droid_Racks, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Droid_Racks, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("The Trade Federation utilizes such efficient methods of droid deployment that it is rumored even they do not know exactly how many battle droids are in circulation");
         setGameText("Use 4 Force to deploy on table. While present with a Jedi, destroyer droids are defense value +2. If your destroyer droid was just lost, may stack it here. During your control phase, may use 2 Force to place any destroyer droid from here in Used Pile. [Immune to Alter]");

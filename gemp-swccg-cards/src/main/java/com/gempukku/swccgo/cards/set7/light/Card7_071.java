@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.conditions.InPlayDataEqualsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card7_071 extends AbstractNormalEffect {
     public Card7_071() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Meditation, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Meditation, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("To prepare for the inevitable conflict with Jabba's minions, Luke entered a calm state of mental preparation.");
         setGameText("Deploy on your character of ability > 3 (Effect lost if that character battles this turn). On a subsequent turn, if in a battle at a site, character's total weapon destiny is +3 and character adds one battle destiny. Effect lost at the end of that battle.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

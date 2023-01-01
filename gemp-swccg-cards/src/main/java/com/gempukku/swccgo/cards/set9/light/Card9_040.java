@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +27,7 @@ import java.util.List;
  */
 public class Card9_040 extends AbstractNormalEffect {
     public Card9_040() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Staging_Areas, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Staging_Areas, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("The Alliance carefully chooses docking bays from which to launch limited offensives.");
         setGameText("Deploy on table. Your Force generation is +1 at each docking bay you occupy (or +2 if you control). You non-unique Star Cruisers are deploy -1 and may deploy to same battleground system as any rebel starship. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card200_113 extends AbstractNormalEffect {
     public Card200_113() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Tarkin Doctrine", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Tarkin Doctrine", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setLore("'The regional governors now have direct control over their territories. Fear will keep the local systems in line. Fear of this battle station.'");
         setGameText("Deploy on Death Star system. During your control phase, for each battleground system controlled by a Star Destroyer within 2 parsecs of Death Star, opponent loses 1 Force. Canceled if opponent controls this system.");
         addIcons(Icon.VIRTUAL_SET_0);

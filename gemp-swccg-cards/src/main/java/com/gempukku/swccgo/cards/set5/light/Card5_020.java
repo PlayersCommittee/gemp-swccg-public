@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card5_020 extends AbstractNormalEffect {
     public Card5_020() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Civil_Disorder, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Civil_Disorder, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("'Attention. This is Lando Calrissian. The Empire has taken control of the city. I advise everyone to leave before more Imperial troops arrive.'");
         setGameText("Deploy on opponent's side of table. At the end of opponent's deploy phase, if they did not deploy a card with ability, opponent loses 2 Force. Effect lost if opponent has more cards with ability on table than you. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);

@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card8_037 extends AbstractNormalEffect {
     public Card8_037() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Count_Me_In, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Count_Me_In, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Leia couldn't let Han out of her sight.");
         setGameText("Deploy on Leia if That's One on table. I Know is a Used Interrupt. Once per battle, when Leia is battling with Han and Chewie and you are about to draw a card for battle or weapon destiny, you may instead us Leia's ability number.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

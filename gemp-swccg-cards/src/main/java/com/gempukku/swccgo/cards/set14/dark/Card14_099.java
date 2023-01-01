@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card14_099 extends AbstractNormalEffect {
     public Card14_099() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Open_Fire, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Open_Fire, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("When given the attack coordinates, AAT weaponry can be programmed to track and fire automatically for maximum destruction.");
         setGameText("Deploy on your AAT. Once during your control phase may use 3 Force to fire your AAT Laser Cannon on this AAT for free.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

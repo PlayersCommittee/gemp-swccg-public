@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card111_003 extends AbstractNormalEffect {
     public Card111_003() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Echo Base Garrison", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Echo Base Garrison", Uniqueness.UNIQUE, ExpansionSet.THIRD_ANTHOLOGY, Rarity.PM);
         setLore("'All troop carriers will assemble at the North Entrance. The heavy Transport ships will leave as soon as they're loaded.'");
         setGameText("Deploy on table. Rogue T-47s are immune to attrition < 4 (or < 6 if matching pilot aboard). Once during each of your turns, may take one maintenance droid, Bacta Tank, Lone Rogue, [Hoth] Luke, [Special Edition] Wedge, Zev or Hobbie into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.PREMIUM);

@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set217.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card217_014 extends AbstractNormalEffect {
     public Card217_014() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Close The Blast Doors!", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Close The Blast Doors!", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Imperial stormtroopers adopt strict security measures. Excellent communications and sheer numbers can hinder Rebel movement across entire territories.");
         setGameText("Deploy on table. Rebel Barrier is a Lost Interrupt. If opponent just canceled a battle (or just moved a character, starship, or vehicle away from a battle), opponent loses 1 Force. If Landing Claw just lost, place it out of play.");
         addIcons(Icon.VIRTUAL_SET_17);

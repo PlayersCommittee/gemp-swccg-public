@@ -2,10 +2,21 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AloneAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.CancelForceIconsModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
@@ -21,7 +32,7 @@ import java.util.List;
  */
 public class Card216_046 extends AbstractNormalEffect {
     public Card216_046() {
-        super(Side.LIGHT, 0, PlayCardZoneOption.ATTACHED, Title.Wookiee_Homestead, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, PlayCardZoneOption.ATTACHED, Title.Wookiee_Homestead, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("Deploy on Kachirho. Your Wookiees deploy -1. If you have two Wookiees in battle, draw one battle destiny if unable to otherwise. While your Wookiee alone here, [Dark Side] icons here are canceled. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_16);

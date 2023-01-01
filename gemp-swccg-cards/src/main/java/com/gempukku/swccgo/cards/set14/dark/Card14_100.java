@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HasSenateMajorityCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card14_100 extends AbstractNormalEffect {
     public Card14_100() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Senate Hovercam");
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Senate Hovercam", Uniqueness.UNRESTRICTED, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Used to monitor and record events inside the Galactic Senate. By law, hovercams are required to be present in every Senate session, a law Senator Palpatine opposed.");
         setGameText("Deploy on Galactic Senate. While you have a senate majority, your Force generation here is +3, and your Force generation at Coruscant locations is immune to This Place Can Be A Little Rough. Place Effect in Lost Pile if opponent controls this location.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

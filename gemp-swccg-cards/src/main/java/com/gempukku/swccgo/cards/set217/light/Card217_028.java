@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card217_028 extends AbstractNormalEffect {
     public Card217_028() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Another Pathetic Lifeform & Security Control", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Another Pathetic Lifeform & Security Control", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         addComboCardTitles("Another Pathetic Lifeform", "Security Control");
         setGameText("Deploy on table. Your unique (•) Republic characters (and your unique (•) Gungans) of ability < 4 are forfeit +1. Nabrun Leids and Elis Helrot are limited to owner's move phase and exterior sites only. Once per turn, may [download] a docking bay. Once during opponent's turn, if Jar Jar or your [Episode I] leader occupies an [Episode I] battleground, may activate 1 Force. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_17);

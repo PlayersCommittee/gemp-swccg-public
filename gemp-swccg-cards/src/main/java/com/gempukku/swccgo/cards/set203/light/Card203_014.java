@@ -2,18 +2,30 @@ package com.gempukku.swccgo.cards.set203.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RelocateCardToSideOfTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -30,7 +42,7 @@ import java.util.List;
  */
 public class Card203_014 extends AbstractNormalEffect {
     public Card203_014() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Stolen_Data_Tapes, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Stolen_Data_Tapes, Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLore("'What's so important? What's he carrying?' 'The technical readouts of that battle station. I only hope that when the data is analyzed, a weakness can be found.'");
         setGameText("Deploy on R2-D2. If about to leave table (for any reason, even if inactive), relocate to Dune Sea. If at Dune Sea, may relocate to your character there. If at Alderaan (or a 'blown away' system), tapes 'delivered;' relocate this Effect to table and may [upload] any card. [Immune to Alter.]");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

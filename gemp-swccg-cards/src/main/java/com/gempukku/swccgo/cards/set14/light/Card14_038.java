@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card14_038 extends AbstractNormalEffect {
     public Card14_038() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We Didn't Hit It", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We Didn't Hit It", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("When severely outnumbered by opponents, any help is good help.");
         setGameText("Deploy on table. Your Force generation is +1 at systems you control. Opponent's non-unique starfighters are deploy +1 (or +2 to a system you occupy). (Immune to Alter.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.NumTimesPerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +39,7 @@ import java.util.List;
  */
 public class Card8_127 extends AbstractNormalEffect {
     public Card8_127() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Ominous_Rumors, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Ominous_Rumors, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Rumors of a new 'technological terror' filled the galaxy with dread.");
         setGameText("Use 2 Force to deploy on Endor system if opponent controls no Endor sites. Your Force drains are +2 at up to X other battleground systems, where X = number of Endor sites you occupy. Effect canceled if opponent controls three Endor sites. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

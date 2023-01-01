@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card208_038 extends AbstractNormalEffect {
     public Card208_038() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Alert My Star Destroyer!");
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Alert My Star Destroyer!", Uniqueness.UNRESTRICTED, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("For important Imperial dignitaries, an individual Star Destroyer is placed at their disposal.");
         setGameText("Deploy on table. During your deploy phase, you may reveal one Star Destroyer from hand to [upload] its matching pilot character (or vice versa) and deploy both simultaneously (for -1 Force each). [Immune to Alter]");

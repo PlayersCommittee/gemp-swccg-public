@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card11_078 extends AbstractNormalEffect {
     public Card11_078() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You Want This, Don't You?", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You Want This, Don't You?", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("'I can feel the hate swelling in you now...'");
         setGameText("Deploy on table. Once per turn may place a card from hand here (lost if Effect canceled). If Luke's Lightsaber on table, its gametext is canceled and opponent's battle destiny draws are -X, where X = number of cards here. Opponent may lose 2 Force to cancel Effect.");
         addIcons(Icon.TATOOINE);

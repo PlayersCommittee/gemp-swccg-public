@@ -2,13 +2,25 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -21,7 +33,7 @@ import java.util.List;
  */
 public class Card6_056 extends AbstractNormalEffect {
     public Card6_056() {
-        super(Side.LIGHT, 5, null, Title.Projection_Of_A_Skywalker, Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 5, null, Title.Projection_Of_A_Skywalker, Uniqueness.RESTRICTED_2, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("'Greetings, Exalted One. Allow me to introduce myself. I am Luke Skywalker, Jedi Knight and friend to Captain Solo.' Hologram.");
         setGameText("Deploy on your side of table. Your Force drains are +1 at holosites and opponent must lose an additional 1 Force to draw a card with Shot In The Dark. (Immune to Alter.) OR Deploy on any planet site. Opponent's Force drains are -1 here.");
         addIcons(Icon.JABBAS_PALACE);

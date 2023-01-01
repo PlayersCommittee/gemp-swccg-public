@@ -5,7 +5,17 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +40,7 @@ import java.util.List;
  */
 public class Card7_225 extends AbstractNormalEffect {
     public Card7_225() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Desilijic Tattoo", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Desilijic Tattoo", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Jabba the Hutt's clan requires all members to carry ritual scarring identifying them forever as heirs to the Nal Hutta legacy. These tattoos are considered marks of power.");
         setGameText("Deploy on your Hutt. Once during each of your deploy phases, may deploy one Jabba's Influence or Death Mark from Reserve Deck; reshuffle. While at Audience Chamber, no battles or Force drains may take place here unless a Rebel present. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);

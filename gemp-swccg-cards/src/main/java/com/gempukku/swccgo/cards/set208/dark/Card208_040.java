@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card208_040 extends AbstractNormalEffect {
     public Card208_040() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Will_Finish_What_You_Started, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Will_Finish_What_You_Started, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setGameText("Deploy on table. Vader is lost. Once per turn, may stack an Interrupt from hand face up here to cancel a just drawn weapon destiny at Kylo's site. Kylo is power +1 for each card here. Once per game, may [download] a lightsaber. [Immune to Alter]");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);
         addImmuneToCardTitle(Title.Alter);

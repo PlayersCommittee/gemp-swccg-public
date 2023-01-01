@@ -3,17 +3,24 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.conditions.NotCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card9_134 extends AbstractNormalEffect {
     public Card9_134() {
-        super(Side.DARK, 0, PlayCardZoneOption.ATTACHED, Title.Your_Destiny, Uniqueness.UNIQUE);
+        super(Side.DARK, 0, PlayCardZoneOption.ATTACHED, Title.Your_Destiny, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Luke's destiny lies with his father, Darth Vader. To become a Jedi Knight, Luke must accept this.");
         setGameText("Deploy on Bring Him Before Me. When Vader is present at a battleground site, at start of your turn opponent loses 3 Force unless Luke is captured, out of play, or present at a battleground site. Also, Luke is immune to Responsibility Of Command. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

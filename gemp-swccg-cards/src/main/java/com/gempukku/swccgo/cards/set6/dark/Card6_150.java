@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.CardsInHandFewerThanCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card6_150 extends AbstractNormalEffect {
     public Card6_150() {
-        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Well_Guarded, Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Well_Guarded, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Most of Jabba's guards had been sold to the Hutt and were too scared (or too dumb) to leave. Jabba assigned his best guards to watch over his most prized possessions.");
         setGameText("Deploy on your side of table. While you have fewer than 13 cards in your hand, your non-unique cards in hand (except effects of any kind and any interrupts) are immune to Grimtaash. (Immune to Alter while you occupy 2 battlegrounds).");
         addIcons(Icon.JABBAS_PALACE);

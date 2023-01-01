@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card14_036 extends AbstractNormalEffect {
     public Card14_036() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Steady_Steady, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Steady_Steady, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("The Gungan army hoped that by initiating a conflict at the battle plains, they could draw the Trade Federation's forces away from Amidala's real plan.");
         setGameText("Deploy on table. If you have two Gungans with different card titles at Battle Plains, your Force drains are +2 there. While two underwater sites on table, your Gungans and creature vehicles are immune to attrition < 4 where your Fambaa is present. (Immune to Alter.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

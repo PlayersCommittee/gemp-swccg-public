@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card11_071 extends AbstractNormalEffect {
     public Card11_071() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Will_Find_Them_Quickly_Master, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Will_Find_Them_Quickly_Master, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Utilizing his 'dark eye' probe droids and sensory equipment, Maul knew he would eventually find his target.");
         setGameText("Deploy on table. Opponent may deploy Amidala from Reserve Deck; reshuffle. If Maul present with Amidala and opponent has no Jedi there, she is captured. Once per game may take If The Trace Was Correct into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

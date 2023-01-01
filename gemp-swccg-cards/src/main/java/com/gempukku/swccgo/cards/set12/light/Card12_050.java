@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card12_050 extends AbstractNormalEffect {
     public Card12_050() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We're Leaving", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We're Leaving", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Qui-Gon realized that sometimes it's best to just leave, before any more damage is done.");
         setGameText("Use 3 Force to deploy on table. During the damage segment of a battle your opponent initiated, if you have no cards left that can be forfeited, you may place this Effect out of play to cancel all remaining battle damage. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

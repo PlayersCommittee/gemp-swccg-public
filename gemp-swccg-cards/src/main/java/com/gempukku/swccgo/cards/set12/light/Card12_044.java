@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card12_044 extends AbstractNormalEffect {
     public Card12_044() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Insurrection & Aim High", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Insurrection & Aim High", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.Insurrection, Title.Aim_High);
         setGameText("Deploy on table. Unique (•) Rebels of ability < 3 are forfeit +1. Nabrun Leids and Elis Helrot are limited to owner's move phase and exterior sites only. Once during each of your deploy phases, may deploy one docking bay from Reserve Deck; reshuffle. When opponent retrieves X cards, opponent must first use X Force or that retrieval is canceled. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT);

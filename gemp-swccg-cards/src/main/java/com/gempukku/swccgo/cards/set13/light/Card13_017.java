@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card13_017 extends AbstractNormalEffect {
     public Card13_017() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Echo Base Sensors", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Echo Base Sensors", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("'The sensors are in place. You'll know if anything comes around.'");
         setGameText("Deploy on North Ridge if Main Power Generators on table. When opponent deploys a character or vehicle to a marker site, activate 1 Force and that card may not move that turn. Effect lost if opponent occupies an Echo site, or your Ice Storm on table. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

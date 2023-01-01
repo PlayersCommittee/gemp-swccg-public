@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card13_002 extends AbstractNormalEffect {
     public Card13_002() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Remote Planet", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Remote Planet", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("In unfamiliar and potentially hostile territory, Qui-Gon knew that success would require patience and caution.");
         setGameText("Deploy on table. At [Episode I] Tatooine battleground sites, your Force drains are +1 and opponent's cards with ability are deploy -1. While Padme at a Tatooine battleground site, opponent's Force drains at related [Episode I] sites are -1. Place Effect in Used Pile if canceled.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

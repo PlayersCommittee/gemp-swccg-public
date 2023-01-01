@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card201_031 extends AbstractNormalEffect {
     public Card201_031() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jabba's Haven", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jabba's Haven", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("Jabba has won the service of many of his guards and other henchbeings through games of chance.");
         setGameText("If a Jabba's Palace site on table, deploy on table. The Camp is canceled. May [download] Nal Hutta. Once per battle, may lose 1 Force; your battle destiny modifiers affect your total battle destiny instead. Once per game, may retrieve a non-[Maintenance] alien or [Independent] starship into hand. [Immune to Alter]");
         addIcons(Icon.VIRTUAL_SET_1);

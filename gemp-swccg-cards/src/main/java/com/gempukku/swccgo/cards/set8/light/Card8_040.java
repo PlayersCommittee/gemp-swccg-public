@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card8_040 extends AbstractNormalEffect {
     public Card8_040() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Insurrection, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Insurrection, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Rebel insurgents and local activists are the first step in breaking the Imperial stranglehold on a world.");
         setGameText("Deploy on table. Unique (•) Rebels of ability < 3 are forfeit +2. Nabrun Leids and Elis Helrot are limited to owner's move phase and exterior sites. Once during each of your deploy phases, may deploy one docking bay from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.ENDOR);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set106.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardPlayedThisTurnByPlayerCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card106_014 extends AbstractNormalEffect {
     public Card106_014() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Forced Servitude", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Forced Servitude", Uniqueness.UNIQUE, ExpansionSet.OTSD, Rarity.PM);
         setLore("The Empire often uses droids for nefarious purposes. Imperials compel droids to do jobs that are repugnant to humans. An automaton has no ethical conscience.");
         setGameText("Deploy on opponent's location. Whenever you lose a droid from hand or Life Force, it satisfies Force loss up to its forfeit value. Once per turn, you play Imperial Code Cylinder to cancel a Force drain where you have a droid. Effect canceled if opponent controls this location.");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

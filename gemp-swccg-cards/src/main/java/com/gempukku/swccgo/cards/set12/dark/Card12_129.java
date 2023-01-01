@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleInitiatedByCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card12_129 extends AbstractNormalEffect {
     public Card12_129() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Battle Order & First Strike", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Battle Order & First Strike", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.Battle_Order, Title.First_Strike);
         setGameText("Deploy on table. You may initiate battles for free. During a battle you initiate, each time opponent plays an interrupt, opponent must first use 1 Force. For either player to initiate a Force drain, that player must first use 3 Force unless Battle Plan on table, or that player occupies a battleground site and a battleground system. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT);

@@ -5,15 +5,23 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfForcePileAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
-
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card210_043 extends AbstractNormalEffect {
     public Card210_043() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Death Star Reactor Terminal");
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Death Star Reactor Terminal", Uniqueness.UNRESTRICTED, ExpansionSet.SET_10, Rarity.V);
         setLore("The Death Star has many terminals coupled to the main reactor for power distribution throughout the immense space station.");
         setGameText("Deploy on table. During your turn, may deploy a device (except Restraining Bolt or Tractor Beam) from Lost Pile or Reserve Deck (reshuffle) OR Peek at the top X cards of your Force Pile and take one into hand, where X = number of your devices on table. [Immune to Alter.]");
         setVirtualSuffix(true);

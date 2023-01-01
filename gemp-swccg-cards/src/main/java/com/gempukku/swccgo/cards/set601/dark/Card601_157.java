@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CaptureOption;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +24,16 @@ import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromOffTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardCombinationIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.*;
+import com.gempukku.swccgo.logic.timing.results.CancelCardOnTableResult;
+import com.gempukku.swccgo.logic.timing.results.CaptureCharacterResult;
+import com.gempukku.swccgo.logic.timing.results.ForfeitedCardToUsedPileFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.PlacedCardOutOfPlayFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.PutCardInForcePileFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.PutCardInReserveDeckFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.PutCardInUsedPileFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.ReturnedCardToHandFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.StackedFromTableResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,7 +47,7 @@ import java.util.List;
  */
 public class Card601_157 extends AbstractNormalEffect {
     public Card601_157() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I've Lost Artoo!");
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I've Lost Artoo!", Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'WHAAAAAAAAAOOOOW!'");
         setGameText("Deploy on table.  If A Sith's Plans not on table, may deploy it from Reserve Deck; reshuffle.  Once per game, may take a device that deploys on a character and/or an Effect with 'skill' in game text into hand from Reserve Deck; reshuffle. Whenever your character leaves table, may place all your devices and Effects on them in Used Pile. (Immune to Alter.)");

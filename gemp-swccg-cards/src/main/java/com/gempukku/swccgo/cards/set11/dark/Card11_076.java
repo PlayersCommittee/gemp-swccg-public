@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +27,7 @@ import java.util.List;
  */
 public class Card11_076 extends AbstractNormalEffect {
     public Card11_076() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We Shall Double Our Efforts!", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We Shall Double Our Efforts!", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("'I hope so, Commander, for your sake...'");
         setGameText("Deploy on table. Adds 1 to X on That Thing's Operational. At Death Star II sectors, opponent's starfighters are maneuver -5. When opponent is attempting to 'blow away' Death Star II, subtract 2 from opponent's total. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

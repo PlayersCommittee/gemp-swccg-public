@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerForceLossEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card200_108 extends AbstractNormalEffect {
     public Card200_108() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Imperial_Decree);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Imperial_Decree, Uniqueness.UNRESTRICTED, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("To Imperial command personnel: The Rebellion must be crushed! Minor acts of sedition are to be ignored. The destruction of the Alliance is your primary goal.");
         setGameText("Deploy on table. Whenever you lose Force (except from Force drains, battle damage, or your card), may reduce loss (to a minimum of 1) by the number of battlegrounds you occupy. During battle, may place this Effect out of play to draw one battle destiny if unable to otherwise. [Immune to Alter]");

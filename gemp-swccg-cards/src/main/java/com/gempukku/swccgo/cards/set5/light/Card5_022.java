@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card5_022 extends AbstractNormalEffect {
     public Card5_022() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Dismantle On Sight", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, "Dismantle On Sight", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("After losing control of several extremely powerful and deadly assassin droids, the Empire issued a decree ordering their immediate destruction.");
         setGameText("Use 4 Force to deploy on a droid with armor (free on IG-88). At end of any opponent's turn, droid is immediately lost if present with an Imperial (or with a bounty hunter if droid is IG-88).");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

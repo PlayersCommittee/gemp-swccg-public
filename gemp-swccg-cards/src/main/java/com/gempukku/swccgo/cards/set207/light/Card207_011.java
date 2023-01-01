@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card207_011 extends AbstractNormalEffect {
     public Card207_011() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Rebellions Are Built On Hope", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Rebellions Are Built On Hope", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setGameText("Deploy on table. Your Force generation is +1 at docking bays you occupy. Once per game, may [upload] one Dantooine, Mon Calamari, Yavin 4, or Profundity. Staging Areas is canceled. (Immune to Alter.)");
         addIcons(Icon.VIRTUAL_SET_7);
         addImmuneToCardTitle(Title.Alter);

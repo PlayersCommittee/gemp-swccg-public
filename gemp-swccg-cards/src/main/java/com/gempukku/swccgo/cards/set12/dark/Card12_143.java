@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card12_143 extends AbstractNormalEffect {
     public Card12_143() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Wipe Them Out, All Of Them", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Wipe Them Out, All Of Them", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Darth Sidious' command was merciless and direct. He left no room for misinterpretation.");
         setGameText("Deploy on table. Once during each of opponent's turns, if you occupy a battleground site, may activate 1 Force. While opponent has a non-unique alien or non-unique starfighter in battle, opponent may not draw more than two battle destiny. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

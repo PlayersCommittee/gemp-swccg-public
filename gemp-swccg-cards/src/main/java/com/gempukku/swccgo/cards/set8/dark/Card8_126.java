@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card8_126 extends AbstractNormalEffect {
     public Card8_126() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Imperial_Arrest_Order, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Imperial_Arrest_Order, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("When an Imperial blockade raises the alert level, all independent ships are scanned and any suspicious characters on planet are detained and interrogated.");
         setGameText("Deploy on table. Unique (•) Imperials of ability < 3 are forfeit +2. Nabrun Leids and Elis Helrot are limited to owner's move phase and exterior sites. Once during each of your deploy phases, may deploy one docking bay from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.ENDOR);

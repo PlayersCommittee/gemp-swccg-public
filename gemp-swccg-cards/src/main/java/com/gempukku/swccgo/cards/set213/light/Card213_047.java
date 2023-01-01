@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card213_047 extends AbstractNormalEffect {
     public Card213_047() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Meditation, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Meditation, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setVirtualSuffix(true);
         setLore("To prepare for the inevitable conflict with Jabba's minions, Luke entered a calm state of mental preparation.");
         setGameText("Deploy on your character of ability > 3. Opponent’s aliens are power -1 here (and forfeit -2 if a leader or [PW] or [M] card). If opponent has more characters at same site, may add one battle destiny (then lose Effect at end of battle).");

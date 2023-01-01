@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card6_144 extends AbstractNormalEffect {
     public Card6_144() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Hutt_Bounty, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Hutt_Bounty, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("'Chissaa, picha gawanki Chewbacca. Yupon cogorato kama walpa kyess kashung kawa Wookiee.'");
         setGameText("Deploy on an opponent's smuggler, gambler, or thief. If subsequently captured by a bounty hunter and then transferred to Jabba's Palace Dungeon, retrieve Force equal to character's forfeit (+6 if Han) and lose effect. (Immune to Alter.)");
         addIcons(Icon.JABBAS_PALACE);

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.FiredWeaponsInBattleCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card8_034 extends AbstractNormalEffect {
     public Card8_034() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Aim_High, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Aim_High, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("The destruction of a command vehicle negatively impacts Imperial battle efficiency.");
         setGameText("Deploy on table. When you fire two weapons (except lightsabers) in a battle, your total power is +5. Also, whenever opponent retrieves X cards, opponent must first use X Force or that retrieval is canceled. (Immune to Alter.)");
         addIcons(Icon.ENDOR);

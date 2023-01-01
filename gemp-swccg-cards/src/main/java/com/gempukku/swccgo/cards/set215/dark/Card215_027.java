@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set215.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card215_027 extends AbstractNormalEffect {
     public Card215_027() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Ubrikkian Industries", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Ubrikkian Industries", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("");
         setGameText("Deploy on table. During your deploy phase, may reveal an alien with 'vehicle' in game text from hand to [upload] a transport vehicle (or vice versa) and deploy both simultaneously. Your drivers are immune to Clash Of Sabers. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_15);

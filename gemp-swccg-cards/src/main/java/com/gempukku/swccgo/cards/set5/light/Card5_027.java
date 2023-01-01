@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +32,7 @@ import java.util.List;
  */
 public class Card5_027 extends AbstractNormalEffect {
     public Card5_027() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Hopping_Mad, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Hopping_Mad, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'I'm standing here in pieces and you're having delusions of grandeur!'");
         setGameText("Deploy on one of your droids. During your control phase, may use 1 Force to search your Reserve Deck, take one Droid Shutdown, The Professor, We're Doomed, Scomp Link Access, This Is All Your Fault or Shocking Information into hand and reshuffle.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

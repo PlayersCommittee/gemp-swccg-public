@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card5_026 extends AbstractNormalEffect {
     public Card5_026() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Hindsight", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Hindsight", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'I'm backwards! You fleabitten furball...only an overgrown mophead like you would be stupid enough--'");
         setGameText("Deploy on C-3PO. Eyes In The Dark, The Professor, Mantellian Savrip and Hopping Mad are immune to Alter. Once during each draw phase, unless C-3PO is present with a Wookiee, you may examine the cards in your Used Pile. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

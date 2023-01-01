@@ -5,11 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.BlownAwayCondition;
 import com.gempukku.swccgo.cards.conditions.CommencePrimaryIgnitionTargetingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card217_001 extends AbstractNormalEffect {
     public Card217_001() {
-        super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "An Effective Demonstration");
+        super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "An Effective Demonstration", Uniqueness.UNRESTRICTED, ExpansionSet.SET_17, Rarity.V);
         setLore("");
         setGameText("Deploy on table. Attempts to 'blow away' Alderaan are +5. If Alderaan has been 'blown away,' adds one [Light Side] icon at Death Star system. Once per game, may [upload] Superlaser. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_17);

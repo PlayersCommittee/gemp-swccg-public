@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card14_039 extends AbstractNormalEffect {
     public Card14_039() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Wesa Ready To Do Our-sa Part", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Wesa Ready To Do Our-sa Part", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Every Gungan that died on the battle plains gave Amidala and her troops that much more time to capture the Viceroy.");
         setGameText("Deploy on table. If your Gungan was just lost from a site, may place him here. Once per battle, may place one of your Gungans here out of play to add 4 to your total power during that battle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

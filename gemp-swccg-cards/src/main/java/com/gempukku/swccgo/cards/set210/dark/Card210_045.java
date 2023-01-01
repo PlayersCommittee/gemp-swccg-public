@@ -3,11 +3,14 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +41,7 @@ import java.util.List;
  */
 public class Card210_045 extends AbstractNormalEffect {
     public Card210_045() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Silence Is Golden");
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Silence Is Golden", Uniqueness.UNRESTRICTED, ExpansionSet.SET_10, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Excuse me, sir, might I in--'");
         setGameText("Deploy on table. Your droids are destiny +1. Once per turn, if you just drew a non-[Presence] droid for destiny, may take that droid into hand. Once per turn, may [download] Droid Workshop, Incinerator, or Wuher. Forced Servitude is canceled. Immune to Levitation. [Immune to Alter.]");

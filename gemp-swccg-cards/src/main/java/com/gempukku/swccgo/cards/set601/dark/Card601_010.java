@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card601_010 extends AbstractNormalEffect {
     public Card601_010() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jabba's Haven", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jabba's Haven", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Jabba has won the service of many of his guards and other henchbeings through games of chance.");
         setGameText("Deploy on table. May deploy Nal Hutta from Reserve Deck; reshuffle. Once per game, may retrieve an alien or [Independent] starship into hand. While Fearless And Inventive on table, once per battle, may lose 1 force; your battle destiny modifiers affect your total battle destiny instead. [Immune to Alter.]");
         addIcons(Icon.LEGACY_BLOCK_7, Icon.JABBAS_PALACE);

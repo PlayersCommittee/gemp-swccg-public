@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card7_062 extends AbstractNormalEffect {
     public Card7_062() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Goo_Nee_Tay, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Goo_Nee_Tay, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'Nah nah nah. Ohhhh! Louwa! GOO NEE TAY!'");
         setGameText("Deploy on opponent's side of table. All opponent's characters of ability > 2 are deploy +2. Also, opponent may not play Surprise and may not use M'iiyoom Onith's game text.");
         addIcons(Icon.SPECIAL_EDITION);

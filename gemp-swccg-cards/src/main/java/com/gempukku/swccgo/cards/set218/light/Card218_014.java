@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card218_014 extends AbstractNormalEffect {
     public Card218_014() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Good Blaster At Your Side & Restricted Deployment", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Good Blaster At Your Side & Restricted Deployment", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         addComboCardTitles("A Good Blaster At Your Side", Title.Restricted_Deployment);
         setGameText("Deploy on table. Non-lightsaber weapons carried by your non-Jedi characters may not be stolen. During your control phase, if you control a battleground site with a non-unique, non-[Permanent Weapon] blaster present, opponent loses 1 Force. Rebel Artillery is a Lost Interrupt. During your deploy phase, may [download] a blaster (or use 2 Force to deploy a non-unique blaster from Lost Pile) on your character at a Death Star site. May not be canceled. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_18);

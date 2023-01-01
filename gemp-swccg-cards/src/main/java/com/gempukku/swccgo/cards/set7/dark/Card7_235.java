@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card7_235 extends AbstractNormalEffect {
     public Card7_235() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Planetary Subjugation", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Planetary Subjugation", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("The Empire crushes resistance with massive orbital bombardment. The coordinated attack of a TIE bomber wing reduces a planet's surface to rubble.");
         setGameText("Deploy on table. You may add up to 5 to destiny of each TIE Bomber drawn for weapon or battle destiny. You may add 1 to Proton Bomb weapon destiny draws. Asteroid Sanctuary is canceled unless present with opponent's starship. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);

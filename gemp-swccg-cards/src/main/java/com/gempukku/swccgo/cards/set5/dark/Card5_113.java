@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card5_113 extends AbstractNormalEffect {
     public Card5_113() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Bounty);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Bounty, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("One of the most profitable occupations in the galaxy is hunting down and capturing wanted beings. The more notable the quarry, the more profitable the venture.");
         setGameText("Deploy on an opponent's non-droid character. If subsequently captured by a bounty hunter and then transferred to a prison, retrieve Force equal to character's forfeit -2 and place Effect in Used Pile. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);

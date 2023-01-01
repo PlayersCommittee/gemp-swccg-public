@@ -4,14 +4,27 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.NotUniqueModifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -24,7 +37,7 @@ import java.util.List;
  */
 public class Card7_067 extends AbstractNormalEffect {
     public Card7_067() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Koensayr Manufacturing", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Koensayr Manufacturing", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Company responsible for design of the rugged Y-wing snub fighter. Maintains sales offices on many planets. Koensayr parts often find their way into a variety of ships.");
         setGameText("Deploy on Ralltiir system. Once during each of your control phases, you may retrieve one Y-wing. Also Special Modifications is not unique (•) and makes its target immune to attrition < 4. Suspended while opponent controls Ralltiir. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

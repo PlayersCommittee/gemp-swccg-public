@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card7_059 extends AbstractNormalEffect {
     public Card7_059() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Down With The Emperor!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Down With The Emperor!", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("News of Imperial defeat inspires the citizens of the galaxy. A major loss seriously undermines the Empire's ability to function.");
         setGameText("If no Dark Jedi is on table, deploy on Death Star system. If Death Star 'blown away,' relocate to opponent's side of table: each Imperial and Imperial starship is deploy +8 and loses immunity to attrition. Canceled if a Dark Jedi is deployed. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

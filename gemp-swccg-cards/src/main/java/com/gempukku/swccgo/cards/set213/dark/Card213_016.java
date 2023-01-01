@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card213_016 extends AbstractNormalEffect {
     public Card213_016() {
-        super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Visage_Of_The_Emperor, Uniqueness.UNIQUE);
+        super(Side.DARK, 7, PlayCardZoneOption.ATTACHED, Title.Visage_Of_The_Emperor, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setVirtualSuffix(true);
         setLore("Palpatine's hologram. Imposing. Ominous. Intimidating. Instrument for the evil Emperor's sinister reach across the galaxy. Used on a secret frequency of the Imperial HoloNet.");
         setGameText("Lose 2 Force to deploy on Vader's Castle. Your Force generation here may not be limited. Each player loses 1 Force at the end of their own turn. Once per game, may [upload] a lightsaber. [Immune to Alter].");

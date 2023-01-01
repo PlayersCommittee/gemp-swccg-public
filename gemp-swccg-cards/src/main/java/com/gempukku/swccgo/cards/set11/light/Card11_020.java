@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card11_020 extends AbstractNormalEffect {
     public Card11_020() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Keeping The Empire Out Forever", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Keeping The Empire Out Forever", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("'Our operation is small enough not to be noticed...'");
         setGameText("Deploy on table. If you control two Cloud City sites and occupy Bespin system, flip Quiet Mining Colony. While Independent Operation on table, it may not flip and once per turn may search your Force Pile and take one card there into hand; reshuffle. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

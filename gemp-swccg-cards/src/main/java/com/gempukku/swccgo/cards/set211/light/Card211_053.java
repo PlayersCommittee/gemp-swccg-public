@@ -4,7 +4,16 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,13 +22,14 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipSingleSidedStackedCard;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackOneCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsIfFromHandModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +41,7 @@ import java.util.List;
  */
 public class Card211_053 extends AbstractNormalEffect {
     public Card211_053() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Cloning_Cylinders, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Cloning_Cylinders, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setGameText("Use 4 Force to deploy on table. During your draw phase, may stack a non-unique clone from your Lost Pile here face down. At the start of your turn, turn all cards here face up. You may deploy any face up card stacked here (as if from hand). [Immune to Alter]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);

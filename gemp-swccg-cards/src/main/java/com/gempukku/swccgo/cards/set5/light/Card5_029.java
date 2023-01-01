@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card5_029 extends AbstractNormalEffect {
     public Card5_029() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Uncontrollable_Fury, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Uncontrollable_Fury, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("The rage of the Dark Lord.");
         setGameText("Deploy on Vader. He is power +2, but neither adds 1 to battle destiny nor allows Tarkin to cancel destiny. Opponent loses 2 Force at end of each of opponent's turns in which Vader did not battle and you had a character of ability > 3 on table. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

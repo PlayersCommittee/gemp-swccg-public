@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card213_014 extends AbstractNormalEffect {
     public Card213_014() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Planetary Rings", Uniqueness.DIAMOND_1);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Planetary Rings", Uniqueness.DIAMOND_1, ExpansionSet.SET_13, Rarity.V);
         setLore("'We're gonna get pulverized if we stay out here much longer.'");
         setGameText("Deploy on a battleground planet system. Adds one [Light Side] icon at your related Big One. If a sector was just drawn for asteroid destiny, cancel and redraw that destiny. Once per turn, may deploy a sector to this system from Reserve Deck; reshuffle. [Immune to Alter.]");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_13);

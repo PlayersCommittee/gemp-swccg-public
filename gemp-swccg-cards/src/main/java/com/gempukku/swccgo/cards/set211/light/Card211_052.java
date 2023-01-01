@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card211_052 extends AbstractNormalEffect {
     public Card211_052() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Squadron Assignments", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Squadron Assignments", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Rebel starfighter squadrons take great pride in their proficiency and dedication. Alliance pilots train relentlessly until man and machine function as one.");
         setGameText("Deploy on table. During your deploy phase, may reveal one unpiloted Red or Rogue squadron starfighter (or vehicle) from hand to take its matching pilot character (or vice versa) from Reserve Deck and deploy both simultaneously; reshuffle. (Immune to Alter.)");
         addIcons(Icon.VIRTUAL_SET_11, Icon.DEATH_STAR_II);

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card8_128 extends AbstractNormalEffect {
     public Card8_128() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Perimeter_Patrol, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Perimeter_Patrol, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Heavy Imperial patrols on Endor forced the Rebels to deploy covertly. The required stealth measures created many complications.");
         setGameText("Deploy on Bunker. While you control Bunker, each time opponent deploys a vehicle, starship or Rebel to an Endor site (except Rebel Landing Site), that card cannot move or battle for remainder of turn and opponent must lose 1 Force. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card7_222 extends AbstractNormalEffect {
     public Card7_222() {
-        super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Blown Clear", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Blown Clear", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Vader was nearly killed when Han damaged his TIE fighter during a surprise attack in the Death Star trench.");
         setGameText("Deploy on your side of table. During a battle, you may place out of play from hand a copy of any unique (•) card participating in that battle to reduce attrition against you by that card's forfeit value. (Immune to Alter while you occupy a battleground.)");
         addIcons(Icon.SPECIAL_EDITION);

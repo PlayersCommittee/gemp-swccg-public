@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set204.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card204_014 extends AbstractNormalEffect {
     public Card204_014() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Graveyard_Of_Giants, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Graveyard_Of_Giants, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("High-speed collisions are a constant danger during chaotic starfighter dogfights. Scanners can be jammed. Pilots rely on vision, increasing the chances of such accidents.");
         setGameText("Deploy on table. Starships and vehicles just lost from Jakku locations are stacked here face down. Unless no cards here, if a player just Force drained on Jakku: that player may retrieve 1 Force (if they Force drained with a scavenger, may randomly retrieve instead), peek at cards stacked here, and then place one in owner's Lost Pile. [Immune to Alter]");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);

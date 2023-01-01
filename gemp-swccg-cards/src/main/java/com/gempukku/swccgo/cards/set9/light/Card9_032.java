@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class Card9_032 extends AbstractNormalEffect {
     public Card9_032() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Close Air Support", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Close Air Support", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Attack plans for General Madine's commandos often require coordinated air support. A number of Z-95 headhunters have been modified to operate in this role.");
         setGameText("Deploy on table. While your Z-95 occupies a system or cloud sector, once per turn your scout at a related exterior site may add one battle destiny (if Z-95 is Tala 1 or Tala 2, may also add one destiny to total power only).");
         addIcons(Icon.DEATH_STAR_II);

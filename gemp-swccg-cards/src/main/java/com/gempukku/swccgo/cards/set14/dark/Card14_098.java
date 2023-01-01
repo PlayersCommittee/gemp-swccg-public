@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card14_098 extends AbstractNormalEffect {
     public Card14_098() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Naboo Occupation", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Naboo Occupation", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Battle droid armies require less credits to maintain than the average soldier. Trade Federation tactics are designed to take advantage of these numbers.");
         setGameText("Deploy on table. During your draw phase, may use 3 Force: until end of next turn, opponent generates no Force at Naboo sites you control with a battle droid. Place Effect in Lost Pile if you have no battle droids on Naboo. (Immune to Alter.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

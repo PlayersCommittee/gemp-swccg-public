@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card9_123 extends AbstractNormalEffect {
     public Card9_123() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Emperors_Power, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Emperors_Power, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("From his throne room aboard the second Death Star, Emperor Palpatine monitors activity throughout the galaxy.");
         setGameText("Deploy on your Throne Room. You may not Force drain here. While Emperor here, opponent's characters are deploy +2 to Death Star II sites and, one per turn, you may lose Effect (or 1 Force from top of Reserve Deck) to add one battle destiny anywhere. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

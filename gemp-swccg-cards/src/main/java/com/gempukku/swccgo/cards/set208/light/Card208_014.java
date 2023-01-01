@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card208_014 extends AbstractNormalEffect {
     public Card208_014() {
-        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Prophecy_Of_The_Force, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, Title.Prophecy_Of_The_Force, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setLore("The turning of Vader and the loss of Palpatine was the beginning of a new era for the entire galaxy.");
         setGameText("Deploy on a site. While at a battleground, adds one [Dark Force] icon and one [Light Force] icon here. Once per turn, if a player just Force drained at a site with total ability > 5, relocate this Effect to that site. Once per game, may retrieve a card with 'Anakin' in title into hand. [Immune to Alter]");
         addIcons(Icon.VIRTUAL_SET_8);

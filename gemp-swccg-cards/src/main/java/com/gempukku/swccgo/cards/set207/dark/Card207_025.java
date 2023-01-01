@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set207.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card207_025 extends AbstractNormalEffect {
     public Card207_025() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Establish_Secret_Base, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Establish_Secret_Base, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("The Empire's remote bases develop new technology and hide sensitive projects from potential Rebel saboteurs.");
         setGameText("Deploy on Bunker if you control that site. Your Force generation at Endor system may not be canceled. Once per turn, may [download] an Endor site. Place Effect in Used Pile if opponent controls Bunker. (Immune to Alter.)");

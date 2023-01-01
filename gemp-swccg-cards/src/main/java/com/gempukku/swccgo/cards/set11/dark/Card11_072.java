@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card11_072 extends AbstractNormalEffect {
     public Card11_072() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I'm Sorry", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I'm Sorry", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("'I'm sorry, too.'");
         setGameText("Deploy on table. If This Deal Is Getting Worse All The Time on table, once per game may take up to 2 interior Cloud City battlegrounds into hand from Reserve Deck; reshuffle. You may not play Scanning Crew or Imperial Barrier. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

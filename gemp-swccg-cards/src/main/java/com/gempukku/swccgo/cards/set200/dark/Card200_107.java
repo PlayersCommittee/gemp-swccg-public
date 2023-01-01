@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set200.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card200_107 extends AbstractNormalEffect {
     public Card200_107() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Image Of The Dark Lord", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "Image Of The Dark Lord", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Vader's hologram exacts loyalty from his legions.");
         setGameText("Deploy on a planet site. Opponent's Force drains are -1 here (-2 if Vader controls an adjacent site).");

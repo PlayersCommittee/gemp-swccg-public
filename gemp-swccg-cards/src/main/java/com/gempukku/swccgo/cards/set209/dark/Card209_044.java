@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +42,7 @@ import java.util.List;
  */
 public class Card209_044 extends AbstractNormalEffect {
     public Card209_044() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.They_Will_Be_No_Match_For_You, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.They_Will_Be_No_Match_For_You, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setVirtualSuffix(true);
         setLore("'At last we will reveal ourselves to the Jedi.'");
         setGameText("Deploy on table. Once per turn, may [download] Maul's Lightsaber. At start of opponent's control phase, may relocate Maul to same site as a Jedi. May place this Effect out of play to deploy Maul's Lightsaber from Lost Pile. Immune to Alter.");

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,7 +24,11 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Set 10
@@ -26,7 +37,7 @@ import java.util.*;
  */
 public class Card210_031 extends AbstractNormalEffect {
     public Card210_031() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Dark Path");
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Dark Path", Uniqueness.UNRESTRICTED, ExpansionSet.SET_10, Rarity.V);
         setLore("'If once you start down the dark path, forever will it dominate your destiny. Consume you it will, as it did Obi-Wan's apprentice.'");
         setGameText("Deploy on table. Add one [DS] icon at each site where you have a 'Hatred’ card. Once per game, target two battleground sites you occupy; one at a time, stack top card of your Lost Pile face down (as a 'Hatred’ card) at those locations. [Immune to Alter.]");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_10);

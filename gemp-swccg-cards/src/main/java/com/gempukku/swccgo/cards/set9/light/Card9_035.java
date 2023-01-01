@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card9_035 extends AbstractNormalEffect {
     public Card9_035() {
-        super(Side.LIGHT, 7, PlayCardZoneOption.ATTACHED, Title.Im_With_You_Too, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 7, PlayCardZoneOption.ATTACHED, Title.Im_With_You_Too, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Luke completes the legendary foursome.");
         setGameText("Deploy on Luke if That's One and Count Me In are on table. When Han, Chewie, Leia and Luke are involved in the same battle, you may double your total battle destiny and Han, Chewie, Leia, and Luke are immune to attrition. Don't Get Cocky is a Used Interrupt.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

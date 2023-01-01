@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card12_136 extends AbstractNormalEffect {
     public Card12_136() {
-        super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Mind Tricks Don't Work On Me", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Mind Tricks Don't Work On Me", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Watto is smart enough to not let himself get swindled by a Jedi bully.");
         setGameText("Use 3 Force to deploy on table. During the damage segment of a battle your opponent initiated, if you have no cards left that can be forfeited, you may place this Effect out of play to cancel all remaining battle damage. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

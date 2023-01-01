@@ -2,13 +2,25 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationUsingLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostToLocationUsingLandspeedModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +32,7 @@ import java.util.List;
  */
 public class Card14_032 extends AbstractNormalEffect {
     public Card14_032() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Gungan_Energy_Shield, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Gungan_Energy_Shield, Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Gungan energy shields can only be passed through by slow-moving objects. This allowed the Gungans to neutralize the threat posed by long-range tank weapons.");
         setGameText("Deploy on an exterior site. While your Fambaa here: your characters here may not be targeted by weapons, opponent's battle destiny draws here are -1, and characters must use +1 Force when moving to or from here using their landspeed.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

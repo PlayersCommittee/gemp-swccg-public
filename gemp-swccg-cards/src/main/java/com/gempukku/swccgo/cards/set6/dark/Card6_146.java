@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +30,7 @@ import java.util.List;
  */
 public class Card6_146 extends AbstractNormalEffect {
     public Card6_146() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quick Reflexes");
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quick Reflexes", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Boba Fett's helmet has infrared capabilities, a motion tracking system, a macrobinocular viewer, an internal comlink and a broadband antenna. He doesn't miss a thing.");
         setGameText("Deploy on your side of table. During your draw phase, you may use 2 Force to search your Lost Pile. Take one Hidden Weapons into hand or take any one blaster and immediately deploy it (for free).");
         addIcons(Icon.JABBAS_PALACE);

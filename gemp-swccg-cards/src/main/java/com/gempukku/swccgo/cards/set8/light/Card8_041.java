@@ -3,14 +3,26 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.UsedInterruptModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +34,7 @@ import java.util.List;
  */
 public class Card8_041 extends AbstractNormalEffect {
     public Card8_041() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Thats_One, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Thats_One, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Considering the life debt he owed to Han and his personal commitment to the Rebel Alliance, Chewie quickly volunteered to fly the stolen shuttle to Endor.");
         setGameText("Deploy on Chewie. He is immune to attrition < 4 at exterior sites. Visored Vision is immune to Sense. While at same battleground site as Han, Chewie adds 1 to each of his weapon destiny draws and Life Debt is a Used Interrupt during a battle there.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

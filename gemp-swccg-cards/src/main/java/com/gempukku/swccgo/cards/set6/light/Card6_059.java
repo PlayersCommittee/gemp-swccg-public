@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.CardsInHandFewerThanCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card6_059 extends AbstractNormalEffect {
     public Card6_059() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Yarna_dal_Gargan, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Yarna_dal_Gargan, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Female dancer from Askajia. Very protective mother. Makes sure that all those she cares about are protected.");
         setGameText("Deploy on your side of table. While you have fewer than 13 cards in hand, your non-unique cards in hand (except Effects of any kind and Interrupts) are immune to Monnok. (Immune to Alter while you occupy two battlegrounds).");
         addIcons(Icon.JABBAS_PALACE);

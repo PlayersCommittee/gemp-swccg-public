@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +40,7 @@ import java.util.List;
  */
 public class Card7_219 extends AbstractNormalEffect {
     public Card7_219() {
-        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "A Day Long Remembered", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.ATTACHED, "A Day Long Remembered", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("'It has seen the end of Kenobi and will soon see the end of the Rebellion.'");
         setGameText("If Obi-Wan not on table, deploy on Yavin 4 or Hoth system. If system 'Blown away,' relocate to opponent's side of table. Rebels and Rebel starships are deploy +8 and lost immunity to attrition. Canceled if Obi-Wan is deployed. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);

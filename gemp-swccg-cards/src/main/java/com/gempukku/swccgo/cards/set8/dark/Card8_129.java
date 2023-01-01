@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card8_129 extends AbstractNormalEffect {
     public Card8_129() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Pinned Down", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Pinned Down", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Heavy blaster fire hampered Han's attempts to open the Back Door to the Endor control bunker.");
         setGameText("Deploy on your side of table. Opponent may not 'react' away from a battle where you have a blaster present. Also, if you have a blaster present when opponent cancels a battle, draw destiny, opponent loses Force equal to destiny draw. (Immune to Alter.)");
         addIcons(Icon.ENDOR);

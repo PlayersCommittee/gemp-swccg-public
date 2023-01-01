@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card7_066 extends AbstractNormalEffect {
     public Card7_066() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Incom Corporation", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Incom Corporation", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Incom's core design team defected to the Alliance with the plans for the famed X-wing fighter. Once with the Alliance, many former Incom test pilots flew for the Rebellion.");
         setGameText("Deploy on a Rebel Base interior site. Your ability-1 permanent pilots aboard T-16s, T-47s, Z-95s and X-wings (except squadrons) are replaced by ability-2 permanent pilots who add 1 to power. Canceled if opponent controls this site. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

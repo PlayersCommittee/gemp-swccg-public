@@ -4,7 +4,17 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +36,7 @@ import java.util.List;
  */
 public class Card7_232 extends AbstractNormalEffect {
     public Card7_232() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Kuat_Drive_Yards, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Kuat_Drive_Yards, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Company that produces current generation of Star Destroyers, as well as Nebulon-B Frigates. Ship yards are extremely well defended.");
         setGameText("Deploy on Kuat system. All your Imperial-class Star Destroyers are immune to attrition < 4. Once during each of your deploy phases, may deploy one Imperial-class Star Destroyer here from Reserve Deck; reshuffle. (Immune to Alter while you occupy Kuat.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

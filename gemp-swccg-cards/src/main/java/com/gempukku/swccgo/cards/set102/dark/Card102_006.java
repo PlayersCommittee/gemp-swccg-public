@@ -2,14 +2,25 @@ package com.gempukku.swccgo.cards.set102.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfCardPlayedModifierEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.RetargetHighestAbilityCharacterForSenseAlterIfNeededEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ExcludedFromBeingTheHighestAbilityCharacterModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
@@ -27,7 +38,7 @@ import java.util.List;
  */
 public class Card102_006 extends AbstractNormalEffect {
     public Card102_006() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Dark_Forces, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Dark_Forces, Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLore("'The ability to destroy a planet is insignificant next to the power of the Force.'");
         setGameText("Deploy on your side of table. When Surprise Assault is played, may use 1 Force to add one destiny to your total. Also, when Sense or Alter is played, may use X Force to exclude X Jedi from being the 'highest-ability character.'");
         addIcons(Icon.PREMIUM);

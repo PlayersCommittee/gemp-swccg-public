@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set202.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card202_012 extends AbstractNormalEffect {
     public Card202_012() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Jabbas_Trophies, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Jabbas_Trophies, Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setLore("Oola had to choose between giving in to Jabba's constant advances or resisting him and inciting his wrath.");
         setGameText("Deploy on table. If Jabba just Force drained (or won a battle), stack top card of opponent's Lost Pile here; may draw top card of your Reserve Deck. If 4 or more cards here, may return this Effect and a character with Jabba at Audience Chamber to owner's hand. [Immune to Alter]");
         addIcons(Icon.VIRTUAL_SET_2);

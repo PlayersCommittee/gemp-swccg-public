@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set210.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,8 +21,13 @@ import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployOtherCardsAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SpeciesModifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +39,7 @@ import java.util.List;
  */
 public class Card210_021 extends AbstractNormalEffect {
     public Card210_021() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Part Of The Tribe", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Part Of The Tribe", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Wookiees are known to be creatures of great emotion and are very protective of family and friends. Chewbacca has come to treat Luke as a member of his own family.");
         setGameText("Deploy on your non-alien, non-Jedi character. When deployed, choose a species of an alien here. Character gains that species. Aliens of that species may deploy (for -1Force if non-unique) or move here as a 'react'. While on Endor, adds one [Light Side Force] icon.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

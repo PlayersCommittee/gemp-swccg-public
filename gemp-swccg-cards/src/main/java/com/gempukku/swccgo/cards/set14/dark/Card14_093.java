@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card14_093 extends AbstractNormalEffect {
     public Card14_093() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Activate_The_Droids, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Activate_The_Droids, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("The activation of droids requires a transmission from a Droid Control Ship on a top-secret frequency. Only a Trade Federation captain has access to these frequencies.");
         setGameText("Deploy on your Blockade Flagship (may not deploy on a site). Whenever you initiate a battle at a related planet site where you have a battle droid, you may activate 2 Force or retrieve 1 Force.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

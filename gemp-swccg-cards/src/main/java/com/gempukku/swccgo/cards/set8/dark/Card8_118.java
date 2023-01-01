@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card8_118 extends AbstractNormalEffect {
     public Card8_118() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Battle_Order, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Battle_Order, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Administration of the Imperial installation on Endor includes coordination of troops on the ground and tight security provided by the Empire's space fleet.");
         setGameText("Deploy on table. You may initiate battles for free. Also (unless Battle Plan on table), for either player to initiate a Force drain, that player must first use 3 Force unless that player occupies a battleground site (except a holosite) and a battleground system. (Immune to Alter.)");
         addIcons(Icon.ENDOR);

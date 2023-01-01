@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card210_017 extends AbstractNormalEffect {
     public Card210_017() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jedi Business", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jedi Business", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("The peacekeepers of the galaxy are not to be taken lightly.");
         setGameText("Deploy on table. Non-[Episode I] Jedi are lost. Qui-Gon is deploy -1. Unless with Anakin or Vader, Mace is immune to attrition. Once per turn, may choose: [download] an [Episode I] lightsaber or once per game, [download] Malastare, Mos Espa, or Night Club. [Immune to Alter.]");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_SET_10, Icon.EPISODE_I);

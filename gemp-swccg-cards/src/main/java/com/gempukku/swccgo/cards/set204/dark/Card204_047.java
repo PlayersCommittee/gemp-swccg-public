@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set204.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -17,7 +24,11 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Set: Set 4
@@ -26,7 +37,7 @@ import java.util.*;
  */
 public class Card204_047 extends AbstractNormalEffect {
     public Card204_047() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Bow_To_The_First_Order, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Bow_To_The_First_Order, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("Deploy on table. Once per game, may [upload] Finalizer. Once per character, when you deploy Hux, Kylo, Phasma, or Snoke to an [Episode VII] battleground, may take any one card from Used Pile into hand, reshuffle. Immune to Alter.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
         addImmuneToCardTitle(Title.Alter);

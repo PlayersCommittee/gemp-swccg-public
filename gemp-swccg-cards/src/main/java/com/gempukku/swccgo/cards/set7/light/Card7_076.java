@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +36,7 @@ import java.util.List;
  */
 public class Card7_076 extends AbstractNormalEffect {
     public Card7_076() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Slayn & Korpil Facilities", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Slayn & Korpil Facilities", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Based in the Roche Asteroid Field. Worked with Admiral Ackbar to develop the B-wing fighter. Verpine owned, and that means quality.");
         setGameText("Deploy on Roche system. Once during each of your deploy phases, you may deploy a starship weapon from Reserve Deck on your B-wing; reshuffle. Also, retrieve 2 Force whenever your starfighter or vehicle 'hits' an opponent's starship or vehicle. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

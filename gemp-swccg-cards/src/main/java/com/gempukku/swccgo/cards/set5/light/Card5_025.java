@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card5_025 extends AbstractNormalEffect {
     public Card5_025() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Hero_Of_A_Thousand_Devices);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Hero_Of_A_Thousand_Devices, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Left to his own devices, Artoo used his spunk and creativity to save his companions' lives time and time again.");
         setGameText("Deploy on one of your droids. During your deploy phase, may use 1 Force to search your Reserve Deck, take one device that deploys on a droid into hand and reshuffle. Also, you may forfeit devices deployed on this droid (forfeit value = destiny number).");
         addIcons(Icon.CLOUD_CITY);

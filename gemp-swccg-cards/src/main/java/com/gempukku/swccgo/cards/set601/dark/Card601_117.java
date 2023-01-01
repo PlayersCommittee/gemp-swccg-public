@@ -5,8 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +23,9 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ScumAndVillainyMayDeployAttachedModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card601_117 extends AbstractNormalEffect {
     public Card601_117() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Information_Exchange, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Information_Exchange, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Chisa nyooda ishaley. Kun Jabba neguda len Malta.' 'Ikkit ui! Yobbit, yobbiy. Nelan tui ke bada.'");
         setGameText("Deploy on Imperial City.  While your [Reflections II] Objective on table, Scum And Villainy may deploy here and, if a Black Sun agent present, may not be canceled.  Once per turn, may use 1 Force to deploy a non-weapon card with 'Black Sun' or 'Xizor' in lore (except Emperor) from Reserve Deck; reshuffle.");

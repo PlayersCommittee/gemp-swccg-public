@@ -1,7 +1,15 @@
 package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card8_132 extends AbstractNormalEffect {
     public Card8_132() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Security_Precautions, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Security_Precautions, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("'I think I got it.'");
         setGameText("Deploy on a location. Your Force generation is +1 here. Also, if you 'probe' opponent's 'Hidden Base' system, opponent loses X Force, where X = 15 - number of systems on table. You take no battle damage where you have a 'probe' card. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

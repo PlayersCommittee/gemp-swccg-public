@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card12_051 extends AbstractNormalEffect {
     public Card12_051() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Your Insight Serves You Well & Staging Areas", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Your Insight Serves You Well & Staging Areas", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.Your_Insight_Serves_You_Well, Title.Staging_Areas);
         setGameText("Deploy on table. Your Force generation is +1 at each docking bay you occupy. Opponent's Dark Jedi are defense value -1. Scanning Crew and 3,720 to 1 are canceled. You may place Effect in Lost Pile to take one [Endor] or [Death Star II] Effect that deploys for free into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT);

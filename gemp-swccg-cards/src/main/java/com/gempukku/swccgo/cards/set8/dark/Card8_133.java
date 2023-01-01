@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card8_133 extends AbstractNormalEffect {
     public Card8_133() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Well-earned Command", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Well-earned Command", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Imperial officers often simulate large-scale battles with games to improve their tactical ability. Those who excel at these games often mark themselves for advancement.");
         setGameText("Deploy on your general or commander. When battling, adds 1 to your total battle destiny (or 2 if Igar). Once during each of your control phases, may take one Imperial Propaganda into hand from Reserve Deck; reshuffle. Your Force drains are +1 at holosites.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

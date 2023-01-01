@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set205.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card205_017 extends AbstractNormalEffect {
     public Card205_017() {
-        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Am_Your_Father, Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Am_Your_Father, Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Search your feelings, you know it to be true.'");
         setGameText("Deploy on table. [Death Star II] Vader is deploy = 6. Once per turn, may [download] Vader's Lightsaber (or lose 1 Force to deploy it from Lost Pile). Whenever a lightsaber swung by Vader 'hits' a character, opponent loses 1 Force. Immune to NOOOOOOOOOOOO! Immune to Alter.");

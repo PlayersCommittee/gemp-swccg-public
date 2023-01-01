@@ -1,12 +1,25 @@
 package com.gempukku.swccgo.cards.set601.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyForWeaponTargetingModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +31,7 @@ import java.util.List;
  */
 public class Card601_020 extends AbstractNormalEffect {
     public Card601_020() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Mercenary Slavers", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Mercenary Slavers", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Hunters who track down escaped Wookiee slaves and report on their location. The Empire and Trandoshans pay a high price for that kind of information.");
         setGameText("Unless your [Reflections II] objective on table, deploy on a site. Your smugglers and gangsters are slavers. Slavers are forfeit +2 and weapon destinies targeting them (or starships they pilot) are -1. 'Trandoshan' on your sites may be treated as 'slaver.' [Immune to Alter.]");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

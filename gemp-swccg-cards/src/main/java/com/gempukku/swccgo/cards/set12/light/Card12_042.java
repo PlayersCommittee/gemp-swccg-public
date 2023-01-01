@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card12_042 extends AbstractNormalEffect {
     public Card12_042() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Credits_Will_Do_Fine, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Credits_Will_Do_Fine, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("'No, they won't!'");
         setGameText("Use 2 Force to deploy on table. If you just initiated a Force drain (or won a battle) at Watto's Junkyard, opponent loses 1 Force (cannot be reduced) and stacks lost card here face down. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

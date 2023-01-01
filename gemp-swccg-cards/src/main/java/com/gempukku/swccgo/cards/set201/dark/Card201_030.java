@@ -3,9 +3,11 @@ package com.gempukku.swccgo.cards.set201.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card201_030 extends AbstractNormalEffect {
     public Card201_030() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Enforcement", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Enforcement", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
         setGameText("Deploy on table. You may initiate battles for free. Once per turn during battle, if you just drew a character for destiny, may take that card into hand to cancel and redraw that destiny. Canceled if your non-Imperial character (or starship) on table. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_1);

@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card9_132 extends AbstractNormalEffect {
     public Card9_132() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Something Special Planned For Them", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Something Special Planned For Them", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("The high command of the Emperor's fleet is selected as much for loyalty and obedience as for martial skills. A wise admiral knows better than to question Palpatine.");
         setGameText("Deploy on table. For opponent to move a starship from same location as your Star Destroyer requires +2 Force. Also, when opponent has just retrieved Force using an Interrupt or Utinni Effect card, that card is placed out of play. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

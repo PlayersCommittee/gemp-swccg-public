@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card12_134 extends AbstractNormalEffect {
     public Card12_134() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Establish Control");
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Establish Control", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Keeping supply routes clear allows rapid distribution of resources to where they are most required.");
         setGameText("Deploy on a docking bay you control. No Force drains here. Fallen Portal may not target a character at this site. Your Force drains are +2 at adjacent non-docking bay battleground sites. Place Effect in Used Pile if opponent controls this location.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

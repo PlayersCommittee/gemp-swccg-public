@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card13_080 extends AbstractNormalEffect {
     public Card13_080() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Opee_Sea_Killer, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Opee_Sea_Killer, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("With a vicious array of pointed teeth, the opee sea killer is a fearsome hunter. When outmatched in size, it uses small crevices to avoid bigger predators.");
         setGameText("Deploy on table. Cancels Sando Aqua Monster. While no card here, may place an opponent's just-drawn battle destiny face-up here. If opponent just drew battle destiny with the same card title as card here, place both cards in opponent's Lost Pile. (Immune to Alter.)");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

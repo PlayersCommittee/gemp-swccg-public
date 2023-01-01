@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +27,7 @@ import java.util.List;
  */
 public class Card9_038 extends AbstractNormalEffect {
     public Card9_038() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Menace_Fades, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Menace_Fades, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("As the Executor crashed into the Death Star, hope surged throughout the ranks of the outmanned Rebel fleet.");
         setGameText("Deploy on table. While you control any three Coruscant, Death Star and/or Death Star II locations, or any battleground site and one battleground system, all opponents Force drain bonuses everywhere are canceled. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

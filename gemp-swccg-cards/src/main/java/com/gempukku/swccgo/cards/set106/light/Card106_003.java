@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set106.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardPlayedThisTurnByPlayerCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card106_003 extends AbstractNormalEffect {
     public Card106_003() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Faithful Service", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Faithful Service", Uniqueness.UNIQUE, ExpansionSet.OTSD, Rarity.PM);
         setLore("Unlike the Empire, the Alliance treats their droids with respect. Many droids volunteered to share the risk of battle and aid the Rebellion's assault on the Death Star.");
         setGameText("Deploy on opponent's location. Whenever you lose a droid from hand or Life Force, it satisfies Force loss up to its forfeit value. Once per turn, you play Scomp Link Access to cancel a Force drain where you have a droid. Effect canceled if opponent controls this location.");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.ControlsWithEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MaxLimitEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card8_124 extends AbstractNormalEffect {
     public Card8_124() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Establish_Secret_Base, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Establish_Secret_Base, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("The Empire's remote bases develop new technology and hide sensitive projects from potential Rebel saboteurs.");
         setGameText("Deploy on Endor system if your biker scouts and/or AT-STs control three Endor sites. Your Force drain here is +1 for each Endor site your biker scout or AT-ST controls (limit +3). Place Effect in Used Pile if opponent controls this system. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

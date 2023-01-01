@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set214.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card214_012 extends AbstractNormalEffect {
     public Card214_012() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The First Order Was Just The Beginning", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The First Order Was Just The Beginning", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setGameText("Deploy on table. Your [Episode VII] troopers are forfeit +1. If [Episode VII] Emperor on table, once per turn may deploy Kijimi from Reserve Deck (reshuffle) or place any three cards out of play from your Lost Pile to deploy a non-unique [Episode VII] trooper from Lost Pile. [Immune to Alter.]");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addImmuneToCardTitle(Title.Alter);

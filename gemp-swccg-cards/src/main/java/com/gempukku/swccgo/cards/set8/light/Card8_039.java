@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card8_039 extends AbstractNormalEffect {
     public Card8_039() {
-        super(Side.LIGHT, 1, PlayCardZoneOption.ATTACHED, "I Wonder Who They Found", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, PlayCardZoneOption.ATTACHED, "I Wonder Who They Found", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("'General Solo, is your strike team assembled?'");
         setGameText("Deploy on Han or your war room. Once during each of your deploy phases, may take one That's One, Count Me In or I'm With You Too into hand from Reserve Deck; reshuffle. While Han is at an exterior battleground site, he is immune to attrition < 4.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS, Keyword.DEPLOYS_ON_SITE);

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card12_139 extends AbstractNormalEffect {
     public Card12_139() {
-        super(Side.DARK, 7, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.The_Phantom_Menace, Uniqueness.UNIQUE);
+        super(Side.DARK, 7, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.The_Phantom_Menace, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Mysterious hologram that communicates with the Trade Federation, directing their blockade of Naboo. 'This is getting out of hand. Now there are two of them!'");
         setGameText("Deploy on table. Once per turn, if Maul on table, may deploy a Neimoidian from Reserve Deck; reshuffle. While present with opponent's Jedi, Maul is defense value +2 and immune to attrition. If Maul just lost, place Effect in Used Pile. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

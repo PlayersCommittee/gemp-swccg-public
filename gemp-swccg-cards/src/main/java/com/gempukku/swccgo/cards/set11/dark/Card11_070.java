@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class Card11_070 extends AbstractNormalEffect {
     public Card11_070() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.His_Name_Is_Anakin, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.His_Name_Is_Anakin, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Anakin dreamt that one day he would return to Tatooine to free the slaves. His aggression will one day be felt by the entire Republic.");
         setGameText("Deploy on table. Each non-battleground docking bay generates no more than one Force for either player. Opponent's aliens deploy +1 on Tatooine (or +2 if non-unique or to same Tatooine site as your Dark Jedi, or +4 if both). (Immune to Alter.)");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

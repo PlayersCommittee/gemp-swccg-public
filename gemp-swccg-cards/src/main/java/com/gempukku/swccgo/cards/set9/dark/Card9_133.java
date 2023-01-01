@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card9_133 extends AbstractNormalEffect {
     public Card9_133() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.You_Cannot_Hide_Forever, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.You_Cannot_Hide_Forever, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("'Give yourself to the dark side. It is the only way you can save your friends.'");
         setGameText("Deploy on table. Opponent's Jedi are defense value -1. Never Tell Me The Odds is canceled. You may place Effect in Lost Pile to take one [Endor] or [Death Star II] Effect that deploys for free into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

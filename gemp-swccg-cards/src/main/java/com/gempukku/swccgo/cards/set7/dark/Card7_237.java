@@ -3,7 +3,18 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +39,7 @@ import java.util.List;
  */
 public class Card7_237 extends AbstractNormalEffect {
     public Card7_237() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Rebel_Base_Occupation, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Rebel_Base_Occupation, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'General, prepare your troops for a surface attack.'");
         setGameText("Deploy on a Rebel Base system if you occupy at least two related battleground sites. During each of your control phases, opponent loses 1 Force for each related battleground site you occupy. Canceled if opponent controls this system. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

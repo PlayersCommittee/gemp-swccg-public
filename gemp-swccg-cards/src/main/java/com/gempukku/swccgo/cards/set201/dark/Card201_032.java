@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set201.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +29,11 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -32,7 +44,7 @@ import java.util.*;
  */
 public class Card201_032 extends AbstractNormalEffect {
     public Card201_032() {
-        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Ng'ok War Beast", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Ng'ok War Beast", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("Dejarik of a Ng'ok war beast. Foul temper gives rise to bad feelings. Has razor-sharp retractable claws. Used in many systems to frighten off potential attackers.");
         setGameText("Deploy on table. If your character, starship, or vehicle in battle is about to be lost before the damage segment, it is instead lost at end of battle (if forfeited, forfeit for 0). [Immune to Alter]");
         addIcons(Icon.VIRTUAL_SET_1);

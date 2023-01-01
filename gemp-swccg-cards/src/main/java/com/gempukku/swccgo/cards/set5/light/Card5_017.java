@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +33,7 @@ import java.util.List;
  */
 public class Card5_017 extends AbstractNormalEffect {
     public Card5_017() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, "All My Urchins", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, "All My Urchins", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("One little, two little, three little Bespinites.");
         setGameText("Use 2 Force to deploy at any site where you have presence. Moves like a single character at normal use of the Force. Before initiating a battle where present, a player must first lose 2 Force. Effect lost if you initiate a battle where present.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card5_126 extends AbstractNormalEffect {
     public Card5_126() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Vader's Cape", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Vader's Cape", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("A symbol of the Dark Lord of the Sith, and of the seductive power of the dark side.");
         setGameText("Use 3 Force to deploy on one of your Imperials or aliens. Immune to attrition < 5. When in battle, adds 1 to each of your battle destiny draws.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

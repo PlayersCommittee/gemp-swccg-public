@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card7_079 extends AbstractNormalEffect {
     public Card7_079() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Uh-oh!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Uh-oh!", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Imperial law had no place in the Hutt's domain.");
         setGameText("Deploy on your side of table. While no Rebels at any Jabba's Palace sites, at all such sites: Imperials are deploy +2, Bo Shuda may not be canceled, Expand the Empire is canceled and your non-unique aliens are each forfeit +1 (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);

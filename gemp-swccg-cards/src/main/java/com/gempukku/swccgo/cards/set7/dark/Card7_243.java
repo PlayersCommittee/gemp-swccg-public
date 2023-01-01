@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +26,11 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.results.DeliveredCaptiveToPrisonResult;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Set: Special Edition
@@ -25,7 +39,7 @@ import java.util.*;
  */
 public class Card7_243 extends AbstractNormalEffect {
     public Card7_243() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Tarkin's Bounty", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Tarkin's Bounty", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("'You don't know how hard I found it signing the order to terminate your life.'");
         setGameText("Deploy on opponent's spy or Rebel leader. If subsequently captured by a bounty hunter or Imperial and then transferred to Detention Block Corridor, retrieve Force equal to character's forfeit (+4 if Leia) and lose Effect. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);

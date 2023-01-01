@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerCaptiveEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card5_123 extends AbstractNormalEffect {
     public Card5_123() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Special_Delivery, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Special_Delivery, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Because bounty hunters are untrustworthy, the Empire relies on its troopers for efficient prisoner delivery.");
         setGameText("Deploy on a prison. When one of your troopers 'delivers' (imprisons) a captive here, you may search your Lost Pile, take any one card into hand and then lose effect. (Each captive may be 'delivered' only once until they are released or leave table)");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

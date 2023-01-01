@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card8_130 extends AbstractNormalEffect {
     public Card8_130() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Relentless Tracking", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Relentless Tracking", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Biker scouts commonly work as a team to track enemies of the Empire. A pair of scouts on speeder bike is difficult to elude.");
         setGameText("Deploy on opponent's non-droid character at same or adjacent site as your scout. During each of your control phases, if your scout is at this site (and not Undercover), opponent loses 2 Force (or 3 Force if that scout is also a biker scout).");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

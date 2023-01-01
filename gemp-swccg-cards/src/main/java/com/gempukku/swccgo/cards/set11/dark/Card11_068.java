@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.TwicePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card11_068 extends AbstractNormalEffect {
     public Card11_068() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.A_Million_Voices_Crying_Out, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.A_Million_Voices_Crying_Out, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Tarkin silenced the voices of Alderaan with the power of the Death Star.");
         setGameText("Deploy on table. Twice per game may take Commence Primary Ignition into hand from Lost Pile or Reserve Deck; reshuffle. If Alderaan 'blown away,' retrieve 3 Force whenever you deploy a unique (•) Star Destroyer. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

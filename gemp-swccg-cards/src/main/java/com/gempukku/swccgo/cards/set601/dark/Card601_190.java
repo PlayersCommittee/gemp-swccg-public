@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card601_190 extends AbstractNormalEffect {
     public Card601_190() {
-        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Day Long Remembered", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Day Long Remembered", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'It has seen the end of Kenobi and will soon see the end of the Rebellion.'");
         setGameText("Deploy on table. All immunity to attrition is -3. You may not fire [Permanent Weapon] weapons. If opponent just lost a Jedi or a battle, they lose 1 Force. During your draw phase, lose 1 Force or place this Effect in Used Pile.");

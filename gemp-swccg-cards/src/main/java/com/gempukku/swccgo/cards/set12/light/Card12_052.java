@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card12_052 extends AbstractNormalEffect {
     public Card12_052() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You've Got A Lot Of Guts Coming Here", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You've Got A Lot Of Guts Coming Here", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("The Empire, Lando Calrissian, Jabba the Hutt. For Han Solo, it can be very hard to tell when your past is going to catch up with you.");
         setGameText("Deploy on table. Unique (•) Rebels of ability = 3 are power and forfeit +1 (or power and forfeit +2 if at a Cloud City or Jabba's Palace site). While Han at a battleground, opponent retrieves no Force from Scum And Villainy. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT);

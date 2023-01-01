@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set205.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card205_018 extends AbstractNormalEffect {
     public Card205_018() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Overseeing_It_Personally, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Overseeing_It_Personally, Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Though reluctant to leave Coruscant. Emperor Palpatine occasionally finds it necessary to personally put lagging Imperial operations back on schedule.");
         setGameText("Deploy on your leader. Opponent may not cancel or reduce Force drains at same battleground. If on Emperor, may place Effect in Lost Pile to retrieve an Imperial Leader.");

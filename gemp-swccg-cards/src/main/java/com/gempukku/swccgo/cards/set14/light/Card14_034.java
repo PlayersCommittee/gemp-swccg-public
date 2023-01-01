@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card14_034 extends AbstractNormalEffect {
     public Card14_034() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Naboo Celebration", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Naboo Celebration", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("The heroic actions of Amidala's forces and Boss Nass' army saved Naboo from the Trade Federation. Definitely a cause for celebration!");
         setGameText("Deploy on table. If Amidala at a Theed Palace site (or Boss Nass at an exterior Naboo site), opponent's cards with ability deploy +2 there. Once during battle at a Naboo site, if you just drew a Gungan or Royal Naboo Security for battle destiny, opponent loses 1 Force.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

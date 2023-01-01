@@ -3,14 +3,28 @@ package com.gempukku.swccgo.cards.set10.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.CanAddDestinyToPowerCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsDestinyToPowerModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NighttimeConditionsModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetPowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +36,7 @@ import java.util.List;
  */
 public class Card10_050 extends AbstractNormalEffect {
     public Card10_050() {
-        super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, "Sunsdown & Too Cold For Speeders");
+        super(Side.DARK, 2, PlayCardZoneOption.ATTACHED, "Sunsdown & Too Cold For Speeders", Uniqueness.UNRESTRICTED, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Sunsdown, Title.Too_Cold_For_Speeders);
         setGameText("Deploy on any planet system. At related sites: nighttime conditions are in effect; non-creature vehicles are power = 0, maneuver = 0, and landspeed = 0; spies deploy -1; and in battles there both sides add one destiny to power only.");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

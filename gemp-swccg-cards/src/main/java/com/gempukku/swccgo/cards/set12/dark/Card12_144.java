@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card12_144 extends AbstractNormalEffect {
     public Card12_144() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You Cannot Hide Forever & Mobilization Points", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You Cannot Hide Forever & Mobilization Points", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         addComboCardTitles(Title.You_Cannot_Hide_Forever, Title.Mobilization_Points);
         setGameText("Deploy on table. Your Force generation is +1 at each docking bay you occupy. Opponent's Jedi are defense value -1. Never Tell Me The Odds is canceled. Once per game, you may take one Carida, Wakeelmui, Gall, Kuat or Rendili or Executor into hand from Reserve Deck; reshuffle. You may place Effect in Lost Pile to take one [Endor] or [Death Star II] Effect that deploys for free into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT);

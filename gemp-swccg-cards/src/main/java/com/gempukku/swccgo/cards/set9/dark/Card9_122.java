@@ -5,7 +5,16 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.MinLimitEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.ThereEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +36,7 @@ import java.util.List;
  */
 public class Card9_122 extends AbstractNormalEffect {
     public Card9_122() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Desperate Counter", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Desperate Counter", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("The Empire relied on the skill of its pilot corps to defend the Death Star reactor core from attack.");
         setGameText("Deploy on Death Star II system. When opponent moves from a related sector, for each TIE armed with a weapon there, movement destiny is -3 (limit -9). Also, you may deploy either Combat Response or Imperial Arrest Order from Reserve Deck; reshuffle. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

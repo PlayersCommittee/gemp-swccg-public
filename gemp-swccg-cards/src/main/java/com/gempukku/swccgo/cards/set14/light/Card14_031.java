@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card14_031 extends AbstractNormalEffect {
     public Card14_031() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Get To Your Ships!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Get To Your Ships!", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("The Queen's plan called for the remnants of Bravo Flight to eliminate the Droid Control Ship. Not an easy task.");
         setGameText("Deploy on table. Once during your deploy phase, may reveal an unpiloted starfighter from hand to take its matching pilot character from Reserve Deck (or vice versa) and deploy both simultaneously; reshuffle. (Immune to Alter.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
