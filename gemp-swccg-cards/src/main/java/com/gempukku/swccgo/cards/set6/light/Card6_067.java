@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set6.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -18,7 +20,11 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Set: Jabba's Palace
@@ -28,7 +34,7 @@ import java.util.*;
  */
 public class Card6_067 extends AbstractLostInterrupt {
     public Card6_067() {
-        super(Side.LIGHT, 3, "Jabba's Palace Sabacc", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Jabba's Palace Sabacc", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("Jabba could lick anyone at sabacc.");
         setGameText("Requirements: A gambler, gangster, smuggler or information broker at a Jabba's Palace site. Wild cards (1-6): Passenger Deck and deserts. Clone cards: Aliens and Jabba's Palace sites (gamblers and Jabba may use clone cards as 4's.) Stakes: One character weapon or non-unique alien.");
         addIcons(Icon.JABBAS_PALACE);

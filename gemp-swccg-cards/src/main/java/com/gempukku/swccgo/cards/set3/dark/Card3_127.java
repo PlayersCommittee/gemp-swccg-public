@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardTitleNotPlayedThisTurnCondition;
 import com.gempukku.swccgo.cards.conditions.PlayersNextTurnCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card3_127 extends AbstractLostInterrupt {
     public Card3_127() {
-        super(Side.DARK, 2, Title.Id_Just_As_Soon_Kiss_A_Wookiee, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Id_Just_As_Soon_Kiss_A_Wookiee, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLore("'I can arrange that. You could USE a good kiss!'");
         setGameText("Use 3 Force to place an opponent's just deployed character, starship, vehicle, weapon, or device in opponent's hand. On opponent's next turn, that card (or one card of same title) may deploy for free.");
         addIcons(Icon.HOTH);

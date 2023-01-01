@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set203.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card203_018 extends AbstractLostInterrupt {
     public Card203_018() {
-        super(Side.LIGHT, 5, Title.The_Force_Is_Strong_With_This_One);
+        super(Side.LIGHT, 5, Title.The_Force_Is_Strong_With_This_One, Uniqueness.UNRESTRICTED, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("Luke's piloting skills and Force abilities made his X-wing a difficult target for Darth Vader as they raced down the Death Star trench.");
         setGameText("If your padawan or Skywalker is in battle with a Dark Jedi, either add one battle destiny or cancel I Have You Now. OR If Luke is in battle with opponent's character of ability > 3, add one battle destiny.");

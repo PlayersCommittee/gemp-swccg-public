@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card4_073 extends AbstractLostInterrupt {
     public Card4_073() {
-        super(Side.LIGHT, 4, "Yoda, You Seek Yoda", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Yoda, You Seek Yoda", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Take you to him I will.'");
         setGameText("If Yoda is lost, use 1 Force to retrieve him from the Lost Pile. OR Use 3 Force to search through your Reserve Deck and take Yoda into your hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH);

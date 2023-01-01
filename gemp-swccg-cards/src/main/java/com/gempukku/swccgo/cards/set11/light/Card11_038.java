@@ -2,13 +2,24 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.conditions.PhaseCondition;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfPlayersNextTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.ChooseEffectOrderEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDrawRaceDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -26,7 +37,7 @@ import java.util.List;
  */
 public class Card11_038 extends AbstractLostInterrupt {
     public Card11_038() {
-        super(Side.LIGHT, 4, Title.Neck_And_Neck, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Neck_And_Neck, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("When Anakin had finally caught up with Sebulba, he knew he needed to make some kind of a move to break away from the Dug and win the race.");
         setGameText("If difference between opponent's and your highest race totals < 4, lose 1 Force. Opponent draws no race destiny next control phase. OR If both players have < 10 Life Force remaining, both players retrieve 4 Force.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

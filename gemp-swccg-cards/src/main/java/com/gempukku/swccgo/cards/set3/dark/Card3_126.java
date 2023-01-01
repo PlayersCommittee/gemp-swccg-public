@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card3_126 extends AbstractLostInterrupt {
     public Card3_126() {
-        super(Side.DARK, 4, Title.He_Hasnt_Come_Back_Yet);
+        super(Side.DARK, 4, Title.He_Hasnt_Come_Back_Yet, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("'Princess Leia is wondering about Master Luke...She doesn't know where he is.' 'I don't know where he is.' 'Nobody knows where he is.'");
         setGameText("During your control phase, target any character alone at one of your exterior planet sites (except a docking bay). Draw destiny. Target is missing if destiny + 3 > ability.");
         addIcons(Icon.HOTH);

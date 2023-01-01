@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +18,11 @@ import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
+import com.gempukku.swccgo.logic.effects.ResetForfeitUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
@@ -32,7 +42,7 @@ import java.util.List;
  */
 public class Card8_139 extends AbstractLostInterrupt {
     public Card8_139() {
-        super(Side.DARK, 5, Title.Dead_Ewok, Uniqueness.UNIQUE);
+        super(Side.DARK, 5, Title.Dead_Ewok, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Many Ewoks gave their lives in the Battle of Endor.");
         setGameText("Reduce any alien's forfeit to 0 for remainder of turn. OR If you have two Imperials present at a site, draw destiny. Add 1 for each of your blasters present. If total destiny > number of Ewoks present at same site, those Ewoks are lost.");
         addIcons(Icon.ENDOR);

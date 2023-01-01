@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set208.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card208_018 extends AbstractLostInterrupt {
     public Card208_018() {
-        super(Side.LIGHT, 4, Title.Corellian_Slip);
+        super(Side.LIGHT, 4, Title.Corellian_Slip, Uniqueness.UNRESTRICTED, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("First perfected by Corellian starship battle tacticians, this dangerous counter-maneuver has saved numerous hot-shot pilots in life-or-death situations.");
         setGameText("During battle, target opponent's starfighter with your snub fighter. Starfighter's gametext (except related to any capacity and the ability and identify of any permanent pilots) is canceled. OR If your pilot of ability < 3 was just lost from aboard a snub fighter, take pilot into hand.");

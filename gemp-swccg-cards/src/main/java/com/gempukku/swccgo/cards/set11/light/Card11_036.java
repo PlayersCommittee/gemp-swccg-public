@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelDuelEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -15,7 +17,13 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.StackActionEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card11_036 extends AbstractLostInterrupt {
     public Card11_036() {
-        super(Side.LIGHT, 5, "Jedi Escape", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Jedi Escape", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Qui-Gon escaped with his friends from Tatooine, barely getting away from the clutches of Darth Maul.");
         setGameText("If opponent just initiated a duel against one of your non-captive Jedi at a site, use 1 Force to cancel the duel and you may relocate any number of your characters there to an adjacent site.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card5_069 extends AbstractLostInterrupt {
     public Card5_069() {
-        super(Side.LIGHT, 3, Title.Smoke_Screen, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Smoke_Screen, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Warning: The Alderaanian Medical Association has determined that inhaling carbon-freezing smoke can be hazardous to your health.");
         setGameText("During a battle at a site, if you are about to draw a card for battle destiny, you may instead use the ability number of one of your characters involved in the battle.");
         addIcons(Icon.CLOUD_CITY);

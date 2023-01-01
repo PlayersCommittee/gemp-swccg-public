@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -12,7 +14,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collections;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card13_079 extends AbstractLostInterrupt {
     public Card13_079() {
-        super(Side.DARK, 4, "No Match For A Sith", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "No Match For A Sith", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Lightsaber duels are so fast and furious that Jedi don't plan their offensive strategy, but instead rely on instinct and their ability to sense an opponent's next strike.");
         setGameText("If Maul armed with a lightsaber in battle, use 2 Force to draw two destiny. Opponent draws two destiny. If any of your destinies equal any of opponent's destinies, opponent's Jedi is power = 0 for remainder of battle.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

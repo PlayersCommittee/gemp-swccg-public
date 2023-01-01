@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set211.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class Card211_012 extends AbstractLostInterrupt {
     public Card211_012() {
-        super(Side.DARK, 2, Title.Always_Two_There_Are);
+        super(Side.DARK, 2, Title.Always_Two_There_Are, Uniqueness.UNRESTRICTED, ExpansionSet.SET_11, Rarity.V);
         setLore("At last we will reveal ourselves to the Jedi.");
         setGameText("If you just lost a Dark Jedi and have exactly one Dark Jedi on table, take a Dark Jedi into hand from Reserve Deck; reshuffle. OR Once per game, if you have exactly two Dark Jedi on table, choose: Opponent loses 2 Force OR make a just drawn destiny = 2.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_I);

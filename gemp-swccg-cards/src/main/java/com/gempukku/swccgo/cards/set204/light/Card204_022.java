@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card204_022 extends AbstractLostInterrupt {
     public Card204_022() {
-        super(Side.LIGHT, 5, "The Garbage Will Do", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "The Garbage Will Do", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setGameText("Once per game, choose: During battle, place the top card of your Lost Pile out of play to add its destiny number to your total power. OR Peek at the cards stacked on Graveyard Of Giants; take (or steal) one starfighter or vehicle there into hand.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);
     }

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set13.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card13_014 extends AbstractLostInterrupt {
     public Card13_014() {
-        super(Side.LIGHT, 4, "Diversionary Tactics", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Diversionary Tactics", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Rebel pilots understand that what they lack in numbers, they must make up for in strategy. They often use diversions to remove dangerous opponents from a conflict.");
         setGameText("If your starfighter with a pilot character aboard is in a battle, target an opponent's starfighter present that has no characters aboard. For remainder of battle, both starfighters are power = 0, and target starfighter is forfeit = 0. (Immune to Sense.)");
         addIcons(Icon.REFLECTIONS_III);

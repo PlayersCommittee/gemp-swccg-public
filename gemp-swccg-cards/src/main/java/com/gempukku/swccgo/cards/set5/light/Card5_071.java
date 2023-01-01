@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card5_071 extends AbstractLostInterrupt {
     public Card5_071() {
-        super(Side.LIGHT, 4, Title.Surreptitious_Glance, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Surreptitious_Glance, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("After working together for a long time, Lando and Lobot developed a speechless form of communication.");
         setGameText("If Lobot and your Lando are in a battle together, cancel one opponent's battle destiny draw immediately after it is revealed. OR Use 4 Force to cancel Dark Deal.");
         addIcons(Icon.CLOUD_CITY);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card5_163 extends AbstractLostInterrupt {
     public Card5_163() {
-        super(Side.DARK, 3, Title.You_Are_Beaten, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.You_Are_Beaten, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("'It is useless to resist. Don't let yourself be destroyed as Obi-Wan did.'");
         setGameText("Use 2 Force to target a character present with your warrior with a lightsaber. Target cannot move or battle until end of your next turn. OR Use 1 Force to search your Reserve Deck, take one I Am Your Father into hand and reshuffle. OR Cancel Uncontrollable Fury.");
         addIcons(Icon.CLOUD_CITY);

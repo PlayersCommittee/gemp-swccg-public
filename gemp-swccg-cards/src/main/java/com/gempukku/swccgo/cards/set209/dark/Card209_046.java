@@ -3,14 +3,23 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.DrawsBattleDestinyIfUnableToOtherwiseUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotHavePowerIncreasedByCardModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card209_046 extends AbstractLostInterrupt {
     public Card209_046() {
-        super(Side.DARK, 6, Title.Apology_Accepted, Uniqueness.UNIQUE);
+        super(Side.DARK, 6, Title.Apology_Accepted, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setVirtualSuffix(true);
         setLore("'I shall assume full responsibility for losing them and apologize to Lord Vader.' Needa discovered that Vader was only slightly more forgiving than the Emperor.");
         setGameText("During battle, lose an Imperial leader piloting your Star Destroyer. For remainder of turn, that Star Destroyer draws two battle destiny if unable to otherwise, is immune to attrition, and its power may not be increased by Imperial pilots aboard (except Vader).");

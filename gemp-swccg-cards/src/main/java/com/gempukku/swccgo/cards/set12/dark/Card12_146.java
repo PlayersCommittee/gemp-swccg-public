@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card12_146 extends AbstractLostInterrupt {
     public Card12_146() {
-        super(Side.DARK, 2, Title.Control);
+        super(Side.DARK, 2, Title.Control, Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Maul channeled his rage within himself, thus drawing on the dark side of the Force in his confrontation with the Jedi.");
         setGameText("Cancel Sense or Alter. (Immune to Sense.) OR Cancel an Immediate or Mobile Effect (even if just deployed), or Force drain.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

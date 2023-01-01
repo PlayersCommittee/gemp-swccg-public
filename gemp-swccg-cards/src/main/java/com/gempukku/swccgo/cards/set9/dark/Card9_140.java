@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set9.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card9_140 extends AbstractLostInterrupt {
     public Card9_140() {
-        super(Side.DARK, 4, "Rise, My Friend", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Rise, My Friend", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("'I sense you wish to continue your search for young Skywalker.'");
         setGameText("If Emperor on Death Star II, take Vader into hand from a location you control (cards on him go to owner's hand). OR During your control phase, if Vader escorting Luke or Leia at a site you control, relocate Vader (with captive) to Death Star II: Docking Bay. (Immune to Sense.)");
         addIcons(Icon.DEATH_STAR_II);

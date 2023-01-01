@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card3_124 extends AbstractLostInterrupt {
     public Card3_124() {
-        super(Side.DARK, 2, Title.Exposure);
+        super(Side.DARK, 2, Title.Exposure, Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("'Artoo says the chances of survival are 725 to 1.'");
         setGameText("Use X Force during your control phase, where X = the total number of characters present or missing at exterior marker sites under 'nighttime conditions.' Those characters are lost.");
         addIcons(Icon.HOTH);

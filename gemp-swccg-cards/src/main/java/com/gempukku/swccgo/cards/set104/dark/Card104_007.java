@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set104.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card104_007 extends AbstractLostInterrupt {
     public Card104_007() {
-        super(Side.DARK, 4, Title.Walker_Garrison);
+        super(Side.DARK, 4, Title.Walker_Garrison, Uniqueness.UNRESTRICTED, ExpansionSet.ESB_INTRO_TWO_PLAYER, Rarity.PM);
         setLore("When efficiently deployed, a squadron of AT-ATs can quickly take control of a wide area, making it easy for imperial forces to dominate a planet.");
         setGameText("If Veers is at an exterior Hoth site, use 2 Force to search your Reserve Deck and take one AT-AT into your hand. OR If you have 3 AT-ATs at three different Hoth sites, your Force drains are +2 at Hoth locations this turn.");
         addIcons(Icon.PREMIUM);

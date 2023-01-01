@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set601.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card601_242 extends AbstractLostInterrupt {
     public Card601_242() {
-        super(Side.LIGHT, 3, "Found Someone You Have");
+        super(Side.LIGHT, 3, "Found Someone You Have", Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'I'm looking for someone.' 'Looking? Found someone you have I would say.'");
         setGameText("Find one of your missing characters. OR Retrieve the topmost character of your Lost Pile into hand.");

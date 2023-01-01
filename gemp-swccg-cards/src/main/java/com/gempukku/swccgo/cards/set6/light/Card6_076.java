@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card6_076 extends AbstractLostInterrupt {
     public Card6_076() {
-        super(Side.LIGHT, 7, Title.Strangle, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 7, Title.Strangle, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("'Aacccck!'");
         setGameText("Target an escort alone and its captive. Draw destiny. Escort lost if destiny + captive's power > escort's ability + power. OR During a battle at a site where Leia is an escorted captive, add one battle destiny.");
         addIcons(Icon.JABBAS_PALACE);

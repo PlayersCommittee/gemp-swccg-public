@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card4_050 extends AbstractLostInterrupt {
     public Card4_050() {
-        super(Side.LIGHT, 4, Title.Egregious_Pilot_Error, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Egregious_Pilot_Error, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Details of the notorious 'Incident at Anoat' are required reading at the Imperial Academy of Raithal, where the pilots' names are posthumously displayed.");
         setGameText("During opponent's control phase, if opponent has two or more capital starships at a system or sector together, draw destiny. If destiny -1 < number of those starships, they may not move or participate in battle until end of your next turn.");
         addIcons(Icon.DAGOBAH);

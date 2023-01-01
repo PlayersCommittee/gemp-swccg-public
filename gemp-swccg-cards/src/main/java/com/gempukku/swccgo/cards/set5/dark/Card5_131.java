@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card5_131 extends AbstractLostInterrupt {
     public Card5_131() {
-        super(Side.DARK, 5, "Atmospheric Assault", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Atmospheric Assault", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("The TIEs patrolling Cloud City took advantage of Bespin's dense cloud cover.");
         setGameText("If you just initiated a battle at a Cloud City sector, add one battle destiny. OR During your deploy phase, deploy one TIE Assault Squadron for free (no replacement is necessary).");
         addIcons(Icon.CLOUD_CITY);

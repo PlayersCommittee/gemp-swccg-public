@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card5_066 extends AbstractLostInterrupt {
     public Card5_066() {
-        super(Side.LIGHT, 4, "Rendezvous Point On Tatooine");
+        super(Side.LIGHT, 4, "Rendezvous Point On Tatooine", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'When we find Jabba the Hutt and that bounty hunter, we'll contact you.'");
         setGameText("During your control phase, use 1 Force to move one of your [Cloud City] characters of ability > 1 to any [Jabba's Palace] location where you have presence. If moving to any Jabba's Palace site, this movement is free and you do not need presence.");
         addIcons(Icon.CLOUD_CITY);

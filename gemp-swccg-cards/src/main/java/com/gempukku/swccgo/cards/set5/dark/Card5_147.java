@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card5_147 extends AbstractLostInterrupt {
     public Card5_147() {
-        super(Side.DARK, 5, "Point Man");
+        super(Side.DARK, 5, "Point Man", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("In a military situation, on a regional or galactic scale, commands sometimes get misinterpreted. A local commander giving orders is far more reliable.");
         setGameText("Cancel Demotion, Restricted Deployment, Commence Recharging, Logistical Delay, They're On Dantooine, Asteroid Sanctuary, Scramble, Order To Engage, No Disintegrations, Asteroids Do Not Concern Me, Report To Lord Vader or What Is Thy Bidding, My Master?");
         addIcons(Icon.CLOUD_CITY);

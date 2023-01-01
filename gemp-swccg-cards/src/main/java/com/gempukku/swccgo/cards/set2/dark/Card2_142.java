@@ -2,23 +2,36 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
+import com.gempukku.swccgo.logic.effects.CaptureCharactersOnTableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.AboutToForfeitCardFromTableResult;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -29,7 +42,7 @@ import java.util.*;
  */
 public class Card2_142 extends AbstractLostInterrupt {
     public Card2_142() {
-        super(Side.DARK, 3, Title.We_Have_A_Prisoner);
+        super(Side.DARK, 3, Title.We_Have_A_Prisoner, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("'You are part of the Rebel Alliance, and a traitor. Take her away!'");
         setGameText("Use 1 Force if opponent's character is about to be lost or forfeited from battle. It is captured instead (character is first restored to normal). OR Use X Force to capture all characters on board a captured starship, where X = twice the number of characters.");
         addIcons(Icon.A_NEW_HOPE);

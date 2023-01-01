@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card5_073 extends AbstractLostInterrupt {
     public Card5_073() {
-        super(Side.LIGHT, 3, "This Is Even Better", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "This Is Even Better", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("It took escape from Hoth, asteroids, slugs, capture, refreshments with Vader, torture and the inevitable carbon-freezing to get Leia to reveal her true feelings for Han.");
         setGameText("If Han and Leia are together in a battle you just lost, forfeit one of them to satisfy all battle damage and attrition against you. OR If Han is a captive and a battle was just initiated where you have Leia (or vice versa), add one battle destiny. OR Cancel This Is Still Wrong.");
         addIcons(Icon.CLOUD_CITY);

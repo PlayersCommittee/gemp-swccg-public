@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card5_064 extends AbstractLostInterrupt {
     public Card5_064() {
-        super(Side.LIGHT, 4, "Punch It!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Punch It!", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Ever since Lando's 'little' maneuver at the Battle of Taanab, his piloting skills had become legendary.");
         setGameText("If Han or your Lando is piloting a starfighter which is defending a battle at a system, add one battle destiny (add two if starfighter is Falcon). Also, starfighter is immune to attrition for remainder of turn.");
         addIcons(Icon.CLOUD_CITY);

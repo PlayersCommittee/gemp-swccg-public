@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +20,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.*;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandOrReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -29,7 +40,7 @@ import java.util.List;
  */
 public class Card8_056 extends AbstractLostInterrupt {
     public Card8_056() {
-        super(Side.LIGHT, 5, Title.I_Know, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.I_Know, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Han and Leia chose unusual times to express their true feelings for each other.");
         setGameText("If Leia and Han are in a battle together, add two battle destiny. OR If opponent just initiated a battle against Han, you may 'react' by deploying there (for free) Leia and/or her matching weapon from hand and/or Reserve Deck; reshuffle.");
         addIcons(Icon.ENDOR);

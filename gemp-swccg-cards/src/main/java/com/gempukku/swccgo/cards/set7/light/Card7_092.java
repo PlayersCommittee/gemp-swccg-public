@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card7_092 extends AbstractLostInterrupt {
     public Card7_092() {
-        super(Side.LIGHT, 3, "Hit And Run", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Hit And Run", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Many pilots for the Rebellion learned their skills using modified T-47s and other airspeeders. Being able to weave in and out of combat has become second nature to them.");
         setGameText("Just after the weapons segment of a battle, you may move any or all of your starships there away. ('Hit' cards must still be lost.)");
         addIcons(Icon.SPECIAL_EDITION);

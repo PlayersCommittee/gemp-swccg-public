@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.DrawsNoBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card6_060 extends AbstractLostInterrupt {
     public Card6_060() {
-        super(Side.LIGHT, 3, "Artoo, I Have A Bad Feeling About This", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Artoo, I Have A Bad Feeling About This", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("'He says our instructions are to give it only to Jabba himself. I'm terrible sorry. I'm afraid he's ever so stubborn about these sort of things.'");
         setGameText("If you are about to draw a battle destiny, instead use the destiny number of one of your droids in that battle. OR Add 1 to attrition against opponent for each droid you have in that battle. OR If R2-D2 and C-3PO are in battle together, opponent draws no battle destiny.");
         addIcons(Icon.JABBAS_PALACE);

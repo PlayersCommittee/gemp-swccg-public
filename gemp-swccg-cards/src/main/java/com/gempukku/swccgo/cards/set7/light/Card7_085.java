@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card7_085 extends AbstractLostInterrupt {
     public Card7_085() {
-        super(Side.LIGHT, 3, Title.Darklighter_Spin, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Darklighter_Spin, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Biggs improvised this maneuver shortly after joining the Alliance. By spinning his starfighter while firing all four cannons, he was able to destroy multiple incoming targets.");
         setGameText("During a battle at a system or sector, if you are about to draw a card for battle destiny, you may instead use the maneuver number of your starfighter in that battle.");
         addIcons(Icon.SPECIAL_EDITION);

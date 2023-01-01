@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card5_048 extends AbstractLostInterrupt {
     public Card5_048() {
-        super(Side.LIGHT, 4, "Gambler's Luck", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Gambler's Luck", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Works every time.");
         setGameText("If your gambler is defending a battle alone at a site, add one battle destiny (draw two destiny, and choose one). OR if your Lando is defending a battle alone at a site, add two battle destiny (draw three and choose two).");
         addIcons(Icon.CLOUD_CITY);

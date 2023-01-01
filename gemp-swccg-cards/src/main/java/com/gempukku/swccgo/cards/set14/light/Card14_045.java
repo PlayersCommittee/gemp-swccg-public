@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card14_045 extends AbstractLostInterrupt {
     public Card14_045() {
-        super(Side.LIGHT, 5, "We Don't Have Time For This", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "We Don't Have Time For This", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Amidala and Panaka have the weapons training to pin down and remove the greatest combat threat.");
         setGameText("If Amidala and Panaka are in a battle together, add two battle destiny. OR Target an interior Naboo site where opponent has a battle droid. Draw destiny. If destiny > number of battle droids at that site, one of them is lost (opponent's choice).");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

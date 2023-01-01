@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -15,7 +17,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.MayNotMoveUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -35,7 +41,7 @@ import java.util.List;
  */
 public class Card13_093 extends AbstractLostInterrupt {
     public Card13_093() {
-        super(Side.DARK, 3, "Through The Corridor", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Through The Corridor", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Obi-Wan was anxious, Qui-Gon was patient, and Maul was angry.");
         setGameText("If opponent just initiated battle against Maul where opponent has two Jedi, cancel that battle and you may relocate one of those Jedi (your choice) to any adjacent site. That Jedi may not move for remainder of turn. (Immune to Sense.)");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

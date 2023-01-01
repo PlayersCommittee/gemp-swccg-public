@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card5_034 extends AbstractLostInterrupt {
     public Card5_034() {
-        super(Side.LIGHT, 3, Title.As_Good_As_Gone);
+        super(Side.LIGHT, 3, Title.As_Good_As_Gone, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Han's habit of leaving during a crisis was offset by his tendency to return when his friends needed him the most.");
         setGameText("During your move phase, use 2 Force to return one of your smugglers, gamblers or thieves on table (unless captured or missing) to your hand.");
         addIcons(Icon.CLOUD_CITY);

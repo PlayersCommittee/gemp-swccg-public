@@ -4,14 +4,20 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealCardFromOwnHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.CancelGameTextEffect;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
@@ -19,7 +25,6 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +36,7 @@ import java.util.List;
  */
 public class Card216_001 extends AbstractLostInterrupt {
     public Card216_001() {
-        super(Side.DARK, 2, Title.A_Sith_Legend, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.A_Sith_Legend, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("At his peak, no one could stand up to the Dark Lord of the Sith. His superior tactics devastated those who opposed him.");
         setGameText("Reveal a lightsaber from hand to [upload] a matching Dark Jedi or Sith (or vice versa). " +
                 "OR Once per game, cancel the game text of an opponent's non-Jedi character present with your Dark Jedi or Inquisitor for remainder of turn.");

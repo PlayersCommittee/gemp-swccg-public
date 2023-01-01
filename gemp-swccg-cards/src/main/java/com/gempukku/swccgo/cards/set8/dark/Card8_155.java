@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card8_155 extends AbstractLostInterrupt {
     public Card8_155() {
-        super(Side.DARK, 4, Title.You_Rebel_Scum, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.You_Rebel_Scum, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Imperial troops treat members of the Rebellion with disdain, showing little respect for their combat skills.");
         setGameText("For remainder of turn, cancel game text of one Rebel present with two stormtroopers. OR During your control phase, cancel game text of one nonunique Rebel for remainder of turn.");
         addIcons(Icon.ENDOR);

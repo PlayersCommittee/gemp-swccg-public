@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelDuelEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card11_029 extends AbstractLostInterrupt {
     public Card11_029() {
-        super(Side.LIGHT, 6, "A Jedi's Resilience", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, "A Jedi's Resilience", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Luke wasn't going to let Vader dispose of him too quickly.");
         setGameText("If you just lost a duel opponent initiated (before duel has any result) lose 1 Force to cancel the duel and return Interrupt (if any) used to initiate duel to owner's hand. OR If you just lost a character armed with a lightsaber, take that character into hand.");
         addIcons(Icon.TATOOINE);

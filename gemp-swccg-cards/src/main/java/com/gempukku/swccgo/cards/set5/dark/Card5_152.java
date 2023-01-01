@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RelocateFromLocationToWeatherVane;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card5_152 extends AbstractLostInterrupt {
     public Card5_152() {
-        super(Side.DARK, 3, "Shattered Hope", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Shattered Hope", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Using the power of the dark side, Vader caused Luke to lose his confidence and question his sense of direction.");
         setGameText("At the end of a battle that you won at an interior site where you have a character of ability > 3 present, relocate one opponent's character present to an adjacent site. (If on Cloud City, character may be relocated to Weather Vane instead.)");
         addIcons(Icon.CLOUD_CITY);

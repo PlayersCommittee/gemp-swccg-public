@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card3_118 extends AbstractLostInterrupt {
     public Card3_118() {
-        super(Side.DARK, 2, "Collapsing Corridor", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Collapsing Corridor", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Most of Echo Base was tunneled out of a huge glacier by Rebel engineers. Its icy passageways could not withstand Imperial shelling.");
         setGameText("If you just moved an AT-AT to innermost marker, target one underground site on Hoth. Draw destiny. Target 'collapsed' if destiny > marker number.");
         addIcons(Icon.HOTH);

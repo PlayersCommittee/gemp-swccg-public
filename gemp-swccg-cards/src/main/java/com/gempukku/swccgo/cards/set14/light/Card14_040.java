@@ -2,14 +2,24 @@ package com.gempukku.swccgo.cards.set14.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card14_040 extends AbstractLostInterrupt {
     public Card14_040() {
-        super(Side.LIGHT, 5, Title.Ascension_Guns, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Ascension_Guns, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Modified S-5 security blasters can be used for a wide array of purposes");
         setGameText("During your move phase, target any number of your characters at Theed Palace Hallway. Draw destiny. If destiny +2 > number of characters targeted, relocate those characters to one other interior Naboo site. Otherwise targets are lost.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

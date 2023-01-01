@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card8_147 extends AbstractLostInterrupt {
     public Card8_147() {
-        super(Side.DARK, 4, Title.Imperial_Tyranny, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Imperial_Tyranny, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("The Empire considers alien species to be inferior.");
         setGameText("If an opponent's alien is defending a battle against your non-unique Imperial, add one battle destiny. If an opponent's Ewok, Elom or operative is defending, also add 3 to your total power. OR Add 2 to your total weapon destiny when targeting a non-unique alien.");
         addIcons(Icon.ENDOR);

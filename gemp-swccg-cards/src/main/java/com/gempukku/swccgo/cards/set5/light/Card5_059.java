@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -13,7 +15,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card5_059 extends AbstractLostInterrupt {
     public Card5_059() {
-        super(Side.LIGHT, 2, Title.Off_The_Edge, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, Title.Off_The_Edge, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Despite the brutal attacks of the Dark Lord, dying on Cloud City was not Luke's destiny.");
         setGameText("Target one of your characters at a Cloud City site. Draw destiny. If destiny > character's destiny number, retrieve Force equal to the difference. If destiny < character's destiny number, lose difference. If destiny = character's destiny number, character is lost.");
         addIcons(Icon.CLOUD_CITY);

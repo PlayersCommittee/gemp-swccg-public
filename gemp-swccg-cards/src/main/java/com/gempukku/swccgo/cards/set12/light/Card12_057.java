@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set12.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card12_057 extends AbstractLostInterrupt {
     public Card12_057() {
-        super(Side.LIGHT, 2, Title.Control);
+        super(Side.LIGHT, 2, Title.Control, Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Qui-Gon's sense of control assisted him in his final confrontation with Darth Maul. The ability to heal oneself in battle, mentally and physically, can be a huge advantage.");
         setGameText("Cancel Sense or Alter. (Immune to Sense.) OR Cancel an Immediate or Mobile Effect (even if just deployed), or Force drain.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

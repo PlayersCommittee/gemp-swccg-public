@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageAndAttritionEffect;
 import com.gempukku.swccgo.cards.effects.choose.ChooseAndLoseCardFromHandEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card5_063 extends AbstractLostInterrupt {
     public Card5_063() {
-        super(Side.LIGHT, 4, "Protector", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Protector", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'Chewie, this won't help me. Hey! Save your strength. There'll be another time. The princess...you have to take care of her.'");
         setGameText("If Leia and Chewie are in a battle together, you may add two battle destiny. OR If Leia is participating in a battle, you may lose Chewie from hand to satisfy all battle damage and attrition against you. OR Cancel I'd Just As Soon Kiss A Wookiee or Frustration.");
         addIcons(Icon.CLOUD_CITY);

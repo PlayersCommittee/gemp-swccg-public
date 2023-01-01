@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card5_032 extends AbstractLostInterrupt {
     public Card5_032() {
-        super(Side.LIGHT, 4, "Armed And Dangerous");
+        super(Side.LIGHT, 4, "Armed And Dangerous", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("The ability to retrieve his weapon by use of the Force was now second nature to Luke.");
         setGameText("If a battle or duel was just initiated at a site, deploy (for free) a unique matching weapon on one of your participating characters from hand or Reserve Deck; reshuffle (if from Reserve Deck).");
         addIcons(Icon.CLOUD_CITY);

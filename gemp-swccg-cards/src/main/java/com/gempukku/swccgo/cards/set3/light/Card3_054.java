@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card3_054 extends AbstractLostInterrupt {
     public Card3_054() {
-        super(Side.LIGHT, 4, "You Will Go To The Dagobah System");
+        super(Side.LIGHT, 4, "You Will Go To The Dagobah System", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("'There you will learn from Yoda, the Jedi Master who instructed me.'");
         setGameText("During your control phase, use 1 Force to move any one of your [Hoth] characters of ability > 1 to any [Dagobah] location where you have presence. If moving to a Dagobah site, this movement is free and you do not need presence.");
         addIcons(Icon.HOTH);

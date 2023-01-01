@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set10.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,7 +17,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -31,7 +42,7 @@ import java.util.List;
  */
 public class Card10_019 extends AbstractLostInterrupt {
     public Card10_019() {
-        super(Side.LIGHT, 3, "Path Of Least Resistance & Revealed", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Path Of Least Resistance & Revealed", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Path_Of_Least_Resistance, Title.Revealed);
         setGameText("Place one opponent's Undercover spy in opponent's Used Pile. OR If opponent just deployed a spy to a site where opponent has no presence or Force icons, return spy to hand. Any Force used to deploy spy remains used and that card may not deploy this turn. OR Relocate one of your characters at an interior mobile site to a related interior mobile site.");
         addIcons(Icon.REFLECTIONS_II);

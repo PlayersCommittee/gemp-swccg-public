@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +39,7 @@ import java.util.List;
  */
 public class Card2_044 extends AbstractLostInterrupt {
     public Card2_044() {
-        super(Side.LIGHT, 3, Title.Alternatives_To_Fighting);
+        super(Side.LIGHT, 3, Title.Alternatives_To_Fighting, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("The Rebellion's limited resources force it to consider the wisdom of any military encounter. In many cases, retreat or deception is a preferable recourse.");
         setGameText("Use 3 Force to cancel a battle just initiated at a system or sector. OR Cancel Besieged. OR Release (move for free) all your characters from a captured starship to your side of any docking bay site.");
         addIcons(Icon.A_NEW_HOPE);

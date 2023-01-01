@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RelocateFromLocationToWeatherVane;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card5_054 extends AbstractLostInterrupt {
     public Card5_054() {
-        super(Side.LIGHT, 6, Title.Into_The_Ventilation_Shaft_Lefty);
+        super(Side.LIGHT, 6, Title.Into_The_Ventilation_Shaft_Lefty, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...'");
         setGameText("Relocate one of your characters from a Cloud City site to Weather Vane. May be played even after a battle has just been initiated.");
         addIcons(Icon.CLOUD_CITY);

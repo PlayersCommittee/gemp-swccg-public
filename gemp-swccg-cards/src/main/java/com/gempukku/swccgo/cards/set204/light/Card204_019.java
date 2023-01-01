@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card204_019 extends AbstractLostInterrupt {
     public Card204_019() {
-        super(Side.LIGHT, 5, "I'm Getting Pretty Good At This", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "I'm Getting Pretty Good At This", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Starship blaster, often slung in turret mounts to take advantage of light weight and quick targeting motions. Installed on many starships including the Millennium Falcon.");
         setGameText("If Finn and either Poe or Rey are in battle together, you may add two battle destiny. OR [Download] Finn aboard any starship or vehicle.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);

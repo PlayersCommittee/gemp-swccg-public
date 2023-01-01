@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card14_043 extends AbstractLostInterrupt {
     public Card14_043() {
-        super(Side.LIGHT, 5, "No Giben Up, General Jar Jar!", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "No Giben Up, General Jar Jar!", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("'Mesa think of sumting!'");
         setGameText("If you just lost a Gungan from table, place him in your hand. OR If Jar Jar and Tarpals are in a battle together, add two battle destiny.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

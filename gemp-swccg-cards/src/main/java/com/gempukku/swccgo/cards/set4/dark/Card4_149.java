@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card4_149 extends AbstractLostInterrupt {
     public Card4_149() {
-        super(Side.DARK, 4, Title.Take_Evasive_Action, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Take_Evasive_Action, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Aoooga! Aoooga!");
         setGameText("Cancel Egregious Pilot Error, Out Of Nowhere, Collision! or Don't Get Cocky. OR Use 1 Force to subtract 3 from all asteroid destiny draws against you for remainder of turn.");
         addIcons(Icon.DAGOBAH);

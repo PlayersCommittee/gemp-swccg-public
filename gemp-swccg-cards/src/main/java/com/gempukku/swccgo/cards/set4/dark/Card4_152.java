@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card4_152 extends AbstractLostInterrupt {
     public Card4_152() {
-        super(Side.DARK, 2, "Unexpected Interruption", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Unexpected Interruption", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Sir! Sir! I've isolated the reverse power flux coupling!'");
         setGameText("Use 2 Force to search your Reserve Deck and take one Interrupt into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH);

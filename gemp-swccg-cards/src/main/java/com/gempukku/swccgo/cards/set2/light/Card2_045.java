@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set2.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card2_045 extends AbstractLostInterrupt {
     public Card2_045() {
-        super(Side.LIGHT, 4, Title.Blast_The_Door_Kid);
+        super(Side.LIGHT, 4, Title.Blast_The_Door_Kid, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("When Vader turned his attention to the escaping Rebels, Han immediately offered Luke some sage advice.");
         setGameText("If a battle was just initiated at an interior site, use 1 Force to exclude from that battle all characters of ability > 2 and all leaders (on both sides).");
         addIcons(Icon.A_NEW_HOPE);

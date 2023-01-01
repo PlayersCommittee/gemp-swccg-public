@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card4_048 extends AbstractLostInterrupt {
     public Card4_048() {
-        super(Side.LIGHT, 2, Title.Control);
+        super(Side.LIGHT, 2, Title.Control, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Mystical Jedi power. Covers power of inner mind and body. Allows Jedi to exist in harmony with nature. You must learn this.");
         setGameText("Cancel one Sense or Alter card. (Immune to Sense.) OR Cancel one Immediate Effect, Mobile Effect or Force drain.");
         addIcons(Icon.DAGOBAH);

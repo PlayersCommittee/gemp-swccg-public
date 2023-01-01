@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card8_060 extends AbstractLostInterrupt {
     public Card8_060() {
-        super(Side.LIGHT, 4, "Surprise Counter Assault");
+        super(Side.LIGHT, 4, "Surprise Counter Assault", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.R);
         setLore("Chief Chirpa led his Ewok warriors in a counterattack that captured many Imperial soldiers outside the Endor control bunker.");
         setGameText("Cancel Counter Assault. OR Use 4 Force to cancel opponent's Force drain at an exterior Endor site. Deploy (for free) from Reserve Deck any number of non-unique Ewoks to that site (Dark Side characters, vehicles and starships here may 'escape' to Used Pile).");
         addIcons(Icon.ENDOR);

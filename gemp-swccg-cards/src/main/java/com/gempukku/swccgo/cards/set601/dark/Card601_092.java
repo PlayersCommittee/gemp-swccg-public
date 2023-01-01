@@ -3,15 +3,20 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ResetAttritionModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -28,7 +33,7 @@ import java.util.List;
  */
 public class Card601_092 extends AbstractLostInterrupt {
     public Card601_092() {
-        super(Side.DARK, 4, "One Beautiful Thing", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "One Beautiful Thing", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("'I don't know how we're gonna get out of this one.'");
         setGameText("Lose 1 Force to take Juno Eclipse into hand from Reserve Deck (or retrieve); reshuffle. OR During battle where you have no Dark Jedi or droids and only two participating cards with ability (a male and a female), add one destiny to total power (and attrition against you = 0).");
         addIcons(Icon.DAGOBAH, Icon.LEGACY_BLOCK_6);

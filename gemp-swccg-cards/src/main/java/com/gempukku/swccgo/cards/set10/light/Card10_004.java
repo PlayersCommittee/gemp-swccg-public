@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set10.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +36,7 @@ import java.util.List;
  */
 public class Card10_004 extends AbstractLostInterrupt {
     public Card10_004() {
-        super(Side.LIGHT, 1, "Control & Tunnel Vision");
+        super(Side.LIGHT, 1, "Control & Tunnel Vision", Uniqueness.UNRESTRICTED, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Control, Title.Tunnel_Vision);
         setGameText("Cancel one Sense or Alter card. (Immune to Sense.) OR Cancel one Immediate Effect, Mobile Effect, or Force drain. OR Take one card into hand from Force Pile; reshuffle.");
         addIcons(Icon.REFLECTIONS_II);

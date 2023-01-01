@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card7_108 extends AbstractLostInterrupt {
     public Card7_108() {
-        super(Side.LIGHT, 4, "They're Tracking Us", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "They're Tracking Us", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("'Not this ship, sister.'");
         setGameText("If opponent just deployed a planet site, deploy the related system from your Reserve Deck; reshuffle. OR Cancel one opponent's 'react' unless opponent uses 2 additional Force.");
         addIcons(Icon.SPECIAL_EDITION);

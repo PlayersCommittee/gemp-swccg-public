@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card7_090 extends AbstractLostInterrupt {
     public Card7_090() {
-        super(Side.LIGHT, 5, Title.Harvest, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Harvest, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("'Harvest is when I need you the most. It's only one season more. This year we'll make enough on the harvest that I'll be able to hire some more hands.'");
         setGameText("If Luke is in a battle with Owen or Beru, add one battle destiny (two if both). OR If Owen or Beru is on table, retrieve any one card (two if both, four if both present at Lars' Moisture Farm).");
         addIcons(Icon.SPECIAL_EDITION);

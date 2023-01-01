@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +18,11 @@ import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.ModifyEachWeaponDestinyDrawForWeaponUserUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -31,7 +41,7 @@ import java.util.List;
  */
 public class Card2_133 extends AbstractLostInterrupt {
     public Card2_133() {
-        super(Side.DARK, 3, Title.Im_On_The_Leader, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Im_On_The_Leader, Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.R1);
         setLore("In the defense of the Death Star at the Battle of Yavin, Darth Vader took the lead attacker, supported by his wingmen Black 2 and Black 3.");
         setGameText("Target opponent's starfighter making an Attack Run. Draw destiny. Add 1 for each of your TIEs in Death Star: Trench. If total destiny > maneuver, starfighter is lost. OR Add 1 to weapon destiny draws of any starfighter for remainder of this turn.");
         addIcons(Icon.A_NEW_HOPE);

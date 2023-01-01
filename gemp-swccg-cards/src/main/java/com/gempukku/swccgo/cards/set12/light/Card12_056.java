@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card12_056 extends AbstractLostInterrupt {
     public Card12_056() {
-        super(Side.LIGHT, 5, "Baseless Accusations", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Baseless Accusations", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("The first step in removing a political opponent is to bring their reputation into question.");
         setGameText("During any control phase, target an opponent's senator present with your character with politics at Galactic Senate. For remainder of turn, target's game text is canceled and target is politics = 0.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

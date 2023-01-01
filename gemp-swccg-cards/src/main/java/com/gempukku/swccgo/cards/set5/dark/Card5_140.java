@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card5_140 extends AbstractLostInterrupt {
     public Card5_140() {
-        super(Side.DARK, 4, "Flight Escort", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Flight Escort", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'Rather touchy, aren't they?'");
         setGameText("During your move phase, if you have at least two combat vehicles at same cloud sector, relocate one starfighter present to a related docking bay or system. OR If one of your combat vehicles is defending a battle at a cloud sector, add one battle destiny.");
         addIcons(Icon.CLOUD_CITY);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card5_070 extends AbstractLostInterrupt {
     public Card5_070() {
-        super(Side.LIGHT, 3, "Somersault", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Somersault", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Luke's sudden reversal of fortune allowed him to turn the tables on Vader.");
         setGameText("During a battle at a site, just before drawing battle destiny, if opponent has less than double your total power, use 4 Force to switch your total power with opponent's. OR If both players just drew one battle destiny, use 1 Force to switch numbers.");
         addIcons(Icon.CLOUD_CITY);

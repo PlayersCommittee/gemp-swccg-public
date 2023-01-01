@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card5_133 extends AbstractLostInterrupt {
     public Card5_133() {
-        super(Side.DARK, 3, "Brief Loss Of Control", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Brief Loss Of Control", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Eliciting fear from the opponent gives the dark side a powerful advantage.");
         setGameText("Just after the weapons phase of a battle, use 2 Force to cause each player to target one of that player's characters involved in the battle. Target characters cannot apply their ability toward drawing battle destiny this turn.");
         addIcons(Icon.CLOUD_CITY);

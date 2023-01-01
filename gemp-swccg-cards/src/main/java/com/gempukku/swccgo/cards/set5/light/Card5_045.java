@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.MoveAwayAsReactEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card5_045 extends AbstractLostInterrupt {
     public Card5_045() {
-        super(Side.LIGHT, 3, Title.Dodge, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Dodge, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Normally parents try to prevent their children from falling down the stairs.");
         setGameText("If one of your characters of ability > 2 was just targeted by a weapon, subtract 3 from each destiny draw. OR If opponent just initiated a battle at a site against one of your lone characters present, move that character away as a 'react' (for free).");
         addIcons(Icon.CLOUD_CITY);

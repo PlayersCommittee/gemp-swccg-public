@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card5_130 extends AbstractLostInterrupt {
     public Card5_130() {
-        super(Side.DARK, 4, Title.Aiiii_Aaa_Agggggggggg, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Aiiii_Aaa_Agggggggggg, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'They never even asked me any questions.'");
         setGameText("If you have a Rebel of ability > 1 captive at a prison you control, opponent loses X Force, where X = the number of opponent's characters with ability > 2 on table.");
         addIcons(Icon.CLOUD_CITY);

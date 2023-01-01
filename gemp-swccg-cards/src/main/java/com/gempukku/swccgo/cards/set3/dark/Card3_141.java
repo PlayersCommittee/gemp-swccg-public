@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card3_141 extends AbstractLostInterrupt {
     public Card3_141() {
-        super(Side.DARK, 5, "Wall Of Fire");
+        super(Side.DARK, 5, "Wall Of Fire", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("Walkers are capable of incinerating entire infantry units in seconds. Rebel troops refer to the deadly barrage as the 'wall of fire.'");
         setGameText("If you have a piloted AT-AT present at a site, target any number of opponent's troopers present at same or adjacent exterior site. Draw destiny. If destiny > number of troopers targeted, they are lost.");
         addIcons(Icon.HOTH);

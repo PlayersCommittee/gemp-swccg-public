@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -16,7 +18,15 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.CrossOverCharacterEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeForfeitedInBattleModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -35,7 +45,7 @@ import java.util.List;
  */
 public class Card11_082 extends AbstractLostInterrupt {
     public Card11_082() {
-        super(Side.DARK, 4, "Join Me!", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "Join Me!", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("'...And together, we can rule the galaxy as father and son!'");
         setGameText("Use 3 Force if Luke was just 'hit' by a lightsaber swung by Vader. Opponent must choose: Place Luke in owner's Used Pile OR Luke may not be forfeited this battle and crosses to the Dark Side at the end of the turn if still on table (is no longer 'hit').");
         addIcons(Icon.TATOOINE);

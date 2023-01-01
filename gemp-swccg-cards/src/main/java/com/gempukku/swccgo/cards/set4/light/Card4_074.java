@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card4_074 extends AbstractLostInterrupt {
     public Card4_074() {
-        super(Side.LIGHT, 2, Title.You_Do_Have_Your_Moments, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, Title.You_Do_Have_Your_Moments, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Sarcastic. Sardonic. Irreverent. Impertinent. Exasperating. Disrespectful. Outrageous and charming. Han was a scoundrel but Leia began to realize that she loved him.");
         setGameText("During a battle, before any cards have been forfeited, cause all attrition for both sides to be reduced to zero.");
         addIcons(Icon.DAGOBAH);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card3_136 extends AbstractLostInterrupt {
     public Card3_136() {
-        super(Side.DARK, 4, Title.Tactical_Support, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Tactical_Support, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.R2);
         setLore("Highly organized Imperial infantry units can mobilize with incredible speed, often putting their surprised adversaries on the defensive.");
         setGameText("Lose 1 Force to search through your Reserve Deck and take up to three troopers into your hand. Shuffle, cut and replace.");
         addIcons(Icon.HOTH);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card11_032 extends AbstractLostInterrupt {
     public Card11_032() {
-        super(Side.LIGHT, 4, "Either Way, You Win", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Either Way, You Win", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("'Deal!'");
         setGameText("Opponent chooses: opponent may activate up to 2 Force and you may activate up to 4 Force, or opponent retrieves 1 Force and you retrieve 3 Force.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

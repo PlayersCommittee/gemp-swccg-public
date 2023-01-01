@@ -2,8 +2,11 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card3_040 extends AbstractLostInterrupt {
     public Card3_040() {
-        super(Side.LIGHT, 3, "Attack Pattern Delta");
+        super(Side.LIGHT, 3, "Attack Pattern Delta", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.U1);
         setLore("Snowspeeder attack plan devised by Commander Skywalker and Rebel tactician Beryl Chifonage. Single-file formation protects the squadron as the leader draws fire.");
         setGameText("If a battle was just initiated at a site, identify your lead T-47 there. For remainder of this turn, all other T-47s at same site are power +1, are immune to attrition and cannot be targeted by weapons.");
         addIcons(Icon.HOTH);

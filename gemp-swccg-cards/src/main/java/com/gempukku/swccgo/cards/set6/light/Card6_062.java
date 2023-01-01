@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllAttritionEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card6_062 extends AbstractLostInterrupt {
     public Card6_062() {
-        super(Side.LIGHT, 4, "Choke");
+        super(Side.LIGHT, 4, "Choke", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Reaching out with the Force, Luke rendered Ortugg unconscious without doing the Gamorrean any actual harm.");
         setGameText("During your control phase, cancel the game text of one unique (•) alien for remainder of turn. OR If you just forfeited an alien, cancel all remaining attrition against you.");
         addIcons(Icon.JABBAS_PALACE);

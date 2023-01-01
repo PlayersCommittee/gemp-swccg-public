@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card3_116 extends AbstractLostInterrupt {
     public Card3_116() {
-        super(Side.DARK, 4, "A Dark Time For The Rebellion", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "A Dark Time For The Rebellion", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C1);
         setLore("Absolute control wielded by the Emperor enables the Imperial forces to dominate planetary systems before the Rebel Alliance can gain a foothold.");
         setGameText("If opponent just deployed a planet site, search through your Reserve Deck for the related system and immediately deploy it. Shuffle, cut and replace.");
         addIcons(Icon.HOTH);

@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card6_070 extends AbstractLostInterrupt {
     public Card6_070() {
-        super(Side.LIGHT, 3, Title.Life_Debt, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Life_Debt, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("'I'm all right, pal. I'm all right.'");
         setGameText("If Han and Chewie are in a battle together, add two battle destiny. OR Search your Reserve Deck, take Falcon into hand, and reshuffle. OR If Han is defending a battle alone, you may 'react' by deploying Chewie there (for free) from your Reserve Deck; reshuffle.");
         addIcons(Icon.JABBAS_PALACE);

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -13,7 +15,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card5_049 extends AbstractLostInterrupt {
     public Card5_049() {
-        super(Side.LIGHT, 3, Title.Glancing_Blow, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Glancing_Blow, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("It had been decades since Vader had felt the sting of an enemy's blade.");
         setGameText("If you have a character with a lightsaber present in a battle with Vader, lose 1 Force to reduce Vader's power to zero. OR If you have a character with a lightsaber in a duel, cancel one opponent's destiny draw immediately after it is revealed.");
         addIcons(Icon.CLOUD_CITY);

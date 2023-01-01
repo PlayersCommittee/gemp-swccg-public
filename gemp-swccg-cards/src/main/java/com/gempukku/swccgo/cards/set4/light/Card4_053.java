@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +29,7 @@ import java.util.List;
  */
 public class Card4_053 extends AbstractLostInterrupt {
     public Card4_053() {
-        super(Side.LIGHT, 4, "Jedi Levitation");
+        super(Side.LIGHT, 4, "Jedi Levitation", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("A Jedi can adjust the force within and around an object, causing it to move as the Jedi wills.");
         setGameText("Use X force, where X = (7- ability of your highest ability character on table). Search through your Used Pile and take one card into hand. Shuffle, Cut and replace.");
         addIcons(Icon.DAGOBAH);

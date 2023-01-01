@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card12_151 extends AbstractLostInterrupt {
     public Card12_151() {
-        super(Side.DARK, 5, "Little Real Power", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Little Real Power", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("'He is mired by baseless accusations of corruption.'");
         setGameText("During any control phase, target an opponent's character with politics present with your senator at Galactic Senate. For remainder of turn, target's game text is canceled and target is politics = 0.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

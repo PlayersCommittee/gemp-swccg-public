@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ConvertLocationByRaisingToTopEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card13_026 extends AbstractLostInterrupt {
     public Card13_026() {
-        super(Side.LIGHT, 3, "Jedi Leap", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Jedi Leap", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Obi-Wan's youth combined with his Jedi training meant that he was not to be dispatched easily.");
         setGameText("During your deploy phase, lose 1 Force to relocate [Episode I] Obi- Wan to an adjacent Naboo site. OR Raise your converted interior Theed Palace site to the top.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

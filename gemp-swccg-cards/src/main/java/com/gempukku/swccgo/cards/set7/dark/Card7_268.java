@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card7_268 extends AbstractLostInterrupt {
     public Card7_268() {
-        super(Side.DARK, 3, Title.Watch_Your_Back, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, Title.Watch_Your_Back, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("'Fighters above you, coming in!'");
         setGameText("During a battle at a system or sector, if you are about to draw a card for battle destiny, you may instead use the maneuver number of your starfighter in that battle.");
         addIcons(Icon.SPECIAL_EDITION);

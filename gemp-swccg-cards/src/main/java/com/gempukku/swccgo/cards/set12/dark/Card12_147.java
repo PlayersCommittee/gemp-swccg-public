@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set12.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -13,7 +15,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.MayNotBattleUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card12_147 extends AbstractLostInterrupt {
     public Card12_147() {
-        super(Side.DARK, 3, "Dioxis", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Dioxis", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Green gas that is lethal to most carbon-based life forms.");
         setGameText("Use 2 Force to target two opponent's Jedi at same interior battleground. Targets may not participate in battle for remainder of turn. OR Target opponent's Jedi. Draw destiny. If destiny > 2, target's game text is canceled for remainder of turn.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

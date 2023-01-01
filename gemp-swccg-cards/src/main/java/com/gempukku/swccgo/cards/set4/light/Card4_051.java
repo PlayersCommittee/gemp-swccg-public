@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set4.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfLostPileEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card4_051 extends AbstractLostInterrupt {
     public Card4_051() {
-        super(Side.LIGHT, 3, "Found Someone You Have");
+        super(Side.LIGHT, 3, "Found Someone You Have", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("'I'm looking for someone.' 'Looking? Found someone you have I would say.'");
         setGameText("If you have a character of ability > 4 on table, use 3 Force to find one of your missing characters (your choice). OR During any control phase, examine the top card of your Lost Pile. If that card is a character of ability < 3, take that character into hand.");
         addIcons(Icon.DAGOBAH);

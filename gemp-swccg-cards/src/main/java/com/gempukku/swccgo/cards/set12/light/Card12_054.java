@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +18,14 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CancelCardBeingPlayedEffect;
+import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardBeingPlayedForCancelingEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -34,7 +44,7 @@ import java.util.List;
  */
 public class Card12_054 extends AbstractLostInterrupt {
     public Card12_054() {
-        super(Side.LIGHT, 4, Title.Alter);
+        super(Side.LIGHT, 4, Title.Alter, Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("The Force can be used to affect the things around a Jedi. 'Always remember, your focus determines your reality.");
         setGameText("Target an Effect, Utinni Effect, or Political Effect (even if just being deployed), and one of your characters on table. Draw destiny. If destiny < ability of character, target Effect is canceled. OR Cancel Sense.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

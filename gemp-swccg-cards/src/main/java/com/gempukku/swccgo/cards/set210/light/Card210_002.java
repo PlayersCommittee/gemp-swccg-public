@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set210.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card210_002 extends AbstractLostInterrupt {
     public Card210_002() {
-        super(Side.LIGHT, 3, Title.Ambush, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, Title.Ambush, Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("'Well done. Hold them in the security tower, and keep it quiet. Move.'");
         setGameText("Lose 1 Force to [upload] up to three troopers. OR Once per game, if your clones occupy at least three related battlegrounds, your Force drains at same and related battlegrounds this turn are +1.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_10, Icon.CLOUD_CITY);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set8.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card8_058 extends AbstractLostInterrupt {
     public Card8_058() {
-        super(Side.LIGHT, 5, "Rapid Deployment", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "Rapid Deployment", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("General Solo's strike team was made up of the Alliance's finest ground troops.");
         setGameText("At the beginning of your deploy phase, if you occupy an Endor or rebel base site, deploy up to 5 troopers there from Reserve Deck (those troopers deploy -1) and reshuffle. You may not deploy any other characters or starships this turn.");
         addIcons(Icon.ENDOR);

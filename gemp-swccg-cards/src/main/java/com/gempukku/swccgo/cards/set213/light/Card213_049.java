@@ -1,26 +1,27 @@
 package com.gempukku.swccgo.cards.set213.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
-import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfBattleEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card213_049 extends AbstractLostInterrupt {
     public Card213_049() {
-        super(Side.LIGHT, 4, Title.Anakin_Skywalker, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Anakin_Skywalker, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setVirtualSuffix(true);
         setLore("'You were right about me. Tell your sister ... you were right.'");
         setGameText("If I Feel The Conflict on table, during any move phase, take [Endor] Leia or [Dagobah] Luke into hand from Reserve Deck; reshuffle. OR During a battle at a site involving [Death Star II] Luke, choose: Add one destiny to attrition. OR Cancel the game text of a character of ability < 4.");

@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set104.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +30,7 @@ import java.util.List;
  */
 public class Card104_002 extends AbstractLostInterrupt {
     public Card104_002() {
-        super(Side.LIGHT, 4, Title.Lone_Rogue);
+        super(Side.LIGHT, 4, Title.Lone_Rogue, Uniqueness.UNRESTRICTED, ExpansionSet.ESB_INTRO_TWO_PLAYER, Rarity.PM);
         setLore("The pilots at the Rebel Base on Hoth are trained to respond quickly to the Empire's forces. Many Rebels feel that they could take on the whole Empire themselves.");
         setGameText("If one of your pilots is at an exterior Hoth site, use 2 Force to search your Reserve Deck and take one T-47 into hand. OR If your piloted T-47 is defending a battle alone at a site, add one battle destiny.");
         addIcons(Icon.PREMIUM);

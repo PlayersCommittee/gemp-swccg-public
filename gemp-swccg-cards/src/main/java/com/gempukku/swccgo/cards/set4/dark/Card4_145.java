@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card4_145 extends AbstractLostInterrupt {
     public Card4_145() {
-        super(Side.DARK, 4, "Lando System?");
+        super(Side.DARK, 4, "Lando System?", Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Lando's not a system, he's a man.' Regardless of where Rebels flee, dark agents are sure to follow.");
         setGameText("During your control phase, use 1 Force to move any one of your [Dagobah] icon characters of ability > 1 to any [Cloud City] icon location where you have presence. If moving to a Cloud City site, this movement is free and you do not need presence.");
         addIcons(Icon.DAGOBAH);

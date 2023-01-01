@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set12.dark;
 
-import com.gempukku.swccgo.cards.AbstractLostInterrupt;
+import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,9 +30,9 @@ import java.util.List;
  * Subtype: Used
  * Title: On The Payroll Of The Trade Federation
  */
-public class Card12_156 extends AbstractLostInterrupt {
+public class Card12_156 extends AbstractUsedInterrupt {
     public Card12_156() {
-        super(Side.DARK, 5, "On The Payroll Of The Trade Federation", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "On The Payroll Of The Trade Federation", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("A political agenda is no use without supporters. And in the world of politics, left and right often meet in the middle.");
         setGameText("Target an opponent's character at Galactic Senate if you have a senator there with a matching agenda. For remainder of turn: your senator's politics is increased by target's current politics, and target's politics is then reduced to zero.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

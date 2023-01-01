@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card3_123 extends AbstractLostInterrupt {
     public Card3_123() {
-        super(Side.DARK, 5, "Exhaustion", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, "Exhaustion", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("'Sir, the temperature's dropping too rapidly.' 'That's right, and my friend's out in it.'");
         setGameText("Opponent must lose 1 Force for each of opponent's missing characters on table. OR Select one missing character under 'nighttime conditions' to be lost.");
         addIcons(Icon.HOTH);

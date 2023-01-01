@@ -2,9 +2,12 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +15,18 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.ChooseTargetGroupToRetargetCardBeingPlayedFromToSameSideOfForceEffect;
+import com.gempukku.swccgo.logic.effects.ChooseTargetGroupToRetargetEffectFromToSameSideOfForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.RetargetCardBeingPlayedEffect;
+import com.gempukku.swccgo.logic.effects.RetargetEffectEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardBeingPlayedForRetargetingEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetGroupOnSameSideOfForceToRetargetBeingPlayedToEffect;
+import com.gempukku.swccgo.logic.effects.TargetTargetOnSameSideOfForceToRetargetEffectToEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -30,7 +44,7 @@ import java.util.List;
  */
 public class Card5_156 extends AbstractLostInterrupt {
     public Card5_156() {
-        super(Side.DARK, 3, "Surprise");
+        super(Side.DARK, 3, "Surprise", Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Boba Fett shifted his attention from Han to the pursuing Jedi initiate. Luke was unaware until the last second that he was being targeted.");
         setGameText("Use 3 Force: Retarget an Interrupt or Utinni Effect which specifies a target to another appropriate target on the same side of the Force. OR Relocate any Effect (except those immune to Alter) deployed on a location to another appropriate location.");
         addIcons(Icon.CLOUD_CITY);

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card4_146 extends AbstractLostInterrupt {
     public Card4_146() {
-        super(Side.DARK, 4, Title.Res_Luk_Raauf, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Res_Luk_Raauf, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Rek guza kias n'ek kriesuk zief. Rek res fesruk T'doshok kulesuk luk g'razzurg koref selukra fes k'nel. Kren'ef, T'doshok res luk rek grien forek res fel luraken.");
         setGameText("If your bounty hunter is defending a battle alone, add one battle destiny. OR If Bossk, Greedo or Boba Fett is defending a battle alone, add two battle destiny.");
         addIcons(Icon.DAGOBAH);

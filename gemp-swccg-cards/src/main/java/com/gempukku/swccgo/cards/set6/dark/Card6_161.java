@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card6_161 extends AbstractLostInterrupt {
     public Card6_161() {
-        super(Side.DARK, 2, Title.Wounded_Wookiee, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, Title.Wounded_Wookiee, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("When blaster fire from the barge's gun hit Chewie's skiff, his leg was injured by shrapnel. This setback distracted the Rebels, causing them to momentarily lose their advantage.");
         setGameText("During a battle, if opponent drew more than two battle destiny, cancel all but two of those destiny draws (your choice). OR If your non-unique alien is in a battle, cancel game text of one Rebel present for remainder of turn. OR Cancel Clash Of Sabers.");
         addIcons(Icon.JABBAS_PALACE);

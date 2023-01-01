@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card3_051 extends AbstractLostInterrupt {
     public Card3_051() {
-        super(Side.LIGHT, 3, "Walker Sighting", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, "Walker Sighting", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLore("'Echo station, 3TA. We have spotted Imperial walkers.' A Rebel tactic is to put as much ground as possible between walkers and Rebel troops, allowing time to prepare a defense.");
         setGameText("If opponent just moved or deployed an AT-AT to a planet site, search your Reserve Deck for up to three exterior sites of that planet and immediately deploy them.  Shuffle, cut and replace.");
         addIcons(Icon.HOTH);

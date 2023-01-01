@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card11_091 extends AbstractLostInterrupt {
     public Card11_091() {
-        super(Side.DARK, 4, "You Swindled Me!", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, "You Swindled Me!", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Needless to say, Watto was not happy about his loss.");
         setGameText("Opponent chooses: opponent may activate up to 2 Force and you may activate up to 4 Force, or opponent retrieves 1 Force and you retrieve 3 Force.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

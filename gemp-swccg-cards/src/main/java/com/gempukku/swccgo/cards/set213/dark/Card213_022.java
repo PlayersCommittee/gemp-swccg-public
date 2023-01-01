@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SubtractFromOpponentsAttritionEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card213_022 extends AbstractLostInterrupt {
     public Card213_022() {
-        super(Side.DARK, 3, "Working Much More Closely", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, "Working Much More Closely", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Hologram");
         setGameText("If you have two Crimson Dawn characters in battle together, draw destiny and subtract that amount from attrition against you. LOST: Deploy up to two Crimson Dawn characters from Reserve Deck; reshuffle. OR Cancel a hologram.");
         addIcons(Icon.VIRTUAL_SET_13);

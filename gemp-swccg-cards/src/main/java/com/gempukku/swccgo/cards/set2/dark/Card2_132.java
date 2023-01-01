@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card2_132 extends AbstractLostInterrupt {
     public Card2_132() {
-        super(Side.DARK, 1, Title.Ghhhk);
+        super(Side.DARK, 1, Title.Ghhhk, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Dejarik of creature from Clak'dor VII. Ghhhk rise with the dawn, screeching their mating calls across the jungle. Locals use their skin oils as a healing salve.");
         setGameText("During the damage segment of a battle you lost, if you have no cards left that can be forfeited, cancel all remaining battle damage. (Immune to Sense.) OR Cancel Nightfall.");
         addIcons(Icon.A_NEW_HOPE);

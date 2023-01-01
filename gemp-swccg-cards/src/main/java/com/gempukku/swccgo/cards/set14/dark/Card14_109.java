@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -11,7 +13,11 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ModifyTotalPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.ResetForfeitUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card14_109 extends AbstractLostInterrupt {
     public Card14_109() {
-        super(Side.DARK, 6, "Trade Federation Tactics", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, "Trade Federation Tactics", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Organizations as wealthy as the Trade Federation can afford large amounts of military hardware, all purchased under the guise of protecting their commercial interests.");
         setGameText("Use 2 Force to target a starship at same system as your [Trade Federation] starship armed with a weapon. Target is forfeit = 0 until end of turn. OR During battle, add X to your total power, where X = armor of one of your [Trade Federation] starships in that battle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

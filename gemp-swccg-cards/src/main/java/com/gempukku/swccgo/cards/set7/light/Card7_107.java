@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card7_107 extends AbstractLostInterrupt {
     public Card7_107() {
-        super(Side.LIGHT, 4, "T-47 Battle Formation");
+        super(Side.LIGHT, 4, "T-47 Battle Formation", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Airspeeders operate in coordinated patrols, supporting Rebel ground troops and denying infiltration of key planets.");
         setGameText("If your T-47s occupy three battleground sites on same planet, your Force drains at same and related battlegrounds this turn are +1 (or+2 if at Hoth). OR Cancel a Force drain at a site if your T-47 occupies an adjacent site. OR Cancel Walker Garrison.");
         addIcons(Icon.SPECIAL_EDITION);

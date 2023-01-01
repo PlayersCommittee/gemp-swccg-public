@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card7_256 extends AbstractLostInterrupt {
     public Card7_256() {
-        super(Side.DARK, 6, "Jabba's Twerps", Uniqueness.UNIQUE);
+        super(Side.DARK, 6, "Jabba's Twerps", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("'Look, Jabba, next time you want to see me, come see me yourself. Don't send one of these twerps.'");
         setGameText("If opponent just initiated battle where your alien leader is present, deploy up to three non-unique aliens to that location from Reserve Deck; reshuffle. OR Once per game, retrieve 1 Force for each of your alien leaders present at any battleground sites.");
         addIcons(Icon.SPECIAL_EDITION);

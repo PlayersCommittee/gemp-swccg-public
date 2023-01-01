@@ -3,6 +3,8 @@ package com.gempukku.swccgo.cards.set101.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card101_003 extends AbstractLostInterrupt {
     public Card101_003() {
-        super(Side.LIGHT, 6, Title.Run_Luke_Run, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, Title.Run_Luke_Run, Uniqueness.UNIQUE, ExpansionSet.PREMIERE_INTRO_TWO_PLAYER, Rarity.PM);
         setLore("After seeing Vader strike down Obi-Wan, Luke attacked recklessly until he heard the old Jedi Master's voice warn, 'Run Luke, Run!'");
         setGameText("At any time, move Luke as a regular move (for free) to a battle just initiated at an adjacent site. Luke is power +2 during that battle, unless Vader is present or adjacent to the battle site. OR You may cancel Vader's Obsession.");
     }

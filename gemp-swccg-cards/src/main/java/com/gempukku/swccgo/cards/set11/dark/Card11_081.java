@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card11_081 extends AbstractLostInterrupt {
     public Card11_081() {
-        super(Side.DARK, 4, Title.Hit_Racer, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, Title.Hit_Racer, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Sebulba is willing to utilize a variety of 'tactics' to maintain his lead position. Mars Guo learned this lesson the hard way.");
         setGameText("During your control phase, use 2 Force to target opponent's Podracer with a race total within 4 of one of your race totals. Draw destiny. If destiny > target Podracer's destiny number, opponent may not draw race destiny this turn and target Podracer is 'damaged.'");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

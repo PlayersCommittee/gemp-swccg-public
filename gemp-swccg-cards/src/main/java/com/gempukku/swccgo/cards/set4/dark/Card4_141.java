@@ -1,8 +1,9 @@
 package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
-import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card4_141 extends AbstractLostInterrupt {
     public Card4_141() {
-        super(Side.DARK, 2, "Fear", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, "Fear", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("'I'm not afraid.' 'Oh. You will be.' One of the lessons Luke learned was that fear of the unknown can be stronger than fear of the known.");
         setGameText("Opponent must choose to lose either 2 Force from hand or 1 Force from top of Reserve Deck.");
         addIcons(Icon.DAGOBAH);

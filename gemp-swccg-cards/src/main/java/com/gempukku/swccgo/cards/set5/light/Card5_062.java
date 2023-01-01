@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set5.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card5_062 extends AbstractLostInterrupt {
     public Card5_062() {
-        super(Side.LIGHT, 5, Title.Path_Of_Least_Resistance, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, Title.Path_Of_Least_Resistance, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("Yoda didn't say anything bad about taking the 'quick and easy corridor.'");
         setGameText("Cancel Rite of Passage. OR Relocate one of your characters at an interior mobile site to a related interior mobile site.");
         addIcons(Icon.CLOUD_CITY);

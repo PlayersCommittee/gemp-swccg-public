@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card4_057 extends AbstractLostInterrupt {
     public Card4_057() {
-        super(Side.LIGHT, 4, "Moving To Attack Position", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, "Moving To Attack Position", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Sometimes the best defense is an insane offense.");
         setGameText("Target one starfighter participating in a battle at a system. For remainder of turn, starfighter may not move, is immune to attrition and, if piloted by any Corellian, is power +2.");
         addIcons(Icon.DAGOBAH);

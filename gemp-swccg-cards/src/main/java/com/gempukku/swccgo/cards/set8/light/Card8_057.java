@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card8_057 extends AbstractLostInterrupt {
     public Card8_057() {
-        super(Side.LIGHT, 4, Title.Lost_In_The_Wilderness, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, Title.Lost_In_The_Wilderness, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Survival training becomes essential when an Imperial Scout trooper is separated from his speeder bike.");
         setGameText("Cancel a Force drain at an exterior planet site where opponent has no vehicles or starships. Draw destiny. If destiny > number of opponent's characters at that site, choose one of those characters to be missing.");
         addIcons(Icon.ENDOR);

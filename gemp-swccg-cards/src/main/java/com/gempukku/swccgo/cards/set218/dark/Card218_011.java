@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +32,7 @@ import java.util.List;
  */
 public class Card218_011 extends AbstractLostInterrupt {
     public Card218_011() {
-        super(Side.DARK, 5, Title.I_Have_You_Now);
+        super(Side.DARK, 5, Title.I_Have_You_Now, Uniqueness.UNRESTRICTED, ExpansionSet.SET_18, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Several fighters have broken off from the main group. Come with me.' Darth Vader targets his TIE fighter's fire-linked blaster cannons at the Rebel pilots in the trench.");
         setGameText("If Revenge Of The Sith on table, choose: If a Dark Jedi is in battle with an opponent's character of ability > 3, add one battle destiny. OR During your move phase, use 2 Force to relocate your apprentice from an [Episode I] site to another site.");

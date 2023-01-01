@@ -4,9 +4,12 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.ShuffleHandAndUsedPileIntoReserveDeckEffect;
 import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class Card4_151 extends AbstractLostInterrupt {
     public Card4_151() {
-        super(Side.DARK, 3, Title.Uncertain_Is_The_Future);
+        super(Side.DARK, 3, Title.Uncertain_Is_The_Future, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Even a Jedi cannot always foresee future events.");
         setGameText("Use 3 Force. Each player counts cards in hand, then places entire hand and Used Pile onto Reserve Deck. Shuffle, cut and replace. Each player then draws from Reserve Deck the counted number of cards to create a new hand.");
         addIcons(Icon.DAGOBAH);

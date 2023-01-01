@@ -2,10 +2,13 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class Card4_067 extends AbstractLostInterrupt {
     public Card4_067() {
-        super(Side.LIGHT, 3, Title.Tunnel_Vision);
+        super(Side.LIGHT, 3, Title.Tunnel_Vision, Uniqueness.UNRESTRICTED, ExpansionSet.DAGOBAH, Rarity.U);
         setLore("Han could always see the light at the end of the tunnel.");
         setGameText("Search your Force Pile and take one card into hand. Shuffle, cut and replace.");
         addIcons(Icon.DAGOBAH);

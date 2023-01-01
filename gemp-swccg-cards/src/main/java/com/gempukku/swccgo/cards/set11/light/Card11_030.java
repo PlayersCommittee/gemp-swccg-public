@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set11.light;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card11_030 extends AbstractLostInterrupt {
     public Card11_030() {
-        super(Side.LIGHT, 5, "A Step Backward", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 5, "A Step Backward", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("The clashing of Podracers slowed the pace of the race as Anakin and Sebulba approached the finish line.");
         setGameText("Place the top race destiny of all Podracers in owner's Used Pile. OR Place 3 cards from hand (random choice) into your Lost Pile to take any one character from your Lost Pile into hand.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

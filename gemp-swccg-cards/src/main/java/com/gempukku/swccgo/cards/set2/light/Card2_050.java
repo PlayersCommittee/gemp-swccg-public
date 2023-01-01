@@ -3,10 +3,13 @@ package com.gempukku.swccgo.cards.set2.light;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +33,7 @@ import java.util.List;
  */
 public class Card2_050 extends AbstractLostInterrupt {
     public Card2_050() {
-        super(Side.LIGHT, 1, Title.Houjix);
+        super(Side.LIGHT, 1, Title.Houjix, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Dejarik creature. These ferocious-looking beasts are gentle, loyal, and often domesticated as guard animals or pets on Kinyen, the Gran homeworld. Incendiary.");
         setGameText("During the damage segment of a battle you lost, if you have no cards left that can be forfeited, cancel all remaining battle damage. (Immune to Sense.) OR Cancel Sunsdown.");
         addIcons(Icon.A_NEW_HOPE);
