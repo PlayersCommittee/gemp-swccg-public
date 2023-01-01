@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set109.light;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
 
 public class Card109_001 extends AbstractRebel {
     public Card109_001() {
-        super(Side.LIGHT, 1, 5, 6, 2, 5, "Chewie With Blaster Rifle", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 6, 2, 5, "Chewie With Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setLore("Wookiee smuggler. 'Wraaaaaarw!'");
         setGameText("Adds 3 to power of any freighter he pilots. Adds one battle destiny if with C-3P0. Permanent weapon is blaster rifle (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny > defense value).");
         addPersona(Persona.CHEWIE);

@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card601_052 extends AbstractRebel {
     public Card601_052() {
-        super(Side.LIGHT, 1, 5, 5, 5, 8, "Luke Skywalker, Strong In The Force", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 5, 5, 8, "Luke Skywalker, Strong In The Force", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Luke's experience on Dagobah gave him great skill in using the Force. Vader had to keep his focus on Luke at all times, or face the consequences.");
         setGameText("Adds 3 to power of anything he pilots.  While piloting Red 5 or Rogue 1 (or armed with Luke's Lightsaber), may add one destiny to total power or attrition, and I Have You Now is canceled.  When Luke leaves table, place all your cards on him in Used Pile.  Immune to attrition < 4.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_6, Icon.TATOOINE);

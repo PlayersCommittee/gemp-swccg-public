@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -12,7 +18,11 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ArmorModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.HyperspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card9_025 extends AbstractRebel {
     public Card9_025() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Major Haash'n", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Major Haash'n", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Mon Calamari master engineer. Joined the Alliance to fulfill his personal goal of piloting star cruisers.");
         setGameText("Deploys -2 to any Star Cruiser. Adds 2 to the power of any capital ship he pilots. When piloting a Star Cruiser, adds 1 to hyperspeed and armor and cancels Lateral Damage targeting a starship at same system.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

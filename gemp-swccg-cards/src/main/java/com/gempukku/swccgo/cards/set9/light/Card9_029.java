@@ -1,7 +1,14 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card9_029 extends AbstractRebel {
     public Card9_029() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Ten_Numb, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Ten_Numb, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Sullustan gunner. Pilot of Blue 5. Ordered to head a B-wing attack against Imperial command ships at the Battle Of Endor.");
         setGameText("Deploys -2 aboard Blue Squadron 5. Adds 2 to power of anything he pilots. Adds 2 to total weapon destiny of any B-wing he pilots.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

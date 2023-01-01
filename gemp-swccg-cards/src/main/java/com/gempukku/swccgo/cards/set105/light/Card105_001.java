@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set105.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card105_001 extends AbstractRebel {
     public Card105_001() {
-        super(Side.LIGHT, 3, 3, 3, 2, 6, "Commander Wedge Antilles", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 2, 6, "Commander Wedge Antilles", Uniqueness.UNIQUE, ExpansionSet.FIRST_ANTHOLOGY, Rarity.PV);
         setLore("Promoted to commander for his heroism in the Battle of Yavin. Leader in charge of training new pilots assigned to Echo Base. Piloted Rogue 3 in the battle of Hoth.");
         setGameText("Adds 3 to power of anything he pilots. When piloting Rogue 3, also adds 2 to maneuver and draws battle destiny if not able to otherwise. May use 2 Force to take one One More Pass into hand from Reserve Deck; reshuffle.");
         addPersona(Persona.WEDGE);

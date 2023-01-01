@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card9_017 extends AbstractRebel {
     public Card9_017() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Green Squadron Pilot", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Green Squadron Pilot", Uniqueness.RESTRICTED_3, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Many top X-wing pilots transferred to A-wing squadrons when the new starfighter entered service. The best A-wing pilots were selected to fly for Green Squadron at the Battle of Endor.");
         setGameText("Adds 2 to power of anything he pilots. When piloting an A-wing, draws one battle destiny if not able to otherwise and is forfeit +2.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

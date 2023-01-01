@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card9_031 extends AbstractRebel {
     public Card9_031() {
-        super(Side.LIGHT, 2, 3, 3, 3, 6, "Wedge Antilles, Red Squadron Leader", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 3, 6, "Wedge Antilles, Red Squadron Leader", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Corellian commander and leader of Rogue Squadron. Chose to have Rogue Squadron reclaim the designation 'Red Squadron' at the battle of Endor.");
         setGameText("Adds 3 to power of anything he pilots.  When piloting, draws one battle destiny if not able to otherwise (if Red 2, also adds 2 to maneuver).  When in battle with another Red or Rogue squadron pilot, once per battle may cancel one battle destiny just drawn.");
         addPersona(Persona.WEDGE);

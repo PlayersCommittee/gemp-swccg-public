@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AllAbilityAtLocationProvidedByCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card9_011 extends AbstractRebel {
     public Card9_011() {
-        super(Side.LIGHT, 2, 2, 2, 2, 3, "Corporal Midge", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 3, "Corporal Midge", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Self-taught marksman and Scout from a rural region of Chandrila. Inspired by Mon Mothma to join the Alliance. Newly recruited into Madine's commandos as a field technician.");
         setGameText("Adds 1 to each of his character weapon destiny draws (2 when firing a rifle and all your ability here is provided by scouts). While on Endor, adds 1 to your Force drains at your exterior Endor sites where you have a scout of ability > 2 (and no Ewoks).");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

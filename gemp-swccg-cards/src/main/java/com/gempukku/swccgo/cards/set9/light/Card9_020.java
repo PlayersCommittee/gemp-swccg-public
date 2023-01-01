@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card9_020 extends AbstractRebel {
     public Card9_020() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Kian, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Kian, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Rogue Squadron pilot. Assigned as gunner aboard Colonel Salm's Y-wing at Battle of Endor, as part of Gray Squadron. Former member of Aggressor Squadron.");
         setGameText("Adds 1 to power of anything he pilots. While aboard your starship, adds 2 to each of its weapon destiny draws. While aboard a unique (•) Gray Squadron Y-wing at a system or sector, adds 1 to each of your Force drains there.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);

@@ -3,12 +3,24 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AttemptToBlowAwayDeathStarIICondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.AttemptToBlowAwayDeathStarIITotalModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +33,7 @@ import java.util.List;
  */
 public class Card9_013 extends AbstractRebel {
     public Card9_013() {
-        super(Side.LIGHT, 1, 4, 4, 3, 7, Title.General_Calrissian, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 4, 3, 7, Title.General_Calrissian, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Leader. Gambler. Fair pilot. Lando was given the rank of General for 'a little maneuver' at the Battle of Taanab. Willing to lead Rebel starfighters in a crazy attack.");
         setGameText("Deploy -2 aboard Falcon. Adds 3 to power of anything he pilots. When piloting a freighter, adds 1 to maneuver and draws one battle destiny if not able to otherwise. When he attempts to 'blow away' Death Star II, adds 2 to total.");
         addPersona(Persona.LANDO);

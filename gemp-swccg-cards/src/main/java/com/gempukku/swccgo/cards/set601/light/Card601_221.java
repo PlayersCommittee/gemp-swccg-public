@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class Card601_221 extends AbstractRebel {
     public Card601_221() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Commander Narra", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Commander Narra", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Rogue Squadron leader.");
         setGameText("[Pilot] 2. Draws one battle destiny if unable to otherwise. Once per turn, if you just deployed a Rogue Squadron pilot to same or related site, may draw top card of Reserve Deck. Attrition against opponent is +1 here.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_0);

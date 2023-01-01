@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -19,7 +21,12 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
@@ -36,7 +43,7 @@ import java.util.List;
  */
 public class Card110_002 extends AbstractRebel {
     public Card110_002() {
-        super(Side.LIGHT, 1, 7, 6, 5, 7, "Master Luke", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 7, 6, 5, 7, "Master Luke", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("Until being reunited with Yoda, Luke suspected that he had completed his training. Has a strong influence on the weak minded.");
         setGameText("Deploys -2 on Tatooine. Power -2 when present with Vader. Adds 2 to power of anything he pilots. When in battle, may target one opponent's alien present. Draw destiny. Target returns to opponent's hand if destiny > ability. Immune to attrition < 4.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR);

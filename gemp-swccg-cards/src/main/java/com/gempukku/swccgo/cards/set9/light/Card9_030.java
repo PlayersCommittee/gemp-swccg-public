@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card9_030 extends AbstractRebel {
     public Card9_030() {
-        super(Side.LIGHT, 2, 3, 2, 2, 4, "Tycho Celchu", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 4, "Tycho Celchu", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Spy fighting for the memory of his homeworld of Alderaan. Rogue Squadron pilot. Volunteered to fly an A-wing at the Battle of Endor. Former TIE fighter pilot.");
         setGameText("Deploys -2 aboard Green Squadron 3. Adds 3 to power of any starfighter he pilots. When piloting Green Squadron 3 or any X-wing, draws one battle destiny if not able to otherwise.");
         addPersona(Persona.TYCHO);

@@ -4,7 +4,18 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ImprisonedOnlyCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,7 +28,11 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTransferredModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -33,7 +48,7 @@ import java.util.List;
  */
 public class Card111_005 extends AbstractRebel {
     public Card111_005() {
-        super(Side.LIGHT, 1, 0, 4, 3, 6, Title.Prisoner_2187, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 0, 4, 3, 6, Title.Prisoner_2187, Uniqueness.UNIQUE, ExpansionSet.THIRD_ANTHOLOGY, Rarity.PM);
         setLore("Princess Leia Organa. Alderaanian senator. Targeted by Vader for capture and interrogation. The Dark Lord of the Sith wanted her alive.");
         setGameText("Deploys only if Rescue The Princess on table. May not be transferred while imprisoned. Adds 2 to your Force drains here. For remainder of game, your objective cannot be placed out of play and, if Leia not on table, flip Sometimes I Amaze Even Myself.");
         addPersona(Persona.LEIA);

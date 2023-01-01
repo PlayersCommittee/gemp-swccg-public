@@ -2,15 +2,21 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.evaluators.PerAwingEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card9_014 extends AbstractRebel {
     public Card9_014() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "General Walex Blissex", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "General Walex Blissex", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Engineer who worked with Jan Dodonna to design the A-wing starfighter. Given honorary rank due to his service to the Rebellion.");
         setGameText("Deploys -2 aboard your Star Cruiser or to same location as your Admiral. Adds 1 to the power of anything he pilots. Adds 1 to the power and forfeit of each of your A-wings at same and related locations.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

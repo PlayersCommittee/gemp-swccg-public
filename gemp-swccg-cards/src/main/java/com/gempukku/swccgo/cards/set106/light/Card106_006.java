@@ -3,9 +3,12 @@ package com.gempukku.swccgo.cards.set106.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card106_006 extends AbstractRebel {
     public Card106_006() {
-        super(Side.LIGHT, 3, 1, 1, 1, 1, "Rebel Trooper Recruit");
+        super(Side.LIGHT, 3, 1, 1, 1, 1, "Rebel Trooper Recruit", Uniqueness.UNRESTRICTED, ExpansionSet.OTSD, Rarity.PM);
         setLore("New Rebel troopers gain invaluable experience while acting as support for seasoned troops. The Alliance prefers to assign rookies to soldiers on a one-to-one basis.");
         setGameText("Deploys free to same site as an Rebel leader. Adds 1 to power of one non-unique Rebel warrior present. When forfeited at same site as a Rebel 'veteran' (a leader or non-cadet trooper), also satisfies all remaining attrition against you.");
         addIcons(Icon.PREMIUM);

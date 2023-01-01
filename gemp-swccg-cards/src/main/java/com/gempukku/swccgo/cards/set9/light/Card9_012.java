@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.conditions.TotalAbilityPilotingMoreThanCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card9_012 extends AbstractRebel {
     public Card9_012() {
-        super(Side.LIGHT, 2, 3, 2, 3, 5, "First Officer Thaneespi", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 3, 5, "First Officer Thaneespi", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Mon Calamari deck officer. Brilliant tactical analyst. One of several brave leaders of Mon Calamari refugees from Imperial invasion of her planet.");
         setGameText("Deploys -2 to Home One. Adds 3 to power of any capital starship she pilots. When piloting a Star Cruiser with another Mon Calamari pilot aboard, unless opponent has total ability > 6 piloting here, opponent's total battle destiny here = zero.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

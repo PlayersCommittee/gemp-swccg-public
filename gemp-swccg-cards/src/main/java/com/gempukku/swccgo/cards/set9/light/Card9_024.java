@@ -5,14 +5,25 @@ import com.gempukku.swccgo.cards.conditions.AloneCondition;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.CapturedOnlyCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.CrossOverAttemptTotalModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +36,7 @@ import java.util.List;
  */
 public class Card9_024 extends AbstractRebel {
     public Card9_024() {
-        super(Side.LIGHT, 6, 8, 6, 6, 9, "Luke Skywalker, Jedi Knight", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 6, 8, 6, 6, 9, "Luke Skywalker, Jedi Knight", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.UR);
         setLore("Scout trained in the ways of the Force. Key figure for both the Alliance and the Empire. Desired by Vader as an ally, by Palpatine as a servant and by the Alliance as its savior.");
         setGameText("Deploys -3 to Home One or Endor. Adds 2 to power of anything he pilots. Power +2 when armed with a lightsaber. Subtracts 3 from any attempt to cross him over (even if captured). Immune to attrition < 5 (< 6 if alone or armed with a lightsaber, < 7 if both).");
         addPersona(Persona.LUKE);

@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card9_006 extends AbstractRebel {
     public Card9_006() {
-        super(Side.LIGHT, 1, 4, 3, 3, 7, Title.Ackbar, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 3, 3, 7, Title.Ackbar, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.XR);
         setLore("Mon Calamari leader of Rebel fleet. Master military strategist. Early prisoner of Grand Moff Tarkin. Convinced his people to join the Alliance.");
         setGameText("Deploys -2 to Home One. Adds 3 to power of any capital starship he pilots. Your capital starships deploy -1 to same system. Once per game, may take one Mon Calamari character or Admiral's Order into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

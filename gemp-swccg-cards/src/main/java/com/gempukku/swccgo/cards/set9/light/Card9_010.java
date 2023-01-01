@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card9_010 extends AbstractRebel {
     public Card9_010() {
-        super(Side.LIGHT, 2, 3, 3, 2, 4, Title.Marmor, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 2, 4, Title.Marmor, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Corellian dock mechanic. Defected to the Alliance with General Madine. Manages staff of 75 starfighter and 12 star cruiser mechanics in Home One's rear quadrant.");
         setGameText("Reduces X by 3 on Docking And Repair Facilities when a Star Cruiser is held there. When he is at a docking bay where you have just deployed a starfighter, once per turn you may retrieve 1 Force.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card9_008 extends AbstractRebel {
     public Card9_008() {
-        super(Side.LIGHT, 2, 3, 3, 2, 4, "Colonel Cracken", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 2, 4, "Colonel Cracken", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Alliance spy and scout. Often flies support missions for General Madine's commandos.");
         setGameText("Deploys -2 aboard Tala 1. Adds 2 to power of anything he pilots. When piloting Tala 1, draws one battle destiny if not able to otherwise. When opponent deploys a spy or scout to same (or related) exterior site, opponent loses 1 Force.");
         addPersona(Persona.CRACKEN);

@@ -1,21 +1,29 @@
 package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
-import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.PhaseCondition;
-import com.gempukku.swccgo.logic.effects.DeployCardsSimultaneouslyEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
 
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card9_019 extends AbstractRebel {
     public Card9_019() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Keir_Santage, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Keir_Santage, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Rescued from an Imperial detention center by Wedge Antilles. Rogue Squadron veteran. Assigned to Red Squadron at the Battle of Endor. Coordinates with Rebellion procurement.");
         setGameText("Adds 2 to the power of anything he pilots. When at a system, sector, or docking bay, once during each of your deploy phases, subtracts 2 from deploy cost of your unique (•) X-wing deploying here.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card9_022 extends AbstractRebel {
     public Card9_022() {
-        super(Side.LIGHT, 3, 2, 3, 1, 3, "Lieutenant s'Too Vees", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, 1, 3, "Lieutenant s'Too Vees", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Dock mechanic. Installs starfighters cannons. Gambler. Followed Lando from Cloud City. Turned down assignment in rear guard to work on General Calrissian's starship.");
         setGameText("When in battle at a site with Lando or Marmor, adds one destiny to total power only. When he is at a docking bay, once during each of your deploy phases, you may deploy one starship weapon from Reserve Deck on your starfighter present; reshuffle.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

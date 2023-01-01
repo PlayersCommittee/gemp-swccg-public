@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set9.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card9_016 extends AbstractRebel {
     public Card9_016() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Green Leader", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Green Leader", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Leader. Assigned to fly fighter screen for General Calrissian at Endor.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Green Squadron 1, draws on battle destiny if not able to otherwise. Adds 3 to total weapon destiny of any starfighter he pilots firing at a starfighter with lower maneuver.");
         addPersona(Persona.GREEN_LEADER);

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card107_002 extends AbstractRebel {
     public Card107_002() {
-        super(Side.LIGHT, 1, 5, 2, 3, 8, "Mon Mothma", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 2, 3, 8, "Mon Mothma", Uniqueness.UNIQUE, ExpansionSet.SECOND_ANTHOLOGY, Rarity.PV);
         setLore("Native of Chandrila. Leader of the Alliance. A former member of the Imperial Senate where she was a formidable opponent of then-Senator Palpatine. Friend of Bail Organa.");
         setGameText("While at your war room, subtracts 1 from each opponent's battle destiny at all system locations and adds 2 to forfeit of all non-unique Rebels. Once during each of your deploy phases, may deploy one non-unique Rebel from Reserve Deck; reshuffle.");
         addPersona(Persona.MON_MOTHMA);

@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card9_026 extends AbstractRebel {
     public Card9_026() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Major Olander Brit", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Major Olander Brit", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Communications expert. Staff monitors entire spectrum of electromagnetic signals. Politically minded. Followed Panno to the Alliance.");
         setGameText("Power and forfeit +1 while present with Major Panno. When with Major Panno at a site, adds one battle destiny. When present with a Scomp link, cancels Counter Assault at a related site where you have a spy or scout.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

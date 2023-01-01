@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card9_021 extends AbstractRebel {
     public Card9_021() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Lieutenant_Blount, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Lieutenant_Blount, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Wingman of Colonel Cracken. Spy and scout. Former agent of the Imperial Security Bureau. Defected and joined Rebel Intelligence. Seasoned combat veteran.");
         setGameText("Adds 2 to power of anything he pilots. When piloting Tala 2, draws one battle destiny if not able to otherwise. While he occupies any Coruscant location, Empire's Sinister Agents is flipped and ISB Operations may not be flipped.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);

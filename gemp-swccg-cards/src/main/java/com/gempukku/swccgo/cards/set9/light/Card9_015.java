@@ -4,16 +4,19 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.conditions.NotCondition;
-import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.DrawDestinyAndChooseInsteadEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 public class Card9_015 extends AbstractRebel {
     public Card9_015() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Gray Squadron Y-wing Pilot", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Gray Squadron Y-wing Pilot", Uniqueness.RESTRICTED_3, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Veteran pilots of the reliable Koensayr starfigher were assigned by Ackbar to a key role at Endor. Both the pilots and their venerable Y-wings were up to the task.");
         setGameText("Adds 2 to power of anything he pilots. When piloting a Y-wing, draws one battle destiny if not able to otherwise. When a starship he pilots fires an ion cannon, once per turn, may draw two weapon destiny and choose one.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT);

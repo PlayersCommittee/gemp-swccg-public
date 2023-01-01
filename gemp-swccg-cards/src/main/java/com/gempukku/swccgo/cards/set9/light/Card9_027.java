@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card9_027 extends AbstractRebel {
     public Card9_027() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Major_Panno, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, Title.Major_Panno, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.U);
         setLore("Male Dresselian scout. Former commando. Tactician. Works with General Madine to plan logistics of strike operations.");
         setGameText("While at a system or an exterior battleground site, allows you to activate up to 2 additional Force for each related exterior battleground site you occupy with a scout (limit 4 additional Force).");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);

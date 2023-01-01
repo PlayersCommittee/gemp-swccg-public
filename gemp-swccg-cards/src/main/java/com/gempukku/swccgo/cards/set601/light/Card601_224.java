@@ -5,14 +5,24 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AllAbilityAtLocationProvidedByCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.InBattleCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAddDestinyDrawsToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAddDestinyDrawsToPowerModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +36,7 @@ import java.util.List;
  */
 public class Card601_224 extends AbstractRebel {
     public Card601_224() {
-        super(Side.LIGHT, 2, 3, 3, 2, 4, "General Airen Cracken", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 2, 4, "General Airen Cracken", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Leader, scout, and information broker.");
         setGameText("[Pilot] 2. Opponent may not add destiny draws to power or attrition here. While all your ability here is provided by scouts and/or spies, adds one battle destiny and once during your turn may peek at top card of opponent's Force Pile.");
         addPersona(Persona.CRACKEN);
