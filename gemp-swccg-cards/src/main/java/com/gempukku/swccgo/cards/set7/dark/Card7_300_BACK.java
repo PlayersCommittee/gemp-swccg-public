@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.OccupiesWithEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card7_300_BACK extends AbstractObjective {
     public Card7_300_BACK() {
-        super(Side.DARK, 7, Title.In_The_Hands_Of_The_Empire);
+        super(Side.DARK, 7, Title.In_The_Hands_Of_The_Empire, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, opponent's Force drains are -1. At Ralltiir locations, each Rebel is deploy +2. At all locations, add X to your total battle destiny, where X = number of Ralltiir locations your Imperials occupy. Once during each of your control phases, you may use 2 Force to take any one card into hand from Reserve Deck; reshuffle. Flip this card if opponent controls at least two Ralltiir locations. Place out of play if Ralltiir is 'blown away.");
         addIcons(Icon.SPECIAL_EDITION);
     }

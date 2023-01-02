@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card301_004 extends AbstractObjective {
     public Card301_004() {
-        super(Side.DARK, 0, Title.Twin_Suns_Of_Tatooine);
+        super(Side.DARK, 0, Title.Twin_Suns_Of_Tatooine, ExpansionSet.DEMO_DECK, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Tatooine system and a non-Jabba's Palace Tatooine site. For remainder of game, you may not deploy Jabba's Palace sites or Sandwhirl. While this side up, once per turn, may use 1 Force to [download] a Tatooine battleground site. Flip this card if you control two Tatooine battleground sites (at least one with a Dark Jedi) and occupy Tatooine system, and opponent controls no Tatooine sites.");
         addIcons(Icon.EPISODE_I, Icon.TATOOINE, Icon.VIRTUAL_SET_P);

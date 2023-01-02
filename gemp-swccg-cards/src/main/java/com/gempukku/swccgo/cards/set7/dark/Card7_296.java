@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeployAsCaptiveOption;
@@ -37,7 +44,7 @@ import java.util.List;
  */
 public class Card7_296 extends AbstractObjective {
     public Card7_296() {
-        super(Side.DARK, 0, Title.Carbon_Chamber_Testing);
+        super(Side.DARK, 0, Title.Carbon_Chamber_Testing, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Carbonite Chamber, Carbonite Chamber Console and Security Tower with a Rebel (opponent's choice) from opponent's Reserve Deck (if possible) imprisoned there. While this side up, once during each of your deploy phases, you may deploy from Reserve Deck one Audience Chamber, Docking Bay 94 or East Platform; reshuffle. You may not play Dark Deal. Flip this card if you move a frozen captive to Audience Chamber (or if no Rebel was in opponent's Reserve Deck at start of game).");
         addIcons(Icon.SPECIAL_EDITION);

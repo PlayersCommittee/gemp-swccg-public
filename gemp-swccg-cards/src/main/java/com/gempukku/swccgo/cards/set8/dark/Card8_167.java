@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card8_167 extends AbstractObjective {
     public Card8_167() {
-        super(Side.DARK, 0, Title.Endor_Operations);
+        super(Side.DARK, 0, Title.Endor_Operations, ExpansionSet.ENDOR, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Endor system, Bunker and Landing Platform. While this side up, once during each of your control phases, may take one Ominous Rumors or Establish Secret Base into hand from Reserve Deck; reshuffle. Flip this card if Ominous Rumors and Establish Secret Base are both on table. Place out of play if an Endor location is 'blown away'.");
         addIcons(Icon.ENDOR);

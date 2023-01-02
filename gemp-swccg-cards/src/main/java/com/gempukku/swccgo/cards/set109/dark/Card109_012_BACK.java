@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set109.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +18,11 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.InBattleCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card109_012_BACK extends AbstractObjective {
     public Card109_012_BACK() {
-        super(Side.DARK, 7, Title.Pray_I_Dont_Alter_It_Any_Further);
+        super(Side.DARK, 7, Title.Pray_I_Dont_Alter_It_Any_Further, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setGameText("While this side up, Surreptitious Glance may not cancel Dark Deal, The Planet That It's Farthest From is suspended if targeting Bespin. Opponent loses 8 Force when you play All Too Easy. At each Bespin location you control with an Imperial, your Force drains may not be modified by opponent. If you have an alien/imperial pair in battle, your total battle destiny is +2 (+4 if alien is an Ugnaught). Flip this card if Dark Deal is canceled, if opponent controls Bespin or if Bespin is 'blown away'.");
         addIcons(Icon.PREMIUM);
     }

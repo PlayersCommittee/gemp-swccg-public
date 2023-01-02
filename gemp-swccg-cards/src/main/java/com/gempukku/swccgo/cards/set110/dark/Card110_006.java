@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +22,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +41,7 @@ import java.util.List;
  */
 public class Card110_006 extends AbstractObjective {
     public Card110_006() {
-        super(Side.DARK, 0, Title.Court_Of_The_Vile_Gangster);
+        super(Side.DARK, 0, Title.Court_Of_The_Vile_Gangster, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Audience Chamber, Great Pit Of Carkoon and Dungeon. While this side up, once during each of your deploy phases, may deploy one docking bay or [Independent Starship] starship from Reserve Deck; reshuffle. Bounty Hunters are forfeit +2 and immune to Goo Nee Tay. You may not play Scanning Crew. Each player loses 1 Force at end of each of their deploy phases unless that player has a non-droid character at a Tatooine battleground site. Flip this card if you have two captives (or a captive of ability > 2) at any Jabba's Palace site(s).");
         addIcons(Icon.PREMIUM);

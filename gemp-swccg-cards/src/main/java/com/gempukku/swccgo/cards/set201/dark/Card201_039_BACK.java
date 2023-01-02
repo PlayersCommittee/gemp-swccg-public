@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -37,7 +45,7 @@ import java.util.List;
  */
 public class Card201_039_BACK extends AbstractObjective {
     public Card201_039_BACK() {
-        super(Side.DARK, 7, Title.No_One_To_Stop_Us_This_Time);
+        super(Side.DARK, 7, Title.No_One_To_Stop_Us_This_Time, ExpansionSet.SET_1, Rarity.V);
         setGameText("While this side up, once during your control phase, may peek at up to X cards from the top of your Reserve Deck, where X = number of Tatooine locations you occupy; take one into hand and shuffle your Reserve Deck. Once per turn, may [download] a Tatooine battleground site. Opponents characters require +1 Force to move from Tatooine sites using their landspeed. During your draw phase, you may retrieve one trooper. Flip this card if opponent controls more Tatooine sites than you.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_1);
     }

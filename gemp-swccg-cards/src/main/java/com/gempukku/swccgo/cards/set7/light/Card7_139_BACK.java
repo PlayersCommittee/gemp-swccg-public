@@ -6,8 +6,10 @@ import com.gempukku.swccgo.cards.conditions.DuringBattleCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -21,7 +23,12 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.CancelImmunityToAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.InitiateForceDrainCostModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
@@ -37,7 +44,7 @@ import java.util.List;
  */
 public class Card7_139_BACK extends AbstractObjective {
     public Card7_139_BACK() {
-        super(Side.LIGHT, 7, Title.Sometimes_I_Amaze_Even_Myself);
+        super(Side.LIGHT, 7, Title.Sometimes_I_Amaze_Even_Myself, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, for opponent to initiate a Force drain, opponent must use +1 Force. During battle, opponent's unique (•) characters, vehicles and starships lost from table are placed out of play; Leia adds one battle destiny; attrition against opponent is +2; and Imperials, Dark Jedi and Imperial starships lose all immunity to attrition. Flip this card if Leia is captured.");
         addIcons(Icon.SPECIAL_EDITION);
     }

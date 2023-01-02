@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.AbilityEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +23,14 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CrossOverCharacterEffect;
+import com.gempukku.swccgo.logic.effects.DepleteLifeForceEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.DuelDirections;
+import com.gempukku.swccgo.logic.effects.DuelEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
@@ -35,7 +51,7 @@ import java.util.List;
  */
 public class Card9_151_BACK extends AbstractObjective {
     public Card9_151_BACK() {
-        super(Side.DARK, 7, Title.Take_Your_Fathers_Place);
+        super(Side.DARK, 7, Title.Take_Your_Fathers_Place, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setGameText("While this side up, lose 1 Force at end of each of your turns. Once during each of your turns, when Vader, Luke (even as a non-frozen captive) and Emperor are all present at your Throne Room, you may initiate a Luke/Vader duel: Each player draws two destiny. Add ability. Highest total wins. If Vader wins, opponent loses 3 Force. If Luke wins, shuffle Reserve Deck and draw destiny; if destiny > 12, Luke crosses to Dark Side, totally depleting opponent's Life Force. Flip if Luke neither present with Vader nor a captive.");
         addIcons(Icon.DEATH_STAR_II);
     }

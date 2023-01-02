@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardState;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -21,7 +27,12 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsIfFromHandModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.PoliticsModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -38,7 +49,7 @@ import java.util.List;
  */
 public class Card12_179 extends AbstractObjective {
     public Card12_179() {
-        super(Side.DARK, 0, Title.My_Lord_Is_That_Legal);
+        super(Side.DARK, 0, Title.My_Lord_Is_That_Legal, ExpansionSet.CORUSCANT, Rarity.U);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Galactic Senate and any other [Episode I] location. For remainder of game, Rebel and Imperial leaders of ability < 4 are politics +2. Counter Assault and Surprise Assault are canceled. Your Republic characters are immune to Goo Nee Tay. Cards on your Political Effects may deploy to table. At Galactic Senate, weapon destiny draws are -6, creatures are lost and game text of non-Republicans is canceled. Flip this card if you have 3 senators (or 2 senators, at least 1 with a blockade agenda) at Galactic Senate.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

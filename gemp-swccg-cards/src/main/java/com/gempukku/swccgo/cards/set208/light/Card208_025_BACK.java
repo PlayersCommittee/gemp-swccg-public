@@ -4,10 +4,12 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -46,7 +48,7 @@ import java.util.List;
  */
 public class Card208_025_BACK extends AbstractObjective {
     public Card208_025_BACK() {
-        super(Side.LIGHT, 7, Title.He_Will_Bring_Balance);
+        super(Side.LIGHT, 7, Title.He_Will_Bring_Balance, ExpansionSet.SET_8, Rarity.V);
         setGameText("While this side up, once during your control phase, may peek at up to X cards from the top of your Reserve Deck, where X = number of battlegrounds you occupy; take one into hand and shuffle your Reserve Deck. During your draw phase, may retrieve any one card; opponent may stack a card from hand on I Feel The Conflict to place that card out of play instead. Flip this card (unless Vader crossed over) if opponent's character of ability > 4 at a battleground site or you do not have Luke (or a Jedi) at a battleground site.");
         addIcons(Icon.VIRTUAL_SET_8);
     }

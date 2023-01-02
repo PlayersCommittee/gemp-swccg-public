@@ -5,9 +5,11 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card210_042 extends AbstractObjective {
     public Card210_042() {
-        super(Side.DARK, 0, Title.Ralltiir_Operations);
+        super(Side.DARK, 0, Title.Ralltiir_Operations, ExpansionSet.SET_10, Rarity.V);
         setVirtualSuffix(true);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy [Set 20] Ralltiir system. " +

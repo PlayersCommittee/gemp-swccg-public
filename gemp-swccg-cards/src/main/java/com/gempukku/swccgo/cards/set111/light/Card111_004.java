@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -16,7 +24,11 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.LimitForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -31,7 +43,7 @@ import java.util.List;
  */
 public class Card111_004 extends AbstractObjective {
     public Card111_004() {
-        super(Side.LIGHT, 0, Title.Massassi_Base_Operations);
+        super(Side.LIGHT, 0, Title.Massassi_Base_Operations, ExpansionSet.THIRD_ANTHOLOGY, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Yavin 4 system and Yavin 4: Docking Bay. For remainder of game, you may not play Revolution or Force drain at Yavin 4 sites or sectors. While this side up, you generate no more than 1 Force from each Yavin 4 site. Once during each of your deploy phases, may deploy one Yavin 4 site from Reserve Deck; reshuffle. Each Imperial is deploy +2 to Yavin 4. Flip this card if you control three Yavin 4 sites and opponent controls fewer than three Yavin 4 sites. Place out of play if Yavin 4 is 'blown away.'");
         addIcons(Icon.PREMIUM);

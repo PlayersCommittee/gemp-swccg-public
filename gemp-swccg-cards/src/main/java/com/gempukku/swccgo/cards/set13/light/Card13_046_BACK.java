@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set13.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +21,16 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LightsaberCombatDirections;
+import com.gempukku.swccgo.logic.effects.LightsaberCombatEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
@@ -34,7 +51,7 @@ import java.util.List;
  */
 public class Card13_046_BACK extends AbstractObjective {
     public Card13_046_BACK() {
-        super(Side.LIGHT, 7, Title.Duel_Of_The_Fates);
+        super(Side.LIGHT, 7, Title.Duel_Of_The_Fates, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setGameText("While this side up, you may not Force drain or initiate battle at any location where you have a Jedi.  Once during your move phase, your Jedi may initiate lightsaber combat against an opponent's Dark Jedi present: Each player draws 2 destiny.  Loser (lowest total) loses 2 Force (cannot be reduced).  If difference is 5 or greater, lost Force must come from Reserve Deck, and losing character is lost. Flip this card and retrieve 1 Force if opponent has no Dark Jedi present at any interior Naboo battleground.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
     }

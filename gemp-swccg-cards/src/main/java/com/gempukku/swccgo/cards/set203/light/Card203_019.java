@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.SatisfyAllBattleDamageEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card203_019 extends AbstractObjective {
     public Card203_019() {
-        super(Side.LIGHT, 0, Title.Diplomatic_Mission_To_Alderaan);
+        super(Side.LIGHT, 0, Title.Diplomatic_Mission_To_Alderaan, ExpansionSet.SET_3, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Tatooine (with Tantive IV, non-[Reflections II] R2-D2, and Stolen Data Tapes there) and Dune Sea. For remainder of game, you may not deploy Sandwhirl or [Episode I] Jedi. While this side up, you Force drains at Tatooine system are -1. Once per turn, may [download] Alderaan or a Tatooine battleground site. Until the start of your first turn, Tantive IV may be forfeited to satisfy to satisfy all battle damage against you. Flip this card if Stolen Data Tapes 'delivered' and Rebels control two battlegrounds (a site and a system).");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_3);

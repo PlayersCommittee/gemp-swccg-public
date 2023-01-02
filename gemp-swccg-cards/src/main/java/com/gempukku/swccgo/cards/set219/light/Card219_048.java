@@ -4,9 +4,11 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class Card219_048 extends AbstractObjective {
     public Card219_048() {
-        super(Side.LIGHT, 0, "Zero Hour");
+        super(Side.LIGHT, 0, "Zero Hour", ExpansionSet.SET_19, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Lothal system and a Lothal site." +
                 "For remainder of game, Menace Fades and Projection Of A Skywalker are canceled. " +

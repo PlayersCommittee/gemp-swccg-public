@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set110.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -14,7 +21,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EatenByIsPlacedOutOfPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.results.EatenResult;
@@ -31,7 +42,7 @@ import java.util.List;
  */
 public class Card110_006_BACK extends AbstractObjective {
     public Card110_006_BACK() {
-        super(Side.DARK, 7, Title.I_Shall_Enjoy_Watching_You_Die);
+        super(Side.DARK, 7, Title.I_Shall_Enjoy_Watching_You_Die, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setGameText("While this side up, once during each of your deploy phases, may deploy Sarlacc, Rancor or Rancor Pit from Reserve Deck; reshuffle. Captives targeted by trap door are immediately relocated to Rancor Pit (do not draw destiny) and Trap Door may not be canceled. Opponent loses Force equal to forfeit value of each opponent's character eaten by a Rancor or Sarlacc (place that character out of play). Flip this card if you have no captives at Tatooine sites and opponent has no character at same site as Rancor.");
         addIcons(Icon.PREMIUM);
     }

@@ -3,10 +3,12 @@ package com.gempukku.swccgo.cards.set10.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -43,7 +45,7 @@ import java.util.List;
  */
 public class Card10_029 extends AbstractObjective {
     public Card10_029() {
-        super(Side.DARK, 0, Title.Agents_Of_Black_Sun);
+        super(Side.DARK, 0, Title.Agents_Of_Black_Sun, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Imperial City (With Xizor there) and Coruscant system. For remainder of game, your aliens with 'Black Sun' in lore, bounty hunters, and information brokers are Black Sun Agents. You may not deploy cards with ability except Black Sun Agents, Emperor, or Independent starships. During your control phase, each of your bounty hunters may make a regular move to an adjacent site where there is a bounty. Scanning Crew may not be played. Flip this card if Xizor is at a battleground site and Luke is not at a battleground site.");
         addIcons(Icon.REFLECTIONS_II);

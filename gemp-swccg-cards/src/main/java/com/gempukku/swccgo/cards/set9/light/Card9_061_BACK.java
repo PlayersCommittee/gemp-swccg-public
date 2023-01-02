@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set9.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +18,13 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CrossOverCharacterEffect;
+import com.gempukku.swccgo.logic.effects.DepleteLifeForceEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.TransferEscortedCaptiveToNewEscortEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTransferredModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -31,7 +43,7 @@ import java.util.List;
  */
 public class Card9_061_BACK extends AbstractObjective {
     public Card9_061_BACK() {
-        super(Side.LIGHT, 7, Title.I_Can_Save_Him);
+        super(Side.LIGHT, 7, Title.I_Can_Save_Him, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setGameText("While this side up, at end of each of opponent's turns, opponent loses 2 Force unless Vader is escorting Luke. At any time, an Imperial escorting Luke may transfer Luke to Vader, if present with Vader. Vader may not transfer Luke. Once during each of your turns, if Vader present with Luke (even as a non-frozen captive), may shuffle Reserve Deck and draw destiny. If destiny > 14, Vader crosses to Light Side, totally depleting opponent's Life Force. Flip if Luke neither present with Vader nor a captive.");
         addIcons(Icon.DEATH_STAR_II);
     }

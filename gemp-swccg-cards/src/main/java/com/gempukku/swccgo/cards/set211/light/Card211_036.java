@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +44,7 @@ import java.util.List;
  */
 public class Card211_036 extends AbstractObjective {
     public Card211_036() {
-        super(Side.LIGHT, 0, Title.The_Galaxy_May_Need_A_Legend);
+        super(Side.LIGHT, 0, Title.The_Galaxy_May_Need_A_Legend, ExpansionSet.SET_11, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Ahch-To system and any [Episode VII] battleground.\n" +
                 "For remainder of game, Luke deploys only to Ahch-To. You may not Force drain on Ahch-To. You may not deploy Jedi while a Jedi on table. You may not deploy [Episode I] locations or non-[Episode VII] Luke. Once per game, may take any one card into hand from Force Pile; reshuffle.\n" +

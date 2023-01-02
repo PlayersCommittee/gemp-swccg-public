@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set208.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +44,7 @@ import java.util.List;
  */
 public class Card208_057 extends AbstractObjective {
     public Card208_057() {
-        super(Side.DARK, 0, Title.I_Want_That_Map);
+        super(Side.DARK, 0, Title.I_Want_That_Map, ExpansionSet.SET_8, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Tuanul Village, any other [Episode VII] location, and I Will Finish What You Started. Opponent may reveal a unique (•) character with ability (except Luke or a Jedi) from Reserve Deck; that card is a Resistance Agent. Otherwise, Luke is a Resistance Agent and loses immunity to attrition. For remainder of game, non-[Episode VII] Dark Jedi are lost and Resistance Agents are immune to Set For Stun. Flip this card if your First Order characters control two battlegrounds and a Resistance Agent is not present at a battleground site.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);

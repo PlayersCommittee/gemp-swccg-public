@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -23,7 +30,11 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.NoBattleDamageModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -39,7 +50,7 @@ import java.util.List;
  */
 public class Card111_006 extends AbstractObjective {
     public Card111_006() {
-        super(Side.DARK, 0, Title.Set_Your_Course_For_Alderaan);
+        super(Side.DARK, 0, Title.Set_Your_Course_For_Alderaan, ExpansionSet.THIRD_ANTHOLOGY, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Death Star and Alderaan systems and Docking Bay 327. For remainder of game, Revolution is canceled and Commence Primary Ignition may target only Alderaan, Yavin 4, Hoth or a Subjugated planet. While this side up, once during each of your deploy phases, may take one card with 'Death Star' in title into hand from Reserve Deck; reshuffle. You may not Force drain at Alderaan system. At Death Star sites, your Force drains and battle damage against you are canceled. Flip this card if Alderaan is 'blown away.'");
         addIcons(Icon.PREMIUM);

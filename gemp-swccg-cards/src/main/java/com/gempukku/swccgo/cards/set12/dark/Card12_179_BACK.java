@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -16,7 +23,12 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutRandomCardFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.PutRandomCardsFromHandOnUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.PutStackedCardsInUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DestinyWhenDrawnForBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.DestinyWhenDrawnForWeaponDestinyModifier;
@@ -36,7 +48,7 @@ import java.util.List;
  */
 public class Card12_179_BACK extends AbstractObjective {
     public Card12_179_BACK() {
-        super(Side.DARK, 7, Title.I_Will_Make_It_Legal);
+        super(Side.DARK, 7, Title.I_Will_Make_It_Legal, ExpansionSet.CORUSCANT, Rarity.U);
         setGameText("While this side up, once during your control phase may use 3 Force to place up to two random cards from opponent's hand into their Used Pile. Once per turn may take a Political Effect into hand from Reserve Deck; reshuffle. Your senators are destiny +2 (or +3 if senator has an ambition agenda) when drawn for weapon or battle destiny. May use 2 Force at end of any turn to place all cards on your Political Effects into Used Pile. Flip this card if you have less than two senators at Galactic Senate.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
     }

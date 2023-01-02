@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.BlownAwayCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -14,7 +21,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -29,7 +40,7 @@ import java.util.List;
  */
 public class Card111_004_BACK extends AbstractObjective {
     public Card111_004_BACK() {
-        super(Side.LIGHT, 7, Title.One_In_A_Million);
+        super(Side.LIGHT, 7, Title.One_In_A_Million, ExpansionSet.THIRD_ANTHOLOGY, Rarity.PM);
         setGameText("While this side up, may deploy Death Star system without completing Death Star Plans. Once during each of your deploy phases, may take one Rebel Tech, Death Star system, Attack Run or Proton Torpedoes into hand from Reserve Deck; reshuffle. Your total power is +3 in battles at systems. If Death Star is 'blown away,' adds 3 to Force lost for each opponent's Death Star site and, for remainder of game, your Force drains at battleground systems where you have a starfighter present with a pilot character aboard are each +2.");
         addIcons(Icon.PREMIUM);
     }

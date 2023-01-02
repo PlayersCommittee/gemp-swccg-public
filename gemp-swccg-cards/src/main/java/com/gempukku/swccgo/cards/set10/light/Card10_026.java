@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card10_026 extends AbstractObjective {
     public Card10_026() {
-        super(Side.LIGHT, 0, Title.Watch_Your_Step);
+        super(Side.LIGHT, 0, Title.Watch_Your_Step, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Cantina, Docking Bay 94 and Tatooine system. For remainder of game, opponent activates no Force at your Cantina. Your cards with ability are deploy +6 except Luke, smugglers, freighters, and [Independent] starships. Opponent's game text on Kessel is canceled. While this side up, once during each of your deploy phases, may take Corellia or Kessel into hand from Reserve Deck; reshuffle. Flip this card if you occupy two battlegrounds with smugglers or have completed two Kessel Runs.");
         addIcons(Icon.REFLECTIONS_II);

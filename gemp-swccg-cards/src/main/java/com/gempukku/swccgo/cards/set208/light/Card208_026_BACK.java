@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentAtRelatedSystemToAffectedCardEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card208_026_BACK extends AbstractObjective {
     public Card208_026_BACK() {
-        super(Side.LIGHT, 7, Title.The_Time_To_Fight_Is_Now);
+        super(Side.LIGHT, 7, Title.The_Time_To_Fight_Is_Now, ExpansionSet.SET_8, Rarity.V);
         setGameText("While this side up, during battle at sites related to systems you occupy, for each piloted unique (•) snub fighter present at that system, your total power is +2. Once during your draw phase, if a system is 'liberated', may place a card from your Lost Pile out of play to retrieve 1 Force. Flip this card if you do not occupy two battlegrounds (unless four Rebels are on table).");
         addIcons(Icon.VIRTUAL_SET_8);
     }

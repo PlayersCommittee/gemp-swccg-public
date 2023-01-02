@@ -5,9 +5,11 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card301_004_BACK extends AbstractObjective {
     public Card301_004_BACK() {
-        super(Side.DARK, 7, Title.Well_Trained_In_The_Jedi_Arts);
+        super(Side.DARK, 7, Title.Well_Trained_In_The_Jedi_Arts, ExpansionSet.DEMO_DECK, Rarity.V);
         setGameText("While this side up, once per game, may [download] Tatooine Occupation. Once during your control phase, may peek at the top two cards of your Reserve Deck; take one into hand and shuffle Reserve Deck. For opponent to move a character or vehicle from same site as your Dark Jedi requires +1 Force. Flip this card if opponent controls more Tatooine sites than you.");
         addIcons(Icon.EPISODE_I, Icon.TATOOINE, Icon.VIRTUAL_SET_P);
     }

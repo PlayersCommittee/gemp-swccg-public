@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card301_002 extends AbstractObjective {
     public Card301_002() {
-        super(Side.LIGHT, 0, Title.City_In_The_Clouds);
+        super(Side.LIGHT, 0, Title.City_In_The_Clouds, ExpansionSet.DEMO_DECK, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Bespin system and a Cloud City battleground site. May deploy Weather Vane. While this side up, once per turn, may use 1 Force to [download] a Cloud City battleground. Flip this card if you control two Cloud City battleground sites and occupy Bespin system, and opponent controls no Cloud City sites.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_P);

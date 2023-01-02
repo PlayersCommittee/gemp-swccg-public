@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -15,7 +22,14 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromBottomOfReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +44,7 @@ import java.util.List;
  */
 public class Card601_146_BACK extends AbstractObjective {
     public Card601_146_BACK() {
-        super(Side.LIGHT, 7, Title.This_Place_Can_Be_A_Little_Rough);
+        super(Side.LIGHT, 7, Title.This_Place_Can_Be_A_Little_Rough, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setGameText("While this side up, your Force generation is +1 at each system you control with a smuggler. Opponent's Force generation at non-battleground locations is limited to 1. When you have two or more smugglers in a battle, add one battle destiny. Each of your smugglers is forfeit +2. Once during each turn, may play one interrupt from Lost Pile as if from hand (then place that card out of play). Sense, Alter, and Keep Your Eyes Open may not be played. Flip this card if you do not occupy two battlegrounds (unless you have completed two Kessel Runs).");
         addIcons(Icon.REFLECTIONS_II, Icon.LEGACY_BLOCK_4);

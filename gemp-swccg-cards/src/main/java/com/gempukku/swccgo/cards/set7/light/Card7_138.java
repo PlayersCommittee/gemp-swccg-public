@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,10 +26,25 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DestinyDrawForActionSourceModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeConvertedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotContributeToForceRetrievalModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.PlaceJediTestOnTableWhenCompletedModifier;
+import com.gempukku.swccgo.logic.modifiers.PlayersCardsAtLocationMayNotContributeToForceRetrievalModifier;
+import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -32,7 +54,7 @@ import java.util.*;
  */
 public class Card7_138 extends AbstractObjective {
     public Card7_138() {
-        super(Side.LIGHT, 0, Title.Mind_What_You_Have_Learned);
+        super(Side.LIGHT, 0, Title.Mind_What_You_Have_Learned, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Dagobah system (may not be converted). While this side up, during your deploy phase, may deploy Luke, Yoda (deploy -2), Yoda's Hope, At Peace and/or Luke's Backpack to Dagobah from Reserve Deck; reshuffle. Whenever you draw training destiny, draw two and choose one. Place Luke's completed Jedi Tests on table. Your cards at Dagobah may not Force drain or contribute to Force retrieval. Add 4 to each player's destiny draw for Sense and Alter. Flip this card when Luke completes Jedi Test #5.");
         addIcons(Icon.SPECIAL_EDITION);

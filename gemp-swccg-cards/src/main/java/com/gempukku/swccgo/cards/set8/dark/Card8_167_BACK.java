@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set8.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +21,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDrawMoreThanBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +40,7 @@ import java.util.List;
  */
 public class Card8_167_BACK extends AbstractObjective {
     public Card8_167_BACK() {
-        super(Side.DARK, 7, Title.Imperial_Outpost);
+        super(Side.DARK, 7, Title.Imperial_Outpost, ExpansionSet.ENDOR, Rarity.R);
         setGameText("While this side up, at each Endor site where you have a biker scout or a piloted AT-ST, your Force drains may not be modified or canceled by opponent, except by a 'react'. Opponent draws no more than one battle destiny in each battle. Your AT-STs are immune to attrition < 3. Once during each of your draw phases, you may retrieve one biker scout. Flip this card if Ominous Rumors and Establish Secret Base are not both on table. Place out of play if an Endor location is 'blown away.'");
         addIcons(Icon.ENDOR);
     }

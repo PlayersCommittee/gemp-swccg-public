@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card111_006_BACK extends AbstractObjective {
     public Card111_006_BACK() {
-        super(Side.DARK, 7, Title.The_Ultimate_Power_In_The_Universe);
+        super(Side.DARK, 7, Title.The_Ultimate_Power_In_The_Universe, ExpansionSet.THIRD_ANTHOLOGY, Rarity.PM);
         setGameText("While this side up, once during each of your deploy phases, may deploy one battleground system from Reserve Deck; reshuffle. Your Star Destroyers deploy -2 (or -1 if Victory class) to Death Star system. Your Force drains at battleground systems where you have a Star Destroyer are each +1 (or +2 if that Star Destroyer is Imperial- or Super-class). If Yavin 4 system is 'blown away,' adds 3 to Force lost for each opponent's Yavin 4 site. Place out of play if Death Star is 'blown away.'");
         addIcons(Icon.PREMIUM);
     }

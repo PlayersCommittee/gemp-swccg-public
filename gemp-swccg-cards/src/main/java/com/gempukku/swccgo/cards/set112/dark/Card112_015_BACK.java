@@ -7,7 +7,15 @@ import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.effects.takeandputcards.StackCardFromHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -39,7 +47,7 @@ import java.util.List;
  */
 public class Card112_015_BACK extends AbstractObjective {
     public Card112_015_BACK() {
-        super(Side.DARK, 7, Title.Fearless_And_Inventive);
+        super(Side.DARK, 7, Title.Fearless_And_Inventive, ExpansionSet.JPSD, Rarity.PM);
         setGameText("While this side up, once per turn you may cancel a Force drain or a just-drawn battle destiny by placing here from hand a copy of your Rep. Once during each of your control phases, you may retrieve a non-unique alien of your Rep's species. While Jabba and Bib on table, your battle destiny draws are each +2. Wounded Wookiee is destiny +3. Unless a non-Tatooine location is on table, your aliens are forfeit +2. For remainder of game, your Rep may deploy from here as if from hand. Flip this card if you do not occupy 2 battleground sites.");
         addIcons(Icon.PREMIUM);
     }

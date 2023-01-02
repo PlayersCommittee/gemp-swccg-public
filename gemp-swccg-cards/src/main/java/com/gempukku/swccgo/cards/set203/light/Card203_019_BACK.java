@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.OccupiesWithEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card203_019_BACK extends AbstractObjective {
     public Card203_019_BACK() {
-        super(Side.LIGHT, 7, Title.A_Weakness_Can_Be_Found);
+        super(Side.LIGHT, 7, Title.A_Weakness_Can_Be_Found, ExpansionSet.SET_3, Rarity.V);
         setGameText("While this side up, your total battle destiny is +X, where X = number of battlegrounds occupied by Rebels of ability < 4. Once per turn, may [download] a Tatooine battleground site. Once per turn, if you just won a battle, may retrieve 1 Force. Flip this card if you do not occupy a battleground site and a battleground system (or you do not control any locations).");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_3);
     }

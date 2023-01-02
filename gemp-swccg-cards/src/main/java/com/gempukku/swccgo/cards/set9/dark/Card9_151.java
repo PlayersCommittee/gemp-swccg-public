@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,10 +24,18 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.CaptureWithSeizureEffect;
+import com.gempukku.swccgo.logic.effects.DisembarkEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTransferredModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBePlacedOutOfPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,7 +49,7 @@ import java.util.List;
  */
 public class Card9_151 extends AbstractObjective {
     public Card9_151() {
-        super(Side.DARK, 0, Title.Bring_Him_Before_Me);
+        super(Side.DARK, 0, Title.Bring_Him_Before_Me, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Throne Room, Insignificant Rebellion and Your Destiny. For remainder of game, Scanning Crew may not be played. Opponent's cards that place a character out of play may not target Luke. You may deploy Emperor (deploy -2) from Reserve Deck; reshuffle. Opponent may deploy Luke from Reserve Deck (deploy -2; reshuffle) or Lost Pile. If Luke is present with Vader and Vader is not escorting a captive, Luke is captured and seized by Vader. Vader may not transfer Luke. Flip this card if Luke captured.");
         addIcons(Icon.DEATH_STAR_II);

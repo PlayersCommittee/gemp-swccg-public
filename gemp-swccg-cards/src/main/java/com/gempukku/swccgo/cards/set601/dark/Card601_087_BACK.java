@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set601.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,9 +21,16 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.conditions.TrueCondition;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CancelOpponentsForceDrainBonusesModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
@@ -30,7 +45,7 @@ import java.util.List;
  */
 public class Card601_087_BACK extends AbstractObjective {
     public Card601_087_BACK() {
-        super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
+        super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setGameText("While this side up, opponent's Force drain bonuses are canceled and your Force drains at battlegrounds may not be canceled.  During your control phase, may retrieve 1 Force.  During your control phase, may use 2 Force to take any one card without ability into hand from Reserve Deck; reshuffle.  If targeting a vehicle or starship with Lightsaber Parry, Tarkin's Orders, or There Is No Conflict, that destiny draw is +2.\n" +
                 "Flip this card if opponent has a unique (•) character of ability > 3 present at a battleground site.");

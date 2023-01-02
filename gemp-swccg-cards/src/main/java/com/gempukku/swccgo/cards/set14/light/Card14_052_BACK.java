@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card14_052_BACK extends AbstractObjective {
     public Card14_052_BACK() {
-        super(Side.LIGHT, 7, Title.They_Will_Be_Lost_And_Confused);
+        super(Side.LIGHT, 7, Title.They_Will_Be_Lost_And_Confused, ExpansionSet.THEED_PALACE, Rarity.U);
         setGameText("While this side up, you lose no more than 2 Force to any Force drain. Your [Republic] starships are power +2 and immunity to attrition of [Trade Federation] starships is canceled. If opponent just drew a battle destiny greater than three, you may use 1 Force to cancel that battle destiny. During your control phase, opponent loses 2 Force for each battleground site you control with Amidala or Panaka. Flip this card if opponent controls Theed Palace Throne Room.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }

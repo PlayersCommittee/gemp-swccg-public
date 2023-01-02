@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -22,7 +24,13 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.LeaderModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsIfFromHandModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
+import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -36,7 +44,7 @@ import java.util.List;
  */
 public class Card112_015 extends AbstractObjective {
     public Card112_015() {
-        super(Side.DARK, 0, Title.My_Kind_Of_Scum);
+        super(Side.DARK, 0, Title.My_Kind_Of_Scum, ExpansionSet.JPSD, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Desert Heart and a Jabba's Palace site. May deploy Well Guarded. Reveal one unique (•) alien from your deck whose lore specifies its species. This card is your Rep. For remainder of game, your Rep is a leader. Well Guarded is immune to Alter. You may not deploy 'insert' cards or operatives. While frozen Han on table, Rebels are immune to No Bargain and Bad Feeling Have I. Flip this card if you occupy two battleground sites (must occupy a third with a non-unique alien of your Rep's species if a non-Tatooine location is on table).");
         addIcons(Icon.PREMIUM);

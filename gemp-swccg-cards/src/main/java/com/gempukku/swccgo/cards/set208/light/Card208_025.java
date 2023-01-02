@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set208.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card208_025 extends AbstractObjective {
     public Card208_025() {
-        super(Side.LIGHT, 0, Title.He_Is_The_Chosen_One);
+        super(Side.LIGHT, 0, Title.He_Is_The_Chosen_One, ExpansionSet.SET_8, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Anakin's Funeral Pyre (with Prophecy Of The Force there), Ewok Village, and I Feel The Conflict. " +
                 "For remainder of game, you may not deploy [Episode I] or [Episode VII] characters or locations (except Obi-Wan, Yoda, and Lars' Moisture Farm). If Luke just won a battle, may re-circulate and shuffle Reserve Deck. Emperor's Power does not increase deploy costs at battlegrounds. " +

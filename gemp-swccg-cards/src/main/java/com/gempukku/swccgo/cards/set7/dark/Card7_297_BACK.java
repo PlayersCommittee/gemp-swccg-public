@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -16,7 +18,13 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotInitiateBattleAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.NoForceLossFromCardModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card7_297_BACK extends AbstractObjective {
     public Card7_297_BACK() {
-        super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
+        super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, opponent cannot initiate battles or Force drains where opponent has a Jedi or Skywalker. You lose no Force from Visage Of The Emperor. While Vader at Meditation Chamber, subtract 2 from each of opponent's battle destiny draws. Opponent may not play Sense or Alter. Flip this card if opponent has Luke or a Jedi at a battleground site or if Vader is not on table. Place out of play if you play Scanning Crew, initiate a non-Epic duel or Force drain at an Executor site.");
         addIcons(Icon.SPECIAL_EDITION);
     }

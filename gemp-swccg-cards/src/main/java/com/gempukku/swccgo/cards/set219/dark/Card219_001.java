@@ -6,9 +6,11 @@ import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PerStarDestroyerEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class Card219_001 extends AbstractObjective {
     public Card219_001() {
-        super(Side.DARK, 0, Title.A_Great_Tactician_Creates_Plans);
+        super(Side.DARK, 0, Title.A_Great_Tactician_Creates_Plans, ExpansionSet.SET_19, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Lothal system, Advanced Projects Laboratory, Imperial Complex, and Thrawn's Art Collection. " +
                     "For remainder of game, you may not deploy Chiraneau or [Episode I] (or [Episode VII]) cards with ability or [Presence]. Once per turn, may [download] a battleground system (or a site to Lothal). " +

@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +20,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsLandedToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -32,7 +44,7 @@ import java.util.List;
  */
 public class Card110_004_BACK extends AbstractObjective {
     public Card110_004_BACK() {
-        super(Side.LIGHT, 7, Title.Or_Be_Destroyed);
+        super(Side.LIGHT, 7, Title.Or_Be_Destroyed, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setGameText("Immediately retrieve 5 Force (or 10 if Han has power < 4) once per game. While this side up, cancels the game text of Bad Feeling Have I. Your unpiloted starfighters may deploy to exterior Tatooine locations. During your control phase, opponent loses 1 Force for each battleground location occupied by Han, Luke, Leia, Chewie, or Lando. Flip this card if Han is captured or not on table. Place out of play if Tatooine is 'blown away.'");
         addIcons(Icon.PREMIUM);
     }

@@ -3,9 +3,14 @@ package com.gempukku.swccgo.cards.set201.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.cards.conditions.DuringPlayersTurnNumberCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +40,7 @@ import java.util.List;
  */
 public class Card201_039 extends AbstractObjective {
     public Card201_039() {
-        super(Side.DARK, 0, Title.Imperial_Entanglements);
+        super(Side.DARK, 0, Title.Imperial_Entanglements, ExpansionSet.SET_1, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Tatooine (with Devastator there) and a Tatooine battleground site.\n" +
                 "For remainder of game, you may not deploy Sandwhirl, Admiral's Orders, Jabba's Palace sites, non-Imperial characters, non-Imperial starships, or systems. Once per turn, may [download] a Tatooine battleground site.\n" +

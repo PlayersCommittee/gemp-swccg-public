@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.PowerEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SubtractEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +21,15 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToSystemModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.UseCalculationForDeployCostModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +44,7 @@ import java.util.List;
  */
 public class Card7_135_BACK extends AbstractObjective {
     public Card7_135_BACK() {
-        super(Side.LIGHT, 7, Title.More_Dangerous_Than_You_Realize);
+        super(Side.LIGHT, 7, Title.More_Dangerous_Than_You_Realize, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, opponent's Force drains are -1. At Dantooine locations, each Imperial is deploy +2. Your squadrons may deploy to Dantooine (deploy cost = squadron's power -3), are immune to attrition < 4 and may draw one battle destiny if not able to otherwise. Your Force drains are +1 at systems where you have a squadron present. Flip this card if opponent controls at least two Dantooine locations. Place out of play if Dantooine is 'blown away.'");
         addIcons(Icon.SPECIAL_EDITION);
     }

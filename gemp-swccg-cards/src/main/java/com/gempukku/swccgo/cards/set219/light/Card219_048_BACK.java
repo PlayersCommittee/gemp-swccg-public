@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataEqualsCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.filters.Filters;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card219_048_BACK extends AbstractObjective {
     public Card219_048_BACK() {
-        super(Side.LIGHT, 7, "Liberation of Lothal");
+        super(Side.LIGHT, 7, "Liberation of Lothal", ExpansionSet.SET_19, Rarity.V);
         setGameText("While this side up, if you Force drained at a battleground this turn, your other Force drains at battlegrounds are +1. " +
                 "Once per turn during battle, may add or subtract X from a just drawn battle destiny (or opponent's weapon destiny), " +
                 "where X = number of battlegrounds you occupy with Phoenix Squadron characters. " +

@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class Card204_032 extends AbstractObjective {
     public Card204_032() {
-        super(Side.LIGHT, 0, Title.Old_Allies);
+        super(Side.LIGHT, 0, Title.Old_Allies, ExpansionSet.SET_4, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Jakku system and Niima Outpost Shipyard (with [Episode VII] Falcon there). May deploy Graveyard Of Giants. " +
                 "For remainder of game, you may not deploy Combined Fleet Action, Harc Seff, Luke, or Jedi. Your Destiny is suspended. Opponent's [Reflections II] objective targets Rey instead of Luke. While Rey at a battleground site, Visage Of The Emperor is suspended. Once per turn, may [download] a Jakku location. " +

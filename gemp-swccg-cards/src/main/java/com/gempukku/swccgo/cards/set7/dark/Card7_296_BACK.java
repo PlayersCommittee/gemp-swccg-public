@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card7_296_BACK extends AbstractObjective {
     public Card7_296_BACK() {
-        super(Side.DARK, 7, Title.My_Favorite_Decoration);
+        super(Side.DARK, 7, Title.My_Favorite_Decoration, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, your aliens and starships are immune to attrition < 4 and, once during each of your control phases, you may retrieve 1 Force. While you have a frozen captive at Audience Chamber, Scum And Villainy is immune to Alter and during your deploy phase, you may deploy Scum And Villainy from Reserve Deck; reshuffle. Place out of play if there are no frozen captives on table (unless no Rebel was in opponent's Reserve Deck at start of game).");
         addIcons(Icon.SPECIAL_EDITION);
     }

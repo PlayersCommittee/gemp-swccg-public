@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -16,7 +22,12 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
@@ -34,7 +45,7 @@ import java.util.List;
  */
 public class Card216_011 extends AbstractObjective {
     public Card216_011() {
-        super(Side.DARK, 0, Title.On_The_Verge_Of_Greatness);
+        super(Side.DARK, 0, Title.On_The_Verge_Of_Greatness, ExpansionSet.SET_16, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy [Set 16] Death Star and Scarif systems, Citadel Tower, Commence Primary Ignition, and Shield Gate. \n" +
                 "For remainder of game, you may not deploy characters of ability > 4 (except Vader). Vader is power +2 and he (or a Star Destroyer he is piloting) may make a regular move to a battle just initiated. \n" +

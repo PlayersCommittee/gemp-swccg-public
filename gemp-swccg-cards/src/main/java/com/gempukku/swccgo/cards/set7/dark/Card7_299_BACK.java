@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card7_299_BACK extends AbstractObjective {
     public Card7_299_BACK() {
-        super(Side.DARK, 7, Title.Empires_Sinister_Agents);
+        super(Side.DARK, 7, Title.Empires_Sinister_Agents, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, once during each of your draw phases, you may retrieve one ISB agent. When you have a non-Undercover ISB agent at a battleground site, your Force drains are +1 there and opponent's Force drains are -1 at same and related locations. Flip this card if no ISB agents are on table.");
         addIcons(Icon.SPECIAL_EDITION);
     }

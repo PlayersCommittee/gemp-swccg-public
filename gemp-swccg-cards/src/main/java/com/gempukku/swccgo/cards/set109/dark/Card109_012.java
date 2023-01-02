@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card109_012 extends AbstractObjective {
     public Card109_012() {
-        super(Side.DARK, 0, Title.This_Deal_Is_Getting_Worse_All_The_Time);
+        super(Side.DARK, 0, Title.This_Deal_Is_Getting_Worse_All_The_Time, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy one Cloud City battleground site. May deploy Secret Plans and/or All Wrapped Up. While this side up, once during each of your deploy phases, may take Bespin system, Bespin: Cloud City, Dark Deal or Cloud City Occupation into hand from Reserve Deck; reshuffle. Your [Cloud City], [Jabba's Palace] and [Special Edition] characters are immune to Goo Nee Tay when deploying to Bespin Locations. Flip this card if Dark Deal on table and you occupy Bespin System and Bespin: Cloud City.");
         addIcons(Icon.PREMIUM);

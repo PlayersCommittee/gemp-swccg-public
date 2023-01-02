@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card211_026 extends AbstractObjective {
     public Card211_026() {
-        super(Side.DARK, 0, Title.A_Stunning_Move);
+        super(Side.DARK, 0, Title.A_Stunning_Move, ExpansionSet.SET_11, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy 500 Republica (with Insidious Prisoner there) and Private Platform.\n" +
                 "For remainder of game, you may not deploy Sidious, First Order characters, or Imperials. Grievous is immunity to attrition +2. Once per turn, may \\/ an Invisible Hand site or a non-unique [Separatist] droid. \n" +

@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileAndReserveDeckAndReturnCardsToOnePileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class Card211_036_BACK extends AbstractObjective {
     public Card211_036_BACK() {
-        super(Side.LIGHT, 7, Title.We_Need_Luke_Skywalker);
+        super(Side.LIGHT, 7, Title.We_Need_Luke_Skywalker, ExpansionSet.SET_11, Rarity.V);
         setGameText("Immediately place Luke out of play (ignore [Death Star II] objective restrictions, if any). For remainder of battle, weapons may not be fired. " +
                 "While this side up, opponent's immunity to attrition is limited to < 6. Once during your turn, may peek at the top card of your Force Pile and Reserve Deck; place both cards (in any order) on top of one of those piles. Where you have two unique (•) Resistance characters, your Force drains are +1 and, once per turn during battle, may cancel an opponent's just drawn destiny to cause a redraw.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);

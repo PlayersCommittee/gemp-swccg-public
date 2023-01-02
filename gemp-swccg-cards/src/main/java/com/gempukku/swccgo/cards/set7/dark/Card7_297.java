@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +20,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DestinyDrawForActionSourceModifier;
@@ -35,7 +47,7 @@ import java.util.List;
  */
 public class Card7_297 extends AbstractObjective {
     public Card7_297() {
-        super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi);
+        super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Holotheatre and Visage Of The Emperor. May deploy Meditation Chamber and/or Epic Duel. While this side up, during your move phase, may use 4 Force to take Vader into hand from a location you control (cards on him go to owner's Used Pile). Add 4 to each player's destiny draw for Sense and Alter. Flip this card if Vader is at a battleground site and no Light Jedi or Luke is at a battleground site. Place out of play if you play Scanning Crew, initiate a non-Epic duel or Force drain at an Executor site.");
         addIcons(Icon.SPECIAL_EDITION);

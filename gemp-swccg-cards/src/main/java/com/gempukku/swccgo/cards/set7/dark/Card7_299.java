@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card7_299 extends AbstractObjective {
     public Card7_299() {
-        super(Side.DARK, 0, Title.ISB_Operations);
+        super(Side.DARK, 0, Title.ISB_Operations, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy any Coruscant location. For remainder of game, your characters with 'ISB,' 'Rebel' or 'Rebellion' in lore are ISB agents and spies, and may deploy regardless of deployment restrictions listed in their game text. Flip this card if ISB agents control at least two Rebel Base locations or if four ISB agents are on table.");
         addIcons(Icon.SPECIAL_EDITION);

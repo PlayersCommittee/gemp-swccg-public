@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,11 +26,19 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -33,7 +48,7 @@ import java.util.*;
  */
 public class Card209_029_BACK extends AbstractObjective {
     public Card209_029_BACK() {
-        super(Side.LIGHT, 7, Title.Until_We_Win_Or_The_Chances_Are_Spent);
+        super(Side.LIGHT, 7, Title.Until_We_Win_Or_The_Chances_Are_Spent, ExpansionSet.SET_9, Rarity.V);
         setGameText("While this side up, your spies are defense value +2 (and power +1 if with Stardust) and are immune to Undercover. " +
                 "While Stardust on your spy, opponent may not cancel your Force drains at battlegrounds. " +
                 "Once per turn, may place a Rebel in your Lost Pile out of play to make a regular move with your Rebel spy during your control phase or cancel an attempt to target your non-Undercover Rebel spy with a weapon." +

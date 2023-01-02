@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +41,7 @@ import java.util.List;
  */
 public class Card109_004 extends AbstractObjective {
     public Card109_004() {
-        super(Side.LIGHT, 0, Title.Quiet_Mining_Colony);
+        super(Side.LIGHT, 0, Title.Quiet_Mining_Colony, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Bespin system and one Cloud City battleground site. While this side up, once during each of your deploy phases, may use 1 Force to deploy a site (or cloud sector) to Bespin from Reserve Deck; reshuffle. Opponent loses no more than 1 Force from each of your Force drains at Bespin locations. Flip this card if opponent controls no Bespin locations and you control Bespin: Cloud City and at least two Cloud City sites (one if Lando or Lobot on Cloud City). Place out of play if Bespin is 'blown away'");
         addIcons(Icon.PREMIUM);

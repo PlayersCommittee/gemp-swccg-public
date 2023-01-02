@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +22,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.EpicEventDestinyDrawModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +41,7 @@ import java.util.List;
  */
 public class Card8_078_BACK extends AbstractObjective {
     public Card8_078_BACK() {
-        super(Side.LIGHT, 7, Title.Garrison_Destroyed);
+        super(Side.LIGHT, 7, Title.Garrison_Destroyed, ExpansionSet.ENDOR, Rarity.R);
         setGameText("While this side up, at each Endor site where you have a Rebel scout, your Force drains may not be modified or canceled by opponent, except by a 'react'. Rebel scouts are immune to attrition < 4. Once during each of your draw phases, may retrieve one Rebel scout of ability < 3. Your Epic Event destiny draws are each +2. Flip this card (unless Bunker 'blown away') if, during an opponent's move phase, opponent controls three exterior Endor sites or Endor system. Place out of play if Endor is 'blown away'.");
         addIcons(Icon.ENDOR);
     }

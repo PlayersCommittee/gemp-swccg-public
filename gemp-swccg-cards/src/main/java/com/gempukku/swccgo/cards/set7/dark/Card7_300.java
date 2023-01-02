@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card7_300 extends AbstractObjective {
     public Card7_300() {
-        super(Side.DARK, 0, Title.Ralltiir_Operations);
+        super(Side.DARK, 0, Title.Ralltiir_Operations, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Ralltiir system. While this side up, once during each of your deploy phases, may deploy from Reserve Deck to Ralltiir one site or non-unique Imperial; reshuffle. At Ralltiir locations, each Rebel is deploy +2. Flip this card if Imperials control at least three Ralltiir sites and opponent controls no Ralltiir locations. Place out of play if Ralltiir is 'blown away.'");
         addIcons(Icon.SPECIAL_EDITION);

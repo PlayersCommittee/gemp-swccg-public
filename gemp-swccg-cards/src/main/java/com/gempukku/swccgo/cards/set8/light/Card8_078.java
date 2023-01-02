@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +42,7 @@ import java.util.List;
  */
 public class Card8_078 extends AbstractObjective {
     public Card8_078() {
-        super(Side.LIGHT, 0, Title.Rebel_Strike_Team);
+        super(Side.LIGHT, 0, Title.Rebel_Strike_Team, ExpansionSet.ENDOR, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Endor system and Rebel Landing Site. While this side up, opponent loses no more than 1 Force from each of your Force drains at Endor locations. Once during each of your deploy phases, may use 2 Force to take one Bunker or Deactivate The Shield Generator into hand from Reserve Deck; reshuffle. Flip this card if Bunker 'blown away' or if, during your move phase, you control three exterior Endor sites (with two Rebel scouts at each). Place out of play if Endor 'blown away.'");
         addIcons(Icon.ENDOR);

@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card213_032_BACK extends AbstractObjective {
     public Card213_032_BACK() {
-        super(Side.DARK, 7, Title.You_Know_Who_I_Answer_To);
+        super(Side.DARK, 7, Title.You_Know_Who_I_Answer_To, ExpansionSet.SET_13, Rarity.V);
         setGameText("May immediately re-circulate and shuffle your Reserve Deck." +
                 "While this side up, if your gangster leader in battle at same site as your non-unique blaster, may add one destiny to total power. If Maul alone, during your draw phase may peek at the cards in your Force Pile" +
                 "Flip this card at end of turn. If you are about to flip this card and you occupy three battlegrounds, opponent loses 1 Force.");

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card7_137 extends AbstractObjective {
     public Card7_137() {
-        super(Side.LIGHT, 0, Title.Local_Uprising);
+        super(Side.LIGHT, 0, Title.Local_Uprising, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy any planet system and one ◇ site to that system. This system is the Subjugated planet. While this side up, once during each of your deploy phases, you may deploy one ◇ site to the Subjugated planet from Reserve Deck; reshuffle. Flip this card if your matching operatives control at least three battleground sites related to the Subjugated planet.");
         addIcons(Icon.SPECIAL_EDITION);

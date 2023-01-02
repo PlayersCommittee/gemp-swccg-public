@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,7 +24,18 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromOffTableSimultaneouslyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardFromHandFaceDownOnSideOfTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromFaceDownOnSideOfTableInUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.StackActionEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DrawCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -37,7 +55,7 @@ import java.util.List;
  */
 public class Card12_180_BACK extends AbstractObjective {
     public Card12_180_BACK() {
-        super(Side.DARK, 7, Title.Youre_A_Slave);
+        super(Side.DARK, 7, Title.Youre_A_Slave, ExpansionSet.CORUSCANT, Rarity.U);
         setGameText("While this side up, once during each of your deploy phases, may place a card from hand face down on your side of the table and opponent must choose to lose 2 Force (you place card in Used Pile) or use 2 Force (you deploy that card for free). If opponent uses 2 Force and you cannot deploy card, lose 2 Force and card is lost. Opponent's non-unique aliens are each deploy +3. Flip this card if Watto not present at Watto's Junkyard or you do not occupy Mos Espa.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);
     }

@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +41,7 @@ import java.util.Map;
  */
 public class Card7_136 extends AbstractObjective {
     public Card7_136() {
-        super(Side.LIGHT, 0, Title.Hidden_Base);
+        super(Side.LIGHT, 0, Title.Hidden_Base, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Rendezvous Point. Place a planet system (with a parsec number from 1 to 8) from outside your deck face down on your side of table (not in play); that card indicates the planet where your 'Hidden Base' is located. While this side up, once during each of your deploy phases, may deploy one system from Reserve Deck; reshuffle. Opponent loses no more than 1 Force from each of your Force drains at systems and sectors. Flip this card any time after you have deployed five battleground systems and your 'Hidden Base' system.");
         addIcons(Icon.SPECIAL_EDITION);

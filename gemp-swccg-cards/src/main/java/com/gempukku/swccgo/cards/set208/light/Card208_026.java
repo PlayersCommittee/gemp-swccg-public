@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card208_026 extends AbstractObjective {
     public Card208_026() {
-        super(Side.LIGHT, 0, Title.Yavin_4_Base_Operations);
+        super(Side.LIGHT, 0, Title.Yavin_4_Base_Operations, ExpansionSet.SET_8, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Yavin 4 system and Massassi War Room. May deploy Restore Freedom To The Galaxy. While this side up, once per turn, may use 1 Force to [download] a battleground system. Flip this card if Rebels control two battleground systems (or if four Rebels are on table).");
         addIcons(Icon.VIRTUAL_SET_8);

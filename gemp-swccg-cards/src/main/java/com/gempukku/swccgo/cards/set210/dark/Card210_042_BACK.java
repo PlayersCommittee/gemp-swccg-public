@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set210.dark;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.OccupiesWithEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card210_042_BACK extends AbstractObjective {
     public Card210_042_BACK() {
-        super(Side.DARK, 7, Title.In_The_Hands_Of_The_Empire);
+        super(Side.DARK, 7, Title.In_The_Hands_Of_The_Empire, ExpansionSet.SET_10, Rarity.V);
         setVirtualSuffix(true);
         setGameText("While this side up, opponent's Force drains are -1 at their locations. Your total battle destiny is +X, where X = number of Ralltiir locations your Imperials occupy. Flip this card if opponent controls at least two Ralltiir locations.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.SPECIAL_EDITION);

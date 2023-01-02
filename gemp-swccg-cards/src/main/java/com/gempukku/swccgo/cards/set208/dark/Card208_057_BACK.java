@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -41,7 +47,7 @@ import java.util.List;
  */
 public class Card208_057_BACK extends AbstractObjective {
     public Card208_057_BACK() {
-        super(Side.DARK, 7, Title.And_Now_Youll_Give_It_To_Me);
+        super(Side.DARK, 7, Title.And_Now_Youll_Give_It_To_Me, ExpansionSet.SET_8, Rarity.V);
         setGameText("While this side up, where you have a First Order leader, opponent must first use or lose 1 Force to draw a card for battle destiny. Unless BB-8 on table, opponent's Force retrieval is canceled. If Kylo on table: During your turn, may stack an Interrupt from your Lost Pile face up on I Will Finish What You Started; and once per turn, may play an Interrupt stacked there as if from hand (then place that card out of play). Flip this card if you do not occupy two battlegrounds or if a Resistance Agent is present at a battleground site.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_8);
     }

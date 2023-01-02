@@ -4,9 +4,11 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card209_029 extends AbstractObjective {
     public Card209_029() {
-        super(Side.LIGHT, 0, Title.They_Have_No_Idea_Were_Coming);
+        super(Side.LIGHT, 0, Title.They_Have_No_Idea_Were_Coming, ExpansionSet.SET_9, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Scarif system, Data Vault (with Stardust there), and Massassi War Room. " +
                 "For remainder of game, Baze, Chirrut, and Rebel troopers are spies. You may not deploy Taking Them With Us or Jedi. " +

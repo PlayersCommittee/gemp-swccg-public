@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +41,7 @@ import java.util.List;
  */
 public class Card7_298_BACK extends AbstractObjective {
     public Card7_298_BACK() {
-        super(Side.DARK, 7, Title.Imperial_Control);
+        super(Side.DARK, 7, Title.Imperial_Control, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setGameText("While this side up, opponent's Force drains are -1. You may retrieve 1 Force whenever you deploy a matching operative to the Renegade planet. Your matching operatives on that planet are each forfeit +2 and, when at same site as a Rebel, are each power +2. When you have at least one matching operative in a battle on the Renegade planet, you may add one battle destiny. Flip this card if you do not occupy at least two battleground sites related to the Renegade planet.");
         addIcons(Icon.SPECIAL_EDITION);
     }

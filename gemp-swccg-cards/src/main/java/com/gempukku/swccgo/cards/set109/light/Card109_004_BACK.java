@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set109.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -15,7 +23,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +42,7 @@ import java.util.List;
  */
 public class Card109_004_BACK extends AbstractObjective {
     public Card109_004_BACK() {
-        super(Side.LIGHT, 7, Title.Independent_Operation);
+        super(Side.LIGHT, 7, Title.Independent_Operation, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setGameText("While this side up, your aliens, cloud cars and [Independent Starship] starships are immune to attrition < 4. At each Bespin location you control with an alien, your Force drains may not be modified or canceled by opponent. Your [Independent Starship] starships are deploy -1. Once during each of your deploy phases, you may deploy one docking bay from Reserve Deck; reshuffle. Flip this card if opponent controls Bespin system (or three Cloud City sites and/or Bespin cloud sectors). Place out of play if Bespin is 'blown away'.");
         addIcons(Icon.PREMIUM);
     }

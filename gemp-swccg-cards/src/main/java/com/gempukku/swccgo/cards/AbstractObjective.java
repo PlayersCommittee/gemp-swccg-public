@@ -1,10 +1,20 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -28,15 +38,6 @@ import java.util.List;
  * The abstract class providing the common implementation for Objective.
  */
 public abstract class AbstractObjective extends AbstractNonLocationPlaysToTable {
-
-    /**
-     * Creates a blueprint for an Objective.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     */
-    protected AbstractObjective(Side side, float destiny, String title) {
-        this(side, destiny,  title, null, null);
-    }
 
     /**
      * Creates a blueprint for an Objective.

@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
@@ -18,7 +20,12 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card7_139 extends AbstractObjective {
     public Card7_139() {
-        super(Side.LIGHT, 0, Title.Rescue_The_Princess);
+        super(Side.LIGHT, 0, Title.Rescue_The_Princess, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Detention Block Corridor (with Leia of ability < 4 imprisoned there), Docking Bay 327, Yavin 4: Docking Bay and Yavin 4: War Room. {While} this side up, your spies, 8D8, Revolution, Death Star Plans and Detention Block Control Room may not deploy to Death Star. Cards that release captives are immune to Sense and Alter. May not play Nabrun Leids. Flip this card if you move Leia to Yavin 4: War Room. Place out of play if Leia is lost from table (you may not deploy Death Star Plans for remainder of game).");
         addIcons(Icon.SPECIAL_EDITION);

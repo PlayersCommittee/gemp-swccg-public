@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +45,7 @@ import java.util.List;
  */
 public class Card14_113 extends AbstractObjective {
     public Card14_113() {
-        super(Side.DARK, 0, Title.Invasion);
+        super(Side.DARK, 0, Title.Invasion, ExpansionSet.THEED_PALACE, Rarity.U);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Naboo system with Blockade Flagship there, swamp, and Droid Racks. For remainder of game, you may not deploy cards with ability except [Trade Federation] starships and characters with 'Trade Federation' in lore. Civil Disorder is canceled. {While} this side up, once during your deploy phase may deploy a Naboo site from Reserve Deck; reshuffle. Opponent's Force icons at Naboo system are canceled. Flip this card if you control Theed Palace Throne Room (with a Neimoidian there) and Naboo system.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

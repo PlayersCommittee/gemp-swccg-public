@@ -6,8 +6,14 @@ import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -16,12 +22,17 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.FlipCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CommencePrimaryIgnitionTotalModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.ForceLossInitiatedResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
@@ -37,7 +48,7 @@ import java.util.List;
  */
 public class Card216_011_BACK extends AbstractObjective {
     public Card216_011_BACK() {
-        super(Side.DARK, 7, Title.Taking_Control_Of_The_Weapon);
+        super(Side.DARK, 7, Title.Taking_Control_Of_The_Weapon, ExpansionSet.SET_16, Rarity.V);
         setGameText("While this side up, your Force generation is +2 for each 'blown away' Scarif site. Tarkin Doctrine is immune to Alter and, when it initiates Force loss, may take any one card into hand from Force Pile. Once per turn, if opponent's character just lost from your site, may place it out of play unless opponent loses 1 Force. Tarkin adds 3 to total of Commence Primary Ignition. \n" +
                 "Flip this card if you have no leaders on Scarif. \n" +
                 "Place this card out of play if Shield Gate not on table or if Death Star has been 'blown away.'");

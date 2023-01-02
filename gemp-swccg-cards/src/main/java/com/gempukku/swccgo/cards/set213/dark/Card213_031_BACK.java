@@ -6,7 +6,9 @@ import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
@@ -18,7 +20,12 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.CancelOpponentsForceDrainBonusesModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NoForceLossFromCardModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card213_031_BACK extends AbstractObjective {
     public Card213_031_BACK() {
-        super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
+        super(Side.DARK, 7, Title.Their_Fire_Has_Gone_Out_Of_The_Universe, ExpansionSet.SET_13, Rarity.V);
         setVirtualSuffix(true);
         setGameText("While this side up, you lose no Force from Visage Of The Emperor. While Vader armed with a lightsaber, opponent's Force drain bonuses are canceled.\n" +
                 "Flip this card if Luke, a Jedi, or a Padawan at a battleground site (once per game, may take Vader and your cards on him into hand from a site you control) OR If Vader not on table.");

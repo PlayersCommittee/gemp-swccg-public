@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set110.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeployAsCaptiveOption;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,7 +23,13 @@ import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardsToTargetFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
@@ -33,7 +45,7 @@ import java.util.List;
  */
 public class Card110_004 extends AbstractObjective {
     public Card110_004() {
-        super(Side.LIGHT, 0, Title.You_Can_Either_Profit_By_This);
+        super(Side.LIGHT, 0, Title.You_Can_Either_Profit_By_This, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Tatooine: Jabba's Palace and Audience Chamber (with Han frozen there, he may not be moved when frozen). Opponent may deploy up to two aliens at Audience Chamber. While this side up, opponent may not Force Drain at Audience Chamber and you may not Force drain at Tatooine locations. You may not play Frozen Assets. Luke, C-3PO and R2-D2 are deploy -2 at Jabba's Palace sites (Master Luke deploys for free instead). Flip this card if Han is on Tatooine and not a captive. Place out of play if Tatooine is 'blown away.'");
         addIcons(Icon.PREMIUM);

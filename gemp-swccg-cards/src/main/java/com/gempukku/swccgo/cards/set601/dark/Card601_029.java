@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.CardsInHandFewerThanCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -13,7 +20,11 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ScumAndVillainyMayDeployAttachedModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -28,7 +39,7 @@ import java.util.List;
  */
 public class Card601_029 extends AbstractObjective {
     public Card601_029() {
-        super(Side.DARK, 0, Title.Wookiee_Slaving_Operation);
+        super(Side.DARK, 0, Title.Wookiee_Slaving_Operation, ExpansionSet.LEGACY, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Kashyyyk system, Slaving Camp Headquarters, and [Block 8] Special Delivery.\n" +
                 "For remainder of game, your Trandoshans are slavers. Scum And Villainy may deploy on Slaving Camp Headquarters and may not be canceled while you occupy that site. While you have < 13 cards in hand, your non-unique slavers are immune to Grimtaash.\n" +

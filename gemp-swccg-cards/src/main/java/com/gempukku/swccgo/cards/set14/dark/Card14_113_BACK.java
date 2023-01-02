@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.conditions.DifferentCardTitlesParticipatingInBa
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -17,7 +23,11 @@ import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceDestinyCardOutOfPlayEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -32,7 +42,7 @@ import java.util.List;
  */
 public class Card14_113_BACK extends AbstractObjective {
     public Card14_113_BACK() {
-        super(Side.DARK, 7, Title.In_Complete_Control);
+        super(Side.DARK, 7, Title.In_Complete_Control, ExpansionSet.THEED_PALACE, Rarity.U);
         setGameText("While this side up, you lose no more than 2 Force to any Force drain. Your battle droids deploy -1. If you have two [Presence] droids with different card titles (or a [Presence] droid and a Neimoidian) in battle at a site, draw two battle destiny if unable to otherwise. Your droid starfighters are immune to attrition < 3. If opponent just drew an Interrupt for battle destiny, once per battle you may place that card out of play. Flip this card if opponent controls Naboo system or Theed Palace Throne Room.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);
     }

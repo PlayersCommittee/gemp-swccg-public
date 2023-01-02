@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,7 +45,7 @@ import java.util.List;
  */
 public class Card13_046 extends AbstractObjective {
     public Card13_046() {
-        super(Side.LIGHT, 0, Title.Well_Handle_This);
+        super(Side.LIGHT, 0, Title.Well_Handle_This, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Theed Palace Generator Core, Theed Palace Generator, and Inner Strength. While this side up, opponent may not Force drain where opponent has a Dark Jedi, and your Force drains at Naboo sites where you have a Jedi may not be canceled.  Once during your control phase, may target one opponent's character present with your Jedi at an interior Theed Palace site.  Target is lost. Flip this card if an opponent's Dark Jedi is present at an interior Naboo battleground site.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

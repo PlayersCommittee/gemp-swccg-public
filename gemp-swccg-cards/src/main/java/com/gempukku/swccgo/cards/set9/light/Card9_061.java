@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -19,7 +25,11 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.GenerateNoForceModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotForceDrainAtLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,7 +44,7 @@ import java.util.List;
  */
 public class Card9_061 extends AbstractObjective {
     public Card9_061() {
-        super(Side.LIGHT, 0, Title.There_Is_Good_In_Him);
+        super(Side.LIGHT, 0, Title.There_Is_Good_In_Him, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Chief Chirpa's Hut (with [Death Star II] Luke and Luke's Lightsaber there), Endor: Landing Platform and I Feel The Conflict. For remainder of game, you may not play Alter, Strangle, or Captive Fury. While this side up, your Force generation is +2 at Luke's site. While an Imperial is at Landing Platform, you may not Force drain or generate Force at Luke's location. When any Imperial is at Luke's site, Luke is captured (seized by an Imperial, if possible, even if not a warrior). Flip this card if Luke captured.");
         addIcons(Icon.DEATH_STAR_II);

@@ -4,8 +4,10 @@ import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
@@ -46,7 +48,7 @@ import java.util.List;
  */
 public class Card219_001_BACK extends AbstractObjective {
     public Card219_001_BACK() {
-        super(Side.DARK, 7, Title.The_Result_Is_Often_Resentment);
+        super(Side.DARK, 7, Title.The_Result_Is_Often_Resentment, ExpansionSet.SET_19, Rarity.V);
         setGameText("While this side up, if a battle was just initiated involving an Imperial leader or piloted TIE defender, may 'study' one artwork card. " +
                     "If it is a weapon, cancel the battle. Otherwise, if possible, if its printed destiny number is: " +
                     "(0-2) opponent's immunity to attrition is canceled; " +

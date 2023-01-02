@@ -8,7 +8,15 @@ import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -41,7 +49,7 @@ import java.util.List;
  */
 public class Card213_031 extends AbstractObjective {
     public Card213_031() {
-        super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi);
+        super(Side.DARK, 0, Title.Hunt_Down_And_Destroy_The_Jedi, ExpansionSet.SET_13, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setVirtualSuffix(true);
         setGameText("Deploy Vader's Castle, [Set 13] Visage Of The Emperor, and a [Cloud City] site with exactly one [DS] icon.\n" +
