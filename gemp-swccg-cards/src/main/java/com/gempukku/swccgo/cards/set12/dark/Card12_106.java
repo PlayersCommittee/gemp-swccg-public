@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card12_106 extends AbstractAlien {
     public Card12_106() {
-        super(Side.DARK, 2, 3, 3, 3, 5, "Gardulla The Hutt", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 5, "Gardulla The Hutt", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Well-known as a gambler and a gangster. Gardulla was the former owner of Shmi and Anakin Skywalker before she lost them in a bet to the Toydarian junk dealer, Watto.");
         setGameText("When you retrieve force from Boonta Eve Podrace, any or all of your retrieved force may be taken into hand. Once during your control phase, may use 1 force; opponent draws 1 destiny. If destiny > 2, retrieve 1 force. Otherwise, lose 1 force.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

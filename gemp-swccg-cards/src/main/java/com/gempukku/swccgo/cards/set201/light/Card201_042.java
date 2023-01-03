@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card201_042 extends AbstractJediMaster {
     public Card201_042() {
-        super(Side.LIGHT, 1, 7, 6, 7, 8, "Mace Windu", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
+        super(Side.LIGHT, 1, 7, 6, 7, 8, "Mace Windu", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setAlternateImageSuffix(true);
         setVirtualSuffix(true);
         setLore("Senior Jedi Council member who maintains rigorous adherence to the Code. Sent Qui-Gon to Naboo to accompany the Queen and learn more about the mysterious 'dark warrior'.");

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card2_114 extends AbstractDevice {
     public Card2_114() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Magnetic_Suction_Tube, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Magnetic_Suction_Tube, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("'Slurp.'");
         setGameText("Deploy on your Sandcrawler. Once during each of your control phases, may target one character present. Draw destiny. If destiny > character's ability, 'suck up' character (relocate to related interior Sandcrawler site or owner's Used Pile).");
         addIcons(Icon.A_NEW_HOPE);

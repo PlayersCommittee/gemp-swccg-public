@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card14_009 extends AbstractAlien {
     public Card14_009() {
-        super(Side.LIGHT, 3, 1, 1, 2, 4, "Dams Denna", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 1, 1, 2, 4, "Dams Denna", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setManeuver(4);
         setLore("Knowledgable animal trainer and herd-master. Collector of Linn'con memorabilia.");
         setGameText("Once during your deploy phase, you may deploy a Kaadu, Fambaa or Eopie to same site from Reserve Deck; reshuffle. If you just lost a creature vehicle from same site, you may place that creature in your Used Pile.");

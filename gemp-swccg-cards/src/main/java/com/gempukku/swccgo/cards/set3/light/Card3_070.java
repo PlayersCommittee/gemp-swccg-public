@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card3_070 extends AbstractCreatureVehicle {
     public Card3_070() {
-        super(Side.LIGHT, 4, 1, 1, null, 2, 2, 3, "Tauntaun", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C);
+        super(Side.LIGHT, 4, 1, 1, null, 2, 2, 3, "Tauntaun", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.C2);
         setLore("First native creature found on Hoth. Roam the icy plans in herds. Ill-tempered and easily spooked. Smell bad on the outside. Trained as steeds for Rebel patrols.");
         setGameText("May add 1 'rider' (passenger). Deploy only on Hoth. Ability = 1/4. May move as a 'react' from a battle. May be 'sacrificed' (lost) to make rider immune to Exposure this turn.");
         addIcons(Icon.HOTH);

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card9_145 extends AbstractSite {
     public Card9_145() {
-        super(Side.DARK, Title.Death_Star_II_Docking_Bay, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
+        super(Side.DARK, Title.Death_Star_II_Docking_Bay, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLocationDarkSideGameText("Your TIEs deploy -1 here. Your docking bay transit from here is free.");
         setLocationLightSideGameText("Your docking bay transit to or from here requires 8 Force (ignore other docking bay's text).");
         addIcon(Icon.DARK_FORCE, 1);

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card103_002 extends AbstractStarfighter {
     public Card103_002() {
-        super(Side.LIGHT, 2, 6, 3, null, 4, 5, 5, "Red Leader In Red 1", Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
+        super(Side.LIGHT, 2, 6, 3, null, 4, 5, 5, "Red Leader In Red 1", Uniqueness.UNIQUE, ExpansionSet.REBEL_LEADER_PACK, Rarity.PM);
         setLore("Called 'Boss' or 'Chief' by his squadron, Garven Dreis was the first pilot to fire proton torpedoes at the Death Star's exhaust port during the Battle of Yavin.");
         setGameText("Permanent pilot aboard is •Red Leader, who provides ability of 2, adds 2 to power and may draw one battle destiny if not able to otherwise.");
         addPersonas(Persona.RED_1);

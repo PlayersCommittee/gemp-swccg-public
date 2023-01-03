@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card103_001 extends AbstractStarfighter {
     public Card103_001() {
-        super(Side.LIGHT, 2, 5, 2, null, 3, 4, 4, "Gold Leader In Gold 1", Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
+        super(Side.LIGHT, 2, 5, 2, null, 3, 4, 4, "Gold Leader In Gold 1", Uniqueness.UNIQUE, ExpansionSet.REBEL_LEADER_PACK, Rarity.PM);
         setLore("At the Battle of Yavin, Dutch led his squadron of outdated but reliable Y-wings in the first wave of the assault against the Death Star.");
         setGameText("May add 1 pilot or passenger. Permanent pilot aboard is •Dutch, who provides ability of 2, adds 2 to power and may draw one battle destiny if not able to otherwise.");
         addPersonas(Persona.GOLD_1);

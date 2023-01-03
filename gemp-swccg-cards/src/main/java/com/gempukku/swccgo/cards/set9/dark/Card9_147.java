@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card9_147 extends AbstractSite {
     public Card9_147() {
-        super(Side.DARK, Title.Throne_Room, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
+        super(Side.DARK, Title.Throne_Room, Title.Death_Star_II, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLocationDarkSideGameText("Once per game, you may take Emperor's Power into hand from Reserve Deck; reshuffle.");
         setLocationLightSideGameText("Immune to Revolution.");
         addIcon(Icon.DARK_FORCE, 2);

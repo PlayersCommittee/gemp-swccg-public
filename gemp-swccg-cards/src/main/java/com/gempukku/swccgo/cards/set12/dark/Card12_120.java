@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set12.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class Card12_120 extends AbstractAlien {
     public Card12_120() {
-        super(Side.DARK, 2, 0, 2, 2, 3, "Televan Koreyy", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 0, 2, 2, 3, "Televan Koreyy", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Leader of Tatooine's Street Performers And Panhandlers' Guild. Televan can survive on almost nothing, and he keeps tight controls on other Guild members. Information broker.");
         setGameText("Beggar and Frozen Assets are canceled. Your thieves, gamblers, and information brokers at related Tatooine sites are power +1. While at Cantina, Mos Espa, or Marketplace, may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

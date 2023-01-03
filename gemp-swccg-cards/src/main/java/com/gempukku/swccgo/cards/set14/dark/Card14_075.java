@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class Card14_075 extends AbstractAlien {
     public Card14_075() {
-        super(Side.DARK, 3, 2, 1, 2, 4, "Bok Askol", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 2, 4, "Bok Askol", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("At birth, a Pacithhips gene configuration usually indicates if they're to become a farmer, an intellectual, or a warrior. Bok Askol's destiny remained a mystery for years.");
         setGameText("Once during your deploy phase, may draw destiny: (0-2) no result; (3-4) Askol draws one battle destiny if unable to otherwise for remainder of turn; (5+) Askol is power +4 for remainder of turn.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

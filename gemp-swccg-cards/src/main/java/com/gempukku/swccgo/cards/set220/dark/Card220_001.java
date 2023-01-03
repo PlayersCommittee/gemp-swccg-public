@@ -4,9 +4,11 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card220_001 extends AbstractAlien {
     public Card220_001() {
-        super(Side.DARK, 1, 4, 2, 1, 3, "Bib Fortuna, Heir To The Palace", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 2, 1, 3, "Bib Fortuna, Heir To The Palace", Uniqueness.UNIQUE, ExpansionSet.SET_20, Rarity.V);
         setLore("Twi'lek gangster. Leader. Plotted to kill Jabba.");
         setGameText("Jabba's game text is canceled. While with two aliens, adds one destiny to attrition. While at Audience Chamber, " +
                     "your Force drains at other Tatooine battlegrounds are +1 and, if opponent just deployed a character here, " +

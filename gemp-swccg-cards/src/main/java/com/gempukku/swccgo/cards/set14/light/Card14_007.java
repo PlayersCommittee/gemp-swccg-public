@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +37,7 @@ import java.util.List;
  */
 public class Card14_007 extends AbstractAlien {
     public Card14_007() {
-        super(Side.LIGHT, 2, 3, 3, 3, 6, Title.Captain_Tarpals, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 3, 6, Title.Captain_Tarpals, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Gungan leader of the forces that patrol and protect the city of Otoh Gunga. Consistently placed in the top ten of the Big Nasty Free-For-All.");
         setGameText("Adds 1 to power of your other Gungans at same site. Opponent's characters may not move to underwater sites. Once per turn, if you just drew a Gungan for battle destiny, may deploy that Gungan for free to cancel that destiny and re-draw.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);

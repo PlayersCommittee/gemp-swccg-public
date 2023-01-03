@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class Card3_043 extends AbstractUsedInterrupt {
     public Card3_043() {
-        super(Side.LIGHT, 7, "I Thought They Smelled Bad On The Outside", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
+        super(Side.LIGHT, 7, "I Thought They Smelled Bad On The Outside", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R1);
         setLore("'Hang on, kid. This may smell bad, kid...but it'll keep you warm...until I can get the shelter built...'");
         setGameText("Sacrifice (lose) your creature vehicle to protect one character present from Exposure, Ice Storm, Frostbite and Gravel Storm for remainder of turn. (Two characters may be protected if sacrificing a ronto.) OR Double Tzizvvt's power until he moves.");
         addIcons(Icon.HOTH);

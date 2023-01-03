@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Card12_006 extends AbstractAlien {
     public Card12_006() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Graxol Kelvyyn", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Graxol Kelvyyn", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Gentle male Anx who enjoys the risk and reward of the Podraces. Has a bet against Watto that Skywalker will win the Boonta Eve event.");
         setGameText("While at Podrace Arena, at end of opponent's turn: you retrieve 1 Force if Anakin's Podracer is leading the Podrace, or you lose 1 Force if Anakin's Podracer is losing the Podrace.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

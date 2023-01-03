@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_003 extends AbstractAlien {
     public Card11_003() {
-        super(Side.LIGHT, 2, 3, 2, 2, 3, "Grugnak", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 3, "Grugnak", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Elderly Ugnaught who despised the Empire for occupying his home on Cloud City. Helped the Rebellion secretly move personnel to aid the resistance movement.");
         setGameText("While on Cloud City, once during each of your deploy phases may use or lose X Force to relocate any one of your characters at same site to a related site, where X equals ability of your character being relocated.");
         setSpecies(Species.UGNAUGHT);

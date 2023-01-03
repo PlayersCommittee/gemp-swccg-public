@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_307 extends AbstractCreatureVehicle {
     public Card1_307() {
-        super(Side.DARK, 3, 1, 1, null, 2, 1, 3, "Bantha", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C);
+        super(Side.DARK, 3, 1, 1, null, 2, 1, 3, "Bantha", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Transport, pack animal. Many breeds of different sizes and colors. Three meters tall. Can go weeks without food or water. Found throughout the galaxy.");
         setGameText("May carry 2 passengers. Bantha ability = 1/2. May move as a 'react' only to a battle or Force drain (if within range). Each Tusken Raider at same exterior site is power +1.");
         addKeywords(Keyword.BANTHA);

@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card2_115 extends AbstractDevice {
     public Card2_115() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Tractor Beam", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Tractor Beam", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Captures enemy vessels for boarding. When used in conjunction with an ion cannon, tractor beams can ensnare even the most maneuverable starships.");
         setGameText("Use 2 Force to deploy on your Star Destroyer. At the end of a battle at same system or sector, may target an opponent's starship present (except Mon Calamari Star Cruiser) using 2 Force. Draw destiny. Target captured if destiny > defense value.");
         addKeyword(Keyword.TRACTOR_BEAM);

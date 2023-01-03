@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card14_073 extends AbstractDroid {
     public Card14_073() {
-        super(Side.DARK, 2, 3, 3, 3, "Battle Droid Officer", Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.U);
+        super(Side.DARK, 2, 3, 3, 3, "Battle Droid Officer", Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.C);
         setArmor(4);
         setLore("Leader. Officer battle droids contain programming that permits them to adapt to unusual situations. Known to malfunction from time to time.");
         setGameText("Your infantry battle droids deploy -1 to same site. While with another battle droid, adds 1 to your total battle destiny here. Your battle droids may move to this site for free.");

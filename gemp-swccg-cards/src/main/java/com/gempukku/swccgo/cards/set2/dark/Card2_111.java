@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card2_111 extends AbstractDevice {
     public Card2_111() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Star_Tractor_Beam, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.R2);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Star_Tractor_Beam, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("'Why are we moving towards it?'");
         setGameText("Use 2 Force to deploy on Docking Bay 327. At the end of a battle at Death Star system, may target an opponent's starship present (except a Mon Calamari star cruiser) using 2 Force. Draw two destiny. Target captured if total destiny > defense value.");
         addKeywords(Keyword.TRACTOR_BEAM, Keyword.DEPLOYS_ON_SITE);

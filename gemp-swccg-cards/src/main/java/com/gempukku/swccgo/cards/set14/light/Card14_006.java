@@ -6,7 +6,16 @@ import com.gempukku.swccgo.cards.conditions.AllCharactersOnSystemCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringBattleAtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +38,7 @@ import java.util.List;
  */
 public class Card14_006 extends AbstractAlien {
     public Card14_006() {
-        super(Side.LIGHT, 1, 3, 3, 3, 6, Title.Boss_Nass, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 6, Title.Boss_Nass, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Ankura Gungan who is the leader of his people. Prone to nervous tics. Personally responsible for uniting the Ankura and Otolla races together.");
         setGameText("While at an underwater site and all of your characters on Naboo are Gungans: add one battle destiny in battles at Naboo sites and once during your deploy phase may deploy a Gungan or Steady, Steady from Reserve Deck; reshuffle.");

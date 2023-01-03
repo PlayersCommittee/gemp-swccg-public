@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card5_107 extends AbstractDevice {
     public Card5_107() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Carbonite_Chamber_Console, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Carbonite_Chamber_Console, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Most often used to freeze Tibanna gas for transport. Modified by Ugloste to work on humans. Intended to capture Luke Skywalker, the Emperor's prize.");
         setGameText("Deploy on Carbonite Chamber. Adds 3 to Carbon-Freezing destiny. Also, once during each of your turns, you may use 1 Force to take one Ugnaught, Prepare The Chamber or Carbon-Freezing into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.CLOUD_CITY);

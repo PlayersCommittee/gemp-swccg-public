@@ -49,7 +49,7 @@ import java.util.List;
  */
 public class Card13_024 extends AbstractEpicEventDeployable {
     public Card13_024() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Inner_Strength, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Inner_Strength, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setGameText("Deploy on table. You may not play Sorry About The Mess or Clash Of Sabers. During any deploy phase, you may place one card face-down under one of your Jedi. (These are that character's combat cards.) No character may have more than two combat cards at once. Instead of drawing lightsaber combat destiny or duel destiny, your participating character may use one of his combat cards. Place character's combat cards in owner's Used Pile when used (or if that character leaves table).");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
     }

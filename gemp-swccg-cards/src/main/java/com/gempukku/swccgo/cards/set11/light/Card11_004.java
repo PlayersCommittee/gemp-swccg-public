@@ -29,7 +29,7 @@ import java.util.*;
  */
 public class Card11_004 extends AbstractAlien {
     public Card11_004() {
-        super(Side.LIGHT, 2, 2, 3, 3, 3, "Jar Jar Binks", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 3, 3, 3, "Jar Jar Binks", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Young Otolla Gungan. Clumsy. Outcast from Otoh Gunga for continually making mistakes that placed other members of Gungan society at risk.");
         setGameText("May deploy to any site, even without presence or Force icons. During battle may use 1 Force to target one opponent's character present. Both players draw destiny. If your destiny + 2 > opponent's destiny + target's ability, Jar Jar and target are lost.");
         addPersona(Persona.JAR_JAR);

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card104_004 extends AbstractSite {
     public Card104_004() {
-        super(Side.DARK, Title.Mountains, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.PM);
+        super(Side.DARK, Title.Mountains, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.ESB_INTRO_TWO_PLAYER, Rarity.PM);
         setLocationDarkSideGameText("Your Imperials and combat vehicles deploy -1 here.");
         setLocationLightSideGameText("If you control, Force drain +1 here.");
         addIcon(Icon.DARK_FORCE, 1);

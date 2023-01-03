@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card11_012 extends AbstractAlien {
     public Card11_012() {
-        super(Side.LIGHT, 2, 2, 1, 3, 5, Title.Shmi, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 1, 3, 5, Title.Shmi, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Mother of Anakin Skywalker. As Anakin grew, Shmi realized her son was special. Did her best to hide his abilities from Watto.");
         setGameText("Deploys for free to Slave Quarters. Once per game may take [Tatooine] Threepio into hand from Reserve Deck; reshuffle. While in a battle at a site, subtracts one from each of opponent's battle destiny draws.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

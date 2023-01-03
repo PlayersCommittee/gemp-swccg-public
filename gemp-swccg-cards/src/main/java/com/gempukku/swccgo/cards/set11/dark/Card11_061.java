@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card11_061 extends AbstractAlien {
     public Card11_061() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Rachalt Hyst", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Rachalt Hyst", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Strange female Snivvian who frequents the cantina daily. Betrayed her loved ones, who then left her on Tatooine to die. Everything she's ever cared about is now gone or dead.");
         setGameText("Adds 2 to power of anything she pilots. During a battle involving Rachalt, whenever opponent draws an Interrupt for destiny may use 2 Force to cause that Interrupt to be lost. While armed with a weapon at a site, Force drain +1 here.");
         addIcons(Icon.TATOOINE, Icon.PILOT, Icon.WARRIOR);

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_316 extends AbstractCreatureVehicle {
     public Card7_316() {
-        super(Side.DARK, 5, 2, 3, 3, null, 2, 3, "Ronto", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.R);
+        super(Side.DARK, 5, 2, 3, 3, null, 2, 3, "Ronto", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Beast of burden often used by Jawas. Excellent sense of smell. Poor vision. Slow moving. Tough hide. Easily startled by fast-moving speeders.");
         setGameText("May add 2 'riders' (passengers). Ability = 1/4. When 'ridden' by a Jawa, moves for free and draws one battle destiny if not able to otherwise.");
         addIcons(Icon.SPECIAL_EDITION);

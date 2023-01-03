@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card11_002 extends AbstractAlien {
     public Card11_002() {
-        super(Side.LIGHT, 2, 3, 1, 1, 5, "Deneb Both", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 1, 1, 5, "Deneb Both", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Shy Ithorian forester. She seeks to leave Tatooine for a better life. Firm adherent to Ithorian philosophy of planting two trees for every one harvested.");
         setGameText("When deployed, draw up to 2 cards from top of Reserve Deck. Unless Graak on table, while at a battleground and opponent is losing Force from Force drains at same or adjacent site, lost Force must come from Force Pile, if possible.");
         addIcons(Icon.TATOOINE);

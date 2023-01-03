@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card11_058 extends AbstractAlien {
     public Card11_058() {
-        super(Side.DARK, 2, 1, 2, 1, 2, "Gragra", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 1, 2, 1, 2, "Gragra", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Female Swokes Swokes. Lives in the city of Mos Espa and runs a street-corner market there. Seller of chuba.");
         setGameText("Once per turn, may use 1 Force to target opponent's card with ability just deployed to same site. Opponent must use 2 Force or return target to hand. Power +2 at Mos Espa.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);

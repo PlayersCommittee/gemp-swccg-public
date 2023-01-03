@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card107_001 extends AbstractCapitalStarship {
     public Card107_001() {
-        super(Side.LIGHT, 1, 8, 7, 5, null, 3, 9, "Mon Calamari Star Cruiser", Uniqueness.UNRESTRICTED, ExpansionSet.DEATH_STAR_II, Rarity.R);
+        super(Side.LIGHT, 1, 8, 7, 5, null, 3, 9, "Mon Calamari Star Cruiser", Uniqueness.UNRESTRICTED, ExpansionSet.SECOND_ANTHOLOGY, Rarity.PV);
         setLore("Mon Cal MC80 cruiser. Originally a civilian ship. Converted to military use following the liberation of Mon Calamari from the Empire.");
         setGameText("Deploys only at Mon Calamari or any Rebel Base. May add 5 pilots, 6 passengers, 1 vehicle and 3 starfighters. Has ship-docking capability. Permanent pilot aboard provides ability of 2.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

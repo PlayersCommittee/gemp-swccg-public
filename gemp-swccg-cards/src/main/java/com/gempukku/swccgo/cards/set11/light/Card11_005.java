@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card11_005 extends AbstractAlien {
     public Card11_005() {
-        super(Side.LIGHT, 2, 4, 0, 1, 2, "Loci Rosen", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 0, 1, 2, "Loci Rosen", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Good-willed Mon Calamari merchant. Looking for work. Unfortunately, everywhere he goes he comes up empty handed.");
         setGameText("Power +X in a battle at a site, where X equals the number of cards in opponent's hand. During your deploy phase, opponent may place any number of cards in their hand in their Used Pile.");
         addIcons(Icon.TATOOINE);

@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card12_187 extends AbstractStarshipWeapon {
     public Card12_187() {
-        super(Side.DARK, 4, Title.Laser_Cannon_Battery, Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.F);
+        super(Side.DARK, 4, Title.Laser_Cannon_Battery, Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Trade Federation battleships use concealed quad laser emplacements. Though their coverage is limited, the surprise factor and ferocious firing rate is often overwhelming.");
         setGameText("Deploy on your capital starship. May deploy as a 'react'. May target a starship using X Force, where X = 0 to 3. Draw destiny. Subtract 2 if targeting a starship with maneuver. If destiny +X > defense value, target hit and opponent loses 1 Force.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

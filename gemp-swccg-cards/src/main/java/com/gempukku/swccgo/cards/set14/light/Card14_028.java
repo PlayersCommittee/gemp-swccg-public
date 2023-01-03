@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card14_028 extends AbstractAlien {
     public Card14_028() {
-        super(Side.LIGHT, 2, 1, 2, 2, 3, "Rep Been", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 2, 2, 3, "Rep Been", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.U);
         setLore("Member of Boss Nass' Rep Council. His responsibilities include maintaining a record of Gungan history as well as preserving ancient records of Gungan civilization.");
         setGameText("Deploys -1 to an underwater site. While at Boss Nass' Chamber: your Force generation here is +1 for each Gungan present, and once per game, may take an underwater site into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

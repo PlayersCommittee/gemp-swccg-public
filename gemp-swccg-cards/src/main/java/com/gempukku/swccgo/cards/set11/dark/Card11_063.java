@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card11_063 extends AbstractAlien {
     public Card11_063() {
-        super(Side.DARK, 2, 3, 4, 2, 5, Title.Sebulba, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 2, 5, Title.Sebulba, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Bad tempered Dug from Pixelito. He was about to turn Jar Jar into orange goo, until Anakin intervened.");
         setGameText("Once per battle may use 1 Force to target opponent's character of ability < 3 at same site; target is power -3 for remainder of turn. If present with Jar Jar, during your control phase may use 3 Force to place Jar Jar out of play.");

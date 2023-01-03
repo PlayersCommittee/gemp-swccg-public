@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.TotalAbilityLessThanCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card11_001 extends AbstractAlien {
     public Card11_001() {
-        super(Side.LIGHT, 2, 3, 2, 2, 3, "Caldera Righim", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 2, 3, "Caldera Righim", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.C);
         setLore("Male Talz. Somewhat of a pacifist, Caldera has always been an opponent to violence in the cantina. Personal friend of Wuher.");
         setGameText("Unless Great Warrior on table, opponent must have total ability < 8 to initiate a battle at same site. Also, whenever a battle is initiated at same site both players may draw up to 2 cards from top of their Reserve Deck.");
         addIcons(Icon.TATOOINE);

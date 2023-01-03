@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card14_053 extends AbstractStarfighter {
     public Card14_053() {
-        super(Side.LIGHT, 3, 1, 2, null, 4, 3, 3, Title.Bravo_1, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R1);
+        super(Side.LIGHT, 3, 1, 2, null, 4, 3, 3, Title.Bravo_1, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("Ric Olie's starfighter at the battle of Naboo. Control configuration modified by Ric himself.");
         setGameText("Deploys -1 to Naboo. May add 1 pilot. While Ric piloting, immune to attrition < 4 and draws one battle destiny if unable to otherwise.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.REPUBLIC, Icon.NAV_COMPUTER);

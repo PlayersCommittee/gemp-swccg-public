@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card8_133 extends AbstractNormalEffect {
     public Card8_133() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Well-earned Command", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Well-earned Command", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Imperial officers often simulate large-scale battles with games to improve their tactical ability. Those who excel at these games often mark themselves for advancement.");
         setGameText("Deploy on your general or commander. When battling, adds 1 to your total battle destiny (or 2 if Igar). Once during each of your control phases, may take one Imperial Propaganda into hand from Reserve Deck; reshuffle. Your Force drains are +1 at holosites.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

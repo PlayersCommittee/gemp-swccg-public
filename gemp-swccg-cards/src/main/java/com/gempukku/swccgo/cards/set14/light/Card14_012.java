@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set14.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card14_012 extends AbstractAlien {
     public Card14_012() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Gungan General", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Gungan General", Uniqueness.RESTRICTED_3, ExpansionSet.THEED_PALACE, Rarity.C);
         setLore("Many Gungans spend years studying the art of war in the depths of Otoh Gunga. Only at the Battle of Naboo were these Gungans able to exercise that knowledge. Leader.");
         setGameText("Deploys -1 to Naboo. Your Gungans at same site are forfeit +2. While in a battle, if you just drew a Gungan for battle destiny you may take that card into hand.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.WARRIOR);

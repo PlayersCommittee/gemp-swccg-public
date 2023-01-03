@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsAtLocationEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card8_026 extends AbstractAlien {
     public Card8_026() {
-        super(Side.LIGHT, 3, 1, 0, 1, 1, "Romba", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 1, 0, 1, 1, "Romba", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Proud Ewok scout. Defended his tribe against the Empire's war machines and stormtroopers.");
         setGameText("Deploys only on Endor. Power and forfeit +1 for each Light side icon at same Endor site. When on Endor, adds 1 to your Force generation at each Endor site with an Ewok present.");
         addIcons(Icon.ENDOR);

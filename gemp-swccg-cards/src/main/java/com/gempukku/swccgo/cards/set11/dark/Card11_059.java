@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_059 extends AbstractAlien {
     public Card11_059() {
-        super(Side.DARK, 2, 3, 4, 2, 3, "Lathe", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 2, 3, "Lathe", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Was one of Jabba's vile Nikto henchmen. Leaving Tatooine to see what the galaxy has to offer. Deep down, he loathes the slave trade. Information broker.");
         setGameText("Adds 2 to power of anything he pilots. If opponent has 2 or more aliens of the same title at this site, may place Lathe in Lost Pile to cause all of them to be lost. Once per turn, may use 1 Force to shuffle opponent's Reserve Deck.");
         addIcons(Icon.TATOOINE, Icon.PILOT);

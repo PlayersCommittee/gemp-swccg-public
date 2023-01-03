@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card11_051 extends AbstractAlien {
     public Card11_051() {
-        super(Side.DARK, 1, 4, 4, 4, 3, Title.Aurra_Sing, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 4, 3, Title.Aurra_Sing, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Bounty hunter. Former student of the Force. After failing her Jedi training, Aurra became known for hunting down and killing Jedi Knights.");
         setGameText("May use any 'stolen' lightsaber. Once per turn, may steal a lightsaber from an opponent's character just lost where present. Immune to attrition < 3 (< 5 while armed with a lightsaber).");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.WARRIOR);

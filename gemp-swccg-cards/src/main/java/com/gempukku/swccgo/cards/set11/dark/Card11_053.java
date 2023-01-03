@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set11.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfReserveDeckEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card11_053 extends AbstractAlien {
     public Card11_053() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "Daroe", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "Daroe", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("Jawa who has inside connections with the Empire. Frequently speaks with his Imperial contact, whom he reports to regarding Rebel activity in the Outer Rim.");
         setGameText("Adds 2 to power of anything he pilots. If opponent initiates a battle at same system, may reveal the top card of your Reserve Deck. If it is a Star Destroyer, may deploy it here for free. Otherwise, card is lost.");
         addIcons(Icon.TATOOINE, Icon.PILOT);

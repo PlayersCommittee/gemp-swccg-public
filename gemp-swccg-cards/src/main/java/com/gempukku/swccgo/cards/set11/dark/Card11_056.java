@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set11.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card11_056 extends AbstractAlien {
     public Card11_056() {
-        super(Side.DARK, 2, 2, 4, 2, 3, Title.Gamall_Wironicc, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 4, 2, 3, Title.Gamall_Wironicc, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Strange wanderer. Rumored to have sacrificed himself in battle so that his comrades could live on. Survived and now stranded on Tatooine. He misses everything he'll never be.");
         setGameText("Adds 1 to power of anything he pilots. While Gamall is in battle, your other characters present with him may not be targeted by opponent's weapons. Place Gamall in Used Pile if he was just 'hit'. Power -2 while on Tatooine.");
         addIcons(Icon.TATOOINE, Icon.PILOT, Icon.WARRIOR);

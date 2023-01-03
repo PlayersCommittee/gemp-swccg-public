@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DrivingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -14,7 +21,11 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.PutCardFromLostPileInUsedPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveTotalAbilityReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
@@ -30,7 +41,7 @@ import java.util.List;
  */
 public class Card202_011 extends AbstractAlien {
     public Card202_011() {
-        super(Side.DARK, 3, 3, 2, 2, 3, "Pote Snitkin", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 2, 2, 3, "Pote Snitkin", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setVirtualSuffix(true);
         setLore("Skrilling smuggler. Supplied Jabba's henchmen with weapons when he was Hermi Odle's predecessor. An excellent driver.");
         setGameText("While driving a vehicle, adds one battle destiny and your total ability here may not be reduced. At same and related sites, Skrillings are power and forfeit +2, and, once per game, your just-lost transport vehicle may be 'recycled' (place in Used Pile).");

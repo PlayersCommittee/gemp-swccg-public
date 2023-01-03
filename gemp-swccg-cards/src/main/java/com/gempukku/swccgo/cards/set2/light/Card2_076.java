@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card2_076 extends AbstractCreatureVehicle {
     public Card2_076() {
-        super(Side.LIGHT, 4, 2, 2, null, 2, 1, 3, "Rogue Bantha", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.C);
+        super(Side.LIGHT, 4, 2, 2, null, 2, 1, 3, "Rogue Bantha", Uniqueness.UNIQUE, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Fled into the wilderness after mistreatment by a young Tusken Raider. Raised by moisture farmer. Friendly toward strangers, but attacks Tusken Raiders on sight.");
         setGameText("May add 2 'riders' (passengers). Bantha ability = 1/2. May move as a 'react.' Whenever a battle was just initiated at same site, one Tusken Raider present (your choice) is 'trampled' (immediately lost).");
         addIcons(Icon.A_NEW_HOPE);

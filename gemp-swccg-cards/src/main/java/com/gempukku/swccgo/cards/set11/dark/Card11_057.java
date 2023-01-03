@@ -5,7 +5,9 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
 import com.gempukku.swccgo.cards.evaluators.AtSameOrAdjacentSitesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Card11_057 extends AbstractAlien {
     public Card11_057() {
-        super(Side.DARK, 3, 4, 5, 2, 3, "Ghana Gleemort", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 5, 2, 3, "Ghana Gleemort", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Part of Jabba's Gamorrean security force. Negotiating with the B'omarr monks regarding his possible defection.");
         setGameText("Your Force generation at same site is +X, where X equals the number of opponent's aliens at same and adjacent sites. May lose 1 Force to cancel a Force drain at an adjacent site.");
         addIcons(Icon.TATOOINE, Icon.WARRIOR);

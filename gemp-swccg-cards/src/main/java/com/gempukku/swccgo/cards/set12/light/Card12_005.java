@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set12.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class Card12_005 extends AbstractAlien {
     public Card12_005() {
-        super(Side.LIGHT, 3, 2, 3, 2, 4, "Freon Drevan", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, 2, 4, "Freon Drevan", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("Xexto who had his business license revoked when his partner siphoned away his credits, fled the system, and left him with the tax debt.");
         setGameText("Cancels game text of opponent's accountants and tax collectors at same or adjacent site. While in a battle at a site, your battle destiny draws may not be canceled, and you may not draw more than two battle destiny.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

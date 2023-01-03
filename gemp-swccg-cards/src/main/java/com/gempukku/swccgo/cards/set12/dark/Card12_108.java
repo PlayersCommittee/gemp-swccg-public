@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.ReduceForceDrainEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card12_108 extends AbstractAlien {
     public Card12_108() {
-        super(Side.DARK, 3, null, 1, 1, 1, "Jawa");
+        super(Side.DARK, 3, null, 1, 1, 1, "Jawa", Uniqueness.UNRESTRICTED, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("Every now and then, Jawas will pause in their scavenging duties to take in a Podrace. Many believe this is only because they want to be first to a crash scene.");
         setGameText("Deploys only on Tatooine. *To deploy, requires 1 Force from each players' Force Pile. Power +1 on Tatooine. While with another Jawa, if opponent just initiated a Force drain at adjacent site, may use 2 Force to reduce it by 1.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

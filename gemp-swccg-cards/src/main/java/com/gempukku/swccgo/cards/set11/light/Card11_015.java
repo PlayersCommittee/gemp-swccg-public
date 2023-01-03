@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card11_015 extends AbstractAlien {
     public Card11_015() {
-        super(Side.LIGHT, 2, 2, 2, 2, 3, "Yotts Orren", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 3, "Yotts Orren", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("Kadas'sa'Nikto. Smuggler who stole from shipments going in and out of Jabba's Palace. Part of Jabba's sail barge crew. Not trusted by anyone.");
         setGameText("Adds 2 to power of anything he pilots. Opponent's combat vehicles are each power -2 at same site. Once per game, may take Mechanical Failure and/or Free Ride into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.TATOOINE, Icon.PILOT, Icon.WARRIOR);

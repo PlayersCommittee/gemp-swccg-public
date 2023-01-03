@@ -4,10 +4,12 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -38,7 +40,7 @@ import java.util.List;
  */
 public class Card220_005 extends AbstractAlien {
     public Card220_005() {
-        super(Side.DARK, 1, 3, 3, 4, 4, "Zuckuss", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 4, 4, "Zuckuss", Uniqueness.UNIQUE, ExpansionSet.SET_20, Rarity.V);
         setVirtualSuffix(true);
         setLore("Male Gand. Practitioner of ancient religious findsman vocation. Bounty hunter and scout. Gains surprisingly accurate information through mystical visions during meditation.");
         setGameText("Adds 2 to power of anything he pilots. Power and defense value +2 with 4-LOM. Once during battle, if opponent just drew weapon or battle destiny, may draw destiny; reset opponent's destiny number to your drawn destiny number. Immune to attrition < 3.");

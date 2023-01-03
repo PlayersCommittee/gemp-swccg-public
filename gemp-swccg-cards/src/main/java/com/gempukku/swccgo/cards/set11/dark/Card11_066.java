@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card11_066 extends AbstractAlien {
     public Card11_066() {
-        super(Side.DARK, 3, 2, 3, 2, 4, Title.Watto, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, 2, 4, Title.Watto, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setAlternateImageSuffix(true);
         setLore("Toydarian junk dealer. Skilled gambler. Won Shmi and Anakin in a Podrace bet with Gardulla the Hutt. Jedi mind tricks don't work on him, only money.");
         setGameText("May 'fly' (landspeed = 2). Once during each of your turns, may take Watto's Chance Cube into hand from Reserve Deck; reshuffle.");
