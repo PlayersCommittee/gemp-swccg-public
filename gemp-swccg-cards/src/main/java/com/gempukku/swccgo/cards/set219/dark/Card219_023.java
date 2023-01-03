@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set219.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card219_023 extends AbstractAlien {
     public Card219_023() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "Tusken Raider With Hunting Rifle");
+        super(Side.DARK, 2, 2, 2, 2, 3, "Tusken Raider With Hunting Rifle", Uniqueness.UNRESTRICTED, ExpansionSet.SET_19, Rarity.V);
         setGameText("Permanent weapon is Hunting Rifle (may target a character or creature; draw destiny; " +
                     "target hit and forfeit -2 if destiny +1 > defense value. If firing from Dune Sea, " +
                     "Jundland Wastes, or a canyon, targets at an adjacent site or adds 1 to weapon destiny).");

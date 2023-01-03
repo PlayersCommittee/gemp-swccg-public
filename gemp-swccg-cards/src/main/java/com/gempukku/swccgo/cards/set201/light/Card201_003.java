@@ -1,7 +1,13 @@
 package com.gempukku.swccgo.cards.set201.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,7 +27,7 @@ import java.util.List;
  */
 public class Card201_003 extends AbstractAlien {
     public Card201_003() {
-        super(Side.LIGHT, 2, 3, 2, 4, 4, "Melas", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 4, 4, "Melas", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Sarkan smuggler. Smokes an Essoomian gruu pipe to heighten awareness. Exiled from his home planet of Sarka for displaying curiosity in other aliens. Misses his homeworld.");
         setGameText("[Pilot] 2. Opponent's starships here may not 'cloak'. Smoke Screen is a Used Interrupt when targeting Melas.");

@@ -4,19 +4,33 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /*
  * Set: Set 10
@@ -26,7 +40,7 @@ import java.util.*;
  */
 public class Card210_022 extends AbstractAlien {
     public Card210_022() {
-        super(Side.LIGHT, 3, 2, 2, 2, 2, Title.Paploo, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 2, Title.Paploo, Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Ewok scout. Son of Warok. Brave, adventurous thief. Stole an Imperial speeder bike to create a diversion. 'Not bad for a little furball.'");
         setGameText("While on Endor, Perimeter Patrol is suspended. Once per game, if in battle with a speeder bike (or two scouts), may relocate Paploo and one opponent's character of ability < 4 present with him (unless either are ‘hit’) to an adjacent site.");
         addIcons(Icon.VIRTUAL_SET_10, Icon.ENDOR);

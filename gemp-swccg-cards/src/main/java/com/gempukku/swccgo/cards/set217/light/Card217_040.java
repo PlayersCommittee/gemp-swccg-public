@@ -2,11 +2,23 @@ package com.gempukku.swccgo.cards.set217.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.MayUseWeaponModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MovesForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +31,7 @@ import java.util.List;
  */
 public class Card217_040 extends AbstractAlien {
     public Card217_040() {
-        super(Side.LIGHT, 1, 5, 4, 5, 7, "Mara Jade", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 5, 4, 5, 7, "Mara Jade", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Female smuggler.");
         setGameText("[Pilot] 2. While Luke or Talon Karrde on table, power +1 and she moves for free. Anakin's Lightsaber may deploy on your Mara. Immune to attrition < 4.");
         addKeywords(Keyword.FEMALE, Keyword.SMUGGLER);

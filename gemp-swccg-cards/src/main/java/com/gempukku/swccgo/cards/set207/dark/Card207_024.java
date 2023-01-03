@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card207_024 extends AbstractAlien {
     public Card207_024() {
-        super(Side.DARK, 4, 3, 3, 3, 5, Title.Sidon, Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 3, 3, 5, Title.Sidon, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Delphidian pirate. Leader.");
         setGameText("[Pilot] 2, 3: Meson Martinet. Once per turn, may place opponent’s character just lost from here out of play, unless opponent loses 1 Force (2 if your Rep is a pirate or you did not deploy an Objective).");
         addIcons(Icon.JABBAS_PALACE, Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_7);

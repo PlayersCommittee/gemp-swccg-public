@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set200.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.DeployAsCaptiveOption;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -40,7 +47,7 @@ import java.util.List;
  */
 public class Card200_016 extends AbstractAlien {
     public Card200_016() {
-        super(Side.LIGHT, 0, 0, 0, 0, 0, Title.The_Mythrol, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, 0, 0, 0, 0, Title.The_Mythrol, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("The Mythrol's game text may not be canceled. If about to leave table, place out of play. " +
                 "Plays only during start of game by revealing from outside your deck to replace a just-deployed Jabba's Prize imprisoned in Security Tower. If not revealed, place this card under your Starting Effect. " +

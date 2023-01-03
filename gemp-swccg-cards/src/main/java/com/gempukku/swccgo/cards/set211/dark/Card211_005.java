@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card211_005 extends AbstractAlien {
     public Card211_005() {
-        super(Side.DARK, 3, 3, 3, 3, 3, Title.ReeYees, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 3, 3, Title.ReeYees, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Gran convicted of murder. Exiled from his homeworld. Smuggler and bounty hunter. Slowly going insane. Fond of making things explode. Plotting to kill Jabba.");
         setGameText("Non-[Maintenance] Bounty hunters here may not be targeted by Rebel Barrier or Clash of Sabers. Whenever you draw a destiny of 3, may choose: activate 1 Force, draw bottom card of Used Pile, or place a card from hand on top of Used Pile.");
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_11, Icon.WARRIOR);

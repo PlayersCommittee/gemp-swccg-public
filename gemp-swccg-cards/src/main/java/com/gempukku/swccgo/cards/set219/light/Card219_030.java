@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set219.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.BlownAwayCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +35,7 @@ import java.util.List;
  */
 public class Card219_030 extends AbstractAlien {
     public Card219_030() {
-        super(Side.LIGHT, 2, 4, 4, 2, 5, "Cara Dune With Heavy Blaster Rifle", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 4, 2, 5, "Cara Dune With Heavy Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setArmor(5);
         setLore("Female Alderaanian. Gambler. Trooper.");
         setGameText(" If Alderaan has been 'blown away,' Force drain +1 here. " +

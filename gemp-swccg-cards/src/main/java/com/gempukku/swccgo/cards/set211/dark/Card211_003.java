@@ -5,7 +5,18 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.RevealTopCardsOfCardPileAndTakeCardsIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +42,7 @@ import java.util.List;
  */
 public class Card211_003 extends AbstractAlien {
     public Card211_003(){
-        super(Side.DARK, 2, 4, 2, 4, 6, Title.Proxima, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 2, 4, 6, Title.Proxima, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Female Grindalid. Gangster. Leader.");
         setGameText("Lost if at an exterior site. While with two of your other aliens, adds one battle destiny. During your control phase, may reveal the top three cards of your Reserve Deck, take one alien into hand (if possible), and shuffle your Reserve Deck.");
         addIcons(Icon.VIRTUAL_SET_11);

@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.StackedOnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +20,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -28,7 +39,7 @@ import java.util.List;
  */
 public class Card205_013 extends AbstractAlien {
     public Card205_013() {
-        super(Side.DARK, 2, 3, 4, 3, 5, "Hondo Ohnaka", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 3, 5, "Hondo Ohnaka", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setLore("Weequay gangster, leader, and pirate.");
         setGameText("Draws one battle destiny if not able to otherwise. While at Audience Chamber (or stacked on your Objective), " +
                     "your other Weequays are deploy -1, power +1, and forfeit +2. Once per game, may [download] Aurra, Slave I, or a Kowakian.");

@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringAttackWithParticipantCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card217_011 extends AbstractAlien {
     public Card217_011() {
-        super(Side.DARK, 2, 4, 6, 2, 5, "Grummgar", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 6, 2, 5, "Grummgar", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Dowutin mercenary.");
         setGameText("During battle with an information broker (or during an attack), adds one destiny to total power. Once per game, may [download] a creature (or a blaster or rifle without 'lost' in game text) here.");
         setSpecies(Species.DOWUTIN);

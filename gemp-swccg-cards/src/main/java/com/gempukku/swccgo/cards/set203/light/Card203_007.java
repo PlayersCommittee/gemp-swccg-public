@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set203.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card203_007 extends AbstractAlien {
     public Card203_007() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Leslomy Tacema", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Leslomy Tacema", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("Female Duros. Expert pilot. Helps run the docking facilities in Mos Eisley. Friends with Ellorrs Madak. Approves all cargo manifests. Forgiving of minor transgressions.");
         setGameText("[Pilot] 3. Smuggler. Adds 1 to hyperspeed of any freighter she pilots. Your total ability at same docking bay or system may not be reduced. Once per game, may [download] a card with 'Ellorrs' in title here.");

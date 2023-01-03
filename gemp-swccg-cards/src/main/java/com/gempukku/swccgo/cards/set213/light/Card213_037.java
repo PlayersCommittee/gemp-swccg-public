@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.conditions.UtinniEffectCompletedCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -12,7 +20,11 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.TakeStackedCardIntoHandEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.GenerateNoForceModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +38,7 @@ import java.util.List;
  */
 public class Card213_037 extends AbstractAlien {
     public Card213_037() {
-        super(Side.LIGHT, 1, 2, 3, 3, 5, "Han... Solo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 2, 3, 3, 5, "Han... Solo", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Corellian gambler, smuggler, and thief.");
         setGameText("Adds 2 to power and maneuver of anything he pilots or drives. If exactly one 'coaxium' card here, may take it into hand. While piloting Falcon and you have completed a Kessel Run, adds one battle destiny and opponent generates no Force here.");
         addPersona(Persona.HAN);

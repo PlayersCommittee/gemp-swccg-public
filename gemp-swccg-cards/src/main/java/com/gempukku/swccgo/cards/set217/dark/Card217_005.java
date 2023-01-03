@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set217.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card217_005 extends AbstractAlien {
     public Card217_005() {
-        super(Side.DARK, 2, 3, 6, 1, 4, "Burg", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 6, 1, 4, "Burg", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setArmor(3);
         setLore("Devaronian mercenary.");
         setGameText("Once during battle, may use 1 Force to make Burg power +2 for remainder of turn. Once during battle, opponent may use 1 Force to make Burg power -2 for remainder of turn. At the end of each of your turns, use 1 Force or place Burg in Used Pile.");

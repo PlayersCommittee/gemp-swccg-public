@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set203.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card203_024 extends AbstractAlien {
     public Card203_024() {
-        super(Side.DARK, 2, 4, 4, 3, 5, "Cad Bane", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 3, 5, "Cad Bane", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setArmor(5);
         setLore("Duros bounty hunter.");
         setGameText("[Pilot] 2. Your other bounty hunters here are power +1. Draws one battle destiny if unable to otherwise. During battle, if with your other bounty hunter, may cancel the immunity to attrition of a Jedi here.");

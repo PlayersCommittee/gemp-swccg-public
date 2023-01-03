@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card216_040 extends AbstractAlien {
     public Card216_040() {
-        super(Side.LIGHT, 3, 4, 3, 2, 4, "Offworld Jawas", Uniqueness.RESTRICTED_2);
+        super(Side.LIGHT, 3, 4, 3, 2, 4, "Offworld Jawas", Uniqueness.RESTRICTED_2, ExpansionSet.SET_16, Rarity.V);
         setLore("Jawa. Scavenger. Thief.");
         setGameText("Draws one battle destiny if unable to otherwise. If you just verified opponent's Reserve Deck, may use 1 Force to search that Reserve Deck and place one device, weapon, or unpiloted starship there in Lost Pile; reshuffle. If none there, opponent loses 1 Force.");
         setSpecies(Species.JAWA);

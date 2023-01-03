@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set216.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card216_020 extends AbstractAlien {
     public Card216_020() {
-        super(Side.LIGHT, 2, 4, 4, 2, 5, "Alien Rabble", Uniqueness.DIAMOND_1);
+        super(Side.LIGHT, 2, 4, 4, 2, 5, "Alien Rabble", Uniqueness.DIAMOND_1, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("This card has your Rep's species. When deployed, may retrieve a Rep or place a Rep stacked on your Objective in Used Pile. Once per turn, if No Love For The Empire on table and you just retrieved Force, may place top card of Used Pile on Force Pile.");
         addIcons(Icon.VIRTUAL_SET_16);

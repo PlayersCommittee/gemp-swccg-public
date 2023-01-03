@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set207.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card207_004 extends AbstractAlien {
     public Card207_004() {
-        super(Side.LIGHT, 2, 3, 2, 3, 5, Title.Dice_Ibegon, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 2, 3, 5, Title.Dice_Ibegon, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Female companion of Lak Sivrak. A Florn lamproid. Dangerous predator with a poison stinger. Rumored to have mysterious time-shifting attunement to the Force.");
         setGameText("Power +2 at a Jabba’s Palace or Endor site. If just lost, place Dice in Used Pile. If opponent is about to draw destiny for an Interrupt targeting your character here, opponent must first lose 1 Force, then shuffle their Reserve Deck.");

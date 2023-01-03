@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RevealTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -32,7 +41,7 @@ import java.util.List;
  */
 public class Card200_017 extends AbstractAlien {
     public Card200_017() {
-        super(Side.LIGHT, 4, 3, 2, 4, 3, "Leesub Sirln", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 3, 2, 4, 3, "Leesub Sirln", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Leesub is a Qiraash (near-human). Enslaved as child. Limited precognition. Selected by Imperial High Inquisitor Tremayne as Force adept. Escaped and hiding in Mos Eisley.");
         setGameText("Once during your control phase, may use 1 Force to name a card type. Reveal top card of opponent's Reserve Deck. If that card matches the named card type, it is lost. Otherwise, replace it or move it to opponent's Used Pile. Immune to attrition < 3.");

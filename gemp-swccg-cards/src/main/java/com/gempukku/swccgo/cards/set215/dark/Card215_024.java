@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set215.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +38,7 @@ import java.util.List;
  */
 public class Card215_024 extends AbstractAlien {
     public Card215_024() {
-        super(Side.DARK, 2, 3, 3, 3, 5, "Dannik Jerriko", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 5, "Dannik Jerriko", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLore("Anzati assassin. Cheek-folds hide proboscises which allow him to 'eat the soup' (consume the life Force) of his victims. Smokes t'bac. Currently working for Jabba.");
         setGameText("Opponent's characters just lost from here may not be removed from Lost Pile (except to be placed out of play). While present at a site and armed with a blaster, adds one battle destiny. Cards hit by Dannik are power and forfeit -2.");

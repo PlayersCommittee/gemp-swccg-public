@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +40,7 @@ import java.util.List;
 
 public class Card209_014 extends AbstractAlien {
     public Card209_014() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Yoxgit", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Yoxgit", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Male Ugnaught. Left Cloud City after the Empire took control. Works for Hermi Odle, helping to supply him with various weaponry. Hopes to someday return to Cloud City.");
         setGameText("Deploys free to (and power +2 at) a Cloud City, Jabba's Palace, or Maz's Castle location. Once per turn, if you just drew an alien (or [Independent] starship) for destiny, may take that card into hand to cancel and redraw that destiny.");
         addIcons(Icon.VIRTUAL_SET_9, Icon.JABBAS_PALACE);

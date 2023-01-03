@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set213.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,7 +22,10 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -29,7 +41,7 @@ import java.util.List;
  */
 public class Card213_043 extends AbstractAlien {
     public Card213_043() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Val", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Val", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Female scout, smuggler, and thief.");
         setGameText("May forfeit in place of your 'hit' [Set 13] smuggler here, restoring that smuggler to normal. Permanent weapon is Blaster Pistol (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
         addKeywords(Keyword.FEMALE, Keyword.SCOUT, Keyword.SMUGGLER, Keyword.THIEF);

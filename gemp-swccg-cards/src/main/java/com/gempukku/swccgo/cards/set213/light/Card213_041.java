@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card213_041 extends AbstractAlien {
     public Card213_041() {
-        super(Side.LIGHT, 4, 3, 3, 2, 4, "Rio Durant", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 3, 3, 2, 4, "Rio Durant", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Ardennian smuggler and thief.");
         setGameText("Adds 2 to power of anything he pilots. Once per turn, if you just deployed a smuggler here, may place a card from hand in Used Pile to activate 2 Force. Once per game, if you just won a battle here, may steal a starfighter from opponent's Lost Pile into hand.");
         addPersona(Persona.RIO);

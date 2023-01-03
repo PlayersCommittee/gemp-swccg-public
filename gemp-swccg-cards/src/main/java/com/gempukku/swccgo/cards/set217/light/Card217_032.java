@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Card217_032 extends AbstractAlien {
     public Card217_032() {
-        super(Side.LIGHT, 3, 2, 3, 2, 4, "Cliegg Lars", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 3, 2, 4, "Cliegg Lars", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLore("Moisture farmer.");
         setGameText("While present with Shmi, Vader may not fire weapons here. Once per game, may [download] Owen (or a device that deploys on a site) here. If with Shmi or a Vaporator, Force drain +1 here.");
         addIcons(Icon.WARRIOR, Icon.EPISODE_I, Icon.VIRTUAL_SET_17);

@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card219_025 extends AbstractAlien {
     public Card219_025() {
-        super(Side.DARK, 4, 2, 2, 2, 4, "Unkar Plutt", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 2, 2, 2, 4, "Unkar Plutt", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLore("Crolute scavenger and thief.");
         setGameText("Your battle destiny draws here are +¼ for each device, droid, starship, vehicle, or weapon card here. " +
                     "During battle with an opponent's droid, adds one destiny to total power. Once per game, may retrieve a device or character weapon.");

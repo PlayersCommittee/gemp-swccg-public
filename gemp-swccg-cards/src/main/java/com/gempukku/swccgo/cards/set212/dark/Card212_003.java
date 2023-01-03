@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set212.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,7 +28,7 @@ import java.util.List;
  */
 public class Card212_003 extends AbstractAlien {
     public Card212_003() {
-        super(Side.DARK, 2, 4, 4, 4, 5, "Aurra Sing With Blaster Rifle", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 4, 5, "Aurra Sing With Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.SET_12, Rarity.V);
         setLore("Bounty hunter. Assassin.");
         setGameText("Permanent weapon is Aurra Sing's Blaster Rifle. May target a character for free, draw destiny(2 if targeting a jedi), target hit and forfeit=0, if destiny +1 > defense value.");
         addIcons(Icon.EPISODE_I, Icon.WARRIOR, Icon.VIRTUAL_SET_12, Icon.PERMANENT_WEAPON);

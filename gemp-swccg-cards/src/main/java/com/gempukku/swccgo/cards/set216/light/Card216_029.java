@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set216.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleCondition;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +29,7 @@ import java.util.List;
  */
 public class Card216_029 extends AbstractAlien {
     public Card216_029() {
-        super(Side.LIGHT, 2, 4, 2, 4, 6, "Grogu", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 2, 4, 6, "Grogu", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("While defending a battle, Interrupts may not be played unless they are [Immune to Sense]. Opponent may not target Grogu with weapons unless each of your Mandalorians and non-[Episode I] Jedi present are 'hit.' Immune to attrition < 3.");
         addPersona(Persona.GROGU);

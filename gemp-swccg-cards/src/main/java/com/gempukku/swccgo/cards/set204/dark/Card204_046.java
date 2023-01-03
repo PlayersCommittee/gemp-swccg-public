@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set204.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AloneCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card204_046 extends AbstractAlien {
     public Card204_046() {
-        super(Side.DARK, 2, 3, 4, 2, 4, "Zam Wesell", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 2, 4, "Zam Wesell", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setArmor(4);
         setLore("Female Clawdite bounty hunter.");
         setGameText("[Pilot] 2. If alone, draws one battle destiny if unable to otherwise. If opponent's leader just lost from same site, opponent loses 2 Force. If just lost, may search your Force Pile and take any one card into hand; reshuffle.");

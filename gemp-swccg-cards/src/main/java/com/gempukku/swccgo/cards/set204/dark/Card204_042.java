@@ -1,11 +1,23 @@
 package com.gempukku.swccgo.cards.set204.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToFireWeaponModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotUseCardToTransportToOrFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +30,7 @@ import java.util.List;
  */
 public class Card204_042 extends AbstractAlien {
     public Card204_042() {
-        super(Side.DARK, 2, 2, 3, 1, 4, Title.Greedo, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 3, 1, 4, Title.Greedo, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setVirtualSuffix(true);
         setLore("Male Rodian bounty hunter. Sent by Jabba to capture Han. Arrogant, overconfident and not too bright. Trained by bounty hunters Nataz and Goa, who betrayed him to Thuku.");
         setGameText("May deploy as a 'react'. Opponent must first use 1 Force to fire a weapon at same site. Weapons fired using Sorry About The Mess must target Greedo (if possible). Nabrun Leids may not transport characters to or from here.");

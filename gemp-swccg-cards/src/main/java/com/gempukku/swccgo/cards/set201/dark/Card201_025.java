@@ -3,14 +3,26 @@ package com.gempukku.swccgo.cards.set201.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -26,7 +38,7 @@ import java.util.List;
  */
 public class Card201_025 extends AbstractAlien {
     public Card201_025() {
-        super(Side.DARK, 1, 4, 4, 3, 6, Title.Jango_Fett, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 3, 6, Title.Jango_Fett, Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setArmor(5);
         setLore("Trade Federation bounty hunter.");
         setGameText("[Pilot] 2. Adds 1 to maneuver of anything he pilots. Adds one battle destiny with opponent's Jedi, [Maintenance] card, or [Permanent Weapon] card. May be targeted by Hidden Weapons. If about to be lost, may [upload] Boba Fett.");

@@ -1,13 +1,16 @@
 package com.gempukku.swccgo.cards.set218.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.cards.AbstractRepublic;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -16,7 +19,9 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -31,7 +36,7 @@ import java.util.List;
  */
 public class Card218_029 extends AbstractAlien {
     public Card218_029() {
-        super(Side.LIGHT, 3, 3, 4, 2, 4, "Sagwa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 4, 2, 4, "Sagwa", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setLore("Wookiee slave.");
         setGameText("If drawn for destiny, each of your Wookiees is forfeit +1 for remainder of turn. While Wookiee Homestead here, opponent's spies may not deploy here and, once per turn, when your Wookiee wins a battle, may retrieve a Wookiee.");
         setSpecies(Species.WOOKIEE);

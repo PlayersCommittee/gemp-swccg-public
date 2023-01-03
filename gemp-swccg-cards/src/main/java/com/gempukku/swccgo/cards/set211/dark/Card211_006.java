@@ -2,12 +2,24 @@ package com.gempukku.swccgo.cards.set211.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +32,7 @@ import java.util.List;
  */
 public class Card211_006 extends AbstractAlien {
     public Card211_006() {
-        super(Side.DARK, 2, 3, 4, 2, 5, Title.Sebulba, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 2, 5, Title.Sebulba, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Bad tempered Dug from Pixelito. He was about to turn Jar Jar into orange goo, until Anakin intervened.");
         setGameText("[Pilot] 2. Deploys free to Mos Espa. While on Tatooine, attrition against opponent is +1 here and your Force generation is +1. When You're A Slave? places a card in your Used Pile, may draw top card of your Reserve Deck.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.TATOOINE, Icon.EPISODE_I, Icon.PILOT);

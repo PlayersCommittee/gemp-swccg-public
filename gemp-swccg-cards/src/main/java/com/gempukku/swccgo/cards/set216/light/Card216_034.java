@@ -2,7 +2,16 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.effects.CancelTargetingEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -18,7 +27,11 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Set 16
@@ -28,7 +41,7 @@ import java.util.*;
  */
 public class Card216_034 extends AbstractAlien {
     public Card216_034() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Ketwol, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Ketwol, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         setVirtualSuffix(true);
         setLore("Pacithhip scout. From an unknown system on the Outer Rim. Spends most of his time talking to pilots and travelers at local docking bays.");
         setGameText("[Pilot] 2. Your docking bay transit is free when moving to or from same site. If piloting a freighter or starfighter, may lose 1 Force to cancel an attempt by opponent to target that starship to be captured, 'hit,' or lost.");

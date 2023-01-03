@@ -5,7 +5,14 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -35,7 +42,7 @@ import java.util.List;
  */
 public class Card204_005 extends AbstractAlien {
     public Card204_005() {
-        super(Side.LIGHT, 2, 3, 5, 1, 5, "Crusher Roodown", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 5, 1, 5, "Crusher Roodown", Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Abednedo scavenger.");
         setGameText("Power -3 with Unkar Plutt. Once per battle, may use 1 Force to peek at cards stacked on Graveyard Of Giants; place one in owner's Lost Pile to add one destiny to total power at same or adjacent site. May take your starship just drawn for destiny into hand.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_4);

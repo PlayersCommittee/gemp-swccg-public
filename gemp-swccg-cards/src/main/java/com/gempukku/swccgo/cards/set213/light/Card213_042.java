@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringBattleWithParticipantCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -17,7 +24,10 @@ import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyWhenDrawnForDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -33,7 +43,7 @@ import java.util.List;
  */
 public class Card213_042 extends AbstractAlien {
     public Card213_042() {
-        super(Side.LIGHT, 0, 3, 4, 3, 5, "Tobias Beckett", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 0, 3, 4, 3, 5, "Tobias Beckett", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Glee Anselmian smuggler. Information broker, musician, and thief.");
         setGameText("If Vos or a [Set 13] smuggler on table, destiny +3 when drawn for destiny. Cancels Aurra's game text here. If just lost, may place out of play (for remainder of game, Han adds one battle destiny). If opponent just initiated a battle here, Beckett may fire a blaster.");
         addPersona(Persona.BECKETT);

@@ -3,13 +3,23 @@ package com.gempukku.swccgo.cards.set209.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
-
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeReducedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotAddBattleDestinyDrawsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +32,7 @@ import java.util.List;
  */
 public class Card209_033 extends AbstractAlien {
     public Card209_033() {
-        super(Side.DARK, 2, 3, 4, 2, 5, "Bala-Tik", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 2, 5, "Bala-Tik", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Gangster, information broker, and leader.");
         setGameText("[Pilot]2.  While with Han, he may not add battle destiny draws or play an Interrupt from Lost Pile.  While at opponent's battleground, opponent may not cancel or reduce your force drains here.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_9, Icon.PILOT, Icon.WARRIOR);

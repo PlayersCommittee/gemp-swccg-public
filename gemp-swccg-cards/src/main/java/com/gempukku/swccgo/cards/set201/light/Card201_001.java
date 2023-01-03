@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set201.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +41,7 @@ import java.util.List;
  */
 public class Card201_001 extends AbstractAlien {
     public Card201_001() {
-        super(Side.LIGHT, 1, 3, 3, 3, 6, "Lando Calrissian", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 3, 6, "Lando Calrissian", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Gambler. Scoundrel. Former owner of the Millennium Falcon. Despite a notorious past, has become a successful chief administrator of a Tibanna gas mining facility.");
         setGameText("[Pilot] 2. Smuggler. When deployed, may [upload] a character with 'Cloud City' in lore. During battle, may use 1 Force to cancel the game text of a Dark Jedi (except Vader) at same site.");

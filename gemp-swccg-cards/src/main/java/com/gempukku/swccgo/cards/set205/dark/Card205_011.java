@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card205_011 extends AbstractAlien {
     public Card205_011() {
-        super(Side.DARK, 2, 2, 2, 2, 3, Title.Dathcha, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, Title.Dathcha, Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jawa adventurer and trader. Famous for taunting a krayt dragon and escaping to tell the tale. Wants to leave Tatooine to explore the galaxy.");
         setGameText("Scavenger. Once per turn, if your droid just deployed to same site, may peek at the top two cards of your Reserve Deck (may take one into hand). During battle here, may forfeit Dathcha (or one non-[Permanent Weapon] droid) to Used Pile (using forfeit value = 3).");

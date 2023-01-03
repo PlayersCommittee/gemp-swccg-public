@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set209.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card209_035 extends AbstractAlien {
     public Card209_035() {
-        super(Side.DARK, 3, 3, 3, 3, 3, "Dr. Chelli Lona Aphra", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 3, 3, "Dr. Chelli Lona Aphra", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Female information broker, spy, and thief. Trade Federation.");
         setGameText("[Pilot]1. Deploys free to an unoccupied site. Your droids are deploy -1 here. When deployed, may search your Lost Pile and move one card there to the top of that pile (if that card is a droid, may retrieve it into hand).");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_9);

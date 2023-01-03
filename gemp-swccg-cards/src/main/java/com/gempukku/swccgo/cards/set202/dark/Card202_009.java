@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.RetargetWeaponEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,7 +44,7 @@ import java.util.List;
  */
 public class Card202_009 extends AbstractAlien {
     public Card202_009() {
-        super(Side.DARK, 3, 2, 2, 2, 4, "Daroe", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 4, "Daroe", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jawa who has inside connections with the Empire. Frequently speaks with his Imperial contact, whom he reports to regarding Rebel activity in the Outer Rim.");
         setGameText("[Pilot] 2. Information Broker. When deployed, may [download] a droid here or a Retraining Bolt. During battle, may retarget an opponent's weapon targeting your droid to another one of your characters present (even Daroe).");

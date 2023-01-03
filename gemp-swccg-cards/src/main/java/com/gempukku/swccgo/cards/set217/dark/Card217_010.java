@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,7 +40,7 @@ import java.util.List;
  */
 public class Card217_010 extends AbstractAlien {
     public Card217_010() {
-        super(Side.DARK, 2, 3, 3, 3, 5, "Gar Saxon", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 5, "Gar Saxon", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setArmor(5);
         setLore("Mandalorian leader. Death Watch assassin.");
         setGameText("If deployed to a site where opponent has more than four characters, opponent loses 2 Force. Jedi here are defense value -1 for each of your Mandalorians here. While armed (or with a Mandalorian), opponent may not move away from (or cancel) battles here.");

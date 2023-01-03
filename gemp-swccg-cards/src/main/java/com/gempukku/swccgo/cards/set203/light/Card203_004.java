@@ -3,7 +3,17 @@ package com.gempukku.swccgo.cards.set203.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +46,7 @@ import java.util.List;
  */
 public class Card203_004 extends AbstractAlien {
     public Card203_004() {
-        super(Side.LIGHT, 3, 3, 3, 2, 4, "Ellorrs Madak, Pilot Instructor", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 2, 4, "Ellorrs Madak, Pilot Instructor", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLore("Duros scout and smuggler.");
         setGameText("[Pilot] 3. Adds to 2 hyperspeed of any freighter he pilots. During your move phase, may use 1 Force to 'break cover' of opponent's Undercover spy at same site. Cancels Lateral Damage targeting your starship at same or related system.");
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_3);

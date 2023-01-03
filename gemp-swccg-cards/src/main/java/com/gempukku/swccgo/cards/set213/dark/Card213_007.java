@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set213.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card213_007 extends AbstractAlien {
     public Card213_007() {
-        super(Side.DARK, 3, 4, 3, 2, 4, "Hylobon Enforcer", Uniqueness.RESTRICTED_2);
+        super(Side.DARK, 3, 4, 3, 2, 4, "Hylobon Enforcer", Uniqueness.RESTRICTED_2, ExpansionSet.SET_13, Rarity.V);
         setLore("Crimson Dawn. Hylobon guard.");
         setGameText("Deploy -1 and forfeit +1 at same or related location as Vos or at an opponent's site. Permanent weapon is Percussive Cannon (may target a character using 1 Force; draw destiny; if destiny +1 > defense value, target's game text is canceled for remainder of turn).");
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_13);

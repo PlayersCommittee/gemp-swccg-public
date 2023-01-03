@@ -1,7 +1,17 @@
 package com.gempukku.swccgo.cards.set205.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -9,7 +19,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
+import com.gempukku.swccgo.logic.effects.HitCardEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -30,7 +44,7 @@ import java.util.List;
  */
 public class Card205_023 extends AbstractAlien {
     public Card205_023() {
-        super(Side.DARK, 1, 3, 3, 2, 5, "Dengar", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 3, 3, 2, 5, "Dengar", Uniqueness.UNIQUE, ExpansionSet.SET_5, Rarity.V);
         setVirtualSuffix(true);
         setLore("Corellian bounty hunter. Assassin trained by the Empire. Has reflex-enhancing cyber-implants. Gravely injured during a swoop race in the crystal swamp of Agrilat. Blames Han Solo.");
         setGameText("[Pilot] 2. Characters about to be 'hit' by Dengar may be captured instead. If Dengar is about to be 'hit' while escorting a captive, captive is hit instead. If Dengar just seized a Rebel or a smuggler, opponent loses 1 Force (2 if Han).");

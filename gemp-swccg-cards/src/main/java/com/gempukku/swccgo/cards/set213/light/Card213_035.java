@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set213.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +37,7 @@ import java.util.List;
  */
 public class Card213_035 extends AbstractAlien {
     public Card213_035() {
-        super(Side.LIGHT, 3, 2, 2, 3, 4, "Captain Lando Calrissian", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 3, 4, "Captain Lando Calrissian", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Smuggler and gambler.");
         setGameText("[Pilot] 2. If a battle was just initiated here, may exchange a card in hand with an Interrupt of destiny = 4 from Reserve Deck; reshuffle. Once per game, if you have completed a Kessel Run, may return your Lando to hand.");
         addPersona(Persona.LANDO);

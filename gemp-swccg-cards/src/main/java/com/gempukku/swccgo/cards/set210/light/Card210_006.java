@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelCardResultEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardActionReason;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +37,7 @@ import java.util.List;
  */
 public class Card210_006 extends AbstractAlien {
     public Card210_006() {
-        super(Side.LIGHT, 1, 3, 3, 4, 5, "BoShek", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 3, 3, 4, 5, "BoShek", Uniqueness.UNIQUE, ExpansionSet.SET_10, Rarity.V);
         setLore("Rogue pilot. Outlaw starship tech. Has secret lab in Mos Eisley. He bragged about beating Han Solo's Kessel Run record. Left fringe life behind after meeting Obi-Wan Kenobi.");
         setGameText("[Pilot] 3. BoShek's deploy cost may not be increased. During battle, may use 1 Force to subtract 1 from opponent's just drawn destiny or cancel an attempt to cancel and redraw a destiny. Immune to attrition < 3.");
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_10);

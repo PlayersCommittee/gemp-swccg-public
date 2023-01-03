@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set216.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +32,7 @@ import java.util.List;
  */
 public class Card216_030 extends AbstractAlien {
     public Card216_030() {
-        super(Side.LIGHT, 3, 3, 3, 2, 4, "Heavy Infantry Mandalorian", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 3, 3, 2, 4, "Heavy Infantry Mandalorian", Uniqueness.RESTRICTED_3, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("May 'fly' (landspeed = 3). May move as a 'react.' Permanent weapon is Flamethrower (may target a character or creature for free; draw destiny; target hit if destiny +1 > defense value).");
         setArmor(4);

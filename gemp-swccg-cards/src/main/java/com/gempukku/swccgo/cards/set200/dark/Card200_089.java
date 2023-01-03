@@ -7,7 +7,13 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.InPlayDataAsFloatEvaluator;
 import com.gempukku.swccgo.cards.evaluators.SubtractEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card200_089 extends AbstractAlien {
     public Card200_089() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "R'tic H'weei", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, "R'tic H'weei", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setLore("Jawa.");
         setGameText("Once per game, may [upload] Jawa Blaster or a card with 'sandcrawler' in title or game text. During opponent's turn, if present at a Tatooine battleground and there is more than 1 Force in opponent's Force Pile, you may use 1 Force in opponent's Force Pile.");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_0);

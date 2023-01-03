@@ -5,7 +5,17 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +38,7 @@ import java.util.List;
  */
 public class Card216_027 extends AbstractAlien {
     public Card216_027() {
-        super(Side.LIGHT, 3, 4, 4, 2, 6, "Figrin D'an & The Modal Nodes", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 4, 4, 2, 6, "Figrin D'an & The Modal Nodes", Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
         addComboCardTitles(Title.Figrin_Dan, "The Modal Nodes");
         setLore("Bith musicians. Figrin D'an, Doikk Na'ts, Ickabel G'ont, Nalan Cheel, and Tedn Dahai.");
         setGameText("Power +2 at an antechamber, bar, cantina, or night club. Draws one battle destiny if unable to otherwise. During your control phase, if you have alien characters of five different species on table, may retrieve 1 Force. Once per game, may re-circulate.");

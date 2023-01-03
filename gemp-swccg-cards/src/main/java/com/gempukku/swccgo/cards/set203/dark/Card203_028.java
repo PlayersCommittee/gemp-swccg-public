@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set203.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card203_028 extends AbstractAlien {
     public Card203_028() {
-        super(Side.DARK, 3, 3, 4, 2, 4, "Ortugg", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 4, 2, 4, "Ortugg", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setVirtualSuffix(true);
         setLore("Gamorrean in charge of the Gamorreans at Jabba's palace. Posted to stand guard at the entrance cavern. Assigned by Jabba to keep an eye on Tessek.");
         setGameText("While at a Jabba's Palace site, your other Gamorreans are deploy -1 and forfeit +3. Permanent weapon is •Ortugg's Ax (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");

@@ -4,7 +4,13 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card216_048 extends AbstractAlien {
     public Card216_048() {
-        super(Side.LIGHT, 2, 4, 2, 2, 4, "Wookiee Warrior", Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 2, 4, 2, 2, 4, "Wookiee Warrior", Uniqueness.RESTRICTED_3, ExpansionSet.SET_16, Rarity.V);
         setLore("");
         setGameText("During battle at a site, may add one destiny to total power. Once during battle, unless 'hit,' may lose this character to restore your 'hit' character here to normal.");
         setSpecies(Species.WOOKIEE);

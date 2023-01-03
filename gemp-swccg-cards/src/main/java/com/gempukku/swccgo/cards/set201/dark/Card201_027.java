@@ -2,12 +2,22 @@ package com.gempukku.swccgo.cards.set201.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.EachBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployWithInsteadOfMatchingStarfighterUsingCombatResponseModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +30,7 @@ import java.util.List;
  */
 public class Card201_027 extends AbstractAlien {
     public Card201_027() {
-        super(Side.DARK, 3, 2, 2, 2, 4, "Wooof", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 4, "Wooof", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setVirtualSuffix(true);
         setLore("Kadas'sa'Nikto. One of Jabba's best pilots. Often pilots Jabba's space yacht. Smuggler. Prefers to be flying combat starfighters.");
         setGameText("[Pilot] 3. May deploy with any cruiser using Combat Response. While aboard a piloted [Independent] starship, opponent's battle and weapon destiny draws here are -1.");
