@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card601_151 extends AbstractAlien {
     public Card601_151() {
-        super(Side.DARK, 2, 3, 3, 3, 5, "Gardulla The Hutt", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 3, 3, 5, "Gardulla The Hutt", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Well-known as a gambler and a gangster. Gardulla was the former owner of Shmi and Anakin Skywalker before she lost them in a bet to the Toydarian junk dealer, Watto.");
         setGameText("During battle, if [Block 4] No Bargain on table, may lose 2 force to cancel a non-[Immune To Sense] interrupt. Once per game during your move phase, may relocate any of your characters here to any site you occupy as a regular move (or vice versa). Immune to attrition < 3.");

@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set102.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.NumTimesPerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +36,7 @@ import java.util.List;
  */
 public class Card102_005 extends AbstractAlien {
     public Card102_005() {
-        super(Side.LIGHT, 3, 2, 1, 1, 4, "Tedn Dahai", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 1, 4, "Tedn Dahai", Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLore("Male Bith musician. Member in good standing of the Intergalactic Federation of Musicians. Plays the Fanfar in Figrin D'an's band. Once worked for the Empire as a scout.");
         setGameText("For each other musician at same site, during any control phase you may use 1 Force to choose one opponent's alien present. That alien cannot utilize its game text for remainder of that turn.");
         addIcons(Icon.PREMIUM);

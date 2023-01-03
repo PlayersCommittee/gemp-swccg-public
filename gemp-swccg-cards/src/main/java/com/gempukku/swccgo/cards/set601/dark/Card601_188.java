@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card601_188 extends AbstractAlien {
     public Card601_188() {
-        super(Side.DARK, 3, 3, 3, 2, 4, Title.Vigo, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 3, 2, 4, Title.Vigo, Uniqueness.RESTRICTED_3, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("One of Xizor's hand-picked lieutenants. Ascended as Black Sun agent from gangster to manager. Earned title of Vigo from old Tionese for 'nephew'.");
         setGameText("Deploys -1 to Coruscant. While present with Xizor, forfeit +2 and opponents spies may not deploy to same non-battleground site. Once per game, may use 1 Force to [download] a non-war room battleground planet site (or system) not already on table.");

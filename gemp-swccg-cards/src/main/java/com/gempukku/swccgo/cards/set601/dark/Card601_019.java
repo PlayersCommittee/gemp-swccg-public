@@ -5,9 +5,12 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DrivingCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 public class Card601_019 extends AbstractAlien {
     public Card601_019() {
-        super(Side.DARK, 2, 2, 2, 1, 3, "Mercenary Pilot");
+        super(Side.DARK, 2, 2, 2, 1, 3, "Mercenary Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.LEGACY, Rarity.V);
         setLore("Smugglers. Candidates who resent authority often abandon Imperial academies to sell their piloting skills to criminals. Will work for any high paying crime syndicate.");
         setGameText("[Pilot] 2. Adds 2 to power of anything he drives. When driving a transport vehicle, adds one battle destiny. Once per turn, while piloting at a cloud sector, adds one battle destiny during battle at a related exterior site. [Reflection III] Another Pathetic Lifeform ignores your non-unique aliens.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_8);

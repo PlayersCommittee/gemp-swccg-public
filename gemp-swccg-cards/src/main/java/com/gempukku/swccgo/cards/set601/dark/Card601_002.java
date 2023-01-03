@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card601_002 extends AbstractAlien {
     public Card601_002() {
-        super(Side.DARK, 2, 4, 4, 3, 7, "Boba Fett, Prepared Hunter", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 3, 7, "Boba Fett, Prepared Hunter", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setArmor(5);
         setLore("Boba Fett's Mandalorian armor was so versatile that his opponents never knew what to expect. Bounty hunter. Assassin.");
         setGameText("Adds 3 to power of anything he pilots. May be revealed from hand to take Slave I from Reserve Deck; reshuffle;  and deploy both simultaneously. While piloting Slave 1, it is maneuver +3 and hyperspeed + 1. Draws one battle destiny if unable to otherwise (if present at a site may add a destiny to total power instead).");

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card601_228 extends AbstractAlien {
     public Card601_228() {
-        super(Side.LIGHT, 1, 2, 2, 2, 5, "Lobot", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 2, 2, 2, 5, "Lobot", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         addPersona(Persona.LOBOT);
         setLore("Former criminal. Fitted with a cybernetic device. Now repays his debt to society by ensuring the smooth running of Cloud City. Becomes disoriented when not with a computer.");

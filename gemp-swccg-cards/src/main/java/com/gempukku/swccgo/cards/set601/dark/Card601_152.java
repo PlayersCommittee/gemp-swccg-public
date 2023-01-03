@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card601_152 extends AbstractAlien {
     public Card601_152() {
-        super(Side.DARK, 2, 3, 1, 4, 2, "Prophetess", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 1, 4, 2, "Prophetess", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Renowned female psychic. Predictor of doom. Agent for Governor Aryon of Tatooine. Tailed Jabba and his thugs to Docking Bay 94 when they confronted Han Solo.");
         setGameText("Deploy -1 and forfeit +3 at a site. Once per turn, may peek at top card of opponent's Reserve Deck or Used Pile; may then shuffle that Reserve Deck or Used Pile. Immune to attrition < 3.");

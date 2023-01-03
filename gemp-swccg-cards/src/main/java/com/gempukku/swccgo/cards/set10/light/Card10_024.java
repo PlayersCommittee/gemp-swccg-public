@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtRandomCardInOpponentsHandEffect;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 public class Card10_024 extends AbstractAlien {
     public Card10_024() {
-        super(Side.LIGHT, 3, 3, 2, 3, 4, "Talon Karrde", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, 3, 4, "Talon Karrde", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Smuggler and information broker. Operates intelligence network. Pragmatic businessman. Strong sense of personal honor. Bounty placed on his head by Grand Admiral Thrawn.");
         setGameText("Adds 2 to power of anything he pilots. Once during each of your control phases, may peek at one card from opponent's hand or top card of opponent's Reserve Deck. At same location, your smugglers are each forfeit +2 and defense value +2.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT);

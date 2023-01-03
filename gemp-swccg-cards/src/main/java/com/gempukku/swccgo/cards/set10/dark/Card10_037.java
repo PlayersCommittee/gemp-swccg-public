@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set10.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +42,7 @@ import java.util.List;
  */
 public class Card10_037 extends AbstractAlien {
     public Card10_037() {
-        super(Side.DARK, 3, 4, 6, 2, 6, "Dr. Evazan & Ponda Baba", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 4, 6, 2, 6, "Dr. Evazan & Ponda Baba", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Dr_Evazan, Title.Ponda_Baba);
         setLore("Smugglers who met each other in the Corellian system. Gained the rights to Han Solo's old smuggling routes from Jabba the Hutt. They don't like you either.");
         setGameText("Adds 3 to power of anything they pilot. Power -3 if opponent has a lightsaber present. Draws one battle destiny if not able to otherwise. May target any other character present that was just 'hit.' Target character is lost.");

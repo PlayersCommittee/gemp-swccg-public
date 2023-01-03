@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card601_262 extends AbstractAlien {
     public Card601_262() {
-        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Harc, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Harc, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setArmor(3);
         setLore("Ishi Tib accountant. Experienced administrator. Freelance consultant. Worked for many planetary governors. Knows how to get the most out of any taxation scheme.");

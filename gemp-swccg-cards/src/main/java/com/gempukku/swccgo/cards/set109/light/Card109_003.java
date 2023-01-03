@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.OnCloudCityCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +38,7 @@ import java.util.List;
 
 public class Card109_003 extends AbstractAlien {
     public Card109_003() {
-        super(Side.LIGHT, 1, 4, 3, 3, 5, "Lando With Blaster Pistol", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 4, 3, 3, 5, "Lando With Blaster Pistol", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_CLOUD_CITY, Rarity.PM);
         setLore("Smuggler, gambler and leader. 'Yeah, I'm responsible these days. It's the price you pay for being successful.'");
         setGameText("Adds 2 to power of anything he pilots. Adds one battle destiny if with your other alien on Cloud City. Permanent weapon is blaster pistol (may target a character for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
         addPersona(Persona.LANDO);

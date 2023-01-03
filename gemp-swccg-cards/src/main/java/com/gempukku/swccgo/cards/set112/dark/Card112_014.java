@@ -3,11 +3,24 @@ package com.gempukku.swccgo.cards.set112.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayEscortCaptivesModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponsModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MoveCostUsingLandspeedModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +33,7 @@ import java.util.List;
  */
 public class Card112_014 extends AbstractAlien {
     public Card112_014() {
-        super(Side.DARK, 1, 5, 3, 4, 6, "Mighty Jabba", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 3, 4, 6, "Mighty Jabba", Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLore("Hutt leader of notorious criminal organization. Gangster of the vilest ilk. Would rather forfeit a fortune in cash than risk one whisper attesting to his mercy.");
         setGameText("Deploys -2 to a Jabba's Palace site. When with your alien leader, adds one battle destiny. May escort a captive. To use his landspeed requires +1 Force. May not be targeted by weapons unless your other aliens present are each 'hit'. Immune to attrition < 4.");
         addPersona(Persona.JABBA);

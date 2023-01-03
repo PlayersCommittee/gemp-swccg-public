@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card601_153 extends AbstractAlien {
     public Card601_153() {
-        super(Side.DARK, 3, 1, 1, 1, 3, "Sy Snootles", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 1, 1, 3, "Sy Snootles", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Pa'lowick Musician. Manager of The Max Rebo Band. Reports on Jabba to Lady Valarian. Bib Fortuna uses her as a double agent, feeding her false information.");
         setGameText("Once per turn, may use 1 force to 'court' a male present. That character is power -3 and requires +2 Force to use landspeed for remainder of turn. Once per game, may take Set For Stun, They're Still Coming Through!, or You Want This, Don't You? into hand from reserve deck; reshuffle.");

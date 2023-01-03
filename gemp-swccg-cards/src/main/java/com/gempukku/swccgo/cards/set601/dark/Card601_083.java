@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card601_083 extends AbstractAlien {
     public Card601_083() {
-        super(Side.DARK, 4, 3, 1, 2, 3, "Garindan", Uniqueness.UNIQUE);
+        super(Side.DARK, 4, 3, 1, 2, 3, "Garindan", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Long-nosed, male Kubaz from Kubindi. Spy. Squealed on Obi-Wan and Luke outside Docking Bay 94. Works for Jabba the Hutt or the highest bidder. Not particularly brave.");
         setGameText("Adds one to the power of anything he pilots. May deploy -1 as a 'react'; shuffle any Reserve Deck. Ignores Objective deployment restrictions. Unless alone, may place Garindan in Used Pile to cancel a just drawn weapon destiny here. [Virtual Block 2] Imperial Domination ignores Garindan.");
         addKeywords(Keyword.SPY);

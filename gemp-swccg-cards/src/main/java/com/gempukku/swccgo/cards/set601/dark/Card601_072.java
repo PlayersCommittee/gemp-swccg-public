@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card601_072 extends AbstractAlien {
     public Card601_072() {
-        super(Side.DARK, 3, 2, 2, 2, 4, "Velken Tezeri", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 4, "Velken Tezeri", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Assigned by Jabba to work with Hermi Odle. Former technician for the Empire. Developed a method to remotely control seekers. Plotting to kill Jabba.");
         setGameText("[Pilot] 2. Smuggler. May not be attacked. Velken may not target Luke with weapons. Once per game, when deployed to a battleground, opponent must use or lose 2 Force. While present at a pit, may add 1 to Force drains here, and Sarlacc is ferocity +1.");

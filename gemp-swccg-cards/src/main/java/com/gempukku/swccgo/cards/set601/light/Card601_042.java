@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card601_042 extends AbstractAlien {
     public Card601_042() {
-        super(Side.LIGHT, 3, 3, 3, 3, 5, "Dash Rendar", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 3, 5, "Dash Rendar", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Emperor banished Rendar family from Coruscant. Became gambler and smuggler. Brought down AT-AT at the Battle of Hoth. Works for Rebel Alliance from time to time. Corellian.");
         setGameText("Adds 3 to power of anything he pilots. While piloting alone (or at same location as opponent's AT-AT or Imperial), draws one battle destiny if unable to otherwise and opponent draws no more than one battle destiny here. Dash is a matching pilot for any unique (•) Rogue speeder.");
         addPersona(Persona.DASH);

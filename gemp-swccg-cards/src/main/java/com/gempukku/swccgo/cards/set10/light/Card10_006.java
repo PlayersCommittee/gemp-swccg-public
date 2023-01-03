@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -32,7 +39,7 @@ import java.util.List;
  */
 public class Card10_006 extends AbstractAlien {
     public Card10_006() {
-        super(Side.LIGHT, 3, 3, 3, 3, 5, "Dash Rendar", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 3, 5, "Dash Rendar", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Emperor banished Rendar family from Coruscant. Became gambler and smuggler. Brought down AT-AT at the Battle of Hoth. Works for Rebel Alliance from time to time. Corellian.");
         setGameText("Adds 3 to power of anything he pilots. When piloting Outrider, draws one battle destiny if not able to otherwise, and once per battle, may reduce power of one opponent's starship in same battle by power of Outrider for remainder of battle.");
         addPersona(Persona.DASH);

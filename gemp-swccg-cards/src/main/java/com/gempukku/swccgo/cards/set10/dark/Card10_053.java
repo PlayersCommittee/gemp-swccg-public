@@ -4,12 +4,22 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
+import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +32,7 @@ import java.util.List;
  */
 public class Card10_053 extends AbstractAlien {
     public Card10_053() {
-        super(Side.DARK, 3, 3, 3, 2, 4, Title.Vigo, Uniqueness.RESTRICTED_3);
+        super(Side.DARK, 3, 3, 3, 2, 4, Title.Vigo, Uniqueness.RESTRICTED_3, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("One of Xizor's hand-picked lieutenants. Ascended as Black Sun agent from gangster to manager. Earned title of Vigo from old Tionese for 'nephew'.");
         setGameText("Deploys for free on Coruscant. Adds 2 to power of anything he pilots. While at a non-Coruscant battleground site and Vengeance Of The Dark Prince is on table, Force drain +1 here. Forfeit +2 when present with Xizor or another Vigo.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);

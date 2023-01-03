@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card601_050 extends AbstractAlien {
     public Card601_050() {
-        super(Side.LIGHT, 3, 3, 3, 3, 5, "Lando Calrissian, Unlikely Hero", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 3, 3, 5, "Lando Calrissian, Unlikely Hero", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setLore("Ever since Lando's 'little' maneuver at the Battle of Taanab, his piloting skills had become legendary. Gambler. Scoundrel.");
         setGameText("Adds 3 to anything he pilots. May reveal from hand to take Lady Luck into hand from Reserve Deck; reshuffle; and deploy both simultaneously. While piloting (or with a female), adds one battle destiny. During battle, may draw destiny. If destiny < twice the number of scoundrels here, reset a participating card's forfeit to 0.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.LEGACY_BLOCK_8, Icon.CLOUD_CITY);

@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set110.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +32,7 @@ import java.util.List;
  */
 public class Card110_005 extends AbstractAlien {
     public Card110_005() {
-        super(Side.DARK, 1, 5, 4, 2, 3, "Bossk With Mortar Gun", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 4, 2, 3, "Bossk With Mortar Gun", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("Trandoshan bounty hunter. Modified his mortar gun to fire stun cartridges for live captures. Uses non-fragmentary capture rounds to minimize collateral damage.");
         setGameText("Adds 2 to power of anything he pilots. Permanent weapon is •Bossk's Mortar Gun (may fire for free; draw destiny; may subtract or add 1 if at same site as a bounty; choose one character with that destiny number present to be captured.)");
         addPersona(Persona.BOSSK);

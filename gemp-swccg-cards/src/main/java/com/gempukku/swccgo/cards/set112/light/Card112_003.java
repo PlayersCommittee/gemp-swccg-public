@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set112.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +35,7 @@ import java.util.List;
 
 public class Card112_003 extends AbstractAlien {
     public Card112_003() {
-        super(Side.LIGHT, 1, 6, 4, 3, 6, "Lando With Vibro-Ax", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 1, 6, 4, 3, 6, "Lando With Vibro-Ax", Uniqueness.UNIQUE, ExpansionSet.JPSD, Rarity.PM);
         setLore("Gambler. Spy in Jabba's Court. Has walked the palace's passageways and overheard many details of Jabba's operations on Tatooine.");
         setGameText("Deploys -2 on Tatooine. When at a Tatooine site, adds one battle destiny. Permanent weapon is vibro-ax (may target character for free; both players draw destiny; target excluded from battle if your destiny +4 > target's power + opponent's destiny).");
         addPersona(Persona.LANDO);

@@ -6,7 +6,14 @@ import com.gempukku.swccgo.cards.conditions.InPlayDataNotSetCondition;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -37,7 +44,7 @@ import java.util.List;
  */
 public class Card110_009 extends AbstractAlien {
     public Card110_009() {
-        super(Side.DARK, 2, 4, 3, 3, 3, Title.Jodo, Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 3, 3, 3, Title.Jodo, Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setArmor(5);
         setLore("Bounty Hunter and scout. Perfectionist. Equipped with mandalorian armor and a jet pack. He doesn't mind being mistaken for Boba Fett. Occasionally works for Black Sun.");
         setGameText("When in battle, if opponent draws more than one battle destiny, may cancel one. Once per turn, when firing a rifle or blaster, may target for free and add 2 to total weapon destiny. May be targeted by Hidden Weapons. May 'fly' (landspeed = 3).");

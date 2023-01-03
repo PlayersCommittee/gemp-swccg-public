@@ -2,14 +2,21 @@ package com.gempukku.swccgo.cards.set112.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DrivingCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToDrivenBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MovesForFreeModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +29,7 @@ import java.util.List;
  */
 public class Card112_005 extends AbstractAlien {
     public Card112_005() {
-        super(Side.LIGHT, 2, 2, 1, 2, 3, Title.Palace_Raider);
+        super(Side.LIGHT, 2, 2, 1, 2, 3, Title.Palace_Raider, Uniqueness.UNRESTRICTED, ExpansionSet.JPSD, Rarity.PM);
         setLore("Smugglers from many worlds are hunted by the Empire for providing arms and supplies to the Alliance. The Outer Rim is their refuge.");
         setGameText("Adds 2 to power of anything he pilots (or 3 to power of anything he drives). When driving a transport vehicle, it moves for free and he adds one battle destiny.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR);

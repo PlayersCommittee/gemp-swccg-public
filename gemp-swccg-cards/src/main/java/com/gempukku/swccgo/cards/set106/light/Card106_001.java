@@ -2,7 +2,15 @@ package com.gempukku.swccgo.cards.set106.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card106_001 extends AbstractAlien {
     public Card106_001() {
-        super(Side.LIGHT, 2, 4, 1, 3, 5, Title.Arleil, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 4, 1, 3, 5, Title.Arleil, Uniqueness.UNIQUE, ExpansionSet.OTSD, Rarity.PM);
         setLore("One of the Rebellion's main contacts on Tatooine. Widely regarded as a leader in the Mos Eisley alien community. Aging male Defel. Has lost the ability to warp light.");
         setGameText("When deployed, you may take one non-unique alien into hand from Reserve Deck; reshuffle. Adds 2 to power of anything he pilots. Your aliens deploy -1 to same or adjacent Tatooine site.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR);

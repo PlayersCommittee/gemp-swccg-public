@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card13_071 extends AbstractAlien {
     public Card13_071() {
-        super(Side.DARK, 3, 3, 3, 3, 5, "Jabba Desilijic Tiure", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 3, 3, 5, "Jabba Desilijic Tiure", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Gangster and leader in control of Tatooine. The amound of credits Jabba earns from Podracing is said to be vast, but only Bib Fortuna knows the exact number.");
         setGameText("While at Podrace Arena, once during your control phase may 'wager'. Both players draw destiny and add 2 if they have won a Podrace. Loser (lowest total) lose 1 force. If you just won the wager, and Bib Fortuna is present, you may retrieve 1 force.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);

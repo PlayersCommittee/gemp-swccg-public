@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card601_226 extends AbstractAlien {
     public Card601_226() {
-        super(Side.LIGHT, 4, 3, 2, 4, 3, "Leesub Sirln", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 4, 3, 2, 4, 3, "Leesub Sirln", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Leesub is a Qiraash (near-human). Enslaved as child. Limited precognition. Selected by Imperial High Inquisitor Tremayne as Force adept. Escaped and hiding in Mos Eisley.");
         setGameText("Once during your control phase, may use 1 Force to name a card type. Reveal top card of opponent's Reserve Deck. If that card matches the named card type, it is lost. Otherwise, replace it or move it to opponent's Used Pile. Immune to attrition < 3.");

@@ -4,7 +4,14 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +35,7 @@ import java.util.List;
  */
 public class Card10_012 extends AbstractAlien {
     public Card10_012() {
-        super(Side.LIGHT, 3, 2, 2, 2, 5, Title.Mirax, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 5, Title.Mirax, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         setLore("Called 'Myra' by childhood friend Wedge Antilles. Corellian smuggler. Captain of the Pulsar Skate. Responsible for starship repairs and upgrades. Information Broker.");
         setGameText("Adds 2 to power of anything she pilots. When piloting Pulsar Skate, draws one battle destiny if not able to otherwise. Once per turn, may use 1 Force to place a card from hand on bottom of Used Pile and draw top card of Reserve Deck.");
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR);

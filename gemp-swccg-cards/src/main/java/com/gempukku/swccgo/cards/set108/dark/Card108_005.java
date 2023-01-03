@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set108.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -28,7 +37,7 @@ import java.util.List;
 
 public class Card108_005 extends AbstractAlien {
     public Card108_005() {
-        super(Side.DARK, 1, 5, 4, 3, 5, "Boba Fett With Blaster Rifle", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 5, 4, 3, 5, "Boba Fett With Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_PREMIERE, Rarity.PM);
         setArmor(5);
         setLore("Notorious bounty hunter. 'As you wish.'");
         setGameText("Adds 3 to power of anything he pilots. Adds one battle destiny if with Han or Jabba. Permanent weapon is •Boba Fett's Blaster Rifle (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");

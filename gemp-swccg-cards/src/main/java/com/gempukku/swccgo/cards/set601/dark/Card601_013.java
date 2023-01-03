@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card601_013 extends AbstractAlien {
     public Card601_013() {
-        super(Side.DARK, 1, 4, 4, 3, 6, "Jango Fett, The Assassin", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 4, 3, 6, "Jango Fett, The Assassin", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setArmor(5);
         setLore("Trade Federation. Scout.");
         setGameText("Adds 3 to the power of anything he pilots. Adds one battle destiny. SD-17 Homing Missile may deploy on (and is a matching weapon for) him, fires for free, and when fired may go to Lost Pile instead. While piloted by two Fetts (unless your [Block 4] objective on table), Slave I is immune to attrition < 9.");

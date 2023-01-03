@@ -2,7 +2,17 @@ package com.gempukku.swccgo.cards.set110.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -26,7 +36,7 @@ import java.util.List;
 
 public class Card110_007 extends AbstractAlien {
     public Card110_007() {
-        super(Side.DARK, 2, 5, 3, 2, 3, "Dengar With Blaster Carbine", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 5, 3, 2, 3, "Dengar With Blaster Carbine", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("Corellian bounty hunter. Skilled athlete. Expert shot. Has worked many times for Jabba the Hutt. Carries a long-standing grudge against Han Solo.");
         setGameText("Adds 2 to the power of anything he pilots. Permanent weapon is •Dengar's Blaster Carbine (may target a character, creature or vehicle for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value; may be fired twice per battle).");
         addPersona(Persona.DENGAR);

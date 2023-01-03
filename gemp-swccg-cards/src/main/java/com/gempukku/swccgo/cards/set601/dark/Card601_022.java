@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card601_022 extends AbstractAlien {
     public Card601_022() {
-        super(Side.DARK, 3, 2, 2, 2, 3, Title.Ponda_Baba, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 2, 3, Title.Ponda_Baba, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("A male Quara (or fingered Aqualish). Thug, smuggler and partner of Dr. Evazan. Has a poor quality cybernetic arm replacement.");
         setGameText("[Pilot] 2. Game text of non-Jedi Luke (or a lightsaber he is using) may not target aliens here. During battle, if with a smuggler, may add a destiny to attrition (+2 if with your smuggler) or make that smuggler forfeit = 0.");

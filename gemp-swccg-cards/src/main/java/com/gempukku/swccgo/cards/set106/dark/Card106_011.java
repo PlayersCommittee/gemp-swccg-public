@@ -2,7 +2,14 @@ package com.gempukku.swccgo.cards.set106.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class Card106_011 extends AbstractAlien {
     public Card106_011() {
-        super(Side.DARK, 2, 4, 2, 3, 4, "Chall Bekan", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 2, 3, 4, "Chall Bekan", Uniqueness.UNIQUE, ExpansionSet.OTSD, Rarity.PM);
         setLore("Male Morseerian leader. Methane breather. Has ties to Tatooine's Imperial government. Uses alien agents to maintain surveillance on Jabba and the Rebellion.");
         setGameText("When deployed, you may take one non-unique alien into hand from Reserve Deck; reshuffle. Adds 2 to power of anything he pilots. Your aliens deploy -1 to same or adjacent Tatooine site.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR);

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card601_148 extends AbstractAlien {
     public Card601_148() {
-        super(Side.DARK, 2, 4, 4, 4, 6, "Shada", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 4, 4, 4, 6, "Shada", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("Female spy and thief.");
         setGameText("May deploy Shada and [Block 4] No Bargain instead of Xizor with your [Reflections II] Objective.  While that Effect on table, Force loss from your [Reflections II] Objective is +1 and, once per turn, may lose 1 Force to add a battle destiny anywhere.  Immune to attrition < 4.");

@@ -2,7 +2,9 @@ package com.gempukku.swccgo.cards.set13.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public class Card13_092 extends AbstractAlien {
     public Card13_092() {
-        super(Side.DARK, 5, 7, 8, 1, 5, "Thok & Thug", Uniqueness.UNIQUE);
+        super(Side.DARK, 5, 7, 8, 1, 5, "Thok & Thug", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         addComboCardTitles("Thok", "Thug");
         setArmor(4);
         setLore("Jabba the Hutt knew that having a big, strong, dumb guard was good, but having lots of them is better.");

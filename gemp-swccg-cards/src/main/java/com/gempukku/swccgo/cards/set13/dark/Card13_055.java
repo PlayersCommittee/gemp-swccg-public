@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,7 +40,7 @@ import java.util.List;
  */
 public class Card13_055 extends AbstractAlien {
     public Card13_055() {
-        super(Side.DARK, 3, 2, 3, 1, 3, Title.Bib, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, 1, 3, Title.Bib, Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
         setLore("Twi'lek who serves as Jabba's major-domo. First to discover the profitability of ryll spice found on Ryloth.");
         setGameText("While with Jabba, power +3 and, during your draw phase, may use 1 Force to count the number of cards in your Force Pile, place your Force Pile in your Used Pile, and then activate Force up to the counted number.");
         addPersona(Persona.BIB);
