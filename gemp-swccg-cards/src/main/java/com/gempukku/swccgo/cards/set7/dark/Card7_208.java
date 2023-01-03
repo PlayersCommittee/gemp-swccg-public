@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +35,7 @@ import java.util.List;
  */
 public class Card7_208 extends AbstractAlien {
     public Card7_208() {
-        super(Side.DARK, 3, 1, 1, 1, 3, "Sy Snootles", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 1, 1, 3, "Sy Snootles", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Pa'lowick Musician. Manager of The Max Rebo Band. Reports on Jabba to Lady Valarian. Bib Fortuna uses her as a double agent, feeding her false information.");
         setGameText("During your deploy phase, where present, allows J'Quille or Bib Fortuna deploy from Reserve Deck, reshuffle. Once each turn when you have at least 3 musicians on table, may play Ommni Box to cancel opponent's Force drain at a related site.");
         addIcons(Icon.SPECIAL_EDITION);

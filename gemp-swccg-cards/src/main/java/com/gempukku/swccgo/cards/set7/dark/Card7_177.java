@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +38,7 @@ import java.util.List;
  */
 public class Card7_177 extends AbstractAlien {
     public Card7_177() {
-        super(Side.DARK, 3, 1, 1, 1, 2, "Eriadu Operative");
+        super(Side.DARK, 3, 1, 1, 1, 2, "Eriadu Operative", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Used by Imperial officers as a contact between the Empire and local citizenry. Keep the Imperial bureaucracy informed on planetary issues.");
         setGameText("While at a Eriadu site: adds 1 to your Force drains there, is power +1 (or +2 if your commander, general or moff is on Eriadu) and, once during each of your deploy phases, may deploy one site to Eriadu from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

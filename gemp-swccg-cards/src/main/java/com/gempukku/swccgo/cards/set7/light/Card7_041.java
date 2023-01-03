@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCloudCityCondition;
 import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card7_041 extends AbstractAlien {
     public Card7_041() {
-        super(Side.LIGHT, 3, 2, 2, 1, 3, "Sergeant Edian", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 1, 3, "Sergeant Edian", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Veteran of the Cloud City security forces. Loyal to Administrator Calrissian. Disdainful of the corruption of other Cloud City troopers.");
         setGameText("Deploys free on Cloud City if your Lando is at a related location. Power +2 on Cloud City. When in a battle at a Cloud City site, adds 1 to your total battle destiny for each of your other Cloud City troopers in that battle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

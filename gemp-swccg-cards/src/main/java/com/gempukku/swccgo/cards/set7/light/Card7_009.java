@@ -4,7 +4,16 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +37,7 @@ import java.util.List;
  */
 public class Card7_009 extends AbstractAlien {
     public Card7_009() {
-        super(Side.LIGHT, 2, 1, 1, 2, 3, "Camie", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 1, 1, 2, 3, "Camie", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Friend of Luke and Biggs. Fixer's girlfriend. Lives in Anchorhead. Feels sorry for Luke, but still calls him 'Wormie.' Her parents have underground hydroponics gardens.");
         setGameText("Deploys free to Anchorhead. Forfeit +1 when present with Fixer. Once during each of your deploy phases, may deploy Luke (of power < 4), Biggs or Fixer to same Tatooine site from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION);

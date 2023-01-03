@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsAtLocationEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +46,7 @@ import java.util.List;
  */
 public class Card8_032 extends AbstractAlien {
     public Card8_032() {
-        super(Side.LIGHT, 2, 3, 1, 2, 2, "Wicket", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 1, 2, 2, "Wicket", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Ewok scout. Son of Shodu and Deej. Found Leia and befriended her. Persuaded his tribe to help.");
         setGameText("Deploys only on Endor. Power and forfeit +1 for each [Light Side Force] icon at same Endor site. When in battle, may target one opponent's character present. Draw destiny. Target excluded from battle if destiny > ability.");
         addIcons(Icon.ENDOR);

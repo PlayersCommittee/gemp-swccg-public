@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.PeekAtAndReorderTopCardsOForcePileEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,7 +33,7 @@ import java.util.List;
  */
 public class Card7_176 extends AbstractAlien {
     public Card7_176() {
-        super(Side.DARK, 3, 2, 2, 1, 2, "Dodo Bodonawieedo", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 2, "Dodo Bodonawieedo", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Rodian Musician. Plays slitherhorn. Grew up in the streets of Mos Eisley. 'Frocked' jawas and stole ronto steaks as a child. Information broker. Was part of the Shawpee gang.");
         setGameText("Power +2 at Mos Eisley. Opponent's Jawas are power -1 here. Once during each of your control phases, may peak at top X cards of your Force Pile, reorder however you wish and replace, where X = number of other musicians at same site.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

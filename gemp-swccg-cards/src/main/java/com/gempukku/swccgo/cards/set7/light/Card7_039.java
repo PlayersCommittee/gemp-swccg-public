@@ -5,7 +5,15 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card7_039 extends AbstractAlien {
     public Card7_039() {
-        super(Side.LIGHT, 3, 1, 1, 1, 3, "Ralltiir Operative");
+        super(Side.LIGHT, 3, 1, 1, 1, 3, "Ralltiir Operative", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("During the Battle of Ralltiir, many Alliance soldiers participated in the defense of the planet from the Empire. Many of Ralltiir's population feel indebted to the Rebellion.");
         setGameText("While at a Ralltiir site: adds 1 to your Force drains there, is forfeit +1 (and power +1 if your trooper is on Ralltiir) and, once during each of your deploy phases, may deploy one site to Ralltiir from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

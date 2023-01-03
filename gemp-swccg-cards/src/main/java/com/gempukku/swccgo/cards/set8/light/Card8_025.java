@@ -6,7 +6,15 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.DuringAttackWithParticipantCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerAttackEffect;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsAtLocationEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,7 +45,7 @@ import java.util.List;
  */
 public class Card8_025 extends AbstractAlien {
     public Card8_025() {
-        super(Side.LIGHT, 3, 2, 0, 1, 1, "Rabin", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 0, 1, 1, "Rabin", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.U);
         setLore("Ewok. Tamer of beasts. Thief. Loner. Hunter. Survivor.");
         setGameText("Deploys only on Endor. Power and forfeit +1 for each Light side icon at same Endor site. Where present, may substitute for a character just selected to be attacked by a creature. When attacking or being attacked, power +2 and may add one destiny.");
         addIcons(Icon.ENDOR);

@@ -1,9 +1,12 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card7_186 extends AbstractAlien {
     public Card7_186() {
-        super(Side.DARK, 3, 2, 2, 1, 3, "Lobel");
+        super(Side.DARK, 3, 2, 2, 1, 3, "Lobel", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Powerful magnetic fields in the Lobel physiology make the operation of nearby navigation devices impossible. Pilots claim these fields also produce headaches.");
         setGameText("Subtracts 2 from forfeit of each opponent's pilot at same site. Prevents characters from moving to or from same or adjacent site using Elis Helrot or Nabrun Leids.");
         addIcons(Icon.SPECIAL_EDITION);

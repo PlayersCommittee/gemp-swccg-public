@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class Card7_014 extends AbstractAlien {
     public Card7_014() {
-        super(Side.LIGHT, 2, 3, 3, 2, 4, "Debnoli", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 2, 4, "Debnoli", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Good-natured patron of Mos Eisley cantina, until the Empire impounded his starship. Expert marksman. Seeking revenge on the Empire.");
         setGameText("Adds 2 to power of anything he pilots. When firing a character weapon, adds 1 to total weapon destiny and characters he 'hits' are forfeit=0. Immune to attrition < 2 (< 5 while armed with a blaster).");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.WARRIOR);

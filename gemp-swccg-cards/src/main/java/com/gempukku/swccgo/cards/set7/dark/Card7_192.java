@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class Card7_192 extends AbstractAlien {
     public Card7_192() {
-        super(Side.DARK, 2, 3, 2, 3, 4, "Niado Duegad", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 2, 3, 4, "Niado Duegad", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Mercenary from Vodran. Niado's culture controls its environment through terraforming facilities. Enhanced adrenal glands allow for short bursts of incredible strength.");
         setGameText("May not carry or use devices or weapons. Once per turn, may use X Force, where X = 1, 2, or 3, to add twice X to his power for remainder of turn.");
         addIcons(Icon.SPECIAL_EDITION);

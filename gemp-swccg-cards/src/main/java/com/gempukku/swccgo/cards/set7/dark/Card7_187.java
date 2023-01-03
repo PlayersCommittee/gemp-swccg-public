@@ -1,8 +1,18 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
-import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.OnCloudCityCondition;
+import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
+import com.gempukku.swccgo.cards.conditions.PresentAtScompLink;
+import com.gempukku.swccgo.cards.conditions.PresentCondition;
+import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +35,7 @@ import java.util.List;
  */
 public class Card7_187 extends AbstractAlien {
     public Card7_187() {
-        super(Side.DARK, 1, 2, 2, 2, 3, "Lobot", Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 2, 2, 2, 3, "Lobot", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Son of a traveling slaver. Helps run Cloud City with Administrator Lando Calrissian. Speech capability worn away by constant cyborg neural connection.");
         setGameText("Deploys only on Cloud City. Power +2 when present at a Scomp Link. If present at a site, can be replaced by opponent with any Light Side Lobot. While present on Cloud City with your Lando, prevents replacement of Lobot and Lando.");
         addPersona(Persona.LOBOT);

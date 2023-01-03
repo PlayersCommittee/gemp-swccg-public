@@ -3,8 +3,10 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnCloudCityCondition;
 import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 public class Card7_170 extends AbstractAlien {
     public Card7_170() {
-        super(Side.DARK, 2, 2, 2, 2, 3, "Chyler", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 2, 2, 2, 3, "Chyler", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Placed several ISB agents and Aqualish in the Cloud City miner's guild. Promised a position when the Empire took over Cloud City. She's still waiting.");
         setGameText("While on Cloud City, adds 4 to destiny of each of your miners drawn for battle destiny and adds 1 to your Force drains at related cloud sectors where you have a miner or refinery (adds 2 if both).");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

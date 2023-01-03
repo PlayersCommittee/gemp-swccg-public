@@ -3,7 +3,16 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +33,7 @@ import java.util.List;
  */
 public class Card7_049 extends AbstractAlien {
     public Card7_049() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, "Uutkik", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, "Uutkik", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Experienced Jawa thief. Pilfers equipment and hijacks vehicles from unwary bystanders in Mos Eisley. Het Nkik's ugliest cousin.");
         setGameText("Deploys only on Tatooine. Once during each of your control phases, may lose 1 Force to steal into hand one transport vehicle, character weapon or device from opponent's Lost Pile.");
         addIcons(Icon.SPECIAL_EDITION);

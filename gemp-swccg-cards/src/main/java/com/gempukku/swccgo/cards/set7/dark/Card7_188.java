@@ -6,7 +6,13 @@ import com.gempukku.swccgo.cards.evaluators.AddEvaluator;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.cards.evaluators.NegativeEvaluator;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card7_188 extends AbstractAlien {
     public Card7_188() {
-        super(Side.DARK, 3, 2, 1, 1, 2, "Lyn Me", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 1, 2, "Lyn Me", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Twi'lek musician whose village hired Boba Fett for protection from slavers. Fell in love with the famous mercenary. Vowed to kill Luke and Han.");
         setGameText("Subtracts 1 from deploy cost of Bounty hunters at same site (Boba Fett deploy free). During battle, subtracts X from opponent's total power, where X = number of your musicians present (+2 if battling Luke or Han, or +4 if both).");
         addIcons(Icon.SPECIAL_EDITION);

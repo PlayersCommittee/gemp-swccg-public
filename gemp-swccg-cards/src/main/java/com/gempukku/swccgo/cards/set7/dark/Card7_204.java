@@ -5,8 +5,10 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.InBattleAtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCloudCityCondition;
 import com.gempukku.swccgo.cards.evaluators.InBattleEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class Card7_204 extends AbstractAlien {
     public Card7_204() {
-        super(Side.DARK, 3, 2, 2, 1, 2, "Sergeant Merril", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 2, "Sergeant Merril", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Tyrannical squad commander on Cloud City. Treats his fellow Cloud City troopers with disdain. Enemy of Utris M'Toc.");
         setGameText("Deploys for free on Cloud City if your Lando is at a related location. Power +2 on Cloud City. When in battle at a Cloud City site, adds 1 to your total battle destiny for each of your other Cloud City troopers in that battle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

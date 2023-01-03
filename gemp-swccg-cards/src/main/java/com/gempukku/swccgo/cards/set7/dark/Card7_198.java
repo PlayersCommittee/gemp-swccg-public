@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +42,7 @@ import java.util.List;
  */
 public class Card7_198 extends AbstractAlien {
     public Card7_198() {
-        super(Side.DARK, 3, 2, 3, 1, 2, "Rappertunie", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 3, 1, 2, "Rappertunie", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Shawda Ubb musician from Manpha. Plays growdi. Real name Rapotwanalantonee. When cornered in a fight, he can spit a paralyzing poison.");
         setGameText("Where present, adds X to Force opponent must use to initiate battle, where X = number of musicians present. May target one non-droid character resent in battle. Draw destiny. If destiny > defense value, target is power = 0 this battle.");
         addIcons(Icon.SPECIAL_EDITION);

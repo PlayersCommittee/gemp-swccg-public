@@ -3,7 +3,15 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -26,7 +34,7 @@ import java.util.List;
  */
 public class Card7_164 extends AbstractAlien {
     public Card7_164() {
-        super(Side.DARK, 2, 3, 4, 1, 1, "Ak-rev", Uniqueness.UNIQUE);
+        super(Side.DARK, 2, 3, 4, 1, 1, "Ak-rev", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Weequay musician from Sriluur. Studied in a monastery devoted to the Weequay god of thunder. Jabba's drum master. Trained in several forms of hand-to-hand combat.");
         setGameText("Subtracts 1 from attrition against you at same site. Once during each of your control phases, may use 1 Force to take one musician into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

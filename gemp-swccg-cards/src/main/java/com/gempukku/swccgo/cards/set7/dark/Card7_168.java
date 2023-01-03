@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -24,7 +30,7 @@ import java.util.List;
  */
 public class Card7_168 extends AbstractAlien {
     public Card7_168() {
-        super(Side.DARK, 1, 4, 3, 3, 3, Title.Boelo, Uniqueness.UNIQUE);
+        super(Side.DARK, 1, 4, 3, 3, 3, Title.Boelo, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Naroon Cuthus' predecessor as Jabba's right hand man. Sees what he wants to see. Hears what he wants to hear. Has a pet womp rat named Worra.");
         setGameText("Deploys only on Tatooine or to same location as Jabba. When in a battle either at Audience Chamber or with your alien leader, may cancel one opponent's battle destiny just drawn.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

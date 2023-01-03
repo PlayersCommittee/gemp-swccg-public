@@ -5,10 +5,13 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllAttritionEffect;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsAtLocationEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public class Card8_013 extends AbstractAlien {
     public Card8_013() {
-        super(Side.LIGHT, 3, 1, 0, 1, 1, "Ewok Tribesman");
+        super(Side.LIGHT, 3, 1, 0, 1, 1, "Ewok Tribesman", Uniqueness.UNRESTRICTED, ExpansionSet.ENDOR, Rarity.C);
         setLore("Members of Chief Chirpa's Ewok tribe are courageous in battle. They seek to impress older members of the tribe.");
         setGameText("Deploys only on Endor. Power and forfeit +1 for each Light side icon at same Endor site. When forfeited at same site as your Ewok of ability > 1, may satisfy all remaining attrition against you.");
         addIcons(Icon.ENDOR);

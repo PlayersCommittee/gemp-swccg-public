@@ -4,7 +4,15 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +39,7 @@ import java.util.List;
  */
 public class Card7_179 extends AbstractAlien {
     public Card7_179() {
-        super(Side.DARK, 3, 1, 2, 1, 2, "Greeata", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 1, 2, 1, 2, "Greeata", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Rodian musician. In addition to her singing talents, she plays kloo horn. Befriended Sy Snootles on the luxury liner Kuari Princess.");
         setGameText("Other Rodians deploy -1 to same site. Once during each of your control phases, may use 1 Force to take any Rodian into hand from Reserve Deck; reshuffle. While at Audience Chamber, all your other musicians are deploy -1 and forfeit +3.");
         addIcons(Icon.SPECIAL_EDITION);

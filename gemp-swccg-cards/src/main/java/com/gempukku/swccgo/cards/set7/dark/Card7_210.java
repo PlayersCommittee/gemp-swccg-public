@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -22,7 +28,7 @@ import java.util.List;
  */
 public class Card7_210 extends AbstractAlien {
     public Card7_210() {
-        super(Side.DARK, 3, 2, 2, 1, 2, "Ur'Ru'r", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 2, 1, 2, "Ur'Ru'r", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Fierce Tusken Raider. Ransacks homes and moisture farms on the borders of Mos Espa.");
         setGameText("Deploys only on Tatooine. While at Tusken Canyon, Jundland Wastes or same Tatooine site as UroRRuR'R'R, adds 2 to each of your battle destiny draws at Tatooine sites where you have a Tusken Raider.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

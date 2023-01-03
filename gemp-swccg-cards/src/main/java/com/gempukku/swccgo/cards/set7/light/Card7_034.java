@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Card7_034 extends AbstractAlien {
     public Card7_034() {
-        super(Side.LIGHT, 3, 3, 2, 2, 3, "Neb Dulo", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 3, 2, 2, 3, "Neb Dulo", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("Disciple of Davrilat, a complicated religion based on the sanctity of harmonics. Originally from the desert planet Tocoya. Strong protective instincts.");
         setGameText("Power +3 when present with your musician. When a battle was just initiated where present, may choose one opponent's character of ability < X to move away for free (or that character is lost), where X = number of your musicians present.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

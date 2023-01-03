@@ -6,7 +6,16 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +39,7 @@ import java.util.List;
  */
 public class Card7_190 extends AbstractAlien {
     public Card7_190() {
-        super(Side.DARK, 3, 1, 1, 1, 2, "Nal Hutta Operative");
+        super(Side.DARK, 3, 1, 1, 1, 2, "Nal Hutta Operative", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Strong-armed H'nemthe thugs working for the Hutts. Work alongside Rodians and other unscrupulous aliens.");
         setGameText("While at a Nal Hutta site: adds 1 to your Force drains there, is power +1 (or +2 if your gangster or Rodian is on Nal Hutta) and, once during each of your deploy phases, may deploy one site to Nal Hutta from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);

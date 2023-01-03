@@ -3,7 +3,13 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -28,7 +34,7 @@ import java.util.List;
  */
 public class Card7_015 extends AbstractAlien {
     public Card7_015() {
-        super(Side.LIGHT, 3, 1, 1, 2, 3, Title.Droid_Merchant, Uniqueness.RESTRICTED_3);
+        super(Side.LIGHT, 3, 1, 1, 2, 3, Title.Droid_Merchant, Uniqueness.RESTRICTED_3, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Careful manipulator of funds and Imperial taxation codes. Buys droids from Jawas and sells them to the Alliance.");
         setGameText("Spaceport Speeders may be played at same site. Once per game, may do one of the following: activate 1 Force when you deploy a droid OR retrieve 1 Force when you deploy an astromech to a starfighter.");
         addIcons(Icon.SPECIAL_EDITION);

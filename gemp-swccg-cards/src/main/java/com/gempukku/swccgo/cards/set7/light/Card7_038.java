@@ -5,15 +5,23 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.cards.conditions.TargetedByUtinniEffectCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
+import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.VariableMultiplierModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +35,7 @@ import java.util.List;
  */
 public class Card7_038 extends AbstractAlien {
     public Card7_038() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Ralltiir Freighter Captain");
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Ralltiir Freighter Captain", Uniqueness.UNRESTRICTED, ExpansionSet.SPECIAL_EDITION, Rarity.F);
         setLore("After Ralltiir's fall to the Empire, many former members of its defense force became smugglers and scouts. Hoping to liberate their planet.");
         setGameText("Power +2 at a Ralltiir site. Adds 2 to power and 1 to maneuver of anything he pilots. When piloting a starship and Ralltiir on table, may draw one battle destiny if not able to otherwise. When making a Kessel Run from Ralltiir, doubles X.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);

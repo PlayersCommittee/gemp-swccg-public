@@ -2,7 +2,13 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -10,7 +16,11 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.PredictWinnerEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -29,7 +39,7 @@ import java.util.List;
  */
 public class Card7_044 extends AbstractAlien {
     public Card7_044() {
-        super(Side.LIGHT, 2, 3, 3, 4, 3, "Tawss Khaa", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 2, 3, 3, 4, 3, "Tawss Khaa", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Female Nimbanel fortune teller. Roams the wastes of Tatooine. Trained in the ways of a Sakiyan hunter. Now tracks them for the Alliance. Risk-taker.");
         setGameText("If you just initiated battle where present, predict the winner. If correct, randomly retrieve 1 Force. If incorrect, lose 1 Force. Power +3 when present with opponent's alien of ability > 3. Immune to attrition < 3.");
         addIcons(Icon.SPECIAL_EDITION);

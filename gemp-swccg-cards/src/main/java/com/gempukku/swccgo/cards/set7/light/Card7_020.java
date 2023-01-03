@@ -3,7 +3,14 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 public class Card7_020 extends AbstractAlien {
     public Card7_020() {
-        super(Side.LIGHT, 3, 2, 2, 2, 3, Title.Harc, Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 2, 2, 3, Title.Harc, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setArmor(3);
         setLore("Ishi Tib accountant. Experienced administrator. Freelance consultant. Worked for many planetary governors. Knows how to get the most out of any taxation scheme.");
         setGameText("Power +1 at a swamp. Adds 2 to power of anything he pilots. While at a battleground site, whenever you must lose Force from a Force drain at an adjacent site, may reduce the loss by X by using X Force.");

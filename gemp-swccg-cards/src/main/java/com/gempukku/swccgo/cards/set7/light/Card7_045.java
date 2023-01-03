@@ -3,11 +3,18 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -29,7 +36,7 @@ import java.util.List;
  */
 public class Card7_045 extends AbstractAlien {
     public Card7_045() {
-        super(Side.LIGHT, 3, 2, 1, 2, 3, "Thedit", Uniqueness.UNIQUE);
+        super(Side.LIGHT, 3, 2, 1, 2, 3, "Thedit", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Organizes perimeter patrols for Kalit's territory. Inspiring leader. Keeps a watchful eye for krayt dragons, Tusken Raiders, and Wittin's bandits.");
         setGameText("Deploys only on Tatooine. When in a battle with at least two of your other Jawas, adds one battle destiny. When your total battle destiny at Thedit's site is greater than opponent's total battle destiny, Thedit reduces attrition against you by 3.");
         addIcons(Icon.SPECIAL_EDITION);

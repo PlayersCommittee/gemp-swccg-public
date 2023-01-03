@@ -4,13 +4,24 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ExchangeCardInHandWithTopCardOfLostPileEffect;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.DockingBayTransitToForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -24,7 +35,7 @@ import java.util.List;
  */
 public class Card7_169 extends AbstractAlien {
     public Card7_169() {
-        super(Side.DARK, 3, 3, 1, 4, 3, Title.Brangus_Glee, Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 3, 1, 4, 3, Title.Brangus_Glee, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Elder of a dextrous race of renowned travelers. Gambler. Frequents casinos, bars and spaceports. Originally from distant planet Dor Nameth.");
         setGameText("Power +2 at Cantina. Adds 2 to power of anything he pilots. Once per turn, may exchange a docking bay from hand with top card of Lost Pile. Your docking bay transit is free when moving to or from same site. Immune to attrition < 3.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT, Icon.WARRIOR);

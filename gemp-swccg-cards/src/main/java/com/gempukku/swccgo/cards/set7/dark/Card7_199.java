@@ -5,7 +5,13 @@ import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class Card7_199 extends AbstractAlien {
     public Card7_199() {
-        super(Side.DARK, 3, 2, 1, 2, 2, "RR'uruurrr", Uniqueness.UNIQUE);
+        super(Side.DARK, 3, 2, 1, 2, 2, "RR'uruurrr", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Tusken Raider who tends to the banthas used by URoRRuR'R'R's tribe. Expert in wielding a gaffi stick. Attacked Luke Skywalker in the Jundland Wastes.");
         setGameText("Deploys only on Tatooine. Power +3 while armed with a Gaderffi Stick. Where present, each of your banthas is power and forfeit +2 unless a Weequay is at a related site. When 'riding' a bantha, adds one battle destiny.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
