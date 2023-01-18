@@ -2,10 +2,23 @@ package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.PlayStarshipOrVehicleAction;
 import com.gempukku.swccgo.cards.actions.PlayStarshipOrVehicleSimultaneouslyWithPilotOrPassengerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -36,39 +49,6 @@ public abstract class AbstractStarship extends AbstractDeployable {
     private Filter _starfighterOrTIEFilter;
     private int _capitalStarshipCapacity;
     private Filter _capitalStarshipCapacityFilter;
-
-    /**
-     * Creates a blueprint for a starship.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param armor the armor value
-     * @param maneuver the maneuver value
-     * @param hyperspeed the hyperspeed value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     */
-    protected AbstractStarship(Side side, Float destiny, float deployCost, float power, Float armor, Float maneuver, Float hyperspeed, float forfeit, String title) {
-        this(side, destiny, deployCost, power, armor, maneuver, hyperspeed, forfeit, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a starship.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param armor the armor value
-     * @param maneuver the maneuver value
-     * @param hyperspeed the hyperspeed value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractStarship(Side side, Float destiny, Float deployCost, float power, Float armor, Float maneuver, Float hyperspeed, float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, power, armor, maneuver, hyperspeed, forfeit, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for a starship.

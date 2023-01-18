@@ -23,7 +23,7 @@ public abstract class AbstractDefensiveShield extends AbstractNonLocationPlaysTo
      * @param rarity the rarity
      */
     protected AbstractDefensiveShield(Side side, PlayCardZoneOption playCardZoneOption, String title, ExpansionSet expansionSet, Rarity rarity) {
-        super(side, 0f, playCardZoneOption, 0f, title, Uniqueness.UNIQUE);
+        super(side, 0f, playCardZoneOption, 0f, title, Uniqueness.UNIQUE, expansionSet, rarity);
         setCardCategory(CardCategory.DEFENSIVE_SHIELD);
         addCardType(CardType.DEFENSIVE_SHIELD);
         addIcon(Icon.DEFENSIVE_SHIELD);

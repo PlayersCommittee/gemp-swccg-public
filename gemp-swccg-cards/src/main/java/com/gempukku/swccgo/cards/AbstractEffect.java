@@ -1,6 +1,13 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -11,29 +18,6 @@ import com.gempukku.swccgo.game.SwccgGame;
  * The abstract class providing the common implementation for Effects.
  */
 public abstract class AbstractEffect extends AbstractDeployable {
-
-    /**
-     * Creates a blueprint for an Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     */
-    protected AbstractEffect(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, String title) {
-        this(side, destiny, playCardZoneOption, title, null);
-    }
-
-    /**
-     * Creates a blueprint for an Effect.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractEffect(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, String title, Uniqueness uniqueness) {
-        this(side, destiny, playCardZoneOption, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for an Effect.

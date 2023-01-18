@@ -1,22 +1,59 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.cards.actions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.actions.FireWeaponChoiceAction;
+import com.gempukku.swccgo.cards.actions.PlayCardAsAttachedAction;
+import com.gempukku.swccgo.cards.actions.PlayCardToLocationAction;
+import com.gempukku.swccgo.cards.actions.PlayCardToZoneAction;
+import com.gempukku.swccgo.cards.actions.PlayChoiceAction;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.*;
+import com.gempukku.swccgo.logic.actions.FireWeaponAction;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.PlayCardAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.StandardEffect;
+import com.gempukku.swccgo.logic.timing.TargetingEffect;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The abstract class providing the common implementation for non-location cards that are played/deployed to the table
@@ -25,31 +62,6 @@ import java.util.*;
 public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardBlueprint {
     protected Float _deployCost;
     protected PlayCardZoneOption _playCardZoneOption;
-
-    /**
-     * Creates a blueprint for a non-location card that plays to the table.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param deployCost the deploy cost
-     * @param title the card title
-     */
-    protected AbstractNonLocationPlaysToTable(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, Float deployCost, String title) {
-        this(side, destiny, playCardZoneOption, deployCost, title, null);
-    }
-
-    /**
-     * Creates a blueprint for a non-location card that plays to the table.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
-     * @param deployCost the deploy cost
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractNonLocationPlaysToTable(Side side, Float destiny, PlayCardZoneOption playCardZoneOption, Float deployCost, String title, Uniqueness uniqueness) {
-        this(side, destiny, playCardZoneOption, deployCost, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for a non-location card that plays to the table.

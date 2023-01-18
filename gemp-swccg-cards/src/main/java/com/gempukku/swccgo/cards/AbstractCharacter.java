@@ -2,10 +2,24 @@ package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.PlayCharacterAction;
 import com.gempukku.swccgo.cards.actions.PlayStarshipOrVehicleSimultaneouslyWithPilotOrPassengerAction;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CaptureOption;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 
 import java.util.ArrayList;
@@ -26,22 +40,6 @@ public abstract class AbstractCharacter extends AbstractDeployable {
     private boolean _onlyDeploysAsUndercoverSpy;
     private boolean _onlyDeploysAsCapturedPrisoner;
     private boolean _mayDeployAsUndercoverSpy;
-
-    /**
-     * Creates a blueprint for a character.
-     * @param side the side of the Force
-     * @param destiny the destiny value
-     * @param deployCost the deploy cost
-     * @param power the power value
-     * @param ability the ability value
-     * @param forfeit the forfeit value
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractCharacter(Side side, Float destiny, Float deployCost, Float power, float ability, Float forfeit, String title, Uniqueness uniqueness) {
-        this(side, destiny, deployCost, power, ability, forfeit, title, uniqueness, null, null);
-    }
-
 
     /**
      * Creates a blueprint for a character.

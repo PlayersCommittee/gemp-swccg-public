@@ -1,15 +1,43 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.cards.actions.*;
+import com.gempukku.swccgo.cards.actions.DockingBayTransitAction;
+import com.gempukku.swccgo.cards.actions.FlipBluffCardAction;
+import com.gempukku.swccgo.cards.actions.InitiateForceDrainAction;
+import com.gempukku.swccgo.cards.actions.PlayLocationAction;
+import com.gempukku.swccgo.cards.actions.ReleaseUnattendedFrozenCaptiveAction;
+import com.gempukku.swccgo.cards.actions.SearchPartyAction;
+import com.gempukku.swccgo.cards.actions.StackBluffCardAction;
 import com.gempukku.swccgo.cards.evaluators.StackedEvaluator;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpecialRule;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.layout.LocationPlacement;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.*;
+import com.gempukku.swccgo.logic.actions.InitiateAttackCreatureAction;
+import com.gempukku.swccgo.logic.actions.InitiateBattleAction;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.PlayCardAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -18,7 +46,12 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The abstract class providing the common implementation for location cards.
@@ -28,16 +61,6 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
     private String _locationLsText;
     private Set<String> _mayNotBePartOfSystem = new HashSet<String>();
     private Set<SpecialRule> _specialRulesInEffectHere = new HashSet<SpecialRule>();
-
-    /**
-     * Creates a blueprint for a location card.
-     * @param side the side of the Force
-     * @param title the card title
-     * @param uniqueness the uniqueness
-     */
-    protected AbstractLocation(Side side, String title, Uniqueness uniqueness) {
-        this(side, title, uniqueness, null, null);
-    }
 
     /**
      * Creates a blueprint for a location card.
