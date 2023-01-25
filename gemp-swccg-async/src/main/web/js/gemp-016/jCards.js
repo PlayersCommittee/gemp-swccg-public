@@ -4005,6 +4005,8 @@ var fixedImages = {
 "209_40ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/vanee_ai.png",
 "204_41ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/generalhux_ai.png",
 "200_20ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalker_ai.png",
+"204_47ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/bowtothefirstorder_ai.png",
+"200_41ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/imustbeallowedtospeak_ai.png",
 
 };
 
@@ -4293,6 +4295,14 @@ var Card = Class.extend({
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
+
+        if (this.alternateImage) {
+            // AIs that are horizontal and the non-AI is not
+            if (blueprintId == "204_47ai"
+                    || blueprintId == "200_41ai") {
+                return true;
+            }
+        }
 
         if (setNo == 0) {
            return (cardNo == 3 ||
