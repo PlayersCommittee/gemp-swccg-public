@@ -17400,7 +17400,7 @@ public class Filters {
     public static final Filter Bespin_location = Filters.partOfSystem(Title.Bespin);
     public static final Filter Bespin_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Bespin));
     public static final Filter Bestoon_Legacy = Filters.persona(Persona.BESTOON_LEGACY);
-    public static final Filter Bib = Filters.persona(Persona.BIB);
+    public static final Filter Bib = Filters.title(Title.Bib);
     public static final Filter biker_scout = Filters.keyword(Keyword.BIKER_SCOUT);
     public static final Filter Big_One = Filters.title(Title.Big_One);
     public static final Filter Big_One_Asteroid_Cave_Or_Space_Slug_Belly = Filters.or(Filters.title(Title.Big_One_Asteroid_Cave_Or_Space_Slug_Belly), Filters.title(Title.Big_One_Asteroid_Cave), Filters.title(Title.Space_Slug_Belly));

@@ -42,6 +42,7 @@ public class AsteroidsLocationGroup extends LocationGroup {
      */
     @Override
     public boolean isGroupEnabled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return Filters.canSpotFromTopLocationsOnTable(gameState.getGame(), Filters.and(Filters.planet_system, Filters.title(_systemName)));
+        return Filters.canSpotFromTopLocationsOnTable(gameState.getGame(), Filters.or(Filters.and(Filters.planet_system, Filters.title(_systemName)),
+                Filters.and(Filters.asteroid_sector, Filters.isOrbiting(_systemName))));
     }
 }
