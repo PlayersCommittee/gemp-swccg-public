@@ -3003,6 +3003,31 @@ public class GameConditions {
     }
 
     /**
+     * Checks if the player can deploy a card from Force Pile.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @return true or false
+     */
+    public static boolean canDeployCardFromForcePile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId) {
+        return canDeployCardFromForcePile(game, playerId, self, gameTextActionId, false);
+    }
+
+    /**
+     * Checks if the player can deploy a card from Force Pile.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @param skipDeployPhaseCheck true if checking it is the player's deploy phase is skipped, otherwise false
+     * @return true or false
+     */
+    public static boolean canDeployCardFromForcePile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, boolean skipDeployPhaseCheck) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.FORCE_PILE, gameTextActionId, skipDeployPhaseCheck, false, Collections.<Persona>emptySet(), Collections.<String>emptyList());
+    }
+
+    /**
      * Checks if the player can deploy a card from the specified card pile.
      * @param game the game
      * @param playerId the player

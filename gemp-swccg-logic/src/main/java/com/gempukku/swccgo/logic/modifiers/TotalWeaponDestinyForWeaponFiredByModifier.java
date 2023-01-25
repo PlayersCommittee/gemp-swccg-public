@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
+import com.gempukku.swccgo.logic.evaluators.Evaluator;
 
 /**
  * A modifier that affects total weapon destiny when weapon if fired by specified cards.
@@ -28,6 +29,17 @@ public class TotalWeaponDestinyForWeaponFiredByModifier extends TotalWeaponDesti
      */
     public TotalWeaponDestinyForWeaponFiredByModifier(PhysicalCard source, int modifierAmount, Filterable weaponFilter) {
         super(source, weaponFilter, null, source, new ConstantEvaluator(modifierAmount), Filters.any);
+    }
+
+    /**
+     * Creates a modifier that affects total weapon destiny when a weapon accepted by the weapon filter is fired by the
+     * source card.
+     * @param source the source of the modifier and for which total weapon destiny for a weapon it fires is modified
+     * @param evaluator the evaluator
+     * @param weaponFilter the weapon filter
+     */
+    public TotalWeaponDestinyForWeaponFiredByModifier(PhysicalCard source, Evaluator evaluator, Filterable weaponFilter) {
+        super(source, weaponFilter, null, source, evaluator, Filters.any);
     }
 
     /**
