@@ -1,8 +1,7 @@
 package com.gempukku.swccgo.cards.set219.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
-import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -10,19 +9,20 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployOtherCardsAsReactToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.timing.Effect;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,26 +50,35 @@ public class Card219_013 extends AbstractSite {
     }
 
     @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+    protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(final String playerOnDarkSideOfLocation, final SwccgGame game, final PhysicalCard self) {
+        Condition oncePerBattleCondition = new Condition() {
+            @Override
+            public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                return game.getModifiersQuerying().getUntilEndOfBattleLimitCounter(self, playerOnDarkSideOfLocation, self.getCardId(), GameTextActionId.OTHER_CARD_ACTION_1).getUsedLimit()<1;
+            }
+        };
 
-        final ReactActionOption reactActionOption = new ReactActionOption(self, false, 0, false, null, null, Filters.battleLocation, null, false);
-        final Filter filter = Filters.deployableToTarget(self, Filters.battleLocation, true, false, 0, null, null, null, null, reactActionOption);
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new MayDeployOtherCardsAsReactToLocationModifier(self, "Deploy a card as a react",
+                new AndCondition(oncePerBattleCondition, new ControlsWithCondition(playerOnDarkSideOfLocation, self, Filters.leader)),
+                playerOnDarkSideOfLocation,
+                Filters.or(Filters.character, Filters.vehicle, Filters.starship, Filters.weapon, Filters.device),
+                Filters.and(Filters.battleLocation, Filters.relatedSite(self))));
+        return modifiers;
+    }
 
-        if(TriggerConditions.battleInitiatedAt(game, effectResult, game.getOpponent(playerOnDarkSideOfLocation), Filters.relatedSite(self))
-                && GameConditions.controlsWith(game, playerOnDarkSideOfLocation, self, Filters.leader)
-                && GameConditions.isOncePerBattle(game, self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.hasInHandOrDeployableAsIfFromHand(game, playerOnDarkSideOfLocation, filter)){
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextDarkSideOptionalBeforeTriggers(String playerOnDarkSideOfLocation, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.isReact(game, effect)
+                && effect.getAction()!=null) {
+            PhysicalCard source = effect.getAction().getActionSource();
 
-
-            OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.appendUsage(
-                    new OncePerBattleEffect(action)
-            );
-            action.appendEffect(
-                    new DeployCardToLocationFromHandEffect(action, playerOnDarkSideOfLocation, filter, Filters.battleLocation, false, true));
-            return Collections.singletonList(action);
+            // if this card is the source of the react then increment the per battle limit so the condition above can check for it
+            if (Filters.sameCardId(self).accepts(game, source)) {
+                game.getModifiersQuerying().getUntilEndOfBattleLimitCounter(self, playerOnDarkSideOfLocation, self.getCardId(), GameTextActionId.OTHER_CARD_ACTION_1).incrementToLimit(1,1);
+            }
         }
+
         return null;
     }
 }
