@@ -209,7 +209,10 @@ public enum Persona implements Filterable {
     QUIGON_JINNS_LIGHTSABER("Qui-Gon Jinn's Lightsaber"),
     SIDIOUS_LIGHTSABER("Sidious' Lightsaber"),
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
-    VADERS_LIGHTSABER("Vader's Lightsaber");
+    VADERS_LIGHTSABER("Vader's Lightsaber"),
+    VENTRESS_LIGHTSABER("Ventress' Lightsabers"),
+
+    ;
 
 
 
