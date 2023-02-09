@@ -19,6 +19,7 @@ public class LandAction extends AbstractTopLevelRuleAction {
     private PhysicalCard _cardToMove;
     private boolean _forFree;
     private boolean _asReact;
+    private boolean _asUnlimitedMove;
     private PhysicalCard _locationToMoveTo;
     private boolean _useForceCostApplied;
     private MovingAsReactEffect _moveCardEffect;
@@ -33,11 +34,12 @@ public class LandAction extends AbstractTopLevelRuleAction {
      * @param asReact true if moving as a 'react', otherwise false
      * @param moveTargetFilter the filter for where the card can be move
      */
-    public LandAction(final String playerId, final PhysicalCard card, boolean forFree, boolean asReact, final Filter moveTargetFilter) {
+    public LandAction(final String playerId, final PhysicalCard card, boolean forFree, boolean asReact, boolean asUnlimitedMove, final Filter moveTargetFilter) {
         super(card, playerId);
         _cardToMove = card;
         _forFree = forFree;
         _asReact = asReact;
+        _asUnlimitedMove = asUnlimitedMove;
         _that = this;
 
         appendTargeting(
@@ -46,7 +48,7 @@ public class LandAction extends AbstractTopLevelRuleAction {
                     protected void cardSelected(PhysicalCard selectedCard) {
                         _locationToMoveTo = selectedCard;
 
-                        _moveCardEffect = new LandEffect(_that, card, _locationToMoveTo, _asReact);
+                        _moveCardEffect = new LandEffect(_that, card, _locationToMoveTo, _asReact, _asUnlimitedMove);
                     }
                 }
         );

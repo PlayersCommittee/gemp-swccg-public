@@ -453,14 +453,14 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         }
 
         // Move as 'react' by landing
-        Action landAction = getLandAction(playerId, game, self, isReactForFree, true, true, false, completeMoveTargetFilter);
+        Action landAction = getLandAction(playerId, game, self, isReactForFree, true, true, false, false, completeMoveTargetFilter);
         if (landAction != null) {
             Filter landTargetFilter = getLandFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
             moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.LANDING_AS_REACT, landTargetFilter));
         }
 
         // Move as 'react' by taking off
-        Action takeOffAction = getTakeOffAction(playerId, game, self, isReactForFree, true, true, false, completeMoveTargetFilter);
+        Action takeOffAction = getTakeOffAction(playerId, game, self, isReactForFree, true, true, false, false, completeMoveTargetFilter);
         if (takeOffAction != null) {
             Filter takeOffTargetFilter = getTakeOffFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
             moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.TAKING_OFF_AS_REACT, takeOffTargetFilter));
@@ -584,13 +584,13 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         }
 
         // Land
-        Action landAction = getLandAction(playerId, game, self, forFree, false, skipPhaseCheck, asAdditionalMove, moveTargetFilter);
+        Action landAction = getLandAction(playerId, game, self, forFree, false, skipPhaseCheck, asAdditionalMove, false, moveTargetFilter);
         if (landAction != null) {
             regularMoveActions.add(landAction);
         }
 
         // Take off
-        Action takeOffAction = getTakeOffAction(playerId, game, self, forFree, false, skipPhaseCheck, asAdditionalMove, moveTargetFilter);
+        Action takeOffAction = getTakeOffAction(playerId, game, self, forFree, false, skipPhaseCheck, asAdditionalMove, false, moveTargetFilter);
         if (takeOffAction != null) {
             regularMoveActions.add(takeOffAction);
         }
@@ -895,8 +895,9 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      * @return the action, or null
      */
     @Override
-    public Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
-        if (game.getModifiersQuerying().landsAsUnlimitedMove(game.getGameState(), self)) {
+    public Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter) {
+        if (asUnlimitedMove
+                || game.getModifiersQuerying().landsAsUnlimitedMove(game.getGameState(), self)) {
             if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
                 return null;
         } else if(!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
@@ -916,7 +917,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
 
         // Check that a valid location to move to can be found
         if (Filters.canSpotFromTopLocationsOnTable(game, completeTargetFilter)) {
-            return new LandAction(playerId, self, forFree, asReact, completeTargetFilter);
+            return new LandAction(playerId, self, forFree, asReact, asUnlimitedMove, completeTargetFilter);
         }
 
         return null;
@@ -949,8 +950,9 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      * @return the action, or null
      */
     @Override
-    public Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
-        if (game.getModifiersQuerying().takesOffAsUnlimitedMove(game.getGameState(), self)) {
+    public Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter) {
+        if (asUnlimitedMove
+                || game.getModifiersQuerying().takesOffAsUnlimitedMove(game.getGameState(), self)) {
             if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
                 return null;
         } else if(!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
@@ -970,7 +972,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
 
         // Check that a valid location to move to can be found
         if (Filters.canSpotFromTopLocationsOnTable(game, completeTargetFilter)) {
-            return new TakeOffAction(playerId, self, forFree, asReact, completeTargetFilter);
+            return new TakeOffAction(playerId, self, forFree, asReact, asUnlimitedMove, completeTargetFilter);
         }
 
         return null;
@@ -1623,13 +1625,13 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         }
 
         // Land
-        Action landAction = getLandAction(playerId, game, self, false, false, false, false, Filters.any);
+        Action landAction = getLandAction(playerId, game, self, false, false, false, false, false, Filters.any);
         if (landAction != null) {
             actions.add(landAction);
         }
 
         // Take off
-        Action takeOffAction = getTakeOffAction(playerId, game, self, false, false, false, false, Filters.any);
+        Action takeOffAction = getTakeOffAction(playerId, game, self, false, false, false, false, false, Filters.any);
         if (takeOffAction != null) {
             actions.add(takeOffAction);
         }

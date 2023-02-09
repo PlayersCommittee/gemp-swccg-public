@@ -24,6 +24,7 @@ public class TakeOffEffect extends AbstractSubActionEffect implements MovingAsRe
     private PhysicalCard _movedFrom;
     private PhysicalCard _movedTo;
     private boolean _asReact;
+    private boolean _asUnlimitedMove;
     private boolean _moveCompleted;
 
     /**
@@ -33,13 +34,14 @@ public class TakeOffEffect extends AbstractSubActionEffect implements MovingAsRe
      * @param moveTo the location to move to
      * @param asReact true if moving as a 'react', otherwise false
      */
-    public TakeOffEffect(Action action, PhysicalCard cardMoved, PhysicalCard moveTo, boolean asReact) {
+    public TakeOffEffect(Action action, PhysicalCard cardMoved, PhysicalCard moveTo, boolean asReact, boolean asUnlimitedMove) {
         super(action);
         _playerId = action.getPerformingPlayer();
         _cardMoved = cardMoved;
         _movedFrom = cardMoved.getAtLocation();
         _movedTo = moveTo;
         _asReact = asReact;
+        _asUnlimitedMove = asUnlimitedMove;
     }
 
     @Override
@@ -87,7 +89,8 @@ public class TakeOffEffect extends AbstractSubActionEffect implements MovingAsRe
         if (_cardMoved.getAtLocation() != null
                 && (!isAsReact() || gameState.getMoveAsReactState().canContinue())) {
 
-            if (!modifiersQuerying.takesOffAsUnlimitedMove(gameState, _cardMoved)) {
+            if (!_asUnlimitedMove
+                    && !modifiersQuerying.takesOffAsUnlimitedMove(gameState, _cardMoved)) {
                 subAction.appendEffect(
                         new PassthruEffect(subAction) {
                             @Override

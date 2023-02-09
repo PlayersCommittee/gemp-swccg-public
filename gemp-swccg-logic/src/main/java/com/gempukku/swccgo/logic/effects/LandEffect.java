@@ -24,6 +24,7 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
     private PhysicalCard _movedFrom;
     private PhysicalCard _movedTo;
     private boolean _asReact;
+    private boolean _asUnlimitedMove;
     private boolean _moveCompleted;
 
     /**
@@ -33,13 +34,14 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
      * @param moveTo the location to move to
      * @param asReact true if moving as a 'react', otherwise false
      */
-    public LandEffect(Action action, PhysicalCard cardMoved, PhysicalCard moveTo, boolean asReact) {
+    public LandEffect(Action action, PhysicalCard cardMoved, PhysicalCard moveTo, boolean asReact, boolean asUnlimitedMove) {
         super(action);
         _playerId = action.getPerformingPlayer();
         _cardMoved = cardMoved;
         _movedFrom = cardMoved.getAtLocation();
         _movedTo = moveTo;
         _asReact = asReact;
+        _asUnlimitedMove = asUnlimitedMove;
     }
 
     @Override
@@ -87,7 +89,8 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
         if (_cardMoved.getAtLocation() != null
                 && (!isAsReact() || gameState.getMoveAsReactState().canContinue())) {
 
-            if (!modifiersQuerying.landsAsUnlimitedMove(gameState, _cardMoved)){
+            if (!_asUnlimitedMove
+                    && !modifiersQuerying.landsAsUnlimitedMove(gameState, _cardMoved)){
                 subAction.appendEffect(
                         new PassthruEffect(subAction) {
                             @Override

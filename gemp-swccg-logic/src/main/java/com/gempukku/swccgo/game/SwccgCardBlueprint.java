@@ -952,7 +952,7 @@ public interface SwccgCardBlueprint {
      * @param moveTargetFilter the filter for where the card can move
      * @return the action, or null
      */
-    Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter);
+    Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter);
 
     /**
      * Gets the take off action for the card if it can take off.
@@ -966,7 +966,7 @@ public interface SwccgCardBlueprint {
      * @param moveTargetFilter the filter for where the card can move
      * @return the action, or null
      */
-    Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter);
+    Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter);
 
     /**
      * Gets the move action for a bomber at the start of a Bombing Run.

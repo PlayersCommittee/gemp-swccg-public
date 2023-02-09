@@ -234,10 +234,10 @@ public class MoveAsReactAction extends AbstractGameTextAction {
             return _cardToReact.getBlueprint().getMoveUsingSectorMovementAction(playerId, game, _cardToReact, true, true, _reactAway, true, false, moveTargetFilter);
         }
         if (_movementType == Effect.Type.LANDING_AS_REACT) {
-            return _cardToReact.getBlueprint().getLandAction(playerId, game, _cardToReact, true, true, true, false, moveTargetFilter);
+            return _cardToReact.getBlueprint().getLandAction(playerId, game, _cardToReact, true, true, true, false, false, moveTargetFilter);
         }
         if (_movementType == Effect.Type.TAKING_OFF_AS_REACT) {
-            return _cardToReact.getBlueprint().getTakeOffAction(playerId, game, _cardToReact, true, true, true, false, moveTargetFilter);
+            return _cardToReact.getBlueprint().getTakeOffAction(playerId, game, _cardToReact, true, true, true, false, false, moveTargetFilter);
         }
         return null;
     }

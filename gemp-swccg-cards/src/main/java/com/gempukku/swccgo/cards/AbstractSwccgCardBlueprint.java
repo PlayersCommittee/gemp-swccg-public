@@ -1525,7 +1525,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @return the action, or null
      */
     @Override
-    public Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
+    public Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter) {
         throw new UnsupportedOperationException("This method, getLandAction(), should not be called on this card: " + _title);
     }
 
@@ -1542,7 +1542,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @return the action, or null
      */
     @Override
-    public Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
+    public Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter) {
         throw new UnsupportedOperationException("This method, getTakeOffAction(), should not be called on this card: " + _title);
     }
 
