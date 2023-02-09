@@ -6,6 +6,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -44,6 +45,7 @@ public class Card209_035 extends AbstractAlien {
         setGameText("[Pilot]1. Deploys free to an unoccupied site. Your droids are deploy -1 here. When deployed, may search your Lost Pile and move one card there to the top of that pile (if that card is a droid, may retrieve it into hand).");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.FEMALE, Keyword.INFORMATION_BROKER, Keyword.SPY, Keyword.THIEF);
+        addPersona(Persona.APHRA);
     }
 
     @Override

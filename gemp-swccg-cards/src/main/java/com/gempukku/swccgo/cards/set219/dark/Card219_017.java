@@ -83,8 +83,9 @@ public class Card219_017 extends AbstractDevice {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String opponent = game.getOpponent(playerId);
 
-        Filter filter = Filters.and(Filters.your(self), Filters.character, Filters.hasNotPerformedRegularMove, Filters.relatedSite(self),
-                Filters.canMoveUsingLandspeed(playerId, false, false, false,0));
+        Filter filter = Filters.and(Filters.your(self), Filters.character, Filters.hasNotPerformedRegularMove,
+                Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, Filters.here(self)));
+
 
         if(TriggerConditions.justDeployedToLocation(game, effectResult, opponent, Filters.or(Filters.character, Filters.vehicle), Filters.here(self))) {
 
@@ -94,7 +95,7 @@ public class Card219_017 extends AbstractDevice {
                 action.setText("Move a character to here");
                 action.setActionMsg("Move a character to here using landspeed");
 
-                action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target a character to move to here uaing landspeed ", Filters.in(canMove)) {
+                action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target a character to move to here using landspeed ", Filters.in(canMove)) {
                     @Override
                     protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
                         action.appendCost(
