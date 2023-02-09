@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -42,6 +43,7 @@ public class Card217_022 extends AbstractCharacterWeapon {
         setGameText("When drawn for destiny, destiny +1 for each Dark Jedi or Jedi on table. Deploy on [Episode I] Sidious (even as a 'react'). May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_17);
+        addPersona(Persona.SIDIOUS_LIGHTSABER);
         setMatchingCharacterFilter(Filters.Sidious);
     }
 

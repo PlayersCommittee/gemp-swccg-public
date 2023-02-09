@@ -207,6 +207,7 @@ public enum Persona implements Filterable {
     MARA_SKYWALKERS_LIGHTSABER("Mara Skywalker's Lightsaber"),
     MAULS_DOUBLE_BLADED_LIGHTSABER("Maul's Double-Bladed Lightsaber"),
     QUIGON_JINNS_LIGHTSABER("Qui-Gon Jinn's Lightsaber"),
+    SIDIOUS_LIGHTSABER("Sidious' Lightsaber"),
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
     VADERS_LIGHTSABER("Vader's Lightsaber");
 

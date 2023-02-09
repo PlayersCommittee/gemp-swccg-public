@@ -19,6 +19,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.google.common.collect.Sets;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,8 +46,8 @@ public class Card112_017 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.JABBAS_SAIL_BARGE,
-                Arrays.asList(Title.Boelo, Title.Bib, Title.Ephant_Mon, Title.Jabbas_Space_Cruiser, Title.Hutt_Influence))) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Sets.newHashSet(Persona.JABBAS_SAIL_BARGE, Persona.BIB),
+                Arrays.asList(Title.Boelo, Title.Ephant_Mon, Title.Jabbas_Space_Cruiser, Title.Hutt_Influence))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy card from Reserve Deck");
