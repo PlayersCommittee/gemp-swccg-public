@@ -66,6 +66,8 @@ public class Card203_011 extends AbstractDroid {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setPerformingPlayer(self.getOwner());
+
                 action.setText("Relocate to Dune Sea");
                 action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(duneSea));
                 action.addAnimationGroup(duneSea);
@@ -99,6 +101,8 @@ public class Card203_011 extends AbstractDroid {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setPerformingPlayer(self.getOwner());
+
                 action.setText("Relocate to Dune Sea");
                 action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(duneSea));
                 action.addAnimationGroup(duneSea);

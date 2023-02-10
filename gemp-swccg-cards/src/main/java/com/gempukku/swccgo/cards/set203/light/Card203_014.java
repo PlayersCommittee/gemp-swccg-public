@@ -66,6 +66,8 @@ public class Card203_014 extends AbstractNormalEffect {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setPerformingPlayer(self.getOwner());
+
                 action.setText("Relocate to Dune Sea");
                 action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(duneSea));
                 action.addAnimationGroup(duneSea);
@@ -170,6 +172,8 @@ public class Card203_014 extends AbstractNormalEffect {
                 final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setPerformingPlayer(self.getOwner());
+
                 action.setText("Relocate to Dune Sea");
                 action.setActionMsg("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(duneSea));
                 action.addAnimationGroup(duneSea);

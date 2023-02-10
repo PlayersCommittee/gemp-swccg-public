@@ -74,7 +74,8 @@ public class Card219_013 extends AbstractSite {
             PhysicalCard source = effect.getAction().getActionSource();
 
             // if this card is the source of the react then increment the per battle limit so the condition above can check for it
-            if (Filters.sameCardId(self).accepts(game, source)) {
+            if (source != null
+                    && Filters.sameCardId(self).accepts(game, source)) {
                 game.getModifiersQuerying().getUntilEndOfBattleLimitCounter(self, playerOnDarkSideOfLocation, self.getCardId(), GameTextActionId.OTHER_CARD_ACTION_1).incrementToLimit(1,1);
             }
         }
