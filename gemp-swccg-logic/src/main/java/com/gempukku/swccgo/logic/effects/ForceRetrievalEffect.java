@@ -181,6 +181,14 @@ public class ForceRetrievalEffect extends AbstractSubActionEffect {
     }
 
     /**
+     * Determines if the retrieval may not be canceled.
+     * @return true or false
+     */
+    public boolean mayNotBeCanceled() {
+        return false;
+    }
+
+    /**
      * Determines if the Force retrieval is due to initiating battle.
      * @return true or false
      */

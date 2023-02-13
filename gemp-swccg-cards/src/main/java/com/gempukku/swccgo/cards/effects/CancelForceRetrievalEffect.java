@@ -25,8 +25,12 @@ public class CancelForceRetrievalEffect extends AbstractSuccessfulEffect {
         GameState gameState = game.getGameState();
         ForceRetrievalState forceRetrievalState = gameState.getTopForceRetrievalState();
         if (forceRetrievalState != null && forceRetrievalState.canContinue()) {
-            forceRetrievalState.cancel();
-            gameState.sendMessage(GameUtils.getCardLink(_action.getActionSource()) + " cancels " + forceRetrievalState.getForceRetrievalEffect().getPlayerToRetrieveForce() + "'s Force retrieval");
+            if (forceRetrievalState.getForceRetrievalEffect().mayNotBeCanceled()) {
+                gameState.sendMessage(GameUtils.getCardLink(_action.getActionSource()) + " may not cancel " + forceRetrievalState.getForceRetrievalEffect().getPlayerToRetrieveForce() + "'s Force retrieval");
+            } else {
+                forceRetrievalState.cancel();
+                gameState.sendMessage(GameUtils.getCardLink(_action.getActionSource()) + " cancels " + forceRetrievalState.getForceRetrievalEffect().getPlayerToRetrieveForce() + "'s Force retrieval");
+            }
         }
     }
 }
