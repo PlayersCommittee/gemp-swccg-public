@@ -1,8 +1,8 @@
 var cardCache = {};
 var cardScale = 350 / 490;
 var fixedImages = {
-"-1_1":"https://res.starwarsccg.org/gemp/lightCardBack20thAnniversary.png",
-"-1_2":"https://res.starwarsccg.org/gemp/darkCardBack20thAnniversary.png",
+"-1_1":"https://res.starwarsccg.org/gemp/lightcardback.png",
+"-1_2":"https://res.starwarsccg.org/gemp/darkcardback.png",
 "1_1":"https://res.starwarsccg.org/cards/Premiere-Light/large/2x3kpr.gif",
 "1_2":"https://res.starwarsccg.org/cards/Premiere-Light/large/berulars.gif",
 "1_3":"https://res.starwarsccg.org/cards/Premiere-Light/large/biggsdarklighter.gif",
@@ -2996,7 +2996,7 @@ var fixedImages = {
 "208_32":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/kirkanos.png",
 "208_33":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/lieutenantdopheldmitaka.png",
 "208_34":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/lordmaulwithlightsaber.png",
-"208_35":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/lordsidious.png",
+"208_35":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/lordsidious_ai.png",
 "208_36":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/mynkyneugh.png",
 "208_37":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/captainpeavey.png",
 "208_38":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/alertmystardestroyer.png",
@@ -3400,7 +3400,7 @@ var fixedImages = {
 "218_1":"https://res.starwarsccg.org/cards/Virtual18-Dark/hires/imperialcommandinrange.png",
 "218_2":"https://res.starwarsccg.org/cards/Virtual18-Dark/hires/sealoffthebridge.png",
 "218_3":"https://res.starwarsccg.org/cards/Virtual18-Light/hires/masterquigonwithlightsaber.png",
-"218_4":"https://res.starwarsccg.org/cards/Virtual18-Light/hires/masterwindu.png",
+"218_4":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/masterwindu_ai.png",
 "218_5":"https://res.starwarsccg.org/cards/Virtual18-Light/hires/rebelleadershipcriticalerrorrevealed.png",
 "218_6":"https://res.starwarsccg.org/cards/Virtual18-Light/hires/takeaseatyoungskywalker.png",
 "218_7":"https://res.starwarsccg.org/cards/Virtual18-Dark/hires/adarktimefortherebelliontarkinsorders.png",
