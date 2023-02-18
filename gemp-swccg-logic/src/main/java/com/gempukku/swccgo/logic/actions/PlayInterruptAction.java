@@ -8,10 +8,12 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
+import com.gempukku.swccgo.logic.timing.UsageEffect;
 import com.gempukku.swccgo.logic.timing.results.RemovedFromCardPileResult;
 
 import java.util.Collection;
@@ -41,6 +43,10 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
     private CardSubtype _playedAsSubtype;
     private Set<String> _immuneToTitle = new HashSet<String>();
     private boolean _multipleSubtype;
+    private boolean _needDecisionReturnToHandWhenResolving;
+    private UsageEffect _returnToHandUsageEffect;
+    private boolean _returnToHand;
+    private boolean _needToUseReturnToHandUsageEffect;
 
     /**
      * Creates an action that plays an Interrupt.
@@ -88,6 +94,9 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
         _text = "Play";
         _playedFromText = _cardToPlay.getStackedOn() != null ? ("stacked on " + GameUtils.getCardLink(_cardToPlay.getStackedOn())) : _playedFromZone.getHumanReadable();
         _initiationMessage = getPerformingPlayer() + " initiates playing " + GameUtils.getCardLink(_cardToPlay) + " from " + _playedFromText;
+        _needDecisionReturnToHandWhenResolving = false;
+        _returnToHand = false;
+        _needToUseReturnToHandUsageEffect = false;
 
         _playedAsSubtype = game.getModifiersQuerying().getInterruptType(game.getGameState(), card);
         if (_playedAsSubtype==CardSubtype.USED_OR_LOST || _playedAsSubtype==CardSubtype.USED_OR_STARTING || _playedAsSubtype==CardSubtype.LOST_OR_STARTING) {
@@ -112,6 +121,26 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
      */
     public CardSubtype getPlayedAsSubtype() {
         return _playedAsSubtype;
+    }
+
+    /**
+     * Indicates if the player should be given the option to return the interrupt to hand after resolving
+     * @param optionalReturnToHandWhenResolving true if the player should be given the option to return it to hand after resolving
+     * @param usageEffect the usage effect if once per game, etc., otherwise null
+     */
+    public void setNeedsDecisionReturnToHandWhenResolving(boolean optionalReturnToHandWhenResolving, UsageEffect usageEffect) {
+        _needDecisionReturnToHandWhenResolving = optionalReturnToHandWhenResolving;
+        _returnToHandUsageEffect = usageEffect;
+    }
+
+
+    /**
+     * Sets that the card is to be placed in hand
+     * @param returnToHand true if the player decided to return the card to hand
+     */
+    public void setReturnToHand(boolean returnToHand) {
+        _returnToHand = returnToHand;
+        _needToUseReturnToHandUsageEffect = returnToHand && (_returnToHandUsageEffect != null);
     }
 
     /**
@@ -340,7 +369,29 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
             }
         }
 
+        // check usage of returning the interrupt to hand instead of placing it in a different pile
+        if (_needToUseReturnToHandUsageEffect) {
+            _needToUseReturnToHandUsageEffect = false;
+            return _returnToHandUsageEffect;
+        }
+
         if (!_actionComplete) {
+            // check if the interrupt allows the player to return it to hand instead of placing it in a different pile and give the player the choice if so
+            if (_needDecisionReturnToHandWhenResolving
+                    && _cardToPlay.getZone() == Zone.VOID
+                    && !isToBePlacedOutOfPlay()
+                    && !game.getModifiersQuerying().isPlacedOutOfPlayWhenPlayedAsSubtype(gameState, _cardToPlay, _playedAsSubtype)) {
+
+                _needDecisionReturnToHandWhenResolving = false;
+                final PlayInterruptAction _this = this;
+                return new PlayoutDecisionEffect(this, getPerformingPlayer(), new YesNoDecision("Return " + GameUtils.getCardLink(_cardToPlay) + " to hand?") {
+                    @Override
+                    protected void yes() {
+                        _this.setReturnToHand(true);
+                    }
+                });
+            }
+
             _actionComplete = true;
             gameState.endPlayCard();
 
@@ -355,6 +406,8 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
 
                 if (isToBePlacedOutOfPlay() || game.getModifiersQuerying().isPlacedOutOfPlayWhenPlayedAsSubtype(gameState, _cardToPlay, _playedAsSubtype)) {
                     return new PlaceCardFromVoidOutOfPlayEffect(this, _cardToPlay);
+                } else if (_returnToHand) {
+                    return new TakeCardFromVoidIntoHandEffect(this, getPerformingPlayer(), _cardToPlay);
                 }
                 else if (_playedAsSubtype == CardSubtype.USED) {
                     return new PutCardFromVoidInUsedPileEffect(this, getPerformingPlayer(), _cardToPlay);
