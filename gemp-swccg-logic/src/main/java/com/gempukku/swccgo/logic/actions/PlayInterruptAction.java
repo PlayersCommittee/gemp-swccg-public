@@ -107,6 +107,14 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
     }
 
     /**
+     * Returns the played as subtype
+     * @return the subtype
+     */
+    public CardSubtype getPlayedAsSubtype() {
+        return _playedAsSubtype;
+    }
+
+    /**
      * Sets that the card is to be placed out of play when played.
      * @param placeOutOfPlay true if card is to be placed out of play
      */
