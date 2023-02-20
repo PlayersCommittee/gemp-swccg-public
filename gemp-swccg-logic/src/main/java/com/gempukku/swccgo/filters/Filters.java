@@ -1,8 +1,46 @@
 package com.gempukku.swccgo.filters;
 
-import com.gempukku.swccgo.common.*;
-import com.gempukku.swccgo.game.*;
-import com.gempukku.swccgo.game.state.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.IonizationType;
+import com.gempukku.swccgo.common.JediTestStatus;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpecialRule;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.TargetingType;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
+import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.game.CompletePhysicalCardVisitor;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PhysicalCardVisitor;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.AttackRunState;
+import com.gempukku.swccgo.game.state.AttackState;
+import com.gempukku.swccgo.game.state.BattleState;
+import com.gempukku.swccgo.game.state.EpicEventState;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.MoveAsReactState;
+import com.gempukku.swccgo.game.state.WeaponFiringState;
 import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
@@ -14,7 +52,15 @@ import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -17573,6 +17619,8 @@ public class Filters {
     public static final Filter Courage_Of_A_Skywalker = Filters.title(Title.Courage_Of_A_Skywalker);
     public static final Filter Court_Of_The_Vile_Gangster = Filters.title(Title.Court_Of_The_Vile_Gangster);
     public static final Filter Cracken = Filters.persona(Persona.CRACKEN);
+    public static final Filter Crait_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Crait));
+    public static final Filter Crait_Salt_Plateau = Filters.and(CardSubtype.SITE, Filters.title(Title.Crait_Salt_Plateau));
     public static final Filter Crash_Site_Memorial = Filters.title(Title.Crash_Site_Memorial);
     public static final Filter crashed_vehicle = Filters.and(CardType.VEHICLE, Filters.crashed());
     public static final Filter creature = Filters.type(CardType.CREATURE);
@@ -17713,6 +17761,7 @@ public class Filters {
     public static final Filter Double_Agent = Filters.title(Title.Double_Agent);
     public static final Filter Double_Back = Filters.title(Title.Double_Back);
     public static final Filter Downtown_Plaza = Filters.title(Title.Downtown_Plaza);
+    public static final Filter Dqar_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Dqar));
     public static final Filter Dr_Evazan = Filters.title(Title.Dr_Evazan);
     public static final Filter Dreadnaught_class_cruisers = Filters.modelType(ModelType.DREADNAUGHT_CLASS_HEAVY_CRUISER);
     public static final Filter droid = Filters.icon(Icon.DROID);
@@ -17823,6 +17872,8 @@ public class Filters {
     public static final Filter First_Order_character = Filters.and(Icon.FIRST_ORDER, CardCategory.CHARACTER);
     public static final Filter First_Order_leader = Filters.and(Icon.FIRST_ORDER, CardCategory.CHARACTER, Keyword.LEADER);
     public static final Filter First_Order_pilot = Filters.and(Icon.FIRST_ORDER, CardCategory.CHARACTER, Icon.PILOT);
+    public static final Filter First_Order_starship = Filters.and(Icon.FIRST_ORDER, CardCategory.STARSHIP);
+    public static final Filter First_Order_TIE = Filters.and(Icon.FIRST_ORDER, Filters.tie());
     public static final Filter First_Order_warrior = Filters.and(Icon.FIRST_ORDER, CardCategory.CHARACTER, Icon.WARRIOR);
     public static final Filter Fixer = Filters.title(Title.Fixer);
     public static final Filter Flagship = Filters.title(Title.Flagship);
@@ -18508,6 +18559,7 @@ public class Filters {
     public static final Filter Resistance_character = Filters.and(CardCategory.CHARACTER, Icon.RESISTANCE);
     public static final Filter Resistance_leader = Filters.and(Icon.RESISTANCE, Keyword.LEADER);
     public static final Filter Resistance_pilot = Filters.and(CardCategory.CHARACTER, Icon.RESISTANCE, Icon.PILOT);
+    public static final Filter Resistance_starship = Filters.and(CardCategory.STARSHIP, Icon.RESISTANCE);
     public static final Filter Responsibility_Of_Command = Filters.title(Title.Responsibility_Of_Command);
     public static final Filter Restore_Freedom_To_The_Galaxy = Filters.title(Title.Restore_Freedom_To_The_Galaxy);
     public static final Filter Restraining_Bolt = Filters.title(Title.Restraining_Bolt);
@@ -18723,6 +18775,8 @@ public class Filters {
     public static final Filter Superlaser = Filters.title(Title.Superlaser);
     public static final Filter Superlaser_Mark_II = Filters.title(Title.Superlaser_Mark_II);
     public static final Filter superlaser_weapon = Filters.or(Filters.title(Title.Superlaser), Filters.title(Title.Superlaser_Mark_II));
+    public static final Filter Supremacy = Filters.title(Title.Supremacy);
+    public static final Filter Supremacy_Bridge = Filters.title(Title.Supremacy_Bridge);
     public static final Filter Surface_Defense_Cannon = Filters.title(Title.Surface_Defense_Cannon);
     public static final Filter Surprise = Filters.title(Title.Surprise);
     public static final Filter Surprise_Assault = Filters.title(Title.Surprise_Assault);
@@ -18791,6 +18845,7 @@ public class Filters {
     public static final Filter The_Phantom_Menace = Filters.title(Title.The_Phantom_Menace);
     public static final Filter The_Planet_That_Its_Farthest_From = Filters.title(Title.The_Planet_That_Its_Farthest_From);
     public static final Filter The_Professor = Filters.title(Title.The_Professor);
+    public static final Filter The_Resistance_Is_Doomed = Filters.title(Title.The_Resistance_Is_Doomed);
     public static final Filter The_Shield_Doors_Must_Be_Closed = Filters.title(Title.The_Shield_Doors_Must_Be_Closed);
     public static final Filter The_Shield_Will_Be_Down_In_Moments = Filters.title(Title.The_Shield_Will_Be_Down_In_Moments);
     public static final Filter The_Time_To_Fight_Is_Now = Filters.title(Title.The_Time_To_Fight_Is_Now);
@@ -18847,6 +18902,7 @@ public class Filters {
     public static final Filter torpedo = Filters.or(Keyword.PROTON_TORPEDOES);
     public static final Filter Torture = Filters.title(Title.Torture);
     public static final Filter Toche_Station = Filters.title(Title.Toche_Station);
+    public static final Filter Tracked_Fleet = Filters.title(Title.Tracked_Fleet);
     public static final Filter tractor_beam = Filters.keyword(Keyword.TRACTOR_BEAM);
     public static final Filter trade_agenda = Filters.agenda(Agenda.TRADE);
     public static final Filter Trade_Federation_starfighter = Filters.and(Icon.TRADE_FEDERATION, CardSubtype.STARFIGHTER);

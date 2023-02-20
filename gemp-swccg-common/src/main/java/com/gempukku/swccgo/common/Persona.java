@@ -186,6 +186,7 @@ public enum Persona implements Filterable {
     RUKH("Rukh"),
     SCIMITAR_2("Scimitar 2"),
     SLAVE_I("Slave I"),
+    SUPREMACY("Supremacy"),
     STEADFAST("Steadfast"),
     TANTIVE_IV("Tantive IV"),
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),

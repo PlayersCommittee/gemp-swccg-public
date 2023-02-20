@@ -1,14 +1,51 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.cards.conditions.*;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.cards.conditions.AllAbilityAtLocationProvidedByCondition;
+import com.gempukku.swccgo.cards.conditions.AllAbilityInBattleProvidedByCondition;
+import com.gempukku.swccgo.cards.conditions.AllAbilityOnTableProvidedByCondition;
+import com.gempukku.swccgo.cards.conditions.ControlsCondition;
+import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.cards.conditions.InBattleWithCondition;
+import com.gempukku.swccgo.cards.conditions.InSenateMajorityCondition;
+import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.cards.conditions.OnCloudCityCondition;
+import com.gempukku.swccgo.cards.conditions.UnderNighttimeConditionConditions;
+import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.JediTestStatus;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.SpecialRule;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.*;
+import com.gempukku.swccgo.game.state.AttackState;
+import com.gempukku.swccgo.game.state.BattleState;
+import com.gempukku.swccgo.game.state.DrawDestinyState;
+import com.gempukku.swccgo.game.state.DuelState;
+import com.gempukku.swccgo.game.state.EpicEventState;
+import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
+import com.gempukku.swccgo.game.state.ForceDrainState;
+import com.gempukku.swccgo.game.state.ForceLossState;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.LightsaberCombatState;
+import com.gempukku.swccgo.game.state.SabaccState;
+import com.gempukku.swccgo.game.state.WeaponFiringState;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
@@ -18,7 +55,13 @@ import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.InsertCardRevealedResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 // This class contain methods to be used by cards
@@ -3025,6 +3068,18 @@ public class GameConditions {
      */
     public static boolean canDeployCardFromForcePile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, boolean skipDeployPhaseCheck) {
         return canDeployCardFromCardPile(game, playerId, self, Zone.FORCE_PILE, gameTextActionId, skipDeployPhaseCheck, false, Collections.<Persona>emptySet(), Collections.<String>emptyList());
+    }
+
+    /**
+     * Checks if the player can deploy a card from Used Pile.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @return true or false
+     */
+    public static boolean canDeployCardFromUsedPile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.USED_PILE, gameTextActionId, false, false, Collections.<Persona>emptySet(), Collections.<String>emptyList());
     }
 
     /**

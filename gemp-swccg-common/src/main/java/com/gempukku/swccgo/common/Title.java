@@ -225,6 +225,8 @@ public interface Title {
     String Courage_Of_A_Skywalker = "Courage Of A Skywalker";
     String Court_Of_The_Vile_Gangster = "Court Of The Vile Gangster";
     String Covert_Landing = "Covert Landing";
+    String Crait = "Crait";
+    String Crait_Salt_Plateau = "Crait: Salt Plateau";
     String Crash_Site_Memorial = "Crash Site Memorial";
     String Credits_Will_Do_Fine = "Credits Will Do Fine";
     String Crimson_Dawn_Blaster = "Crimson Dawn Blaster";
@@ -998,6 +1000,8 @@ public interface Title {
     String Sunsdown = "Sunsdown";
     String Superlaser = "Superlaser";
     String Superlaser_Mark_II = "Superlaser Mark II";
+    String Supremacy = "Supremacy";
+    String Supremacy_Bridge = "Supremacy: Bridge";
     String Surface_Defense_Cannon = "Surface Defense Cannon";
     String Surprise = "Surprise";
     String Surprise_Assault = "Surprise Assault";
@@ -1056,6 +1060,7 @@ public interface Title {
     String The_Phantom_Menace = "The Phantom Menace";
     String The_Planet_That_Its_Farthest_From = "The Planet That It's Farthest From";
     String The_Professor = "The Professor";
+    String The_Resistance_Is_Doomed = "The Resistance Is Doomed";
     String The_Result_Is_Often_Resentment = "The Result Is Often Resentment";
     String The_Rise_Of_Skywalker = "The Rise Of Skywalker";
     String The_Shield_Doors_Must_Be_Closed = "The Shield Doors Must Be Closed";
@@ -1100,6 +1105,7 @@ public interface Title {
     String Tonnika_Sisters = "Tonnika Sisters";
     String Torture = "Torture";
     String Toche_Station = "Tatooine: Tosche Station";
+    String Tracked_Fleet = "Tracked Fleet";
     String Trample = "Trample";
     String Transmission_Terminated = "Transmission Terminated";
     String Trap_Door = "Trap Door";

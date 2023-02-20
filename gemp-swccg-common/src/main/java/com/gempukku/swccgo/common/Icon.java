@@ -44,6 +44,7 @@ public enum Icon implements Filterable {
     VIRTUAL_SET_19("Set 19", true),
     VIRTUAL_SET_20("Set 20", true),
     VIRTUAL_SET_21("Set 21", true),
+    VIRTUAL_SET_22("Set 22", true),
 
     //Legacy expansions
     LEGACY_BLOCK_1("Block 1", true),
