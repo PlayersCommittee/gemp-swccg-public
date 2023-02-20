@@ -43,7 +43,7 @@ import java.util.List;
  */
 public class Card219_028 extends AbstractDroid {
     public Card219_028 () {
-        super(Side.LIGHT, 1, 2, 1, 4, "Artoo", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
+        super(Side.LIGHT, 1, 2, 2, 4, "Artoo", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setAlternateDestiny(6);
         setVirtualSuffix(true);
         setLore("Counterpart to C-3PO. Spy. Obstinate, headstrong and always full of surprises. R2-D2 was an integral part of Luke Skywalker's rescue plans.");
