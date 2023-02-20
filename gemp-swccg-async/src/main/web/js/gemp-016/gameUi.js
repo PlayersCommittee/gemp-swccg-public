@@ -1399,7 +1399,7 @@ var GempSwccgGameUI = Class.extend({
         $(cardDiv).click(
                 function(event) {
                     // Check if need to show other card image if the image has two sides
-                    if (card.backSideImageUrl != null && !card.backSideImageUrl.includes("CardBack")) {
+                    if (card.backSideImageUrl != null && !card.backSideImageUrl.includes("CardBack") && !card.backSideImageUrl.includes("cardback")) {
                         that.infoDialog.cardImageFlipped = !that.infoDialog.cardImageFlipped;
                         if (that.infoDialog.cardImageFlipped) {
                             $(cardDiv).find("div.fullcard img").attr('src', card.backSideImageUrl);

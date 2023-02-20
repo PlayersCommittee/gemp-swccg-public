@@ -3508,7 +3508,7 @@ var fixedImages = {
 "501_3_BACK":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/imperialcontrol.gif",
 "501_4":"https://res.starwarsccg.org/cards/Hoth-Dark/large/thatsittherebelsarethere.gif",
 "501_5":"https://res.starwarsccg.org/cards/Tatooine-Dark/large/youmaystartyourlanding.gif",
-"501_6":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothmainpowergenerators.gif",
+"501_6":"https://res.starwarsccg.org/cards/legacy/VirtualBlock8-Dark/large/hothmainpowergenerators.gif",
 "501_7":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/flagship.gif",
 "501_8":"https://res.starwarsccg.org/cards/Premiere-Dark/large/jurijuice.gif",
 "501_9":"https://res.starwarsccg.org/cards/ReflectionsII-Dark/large/snoova.gif",
@@ -4573,7 +4573,7 @@ var Card = Class.extend({
         }
         var genericBackUrl = this.getUrlByBlueprintId(blueprintId);
         if (genericBackUrl != null) {
-            if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/"))
+            if (this.getUrlByBlueprintId(blueprintId).includes("-DARK/") || this.getUrlByBlueprintId(blueprintId).includes("-Dark/"))
                     return "-1_2";
                 else
                     return "-1_1";
