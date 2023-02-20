@@ -35,6 +35,7 @@ import java.util.List;
 public class Card202_006 extends AbstractUsedInterrupt {
     public Card202_006() {
         super(Side.LIGHT, 4, "Force Levitation", Uniqueness.UNIQUE, ExpansionSet.SET_2, Rarity.V);
+        setLore("Telekinesis is one of the powers awakened during a Jedi's apprenticeship. Using this ability, a student of the Force can learn to levitate objects.");
         setGameText("[Upload] a device (except Landing Claw). OR Target one opponent's droid present with your Jedi in battle. For remainder of turn, target is power -1 and may not fire weapons.");
         addIcons(Icon.VIRTUAL_SET_2);
     }

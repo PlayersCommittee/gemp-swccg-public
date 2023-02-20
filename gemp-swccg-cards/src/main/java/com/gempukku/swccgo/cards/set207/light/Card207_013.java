@@ -37,7 +37,7 @@ import java.util.List;
 public class Card207_013 extends AbstractUsedInterrupt {
     public Card207_013() {
         super(Side.LIGHT, 4, "I Think I Can Handle Myself", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
-        setGameText("If your female character is defending a battle alone at a site, add one destiny to total power (if Rey, she is also immune to attrition). OR Cancel a weapon destiny targeting your female character. OR Add 1 to your Force drain where you have a female character.");
+        setGameText("If your female character is defending a battle alone at a site, add one destiny to total power (if Rey, she is also immune to attrition). OR Cancel a just drawn weapon destiny targeting your female character. OR Add 1 to your Force drain where you have a female character.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_7);
     }
 

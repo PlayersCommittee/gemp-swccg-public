@@ -34,7 +34,7 @@ public class Card2_158 extends AbstractStarshipWeapon {
     public Card2_158() {
         super(Side.DARK, 5, "Enhanced TIE Laser Cannon", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.C2);
         setLore("Sienar Fleet Systems' latest laser cannon prototype increases the firepower most Imperial TIEs - but many Moffs consider the weapon too expensive for widespread use.");
-        setGameText("Use 1 Force to deploy on your TIE. May target a starship using 1 Force. Draw destiny. Subtract 2 if targeting a capital starship. Target hit if destiny > defense value.");
+        setGameText("Use 1 Force to deploy on your TIE. May target a starship using 1 Force. Draw destiny. Subtract 2 if targeting a capital starship. Target hit if total destiny > defense value.");
         addIcons(Icon.A_NEW_HOPE);
         addKeywords(Keyword.LASER_CANNON, Keyword.STARSHIP_WEAPON_THAT_DEPLOYS_ON_STARFIGHTERS);
     }

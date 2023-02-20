@@ -339,7 +339,7 @@ public class SwccgGameMediator {
 
                     // Show parsec and related system info (if applicable)
                     if (card.getSystemOrbited() != null) {
-                        PhysicalCard planet = Filters.findFirstFromTopLocationsOnTable(_swccgoGame, Filters.and(Filters.planet_system, Filters.title(card.getSystemOrbited())));
+                        PhysicalCard planet = Filters.findFirstFromTopLocationsOnTable(_swccgoGame, Filters.and(Filters.system, Filters.title(card.getSystemOrbited())));
                         if (planet != null) {
                             if (Filters.mobile_system.accepts(gameState, modifiersQuerying, card)) {
                                 sb.append("<div>");

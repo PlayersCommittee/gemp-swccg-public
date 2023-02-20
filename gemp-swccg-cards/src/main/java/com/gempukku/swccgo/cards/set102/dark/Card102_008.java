@@ -40,7 +40,7 @@ public class Card102_008 extends AbstractLostInterrupt {
     public Card102_008() {
         super(Side.DARK, 4, Title.Gravity_Shadow, Uniqueness.UNIQUE, ExpansionSet.JEDI_PACK, Rarity.PM);
         setLore("'Traveling through hyperspace ain't like dustin' crops, boy!' Gravitational phenomena cast shadows in hyperspace, posing a serious threat to lightspeed navigation.");
-        setGameText("If opponent's starship has just begun to move through hyperspace, draw destiny. If destiny > pilot's ability, starship must return to original location and may not move this turn. If destiny = pilot's ability, starship is lost.");
+        setGameText("If opponent's starship is about to move through hyperspace, target that starship and its highest-ability pilot. Draw destiny. If destiny > pilot's ability, starship may not move this turn. If destiny = pilot's ability, starship is lost.");
         addIcons(Icon.PREMIUM);
     }
 

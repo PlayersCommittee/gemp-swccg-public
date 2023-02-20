@@ -35,7 +35,7 @@ public class Card202_002 extends AbstractAlien {
         super(Side.LIGHT, 2, 2, 1, 2, 3, Title.Palace_Raider, Uniqueness.UNRESTRICTED, ExpansionSet.SET_2, Rarity.V);
         setVirtualSuffix(true);
         setLore("Smugglers from many worlds are hunted by the Empire for providing arms and supplies to the Alliance. The Outer Rim is their refuge.");
-        setGameText("[Pilot] 2. Palace Raiders (including this character) deploy -3 if You're A Slave? on table. While driving a vehicle, it is power +3, defense value +1, and moves for free.");
+        setGameText("[Pilot] 2. While You're A Slave? on table, Palace Raiders (including this character) deploy -3. While driving a vehicle, it is power +3, defense value +1, and moves for free.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_2);
         addKeywords(Keyword.SMUGGLER);
     }

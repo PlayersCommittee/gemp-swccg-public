@@ -33,7 +33,7 @@ public class Card204_018 extends AbstractUsedInterrupt {
     public Card204_018() {
         super(Side.LIGHT, 5, "Escape Pod & We're Doomed", Uniqueness.UNRESTRICTED, ExpansionSet.SET_4, Rarity.V);
         addComboCardTitles(Title.Escape_Pod, Title.Were_Doomed);
-        setGameText("Use 1 Force to [upload] a dejarik. OR For remainder of turn, you lose no Force to Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, You May Start Your Landing, or You'll Be Dead!");
+        setGameText("Use 1 Force to [upload] a dejarik. OR For remainder of turn, you lose no Force to the following cards on table (if any): Cloud City Occupation, Rebel Base Occupation, Tatooine Occupation, That Thing's Operational, You May Start Your Landing, and You'll Be Dead!");
         addIcons(Icon.VIRTUAL_SET_4);
     }
 

@@ -43,7 +43,7 @@ public class Card2_048 extends AbstractLostInterrupt {
     public Card2_048() {
         super(Side.LIGHT, 6, Title.Double_Agent, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("Typical of impersonators, Shada double-crossed everyone. Her true affiliations still remain a mystery.");
-        setGameText("If both players have a spy at same site, draw destiny. Add 2 if opponent's spy is Undercover. Opponent's spy is lost if destiny > 2. OR Opponent's Tonnika Sisters present at a site cross to your side.");
+        setGameText("If both players have a spy at same site, draw destiny. Add 2 if opponent's spy is Undercover. Opponent's spy is lost if total destiny > 2. OR Opponent's Tonnika Sisters present at a site cross to your side.");
         addIcons(Icon.A_NEW_HOPE);
     }
 

@@ -37,7 +37,7 @@ import java.util.List;
 public class Card203_023 extends AbstractAlien {
     public Card203_023() {
         super(Side.DARK, 2, 3, 2, 3, 5, "Baniss Keeg, Pilot Instructor", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
-        setLore("Duros information broker, scout, and smuggler.");
+        setLore("Female Duros information broker, scout, and smuggler.");
         setGameText("[Pilot] 3. Adds 1 to hyperspeed of anything she pilots. Once per turn, if you just deployed a Black Sun agent to same system, may draw top card of Reserve Deck. Your characters here are immune to Cantina Brawl and Fallen Portal.");
         addKeywords(Keyword.INFORMATION_BROKER, Keyword.SCOUT, Keyword.SMUGGLER, Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_3);

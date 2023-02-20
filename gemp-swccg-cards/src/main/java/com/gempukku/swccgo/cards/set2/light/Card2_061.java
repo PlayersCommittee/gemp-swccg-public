@@ -25,7 +25,7 @@ import java.util.List;
 public class Card2_061 extends AbstractSystem {
     public Card2_061() {
         super(Side.LIGHT, Title.Corellia, 1, ExpansionSet.A_NEW_HOPE, Rarity.R1);
-        setLocationDarkSideGameText("Each of your starships are hyperspeed +1 when moving from here.");
+        setLocationDarkSideGameText("Your starships are hyperspeed +1 when moving from here.");
         setLocationLightSideGameText("Your Falcon and your Corellian corvettes may deploy here as a 'react.'");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
