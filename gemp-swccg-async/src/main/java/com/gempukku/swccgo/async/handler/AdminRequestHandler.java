@@ -398,8 +398,13 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         } else {
             Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
 
-            for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
-                _collectionManager.addItemsToPlayerCollection(true, reason + " (" + getResourceOwnerSafely(request,null).getName() + ")", playerCollection.getKey(), createCollectionType(collectionType), productItems);
+            for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet()) {
+                if (playerCollection.getKey() != null
+                        && playerCollection.getKey().hasType(Player.Type.UNBANNED)
+                        && playerCollection.getValue()!=null) {
+                    _collectionManager.addItemsToPlayerCollection(true, reason + " (" + getResourceOwnerSafely(request, null).getName() + ")", playerCollection.getKey(), createCollectionType(collectionType), productItems);
+                }
+            }
 
             responseWriter.writeHtmlResponse("OK");
         }
