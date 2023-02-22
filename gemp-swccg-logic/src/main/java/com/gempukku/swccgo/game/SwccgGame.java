@@ -289,4 +289,10 @@ public interface SwccgGame {
      * @return number of seconds elapsed from this player's clock
      */
     Integer getSecondsElapsed(String player);
+
+    /**
+     * Determines whether bonus abilities should be used during the game (for April Fools' day or other special occasions)
+     * @return true if bonus abilities should be used during the game
+     */
+    boolean useBonusAbilities();
 }

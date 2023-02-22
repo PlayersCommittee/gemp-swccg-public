@@ -54,7 +54,7 @@ public class SwccgGameMediator {
     private volatile boolean _destroyed;
 
     public SwccgGameMediator(String gameId, SwccgFormat swccgFormat, League league, SwccgGameParticipant[] participants, SwccgCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds, boolean isPrivate) {
+                             boolean allowSpectators, boolean cancelIfNoActions, boolean cancellable, boolean allowExtendGameTimer, int decisionTimeoutSeconds, boolean isPrivate, boolean useBonusAbilities) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         _allowSpectators = allowSpectators;
@@ -77,7 +77,7 @@ public class SwccgGameMediator {
         }
 
         _userFeedback = new DefaultUserFeedback();
-        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library, _playerClocks);
+        _swccgoGame = new DefaultSwccgGame(swccgFormat, decks, _userFeedback, library, _playerClocks, useBonusAbilities);
         _userFeedback.setGame(_swccgoGame);
     }
 

@@ -87,7 +87,7 @@ public class SwccgoServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, League league, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate, boolean inGameStatisticsOn) {
+    public SwccgGameMediator createNewGame(SwccgFormat swccgFormat, League league, String tournamentName, final SwccgGameParticipant[] participants, boolean allowSpectators, boolean cancelIfNoActions, boolean allowCancelling, boolean allowSpectatorsToViewChat, boolean allowSpectatorsToChat, boolean allowExtendGameTimer, int decisionTimeoutSeconds, int timePerPlayerMinutes, boolean isPrivate, boolean inGameStatisticsOn, boolean bonusAbilitiesEnabled) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -117,7 +117,8 @@ public class SwccgoServer extends AbstractServer {
              */
             int maxPlayerTime = timePerPlayerMinutes * swccgFormat.getDefaultGameTimerMinutes();
             SwccgGameMediator swccgGameMediator = new SwccgGameMediator(gameId, swccgFormat, league, participants, _swccgCardBlueprintLibrary,
-                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds, isPrivate);
+                        maxPlayerTime, allowSpectators, cancelIfNoActions, allowCancelling, allowExtendGameTimer, decisionTimeoutSeconds, isPrivate,
+                        bonusAbilitiesEnabled&&(tournamentName==null||tournamentName.equals("Casual")));
 
 
             swccgGameMediator.addGameResultListener(

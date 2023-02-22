@@ -114,6 +114,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             findMultipleAccounts(request, responseWriter);
         } else if (uri.equals("/togglePrivateGames") && request.getMethod() == HttpMethod.POST) {
             togglePrivateGames(request, responseWriter);
+        } else if (uri.equals("/toggleBonusAbilities") && request.getMethod() == HttpMethod.POST) {
+            toggleBonusAbilities(request, responseWriter);
         } else if (uri.equals("/toggleInGameStatistics") && request.getMethod() == HttpMethod.POST) {
             toggleInGameStatistics(request, responseWriter);
         } else if (uri.equals("/toggleNewAccountRegistration") && request.getMethod() == HttpMethod.POST) {
@@ -883,6 +885,13 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         _hallServer.togglePrivateGames();
 
         responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_hallServer.privateGamesAllowed()));
+    }
+
+    private void toggleBonusAbilities(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+        _hallServer.toggleBonusAbilities();
+
+        responseWriter.writeHtmlResponse("Bonus abilities enabled in casual games: "+String.valueOf(_hallServer.bonusAbilitiesEnabled()));
     }
 
     private void toggleNewAccountRegistration(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {

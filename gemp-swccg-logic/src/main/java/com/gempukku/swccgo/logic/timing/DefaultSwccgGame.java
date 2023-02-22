@@ -29,6 +29,7 @@ public class DefaultSwccgGame implements SwccgGame {
     private TurnProcedure _turnProcedure;
 
     private SwccgFormat _format;
+    private boolean _useBonusAbilities;
     private Set<String> _allPlayers;
     private String _lightPlayerId;
     private String _darkPlayerId;
@@ -62,11 +63,12 @@ public class DefaultSwccgGame implements SwccgGame {
      * @param userFeedback the user feedback
      * @param library the library of all cards
      */
-    public DefaultSwccgGame(SwccgFormat format, Map<String, SwccgDeck> decks, UserFeedback userFeedback, final SwccgCardBlueprintLibrary library, Map<String, Integer> playerClocks) {
+    public DefaultSwccgGame(SwccgFormat format, Map<String, SwccgDeck> decks, UserFeedback userFeedback, final SwccgCardBlueprintLibrary library, Map<String, Integer> playerClocks, boolean useBonusAbilities) {
         _format = format;
         _library = library;
         _allPlayers = decks.keySet();
         _playerClocks = playerClocks;
+        _useBonusAbilities = useBonusAbilities;
 
         // Sets the "cards in deck" and "cards outside of deck" for each player
         _cards = new HashMap<String, List<String>>();
@@ -522,5 +524,9 @@ public class DefaultSwccgGame implements SwccgGame {
 
     public Integer getSecondsElapsed(String player) {
         return _playerClocks.get(player);
+    }
+
+    public boolean useBonusAbilities() {
+        return _useBonusAbilities;
     }
 }
