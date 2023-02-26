@@ -10,7 +10,7 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,10 +65,7 @@ public class PeekAtBottomCardsOfCardPileEffect extends AbstractSuccessfulEffect 
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             cardsPeekedAt(bottomCards);
 
-                            // Check if player looked at cards in own card pile
-                            if (_cardPileOwner.equals(_playerId)) {
-                                _action.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInOwnCardPileResult(_cardPileOwner, _cardPile)));
-                            }
+                            _action.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, _cardPile, _action.getActionSource())));
                         }
                     });
         } else {

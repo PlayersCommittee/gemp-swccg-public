@@ -11,12 +11,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.modifiers.CantSearchCardPileModifier;
 import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.TargetingEffect;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 import com.gempukku.swccgo.logic.timing.results.VerifiedCardPileResult;
 
 import java.util.Collection;
@@ -192,8 +191,9 @@ public abstract class ChooseCardsFromPileEffect extends AbstractStandardEffect i
         }
 
         // Check if player looked at cards in own card pile
-        if (!isSkipTriggerPlayerLookedAtCardsInPile() && _zoneOwner.equals(_playerId)) {
-            _action.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInOwnCardPileResult(_zoneOwner, _zone)));
+        if (!isSkipTriggerPlayerLookedAtCardsInPile()) {
+            game.getActionsEnvironment().emitEffectResult(
+                    new LookedAtCardsInCardPileResult(_playerId, _zoneOwner, _zone, _action.getActionSource()));
         }
 
         return new FullEffectResult(success);

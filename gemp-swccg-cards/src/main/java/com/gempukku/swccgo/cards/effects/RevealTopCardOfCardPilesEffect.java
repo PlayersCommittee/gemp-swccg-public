@@ -7,12 +7,15 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An effect for revealing the top card of a specified card piles.
@@ -76,11 +79,8 @@ public class RevealTopCardOfCardPilesEffect extends AbstractSuccessfulEffect {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             cardsRevealed(topCards);
 
-                            // Check if player looked at cards in own card pile
-                            if (_cardPileOwner.equals(_playerId)) {
-                                for (Zone cardPile : _cardPiles) {
-                                    _action.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInOwnCardPileResult(_cardPileOwner, cardPile)));
-                                }
+                            for (Zone cardPile : _cardPiles) {
+                                game.getActionsEnvironment().emitEffectResult(new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, cardPile, _action.getActionSource()));
                             }
                         }
                     });

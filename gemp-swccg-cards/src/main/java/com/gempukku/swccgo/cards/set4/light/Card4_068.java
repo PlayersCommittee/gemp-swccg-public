@@ -75,7 +75,12 @@ public class Card4_068 extends AbstractUsedOrLostInterrupt {
                                                                                         @Override
                                                                                         protected void typeChosen(CardSubtype subtype) {
                                                                                             GameState gameState = game.getGameState();
-                                                                                            action.setPlayedAsSubtype(subtype);
+
+                                                                                            if (action.getPlayedAsSubtype() == null
+                                                                                                    || action.getPlayedAsSubtype() == CardSubtype.USED_OR_LOST) {
+                                                                                                // don't set it as used or lost if it has already been changed by another card
+                                                                                                action.setPlayedAsSubtype(subtype);
+                                                                                            }
                                                                                             gameState.sendMessage(playerId + " chooses to play " + GameUtils.getCardLink(self) + " as " + subtype.getHumanReadable() + " Interrupt");
                                                                                             Collection<PhysicalCard> matchingCards = Filters.filter(revealedCards, game, Filters.title(cardTitle));
                                                                                             if (!matchingCards.isEmpty()) {

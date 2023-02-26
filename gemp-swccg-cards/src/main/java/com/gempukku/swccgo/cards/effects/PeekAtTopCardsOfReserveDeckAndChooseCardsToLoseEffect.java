@@ -13,7 +13,7 @@ import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -78,10 +78,7 @@ public class PeekAtTopCardsOfReserveDeckAndChooseCardsToLoseEffect extends Abstr
                                         new ArbitraryCardsSelectionDecision("Top card" + GameUtils.s(topCards) + " of " + cardPileText, topCards, Collections.<PhysicalCard>emptyList(), 0, 0) {
                                             @Override
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
-                                                // Check if player looked at cards in own card pile
-                                                if (_cardPileOwner.equals(_playerId)) {
-                                                    subAction.appendAfterEffect(new TriggeringResultEffect(subAction, new LookedAtCardsInOwnCardPileResult(_cardPileOwner, _cardPile)));
-                                                }
+                                                subAction.appendAfterEffect(new TriggeringResultEffect(subAction, new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, _cardPile, _action.getActionSource())));
                                             }
                                         });
                             }
@@ -94,10 +91,7 @@ public class PeekAtTopCardsOfReserveDeckAndChooseCardsToLoseEffect extends Abstr
                                                 subAction.appendEffect(
                                                         new LoseCardsFromReserveDeckEffect(subAction, selectedCards));
 
-                                                // Check if player looked at cards in own card pile
-                                                if (_cardPileOwner.equals(_playerId)) {
-                                                    subAction.appendAfterEffect(new TriggeringResultEffect(subAction, new LookedAtCardsInOwnCardPileResult(_cardPileOwner, _cardPile)));
-                                                }
+                                                subAction.appendAfterEffect(new TriggeringResultEffect(subAction, new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, _cardPile, _action.getActionSource())));
                                             }
                                         });
                             }

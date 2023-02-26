@@ -20,7 +20,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +46,7 @@ public class Card207_008 extends AbstractResistance {
 
         // Check condition(s)
         if (TriggerConditions.justLookedAtCardsInOwnCardPile(game, effectResult, opponent)) {
-            Zone cardPile = ((LookedAtCardsInOwnCardPileResult) effectResult).getCardPile();
+            Zone cardPile = ((LookedAtCardsInCardPileResult) effectResult).getCardPile();
             GameState gameState = game.getGameState();
             if (gameState.getCardPileSize(opponent, cardPile) > 0
                     && !gameState.isCardPileFaceUp(playerId, cardPile)) {

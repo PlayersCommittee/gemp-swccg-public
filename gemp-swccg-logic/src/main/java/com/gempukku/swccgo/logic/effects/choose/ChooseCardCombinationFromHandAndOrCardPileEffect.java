@@ -14,7 +14,7 @@ import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -140,8 +140,7 @@ abstract class ChooseCardCombinationFromHandAndOrCardPileEffect extends Abstract
                 // Select cards for the card combination until a valid combination is selected.
                 subAction.appendEffect(
                         getSelectCardEffect(subAction, cardsToChooseFrom));
-                // Check if player looked at cards in own card pile
-                subAction.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInOwnCardPileResult(_playerId, _cardPile)));
+                subAction.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInCardPileResult(_playerId, _cardPile, _action.getActionSource())));
             }
 
             return subAction;

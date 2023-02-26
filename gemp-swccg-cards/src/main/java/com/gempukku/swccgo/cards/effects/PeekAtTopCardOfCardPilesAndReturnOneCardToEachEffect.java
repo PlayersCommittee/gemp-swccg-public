@@ -9,11 +9,18 @@ import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.PutOneCardFromCardPileInCardPileEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * An effect for peeking at the top card of card piles and choosing card to return to each.
@@ -77,6 +84,8 @@ class PeekAtTopCardOfCardPilesAndReturnOneCardToEachEffect extends AbstractSubAc
                                 else {
                                     cardPileText.append(", ").append(cardPileName);
                                 }
+
+                                _action.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, cardPile, _action.getActionSource())));
                             }
                         }
 

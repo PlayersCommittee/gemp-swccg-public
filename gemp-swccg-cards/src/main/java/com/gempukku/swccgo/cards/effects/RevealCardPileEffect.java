@@ -5,10 +5,9 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInOwnCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -48,10 +47,6 @@ public class RevealCardPileEffect extends AbstractStandardEffect {
                     new ArbitraryCardsSelectionDecision(_text, cardsInZone, Collections.<PhysicalCard>emptyList(), 0, 0) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            // Check if player looked at cards in own card pile
-                            if (_zoneOwner.equals(_playerId) && _zone != Zone.HAND) {
-                                _action.appendAfterEffect(new TriggeringResultEffect(_action, new LookedAtCardsInOwnCardPileResult(_zoneOwner, _zone)));
-                            }
                         }
                     });
         }
@@ -65,6 +60,10 @@ public class RevealCardPileEffect extends AbstractStandardEffect {
                     });
         }
         cardsRevealed(cardsInZone);
+        if (!cardsInZone.isEmpty()) {
+            game.getActionsEnvironment().emitEffectResult(
+                    new LookedAtCardsInCardPileResult(_playerId, _zoneOwner, _zone, _action.getActionSource()));
+        }
 
         return new FullEffectResult(true);
     }

@@ -9,6 +9,7 @@ import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -98,6 +99,11 @@ abstract class PeekAtAndReorderCardPileEffect extends AbstractSubActionEffect {
                                         }
 
                                         gameState.sendMessage(_playerId + " has completed peeking at and reordering " + _cardPileOwner + "'s " + _cardPile.getHumanReadable());
+
+
+                                        game.getActionsEnvironment().emitEffectResult(
+                                                new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, _cardPile, _action.getActionSource()));
+
                                     }
                                 }
                         );
