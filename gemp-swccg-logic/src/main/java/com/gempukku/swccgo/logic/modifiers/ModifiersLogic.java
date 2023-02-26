@@ -16741,10 +16741,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return types;
     }
 
-    public boolean isShieldGateBlownAway(GameState gameState) {
-        return !getModifiers(gameState, ModifierType.SHIELD_GATE_BLOWN_AWAY).isEmpty();
-    }
-
     public Collection<PhysicalCard> getCardsForPersonaChecking(String playerId) {
         Collection<PhysicalCard> cards = new LinkedList<>();
         //my cards on table

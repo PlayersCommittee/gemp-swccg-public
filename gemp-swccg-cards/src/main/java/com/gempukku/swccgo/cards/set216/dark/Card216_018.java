@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set216.dark;
 
 import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -17,11 +18,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.modifiers.ShieldGateBlownAwayModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.StandardEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +39,11 @@ public class Card216_018 extends AbstractDevice {
         setLore("");
         setGameText("Deploy on Scarif system. If a starship was just lost from here or opponent just Force drained here, opponent may draw destiny. Add 1 for each Scarif location opponent occupies. If total destiny > 8, Shield Gate 'blown away' (place out of play).");
         addIcons(Icon.VIRTUAL_SET_16);
+    }
+
+    @Override
+    protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        return !GameConditions.isBlownAway(game, Filters.Shield_Gate);
     }
 
     @Override
@@ -71,12 +78,14 @@ public class Card216_018 extends AbstractDevice {
                             attemptTotal = attemptTotal + scarifLocationsOccupiedByOpponent;
                             game.getGameState().sendMessage("Total: " + attemptTotal);
                             if (attemptTotal > 8) {
-                                game.getGameState().sendMessage("Result: Success. " + GameUtils.getCardLink(self) + " is 'blown away'");
+                                game.getGameState().sendMessage("Result: Success.");
                                 action.appendEffect(
-                                        new AddUntilEndOfGameModifierEffect(action, new ShieldGateBlownAwayModifier(self), null));
-                                action.appendEffect(
-                                        new PlaceCardOutOfPlayFromTableEffect(action, self)
-                                );
+                                        new BlowAwayEffect(action, self) {
+                                            @Override
+                                            protected StandardEffect getAdditionalGameTextEffect(SwccgGame game, Action blowAwaySubAction) {
+                                                return new PlaceCardOutOfPlayFromTableEffect(blowAwaySubAction, self);
+                                            }
+                                        });
                             } else {
                                 game.getGameState().sendMessage("Result: Failed.");
                             }

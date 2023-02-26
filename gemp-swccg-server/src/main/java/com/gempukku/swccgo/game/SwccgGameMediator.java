@@ -1443,16 +1443,24 @@ public class SwccgGameMediator {
                 // On The Verge Of Greatness
                 objectiveLabel = "On The Verge Of Greatness";
             }
-            if (Filters.or(Filters.Local_Uprising, Filters.Liberation, Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.Local_Uprising, Filters.Liberation).accepts(_swccgoGame, objective)) {
                 // Operatives
+                objectiveLabel = "Local Uprising";
+
                 if (!objective.getBlueprint().hasVirtualSuffix()) {
-                    objectiveLabel = "Operatives";
+                    String system = _swccgoGame.getModifiersQuerying().getExtraInformationForArchetypeLabel(playerId);
+                    if (system != null)
+                        objectiveLabel = "Local Uprising - " + system;
                 }
-                // Imperial Occupation v
-                else if(Filters.or(Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
+            }
+            if (Filters.or(Filters.Imperial_Occupation, Filters.Imperial_Control).accepts(_swccgoGame, objective)) {
+                // Operatives
                     objectiveLabel = "Imperial Occupation";
-                } else if(Filters.or(Filters.Local_Uprising, Filters.Liberation).accepts(_swccgoGame, objective)) {
-                    objectiveLabel = "Local Uprising";
+
+                if (!objective.getBlueprint().hasVirtualSuffix()) {
+                    String system = _swccgoGame.getModifiersQuerying().getExtraInformationForArchetypeLabel(playerId);
+                    if (system != null)
+                        objectiveLabel = "Imperial Occupation - " + system;
                 }
             }
             if (Filters.or(Filters.You_Can_Either_Profit_By_This, Filters.Or_Be_Destroyed).accepts(_swccgoGame, objective)) {
@@ -1462,10 +1470,6 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.Quiet_Mining_Colony, Filters.Independent_Operation).accepts(_swccgoGame, objective)) {
                 // Quiet Mining Colony
                 objectiveLabel = "QMC";
-            }
-            if (Filters.or(Filters.At_Last_The_Jedi_Are_No_More, Filters.Revenge_Of_The_Sith).accepts(_swccgoGame, objective)) {
-                // Revenge Of The Sith
-                objectiveLabel = "Revenge Of The Sith";
             }
             if (Filters.or(Filters.Ralltiir_Operations, Filters.In_The_Hands_Of_The_Empire).accepts(_swccgoGame, objective)) {
                 // Ralltiir Operations
@@ -1486,10 +1490,6 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.title("More And More Systems Are Joining The Separatists"), Filters.title("The Galaxy Torn Apart")).accepts(_swccgoGame, objective)) {
                 // Separatists
                 objectiveLabel = "Joining The Separatists";
-            }
-            if (Filters.or(Filters.The_Force_Is_Strong_In_My_Family, Filters.Rise_Of_Skywalker).accepts(_swccgoGame, objective)) {
-                // The Force Is Strong In My Family
-                return "Skywalker Saga";
             }
             if (Filters.or(Filters.Wookiee_Slaving_Operation, Filters.Indentured_To_The_Empire).accepts(_swccgoGame, objective)) {
                 //Wookiee Slaving Operation

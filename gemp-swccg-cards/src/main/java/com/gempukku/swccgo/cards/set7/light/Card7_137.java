@@ -53,6 +53,7 @@ public class Card7_137 extends AbstractObjective {
                     protected void cardDeployed(PhysicalCard card) {
                         String systemName = card.getBlueprint().getSystemName();
                         game.getGameState().setSubjugatedPlanet(systemName);
+                        game.getModifiersQuerying().setExtraInformationForArchetypeLabel(playerId, systemName);
 
                         action.appendRequiredEffect(
                                 new DeployCardToSystemFromReserveDeckEffect(action, Filters.and(Filters.generic, Filters.site), systemName, true, false) {
