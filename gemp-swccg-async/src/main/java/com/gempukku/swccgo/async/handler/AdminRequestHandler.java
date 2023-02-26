@@ -401,7 +401,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet()) {
                 if (playerCollection.getKey() != null
                         && playerCollection.getKey().hasType(Player.Type.UNBANNED)
-                        && playerCollection.getValue()!=null) {
+                        && playerCollection.getValue()!=null
+                        && !playerCollection.getKey().getName().startsWith("rando_")) {
                     _collectionManager.addItemsToPlayerCollection(true, reason + " (" + getResourceOwnerSafely(request, null).getName() + ")", playerCollection.getKey(), createCollectionType(collectionType), productItems);
                 }
             }

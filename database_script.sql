@@ -198,6 +198,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`player` (
   `last_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `create_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   `banned_until` DECIMAL(20,0) NULL DEFAULT NULL ,
+  `account_creation_date` DATETIME DEFAULT NOW() ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB
