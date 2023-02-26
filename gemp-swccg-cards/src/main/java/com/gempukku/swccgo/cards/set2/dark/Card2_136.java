@@ -52,7 +52,7 @@ public class Card2_136 extends AbstractUsedInterrupt {
             PhysicalCard location = ((PlayCardResult) effectResult).getToLocation();
             if (location != null
                     && GameConditions.hasDeployedAtLeastXCardsToLocationThisTurn(game, opponent, 4, Filters.character, location)) {
-                final Collection<PhysicalCard> characters = game.getModifiersQuerying().getCardsPlayedThisTurnToLocation(playerId, location);
+                final Collection<PhysicalCard> characters = game.getModifiersQuerying().getCardsPlayedThisTurnToLocation(opponent, location);
                 if (!characters.isEmpty()) {
 
                     final PlayInterruptAction action = new PlayInterruptAction(game, self);

@@ -118,6 +118,11 @@ public class Card110_004_BACK extends AbstractObjective {
                     Filters.occupiesWith(playerId, self, Filters.or(Filters.Han, Filters.Luke, Filters.Leia, Filters.Chewie, Filters.Lando))));
             if (numForce > 0) {
 
+                if (numForce > 3
+                        && game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.OR_BE_DESTROYED__FORCE_LOSS_MAY_NOT_EXCEED_THREE_OR_BE_REDUCED)) {
+                    // Force loss from Or Be Destroyed may not exceed 3
+                    numForce = 3;
+                }
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setPerformingPlayer(playerId);
@@ -127,8 +132,11 @@ public class Card110_004_BACK extends AbstractObjective {
                         new OncePerPhaseEffect(action));
 
                 // Perform result(s)
-                if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__OR_BE_DESTROYED__FORCE_LOSS)) {
-                    // Force loss from ...Or Be Destroyed must come from Reserve Deck (if possible) and may not be reduced below 2
+                if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.OR_BE_DESTROYED__FORCE_LOSS_MAY_NOT_EXCEED_THREE_OR_BE_REDUCED)) {
+                    // Force loss from Or Be Destroyed may not be reduced
+                    action.appendEffect(new LoseForceFromReserveDeckEffect(action, opponent, numForce, true));
+                } else if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__OR_BE_DESTROYED__FORCE_LOSS)) {
+                    // Force loss from Or Be Destroyed must come from Reserve Deck (if possible) and may not be reduced below 2
                     action.appendEffect(new LoseForceFromReserveDeckEffect(action, opponent, numForce, 2));
                 } else {
                     action.appendEffect(
@@ -161,13 +169,22 @@ public class Card110_004_BACK extends AbstractObjective {
                     Filters.occupiesWith(playerId, self, Filters.or(Filters.Han, Filters.Luke, Filters.Leia, Filters.Chewie, Filters.Lando))));
             if (numForce > 0) {
 
+                if (numForce > 3
+                        && game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.OR_BE_DESTROYED__FORCE_LOSS_MAY_NOT_EXCEED_THREE_OR_BE_REDUCED)) {
+                    // Force loss from Or Be Destroyed may not exceed 3
+                    numForce = 3;
+                }
+
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Make opponent lose " + numForce + " Force");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerPhaseEffect(action));
                 // Perform result(s)
-                if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__OR_BE_DESTROYED__FORCE_LOSS)) {
+                if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.OR_BE_DESTROYED__FORCE_LOSS_MAY_NOT_EXCEED_THREE_OR_BE_REDUCED)) {
+                    // Force loss from Or Be Destroyed may not be reduced
+                    action.appendEffect(new LoseForceFromReserveDeckEffect(action, opponent, numForce, true));
+                } else if (game.getModifiersQuerying().hasGameTextModification(game.getGameState(), self, ModifyGameTextType.LEGACY__OR_BE_DESTROYED__FORCE_LOSS)) {
                     // Force loss from ...Or Be Destroyed must come from Reserve Deck (if possible) and may not be reduced below 2
                     action.appendEffect(new LoseForceFromReserveDeckEffect(action, opponent, numForce, 2));
                 } else {

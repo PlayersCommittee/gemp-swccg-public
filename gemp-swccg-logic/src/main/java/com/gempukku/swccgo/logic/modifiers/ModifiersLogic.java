@@ -5066,6 +5066,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             }
         }
 
+        // If it is not a cancel and redraw, see if we have a global "cannot cancel destiny unless redrawn" rule in effect
+        // or if the specific destiny effect may not be canceled unless being redrawn
+        if (!isCancelAndRedraw) {
+            for (Modifier modifier : getModifiers(gameState, ModifierType.MAY_NOT_CANCEL_DESTINY_DRAWS_UNLESS_BEING_REDRAWN)) {
+                if (modifier.mayNotCancelDestiny(drawDestinyEffect.getPlayerDrawingDestiny(), playerId)) {
+                    return true;
+                }
+            }
+
+            if (drawDestinyEffect.mayNotBeCanceledUnlessBeingRedrawn())
+                return true;
+        }
+
+
         if (drawDestinyEffect.isDestinyCanceled()
                 || drawDestinyEffect.getSubstituteDestiny() != null
                 || drawDestinyEffect.mayNotBeCanceledByPlayer(playerId))

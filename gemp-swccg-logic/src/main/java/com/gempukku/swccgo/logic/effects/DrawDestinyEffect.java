@@ -227,6 +227,13 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     }
 
     /**
+     * Determines if the destiny draw may not be canceled unless being redrawn
+     */
+    public boolean mayNotBeCanceledUnlessBeingRedrawn() {
+        return false;
+    }
+
+    /**
      * Sets the current destiny draw as canceled, and specifies if redrawn.
      * @param redrawn true if canceled and redrawn, otherwise just canceled
      */
