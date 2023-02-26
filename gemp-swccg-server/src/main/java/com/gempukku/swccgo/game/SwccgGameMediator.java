@@ -1391,7 +1391,7 @@ public class SwccgGameMediator {
                 // Hunt Down
                 objectiveLabel = "Hunt Down";
             }
-            if (Filters.or(Filters.title("Hunt For The Droid General"), Filters.title("Grievous Will Run And Hide")).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.title("Hunt For The Droid General"), Filters.title("He's A Coward")).accepts(_swccgoGame, objective)) {
                 // Hunt For The Droid General
                 objectiveLabel = "Hunt For The Droid General";
             }
