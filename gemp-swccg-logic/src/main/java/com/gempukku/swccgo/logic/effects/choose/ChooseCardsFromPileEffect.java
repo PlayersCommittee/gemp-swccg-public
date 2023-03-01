@@ -139,8 +139,10 @@ public abstract class ChooseCardsFromPileEffect extends AbstractStandardEffect i
         int minimum = Math.min(_minimum, maximum);
 
         // If start of game, only show selectable cards to make it easier to find starting cards (and even auto-select it if only 1 selectable card)
+        // But not if the player choosing cards is the opponent of the owner of the card initiating the action (to avoid potentially revealing information about the deck if there is only 1 selectable card)
         boolean onlyShowSelectable = success && gameState.getCurrentPhase()== Phase.PLAY_STARTING_CARDS;
-        if (onlyShowSelectable && (minimum == 0 || minimum == 1) && (selectableCards.size() == minimum)) {
+        if (onlyShowSelectable && (minimum == 0 || minimum == 1) && (selectableCards.size() == minimum)
+                && (_action.getActionSource()==null || (_action.getActionSource()!= null && _action.getActionSource().getOwner().equals(_playerId)))) {
             cardsSelected(game, selectableCards);
             return new FullEffectResult(true);
         }
