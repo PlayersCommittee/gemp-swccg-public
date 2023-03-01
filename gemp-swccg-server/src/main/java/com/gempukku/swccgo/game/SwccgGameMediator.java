@@ -1487,9 +1487,9 @@ public class SwccgGameMediator {
                 // Senate
                 objectiveLabel = "Senate";
             }
-            if (Filters.or(Filters.title("More And More Systems Are Joining The Separatists"), Filters.title("The Galaxy Torn Apart")).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.title("More Systems Will Rally To Our Cause"), Filters.title("The Galaxy Torn Apart")).accepts(_swccgoGame, objective)) {
                 // Separatists
-                objectiveLabel = "Joining The Separatists";
+                objectiveLabel = "Rally To Our Cause";
             }
             if (Filters.or(Filters.Wookiee_Slaving_Operation, Filters.Indentured_To_The_Empire).accepts(_swccgoGame, objective)) {
                 //Wookiee Slaving Operation
