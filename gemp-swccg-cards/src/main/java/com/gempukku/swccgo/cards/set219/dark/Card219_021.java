@@ -47,7 +47,7 @@ public class Card219_021 extends AbstractUsedOrLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<>();
 
-        Filter dreadnaughtOrStarDestroyer = Filters.or(Filters.Dreadnaught_class_cruisers, Filters.Star_Destroyer);
+        Filter dreadnaughtOrStarDestroyer = Filters.or(Filters.Dreadnaught, Filters.Star_Destroyer);
 
         // Check condition(s)
         if (GameConditions.canSpot(game, self, Filters.and(Filters.Thrawns_Art_Collection, Filters.hasStacked(Filters.any)))

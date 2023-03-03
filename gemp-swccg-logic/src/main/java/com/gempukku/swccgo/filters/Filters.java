@@ -17763,6 +17763,7 @@ public class Filters {
     public static final Filter Downtown_Plaza = Filters.title(Title.Downtown_Plaza);
     public static final Filter Dqar_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Dqar));
     public static final Filter Dr_Evazan = Filters.title(Title.Dr_Evazan);
+    public static final Filter Dreadnaught = Filters.or(Filters.modelType(ModelType.DREADNAUGHT_CLASS_HEAVY_CRUISER), Filters.modelType(ModelType.MANDATOR_IV_CLASS_DREADNAUGHT), Filters.modelType(ModelType.MEGA_CLASS_DREADNAUGHT));
     public static final Filter Dreadnaught_class_cruisers = Filters.modelType(ModelType.DREADNAUGHT_CLASS_HEAVY_CRUISER);
     public static final Filter droid = Filters.icon(Icon.DROID);
     public static final Filter droid_control_ship = Filters.keyword(Keyword.DROID_CONTROL_SHIP);
@@ -17894,6 +17895,7 @@ public class Filters {
     public static final Filter Frozen_Assets = Filters.title(Title.Frozen_Assets);
     public static final Filter Frustration = Filters.title(Title.Frustration);
     public static final Filter Full_Scale_Alert = Filters.title(Title.Full_Scale_Alert);
+    public static final Filter Fulminatrix = Filters.title(Title.Fulminatrix);
     public static final Filter Furry_Fury = Filters.title(Title.Furry_Fury);
     public static final Filter fusion_generator = Filters.keyword(Keyword.FUSION_GENERATOR);
     public static final Filter Fusion_Generator_Supply_Tanks = Filters.title(Title.Fusion_Generator_Supply_Tanks);
@@ -17981,6 +17983,7 @@ public class Filters {
     public static final Filter Hidden_Weapons = Filters.title(Title.Hidden_Weapons);
     public static final Filter Highspeed_Tactics = Filters.title(Title.Highspeed_Tactics);
     public static final Filter His_Name_Is_Anakin = Filters.title(Title.His_Name_Is_Anakin);
+    public static final Filter Hit_And_Run = Filters.title(Title.Hit_And_Run);
     public static final Filter hit_character = Filters.and(CardCategory.CHARACTER, Filters.hit());
     public static final Filter Hit_Racer = Filters.title(Title.Hit_Racer);
     public static final Filter Hobbie = Filters.title(Title.Hobbie);

@@ -48,7 +48,7 @@ public enum ModelType implements Filterable {
     KALEVALAN_YACHT("Kalevalan Yacht"),
     LAMBDA_CLASS_SHUTTLE("Lambda-Class Shuttle"),
     MAINTENANCE("Maintenance"),
-    MANDATOR_IV_CLASS_DREADNOUGHT("Mandator IV-Class Dreadnought"),
+    MANDATOR_IV_CLASS_DREADNAUGHT("Mandator IV-Class Dreadnaught"),
     MEDICAL("Medical"),
     MEGA_CLASS_DREADNAUGHT("Mega-Class Dreadnaught"),
     MESSENGER("Messenger"),

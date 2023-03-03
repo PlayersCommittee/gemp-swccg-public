@@ -60,7 +60,7 @@ public class Card601_093 extends AbstractUsedOrStartingInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Dreadnaught_class_cruisers, Filters.and(Filters.Star_Destroyer, Filters.or(Keyword.DEATH_SQUADRON, Filters.Victory_class_Star_Destroyer))), true));
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Dreadnaught, Filters.and(Filters.Star_Destroyer, Filters.or(Keyword.DEATH_SQUADRON, Filters.Victory_class_Star_Destroyer))), true));
                         }
                     }
             );

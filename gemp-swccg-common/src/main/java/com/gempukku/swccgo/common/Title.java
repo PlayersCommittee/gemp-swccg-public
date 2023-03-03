@@ -410,6 +410,7 @@ public interface Title {
     String Frozen_Assets = "Frozen Assets";
     String Frustration = "Frustration";
     String Full_Scale_Alert = "Full Scale Alert";
+    String Fulminatrix = "Fulminatrix";
     String Furry_Fury = "Furry Fury";
     String Fusion_Generator_Supply_Tanks = "Fusion Generator Supply Tanks";
     String Gaderffii_Stick = "Gaderffii Stick";
@@ -471,6 +472,7 @@ public interface Title {
     String Highspeed_Tactics = "High-speed Tactics";
     String His_Destiny = "His Destiny";
     String His_Name_Is_Anakin = "His Name Is Anakin";
+    String Hit_And_Run = "Hit And Run";
     String Hit_Racer = "Hit Racer";
     String Hobbie = "Derek 'Hobbie' Klivian";
     String Holotheatre = "Executor: Holotheatre";
