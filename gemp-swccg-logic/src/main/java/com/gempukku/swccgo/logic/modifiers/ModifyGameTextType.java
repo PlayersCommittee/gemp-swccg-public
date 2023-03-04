@@ -44,7 +44,7 @@ public enum ModifyGameTextType {
     MIND_WHAT_YOU_HAVE_LEARNED_SAVE_YOU_IT_CAN__TARGETS_LEIA_INSTEAD_OF_LUKE("Targets Leia instead of Luke"),
     MONNOK__PUT_TWO_CARDS_IN_USED("Place two cards in used pile first"),
     NABRUN_LEIDS_ELIS_HELROT__LIMIT_USAGE("Limited to owner's move phase and exterior sites"),
-    OR_BE_DESTROYED__FORCE_LOSS_MAY_NOT_EXCEED_THREE_OR_BE_REDUCED("Force loss may not exceed 3 and may not be reduced"),
+    OR_BE_DESTROYED__FORCE_LOSS_MAY_NOT_EXCEED_THREE_OR_BE_REDUCED("Force loss may not be reduced and is limited to 3"),
     PLASTOID_ARMOR__CHANGE_DEPLOYMENT("Deploys on a Rebel or alien at same mobile site as Elom"),
     PROPHECY_OF_THE_FORCE__MAY_NOT_BE_RELOCATED("May not be relocated"),
     PRYDE__DOES_NOT_ADD_ATTRITION_AT_JAKKU_SYSTEM("Does not add to attrition at Jakku system"),

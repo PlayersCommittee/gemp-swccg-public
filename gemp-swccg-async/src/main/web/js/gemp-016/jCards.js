@@ -3622,6 +3622,7 @@ var fixedImages = {
 "501_112":"https://res.starwarsccg.org/cards/OfficialTournamentSealedDeck-Dark/large/dreadnaughtclassheavycruiser.gif",
 "501_113":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/executor.gif",
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
+"501_115":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothal.png",
 
 
 //legacy
