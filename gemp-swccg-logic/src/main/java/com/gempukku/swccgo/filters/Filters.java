@@ -17436,6 +17436,7 @@ public class Filters {
     public static final Filter BB8_or_has_BB8_as_permanent_astromech = Filters.or(Filters.persona(Persona.BB8), Filters.hasPermanentAboard(Filters.persona(Persona.BB8)));
     public static final Filter Beaumont = Filters.persona(Persona.BEAUMONT);
     public static final Filter Beckett = Filters.persona(Persona.BECKETT);
+    public static final Filter Beilert_Valance = Filters.title(Title.Beilert_Valance);
     public static final Filter Beggar = Filters.title(Title.Beggar);
     public static final Filter Beggars_Canyon = Filters.title(Title.Beggars_Canyon);
     public static final Filter Beru = Filters.title(Title.Beru_Lars);
@@ -17611,6 +17612,7 @@ public class Filters {
     public static final Filter Coruscant_site = Filters.and(Filters.partOfSystem(Title.Coruscant), CardSubtype.SITE);
     public static final Filter Coruscant_Imperial_Square = Filters.title(Title.Coruscant_Imperial_Square);
     public static final Filter Coruscant_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Coruscant));
+    public static final Filter Coruscant_The_Works = Filters.title(Title.Coruscant_The_Works);
     public static final Filter Corulag = Filters.title(Title.Corulag);
     public static final Filter Corulag_site = Filters.and(Filters.partOfSystem(Title.Corulag), CardSubtype.SITE);
     public static final Filter corvette = Filters.or(Filters.modelType(ModelType.CORELLIAN_CORVETTE),Filters.modelType(ModelType.HAMMERHEAD_CORVETTE));

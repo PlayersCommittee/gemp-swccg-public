@@ -99,6 +99,7 @@ public interface Title {
     String Bespin = "Bespin";
     String Bespin_Cloud_City = "Bespin: Cloud City";
     String Bib = "Bib Fortuna";
+    String Beilert_Valance = "Beilert Valance";
     String Big_One = "Big One";
     String Big_One_Asteroid_Cave = "Big One: Asteroid Cave";
     String Big_One_Asteroid_Cave_Or_Space_Slug_Belly = "Big One: Asteroid Cave Or Space Slug Belly";
@@ -220,6 +221,7 @@ public interface Title {
     String Coruscant = "Coruscant";
     String Coruscant_Imperial_Square = "Coruscant: Imperial Square";
     String Coruscant_Celebration = "Coruscant Celebration";
+    String Coruscant_The_Works = "Coruscant: The Works";
     String Count_Me_In = "Count Me In";
     String Counter_Assault = "Counter Assault";
     String Courage_Of_A_Skywalker = "Courage Of A Skywalker";

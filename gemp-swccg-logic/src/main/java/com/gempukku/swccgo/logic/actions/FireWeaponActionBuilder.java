@@ -1,6 +1,13 @@
 package com.gempukku.swccgo.logic.actions;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Variable;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -13,15 +20,81 @@ import com.gempukku.swccgo.logic.conditions.FalseCondition;
 import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.*;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.CancelImmunityToAttritionUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
+import com.gempukku.swccgo.logic.effects.ChooseEffectOrderEffect;
+import com.gempukku.swccgo.logic.effects.CollapseSiteEffect;
+import com.gempukku.swccgo.logic.effects.CrashVehicleEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ExcludeFromBattleEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndMayActivateForceEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndMayNotBeUsedToSatisfyAttritionAndOpponentLosesForceEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndMayNotBeUsedToSatisfyAttritionEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndModifyForfeitEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndModifyPowerAndForfeitEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndModifyPowerEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndOpponentLosesForceEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndResetForfeitEffect;
+import com.gempukku.swccgo.logic.effects.HitCardAndResetPowerEffect;
+import com.gempukku.swccgo.logic.effects.HitCardEffect;
+import com.gempukku.swccgo.logic.effects.HitCardModifyForfeitAndOpponentLosesForceEffect;
+import com.gempukku.swccgo.logic.effects.HitCardResetForfeitAndBothPlayersLoseForceEffect;
+import com.gempukku.swccgo.logic.effects.HitCardResetForfeitAndOpponentLosesForceEffect;
+import com.gempukku.swccgo.logic.effects.HitCardResetForfeitAndRetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.IonizeStarshipEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.effects.MayNotBattleUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyForfeitUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
+import com.gempukku.swccgo.logic.effects.ModifyPowerUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalWeaponDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.ResetFerocityUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ResetLandspeedAndModifyPowerUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerAndForfeitEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerForfeitAndLandspeedUntilEndOfYourNextTurnEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.ResetPowerUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.RespondableWeaponFiringEffect;
+import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
+import com.gempukku.swccgo.logic.effects.SetInitialWeaponFiringCalculationVariableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCharacterOnTableToCaptureEffect;
+import com.gempukku.swccgo.logic.effects.choose.StealCardToLocationEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeStackedCardsIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsDestinyToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.StandardEffect;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A utility class for building common "fire weapon" actions.
@@ -1603,6 +1676,96 @@ public class FireWeaponActionBuilder {
                                                                 game.getModifiersQuerying().hitOrMadeLostByWeapon(cardFiredAt, _weaponOrCardWithPermanentWeapon);
                                                                 action.appendEffect(
                                                                         new LoseCardFromTableEffect(action, cardFiredAt));
+                                                            }
+                                                            else {
+                                                                gameState.sendMessage("Result: Failed");
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                });
+                    }
+                }
+        );
+
+        return action;
+    }
+
+    /**
+     * Builds a fire weapon action for EPP Boba Fett (V).
+     * @return the action
+     */
+    public FireSingleWeaponAction buildFireWeaponEPPBobaFettVAction() {
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        action.setText("Fire " + action.getWeaponTitle(_game));
+
+        // Choose target(s)
+        action.appendTargeting(
+                new TargetCardOnTableEffect(action, _playerId, "Choose target", getTargetFiltersMap(action.getCardFiringWeapon())) {
+                    @Override
+                    protected boolean isIncludeStackedCardsTargetedByWeaponsAsIfPresent() {
+                        return true;
+                    }
+                    @Override
+                    protected void cardTargeted(final int targetGroupId, PhysicalCard cardTargeted) {
+                        action.addAnimationGroup(cardTargeted);
+                        _game.getGameState().getWeaponFiringState().setTarget(cardTargeted);
+
+                        // Pay cost(s)
+                        float forceToUse = getUseForceCost(action.getCardFiringWeapon(), cardTargeted);
+                        if (forceToUse > 0) {
+                            action.appendCost(
+                                    new UseForceEffect(action, _playerId, forceToUse));
+                        }
+
+                        // Allow response(s)
+                        action.allowResponses("Fire " + GameUtils.getCardLink(action.getWeaponToFire()) + " at " + GameUtils.getCardLink(cardTargeted),
+                                new RespondableWeaponFiringEffect(action) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                        // This needs to be done in case the target(s) were changed during the responses.
+                                        final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
+                                        _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
+
+                                        // Perform result(s)
+                                        action.appendEffect(
+                                                new DrawDestinyEffect(action, _playerId, 1, DestinyType.WEAPON_DESTINY) {
+                                                    @Override
+                                                    protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                        return Collections.singletonList(cardFiredAt);
+                                                    }
+                                                    @Override
+                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                        GameState gameState = game.getGameState();
+                                                        if (totalDestiny == null) {
+                                                            gameState.sendMessage("Result: Failed due to failed weapon destiny draw");
+                                                            return;
+                                                        }
+
+                                                        gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                                        float valueToCompare;
+                                                        if (_targetedAsCharacter != null && _targetedAsCharacter.accepts(game, cardFiredAt)) {
+                                                            valueToCompare = _defenseValueAsCharacter;
+                                                        }
+                                                        else {
+                                                            valueToCompare = game.getModifiersQuerying().getDefenseValue(game.getGameState(), cardFiredAt);
+                                                        }
+                                                        gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(valueToCompare));
+
+                                                        if (Filters.character.accepts(game, cardFiredAt)
+                                                                || (_targetedAsCharacter != null && _targetedAsCharacter.accepts(game, cardFiredAt))) {
+                                                            if (totalDestiny > valueToCompare) {
+                                                                gameState.sendMessage("Result: Succeeded");
+                                                                action.appendEffect(
+                                                                        new CaptureCharacterOnTableEffect(action, cardFiredAt, action.getCardFiringWeapon()));
+                                                            } 
+                                                            else if ((totalDestiny + 2) > valueToCompare) {
+                                                                gameState.sendMessage("Result: Succeeded");
+                                                                action.appendEffect(
+                                                                        new HitCardModifyForfeitAndOpponentLosesForceEffect(action, cardFiredAt, -3, 1, _weaponOrCardWithPermanentWeapon, _permanentWeapon, action.getCardFiringWeapon()));
                                                             }
                                                             else {
                                                                 gameState.sendMessage("Result: Failed");
