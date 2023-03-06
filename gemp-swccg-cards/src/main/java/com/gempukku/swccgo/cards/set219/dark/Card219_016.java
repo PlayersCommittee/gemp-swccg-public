@@ -74,7 +74,7 @@ public class Card219_016 extends AbstractNormalEffect {
                                                     new CancelCardOnTableEffect(action, targetedCard)
                                             );
                                             action.appendEffect(
-                                                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, game.getOpponent(playerId), targetedCard, false)
+                                                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, game.getOpponent(playerId), Filters.samePermanentCardId(targetedCard), false)
                                             );
                                         }
                                     }

@@ -93,10 +93,6 @@ public class Card14_001 extends AbstractAdmiralsOrder {
                                                                                 action.appendEffect(
                                                                                         new DrawDestinyEffect(action, opponent) {
                                                                                             @Override
-                                                                                            protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                                                return Collections.singletonList(yourFinalTarget);
-                                                                                            }
-                                                                                            @Override
                                                                                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> opponentsDestinyCardDraws, List<Float> opponentsDestinyDrawValues, Float opponentsTotalDestiny) {
                                                                                                 GameState gameState = game.getGameState();
 

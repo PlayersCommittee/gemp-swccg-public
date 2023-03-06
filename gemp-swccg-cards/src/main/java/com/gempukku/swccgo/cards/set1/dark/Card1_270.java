@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +44,7 @@ public class Card1_270 extends AbstractUsedInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         final String opponent = game.getOpponent(playerId);
         Filter opponentsStarfighterFilter = Filters.and(Filters.opponents(self), Filters.Rebel_starfighter, Filters.presentAt(Filters.system_or_sector), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_LOST));
         final Filter yourStarfighterFilter = Filters.and(Filters.your(self), CardSubtype.STARFIGHTER, Filters.piloted, Filters.TIE_ln, Filters.presentWith(self, opponentsStarfighterFilter));
@@ -79,19 +80,15 @@ public class Card1_270 extends AbstractUsedInterrupt {
                                                                     new DrawDestinyEffect(action, playerId) {
                                                                         @Override
                                                                         protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY)) {
+                                                                                return Arrays.asList(yourFinalTarget, opponentsFinalTarget);
+                                                                            }
                                                                             return Collections.singletonList(yourFinalTarget);
                                                                         }
                                                                         @Override
                                                                         protected void destinyDraws(final SwccgGame game, List<PhysicalCard> playersDestinyCardDraws, List<Float> playersDestinyDrawValues, final Float playersTotalDestiny) {
                                                                             action.appendEffect(
                                                                                     new DrawDestinyEffect(action, opponent) {
-                                                                                        @Override
-                                                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY)) {
-                                                                                                return Collections.singletonList(opponentsFinalTarget);
-                                                                                            }
-                                                                                            return Collections.emptyList();
-                                                                                        }
                                                                                         @Override
                                                                                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> opponentsDestinyCardDraws, List<Float> opponentsDestinyDrawValues, Float opponentsTotalDestiny) {
                                                                                             GameState gameState = game.getGameState();

@@ -90,10 +90,6 @@ public class Card5_075 extends AbstractLostInterrupt {
                                                                             action.appendEffect(
                                                                                     new DrawDestinyEffect(action, opponent) {
                                                                                         @Override
-                                                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                                            return Arrays.asList(finalTarget, finalWookiee);
-                                                                                        }
-                                                                                        @Override
                                                                                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float opponentsTotalDestiny) {
                                                                                             GameState gameState = game.getGameState();
 

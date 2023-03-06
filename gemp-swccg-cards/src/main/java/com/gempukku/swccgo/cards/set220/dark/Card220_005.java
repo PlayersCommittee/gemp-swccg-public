@@ -81,9 +81,13 @@ public class Card220_005 extends AbstractAlien {
                         new DrawDestinyEffect(action, playerId) {
                             @Override
                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                                action.appendEffect(
-                                        new ResetDestinyEffect(action, totalDestiny, opponentDestinyState)
-                                );
+                                if (totalDestiny == null)
+                                    game.getGameState().sendMessage("Failed due to failed destiny draw");
+                                else {
+                                    action.appendEffect(
+                                            new ResetDestinyEffect(action, totalDestiny, opponentDestinyState)
+                                    );
+                                }
                             }
                         }
                 );

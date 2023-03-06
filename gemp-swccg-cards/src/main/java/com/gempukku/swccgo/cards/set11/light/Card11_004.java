@@ -96,11 +96,6 @@ public class Card11_004 extends AbstractAlien {
                                                                 action.appendEffect(
                                                                         new DrawDestinyEffect(action, opponent) {
                                                                             @Override
-                                                                            protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                                return Collections.singletonList(character);
-                                                                            }
-
-                                                                            @Override
                                                                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> opponentsDestinyCardDraws, List<Float> opponentsDestinyDrawValues, Float opponentsTotalDestiny) {
                                                                                 GameState gameState = game.getGameState();
 

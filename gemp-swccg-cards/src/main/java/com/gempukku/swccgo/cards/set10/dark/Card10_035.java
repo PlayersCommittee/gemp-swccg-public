@@ -31,6 +31,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.results.DestinyDrawnResult;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -51,7 +52,7 @@ public class Card10_035 extends AbstractUsedInterrupt {
     }
 
     @Override
-    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         Filter filter = Filters.and(Filters.TIE, Filters.hasManeuver, Filters.piloted);
@@ -101,19 +102,15 @@ public class Card10_035 extends AbstractUsedInterrupt {
                                                                     new DrawDestinyEffect(action, playerId) {
                                                                         @Override
                                                                         protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY)) {
+                                                                                return Arrays.asList(yourFinalTarget, opponentsFinalTarget);
+                                                                            }
                                                                             return Collections.singletonList(yourFinalTarget);
                                                                         }
                                                                         @Override
                                                                         protected void destinyDraws(final SwccgGame game, List<PhysicalCard> playersDestinyCardDraws, List<Float> playersDestinyDrawValues, final Float playersTotalDestiny) {
                                                                             action.appendEffect(
                                                                                     new DrawDestinyEffect(action, opponent) {
-                                                                                        @Override
-                                                                                        protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                                            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY)) {
-                                                                                                return Collections.singletonList(opponentsFinalTarget);
-                                                                                            }
-                                                                                            return Collections.emptyList();
-                                                                                        }
                                                                                         @Override
                                                                                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> opponentsDestinyCardDraws, List<Float> opponentsDestinyDrawValues, Float opponentsTotalDestiny) {
                                                                                             GameState gameState = game.getGameState();
