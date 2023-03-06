@@ -3489,6 +3489,12 @@ var fixedImages = {
 "220_8":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/nabootheedpalacegenerator.png",
 "220_9":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/prisoner2187.png",
 "220_10":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/thrownback.png",
+"221_1":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/coloneljendoninvaderspersonalshuttle.png",
+"221_2":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/wellguarded.png",
+"221_3":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/agift.png",
+"221_4":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/hansmedal.png",
+"221_5":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/icantbelievehesgone.png",
+"221_6":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/strikeplanning.png",
 
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",

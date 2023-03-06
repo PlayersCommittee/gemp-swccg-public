@@ -190,6 +190,7 @@ public enum Persona implements Filterable {
     STEADFAST("Steadfast"),
     TANTIVE_IV("Tantive IV"),
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),
+    VADERS_PERSONAL_SHUTTLE("Vader's Personal Shuttle"),
 
     // Vehicles
     JABBAS_SAIL_BARGE("Jabba's Sail Barge"),

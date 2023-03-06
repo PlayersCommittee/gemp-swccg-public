@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -38,6 +39,7 @@ public class Card601_212 extends AbstractStarfighter {
         setGameText("May add 2 pilots and 4 passengers. Vader deploys -3 aboard. While Vader piloting at a battleground, maneuver +2 and you lose no Force to Uncontrollable Fury or You Must Confront Vader.");
         addIcons(Icon.SPECIAL_EDITION, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_2);
         addModelTypes(ModelType.LAMBDA_CLASS_SHUTTLE);
+        addPersona(Persona.VADERS_PERSONAL_SHUTTLE);
         setPilotCapacity(2);
         setPassengerCapacity(4);
         setMatchingPilotFilter(Filters.Vader);
