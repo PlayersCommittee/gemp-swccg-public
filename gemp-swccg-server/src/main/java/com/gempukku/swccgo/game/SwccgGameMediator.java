@@ -1467,6 +1467,10 @@ public class SwccgGameMediator {
                 // You Can Either Profit By This...
                 objectiveLabel = "Profit";
             }
+            if (Filters.or(Filters.title("Protect The Ridge"), Filters.title("Prepare For Ground Assault")).accepts(_swccgoGame, objective)) {
+                // Protect The Ridge
+                objectiveLabel = "Protect The Ridge";
+            }
             if (Filters.or(Filters.Quiet_Mining_Colony, Filters.Independent_Operation).accepts(_swccgoGame, objective)) {
                 // Quiet Mining Colony
                 objectiveLabel = "QMC";

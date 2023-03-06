@@ -3522,7 +3522,7 @@ var fixedImages = {
 "501_11":"https://res.starwarsccg.org/cards/EnhancedCloudCity-Dark/large/bobafettinslavei.gif",
 "501_12":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/imageofthedarklord.gif",
 "501_13":"https://res.starwarsccg.org/cards/ANewHope-Dark/large/lasergate.gif",
-"501_14":"https://res.starwarsccg.org/cards/ReflectionsIII-Dark/large/nomatchforasith.gif",
+"501_14":"https://res.starwarsccg.org/cards/Hoth-Light/large/attackpatterndelta.gif",
 "501_15":"https://res.starwarsccg.org/cards/Hoth-Dark/large/captainlennox.gif",
 "501_16":"https://res.starwarsccg.org/cards/JabbasPalace-Dark/large/tatooinegreatpitofcarkoon.gif",
 "501_17":"https://res.starwarsccg.org/cards/Virtual12-Dark/large/eviliseverywhere.gif",
@@ -3612,7 +3612,11 @@ var fixedImages = {
 "501_94":"https://res.starwarsccg.org/cards/Endor-Light/large/rebelstriketeam.gif",
 "501_94_BACK":"https://res.starwarsccg.org/cards/Endor-Light/large/garrisondestroyed.gif",
 "501_95":"https://res.starwarsccg.org/cards/Endor-Light/large/deactivatetheshieldgenerator.gif",
-"501_96":"https://res.starwarsccg.org/cards/CloudCity-Light/large/wookieestrangle.gif",
+"501_96":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/dantooinebaseoperations.gif",
+"501_96_BACK":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/moredangerousthanyourealize.gif",
+"501_97":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Light/large/lonerogue.gif",
+"501_98":"https://res.starwarsccg.org/cards/Virtual11-Light/large/ahchtojeditemple.gif",
+"501_99":"https://res.starwarsccg.org/cards/Virtual17-Light/hires/kefbiroceanicwreckage.png",
 "501_100":"https://res.starwarsccg.org/cards/EnhancedPremiere-Dark/large/bobafettwithblasterrifle.gif",
 "501_101":"https://res.starwarsccg.org/cards/PremiereIntroductoryTwoPlayerGame-Dark/large/vadersobsession.gif",
 "501_102":"https://res.starwarsccg.org/cards/Virtual8-Dark/large/captainpeavey.gif",
@@ -4504,6 +4508,8 @@ var Card = Class.extend({
                    (cardNo == 71) ||
                    (cardNo == 74) ||
                    (cardNo == 89) ||
+                   (cardNo == 98) ||
+                   (cardNo == 99) ||
                    (cardNo == 108) ||
                    (cardNo == 109) ||
                    (cardNo == 113)

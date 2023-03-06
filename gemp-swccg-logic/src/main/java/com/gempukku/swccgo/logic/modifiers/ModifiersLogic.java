@@ -13056,7 +13056,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
      */
     @Override
     public boolean isLocationUnderHothEnergyShield(GameState gameState, PhysicalCard location) {
-        return !getModifiersAffectingCard(gameState, ModifierType.UNDER_HOTH_ENERGY_SHIELD, location).isEmpty();
+        return !getModifiersAffectingCard(gameState, ModifierType.UNDER_HOTH_ENERGY_SHIELD, location).isEmpty()
+                && getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_BE_COVERED_BY_HOTH_ENERGY_SHIELD, location).isEmpty();
     }
 
     /**
