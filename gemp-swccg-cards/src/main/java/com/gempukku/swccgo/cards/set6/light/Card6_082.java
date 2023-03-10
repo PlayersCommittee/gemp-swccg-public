@@ -40,7 +40,7 @@ public class Card6_082 extends AbstractSite {
 
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
-        Filter gamorreanGuardsHere = Filters.and(Filters.Gamorrean_Guard, Filters.here(self));
+        Filter gamorreanGuardsHere = Filters.and(Filters.Gamorrean, Filters.guard, Filters.here(self));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, gamorreanGuardsHere, 1));

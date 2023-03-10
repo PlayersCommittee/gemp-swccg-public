@@ -54,7 +54,7 @@ public class Card6_130 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, new AtSameSiteAsCondition(self,
-                Filters.and(Filters.Weequay, Filters.except(Filters.Weequay_Guard))), 1));
+                Filters.and(Filters.Weequay, Filters.except(Filters.and(Filters.Weequay, Filters.guard)))), 1));
         return modifiers;
     }
 }
