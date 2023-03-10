@@ -47,7 +47,7 @@ public class IgnoresLocationDeploymentRestrictionsWhenDeployingToLocationModifie
      * @param exceptForceIconsOrPresence true if Force icons or presence requirement is still needed
      */
     public IgnoresLocationDeploymentRestrictionsWhenDeployingToLocationModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable locationFilter, boolean exceptForceIconsOrPresence) {
-        super(source, "Ignores location deployment restrictions when deploying to certain locations", affectFilter, condition, ModifierType.IGNORES_LOCATION_DEPLOYMENT_RESTRICTIONS_WHEN_DEPLOYING_TO_LOCATION);
+        super(source, "Ignores location deployment restrictions when deploying to certain locations", affectFilter, condition, ModifierType.IGNORES_LOCATION_DEPLOYMENT_RESTRICTIONS_WHEN_DEPLOYING_TO_LOCATION, true);
         _locationFilter = Filters.and(Filters.location, locationFilter);
         _exceptForceIconsOrPresence = exceptForceIconsOrPresence;
     }
