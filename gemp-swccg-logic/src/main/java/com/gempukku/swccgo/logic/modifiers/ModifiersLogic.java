@@ -14575,6 +14575,28 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return false;
     }
 
+    /**
+     * Determines if a pilot may deploy simultaneously with the card to the target without presence or Force icons.
+     * @param gameState the game state
+     * @param target the target
+     * @param starshipOrVehicle the card to deploy
+     * @return true if card can be deployed to the target without presence or Force icons, otherwise false
+     */
+    @Override
+    public boolean mayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIcons(GameState gameState, PhysicalCard target, PhysicalCard starshipOrVehicle) {
+        // Only check starships or vehicles
+        if (!getCardTypes(gameState, starshipOrVehicle).contains(CardType.STARSHIP)
+                && !getCardTypes(gameState, starshipOrVehicle).contains(CardType.VEHICLE))
+            return false;
+
+        // Check for deploy without presence or Force icons modifier
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_PILOT_SIMULTANEOUSLY_WITHOUT_PRESENCE_OR_FORCE_ICONS, starshipOrVehicle))
+            if (modifier.isAffectedTarget(gameState, this, target))
+                return true;
+
+        return false;
+    }
+
     @Override
     public boolean mayDeployAsIfFromHand(GameState gameState, PhysicalCard card) {
         if (card.getZone() != Zone.STACKED)

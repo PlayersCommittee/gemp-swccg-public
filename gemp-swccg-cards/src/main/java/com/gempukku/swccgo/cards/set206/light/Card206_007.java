@@ -19,6 +19,7 @@ import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIconsModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToLocationWithoutPresenceOrForceIconsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -47,6 +48,7 @@ public class Card206_007 extends AbstractStarfighter {
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayDeployToLocationWithoutPresenceOrForceIconsModifier(self, Filters.system));
+        modifiers.add(new MayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIconsModifier(self, Filters.system));
         modifiers.add(new DeployCostForSimultaneouslyDeployingPilotModifier(self, Filters.spy, -1));
         return modifiers;
     }

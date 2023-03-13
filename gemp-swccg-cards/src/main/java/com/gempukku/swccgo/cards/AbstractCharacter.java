@@ -564,7 +564,7 @@ public abstract class AbstractCharacter extends AbstractDeployable {
     public final Filter getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(String playerId, final SwccgGame game, final PhysicalCard self, PhysicalCard sourceCard, DeploymentRestrictionsOption deploymentRestrictionsOption, ReactActionOption reactActionOption) {
         Filter filter = Filters.and(Filters.location, getValidDeployTargetFilter(playerId, game, self, sourceCard, null, true, 0, deploymentRestrictionsOption, null, reactActionOption, true, true));
         if (deploymentRestrictionsOption == null || (!deploymentRestrictionsOption.isEvenWithoutPresenceOrForceIcons() && !deploymentRestrictionsOption.isIgnoreLocationDeploymentRestrictions())) {
-            filter = Filters.and(filter, Filters.sufficientPresenceOrForceIconsToDeployTo(self));
+            filter = Filters.and(filter, Filters.or(Filters.sufficientPresenceOrForceIconsToDeployTo(self), Filters.sufficientPresenceOrForceIconsToDeployToAsPilotSimultaneouslyWith(self, sourceCard)));
         }
         return filter;
     }

@@ -14375,6 +14375,51 @@ public class Filters {
     }
 
     /**
+     * Gets a filter representing cards that a card may deploy to only based on presence and Force icons.
+     * This is generally called by a getValidDeployTargetFilter and combined with other Filters to figure out
+     * valid targets for a card to deploy to.
+     * @param cardToDeploy the card to deploy
+     */
+    public static Filter sufficientPresenceOrForceIconsToDeployToAsPilotSimultaneouslyWith(PhysicalCard cardToDeploy, PhysicalCard starshipOrVehicle) {
+        final Integer permCardToDeployCardId = cardToDeploy.getPermanentCardId();
+        final Integer starshipOrVehicleToDeployCardId = starshipOrVehicle.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                PhysicalCard cardToDeploy = gameState.findCardByPermanentId(permCardToDeployCardId);
+                PhysicalCard starshipOrVehicle = gameState.findCardByPermanentId(starshipOrVehicleToDeployCardId);
+
+                if (modifiersQuerying.mayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIcons(gameState, physicalCard, starshipOrVehicle))
+                    return true;
+
+                if (modifiersQuerying.ignoresLocationDeploymentRestrictions(gameState, cardToDeploy, physicalCard, null, true))
+                    return true;
+
+                if (modifiersQuerying.mayDeployToTargetWithoutPresenceOrForceIcons(gameState, physicalCard, cardToDeploy))
+                    return true;
+
+                PhysicalCard locationHere = modifiersQuerying.getLocationHere(gameState, physicalCard);
+                if (locationHere == null)
+                    return false;
+
+                Icon icon;
+                if (gameState.getSide(cardToDeploy.getOwner()) == Side.DARK)
+                    icon = Icon.DARK_FORCE;
+                else
+                    icon = Icon.LIGHT_FORCE;
+
+                if (modifiersQuerying.hasIcon(gameState, locationHere, icon))
+                    return true;
+
+                if (Filters.canSpot(gameState.getGame(), null, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Filters.owner(cardToDeploy.getOwner()), Filters.undercover_spy, Filters.at(locationHere))))
+                    return true;
+
+                return modifiersQuerying.hasPresenceAt(gameState, cardToDeploy.getOwner(), locationHere, false, null, null);
+            }
+        };
+    }
+
+    /**
      * Gets a filter representing targets that the specified card ignores location deployment restrictions when deploying to.
      * @param cardToDeploy the card to deploy
      */

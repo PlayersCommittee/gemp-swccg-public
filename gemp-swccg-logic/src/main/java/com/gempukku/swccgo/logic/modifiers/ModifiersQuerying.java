@@ -2538,6 +2538,15 @@ public interface ModifiersQuerying {
      */
     boolean mayDeployToTargetWithoutPresenceOrForceIcons(GameState gameState, PhysicalCard target, PhysicalCard cardToDeploy);
 
+    /**
+     * Determines if a pilot may deploy simultaneously with the card to the target without presence or Force icons.
+     * @param gameState the game state
+     * @param target the target
+     * @param cardToDeploy the card to deploy
+     * @return true if card can be deployed to the target without presence or Force icons, otherwise false
+     */
+    boolean mayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIcons(GameState gameState, PhysicalCard target, PhysicalCard cardToDeploy);
+
     boolean mayDeployAsIfFromHand(GameState gameState, PhysicalCard card);
 
     /**
