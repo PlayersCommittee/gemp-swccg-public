@@ -107,7 +107,7 @@ public abstract class AbstractTransportVehicle extends AbstractVehicle {
     @Override
     public final Filter getValidPilotFilter(String playerId, SwccgGame game, PhysicalCard self, boolean forDeployment) {
         Filter filter =  Filters.and(Filters.character, Filters.or(Filters.pilot, Filters.not(Filters.droid), ModelType.VEHICLE, ModelType.PROTOCOL, ModelType.BATTLE),
-                Filters.notProhibitedFromHavingAtTarget(self), Filters.notProhibitedFromPiloting(self), getGameTextValidPilotFilter(playerId, game, self));
+                Filters.notProhibitedFromHavingAtTarget(self), getGameTextValidPilotFilter(playerId, game, self));
         if (forDeployment) {
             filter = Filters.and(filter, Filters.notProhibitedFromHavingDeployedTo(self));
         }
