@@ -68,8 +68,10 @@ public class Card211_057 extends AbstractAlien {
                     new OncePerTurnEffect(action));
             action.appendEffect(
                     new RevealTopCardsOfCardPileAndTakeCardsIntoHandEffect(action, playerId, playerId, Zone.RESERVE_DECK, Filters.alien, 3));
-            action.appendEffect(
-                    new ShuffleReserveDeckEffect(action));
+            if (GameConditions.numCardsInReserveDeck(game, playerId) >= 3) {
+                action.appendEffect(
+                        new ShuffleReserveDeckEffect(action));
+            }
 
             return Collections.singletonList(action);
         }

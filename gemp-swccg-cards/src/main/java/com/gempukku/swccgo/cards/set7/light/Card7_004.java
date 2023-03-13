@@ -63,8 +63,7 @@ public class Card7_004 extends AbstractRebel {
         // Check condition(s)
         if (TriggerConditions.battleEndedAt(game, effectResult, Filters.sameSite(self))
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)
-                && GameConditions.wasForfeitedFromLocationThisTurn(game, Filters.and(Filters.your(self), Filters.character), Filters.sameSite(self))) {
+                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("'Revive' a forfeited character");

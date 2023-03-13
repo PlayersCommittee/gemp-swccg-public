@@ -2590,6 +2590,16 @@ public class GameConditions {
     }
 
     /**
+     * Gets number of cards in player's reserve deck.
+     * @param game the game
+     * @param playerId the player
+     * @return the number of cards
+     */
+    public static int numCardsInReserveDeck(SwccgGame game, String playerId) {
+        return game.getGameState().getReserveDeckSize(playerId);
+    }
+
+    /**
      * Gets number of cards in player's lost pile.
      * @param game the game
      * @param playerId the player
@@ -4254,7 +4264,7 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean isGeneratingAtLeastXForceMoreThan(SwccgGame game, String playerId1, String playerId2, int difference) {
-        return (game.getGameState().getPlayersTotalForceGeneration(playerId1) - difference) >= game.getGameState().getPlayersTotalForceGeneration(playerId2);
+        return (game.getModifiersQuerying().getTotalForceGeneration(game.getGameState(), playerId1) - difference) >= game.getModifiersQuerying().getTotalForceGeneration(game.getGameState(), playerId2);
     }
 
     // Checks if flag is active.

@@ -102,17 +102,16 @@ public class Card221_005 extends AbstractNormalEffect {
 
             PhysicalCard location = ((BattleEndedResult)effectResult).getLocation();
 
-            if (location != null
-                    && GameConditions.wasForfeitedFromLocationThisTurn(game, Filters.and(Filters.your(self), Filters.character), location)) {
+            if (location != null) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("'Revive' a forfeited character");
+                action.setText("'Revive' a forfeited Rebel");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerGameEffect(action));
                 // Perform result(s)
                 action.appendEffect(
-                        new PlaceAtLocationFromLostPileEffect(action, playerId, Filters.and(Filters.your(self), Filters.character,
+                        new PlaceAtLocationFromLostPileEffect(action, playerId, Filters.and(Filters.your(self), Filters.Rebel,
                                 Filters.forfeitedFromLocationThisTurn(Filters.and(location))), location, false, false));
 
                 actions.add(action);

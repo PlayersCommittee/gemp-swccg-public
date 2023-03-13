@@ -95,8 +95,10 @@ public class Card211_003 extends AbstractAlien {
             // Perform result(s)
             action.appendEffect(
                     new RevealTopCardsOfCardPileAndTakeCardsIntoHandEffect(action, playerId, playerId, Zone.RESERVE_DECK, Filters.alien, 3));
-            action.appendEffect(
-                    new ShuffleReserveDeckEffect(action));
+            if (GameConditions.numCardsInReserveDeck(game, playerId) >= 3) {
+                action.appendEffect(
+                        new ShuffleReserveDeckEffect(action));
+            }
 
             actions.add(action);
         }
