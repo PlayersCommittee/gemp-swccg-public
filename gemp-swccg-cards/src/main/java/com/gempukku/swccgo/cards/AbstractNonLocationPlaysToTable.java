@@ -995,10 +995,11 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        List<PlayCardAction> gameTextActions = getGameTextOptionalBeforeActions(playerId, game, effect, self, self.getCardId());
-        if (gameTextActions != null)
-            actions.addAll(gameTextActions);
-
+        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+            List<PlayCardAction> gameTextActions = getGameTextOptionalBeforeActions(playerId, game, effect, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
+        }
         return actions;
     }
 
@@ -1214,9 +1215,11 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        List<PlayCardAction> gameTextActions = getGameTextOptionalAfterActions(playerId, game, effectResult, self, self.getCardId());
-        if (gameTextActions != null)
-            actions.addAll(gameTextActions);
+        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+            List<PlayCardAction> gameTextActions = getGameTextOptionalAfterActions(playerId, game, effectResult, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
+        }
 
         return actions;
     }

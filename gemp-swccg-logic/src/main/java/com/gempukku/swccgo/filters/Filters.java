@@ -3826,15 +3826,11 @@ public class Filters {
                 if (!Filters.exterior_site.accepts(gameState, modifiersQuerying, physicalCard))
                     return false;
 
-                String relatedSystemName = physicalCard.getPartOfSystem();
-                if (relatedSystemName == null)
-                    return false;
-
                 PhysicalCard card = gameState.findCardByPermanentId(permCardId);
                 PhysicalCard location = modifiersQuerying.getLocationHere(gameState, card);
                 if (location == null
                         || location.getBlueprint().getCardSubtype() != CardSubtype.SITE
-                        || !relatedSystemName.equals(location.getPartOfSystem()))
+                        || !Filters.relatedSite(location).accepts(gameState.getGame(), physicalCard))
                     return false;
 
                 int distance = Math.abs(location.getLocationZoneIndex() - physicalCard.getLocationZoneIndex());
@@ -3844,7 +3840,7 @@ public class Filters {
                 // Check if there is another related exterior site closer (on either side)
                 Collection<PhysicalCard> locationsToCheck = Filters.filterTopLocationsOnTable(gameState.getGame(), Filters.and(Filters.exterior_site, Filters.relatedSite(location)));
                 for (PhysicalCard locationToCheck : locationsToCheck) {
-                    int curDistance = Math.abs(location.getLocationZoneIndex() - physicalCard.getLocationZoneIndex());
+                    int curDistance = Math.abs(location.getLocationZoneIndex() - locationToCheck.getLocationZoneIndex());
                     if (curDistance < distance) {
                         return false;
                     }
