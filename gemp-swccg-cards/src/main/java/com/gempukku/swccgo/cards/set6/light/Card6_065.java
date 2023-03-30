@@ -6,7 +6,6 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +31,7 @@ import java.util.List;
  */
 public class Card6_065 extends AbstractUsedInterrupt {
     public Card6_065() {
-        super(Side.LIGHT, 5, Title.Dune_Sea_Sabacc, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
+        super(Side.LIGHT, 5, "Dune Sea Sabacc", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("R'kik D'nec remains undefeated in this version of sabacc. Or at least there are no witnesses to the contrary.");
         setGameText("Requirements: A Jawa at a Tatooine site. Wild cards (0-7): sandcrawler sites, Magnetic Suction Tube, Jawa Siesta and Jawa Pack. Clone cards: Tatooine locations, sandcrawlers, Jawa weapons, and Utinni! Stakes: One device or droid with out armor.");
         addIcons(Icon.JABBAS_PALACE);
