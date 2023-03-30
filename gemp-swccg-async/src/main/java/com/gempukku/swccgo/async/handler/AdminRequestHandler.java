@@ -431,7 +431,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             List<String> invalidUsernames = getInvalidUsernameList(playerNames);
 
             if (!invalidUsernames.isEmpty()) {
-                responseWriter.writeHtmlResponse(invalidUsernameListToString(invalidUsernames));
+                responseWriter.writeHtmlResponse("Did not add any items. "+invalidUsernameListToString(invalidUsernames));
             } else {
 
                 for (String playerName : playerNames) {
@@ -454,7 +454,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     private String invalidUsernameListToString(List<String> invalidUsernames) {
-        StringBuilder stringBuilder = new StringBuilder("Did not add any items. Invalid usernames:");
+        StringBuilder stringBuilder = new StringBuilder("Invalid usernames:");
         for (String s : invalidUsernames) {
             stringBuilder.append("<br>" + s);
         }
@@ -532,7 +532,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             List<String> invalidUsernames = getInvalidUsernameList(playerNames);
 
             if (!invalidUsernames.isEmpty()) {
-                responseWriter.writeHtmlResponse(invalidUsernameListToString(invalidUsernames));
+                responseWriter.writeHtmlResponse("Did not add any currency. "+invalidUsernameListToString(invalidUsernames));
             } else {
                 for (String playerName : playerNames) {
                     Player player = _playerDao.getPlayer(playerName);
@@ -828,18 +828,24 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         }
         List<String> playerNames = getItems(players);
 
-        for (String playerName : playerNames) {
-            Player player = _playerDao.getPlayer(playerName);
-            if (player != null) {
-                if (!_leagueService.isPlayerInLeague(league, player)) {
-                    if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true, true)) {
-                        throw new HttpProcessingException(409);
+        List<String> invalidUsernames = getInvalidUsernameList(playerNames);
+
+        if (!invalidUsernames.isEmpty()) {
+            responseWriter.writeHtmlResponse("Did not add any players to the league. "+invalidUsernameListToString(invalidUsernames));
+        } else {
+            for (String playerName : playerNames) {
+                Player player = _playerDao.getPlayer(playerName);
+                if (player != null) {
+                    if (!_leagueService.isPlayerInLeague(league, player)) {
+                        if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true, true)) {
+                            throw new HttpProcessingException(409);
+                        }
                     }
                 }
             }
-        }
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
+        }
     }
 
     private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {

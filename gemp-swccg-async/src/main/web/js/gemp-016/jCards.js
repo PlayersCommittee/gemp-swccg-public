@@ -3546,7 +3546,7 @@ var fixedImages = {
 "501_31": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/fightersstraightahead.gif",
 "501_32": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/3b321.gif",
 "501_33": "https://res.starwarsccg.org/cards/Virtual4-Dark/hires/kylorenscommandshuttle.png",
-"501_34":"https://res.starwarsccg.org/cards/Premiere-Dark/large/sendadetachmentdown.gif",
+"501_34":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/bounty.gif",
 "501_35":"https://res.starwarsccg.org/cards/Premiere-Dark/large/generaltagge.gif",
 "501_36":"https://res.starwarsccg.org/cards/Premiere-Dark/large/commanderpraji.gif",
 "501_37":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/sandtrooper.gif",
@@ -3632,7 +3632,17 @@ var fixedImages = {
 "501_112":"https://res.starwarsccg.org/cards/OfficialTournamentSealedDeck-Dark/large/dreadnaughtclassheavycruiser.gif",
 "501_113":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/executor.gif",
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
-"501_115":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/lothal.png",
+"501_115":"https://res.starwarsccg.org/cards/DeathStarII-Dark/large/leavethemtome.gif",
+"501_116":"https://res.starwarsccg.org/cards/ReflectionsIII-Dark/large/leavethemtome.gif",
+"501_117":"https://res.starwarsccg.org/cards/JabbasPalace-Dark/large/trapdoor.gif",
+"501_120":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/letskeepalittleoptimismhere.gif",
+"501_121":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/letskeepalittleoptimismhere.gif",
+"501_122":"https://res.starwarsccg.org/cards/Endor-Light/large/taketheinitiative.gif",
+"501_123":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/lukeskywalkerjediknight.gif",
+"501_124":"https://res.starwarsccg.org/cards/Coruscant-Light/large/creditswilldofine.gif",
+"501_125":"https://res.starwarsccg.org/cards/Tatooine-Light/large/thecamp.gif",
+"501_126":"https://res.starwarsccg.org/cards/Tatooine-Light/large/eventuallyyoulllose.gif",
+"501_127":"https://res.starwarsccg.org/cards/Tatooine-Light/large/quigonjinnslightsaber.gif",
 
 
 //legacy
