@@ -294,6 +294,52 @@ public class SealedLeagueProduct {
     private void createNoveltySealed() {
 
         //current novelty sealed:
+        // Space Sealed
+        List<CardCollection> enhancedChoiceSealed = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        firstWeek.addItem("8_157", 1); // Endor (Dark)
+        firstWeek.addItem("6_168", 1); // Nal Hutta
+        firstWeek.addItem("5_164", 1); // Bespin (Dark)
+        firstWeek.addItem("1_241", 1); // Dark Maneuvers
+        firstWeek.addItem("7_246", 1); // All Power To Weapons
+        firstWeek.addItem("12_154", 1); // Neimoidian Advisor
+        firstWeek.addItem("106_13", 3); // Dreadnaught-Class Heavy Cruiser
+        firstWeek.addItem("109_8", 1); // Boba Fett In Slave I
+        firstWeek.addItem("1_299", 1); // Black 2
+        firstWeek.addItem("1_173", 1); // DS-61-2
+        firstWeek.addItem("3_89", 1); // Lieutenant Cabbel
+        firstWeek.addItem("1_180", 2); // Imperial Pilot
+        firstWeek.addItem("4_107", 1); // Zuckuss
+
+        firstWeek.addItem("1_126", 1); // Kessel (Light)
+        firstWeek.addItem("106_2", 1); // Corulag (Light)
+        firstWeek.addItem("1_127", 1); // Tatooine (Premiere) (Light)
+        firstWeek.addItem("1_70", 1); // A Few Maneuvers
+        firstWeek.addItem("7_97", 1); // Organized Attack
+        firstWeek.addItem("12_62", 1); // Mindful Of The Future
+        firstWeek.addItem("1_140", 2); // Corellian Corvette
+        firstWeek.addItem("1_142", 1); // Gold 5
+        firstWeek.addItem("1_23", 1); // Pops
+        firstWeek.addItem("3_5", 1); // Derek 'Hobbie' Klivian
+        firstWeek.addItem("1_27", 2); // Rebel Pilot
+        firstWeek.addItem("1_4", 1); // BoShek
+
+        firstWeek.addItem("Rebel Leader Pack", 1);
+
+        firstWeek.addItem("A New Hope Booster Pack", 10);
+        firstWeek.addItem("Death Star II Booster Pack", 10);
+        enhancedChoiceSealed.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        secondWeek.addItem("A New Hope Booster Pack", 4);
+        secondWeek.addItem("Death Star II Booster Pack", 4);
+        enhancedChoiceSealed.add(secondWeek);
+
+        _collections.put(SealedLeagueType.NOVELTY_SEALED.getSealedCode(), enhancedChoiceSealed);
+    }
+
+    private void createEnhancedChoiceSealed() {
         // Enhanced Choice Sealed
         List<CardCollection> enhancedChoiceSealed = new ArrayList<CardCollection>();
 

@@ -1,8 +1,11 @@
 package com.gempukku.swccgo.cards.set101.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
@@ -13,10 +16,24 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
+import com.gempukku.swccgo.logic.conditions.BonusAbilitiesEnabledCondition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.IconModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveGameTextCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,13 +55,21 @@ public class Card101_002 extends AbstractRebel {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        if (game.useBonusAbilities())
+            return Filters.any;
         return Filters.Deploys_on_Tatooine;
     }
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotDeployModifier(self, new OnTableCondition(self, 2, Filters.and(Filters.opponents(self), Filters.unique, Filters.character))));
+        boolean add = modifiers.add(new MayNotDeployModifier(self, new AndCondition(new NotCondition(new BonusAbilitiesEnabledCondition()), new OnTableCondition(self, 2, Filters.and(Filters.opponents(self), Filters.unique, Filters.character)))));
+        modifiers.add(new PowerModifier(self, new BonusAbilitiesEnabledCondition(), 2));
+        modifiers.add(new ForfeitModifier(self, new BonusAbilitiesEnabledCondition(), 2));
+        modifiers.add(new DefenseValueModifier(self, new BonusAbilitiesEnabledCondition(), 2));
+        modifiers.add(new DestinyModifier(self, self, new BonusAbilitiesEnabledCondition(), 2));
+        modifiers.add(new DeployCostModifier(self, self, new BonusAbilitiesEnabledCondition(), -2));
+        modifiers.add(new IconModifier(self, new BonusAbilitiesEnabledCondition(), Icon.PILOT));
         return modifiers;
     }
 
@@ -52,6 +77,34 @@ public class Card101_002 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ForfeitModifier(self, Filters.and(Filters.your(self), Filters.warrior, Filters.atSameOrAdjacentSite(self)), 1));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, new BonusAbilitiesEnabledCondition(), 5));
+        modifiers.add(new PowerModifier(self, Filters.hasPiloting(self), new BonusAbilitiesEnabledCondition(), 4));
+        modifiers.add(new AddsBattleDestinyModifier(self, new BonusAbilitiesEnabledCondition(), 1));
+        modifiers.add(new MayNotHaveGameTextCanceledModifier(self, new BonusAbilitiesEnabledCondition()));
         return modifiers;
+    }
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.LEGACY__HEAR_ME_BABY_HOLD_TOGETHER__UPLOAD_GRABBER;
+        // Check condition(s)
+        if (game.useBonusAbilities()
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LEIA)
+                || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.HAN)
+                || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.CHEWIE)
+                || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.OBIWAN)
+                || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.R2D2)
+                || GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.C3PO)
+        )) {
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy Luke's friends from Reserve Deck");
+            action.appendUsage(new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.Leia, Filters.Han, Filters.Chewie, Filters.ObiWan, Filters.R2D2, Filters.C3PO, Filters.Rey), Filters.here(self), false, true));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 }
