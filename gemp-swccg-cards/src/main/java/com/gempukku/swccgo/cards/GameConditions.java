@@ -4151,6 +4151,24 @@ public class GameConditions {
     }
 
     /**
+     * Determines if the character card is playing sabacc from a specific source.
+     * @param game the game
+     * @param card the character card
+     * @param sabaccFilter the filter for the source of the sabacc game
+     * @return true or false
+     */
+    public static boolean isPlayingSabacc(SwccgGame game, PhysicalCard card, Filterable sabaccFilter) {
+        SabaccState sabaccState = game.getGameState().getSabaccState();
+        if (sabaccState == null)
+            return false;
+
+        List<PhysicalCard> sabaccPlayers = sabaccState.getSabaccPlayers();
+        PhysicalCard sabaccSource = sabaccState.getSabaccInterrupt();
+
+        return sabaccSource != null && sabaccPlayers.contains(card) && Filters.and(sabaccFilter).accepts(game, sabaccSource);
+    }
+
+    /**
      * Determines if the current Force loss is not prohibited from being reduced.
      * @param game the game
      * @return true or false
