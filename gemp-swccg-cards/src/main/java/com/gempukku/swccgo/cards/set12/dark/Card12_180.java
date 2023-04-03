@@ -19,7 +19,6 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.BonusAbilitiesEnabledCondition;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
@@ -31,8 +30,6 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.DefenseValueModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.LimitForceLossFromForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -153,8 +150,6 @@ public class Card12_180 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, Filters.QuiGon, 3));
         modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.Tatooine_site, 1, opponent));
-        modifiers.add(new DefenseValueModifier(self, Filters.Watto, new BonusAbilitiesEnabledCondition(), 4));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, Filters.Watto, new BonusAbilitiesEnabledCondition(), 4));
         return modifiers;
     }
 

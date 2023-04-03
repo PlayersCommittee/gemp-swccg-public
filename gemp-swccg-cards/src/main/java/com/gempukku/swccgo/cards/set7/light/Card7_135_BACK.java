@@ -19,15 +19,12 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.conditions.BonusAbilitiesEnabledCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
-import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToSystemModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
@@ -71,8 +68,6 @@ public class Card7_135_BACK extends AbstractObjective {
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, yourSquadrons, 4));
         modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, yourSquadrons, 1));
         modifiers.add(new ForceDrainModifier(self, Filters.wherePresent(self, yourSquadrons), 1, playerId));
-        modifiers.add(new ForceGenerationModifier(self, Filters.Dantooine_location, new BonusAbilitiesEnabledCondition(), 1, self.getOwner()));
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Dantooine_location, new BonusAbilitiesEnabledCondition(), Title.No_Escape));
         return modifiers;
     }
 

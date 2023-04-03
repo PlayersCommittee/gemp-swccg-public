@@ -1410,17 +1410,8 @@ var GempSwccgGameUI = Class.extend({
                     }
                     // Otherwise rotate the image
                     else {
-                        var today = new Date();
-                        var reboThem = ((today.getDate())==1 && (today.getMonth())==3);
-                        if (reboThem) {
-                            $(cardDiv).find("div.fullcard img").attr('src', fixedImages["6_28"]);
-                            that.infoDialog.cardImageRotation = that.infoDialog.cardImageRotation % 180;
-                            $(cardDiv).rotate(that.infoDialog.cardImageRotation);
-                        }
-                        else {
-                            that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
-                            $(cardDiv).rotate(that.infoDialog.cardImageRotation);
-                        }
+                        that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
+                        $(cardDiv).rotate(that.infoDialog.cardImageRotation);
                     }
                     event.stopPropagation();
                 });

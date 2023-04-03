@@ -20,15 +20,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.BonusAbilitiesEnabledCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToSystemFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -60,15 +56,6 @@ public class Card7_135 extends AbstractObjective {
                         return "Choose Dantooine system to deploy";
                     }
                 });
-        if (game.useBonusAbilities()) {
-            action.appendOptionalEffect(
-                    new DeployCardsFromReserveDeckEffect(action, Filters.generic_site, 0, 1, true, false) {
-                        @Override
-                        public String getChoiceText(int numCardsToChoose) {
-                            return "Choose generic site to deploy";
-                        }
-                    });
-        }
         return action;
     }
 
@@ -98,8 +85,6 @@ public class Card7_135 extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.Imperial, 2, Filters.Dantooine_location));
-        modifiers.add(new ForceGenerationModifier(self, Filters.Dantooine_location, new BonusAbilitiesEnabledCondition(), 1, self.getOwner()));
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Dantooine_location, new BonusAbilitiesEnabledCondition(), Title.No_Escape));
         return modifiers;
     }
 
