@@ -31,7 +31,7 @@ public class Card5_095 extends AbstractAlien {
         setLore("Officially titled Cloud City Wing Guards. Some are holdovers from previous administrations which were more totalitarian. A moderate pay scale breeds corruption.");
         setGameText("Deploys only on Cloud City, but may move elsewhere. Power -1 when at a site other than a Cloud City site.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);
-        addKeywords(Keyword.CLOUD_CITY_TROOPER);
+        addKeywords(Keyword.CLOUD_CITY_TROOPER, Keyword.GUARD);
     }
 
     @Override

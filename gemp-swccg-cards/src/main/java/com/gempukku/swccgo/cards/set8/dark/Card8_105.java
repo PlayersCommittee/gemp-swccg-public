@@ -35,7 +35,7 @@ public class Card8_105 extends AbstractImperial {
         setLore("Leader of Navy detachment assigned to guard the Endor control bunker. Liaison between Imperial technicians and command staff.");
         setGameText("Adds 1 to total power for each of your troopers present at same site. When on Endor, subtracts 1 from total for Deactivate The Shield Generator and your troopers are forfeit +1 on Endor. When at Bunker, allows Imperials to deploy there as a 'react'.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.GUARD);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -46,6 +47,7 @@ public class Card13_092 extends AbstractAlien {
         setGameText("Deploys -2 to a Jabba's Palace site.  If opponent just initiated battle at same site, may use X Force (limit 2) to add twice X to power. Your alien leaders present may not be targeted by weapons. End of your turn: Use 2 Force to maintain OR Lose 1 Force to place in Used Pile OR Place out of play.");
         addIcons(Icon.REFLECTIONS_III, Icon.WARRIOR, Icon.MAINTENANCE);
         setSpecies(Species.GAMORREAN);
+        addKeywords(Keyword.GUARD);
     }
 
     @Override
