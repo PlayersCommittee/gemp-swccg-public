@@ -33,7 +33,7 @@ public class Card14_017 extends AbstractRepublic {
         setLore("Became a member of Bravo Flight after embarrassing himself in front of Amidala as a guard. Has redeemed himself by becoming an expert in defense aviation tactics.");
         setGameText("Adds 2 to power of anything he pilots. While aboard Bravo 4, draws one battle destiny if not able to otherwise, and opponent's droid starfighters are deploy +2 at same system.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PILOT);
-        addKeywords(Keyword.BRAVO_SQUADRON, Keyword.GUARD);
+        addKeywords(Keyword.BRAVO_SQUADRON);
         setMatchingStarshipFilter(Filters.Bravo_4);
     }
 

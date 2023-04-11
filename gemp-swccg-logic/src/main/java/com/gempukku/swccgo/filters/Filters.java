@@ -18240,7 +18240,7 @@ public class Filters {
     public static final Filter Lambda_shuttle = Filters.modelType(ModelType.LAMBDA_CLASS_SHUTTLE);
     public static final Filter Lana_Dobreed = Filters.title(Title.Lana_Dobreed);
     public static final Filter Landing_Claw = Filters.title(Title.Landing_Claw);
-    public static final Filter Landing_Craft = Filters.or(Filters.modelType(ModelType.SENTINEL_CLASS_LANDING_CRAFT), Filters.modelType(ModelType.TRADE_FEDERATION_LANDING_CRAFT));
+    public static final Filter Landing_Craft = Filters.modelType(ModelType.SENTINEL_CLASS_LANDING_CRAFT);
     public static final Filter Landing_Platform = Filters.title(Title.Landing_Platform);
     public static final Filter Lando = Filters.persona(Persona.LANDO);
     public static final Filter Lars_Moisture_Farm = Filters.title(Title.Lars_Moisture_Farm);

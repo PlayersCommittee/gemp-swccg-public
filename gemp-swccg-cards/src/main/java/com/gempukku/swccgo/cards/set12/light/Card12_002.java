@@ -43,7 +43,7 @@ public class Card12_002 extends AbstractRepublic {
         setGameText("Deploys -1 to same site as Amidala. Once per game, may deploy a blaster on Panaka from Reserve Deck; reshuffle. Once per turn, if Panaka just fired a blaster and 'hit' a character, opponent loses 2 Force.");
         addPersona(Persona.PANAKA);
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER, Keyword.ROYAL_NABOO_SECURITY, Keyword.CAPTAIN, Keyword.GUARD);
+        addKeywords(Keyword.LEADER, Keyword.ROYAL_NABOO_SECURITY, Keyword.CAPTAIN);
     }
 
     @Override

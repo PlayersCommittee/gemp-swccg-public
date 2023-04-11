@@ -44,7 +44,7 @@ public class Card8_096 extends AbstractImperial {
         setLore("Stormtrooper assigned to Commander Igar's honor guard. Accompanied Vader on Drazin's homeworld of Bespin. Shot C-3PO there.");
         setGameText("Once during each of your control phases, may take one Special Delivery into hand from Reserve Deck; reshuffle. Special Delivery is immune to Alter. When Drazin completes Special Delivery, you may take two additional cards into hand.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
-        addKeywords(Keyword.STORMTROOPER, Keyword.GUARD);
+        addKeywords(Keyword.STORMTROOPER);
     }
 
     @Override

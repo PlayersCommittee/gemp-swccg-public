@@ -31,7 +31,7 @@ public class Card5_003 extends AbstractAlien {
         setLore("Recently hired members of the Cloud City Wing Guard are less corrupt than those who served under past administrations. Most new recruits despise the Empire.");
         setGameText("Deploys only on Cloud City, but may move elsewhere. Power -1 when at a site other than a Cloud City site.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);
-        addKeywords(Keyword.CLOUD_CITY_TROOPER, Keyword.GUARD);
+        addKeywords(Keyword.CLOUD_CITY_TROOPER);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class Card14_090 extends AbstractDroid {
         setLore("Security battle droid was assigned guard duty at Theed Palace. His shift can only be ended by a blaster shot.");
         setGameText("At same site, opponent's spies and smugglers are deploy +4 and may not apply their ability toward drawing battle destiny. While with another battle droid at a site, draws one battle destiny if unable to otherwise.");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I, Icon.PRESENCE);
-        addKeywords(Keyword.SECURITY_BATTLE_DROID, Keyword.GUARD);
+        addKeywords(Keyword.SECURITY_BATTLE_DROID);
         addModelType(ModelType.BATTLE);
     }
 

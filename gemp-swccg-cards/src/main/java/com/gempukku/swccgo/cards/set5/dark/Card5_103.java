@@ -38,7 +38,7 @@ public class Card5_103 extends AbstractAlien {
         setLore("Corrupt captain of the Cloud City Wing Guard. Began working during the administration of Baron Raynor. Easily bribed. Keeps the peace through intimidation.");
         setGameText("Deploys only on Cloud City, but may move elsewhere. Power +2 when participating in a battle you initiate. Opponent may use 2 Force to 'bribe' (exclude) Blendin from battle.");
         addIcons(Icon.CLOUD_CITY, Icon.WARRIOR);
-        addKeywords(Keyword.CLOUD_CITY_TROOPER, Keyword.GUARD);
+        addKeywords(Keyword.CLOUD_CITY_TROOPER);
     }
 
     @Override
