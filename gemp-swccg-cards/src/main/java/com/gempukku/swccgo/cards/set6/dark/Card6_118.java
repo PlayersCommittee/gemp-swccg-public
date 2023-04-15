@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -34,6 +35,7 @@ public class Card6_118 extends AbstractAlien {
         setGameText("Deploys only on Tatooine. Functions as a leader if present with another Gamorrean. While at Audience Chamber, all your other Gamorreans are forfeit +2.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         setSpecies(Species.GAMORREAN);
+        addKeywords(Keyword.GUARD);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -41,6 +42,7 @@ public class Card203_028 extends AbstractAlien {
         setGameText("While at a Jabba's Palace site, your other Gamorreans are deploy -1 and forfeit +3. Permanent weapon is •Ortugg's Ax (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_3);
         setSpecies(Species.GAMORREAN);
+        addKeywords(Keyword.GUARD);
     }
 
     @Override

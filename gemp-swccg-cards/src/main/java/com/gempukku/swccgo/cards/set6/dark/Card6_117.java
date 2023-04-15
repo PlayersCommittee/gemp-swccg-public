@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.DefendingBattleAtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -33,6 +34,7 @@ public class Card6_117 extends AbstractAlien {
         setGameText("Deploys only on Tatooine. May deploy as a 'react' to a Jabba's Palace site or aboard a vehicle at a Tatooine site. Power +3 when defending a battle at a Jabba's Palace site.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         setSpecies(Species.NIKTO);
+        addKeywords(Keyword.GUARD);
     }
 
     @Override

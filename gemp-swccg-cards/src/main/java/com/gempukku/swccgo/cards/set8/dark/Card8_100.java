@@ -32,7 +32,7 @@ public class Card8_100 extends AbstractImperial {
         setLore("Commander Igar selected the Empire's most dedicated stormtroopers to guard Endor for the Emperor. All they know is killing and white uniforms.");
         setGameText("Power +2 while armed with a blaster. When using a blaster, subtracts 1 from Force required to fire it. Adds 2 to forfeit of each stormtrooper of ability < 2 at same site.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
-        addKeywords(Keyword.STORMTROOPER);
+        addKeywords(Keyword.STORMTROOPER, Keyword.GUARD);
     }
 
     @Override

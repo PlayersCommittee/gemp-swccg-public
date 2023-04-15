@@ -40,7 +40,7 @@ public class Card2_018 extends AbstractRebel {
         setLore("Lt. Pello Scrambas is a typical veteran officer in the Rebel forces. Loyally served the Organa family for nearly two decades as a guard for the Royal House of Alderaan.");
         setGameText("Adds 1 to forfeit of your other troopers and Rebel Guards at same site. When moving with a 'squad' of exactly three other troopers and/or Rebel Guards, all four move for 1 Force. Rebel Guards at same site may move.");
         addIcons(Icon.A_NEW_HOPE, Icon.WARRIOR);
-        addKeywords(Keyword.TROOPER, Keyword.LEADER);
+        addKeywords(Keyword.TROOPER, Keyword.LEADER, Keyword.GUARD);
     }
 
     @Override
