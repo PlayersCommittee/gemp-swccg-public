@@ -4660,4 +4660,5 @@ public interface ModifiersQuerying {
     boolean landsAsUnlimitedMove(GameState gameState, PhysicalCard card);
     boolean takesOffAsUnlimitedMove(GameState gameState, PhysicalCard card);
     boolean isPlacedOutOfPlayWhenPlayedAsSubtype(GameState gameState, PhysicalCard card, CardSubtype subtype);
+    boolean isConflictCard(GameState gameState, PhysicalCard card);
 }

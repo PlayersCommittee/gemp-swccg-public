@@ -16899,4 +16899,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         }
         return false;
     }
+
+    @Override
+    public boolean isConflictCard(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.CONFLICT_CARD, card).isEmpty();
+    }
 }

@@ -11061,6 +11061,23 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are 'conflict' cards.
+     */
+    public static final Filter conflictCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.isConflictCard(gameState, physicalCard);
+        }
+    };
+
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter conflictCard() {
+        return conflictCard;
+    }
+
+    /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
     private static Filter coaxiumCard() {
