@@ -299,7 +299,7 @@ public class SealedLeagueProduct {
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
         firstWeek.addItem("8_157", 1); // Endor (Dark)
-        firstWeek.addItem("6_168", 1); // Nal Hutta
+        firstWeek.addItem("4_164", 1); // Raithal
         firstWeek.addItem("5_164", 1); // Bespin (Dark)
         firstWeek.addItem("1_241", 1); // Dark Maneuvers
         firstWeek.addItem("7_246", 1); // All Power To Weapons
@@ -314,11 +314,13 @@ public class SealedLeagueProduct {
 
         firstWeek.addItem("1_126", 1); // Kessel (Light)
         firstWeek.addItem("106_2", 1); // Corulag (Light)
-        firstWeek.addItem("1_127", 1); // Tatooine (Premiere) (Light)
+        firstWeek.addItem("6_83", 1); // Kiffex (Light)
+        firstWeek.addItem("1_135", 1); // Yavin 4 (Light)
         firstWeek.addItem("1_70", 1); // A Few Maneuvers
         firstWeek.addItem("7_97", 1); // Organized Attack
         firstWeek.addItem("12_62", 1); // Mindful Of The Future
-        firstWeek.addItem("1_140", 2); // Corellian Corvette
+        firstWeek.addItem("106_4", 3); // Gold Squadron Y-wing
+        firstWeek.addItem("7_149", 1); // Spiral
         firstWeek.addItem("1_142", 1); // Gold 5
         firstWeek.addItem("1_23", 1); // Pops
         firstWeek.addItem("3_5", 1); // Derek 'Hobbie' Klivian
