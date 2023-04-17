@@ -3665,6 +3665,11 @@ var fixedImages = {
 "501_145":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/doordonot.gif",
 "501_146":"https://res.starwarsccg.org/cards/CloudCity-Light/large/courageofaskywalker.gif",
 "501_147":"https://res.starwarsccg.org/cards/Tatooine-Dark/large/weshalldoubleourefforts.gif",
+"501_148":"https://res.starwarsccg.org/cards/Premiere-Dark/large/sendadetachmentdown.gif",
+"501_149":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/dewback.gif",
+"501_150":"https://res.starwarsccg.org/cards/JabbasPalaceSealedDeck-Dark/large/tatooinedesertheart.gif",
+"501_151":"https://res.starwarsccg.org/cards/Premiere-Dark/large/tatooinejawacamp.gif",
+"501_152":"https://res.starwarsccg.org/cards/Premiere-Dark/large/tatooinemoseisley.gif",
 
 
 //legacy
@@ -4546,7 +4551,10 @@ var Card = Class.extend({
                    (cardNo == 109) ||
                    (cardNo == 113) ||
                    (cardNo == 130) ||
-                   (cardNo == 137)
+                   (cardNo == 137) ||
+                   (cardNo == 150) ||
+                   (cardNo == 151) ||
+                   (cardNo == 152)
                    ;
         }
         if (setNo == 601) {
