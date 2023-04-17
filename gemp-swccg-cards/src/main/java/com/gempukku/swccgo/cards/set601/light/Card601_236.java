@@ -42,7 +42,7 @@ import java.util.Set;
  */
 public class Card601_236 extends AbstractNormalEffect {
     public Card601_236() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I Must Be Allowed To Speak", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Must_Be_Allowed_To_Speak, Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Jedi mod spienko eek.'");
         setGameText("Deploy on table. Once per character, when you deploy Chewie, Lando, Leia, or Luke to a Tatooine site, may take any one card from Used Pile into hand; reshuffle. While Han is frozen, Rebels are immune to None Shall Pass. Once per game, may [download] a farm. [Immune to Alter]");

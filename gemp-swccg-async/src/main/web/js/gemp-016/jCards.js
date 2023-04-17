@@ -3634,7 +3634,7 @@ var fixedImages = {
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
 "501_115":"https://res.starwarsccg.org/cards/ANewHope-Dark/large/hyperwavescan.gif",
 "501_116":"https://res.starwarsccg.org/cards/ReflectionsIII-Dark/large/leavethemtome.gif",
-"501_117":"https://res.starwarsccg.org/cards/JabbasPalace-Dark/large/trapdoor.gif",
+"501_117":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
 "501_118":"https://res.starwarsccg.org/cards/JabbasPalaceSealedDeck-Dark/large/huttinfluence.gif",
 "501_119":"https://res.starwarsccg.org/cards/JabbasPalaceSealedDeck-Dark/large/powerofthehutt.gif",
 "501_120":"https://res.starwarsccg.org/cards/ANewHope-Light/large/scannertechs.gif",

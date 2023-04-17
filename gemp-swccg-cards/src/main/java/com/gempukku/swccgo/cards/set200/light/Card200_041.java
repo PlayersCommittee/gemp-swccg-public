@@ -42,7 +42,7 @@ import java.util.Set;
  */
 public class Card200_041 extends AbstractNormalEffect {
     public Card200_041() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I Must Be Allowed To Speak", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Must_Be_Allowed_To_Speak, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Jedi mod spienko eek.'");
         setGameText("Deploy on table. Once per character, when you deploy Chewie, Lando, Leia, or Luke to a Tatooine site, may take any one card from Used Pile into hand; reshuffle. While Han is frozen, Rebels are immune to None Shall Pass. Once per game, may [download] a farm. [Immune to Alter]");
@@ -55,7 +55,7 @@ public class Card200_041 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.I_MUST_BE_ALLOWED_TO_SPEAK__UPLOAD_CARD_FROM_USED_PILE;
 
         // Check condition(s)
-        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Chewie, Filters.Lando, Filters.Leia, Filters.Luke)), Filters.Tatooine_site)
+        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Chewie, Filters.Lando, Filters.Leia, Filters.Luke)), Filters.and(Filters.Tatooine_site, Filters.canBeTargetedBy(self)))
                 && GameConditions.canTakeCardsIntoHandFromUsedPile(game, playerId, self, gameTextActionId)) {
             Set<String> characterNamesAlreadyUsed = self.getWhileInPlayData() != null ? self.getWhileInPlayData().getTextValues() : null;
             if (characterNamesAlreadyUsed == null) {

@@ -512,6 +512,7 @@ public interface Title {
     String If_The_Trace_Was_Correct = "If The Trace Was Correct";
     String Igar = "Commander Igar";
     String I_Had_No_Choice = "I Had No Choice";
+    String I_Must_Be_Allowed_To_Speak = "I Must Be Allowed To Speak";
     String I_Want_That_Map = "I Want That Map";
     String I_Will_Find_Them_Quickly_Master = "I Will Find Them Quickly, Master";
     String I_Will_Finish_What_You_Started = "I Will Finish What You Started";

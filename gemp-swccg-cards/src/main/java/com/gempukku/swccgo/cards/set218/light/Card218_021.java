@@ -44,7 +44,7 @@ import java.util.Set;
 public class Card218_021 extends AbstractNormalEffect {
     public Card218_021() {
         super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I Must Be Allowed To Speak & Smuggler's Blues", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
-        addComboCardTitles("I Must Be Allowed To Speak", "Smuggler's Blues");
+        addComboCardTitles(Title.I_Must_Be_Allowed_To_Speak, "Smuggler's Blues");
         setGameText("If Watch Your Step on table, deploy on table. Corran is a smuggler. Once per character, when you deploy Corran, Mara, Mirax, or Talon Karrde to a Tatooine location, may take any one card into hand from Used Pile; reshuffle. Once per game, may [download] a [Reflections II] location. Opponent may not cancel or modify Force drains at battlegrounds where you have two smugglers. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_18);
         addImmuneToCardTitle(Title.Alter);
@@ -60,7 +60,7 @@ public class Card218_021 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.I_MUST_BE_ALLOWED_TO_SPEAK_SMUGGLERS_BLUES__UPLOAD_CARD_FROM_USED_PILE;
 
         // Check condition(s)
-        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Corran_Horn, Filters.Mara_Jade, Filters.Mirax, Filters.title("Talon Karrde"))), Filters.Tatooine_location)
+        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Corran_Horn, Filters.Mara_Jade, Filters.Mirax, Filters.title("Talon Karrde"))), Filters.and(Filters.Tatooine_location, Filters.canBeTargetedBy(self)))
                 && GameConditions.canTakeCardsIntoHandFromUsedPile(game, playerId, self, gameTextActionId)) {
             Set<String> characterNamesAlreadyUsed = self.getWhileInPlayData() != null ? self.getWhileInPlayData().getTextValues() : null;
             if (characterNamesAlreadyUsed == null) {
@@ -150,8 +150,8 @@ public class Card218_021 extends AbstractNormalEffect {
         String opponent = game.getOpponent(playerId);
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new KeywordModifier(self, Filters.and(Filters.Corran_Horn, Filters.character), Keyword.SMUGGLER));
-        modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.and(Filters.smuggler, Filters.with(self, Filters.smuggler)))), opponent, playerId));
-        modifiers.add(new ForceDrainsMayNotBeModifiedModifier(self, Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.and(Filters.smuggler, Filters.with(self, Filters.smuggler)))), opponent, playerId));
+        modifiers.add(new ForceDrainsMayNotBeCanceledModifier(self, Filters.and(Filters.battleground, Filters.canBeTargetedBy(self), Filters.occupiesWith(playerId, self, Filters.and(Filters.smuggler, Filters.with(self, Filters.smuggler)))), opponent, playerId));
+        modifiers.add(new ForceDrainsMayNotBeModifiedModifier(self, Filters.and(Filters.battleground, Filters.canBeTargetedBy(self), Filters.occupiesWith(playerId, self, Filters.and(Filters.smuggler, Filters.with(self, Filters.smuggler)))), opponent, playerId));
         return modifiers;
     }
 }
