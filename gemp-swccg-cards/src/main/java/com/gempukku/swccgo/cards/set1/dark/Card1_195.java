@@ -43,7 +43,6 @@ public class Card1_195 extends AbstractAlien {
         setGameText("Twice during each of your control phases, may use 2 Force to draw 2 destiny for 2 chances at a destiny = 2. If successful, may steal or destroy up to 2 weapons or 2 devices present.");
         addIcon(Icon.WARRIOR, 2);
         addKeywords(Keyword.SPY, Keyword.THIEF, Keyword.FEMALE);
-        setComboCard(true);
     }
 
     @Override

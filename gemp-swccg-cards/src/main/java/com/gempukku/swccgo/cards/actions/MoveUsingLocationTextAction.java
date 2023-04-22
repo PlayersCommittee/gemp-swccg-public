@@ -76,7 +76,23 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
      * @param baseCost base cost in amount of Force required to perform the movement
      */
     public MoveUsingLocationTextAction(final String playerId, final SwccgGame game, PhysicalCard location, int gameTextSourceCardId, final Filterable cardToMoveFilter, Filterable fromCardFilter, final Filterable toCardFilter, boolean forFree, float baseCost) {
-        super(location, playerId, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT);
+        this(playerId, game, location, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT, cardToMoveFilter, fromCardFilter, toCardFilter, forFree, baseCost);
+    }
+
+        /**
+         * Creates an action to perform a movement using location text.
+         * @param playerId the player
+         * @param game the game
+         * @param location the location
+         * @param gameTextSourceCardId the card id of the card the game text is originally from
+         * @param cardToMoveFilter the filter for card to move
+         * @param fromCardFilter the filter for card to move from
+         * @param toCardFilter the filter for card to move to
+         * @param forFree true if moving for free, otherwise false
+         * @param baseCost base cost in amount of Force required to perform the movement
+         */
+    public MoveUsingLocationTextAction(final String playerId, final SwccgGame game, PhysicalCard location, int gameTextSourceCardId, GameTextActionId gameTextActionId, final Filterable cardToMoveFilter, Filterable fromCardFilter, final Filterable toCardFilter, boolean forFree, float baseCost) {
+        super(location, playerId, gameTextSourceCardId, gameTextActionId);
         setText("Move using location text");
         _playerId = playerId;
         _forFree = forFree;
