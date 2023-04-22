@@ -366,6 +366,10 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 List<TopLevelGameTextAction> darkSidePhaseActions = getGameTextDarkSideTopLevelActions(playerOnDarkSideOfLocation, game, self, self.getCardId());
                 if (darkSidePhaseActions != null)
                     actions.addAll(darkSidePhaseActions);
+            } else {
+                List<TopLevelGameTextAction> opponentPhaseActions = getGameTextDarkSideOpponentsTopLevelActions(game.getOpponent(playerOnDarkSideOfLocation), game, self, self.getCardId());
+                if (opponentPhaseActions != null)
+                    actions.addAll(opponentPhaseActions);
             }
         }
 
@@ -374,6 +378,10 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 List<TopLevelGameTextAction> lightSidePhaseActions = getGameTextLightSideTopLevelActions(playerOnLightSideOfLocation, game, self, self.getCardId());
                 if (lightSidePhaseActions != null)
                     actions.addAll(lightSidePhaseActions);
+            } else {
+                List<TopLevelGameTextAction> opponentPhaseActions = getGameTextLightSideOpponentsTopLevelActions(game.getOpponent(playerOnLightSideOfLocation), game, self, self.getCardId());
+                if (opponentPhaseActions != null)
+                    actions.addAll(opponentPhaseActions);
             }
         }
 
@@ -383,6 +391,13 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 PhysicalCard locationExpandedDSToMyDS = getLocationWithExpandedGameText(game, self, Side.DARK, Side.DARK);
                 if (locationExpandedDSToMyDS != null) {
                     List<TopLevelGameTextAction> expandedDarkSidePhaseActions = ((AbstractLocation) locationExpandedDSToMyDS.getBlueprint()).getGameTextDarkSideTopLevelActions(playerOnDarkSideOfLocation, game, self, locationExpandedDSToMyDS.getCardId());
+                    if (expandedDarkSidePhaseActions != null)
+                        actions.addAll(expandedDarkSidePhaseActions);
+                }
+            } else {
+                PhysicalCard locationExpandedDSToMyDS = getLocationWithExpandedGameText(game, self, Side.DARK, Side.DARK);
+                if (locationExpandedDSToMyDS != null) {
+                    List<TopLevelGameTextAction> expandedDarkSidePhaseActions = ((AbstractLocation) locationExpandedDSToMyDS.getBlueprint()).getGameTextDarkSideOpponentsTopLevelActions(game.getOpponent(playerOnDarkSideOfLocation), game, self, locationExpandedDSToMyDS.getCardId());
                     if (expandedDarkSidePhaseActions != null)
                         actions.addAll(expandedDarkSidePhaseActions);
                 }
@@ -398,6 +413,13 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                     if (expandedLightSidePhaseActions != null)
                         actions.addAll(expandedLightSidePhaseActions);
                 }
+            } else {
+                PhysicalCard locationExpandedLSToMyLS = getLocationWithExpandedGameText(game, self, Side.LIGHT, Side.LIGHT);
+                if (locationExpandedLSToMyLS != null) {
+                    List<TopLevelGameTextAction> expandedLightSidePhaseActions = ((AbstractLocation) locationExpandedLSToMyLS.getBlueprint()).getGameTextLightSideOpponentsTopLevelActions(game.getOpponent(playerOnLightSideOfLocation), game, self, locationExpandedLSToMyLS.getCardId());
+                    if (expandedLightSidePhaseActions != null)
+                        actions.addAll(expandedLightSidePhaseActions);
+                }
             }
         }
 
@@ -410,6 +432,13 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                     if (expandedDarkSidePhaseActions != null)
                         actions.addAll(expandedDarkSidePhaseActions);
                 }
+            } else {
+                PhysicalCard locationExpandedDSToMyLS = getLocationWithExpandedGameText(game, self, Side.DARK, Side.LIGHT);
+                if (locationExpandedDSToMyLS != null) {
+                    List<TopLevelGameTextAction> expandedDarkSidePhaseActions = ((AbstractLocation) locationExpandedDSToMyLS.getBlueprint()).getGameTextDarkSideOpponentsTopLevelActions(game.getOpponent(playerOnLightSideOfLocation), game, self, locationExpandedDSToMyLS.getCardId());
+                    if (expandedDarkSidePhaseActions != null)
+                        actions.addAll(expandedDarkSidePhaseActions);
+                }
             }
         }
 
@@ -419,6 +448,13 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
                 PhysicalCard locationExpandedLSToMyDS = getLocationWithExpandedGameText(game, self, Side.LIGHT, Side.DARK);
                 if (locationExpandedLSToMyDS != null) {
                     List<TopLevelGameTextAction> expandedLightSidePhaseActions = ((AbstractLocation) locationExpandedLSToMyDS.getBlueprint()).getGameTextLightSideTopLevelActions(playerOnDarkSideOfLocation, game, self, locationExpandedLSToMyDS.getCardId());
+                    if (expandedLightSidePhaseActions != null)
+                        actions.addAll(expandedLightSidePhaseActions);
+                }
+            } else {
+                PhysicalCard locationExpandedLSToMyDS = getLocationWithExpandedGameText(game, self, Side.LIGHT, Side.DARK);
+                if (locationExpandedLSToMyDS != null) {
+                    List<TopLevelGameTextAction> expandedLightSidePhaseActions = ((AbstractLocation) locationExpandedLSToMyDS.getBlueprint()).getGameTextLightSideOpponentsTopLevelActions(game.getOpponent(playerOnDarkSideOfLocation), game, self, locationExpandedLSToMyDS.getCardId());
                     if (expandedLightSidePhaseActions != null)
                         actions.addAll(expandedLightSidePhaseActions);
                 }
@@ -1036,6 +1072,32 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
      * @return the actions, or null
      */
     protected List<TopLevelGameTextAction> getGameTextLightSideTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the opponent of the specified
+     * player on the Dark side of the location.
+     * @param playerOnDarkSideOfLocation the player on Dark side of location
+     * @param game the game
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the actions, or null
+     */
+    protected List<TopLevelGameTextAction> getGameTextDarkSideOpponentsTopLevelActions(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the opponent of the specified
+     * player on the Light side of the location.
+     * @param playerOnLightSideOfLocation the player on Light side of location
+     * @param game the game
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the actions, or null
+     */
+    protected List<TopLevelGameTextAction> getGameTextLightSideOpponentsTopLevelActions(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         return null;
     }
 
