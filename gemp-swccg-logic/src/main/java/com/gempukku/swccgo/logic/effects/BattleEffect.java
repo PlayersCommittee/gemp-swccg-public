@@ -5,6 +5,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -26,6 +27,7 @@ public class BattleEffect extends AbstractSubActionEffect {
     private PhysicalCard _location;
     private boolean _isLocalTrouble;
     private Collection<PhysicalCard> _localTroubleParticipants;
+    private Collection<Modifier> _extraModifiers;
 
     /**
      * Creates an effect that performs a battle at a location.
@@ -34,12 +36,13 @@ public class BattleEffect extends AbstractSubActionEffect {
      * @param isLocalTrouble true if battle is a Local Trouble battle, otherwise false
      * @param localTroubleParticipants the Local Trouble battle participants, or null if not a Local Trouble battle
      */
-    public BattleEffect(Action action, PhysicalCard location, boolean isLocalTrouble, final Collection<PhysicalCard> localTroubleParticipants) {
+    public BattleEffect(Action action, PhysicalCard location, boolean isLocalTrouble, final Collection<PhysicalCard> localTroubleParticipants, Collection<Modifier> extraModifiers) {
         super(action);
         _performingPlayerId = action.getPerformingPlayer();
         _location = location;
         _isLocalTrouble = isLocalTrouble;
         _localTroubleParticipants = localTroubleParticipants;
+        _extraModifiers = extraModifiers;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class BattleEffect extends AbstractSubActionEffect {
 
         // 1) Record that battle is initiated (and cards involved)
         subAction.appendEffect(
-                new RecordBattleInitiatedEffect(subAction, _location, _isLocalTrouble, _localTroubleParticipants));
+                new RecordBattleInitiatedEffect(subAction, _location, _isLocalTrouble, _localTroubleParticipants, _extraModifiers));
 
         // 2) Battle just initiated
         subAction.appendEffect(

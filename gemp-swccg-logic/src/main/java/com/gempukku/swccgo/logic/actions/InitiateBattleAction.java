@@ -4,9 +4,13 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.effects.BattleEffect;
 import com.gempukku.swccgo.logic.effects.PayInitiateBattleCostEffect;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.SnapshotData;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The action to initiate a battle.
@@ -69,7 +73,7 @@ public class InitiateBattleAction extends AbstractTopLevelRuleAction {
             if (!_battleInitiated) {
                 _battleInitiated = true;
 
-                return new BattleEffect(this, _location, false, null);
+                return new BattleEffect(this, _location, false, null, getAddedModifiers());
             }
 
             Effect effect = getNextEffect();
@@ -80,6 +84,9 @@ public class InitiateBattleAction extends AbstractTopLevelRuleAction {
         return null;
     }
 
+    public List<Modifier> getAddedModifiers() {
+        return Collections.emptyList();
+    }
 
     @Override
     public boolean wasActionCarriedOut() {

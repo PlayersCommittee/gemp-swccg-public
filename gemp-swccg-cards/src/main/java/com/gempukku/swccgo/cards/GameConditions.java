@@ -3109,6 +3109,9 @@ public class GameConditions {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
+        if (modifiersQuerying.hasFlagActive(gameState, ModifierFlag.MAY_NOT_INITIATE_DEPLOYMENT_ACTIONS_THAT_SEARCH_PILES, playerId))
+            return false;
+
         // Check is the the player's deploy phase
         if (!asReact && !skipDeployPhaseCheck && !isPhaseForPlayer(game, Phase.DEPLOY, playerId))
             return false;
@@ -4795,11 +4798,25 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree) {
+        return canInitiateBattleAtLocation(player, game, location, forFree, false);
+    }
+
+    /**
+     * Determines if the specified player can initiate battle at the location.
+     * @param player the player
+     * @param game the game
+     * @param location the location
+     * @param forFree if the battle would be initiated for free
+     * @return true or false
+     */
+    public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
-        if (location.getZone() != Zone.LOCATIONS || !gameState.getCurrentPlayerId().equals(player)
-                || gameState.getCurrentPhase() != Phase.BATTLE || gameState.isDuringBattle() || gameState.isDuringAttack())
+        if (location.getZone() != Zone.LOCATIONS
+                || (!gameState.getCurrentPlayerId().equals(player) && !skipPhaseCheck)
+                || (gameState.getCurrentPhase() != Phase.BATTLE && !skipPhaseCheck)
+                || gameState.isDuringBattle() || gameState.isDuringAttack())
             return false;
 
         // Check if player is prevented from initiating battle at location

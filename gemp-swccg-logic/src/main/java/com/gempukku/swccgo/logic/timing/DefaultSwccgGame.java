@@ -468,7 +468,9 @@ public class DefaultSwccgGame implements SwccgGame {
     @Override
     public void takeSnapshot(String description) {
         pruneSnapshots();
-        _snapshots.add(GameSnapshot.createGameSnapshot(getNextSnapshotId(), description, _gameState, _modifiersLogic, _actionsEnvironment, _turnProcedure));
+        // need to specifically exclude when getPlayCardStates() is not empty to allow for battles to be initiated by interrupts
+        if (_gameState.getPlayCardStates().isEmpty())
+            _snapshots.add(GameSnapshot.createGameSnapshot(getNextSnapshotId(), description, _gameState, _modifiersLogic, _actionsEnvironment, _turnProcedure));
     }
 
     /**
