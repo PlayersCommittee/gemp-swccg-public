@@ -16904,4 +16904,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public boolean isConflictCard(GameState gameState, PhysicalCard card) {
         return !getModifiersAffectingCard(gameState, ModifierType.CONFLICT_CARD, card).isEmpty();
     }
+
+    @Override
+    public boolean isCreditCard(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.CREDIT_CARD, card).isEmpty();
+    }
 }
