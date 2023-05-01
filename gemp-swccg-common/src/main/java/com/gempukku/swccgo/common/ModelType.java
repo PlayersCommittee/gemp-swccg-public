@@ -66,6 +66,7 @@ public enum ModelType implements Filterable {
     MUNIFICENT_CLASS_STAR_FRIGATE("Munificent-Class Star Frigate"),
     MTT("MTT"),
     N_1_STARFIGHTER("N-1 Starfighter"),
+    NAUUR_CLASS_YACHT("Nau'ur-class Yacht"),
     NEBULON_B_FRIGATE("Nebulon-B Frigate"),
     OPHIDIAN("Ophidian"),
     POWER("Power"),
