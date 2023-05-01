@@ -2687,7 +2687,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter occupiesWith(final String playerId, PhysicalCard source, final Filter filters) {
-        return Filters.and(Filters.occupies(playerId), Filters.sameLocationAs(source, Filters.and(Filters.owner(playerId), filters)));
+        return Filters.and(Filters.occupies(playerId), Filters.sameLocationAs(source, Filters.and(Filters.owner(playerId), Filters.not(Filters.location), filters)));
     }
 
     /**
@@ -2701,7 +2701,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter occupiesWith(final String playerId, PhysicalCard source, final Map<InactiveReason, Boolean> spotOverrides, final Filter filters) {
-        return Filters.and(Filters.occupies(playerId, spotOverrides), Filters.sameLocationAs(source, spotOverrides, Filters.and(Filters.owner(playerId), filters)));
+        return Filters.and(Filters.occupies(playerId, spotOverrides), Filters.sameLocationAs(source, spotOverrides, Filters.and(Filters.owner(playerId), Filters.not(Filters.location), filters)));
     }
 
     /**
@@ -2882,7 +2882,7 @@ public class Filters {
      * @return Filter
      */
     public static Filter controlsWith(final String playerId, PhysicalCard source, final Filter filters) {
-        return Filters.and(Filters.controls(playerId), Filters.sameLocationAs(source, Filters.and(Filters.owner(playerId), filters)));
+        return Filters.and(Filters.controls(playerId), Filters.sameLocationAs(source, Filters.and(Filters.owner(playerId), Filters.not(Filters.location), filters)));
     }
 
     /**
