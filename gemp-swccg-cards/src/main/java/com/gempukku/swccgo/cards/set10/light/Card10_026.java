@@ -21,6 +21,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextOnSideOfLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
@@ -48,13 +49,21 @@ public class Card10_026 extends AbstractObjective {
     @Override
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
-        action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Cantina, true, false) {
-                    @Override
-                    public String getChoiceText() {
-                        return "Choose Cantina to deploy";
-                    }
-                });
+
+        // check for Cantina that may not be converted
+        if (!Filters.filterTopLocationsOnTable(game, Filters.Cantina).isEmpty()
+            && Filters.filterTopLocationsOnTable(game, Filters.and(Filters.Cantina, Filters.canBeConvertedByDeployment(playerId))).isEmpty()) {
+            action.appendRequiredEffect(
+                    new PlaceCardOutOfPlayFromReserveDeckEffect(action, playerId, playerId, Filters.Cantina, false));
+        } else {
+           action.appendRequiredEffect(
+                    new DeployCardFromReserveDeckEffect(action, Filters.Cantina, true, false) {
+                        @Override
+                        public String getChoiceText() {
+                            return "Choose Cantina to deploy";
+                        }
+                    });
+        }
         action.appendRequiredEffect(
                 new DeployCardFromReserveDeckEffect(action, Filters.Docking_Bay_94, true, false) {
                     @Override
