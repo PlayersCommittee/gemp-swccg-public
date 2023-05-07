@@ -37,9 +37,9 @@ public class Card8_116 extends AbstractNormalEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.blaster_rifle, Filters.Stormtrooper_Utility_Belt, Filters.Blaster_Scope));
+        Filter filter = Filters.and(Filters.your(self), Filters.or(Filters.blaster_rifle, Filters.Stormtrooper_Utility_Belt, Filters.Blaster_Scope), Filters.canBeTargetedBy(self));
 
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ResetArmorModifier(self, Filters.and(Filters.stormtrooper, Filters.except(Filters.biker_scout)), 4));
         modifiers.add(new DeployCostModifier(self, filter, -1));
         modifiers.add(new DestinyWhenDrawnForWeaponDestinyModifier(self, filter, 2));

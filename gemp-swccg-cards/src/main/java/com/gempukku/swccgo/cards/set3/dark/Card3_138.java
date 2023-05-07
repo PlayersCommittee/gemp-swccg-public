@@ -20,8 +20,10 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.results.TrampleDestinySuccessfulResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -92,6 +94,9 @@ public class Card3_138 extends AbstractUsedInterrupt {
                                                                 if (totalDestiny > ability) {
                                                                     gameState.sendMessage("Result: Succeeded");
                                                                     action.appendEffect(
+                                                                            new TriggeringResultEffect(action,
+                                                                                    new TrampleDestinySuccessfulResult(playerId)));
+                                                                    action.appendEffect(
                                                                             new LoseCardFromTableEffect(action, finalTarget));
                                                                 }
                                                                 else {
@@ -101,6 +106,9 @@ public class Card3_138 extends AbstractUsedInterrupt {
                                                             else if (Filters.vehicle.accepts(game, finalTarget)) {
                                                                 if (totalDestiny < 7) {
                                                                     gameState.sendMessage("Result: Succeeded");
+                                                                    action.appendEffect(
+                                                                            new TriggeringResultEffect(action,
+                                                                                    new TrampleDestinySuccessfulResult(playerId)));
                                                                     action.appendEffect(
                                                                             new LoseCardFromTableEffect(action, finalTarget));
                                                                 }

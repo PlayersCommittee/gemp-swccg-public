@@ -330,6 +330,9 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         // Sense/Alter Destiny Successful
         SENSE_ALTER_DESTINY_SUCCESSFUL,
 
+        // Trample Destiny Successful
+        TRAMPLE_DESTINY_SUCCESSFUL,
+
         // 'Insert' card revealed
         INSERT_CARD_REVEALED,
 

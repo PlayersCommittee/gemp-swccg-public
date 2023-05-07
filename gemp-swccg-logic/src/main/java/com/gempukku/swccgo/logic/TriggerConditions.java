@@ -5343,6 +5343,19 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a Trample destiny draw was successful.
+     * @param game the game
+     * @param effectResult the effect result
+     * @return true or false
+     */
+    public static boolean trampleDestinyDrawSuccessful(SwccgGame game, EffectResult effectResult) {
+        if (effectResult.getType() == EffectResult.Type.TRAMPLE_DESTINY_SUCCESSFUL) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Determines if a card accepted by the filter was just relocated to Weather Vane.
      * @param game the game
      * @param effectResult the effect result
