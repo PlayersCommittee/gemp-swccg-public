@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.StandardEffect;
 import com.gempukku.swccgo.logic.timing.results.CaptureCharacterResult;
 
 /**
@@ -200,7 +201,12 @@ public class PlayCharacterAction extends AbstractPlayCardAction {
                 _forceCostApplied = true;
 
                 if (!_forFree) {
-                    appendCost(new PayDeployCostEffect(this, _character, _target, null, _changeInCost, _reactActionOption));
+                    // Check if card has special cost (e.g. lose Force to play)
+                    StandardEffect specialDeployCostEffect = _cardToPlay.getBlueprint().getSpecialDeployCostEffect(_that, getPerformingPlayer(), game, _cardToPlay, _target, null);
+                    if (specialDeployCostEffect != null)
+                        appendCost(specialDeployCostEffect);
+                    else
+                        appendCost(new PayDeployCostEffect(this, _character, _target, null, _changeInCost, _reactActionOption));
                     return getNextCost();
                 }
             }
