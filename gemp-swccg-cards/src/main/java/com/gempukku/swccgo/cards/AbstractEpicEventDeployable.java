@@ -31,7 +31,20 @@ public abstract class AbstractEpicEventDeployable extends AbstractDeployable {
      * @param rarity the rarity
      */
     protected AbstractEpicEventDeployable(Side side, PlayCardZoneOption playCardZoneOption, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
-        super(side, 0f, playCardZoneOption, 0f, title, uniqueness, expansionSet, rarity);
+        this(side, 0f, playCardZoneOption, title, uniqueness, expansionSet, rarity);
+    }
+
+    /**
+     * Creates a blueprint for an Epic Event that is deployed.
+     * @param side the side of the Force
+     * @param playCardZoneOption the zone option for playing the card, or null if card has multiple play options
+     * @param title the card title
+     * @param uniqueness the uniqueness
+     * @param expansionSet the expansionSet
+     * @param rarity the rarity
+     */
+    protected AbstractEpicEventDeployable(Side side, float destiny, PlayCardZoneOption playCardZoneOption, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
+        super(side, destiny, playCardZoneOption, 0f, title, uniqueness, expansionSet, rarity);
         setCardCategory(CardCategory.EPIC_EVENT);
         addCardType(CardType.EPIC_EVENT);
         addIcon(Icon.EPIC_EVENT);

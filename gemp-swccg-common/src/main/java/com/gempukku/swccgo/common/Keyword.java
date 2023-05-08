@@ -10,6 +10,7 @@ public enum Keyword implements Filterable {
     ASSASSIN("Assassin", true, true),
     ASTEROID("Asteroid", true),
     AT_AT_CANNON("AT-AT Cannon",false),
+    AX("Ax", true),
     BANTHA("Bantha", true),
     BATTLESHIP("Battleship", true),
     BIKER_SCOUT("Biker Scout", true, true),

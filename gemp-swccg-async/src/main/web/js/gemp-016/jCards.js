@@ -3672,6 +3672,9 @@ var fixedImages = {
 "501_152":"https://res.starwarsccg.org/cards/Premiere-Dark/large/tatooinemoseisley.gif",
 "501_153":"https://res.starwarsccg.org/cards/Virtual4-Dark/hires/jakkutuanulvillage.png",
 "501_154":"https://res.starwarsccg.org/cards/Virtual3-Dark/large/falleensfist.gif",
+"501_155":"https://res.starwarsccg.org/cards/ReflectionsII-Light/large/control&tunnelvision.gif",
+"501_156":"https://res.starwarsccg.org/cards/Hoth-Dark/large/comscandetection.gif",
+"501_157":"https://res.starwarsccg.org/cards/Hoth-Dark/large/mournfulroar.gif",
 
 
 //legacy

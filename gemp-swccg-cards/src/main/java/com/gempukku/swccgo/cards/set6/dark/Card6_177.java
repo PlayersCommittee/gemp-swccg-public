@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -37,6 +38,7 @@ public class Card6_177 extends AbstractCharacterWeapon {
         setLore("Built by Snogrutt, a Gamorrean engineer. Ax head contains an ultrasonic generator. Jabba's Gamorrean guards sometimes switch the power off to prove their might.");
         setGameText("Use 1 Force to deploy on your Gamorrean. Adds 1 to power. When present at a site, Gamorrean draws one battle destiny if not able to otherwise. May target a character or creature for free. Draw destiny. Target hit if destiny > defense value.");
         addIcons(Icon.JABBAS_PALACE);
+        addKeywords(Keyword.AX);
     }
 
     @Override

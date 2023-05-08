@@ -73,6 +73,7 @@ public class Card203_028 extends AbstractAlien {
                 return null;
             }
         };
+        permanentWeapon.addKeyword(Keyword.AX);
         return permanentWeapon;
     }
 }

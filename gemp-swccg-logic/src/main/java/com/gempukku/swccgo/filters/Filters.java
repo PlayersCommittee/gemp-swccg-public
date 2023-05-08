@@ -17492,6 +17492,7 @@ public class Filters {
     public static final Filter Avarik = Filters.title(Title.Avarik);
     public static final Filter Avenger = Filters.title(Title.Avenger);
     public static final Filter Awwww_Cannot_Get_Your_Ship_Out = Filters.title(Title.Awwww_Cannot_Get_Your_Ship_Out);
+    public static final Filter ax = Filters.or(Keyword.AX, Keyword.VIBRO_AX);
     public static final Filter Azure_Angel = Filters.title(Title.Azure_Angel);
     public static final Filter B_wing = Filters.modelType(ModelType.B_WING);
     public static final Filter Back_Door = Filters.title(Title.Back_Door);
