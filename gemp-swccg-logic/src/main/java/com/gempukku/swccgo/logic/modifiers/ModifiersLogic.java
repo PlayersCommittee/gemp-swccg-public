@@ -16570,31 +16570,59 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
-     * Determines if this deploys and moves like a starfighter.
+     * Determines if this deploys like a starfighter.
      * @param gameState the game state
      * @param card the card
-     * @return true if deploys and moves like a starfighter, otherwise false
+     * @return true if deploys like a starfighter, otherwise false
      */
     @Override
-    public boolean isDeploysAndMovesLikeStarfighter(GameState gameState, PhysicalCard card) {
-        return card.getBlueprint().isDeploysAndMovesLikeStarfighter() || Filters.squadron.accepts(gameState, this, card);
+    public boolean isDeploysLikeStarfighter(GameState gameState, PhysicalCard card) {
+        return card.getBlueprint().isDeploysLikeStarfighter() || Filters.squadron.accepts(gameState, this, card);
     }
 
     /**
-     * Determines if this deploys and moves like a starfighter at cloud sectors.
+     * Determines if this moves like a starfighter.
      * @param gameState the game state
      * @param card the card
-     * @return true if deploys and moves like a starfighter at cloud sectors, otherwise false
+     * @return true if moves like a starfighter, otherwise false
      */
     @Override
-    public boolean isDeploysAndMovesLikeStarfighterAtCloudSectors(GameState gameState, PhysicalCard card) {
-        if (isDeploysAndMovesLikeStarfighter(gameState, card))
+    public boolean isMovesLikeStarfighter(GameState gameState, PhysicalCard card) {
+        return card.getBlueprint().isMovesLikeStarfighter() || Filters.squadron.accepts(gameState, this, card);
+    }
+
+    /**
+     * Determines if this deploys like a starfighter at cloud sectors.
+     * @param gameState the game state
+     * @param card the card
+     * @return true if deploys like a starfighter at cloud sectors, otherwise false
+     */
+    @Override
+    public boolean isDeploysLikeStarfighterAtCloudSectors(GameState gameState, PhysicalCard card) {
+        if (isDeploysLikeStarfighter(gameState, card))
             return true;
 
         if (Filters.or(Filters.shuttle_vehicle, Filters.cloud_car, Filters.Patrol_Craft).accepts(gameState, this, card))
             return true;
 
-        return card.getBlueprint().isDeploysAndMovesLikeStarfighterAtCloudSectors();
+        return card.getBlueprint().isDeploysLikeStarfighterAtCloudSectors();
+    }
+
+    /**
+     * Determines if this moves like a starfighter at cloud sectors.
+     * @param gameState the game state
+     * @param card the card
+     * @return true if moves like a starfighter at cloud sectors, otherwise false
+     */
+    @Override
+    public boolean isMovesLikeStarfighterAtCloudSectors(GameState gameState, PhysicalCard card) {
+        if (isMovesLikeStarfighter(gameState, card))
+            return true;
+
+        if (Filters.or(Filters.shuttle_vehicle, Filters.cloud_car, Filters.Patrol_Craft).accepts(gameState, this, card))
+            return true;
+
+        return card.getBlueprint().isMovesLikeStarfighterAtCloudSectors();
     }
 
     /**

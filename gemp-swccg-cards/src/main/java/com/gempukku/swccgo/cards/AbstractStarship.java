@@ -530,7 +530,7 @@ public abstract class AbstractStarship extends AbstractDeployable {
         // Return filter based on ship type, etc.
         Filter combinedFilter = filter1;
 
-        boolean deploysLikeStarfighter = game.getModifiersQuerying().isDeploysAndMovesLikeStarfighter(game.getGameState(), self);
+        boolean deploysLikeStarfighter = game.getModifiersQuerying().isDeploysLikeStarfighter(game.getGameState(), self);
 
         if (Filters.starfighter.accepts(game.getGameState(), game.getModifiersQuerying(), self) || deploysLikeStarfighter)
             combinedFilter = Filters.or(combinedFilter, filter2);
@@ -627,7 +627,7 @@ public abstract class AbstractStarship extends AbstractDeployable {
         // Return filter based on ship type, etc.
         Filter combinedFilter = filter1;
 
-        boolean movesLikeStarfighter = game.getModifiersQuerying().isDeploysAndMovesLikeStarfighter(game.getGameState(), self);
+        boolean movesLikeStarfighter = game.getModifiersQuerying().isMovesLikeStarfighter(game.getGameState(), self);
 
         if (Filters.starfighter.accepts(game.getGameState(), game.getModifiersQuerying(), self) || movesLikeStarfighter)
             combinedFilter = Filters.or(combinedFilter, filter2);

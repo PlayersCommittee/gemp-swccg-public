@@ -51,10 +51,15 @@ public class Card601_209 extends AbstractCapitalStarship {
     }
 
     @Override
-    public boolean isDeploysAndMovesLikeStarfighter() {
+    public boolean isDeploysLikeStarfighter() {
         return true;
     }
-    
+
+    @Override
+    public boolean isMovesLikeStarfighter() {
+        return true;
+    }
+
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();

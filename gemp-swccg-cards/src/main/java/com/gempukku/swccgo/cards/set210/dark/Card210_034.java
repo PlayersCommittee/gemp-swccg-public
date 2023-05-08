@@ -51,13 +51,6 @@ public class Card210_034 extends AbstractCapitalStarship {
         setVirtualSuffix(true);
     }
 
-    @Override
-    public boolean isDeploysAndMovesLikeStarfighter() {
-        // Previous version was "true", this one does not have that text, so changing it to false, but leaving this
-        //  section here so it'll be easy to find what needs to be changed if there's a rules clarification later.
-        return false;
-    }
-
     // Must be alien pilot
     @Override
     protected Filter getGameTextValidPilotFilter(String playerId, SwccgGame game, PhysicalCard self) {

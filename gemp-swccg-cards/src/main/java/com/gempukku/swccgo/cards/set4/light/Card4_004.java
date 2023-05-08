@@ -104,7 +104,7 @@ public class Card4_004 extends AbstractCreature {
     }
 
     @Override
-    public boolean isDeploysAndMovesLikeStarfighter() {
+    public boolean isMovesLikeStarfighter() {
         return true;
     }
 }

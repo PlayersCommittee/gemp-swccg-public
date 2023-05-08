@@ -977,20 +977,36 @@ public interface ModifiersQuerying {
     float getTotalForceIconCount(GameState gameState, String playerId);
 
     /**
-     * Determines if this deploys and moves like a starfighter.
+     * Determines if this deploys like a starfighter.
      * @param gameState the game state
      * @param card the card
-     * @return true if deploys and moves like a starfighter, otherwise false
+     * @return true if deploys like a starfighter, otherwise false
      */
-    boolean isDeploysAndMovesLikeStarfighter(GameState gameState, PhysicalCard card);
+    boolean isDeploysLikeStarfighter(GameState gameState, PhysicalCard card);
 
     /**
-     * Determines if this deploys and moves like a starfighter at cloud sectors.
+     * Determines if this moves like a starfighter.
      * @param gameState the game state
      * @param card the card
-     * @return true if deploys and moves like a starfighter at cloud sectors, otherwise false
+     * @return true if moves like a starfighter, otherwise false
      */
-    boolean isDeploysAndMovesLikeStarfighterAtCloudSectors(GameState gameState, PhysicalCard card);
+    boolean isMovesLikeStarfighter(GameState gameState, PhysicalCard card);
+
+    /**
+     * Determines if this deploys like a starfighter at cloud sectors.
+     * @param gameState the game state
+     * @param card the card
+     * @return true if deploys like a starfighter at cloud sectors, otherwise false
+     */
+    boolean isDeploysLikeStarfighterAtCloudSectors(GameState gameState, PhysicalCard card);
+
+    /**
+     * Determines if this moves like a starfighter at cloud sectors.
+     * @param gameState the game state
+     * @param card the card
+     * @return true if moves like a starfighter at cloud sectors, otherwise false
+     */
+    boolean isMovesLikeStarfighterAtCloudSectors(GameState gameState, PhysicalCard card);
 
     /**
      * Gets the sites marker number.

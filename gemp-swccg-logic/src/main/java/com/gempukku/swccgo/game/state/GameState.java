@@ -2660,6 +2660,14 @@ public class GameState implements Snapshotable<GameState> {
                 }
             }
         }
+
+        // Check for top level actions from the top card of Lost Pile (unless it is face down)
+        PhysicalCard topOfLostPile = getTopOfLostPile(playerId);
+        if (topOfLostPile != null
+                && !_game.getModifiersQuerying().hasFlagActive(this, ModifierFlag.LOST_PILE_FACE_DOWN, playerId)) {
+            if (physicalCardVisitor.visitPhysicalCard(topOfLostPile))
+                return true;
+        }
         return false;
     }
 

@@ -36,7 +36,7 @@ public class Card2_065 extends AbstractSystem {
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(playerOnDarkSideOfLocation),
-                Filters.and(Filters.capital_starship, Filters.not(Filters.deploysAndMovesLikeStarfighter))), -2, self));
+                Filters.and(Filters.capital_starship, Filters.not(Filters.deploysLikeStarfighter))), -2, self));
         return modifiers;
     }
 

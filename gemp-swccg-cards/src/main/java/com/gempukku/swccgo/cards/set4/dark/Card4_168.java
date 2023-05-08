@@ -53,7 +53,12 @@ public class Card4_168 extends AbstractCapitalStarship {
     }
 
     @Override
-    public boolean isDeploysAndMovesLikeStarfighter() {
+    public boolean isDeploysLikeStarfighter() {
+        return true;
+    }
+
+    @Override
+    public boolean isMovesLikeStarfighter() {
         return true;
     }
 }

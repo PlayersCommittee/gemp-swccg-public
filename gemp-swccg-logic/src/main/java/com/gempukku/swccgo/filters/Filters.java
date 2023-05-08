@@ -6465,7 +6465,7 @@ public class Filters {
                 }
 
                 if ((cardToMove.getBlueprint().getCardCategory() != CardCategory.STARSHIP
-                        && !cardToMove.getBlueprint().isDeploysAndMovesLikeStarfighter())
+                        && !cardToMove.getBlueprint().isMovesLikeStarfighter())
                         || currentAtLocation == null
                         || currentAtLocation.getBlueprint().getCardSubtype() != CardSubtype.SYSTEM
                         || physicalCard.getBlueprint().getCardSubtype() != CardSubtype.SYSTEM
@@ -6537,7 +6537,7 @@ public class Filters {
                 boolean validDestination = false;
 
                 // 1) Check if card to move is a starship at a system and the location to move to is the nearest related asteroid sector
-                if ((cardToMove.getBlueprint().getCardCategory() == CardCategory.STARSHIP || cardToMove.getBlueprint().isDeploysAndMovesLikeStarfighter())
+                if ((cardToMove.getBlueprint().getCardCategory() == CardCategory.STARSHIP || cardToMove.getBlueprint().isMovesLikeStarfighter())
                         && currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && Filters.nearestRelatedAsteroidSector(currentAtLocation).accepts(gameState, modifiersQuerying, physicalCard)) {
                     validDestination = true;
@@ -6546,7 +6546,7 @@ public class Filters {
                 // 2) Check if card to move is a starship at a system and the location to move to is the nearest related cloud sector
                 if (!validDestination
                         && currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter).accepts(gameState, modifiersQuerying, cardToMove)
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter).accepts(gameState, modifiersQuerying, cardToMove)
                         && Filters.nearestRelatedCloudSector(currentAtLocation).accepts(gameState, modifiersQuerying, physicalCard)) {
                     validDestination = true;
                 }
@@ -6561,7 +6561,7 @@ public class Filters {
 
                 // 4) Check if card move is a starship at nearest related sector to the system location
                 if (!validDestination
-                        && (cardToMove.getBlueprint().getCardCategory() == CardCategory.STARSHIP || cardToMove.getBlueprint().isDeploysAndMovesLikeStarfighter())
+                        && (cardToMove.getBlueprint().getCardCategory() == CardCategory.STARSHIP || cardToMove.getBlueprint().isMovesLikeStarfighter())
                         && physicalCard.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && Filters.nearestRelatedSector(physicalCard).accepts(gameState, modifiersQuerying, currentAtLocation)) {
                     validDestination = true;
@@ -6572,15 +6572,15 @@ public class Filters {
                 if (!validDestination
                         && currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SECTOR
                         && physicalCard.getBlueprint().getCardSubtype() == CardSubtype.SECTOR
-                        && Filters.or(Filters.starship, Filters.deploysAndMovesLikeStarfighter, Filters.and(Filters.vehicle, Filters.hasLandspeed)).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starship, Filters.movesLikeStarfighter, Filters.and(Filters.vehicle, Filters.hasLandspeed)).accepts(gameState, modifiersQuerying, cardToMove)) {
 
                     int range = 1;
                     if (!Filters.Death_Star_II_sector.accepts(gameState, modifiersQuerying, currentAtLocation)) {
-                        if (Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        if (Filters.or(Filters.starfighter, Filters.movesLikeStarfighter).accepts(gameState, modifiersQuerying, cardToMove)) {
                             range = 2;
                         } else if (Filters.cloud_sector.accepts(gameState, modifiersQuerying, currentAtLocation)
                                 && Filters.cloud_sector.accepts(gameState, modifiersQuerying, physicalCard)
-                                && Filters.deploysAndMovesLikeStarfighterAtCloudSectors.accepts(gameState, modifiersQuerying, cardToMove)) {
+                                && Filters.movesLikeStarfighterAtCloudSectors.accepts(gameState, modifiersQuerying, cardToMove)) {
                             range = 2;
                         }
                     }
@@ -6669,7 +6669,7 @@ public class Filters {
                 boolean validDestination = false;
 
                 // Check if card to move is present with a starship that has a related starship site that can be landed at
-                if (Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
+                if (Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
                         && Filters.and(Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(playerId),
                         Filters.relatedSiteTo(null, Filters.and(Filters.your(cardToMove), Filters.capital_starship, Filters.presentWith(cardToMove)))).accepts(gameState, modifiersQuerying, physicalCard)) {
                     validDestination = true;
@@ -6679,7 +6679,7 @@ public class Filters {
                 else if (currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && currentAtLocation.getTitle().equals(physicalCard.getPartOfSystem())
                         && Filters.exterior_site.accepts(gameState, modifiersQuerying, physicalCard)
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
                     // Check if no sectors in between
                     List<PhysicalCard> sectorsBetween = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard);
                     validDestination = (sectorsBetween != null && sectorsBetween.isEmpty());
@@ -6688,21 +6688,21 @@ public class Filters {
                 else if (currentAtLocation.getBlueprint().hasKeyword(Keyword.CLOUD_SECTOR)
                         && currentAtLocation.getPartOfSystem() != null && currentAtLocation.getPartOfSystem().equals(physicalCard.getPartOfSystem())
                         && Filters.exterior_site.accepts(gameState, modifiersQuerying, physicalCard)
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.deploysAndMovesLikeStarfighterAtCloudSectors, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.movesLikeStarfighterAtCloudSectors, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
                     // Check if no sectors in between
                     List<PhysicalCard> sectorsBetween = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard);
                     validDestination = (sectorsBetween != null && sectorsBetween.isEmpty());
                 }
                 // Check if card to move is at a system and there is a starship docking bay related to a starship that is at that system
                 else if (currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
                         && Filters.and(Filters.starship_site, Filters.docking_bay, Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(currentAtLocation)))).accepts(gameState, modifiersQuerying, physicalCard)) {
                     validDestination = true;
                 }
                 // Check if card to move is at a Big One and the location to move to is the related site.
                 else if (Filters.Big_One.accepts(gameState, modifiersQuerying, currentAtLocation)
                         && Filters.and(Filters.Big_One_Asteroid_Cave_Or_Space_Slug_Belly, Filters.relatedSite(currentAtLocation)).accepts(gameState, modifiersQuerying, physicalCard)
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
                     validDestination = true;
                 }
 
@@ -6768,7 +6768,7 @@ public class Filters {
 
                 // Check if destination is location is where the starship related to the starship site is present at
                 if (physicalCard.getBlueprint().getCardCategory() == CardCategory.LOCATION
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
                         && Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(cardToMove.getOwner()).accepts(gameState, modifiersQuerying, currentAtLocation)) {
                     validDestination = Filters.siteOfStarshipOrVehicle(Filters.present(physicalCard)).accepts(gameState, modifiersQuerying, currentAtLocation);
                 }
@@ -6777,7 +6777,7 @@ public class Filters {
                 else if (physicalCard.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && physicalCard.getTitle().equals(currentAtLocation.getPartOfSystem())
                         && Filters.exterior_site.accepts(gameState, modifiersQuerying, currentAtLocation)
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
                     // Check if no sectors in between
                     validDestination = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard).isEmpty();
                 }
@@ -6785,20 +6785,20 @@ public class Filters {
                 else if (physicalCard.getBlueprint().hasKeyword(Keyword.CLOUD_SECTOR)
                         && physicalCard.getPartOfSystem() != null && physicalCard.getPartOfSystem().equals(currentAtLocation.getPartOfSystem())
                         && Filters.exterior_site.accepts(gameState, modifiersQuerying, currentAtLocation)
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.deploysAndMovesLikeStarfighterAtCloudSectors, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.movesLikeStarfighterAtCloudSectors, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
                     // Check if no sectors in between
                     validDestination = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard).isEmpty();
                 }
                 // Check if the location is a system and card to move is at a starship docking bay related to a starship at that system
                 else if (physicalCard.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
                         && Filters.and(Filters.starship_site, Filters.docking_bay, Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(physicalCard)))).accepts(gameState, modifiersQuerying, currentAtLocation)) {
                     validDestination = true;
                 }
                 // Check if card to move is at a Big One site and the location to move to is the related Big One.
                 else if (Filters.Big_One.accepts(gameState, modifiersQuerying, physicalCard)
                         && Filters.and(Filters.Big_One_Asteroid_Cave_Or_Space_Slug_Belly, Filters.relatedSite(physicalCard)).accepts(gameState, modifiersQuerying, currentAtLocation)
-                        && Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
+                        && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)) {
                     validDestination = true;
                 }
 
@@ -12871,35 +12871,67 @@ public class Filters {
     }
 
     /**
-     * Filter that accepts cards deploy and move like a starfighter.
+     * Filter that accepts cards deploy like a starfighter.
      */
-    public static final Filter deploysAndMovesLikeStarfighter = new Filter() {
+    public static final Filter deploysLikeStarfighter = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return modifiersQuerying.isDeploysAndMovesLikeStarfighter(gameState, physicalCard);
+            return modifiersQuerying.isDeploysLikeStarfighter(gameState, physicalCard);
         }
     };
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
-    private static Filter deploysAndMovesLikeStarfighter() {
-        return deploysAndMovesLikeStarfighter;
+    private static Filter deploysLikeStarfighter() {
+        return deploysLikeStarfighter;
     }
 
     /**
-     * Filter that accepts cards deploy and move like a starfighter at cloud sectors.
+     * Filter that accepts cards move like a starfighter.
      */
-    public static final Filter deploysAndMovesLikeStarfighterAtCloudSectors = new Filter() {
+    public static final Filter movesLikeStarfighter = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return modifiersQuerying.isDeploysAndMovesLikeStarfighterAtCloudSectors(gameState, physicalCard);
+            return modifiersQuerying.isMovesLikeStarfighter(gameState, physicalCard);
         }
     };
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
-    private static Filter deploysAndMovesLikeStarfighterAtCloudSectors() {
-        return deploysAndMovesLikeStarfighterAtCloudSectors;
+    private static Filter movesLikeStarfighter() {
+        return deploysLikeStarfighter;
+    }
+
+    /**
+     * Filter that accepts cards deploy like a starfighter at cloud sectors.
+     */
+    public static final Filter deploysLikeStarfighterAtCloudSectors = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.isDeploysLikeStarfighterAtCloudSectors(gameState, physicalCard);
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter deploysLikeStarfighterAtCloudSectors() {
+        return deploysLikeStarfighterAtCloudSectors;
+    }
+
+    /**
+     * Filter that accepts cards move like a starfighter at cloud sectors.
+     */
+    public static final Filter movesLikeStarfighterAtCloudSectors = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.isDeploysLikeStarfighterAtCloudSectors(gameState, physicalCard);
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter movesLikeStarfighterAtCloudSectors() {
+        return deploysLikeStarfighterAtCloudSectors;
     }
 
     /**

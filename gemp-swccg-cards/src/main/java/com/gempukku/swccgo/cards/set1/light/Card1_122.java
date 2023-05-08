@@ -45,7 +45,7 @@ public class Card1_122 extends AbstractSystem {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation),
                 Filters.or(Filters.capital_starship, Filters.starfighter)), new CardMatchesEvaluator(-2, -1,
-                Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter)), self));
+                Filters.or(Filters.starfighter, Filters.deploysLikeStarfighter)), self));
         return modifiers;
     }
 }

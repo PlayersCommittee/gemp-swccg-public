@@ -335,7 +335,7 @@ public abstract class AbstractVehicle extends AbstractDeployable {
                 // If unpiloted, then additional filtering for valid target is needed
                 if (!game.getModifiersQuerying().hasPermanentPilot(game.getGameState(), self)
                         && (reactActionOption != null
-                        || Filters.deploysAndMovesLikeStarfighterAtCloudSectors.accepts(game, self))) {
+                        || Filters.deploysLikeStarfighterAtCloudSectors.accepts(game, self))) {
                     Filter extraTargetFilter = reactActionOption != null ? Filters.any : Filters.cloud_sector;
 
                     deployWithSeparatePilotTargetFilter = Filters.and(deployWithoutSeparatePilotTargetFilter);
@@ -406,7 +406,7 @@ public abstract class AbstractVehicle extends AbstractDeployable {
         // Return filter based on vehicle type, etc.
         Filter combinedFilter = Filters.or(filter1, filter3);
 
-        if (game.getModifiersQuerying().isDeploysAndMovesLikeStarfighterAtCloudSectors(game.getGameState(), self))
+        if (game.getModifiersQuerying().isDeploysLikeStarfighterAtCloudSectors(game.getGameState(), self))
             combinedFilter = Filters.or(combinedFilter, filter2);
 
         if (!ignorePresenceOrForceIcons && (deploymentRestrictionsOption == null || (!deploymentRestrictionsOption.isEvenWithoutPresenceOrForceIcons() && !deploymentRestrictionsOption.isIgnoreLocationDeploymentRestrictions())))
@@ -465,7 +465,7 @@ public abstract class AbstractVehicle extends AbstractDeployable {
         // Return filter based on vehicle type, etc.
         Filter combinedFilter = Filters.or(filter1, filter3);
 
-        if (game.getModifiersQuerying().isDeploysAndMovesLikeStarfighterAtCloudSectors(game.getGameState(), self))
+        if (game.getModifiersQuerying().isMovesLikeStarfighterAtCloudSectors(game.getGameState(), self))
             combinedFilter = Filters.or(combinedFilter, filter2);
 
         return combinedFilter;

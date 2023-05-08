@@ -48,7 +48,7 @@ public class Card7_126 extends AbstractSite {
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
-        Filter yourStarfighters = Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.or(Filters.starfighter, Filters.deploysAndMovesLikeStarfighter));
+        Filter yourStarfighters = Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.or(Filters.starfighter, Filters.deploysLikeStarfighter));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DockingBayTransitFromCostModifier(self, 2, playerOnLightSideOfLocation));
