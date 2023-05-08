@@ -2214,7 +2214,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      * @return the actions
      */
     @Override
-    public List<Action> getCardPilePhaseActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
+    public final List<Action> getCardPilePhaseActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
         final GameState gameState = game.getGameState();
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();

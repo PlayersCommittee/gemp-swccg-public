@@ -69,8 +69,7 @@ public class Card1_015 extends AbstractAlien {
         if (TriggerConditions.isBattleDestinyDrawingJustCompletedForBothPlayers(game, effectResult)
                 && GameConditions.isInBattle(game, self)
                 && GameConditions.didBothPlayersDrawOneBattleDestiny(game)
-                && GameConditions.hasGreaterBattleDestinyTotal(game, playerId, true)
-                && !game.getModifiersQuerying().mayNotResetTotalBattleDestiny(game.getGameState(), opponent, playerId)) {
+                && GameConditions.hasGreaterBattleDestinyTotal(game, playerId, true)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Reduce opponent's destiny");
