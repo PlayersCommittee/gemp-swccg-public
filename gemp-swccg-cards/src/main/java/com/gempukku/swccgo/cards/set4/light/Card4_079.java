@@ -35,6 +35,7 @@ import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckE
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -168,10 +169,13 @@ public class Card4_079 extends AbstractJediTest {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.SIZE_MATTERS_NOT__UPLOAD_CARD;
 
+        boolean isFree = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TEST_4__SEARCHES_FOR_FREE);
+        int forceToUse = isFree ? 0 : 2;
+
         // Check condition(s)
         if (GameConditions.isJediTestCompleted(game, self)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.canUseForce(game, playerId, 2)
+                && GameConditions.canUseForce(game, playerId, forceToUse)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -182,7 +186,7 @@ public class Card4_079 extends AbstractJediTest {
                     new OncePerPhaseEffect(action));
             // Pay cost(s)
             action.appendCost(
-                    new UseForceEffect(action, playerId, 2));
+                    new UseForceEffect(action, playerId, forceToUse));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, true));

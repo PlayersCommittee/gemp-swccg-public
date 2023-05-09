@@ -37,6 +37,7 @@ import com.gempukku.swccgo.logic.modifiers.AbilityRequiredForBattleDestinyModifi
 import com.gempukku.swccgo.logic.modifiers.MayOnlyMoveUsingLandspeedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -97,7 +98,8 @@ public class Card4_075 extends AbstractJediTest {
         if (TriggerConditions.isStartOfYourPhase(game, self, effectResult, Phase.MOVE)) {
             Filter adjacentSiteFilter = Filters.adjacentSite(self);
             if (!GameConditions.isJediTestCompleted(game, self)
-                    && GameConditions.canSpotLocation(game, adjacentSiteFilter)) {
+                    && GameConditions.canSpotLocation(game, adjacentSiteFilter)
+                    && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TEST_2__MAY_NOT_MOVE)) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
                 action.setText("Relocate to adjacent site");

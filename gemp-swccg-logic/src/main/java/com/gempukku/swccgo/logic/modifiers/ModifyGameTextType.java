@@ -38,6 +38,8 @@ public enum ModifyGameTextType {
     LOST_IN_THE_WILDERNESS__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
     JAWA_SIESTA__DOUBLED_BY_KALIT("Doubled And May Deploy For Free"),
     JAWA_PACK__DOUBLED_BY_WITTIN("Doubled And May Deploy For Free"),
+    JEDI_TEST_2__MAY_NOT_MOVE("Jedi Test 2 may not move"),
+    JEDI_TEST_4__SEARCHES_FOR_FREE("Jedi Test 4 searches for free"),
     KETWOL__MAY_EXCHANGE_DOCKING_BAY_ONCE_PER_GAME("May exchange docking bay only once per game"),
     MASTER_LUKE__MAY_NOT_RETURN_ALIENS_TO_HAND("May not return aliens to hand using his game text"),
     MAUL__MAY_NOT_MODIFIY_DESTINIES("May not modify destinies"),
