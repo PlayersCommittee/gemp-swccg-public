@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -43,6 +44,7 @@ public class Card601_011 extends AbstractTransportVehicle {
         setGameText("Deploys only on Tatooine. May add 1 driver and 8 passengers. Scum And Villainy may deploy aboard. During your deploy phase, may deploy one Jabba, Pote, or Passenger Deck aboard from Reserve Deck; reshuffle. Immune to attrition < 6.");
         addIcons(Icon.JABBAS_PALACE, Icon.SCOMP_LINK, Icon.LEGACY_BLOCK_3);
         addPersona(Persona.JABBAS_SAIL_BARGE);
+        addKeyword(Keyword.BARGE);
         setDriverCapacity(1);
         setPassengerCapacity(8);
         setAsLegacy(true);

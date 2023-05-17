@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -40,6 +41,7 @@ public class Card6_172 extends AbstractTransportVehicle {
         setGameText("Deploys only on Tatooine; you may immediately deploy Passenger Deck from your Reserve Deck and reshuffle. May add 1 driver and 7 passengers. Your aliens deploy -1 aboard.");
         addIcons(Icon.JABBAS_PALACE, Icon.SCOMP_LINK);
         addPersona(Persona.JABBAS_SAIL_BARGE);
+        addKeyword(Keyword.BARGE);
         setDriverCapacity(1);
         setPassengerCapacity(7);
     }

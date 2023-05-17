@@ -17532,6 +17532,7 @@ public class Filters {
     public static final Filter Bad_Feeling_Have_I = Filters.title(Title.Bad_Feeling_Have_I);
     public static final Filter bantha = Filters.keyword(Keyword.BANTHA);
     public static final Filter Barada = Filters.title(Title.Barada);
+    public static final Filter barge = Filters.keyword(Keyword.BARGE);
     public static final Filter Barich = Filters.title(Title.Barich);
     public static final Filter battle_droid = Filters.and(ModelType.BATTLE, CardType.DROID);
     public static final Filter Battle_Plains = Filters.title(Title.Battle_Plains);

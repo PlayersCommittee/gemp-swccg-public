@@ -8,6 +8,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -43,6 +44,7 @@ public class Card204_056 extends AbstractTransportVehicle {
         setGameText("May add 1 alien driver and 8 passengers. Your vehicle weapons deploy free aboard. Once per turn, may [download] Passenger Deck or a skiff here. While on Tatooine with a skiff, Force drain +1 here.");
         addIcons(Icon.JABBAS_PALACE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_4);
         addPersona(Persona.JABBAS_SAIL_BARGE);
+        addKeyword(Keyword.BARGE);
         setDriverCapacity(1);
         setPassengerCapacity(8);
     }

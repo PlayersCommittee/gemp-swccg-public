@@ -12,6 +12,7 @@ public enum Keyword implements Filterable {
     AT_AT_CANNON("AT-AT Cannon",false),
     AX("Ax", true),
     BANTHA("Bantha", true),
+    BARGE("Barge", true),
     BATTLESHIP("Battleship", true),
     BIKER_SCOUT("Biker Scout", true, true),
     BODYGUARD("Bodyguard",true, true),
