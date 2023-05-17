@@ -65,7 +65,7 @@ public class Card216_034 extends AbstractAlien {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
-        Filter filter = Filters.and(Filters.or(Filters.and(Filters.freighter, Filters.starship), Filters.starfighter), Filters.hasPiloting(self));
+        Filter filter = Filters.and(Filters.or(Filters.freighter, Filters.starfighter), Filters.hasPiloting(self));
 
         Collection<TargetingReason> targetingReasons = Arrays.asList(TargetingReason.TO_BE_HIT, TargetingReason.TO_BE_LOST, TargetingReason.TO_BE_CAPTURED);
 
