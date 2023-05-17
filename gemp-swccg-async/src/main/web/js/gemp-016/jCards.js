@@ -3676,6 +3676,10 @@ var fixedImages = {
 "501_156":"https://res.starwarsccg.org/cards/Hoth-Dark/large/comscandetection.gif",
 "501_157":"https://res.starwarsccg.org/cards/Hoth-Dark/large/mournfulroar.gif",
 "501_158":"https://res.starwarsccg.org/cards/TheedPalace-Light/large/whoooo.gif",
+"501_159":"https://res.starwarsccg.org/cards/Tatooine-Light/large/tatooinemosespa.gif",
+"501_160":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/aremoteplanet.gif",
+"501_161":"https://res.starwarsccg.org/cards/Tatooine-Light/large/eitherwayyouwin.gif",
+"501_162":"https://res.starwarsccg.org/cards/Endor-Dark/large/accelerate.gif",
 
 
 //legacy
@@ -4561,7 +4565,8 @@ var Card = Class.extend({
                    (cardNo == 150) ||
                    (cardNo == 151) ||
                    (cardNo == 152) ||
-                   (cardNo == 153)
+                   (cardNo == 153) ||
+                   (cardNo == 159)
                    ;
         }
         if (setNo == 601) {

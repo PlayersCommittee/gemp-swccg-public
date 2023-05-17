@@ -81,7 +81,7 @@ public class Card217_042 extends AbstractUsedInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.title("Tatooine: Skywalker Hut"), Filters.Nightclub), true));
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Skywalker_Hut, Filters.Nightclub), true));
                         }
                     }
             );

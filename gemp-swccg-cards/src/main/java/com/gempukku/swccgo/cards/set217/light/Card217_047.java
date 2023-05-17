@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card217_047 extends AbstractSite {
     public Card217_047() {
-        super(Side.LIGHT, "Tatooine: Skywalker Hut", Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
+        super(Side.LIGHT, Title.Skywalker_Hut, Title.Tatooine, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setLocationDarkSideGameText("May not be separated from Slave Quarters.");
         setLocationLightSideGameText("Once per turn, may deploy Shmi or [Tatooine] C-3PO here from Reserve Deck; reshuffle.");
         addIcon(Icon.LIGHT_FORCE, 2);
