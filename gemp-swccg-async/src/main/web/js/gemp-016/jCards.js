@@ -3675,6 +3675,7 @@ var fixedImages = {
 "501_155":"https://res.starwarsccg.org/cards/ReflectionsII-Light/large/control&tunnelvision.gif",
 "501_156":"https://res.starwarsccg.org/cards/Hoth-Dark/large/comscandetection.gif",
 "501_157":"https://res.starwarsccg.org/cards/Hoth-Dark/large/mournfulroar.gif",
+"501_158":"https://res.starwarsccg.org/cards/TheedPalace-Light/large/whoooo.gif",
 
 
 //legacy

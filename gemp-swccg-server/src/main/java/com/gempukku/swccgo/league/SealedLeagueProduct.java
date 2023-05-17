@@ -304,6 +304,7 @@ public class SealedLeagueProduct {
         firstWeek.addItem("1_241", 1); // Dark Maneuvers
         firstWeek.addItem("7_246", 1); // All Power To Weapons
         firstWeek.addItem("12_154", 1); // Neimoidian Advisor
+        firstWeek.addItem("9_121", 1); // Combat Response
         firstWeek.addItem("106_13", 3); // Dreadnaught-Class Heavy Cruiser
         firstWeek.addItem("109_8", 1); // Boba Fett In Slave I
         firstWeek.addItem("1_299", 1); // Black 2
@@ -319,6 +320,7 @@ public class SealedLeagueProduct {
         firstWeek.addItem("1_70", 1); // A Few Maneuvers
         firstWeek.addItem("7_97", 1); // Organized Attack
         firstWeek.addItem("12_62", 1); // Mindful Of The Future
+        firstWeek.addItem("9_39", 1); // Squadron Assignments
         firstWeek.addItem("106_4", 3); // Gold Squadron Y-wing
         firstWeek.addItem("7_149", 1); // Spiral
         firstWeek.addItem("1_142", 1); // Gold 5
