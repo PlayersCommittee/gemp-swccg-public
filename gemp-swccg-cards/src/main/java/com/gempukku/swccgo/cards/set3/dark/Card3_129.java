@@ -74,7 +74,7 @@ public class Card3_129 extends AbstractUsedInterrupt {
             actions.add(action);
         }
         // Check condition(s)
-        if (TriggerConditions.isFiringWeapon(game, effect, Filters.and(Filters.character, Filters.abilityLessThan(4)), Filters.lightsaber)) {
+        if (TriggerConditions.isFiringWeapon(game, effect, Filters.lightsaber, Filters.and(Filters.character, Filters.abilityLessThan(4)))) {
             WeaponFiringState weaponFiringState = game.getGameState().getWeaponFiringState();
             if (weaponFiringState != null) {
                 PhysicalCard lightsaber = weaponFiringState.getCardFiring();
