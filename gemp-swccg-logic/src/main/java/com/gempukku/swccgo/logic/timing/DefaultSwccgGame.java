@@ -1,5 +1,7 @@
 package com.gempukku.swccgo.logic.timing;
 
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardCounts;
 import com.gempukku.swccgo.common.GameEndReason;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
@@ -79,6 +81,13 @@ public class DefaultSwccgGame implements SwccgGame {
             List<String> outsideOfDeck = new LinkedList<String>();
 
             SwccgDeck swccgDeck = decks.get(playerId);
+
+            // if this is a playtesting game, add in any playtesting defensive shields that are not in the deck
+            if ("Playtesting".equals(format.getName())) {
+                loadPlaytestingShields(swccgDeck);
+            }
+
+
             _decks.put(playerId, swccgDeck.toString());
             deck.addAll(swccgDeck.getCards());
             outsideOfDeck.addAll(swccgDeck.getCardsOutsideDeck());
@@ -530,5 +539,40 @@ public class DefaultSwccgGame implements SwccgGame {
 
     public boolean useBonusAbilities() {
         return _useBonusAbilities;
+    }
+
+    private void loadPlaytestingShields(SwccgDeck swccgDeck) {
+        List<String> playtestingShields = findPlaytestingDefensiveShields(_library, CardCounts.PLAYTESTING_SETS_CARD_COUNTS, 501, swccgDeck.getSide(_library));
+        for(String shield:playtestingShields) {
+            if (!swccgDeck.getCardsOutsideDeck().contains(shield)) {
+                swccgDeck.addCardOutsideDeck(shield);
+            }
+        }
+    }
+
+    private List<String> findPlaytestingDefensiveShields(SwccgCardBlueprintLibrary library, int[] cardSetCounts, int setIndexOffset, Side side) {
+        List<String> defensiveShields = new LinkedList<>();
+        for (int i = 0; i < cardSetCounts.length; i++) {
+            int setNum = setIndexOffset + i;
+            for (int j = 1; j <= cardSetCounts[i]; j++) {
+                String blueprintId = setNum + "_" + j;
+                try {
+                    if (library.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                        SwccgCardBlueprint cardBlueprint = library.getSwccgoCardBlueprint(blueprintId);
+                        if (cardBlueprint != null
+                                && !cardBlueprint.excludeFromDeckBuilder()
+                                && cardBlueprint.getSide().equals(side)) {
+                            CardCategory cardCategory = cardBlueprint.getCardCategory();
+                            if (cardCategory == CardCategory.DEFENSIVE_SHIELD) {
+                                defensiveShields.add(blueprintId);
+                            }
+                        }
+                    }
+                } catch (IllegalArgumentException exp) {
+                }
+            }
+        }
+
+        return defensiveShields;
     }
 }
