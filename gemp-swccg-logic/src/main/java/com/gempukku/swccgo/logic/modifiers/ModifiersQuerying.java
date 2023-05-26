@@ -3852,9 +3852,15 @@ public interface ModifiersQuerying {
 
     boolean isStarshipOrVehicleAlone(GameState gameState, PhysicalCard physicalCard);
 
+    boolean isStarshipOrVehicleAlone(GameState gameState, PhysicalCard physicalCard, Map<InactiveReason, Boolean> spotOverrides);
+
     boolean isCharacterAlone(GameState gameState, PhysicalCard physicalCard);
 
+    boolean isCharacterAlone(GameState gameState, PhysicalCard physicalCard, Map<InactiveReason, Boolean> spotOverrides);
+
     boolean isAlone(GameState gameState, PhysicalCard physicalCard);
+
+    boolean isAlone(GameState gameState, PhysicalCard physicalCard, Map<InactiveReason, Boolean> spotOverrides);
 
     boolean hasPermanentPilotAlone(GameState gameState, PhysicalCard physicalCard);
 

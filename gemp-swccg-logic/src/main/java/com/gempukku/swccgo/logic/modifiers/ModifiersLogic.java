@@ -13870,7 +13870,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     @Override
+    public boolean isAlone(GameState gameState, PhysicalCard physicalCard, Map<InactiveReason, Boolean> spotOverrides) {
+        return isCharacterAlone(gameState, physicalCard, spotOverrides) || isStarshipOrVehicleAlone(gameState, physicalCard, spotOverrides);
+    }
+
+    @Override
     public boolean isCharacterAlone(GameState gameState, PhysicalCard physicalCard) {
+        return isCharacterAlone(gameState, physicalCard, null);
+    }
+
+    @Override
+    public boolean isCharacterAlone(GameState gameState, PhysicalCard physicalCard, Map<InactiveReason, Boolean> spotOverrides) {
         // Your character or permanent pilot is alone at a location if it is active
         // and you have no other cards at that location that are active characters
         // or active cards with ability. Combo Cards (such as Artoo & Threepio or Tonnika Sisters),
@@ -13887,7 +13897,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (location==null)
             return false;
 
-        if (Filters.canSpot(gameState.getGame(), null, Filters.and(Filters.not(physicalCard), Filters.at(location),
+        if (Filters.canSpot(gameState.getGame(), null, spotOverrides, Filters.and(Filters.not(physicalCard), Filters.at(location),
                 Filters.owner(physicalCard.getOwner()), Filters.or(CardCategory.CHARACTER, Filters.abilityMoreThan(0, true)))))
             return false;
 
@@ -13896,6 +13906,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
     @Override
     public boolean isStarshipOrVehicleAlone(GameState gameState, PhysicalCard physicalCard) {
+        return isStarshipOrVehicleAlone(gameState, physicalCard, null);
+    }
+
+    @Override
+    public boolean isStarshipOrVehicleAlone(GameState gameState, PhysicalCard physicalCard, Map<InactiveReason, Boolean> spotOverrides) {
         // Your character or permanent pilot is alone at a location if it is active
         // and you have no other cards at that location that are active characters
         // or active cards with ability. Combo Cards (such as Artoo & Threepio or Tonnika Sisters),
@@ -13912,7 +13927,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (location==null)
             return false;
 
-        if (Filters.canSpot(gameState.getGame(), null, Filters.and(Filters.at(location), Filters.owner(physicalCard.getOwner()),
+        if (Filters.canSpot(gameState.getGame(), null, spotOverrides, Filters.and(Filters.at(location), Filters.owner(physicalCard.getOwner()),
                 Filters.or(CardCategory.CHARACTER, CardCategory.STARSHIP, CardCategory.VEHICLE),
                 Filters.not(Filters.or(physicalCard, Filters.aboardOrAboardCargoOf(physicalCard))))))
             return false;
