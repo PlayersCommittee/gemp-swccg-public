@@ -53,7 +53,7 @@ public class Card211_039 extends AbstractSite {
             action.setText("Retrieve a weapon or device into hand");
             action.setActionMsg("Retrieve a weapon or device into hand");
             action.appendUsage(new OncePerGameEffect(action));
-            action.appendEffect(new RetrieveCardIntoHandEffect(action, self.getOwner(), Filters.or(Filters.weapon, Filters.device)));
+            action.appendEffect(new RetrieveCardIntoHandEffect(action, playerOnLightSideOfLocation, Filters.or(Filters.weapon, Filters.device)));
             return Collections.singletonList(action);
         }
         return null;
@@ -65,8 +65,8 @@ public class Card211_039 extends AbstractSite {
         if (GameConditions.canInsteadOfForceDrainingAtLocation(game, playerOnDarkSideOfLocation, self)
                 && GameConditions.hasLostPile(game, playerOnDarkSideOfLocation)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId);
-            action.setText("Retrieve a weapon or device instead of force draining");
-            action.setActionMsg("Retrieve a weapon or device instead of force draining");
+            action.setText("Retrieve a weapon or device instead of Force draining");
+            action.setActionMsg("Retrieve a weapon or device instead of Force draining");
             action.appendEffect(new InsteadOfForceDrainingEffect(action, self, new RetrieveCardEffect(action, playerOnDarkSideOfLocation, Filters.or(Filters.weapon, Filters.device))));
             return Collections.singletonList(action);
         }
