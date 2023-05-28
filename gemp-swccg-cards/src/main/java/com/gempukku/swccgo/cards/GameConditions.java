@@ -2006,7 +2006,7 @@ public class GameConditions {
      * @return true if a card can be spotted, otherwise false
      */
     public static boolean canTarget(SwccgGame game, PhysicalCard card, int count, Filterable targetFilters) {
-        return canTarget(game, card, count, true, targetFilters);
+        return canTarget(game, card, true, targetFilters);
     }
 
     /**
