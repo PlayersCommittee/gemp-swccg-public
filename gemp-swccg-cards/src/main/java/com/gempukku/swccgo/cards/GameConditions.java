@@ -2006,7 +2006,7 @@ public class GameConditions {
      * @return true if a card can be spotted, otherwise false
      */
     public static boolean canTarget(SwccgGame game, PhysicalCard card, int count, Filterable targetFilters) {
-        return canTarget(game, card, true, targetFilters);
+        return canTarget(game, card, count, true, targetFilters);
     }
 
     /**
@@ -3090,6 +3090,20 @@ public class GameConditions {
      */
     public static boolean canDeployCardFromUsedPile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId) {
         return canDeployCardFromCardPile(game, playerId, self, Zone.USED_PILE, gameTextActionId, false, false, Collections.<Persona>emptySet(), Collections.<String>emptyList());
+    }
+
+
+    /**
+     * Checks if the player can deploy a card from Used Pile.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @param skipDeployPhaseCheck true if checking it is the player's deploy phase is skipped, otherwise false
+     * @return true or false
+     */
+    public static boolean canDeployCardFromUsedPile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, boolean skipDeployPhaseCheck) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.USED_PILE, gameTextActionId, skipDeployPhaseCheck, false, Collections.<Persona>emptySet(), Collections.<String>emptyList());
     }
 
     /**

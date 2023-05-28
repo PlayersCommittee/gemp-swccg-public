@@ -13,6 +13,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIconsModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetWithoutPresenceOrForceIconsModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployWithoutPresenceOrForceIconsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -31,7 +32,7 @@ public class Card8_079 extends AbstractStarfighter {
     public Card8_079() {
         super(Side.LIGHT, 3, 2, 2, null, 2, 3, 4, Title.Tydirium, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.R);
         setLore("Stolen Imperial Lambda-class shuttle. Supposedly carried parts and technical crew. Delivered General Solo's crack team of Rebel scouts to the forest moon of Endor.");
-        setGameText("May deploy (and your characters may deploy aboard) even without presence of Force icons. May add 2 pilots and 6 passengers. While Tydirium is at a system location, your scouts deploy -1 aboard.");
+        setGameText("May deploy (and your characters may deploy aboard) even without presence or Force icons. May add 2 pilots and 6 passengers. While Tydirium is at a system location, your scouts deploy -1 aboard.");
         addIcons(Icon.ENDOR, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.LAMBDA_CLASS_SHUTTLE);
         setPilotCapacity(2);
@@ -43,6 +44,7 @@ public class Card8_079 extends AbstractStarfighter {
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayDeployWithoutPresenceOrForceIconsModifier(self));
+        modifiers.add(new MayDeployPilotSimultaneouslyToTargetWithoutPresenceOrForceIconsModifier(self, Filters.any));
         return modifiers;
     }
 
