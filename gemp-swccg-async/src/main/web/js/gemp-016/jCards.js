@@ -3680,6 +3680,9 @@ var fixedImages = {
 "501_160":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/aremoteplanet.gif",
 "501_161":"https://res.starwarsccg.org/cards/Tatooine-Light/large/eitherwayyouwin.gif",
 "501_162":"https://res.starwarsccg.org/cards/Endor-Dark/large/accelerate.gif",
+"501_163":"https://res.starwarsccg.org/cards/ANewHope-Dark/large/danzborin.gif",
+"501_164":"https://res.starwarsccg.org/cards/Premiere-Light/large/scomplinkaccess.gif",
+"501_165":"https://res.starwarsccg.org/cards/Virtual0-Dark/hires/elisinhinthra.png",
 
 
 //legacy
