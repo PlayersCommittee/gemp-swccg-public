@@ -50,6 +50,12 @@ public class ModifyTotalBattleDestinyEffect extends AbstractSuccessfulEffect {
             return;
         }
 
+        if (_modifierAmount > 0
+                && modifiersQuerying.mayNotIncreaseTotalBattleDestiny(gameState, _playerAffected, performingPlayerId)) {
+            gameState.sendMessage(performingPlayerId + " may not increase " + _playerAffected + "'s total battle destiny");
+            return;
+        }
+
         game.getModifiersEnvironment().addUntilEndOfBattleModifier(
                 new TotalBattleDestinyModifier(_action.getActionSource(), _modifierAmount, _playerAffected, _skipInBattleCheck));
         if (_modifierAmount > 0) {

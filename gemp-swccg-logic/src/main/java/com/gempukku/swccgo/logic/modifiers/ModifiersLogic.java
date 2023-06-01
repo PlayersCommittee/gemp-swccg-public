@@ -5131,6 +5131,25 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return false;
     }
 
+
+    /**
+     * Determines if total battle destiny for a specified player may not be increased by the other specified player.
+     * @param gameState the game state
+     * @param playerDrawingDestiny the player with total battle destiny
+     * @param playerToModify the player to increase total battle destiny
+     * @return true if total battle destiny may not be increased, otherwise false
+     */
+    @Override
+    public boolean mayNotIncreaseTotalBattleDestiny(GameState gameState, String playerDrawingDestiny, String playerToModify) {
+        PhysicalCard battleLocation = gameState.getBattleLocation();
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_INCREASE_TOTAL_BATTLE_DESTINY, battleLocation)) {
+            if (((MayNotIncreaseTotalBattleDestinyModifier)modifier).mayNotIncreaseBattleDestiny(playerDrawingDestiny, playerToModify)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Determines if battle destiny draws by a specified player may not be modified by the other specified player.
      * @param gameState the game state
@@ -9284,8 +9303,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.TOTAL_BATTLE_DESTINY_AT_LOCATION, battleLocation)) {
             if (modifier.isForPlayer(playerId)) {
                 if (!mayNotModifyTotalBattleDestiny(gameState, playerId, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
-                    result *= modifier.getMultiplierValue(gameState, this, battleLocation);
-                    result += modifier.getValue(gameState, this, battleLocation);
+                    boolean mayNotIncrease = mayNotIncreaseTotalBattleDestiny(gameState, playerId, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null);
+
+                    float multiplyValue = modifier.getMultiplierValue(gameState, this, battleLocation);
+                    float addValue = modifier.getValue(gameState, this, battleLocation);
+                    if (!mayNotIncrease || multiplyValue < 1)
+                        result *= multiplyValue;
+                    if (!mayNotIncrease || addValue < 0)
+                        result += addValue;
                 }
             }
         }

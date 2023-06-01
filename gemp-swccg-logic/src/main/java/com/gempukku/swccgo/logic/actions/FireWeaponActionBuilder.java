@@ -3693,7 +3693,8 @@ public class FireWeaponActionBuilder {
      */
     private void chooseAmountOfForceToUseAndSetX(final FireSingleWeaponAction action, PhysicalCard cardTargeted) {
         int forceToUseMin = getUseForceCostRangeMin(cardTargeted);
-        int forceToUseMax = Math.min(getUseForceCostRangeMax(cardTargeted), _game.getModifiersQuerying().getForceAvailableToUse(_game.getGameState(), _playerId));
+        int getExtraForceCost = _game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(_game.getGameState(), _weaponOrCardWithPermanentWeapon);
+        int forceToUseMax = Math.min(getUseForceCostRangeMax(cardTargeted), _game.getModifiersQuerying().getForceAvailableToUse(_game.getGameState(), _playerId)-getExtraForceCost);
 
         if (forceToUseMax > forceToUseMin) {
             action.appendCost(

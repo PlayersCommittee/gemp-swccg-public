@@ -1776,6 +1776,15 @@ public interface ModifiersQuerying {
     boolean mayNotModifyTotalBattleDestiny(GameState gameState, String playerDrawingDestiny, String playerToModify);
 
     /**
+     * Determines if total battle destiny for a specified player may not be increased by the other specified player.
+     * @param gameState the game state
+     * @param playerDrawingDestiny the player with total battle destiny
+     * @param playerToModify the player to increase total battle destiny
+     * @return true if total battle destiny may not be increased, otherwise false
+     */
+    boolean mayNotIncreaseTotalBattleDestiny(GameState gameState, String playerDrawingDestiny, String playerToModify);
+
+    /**
      * Determines if battle destiny draws by a specified player may not be modified by the other specified player.
      * @param gameState the game state
      * @param playerDrawingDestiny the player drawing battle destiny
