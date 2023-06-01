@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set218.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.AloneCondition;
 import com.gempukku.swccgo.cards.conditions.HereCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -39,7 +40,7 @@ public class Card218_025 extends AbstractRebel {
         super(Side.LIGHT, 1, 5, 5, 5, 8, "Master Luke", Uniqueness.UNIQUE, ExpansionSet.SET_18, Rarity.V);
         setVirtualSuffix(true);
         setLore("Until being reunited with Yoda, Luke suspected that he had completed his training. Has a strong influence on the weak minded.");
-        setGameText("While at a site, unless opponent's character of ability > 3 here, reset opponent's total battle destiny here to 0. Once per game, may deploy a lightsaber on Luke from Lost Pile. Opponent's aliens deploy +1 to same and related Tatooine sites. Immune to attrition < 4.");
+        setGameText("While alone at a site, unless opponent's character of ability > 3 here, reset opponent's total battle destiny here to 0. Once per game, may deploy a lightsaber on Luke from Lost Pile. Opponent's aliens deploy +1 to same site. Immune to attrition < 4.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_18);
         addPersona(Persona.LUKE);
     }
@@ -49,10 +50,9 @@ public class Card218_025 extends AbstractRebel {
         String opponent = game.getOpponent(self.getOwner());
 
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new ResetTotalBattleDestinyModifier(self, Filters.sameSite(self), new AndCondition(new InBattleCondition(self),
-                new UnlessCondition(new HereCondition(self, Filters.and(Filters.opponents(self), Filters.character,
-                        Filters.abilityMoreThan(3))))), 0, opponent));
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.alien), 1, Filters.and(Filters.Tatooine_site, Filters.sameOrRelatedSite(self))));
+        modifiers.add(new ResetTotalBattleDestinyModifier(self, Filters.sameSite(self), new AndCondition(new InBattleCondition(self), new AloneCondition(self),
+                new UnlessCondition(new HereCondition(self, Filters.and(Filters.opponents(self), Filters.character, Filters.abilityMoreThan(3))))), 0, opponent));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.opponents(self), Filters.alien), 1, Filters.sameSite(self)));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
         return modifiers;
     }

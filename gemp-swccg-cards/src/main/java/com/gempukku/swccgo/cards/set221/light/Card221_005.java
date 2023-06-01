@@ -40,7 +40,7 @@ public class Card221_005 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Cant_Believe_Hes_Gone, Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Even though Luke felt the pain of losing his mentor, Obi-Wan continued to give him strength and guidance through the Force.");
-        setGameText("If Obi-Wan 'communing,' deploy on table. Once per battle, may activate 1 Force or add 1 to a just drawn destiny. Once per game, if a battle at a Tatooine site just ended, may 'revive' (return to that site from Lost Pile) a Rebel forfeited from that site this turn. [Immune to Alter.]");
+        setGameText("If Obi-Wan 'communing,' deploy on table. Once per battle, may activate 1 Force or add 1 to a just drawn battle destiny. Once per game, if a battle at a Tatooine site just ended, may 'revive' (return to that site from Lost Pile) a Rebel forfeited from that site this turn. [Immune to Alter.]");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_21);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -80,7 +80,7 @@ public class Card221_005 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
+        if (TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringBattle(game)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
