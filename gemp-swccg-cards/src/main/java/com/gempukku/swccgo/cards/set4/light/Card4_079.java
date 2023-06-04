@@ -175,7 +175,7 @@ public class Card4_079 extends AbstractJediTest {
         // Check condition(s)
         if (GameConditions.isJediTestCompleted(game, self)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.canUseForce(game, playerId, forceToUse)
+                && (isFree || GameConditions.canUseForce(game, playerId, forceToUse))
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -185,8 +185,9 @@ public class Card4_079 extends AbstractJediTest {
             action.appendUsage(
                     new OncePerPhaseEffect(action));
             // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, forceToUse));
+            if (!isFree)
+                action.appendCost(
+                        new UseForceEffect(action, playerId, forceToUse));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromReserveDeckEffect(action, playerId, true));

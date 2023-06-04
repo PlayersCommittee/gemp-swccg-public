@@ -266,6 +266,7 @@ public enum GameTextActionId {
     IMPERIAL_CONTROL_V__UPLOAD_INTERRUPT(true),
     IMPERIAL_ENTANGLEMENTS__DOWNLOAD_TATOOINE_BATTLEGROUND_SITE(true),
     IMPERIAL_DOMINATION__RETRIEVE_IMPERIAL(true),
+    IMPERIAL_LANDING_SITE__DEPLOY_DEVICE(true),
     IMPERIAL_OCCUPATION__DOWNLOAD_SITE(true),
     IMPERIAL_OCCUPATION_V__DOWNLOAD_SITE(true),
     IMPERIAL_TROOPS_HAVE_ENTERED__TAKE_CARD_FROM_LOST_PILE(true),
@@ -721,7 +722,6 @@ public enum GameTextActionId {
     I_WILL_FINISH_WHAT_YOU_STARTED__DOWNLOAD_LIGHTSABER(true, true),
     IM_SORRY__UPLOAD_BATTLEGROUNDS(true, true),
     IMPERIAL_CONTROL_V__DOWNLOAD_EFFECT_OR_STARSHIP(true, true),
-    IMPERIAL_LANDING_SITE__DEPLOY_DEVICE(true, true),
     IMPRESSIVE_MOST_IMPRESSIVE__TAKE_FIRST_WEAPONS_SEGMENT_ACTION(false, true),
     INVISIBLE_HAND_BRIDGE_UPLOAD_INVISIBLE_HAND(true, true),
     JABBAS_HAVEN__RETRIEVE_CARD_INTO_HAND(false, true),
@@ -885,6 +885,7 @@ public enum GameTextActionId {
     UNTIL_WE_WIN_OR_THE_CHANCES_ARE_SPENT__CANCEL_DESTINY_OR_MOVE(true, false, false, false, false, true),
     WOOKIEE_ROAR_V__ADD_POWER(false, false, false, false, false, true),
     VANEE_ACTIVATE_ONE_FORCE(false, false, false, false, false, true),
+    IMPERIAL_LANDING_SITE__RAISE_CONVERTED_LOCATION(false, false, false, false, false, true),
 
     // Actions that are for specified reasons
     OUT_OF_COMMISSION__PLACE_CARD_OUT_OF_PLAY(false, false, false, false, false, false, PlayCardActionReason.ATTEMPTING_TO_PLACE_A_CARD_OUT_OF_PLAY),
