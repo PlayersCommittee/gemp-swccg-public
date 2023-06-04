@@ -17678,6 +17678,8 @@ public class Filters {
     public static final Filter Clash_Of_Sabers = Filters.title(Title.Clash_Of_Sabers);
     public static final Filter clone = Filters.keyword(Keyword.CLONE_TROOPER);
     public static final Filter Clone_Army = Filters.icon(Icon.CLONE_ARMY);
+    public static final Filter Clone_Command_Center = Filters.title(Title.Clone_Command_Center);
+    public static final Filter Cloning_Cylinders = Filters.title(Title.Cloning_Cylinders);
     public static final Filter Closer = Filters.title(Title.Closer);
     public static final Filter cloud_car = Filters.or(ModelType.TWIN_POD_CLOUD_CAR, ModelType.TALON_I_COMBAT_CLOUD_CAR);
     public static final Filter Cloud_City_battleground_site = Filters.and(Keyword.CLOUD_CITY_LOCATION, CardSubtype.SITE, Filters.battleground());
@@ -18058,6 +18060,7 @@ public class Filters {
     public static final Filter Green_Squadron_1 = Filters.persona(Persona.GREEN_SQUADRON_1);
     public static final Filter Green_Squadron_3 = Filters.persona(Persona.GREEN_SQUADRON_3);
     public static final Filter Grievous = Filters.persona(Persona.GRIEVOUS);
+    public static final Filter Grievous_Will_Run_And_Hide = Filters.title(Title.Grievous_Will_Run_And_Hide);
     public static final Filter Grimtaash = Filters.title(Title.Grimtaash);
     public static final Filter Grogu = Filters.persona(Persona.GROGU);
     public static final Filter Grond = Filters.title(Title.Grond);
@@ -19171,7 +19174,7 @@ public class Filters {
     public static final Filter Youre_A_Slave = Filters.title(Title.Youre_A_Slave);
     public static final Filter Youre_All_Clear_Kid = Filters.title(Title.Youre_All_Clear_Kid);
     public static final Filter YT_1300_Transport = Filters.title(Title.YT_1300_Transport);
-    public static final Filter Yularen = Filters.title(Title.Yularen);
+    public static final Filter Yularen = Filters.persona(Persona.YULAREN);
     public static final Filter Yuzzum = Filters.species(Species.YUZZUM);
     public static final Filter Z_95 = Filters.or(ModelType.MODIFIED_Z_95_HEADHUNTER, ModelType.Z_95_HEADHUNTER);
     public static final Filter Zeb = Filters.title(Title.Zeb);
