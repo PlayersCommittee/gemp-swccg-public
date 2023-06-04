@@ -186,7 +186,6 @@ public interface Title {
     String Civil_Disorder = "Civil Disorder";
     String Clakdor_VII = "Clak'dor VII";
     String Clash_Of_Sabers = "Clash Of Sabers";
-    String Clone_Command_Center = "Clone Command Center";
     String Clone_Trooper = "Clone Trooper";
     String Cloning_Cylinders = "Cloning Cylinders";
     String Closer = "Closer?!";
@@ -446,7 +445,6 @@ public interface Title {
     String Great_Pit_Of_Carkoon = "Tatooine: Great Pit Of Carkoon";
     String Great_Warrior = "Great Warrior";
     String Greedo = "Greedo";
-    String Grievous_Will_Run_And_Hide = "Grievous Will Run And Hide";
     String Grimtaash = "Grimtaash";
     String Grond = "Lieutenant Grond";
     String Gungan_Energy_Shield = "Gungan Energy Shield";

@@ -5,7 +5,6 @@ import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -32,7 +31,6 @@ public class Card1_166 extends AbstractImperial {
         setGameText("Power +1 if at the same site with Tarkin, Chief Bast or General Dodonna.");
         addIcons(Icon.WARRIOR);
         addKeywords(Keyword.LEADER);
-        addPersona(Persona.YULAREN);
     }
 
     @Override
