@@ -1075,7 +1075,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return crossedOverPersonas;
         }
         if (!card.isStolen()) {
-            List<SwccgBuiltInCardBlueprint> permanentsAboard = card.getBlueprint().getPermanentsAboard(card);
+            List<SwccgBuiltInCardBlueprint> permanentsAboard = getPermanentsAboard(gameState, card);
             for (SwccgBuiltInCardBlueprint permanentAboard : permanentsAboard) {
                 Set<Persona> personasAboard = permanentAboard.getPersonas(gameState.getGame());
                 if (!permanentsAboard.isEmpty()) {

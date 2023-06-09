@@ -33,6 +33,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
+import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -110,6 +111,7 @@ public class Card2_130 extends AbstractEpicEventPlayable {
                                                                                 new PassthruEffect(action) {
                                                                                     @Override
                                                                                     protected void doPlayEffect(SwccgGame game) {
+                                                                                        game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, superlaser, null, self, false, Collections.singletonList(planetSystem)));
                                                                                         gameState.finishWeaponFiring();
                                                                                     }
                                                                                 }
