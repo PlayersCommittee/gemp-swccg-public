@@ -144,10 +144,6 @@ public abstract class ChooseStackedCardsEffect extends AbstractStandardEffect im
             return !Filters.filterStacked(game, Filters.and(Filters.stackedOn(_action.getActionSource(), Filters.and(_stackedOnFilters)), _filters)).isEmpty();
     }
 
-    protected boolean forceManualSelection() {
-        return false;
-    }
-
     @Override
     protected FullEffectResult playEffectReturningResult(final SwccgGame game) {
         // Determine the cards to choose from
@@ -177,7 +173,7 @@ public abstract class ChooseStackedCardsEffect extends AbstractStandardEffect im
         if (maximum == 0) {
             cardsSelected(game, Collections.<PhysicalCard>emptySet());
         }
-        else if (selectableCards.size() == minimum && !forceManualSelection() && (getUseShortcut() || !_action.isAllowAbort())) {
+        else if (selectableCards.size() == minimum && (getUseShortcut() || !_action.isAllowAbort())) {
             cardsSelected(game, selectableCards);
         }
         else {
