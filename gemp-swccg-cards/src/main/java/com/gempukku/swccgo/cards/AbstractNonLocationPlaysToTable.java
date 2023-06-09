@@ -938,6 +938,11 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                 }
             }
         }
+        if (self.getZone() == Zone.STACKED) {
+            List<OptionalGameTextTriggerAction> gameTextActions = getGameTextOptionalBeforeTriggersWhenStacked(playerId, game, effect, self, self.getCardId());
+            if (gameTextActions != null)
+                actions.addAll(gameTextActions);
+        }
 
         return actions;
     }
@@ -1619,6 +1624,20 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
      * @return the trigger actions, or null
      */
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggersEvenIfUnpiloted(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+    /**
+     * This method is overridden by individual cards to specify optional "before" triggers to the specified effect that
+     * can be performed by the specified player when the card is stacked face up in play.
+     * @param playerId the player
+     * @param game the game
+     * @param effect the effect
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @return the trigger actions, or null
+     */
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggersWhenStacked(String playerId, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
         return null;
     }
 

@@ -1149,6 +1149,7 @@ public interface Title {
     String Vader = "Vader";
     String Vaders_Castle = "Mustafar: Vader's Castle";
     String Vaders_Obsession = "Vader's Obsession";
+    String Vaders_Malediction = "Vader's Malediction";
     String Valorum = "Supreme Chancellor Valorum";
     String Vaporator = "Vaporator";
     String Vengeance_Of_The_Dark_Prince = "Vengeance Of The Dark Prince";

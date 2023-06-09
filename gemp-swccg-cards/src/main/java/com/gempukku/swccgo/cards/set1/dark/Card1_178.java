@@ -28,7 +28,7 @@ import java.util.List;
 public class Card1_178 extends AbstractImperial {
     public Card1_178() {
         super(Side.DARK, 1, 3, 3, 3, 4, Title.Tagge, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R2);
-        setLore("Oversees defense operations of Death Star. Outstanding tactician. No-nonsense leader. Member of the House of Tagge, a powerful noble family and corporate conglomerate.");
+        setLore("Oversees defense operations of Death Star. Outstanding tactician. No-nonsense leader. Member of House of Tagge, a powerful noble family and corporate conglomerate.");
         setGameText("Tagge's forfeit +1 for each Imperial trooper, of any kind, present with him at a site.");
         addIcons(Icon.WARRIOR);
         addKeywords(Keyword.GENERAL, Keyword.LEADER);

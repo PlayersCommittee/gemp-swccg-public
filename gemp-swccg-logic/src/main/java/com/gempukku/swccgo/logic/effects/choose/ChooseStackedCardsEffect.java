@@ -102,12 +102,27 @@ public abstract class ChooseStackedCardsEffect extends AbstractStandardEffect im
      * @param filters the filter
      */
     public ChooseStackedCardsEffect(Action action, String playerId, Filterable stackedOnFilters, int minimum, int maximum, Filterable filters) {
+        this(action, playerId, stackedOnFilters, minimum, maximum, filters, false);
+    }
+
+    /**
+     * Creates an effect that causes the player to choose cards accepted by the specified filter that are stacked on a
+     * card accepted by the specified stackedOn filter.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param stackedOnFilters the stackedOn filter
+     * @param minimum the minimum number of cards to choose
+     * @param maximum the maximum number of cards to choose
+     * @param filters the filter
+     */
+    public ChooseStackedCardsEffect(Action action, String playerId, Filterable stackedOnFilters, int minimum, int maximum, Filterable filters, boolean doNotShowCardFront) {
         super(action);
         _playerId = playerId;
         _stackedOnFilters = stackedOnFilters;
         _minimum = minimum;
         _maximum = maximum;
         _filters = filters;
+        _doNotShowCardFront = doNotShowCardFront;
     }
 
     public String getChoiceText(int numCardsToChoose) {

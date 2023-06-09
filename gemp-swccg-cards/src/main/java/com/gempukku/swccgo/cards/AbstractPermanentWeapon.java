@@ -46,7 +46,7 @@ public abstract class AbstractPermanentWeapon extends AbstractPermanent {
      * @param title the title
      */
     protected AbstractPermanentWeapon(Persona persona, String title) {
-        super(persona.getHumanReadable(), title, Uniqueness.UNIQUE);
+        super(title, title, Uniqueness.UNIQUE);
         addPersona(persona);
     }
 

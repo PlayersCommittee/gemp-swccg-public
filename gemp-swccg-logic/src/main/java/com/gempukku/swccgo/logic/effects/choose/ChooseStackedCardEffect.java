@@ -72,6 +72,18 @@ public abstract class ChooseStackedCardEffect extends ChooseStackedCardsEffect {
         super(action, playerId, stackedOnFilters, 1, 1, filters);
     }
 
+    /**
+     * Creates an effect that causes the player to choose a card accepted by the specified filter that are stacked
+     * on a card accepted by the specified stackedOn filter.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param stackedOnFilters the stackedOn filter
+     * @param filters the filter
+     */
+    public ChooseStackedCardEffect(Action action, String playerId, Filterable stackedOnFilters, Filterable filters, boolean doNotShowCardFront) {
+        super(action, playerId, stackedOnFilters, 1, 1, filters, doNotShowCardFront);
+    }
+
     @Override
     protected final void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
         if (selectedCards.size() == 1)
