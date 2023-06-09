@@ -8077,7 +8077,7 @@ public class Filters {
                             // 5) Check that there is enough Force available to use for this move
                             if (forFree
                                     || (modifiersQuerying.getForceAvailableToUse(gameState, physicalCard.getOwner())
-                                    >= modifiersQuerying.getRelocateBetweenLocationsCost(gameState, physicalCard, currentLocation, physicalCard, baseCost))) {
+                                    >= modifiersQuerying.getRelocateBetweenLocationsCost(gameState, physicalCard, currentLocation, otherLocation, baseCost))) {
                                 return true;
                             }
                         }
