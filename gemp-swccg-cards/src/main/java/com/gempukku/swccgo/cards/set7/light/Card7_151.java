@@ -58,22 +58,24 @@ public class Card7_151 extends AbstractTransportVehicle {
         Filter opponentsVehicleOrCharacter = Filters.and(Filters.opponents(self), Filters.or(Filters.vehicle, Filters.character));
 
         // Check condition(s)
-        if (TriggerConditions.movedFromLocation(game, effectResult, opponentsVehicleOrCharacter, Filters.sameSite(self))
+        if (TriggerConditions.movedFromOrThroughLocationToLocation(game, effectResult, opponentsVehicleOrCharacter, Filters.sameSite(self), Filters.location)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)) {
             MovedResult movedResult = (MovedResult) effectResult;
-            final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
-            if (Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation).accepts(game, self)) {
+            if (movedResult.isMoveComplete()) {
+                final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
+                if (Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation).accepts(game, self)) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Follow using landspeed");
-                action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow using landspeed");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerTurnEffect(action));
-                // Perform result(s)
-                action.appendEffect(
-                        new MoveCardUsingLandspeedEffect(action, playerId, self, false, toLocation));
-                return Collections.singletonList(action);
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.setText("Follow using landspeed");
+                    action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow using landspeed");
+                    // Update usage limit(s)
+                    action.appendUsage(
+                            new OncePerTurnEffect(action));
+                    // Perform result(s)
+                    action.appendEffect(
+                            new MoveCardUsingLandspeedEffect(action, playerId, self, false, toLocation));
+                    return Collections.singletonList(action);
+                }
             }
         }
         return null;

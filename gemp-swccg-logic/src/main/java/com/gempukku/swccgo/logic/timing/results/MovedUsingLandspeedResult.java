@@ -7,6 +7,8 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The effect result that is emitted when a card moves using landspeed.
@@ -15,6 +17,7 @@ public class MovedUsingLandspeedResult extends EffectResult implements MovedResu
     private PhysicalCard _cardMoved;
     private PhysicalCard _movedFrom;
     private PhysicalCard _movedTo;
+    private List<PhysicalCard> _locationsAlongPath;
     private boolean _asReact;
     private boolean _initialMove;
     private boolean _moveComplete;
@@ -29,7 +32,7 @@ public class MovedUsingLandspeedResult extends EffectResult implements MovedResu
      * @param initialMove true if move from original location, otherwise false when moving from intermediate location
      * @param moveComplete true if move completed to destination, otherwise false when moving to intermediate location
      */
-    public MovedUsingLandspeedResult(PhysicalCard movedCard, String playerId, PhysicalCard moveFrom, PhysicalCard movedTo, boolean asReact, boolean initialMove, boolean moveComplete) {
+    public MovedUsingLandspeedResult(PhysicalCard movedCard, String playerId, PhysicalCard moveFrom, PhysicalCard movedTo, List<PhysicalCard> locationsAlongPath, boolean asReact, boolean initialMove, boolean moveComplete) {
         super(EffectResult.Type.MOVED_USING_LANDSPEED, playerId);
         _cardMoved = movedCard;
         _movedFrom = moveFrom;
@@ -37,6 +40,7 @@ public class MovedUsingLandspeedResult extends EffectResult implements MovedResu
         _asReact = asReact;
         _initialMove = initialMove;
         _moveComplete = moveComplete;
+        _locationsAlongPath = new LinkedList<>(locationsAlongPath);
     }
 
     /**
@@ -91,6 +95,10 @@ public class MovedUsingLandspeedResult extends EffectResult implements MovedResu
     @Override
     public boolean isMoveComplete() {
         return _moveComplete;
+    }
+
+    public List<PhysicalCard> getLocationsAlongPath() {
+        return _locationsAlongPath;
     }
 
     /**

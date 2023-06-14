@@ -1,13 +1,32 @@
 package com.gempukku.swccgo.logic;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CaptureOption;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardActionReason;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.*;
-import com.gempukku.swccgo.logic.effects.*;
+import com.gempukku.swccgo.game.state.AttackState;
+import com.gempukku.swccgo.game.state.BattleState;
+import com.gempukku.swccgo.game.state.DrawDestinyState;
+import com.gempukku.swccgo.game.state.DuelState;
+import com.gempukku.swccgo.game.state.ForceDrainState;
+import com.gempukku.swccgo.game.state.ForceRetrievalState;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.UsingTractorBeamState;
+import com.gempukku.swccgo.game.state.WeaponFiringState;
+import com.gempukku.swccgo.logic.effects.LookAtCardsInOpponentsHandEffect;
+import com.gempukku.swccgo.logic.effects.MovingAsReactEffect;
+import com.gempukku.swccgo.logic.effects.RespondableDeployMultipleCardsSimultaneouslyEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -16,6 +35,7 @@ import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
 import com.gempukku.swccgo.logic.timing.results.*;
 
 import java.util.Collection;
+import java.util.Collections;
 
 // This class contain methods to be used by cards
 // to check if the current trigger (i.e. Effect or EffectResult)
@@ -1625,6 +1645,68 @@ public class TriggerConditions {
                             && Filters.and(fromLocationFilter).accepts(game.getGameState(), game.getModifiersQuerying(), fromLocation)
                             && Filters.and(toLocationFilter).accepts(game.getGameState(), game.getModifiersQuerying(), toLocation);
                 }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if a card accepted by the moved card filter just moved from a location accepted by the from location filter to a
+     * location accepted by the to location filter.
+     * @param game the game
+     * @param effectResult the effect result
+     * @param movedCardFilter the moved card filter
+     * @param fromLocationFilter the from location filter
+     * @param toLocationFilter the to location filter
+     * @return true or false
+     */
+    public static boolean movedFromOrThroughLocationToLocation(SwccgGame game, EffectResult effectResult, Filterable movedCardFilter, Filterable fromLocationFilter, Filterable toLocationFilter) {
+        if (effectResult.getType() == EffectResult.Type.MOVED_USING_HYPERSPEED
+                || effectResult.getType() == EffectResult.Type.MOVED_WITHOUT_USING_HYPERSPEED
+                || effectResult.getType() == EffectResult.Type.MOVED_USING_SECTOR_MOVEMENT
+                || effectResult.getType() == EffectResult.Type.MOVED_TO_RELATED_STARSHIP_OR_VEHICLE
+                || effectResult.getType() == EffectResult.Type.MOVED_TO_RELATED_STARSHIP_OR_VEHICLE_SITE
+                || effectResult.getType() == EffectResult.Type.MOVED_AT_START_OF_ATTACK_RUN
+                || effectResult.getType() == EffectResult.Type.MOVED_AT_END_OF_ATTACK_RUN
+                || effectResult.getType() == EffectResult.Type.MOVED_TO_START_BOMBING_RUN
+                || effectResult.getType() == EffectResult.Type.MOVED_TO_END_BOMBING_RUN
+                || effectResult.getType() == EffectResult.Type.ENTERED_STARSHIP_OR_VEHICLE_SITE
+                || effectResult.getType() == EffectResult.Type.EXITED_STARSHIP_OR_VEHICLE_SITE
+                || effectResult.getType() == EffectResult.Type.MOVED_USING_LANDSPEED
+                || effectResult.getType() == EffectResult.Type.LANDED
+                || effectResult.getType() == EffectResult.Type.TOOK_OFF
+                || effectResult.getType() == EffectResult.Type.EMBARKED
+                || effectResult.getType() == EffectResult.Type.DISEMBARKED
+                || effectResult.getType() == EffectResult.Type.SHUTTLED
+                || effectResult.getType() == EffectResult.Type.DOCKING_BAY_TRANSITED
+                || effectResult.getType() == EffectResult.Type.MOVED_USING_LOCATION_TEXT
+                || effectResult.getType() == EffectResult.Type.RELOCATED_BETWEEN_LOCATIONS
+                || effectResult.getType() == EffectResult.Type.MOVED_MOBILE_EFFECT) {
+
+            MovedResult movedResult = (MovedResult) effectResult;
+            Collection<PhysicalCard> movedCards = movedResult.getMovedCards();
+            Collection<PhysicalCard> locationPath = (effectResult.getType()==EffectResult.Type.MOVED_USING_LANDSPEED ? ((MovedUsingLandspeedResult) movedResult).getLocationsAlongPath() : Collections.singletonList(movedResult.getMovedFrom()));
+            PhysicalCard toCard = movedResult.getMovedTo();
+            if (!movedCards.isEmpty() && locationPath != null && toCard != null) {
+                GameState gameState = game.getGameState();
+                ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+
+                boolean result = false;
+                for (PhysicalCard locationOnPath: locationPath) {
+                    PhysicalCard fromLocation = modifiersQuerying.getLocationHere(gameState, locationOnPath);
+                    PhysicalCard toLocation = modifiersQuerying.getLocationHere(gameState, toCard);
+                    if (fromLocation != null && toLocation != null && fromLocation.getCardId() != toLocation.getCardId()) {
+
+                        if (Filters.canSpot(movedCards, game, movedCardFilter)
+                                && Filters.and(fromLocationFilter).accepts(game.getGameState(), game.getModifiersQuerying(), fromLocation)
+                                && Filters.and(toLocationFilter).accepts(game.getGameState(), game.getModifiersQuerying(), toLocation)) {
+                            result = true;
+                            break;
+                        }
+                    }
+                }
+                return result;
             }
         }
 

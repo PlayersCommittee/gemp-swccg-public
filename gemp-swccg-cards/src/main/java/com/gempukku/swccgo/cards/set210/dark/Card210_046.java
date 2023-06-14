@@ -87,33 +87,34 @@ public class Card210_046 extends AbstractImperial {
 
         // If a Jedi or Padawan just moved from here, Inquisitors present may follow that character (using landspeed)
         Filter jediOrPadawan = Filters.or(Filters.Jedi, Filters.padawan);
-        Filter inquisitorsHere = Filters.and(Filters.present(self), Filters.or(Keyword.INQUISITOR));
 
         // Check condition(s)
-        if (TriggerConditions.movedFromLocation(game, effectResult, jediOrPadawan, Filters.here(self))) {
+        if (TriggerConditions.movedFromOrThroughLocationToLocation(game, effectResult, jediOrPadawan, Filters.here(self), Filters.location)) {
             MovedResult movedResult = (MovedResult) effectResult;
-            final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
-            Filter movableFilter = Filters.and(Filters.your(self), Keyword.INQUISITOR, Filters.present(self),
-                    Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation));
-            if (GameConditions.canSpot(game, self, movableFilter)) {
+            if (movedResult.isMoveComplete()) {
+                final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
+                Filter movableFilter = Filters.and(Filters.your(self), Filters.inquisitor, Filters.present(self),
+                        Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation));
+                if (GameConditions.canSpot(game, self, movableFilter)) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setRepeatableTrigger(true);
-                action.setText("Have Inquisitor follow character");
-                // Choose target(s)
-                action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose Inquisitor", movableFilter) {
-                            @Override
-                            protected void cardSelected(final PhysicalCard character) {
-                                action.addAnimationGroup(character);
-                                action.setActionMsg("Have " + GameUtils.getCardLink(character) + " move using landspeed to follow character");
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new MoveCardUsingLandspeedEffect(action, playerId, character, false, toLocation));
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.setRepeatableTrigger(true);
+                    action.setText("Have Inquisitor follow character");
+                    // Choose target(s)
+                    action.appendTargeting(
+                            new ChooseCardOnTableEffect(action, playerId, "Choose Inquisitor", movableFilter) {
+                                @Override
+                                protected void cardSelected(final PhysicalCard character) {
+                                    action.addAnimationGroup(character);
+                                    action.setActionMsg("Have " + GameUtils.getCardLink(character) + " move using landspeed to follow character");
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new MoveCardUsingLandspeedEffect(action, playerId, character, false, toLocation));
+                                }
                             }
-                        }
-                );
-                return Collections.singletonList(action);
+                    );
+                    return Collections.singletonList(action);
+                }
             }
         }
         return null;

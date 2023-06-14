@@ -44,32 +44,33 @@ public class Card211_016 extends AbstractUsedInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movedFromLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.sameLocationAs(self, Filters.Vader))
+        if (TriggerConditions.movedFromOrThroughLocationToLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.sameLocationAs(self, Filters.Vader), Filters.location)
                 && GameConditions.canTarget(game, self, Filters.Vader)) {
 
             MovedResult movedResult = (MovedResult) effectResult;
-            final PhysicalCard toLocation = movedResult.getMovedTo();
+            if (movedResult.isMoveComplete()) {
+                final PhysicalCard toLocation = movedResult.getMovedTo();
 
-            final PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, true, 0, null, Filters.sameLocation(toLocation))));
+                final PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, true, 0, null, Filters.sameLocation(toLocation))));
 
-            if (vader != null) {
-                PhysicalCard cardToFollow = movedResult.getMovedCards().iterator().next();
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Follow " + GameUtils.getFullName(cardToFollow));
-                action.setActionMsg("Follow " + GameUtils.getCardLink(cardToFollow) + " for free using landspeed");
+                if (vader != null) {
+                    PhysicalCard cardToFollow = movedResult.getMovedCards().iterator().next();
+                    final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                    action.setText("Follow " + GameUtils.getFullName(cardToFollow));
+                    action.setActionMsg("Follow " + GameUtils.getCardLink(cardToFollow) + " for free using landspeed");
 
-                action.allowResponses(new RespondablePlayCardEffect(action) {
-                    @Override
-                    protected void performActionResults(Action targetingAction) {
-                        // Perform result(s)
-                        action.appendEffect(
-                                new MoveCardUsingLandspeedEffect(action, playerId, vader, true, toLocation));
-                    }
-                });
+                    action.allowResponses(new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new MoveCardUsingLandspeedEffect(action, playerId, vader, true, toLocation));
+                        }
+                    });
 
-                return Collections.singletonList(action);
+                    return Collections.singletonList(action);
+                }
             }
-
         }
 
         return null;

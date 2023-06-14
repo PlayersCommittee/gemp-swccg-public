@@ -64,30 +64,32 @@ public class Card207_021 extends AbstractImperial {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.movedFromLocation(game, effectResult, Filters.Rebel, Filters.here(self))) {
+        if (TriggerConditions.movedFromOrThroughLocationToLocation(game, effectResult, Filters.Rebel, Filters.here(self), Filters.location)) {
             MovedResult movedResult = (MovedResult) effectResult;
-            final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
-            Filter movableFilter = Filters.and(Filters.your(self), Filters.Imperial, Filters.present(self),
-                    Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation));
-            if (GameConditions.canSpot(game, self, movableFilter)) {
+            if (movedResult.isMoveComplete()) {
+                final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
+                Filter movableFilter = Filters.and(Filters.your(self), Filters.Imperial, Filters.present(self),
+                        Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation));
+                if (GameConditions.canSpot(game, self, movableFilter)) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setRepeatableTrigger(true);
-                action.setText("Have Imperial follow Rebel");
-                // Choose target(s)
-                action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose Imperial", movableFilter) {
-                            @Override
-                            protected void cardSelected(final PhysicalCard character) {
-                                action.addAnimationGroup(character);
-                                action.setActionMsg("Have " + GameUtils.getCardLink(character) + " move using landspeed to follow Rebel");
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new MoveCardUsingLandspeedEffect(action, playerId, character, false, toLocation));
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.setRepeatableTrigger(true);
+                    action.setText("Have Imperial follow Rebel");
+                    // Choose target(s)
+                    action.appendTargeting(
+                            new ChooseCardOnTableEffect(action, playerId, "Choose Imperial", movableFilter) {
+                                @Override
+                                protected void cardSelected(final PhysicalCard character) {
+                                    action.addAnimationGroup(character);
+                                    action.setActionMsg("Have " + GameUtils.getCardLink(character) + " move using landspeed to follow Rebel");
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new MoveCardUsingLandspeedEffect(action, playerId, character, false, toLocation));
+                                }
                             }
-                        }
-                );
-                return Collections.singletonList(action);
+                    );
+                    return Collections.singletonList(action);
+                }
             }
         }
         return null;

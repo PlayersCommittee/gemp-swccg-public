@@ -56,18 +56,20 @@ public class Card7_314 extends AbstractTransportVehicle {
         Filter opponentsVehicleOrCharacter = Filters.and(Filters.opponents(self), Filters.or(Filters.vehicle, Filters.character));
 
         // Check condition(s)
-        if (TriggerConditions.movedFromLocation(game, effectResult, opponentsVehicleOrCharacter, Filters.sameSite(self))) {
+        if (TriggerConditions.movedFromOrThroughLocationToLocation(game, effectResult, opponentsVehicleOrCharacter, Filters.sameSite(self), Filters.location)) {
             MovedResult movedResult = (MovedResult) effectResult;
-            final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
-            if (Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation).accepts(game, self)) {
+            if (movedResult.isMoveComplete()) {
+                final Filter toLocation = Filters.sameLocation(movedResult.getMovedTo());
+                if (Filters.movableAsRegularMoveUsingLandspeed(playerId, false, false, false, 0, null, toLocation).accepts(game, self)) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Follow using landspeed");
-                action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow using landspeed");
-                // Perform result(s)
-                action.appendEffect(
-                        new MoveCardUsingLandspeedEffect(action, playerId, self, false, toLocation));
-                return Collections.singletonList(action);
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.setText("Follow using landspeed");
+                    action.setActionMsg("Have " + GameUtils.getCardLink(self) + " follow using landspeed");
+                    // Perform result(s)
+                    action.appendEffect(
+                            new MoveCardUsingLandspeedEffect(action, playerId, self, false, toLocation));
+                    return Collections.singletonList(action);
+                }
             }
         }
         return null;

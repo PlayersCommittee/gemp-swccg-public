@@ -282,7 +282,7 @@ public class MoveUsingLandspeedEffect extends AbstractSubActionEffect implements
                                                 gameState.moveCardToLocation(cardMoved, nextLocation);
 
                                                 // Emit effect result
-                                                game.getActionsEnvironment().emitEffectResult(new MovedUsingLandspeedResult(cardMoved, _playerId, currentLocation, nextLocation, _asReact, _initialMove, _moveCompleted));
+                                                game.getActionsEnvironment().emitEffectResult(new MovedUsingLandspeedResult(cardMoved, _playerId, currentLocation, nextLocation, _locationsAlongPath, _asReact, _initialMove, _moveCompleted));
                                             }
 
                                             // Move again if not complete
