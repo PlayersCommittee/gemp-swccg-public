@@ -15,26 +15,19 @@ import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.AbstractActionProxy;
-import com.gempukku.swccgo.game.ActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.OptionalRuleTriggerAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.CompleteJediTestEffect;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
-import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelOpponentsForceDrainBonusesModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
-import com.gempukku.swccgo.logic.timing.rules.JediTestAttemptRule;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -101,32 +94,6 @@ public class Card4_077 extends AbstractJediTest {
                                 @Override
                                 protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                     return Collections.singletonList(apprentice);
-                                }
-                                @Override
-                                protected List<ActionProxy> getDrawDestinyActionProxies(SwccgGame game, final DrawDestinyState drawDestinyState) {
-                                    ActionProxy actionProxy = new AbstractActionProxy() {
-                                        @Override
-                                        public List<TriggerAction> getOptionalAfterTriggers(String playerId2, SwccgGame game, EffectResult effectResult) {
-                                            List<TriggerAction> actions = new LinkedList<TriggerAction>();
-
-                                            // Check condition(s)
-                                            if (TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)
-                                                    && playerId2.equals(playerId)) {
-                                                int numSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Dagobah_site, Filters.not(Filters.generic)));
-                                                if (numSites > 0) {
-
-                                                    OptionalRuleTriggerAction action1 = new OptionalRuleTriggerAction(new JediTestAttemptRule(), self);
-                                                    action1.setText("Add 1 to destiny for each Dagobah site");
-                                                    // Perform result(s)
-                                                    action1.appendEffect(
-                                                            new ModifyDestinyEffect(action1, numSites));
-                                                    actions.add(action1);
-                                                }
-                                            }
-                                            return actions;
-                                        }
-                                    };
-                                    return Collections.singletonList(actionProxy);
                                 }
                                 @Override
                                 protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
