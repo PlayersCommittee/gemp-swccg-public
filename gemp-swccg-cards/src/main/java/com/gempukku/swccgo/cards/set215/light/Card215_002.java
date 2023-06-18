@@ -70,7 +70,7 @@ public class Card215_002 extends AbstractEpicEventDeployable {
 
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.hasHand(game, playerId)) {
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Stack cards from hand");
             action.setActionMsg("Stack cards from hand");
             action.appendUsage(

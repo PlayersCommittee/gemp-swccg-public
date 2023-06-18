@@ -1379,6 +1379,10 @@ public class SwccgGameMediator {
                     objectiveLabel = "Endor Ops";
                 }
             }
+            if (Filters.or(Filters.title("The First Order Reigns"), Filters.title(Title.The_Resistance_Is_Doomed)).accepts(_swccgoGame, objective)) {
+                // The First Order Reigns
+                objectiveLabel = "The First Order Reigns";
+            }
             if (Filters.or(Filters.He_Is_The_Chosen_One, Filters.He_Will_Bring_Balance).accepts(_swccgoGame, objective)) {
                 // He Is The Chosen One
                 objectiveLabel = "HITCO";
