@@ -27,6 +27,7 @@ public class StackCardFromHandEffect extends AbstractSubActionEffect {
     private boolean _isProbeCard;
     private boolean _isBluffCard;
     private boolean _isCombatCard;
+    private boolean _hidden;
     private StackCardFromHandEffect _that;
 
     /**
@@ -62,6 +63,21 @@ public class StackCardFromHandEffect extends AbstractSubActionEffect {
      * @param isCombatCard true if stacked as a combat card, otherwise false
      */
     public StackCardFromHandEffect(Action action, String playerId, PhysicalCard stackOn, Filterable cardFilter, boolean faceDown, boolean isProbeCard, boolean isBluffCard, boolean isCombatCard) {
+        this(action, playerId, stackOn, cardFilter, faceDown, isProbeCard, isBluffCard, isCombatCard, true);
+    }
+
+    /**
+     * Creates an effect that causes the specified player to choose and stack a card from hand on a specified card.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param stackOn the card to stack a card on
+     * @param faceDown true if stacked face down, otherwise false
+     * @param isProbeCard true if stacked as a probe card, otherwise false
+     * @param isBluffCard true if stacked as a bluff card, otherwise false
+     * @param isCombatCard true if stacked as a combat card, otherwise false
+     * @param hidden true if card should not be revealed to opponent if being stacked face down, otherwise false
+     */
+    public StackCardFromHandEffect(Action action, String playerId, PhysicalCard stackOn, Filterable cardFilter, boolean faceDown, boolean isProbeCard, boolean isBluffCard, boolean isCombatCard, boolean hidden) {
         super(action);
         _playerId = playerId;
         _stackOn = stackOn;
@@ -70,6 +86,7 @@ public class StackCardFromHandEffect extends AbstractSubActionEffect {
         _isProbeCard = isProbeCard;
         _isBluffCard = isBluffCard;
         _isCombatCard = isCombatCard;
+        _hidden = hidden;
         _that = this;
     }
 
@@ -96,7 +113,7 @@ public class StackCardFromHandEffect extends AbstractSubActionEffect {
                         if (!cardsInHand.isEmpty()) {
                             if (cardsInHand.size() == 1) {
                                 PhysicalCard card = cardsInHand.get(0);
-                                subAction.appendEffect(new StackOneCardFromHandEffect(subAction, card, _stackOn, _faceDown, _isProbeCard, _isBluffCard, _isCombatCard));
+                                subAction.appendEffect(new StackOneCardFromHandEffect(subAction, card, _stackOn, _faceDown, _isProbeCard, _isBluffCard, _isCombatCard, _hidden));
                             }
                             else {
                                 game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -105,7 +122,7 @@ public class StackCardFromHandEffect extends AbstractSubActionEffect {
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                                 List<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                                 for (PhysicalCard card : cards) {
-                                                    subAction.appendEffect(new StackOneCardFromHandEffect(subAction, card, _stackOn, _faceDown, _isProbeCard, _isBluffCard, _isCombatCard));
+                                                    subAction.appendEffect(new StackOneCardFromHandEffect(subAction, card, _stackOn, _faceDown, _isProbeCard, _isBluffCard, _isCombatCard, _hidden));
                                                 }
                                             }
                                         });

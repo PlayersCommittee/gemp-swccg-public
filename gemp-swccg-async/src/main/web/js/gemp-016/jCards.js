@@ -3495,6 +3495,76 @@ var fixedImages = {
 "221_4":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/hansmedal.png",
 "221_5":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/icantbelievehesgone.png",
 "221_6":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/strikeplanning.png",
+"221_7":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/accelerate.png",
+"221_8":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/asajjventress.png",
+"221_9":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/asajjventresslightsabers.png",
+"221_10":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/captainmodterrik.png",
+"221_11":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/cloudcitychasmwalkway.png",
+"221_12":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/commanderpraji.png",
+"221_13":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/comscandetection.png",
+"221_14":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/corporalavarik.png",
+"221_15":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/corporaldrazin.png",
+"221_16":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/corporaloberk.png",
+"221_17":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/darkcollaboration.png",
+"221_18":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/deactivatedhyperdrive.png",
+"221_19":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/firstlight.png",
+"221_20":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/generaltagge.png",
+"221_21":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/huttinfluence.png",
+"221_22":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/hyperwavescan.png",
+"221_23":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/jakkuniimamarketplace.png",
+"221_24":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/jurijuice.png",
+"221_25":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/lieutenantdedrameero.png",
+"221_26":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/majorpartagaz.png",
+"221_27":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/powerofthehutt.png",
+"221_28":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/royalescort.png",
+"221_29":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/sendadetachmentdown.png",
+"221_30":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/sergeanttarl.png",
+"221_31":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/shatteredhope.png",
+"221_32":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tatooineoccupation.png",
+"221_33":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tatooinecantina.png",
+"221_34":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tatooinegreatpitofcarkoon.png",
+"221_35":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tatooineimperiallandingsite.png",
+"221_36":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tatooinejawacamp.png",
+"221_37":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tatooinemoseisley.png",
+"221_38":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/td4445.png",
+"221_39":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/tentacle.png",
+"221_40":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/vadersmalediction.png",
+"221_41":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/vadersobsession.png",
+"221_42":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/zuckussand4lominmisthunter.png",
+"221_43":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/ajedisfury.png",
+"221_44":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/aremoteplanet.png",
+"221_45":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/admiralyularen.png",
+"221_46":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/anakinskywalkerjunkyardslave.png",
+"221_47":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/anakinsdestiny.png",
+"221_48":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/assemblyarea.png",
+"221_49":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/atpeace.png",
+"221_50":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/battleofchristophsis.png",
+"221_51":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/battleofgeonosis.png",
+"221_52":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/christophsis.png",
+"221_53":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/christophsischaleydonia.png",
+"221_54":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/clonecommandcenter.png",
+"221_55":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/clonepilot.png",
+"221_56":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/creditswilldofine.png",
+"221_57":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/eitherwayyouwin.png",
+"221_58":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/endurance.png",
+"221_59":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/eventuallyyoulllose.png",
+"221_60":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/galacticrepublicnavy.png",
+"221_61":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/generationonearmoralwaysholdsup.png",
+"221_62":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/geonosis.png",
+"221_63":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/geonosisbadlandsofngzi.png",
+"221_64":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/grapplinghook.png",
+"221_65":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/grievouswillrunandhide.png",
+"221_66":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/hisdestiny.png",
+"221_67":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/huntforthedroidgeneral.png",
+"221_67_BACK":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/hesacoward.png",
+"221_68":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/onlyjedicarrythatweapon.png",
+"221_69":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/quigonjinnslightsaber.png",
+"221_70":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/quigonjinnslightsaber_ai.png",
+"221_71":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/resolute.png",
+"221_72":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/scannertechs.png",
+"221_73":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/securitycontrol.png",
+"221_74":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/supplyroute.png",
+"221_75":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/tatooinemosespa.png",
 
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
@@ -4544,6 +4614,20 @@ var Card = Class.extend({
                    (cardNo >= 39 && cardNo <=42);
         }if(setNo == 220) {
             return (cardNo == 8);
+        }if(setNo == 221){
+            return (cardNo == 11) ||
+                   (cardNo == 23) ||
+                   (cardNo == 33) ||
+                   (cardNo == 34) ||
+                   (cardNo == 35) ||
+                   (cardNo == 36) ||
+                   (cardNo == 37) ||
+                   (cardNo == 48) ||
+                   (cardNo == 53) ||
+                   (cardNo == 54) ||
+                   (cardNo == 63) ||
+                   (cardNo == 74) ||
+                   (cardNo == 75);
         }if (setNo == 501) {
             return (cardNo == 6)  ||
                    (cardNo == 10) ||

@@ -33,7 +33,7 @@ import java.util.List;
  * Set: Dagobah
  * Type: Effect
  * Subtype: Immediate
- * aTitle: At Peace
+ * Title: At Peace
  */
 public class Card4_019 extends AbstractImmediateEffect {
     public Card4_019() {

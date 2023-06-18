@@ -117,13 +117,8 @@ public class Card208_025_BACK extends AbstractObjective {
                                                         @Override
                                                         protected void yes() {
                                                             SubAction subAction = new SubAction(action, opponent);
-                                                            if (GameConditions.canTarget(game, self, Filters.title("His Destiny"))) {
-                                                                subAction.appendCost(
-                                                                        new StackCardFromHandEffect(subAction, opponent, iFeelTheConflict, Filters.any, true, false, false, false));
-                                                            } else {
-                                                                subAction.appendCost(
-                                                                        new StackCardFromHandEffect(subAction, opponent, iFeelTheConflict));
-                                                            }
+                                                            subAction.appendCost(
+                                                                    new StackCardFromHandEffect(subAction, opponent, iFeelTheConflict, Filters.any, true, false, false, false, false));
                                                             subAction.appendEffect(
                                                                     new PlaceCardOutOfPlayFromOffTableEffect(subAction, retrievedCard));
                                                             action.appendEffect(

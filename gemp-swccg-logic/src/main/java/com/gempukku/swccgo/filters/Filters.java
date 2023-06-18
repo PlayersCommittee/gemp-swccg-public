@@ -18090,6 +18090,7 @@ public class Filters {
     public static final Filter Hera = Filters.title(Title.Hera);
     public static final Filter Hero_Of_A_Thousand_Devices = Filters.title(Title.Hero_Of_A_Thousand_Devices);
     public static final Filter Heroic_Sacrifice = Filters.title(Title.Heroic_Sacrifice);
+    public static final Filter Hes_A_Coward = Filters.title(Title.Hes_A_Coward);
     public static final Filter Het = Filters.persona(Persona.HET);
     public static final Filter Hewex = Filters.title(Title.Hewex);
     public static final Filter Hidden_Base = Filters.title(Title.Hidden_Base);
@@ -18116,6 +18117,7 @@ public class Filters {
     public static final Filter How_Did_We_Get_Into_This_Mess = Filters.title(Title.How_Did_We_Get_Into_This_Mess);
     public static final Filter Human_Shield = Filters.title(Title.Human_Shield);
     public static final Filter Hunt_Down_And_Destroy_The_Jedi = Filters.title(Title.Hunt_Down_And_Destroy_The_Jedi);
+    public static final Filter Hunt_For_The_Droid_General = Filters.title(Title.Hunt_For_The_Droid_General);
     public static final Filter Hutt = Filters.species(Species.HUTT);
     public static final Filter Hutt_Bounty = Filters.title(Title.Hutt_Bounty);
     public static final Filter Hutt_Influence = Filters.title(Title.Hutt_Influence);

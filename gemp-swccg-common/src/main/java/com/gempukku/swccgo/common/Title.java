@@ -468,6 +468,7 @@ public interface Title {
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
+    String Hes_A_Coward = "He's A Coward";
     String Hes_All_Yours_Bounty_Hunter = "He's All Yours, Bounty Hunter";
     String Hewex = "Major Hewex";
     String Hidden_Base = "Hidden Base";
@@ -490,6 +491,7 @@ public interface Title {
     String How_Did_We_Get_Into_This_Mess = "How Did We Get Into This Mess?";
     String Human_Shield = "Human_Shield";
     String Hunt_Down_And_Destroy_The_Jedi = "Hunt Down And Destroy The Jedi";
+    String Hunt_For_The_Droid_General = "Hunt For The Droid General";
     String Hutt_Bounty = "Hutt Bounty";
     String Hutt_Influence = "Hutt Influence";
     String Hutt_Smooch = "Hutt Smooch";

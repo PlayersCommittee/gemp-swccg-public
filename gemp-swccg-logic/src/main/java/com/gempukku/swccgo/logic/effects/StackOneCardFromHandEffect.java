@@ -19,12 +19,13 @@ public class StackOneCardFromHandEffect extends AbstractStandardEffect {
     private boolean _isProbeCard;
     private boolean _isBluffCard;
     private boolean _isCombatCard;
+    private boolean _hidden;
 
     public StackOneCardFromHandEffect(Action action, PhysicalCard card, PhysicalCard stackOn, boolean faceDown) {
-        this(action, card, stackOn, faceDown, false, false, false);
+        this(action, card, stackOn, faceDown, false, false, false, true);
     }
 
-    public StackOneCardFromHandEffect(Action action, PhysicalCard card, PhysicalCard stackOn, boolean faceDown, boolean isProbeCard, boolean isBluffCard, boolean isCombatCard) {
+    public StackOneCardFromHandEffect(Action action, PhysicalCard card, PhysicalCard stackOn, boolean faceDown, boolean isProbeCard, boolean isBluffCard, boolean isCombatCard, boolean hidden) {
         super(action);
         _card = card;
         _stackOn = stackOn;
@@ -32,23 +33,24 @@ public class StackOneCardFromHandEffect extends AbstractStandardEffect {
         _isProbeCard = isProbeCard;
         _isBluffCard = isBluffCard;
         _isCombatCard = isCombatCard;
+        _hidden = hidden;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(SwccgGame game) {
         if (isPlayableInFull(game)) {
-            if (_isBluffCard) {
+            if (_isBluffCard && _hidden) {
                 game.getGameState().sendMessage(_action.getPerformingPlayer() + " places a 'bluff card' from hand face down under " + GameUtils.getCardLink(_stackOn));
                 game.getGameState().activatedCard(_action.getPerformingPlayer(), _stackOn);
                 game.getModifiersQuerying().bluffCardStacked();
             }
-            else if (_isCombatCard) {
+            else if (_isCombatCard && _hidden) {
                 game.getGameState().sendMessage(_action.getPerformingPlayer() + " places a combat card from hand face down under " + GameUtils.getCardLink(_stackOn));
             }
-            else if (_isProbeCard) {
+            else if (_isProbeCard && _hidden) {
                 game.getGameState().sendMessage(_action.getPerformingPlayer() + " 'probes' " + GameUtils.getCardLink(_stackOn) + " by placing a 'probe' card from hand face down under " + GameUtils.getCardLink(_stackOn));
             }
-            else if (_faceDown)
+            else if (_faceDown && _hidden)
                 game.getGameState().sendMessage(_action.getPerformingPlayer() + " stacks a card from hand face down on " + GameUtils.getCardLink(_stackOn));
             else
                 game.getGameState().sendMessage(_action.getPerformingPlayer() + " stacks " + GameUtils.getCardLink(_card) + " from hand on " + GameUtils.getCardLink(_stackOn));
