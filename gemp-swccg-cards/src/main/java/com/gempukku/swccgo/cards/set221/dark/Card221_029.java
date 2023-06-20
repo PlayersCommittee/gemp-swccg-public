@@ -58,6 +58,7 @@ public class Card221_029 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
+                && GameConditions.occupies(game, playerId, Filters.Tatooine_system)
                 && GameConditions.hasInHand(game, playerId, trooperFilter)
                 && GameConditions.hasReserveDeck(game, playerId)) {
 
