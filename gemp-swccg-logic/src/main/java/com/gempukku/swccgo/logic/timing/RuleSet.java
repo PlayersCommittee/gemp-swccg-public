@@ -47,7 +47,6 @@ public class RuleSet {
         if (game.getFormat().hasJpSealedRule()) {
             new JabbasPalaceSealedRule(_modifiersEnvironment).applyRule();
         }
-        new JediTestDestinyRule(_modifiersEnvironment).applyRule();
         new JediTestTargetRule(_actionsEnvironment).applyRule();
         new JumpOffVehicleRule(_actionsEnvironment).applyRule();
         new LeavesTableCardRule(_actionsEnvironment).applyRule();
