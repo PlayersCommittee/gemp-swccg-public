@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -60,7 +60,7 @@ public class Card11_026 extends AbstractUsedOrLostInterrupt {
                             // Perform result(s)
                             action.appendEffect(
                                     new AddUntilEndOfBattleModifierEffect(action,
-                                            new MayNotBeTargetedByModifier(self, Filters.character, Filters.lightsaber),
+                                            new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.character, Filters.lightsaber),
                                             "Prevents characters from being targeted by lightsabers"));
                         }
                     }

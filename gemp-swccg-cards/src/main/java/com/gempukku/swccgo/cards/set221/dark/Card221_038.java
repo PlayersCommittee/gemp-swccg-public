@@ -18,7 +18,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromOutsideOfGameSimultaneouslyWithCardEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -74,7 +74,7 @@ public class Card221_038 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.character, Filters.aboard(Filters.Dewback), Filters.here(self)), Filters.or(Filters.lightsaber, Filters.ax)));
+        modifiers.add(new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.and(Filters.your(self), Filters.character, Filters.aboard(Filters.Dewback), Filters.here(self)), Filters.or(Filters.lightsaber, Filters.ax)));
         return modifiers;
     }
 }

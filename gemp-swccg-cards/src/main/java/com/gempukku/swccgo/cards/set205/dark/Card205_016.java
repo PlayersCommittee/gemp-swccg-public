@@ -18,7 +18,7 @@ import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponUserModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -48,9 +48,9 @@ public class Card205_016 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new ForceDrainModifier(self, Filters.here(self), new PresentAtCondition(self, Filters.pit), 1, playerId));
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.character, Filters.here(self)),
+        modifiers.add(new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.character, Filters.here(self)),
                 new AndCondition(new PresentAtCondition(self, Filters.site), new UnlessCondition(new OrCondition(new HitCondition(self), new HereCondition(self, Filters.Gamall_Wironicc)))),
-                Filters.and(Filters.opponents(self), Filters.lightsaber)));
+                Filters.lightsaber));
         modifiers.add(new MayNotBeTargetedByWeaponUserModifier(self, Filters.Luke, self));
         return modifiers;
     }

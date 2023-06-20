@@ -12,6 +12,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 
@@ -46,7 +47,8 @@ public class Card221_037 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.Imperial, Filters.stormtrooper, Filters.here(self)), Filters.or(Filters.Clash_Of_Sabers, Filters.blaster)));
+        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.Imperial, Filters.stormtrooper, Filters.here(self)), Filters.Clash_Of_Sabers));
+        modifiers.add(new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.and(Filters.Imperial, Filters.stormtrooper, Filters.here(self)), Filters.blaster));
         return modifiers;
     }
 }

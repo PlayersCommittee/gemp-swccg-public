@@ -19,6 +19,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -51,7 +52,9 @@ public class Card202_015 extends AbstractCombatVehicle {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayMoveAsReactModifier(self));
         modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.vehicle, Filters.here(self)),
-                unlessHit, Filters.and(Filters.opponents(self), Filters.or(Filters.artillery_weapon, Filters.vehicle_weapon, Filters.Interrupt))));
+                unlessHit, Filters.and(Filters.opponents(self), Filters.Interrupt)));
+        modifiers.add(new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.vehicle, Filters.here(self)),
+                unlessHit, Filters.or(Filters.artillery_weapon, Filters.vehicle_weapon)));
         return modifiers;
     }
 

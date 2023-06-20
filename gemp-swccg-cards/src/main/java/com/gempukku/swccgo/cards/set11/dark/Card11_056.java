@@ -17,7 +17,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.InBattleCondition;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponsModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -45,8 +45,8 @@ public class Card11_056 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 1));
-        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.character,
-                Filters.presentWith(self)), new InBattleCondition(self)));
+        modifiers.add(new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.character,
+                Filters.presentWith(self)), new InBattleCondition(self), Filters.and(Filters.opponents(self), Filters.weapon)));
         modifiers.add(new PowerModifier(self, new OnCondition(self, Title.Tatooine), -2));
         return modifiers;
     }
