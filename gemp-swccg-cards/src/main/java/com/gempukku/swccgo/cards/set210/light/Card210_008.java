@@ -52,10 +52,9 @@ public class Card210_008 extends AbstractRepublic {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
 
-        // Targets: Your, Clone, Present with this card, not this card. (Should it be Filters.your(self.getOwner)?)
-        Filter targets = Filters.and(Filters.your(self), Filters.clone, Filters.presentWith(self), Filters.not(self));
+        Filter targets = Filters.and(Filters.your(self), Filters.clone, Filters.present(self), Filters.other(self));
         modifiers.add(new ForfeitModifier(self, targets, 1));
         return modifiers;
     }
