@@ -2829,7 +2829,7 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
      */
     @Override
     public Filter getValidDuelParticipant(Side side, SwccgGame game, final PhysicalCard self) {
-        throw new UnsupportedOperationException("This method, getValidDuelParticipant(), should not be called on this card: " + _title);
+        return Filters.none;
     }
 
     /**
