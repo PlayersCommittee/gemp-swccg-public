@@ -79,7 +79,7 @@ public class Card217_021 extends AbstractLostOrStartingInterrupt {
     protected PlayInterruptAction getGameTextStartingAction(final String playerId, final SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
         final PhysicalCard startingLocation = game.getModifiersQuerying().getStartingLocation(playerId);
-        if (startingLocation != null && Filters.battleground.accepts(game, startingLocation)) {
+        if (startingLocation != null && startingLocation.isStartingLocationBattleground()) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
             action.setText("Deploy Revenge Of The Sith and Effects from Reserve Deck");
