@@ -145,7 +145,7 @@ public class Card215_017_BACK extends AbstractObjective {
         }
 
         if (GameConditions.canBeFlipped(game, self)
-                && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Leia)) {
+                && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Leia, Filters.at(Filters.Death_Star_site)))) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Flip");
             action.appendEffect(
