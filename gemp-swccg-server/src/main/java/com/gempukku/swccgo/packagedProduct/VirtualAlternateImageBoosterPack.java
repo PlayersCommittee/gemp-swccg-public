@@ -35,6 +35,8 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_3;
             case 4:
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_4;
+            case 5:
+                return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_5;
         }
 
         return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
@@ -149,6 +151,26 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("201_6^"); //R2-D2 (V)
                 possibleCards.add("210_46^"); //The Grand Inquisitor
                 possibleCards.add("209_40^"); //Vanee
+                break;
+            case 5:
+                possibleCards.add("217_27^"); //Ajan Kloss: Training Course (Borderless)
+                possibleCards.add("216_21^"); //Anakin Skywalker, Jedi Knight (Hologram AI)
+                possibleCards.add("210_3^"); //Anakin's Lightsaber (V)
+                possibleCards.add("203_31^"); //Coruscant (V) (DS)
+                possibleCards.add("216_25^"); //Coruscant: Jedi Temple Meditation Room
+                possibleCards.add("216_4^"); //Coruscant: The Works (Borderless)
+                possibleCards.add("216_26^"); //Dagobah: Yoda’s Hut (V)
+                possibleCards.add("202_9^"); //Daroe (V)
+                possibleCards.add("213_3^"); //Darth Tyranus (Hologram AI)
+                possibleCards.add("216_6^"); //Darth Vader, Betrayer Of The Jedi
+                possibleCards.add("216_7^"); //Death Star (V)
+                possibleCards.add("205_13^"); //Hondo Ohnaka
+                possibleCards.add("200_108^"); //Imperial Decree (V)
+                possibleCards.add("204_7^"); //Lor San Tekka
+                possibleCards.add("201_21^"); //Mace Windu's Lightsaber
+                possibleCards.add("210_23^"); //Plo Koon (V)
+                possibleCards.add("208_17^"); //Restore Freedom To The Galaxy
+                possibleCards.add("216_43^"); //Tatooine: Obi-Wan’s Hut (V) (Borderless)
                 break;
         }
 

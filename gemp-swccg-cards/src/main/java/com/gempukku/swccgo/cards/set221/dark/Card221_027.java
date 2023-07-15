@@ -20,8 +20,9 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class Card221_027 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Power Of The Hutt", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jabba runs his organization out of a palace built around a B'omarr monastery. His fortress near the border of the western Dune Sea is safe from enemies in Mos Eisley.");
-        setGameText("Deploy on table. While Nal Hutta on table and your alien at Audience Chamber, [Reflections III] Leia's game text is canceled and, once during opponent's turn, may activate 1 Force. Once per turn, may [download] Hutt Influence, Bib, or a barge. [Immune to Alter.]");
+        setGameText("Deploy on table. Once per turn, may [download] Hutt Influence, Bib, or a barge. While Nal Hutta on table and your alien at Audience Chamber, [Reflections III] Leia may not cancel Force drains (or reduce your total ability) and, once during opponent's turn, you may activate 1 Force. [Immune to Alter.]");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_21);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -44,8 +45,7 @@ public class Card221_027 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Icon.REFLECTIONS_III, Filters.Leia), new AndCondition(new OnTableCondition(self, Filters.Nal_Hutta_system), new AtCondition(self, Filters.and(Filters.your(self), Filters.alien), Filters.Audience_Chamber))));
-
+        modifiers.add(new ModifyGameTextModifier(self, Filters.and(Icon.REFLECTIONS_III, Filters.Leia), new AndCondition(new OnTableCondition(self, Filters.Nal_Hutta_system), new AtCondition(self, Filters.and(Filters.your(self), Filters.alien), Filters.Audience_Chamber)), ModifyGameTextType.LEIA_REFLECTIONS_III__MAY_NOT_CANCEL_FORCE_DRAINS_OR_REDUCE_ABILITY));
         return modifiers;
     }
 

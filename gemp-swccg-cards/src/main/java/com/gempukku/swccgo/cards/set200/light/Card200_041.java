@@ -13,6 +13,7 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -25,6 +26,7 @@ import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromUsedPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
@@ -54,8 +56,12 @@ public class Card200_041 extends AbstractNormalEffect {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.I_MUST_BE_ALLOWED_TO_SPEAK__UPLOAD_CARD_FROM_USED_PILE;
 
+        Filter locationFilter = Filters.and(Filters.Tatooine_site, Filters.canBeTargetedBy(self));
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.I_MUST_BE_ALLOWED_TO_SPEAK__DOES_NOT_TARGET_LOCATIONS_EXCEPT_LARS_MOISTURE_FARM_AND_JABBAS_PALACE_SITES))
+            locationFilter = Filters.and(locationFilter, Filters.or(Filters.Lars_Moisture_Farm, Filters.Jabbas_Palace_site));
+
         // Check condition(s)
-        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Chewie, Filters.Lando, Filters.Leia, Filters.Luke)), Filters.and(Filters.Tatooine_site, Filters.canBeTargetedBy(self)))
+        if (TriggerConditions.justDeployedTo(game, effectResult, playerId, Filters.and(Filters.character, Filters.or(Filters.Chewie, Filters.Lando, Filters.Leia, Filters.Luke)), locationFilter)
                 && GameConditions.canTakeCardsIntoHandFromUsedPile(game, playerId, self, gameTextActionId)) {
             Set<String> characterNamesAlreadyUsed = self.getWhileInPlayData() != null ? self.getWhileInPlayData().getTextValues() : null;
             if (characterNamesAlreadyUsed == null) {
@@ -125,6 +131,10 @@ public class Card200_041 extends AbstractNormalEffect {
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
+            Filter locationFilter = Filters.farm;
+            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.I_MUST_BE_ALLOWED_TO_SPEAK__DOES_NOT_TARGET_LOCATIONS_EXCEPT_LARS_MOISTURE_FARM_AND_JABBAS_PALACE_SITES))
+                locationFilter = Filters.and(locationFilter, Filters.or(Filters.Lars_Moisture_Farm, Filters.Jabbas_Palace_site));
+
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a farm from Reserve Deck");
             // Update usage limit(s)
@@ -132,7 +142,7 @@ public class Card200_041 extends AbstractNormalEffect {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.farm, true));
+                    new DeployCardFromReserveDeckEffect(action, locationFilter, true));
             return Collections.singletonList(action);
         }
         return null;
