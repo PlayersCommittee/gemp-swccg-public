@@ -57,6 +57,7 @@ public enum ExpansionSet {
     SET_21("Set 21", 221),
 
     DEMO_DECK("Virtual Premium Set", 301),
+	DJB_CORE("Dark Jedi Brotherhood", 302),
 
     DREAM_CARDS("Dream Cards", 401),
 

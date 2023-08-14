@@ -155,6 +155,10 @@ public enum Persona implements Filterable {
     YODA("Yoda"),
     YULAREN("Yularen"),
     ZUCKUSS("Zuckuss"),
+	BUBBA("Bubba"),
+	EVANT("Evant"),
+	JAMES("James"),
+	IDRIS("Idris"),
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),

@@ -5697,4 +5697,23 @@ public class TriggerConditions {
         }
         return false;
     }
+	
+	/**
+     * Determines if a card accepted by the filter just won a game of Garganta Galleria Sabacc.
+     * @param game the game
+     * @param effectResult the effect result
+     * @param winnerFilter the filter for card that won
+     * @return true or false
+     */
+    public static boolean wonGargantaGalleriaSabacc(SwccgGame game, EffectResult effectResult, Filterable winnerFilter) {
+        if (effectResult.getType() == EffectResult.Type.SABACC_WINNER_DETERMINED) {
+            if (Filters.Garganta_Galleria_Sabacc.accepts(game, game.getGameState().getSabaccState().getSabaccInterrupt())) {
+                SabaccWinnerDeterminedResult sabaccWinnerDeterminedResult = (SabaccWinnerDeterminedResult) effectResult;
+                PhysicalCard winner = sabaccWinnerDeterminedResult.getWinningCharacter();
+                return winner != null
+                            && Filters.and(winnerFilter).accepts(game, winner);
+            }
+        }
+        return false;
+    }
 }

@@ -19183,6 +19183,42 @@ public class Filters {
     public static final Filter Zev = Filters.title(Title.Zev);
     public static final Filter Zuckuss = Filters.persona(Persona.ZUCKUSS);
     public static final Filter Zutton = Filters.title(Title.Zutton);
+	public static final Filter Arx_location = Filters.partOfSystem(Title.Arx);
+	public static final Filter Councilor = Filters.keyword(Keyword.COUNCILOR);
+	public static final Filter Dark_Councilor = Filters.keyword(Keyword.DARK_COUNCILOR);
+	public static final Filter Dbbot = Filters.title(Title.Dbbot);
+	public static final Filter Grand_Master = Filters.keyword(Keyword.GRAND_MASTER);
+	public static final Filter James = Filters.persona(Persona.JAMES);
+	public static final Filter Lightsaber_Combat_Training = Filters.title(Title.Lightsaber_Combat_Training);
+	public static final Filter Evant = Filters.persona(Persona.EVANT);
+	public static final Filter Bubba = Filters.persona(Persona.BUBBA);
+	public static final Filter Arx_site = Filters.and(Filters.partOfSystem(Title.Arx), CardSubtype.SITE);
+	public static final Filter Arx_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Arx));
+	public static final Filter Hand = Filters.keyword(Keyword.HAND);
+	public static final Filter Control_The_Brotherhood = Filters.title(Title.Control_The_Brotherhood);
+	public static final Filter Arx_Blockade = Filters.title(Title.Arx_Blockade);
+	public static final Filter Proto_Cythraul = Filters.title(Title.Proto_Cythraul);
+	public static final Filter Crystal_Creature = Filters.keyword(Keyword.CRYSTAL_CREATURE);
+	public static final Filter Children_Of_Mortis = Filters.keyword(Keyword.CHILDREN_OF_MORTIS);
+	public static final Filter Crystal_Mist = Filters.title(Title.Crystal_Mist);
+	public static final Filter A9 = Filters.title(Title.A9);
+	public static final Filter Deploys_on_NA = Filters.placeToBePresentOnPlanet(Title.NA);
+	public static final Filter Desert_Space_Port_Docking_Bay = Filters.title(Title.Desert_Space_Port_Docking_Bay);
+	public static final Filter Iron_Garage = Filters.title(Title.Iron_Garage);
+	public static final Filter The_Iron_Legion = Filters.title(Title.The_Iron_Legion);
+	public static final Filter Eos_City = Filters.title(Title.Eos_City);
+	public static final Filter Dark_Ascent = Filters.title(Title.Dark_Ascent);
+	public static final Filter Eos_City_Space_Port_Docking_Bay = Filters.title(Title.Eos_City_Space_Port_Docking_Bay);
+	public static final Filter CRYSTAL_CREATURE = Filters.keyword(Keyword.CRYSTAL_CREATURE);
+	public static final Filter CHILDREN_OF_MORTIS = Filters.keyword(Keyword.CHILDREN_OF_MORTIS);
+	public static final Filter Infected_Trooper = Filters.title(Title.Infected_Trooper);
+	public static final Filter Dandoran = Filters.title(Title.Dandoran);
+	public static final Filter Nevo_Race_Track = Filters.title(Title.Nevo_Race_Track);
+	public static final Filter Garganta_Galleria_Sabacc = Filters.title(Title.Garganta_Galleria_Sabacc);
+	public static final Filter Garganta_Galleria_Casino_Hotel = Filters.title(Title.Garganta_Galleria_Casino_Hotel);
+	public static final Filter Dandoran_Docking_Bay = Filters.title(Title.Dandoran_Docking_Bay);
+	public static final Filter Dandoran_site = Filters.and(Filters.partOfSystem(Title.Dandoran), CardSubtype.SITE);
+	public static final Filter TIE_WI = Filters.modelType(ModelType.TIE_WI);
 
 
 

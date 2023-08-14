@@ -1242,5 +1242,33 @@ public interface Title {
     String Zeb = "Zeb Orrelios";
     String Zev = "Zev Senesca";
     String Zutton = "Zutton";
+	String Arx = "Arx";
+	String Dark_Ascent = "Dark Ascent";
+	String Dbbot = "Dbbot";
+	String Grand_Master = "Grand Master";
+	String Iron_Garage = "Iron Garage";
+	String Lightsaber_Combat_Training = "Lightsaber Combat Training";
+	String Desert_Space_Port_Docking_Bay = "Desert Space Port 'Docking Bay'";
+	String The_Iron_Legion = "The Iron Legion";
+	String Eos_City = "Eos City";
+	String Eos_City_Space_Port_Docking_Bay = "Eos City Space Port 'Docking Bay'";
+	String Control_The_Brotherhood = "Control The Brotherhood";
+	String Arx_Blockade = "Arx Blockadge";
+	String Lock_Down_The_System = "Lock Down The System";
+	String Expansive_Control = "Expansive Control";
+	String Proto_Cythraul = "Proto-Cythraul";
+	String Crystal_Mist = "Crystal Mist";
+	String Crystal_Infection = "Crystal Infection";
+	String A9 = "A-9 Vigilance Interceptor";
+	String Infected_Trooper = "Infected Trooper";
+	String NA = "Not Applicable";
+	String Dandoran = "Dandoran";
+	String Nevo_Race_Track = "Nevo Race Track";
+	String Nevo_Podracer_Bay = "Nevo Podracer Bay";
+	String Garganta_Galleria_Sabacc = "Garganta Galleria Sabacc";
+	String Garganta_Galleria_Casino_Hotel = "Garganta Galleria Casino Hotel";
+	String Dandoran_Imperial_Outpost = "Dandoran: Imperial Outpost";
+	String Dandoran_Docking_Bay = "Dandoran: Docking Bay";
+	String A_Gathering_Storm = "A Gathering Storm";
 
 }

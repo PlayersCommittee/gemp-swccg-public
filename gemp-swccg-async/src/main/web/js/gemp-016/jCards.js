@@ -3576,6 +3576,59 @@ var fixedImages = {
 "301_6":"https://res.starwarsccg.org/cards/VirtualPremium-Dark/large/captainkhurgee.gif",
 "301_7":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/puck.gif",
 "301_8":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/red12.gif",
+"302_1":"https://i.imgur.com/QWCRSUx.png",
+"302_2":"https://i.imgur.com/DRS9vYr.png",
+"302_3":"https://i.imgur.com/q1bhxfe.png",
+"302_4":"https://i.imgur.com/FMsmAHh.png",
+"302_5":"https://i.imgur.com/ImekOe4.png",
+"302_6":"https://i.imgur.com/Odikyjc.png",
+"302_7":"https://i.imgur.com/DdOmsL7.png",
+"302_8":"https://i.imgur.com/tIFaByr.png",
+"302_9":"https://i.imgur.com/Dra4YzX.png",
+"302_10":"https://i.imgur.com/l00m4A3.png",
+"302_11":"https://i.imgur.com/oFkZfTc.png",
+"302_12":"https://i.imgur.com/3qjTn3i.png",
+"302_13":"https://i.imgur.com/Vtm0FQV.png",
+"302_14":"https://i.imgur.com/p7hmzax.png",
+"302_15":"https://i.imgur.com/3Ln6rCj.png",
+"302_16":"https://i.imgur.com/glDKLXk.png",
+"302_17":"https://i.imgur.com/n7ZoDxW.png",
+"302_18":"https://i.imgur.com/xfjmU8C.png",
+"302_19":"https://i.imgur.com/8BXf9pU.png",
+"302_20":"https://i.imgur.com/8KxoJG9.png",
+"302_21":"https://i.imgur.com/Q4mcmIM.png",
+"302_22":"https://i.imgur.com/QUW5Zmd.png",
+"302_23":"https://i.imgur.com/fACCKHR.png",
+"302_24":"https://i.imgur.com/GuDiQq3.png",
+"302_25":"https://i.imgur.com/515YP6C.png",
+"302_26":"https://i.imgur.com/ZwWCs66.png",
+"302_27":"https://i.imgur.com/yUhcQVa.png",
+"302_28":"https://i.imgur.com/DHW3JSO.png",
+"302_29":"https://i.imgur.com/v4Ws6ZB.png",
+"302_30":"https://i.imgur.com/7qByZdq.png",
+"302_31":"https://i.imgur.com/lGgChYP.png",
+"302_32":"https://i.imgur.com/oc3yUQX.png",
+"302_33":"https://i.imgur.com/veQnKis.png",
+"302_34":"https://i.imgur.com/4Hnbcdd.png",
+"302_35":"https://i.imgur.com/M4MFi8T.png",
+"302_35_BACK":"https://i.imgur.com/wIfByES.png",
+"302_36":"https://i.imgur.com/k2rbevr.png",
+"302_37":"https://i.imgur.com/6KdlbXv.png",
+"302_38":"https://i.imgur.com/QjRM5dU.png",
+"302_39":"https://i.imgur.com/ldgTBva.png",
+"302_40":"https://i.imgur.com/GKxMyof.png",
+"302_41":"https://i.imgur.com/vGth5er.png",
+"302_42":"https://i.imgur.com/sVwFcK5.png",
+"302_43":"https://i.imgur.com/7PDHfeH.png",
+"302_44":"https://i.imgur.com/11PyPyo.png",
+"302_45":"https://i.imgur.com/YDi35oo.png",
+"302_46":"https://i.imgur.com/OzTbeG7.png",
+"302_47":"https://i.imgur.com/cvOnUbT.png",
+"302_48":"https://i.imgur.com/YSp5skl.png",
+"302_49":"https://i.imgur.com/p0o3B2Y.png",
+"302_50":"https://i.imgur.com/wUdapSB.png",
+"302_50_BACK":"https://i.imgur.com/XgD7Gpl.png",
+"302_51":"https://i.imgur.com/z9YkY1Q.png",
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",
@@ -4148,6 +4201,7 @@ var fixedImages = {
 "210_23ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/plokoon_ai.png",
 "208_17ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/restorefreedomtothegalaxy_ai.png",
 "216_43ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooineobiwanshut_ai.png",
+"302_25ai":"https://i.imgur.com/3BD62vH.png",
 
 };
 
@@ -4647,6 +4701,15 @@ var Card = Class.extend({
                    (cardNo == 63) ||
                    (cardNo == 74) ||
                    (cardNo == 75);
+		}if(setNo == 302) {
+			return (cardNo == 9) ||
+			       (cardNo == 16) ||
+				   (cardNo >= 18 && cardNo <= 20) ||
+				   (cardNo == 22) ||
+				   (cardNo == 23) ||
+				   (cardNo == 28) ||
+				   (cardNo >= 45 && cardNo <=49) ||
+				   (cardNo == 51);
         }if (setNo == 501) {
             return (cardNo == 6)  ||
                    (cardNo == 10) ||

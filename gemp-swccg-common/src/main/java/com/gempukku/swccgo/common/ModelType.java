@@ -125,7 +125,10 @@ public enum ModelType implements Filterable {
     Y_WING("Y-wing"),
     YV_CLASS_FREIGHTER("YV-Class Freighter"),
     Z_95_HEADHUNTER("Z-95 Headhunter"),
-    ZETA_CLASS_TRANSPORT("Zeta-Class Transport");
+    ZETA_CLASS_TRANSPORT("Zeta-Class Transport"),
+	E_WING("E-wing"),
+	TIE_WI("TIE/wi"),
+	CRYSTAL("Crystal");
 
     private String _humanReadable;
     private boolean _infoDisplayable;
