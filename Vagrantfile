@@ -11,6 +11,7 @@ VAGRANT_INSTANCE_NAME   = "gemp"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = VAGRANT_INSTANCE_NAME
+  config.vm.boot_timeout = 900
 
   config.vm.define VAGRANT_INSTANCE_NAME do |d|
     # Ensure vbguest is updated and running on host.

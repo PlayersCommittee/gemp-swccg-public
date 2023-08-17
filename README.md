@@ -5,6 +5,7 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 * <a href="#docker">Docker</a>
 * <a href="#vagrant">Vagrant</a>
+  * <a href="README_vagrant_windows.md"><em>Vagrant for Windows</em></a>
 * <a href="#formats">Formats</a>
 
 
@@ -59,18 +60,14 @@ docker-compose up
 
 ## Running a Dev VM with Vagrant
 
-Vagrant is a tool for automating the creation of virtual machines. This allows us to mimic the server environment more closely and have a single set of commands to run the program, regardless of what OS is used for development. Your dev machine can be used to code and compile in whatever IDE you like. The code is automatically shared with the VM, which is used to run it. The virtual machine is also capable of compiling the source using maven.
+Vagrant is a utility for creating **VirtualBox** powered Virtual Machines. An **Ubuntu 20.04 LTS** _(focal)_ Virtual Machine will be created by Vagrant. The `Vagrantfile` defines how the virtual machine will take shape. There is a provisioning script, `vagrant-bootstrap/bootstrap.sh`, that gets run when the virtual machine is created. The bootstrap script will install all of the dependencies, including the correct version of Java, Maven, and MariaDB. Using Vagrant allows us to create a development environment that matches the production hosting environment.
+
+If you are using Vagrant on Windows, follow the [in-depth setup guide for running Gemp in Vagrant on Windows](README_vagrant_windows.md)
+
 
 ### Setup
 
-Install vagrant (https://www.vagrantup.com/downloads.html) and virtualbox (https://www.virtualbox.org/wiki/Downloads) for your OS.
-
-From the command line run:
-```bash
-vagrant plugin install vagrant-vbguest
-```
-
-This plugin keeps the host and guest OS in sync and allows directories to be seamlessly shared.
+[Install Virtualbox](https://www.virtualbox.org/wiki/Downloads) and [Install vagrant](https://www.vagrantup.com/downloads.html) for your OS.
 
 
 ### Spinning up the VM
