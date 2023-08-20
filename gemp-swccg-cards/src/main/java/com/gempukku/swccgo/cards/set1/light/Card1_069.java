@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card1_069 extends AbstractUtinniEffect {
     public Card1_069() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, "Yerka Mig", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_LOCATION, "Yerka Mig", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("An Imperial bureaucrat with high security clearance who resigned and fled in remorse after the occupation of his home planet, Ralltiir. Now a fugitive from the ISB.");
         setGameText("Deploy at any location. You may move Mig like a character. Target an opponent's character, who may apprehend (cancel) Mig by reaching same location. Until then, during all battles at same and adjacent sites to Mig, opponent's total power is -1.");
     }
