@@ -18459,6 +18459,7 @@ public class Filters {
     public static final Filter Nabrun_Leids = Filters.title(Title.Nabrun_Leids);
     public static final Filter Nal_Hutta_site = Filters.and(Filters.partOfSystem(Title.Nal_Hutta), CardSubtype.SITE);
     public static final Filter Nal_Hutta_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Nal_Hutta));
+    public static final Filter Nar_Shadda_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Nar_Shaddaa));
     public static final Filter Narrow_Escape = Filters.title(Title.Narrow_Escape);
     public static final Filter Nav_Computer = Filters.icon(Icon.NAV_COMPUTER);
     public static final Filter Neck_And_Neck = Filters.title(Title.Neck_And_Neck);

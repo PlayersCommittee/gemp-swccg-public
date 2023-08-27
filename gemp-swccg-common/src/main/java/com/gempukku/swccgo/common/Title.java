@@ -738,6 +738,7 @@ public interface Title {
     String Naboo = "Naboo";
     String Naboo_Swamp = "Naboo: Swamp";
     String Nal_Hutta = "Nal Hutta";
+    String Nar_Shaddaa = "Nar Shaddaa";
     String Nar_Shaddaa_Wind_Chimes = "Nar Shaddaa Wind Chimes";
     String Narrow_Escape = "Narrow Escape";
     String Neck_And_Neck = "Neck And Neck";

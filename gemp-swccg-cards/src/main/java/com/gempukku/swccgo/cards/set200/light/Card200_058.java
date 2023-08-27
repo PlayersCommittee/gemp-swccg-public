@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card200_058 extends AbstractSystem {
     public Card200_058() {
-        super(Side.LIGHT, "Nar Shaddaa", 3, ExpansionSet.SET_0, Rarity.V);
+        super(Side.LIGHT, Title.Nar_Shaddaa, 3, ExpansionSet.SET_0, Rarity.V);
         setLocationDarkSideGameText("Starships piloted by bounty hunters are power +1 here. All starships may move between here and Nal Hutta as a 'react'.");
         setLocationLightSideGameText("Force drain +1 here. Once per game, if you control, may [upload] Han's Toolkit.");
         addIcon(Icon.DARK_FORCE, 1);
