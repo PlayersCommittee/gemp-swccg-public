@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set215.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
+import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -17,6 +18,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.ModifyForfeitEffect;
 import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
@@ -51,7 +53,7 @@ public class Card215_024 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new AddsBattleDestinyModifier(self, new ArmedWithCondition(self, Filters.blaster), 1));
+        modifiers.add(new AddsBattleDestinyModifier(self, new AndCondition(new PresentAtCondition(self, Filters.site), new ArmedWithCondition(self, Filters.blaster)), 1));
         return modifiers;
     }
 

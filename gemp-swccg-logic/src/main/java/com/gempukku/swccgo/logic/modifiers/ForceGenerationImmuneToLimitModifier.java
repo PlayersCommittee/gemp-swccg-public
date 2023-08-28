@@ -29,6 +29,18 @@ public class ForceGenerationImmuneToLimitModifier extends AbstractModifier {
      * being limited by cards accepted by the limit source filter.
      * @param source the source of the modifier
      * @param locationFilter the location filter
+     * @param limitSourceFilter the limit source filter
+     * @param playerId the player with the Force generation
+     */
+    public ForceGenerationImmuneToLimitModifier(PhysicalCard source, Filterable locationFilter, Filterable limitSourceFilter, String playerId) {
+        this(source, locationFilter, null, limitSourceFilter, playerId);
+    }
+
+    /**
+     * Creates a modifier that prevents a player's Force generation at locations accepted by the location filter from
+     * being limited by cards accepted by the limit source filter.
+     * @param source the source of the modifier
+     * @param locationFilter the location filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param limitSourceFilter the limit source filter
      * @param playerId the player with the Force generation

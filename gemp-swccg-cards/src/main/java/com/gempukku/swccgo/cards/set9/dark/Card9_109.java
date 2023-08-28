@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Set: Death Star II
  * Type: Character
- * Subtype: Imperial
+ * Subtype: Dark Jedi Master/Imperial
  * Title: Emperor Palpatine
  */
 public class Card9_109 extends AbstractDarkJediMasterImperial {
