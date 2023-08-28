@@ -99,6 +99,7 @@ public enum Keyword implements Filterable {
     JEDI_TEST_6("Jedi Test #6", true),
     JUNGLE("Jungle", true),
     KAADU("Kaadu", true),
+    KNIGHT_OF_REN("Knight of Ren", true),
     LANDSPEEDER("Landspeeder", false),
     LASER_CANNON("Laser Cannon", false),
     LEAD_STARFIGHTER("Lead Starfighter", true),
