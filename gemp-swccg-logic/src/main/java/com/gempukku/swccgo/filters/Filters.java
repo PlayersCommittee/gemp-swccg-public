@@ -14233,6 +14233,9 @@ public class Filters {
                 if (!modifiersQuerying.notProhibitedFromFiringWeapons(gameState, physicalCard))
                     return false;
 
+                if (modifiersQuerying.mayNotBeFired(gameState, weapon))
+                    return false;
+
                 boolean mayBeUsedByLandedStarship = modifiersQuerying.mayBeUsedByLandedStarship(gameState, weapon);
 
                 if ((physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE || physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP)
