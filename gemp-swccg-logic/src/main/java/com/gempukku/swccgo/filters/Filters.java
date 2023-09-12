@@ -18574,7 +18574,7 @@ public class Filters {
     public static final Filter Podracer = Filters.category(CardCategory.PODRACER);
     public static final Filter Podracer_Bay = Filters.title(Title.Podracer_Bay);
     public static final Filter Podracer_Collision = Filters.title(Title.Podracer_Collision);
-    public static final Filter Poe = Filters.title(Title.Poe);
+    public static final Filter Poe = Filters.persona(Persona.POE);
     public static final Filter Polis_Massa_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Polis_Massa));
     public static final Filter Political_Effect = Filters.and(CardType.EFFECT, CardSubtype.POLITICAL);
     public static final Filter Ponda_Baba = Filters.title(Title.Ponda_Baba);
