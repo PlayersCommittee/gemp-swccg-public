@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card9_041 extends AbstractNormalEffect {
     public Card9_041() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Strike Planning", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Strike_Planning, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("'General Solo, is your strike team assembled?'");
         setGameText("Deploy on table. Twice per game, you may take one Mon Mothma or any general (except Obi-Wan) into hand from Reserve Deck; reshuffle. Opponent's Force generation at Endor system is canceled unless Endor Operations on table. (Immune to Alter.)");
         addIcons(Icon.DEATH_STAR_II);

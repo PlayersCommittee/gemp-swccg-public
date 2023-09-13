@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card221_006 extends AbstractNormalEffect {
     public Card221_006() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Strike Planning", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Strike_Planning, Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("'General Solo, is your strike team assembled?'");
         setGameText("If an [A New Hope] objective on table, deploy on table. Twice per game, may [upload] Mon Mothma or any general. During your first turn, while Stolen Data Tapes at Dune Sea, [Set 1] Obi-Wan deploys -6 there. [Immune to Alter.]");

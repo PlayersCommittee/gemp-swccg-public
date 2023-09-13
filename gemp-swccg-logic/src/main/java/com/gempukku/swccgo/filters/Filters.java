@@ -1790,6 +1790,23 @@ public class Filters {
         return forfeitMayBeReduced;
     }
 
+    /**
+     * Filter that accepts cards that have a forfeit value > X.
+     *
+     * @param value the value of X
+     * @return Filter
+     */
+    public static Filter printedForfeitValueLessThan(final float value) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (!physicalCard.getBlueprint().hasForfeitAttribute())
+                    return false;
+
+                return physicalCard.getBlueprint().getForfeit() < value;
+            }
+        };
+    }
 
     //
     //

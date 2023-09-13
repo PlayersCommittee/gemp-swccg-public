@@ -27,7 +27,6 @@ public enum GameTextActionId {
 
     // Search card pile
     _4_LOM__SEARCH_USED_PILE(true),
-    A_BRAVE_RESISTANCE__UPLOAD_RESISTANCE_CHARACTER(true),
     A_CUNNING_WARRIOR__DEPLOY_LARS_MOISTURE_FARM(true),
     A_CUNNING_WARRIOR__DEPLOY_CARD(true),
     A_DANGEROUS_TIME__UPLOAD_DARK_FORCES(true),
@@ -609,6 +608,7 @@ public enum GameTextActionId {
 
     // Per game
     _3B310__UPLOAD_HALT(true, true),
+    A_BRAVE_RESISTANCE__UPLOAD_RESISTANCE_CHARACTER(true, true),
     A_JEDI__TAKE_INTO_HAND(false, true),
     A_MILLION_VOICES_CRYING_OUT__UPLOAD_CPI(true, true),
     A_SITH_LEGEND__CANCEL_GAME_TEXT(false, true),

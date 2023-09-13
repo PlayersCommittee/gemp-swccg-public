@@ -1007,6 +1007,7 @@ public interface Title {
     String Stormtrooper_Utility_Belt = "Stormtrooper Utility Belt";
     String Strangle = "Strangle";
     String Strategic_Reserves = "Strategic Reserves";
+    String Strike_Planning = "Strike Planning";
     String Stunning_Leader = "Stunning Leader";
     String Sullust = "Sullust";
     String Sunsdown = "Sunsdown";

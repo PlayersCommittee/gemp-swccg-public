@@ -3752,6 +3752,7 @@ var fixedImages = {
 "501_163":"https://res.starwarsccg.org/cards/ANewHope-Dark/large/danzborin.gif",
 "501_164":"https://res.starwarsccg.org/cards/Premiere-Light/large/scomplinkaccess.gif",
 "501_165":"https://res.starwarsccg.org/cards/Virtual0-Dark/hires/elisinhinthra.png",
+"501_166":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/abraveresistance.png",
 
 
 //legacy
