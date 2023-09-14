@@ -230,6 +230,7 @@ public interface Title {
     String Covert_Landing = "Covert Landing";
     String Crait = "Crait";
     String Crait_Salt_Plateau = "Crait: Salt Plateau";
+    String Crash_Landing = "Crash Landing";
     String Crash_Site_Memorial = "Crash Site Memorial";
     String Credits_Will_Do_Fine = "Credits Will Do Fine";
     String Crimson_Dawn_Blaster = "Crimson Dawn Blaster";
