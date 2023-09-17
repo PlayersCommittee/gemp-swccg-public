@@ -3,7 +3,18 @@ package com.gempukku.swccgo.game;
 import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.SubscriptionConflictException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.GameEndReason;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.MovementDirection;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.filters.Filters;
@@ -13,7 +24,11 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierCollector;
+import com.gempukku.swccgo.logic.modifiers.ModifierCollectorImpl;
+import com.gempukku.swccgo.logic.modifiers.ModifierType;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.DefaultSwccgGame;
 import com.gempukku.swccgo.logic.timing.DefaultUserFeedback;
 import com.gempukku.swccgo.logic.timing.GameResultListener;
@@ -22,7 +37,14 @@ import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import com.google.common.base.Objects;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SwccgGameMediator {
@@ -1471,9 +1493,9 @@ public class SwccgGameMediator {
                 // You Can Either Profit By This...
                 objectiveLabel = "Profit";
             }
-            if (Filters.or(Filters.title("Protect The Ridge"), Filters.title("Prepare For Ground Assault")).accepts(_swccgoGame, objective)) {
+            if (Filters.or(Filters.title("The Empire Knows We're Here"), Filters.title("Prepare For Ground Assault")).accepts(_swccgoGame, objective)) {
                 // Protect The Ridge
-                objectiveLabel = "Protect The Ridge";
+                objectiveLabel = "The Empire Knows We're Here";
             }
             if (Filters.or(Filters.Quiet_Mining_Colony, Filters.Independent_Operation).accepts(_swccgoGame, objective)) {
                 // Quiet Mining Colony

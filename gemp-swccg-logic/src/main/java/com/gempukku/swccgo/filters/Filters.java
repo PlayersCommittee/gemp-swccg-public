@@ -11167,6 +11167,20 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are 'hit' by the specified filter.
+     */
+    public static Filter hitBy(final Filter hitByFilter) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.wasHitOrMadeLostByWeapon(physicalCard, hitByFilter);
+            }
+        };
+    }
+
+    ;
+
+    /**
      * Filter that accepts cards that are Disarmed.
      */
     public static final Filter Disarmed = new Filter() {

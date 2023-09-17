@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,6 +35,7 @@ public class Card3_025 extends AbstractRebel {
         setGameText("Adds 1 to weapon destiny draws of anything he is aboard as a passenger (adds 3 if aboard Rogue 3 or with Wedge or Jek).");
         addIcons(Icon.HOTH, Icon.WARRIOR);
         addKeywords(Keyword.ROGUE_SQUADRON, Keyword.GUNNER);
+        addPersona(Persona.WES);
         setMatchingVehicleFilter(Filters.Rogue_3);
     }
 
