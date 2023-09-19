@@ -1,10 +1,50 @@
 package com.gempukku.swccgo.logic.modifiers;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardState;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.DestinyType;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Statistic;
+import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Variable;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.*;
-import com.gempukku.swccgo.game.state.*;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.ReactActionOption;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.AttackState;
+import com.gempukku.swccgo.game.state.BattleState;
+import com.gempukku.swccgo.game.state.BlowAwayState;
+import com.gempukku.swccgo.game.state.DrawDestinyState;
+import com.gempukku.swccgo.game.state.DuelState;
+import com.gempukku.swccgo.game.state.EachDrawnDestinyState;
+import com.gempukku.swccgo.game.state.EpicEventState;
+import com.gempukku.swccgo.game.state.ForceLossState;
+import com.gempukku.swccgo.game.state.ForceRetrievalState;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.LightsaberCombatState;
+import com.gempukku.swccgo.game.state.WeaponFiringState;
 import com.gempukku.swccgo.game.state.actions.GameTextActionState;
 import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -16,9 +56,23 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.DuelEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.SnapshotData;
+import com.gempukku.swccgo.logic.timing.Snapshotable;
+import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 // This class implements the applying of the modifiers.
 //
@@ -13038,6 +13092,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_DEPLOY_MOVE_SITH_PROBE_DROID, card).isEmpty();
         }
         return false;
+    }
+
+    /**
+     * Determines if characters are explicitly not allowed to be 'revived'.
+     *
+     * @param gameState the game state
+     * @return true if characters cannot be 'revived', otherwise false
+     */
+    @Override
+    public boolean isRevivingCharactersProhibited(GameState gameState) {
+        return !getModifiers(gameState, ModifierType.MAY_NOT_BE_REVIVED).isEmpty();
     }
 
     /**

@@ -4578,6 +4578,17 @@ public class GameConditions {
     }
 
     /**
+     * Determines if characters can be 'revived'.
+     *
+     * @param game the game
+     * @return true or false
+     */
+    public static boolean canReviveCharacters(SwccgGame game) {
+        return !game.getModifiersQuerying().isRevivingCharactersProhibited(game.getGameState());
+    }
+
+
+    /**
      * Determines if the card can 'cloak'.
      * @param game the game
      * @param card the card

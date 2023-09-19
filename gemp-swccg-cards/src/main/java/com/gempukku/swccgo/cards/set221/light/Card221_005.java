@@ -98,7 +98,8 @@ public class Card221_005 extends AbstractNormalEffect {
         // Check condition(s)
         if (TriggerConditions.battleEndedAt(game, effectResult, Filters.Tatooine_site)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
+                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)
+                && GameConditions.canReviveCharacters(game)) {
 
             PhysicalCard location = ((BattleEndedResult)effectResult).getLocation();
 
