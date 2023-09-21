@@ -1,8 +1,9 @@
 package com.gempukku.swccgo.logic.modifiers;
 
-import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 
@@ -11,6 +12,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
  */
 public class MayNotCancelBattleModifier extends AbstractModifier {
     private String _playerToCancel;
+    private Filter _locationFilter;
 
     /**
      * Creates a modifier that prevents battles from being canceled by either player.
@@ -46,9 +48,10 @@ public class MayNotCancelBattleModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param playerToCancel the player that may not cancel battles
      */
-    public MayNotCancelBattleModifier(PhysicalCard source, Filterable locationFilter, Condition condition, String playerToCancel) {
+    public MayNotCancelBattleModifier(PhysicalCard source, Filter locationFilter, Condition condition, String playerToCancel) {
         super(source, null, Filters.and(locationFilter, Filters.battleLocation), condition, ModifierType.MAY_NOT_CANCEL_BATTLE, true);
         _playerToCancel = playerToCancel;
+        _locationFilter = locationFilter;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class MayNotCancelBattleModifier extends AbstractModifier {
         return null;
     }
 
-    public boolean mayNotCancelBattle(String playerToCancel) {
-        return (_playerToCancel == null || _playerToCancel.equals(playerToCancel));
+    public boolean mayNotCancelBattle(SwccgGame game, String playerToCancel, PhysicalCard battleLocation) {
+        return (_playerToCancel == null || _playerToCancel.equals(playerToCancel)) && _locationFilter.accepts(game, battleLocation);
     }
 }

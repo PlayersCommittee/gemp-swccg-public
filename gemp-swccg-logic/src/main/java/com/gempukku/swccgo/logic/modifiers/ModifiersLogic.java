@@ -16933,12 +16933,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return cards;
     }
 
-    public boolean mayNotCancelBattle(GameState gameState, String playerId) {
+    public boolean mayNotCancelBattle(GameState gameState, String playerId, PhysicalCard battleLocation) {
         if (playerId == null)
             return false;
 
         for(Modifier m:getModifiers(gameState, ModifierType.MAY_NOT_CANCEL_BATTLE)) {
-            if (((MayNotCancelBattleModifier) m).mayNotCancelBattle(playerId))
+            if (((MayNotCancelBattleModifier) m).mayNotCancelBattle(gameState.getGame(), playerId, battleLocation))
                 return true;
         }
 

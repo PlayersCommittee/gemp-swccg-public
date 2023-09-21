@@ -19,7 +19,7 @@ public class CancelBattleEffect extends PassthruEffect {
         if (battleState != null && battleState.canContinue(game)) {
 
             if ((_action.getPerformingPlayer() != null
-                    && game.getModifiersQuerying().mayNotCancelBattle(game.getGameState(), _action.getPerformingPlayer()))) {
+                    && game.getModifiersQuerying().mayNotCancelBattle(game.getGameState(), _action.getPerformingPlayer(), battleState.getBattleLocation()))) {
 
                 game.getGameState().sendMessage(_action.getPerformingPlayer() + " may not cancel battle");
 
