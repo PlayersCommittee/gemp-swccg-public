@@ -26,7 +26,6 @@ import com.gempukku.swccgo.logic.effects.PutCardFromForcePileOnTopOfCardPileEffe
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -71,78 +70,6 @@ public class Card221_043 extends AbstractUsedOrLostInterrupt {
             });
 
             actions.add(action);
-        }
-
-        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.A_JEDIS_FURY__HAS_NO_REQUIREMENT_AND_PLAYS_IN_BATTLE_JUST_INITIATED)
-                && TriggerConditions.battleInitiated(game, effectResult)) {
-
-            if (GameConditions.hasForcePile(game, playerId)) {
-
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
-                action.setText("Peek at bottom card of Force Pile");
-                // Allow response(s)
-                action.allowResponses(new RespondablePlayCardEffect(action) {
-                                          @Override
-                                          protected void performActionResults(Action targetingAction) {
-                                              // Perform result(s)
-                                              action.appendEffect(
-                                                      new PeekAtBottomCardOfCardPileEffect(action, playerId, playerId, Zone.FORCE_PILE) {
-                                                          @Override
-                                                          protected void cardsPeekedAt(List<PhysicalCard> peekedAtCards) {
-                                                              final PhysicalCard card = peekedAtCards.iterator().next();
-                                                              if (card != null) {
-                                                                  action.appendEffect(new PlayoutDecisionEffect(action, playerId, new YesNoDecision("Move card to top of Force Pile?") {
-                                                                      @Override
-                                                                      protected void yes() {
-                                                                          action.appendEffect(new PutCardFromForcePileOnTopOfCardPileEffect(action, playerId, card, Zone.FORCE_PILE, true));
-                                                                      }
-
-                                                                      @Override
-                                                                      protected void no() {
-                                                                          action.appendEffect(new SendMessageEffect(action, playerId + " chooses not to move card to top of Force Pile"));
-                                                                      }
-                                                                  }));
-                                                              }
-                                                          }
-                                                      });
-                                          }
-                                      }
-                );
-                actions.add(action);
-            }
-
-            Filter filter = Filters.and(Filters.opponents(self), Filters.Dark_Jedi, Filters.with(self, Filters.Luke));
-
-            if (GameConditions.canTarget(game, self, filter)) {
-
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-                action.setText("Cancel game text of a Dark Jedi");
-                // Choose target(s)
-                action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose Dark Jedi", filter) {
-                            @Override
-                            protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
-                                action.addAnimationGroup(targetedCard);
-                                // Allow response(s)
-                                action.allowResponses("Cancel " + GameUtils.getCardLink(targetedCard) + "'s game text",
-                                        new RespondablePlayCardEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                // Get the targeted card(s) from the action using the targetGroupId.
-                                                // This needs to be done in case the target(s) were changed during the responses.
-                                                final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new CancelGameTextUntilEndOfTurnEffect(action, finalTarget));
-                                            }
-                                        }
-                                );
-                            }
-                        }
-                );
-                actions.add(action);
-            }
         }
 
         return actions;
