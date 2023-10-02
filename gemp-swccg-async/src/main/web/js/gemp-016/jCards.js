@@ -3566,6 +3566,42 @@ var fixedImages = {
 "221_74":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/supplyroute.png",
 "221_75":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/tatooinemosespa.png",
 
+"222_1":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/afineadditiontomycollection.png",
+"222_2":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/aplek.png",
+"222_3":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/atatcannon.png",
+"222_4":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/blackkrrsantan.png",
+"222_5":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/bobafettwithblasterrifle.png",
+"222_6":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/danzborin.png",
+"222_7":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/forcepushpodracercollision.png",
+"222_8":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/holowanlaboratories.png",
+"222_9":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/hothmainpowergenerators.png",
+"222_10":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/kylomasteroftheknightsofren.png",
+"222_11":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/nightbuzzard.png",
+"222_12":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/palpatinegalacticemperor.png",
+"222_13":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/targetthemaingenerator.png",
+"222_14":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/theshieldwillbedowninmoments.png",
+"222_14_BACK":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/imperialtroopshaveenteredthebase.png",
+"222_15":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/tonnikasisters.png",
+"222_16":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/vadersmachination.png",
+"222_17":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/walkergarrison.png",
+"222_18":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/yourpowersareweakoldman.png",
+
+"222_19":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/attackpatterndelta.png",
+"222_20":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/echobasetrooper.png",
+"222_21":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/generalpoedameron.png",
+"222_22":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/hothsnowtrench.png",
+"222_23":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/imreadyforanything.png",
+"222_24":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/lonerogue.png",
+"222_25":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/niennunbsullustansmuggler.png",
+"222_26":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/reflection.png",
+"222_27":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/theempireknowswerehere.png",
+"222_27_BACK":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/prepareforgroundassault.png",
+"222_28":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/twilightisuponme.png",
+"222_29":"https://res.starwarsccg.org/cards/Virtual22-Light/hires/youngskywalker.png",
+
+"222_30":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/theshieldwillbedowninmoments_ai.png",
+"222_30_BACK":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/imperialtroopshaveenteredthebase_ai.png",
+
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
 "301_2_BACK":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/youtrulybelongherewithus.gif",
@@ -4647,7 +4683,10 @@ var Card = Class.extend({
                    (cardNo == 63) ||
                    (cardNo == 74) ||
                    (cardNo == 75);
-        }if (setNo == 501) {
+        }if(setNo == 222){
+                     return (cardNo == 9) ||
+                            (cardNo == 22);
+                 }if (setNo == 501) {
             return (cardNo == 6)  ||
                    (cardNo == 16) ||
                    (cardNo == 21) ||
