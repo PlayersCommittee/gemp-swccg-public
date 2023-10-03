@@ -22,6 +22,7 @@ import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayTargetAdjacentSiteModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TargetTheMainGeneratorTotalModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -70,7 +71,7 @@ public class Card222_003 extends AbstractVehicleWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 2, Statistic.DEFENSE_VALUE);
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 1, Statistic.DEFENSE_VALUE);
             return Collections.singletonList(action);
         }
         return null;
@@ -81,6 +82,7 @@ public class Card222_003 extends AbstractVehicleWeapon {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new MayTargetAdjacentSiteModifier(self));
         modifiers.add(new TargetTheMainGeneratorTotalModifier(self, new TargetingTheMainGeneratorCondition(self), 1));
+        modifiers.add(new TotalWeaponDestinyModifier(self, 1, Filters.vehicle));
         return modifiers;
     }
 }

@@ -55,10 +55,9 @@ public class Card222_019 extends AbstractUsedOrLostInterrupt {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         // Check condition(s)
-        if (GameConditions.isDuringYourTurn(game, self)
-                && GameConditions.canTarget(game, self, Filters.T_47)) {
+        if (GameConditions.canTarget(game, self, Filters.T_47)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
             action.setText("Target a T-47");
             // Choose target(s)
             action.appendTargeting(

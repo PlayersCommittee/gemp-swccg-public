@@ -8,17 +8,14 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
-import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleActionProxyEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
 import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -26,7 +23,6 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
-import com.gempukku.swccgo.logic.timing.results.LostForceResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -59,33 +55,28 @@ public class Card222_002 extends AbstractFirstOrder {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String playerId = self.getOwner();
-        final String opponent = game.getOpponent(playerId);
+        String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.sameLocation(self))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Lose 1 Force");
-
+            action.setText("Retrieve 1 Force");
             // Perform result(s)
-            action.appendEffect(new AddUntilEndOfBattleActionProxyEffect(action, new AbstractActionProxy() {
-                @Override
-                public List<TriggerAction> getRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult) {
-                    if (TriggerConditions.justLostForceFromCard(game, effectResult, opponent, self)) {
-                        LostForceResult lostForceResult = (LostForceResult) effectResult;
-                        final PhysicalCard lostCard = lostForceResult.getCardLost();
-                        if (lostForceResult.getAmountOfForceLost() == 1
-                                && lostCard != null) {
+            action.appendEffect(
+                    new RetrieveForceEffect(action, playerId, 1) {
+                        @Override
+                        protected void cardRetrieved(final PhysicalCard retrievedCard) {
                             final GameState gameState = game.getGameState();
                             final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
                             action.appendEffect(
-                                    new RefreshPrintedDestinyValuesEffect(action, Collections.singletonList(lostCard)) {
+                                    new RefreshPrintedDestinyValuesEffect(action, Collections.singletonList(retrievedCard)) {
                                         @Override
                                         protected void refreshedPrintedDestinyValues() {
-                                            float destiny = modifiersQuerying.getDestiny(gameState, lostCard);
+                                            float destiny = modifiersQuerying.getDestiny(gameState, retrievedCard);
                                             if (Filters.piloting(Filters.title("Night Buzzard")).accepts(game, self)) {
-                                                PhysicalCard nightBuzzard = Filters.findFirstFromAllOnTable(game, Filters.and(Filters.title("Night Buzzard"), Filters.hasPiloting(self)));
+                                                PhysicalCard nightBuzzard = Filters.findFirstFromAllOnTable(game, Filters.title("Night Buzzard"));
                                                 if (nightBuzzard != null) {
                                                     action.appendEffect(
                                                             new ModifyPowerEffect(action, nightBuzzard, destiny));
@@ -98,12 +89,7 @@ public class Card222_002 extends AbstractFirstOrder {
                                     }
                             );
                         }
-                    }
-                    return null;
-                }
-            }));
-            action.appendEffect(
-                    new LoseForceEffect(action, opponent, 1));
+                    });
             return Collections.singletonList(action);
         }
         return null;
