@@ -96,7 +96,6 @@ public class Card222_027_BACK extends AbstractObjective {
         modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.your(playerId),
                 Filters.or(Filters.Hoth_Sentry, Filters.Sunsdown, Filters.Admirals_Order, characterFilter))));
 
-        modifiers.add(new MayNotBeUsedToSatisfyAttritionModifier(self, Filters.hitBy(Filters.and(Filters.your(playerId), Filters.or(Filters.vehicle_weapon, Filters.artillery_weapon)))));
         return modifiers;
     }
 
