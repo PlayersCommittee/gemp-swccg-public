@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set222.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfUsedPileAndChooseCardsToTakeIntoHandEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -89,7 +89,7 @@ public class Card222_027_BACK extends AbstractObjective {
 
         // Front Side Modifiers
         modifiers.add(new MayNotBeCoveredByHothEnergyShieldModifier(self, Filters.or(Filters.Second_Marker, Filters.Third_Marker)));
-        modifiers.add(new MayNotPlayModifier(self, Filters.or(Filters.Ice_Storm, Filters.and(Icon.SPECIAL_EDITION, Filters.Leia), Filters.and(Filters.character, Filters.abilityMoreThan(4))), self.getOwner()));
+        modifiers.add(new MayNotPlayModifier(self, Filters.or(Filters.Ice_Storm, Filters.system, Filters.and(Icon.SPECIAL_EDITION, Filters.Leia), Filters.and(Filters.character, Filters.abilityMoreThan(4))), self.getOwner()));
 
         // Back Side Modifiers
         Filter characterFilter = Filters.and(Filters.unique, Filters.character, Filters.not(Filters.or(Filters.trooper, Filters.gunner, Filters.pilot)));
@@ -111,9 +111,8 @@ public class Card222_027_BACK extends AbstractObjective {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Peek at top cards of Used Pile");
-                // Update usage limit(s)
                 action.appendUsage(
-                        new OncePerPhaseEffect(action));
+                        new OncePerBattleEffect(action));
                 // Perform result(s)
                 action.appendEffect(
                         new PlayoutDecisionEffect(action, playerId,

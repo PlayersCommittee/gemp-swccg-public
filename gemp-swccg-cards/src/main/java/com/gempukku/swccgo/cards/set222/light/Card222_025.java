@@ -26,11 +26,11 @@ import java.util.List;
  * Set: Set 22
  * Type: Character
  * Subtype: Rebel
- * Title: Nien Nunb, Sullustian Smuggler
+ * Title: Nien Nunb, Sullustan Smuggler
  */
 public class Card222_025 extends AbstractAlienRebel {
     public Card222_025() {
-        super(Side.LIGHT, 2, 2, 2, 2, 4, "Nien Nunb, Sullustian Smuggler", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
+        super(Side.LIGHT, 2, 2, 2, 2, 4, "Nien Nunb, Sullustan Smuggler", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
         setLore("Brilliant navigator. Former SoroSuub employee. Turned to pirating when that corporation backed the Empire. Tall for a Sullustan. Smuggler.");
         setGameText("Adds 2 to power of anything he pilots. While piloting a freighter, " +
                 "it is defense value +2 and opponent’s immunity to attrition is limited to < 7 here (< 5 if Lando piloting here).");

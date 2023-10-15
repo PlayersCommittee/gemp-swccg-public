@@ -58,7 +58,7 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
 
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.Mara_Jade)) {
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.Mara_Jade))) {
 
             final int modifierAmount = GameConditions.isDuringBattleAt(game, Filters.and(Filters.icon(Icon.REFLECTIONS_II), Filters.site)) ? 2 : 1;
 

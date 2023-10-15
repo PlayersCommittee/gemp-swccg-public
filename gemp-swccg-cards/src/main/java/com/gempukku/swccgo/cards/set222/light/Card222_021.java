@@ -39,7 +39,7 @@ public class Card222_021 extends AbstractResistance {
                 "In battle, if opponent has more starships or characters here than you, may add a destiny to attrition. " +
                 "Immune to attrition < 3.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_22);
-        addKeywords(Keyword.LEADER, Keyword.GENERAL);
+        addKeywords(Keyword.GENERAL);
         addPersona(Persona.POE);
     }
 

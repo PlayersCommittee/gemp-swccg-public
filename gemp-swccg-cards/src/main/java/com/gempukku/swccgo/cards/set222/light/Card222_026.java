@@ -75,6 +75,7 @@ public class Card222_026 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (TriggerConditions.battleInitiated(game, effectResult, playerId)
+                && GameConditions.isAtLocation(game, self, Filters.battleground)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.and(Filters.Rebel, Filters.abilityLessThan(5))))) {
             int numForceToRetrieve = GameConditions.isDuringBattleWithParticipant(game,
                     Filters.and(Filters.Leia, Filters.with(self, Filters.and(Filters.opponents(self), Filters.Imperial)))) ? 2 : 1;

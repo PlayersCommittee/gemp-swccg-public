@@ -86,7 +86,7 @@ public class Card222_028 extends AbstractNormalEffect {
 
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.isDuringYourPhase(game, playerId, Phase.MOVE)
-                && GameConditions.canSpot(game, self, Filters.and(Filters.Luke, Filters.not(Filters.with(self, Filters.Prophecy_Of_The_Force)), Filters.hasNotPerformedRegularMove, Filters.canBeRelocated(false)))
+                && GameConditions.canSpot(game, self, Filters.and(Filters.Luke, Filters.not(Filters.with(self, Filters.Prophecy_Of_The_Force)), Filters.canBeRelocated(false)))
                 && GameConditions.canSpot(game, self, Filters.and(Filters.battleground, Filters.hasAttached(Filters.Prophecy_Of_The_Force)))) {
 
             final PhysicalCard luke = Filters.findFirstActive(game, self, Filters.Luke);
