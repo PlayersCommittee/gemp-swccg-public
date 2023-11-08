@@ -4184,6 +4184,8 @@ var fixedImages = {
 "210_23ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/plokoon_ai.png",
 "208_17ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/restorefreedomtothegalaxy_ai.png",
 "216_43ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooineobiwanshut_ai.png",
+"217_52ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/yourthoughtsdwellonyourmother_ai.png",
+"204_46ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/zamwesell_ai.png",
 
 };
 
