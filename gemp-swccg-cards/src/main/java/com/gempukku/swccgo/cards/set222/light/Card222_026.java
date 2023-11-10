@@ -47,6 +47,7 @@ public class Card222_026 extends AbstractNormalEffect {
                 "retrieve 1 Force (2 if Leia and an Imperial participating). Lost if a Jedi 'communing.' [Immune to Alter].");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_22);
+        addImmuneToCardTitle(Title.Alter);
     }
 
     @Override

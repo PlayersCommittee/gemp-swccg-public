@@ -111,6 +111,8 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
         actions.add(action1);
 
         if (GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)) {
+            final Filter mara = Filters.and(Filters.your(playerId), Filters.character, Filters.Mara_Jade);
+
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
             action.setText("Deploy Mara with Anakin’s Lightsaber");
             // Allow response(s)
@@ -120,41 +122,35 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new ChooseCardFromHandOrReserveDeckEffect(action, playerId, Filters.Mara_Jade, true, false) {
+                                    new ChooseCardFromHandOrReserveDeckEffect(action, playerId, mara, true, false) {
                                         @Override
-                                        protected void cardSelected(SwccgGame game, PhysicalCard firstCardToDeploy) {
-                                            if (GameUtils.getZoneFromZoneTop(firstCardToDeploy.getZone()) == Zone.RESERVE_DECK) {
-                                                action.appendEffect(
-                                                        new DeployCardToLocationFromReserveDeckEffect(action, firstCardToDeploy, Filters.any, false, false, true));
-                                            } else {
-                                                action.appendEffect(
-                                                        new DeployCardToLocationFromHandEffect(action, firstCardToDeploy, Filters.any, false, false));
-                                            }
+                                        protected void cardSelected(SwccgGame game, final PhysicalCard firstCardToDeploy) {
                                             action.appendEffect(
                                                     new PassthruEffect(action) {
                                                         @Override
                                                         protected void doPlayEffect(SwccgGame game) {
-                                                            // If Leia is in battle, and we know her matching weapon is available to be deployed from hand or Reserve Deck, deploy it.
-                                                            final PhysicalCard maraJade = Filters.findFirstActive(game, self, Filters.Mara_Jade);
-                                                            if (maraJade != null) {
-                                                                Filter secondCardFilter = Filters.title(Title.Anakins_Lightsaber);
-                                                                if (GameConditions.hasInHandOrDeployableAsIfFromHand(game, playerId, secondCardFilter) || GameConditions.hasInReserveDeck(game, playerId, secondCardFilter)) {
-                                                                    action.appendEffect(
-                                                                            new ChooseCardFromHandOrReserveDeckEffect(action, playerId, secondCardFilter, true, true) {
-                                                                                @Override
-                                                                                protected void cardSelected(SwccgGame game, PhysicalCard secondCardToDeploy) {
-                                                                                    if (GameUtils.getZoneFromZoneTop(secondCardToDeploy.getZone()) == Zone.RESERVE_DECK) {
-                                                                                        action.appendEffect(
-                                                                                                new DeployCardToTargetFromReserveDeckEffect(action, secondCardToDeploy, Filters.sameCardId(maraJade), false, false, true));
-                                                                                    } else {
-                                                                                        action.appendEffect(
-                                                                                                new DeployCardToTargetFromHandEffect(action, secondCardToDeploy, Filters.sameCardId(maraJade), false, false));
-                                                                                    }
-                                                                                }
+                                                            action.appendEffect(
+                                                                    new ChooseCardFromHandOrReserveDeckEffect(action, playerId, Filters.title(Title.Anakins_Lightsaber), true, false) {
+                                                                        @Override
+                                                                        protected void cardSelected(SwccgGame game, PhysicalCard secondCardToDeploy) {
+                                                                            if (GameUtils.getZoneFromZoneTop(firstCardToDeploy.getZone()) == Zone.RESERVE_DECK) {
+                                                                                action.appendEffect(
+                                                                                        new DeployCardToLocationFromReserveDeckEffect(action, firstCardToDeploy, Filters.any, false, false, true));
+                                                                            } else {
+                                                                                action.appendEffect(
+                                                                                        new DeployCardToLocationFromHandEffect(action, firstCardToDeploy, Filters.any, false, false));
                                                                             }
-                                                                    );
-                                                                }
-                                                            }
+
+                                                                            if (GameUtils.getZoneFromZoneTop(secondCardToDeploy.getZone()) == Zone.RESERVE_DECK) {
+                                                                                action.appendEffect(
+                                                                                        new DeployCardToTargetFromReserveDeckEffect(action, secondCardToDeploy, mara, false, false, true));
+                                                                            } else {
+                                                                                action.appendEffect(
+                                                                                        new DeployCardToTargetFromHandEffect(action, secondCardToDeploy, mara, false, false));
+                                                                            }
+                                                                        }
+                                                                    }
+                                                            );
                                                         }
                                                     }
                                             );

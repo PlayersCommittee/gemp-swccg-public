@@ -45,7 +45,7 @@ public class Card222_025 extends AbstractAlienRebel {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new DefenseValueModifier(self, Filters.hasPiloting(self), pilotingFreighterCondition, 2));
-        modifiers.add(new ImmunityToAttritionLimitedToModifier(self, Filters.opponents(self.getOwner()), pilotingFreighterCondition,
+        modifiers.add(new ImmunityToAttritionLimitedToModifier(self, Filters.and(Filters.opponents(self.getOwner()), Filters.here(self)), pilotingFreighterCondition,
                 new ConditionEvaluator(7, 5, new HereCondition(self, Filters.hasPiloting(self, Filters.Lando)))));
         return modifiers;
     }
