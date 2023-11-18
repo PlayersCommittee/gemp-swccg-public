@@ -127,6 +127,8 @@ var GempSwccgGameUI = Class.extend({
 
     animations:null,
     replayPlay: false,
+    
+    awaitActionSound: "awaitAction",
 
     init:function (url, replayMode) {
         this.replayMode = replayMode;
@@ -565,15 +567,6 @@ var GempSwccgGameUI = Class.extend({
                     $("body").unbind("mousemove", dragFunc);
                     return that.dragStopCardFunction(event);
                 });
-
-        if (!this.gameUiInitialized && !this.spectatorMode && !this.replayMode) {
-            var soundPlay = $("<embed src='https://res.starwarsccg.org/gemp/coolsaber.wav' hidden='true' autostart='true' loop='false' height='0' width='0'>");
-            this.gameStateElem.append(soundPlay);
-            setTimeout(
-                function() {
-                    soundPlay.remove();
-                }, 5000);
-        }
 
         this.reloadMutedObserverState();
 
@@ -2430,6 +2423,7 @@ var GempSwccgGameUI = Class.extend({
                     that.decisionFunction(id, $("#integerDecision").val());
                 }
             });
+            this.playSound(this.awaitActionSound);
         }
 
         $("#integerDecision").SpinnerControl({ type:'range',
@@ -2474,6 +2468,7 @@ var GempSwccgGameUI = Class.extend({
                         that.decisionFunction(id, $("#multipleChoiceDecision").val());
                     }
                 });
+                this.playSound(this.awaitActionSound);
             }
         } else {
             this.smallDialog.append("<br />");
@@ -2493,8 +2488,10 @@ var GempSwccgGameUI = Class.extend({
                 }
                 this.smallDialog.append(but);
             }
-            if (!this.replayMode)
+            if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons", {});
+                this.playSound(this.awaitActionSound);
+            }
         }
 
         this.smallDialog.dialog("open");
@@ -2685,8 +2682,10 @@ var GempSwccgGameUI = Class.extend({
         };
 
         allowSelection();
-        if (!this.replayMode)
+        if (!this.replayMode) {
             processButtons();
+            this.playSound(this.awaitActionSound);
+        }
 
         openSizeDialog(this.cardActionDialog);
         this.arbitraryDialogResize(false);
@@ -2949,10 +2948,24 @@ var GempSwccgGameUI = Class.extend({
         };
 
         allowSelection();
-        if (!this.replayMode)
+        if (!this.replayMode) {
             processButtons();
+            this.playSound(this.awaitActionSound);
+        }
 
         $(':button').blur();
+    },
+    
+    /*
+    * Looks up a given element and, assuming it is the id of an <audio> tag, plays that sound
+    * once. By default, only plays if the window currently has focus.
+    */
+    playSound: function(soundId, checkForFocus = true) {
+        var myAudio = document.getElementById(soundId);
+        if(!checkForFocus || (!document.hasFocus() || document.hidden || document.msHidden || document.webkitHidden))
+        {
+            myAudio.play();
+        }
     },
 
     createActionChoiceContextMenu:function (actions, event, selectActionFunction, card) {
@@ -3109,8 +3122,10 @@ var GempSwccgGameUI = Class.extend({
         };
 
         allowSelection();
-        if (!this.replayMode)
+        if (!this.replayMode) {
             processButtons();
+            this.playSound(this.awaitActionSound);
+        }
 
         openSizeDialog(this.cardActionDialog);
         this.arbitraryDialogResize(false);
@@ -3199,8 +3214,10 @@ var GempSwccgGameUI = Class.extend({
         };
 
         allowSelection();
-        if (!this.replayMode)
+        if (!this.replayMode) {
             processButtons();
+            this.playSound(this.awaitActionSound);
+        }
     },
 
     addLocationDiv:function (index, systemName) {

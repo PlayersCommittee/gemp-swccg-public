@@ -462,6 +462,11 @@ var GempSwccgHallUI = Class.extend({
             .css({borderTopColor:"#000000", borderLeftColor:"#000000", borderBottomColor:"#000000", borderRightColor:"#000000"})
             .animate({borderTopColor:"#ffffff", borderLeftColor:"#ffffff", borderBottomColor:"#ffffff", borderRightColor:"#ffffff"}, "fast");
     },
+    
+    playSound: function(soundObj) {
+        var myAudio = document.getElementById(soundObj);
+        myAudio.play();
+    },
 
     processHall:function (xml) {
         var that = this;
@@ -754,6 +759,10 @@ var GempSwccgHallUI = Class.extend({
                 if (participantId != null)
                     participantIdAppend = "&participantId=" + participantId;
                 window.open("/gemp-swccg/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
+            }
+            
+            if (games.length > 0) {
+                this.playSound("gamestart");
             }
 
             if (!this.supportedFormatsInitialized) {
