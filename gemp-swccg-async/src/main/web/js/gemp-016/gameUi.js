@@ -544,6 +544,15 @@ var GempSwccgGameUI = Class.extend({
                 function (event) {
                     return that.clickCardFunction(event);
                 });
+        $("body")[0].addEventListener("contextmenu",
+            function (event) {
+                if(!that.clickCardFunction(event))
+                {
+                    event.preventDefault();
+                    return false;
+                }
+                return true;
+            });
         $('body').unbind('mousedown');
         $("body").mousedown(
                 function (event) {
